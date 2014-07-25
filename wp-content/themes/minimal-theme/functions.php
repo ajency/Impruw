@@ -210,24 +210,9 @@
                     ),
                     array(
                         'name'      => 'Page Title',
-                    ),
-                    array(
-                        'name'      => 'Box Title',
-                    ),
-                    array(
-                        'name'      => 'Line Title',
-                    ),
-                    array(
-                        'name'      => 'Footer Title'
                     )
                   ),
         'Row' => array(
-                    array(
-                        'name'      => 'Top Bar'
-                    ),
-                    array(
-                        'name'      => 'Footer Columns'
-                    ),
                     array(
                         'name'      => 'Menu Bar'
                     ),
@@ -236,9 +221,6 @@
                     ),
                     array(
                         'name'      => 'Padded Container'
-                    ),
-                    array(
-                        'name'      => 'Shadow Box'
                     )
                  ),
         'Social' => array(
@@ -254,13 +236,7 @@
                         'name' => 'Default Style'
                     ),
                     array(
-                        'name' => 'Capitalized Link'
-                    ),
-                    array(
                         'name' => 'Button'
-                    ),
-                    array(
-                        'name' => 'Action Button'
                     )
                 ),
         'ContactForm' => array(
@@ -272,11 +248,5 @@
                 array(
                     'name' => 'Default Style'
                 )
-            ),
-        'Address' => array(
-                array(
-                    'name' => 'Top Bar Contact',
-                    'template' => '<div class="info"><span class="glyphicon glyphicon-envelope"></span> {{email}}</div><div class="info"><span class="glyphicon glyphicon-phone-alt"></span> {{phone_no}}</div>' 
-                )			
             )
     );

@@ -86,7 +86,7 @@
 .site-style-container {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
-  background: #ffffff;
+  background: #e1e1e1;
   *zoom: 1;
   /****Selection Color****/
 
@@ -375,7 +375,7 @@ and open the template in the editor.
   margin: 0 0.5em 0.5em 0;
 }
 .link.button a {
-  background: #831618;
+  background: #ed1c24;
   color: #ffffff;
   border-radius: 3px;
   display: inline-block;
@@ -386,7 +386,7 @@ and open the template in the editor.
 }
 .link.button a:hover {
   text-decoration: none;
-  background: #da2528;
+  background: #f47b7f;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
@@ -1622,12 +1622,12 @@ and open the template in the editor.
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-submit,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-submit {
-  background: #831618;
+  background: #ed1c24;
   color: #ffffff;
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-submit:hover,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-submit:hover {
-  background: #af1d20;
+  background: #f14b52;
 }
 @media (max-width: 767px) {
   /*Responive*/
@@ -1662,23 +1662,15 @@ and open the template in the editor.
   border-bottom: 1px solid #282827;
   margin-bottom: 1.5em;
 }
-.row.footer-columns {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  padding-top: 1.5em;
-  border-top: 10px solid #ed1c24 !important;
+.row.center-container {
+  max-width: 960px !important;
+  background: #ffffff;
 }
-.row.footer-columns > .column {
-  padding-right: 1.5em;
+.row.padded-container {
+  margin-bottom: 3em;
 }
-.row.footer-columns > .column:last-child {
-  padding-right: 0;
-}
-@media (max-width: 991px) {
-  .row.footer-columns > .column {
-    margin-bottom: 1.5em !important;
-    border-bottom: 1px solid #f2f2f2;
-  }
+.row.padded-container > .column {
+  padding: 15px;
 }
 .row.menu-bar {
   padding: 0.5em 0;
@@ -1714,36 +1706,6 @@ and open the template in the editor.
 .row.footer-bar .text,
 .row.footer-bar .imagewithtext p {
   color: #ffffff;
-}
-.row.padded-container {
-  margin-bottom: 3em;
-}
-.row.padded-container > .column {
-  padding-right: 1.5em;
-}
-.row.padded-container > .column:last-child {
-  padding-right: 0;
-}
-@media (max-width: 991px) {
-  .row.padded-container {
-    margin: 0 0 1.5em !important;
-  }
-  .row.padded-container > .column {
-    padding-right: 0;
-  }
-}
-.row.shadow-box {
-  background: #ebebeb;
-  box-shadow: 7px 7px 0 0 #f7f7f7;
-  margin: 0;
-}
-.row.shadow-box > .column {
-  padding: 1.5em;
-}
-@media (max-width: 991px) {
-  .row.shadow-box {
-    margin-bottom: 1.5em !important;
-  }
 }
 .row.column-dividers .column {
   border-color: rgba(0, 0, 0, 0.2) !important;
@@ -1785,7 +1747,7 @@ and open the template in the editor.
   margin-top: 0 !important;
 }
 #aj-imp-builder-drag-drop .center-container {
-  margin: auto 10px !important;
+  margin: auto !important;
 }
 #aj-imp-builder-drag-drop .center-container .menu-bar {
   margin-left: -12px;
@@ -1843,6 +1805,9 @@ and open the template in the editor.
   outline: none;
 }
 @media (max-width: 991px) {
+  .nav.slimmenu > li a {
+    margin-left: 0;
+  }
   .nav.slimmenu > li a:after {
     display: none;
   }
@@ -1944,9 +1909,10 @@ and open the template in the editor.
 .title.site-title {
   color: #ed1c24;
   font-weight: 300;
-  font-size: 2em;
+  font-size: 3em;
   text-transform: uppercase;
-  padding: 0.5em 0 0 15px;
+  padding: 0.5em;
+  text-align: center;
 }
 .title.page-title {
   color: #ed1c24;
@@ -1960,14 +1926,12 @@ and open the template in the editor.
   font-size: 1.5em;
   margin-bottom: 1.5em;
   text-transform: uppercase;
-  border-bottom: 1px solid #282827;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
-.title.footer-title {
-  color: #282827;
-  text-transform: uppercase;
-  font-size: 1.1em;
-  font-weight: 700;
-  margin-bottom: 1em;
+@media (max-width: 991px) {
+  .title {
+    text-align: center;
+  }
 }
 /****Image With Text Styles****/
 .image .info {
@@ -2001,7 +1965,7 @@ and open the template in the editor.
 .address {
   padding: 0.5em 0;
   text-align: left;
-  color: #282827;
+  color: #757573;
 }
 .address li {
   margin-bottom: 0.5em;
@@ -2017,41 +1981,9 @@ and open the template in the editor.
   margin-bottom: 10px;
   padding-left: 5px;
 }
-.address.top-bar-contact {
-  text-align: right;
-  color: #282827;
-  font-size: 1em;
-  line-height: 2em;
-  padding: 0;
-  margin-top: 2.5em;
-  *zoom: 1;
-}
-.address.top-bar-contact:after,
-.address.top-bar-contact:before {
-  clear: both;
-  content: "";
-  display: table;
-}
-.address.top-bar-contact .info {
-  display: inline-block;
-  margin-left: 1.5em;
-  color: #282827;
-}
-.address.top-bar-contact .info .glyphicon {
-  font-size: 1.2em;
-  top: 3px;
-  color: #282827;
-  margin-right: 0.5em;
-}
-@media (max-width: 991px) {
-  .address.top-bar-contact {
-    text-align: center;
-    border-left: none;
-  }
-}
 @media (max-width: 991px) {
   .address {
-    text-align: left;
+    text-align: center;
   }
 }
 .text {
@@ -2079,7 +2011,8 @@ and open the template in the editor.
   margin-top: 0.3em;
   position: relative;
   z-index: 1;
-  border: 2px solid #8f8f8c;
+  border: 2px solid #ffffff;
+  outline: 1px solid rgba(0, 0, 0, 0.2);
 }
 .imagewithtext img.pull-left {
   margin-right: 0.5em;
@@ -2103,39 +2036,20 @@ and open the template in the editor.
   text-decoration: underline;
 }
 .link.button a {
-  background: #831618;
-  color: #282827;
+  background: #ed1c24;
+  color: #ffffff;
   display: inline-block;
   padding: 0.5em 1.5em;
   margin: 0.5em 0;
-  font-size: 1.4em;
-  font-weight: 700;
+  font-size: 1.2em;
+  font-weight: 400;
   border-radius: 0;
   text-transform: uppercase;
 }
 .link.button a:hover {
   text-decoration: none;
-  background: #991a1c;
-  color: #282827;
-  -webkit-transition: all 0.25s ease;
-  -moz-transition: all 0.25s ease;
-  -o-transition: all 0.25s ease;
-  -ms-transition: all 0.25s ease;
-  transition: all 0.25s ease;
-}
-.link.action-button a {
-  background: #ed1c24;
-  color: #831618;
-  display: inline-block;
-  padding: 0.4em 0.7em;
-  margin: 0.666em 0;
-  font-size: 1.5em;
-  font-weight: 700;
-  border-radius: 0;
-}
-.link.action-button a:hover {
-  text-decoration: none;
   background: #f14b52;
+  color: #831618;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
@@ -2143,7 +2057,7 @@ and open the template in the editor.
   transition: all 0.25s ease;
 }
 @media (max-width: 991px) {
-  .link.action-button {
+  .link.button {
     display: block;
     text-align: center;
   }
@@ -2159,7 +2073,7 @@ and open the template in the editor.
   position: relative;
 }
 .room-tariff-container .room-tariff-title {
-  border-bottom: 1px solid #282827;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin: 0 0 0.5em;
   text-align: left;
 }
@@ -2184,6 +2098,8 @@ and open the template in the editor.
 }
 .room-tariff-container .room-tariff-actions .btn-add-plan:hover {
   background: #f14b52;
+  color: #831618;
+  text-decoration: none;
 }
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-actions {
@@ -2198,7 +2114,7 @@ and open the template in the editor.
   position: static;
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range {
-  color: #da2528;
+  color: #282827;
   text-align: right;
   font-weight: 300;
   position: absolute;
@@ -2211,11 +2127,12 @@ and open the template in the editor.
   font-size: 0.88em;
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range .range-name {
-  color: #af1d20;
+  color: #282827;
   font-weight: 700;
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range .date {
   display: block;
+  color: #ed1c24;
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range .from,
 .room-tariff-container .room-tariff-grid .tariff .date-range .to {
@@ -2310,6 +2227,7 @@ and open the template in the editor.
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .package-block-outer .block .package-desc {
   height: 30px;
   overflow: hidden;
+  color: #282827;
 }
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-grid {
@@ -2360,13 +2278,12 @@ and open the template in the editor.
 .room-facilities-container {
   padding: 0.5em;
   text-align: left;
-  background: #ebebeb;
-  box-shadow: 7px 7px 0 0 #f7f7f7;
+  background: #282827;
 }
 .room-facilities-container .room-facilities-title h5 {
   font-size: 1.5em;
   text-transform: uppercase;
-  color: #831618;
+  color: #ed1c24;
 }
 .room-facilities-container .room-facilities-title h4 {
   font-weight: 300;
@@ -2381,7 +2298,7 @@ and open the template in the editor.
 }
 .room-facilities-container .facilities li {
   font-size: 1.1em;
-  color: #282827;
+  color: #ffffff;
   font-weight: 300;
   margin: 0 0 0.5em;
   display: block;
@@ -2397,15 +2314,15 @@ and open the template in the editor.
   height: 13px;
   float: left;
   margin-right: 10px;
-  border: 1px solid #282827;
+  border: 1px solid #ffffff;
   position: relative;
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #ed1c24;
+  color: #831618;
 }
 .room-facilities-container .facilities li:hover:before {
-  color: #831618;
+  color: #ed1c24;
 }
 /****Room Summary Styles****/
 .room-summary-container {
@@ -2465,9 +2382,9 @@ and open the template in the editor.
 }
 .room-title-container .room-title h1 {
   font-size: 3em !important;
-  text-transform: none !important;
-  color: #282827;
+  color: #ed1c24;
   font-style: normal;
+  font-weight: 300;
 }
 .room-title-container .room-title .room-title-desc {
   font-size: 1em;
@@ -2480,12 +2397,14 @@ and open the template in the editor.
   margin: 0;
 }
 .room-title-container .room-title-actions .btn-book {
-  background: #831618;
-  color: #fff;
+  background: #ed1c24;
+  color: #ffffff;
   border-radius: 0;
 }
 .room-title-container .room-title-actions .btn-book:hover {
-  background: #af1d20;
+  background: #f14b52;
+  color: #831618;
+  text-decoration: none;
 }
 @media (max-width: 767px) {
   .room-title-container .room-title-actions {
@@ -2500,7 +2419,7 @@ and open the template in the editor.
 .room-description-container h1 {
   font-size: 1.5em;
   font-weight: 300;
-  border-bottom: 1px solid #282827;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin: 0 0 0.5em;
 }
 .room-description-container .room-description-desc {
@@ -2521,6 +2440,9 @@ and open the template in the editor.
 }
 .roomsummary .room-img {
   width: 100%;
+  max-height: 200px;
+  border: 2px solid #ffffff;
+  outline: 1px solid rgba(0, 0, 0, 0.2);
 }
 .roomsummary .room-title {
   font-size: 1.6em;
@@ -2529,11 +2451,15 @@ and open the template in the editor.
   margin: 0.5em 0;
   text-transform: uppercase;
 }
+.roomsummary .room-title a:hover {
+  text-decoration: none;
+  color: #831618;
+}
 .roomsummary .room-excerpt {
   color: #282827;
   padding-bottom: 0.5em;
-  margin-bottom: 0.5em;
-  border-bottom: 1px solid #282827;
+  margin-bottom: 1em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .roomsummary .room-actions {
   *zoom: 1;
@@ -2554,13 +2480,14 @@ and open the template in the editor.
   font-size: 0.88em;
 }
 .roomsummary .room-actions .btn-room {
-  background: #831618;
+  background: #ed1c24;
   color: #ffffff;
   border-radius: 0;
 }
 .roomsummary .room-actions .btn-room:hover {
-  background: #da2528;
+  background: #f14b52;
   text-decoration: none;
+  color: #831618;
 }
 /* Calender Booking */
 .booking-title {
@@ -2617,7 +2544,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
-  color: #831618;
+  color: #ffffff;
   margin-bottom: 10%;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
@@ -2631,7 +2558,7 @@ and open the template in the editor.
   padding-top: 13px;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
-  color: #831618;
+  color: #282827;
   border-bottom: 1px dashed #ffffff;
   padding-bottom: 5%;
   margin-bottom: 5%;
@@ -2642,7 +2569,7 @@ and open the template in the editor.
   color: #ffffff;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .plan-bg {
-  background: #f14b52;
+  background: #ffffff;
   padding: 1px 4px;
   margin-top: 2%;
 }
@@ -2651,12 +2578,13 @@ and open the template in the editor.
   float: left;
   font-size: 0.9em;
   font-weight: 300;
-  color: #da2528;
+  color: #282827;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-detail span {
   font-weight: 800;
   font-size: 1.8em;
   display: block;
+  color: #831618;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan h6 {
   font-weight: 600;
@@ -2678,7 +2606,7 @@ and open the template in the editor.
   }
 }
 .room-booking .room-booking-container .room-booking-calender {
-  padding: 10px;
+  padding: 0;
 }
 .room-booking .room-booking-container .room-booking-calender h4 {
   font-weight: 600;
@@ -2707,7 +2635,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker-inline .ui-datepicker-group {
   width: 48%;
-  margin-right: 12px;
+  margin-right: 2%;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker-inline .ui-datepicker-group .ui-datepicker-calendar {
   background: #ffffff;
@@ -2736,7 +2664,7 @@ and open the template in the editor.
   display: none;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header {
-  background: #ffffff;
+  background: #e6e6e6;
   border: none;
   height: 67px;
   line-height: 86px;
@@ -2753,9 +2681,10 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-title {
   line-height: 74px;
+  color: #831618;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td {
-  border: 1px solid #EAEAEA!important;
+  border: 0 !important;
   height: 42px!important;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a,
@@ -3033,19 +2962,20 @@ and open the template in the editor.
   width: 32px;
   height: 32px;
   box-shadow: none;
-  border-radius: 4px;
+  border-radius: 0;
   line-height: 2em;
+  background: #ed1c24;
 }
 .social.small-social li a {
-  color: #282827;
+  color: #ffffff;
   text-indent: 0;
 }
 .social.small-social li a:after,
 .social.small-social li a:before {
-  color: #282827;
+  color: #ffffff;
 }
 .social.small-social li:hover {
-  background: #831618;
+  background: transparent;
   box-shadow: none;
   top: 0;
 }
@@ -3054,7 +2984,7 @@ and open the template in the editor.
 }
 .social.small-social li:hover a:after,
 .social.small-social li:hover a:before {
-  color: #282827;
+  color: #ed1c24;
 }
 @media (max-width: 991px) {
   .social.small-social {
@@ -3067,13 +2997,13 @@ and open the template in the editor.
   }
 }
 .map {
-  padding: 0.33em;
-  border: 3px solid transparent;
-  margin: 1em;
+  padding: 0;
+  border: 0;
+  margin: 1em 0;
   background: #ffffff;
 }
 .map:hover {
-  border: 3px solid #831618;
+  border: 0;
 }
 /*
 To change this license header, choose License Headers in Project Properties.
@@ -3096,20 +3026,21 @@ and open the template in the editor.
 .contactform .flat {
   border-radius: 0;
   margin-bottom: 0.8em;
-  border-width: 3px;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.2);
 }
 .contactform .flat:focus,
 .contactform .flat:active {
   border-color: #831618;
-  border-width: 3px;
 }
 .contactform .btn {
   border-radius: 0;
   margin-top: 0.3em;
-  background: #831618;
+  background: #ed1c24;
 }
 .contactform .btn:hover {
-  background: #af1d20;
+  background: #f14b52;
+  color: #831618;
 }
 @media (max-width: 991px) {
   .contactform {
@@ -3118,6 +3049,8 @@ and open the template in the editor.
 }
 .rev_slider_wrapper {
   padding: 0 !important;
+  overflow: hidden !important;
+  margin-bottom: 1em !important;
   background: transparent !important;
 }
 .rev_slider_wrapper .tp-bullets .bullet {
@@ -3242,12 +3175,12 @@ and open the template in the editor.
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-submit,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-submit {
-  background: #831618;
+  background: #ed1c24;
   color: #ffffff;
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-submit:hover,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-submit:hover {
-  background: #af1d20;
+  background: #f14b52;
 }
 @media (max-width: 767px) {
   /*Responive*/

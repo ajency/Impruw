@@ -18,20 +18,15 @@ and open the template in the editor.
 	    margin-bottom: @large;
 	}
 
-	&.footer-columns {
-		margin-top: @medium;
-		margin-bottom: @medium;
-		padding-top: @large;
-		border-top: 10px solid @primary1 !important;
+	&.center-container {
+		max-width: 960px !important;
+		background: @white;
+	}
+	
+	&.padded-container {
+		margin-bottom: 3em;
 		> .column {
-			padding-right: @large;
-			&:last-child {
-				padding-right: 0;
-			}
-			@media(max-width:991px) {
-				margin-bottom: @large !important;
-				border-bottom: 1px solid darken(@tertiary1, 5%);
-			}
+			padding: 15px;
 		}
 	}
 	&.menu-bar {
@@ -65,37 +60,6 @@ and open the template in the editor.
 		text-align: center;
 		.text, .imagewithtext p {
 			color: @tertiary1;
-		}
-	}
-	&.padded-container {
-		margin-bottom: 3em;
-		> .column {
-			padding-right: @large;
-			&:last-child {
-				padding-right: 0;
-			}
-		}
-		@media(max-width:991px) {
-			margin: 0 0 @large !important;
-			> .column {
-				padding-right: 0;
-			}
-		}
-	}
-	&.shadow-box {
-		background: darken(@tertiary1, 8%);
-		box-shadow: 7px 7px 0 0 darken(@tertiary1, 3%);
-		margin: 0;
-		> .column {
-			padding: @large;
-			img {
-				&:first-child {
-					
-				}
-			}
-		}
-		@media(max-width:991px) {
-			margin-bottom: @large !important;
 		}
 	}
 	&.column-dividers {
@@ -148,7 +112,7 @@ and open the template in the editor.
 
 #aj-imp-builder-drag-drop {
 	.center-container {
-		margin: auto 10px !important;
+		margin: auto !important;
 		.menu-bar {
 			margin-left: -12px;
 			margin-right: -12px;

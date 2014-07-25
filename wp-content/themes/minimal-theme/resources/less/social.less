@@ -89,23 +89,24 @@
 			width: 32px;
 			height: 32px;
 			box-shadow: none;
-			border-radius: 4px;
+			border-radius: 0;
 			line-height: 2em;
+			background: @primary1;
 			a {
-				color: @text-color;
+				color: @tertiary1;
 				text-indent: 0;
 				&:after, &:before {
-					color: @text-color;
+					color: @tertiary1;
 				}
 			}
 			&:hover {
-				background: @secondary1;
+				background: transparent;
 				box-shadow: none;
 				top: 0;
 				a {
 					top: 0;
 					&:after, &:before {
-						color: @text-color;
+						color: @primary1;
 					}
 				}
 			}

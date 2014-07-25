@@ -2,7 +2,7 @@
 .address {
 	.padding-top-bot;
 	text-align: left;
-	color: @text-color;
+	color: lighten(@text-color, 30%);
 	li {
 		margin-bottom: 0.5em;
 		span {
@@ -19,31 +19,7 @@
 		    padding-left: 5px;
 		}
 	}
-	&.top-bar-contact {
-		text-align: right;
-		color: @quarternary1;
-		font-size: 1em;
-		line-height: 2em;
-		padding: 0;
-		margin-top: 2.5em;
-		.clearfix;
-		.info {
-			display: inline-block;
-			margin-left: @large;
-			color: @text-color;
-			.glyphicon {
-				font-size: 1.2em;
-				top: 3px;
-				color: @quarternary1;
-				margin-right: @regular;
-			}
-		}
-		@media(max-width:991px) {
-			text-align: center;
-			border-left: none;
-		}
-	}
 	@media(max-width:991px) {
-		text-align: left;
+		text-align: center;
 	}
 }

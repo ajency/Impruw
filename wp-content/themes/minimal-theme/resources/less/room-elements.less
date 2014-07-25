@@ -9,7 +9,7 @@
 	padding: 0 !important;
 	position: relative;
 	.room-tariff-title {
-		border-bottom: 1px solid @quarternary1;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 		margin: 0 0 @regular;
 		text-align: left;
 		h4 {
@@ -32,6 +32,8 @@
 			background: @primary1;
 			&:hover {
 				background: lighten(@primary1, 10%);
+				color: @secondary1;
+				text-decoration: none;
 			}
 		}
 		@media(max-width:767px){
@@ -46,7 +48,7 @@
 		}
 		.tariff {
 			.date-range {
-				color: lighten(@secondary1, 20%);
+				color: @text-color;
 				text-align: right;
 				font-weight: 300;
 				position: absolute;
@@ -58,11 +60,12 @@
 				z-index: 1;
 				font-size: 0.88em;
 				.range-name {
-					color: lighten(@secondary1, 10%);
+					color: @text-color;
 					font-weight: 700;
 				}
 				.date {
 					display: block;
+					color: @primary1;
 				}
 				.from, .to {
 					margin: 0.2em 0 0.4em;	
@@ -149,6 +152,7 @@
 								.package-desc {
 									height: 30px;
 									overflow: hidden;
+									color: @text-color;
 								}
 							}
 						}
@@ -207,13 +211,12 @@
 .room-facilities-container {
 	padding: @regular;
 	text-align: left;
-	background: darken(@tertiary1, 8%);
-	box-shadow: 7px 7px 0 0 darken(@tertiary1, 3%);
+	background: @quarternary1;
 	.room-facilities-title {
 		h5 {
 			font-size: 1.5em;
 			text-transform: uppercase;
-			color: @secondary1;
+			color: @primary1;
 		}
 		h4 {
 			font-weight: 300;
@@ -228,7 +231,7 @@
 		list-style: none;
 		li {
 			font-size: 1.1em;
-			color: @text-color;
+			color: @tertiary1;
 			font-weight: 300;
 			margin: 0 0 @regular;
 			display: block;
@@ -243,16 +246,16 @@
 				height: 13px;
 				float: left;
 				margin-right: 10px;
-				border: 1px solid @text-color;
+				border: 1px solid @tertiary1;
 				position: relative;
 				font-size: 1.2em;
 				line-height: 0.33em;
 				top: 3px;
-				color: @primary1;
+				color: @secondary1;
 			}
 			&:hover {
 				&:before {
-					color: @secondary1;
+					color: @primary1;
 				}
 			}
 		}
@@ -318,9 +321,9 @@
 	.room-title {
 		h1 {
 			font-size: 3em !important;
-			text-transform: none !important;
-			color: @text-color;
+			color: @primary1;
 			font-style: normal;
+			font-weight: 300;
 		}
 		.room-title-desc {
 			font-size: @medium;
@@ -334,10 +337,12 @@
 		margin: 0;
 		.btn-book {
 			background: @button-color;
-			color: #fff;
+			color: @tertiary1;
 			border-radius: 0;
 			&:hover {
 				background: lighten(@button-color, 10%);
+				color: @secondary1;
+				text-decoration: none;
 			}
 		}
 		@media(max-width:767px) {
@@ -353,7 +358,7 @@
 	h1 {
 		font-size: 1.5em;
 		font-weight: 300;
-		border-bottom: 1px solid @quarternary1;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 		margin: 0 0 @regular;
 	}
 	.room-description-desc {
@@ -369,6 +374,9 @@
 	margin: 0 0 @medium;
 	.room-img {
 		width: 100%;
+		max-height: 200px;
+		border: 2px solid @tertiary1;
+		outline: 1px solid rgba(0, 0, 0, 0.2);
 	}
 	.room-title {
 		font-size: 1.6em;
@@ -376,12 +384,18 @@
 		font-weight: 700;
 		margin: @regular 0;
 		text-transform: uppercase;
+		a {
+			&:hover {
+				text-decoration: none;
+				color: @secondary1;
+			}
+		}
 	}
 	.room-excerpt {
 		color: @text-color;
 		padding-bottom: @regular;
-		margin-bottom: @regular;
-		border-bottom: 1px solid @quarternary1;
+		margin-bottom: @medium;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 	}
 	.room-actions {
 		.clearfix;
@@ -399,8 +413,9 @@
 			color: @white;
 			border-radius: 0;
 			&:hover {
-				background: lighten(@button-color, 20%);
+				background: lighten(@button-color, 10%);
 				text-decoration: none;
+				color: @secondary1;
 			}
 		}
 	}
@@ -459,7 +474,7 @@
 			min-height: 590px;
 			.date-range{
 				font-size:1.3em;
-				color: @secondary1;
+				color: @tertiary1;
 				margin-bottom: 10%;
 				b {
 					font-size: 1.5em;
@@ -473,7 +488,7 @@
 				}
 			}
 			.room-booking-plan {
-				color: @secondary1;
+				color: @text-color;
 				border-bottom: 1px dashed @tertiary1;
 				padding-bottom: 5%;
 				margin-bottom: 5%;
@@ -483,7 +498,7 @@
 					color:lighten(@tertiary1, 20%);
 				}
 				.plan-bg{
-					background:lighten(@primary1, 10%);
+					background:@tertiary1;
 					padding:1px 4px;
 					margin-top: 2%;
 				}
@@ -492,11 +507,12 @@
 					float:left;
 					font-size:0.9em;
 					font-weight:300;
-					color:lighten(@secondary1, 20%);
+					color: @text-color;
 					span{
 						font-weight:800;
 						font-size:1.8em;
 						display: block;
+						color: @secondary1;
 					}
 				}
 				h6{
@@ -521,7 +537,7 @@
 			}
 		}
 		.room-booking-calender{
-				padding: 10px;
+				padding: 0;
 			h4{
 				font-weight: 600;
 				font-size: 1.5em;
@@ -544,28 +560,28 @@
 			}
 			#room-booking-calendar {
 			.ui-datepicker-inline{
-								width:auto !important;
-								border: 0;
-								background:none;
-								.ui-datepicker-group {
-									width: 48%;
-									margin-right: 12px;
-										.ui-datepicker-calendar{
-											background:@white;
-											width:100%;
-											th{
-												background:lighten(@tertiary1, 40%);
-												text-transform:uppercase;
-												color:@text-color;
-												font-weight: 300;
-												font-size: 12px;
-											}
-										}
-										@media(max-width:767px){
-											width: 100%;
-										}
-									}
+				width:auto !important;
+				border: 0;
+				background:none;
+				.ui-datepicker-group {
+					width: 48%;
+					margin-right: 2%;
+						.ui-datepicker-calendar{
+							background:@white;
+							width:100%;
+							th{
+								background:lighten(@tertiary1, 40%);
+								text-transform:uppercase;
+								color:@text-color;
+								font-weight: 300;
+								font-size: 12px;
 							}
+						}
+						@media(max-width:767px){
+							width: 100%;
+						}
+					}
+			}
 				.ui-datepicker {
 					width: 100% !important;
 					border: none;
@@ -577,7 +593,7 @@
 						display: none;
 					}
 					.ui-datepicker-header {
-						background: lighten(@tertiary1, 10%);
+						background: darken(@tertiary1, 10%);
 						border: none;
 						height: 67px;
 						line-height: 86px;
@@ -592,10 +608,11 @@
 					}
 					.ui-datepicker-title{
 						line-height: 74px;
+						color: @secondary1;
 					}
 					
 						td {
-								border: 1px solid #EAEAEA!important;
+								border: 0 !important;
 								height:42px!important;
 								a, span {
 										display: block;

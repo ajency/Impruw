@@ -3,9 +3,10 @@
 	&.site-title{
 		color: @primary1;
     	font-weight: 300;
-    	font-size: 2em;
+    	font-size: 3em;
     	text-transform: uppercase;
-    	padding: 0.5em 0 0 15px;
+    	padding: @regular;
+    	text-align: center;
 	}
 	&.page-title {
 		color: @primary1;
@@ -19,13 +20,9 @@
 		font-size: 1.5em;
 		margin-bottom: @large;
 		text-transform: uppercase;
-		border-bottom: 1px solid @text-color;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 	}
-	&.footer-title {
-		color: @text-color;
-		text-transform: uppercase;
-		font-size: 1.1em;
-		font-weight: 700;
-		margin-bottom: @medium;
+	@media(max-width:991px) {
+		text-align: center;
 	}
 }

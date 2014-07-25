@@ -19,10 +19,10 @@ and open the template in the editor.
 	.flat {
 		border-radius: 0;
 		margin-bottom: 0.8em;
-		border-width: 3px;
+		border-width: 1px;
+		border-color: rgba(0, 0, 0, 0.2);
 		&:focus, &:active {
 			border-color: @secondary1;
-			border-width: 3px;
 		}
 	}
 	.btn {
@@ -31,6 +31,7 @@ and open the template in the editor.
 		background: @button-color;
 		&:hover {
 			background: lighten(@button-color, 10%);
+			color: @secondary1;
 		}
 	}
 	@media(max-width:991px) {
