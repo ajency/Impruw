@@ -36,25 +36,25 @@
             array(
                 'name' => 'Default',
                 'primary1' => array(
-                    'color' => '#24D07C',
+                    'color' => '#ED1C24',
                     'title' => 'First Colour',
                     'tooltip' => 'Contact Form, Links, Buttons, Menu, Room Elements, Slider, Social Links, Headings, Selection Background',
                     'description' => 'Used in Contact Form, Links, Buttons, Menu, Room Elements, Slider, Social Links, Headings, Selection Background'
                 ),
                 'secondary1' => array(
-                    'color' => '#E223A1',
+                    'color' => '#831618',
                     'title' => 'Second Colour',
                     'tooltip' => 'Address Elements, Image with Text, Menu, Room Elements, Social Links, Headings',
                     'description' => 'Used in Address Elements, Image with Text, Menu, Room Elements, Social Links, Headings'
                 ),
                 'tertiary1' => array(
-                    'color' => '#39435C',
+                    'color' => '#FFFFFF',
                     'title' => 'Third Colour',
                     'tooltip' => 'Menu, Room Elements, Site Background, Social Links',
                     'description' => 'Used in Menu, Room Elements, Site Background, Social Links'
                 ),
                 'quarternary1' => array(
-                    'color' => '#545D73',
+                    'color' => '#282827',
                     'title' => 'Fourth Colour',
                     'tooltip' => 'Address, Menu, Room Elements, Row Elements, Social Links, Slider, Text Element',
                     'description' => 'Used in Address, Menu, Room Elements, Row Elements, Social Links, Slider, Text Element'
@@ -66,40 +66,40 @@
                     'description' => 'Used in Slider'
                 ),
                 'text-color' => array(
-                    'color' => '#FFFFFF',
+                    'color' => '#282827',
                     'title' => 'Text Colour',
                     'tooltip' => 'Text Elements',
                     'description' => 'Used for the text colour across the site'
                 ),
                 'button-color' => array(
-                    'color' => '#E223A1',
+                    'color' => '#ED1C24',
                     'title' => 'Button Colour',
                     'tooltip' => 'Button Elements',
                     'description' => 'Used in Buttons'
                 )
             ),
             array(
-                'name' => 'Lemon Dash',
+                'name' => 'Something Blue',
                 'primary1' => array(
-                    'color' => '#ECFF33',
+                    'color' => '#3B5997',
                     'title' => 'First Colour',
                     'tooltip' => 'Contact Form, Links, Buttons, Menu, Room Elements, Slider, Social Links, Headings, Selection Background',
                     'description' => 'Used in Contact Form, Links, Buttons, Menu, Room Elements, Slider, Social Links, Headings, Selection Background'
                 ),
                 'secondary1' => array(
-                    'color' => '#212121',
+                    'color' => '#293E6B',
                     'title' => 'Second Colour',
                     'tooltip' => 'Address Elements, Image with Text, Menu, Room Elements, Social Links, Headings',
                     'description' => 'Used in Address Elements, Image with Text, Menu, Room Elements, Social Links, Headings'
                 ),
                 'tertiary1' => array(
-                    'color' => '#2F8F74',
+                    'color' => '#FFFFFF',
                     'title' => 'Third Colour',
                     'tooltip' => 'Menu, Room Elements, Site Background, Social Links',
                     'description' => 'Used in Menu, Room Elements, Site Background, Social Links'
                 ),
                 'quarternary1' => array(
-                    'color' => '#A0FB70',
+                    'color' => '#282827',
                     'title' => 'Fourth Colour',
                     'tooltip' => 'Address, Menu, Room Elements, Row Elements, Social Links, Slider, Text Element',
                     'description' => 'Used in Address, Menu, Room Elements, Row Elements, Social Links, Slider, Text Element'
@@ -111,58 +111,148 @@
                     'description' => 'Used in Slider'
                 ),
                 'text-color' => array(
-                    'color' => '#FFFFFF',
+                    'color' => '#282827',
                     'title' => 'Text Colour',
                     'tooltip' => 'Text Elements',
                     'description' => 'Used for the text colour across the site'
                 ),
                 'button-color' => array(
-                    'color' => '#212121',
+                    'color' => '#3B5997',
                     'title' => 'Button Colour',
                     'tooltip' => 'Button Elements',
                     'description' => 'Used in Buttons'
                 )
             ),
             array(
-                'name' => 'Desert Song',
+                'name' => 'Aquamarine',
                 'primary1' => array(
-                    'color' => '#72451E',
+                    'color' => '#7EC2AB',
                     'title' => 'First Colour',
                     'tooltip' => 'Contact Form, Links, Buttons, Menu, Room Elements, Slider, Social Links, Headings, Selection Background',
                     'description' => 'Used in Contact Form, Links, Buttons, Menu, Room Elements, Slider, Social Links, Headings, Selection Background'
                 ),
                 'secondary1' => array(
-                    'color' => '#E7512E',
+                    'color' => '#4DA8A1',
                     'title' => 'Second Colour',
                     'tooltip' => 'Address Elements, Image with Text, Menu, Room Elements, Social Links, Headings',
                     'description' => 'Used in Address Elements, Image with Text, Menu, Room Elements, Social Links, Headings'
                 ),
                 'tertiary1' => array(
-                    'color' => '#B6AEA1',
+                    'color' => '#FFFFFF',
                     'title' => 'Third Colour',
                     'tooltip' => 'Menu, Room Elements, Site Background, Social Links',
                     'description' => 'Used in Menu, Room Elements, Site Background, Social Links'
                 ),
                 'quarternary1' => array(
-                    'color' => '#CBCBC1',
+                    'color' => '#282827',
                     'title' => 'Fourth Colour',
                     'tooltip' => 'Address, Menu, Room Elements, Row Elements, Social Links, Slider, Text Element',
                     'description' => 'Used in Address, Menu, Room Elements, Row Elements, Social Links, Slider, Text Element'
                 ),
                 'quinary1' => array(
-                    'color' => '#F6F6F6',
+                    'color' => '#E1E1E1',
                     'title' => 'Fifth Colour',
                     'tooltip' => 'Slider',
                     'description' => 'Used in Slider'
                 ),
                 'text-color' => array(
-                    'color' => '#3A361C',
+                    'color' => '#282827',
                     'title' => 'Text Colour',
                     'tooltip' => 'Text Elements',
                     'description' => 'Used for the text colour across the site'
                 ),
                 'button-color' => array(
-                    'color' => '#E7512E',
+                    'color' => '#7EC2AB',
+                    'title' => 'Button Colour',
+                    'tooltip' => 'Button Elements',
+                    'description' => 'Used in Buttons'
+                )
+            ),
+            array(
+                'name' => 'Earth Tones',
+                'primary1' => array(
+                    'color' => '#776251',
+                    'title' => 'First Colour',
+                    'tooltip' => 'Contact Form, Links, Buttons, Menu, Room Elements, Slider, Social Links, Headings, Selection Background',
+                    'description' => 'Used in Contact Form, Links, Buttons, Menu, Room Elements, Slider, Social Links, Headings, Selection Background'
+                ),
+                'secondary1' => array(
+                    'color' => '#48372F',
+                    'title' => 'Second Colour',
+                    'tooltip' => 'Address Elements, Image with Text, Menu, Room Elements, Social Links, Headings',
+                    'description' => 'Used in Address Elements, Image with Text, Menu, Room Elements, Social Links, Headings'
+                ),
+                'tertiary1' => array(
+                    'color' => '#FFFFFF',
+                    'title' => 'Third Colour',
+                    'tooltip' => 'Menu, Room Elements, Site Background, Social Links',
+                    'description' => 'Used in Menu, Room Elements, Site Background, Social Links'
+                ),
+                'quarternary1' => array(
+                    'color' => '#282827',
+                    'title' => 'Fourth Colour',
+                    'tooltip' => 'Address, Menu, Room Elements, Row Elements, Social Links, Slider, Text Element',
+                    'description' => 'Used in Address, Menu, Room Elements, Row Elements, Social Links, Slider, Text Element'
+                ),
+                'quinary1' => array(
+                    'color' => '#E1E1E1',
+                    'title' => 'Fifth Colour',
+                    'tooltip' => 'Slider',
+                    'description' => 'Used in Slider'
+                ),
+                'text-color' => array(
+                    'color' => '#282827',
+                    'title' => 'Text Colour',
+                    'tooltip' => 'Text Elements',
+                    'description' => 'Used for the text colour across the site'
+                ),
+                'button-color' => array(
+                    'color' => '#776251',
+                    'title' => 'Button Colour',
+                    'tooltip' => 'Button Elements',
+                    'description' => 'Used in Buttons'
+                )
+            ),
+            array(
+                'name' => 'Deep Blue Sky',
+                'primary1' => array(
+                    'color' => '#0E9FB4',
+                    'title' => 'First Colour',
+                    'tooltip' => 'Contact Form, Links, Buttons, Menu, Room Elements, Slider, Social Links, Headings, Selection Background',
+                    'description' => 'Used in Contact Form, Links, Buttons, Menu, Room Elements, Slider, Social Links, Headings, Selection Background'
+                ),
+                'secondary1' => array(
+                    'color' => '#162737',
+                    'title' => 'Second Colour',
+                    'tooltip' => 'Address Elements, Image with Text, Menu, Room Elements, Social Links, Headings',
+                    'description' => 'Used in Address Elements, Image with Text, Menu, Room Elements, Social Links, Headings'
+                ),
+                'tertiary1' => array(
+                    'color' => '#FFFFFF',
+                    'title' => 'Third Colour',
+                    'tooltip' => 'Menu, Room Elements, Site Background, Social Links',
+                    'description' => 'Used in Menu, Room Elements, Site Background, Social Links'
+                ),
+                'quarternary1' => array(
+                    'color' => '#282827',
+                    'title' => 'Fourth Colour',
+                    'tooltip' => 'Address, Menu, Room Elements, Row Elements, Social Links, Slider, Text Element',
+                    'description' => 'Used in Address, Menu, Room Elements, Row Elements, Social Links, Slider, Text Element'
+                ),
+                'quinary1' => array(
+                    'color' => '#E1E1E1',
+                    'title' => 'Fifth Colour',
+                    'tooltip' => 'Slider',
+                    'description' => 'Used in Slider'
+                ),
+                'text-color' => array(
+                    'color' => '#282827',
+                    'title' => 'Text Colour',
+                    'tooltip' => 'Text Elements',
+                    'description' => 'Used for the text colour across the site'
+                ),
+                'button-color' => array(
+                    'color' => '#0E9FB4',
                     'title' => 'Button Colour',
                     'tooltip' => 'Button Elements',
                     'description' => 'Used in Buttons'
@@ -184,7 +274,7 @@
     /**
      * Image sizes for the theme 
      **/
-         // Thumbnails
+        // Thumbnails
         update_option('thumbnail_size_w', 200);
         update_option('thumbnail_size_h', 200);
         update_option('thumbnail_crop', array('center', 'center'));

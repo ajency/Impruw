@@ -4,8 +4,8 @@
 // Font Files
 @font-face {
 	font-family: 'icomoon';
-	src: url("../../../themes/impruwclientparent/fonts/icomoon.eot");
-	src: url("../../../themes/impruwclientparent/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../../../themes/impruwclientparent/fonts/icomoon.woff") format("woff"), url("../../../themes/impruwclientparent/fonts/icomoon.ttf") format("truetype"), url("../../../themes/impruwclientparent/fonts/icomoon.svg#icomoon") format("svg");
+	src: url("../resources/fonts/icomoon.eot");
+	src: url("../resources/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../resources/fonts/icomoon.woff") format("woff"), url("../resources/fonts/icomoon.ttf") format("truetype"), url("../resources/fonts/icomoon.svg#icomoon") format("svg");
 	font-weight: normal;
 	font-style: normal; 
 }
@@ -17,8 +17,10 @@
 .site-style-container {
 	font-family: 'Lato', sans-serif;
 	font-weight: 300;
-	border: 10px solid @primary1;
-	background: @tertiary1;
+	background: @quinary1;
+	&.aj-imp-builder-layout-mode {
+		margin-top: 10px;
+	}
 	.clearfix;
 	@media(max-width:1300px) {
 		padding: @large;
