@@ -1309,13 +1309,22 @@ a:focus {
   margin-right: 1px;
   padding: 1px 8px;
 }
-.settings-box .form-horizontal .form-group .set-column-count a:hover {
+.settings-box .form-horizontal .form-group .set-column-count a:hover,
+.settings-box .form-horizontal .form-group .set-column-count a.selected {
   background: #ff7e00;
   color: #fff;
 }
 .settings-box .form-horizontal .form-group .field-error {
   color: #ff3333;
   padding: 0.5em 0;
+}
+.settings-box .form-horizontal .form-group .help-block {
+  padding: 0 1em;
+  color: #aaaaaa;
+  font-size: 0.88em;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 0;
 }
 /****Builder Element Layout Mode Styles****/
 .aj-imp-builder-layout-mode [class^="aj-imp-elem-"] {
