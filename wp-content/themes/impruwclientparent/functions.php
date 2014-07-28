@@ -66,7 +66,8 @@ add_theme_support( 'post-thumbnails' );
 
 // remove wordpress admin bar
 show_admin_bar( FALSE );
-load_theme_textdomain( 'impruwclientparent' );
+//load_theme_textdomain( 'impruwclientparent' );
+load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
 
 /**
  * [send_contact_form_message description]

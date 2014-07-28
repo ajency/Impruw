@@ -384,28 +384,28 @@ function validate_element( &$element ) {
 /**
  * this function will set the fetched json data from on site to another
  */
-function set_json_to_site( $elements ) {
+function set_json_to_site( $elements, $language_code ) {
 
     foreach ( $elements as &$element ) {
         if ( $element[ 'element' ] === 'Row' ) {
             $element[ 'columncount' ] = count( $element[ 'elements' ] );
-            set_row_elements( $element );
+            set_row_elements( $element, $language_code );
         } else
-            $element = create_new_element( $element );
+            $element = create_new_element( $element, $language_code );
     }
 
     return $elements;
 }
 
-function set_row_elements( &$element ) {
+function set_row_elements( &$element, $language_code) {
 
     foreach ( $element[ 'elements' ] as &$column ) {
         foreach ( $column[ 'elements' ] as &$ele ) {
             if ( $ele[ 'element' ] === 'Row' ) {
                 $ele[ 'columncount' ] = count( $ele[ 'elements' ] );
-                set_row_elements( $ele );
+                set_row_elements( $ele, $language_code );
             } else {
-                $ele = create_new_element( $ele );
+                $ele = create_new_element( $ele, $language_code );
             }
         }
     }
@@ -414,7 +414,7 @@ function set_row_elements( &$element ) {
 /**
  *
  */
-function create_new_element( &$ele ) {
+function create_new_element( &$ele, $language_code) {
 
     global $wpdb;
 
@@ -443,6 +443,10 @@ function create_new_element( &$ele ) {
 
     if ( $ele[ 'element' ] === 'RoomSummary' && isset( $ele[ 'room_id' ] ) ) {
         $ele[ 'room_id' ] = 0;
+    }
+
+    if($ele[ 'element' ] === 'Title' || $ele[ 'element' ] === 'Text'|| $ele[ 'element' ] === 'ImageWithText'){
+        translate_element($ele, $language_code);
     }
 
     $serialized_element = maybe_serialize( $ele );
@@ -527,11 +531,26 @@ function add_page_to_menu( $page_id ) {
         'menu-item-url' => '',
         'menu-item-object' => 'page',
         'menu-item-type' => 'post_type',
-        'menu-item-object-id' => $page_id,
-        'menu-item-status' => 'publish'
-    );
+        'menu-item-object-id' => $page_id, 'menu-item-status' => 'publish'
+        );
 
     wp_update_nav_menu_item( $menu_id, 0, $formdata );
+}
+
+
+function translate_element(&$element, $language_code){
+    global $sitepress;
+
+    $current_site_language = wpml_get_current_language();
+
+    $english_content = $element['content']['en'];
+
+    $sitepress->switch_lang($language_code);
+
+    $element['content'][$language_code] = __($english_content,'impruwclientparent');
+
+    $sitepress->switch_lang($current_site_language);
+
 }
 
 
