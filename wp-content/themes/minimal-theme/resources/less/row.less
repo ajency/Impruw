@@ -1,0 +1,127 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20 Feb, 2014, 7:45:35 PM
+    Author     : jarr-head
+*/
+.row{
+	background: transparent;
+	> .column {
+		padding: 0;
+	}
+
+	&.top-bar {
+	    border-bottom: 1px solid @quarternary1;
+	    margin-bottom: @large;
+	}
+
+	&.center-container {
+		max-width: 960px !important;
+		background: @white;
+	}
+	
+	&.padded-container {
+		margin-bottom: 3em;
+		> .column {
+			padding: 15px;
+		}
+	}
+	&.menu-bar {
+		padding: @regular 0;
+		background: @primary1;
+		margin: 0 -10px;
+		margin-bottom: @large;
+		&:before, &:after {
+		    content: '';
+		    position: absolute;
+		    border-style: solid;
+		    border-color: transparent;
+		    bottom: -10px;
+		}
+		&:before {
+			border-width: 0 10px 10px 0;
+		    border-right-color: @secondary1;
+		    left: -10px;
+		}
+		&:after {
+			border-width: 0 0 10px 10px;
+		    border-left-color: @secondary1;
+		    right: -10px;
+		}
+	}
+	&.footer-bar {
+		margin: @large 0 0;
+		padding: @large 0;
+		font-size: 0.88em;
+		background: @quarternary1;
+		text-align: center;
+		.text, .imagewithtext p {
+			color: @tertiary1;
+		}
+	}
+	&.column-dividers {
+		.column {
+			border-color: rgba(0, 0, 0, 0.2) !important;
+			padding: @regular 15px;
+		}
+		@media(max-width:991px) {
+			margin: 0 !important;
+			.column {
+				border-right: 0 !important;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+				&:last-child {
+					border-bottom: 0;
+				}
+			}
+		}
+	}
+}
+
+.site-header, #site-header-region  {
+	.center-container {
+		border: 1px solid @quarternary1;
+		border-bottom: 0;
+		margin-bottom: 0 !important;
+	}
+}
+
+.site-page, #site-page-content-region {
+	.center-container {
+		border: 1px solid @quarternary1;
+		border-bottom: 0;
+		border-top: 0;
+		margin: 0 auto !important;
+		>.column {
+			>.row {
+				margin: auto @regular;
+			}
+		}
+	}
+}
+
+.site-footer, #site-footer-region {
+	.center-container {
+		border: 1px solid @quarternary1;
+		border-top: 0;
+		margin-top: 0 !important;
+	}
+}
+
+#aj-imp-builder-drag-drop {
+	.center-container {
+		margin: auto !important;
+		.menu-bar {
+			margin-left: -12px;
+			margin-right: -12px;
+			&:after {
+				right: 0;
+			}
+			&:before {
+				left: 0;
+			}
+		}
+	}
+}
