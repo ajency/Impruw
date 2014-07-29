@@ -36,6 +36,10 @@ a.red-link.pull-left,
 a.red-link.pull-right {
   margin: 0.5em;
 }
+/****Button Styles****/
+.btn {
+  border-radius: 2px;
+}
 /****Clearfix****/
 .clearfix {
   *zoom: 1;
@@ -480,6 +484,10 @@ form .form-group .control-label {
   position: absolute;
   bottom: 0;
   left: 0;
+  /*&.dd-label {
+				bottom: 10px;
+			}*/
+
 }
 form .form-group .control-label small {
   display: block;
@@ -494,9 +502,6 @@ form .form-group .control-label.label-25 {
 }
 form .form-group .control-label.label-75 {
   left: 75%;
-}
-form .form-group .control-label.dd-label {
-  bottom: 10px;
 }
 form .form-group .control-label.label-head {
   color: #777777;
@@ -521,7 +526,7 @@ form .form-group.pic-upload .fileinput .btn:hover {
   color: #65879c;
 }
 form .form-group.add-another .control-label {
-  top: 1em;
+  top: 0.3em;
 }
 form .form-group.add-another .div_email,
 form .form-group.add-another .div_phone {
@@ -614,6 +619,8 @@ form .form-control {
   border-radius: 0;
   border: 0;
   border-bottom: 1px solid #c3c3c3;
+  padding-bottom: 3px;
+  height: auto;
 }
 form .form-control:focus {
   border-color: #ff7e00;
@@ -633,6 +640,7 @@ form .input-group .input-group-addon {
   color: #c3c3c3;
   border: 0;
   border-bottom: 1px solid #c3c3c3;
+  padding-bottom: 3px;
 }
 form .aj-imp-submit {
   background: #ff7e00;
@@ -688,6 +696,7 @@ form .aj-imp-submit:hover {
   border-radius: 0 !important;
   border: 0;
   border-bottom: 1px solid #c3c3c3;
+  padding-bottom: 3px;
 }
 .bootstrap-select .dropdown-toggle .filter-option {
   margin-right: 1em;
@@ -2785,7 +2794,6 @@ form .aj-imp-submit:hover {
 }
 .add-gallery-images {
   background: #849fb0;
-  border-radius: 0;
 }
 .add-gallery-images:hover {
   background: #a3b7c4;
@@ -3701,7 +3709,8 @@ form .aj-imp-submit:hover {
 .billing-container .aj-imp-widget-content .tab-content .original {
   margin-bottom: 0;
   border-bottom: 1px solid #aaaaaa;
-  padding: 8px 12px;
+  padding: 8px 12px 3px;
+  line-height: 1.55;
 }
 .language .form-horizontal,
 .billing-container .form-horizontal {
