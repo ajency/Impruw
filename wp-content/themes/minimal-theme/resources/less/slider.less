@@ -1,0 +1,24 @@
+.rev_slider_wrapper {
+	padding: 0 !important;
+	overflow: hidden !important;
+	margin-bottom: @medium !important;
+	background: transparent !important;
+	.rev_slider {
+		
+	}
+	.tp-bullets {
+		.bullet {
+			background: rgba(255, 255, 255, 0.3) !important;
+			margin: 0 @regular !important;
+			&:hover {
+				background: rgba(255, 255, 255, 0.7) !important;
+			}
+			&.selected {
+				background: @primary1 !important;
+			}
+		}
+	}
+	@media(max-width:991px) {
+		margin-bottom: @large !important;
+	}
+}

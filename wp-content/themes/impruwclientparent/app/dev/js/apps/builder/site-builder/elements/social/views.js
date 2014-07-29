@@ -13,7 +13,7 @@ define(['app'], function(App) {
 
       SocialItem.prototype.tagName = 'li';
 
-      SocialItem.prototype.template = '<a href="{{sociallink}}" target="_BLANK"><span class="name">{{socialname}}</span></a>';
+      SocialItem.prototype.template = '<a href="javascript:void(0);"><span class="name">{{socialname}}</span></a>';
 
       SocialItem.prototype.onRender = function() {
         return this.$el.find('a').addClass("icon-" + (_.slugify(this.model.get('socialname'))));
@@ -43,7 +43,7 @@ define(['app'], function(App) {
       };
 
       SocialView.prototype.onShow = function() {
-        this.$el.attr("data-content", "Please visit <a href='#url'>to update social links</a> ");
+        this.$el.attr("data-content", "If you are trying to set your Facebook or Twitter link, you can do that by going to your <a href='../dashboard/#/site-profile/' target='_BLANK'>site profile</a> from the dashboard. You can test the icons by clicking on preview or your live site.");
         return this.$el.popover({
           html: true,
           placement: 'top'

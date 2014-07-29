@@ -4,7 +4,7 @@ define ['app'], (App)->
     App.module 'SiteBuilderApp.Element.Social.Views', (Views, App, Backbone, Marionette, $, _)->
         class SocialItem extends Marionette.ItemView
             tagName: 'li'
-            template: '<a href="{{sociallink}}" target="_BLANK"><span class="name">{{socialname}}</span></a>'
+            template: '<a href="javascript:void(0);"><span class="name">{{socialname}}</span></a>'
             # add a class to li to allow diferent styles for each social item
             onRender: ->
                 @$el.find('a').addClass "icon-#{_.slugify @model.get 'socialname'}"
@@ -26,7 +26,7 @@ define ['app'], (App)->
 
 
             onShow: ->
-                @$el.attr "data-content", "Please visit <a href='#url'>to update social links</a> "
+                @$el.attr "data-content", "If you are trying to set your Facebook or Twitter link, you can do that by going to your <a href='../dashboard/#/site-profile/' target='_BLANK'>site profile</a> from the dashboard. You can test the icons by clicking on preview or your live site."
                 @$el.popover
                     html : true
                     placement : 'top'

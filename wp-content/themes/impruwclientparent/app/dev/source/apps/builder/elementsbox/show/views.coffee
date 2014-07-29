@@ -88,8 +88,11 @@ define [ 'app'
          _setDraggableElements : ->
             @$el.find( '*[data-element]' ).draggable
                connectToSortable : '.droppable-column'
-               helper : 'clone'
+               helper : @_getHelper
                delay : 5
                addClasses : false
                distance : 5
                revert : 'invalid'
+
+         _getHelper : ->
+            '<div style="width: 100px; height: 50px; border: 2px; background-color: pink;"></div> '
