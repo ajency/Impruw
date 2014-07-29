@@ -1497,6 +1497,15 @@ a:focus {
 .modal-backdrop {
   background: #333333;
 }
+.modal-help-text {
+  padding: 1em;
+  border: 1px dotted #aaaaaa;
+  color: #849fb0;
+  text-align: center;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+  border-radius: 3px;
+}
 .modal .modal-dialog .modal-content {
   box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.25);
 }
@@ -1940,6 +1949,7 @@ a:focus {
 }
 .modal .aj-imp-add-menu-item h4 {
   font-size: 2em;
+  color: #aaaaaa;
 }
 .modal .aj-imp-add-menu-item .desc {
   font-size: 0.9em;

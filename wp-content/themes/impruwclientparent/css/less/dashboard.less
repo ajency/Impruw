@@ -46,6 +46,11 @@ a {
 	}
 }
 
+/****Button Styles****/
+.btn {
+	border-radius: 2px;
+}
+
 /****Clearfix****/
 .clearfix {
     *zoom: 1;
@@ -495,9 +500,9 @@ form {
 			&.label-75 {
 				left: 75%;
 			}
-			&.dd-label {
+			/*&.dd-label {
 				bottom: 10px;
-			}
+			}*/
 			&.label-head {
 				color: darken(@dash-grey, 20%);
 				text-transform: uppercase;
@@ -525,7 +530,7 @@ form {
 		}
 		&.add-another {
 			.control-label {
-				top: 1em;
+				top: 0.3em;
 			}
 			.div_email, .div_phone {
 				position: relative;
@@ -614,6 +619,8 @@ form {
 		border-radius: 0;
 		border: 0;
 		border-bottom: 1px solid lighten(@dash-grey, 10%);
+		padding-bottom: 3px;
+		height: auto;
 		&:focus {
 			border-color: @orange;
 			background: lighten(@dash-grey, 30%);
@@ -633,6 +640,7 @@ form {
 			color: lighten(@dash-grey, 10%);
 			border: 0;
 			border-bottom: 1px solid lighten(@dash-grey, 10%);
+			padding-bottom: 3px;
 		}
 	}
 	.aj-imp-submit {
@@ -693,6 +701,7 @@ form {
 		border-radius: 0 !important;
 		border: 0;
 		border-bottom: 1px solid lighten(@dash-grey, 10%);
+		padding-bottom: 3px;
 		.filter-option {
 			margin-right: 1em;
 		}
@@ -2234,9 +2243,8 @@ form {
 	padding: 0;
 	list-style: none;
 	li {
-		width: 30%;
-		margin: 0 1% 1em;
-		float: left;
+		margin: 0 0 1em;
+		border-bottom: 1px solid @preview-grey;
 		.roomsummary {
 			.clearfix;
 			margin: 0 0 1em;
@@ -2273,6 +2281,17 @@ form {
 					&:hover {
 						background: lighten(@orange, 20%);
 					}
+				}
+				.editroom_link {
+					margin-left: 0.5em;
+					background: @blue-grey;
+					&:hover, &:focus {
+						background: darken(@blue-grey, 10%);
+					}
+				}
+				.deleteroom_link {
+					color: @logo-orange;
+					font-size: 0.8em;
 				}
 			}
 		}
@@ -2807,7 +2826,6 @@ form {
 
 .add-gallery-images {
 	background: @blue-grey;
-	border-radius: 0;
 	&:hover {
 		background: lighten(@blue-grey, 10%);
 	}
@@ -3718,7 +3736,8 @@ form {
 			.original {
 				margin-bottom: 0;
 				border-bottom: 1px solid @dash-grey;
-				padding: 8px 12px;
+				padding: 8px 12px 3px;
+				line-height: 1.55;
 			}
 		}
 	}
