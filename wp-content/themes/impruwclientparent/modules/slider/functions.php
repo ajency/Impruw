@@ -94,7 +94,7 @@ function create_new_slider( $data, $sliderID = 0 ) {
 
     $arrData            = array();
     $arrData[ "title" ] = $data[ 'title' ];
-    $arrData[ "alias" ] = $data[ 'alias' ];
+    $arrData[ "alias" ] = $data[ 'alias' ] . '-' . rand(000, 99999);
     $params             = wp_parse_args( $data, slider_defaults() );
 
     //change params to json
@@ -193,7 +193,7 @@ function slider_defaults() {
         'margin_bottom'                => 0,
         'margin_left'                  => 0,
         'margin_right'                 => 0,
-        'shadow_type'                  => '2',
+        'shadow_type'                  => 0,
         'show_timerbar'                => 'top',
         'padding'                      => 0,
         'background_color'             => '#E9E9E9',
@@ -327,11 +327,11 @@ function slide_defaults() {
         "slide_thumb"         => "",
         "slide_bg_color"      => "#E7E7E7",
         "slide_bg_external"   => "",
-        "bg_fit"              => "cover",
+        "bg_fit"              => "contain",
         "bg_fit_x"            => "100",
         "bg_fit_y"            => "100",
         "bg_repeat"           => "no-repeat",
-        "bg_position "        => "center top",
+        "bg_position "        => "center center",
         "bg_position_x"       => "0",
         "bg_position_y"       => "0",
         "kenburn_effect"      => "off",

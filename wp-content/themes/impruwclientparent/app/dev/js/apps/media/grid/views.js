@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps/media/grid/templates/media.html'], function(App, mediaTpl) {
   return App.module('Media.Grid.Views', function(Views, App) {
-    var MediaView;
+    var EmptyMediaGrid, MediaView;
     MediaView = (function(_super) {
       __extends(MediaView, _super);
 
@@ -43,6 +43,18 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
       return MediaView;
 
     })(Marionette.ItemView);
+    EmptyMediaGrid = (function(_super) {
+      __extends(EmptyMediaGrid, _super);
+
+      function EmptyMediaGrid() {
+        return EmptyMediaGrid.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyMediaGrid.prototype.template = '<p>No media uploaded. Please upload</p>';
+
+      return EmptyMediaGrid;
+
+    })(Marionette.ItemView);
     return Views.GridView = (function(_super) {
       __extends(GridView, _super);
 
@@ -55,6 +67,8 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
       GridView.prototype.template = '<div id="selectable-images"></div> <div id="edit-image-view"></div>';
 
       GridView.prototype.itemView = MediaView;
+
+      GridView.prototype.emptyView = EmptyMediaGrid;
 
       GridView.prototype.itemViewContainer = '#selectable-images';
 

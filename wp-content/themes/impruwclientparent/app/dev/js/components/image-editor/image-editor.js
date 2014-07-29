@@ -20,15 +20,13 @@ define(['app', 'marionette'], function(App, Marionette) {
     __extends(ImageEditorView, _super);
 
     function ImageEditorView() {
+      this._iasInit = __bind(this._iasInit, this);
+      this._addConstraints = __bind(this._addConstraints, this);
       this.showImageEditor = __bind(this.showImageEditor, this);
       return ImageEditorView.__super__.constructor.apply(this, arguments);
     }
 
     ImageEditorView.prototype.className = 'wp_attachment_holder';
-
-    ImageEditorView.prototype.modelEvents = {
-      'change': 'showImageEditor'
-    };
 
     ImageEditorView.prototype.template = '<p class="loading t-a-c">{{#polyglot}}Loading... Please wait...{{/polyglot}}</p>';
 
@@ -42,7 +40,8 @@ define(['app', 'marionette'], function(App, Marionette) {
     };
 
     ImageEditorView.prototype.back = function() {
-      return this.trigger("image:editing:cancelled");
+      this.trigger("image:editing:cancelled");
+      return this.close();
     };
 
     ImageEditorView.prototype.save = function() {
@@ -55,16 +54,49 @@ define(['app', 'marionette'], function(App, Marionette) {
 
     ImageEditorView.prototype.showImageEditor = function() {
       this.$el.attr('id', "image-editor-" + (this.model.get('id')));
-      return window.imageEdit.open(this.model.get('id'), this.model.get('nonces').edit, this);
+      window.imageEdit.open(this.model.get('id'), this.model.get('nonces').edit, this);
+      return _.delay(this._addConstraints, 400);
     };
+
+    ImageEditorView.prototype._addConstraints = function() {
+      var img, options;
+      img = $("#image-preview-" + (this.model.get('id')));
+      options = Marionette.getOption(this, 'options');
+      options.onInit = this._iasInit;
+      this.model.on('change', this.showImageEditor);
+      return img.load(function() {
+        return _.delay(function() {
+          var iasOptions;
+          iasOptions = window.imageEdit.iasapi.getOptions();
+          iasOptions.parent.children().unbind('mousedown');
+          _.defaults(options, iasOptions);
+          $(img).imgAreaSelect({
+            remove: true
+          });
+          return window.imageEdit.iasapi = $(img).imgAreaSelect(options);
+        }, 200);
+      });
+    };
+
+    ImageEditorView.prototype._iasInit = function(img) {
+      var $img;
+      $img = $(img);
+      $img.next().css('position', 'absolute').nextAll('.imgareaselect-outer').css('position', 'absolute');
+      return $('.imgedit-settings').hide();
+    };
+
+    ImageEditorView.prototype.onClose = function() {};
 
     return ImageEditorView;
 
   })(Marionette.ItemView);
-  imageCropView = function(mediaId) {
+  imageCropView = function(mediaId, options) {
     var imageEditorView, media;
     if (mediaId == null) {
       mediaId = 0;
+    }
+    if (options == null) {
+      options = {};
     }
     if (mediaId === 0) {
       return new InvalidMediaView;
@@ -75,7 +107,8 @@ define(['app', 'marionette'], function(App, Marionette) {
       media = App.request("get:media:by:id", mediaId);
     }
     imageEditorView = new ImageEditorView({
-      model: media
+      model: media,
+      options: options
     });
     return imageEditorView;
   };

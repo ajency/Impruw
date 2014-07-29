@@ -12,12 +12,12 @@ define(['app'], function(App) {
         return SliderItem.__super__.constructor.apply(this, arguments);
       }
 
-      SliderItem.prototype.template = '<img src="{{full_url}}" alt="Slide" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat"/>';
+      SliderItem.prototype.template = '<img src="{{full_url}}" alt="Slide" data-bgfit="contain" data-bgposition="center center" data-bgrepeat="no-repeat"/>';
 
       SliderItem.prototype.tagName = 'li';
 
       SliderItem.prototype.onRender = function() {
-        return this.$el.attr('data-transition', 'fade').attr('data-slotamount', '7').attr('data-masterspeed', '1500');
+        return this.$el.attr('data-transition', 'fade').attr('data-slotamount', '0').attr('data-masterspeed', '500');
       };
 
       return SliderItem;
@@ -57,7 +57,9 @@ define(['app'], function(App) {
 
       SliderView.prototype.events = {
         'click': function(e) {
-          return this.trigger("show:slides:manager");
+          var ratio;
+          ratio = this._getSliderRatio();
+          return this.trigger("show:slides:manager", ratio);
         },
         'click .tp-rightarrow,.tp-leftarrow,.bullet': function(e) {
           return e.stopPropagation();
@@ -68,18 +70,23 @@ define(['app'], function(App) {
         return delete this.revapi;
       };
 
+      SliderView.prototype._getSliderRatio = function() {
+        var height, width;
+        width = this.$el.width();
+        height = this.$el.height();
+        return "" + (parseInt(width)) + ":" + (parseInt(height));
+      };
+
       SliderView.prototype.initialize = function() {
         return this.sliderHeight = Marionette.getOption(this, 'sliderHeight');
       };
 
       SliderView.prototype.onShow = function() {
         var defaults, options;
-        console.log("slider");
         if (this.collection.length === 0) {
           return;
         }
         defaults = this._getDefaults();
-        console.log(this.sliderHeight);
         options = {
           startheight: this.sliderHeight
         };
