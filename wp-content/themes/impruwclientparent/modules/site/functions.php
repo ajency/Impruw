@@ -278,7 +278,7 @@ function delete_all_revisions( $post_id ) {
  *
  * @param unknown $theme_site_id
  */
-function clone_header_footer( $theme_site_id ) {
+function clone_header_footer( $theme_site_id, $language_code) {
 
     $clone_blog = $theme_site_id; //server
     switch_to_blog( $clone_blog );
@@ -286,11 +286,11 @@ function clone_header_footer( $theme_site_id ) {
     $footer = get_json_to_clone( 'theme-footer' );
     restore_current_blog();
 
-    $data = set_json_to_site( $header );
+    $data = set_json_to_site( $header,$language_code);
     update_option( 'theme-header-autosave', $data );
     update_option( 'theme-header', $data );
 
-    $data = set_json_to_site( $footer );
+    $data = set_json_to_site( $footer,$language_code);
     update_option( 'theme-footer-autosave', $data );
     update_option( 'theme-footer', $data );
 }
@@ -522,15 +522,16 @@ function get_english_title($title){
     return $english_title;
     }
 
-
 /**
  * Assign the new theme to site
  *
  * @param type $site_id
  * @param type $theme_id
  */
-function assign_theme_to_site_t( $theme_post_id, $clone_pages = FALSE ) {
-
+function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
+    $theme_post_id = 36;
+    $clone_pages = FALSE;
+    $language_code = 'es';
     // all themes are stored on main site
     switch_to_blog( 1 );
 
@@ -544,7 +545,7 @@ function assign_theme_to_site_t( $theme_post_id, $clone_pages = FALSE ) {
     }
 
     $theme_site_id = get_post_meta( $theme_post_id, 'linked_theme', TRUE );
-
+    
     $theme_name = get_theme_name( $theme_site_id );
 
     restore_current_blog();
@@ -563,7 +564,6 @@ function assign_theme_to_site_t( $theme_post_id, $clone_pages = FALSE ) {
     //get current_site language
 
     $current_site_language = wpml_get_default_language();
-
     // check if cloned for the first time
     if ( $clone_pages === TRUE ) {
         translate_site($theme_site_id, 'nb',$clone_pages);
@@ -573,6 +573,22 @@ function assign_theme_to_site_t( $theme_post_id, $clone_pages = FALSE ) {
         translate_site($current_site_id, $language_code);
     }
 }
+
+// add_action('init','assign_theme_to_site');
+
+function test_icl_t(){
+    global $sitepress;
+    $sitepress->switch_lang('es');
+    _e('Find us here', 'impruwclientparent');
+    $sitepress->switch_lang(wpml_get_default_language());
+
+    $data = get_page_json_for_site(9, true);
+
+    echo "<pre>";
+    print_r($data);
+    echo "</pre>";
+}
+// add_action('init','test_icl_t');
 
 /**
  * Function to clone and translate a site based on theme site id
@@ -584,8 +600,6 @@ function assign_theme_to_site_t( $theme_post_id, $clone_pages = FALSE ) {
  */
 function translate_site($theme_site_id, $language_code, $clone_pages=FALSE){
     global $sitepress;
-    $theme_site_id = 39;
-    $language_code = 'es';
 
     //If not enabled, enable the language
     //enable_language($language_code);
@@ -594,6 +608,8 @@ function translate_site($theme_site_id, $language_code, $clone_pages=FALSE){
 
     //$clone_pages = TRUE ;
     add_pages_to_site_t($language_code,$clone_pages);
+
+    clone_header_footer( $theme_site_id, $language_code );
 
     //get all english pages of the site
     $sitepress->switch_lang('en');
@@ -706,7 +722,7 @@ function add_pages_to_site_t($language_code,$clone_pages=FALSE)
  * Function to create a page in default language
  */
 function create_original_page($pages){
-    echo "<br/>create_original_page<br/>";
+    //echo "<br/>create_original_page<br/>";
     global $wpdb,$sitepress;
     $user_id = get_current_user_id();
     $tbl_icl_translations = $wpdb->prefix ."icl_translations";
@@ -839,6 +855,7 @@ function translate_page( $theme_site_id, $language_code, $post_id){
         return;
 
     switch_to_blog($theme_site_id);
+        //echo "Theme site id is => ".$theme_site_id."<br/><br/>";
 
         //Get English version of the page from the theme site
         //echo $current_site_language = wpml_get_current_language();
@@ -849,7 +866,7 @@ function translate_page( $theme_site_id, $language_code, $post_id){
             'meta_key' => 'impruw_page_template',
             'meta_value' => $impruw_page_template_name
         ) );
-        $sitepress->switch_lang(wpml_get_current_language());
+        $sitepress->switch_lang(wpml_get_default_language());
 
         if ( count( $pages ) === 0 ) {
             restore_current_blog();
@@ -864,7 +881,7 @@ function translate_page( $theme_site_id, $language_code, $post_id){
 
     $data = set_json_to_site( $data, $language_code );
 
-    store_unused_elements( $post_id );
+    //store_unused_elements( $post_id );
     add_page_json( $post_id, $data );
 
     delete_all_revisions( $post_id );

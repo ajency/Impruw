@@ -540,16 +540,14 @@ function add_page_to_menu( $page_id ) {
 
 function translate_element(&$element, $language_code){
     global $sitepress;
-
-    $current_site_language = wpml_get_current_language();
-
+    
     $english_content = $element['content']['en'];
 
     $sitepress->switch_lang($language_code);
 
     $element['content'][$language_code] = __($english_content,'impruwclientparent');
 
-    $sitepress->switch_lang($current_site_language);
+    $sitepress->switch_lang(wpml_get_default_language());
 
 }
 
