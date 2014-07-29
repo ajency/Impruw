@@ -65,13 +65,29 @@ function ajax_update_enabled_languages(){
 
 	$lang_codes = explode(',',$data);
 
-	if($sitepress->set_active_languages($lang_codes)){
+    $active_languages = array();
+    $current_active_languages = wpml_get_active_languages();
 
-		wp_send_json( array( 'code' => 'OK', 'data' => json_encode($lang_codes) ) );
-	}
-	else{
-		wp_send_json( array( 'code' => 'ERROR', 'message' => 'Could not enable selected languages' ) );
-	}
+    $current_site_id = get_current_blog_id();
+
+    foreach ($current_active_languages as $language) {
+        array_push($active_languages, $language['code']);
+    }
+
+    $newly_activated_languages = array_diff($lang_codes, $active_languages);
+
+	$sitepress->set_active_languages($lang_codes);
+
+    if(count($newly_activated_languages) > 0){
+        foreach ($newly_activated_languages as $language) {
+            //Call translate_site();
+            $clone_pages = FALSE;
+            translate_site($current_site_id, $language,$clone_pages);
+        }
+    }
+
+    wp_send_json( array( 'code' => 'OK', 'data' => json_encode($lang_codes) , 'current_site_id' => $current_site_id) );
+
 
 }
 

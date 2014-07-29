@@ -280,17 +280,25 @@ function delete_all_revisions( $post_id ) {
  */
 function clone_header_footer( $theme_site_id, $language_code) {
 
+    $current_site_id = get_current_blog_id();
+    if($theme_site_id == $current_site_id){
+        $clone_first_time = FALSE ;
+    }
+    else{
+        $clone_first_time = TRUE ;
+    }
     $clone_blog = $theme_site_id; //server
+
     switch_to_blog( $clone_blog );
     $header = get_json_to_clone( 'theme-header' );
     $footer = get_json_to_clone( 'theme-footer' );
     restore_current_blog();
 
-    $data = set_json_to_site( $header,$language_code);
+    $data = set_json_to_site( $header,$language_code, $clone_first_time);
     update_option( 'theme-header-autosave', $data );
     update_option( 'theme-header', $data );
 
-    $data = set_json_to_site( $footer,$language_code);
+    $data = set_json_to_site( $footer,$language_code, $clone_first_time);
     update_option( 'theme-footer-autosave', $data );
     update_option( 'theme-footer', $data );
 }
@@ -529,9 +537,6 @@ function get_english_title($title){
  * @param type $theme_id
  */
 function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
-    $theme_post_id = 36;
-    $clone_pages = FALSE;
-    $language_code = 'es';
     // all themes are stored on main site
     switch_to_blog( 1 );
 
@@ -561,16 +566,17 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
 
     update_option( 'site_status', 'online' );
 
-    //get current_site language
-
     $current_site_language = wpml_get_default_language();
+    $current_site_id = get_current_blog_id();
+
     // check if cloned for the first time
     if ( $clone_pages === TRUE ) {
-        translate_site($theme_site_id, 'nb',$clone_pages);
+        translate_site($theme_site_id, 'en',$clone_pages);
+        $clone_pages = FALSE;
+        translate_site($current_site_id, 'nb',$clone_pages);
     }
-    else{
-        $current_site_id = get_current_blog_id();
-        translate_site($current_site_id, $language_code);
+    else if($clone_pages === FALSE ){
+        translate_site($current_site_id, $language_code,$clone_pages);
     }
 }
 
@@ -601,17 +607,17 @@ function test_icl_t(){
 function translate_site($theme_site_id, $language_code, $clone_pages=FALSE){
     global $sitepress;
 
-    //If not enabled, enable the language
-    //enable_language($language_code);
+    // //If not enabled, enable the language
+    // enable_language($language_code);
     
     scan_for_strings();
 
     //$clone_pages = TRUE ;
     add_pages_to_site_t($language_code,$clone_pages);
 
-    clone_header_footer( $theme_site_id, $language_code );
+    clone_header_footer( $theme_site_id, $language_code);
 
-    //get all english pages of the site
+    //get all english pages of the current site
     $sitepress->switch_lang('en');
     $english_pages = new WP_query( array( 'post_type' => 'page',
         'posts_per_page' => -1,
@@ -626,10 +632,11 @@ function translate_site($theme_site_id, $language_code, $clone_pages=FALSE){
     ) );
     $sitepress->switch_lang(wpml_get_default_language());
 
+    //For each english page in current site copy themes page content
     while ( $english_pages->have_posts() ):
         $english_pages->the_post();
         //echo '<br/>' . get_the_title() .' -> '.get_the_ID().'<br/>';
-        translate_page( $theme_site_id, $language_code, get_the_ID() );
+        translate_page( $theme_site_id, $language_code, get_the_ID(), $clone_pages);
     endwhile;
 
 }
@@ -677,42 +684,36 @@ function add_pages_to_site_t($language_code,$clone_pages=FALSE)
             array('post_title' => 'Contact Us', 'menu_order' => '6')
         );
 
-    if($clone_pages == TRUE && $language_code=='nb'){
+    if($clone_pages === TRUE && $language_code=='en'){
         $sitepress->switch_lang('en');
         create_original_page($page_details);
         $sitepress->switch_lang(wpml_get_default_language());
     }
+    else if($clone_pages === FALSE){
+        //Get all English pages of the current site
+        $sitepress->switch_lang('en');
+        $pages = get_pages(array('post_type' => 'page',
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+            'meta_key' => 'impruw_page_template'
+            ));
+        $sitepress->switch_lang(wpml_get_default_language());
 
+       // echo $language_code."<br/>";
+       // echo "<pre>";
+       // print_r($pages);
+       // echo "</pre>";
 
-    //Get all English pages of the current site
-    $sitepress->switch_lang('en');
-    $pages = get_pages(array('post_type' => 'page',
-        'posts_per_page' => -1,
-        'post_status' => 'publish',
-        'meta_key' => 'impruw_page_template'
-    ));
-    $sitepress->switch_lang(wpml_get_default_language());
-
-   // echo $language_code."<br/>";
-   // echo "<pre>";
-   // print_r($pages);
-   // echo "</pre>";
-
-    foreach ($pages as $page) {
-        //check if translated page exists in the given language
-        $page_id = $page->ID;
-        $translated_page_id = icl_object_id($page_id, 'page', false, $language_code);
+        foreach ($pages as $page) {
+            //check if translated page exists in the given language
+            $page_id = $page->ID;
+            $translated_page_id = icl_object_id($page_id, 'page', false, $language_code);
 
             //if translated page does not exist, create the translated version of the page
-        if ($translated_page_id==null) {
-            //echo "<br/>Translated page does not exists.Create translated page<br/>";
-
-            create_translated_page($page, $language_code);
-
+            if ($translated_page_id==null) {
+                create_translated_page($page, $language_code);
+            }
         }
-        // else {
-        //     //echo "<br/>Translated page exists..Dont create page<br/>";
-        // }
 
     }
 
@@ -785,9 +786,10 @@ function create_translated_page($page, $language_code){
         'menu_order' => $page->menu_order,
         'post_type' => 'page');
 
-    // Insert translated post
+    // Insert translated post in language_code
+    $sitepress->switch_lang($language_code);
     $page_translated_id = wp_insert_post($page_arr);
-
+    $sitepress->switch_lang(wpml_get_default_language());
     //echo "<br/>Original Id is = ".$page->ID."  Translated Page id= ".$page_translated_id."   Page name is: ".$post_title;
 
     if ($page->post_title === 'Home')
@@ -808,7 +810,7 @@ function create_translated_page($page, $language_code){
         array(
             'trid' => $trid,
             'language_code' => $language_code,
-            'source_language_code' => $lang_code_original,
+            'source_language_code' => 'en',
             'element_type' => $element_type
         ), array( 'element_id' => $page_translated_id ) );
 }
@@ -844,9 +846,8 @@ function scan_for_strings(){
 
 
 
-function translate_page( $theme_site_id, $language_code, $post_id){
+function translate_page( $theme_site_id, $language_code, $post_id, $clone_first_time = FALSE){
     global $sitepress;
-    //echo "Cloning of page==>".$post_id." from theme with theme site id=".$theme_site_id."<br/>";
 
     //get page template name from page meta 'impruw_page_template'
     $impruw_page_template_name = get_post_meta( $post_id, 'impruw_page_template', true );
@@ -879,7 +880,14 @@ function translate_page( $theme_site_id, $language_code, $post_id){
 
     restore_current_blog();
 
-    $data = set_json_to_site( $data, $language_code );
+    $current_site_id = get_current_blog_id();
+    if($theme_site_id == $current_site_id){
+        $clone_first_time = FALSE ;
+    }
+    else{
+        $clone_first_time = TRUE ;
+    }
+    $data = set_json_to_site( $data, $language_code, $clone_first_time);
 
     //store_unused_elements( $post_id );
     add_page_json( $post_id, $data );
