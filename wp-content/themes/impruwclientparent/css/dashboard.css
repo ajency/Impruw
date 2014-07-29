@@ -364,7 +364,7 @@ a.red-link.pull-right {
   margin-right: 1em;
   border: 1px solid rgba(0, 0, 0, 0.8);
   border-top: 0;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 3px 3px;
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions.affix .action .affix-show {
   display: block;
@@ -3721,7 +3721,7 @@ form .aj-imp-submit:hover {
   margin-bottom: 0;
   border-bottom: 1px solid #aaaaaa;
   padding: 8px 12px 3px;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 .language .form-horizontal,
 .billing-container .form-horizontal {
@@ -3788,6 +3788,16 @@ form .aj-imp-submit:hover {
 }
 .language .pick-language-container .pick-languages .selected-languages .single-language .icon.icon-cancel {
   color: #f21515;
+}
+.language .pick-language-container .pick-languages .add-more-langs {
+  background: transparent;
+  color: #849fb0;
+  padding: 0;
+  margin-bottom: 1em;
+}
+.language .pick-language-container .pick-languages .add-more-langs:hover,
+.language .pick-language-container .pick-languages .add-more-langs:focus {
+  color: #65879c;
 }
 .language .pick-language-container .pick-languages #all-languages {
   padding: 0.5em;
