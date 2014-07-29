@@ -42,8 +42,8 @@ function ajax_read_braintreesubscription() {
 
     $subscription_id = $_REQUEST[ 'subscription_id' ];
 
-    if ( $subscription_id == "ImpruwFree" ) {
-        $subscription_data = getFreeSubscriptionData();
+    if ( $subscription_id == "ImpruwFree" ||  $subscription_id == null ) {
+        $subscription_data = getFreeSubscriptionData( $subscription_id );
     } else {
         $subscription_data = get_subscription_details( $subscription_id );
     }
@@ -61,16 +61,34 @@ add_action( 'wp_ajax_read-braintreesubscription', 'ajax_read_braintreesubscripti
 
 function ajax_read_braintreetransaction() {
 
-    $transaction_id_array = get_transaction_id_for_customer();
+    $collection = Braintree_Transaction::search(array(
+        Braintree_TransactionSearch::customerId()->is('11793184')
+    ));
+    echo '<pre>';
+    print_r($collection);
+//
+//    $a= Braintree_Customer::find('11793184');
+//    echo '<pre>';
+//    print_r($a);
 
-    if ( empty( $transaction_id_array ) )
-        wp_send_json( array( 'code' => 'OK', 'data' => array() ) );
 
-    $transaction_details = get_transaction_details( $transaction_id_array );
+//    $subscription = Braintree_Subscription::find('7gm73r');
+//    echo '<pre>';
+//    print_r($subscription);
 
-    $transaction_data = get_plan_details_for_transaction( $transaction_details );
 
-    wp_send_json( array( 'code' => 'OK', 'data' => $transaction_data ) );
+    //*----------------------------------------*
+
+//    $transaction_id_array = get_transaction_id_for_customer();
+//
+//    if ( empty( $transaction_id_array ) )
+//        wp_send_json( array( 'code' => 'OK', 'data' => array() ) );
+//
+//    $transaction_details = get_transaction_details( $transaction_id_array );
+//
+//    $transaction_data = get_plan_details_for_transaction( $transaction_details );
+//
+//    wp_send_json( array( 'code' => 'OK', 'data' => $transaction_data ) );
 
 }
 

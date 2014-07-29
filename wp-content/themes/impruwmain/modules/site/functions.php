@@ -37,9 +37,6 @@ function create_new_site( $site_name, $user_id ) {
     // set default currency for the site
     set_currency( $site_id );
 
-    //set default subscription for site
-    set_subscription( $site_id );
-
     assign_theme_to_site( $site_id, 'impruwclientparent' );
 
     // add pages to site
@@ -216,13 +213,6 @@ function create_additional_tables( $site_id ) {
 
     $wpdb->query( $query );
 
-    // braintree subscription table
-    $query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}braintree_transaction(
-				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-				transaction_id VARCHAR(30)";
-
-    $wpdb->query( $query );
-
     restore_current_blog();
 }
 
@@ -258,20 +248,6 @@ function set_currency( $site_id ) {
     update_option( 'currency', 'NOK' );
 
     restore_current_blog();
-}
-
-function set_subscription( $site_id ) {
-
-    switch_to_blog( $site_id );
-
-    $site = get_blog_details( $site_id );
-
-    $registered_date = date('M d, Y',strtotime($site->registered));
-
-    update_option( 'subscription-start-date', $registered_date );
-
-    restore_current_blog();
-
 }
 
 /**

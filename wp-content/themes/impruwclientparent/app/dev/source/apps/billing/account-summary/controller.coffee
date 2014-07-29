@@ -18,9 +18,6 @@ define [ 'app', 'controllers/base-controller'
 
                 @listenTo @layout ,"show",=>
 
-                    App.execute "show:purchase:history",
-                        region : @layout.purchaseHistoryRegion
-
                     App.execute "when:fetched",@siteModel,=>
 
                         subscriptionId = @siteModel.get 'braintree_subscription'
@@ -32,6 +29,10 @@ define [ 'app', 'controllers/base-controller'
 
                         App.execute "show:billing:info",
                             region : @layout.billingInfoRegion
+                            braintreeCustomerId : braintreeCustomerId
+
+                        App.execute "show:purchase:history",
+                            region : @layout.purchaseHistoryRegion
                             braintreeCustomerId : braintreeCustomerId
 
 

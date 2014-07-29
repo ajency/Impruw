@@ -6,7 +6,6 @@ define ['app'
         class SingleTranscation extends Marionette.ItemView
             template : '
                             <td>{{date}}</td>
-                            <td>Neon</td>
                             <td>{{plan_name}}</td>
                             <td>{{description}}</td>
                             <td>&pound; {{amount}}</td>'

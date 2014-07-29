@@ -5,6 +5,10 @@ define [ 'app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize : ( opts )->
+                console.log opts
+                console.log 'hiiiii'
+
+
                 transaction = App.request "get:transactions"
 
                 App.execute "when:fetched", transaction, =>
