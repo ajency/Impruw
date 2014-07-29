@@ -12,9 +12,9 @@ define [ 'app'
          className : 'element'
 
          template : '<a href="#" class="drag builder-element">
-                                       										<div class="aj-imp-builder-icon {{icon}}"></div>
-                                           									<div class="aj-imp-builder-title">{{elementName}}</div>
-                                           								</a>'
+                        <div class="aj-imp-builder-icon {{icon}}"></div>
+								<div class="aj-imp-builder-title">{{elementName}}</div>
+							</a>'
 
          serializeData : ->
             data = super()
@@ -95,4 +95,4 @@ define [ 'app'
                revert : 'invalid'
 
          _getHelper : ->
-            '<div style="width: 100px; height: 50px; border: 2px; background-color: pink;"></div> '
+            '<div class="element-helper"></div> '

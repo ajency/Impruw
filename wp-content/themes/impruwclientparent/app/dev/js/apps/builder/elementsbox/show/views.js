@@ -103,7 +103,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
       };
 
       MainView.prototype._getHelper = function() {
-        return '<div style="width: 100px; height: 50px; border: 2px; background-color: pink;"></div> ';
+        return '<div class="element-helper"></div> ';
       };
 
       return MainView;
