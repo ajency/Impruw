@@ -33,6 +33,7 @@
         backboneassociations: 'plugins/backbone.associations',
         jqueryvalidate: 'plugins/jquery.validate',
         polyglot: 'plugins/polyglot',
+        lightbox : 'plugins/lightbox',
         app: 'dashboard-app',
         jpanelmenu: 'plugins/jquery.jpanelmenu.min',
         bootstrapswitch: 'plugins/bootstrap-switch',
