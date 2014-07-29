@@ -2243,9 +2243,8 @@ form {
 	padding: 0;
 	list-style: none;
 	li {
-		width: 30%;
-		margin: 0 1% 1em;
-		float: left;
+		margin: 0 0 1em;
+		border-bottom: 1px solid @preview-grey;
 		.roomsummary {
 			.clearfix;
 			margin: 0 0 1em;
@@ -2282,6 +2281,17 @@ form {
 					&:hover {
 						background: lighten(@orange, 20%);
 					}
+				}
+				.editroom_link {
+					margin-left: 0.5em;
+					background: @blue-grey;
+					&:hover, &:focus {
+						background: darken(@blue-grey, 10%);
+					}
+				}
+				.deleteroom_link {
+					color: @logo-orange;
+					font-size: 0.8em;
 				}
 			}
 		}
