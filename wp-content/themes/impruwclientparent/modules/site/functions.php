@@ -508,27 +508,6 @@ function create_piwik_site( $site_id ) {
     return $tracking_code;
 
 }
-/*
- * Get english page title to set template name
- */
-function get_english_title($title){
-
-    if($title=='Home' || $title=='Hjem'|| $title=='Inicio')
-            $english_title = 'Home';
-    if($title=='About Us' || $title=='Om oss'|| $title=='Quiénes somos')
-            $english_title = 'About Us';
-    if($title=='Rooms' || $title=='Rom' || $title=='Habitaciones')
-            $english_title = 'Rooms';
-    if($title=='Contact Us' || $title=='Kontakt Oss' || $title=='Contáctenos')
-            $english_title = 'Contact us';
-    if($title=='Single Room' || $title=='Enkeltrom' || $title=='Habitación Individual')
-            $english_title = 'Single Room';
-    if($title=='Gallery' || $title=='Galleri' || $title=='Galleria')
-        $english_title = 'Gallery';
-
-    //echo "<br/>English title of ".$title."is ->".$english_title;
-    return $english_title;
-    }
 
 /**
  * Assign the new theme to site
@@ -576,7 +555,16 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
         translate_site($current_site_id, 'nb',$clone_pages);
     }
     else if($clone_pages === FALSE ){
-        translate_site($current_site_id, $current_site_language,$clone_pages);
+        //for each of the enabled languages call translate_site()
+        $current_active_languages = wpml_get_active_languages();
+
+        translate_site($theme_site_id, 'en');
+
+        foreach ($current_active_languages as $language) {
+            if($language['code']!='en')
+                translate_site($current_site_id, $language['code']);
+        }
+        
     }
 }
 
