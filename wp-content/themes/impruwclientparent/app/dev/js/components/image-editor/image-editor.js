@@ -63,26 +63,47 @@ define(['app', 'marionette'], function(App, Marionette) {
       img = $("#image-preview-" + (this.model.get('id')));
       options = Marionette.getOption(this, 'options');
       options.onInit = this._iasInit;
+      this.model.stopListening('change', this.showImageEditor);
       this.model.on('change', this.showImageEditor);
-      return img.load(function() {
-        return _.delay(function() {
-          var iasOptions;
-          iasOptions = window.imageEdit.iasapi.getOptions();
-          iasOptions.parent.children().unbind('mousedown');
-          _.defaults(options, iasOptions);
-          $(img).imgAreaSelect({
-            remove: true
-          });
-          return window.imageEdit.iasapi = $(img).imgAreaSelect(options);
-        }, 200);
-      });
+      return img.load((function(_this) {
+        return function() {
+          return _.delay(function() {
+            var iasOptions;
+            iasOptions = window.imageEdit.iasapi.getOptions();
+            iasOptions.parent.children().unbind('mousedown');
+            _.defaults(options, iasOptions);
+            $(img).imgAreaSelect({
+              remove: true
+            });
+            window.imageEdit.iasapi = $(img).imgAreaSelect(options);
+            return _this._informUser();
+          }, 200);
+        };
+      })(this));
+    };
+
+    ImageEditorView.prototype._informUser = function() {
+      var aspectRatio, assumedMaxWidth, builderBrowserWidth, expectedImageHeight, expectedImageWidth, note, sliderHeight, sliderWidth;
+      builderBrowserWidth = $('#aj-imp-builder-drag-drop').width();
+      assumedMaxWidth = 1600;
+      aspectRatio = window.imageEdit.iasapi.getOptions().aspectRatio;
+      if (!_.isString(aspectRatio)) {
+        return false;
+      }
+      aspectRatio = aspectRatio.split(':');
+      sliderWidth = parseFloat(aspectRatio.shift());
+      sliderHeight = parseFloat(aspectRatio.pop());
+      expectedImageWidth = (assumedMaxWidth * sliderWidth) / builderBrowserWidth;
+      expectedImageHeight = (sliderHeight * expectedImageWidth) / sliderWidth;
+      note = "<b>Expected image width to scale up on all screen sizes is <br /> " + (parseInt(expectedImageWidth)) + " x " + (parseInt(expectedImageHeight)) + "</b>";
+      return this.$el.find("#imgedit-crop-sel-" + (this.model.get('id'))).after(note);
     };
 
     ImageEditorView.prototype._iasInit = function(img) {
       var $img;
       $img = $(img);
       $img.next().css('position', 'absolute').nextAll('.imgareaselect-outer').css('position', 'absolute');
-      return $('.imgedit-settings').hide();
+      return this.$el.find("#imgedit-crop-sel-" + (this.model.get('id'))).prev().hide();
     };
 
     ImageEditorView.prototype.onClose = function() {};

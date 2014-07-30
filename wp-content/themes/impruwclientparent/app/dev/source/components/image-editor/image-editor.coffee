@@ -38,21 +38,42 @@ define ['app', 'marionette'], ( App, Marionette )->
 			img = $ "#image-preview-#{@model.get 'id'}"
 			options = Marionette.getOption @, 'options'
 			options.onInit = @_iasInit
+			@model.stopListening 'change', @showImageEditor
 			@model.on 'change', @showImageEditor
-			img.load ->
-				_.delay ->
+			img.load =>
+				_.delay =>
 					iasOptions = window.imageEdit.iasapi.getOptions()
 					iasOptions.parent.children().unbind 'mousedown'
 					_.defaults options, iasOptions
 					$(img).imgAreaSelect remove :true
 					window.imageEdit.iasapi = $(img).imgAreaSelect options
-
+					@_informUser()
 				, 200
+
+		_informUser : ->
+			builderBrowserWidth = $('#aj-imp-builder-drag-drop').width()
+			assumedMaxWidth = 1600
+
+			aspectRatio = window.imageEdit.iasapi.getOptions().aspectRatio
+
+			if not _.isString aspectRatio
+				return false
+
+			aspectRatio = aspectRatio.split(':')
+			sliderWidth = parseFloat aspectRatio.shift()
+			sliderHeight = parseFloat aspectRatio.pop()
+
+			expectedImageWidth = (assumedMaxWidth * sliderWidth) / builderBrowserWidth
+			expectedImageHeight = (sliderHeight * expectedImageWidth) / sliderWidth
+
+			note = "<b>Expected image width to scale up on all screen sizes is <br /> #{parseInt expectedImageWidth} x #{parseInt expectedImageHeight}</b>"
+			@$el.find("#imgedit-crop-sel-#{@model.get( 'id' )}").after note
+
 
 		_iasInit : (img)=>
 			$img = $( img )
 			$img.next().css( 'position', 'absolute' ).nextAll( '.imgareaselect-outer' ).css( 'position', 'absolute' )
-			$('.imgedit-settings').hide()
+			@$el.find("#imgedit-crop-sel-#{@model.get( 'id' )}").prev().hide()
 
 
 		onClose : ->

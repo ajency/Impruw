@@ -200,9 +200,9 @@ function slider_defaults() {
         'background_dotted_overlay'    => 'none',
         'show_background_image'        => 'false',
         'background_image'             => '',
-        'bg_fit'                       => 'cover',
+        'bg_fit'                       => 'contain',
         'bg_repeat'                    => 'no-repeat',
-        'bg_position'                  => 'center top',
+        'bg_position'                  => 'center center',
         'use_spinner'                  => '0',
         'spinner_color'                => '#FFFFFF',
         'touchenabled'                 => 'on',
@@ -337,7 +337,7 @@ function slide_defaults() {
         "kenburn_effect"      => "off",
         "kb_start_fit"        => "100",
         "kb_end_fit"          => "100",
-        "bg_end_position"     => "center top",
+        "bg_end_position"     => "center center",
         "kb_duration"         => "9000",
         "kb_easing"           => "Linear.easeNone"
     );
