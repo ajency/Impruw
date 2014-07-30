@@ -23,15 +23,14 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
       };
 
       SinglePlanView.prototype.onShow = function() {
-        var activateLink, collectionModelPlanId, newactivateLink, siteModelPlanId;
+        var activateLink, collectionModelPlanId, newactivateLink, siteModelPlanId, siteModelPlanName;
         siteModelPlanId = this.model.get('plan_id');
+        siteModelPlanName = this.model.get('plan_name');
         collectionModelPlanId = Marionette.getOption(this, 'activeBraintreePlanID');
-        console.log(siteModelPlanId);
-        console.log(collectionModelPlanId);
         activateLink = this.$el.find('.activate-link').attr('href');
         newactivateLink = "" + activateLink + "/" + siteModelPlanId;
         this.$el.find('.activate-link').attr('href', newactivateLink);
-        if (siteModelPlanId === collectionModelPlanId) {
+        if (collectionModelPlanId === null && siteModelPlanName === 'Free') {
           this.$el.find('.panel-default').addClass('active');
           this.$el.find('.activate-link').text('Active Plan');
           return this.$el.find('.activate-link').attr('href', 'javascript:void(0)');
@@ -57,7 +56,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
       PlansView.prototype.itemViewOptions = function() {
         return {
           currency: this.model.get('currency'),
-          activeBraintreePlanID: this.model.get('braintree_plan_id')
+          activeBraintreePlanID: this.model.get('braintree_subscription')
         };
       };
 

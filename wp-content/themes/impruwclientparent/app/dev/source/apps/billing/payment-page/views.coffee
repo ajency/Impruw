@@ -7,6 +7,7 @@ define [ 'app'
 
             regions :
                 selectedPlanRegion : '#selected-plan'
+                activeSubscriptionRegion : '#active-sub-region'
 
 
             onShow : ->
@@ -59,11 +60,26 @@ define [ 'app'
                                             <h3 class="panel-title price">${{price}}</h3>
                                         </div>
                                         <ul class="list-group">
-                                            <li class="list-group-item">{{description}}</li>
-
                                             <li class="list-group-item"><span class="ribbon">Chosen Plan</span></li>
                                         </ul>'
 
             className : 'panel panel-default text-center active'
+
+        class View.ActiveSubscriptionView extends Marionette.ItemView
+
+            template : '<div class="col-sm-6 left">
+                                <h6 class="aj-imp-sub-head">
+                                    <small>{{#polyglot}}Active Plan: {{/polyglot}}</small>
+                                    {{plan_name}}
+                                </h6>
+                            </div>
+                            <div class="col-sm-6 right">
+                                <h6 class="aj-imp-sub-head">
+                                    <small>{{#polyglot}}Active Since: {{/polyglot}}</small>
+                                    {{start_date}}
+                                </h6>
+                            </div>'
+
+            className : 'aj-imp-widget-head row'
 
 

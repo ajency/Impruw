@@ -19,6 +19,11 @@ define [ 'app', 'controllers/base-controller'
                     App.execute "when:fetched", @selectedPlanModel, =>
                         @layout.selectedPlanRegion.show @selectedPlan @selectedPlanModel
 
+                    subscriptionId = @siteModel.get 'braintree_subscription'
+                    subscriptionModel = App.request "get:subscription:by:id", subscriptionId
+                    App.execute "when:fetched", subscriptionModel, =>
+                        @layout.activeSubscriptionRegion.show @activeSubscription subscriptionModel
+
                 @listenTo @layout, "credit:card:payment", @userPayment
 
 
@@ -53,6 +58,10 @@ define [ 'app', 'controllers/base-controller'
             selectedPlan : ( selectedPlanModel ) ->
                 new Payment.View.SelectedPlanView
                     model : selectedPlanModel
+
+            activeSubscription : ( subscriptionModel ) ->
+                new Payment.View.ActiveSubscriptionView
+                    model : subscriptionModel
 
 
         App.commands.setHandler "show:payment:app", ( opts ) ->

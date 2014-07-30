@@ -19,9 +19,15 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
+            var subscriptionId, subscriptionModel;
             _this.selectedPlanModel = App.request("get:plan:by:id", _this.selectedPlanId);
-            return App.execute("when:fetched", _this.selectedPlanModel, function() {
+            App.execute("when:fetched", _this.selectedPlanModel, function() {
               return _this.layout.selectedPlanRegion.show(_this.selectedPlan(_this.selectedPlanModel));
+            });
+            subscriptionId = _this.siteModel.get('braintree_subscription');
+            subscriptionModel = App.request("get:subscription:by:id", subscriptionId);
+            return App.execute("when:fetched", subscriptionModel, function() {
+              return _this.layout.activeSubscriptionRegion.show(_this.activeSubscription(subscriptionModel));
             });
           };
         })(this));
@@ -62,6 +68,12 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
       Controller.prototype.selectedPlan = function(selectedPlanModel) {
         return new Payment.View.SelectedPlanView({
           model: selectedPlanModel
+        });
+      };
+
+      Controller.prototype.activeSubscription = function(subscriptionModel) {
+        return new Payment.View.ActiveSubscriptionView({
+          model: subscriptionModel
         });
       };
 

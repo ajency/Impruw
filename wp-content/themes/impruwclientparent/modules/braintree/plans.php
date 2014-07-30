@@ -45,7 +45,9 @@ function get_plan_by_id( $plan_id ) {
             $braintree_plan[ 'plan_name' ] = $plan->name;
             $braintree_plan[ 'description' ] = $plan->description;
             $braintree_plan[ 'price' ] = $plan->price;
+            break;
         }
+
     }
     return $braintree_plan;
 }

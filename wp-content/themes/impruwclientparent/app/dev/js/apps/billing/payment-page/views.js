@@ -13,7 +13,8 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html'], function(A
       Layout.prototype.template = viewTpl;
 
       Layout.prototype.regions = {
-        selectedPlanRegion: '#selected-plan'
+        selectedPlanRegion: '#selected-plan',
+        activeSubscriptionRegion: '#active-sub-region'
       };
 
       Layout.prototype.onShow = function() {
@@ -71,18 +72,32 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html'], function(A
       return Layout;
 
     })(Marionette.Layout);
-    return View.SelectedPlanView = (function(_super) {
+    View.SelectedPlanView = (function(_super) {
       __extends(SelectedPlanView, _super);
 
       function SelectedPlanView() {
         return SelectedPlanView.__super__.constructor.apply(this, arguments);
       }
 
-      SelectedPlanView.prototype.template = '<div class="panel-heading"> <h3>{{plan_name}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">${{price}}</h3> </div> <ul class="list-group"> <li class="list-group-item">{{description}}</li> <li class="list-group-item"><span class="ribbon">Chosen Plan</span></li> </ul>';
+      SelectedPlanView.prototype.template = '<div class="panel-heading"> <h3>{{plan_name}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">${{price}}</h3> </div> <ul class="list-group"> <li class="list-group-item"><span class="ribbon">Chosen Plan</span></li> </ul>';
 
       SelectedPlanView.prototype.className = 'panel panel-default text-center active';
 
       return SelectedPlanView;
+
+    })(Marionette.ItemView);
+    return View.ActiveSubscriptionView = (function(_super) {
+      __extends(ActiveSubscriptionView, _super);
+
+      function ActiveSubscriptionView() {
+        return ActiveSubscriptionView.__super__.constructor.apply(this, arguments);
+      }
+
+      ActiveSubscriptionView.prototype.template = '<div class="col-sm-6 left"> <h6 class="aj-imp-sub-head"> <small>{{#polyglot}}Active Plan: {{/polyglot}}</small> {{plan_name}} </h6> </div> <div class="col-sm-6 right"> <h6 class="aj-imp-sub-head"> <small>{{#polyglot}}Active Since: {{/polyglot}}</small> {{start_date}} </h6> </div>';
+
+      ActiveSubscriptionView.prototype.className = 'aj-imp-widget-head row';
+
+      return ActiveSubscriptionView;
 
     })(Marionette.ItemView);
   });

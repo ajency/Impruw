@@ -11,7 +11,9 @@ define ['app'
                             <td>&pound; {{amount}}</td>'
             tagName : 'tr'
 
+        class View.EmptyView extends Marionette.ItemView
 
+            template: '<td>No transaction history found</td>'
 
         class View.Transaction extends Marionette.CompositeView
 

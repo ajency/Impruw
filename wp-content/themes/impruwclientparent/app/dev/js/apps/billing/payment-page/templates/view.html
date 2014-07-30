@@ -1,7 +1,7 @@
 <header class="aj-imp-dash-header row">
     <div class="aj-imp-dash-title col-sm-12">
         <h2 class="aj-imp-page-head">
-            {{#polyglot}}Billing{{/polyglot}}
+            {{#polyglot}}Payment Page{{/polyglot}}
         </h2>
     </div>
 </header>
@@ -10,12 +10,7 @@
         <div class="alert alert-success" id="billingsave_status"></div>
         <div class="billing-container">
             <div class="aj-imp-dash-widget">
-                <ul class="nav nav-pills">
-                    <li><a href="#/billing/purchase-history">{{#polyglot}}Purchase History{{/polyglot}}</a></li>
-                    <li><a href="#/billing/billing-info">{{#polyglot}}Billing Info{{/polyglot}}</a></li>
-                    <li><a href="#/billing/pricing-plans">{{#polyglot}}Pricing Plans{{/polyglot}}</a></li>
-                    <li class="active"><a href="javascript:void(0)">{{#polyglot}}Payment Page{{/polyglot}}</a></li>
-                </ul>
+
                 <div class="aj-imp-widget-container panel panel-default">
                     <div class="panel-body">
                         <div class="aj-imp-widget-content">
@@ -24,38 +19,11 @@
 
                                     <h6 class="aj-imp-sub-head">{{#polyglot}}Payment Page{{/polyglot}}</h6>
 
-                                    <div class="aj-imp-widget-head row">
-                                        <div class="col-sm-6 left">
-                                            <h6 class="aj-imp-sub-head">
-                                                <small>{{#polyglot}}Active Plan: {{/polyglot}}</small>
-                                                {{braintree_plan_name}}
-                                            </h6>
-                                        </div>
-                                        <div class="col-sm-6 right">
-                                            <h6 class="aj-imp-sub-head">
-                                                <small>{{#polyglot}}Active Since: {{/polyglot}}</small>
-                                                {{subscription_start_date}}
-                                            </h6>
-                                        </div>
-                                    </div>
+                                    <div id="active-sub-region"></div>
 
                                     <div class="row">
 
                                         <div class="col-sm-8">
-
-                                            <h6 class="aj-imp-widget-title">How do you want to pay?</h6>
-
-                                            <div class="row payment-gateways">
-                                                <div class="col-sm-6">
-                                                    <h5 class="aj-imp-sub-head-thin"><a href="#">Pay with Google
-                                                        Wallet</a></h5>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <h5 class="aj-imp-sub-head-thin"><a href="#">Pay with PayPal</a>
-                                                    </h5>
-                                                </div>
-                                            </div>
-                                            <hr>
                                             <h6 class="aj-imp-widget-title">Card Details</h6>
 
                                             <form class="form-horizontal" id="checkout">
@@ -64,7 +32,7 @@
 
                                                     <div class="col-sm-8 col-sm-offset-3">
                                                         <input type="text" class="form-control" id="card_name"
-                                                         placeholder="Name on the Card" data-braintree-name="name">
+                                                         placeholder="Name on the Card" data-braintree-name="cardholderName">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">

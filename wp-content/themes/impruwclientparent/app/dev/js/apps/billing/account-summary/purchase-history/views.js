@@ -18,6 +18,18 @@ define(['app', 'text!apps/billing/account-summary/templates/purchaseHistory.html
       return SingleTranscation;
 
     })(Marionette.ItemView);
+    View.EmptyView = (function(_super) {
+      __extends(EmptyView, _super);
+
+      function EmptyView() {
+        return EmptyView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyView.prototype.template = '<td>No transaction history found</td>';
+
+      return EmptyView;
+
+    })(Marionette.ItemView);
     return View.Transaction = (function(_super) {
       __extends(Transaction, _super);
 

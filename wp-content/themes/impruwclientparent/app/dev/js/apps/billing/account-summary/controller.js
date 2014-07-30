@@ -13,12 +13,10 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
       Controller.prototype.initialize = function(opts) {
         this.layout = this.getLayout();
         this.siteModel = App.request("get:site:model");
+        console.log(this.siteModel);
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
-            App.execute("show:purchase:history", {
-              region: _this.layout.purchaseHistoryRegion
-            });
             return App.execute("when:fetched", _this.siteModel, function() {
               var braintreeCustomerId, subscriptionId;
               subscriptionId = _this.siteModel.get('braintree_subscription');
@@ -27,8 +25,12 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
                 region: _this.layout.accountInfoRegion,
                 subscriptionId: subscriptionId
               });
-              return App.execute("show:billing:info", {
+              App.execute("show:billing:info", {
                 region: _this.layout.billingInfoRegion,
+                braintreeCustomerId: braintreeCustomerId
+              });
+              return App.execute("show:purchase:history", {
+                region: _this.layout.purchaseHistoryRegion,
                 braintreeCustomerId: braintreeCustomerId
               });
             });

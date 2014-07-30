@@ -5,26 +5,32 @@ define [ 'app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize : ( opts )->
-                console.log opts
-                console.log 'hiiiii'
+
+                brainTreeCustomerId = opts.braintreeCustomerId
+
+                if _.isEmpty brainTreeCustomerId
+                    @view = @getEmptyView()
 
 
-                transaction = App.request "get:transactions"
+#                transaction = App.request "get:transactions"
+#
+#                App.execute "when:fetched", transaction, =>
+#                    @view = @getView transaction
+#
+#                    # trigger set:active:menu event
+#                    App.vent.trigger "set:active:menu", 'billing'
+#
+#                    # show main layout
+                @show @view
+#
+#
+#            # get layout
+#            getView : ( transaction ) ->
+#                new PurchaseHistory.View.Transaction
+#                    collection : transaction
 
-                App.execute "when:fetched", transaction, =>
-                    @view = @getView transaction
-
-                    # trigger set:active:menu event
-                    App.vent.trigger "set:active:menu", 'billing'
-
-                    # show main layout
-                    @show @view
-
-
-            # get layout
-            getView : ( transaction ) ->
-                new PurchaseHistory.View.Transaction
-                    collection : transaction
+            getEmptyView :->
+                new PurchaseHistory.View.EmptyView
 
         App.commands.setHandler "show:purchase:history", ( opts ) ->
             new PurchaseHistory.Controller opts
