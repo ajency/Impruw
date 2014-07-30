@@ -668,6 +668,18 @@ function add_pages_to_site_t($language_code,$clone_pages=FALSE)
 {
     global $sitepress;
 
+    //Get all English pages of the current site if they exist
+    $sitepress->switch_lang('en');
+    $current_english_pages = get_pages( array( 'post_type' => 'page',
+        'posts_per_page' => -1,
+        'post_status' => 'publish',
+        'meta_key' => 'impruw_page_template'
+    ) );
+    $sitepress->switch_lang(wpml_get_default_language());
+
+    //Get the page count
+    $current_page_count = count($current_english_pages);
+
     //Page details for the English language
     $page_details = array(
             array('post_title' => 'Home', 'menu_order' => '1'),
@@ -680,9 +692,13 @@ function add_pages_to_site_t($language_code,$clone_pages=FALSE)
 
     if($clone_pages === TRUE && $language_code=='en'){
         //echo "<br/>Create English pages first in case of 1st time cloning<br/>";
-        $sitepress->switch_lang('en');
-        create_original_page($page_details);
-        $sitepress->switch_lang(wpml_get_default_language());
+        if($current_page_count==0){
+            $sitepress->switch_lang('en');
+                create_original_page($page_details);
+                add_menus_to_site();
+            $sitepress->switch_lang(wpml_get_default_language());
+        }
+
     }
     else if($clone_pages === FALSE){
         //echo "<br/>Create Translated pages of English pages in case of 2nd time cloning<br/>";
@@ -743,8 +759,6 @@ function create_original_page($pages){
         $template_name = $page['post_title'];
         $template = sanitize_title($template_name);
         update_post_meta($created_page_id, 'impruw_page_template', $template);
-
-        add_menus_to_site();
 
     }
 }
@@ -879,7 +893,7 @@ function translate_page( $theme_site_id, $language_code, $post_id){
 
     $data = set_json_to_site( $data, $language_code, $clone_first_time);
     
-    // //store_unused_elements( $post_id );
+    //store_unused_elements( $post_id );
     add_page_json( $post_id, $data );
 
     delete_all_revisions( $post_id );
