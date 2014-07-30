@@ -21,6 +21,7 @@ define ['app', 'marionette'], ( App, Marionette )->
 												# (even if we're in a position:fixed modal)
 												$img = $(img)
 												$img.next().css("position", "absolute").nextAll(".imgareaselect-outer").css "position", "absolute"
+												t._view.$el.find("#imgedit-crop-sel-#{postid}").prev().hide()
 												t._view._informUser()
 													
 											onSelectStart: ->

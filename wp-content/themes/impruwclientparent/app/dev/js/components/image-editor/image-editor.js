@@ -22,6 +22,7 @@ define(['app', 'marionette'], function(App, Marionette) {
       onInit: function(img) {
         $img = $(img);
         $img.next().css("position", "absolute").nextAll(".imgareaselect-outer").css("position", "absolute");
+        t._view.$el.find("#imgedit-crop-sel-" + postid).prev().hide();
         return t._view._informUser();
       },
       onSelectStart: function() {
