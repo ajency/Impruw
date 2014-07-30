@@ -3070,10 +3070,14 @@ and open the template in the editor.
 }
 /**** Login Form Styles ****/
 .aj-imp-login-form {
-  width: 50%;
-  margin: 3em auto;
-  padding: 1em;
+  width: 100%;
+  margin: auto;
+  padding: 3em 1em;
   color: #282827;
+  max-width: 960px;
+  background: #ffffff;
+  border-left: 1px solid #282827;
+  border-right: 1px solid #282827;
 }
 .aj-imp-login-form .aj-imp-login-header {
   border-bottom: 1px solid #282827;
