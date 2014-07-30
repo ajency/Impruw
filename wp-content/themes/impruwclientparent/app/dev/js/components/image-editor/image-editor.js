@@ -92,8 +92,13 @@ define(['app', 'marionette'], function(App, Marionette) {
     };
 
     ImageEditorView.prototype.showImageEditor = function() {
+      this.render();
       this.$el.attr('id', "image-editor-" + (this.model.get('id')));
-      return window.imageEdit.open(this.model.get('id'), this.model.get('nonces').edit, this);
+      return _.delay((function(_this) {
+        return function() {
+          return window.imageEdit.open(_this.model.get('id'), _this.model.get('nonces').edit, _this);
+        };
+      })(this), 400);
     };
 
     ImageEditorView.prototype._informUser = function() {

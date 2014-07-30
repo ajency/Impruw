@@ -206,7 +206,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlidesListView.prototype.onShowEditImage = function(editView) {
         this.$el.find('.slides-list').hide();
-        this.$el.find('.edit-image-view').html(editView.render().$el).show();
+        this.$el.find('.edit-image-view').html(editView.$el).show();
         return editView.triggerMethod('show');
       };
 

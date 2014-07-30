@@ -171,7 +171,7 @@ define ['app'
 
             onShowEditImage : (editView)->
                 @$el.find( '.slides-list' ).hide()
-                @$el.find( '.edit-image-view' ).html( editView.render().$el ).show()
+                @$el.find( '.edit-image-view' ).html( editView.$el ).show()
                 editView.triggerMethod 'show'
 
             onImageEditingCancelled : ->

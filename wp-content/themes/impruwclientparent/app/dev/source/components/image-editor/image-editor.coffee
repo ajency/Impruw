@@ -70,9 +70,12 @@ define ['app', 'marionette'], ( App, Marionette )->
 			@model.fetch()
 
 		showImageEditor : =>
-			
+			@render()
 			@$el.attr 'id', "image-editor-#{@model.get( 'id' )}"
-			window.imageEdit.open @model.get( 'id' ), @model.get( 'nonces' ).edit, @
+			
+			_.delay =>
+				window.imageEdit.open @model.get( 'id' ), @model.get( 'nonces' ).edit, @
+			, 400
 
 
 		_informUser : ->
