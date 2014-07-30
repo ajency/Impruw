@@ -6,37 +6,36 @@ define ['app', 'marionette'], ( App, Marionette )->
 			selW = $("#imgedit-sel-width-" + postid)
 			selH = $("#imgedit-sel-height-" + postid)
 			$img = undefined
-			console.log "Dsdsds"
 			t.iasapi = $(image).imgAreaSelect
-											aspectRatio : App.currentImageRatio
-											parent: parent
-											instance: true
-											handles: true
-											keys: true
-											minWidth: 3
-											minHeight: 3
-											onInit: (img) ->
-												
-												# Ensure that the imgareaselect wrapper elements are position:absolute
-												# (even if we're in a position:fixed modal)
-												$img = $(img)
-												$img.next().css("position", "absolute").nextAll(".imgareaselect-outer").css "position", "absolute"
-												t._view.$el.find("#imgedit-crop-sel-#{postid}").prev().hide()
-												t._view._informUser()
-													
-											onSelectStart: ->
-												imageEdit.setDisabled $("#imgedit-crop-sel-" + postid), 1
-												return
+							aspectRatio : App.currentImageRatio
+							parent: parent
+							instance: true
+							handles: true
+							keys: true
+							minWidth: 3
+							minHeight: 3
+							onInit: (img) ->
+								
+								# Ensure that the imgareaselect wrapper elements are position:absolute
+								# (even if we're in a position:fixed modal)
+								$img = $(img)
+								$img.next().css("position", "absolute").nextAll(".imgareaselect-outer").css "position", "absolute"
+								t._view.$el.find("#imgedit-crop-sel-#{postid}").prev().hide()
+								t._view._informUser()
+									
+							onSelectStart: ->
+								imageEdit.setDisabled $("#imgedit-crop-sel-" + postid), 1
+								return
 
-											onSelectEnd: (img, c) ->
-												imageEdit.setCropSelection postid, c
-												return
+							onSelectEnd: (img, c) ->
+								imageEdit.setCropSelection postid, c
+								return
 
-											onSelectChange: (img, c) ->
-												sizer = imageEdit.hold.sizer
-												selW.val imageEdit.round(c.width / sizer)
-												selH.val imageEdit.round(c.height / sizer)
-												return
+							onSelectChange: (img, c) ->
+								sizer = imageEdit.hold.sizer
+								selW.val imageEdit.round(c.width / sizer)
+								selH.val imageEdit.round(c.height / sizer)
+								return
 			  
 
 
@@ -63,7 +62,9 @@ define ['app', 'marionette'], ( App, Marionette )->
 			@close()
 
 		save : ->
-			@model.fetch()
+			@model.fetch 
+					success : (model)=>
+						window.imageEdit.open model.get( 'id' ), model.get( 'nonces' ).edit, @
 
 		refresh : ->
 			@model.fetch()
@@ -72,24 +73,7 @@ define ['app', 'marionette'], ( App, Marionette )->
 			
 			@$el.attr 'id', "image-editor-#{@model.get( 'id' )}"
 			window.imageEdit.open @model.get( 'id' ), @model.get( 'nonces' ).edit, @
-			#_.delay @_addConstraints, 400
 
-		_addConstraints : =>
-			img = $ "#image-preview-#{@model.get 'id'}"
-			options = Marionette.getOption @, 'options'
-			options.onInit = @_iasInit
-			@model.stopListening 'change', @showImageEditor
-			@model.on 'change', @showImageEditor
-			
-			img.load =>
-			_.delay =>
-				iasOptions = window.imageEdit.iasapi.getOptions()
-				iasOptions.parent.children().unbind 'mousedown'
-				_.defaults options, iasOptions
-				$(img).imgAreaSelect remove :true
-				window.imageEdit.iasapi = $(img).imgAreaSelect options
-				
-			, 2000
 
 		_informUser : ->
 			builderBrowserWidth = $('#aj-imp-builder-drag-drop').width()
@@ -107,19 +91,16 @@ define ['app', 'marionette'], ( App, Marionette )->
 			expectedImageWidth = (assumedMaxWidth * sliderWidth) / builderBrowserWidth
 			expectedImageHeight = (sliderHeight * expectedImageWidth) / sliderWidth
 
-			note = "<b>Expected image width to scale up on all screen sizes is <br /> #{parseInt expectedImageWidth} x #{parseInt expectedImageHeight}</b>"
-			@$el.find("#imgedit-crop-sel-#{@model.get( 'id' )}").after note
+			note = "<p class='note'><b>Expected image width to scale up on all screen sizes is <br /> #{parseInt expectedImageWidth} x #{parseInt expectedImageHeight}</b></p>"
+			ele = @$el.find("#imgedit-crop-sel-#{@model.get( 'id' )}")
+			ele.next('.note').remove()
+			ele.after note
 
 
 		_iasInit : (img)=>
 			$img = $( img )
 			$img.next().css( 'position', 'absolute' ).nextAll( '.imgareaselect-outer' ).css( 'position', 'absolute' )
 			@$el.find("#imgedit-crop-sel-#{@model.get( 'id' )}").prev().hide()
-
-
-		onClose : ->
-			# img = $ "#image-preview-#{@model.get 'id'}"
-			# $(img).imgAreaSelect remove :true
 
 
 	imageCropView = ( mediaId = 0, options = {} )->

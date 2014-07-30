@@ -10,7 +10,6 @@ define(['app', 'marionette'], function(App, Marionette) {
     selW = $("#imgedit-sel-width-" + postid);
     selH = $("#imgedit-sel-height-" + postid);
     $img = void 0;
-    console.log("Dsdsds");
     return t.iasapi = $(image).imgAreaSelect({
       aspectRatio: App.currentImageRatio,
       parent: parent,
@@ -56,7 +55,6 @@ define(['app', 'marionette'], function(App, Marionette) {
 
     function ImageEditorView() {
       this._iasInit = __bind(this._iasInit, this);
-      this._addConstraints = __bind(this._addConstraints, this);
       this.showImageEditor = __bind(this.showImageEditor, this);
       return ImageEditorView.__super__.constructor.apply(this, arguments);
     }
@@ -80,7 +78,13 @@ define(['app', 'marionette'], function(App, Marionette) {
     };
 
     ImageEditorView.prototype.save = function() {
-      return this.model.fetch();
+      return this.model.fetch({
+        success: (function(_this) {
+          return function(model) {
+            return window.imageEdit.open(model.get('id'), model.get('nonces').edit, _this);
+          };
+        })(this)
+      });
     };
 
     ImageEditorView.prototype.refresh = function() {
@@ -92,32 +96,8 @@ define(['app', 'marionette'], function(App, Marionette) {
       return window.imageEdit.open(this.model.get('id'), this.model.get('nonces').edit, this);
     };
 
-    ImageEditorView.prototype._addConstraints = function() {
-      var img, options;
-      img = $("#image-preview-" + (this.model.get('id')));
-      options = Marionette.getOption(this, 'options');
-      options.onInit = this._iasInit;
-      this.model.stopListening('change', this.showImageEditor);
-      this.model.on('change', this.showImageEditor);
-      img.load((function(_this) {
-        return function() {};
-      })(this));
-      return _.delay((function(_this) {
-        return function() {
-          var iasOptions;
-          iasOptions = window.imageEdit.iasapi.getOptions();
-          iasOptions.parent.children().unbind('mousedown');
-          _.defaults(options, iasOptions);
-          $(img).imgAreaSelect({
-            remove: true
-          });
-          return window.imageEdit.iasapi = $(img).imgAreaSelect(options);
-        };
-      })(this), 2000);
-    };
-
     ImageEditorView.prototype._informUser = function() {
-      var aspectRatio, assumedMaxWidth, builderBrowserWidth, expectedImageHeight, expectedImageWidth, note, sliderHeight, sliderWidth;
+      var aspectRatio, assumedMaxWidth, builderBrowserWidth, ele, expectedImageHeight, expectedImageWidth, note, sliderHeight, sliderWidth;
       builderBrowserWidth = $('#aj-imp-builder-drag-drop').width();
       assumedMaxWidth = 1600;
       aspectRatio = window.imageEdit.iasapi.getOptions().aspectRatio;
@@ -129,8 +109,10 @@ define(['app', 'marionette'], function(App, Marionette) {
       sliderHeight = parseFloat(aspectRatio.pop());
       expectedImageWidth = (assumedMaxWidth * sliderWidth) / builderBrowserWidth;
       expectedImageHeight = (sliderHeight * expectedImageWidth) / sliderWidth;
-      note = "<b>Expected image width to scale up on all screen sizes is <br /> " + (parseInt(expectedImageWidth)) + " x " + (parseInt(expectedImageHeight)) + "</b>";
-      return this.$el.find("#imgedit-crop-sel-" + (this.model.get('id'))).after(note);
+      note = "<p class='note'><b>Expected image width to scale up on all screen sizes is <br /> " + (parseInt(expectedImageWidth)) + " x " + (parseInt(expectedImageHeight)) + "</b></p>";
+      ele = this.$el.find("#imgedit-crop-sel-" + (this.model.get('id')));
+      ele.next('.note').remove();
+      return ele.after(note);
     };
 
     ImageEditorView.prototype._iasInit = function(img) {
@@ -139,8 +121,6 @@ define(['app', 'marionette'], function(App, Marionette) {
       $img.next().css('position', 'absolute').nextAll('.imgareaselect-outer').css('position', 'absolute');
       return this.$el.find("#imgedit-crop-sel-" + (this.model.get('id'))).prev().hide();
     };
-
-    ImageEditorView.prototype.onClose = function() {};
 
     return ImageEditorView;
 
