@@ -1,5 +1,43 @@
 define ['app', 'marionette'], ( App, Marionette )->
 
+	# overridden function of worpress imageEdit.initCrop
+	window.imageEdit.initCrop = (postid, image, parent) ->
+			t = this
+			selW = $("#imgedit-sel-width-" + postid)
+			selH = $("#imgedit-sel-height-" + postid)
+			$img = undefined
+			console.log "Dsdsds"
+			t.iasapi = $(image).imgAreaSelect
+											aspectRatio : App.currentImageRatio
+											parent: parent
+											instance: true
+											handles: true
+											keys: true
+											minWidth: 3
+											minHeight: 3
+											onInit: (img) ->
+												
+												# Ensure that the imgareaselect wrapper elements are position:absolute
+												# (even if we're in a position:fixed modal)
+												$img = $(img)
+												$img.next().css("position", "absolute").nextAll(".imgareaselect-outer").css "position", "absolute"
+												t._view._informUser()
+													
+											onSelectStart: ->
+												imageEdit.setDisabled $("#imgedit-crop-sel-" + postid), 1
+												return
+
+											onSelectEnd: (img, c) ->
+												imageEdit.setCropSelection postid, c
+												return
+
+											onSelectChange: (img, c) ->
+												sizer = imageEdit.hold.sizer
+												selW.val imageEdit.round(c.width / sizer)
+												selH.val imageEdit.round(c.height / sizer)
+												return
+			  
+
 
 	class InvalidMediaView extends Marionette.ItemView
 		template : 'Invalid media argument passed'
@@ -30,9 +68,10 @@ define ['app', 'marionette'], ( App, Marionette )->
 			@model.fetch()
 
 		showImageEditor : =>
+			
 			@$el.attr 'id', "image-editor-#{@model.get( 'id' )}"
 			window.imageEdit.open @model.get( 'id' ), @model.get( 'nonces' ).edit, @
-			_.delay @_addConstraints, 400
+			#_.delay @_addConstraints, 400
 
 		_addConstraints : =>
 			img = $ "#image-preview-#{@model.get 'id'}"
@@ -40,15 +79,16 @@ define ['app', 'marionette'], ( App, Marionette )->
 			options.onInit = @_iasInit
 			@model.stopListening 'change', @showImageEditor
 			@model.on 'change', @showImageEditor
+			
 			img.load =>
-				_.delay =>
-					iasOptions = window.imageEdit.iasapi.getOptions()
-					iasOptions.parent.children().unbind 'mousedown'
-					_.defaults options, iasOptions
-					$(img).imgAreaSelect remove :true
-					window.imageEdit.iasapi = $(img).imgAreaSelect options
-					@_informUser()
-				, 200
+			_.delay =>
+				iasOptions = window.imageEdit.iasapi.getOptions()
+				iasOptions.parent.children().unbind 'mousedown'
+				_.defaults options, iasOptions
+				$(img).imgAreaSelect remove :true
+				window.imageEdit.iasapi = $(img).imgAreaSelect options
+				
+			, 2000
 
 		_informUser : ->
 			builderBrowserWidth = $('#aj-imp-builder-drag-drop').width()

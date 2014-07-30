@@ -81,7 +81,7 @@ define ['app'], (App)->
                         
 
                     start:(evt,ui)=>
-                        @$el.resizable( "option", "maxHeight", @$el.find('img').height() )
+                        #@$el.resizable( "option", "maxHeight", @$el.find('img').height() )
 
 
 

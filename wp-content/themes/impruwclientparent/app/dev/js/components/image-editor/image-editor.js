@@ -4,6 +4,40 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'marionette'], function(App, Marionette) {
   var ImageEditorView, InvalidMediaView, imageCropView;
+  window.imageEdit.initCrop = function(postid, image, parent) {
+    var $img, selH, selW, t;
+    t = this;
+    selW = $("#imgedit-sel-width-" + postid);
+    selH = $("#imgedit-sel-height-" + postid);
+    $img = void 0;
+    console.log("Dsdsds");
+    return t.iasapi = $(image).imgAreaSelect({
+      aspectRatio: App.currentImageRatio,
+      parent: parent,
+      instance: true,
+      handles: true,
+      keys: true,
+      minWidth: 3,
+      minHeight: 3,
+      onInit: function(img) {
+        $img = $(img);
+        $img.next().css("position", "absolute").nextAll(".imgareaselect-outer").css("position", "absolute");
+        return t._view._informUser();
+      },
+      onSelectStart: function() {
+        imageEdit.setDisabled($("#imgedit-crop-sel-" + postid), 1);
+      },
+      onSelectEnd: function(img, c) {
+        imageEdit.setCropSelection(postid, c);
+      },
+      onSelectChange: function(img, c) {
+        var sizer;
+        sizer = imageEdit.hold.sizer;
+        selW.val(imageEdit.round(c.width / sizer));
+        selH.val(imageEdit.round(c.height / sizer));
+      }
+    });
+  };
   InvalidMediaView = (function(_super) {
     __extends(InvalidMediaView, _super);
 
@@ -54,8 +88,7 @@ define(['app', 'marionette'], function(App, Marionette) {
 
     ImageEditorView.prototype.showImageEditor = function() {
       this.$el.attr('id', "image-editor-" + (this.model.get('id')));
-      window.imageEdit.open(this.model.get('id'), this.model.get('nonces').edit, this);
-      return _.delay(this._addConstraints, 400);
+      return window.imageEdit.open(this.model.get('id'), this.model.get('nonces').edit, this);
     };
 
     ImageEditorView.prototype._addConstraints = function() {
@@ -65,21 +98,21 @@ define(['app', 'marionette'], function(App, Marionette) {
       options.onInit = this._iasInit;
       this.model.stopListening('change', this.showImageEditor);
       this.model.on('change', this.showImageEditor);
-      return img.load((function(_this) {
-        return function() {
-          return _.delay(function() {
-            var iasOptions;
-            iasOptions = window.imageEdit.iasapi.getOptions();
-            iasOptions.parent.children().unbind('mousedown');
-            _.defaults(options, iasOptions);
-            $(img).imgAreaSelect({
-              remove: true
-            });
-            window.imageEdit.iasapi = $(img).imgAreaSelect(options);
-            return _this._informUser();
-          }, 200);
-        };
+      img.load((function(_this) {
+        return function() {};
       })(this));
+      return _.delay((function(_this) {
+        return function() {
+          var iasOptions;
+          iasOptions = window.imageEdit.iasapi.getOptions();
+          iasOptions.parent.children().unbind('mousedown');
+          _.defaults(options, iasOptions);
+          $(img).imgAreaSelect({
+            remove: true
+          });
+          return window.imageEdit.iasapi = $(img).imgAreaSelect(options);
+        };
+      })(this), 2000);
     };
 
     ImageEditorView.prototype._informUser = function() {

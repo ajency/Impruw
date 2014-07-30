@@ -77,9 +77,7 @@ define(['app'], function(App) {
             };
           })(this),
           start: (function(_this) {
-            return function(evt, ui) {
-              return _this.$el.resizable("option", "maxHeight", _this.$el.find('img').height());
-            };
+            return function(evt, ui) {};
           })(this)
         });
         this.$el.find('img').draggable({
