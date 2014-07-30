@@ -553,17 +553,19 @@ function add_page_to_menu( $page_id ) {
 
 function translate_element(&$element, $language_code){
     global $sitepress;
-    
     //Remove html tags if any
     $english_content = strip_tags($element['content']['en']);
-
+        
     $sitepress->switch_lang($language_code);
-        $element['content'][$language_code] = __($english_content,'impruwclientparent');
+        load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
+        $translated_content = __($english_content,'impruwclientparent');
     $sitepress->switch_lang(wpml_get_default_language());
 
-    // if( ($translated_content===$english_content) && $language_code!='en'){
-    //     $translated_content.= '(not translated)';
-    //}
+    if( ($translated_content===$english_content) && $language_code!='en'){
+        $translated_content.= '(not translated)';
+    }
+
+    $element['content'][$language_code] = $translated_content;
 
 
 }

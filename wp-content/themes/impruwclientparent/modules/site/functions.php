@@ -762,7 +762,8 @@ function create_translated_page($page, $language_code){
     $element_type = "post_page";
 
     $sitepress->switch_lang($language_code);
-    $post_title =__($page->post_title, 'impruwclientparent') ;
+        load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
+        $post_title =__($page->post_title, 'impruwclientparent') ;
     $sitepress->switch_lang(wpml_get_default_language());
 
     if($post_title === $page->post_title)
