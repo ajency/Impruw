@@ -359,7 +359,7 @@ a {
 						margin-right: 1em;
 						border: 1px solid rgba(0, 0, 0, 0.8);
 						border-top: 0;
-						border-radius: 0 0 5px 5px;
+						border-radius: 0 0 3px 3px;
 						.affix-show {
 							display: block;
 							margin: 0 0 0.5em;
@@ -3737,7 +3737,7 @@ form {
 				margin-bottom: 0;
 				border-bottom: 1px solid @dash-grey;
 				padding: 8px 12px 3px;
-				line-height: 1.55;
+				line-height: 1.6;
 			}
 		}
 	}
@@ -3809,6 +3809,15 @@ form {
 							color: @red;
 						}
 					}
+				}
+			}
+			.add-more-langs {
+				background: transparent;
+				color: @blue-grey;
+				padding: 0;
+				margin-bottom: 1em;
+				&:hover, &:focus {
+					color: darken(@blue-grey, 10%);
 				}
 			}
 			#all-languages {
