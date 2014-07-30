@@ -422,7 +422,6 @@ function create_new_element( &$ele, $language_code, $clone_first_time) {
     if($clone_first_time===TRUE){
         unset( $ele[ 'meta_id' ] );
     }
-    
 
     //handle_unavailable_fields($ele);
     //insert the element in postmeta and retunr the meta_id
@@ -451,18 +450,20 @@ function create_new_element( &$ele, $language_code, $clone_first_time) {
     if($ele[ 'element' ] === 'Title' || $ele[ 'element' ] === 'Text'|| $ele[ 'element' ] === 'ImageWithText'){
         translate_element($ele, $language_code);
     }
-
+    
     $serialized_element = maybe_serialize( $ele );
 
-    if($clone_first_time==TRUE){
+    if($clone_first_time===TRUE){
+
         $wpdb->insert( $wpdb->postmeta, array( 'post_id' => 0, 'meta_value' => $serialized_element,
         'meta_key' => $ele[ 'element' ] ) );
 
         return array( 'meta_id' => $wpdb->insert_id, 'element' => $ele[ 'element' ] );
     }
-    else if($clone_first_time==FALSE){
+    else if(($clone_first_time===FALSE)&& isset($ele['meta_id'])){
+
         $wpdb->update( $wpdb->postmeta, array('post_id' => 0, 'meta_value' => $serialized_element,
-        'meta_key' => $ele[ 'element' ] ), array( "meta_id", $ele[ 'meta_id' ]));
+        'meta_key' => $ele[ 'element' ] ), array( 'meta_id' => $ele[ 'meta_id' ]));
 
         return array( 'meta_id' => $ele[ 'meta_id' ], 'element' => $ele[ 'element' ] );
     }
@@ -553,13 +554,17 @@ function add_page_to_menu( $page_id ) {
 function translate_element(&$element, $language_code){
     global $sitepress;
     
-    $english_content = $element['content']['en'];
+    //Remove html tags if any
+    $english_content = strip_tags($element['content']['en']);
 
     $sitepress->switch_lang($language_code);
-
-    $element['content'][$language_code] = __($english_content,'impruwclientparent');
-
+        $element['content'][$language_code] = __($english_content,'impruwclientparent');
     $sitepress->switch_lang(wpml_get_default_language());
+
+    // if( ($translated_content===$english_content) && $language_code!='en'){
+    //     $translated_content.= '(not translated)';
+    //}
+
 
 }
 

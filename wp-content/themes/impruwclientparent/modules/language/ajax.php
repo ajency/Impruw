@@ -82,7 +82,8 @@ function ajax_update_enabled_languages(){
         foreach ($newly_activated_languages as $language) {
             //Call translate_site();
             $clone_pages = FALSE;
-            translate_site($current_site_id, $language,$clone_pages);
+            enable_language($language);
+            translate_site($current_site_id, $language);
         }
     }
 
