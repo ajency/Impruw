@@ -50,7 +50,6 @@ define [ 'app', 'controllers/base-controller'
                     loading : true
 
             userPayment : ( paymentMethodNonce )=>
-                selectedPlanName = @selectedPlanModel.get 'plan_name'
                 options =
                     method : 'POST'
                     url : AJAXURL
