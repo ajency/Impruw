@@ -259,9 +259,9 @@ function generate_markup( $section ) {
     $id = !is_null( $post ) ? $post->ID : 0;
 
     //Generate page markup based on language
-    if ( wpml_get_current_language() != wpml_get_default_language() ) {
-        $id = icl_object_id( $id, 'page', TRUE, wpml_get_default_language() );
-    }
+    ////if ( wpml_get_current_language() != wpml_get_default_language() ) {
+        $id = icl_object_id( $id, 'page', TRUE, 'en' );
+    //}
 
     $autosave = FALSE;
 
