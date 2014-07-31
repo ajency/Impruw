@@ -40,12 +40,23 @@ add_action( 'wp_ajax_read-site', 'read_site_ajax' );
  */
 function assign_theme_to_site_ajax() {
 
+    global $sitepress;
     $site_id = get_current_blog_id();
+    $site_current_language = wpml_get_current_language();
+    $site_default_language = wpml_get_default_language();
+
+    //Change site's default language to English
+    $sitepress->set_default_language('en');
+    $sitepress->switch_lang('en');
 
     $new_theme_id = $_POST[ 'new_theme_id' ];
     $clone_pages = !isset( $_POST[ 'clone_pages' ] ) ? TRUE : FALSE;
 
     assign_theme_to_site( $new_theme_id, $clone_pages );
+
+    //Restore default language back to original
+    $sitepress->switch_lang($site_current_language);
+    $sitepress->set_default_language($site_default_language);
 
     wp_send_json( array( 'code' => 'OK' ) );
 }
