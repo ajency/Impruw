@@ -80,6 +80,7 @@ define ['app'
                     region: @_getSliderManagerRegion()
 
             onClose: ->
+                App.currentImageRatio = false
                 App.navigate ''
 
 

@@ -74,11 +74,30 @@
                 wp_nav_menu( $defaults );
 
             ?>
-            <?php if( ! is_user_logged_in() ): ?>
-            <a href="#" class="login-btn" data-toggle="popover">
-                <span class="glyphicon glyphicon-lock"></span> <?php _e('Sign In', 'impruwmain'); ?>
-            </a>
-            <?php endif; ?>
+            <?php if( ! is_user_logged_in() ) { ?>
+                <a href="#" class="login-btn" data-toggle="popover">
+                    <span class="glyphicon glyphicon-lock"></span> <?php _e('Sign In', 'impruwmain'); ?>
+                </a>
+            <?php } else {
+                global $current_user;
+                get_currentuserinfo(); 
+                $blog = get_active_blog_for_user( get_current_user_id() );
+                $link = $blog->path;
+                ?>
+                <div class="logged-in-actions dropdown">
+                    <a data-toggle="dropdown" href="#"><?php _e('Hello', 'impruwmain');?> <?php echo $current_user->display_name; ?> <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="<?php echo $link; ?>dashboard/"><?php _e('Dashboard', 'impruwmain');?></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo wp_logout_url( get_permalink() ); ?>" class="logout-btn" title="Logout">
+                                <?php _e('Sign Out', 'impruwmain');?>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            <?php }; ?>
 
 <!--            <div class="lang-sel">-->
 <!--                --><?php //do_action('icl_language_selector'); ?>
