@@ -14,6 +14,10 @@ define ['app'], (App)->
                     .attr 'data-slotamount', '0'
                     .attr 'data-masterspeed', '500'
 
+            modelEvents : 
+                'change:thumb_url change:full_url' : (model)->
+                    model.collection.trigger 'slide:image:url:updated'
+
 
         class EmptySlider extends Marionette.ItemView
 
@@ -42,6 +46,11 @@ define ['app'], (App)->
                 'click .tp-rightarrow,.tp-leftarrow,.bullet': (e)->
                     e.stopPropagation()
 
+            collectionEvents : 
+                'slide:image:url:updated' : ->
+                    @render()
+                    @triggerMethod 'show'
+
             # close revolution slider on close
             onClose: ->
                 delete @revapi
@@ -52,8 +61,10 @@ define ['app'], (App)->
                 "#{parseInt width}:#{parseInt height}"
 
 
-            initialize:->
+            initialize: (options = {}) ->
+                super options
                 @sliderHeight = Marionette.getOption @,'sliderHeight'
+
 
             onShow: ->
                 

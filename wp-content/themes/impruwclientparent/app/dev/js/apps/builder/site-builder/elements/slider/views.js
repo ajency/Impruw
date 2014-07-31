@@ -20,6 +20,12 @@ define(['app'], function(App) {
         return this.$el.attr('data-transition', 'fade').attr('data-slotamount', '0').attr('data-masterspeed', '500');
       };
 
+      SliderItem.prototype.modelEvents = {
+        'change:thumb_url change:full_url': function(model) {
+          return model.collection.trigger('slide:image:url:updated');
+        }
+      };
+
       return SliderItem;
 
     })(Marionette.ItemView);
@@ -66,6 +72,13 @@ define(['app'], function(App) {
         }
       };
 
+      SliderView.prototype.collectionEvents = {
+        'slide:image:url:updated': function() {
+          this.render();
+          return this.triggerMethod('show');
+        }
+      };
+
       SliderView.prototype.onClose = function() {
         return delete this.revapi;
       };
@@ -77,7 +90,11 @@ define(['app'], function(App) {
         return "" + (parseInt(width)) + ":" + (parseInt(height));
       };
 
-      SliderView.prototype.initialize = function() {
+      SliderView.prototype.initialize = function(options) {
+        if (options == null) {
+          options = {};
+        }
+        SliderView.__super__.initialize.call(this, options);
         return this.sliderHeight = Marionette.getOption(this, 'sliderHeight');
       };
 

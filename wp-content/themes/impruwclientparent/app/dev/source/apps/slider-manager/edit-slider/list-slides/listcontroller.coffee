@@ -1,9 +1,11 @@
 define ['app'
         'controllers/base-controller'], (App, AppController)->
     App.module 'SliderManager.EditSlider.SlidesList', (SlidesList, App, Backbone, Marionette, $, _)->
+        
         class SlidesListController extends AppController
 
             initialize: (opt)->
+
                 {collection} = opt
 
                 # if slider id is not present
@@ -35,7 +37,7 @@ define ['app'
                     editView = App.request "get:image:editor:view", mediaId, 
                                                                 aspectRatio : ratio
                                                                                      
-                                                                                     
+                    @updateImageThumb iv.model, editView.model                     
                     listView.triggerMethod "show:edit:image", editView
                     listView.listenTo editView, "image:editing:cancelled", ->
                         listView.triggerMethod "image:editing:cancelled"
@@ -62,11 +64,19 @@ define ['app'
 
                 @show layout, loading: true
 
+            # update image thumb
+            updateImageThumb : (slideModel, mediaModel)=>
+                @listenTo mediaModel, 'change', (model)->
+                    fullSize = model.get('sizes').large ?  model.get('sizes').full
+                    thumbSize = model.get('sizes').thumbnail ?  model.get('sizes').full
+                    slideModel.set 
+                            thumb_url : thumbSize.url
+                            full_url : fullSize.url
 
             # edit layout
             _getSlidesListView: (collection)->
                 new SlidesListView
-                    collection: collection
+                        collection: collection
 
             _getSlidesListLayout: ->
                 new SlidesListLayout
@@ -99,6 +109,9 @@ define ['app'
 							</div>
 						  </a>
 						</div>'
+
+            modelEvents : 
+                'change:thumb_url change:full_url' : 'render'
 
             events:
                 'click .update-slide': ->

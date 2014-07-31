@@ -11,6 +11,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       function SlidesListController() {
         this.showSuccessMessage = __bind(this.showSuccessMessage, this);
         this.slideModelUpdated = __bind(this.slideModelUpdated, this);
+        this.updateImageThumb = __bind(this.updateImageThumb, this);
         return SlidesListController.__super__.constructor.apply(this, arguments);
       }
 
@@ -49,6 +50,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           editView = App.request("get:image:editor:view", mediaId, {
             aspectRatio: ratio
           });
+          this.updateImageThumb(iv.model, editView.model);
           listView.triggerMethod("show:edit:image", editView);
           return listView.listenTo(editView, "image:editing:cancelled", function() {
             return listView.triggerMethod("image:editing:cancelled");
@@ -90,6 +92,18 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         });
       };
 
+      SlidesListController.prototype.updateImageThumb = function(slideModel, mediaModel) {
+        return this.listenTo(mediaModel, 'change', function(model) {
+          var fullSize, thumbSize, _ref, _ref1;
+          fullSize = (_ref = model.get('sizes').large) != null ? _ref : model.get('sizes').full;
+          thumbSize = (_ref1 = model.get('sizes').thumbnail) != null ? _ref1 : model.get('sizes').full;
+          return slideModel.set({
+            thumb_url: thumbSize.url,
+            full_url: fullSize.url
+          });
+        });
+      };
+
       SlidesListController.prototype._getSlidesListView = function(collection) {
         return new SlidesListView({
           collection: collection
@@ -121,6 +135,10 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       SlideView.prototype.className = 'panel panel-default moveable';
 
       SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-5"></div> <div class="imgactions col-sm-3"> <a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>&nbsp; <a href="#/edit-image" class="edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a> </div> </div> </a> </div>';
+
+      SlideView.prototype.modelEvents = {
+        'change:thumb_url change:full_url': 'render'
+      };
 
       SlideView.prototype.events = {
         'click .update-slide': function() {

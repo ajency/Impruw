@@ -1,5 +1,6 @@
 define ["marionette"
         "app"], (Marionette, App) ->
+            
     class AppController extends Marionette.Controller
 
         constructor: (options = {}) ->
