@@ -7,15 +7,5 @@ define ['app'
 
             template: viewTpl
 
-            onShow :->
-                planName = @model.get 'plan_name'
-
-                if planName is "Free"
-                    @$el.find('#deactivate-sub').hide()
-
-            events :
-             'click #deactivate-sub' :->
-                 console.log @model
-
 
 

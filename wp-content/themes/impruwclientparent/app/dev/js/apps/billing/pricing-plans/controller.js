@@ -16,16 +16,21 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
         this.siteModel = App.request("get:site:model");
         return App.execute("when:fetched", this.siteModel, (function(_this) {
           return function() {
-            var brainTreePlans, subscriptionId, subscriptionModel;
-            subscriptionId = _this.siteModel.get('braintree_subscription');
+            var brainTreePlans;
+            _this.subscriptionId = _this.siteModel.get('braintree_subscription');
             _this.currency = _this.siteModel.get('currency');
             brainTreePlans = App.request("get:braintree:plans");
-            subscriptionModel = App.request("get:subscription:by:id", subscriptionId);
-            return App.execute("when:fetched", subscriptionModel, function() {
-              _this.activePlanId = subscriptionModel.get('plan_id');
-              _this.view = _this.getView(brainTreePlans);
-              App.vent.trigger("set:active:menu", 'billing');
-              return _this.show(_this.view);
+            _this.subscriptionModel = App.request("get:subscription:by:id", _this.subscriptionId);
+            _this.pendingSubscriptionModel = App.request("get:pending:subscription", _this.subscriptionId);
+            return App.execute("when:fetched", _this.subscriptionModel, function() {
+              _this.activePlanId = _this.subscriptionModel.get('plan_id');
+              return App.execute("when:fetched", _this.pendingSubscriptionModel, function() {
+                _this.pendingPlanId = _this.pendingSubscriptionModel.get('plan_id');
+                _this.view = _this.getView(brainTreePlans);
+                _this.listenTo(_this.view, "switch:to:free:plan", _this.changeToFreePlan);
+                App.vent.trigger("set:active:menu", 'billing');
+                return _this.show(_this.view);
+              });
             });
           };
         })(this));
@@ -35,8 +40,34 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
         return new PaymentPlans.View.PlansView({
           collection: brainTreePlanCollection,
           currency: this.currency,
-          activePlanId: this.activePlanId
+          activePlanId: this.activePlanId,
+          pendingPlanId: this.pendingPlanId
         });
+      };
+
+      Controller.prototype.changeToFreePlan = function() {
+        var cancelDate, options, status;
+        status = this.subscriptionModel.get('status');
+        if (status === 'Pending') {
+          cancelDate = this.subscriptionModel.get('start_date');
+        } else {
+          cancelDate = this.subscriptionModel.get('bill_end');
+        }
+        options = {
+          method: 'POST',
+          url: AJAXURL,
+          data: {
+            'currentSubscriptionId': this.subscriptionId,
+            'cancelDate': cancelDate,
+            'status': status,
+            'action': 'change-to-free-plan'
+          }
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            return console.log(response);
+          };
+        })(this));
       };
 
       return Controller;

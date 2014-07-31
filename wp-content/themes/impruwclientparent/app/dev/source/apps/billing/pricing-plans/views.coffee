@@ -4,23 +4,23 @@ define [ 'app'
         class SinglePlanView extends Marionette.ItemView
 
             template : '<div class="panel panel-default text-center">
-                                        <div class="panel-heading">
-                                            <h3>{{plan_name}}</h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <h3 class="panel-title price">&#163; {{price}}</h3>
-                                        </div>
-                                        <ul class="list-group">
-                                            <li class="list-group-item">Mobile & Tablet Ready Site</li>
-                                            <li class="list-group-item">Unlimited Pages</li>
-                                            <li class="list-group-item">5 Languages</li>
-                                            <li class="list-group-item">Flexible, easy-to-use Site builder</li>
-                                            <li class="list-group-item">24/7 security monitoring</li>
-                                            <li class="list-group-item">24/7 technical support</li>
-                                            <li class="list-group-item"><span class="ribbon">
-                                                <a href="#/billing/payment-page" class="btn btn-block activate-link">Choose Plan</a></span></li>
-                                        </ul>
-                                    </div>'
+                            <div class="panel-heading">
+                                <h3>{{plan_name}}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <h3 class="panel-title price">&#163; {{price}}</h3>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item">Mobile & Tablet Ready Site</li>
+                                <li class="list-group-item">Unlimited Pages</li>
+                                <li class="list-group-item">5 Languages</li>
+                                <li class="list-group-item">Flexible, easy-to-use Site builder</li>
+                                <li class="list-group-item">24/7 security monitoring</li>
+                                <li class="list-group-item">24/7 technical support</li>
+                                <li class="list-group-item"><span class="ribbon">
+                                    <a href="#/billing/payment-page" class="btn btn-block activate-link">Choose Plan</a></span></li>
+                            </ul>
+                        </div>'
 
             className : 'col-sm-4'
 
@@ -32,6 +32,7 @@ define [ 'app'
             onShow : ->
                 siteModelPlanId = @model.get 'plan_id'
                 activePlanID = Marionette.getOption @, 'activePlanID'
+                pendingPlanID = Marionette.getOption @, 'pendingPlanID'
 
                 #append  the plan id to the plan activation link
                 activateLink = @$el.find( '.activate-link' ).attr 'href'
@@ -43,6 +44,10 @@ define [ 'app'
                     @$el.find( '.panel-default' ).addClass 'active'
                     @$el.find( '.activate-link' ).text 'Active Plan'
                     @$el.find( '.activate-link' ).attr 'href','javascript:void(0)'
+
+                #highlight the selected plan
+                if  siteModelPlanId is pendingPlanID
+                    @$el.find('.panel-heading').append('<span>selected</span>')
 
 
 
@@ -57,11 +62,24 @@ define [ 'app'
             itemViewOptions : ->
                 currency : Marionette.getOption @, 'currency'
                 activePlanID : Marionette.getOption @, 'activePlanId'
+                pendingPlanID : Marionette.getOption @, 'pendingPlanId'
 
             onShow :->
                 activePlanID = Marionette.getOption @, 'activePlanId'
+                pendingPlanID = Marionette.getOption @, 'pendingPlanId'
+
                 if activePlanID is 'Free'
                     @$el.find('#free-plan').addClass 'active'
+
+                if pendingPlanID is 'Free'
+                    @$el.find('#free-plan .panel-heading').append '<span>Selected</span>'
+
+            events :
+                'click .free-plan-link' :->
+                    if confirm "Switch to free plan?"
+                        @trigger "switch:to:free:plan"
+
+
 
 
 

@@ -9,6 +9,7 @@ define ['app'
 
             regions :
                 accountInfoRegion : '#account-info'
+                pendingSubscriptionRegion : '#pending-sub'
                 billingInfoRegion : '#billing-info'
                 purchaseHistoryRegion : '#purchase-history'
 

@@ -75,7 +75,26 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
       };
 
       Controller.prototype.payWithStoredCard = function(data) {
-        return console.log(data);
+        var options;
+        options = {
+          method: 'POST',
+          url: AJAXURL,
+          data: {
+            'cardToken': data.token,
+            'selectedPlanId': this.selectedPlanId,
+            'currentSubscriptionId': this.subscriptionId,
+            'action': data.action
+          }
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            if (response.code === "OK") {
+              return _this.paymentView.triggerMethod("payment:success");
+            } else {
+              return _this.paymentView.triggerMethod("payment:error", response.msg);
+            }
+          };
+        })(this));
       };
 
       Controller.prototype.getLayout = function(model) {

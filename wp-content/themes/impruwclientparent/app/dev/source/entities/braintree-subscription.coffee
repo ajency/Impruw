@@ -10,6 +10,12 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             idAttribute : 'subscription_id'
 
+        class BraintreePendingSubscription extends Backbone.Model
+
+            name: 'braintreependingsubscription'
+
+            idAttribute : 'new_subscription_id'
+
 
         API =
 
@@ -18,6 +24,17 @@ define ["app", 'backbone'], (App, Backbone) ->
                 subscriptionModel.fetch()
                 subscriptionModel
 
+            getPendingSubscription : ( subscriptionId ) ->
+                subscriptionModel = new BraintreePendingSubscription
+                subscriptionModel.fetch
+                    data :
+                        'action' : 'get-pending-subscription'
+                        'old_subscription_id' : subscriptionId
+                subscriptionModel
+
 
         App.reqres.setHandler "get:subscription:by:id",( subscriptionId ) ->
             API.getSubscriptionById subscriptionId
+
+        App.reqres.setHandler "get:pending:subscription",( subscriptionId ) ->
+            API.getPendingSubscription subscriptionId

@@ -12,20 +12,6 @@ define(['app', 'text!apps/billing/account-summary/templates/accountInfo.html'], 
 
       AccountInfoView.prototype.template = viewTpl;
 
-      AccountInfoView.prototype.onShow = function() {
-        var planName;
-        planName = this.model.get('plan_name');
-        if (planName === "Free") {
-          return this.$el.find('#deactivate-sub').hide();
-        }
-      };
-
-      AccountInfoView.prototype.events = {
-        'click #deactivate-sub': function() {
-          return console.log(this.model);
-        }
-      };
-
       return AccountInfoView;
 
     })(Marionette.ItemView);

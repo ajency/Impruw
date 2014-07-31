@@ -26,6 +26,13 @@ function getFreeSubscriptionData( $subscription_id ) {
         $subscription_data[ 'subscription_id' ] = null;
     endif;
 
+    if ( $subscription_id == 'ImpruwFree' ):
+        $last_subscription_end_date = get_last_active_subscription();
+        $subscription_data[ 'start_date' ] = $last_subscription_end_date;
+        $subscription_data[ 'subscription_id' ] = 'ImpruwFree';
+    endif;
+
+
     return $subscription_data;
 
 }
@@ -44,32 +51,99 @@ function get_plan_details_for_transaction( $transaction_details ) {
     return $transaction;
 }
 
-function create_cancelled_subscription_in_db( $current_subscription_id, $next_bill_date ) {
+function create_cancelled_subscription_in_db( $current_subscription_id, $new_subscription_id, $bill_end_date ) {
 
     global $wpdb;
 
+    $cancel_date = date( 'Y-m-d', strtotime( $bill_end_date ) );
+
     $table_name = $wpdb->prefix . 'cancel_subscription';
 
-    $cancel_subscription = array( 'subscription_id' => $current_subscription_id,
-        'cancel_date' => $next_bill_date );
+    $cancel_subscription = array( 'old_subscription_id' => $current_subscription_id,
+        'new_subscription_id' => $new_subscription_id,
+        'cancel_date' => $cancel_date,
+        'status' => '1' );
 
     $wpdb->insert( $table_name, $cancel_subscription );
 
 }
 
-function create_pending_subscription( $payment_method_nonce, $selected_plan_id, $current_subscription_id ) {
+function delete_previous_subscription( $current_subscription_id ) {
+
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'cancel_subscription';
+
+    $sql = "SELECT * FROM " . $table_name . " WHERE old_subscription_id = %s AND status = '1' ";
+
+    $query_result = $wpdb->get_results( $wpdb->prepare( $sql, $current_subscription_id ), ARRAY_A );
+
+    if ( !empty( $query_result ) ) {
+
+        $new_subscription_id = $query_result[ 0 ][ 'new_subscription_id' ];
+
+        $cancel_subscription = cancel_subscription_in_braintree( $new_subscription_id );
+        if ( $cancel_subscription[ 'code' ] == "ERROR" )
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => $cancel_subscription[ 'msg' ] ) );
+
+        $wpdb->update($table_name,array('status'=>'0'),array('new_subscription_id'=>$new_subscription_id));
+    }
+}
+
+function create_pending_subscription( $payment_method_token, $selected_plan_id, $current_subscription_id ) {
 
     $subscription_details = get_subscription_details( $current_subscription_id );
     $next_bill_date = $subscription_details[ 'next_bill_date' ];
     $bill_end_date = $subscription_details[ 'bill_end' ];
 
-    create_cancelled_subscription_in_db( $current_subscription_id, $bill_end_date );
 
-    $pending_subscription = create_pending_subscription_in_braintree( $payment_method_nonce, $selected_plan_id, $next_bill_date );
+    $pending_subscription = create_pending_subscription_in_braintree( $payment_method_token, $selected_plan_id, $next_bill_date );
 
-    if ( $pending_subscription[ 'code' ] == 'ERROR' )
+    if ( $pending_subscription[ 'code' ] == 'ERROR' ) {
         return array( 'code' => 'ERROR', 'msg' => $pending_subscription[ 'msg' ] );
-    else
-        return array( 'code' => 'OK','subscription_id' => $pending_subscription[ 'subscription_id' ] );
+    } else {
+        create_cancelled_subscription_in_db( $current_subscription_id, $pending_subscription[ 'subscription_id' ], $bill_end_date );
+    }
 
+}
+
+function get_last_active_subscription() {
+
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'cancel_subscription';
+
+    $sql = "SELECT * FROM " . $table_name . " ORDER BY id DESC LIMIT 0, 1";
+
+    $query_result = $wpdb->get_results( $sql, ARRAY_A );
+
+    $subscription = get_subscription_details( $query_result[ 0 ][ 'old_subscription_id' ] );
+
+    return $subscription[ 'bill_end' ];
+}
+
+
+function  get_pending_subscription_details( $old_subscription_id ) {
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'cancel_subscription';
+
+    $sql = "SELECT * FROM " . $table_name . " WHERE old_subscription_id = %s AND status = '1' ORDER BY id DESC LIMIT 0, 1";
+
+    $query_result = $wpdb->get_results( $wpdb->prepare( $sql, $old_subscription_id ), ARRAY_A );
+
+    if ( empty( $query_result ) )
+        return array( 'pending' => false );
+
+    $new_subscription_id = $query_result[ 0 ][ 'new_subscription_id' ];
+
+    if ( $new_subscription_id == "ImpruwFree" ) {
+        $subscription_data = getFreeSubscriptionData( $new_subscription_id );
+    } else {
+        $subscription_data = get_subscription_details( $new_subscription_id );
+    }
+
+    $subscription_data[ 'pending' ] = true;
+
+    return $subscription_data;
 }

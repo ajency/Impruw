@@ -135,30 +135,61 @@ add_action( 'wp_ajax_make-payment', 'ajax_make_payment' );
 function ajax_stored_payment() {
 
     $selected_plan_id = $_POST[ 'selectedPlanId' ];
-    echo $payment_method_nonce = $_POST[ 'cardToken' ];
+    $credit_card_token = $_POST[ 'cardToken' ];
     $current_subscription_id = $_POST[ 'currentSubscriptionId' ];
 
-//    if ( $current_subscription_id == null || $current_subscription_id == "ImpruwFree" ) {
-//
-//        $subscription = create_subscription_in_braintree( $payment_method_nonce, $selected_plan_id );
-//        if ( $subscription[ 'code' ] == 'ERROR' )
-//            wp_send_json( array( 'code' => 'ERROR', 'msg' => $subscription[ 'msg' ] ) );
-//        else
-//            $new_subscription_id = $subscription[ 'subscription_id' ];
-//
-//    } else {
-//
-//        $pending_subscription = create_pending_subscription( $payment_method_nonce, $selected_plan_id, $current_subscription_id );
-//        if ( $pending_subscription[ 'code' ] == 'ERROR' )
-//            wp_send_json( array( 'code' => 'ERROR', 'msg' => $pending_subscription[ 'msg' ] ) );
-//        else
-//            $new_subscription_id = $pending_subscription[ 'subscription_id' ];
-//    }
-//
-//    update_option( 'braintree-subscription', $new_subscription_id );
+    if ( $current_subscription_id == null || $current_subscription_id == "ImpruwFree" ) {
 
-    wp_send_json( array( 'code' => 'OK'));
+        $subscription = create_subscription_in_braintree( $credit_card_token, $selected_plan_id );
+        if ( $subscription[ 'code' ] == 'ERROR' )
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => $subscription[ 'msg' ] ) );
+        else
+            update_option( 'braintree-subscription', $subscription[ 'subscription_id' ] );
+
+    } else {
+        $pending_subscription = create_pending_subscription( $credit_card_token, $selected_plan_id, $current_subscription_id );
+        if ( $pending_subscription[ 'code' ] == 'ERROR' )
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => $pending_subscription[ 'msg' ] ) );
+    }
+
+
+    wp_send_json( array( 'code' => 'OK' ) );
 }
 
 add_action( 'wp_ajax_payment-with-stored-card', 'ajax_stored_payment' );
+
+
+function ajax_switch_to_free_plan() {
+
+    $cancel_date = $_POST[ 'cancelDate' ];
+    $current_subscription_id = $_POST[ 'currentSubscriptionId' ];
+    $subscription_status = $_POST[ 'status' ];
+
+    // take the day before the billing start day in case of  pending subscription
+    if ( $subscription_status == "Pending" ) {
+        $cancel_date = date( 'Y-m-d', ( strtotime( '-1 day', strtotime( $cancel_date ) ) ) );
+    }
+
+    delete_previous_subscription( $current_subscription_id );
+
+    create_cancelled_subscription_in_db( $current_subscription_id, 'ImpruwFree', $cancel_date );
+
+    wp_send_json( array( 'code' => 'OK' ) );
+
+}
+
+add_action( 'wp_ajax_change-to-free-plan', 'ajax_switch_to_free_plan' );
+
+
+function ajax_get_pending_subscription() {
+
+    $old_subscription_id = $_REQUEST[ 'old_subscription_id' ];
+
+    $pending_subscription = get_pending_subscription_details( $old_subscription_id );
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $pending_subscription ) );
+}
+
+add_action( 'wp_ajax_get-pending-subscription', 'ajax_get_pending_subscription' );
+
 
