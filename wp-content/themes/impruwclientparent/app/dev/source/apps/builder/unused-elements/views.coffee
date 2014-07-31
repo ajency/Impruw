@@ -1,4 +1,5 @@
 define ['app'], (App)->
+    
     App.module 'UnusedElement.Views', (Views, App, Backbone, Marionette, $, _)->
         
         class SingleUnusedElement extends Marionette.ItemView
@@ -8,13 +9,13 @@ define ['app'], (App)->
             className: 'trash-elem'
 
             template: '<a href="#">
-            							<div class="trash-elem-header">
-            								<span class="bicon icon-uniF111"></span> {{element}}
-            							</div>
-            							<div class="trash-elem-content">
-            								{{content}}
-            							</div>
-            						</a>'
+							<div class="trash-elem-header">
+								<span class="bicon icon-uniF111"></span> {{element}}
+							</div>
+							<div class="trash-elem-content">
+								{{content}}
+							</div>
+						</a>'
 
             serializeData: ->
                 serializedData = super()

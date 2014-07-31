@@ -35,14 +35,24 @@ define(['app'], function(App) {
 
       ImageView.prototype.events = {
         'click': function(e) {
+          var ratio;
           e.stopPropagation();
-          return this.trigger("show:media:manager");
+          ratio = this._getImageRatio();
+          return this.trigger("show:media:manager", ratio);
         }
       };
 
       ImageView.prototype.initialize = function(options) {
         this.imageHeightRatio = Marionette.getOption(this, 'imageHeightRatio');
         return this.positionTopRatio = Marionette.getOption(this, 'positionTopRatio');
+      };
+
+      ImageView.prototype._getImageRatio = function() {
+        var height, width;
+        console.log(this.$el);
+        width = this.$el.width();
+        height = this.$el.height();
+        return "" + (parseInt(width)) + ":" + (parseInt(height));
       };
 
       ImageView.prototype.onShow = function() {
@@ -67,9 +77,7 @@ define(['app'], function(App) {
             };
           })(this),
           start: (function(_this) {
-            return function(evt, ui) {
-              return _this.$el.resizable("option", "maxHeight", _this.$el.find('img').height());
-            };
+            return function(evt, ui) {};
           })(this)
         });
         this.$el.find('img').draggable({
