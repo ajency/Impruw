@@ -21,7 +21,7 @@ function read_site_ajax() {
     $data [ 'braintree_customer_id' ] = get_option( 'braintree-customer-id','');
 //    $data [ 'braintree_plan_name' ] = get_option( 'braintree-plan-name','Free' );
     $data [ 'braintree_subscription' ] = get_option( 'braintree-subscription',null );
-    $data [ 'braintree_client_token' ] = generate_client_token();
+//    $data [ 'braintree_client_token' ] = generate_client_token();
 //    $data ['subscription_start_date'] = get_option('subscription-start-date');
     $data [ 'hotel_name' ] = get_option( 'hotel_name','' );
     $data [ 'piwik_path' ] = PIWIK_PATH;

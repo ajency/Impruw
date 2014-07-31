@@ -19,9 +19,6 @@ define [
 
         #public API
         API =
-            getSiteModel : ->
-                siteProfileModel = App.request "get:site:model"
-                siteProfileModel
 
             summary : ->
                 App.execute "show:account:summary:app",
@@ -36,12 +33,9 @@ define [
                     region : App.rightRegion
 
             payment : ( planId )->
-                sitemodel = @getSiteModel()
-                App.execute "when:fetched", sitemodel, =>
-                    App.execute "show:payment:app",
-                        region : App.rightRegion
-                        model : sitemodel
-                        planId  : planId
+                App.execute "show:payment:app",
+                    region : App.rightRegion
+                    planId  : planId
 
 
         BillingApp.on 'start' : ->

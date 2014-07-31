@@ -13,7 +13,6 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
       Controller.prototype.initialize = function(opts) {
         this.layout = this.getLayout();
         this.siteModel = App.request("get:site:model");
-        console.log(this.siteModel);
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {

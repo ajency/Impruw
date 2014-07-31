@@ -11,7 +11,7 @@ define(['app', 'text!apps/billing/account-summary/templates/purchaseHistory.html
         return SingleTranscation.__super__.constructor.apply(this, arguments);
       }
 
-      SingleTranscation.prototype.template = '<td>{{date}}</td> <td>{{plan_name}}</td> <td>{{description}}</td> <td>&pound; {{amount}}</td>';
+      SingleTranscation.prototype.template = '<td>{{date}}</td> <td>{{plan_name}}</td> <td>{{description}}</td> <td>&pound; {{amount}}</td> <td><a href="#">Print</a></td>';
 
       SingleTranscation.prototype.tagName = 'tr';
 

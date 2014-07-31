@@ -13,20 +13,29 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
       }
 
       Controller.prototype.initialize = function(opts) {
-        var brainTreePlans;
         this.siteModel = App.request("get:site:model");
-        brainTreePlans = App.request("get:braintree:plans");
-        this.view = this.getView(brainTreePlans);
-        App.vent.trigger("set:active:menu", 'billing');
-        return this.show(this.view, {
-          loading: true
-        });
+        return App.execute("when:fetched", this.siteModel, (function(_this) {
+          return function() {
+            var brainTreePlans, subscriptionId, subscriptionModel;
+            subscriptionId = _this.siteModel.get('braintree_subscription');
+            _this.currency = _this.siteModel.get('currency');
+            brainTreePlans = App.request("get:braintree:plans");
+            subscriptionModel = App.request("get:subscription:by:id", subscriptionId);
+            return App.execute("when:fetched", subscriptionModel, function() {
+              _this.activePlanId = subscriptionModel.get('plan_id');
+              _this.view = _this.getView(brainTreePlans);
+              App.vent.trigger("set:active:menu", 'billing');
+              return _this.show(_this.view);
+            });
+          };
+        })(this));
       };
 
       Controller.prototype.getView = function(brainTreePlanCollection) {
         return new PaymentPlans.View.PlansView({
           collection: brainTreePlanCollection,
-          model: this.siteModel
+          currency: this.currency,
+          activePlanId: this.activePlanId
         });
       };
 

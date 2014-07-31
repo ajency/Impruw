@@ -12,7 +12,6 @@ define [ 'app', 'controllers/base-controller'
                 @layout = @getLayout()
 
                 @siteModel =  App.request "get:site:model"
-                console.log @siteModel
 
                 # trigger set:active:menu event
                 App.vent.trigger "set:active:menu", 'billing'

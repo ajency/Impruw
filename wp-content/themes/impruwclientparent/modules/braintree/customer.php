@@ -55,8 +55,6 @@ function create_customer_with_card( $customer_data ) {
  */
 function get_customer_credit_card_details( $customer_id ) {
 
-    //$customer_id = '81538496';
-
     $customer = Braintree_Customer::find( $customer_id );
 
     $customer_credit_card_data = customer_credit_card_details( $customer->creditCards );

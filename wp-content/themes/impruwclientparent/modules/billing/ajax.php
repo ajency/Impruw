@@ -42,7 +42,7 @@ function ajax_read_braintreesubscription() {
 
     $subscription_id = $_REQUEST[ 'subscription_id' ];
 
-    if ( $subscription_id == "ImpruwFree" ||  $subscription_id == null ) {
+    if ( $subscription_id == "ImpruwFree" || $subscription_id == null ) {
         $subscription_data = getFreeSubscriptionData( $subscription_id );
     } else {
         $subscription_data = get_subscription_details( $subscription_id );
@@ -61,34 +61,18 @@ add_action( 'wp_ajax_read-braintreesubscription', 'ajax_read_braintreesubscripti
 
 function ajax_read_braintreetransaction() {
 
-    $collection = Braintree_Transaction::search(array(
-        Braintree_TransactionSearch::customerId()->is('11793184')
-    ));
-    echo '<pre>';
-    print_r($collection);
-//
-//    $a= Braintree_Customer::find('11793184');
-//    echo '<pre>';
-//    print_r($a);
+    $braintree_customer_id = $_REQUEST[ 'customerID' ];
 
+    $transaction_id_array = get_transaction_id_for_customer( $braintree_customer_id );
 
-//    $subscription = Braintree_Subscription::find('7gm73r');
-//    echo '<pre>';
-//    print_r($subscription);
+    if ( empty( $transaction_id_array ) )
+        wp_send_json( array( 'code' => 'OK', 'data' => array() ) );
 
+    $transaction_details = get_transaction_details( $transaction_id_array );
 
-    //*----------------------------------------*
+    $transaction_data = get_plan_details_for_transaction( $transaction_details );
 
-//    $transaction_id_array = get_transaction_id_for_customer();
-//
-//    if ( empty( $transaction_id_array ) )
-//        wp_send_json( array( 'code' => 'OK', 'data' => array() ) );
-//
-//    $transaction_details = get_transaction_details( $transaction_id_array );
-//
-//    $transaction_data = get_plan_details_for_transaction( $transaction_details );
-//
-//    wp_send_json( array( 'code' => 'OK', 'data' => $transaction_data ) );
+    wp_send_json( array( 'code' => 'OK', 'data' => $transaction_data ) );
 
 }
 
@@ -107,6 +91,8 @@ function ajax_read_creditcard() {
         $credit_card_data = get_customer_credit_card_details( $customer_id );
     }
 
+    $credit_card_data[ 'braintree_client_token' ] = generate_client_token();
+
     wp_send_json( array( 'code' => 'OK', 'data' => $credit_card_data ) );
 }
 
@@ -117,7 +103,6 @@ add_action( 'wp_ajax_read-creditcard', 'ajax_read_creditcard' );
  */
 function ajax_make_payment() {
     $selected_plan_id = $_POST[ 'selectedPlanId' ];
-    $selected_plan_name = $_POST[ 'selectedPlanName' ];
 
     $current_user = wp_get_current_user();
     $user_name = $current_user->display_name;
@@ -139,12 +124,41 @@ function ajax_make_payment() {
     if ( $subscription[ 'code' ] == 'ERROR' )
         wp_send_json( array( 'code' => 'ERROR', 'msg' => $subscription[ 'msg' ] ) );
 
-    update_option( 'subscription-start-date', $subscription[ 'subscription_start_date' ] );
-    update_option( 'braintree-plan', $selected_plan_id );
-    update_option( 'braintree-plan-name', $selected_plan_name );
     update_option( 'braintree-subscription', $subscription[ 'subscription_id' ] );
 
     wp_send_json( array( 'code' => 'OK' ) );
 }
 
 add_action( 'wp_ajax_make-payment', 'ajax_make_payment' );
+
+
+function ajax_stored_payment() {
+
+    $selected_plan_id = $_POST[ 'selectedPlanId' ];
+    echo $payment_method_nonce = $_POST[ 'cardToken' ];
+    $current_subscription_id = $_POST[ 'currentSubscriptionId' ];
+
+//    if ( $current_subscription_id == null || $current_subscription_id == "ImpruwFree" ) {
+//
+//        $subscription = create_subscription_in_braintree( $payment_method_nonce, $selected_plan_id );
+//        if ( $subscription[ 'code' ] == 'ERROR' )
+//            wp_send_json( array( 'code' => 'ERROR', 'msg' => $subscription[ 'msg' ] ) );
+//        else
+//            $new_subscription_id = $subscription[ 'subscription_id' ];
+//
+//    } else {
+//
+//        $pending_subscription = create_pending_subscription( $payment_method_nonce, $selected_plan_id, $current_subscription_id );
+//        if ( $pending_subscription[ 'code' ] == 'ERROR' )
+//            wp_send_json( array( 'code' => 'ERROR', 'msg' => $pending_subscription[ 'msg' ] ) );
+//        else
+//            $new_subscription_id = $pending_subscription[ 'subscription_id' ];
+//    }
+//
+//    update_option( 'braintree-subscription', $new_subscription_id );
+
+    wp_send_json( array( 'code' => 'OK'));
+}
+
+add_action( 'wp_ajax_payment-with-stored-card', 'ajax_stored_payment' );
+

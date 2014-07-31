@@ -28,4 +28,5 @@ define [
    'polyglot'
    'additionalmethod'
    'timepicker'
+   'braintree'
 ], ->

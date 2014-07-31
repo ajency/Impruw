@@ -8,7 +8,8 @@ define ['app'
                             <td>{{date}}</td>
                             <td>{{plan_name}}</td>
                             <td>{{description}}</td>
-                            <td>&pound; {{amount}}</td>'
+                            <td>&pound; {{amount}}</td>
+                            <td><a href="#">Print</a></td>'
             tagName : 'tr'
 
         class View.EmptyView extends Marionette.ItemView

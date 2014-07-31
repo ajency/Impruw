@@ -10,24 +10,20 @@ define [ 'app', 'controllers/base-controller'
 
                 if _.isEmpty brainTreeCustomerId
                     @view = @getEmptyView()
+                else
+                    transactionCollection = App.request "get:transactions", brainTreeCustomerId
+                    @view = @getView transactionCollection
 
 
-#                transaction = App.request "get:transactions"
-#
-#                App.execute "when:fetched", transaction, =>
-#                    @view = @getView transaction
-#
-#                    # trigger set:active:menu event
-#                    App.vent.trigger "set:active:menu", 'billing'
-#
-#                    # show main layout
-                @show @view
-#
-#
-#            # get layout
-#            getView : ( transaction ) ->
-#                new PurchaseHistory.View.Transaction
-#                    collection : transaction
+                # trigger set:active:menu event
+                App.vent.trigger "set:active:menu", 'billing'
+
+                @show @view,
+                    loading: true
+
+            getView : ( transactionCollection ) ->
+                new PurchaseHistory.View.Transaction
+                    collection : transactionCollection
 
             getEmptyView :->
                 new PurchaseHistory.View.EmptyView

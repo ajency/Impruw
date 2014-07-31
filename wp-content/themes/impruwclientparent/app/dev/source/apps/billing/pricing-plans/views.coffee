@@ -31,9 +31,7 @@ define [ 'app'
 
             onShow : ->
                 siteModelPlanId = @model.get 'plan_id'
-                siteModelPlanName = @model.get 'plan_name'
-                collectionModelPlanId = Marionette.getOption @, 'activeBraintreePlanID'
-
+                activePlanID = Marionette.getOption @, 'activePlanID'
 
                 #append  the plan id to the plan activation link
                 activateLink = @$el.find( '.activate-link' ).attr 'href'
@@ -41,10 +39,11 @@ define [ 'app'
                 @$el.find( '.activate-link' ).attr 'href',newactivateLink
 
                 #highlight the active plan
-                if  collectionModelPlanId is null and siteModelPlanName is 'Free'
+                if  siteModelPlanId is activePlanID
                     @$el.find( '.panel-default' ).addClass 'active'
                     @$el.find( '.activate-link' ).text 'Active Plan'
                     @$el.find( '.activate-link' ).attr 'href','javascript:void(0)'
+
 
 
         class View.PlansView extends Marionette.CompositeView
@@ -56,8 +55,14 @@ define [ 'app'
             itemViewContainer : '.price-plans'
 
             itemViewOptions : ->
-                currency : @model.get 'currency'
-                activeBraintreePlanID : @model.get 'braintree_subscription'
+                currency : Marionette.getOption @, 'currency'
+                activePlanID : Marionette.getOption @, 'activePlanId'
+
+            onShow :->
+                activePlanID = Marionette.getOption @, 'activePlanId'
+                if activePlanID is 'Free'
+                    @$el.find('#free-plan').addClass 'active'
+
 
 
 

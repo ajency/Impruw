@@ -13,5 +13,9 @@ define ['app'
                 if planName is "Free"
                     @$el.find('#deactivate-sub').hide()
 
+            events :
+             'click #deactivate-sub' :->
+                 console.log @model
+
 
 

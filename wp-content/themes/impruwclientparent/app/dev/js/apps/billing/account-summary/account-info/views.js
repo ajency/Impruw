@@ -20,6 +20,12 @@ define(['app', 'text!apps/billing/account-summary/templates/accountInfo.html'], 
         }
       };
 
+      AccountInfoView.prototype.events = {
+        'click #deactivate-sub': function() {
+          return console.log(this.model);
+        }
+      };
+
       return AccountInfoView;
 
     })(Marionette.ItemView);
