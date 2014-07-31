@@ -1,0 +1,369 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: impruw\n"
+"POT-Creation-Date: 2014-07-28 00:38+0530\n"
+"PO-Revision-Date: 2014-07-30 06:54+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../functions.php:173
+msgid "room"
+msgstr ""
+
+#: ../functions.php:216
+msgid "Search Facilities"
+msgstr ""
+
+#: ../functions.php:217
+msgid "Popular Faclilities"
+msgstr ""
+
+#: ../functions.php:218
+msgid "All Facilities"
+msgstr ""
+
+#: ../functions.php:221
+msgid "Edit Facility"
+msgstr ""
+
+#: ../functions.php:222
+msgid "Update Facility"
+msgstr ""
+
+#: ../functions.php:223
+msgid "Add New Facility"
+msgstr ""
+
+#: ../functions.php:224
+msgid "New Facility Name"
+msgstr ""
+
+#: ../functions.php:225
+msgid "Separate facilities with commas"
+msgstr ""
+
+#: ../functions.php:226
+msgid "Add or remove facilities"
+msgstr ""
+
+#: ../functions.php:227
+msgid "Choose from the most used facilities"
+msgstr ""
+
+#: ../functions.php:228
+msgid "No facilities found."
+msgstr ""
+
+#: ../functions.php:229
+msgid "Facilities"
+msgstr ""
+
+#: ../functions.php:298
+msgid "New Size"
+msgstr ""
+
+#: ../functions.php:1290
+msgid "Error removing business logo"
+msgstr ""
+
+#: ../functions.php:1295
+msgid "Business logo removed successfully"
+msgstr ""
+
+#: ../functions.php:1326
+msgid "Could not save site profile"
+msgstr ""
+
+#: ../functions.php:1426
+msgid "User profile updated successfully"
+msgstr ""
+
+#: ../functions.php:1475
+msgid "Password changed successfully"
+msgstr ""
+
+#: ../functions.php:2087
+msgid "Error updating Tariff plan"
+msgstr ""
+
+#: ../functions.php:2101
+msgid "Tariff plan is successfully updated"
+msgstr ""
+
+#: ../functions.php:2108
+msgid "Error updating tariff plan"
+msgstr ""
+
+#: ../functions.php:2147
+msgid "New facility is successfully added"
+msgstr ""
+
+#: ../functions.php:2184
+msgid "The tax name already exists"
+msgstr ""
+
+#: ../functions.php:2204
+msgid "New tax added successfully"
+msgstr ""
+
+#: ../functions.php:2210
+msgid "Error adding the tax"
+msgstr ""
+
+#: ../functions.php:2247
+msgid "The addon type already exists"
+msgstr ""
+
+#: ../functions.php:2267
+msgid "New addon type added successfully"
+msgstr ""
+
+#: ../functions.php:2273
+msgid "Error adding the addon type"
+msgstr ""
+
+#: ../functions.php:2340
+msgid "Addon type updated successfully"
+msgstr ""
+
+#: ../functions.php:2347
+msgid "Error updating the addon type"
+msgstr ""
+
+#: ../functions.php:2397
+msgid "Tax type updated successfully"
+msgstr ""
+
+#: ../functions.php:2404
+msgid "Error updating the tax type"
+msgstr ""
+
+#: ../functions.php:2428
+msgid "Facility is successfully Deleted"
+msgstr ""
+
+#: ../functions.php:2433
+msgid "Error deleting facility"
+msgstr ""
+
+#: ../functions.php:2465
+msgid "Addon type is successfully Deleted"
+msgstr ""
+
+#: ../functions.php:2470
+msgid "Error deleting addon type"
+msgstr ""
+
+#: ../functions.php:2504
+msgid "Error deleting tax type"
+msgstr ""
+
+#: ../functions.php:2538
+msgid "Facility updated successfully"
+msgstr ""
+
+#: ../functions.php:2559
+msgid "Check-in time updated successfully"
+msgstr ""
+
+#: ../functions.php:2566
+msgid "Error updating check-in time"
+msgstr ""
+
+#: ../functions.php:2604
+msgid "Tax option updated successfully"
+msgstr ""
+
+#: ../functions.php:2610
+msgid "Error updating tax option"
+msgstr ""
+
+#: ../functions.php:2625
+msgid "Check-in format updated successfully"
+msgstr ""
+
+#: ../functions.php:2631
+msgid "Error updating Check-in format"
+msgstr ""
+
+#: ../functions.php:2676
+msgid "Date range is successfully added"
+msgstr ""
+
+#: ../functions.php:2682
+msgid "Error adding Date range"
+msgstr ""
+
+#: ../functions.php:2714
+msgid "Date range updated successfully"
+msgstr ""
+
+#: ../functions.php:2720
+msgid "Error updating Date range"
+msgstr ""
+
+#: ../functions.php:2781
+msgid "Error adding Tariff plan"
+msgstr ""
+
+#: ../functions.php:2796
+msgid "Tariff plan is successfully added"
+msgstr ""
+
+#: ../functions.php:2803 ../functions.php:2839
+msgid "Error adding plan"
+msgstr ""
+
+#: ../functions.php:2833
+msgid "Plan is successfully added"
+msgstr ""
+
+#: ../functions.php:2924
+msgid "Error updating plan"
+msgstr ""
+
+#: ../functions.php:2930
+msgid "The plan updated successfully"
+msgstr ""
+
+#: ../functions.php:3131
+msgid "Date range successfully deleted"
+msgstr ""
+
+#: ../functions.php:3136
+msgid "Error deleting date range"
+msgstr ""
+
+#: ../functions.php:3225
+msgid "New Room added successfully"
+msgstr ""
+
+#: ../functions.php:3301
+msgid "Room Details updated successfully"
+msgstr ""
+
+#: ../functions.php:3995
+msgid "Invalid Form Data"
+msgstr ""
+
+#: ../page-login.php:10 ../page-login.php:64
+msgid "Sign in"
+msgstr ""
+
+#: ../page-login.php:11 ../page-reset-password.php:11
+msgid "Impruw"
+msgstr ""
+
+#: ../page-login.php:15 ../page-reset-password.php:15
+msgid "To access your website first Sign in to Impruw"
+msgstr ""
+
+#: ../page-login.php:30 ../page-login.php:92
+msgid "Email"
+msgstr ""
+
+#: ../page-login.php:38 ../page-login.php:102
+msgid "A valid email address is required to sign in"
+msgstr ""
+
+#: ../page-login.php:46 ../page-reset-password.php:62
+msgid "Password"
+msgstr ""
+
+#: ../page-login.php:52 ../page-reset-password.php:54
+#: ../page-reset-password.php:68
+msgid "You need to enter a password"
+msgstr ""
+
+#: ../page-login.php:58
+msgid "Forgot your password?"
+msgstr ""
+
+#: ../page-login.php:70
+msgid "Keep me logged in."
+msgstr ""
+
+#: ../page-login.php:76
+msgid "Dont have an account?"
+msgstr ""
+
+#: ../page-login.php:77
+msgid "Sign Up!"
+msgstr ""
+
+#: ../page-login.php:112 ../page-reset-password.php:10
+msgid "Reset Password"
+msgstr ""
+
+#: ../page-login.php:121
+msgid "&laquo; Sign In"
+msgstr ""
+
+#: ../page-reset-password.php:49
+msgid "New Password"
+msgstr ""
+
+#: ../page-reset-password.php:76
+msgid "Submit"
+msgstr ""
+
+#: ../modules/site/functions.php:891
+msgid "Home"
+msgstr ""
+
+#: ../modules/site/functions.php:892
+msgid "About Us"
+msgstr "Qui sommes-nous"
+
+#: ../modules/site/functions.php:893
+msgid "Home title"
+msgstr ""
+
+#: ../modules/site/functions.php:894
+msgid "Home sub title"
+msgstr "Accueil titre de sous"
+
+#: ../modules/site/functions.php:895
+msgid "Contact Address"
+msgstr "Adresse de contact"
+
+#: ../modules/site/functions.php:896
+msgid "Find us here"
+msgstr "Retrouvez-nous ici"
+
+#: ../modules/user/functions.php:185
+msgid "Password Reset"
+msgstr ""
+
+#: ../modules/user/functions.php:187
+msgid "Someone requested that the password be reset for the following account:"
+msgstr ""
+
+#: ../modules/user/functions.php:189
+#, php-format
+msgid "Username: %s"
+msgstr ""
+
+#: ../modules/user/functions.php:190
+msgid "If this was a mistake, just ignore this email and nothing will happen."
+msgstr ""
+
+#: ../modules/user/functions.php:191
+msgid "To reset your password, visit the following address:"
+msgstr ""
+
+#: ../modules/user/functions.php:195
+msgid "The e-mail could not be sent."
+msgstr ""
+
+#: ../modules/user/functions.php:195
+msgid "Possible reason: your host may have disabled the mail() function."
+msgstr ""
