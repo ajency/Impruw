@@ -52,8 +52,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
       };
 
       Controller.prototype.userPayment = function(paymentMethodNonce) {
-        var options, selectedPlanName;
-        selectedPlanName = this.selectedPlanModel.get('plan_name');
+        var options;
         options = {
           method: 'POST',
           url: AJAXURL,
