@@ -54,22 +54,27 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
           return function() {
             var view;
             view = _this._getImageView(imageModel);
-            _this.listenTo(view, "show:media:manager", function() {
+            _this.listenTo(view, "show:media:manager", function(ratio) {
+              if (ratio == null) {
+                ratio = false;
+              }
               App.navigate("media-manager", {
                 trigger: true
               });
+              App.currentImageRatio = ratio;
               _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
                 _this.layout.model.set('image_id', media.get('id'));
+                App.currentImageRatio = false;
                 return _this.stopListening(App.vent, "media:manager:choosed:media");
               });
               return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {
+                App.currentImageRatio = false;
                 return _this.stopListening(App.vent, "media:manager:choosed:media");
               });
             });
             _this.listenTo(view, "image:size:selected", function(size) {
               _this.layout.model.set('size', size);
               if (_this.layout.model.hasChanged()) {
-                console.log('save     ' + size);
                 return _this.layout.model.save();
               }
             });

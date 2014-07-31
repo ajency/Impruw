@@ -1,23 +1,31 @@
-<div class="roomsummary">
-    <div class="room-img">
-        {{#image_url}}
-            <img class="img-responsive" src="{{image_url}}" width="100%">
-        {{/image_url}}
-        {{^image_url}}
-            <div class="empty-info image-info">
-                <h5 class="aj-imp-sub-head-thin">{{#polyglot}}No Room Image{{/polyglot}}</h5>
-                {{#polyglot}}Please Add Images to Your Room{{/polyglot}}
-            </div>
-        {{/image_url}}
+<div class="roomsummary row">
+    <div class="room-img col-sm-3">
+        <a href="#/rooms/edit/{{ID}}">
+            {{#image_url}}
+                <img class="img-responsive" src="{{image_url}}" width="100%">
+            {{/image_url}}
+            {{^image_url}}
+                <div class="empty-info image-info">
+                    <h5 class="aj-imp-sub-head-thin">{{#polyglot}}No Room Image{{/polyglot}}</h5>
+                    {{#polyglot}}Please Add Images to Your Room{{/polyglot}}
+                </div>
+            {{/image_url}}
+        </a>
     </div>
-    <div class="room-title">{{post_title}}</div>
-    <div class="room-excerpt">
-        {{post_content}}
-    </div>
-    <div class="room-actions">
-        <a href="#/rooms/edit/{{ID}}" class="btn btn-xs editroom_link">
-            <span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit{{/polyglot}}</a>
-        <a href="#/rooms/delete/{{ID}}" class="btn btn-danger btn-xs deleteroom_link">
-            <span class="glyphicon glyphicon-trash"></span> {{#polyglot}}Delete{{/polyglot}}</a>
+    <div class="col-sm-9">
+        <div class="room-title">
+            <a href="#/rooms/edit/{{ID}}">
+                {{post_title}}
+            </a>
+        </div>
+        <div class="room-excerpt">
+            {{post_content}}
+        </div>
+        <div class="room-actions">
+            <a href="#/rooms/delete/{{ID}}" class="deleteroom_link">
+                <span class="glyphicon glyphicon-trash"></span> {{#polyglot}}Delete Room{{/polyglot}}</a>
+            <a href="#/rooms/edit/{{ID}}" class="btn btn-xs editroom_link">
+                <span class="glyphicon glyphicon-pencil"></span> {{#polyglot}}Edit Room{{/polyglot}}</a>
+        </div>
     </div>
 </div>

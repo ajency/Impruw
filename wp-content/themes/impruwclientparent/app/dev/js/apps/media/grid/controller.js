@@ -31,8 +31,11 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
         })(this));
         this.listenTo(view, "itemview:show:image:editor", (function(_this) {
           return function(iv, model) {
-            var editView;
-            editView = App.request("get:image:editor:view", model);
+            var editView, ratio;
+            ratio = App.currentImageRatio;
+            editView = App.request("get:image:editor:view", model, {
+              aspectRatio: ratio
+            });
             view.triggerMethod("show:edit:image", editView);
             return view.listenTo(editView, "image:editing:cancelled", function() {
               return view.triggerMethod("image:editing:cancelled");

@@ -38,11 +38,20 @@ define ['app'], (App)->
             events :
                 'click' : (e)->
                     e.stopPropagation()
-                    @trigger "show:media:manager"
+                    ratio = @_getImageRatio()
+                    @trigger "show:media:manager", ratio
 
             initialize :(options)->
                 @imageHeightRatio = Marionette.getOption @,'imageHeightRatio'
                 @positionTopRatio = Marionette.getOption @, 'positionTopRatio' 
+
+
+            _getImageRatio : ->
+                console.log @$el
+                width = @$el.width()
+                height = @$el.height()
+                "#{parseInt width}:#{parseInt height}"
+
 
             # check if a valid image_id is set for the element
             # if present ignore else run the Holder.js to show a placeholder
@@ -72,7 +81,7 @@ define ['app'], (App)->
                         
 
                     start:(evt,ui)=>
-                        @$el.resizable( "option", "maxHeight", @$el.find('img').height() )
+                        #@$el.resizable( "option", "maxHeight", @$el.find('img').height() )
 
 
 
