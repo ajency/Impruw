@@ -4540,3 +4540,29 @@ form .aj-imp-submit:hover {
 #edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button:focus {
   background: #a6a6a6;
 }
+/**** Help Text ****/
+.aj-imp-help-text {
+  font-size: 0.88em;
+  color: #c3c3c3;
+  margin: 0.5em 0 1em;
+  padding: 0.3em;
+  border: 1px dotted #dddddd;
+  *zoom: 1;
+}
+.aj-imp-help-text:after,
+.aj-imp-help-text:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.aj-imp-help-text .icon {
+  color: #c2cfd8;
+  font-size: 1.7em;
+  display: block;
+  float: left;
+  margin-right: 0.2em;
+}
+.aj-imp-help-text p {
+  margin-bottom: 0;
+  font-size: 1em;
+}
