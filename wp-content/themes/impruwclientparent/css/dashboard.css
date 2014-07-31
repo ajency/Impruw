@@ -27,6 +27,15 @@ a:focus {
   color: #ff7e00;
   outline: 0;
 }
+a.blue-link {
+  color: #849fb0;
+  display: inline-block;
+  margin: 0 0.5em;
+}
+a.blue-link.pull-left,
+a.blue-link.pull-right {
+  margin: 0.5em;
+}
 a.red-link {
   color: #ee4423;
   display: inline-block;
@@ -49,6 +58,11 @@ a.red-link.pull-right {
   clear: both;
   content: "";
   display: table;
+}
+/****Paragraph Styles****/
+p {
+  color: #777777;
+  font-size: 1em;
 }
 /****Text Alignment Classes****/
 .t-a-r {
@@ -2807,10 +2821,12 @@ form .aj-imp-submit:hover {
 .aj-imp-block-button.add-new-slide {
   margin-left: 0;
 }
-.add-gallery-images {
+.add-gallery-images,
+.aj-imp-blue-btn {
   background: #849fb0;
 }
-.add-gallery-images:hover {
+.add-gallery-images:hover,
+.aj-imp-blue-btn:hover {
   background: #a3b7c4;
 }
 .isotope {
@@ -4514,4 +4530,15 @@ form .aj-imp-submit:hover {
 .aj-imp-help-text p {
   margin-bottom: 0;
   font-size: 1em;
+}
+/**** Style Guide Styles ****/
+.guide-wrapper {
+  padding: 1em;
+  border: 1px solid #aaaaaa;
+}
+.guide-wrapper .guide-header {
+  border-bottom: 2px solid #000;
+}
+.guide-wrapper .prism {
+  margin-bottom: 2.5em;
 }

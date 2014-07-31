@@ -36,6 +36,14 @@ a {
 		color: @orange;
 		outline: 0;
 	}
+	&.blue-link {
+		color: @blue-grey;
+		display: inline-block;
+		margin: 0 0.5em;
+		&.pull-left, &.pull-right {
+			margin: 0.5em;
+		}
+	}
 	&.red-link {
 		color: @logo-orange;
 		display: inline-block;
@@ -59,6 +67,12 @@ a {
 		content: "";
 		display: table;
 	}
+}
+
+/****Paragraph Styles****/
+p {
+	color: darken(@dash-grey, 20%);
+	font-size: 1em;
 }
 
 /****Text Alignment Classes****/
@@ -2827,7 +2841,7 @@ form {
 	margin-left: 0;
 }
 
-.add-gallery-images {
+.add-gallery-images, .aj-imp-blue-btn {
 	background: @blue-grey;
 	&:hover {
 		background: lighten(@blue-grey, 10%);
@@ -4541,5 +4555,17 @@ form {
 	p {
 		margin-bottom: 0;
 		font-size: 1em;
+	}
+}
+
+/**** Style Guide Styles ****/
+.guide-wrapper {
+	padding: 1em;
+	border: 1px solid @dash-grey;
+	.guide-header {
+		border-bottom: 2px solid #000;
+	}
+	.prism {
+		margin-bottom: 2.5em;
 	}
 }

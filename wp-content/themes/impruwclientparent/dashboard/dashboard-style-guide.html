@@ -2,12 +2,17 @@
 <html>
   <head>
     <title>Impruw Dashboard Style Guide</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type">
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="../css/flat-ui.css" rel="stylesheet" media="screen">
     <link href="css/main.min.css" rel="stylesheet" media="screen">
     <link href="css/dashboard.css" rel="stylesheet" media="screen">
+
+    <link href="css/X-rayHTML.css" rel="stylesheet">
+	<link href="css/prism.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -26,9 +31,30 @@
 					<ul id="aj-imp-dash-menu">
 						<div>
 							<li class="aj-imp-nav-create">
-								<span class="icon icon-monitor"></span>
+								<span class="icon icon-book"></span>
 								<span class="arrow"></span>
-								<a href="#">Dashboard</a>
+								<a href="#typography">Typography</a>
+							</li>
+						</div>
+						<div>
+							<li class="aj-imp-nav-create">
+								<span class="icon icon-link"></span>
+								<span class="arrow"></span>
+								<a href="#buttons-links">Buttons &amp; Links</a>
+							</li>
+						</div>
+						<div>
+							<li class="aj-imp-nav-create">
+								<span class="icon icon-window"></span>
+								<span class="arrow"></span>
+								<a href="#widgets">Widgets</a>
+							</li>
+						</div>
+						<div>
+							<li class="aj-imp-nav-create">
+								<span class="icon icon-clipboard"></span>
+								<span class="arrow"></span>
+								<a href="#forms">Forms</a>
 							</li>
 						</div>
 					</ul>
@@ -36,218 +62,224 @@
 			</div>
 			<div class="aj-imp-right col-md-9 col-sm-8">
 				<header class="aj-imp-dash-header row">
-					<div class="aj-imp-dash-title col-sm-8">
-						<h2 class="aj-imp-page-head">Components</h2>
-					</div>
-					<div class="aj-imp-dash-actions col-sm-4">
-						<a href="#" class="btn btn-embossed btn-wide"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+					<div class="aj-imp-dash-title col-sm-12">
+						<h2 class="aj-imp-page-head">Dashboard Style Guide</h2>
 					</div>
 				</header>
 				<div class="row">
 					<div class="aj-imp-dash-content col-sm-12">
-						<!-- Regular Headers -->
-						<h1>Regular Headings <small>This is an example h1 with sub-text</small></h1>
-						<h2>Regular Headings <small>This is an example h2 with sub-text</small></h2>
-						<h3>Regular Headings <small>This is an example h3 with sub-text</small></h3>
-						<h4>Regular Headings <small>This is an example h4 with sub-text</small></h4>
-						<h5>Regular Headings <small>This is an example h5 with sub-text</small></h5>
-						<h6>Regular Headings <small>This is an example h6 with sub-text</small></h6>
-						<hr>
-						<!-- Page Headers -->
-						<h1 class="aj-imp-page-head">Page Headers <small>This is an example h1 of class page header with sub-text</small></h1>
-						<h2 class="aj-imp-page-head">Page Headers <small>This is an example h2 of class page header with sub-text</small></h2>
-						<h3 class="aj-imp-page-head">Page Headers <small>This is an example h3 of class page header with sub-text</small></h3>
-						<h4 class="aj-imp-page-head">Page Headers <small>This is an example h4 of class page header with sub-text</small></h4>
-						<h5 class="aj-imp-page-head">Page Headers <small>This is an example h5 of class page header with sub-text</small></h5>
-						<h6 class="aj-imp-page-head">Page Headers <small>This is an example h6 of class page header with sub-text</small></h6>
-						<hr>
-						<!-- Content Headings -->
-						<h1 class="aj-imp-sub-head">Content Headings <small>This is an example h1 content heading with sub-text</small></h1>
-						<h2 class="aj-imp-sub-head">Content Headings <small>This is an example h2 content heading with sub-text</small></h2>
-						<h3 class="aj-imp-sub-head">Content Headings <small>This is an example h3 content heading with sub-text</small></h3>
-						<h4 class="aj-imp-sub-head">Content Headings <small>This is an example h4 content heading with sub-text</small></h4>
-						<h5 class="aj-imp-sub-head">Content Headings <small>This is an example h5 content heading with sub-text</small></h5>
-						<h6 class="aj-imp-sub-head">Content Headings <small>This is an example h6 content heading with sub-text</small></h6>
-						<hr>
-						<!-- Thin Headings -->
-						<h1 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h1 thin heading with sub-text</small></h1>
-						<h2 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h2 thin heading with sub-text</small></h2>
-						<h3 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h3 thin heading with sub-text</small></h3>
-						<h4 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h4 thin heading with sub-text</small></h4>
-						<h5 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h5 thin heading with sub-text</small></h5>
-						<h6 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h6 thin heading with sub-text</small></h6>
-						<hr>
-						<!-- Buttons -->
-						<h5 class="aj-imp-sub-head-thin">Buttons <small>These are button examples, using contextual classes</small></h5>
-						<a href="#" class="btn btn-embossed">Button</a>
-						<a href="#" class="btn btn-embossed btn-wide">Wide Button</a>
-						<a href="#" class="btn btn-embossed btn-info"><span class="glyphicon glyphicon-star"></span> Button &amp; Icon</a>
-						<a href="#" class="btn btn-embossed btn-primary">Contextual Class Button</a>
-						<a href="#" class="btn btn-embossed btn-wide btn-hg btn-success">Big Button</a>
-						<hr>
-						<!-- Link Styles -->
-						<h5 class="aj-imp-sub-head-thin">Link Styles <small>Different Link Styles</small></h5>
-						<a href="#">Regular Link</a>
-						<br>
-						<br>
-						<a href="#" class="dark-link">Dark Link</a>
-						<br>
-						<br>
-						<a href="#" class="bold-link">Bold Link</a>
-						<br>
-						<br>
-						<a href="#" class="bold-link dark-link">Bold &amp; Dark Link</a>
-						<hr>
+						<h2 class="aj-imp-sub-head" id="typography">Typography <small>Typographical elements on the dashboard</small></h2>
+						<div class="guide-wrapper">
+							<h5 class="aj-imp-sub-head-thin guide-header">Regular Heading Styles</h5>
+<div data-xrayhtml class="prism"><!-- Regular Headers -->
+<h1>Regular Headings <small>This is an example h1 with sub-text</small></h1>
+<h2>Regular Headings <small>This is an example h2 with sub-text</small></h2>
+<h3>Regular Headings <small>This is an example h3 with sub-text</small></h3>
+<h4>Regular Headings <small>This is an example h4 with sub-text</small></h4>
+<h5>Regular Headings <small>This is an example h5 with sub-text</small></h5>
+<h6>Regular Headings <small>This is an example h6 with sub-text</small></h6>
+</div>
+							<hr>
+							<h5 class="aj-imp-sub-head-thin guide-header">Page Heading Styles</h5>
+<div data-xrayhtml class="prism"><!-- Page Headers -->
+<h1 class="aj-imp-page-head">Page Headers <small>This is an example h1 of class page header with sub-text</small></h1>
+<h2 class="aj-imp-page-head">Page Headers <small>This is an example h2 of class page header with sub-text</small></h2>
+<h3 class="aj-imp-page-head">Page Headers <small>This is an example h3 of class page header with sub-text</small></h3>
+<h4 class="aj-imp-page-head">Page Headers <small>This is an example h4 of class page header with sub-text</small></h4>
+<h5 class="aj-imp-page-head">Page Headers <small>This is an example h5 of class page header with sub-text</small></h5>
+<h6 class="aj-imp-page-head">Page Headers <small>This is an example h6 of class page header with sub-text</small></h6>
+</div>
+							<hr>
+							<h5 class="aj-imp-sub-head-thin guide-header">Content Heading Styles</h5>
+<div data-xrayhtml class="prism"><!-- Content Headings -->
+<h1 class="aj-imp-sub-head">Content Headings <small>This is an example h1 content heading with sub-text</small></h1>
+<h2 class="aj-imp-sub-head">Content Headings <small>This is an example h2 content heading with sub-text</small></h2>
+<h3 class="aj-imp-sub-head">Content Headings <small>This is an example h3 content heading with sub-text</small></h3>
+<h4 class="aj-imp-sub-head">Content Headings <small>This is an example h4 content heading with sub-text</small></h4>
+<h5 class="aj-imp-sub-head">Content Headings <small>This is an example h5 content heading with sub-text</small></h5>
+<h6 class="aj-imp-sub-head">Content Headings <small>This is an example h6 content heading with sub-text</small></h6>
+</div>
+							<hr>
+							<h5 class="aj-imp-sub-head-thin guide-header">Thin Heading Styles</h5>
+<div data-xrayhtml class="prism"><!-- Thin Headings -->
+<h1 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h1 thin heading with sub-text</small></h1>
+<h2 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h2 thin heading with sub-text</small></h2>
+<h3 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h3 thin heading with sub-text</small></h3>
+<h4 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h4 thin heading with sub-text</small></h4>
+<h5 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h5 thin heading with sub-text</small></h5>
+<h6 class="aj-imp-sub-head-thin">Thin Headings <small>This is an example h6 thin heading with sub-text</small></h6>
+</div>
+							<hr>
+							<h5 class="aj-imp-sub-head-thin guide-header">Text Styles <small>Use tags along with alignment classes</small></h5>
+<div data-xrayhtml class="prism"><!-- Paragraphs -->
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+</div>
+<div data-xrayhtml class="prism"><!-- Left Align Class -->
+<p class="t-a-l">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+</div>
+<div data-xrayhtml class="prism"><!-- Right Align Class -->
+<p class="t-a-r">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+</div>
+<div data-xrayhtml class="prism"><!-- Center Align Class -->
+<p class="t-a-c">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+</div>
+						</div>
+
+						<h2 class="aj-imp-sub-head" id="buttons-links">Buttons &amp; Links <small>Buttons and Links on the dashboard</small></h2>
+						<div class="guide-wrapper">
+							<!-- Buttons -->
+							<h5 class="aj-imp-sub-head-thin guide-header">Buttons <small>These are button examples, using contextual classes that can be mixed and matched</small></h5>
+<div data-xrayhtml class="prism"><a href="#" class="btn">Button</a></div>
+<div data-xrayhtml class="prism"><a href="#" class="btn btn-wide">Wide Button</a></div>
+<div data-xrayhtml class="prism"><a href="#" class="btn btn-sm">Small Button</a></div>
+<div data-xrayhtml class="prism"><a href="#" class="btn btn-xs">Extra Small Button</a></div>
+<div data-xrayhtml class="prism"><a href="#" class="btn btn-hg">Huge Button</a></div>
+<div data-xrayhtml class="prism"><!-- Can be used with any of the size classes -->
+<a href="#" class="btn aj-imp-orange-btn">Orange Button</a></div>
+<div data-xrayhtml class="prism"><!-- Can be used with any of the size classes -->
+<a href="#" class="btn aj-imp-blue-btn">Blue Button</a></div>
+<div data-xrayhtml class="prism"><!-- Can be used with any of the size & colour classes -->
+<a href="#" class="btn"><span class="glyphicon glyphicon-star"></span> Button &amp; Icon</a></div>
+							<hr>
+							<!-- Link Styles -->
+							<h5 class="aj-imp-sub-head-thin guide-header">Link Styles <small>Different Link Styles</small></h5>
+<div data-xrayhtml class="prism"><a href="#">Regular Link</a></div>
+<div data-xrayhtml class="prism"><a href="#" class="dark-link">Dark Link</a></div>
+<div data-xrayhtml class="prism"><a href="#" class="blue-link">Blue Link</a></div>
+<div data-xrayhtml class="prism"><a href="#" class="red-link">Red Link</a></div>
+<div data-xrayhtml class="prism"><!-- Can be used with the color classes --><a href="#" class="bold-link">Bold Link</a></div>
+						</div>
+
 						<!-- Dash Components -->
-						<h3 class="aj-imp-page-head">Dash Components <small>Components that are part of the site dashboard</small></h3>
-						<!-- Dashboard Widgets -->
-						<h5 class="aj-imp-sub-head-thin">Dashboard Widgets <small>Basic Dashboard widget with dummy content</small></h5>
-						<div class="aj-imp-dash-widget">
-							<h5 class="aj-imp-sub-head">Site Trends <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h5>
-							<div class="aj-imp-widget-container panel panel-default">
-								<div class="panel-body">
-									<div class="aj-imp-widget-head row">
-										<div class="col-sm-6 left">
-											<h6 class="aj-imp-sub-head"><span class="glyphicon glyphicon-heart"></span> <small>Response Rate</small> 33%</h6>
-										</div>
-										<div class="col-sm-6 right">
-											<h6 class="aj-imp-sub-head"><small>Avg Response Time</small> 430 sec</h6>
-										</div>
-									</div>
-									<div class="aj-imp-widget-content row">
-										<div class="col-sm-6 left">
-											<div class="aj-imp-blue-accent">
-												<span>352</span> Interactions
-											</div>
-										</div>
-										<div class="col-sm-6 right">
-											<div class="aj-imp-blue-accent">
-												By <span>212</span> Unique Users
-											</div>
-										</div>
-									</div>
-									<div class="aj-imp-widget-content row">
-										<div class="col-sm-12">
-											<div class="aj-imp-blue-accent">
-												<span>28.4k</span> Impressions
-											</div>
-										</div>
-									</div>
-									<div class="aj-imp-widget-content row">
-										<div class="col-sm-6 left">
-											<h6 class="aj-imp-widget-title">Title in Widget</h6>
-											<p>
-												Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-											</p>
-										</div>
-										<div class="col-sm-6 right">
-											<p>
-												It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-											</p>
-										</div>
-									</div>
-								</div>
+						<h2 class="aj-imp-sub-head" id="widgets">Widgets <small>Widget boxes on the dashboard</small></h2>
+						<div class="guide-wrapper">
+							<!-- Dashboard Widgets -->
+							<h5 class="aj-imp-sub-head-thin guide-header">Dashboard Widgets <small>Basic Dashboard widget with dummy content</small></h5>
+<div data-xrayhtml class="prism"><div class="aj-imp-dash-widget">
+	<h5 class="aj-imp-sub-head">Site Trends <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h5>
+	<div class="aj-imp-widget-container panel panel-default">
+		<div class="panel-body">
+			<div class="aj-imp-widget-head row">
+				<div class="col-sm-6 left">
+					<h6 class="aj-imp-sub-head"><span class="glyphicon glyphicon-heart"></span> <small>Response Rate</small> 33%</h6>
+				</div>
+				<div class="col-sm-6 right">
+					<h6 class="aj-imp-sub-head"><small>Avg Response Time</small> 430 sec</h6>
+				</div>
+			</div>
+			<div class="aj-imp-widget-content row">
+				<div class="col-sm-6 left">
+					<div class="aj-imp-blue-accent">
+						<span>352</span> Interactions
+					</div>
+				</div>
+				<div class="col-sm-6 right">
+					<div class="aj-imp-blue-accent">
+						By <span>212</span> Unique Users
+					</div>
+				</div>
+			</div>
+			<div class="aj-imp-widget-content row">
+				<div class="col-sm-12">
+					<div class="aj-imp-blue-accent">
+						<span>28.4k</span> Impressions
+					</div>
+				</div>
+			</div>
+			<div class="aj-imp-widget-content row">
+				<div class="col-sm-6 left">
+					<h6 class="aj-imp-widget-title">Title in Widget</h6>
+					<p>
+						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+					</p>
+				</div>
+				<div class="col-sm-6 right">
+					<p>
+						It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+							<hr>
+							<!-- Dashboard Widgets -->
+							<h5 class="aj-imp-sub-head-thin guide-header">Dashboard Text Widgets <small>Basic Dashboard text widget with title &amp; content</small></h5>
+<div data-xrayhtml class="prism"><div class="aj-imp-text-widget">
+	<h6 class="aj-imp-text-widget-title">A Quick Primer</h6>
+	<div class="aj-imp-text-widget-content">
+		It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+	</div>
+</div>
+</div>
+							<hr>
+							<!-- Dashboard Help -->
+							<h5 class="aj-imp-sub-head-thin guide-header">Dashboard Help Box <small>Dashboard help text</small></h5>
+<div data-xrayhtml class="prism"><div class="aj-imp-help-text">
+	<!-- Use an icon of your choice -->
+	<span class="icon icon-info2"></span>
+	<p>
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+	</p>
+</div>
+</div>
 							</div>
-						</div>
-						<hr>
-						<!-- Dashboard Widgets -->
-						<h5 class="aj-imp-sub-head-thin">Dashboard Text Widgets <small>Basic Dashboard text widget with title &amp; content</small></h5>
-						<div class="aj-imp-text-widget">
-							<h6 class="aj-imp-text-widget-title">A Quick Primer</h6>
-							<div class="aj-imp-text-widget-content">
-								It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+
+							<h2 class="aj-imp-sub-head" id="forms">Forms <small>Forms and components on the dashboard</small></h2>
+							<div class="guide-wrapper">
+								<form class="form-horizontal">
+<div data-xrayhtml class="prism"><div class="form-group">
+    <label class="col-sm-2 control-label" for="hotel-name">Text Input</label>
+    <div class="col-sm-10 col-sm-offset-2">
+        <input type="text" value="" placeholder="Text Input" class="form-control">
+    </div>
+</div>
+</div>
+<div data-xrayhtml class="prism"><div class="form-group">
+    <label class="col-sm-2 control-label" for="hotel-name">Text Area</label>
+    <div class="col-sm-10 col-sm-offset-2">
+        <textarea placeholder="Text Area" class="form-control"></textarea>
+    </div>
+</div>
+</div>
+<div data-xrayhtml class="prism"><div class="form-group add-another">
+    <label class="col-sm-2 control-label">1st Column</label>
+    <div class="col-sm-4 col-sm-offset-2">
+        <input class="form-control" placeholder="1st Column" type="text">
+    </div>
+
+    <label class="col-sm-2 control-label label-2">2nd Column</label>
+    <div class="col-sm-4 col-sm-offset-2">
+        <input class="form-control" placeholder="2nd Column" type="text">
+    </div>
+</div>
+</div>
+								</form>
 							</div>
+
 						</div>
-						<hr>
-						<!-- Builder Components -->
-						<h3 class="aj-imp-page-head">Builder Components <small>Components that are part of the site builder</small></h3>
-						<!-- Left Box -->
-						<h5 class="aj-imp-sub-head-thin">Left Box <small>The box on the left for drag &amp; drop</small></h5>
-						<div class="aj-imp-drag-menu">
-							<ul class="nav nav-tabs" id="builder-box-tabs">
-								<li class="active"><a href="#content" data-toggle="tab">Content</a></li>
-								<li><a href="#structure" data-toggle="tab">Structure</a></li>
-								<li><a href="#social" data-toggle="tab">Social</a></li>
-							</ul>
-							<div class="tab-content">
-								<div class="tab-pane active" id="content">
-									<p class="desc">
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-									</p>
-									<ul class="aj-imp-builder-items clearfix">
-										<li>
-											<a href="#">
-												<div class="aj-imp-builder-icon" data-icon="&#xf13c;"></div>
-												<div class="aj-imp-builder-title">Title</div>
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<div class="aj-imp-builder-icon" data-icon="&#xf111;"></div>
-												<div class="aj-imp-builder-title">Text</div>
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<div class="aj-imp-builder-icon" data-icon="&#xf112;"></div>
-												<div class="aj-imp-builder-title">Image + Text</div>
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<div class="aj-imp-builder-icon" data-icon="&#xf10e;"></div>
-												<div class="aj-imp-builder-title">Image</div>
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<div class="aj-imp-builder-icon" data-icon="&#xf10c;"></div>
-												<div class="aj-imp-builder-title">Gallery</div>
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<div class="aj-imp-builder-icon" data-icon="&#xf110;"></div>
-												<div class="aj-imp-builder-title">Map</div>
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<div class="aj-imp-builder-icon" data-icon="&#xf119;"></div>
-												<div class="aj-imp-builder-title">Slideshow</div>
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<div class="aj-imp-builder-icon" data-icon="&#xf103;"></div>
-												<div class="aj-imp-builder-title">Columns</div>
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<div class="aj-imp-builder-icon" data-icon="&#xf10a;"></div>
-												<div class="aj-imp-builder-title">Contact Form</div>
-											</a>
-										</li>
-									</ul>
-								</div>
-								<div class="tab-pane" id="structure">
-									Structure
-								</div>
-								<div class="tab-pane" id="social">
-									Social
-								</div>
-							</div>
-						</div>
-						<hr>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="../app/dev/js/plugins/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- Include code and syntax highlighting for style guide -->
+    <script src="../js/X-rayHTML.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <script type="text/javascript">
+		$( window ).bind( "create.xrayhtml", function( e ) {
+			var prism = !!~e.target.getAttribute( "class" ).indexOf( "prism" );
+
+			if( prism && "Prism" in window ) {
+				$( ".prism" ).find( "code" ).addClass( "language-markup" );
+				Prism.highlightAll();
+			}
+		});
+	</script>
   </body>
 </html>
