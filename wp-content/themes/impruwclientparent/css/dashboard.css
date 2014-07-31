@@ -1970,6 +1970,10 @@ form .aj-imp-submit:hover {
 .rooms-layout .add-room {
   background: #ff7e00;
 }
+.rooms-layout .add-room:hover,
+.rooms-layout .add-room:focus {
+  background: #ff9833;
+}
 .empty-info {
   clear: both;
   padding: 0.8em 1em 0.7em;

@@ -50,7 +50,7 @@ define ['app'], (App)->
                 left = $(original).width()/2
                 @$el.sortable( "option", "cursorAt", { left: 50, top: 25 } );
 
-                "<div style='width: 100px; top:100px; height: 50px; border: 2px; background-color: pink;'></div>"
+                "<div class='element-helper'></div>"
 
 
 

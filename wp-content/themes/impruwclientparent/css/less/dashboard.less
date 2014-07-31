@@ -1974,6 +1974,9 @@ form {
 .rooms-layout {
 	.add-room {
 		background: @orange;
+		&:hover, &:focus {
+			background: lighten(@orange, 10%);
+		}
 	}
 }
 
