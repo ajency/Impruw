@@ -57,6 +57,9 @@ function get_customer_credit_card_details( $customer_id ) {
 
     $customer = Braintree_Customer::find( $customer_id );
 
+    if ( empty( $customer->creditCards ) )
+        return array( 'card_exists' => false, 'customer_id'=>$customer_id );
+
     $customer_credit_card_data = customer_credit_card_details( $customer->creditCards );
 
     $customer_credit_card_data[ 'customer_id' ] = $customer_id;
@@ -75,9 +78,6 @@ function get_customer_credit_card_details( $customer_id ) {
  *         card_exists set to true
  */
 function customer_credit_card_details( $credit_cards ) {
-
-    if ( empty( $credit_cards ) )
-        return array( 'card_exists' => false );
 
     $credit_card_details[ 'customer_name' ] = $credit_cards[ 0 ]->cardholderName;
     $credit_card_details[ 'card_number' ] = $credit_cards[ 0 ]->maskedNumber;
@@ -152,4 +152,27 @@ function update_customer_billing_address( $address_data ) {
         return $error_msg;
     }
 
+}
+
+
+function  add_new_credit_card_to_customer( $customer_id, $payment_method_nonce ) {
+
+    $create_card = Braintree_Customer::update( $customer_id, array(
+        'creditCard' => array(
+            'paymentMethodNonce' =>$payment_method_nonce,
+            'options' => array(
+                'verifyCard' => true
+            )
+        )
+    ) );
+
+    if ( $create_card->success ) {
+        $credit_card_token = $create_card->customer->creditCards[ 0 ]->token;
+        $success_msg = array( 'code' => 'OK', 'credit_card_token' => $credit_card_token );
+        return $success_msg;
+
+    } else {
+        $error_msg = array( 'code' => 'ERROR', 'msg' => $create_card->message );
+        return $error_msg;
+    }
 }

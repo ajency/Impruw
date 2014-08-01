@@ -49,63 +49,66 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
       return ActiveSubscriptionView;
 
     })(Marionette.ItemView);
-    View.FirstPaymentView = (function(_super) {
-      __extends(FirstPaymentView, _super);
+    View.NewCardPaymentView = (function(_super) {
+      __extends(NewCardPaymentView, _super);
 
-      function FirstPaymentView() {
-        return FirstPaymentView.__super__.constructor.apply(this, arguments);
+      function NewCardPaymentView() {
+        return NewCardPaymentView.__super__.constructor.apply(this, arguments);
       }
 
-      FirstPaymentView.prototype.template = newpaymentViewTpl;
+      NewCardPaymentView.prototype.template = newpaymentViewTpl;
 
-      FirstPaymentView.prototype.className = 'col-sm-8';
+      NewCardPaymentView.prototype.className = 'col-sm-8';
 
-      FirstPaymentView.prototype.serializeData = function() {
+      NewCardPaymentView.prototype.serializeData = function() {
         var data;
-        data = FirstPaymentView.__super__.serializeData.call(this);
+        data = NewCardPaymentView.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
         return data;
       };
 
-      FirstPaymentView.prototype.onShow = function() {
+      NewCardPaymentView.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
         return this.$el.find('select').selectpicker();
       };
 
-      FirstPaymentView.prototype.events = {
-        'click #btn-pay': function() {
-          var cardNumber, client, clientToken, expMonth, expYear, nameOnCard;
+      NewCardPaymentView.prototype.events = {
+        'click #btn-pay': function(e) {
+          var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
+          e.preventDefault();
           this.$el.find('#pay_loader').show();
           cardNumber = this.$el.find('#card_number').val();
           nameOnCard = this.$el.find('#card_name').val();
           expMonth = this.$el.find('#exp_month').val();
           expYear = this.$el.find('#exp_year').val();
+          cvv = this.$el.find('#card-cvv').val();
           clientToken = this.model.get('braintree_client_token');
           client = new braintree.api.Client({
             clientToken: clientToken
           });
           return client.tokenizeCard({
             number: cardNumber,
+            cvv: cvv,
             cardholderName: nameOnCard,
             expiration_month: expMonth,
             expiration_year: expYear
           }, (function(_this) {
             return function(err, nonce) {
-              return _this.trigger("credit:card:payment", nonce);
+              return _this.trigger("new:credit:card:payment", nonce);
             };
           })(this));
         }
       };
 
-      FirstPaymentView.prototype.onPaymentSuccess = function() {
+      NewCardPaymentView.prototype.onPaymentSuccess = function() {
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
-        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Card Added Succesfully';
+        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Succesfull';
         return this.$el.find('#billingsave_status').append(html);
       };
 
-      FirstPaymentView.prototype.onPaymentError = function(errorMsg) {
+      NewCardPaymentView.prototype.onPaymentError = function(errorMsg) {
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
@@ -113,7 +116,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         return this.$el.find('#billingsave_status').append(html);
       };
 
-      return FirstPaymentView;
+      return NewCardPaymentView;
 
     })(Marionette.ItemView);
     return View.PaymentView = (function(_super) {
@@ -166,6 +169,9 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
               return _this.trigger("make:payment:with:stored:card", data);
             };
           })(this));
+        },
+        'click #btn-change-card': function() {
+          return this.trigger("change:card");
         }
       };
 

@@ -82,11 +82,13 @@ function delete_previous_subscription( $current_subscription_id ) {
 
         $new_subscription_id = $query_result[ 0 ][ 'new_subscription_id' ];
 
-        $cancel_subscription = cancel_subscription_in_braintree( $new_subscription_id );
-        if ( $cancel_subscription[ 'code' ] == "ERROR" )
-            wp_send_json( array( 'code' => 'ERROR', 'msg' => $cancel_subscription[ 'msg' ] ) );
+        if ( $new_subscription_id != "ImpruwFree" ) {
+            $cancel_subscription = cancel_subscription_in_braintree( $new_subscription_id );
+            if ( $cancel_subscription[ 'code' ] == "ERROR" )
+                wp_send_json( array( 'code' => 'ERROR', 'msg' => $cancel_subscription[ 'msg' ] ) );
+        }
 
-        $wpdb->update($table_name,array('status'=>'0'),array('new_subscription_id'=>$new_subscription_id));
+        $wpdb->update( $table_name, array( 'status' => '0' ), array( 'new_subscription_id' => $new_subscription_id ) );
     }
 }
 
@@ -102,6 +104,7 @@ function create_pending_subscription( $payment_method_token, $selected_plan_id, 
     if ( $pending_subscription[ 'code' ] == 'ERROR' ) {
         return array( 'code' => 'ERROR', 'msg' => $pending_subscription[ 'msg' ] );
     } else {
+        delete_previous_subscription( $current_subscription_id );
         create_cancelled_subscription_in_db( $current_subscription_id, $pending_subscription[ 'subscription_id' ], $bill_end_date );
     }
 
@@ -147,3 +150,27 @@ function  get_pending_subscription_details( $old_subscription_id ) {
 
     return $subscription_data;
 }
+
+/**
+ * Create a customer in the valut
+ * @param $payment_method_nonce
+ */
+function create_customer_with_credit_card( $payment_method_nonce ) {
+    $current_user = wp_get_current_user();
+    $user_name = $current_user->display_name;
+
+    $customer_array = array(
+        'payment_method_nonce' => $payment_method_nonce,
+        'user_name' => $user_name );
+
+    // create the  user with credit card in braintree vault
+    $customer = create_customer_with_card( $customer_array );
+    if ( $customer[ 'code' ] == 'ERROR' )
+        return array( 'code' => 'ERROR', 'msg' => $customer[ 'msg' ] );
+
+    //update braintree customer id
+    update_option( 'braintree-customer-id', $customer[ 'customer_id' ] );
+
+    return array( 'code' => 'OK', 'card_token' => $customer[ 'credit_card_token' ] );
+}
+

@@ -46,7 +46,7 @@ define [ 'app'
             className : 'aj-imp-widget-head row'
 
         #payment page view when no credit card info available
-        class View.FirstPaymentView extends  Marionette.ItemView
+        class View.NewCardPaymentView extends  Marionette.ItemView
 
             template : newpaymentViewTpl
 
@@ -63,17 +63,19 @@ define [ 'app'
 
 
             events :
-                'click #btn-pay' : ->
+                'click #btn-pay' :(e) ->
+                    e.preventDefault()
                     @$el.find( '#pay_loader' ).show()
                     cardNumber = @$el.find( '#card_number' ).val()
                     nameOnCard = @$el.find( '#card_name' ).val()
                     expMonth = @$el.find( '#exp_month' ).val()
                     expYear = @$el.find( '#exp_year' ).val()
+                    cvv = @$el.find( '#card-cvv' ).val()
 
                     clientToken = @model.get 'braintree_client_token'
                     client = new braintree.api.Client clientToken : clientToken
-                    client.tokenizeCard number : cardNumber,cardholderName: nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
-                        @trigger "credit:card:payment", nonce
+                    client.tokenizeCard number : cardNumber,cvv: cvv,cardholderName: nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
+                        @trigger "new:credit:card:payment", nonce
 
             onPaymentSuccess : ->
                 @$el.find( '#billingsave_status' ).empty()
@@ -81,7 +83,7 @@ define [ 'app'
                 html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                                         &times;
                                         </button>
-                                        Card Added Succesfully'
+                                        Payment Succesfull'
                 @$el.find( '#billingsave_status' ).append(html)
 
             onPaymentError : ( errorMsg )->
@@ -124,6 +126,10 @@ define [ 'app'
                             nonce : nonce
                             token : @model.get 'token'
                         @trigger "make:payment:with:stored:card", data
+
+                'click #btn-change-card':->
+                    @trigger "change:card"
+
 
             onPaymentSuccess : ->
                 @$el.find( '#billingsave_status' ).empty()

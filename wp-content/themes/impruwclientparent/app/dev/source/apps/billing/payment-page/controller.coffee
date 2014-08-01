@@ -28,35 +28,47 @@ define [ 'app', 'controllers/base-controller'
 
                     #show payment page
                     brainTreeCustomerId = @siteModel.get 'braintree_customer_id'
-                    creditCardModel = App.request "get:card:info", brainTreeCustomerId
-                    App.execute "when:fetched", creditCardModel, =>
+                    @creditCardModel = App.request "get:card:info", brainTreeCustomerId
+                    App.execute "when:fetched", @creditCardModel, =>
+
                         #check if card details exists
-                        cardExists= creditCardModel.get 'card_exists'
+                        cardExists = @creditCardModel.get 'card_exists'
 
                         if cardExists is true
-                            @paymentView  = @getPaymentView creditCardModel
+                            @paymentView = @getPaymentView @creditCardModel
                         else
-                            @paymentView  = @getFirstTimePaymentView creditCardModel
+                            @paymentView = @getNewCardPaymentView @creditCardModel
 
                         @layout.paymentRegion.show @paymentView
 
-                        @listenTo @paymentView, "credit:card:payment",@userPayment
-                        @listenTo @paymentView, "make:payment:with:stored:card",@payWithStoredCard
+                        @listenTo @paymentView, "new:credit:card:payment",( paymentMethodNonce )=>
+                            @newCardPayment paymentMethodNonce,'active'
 
+                        @listenTo @paymentView, "make:payment:with:stored:card", @payWithStoredCard
+
+                        @listenTo @paymentView, "change:card", =>
+                            @paymentView = @getNewCardPaymentView @creditCardModel
+                            @layout.paymentRegion.show @paymentView
+                            @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
+                                @newCardPayment paymentMethodNonce,'pending'
 
 
                 # show main layout
                 @show @layout,
                     loading : true
 
-            userPayment : ( paymentMethodNonce )=>
+            newCardPayment : ( paymentMethodNonce, status )=>
+                customerId = @creditCardModel.get 'customer_id'
                 options =
                     method : 'POST'
                     url : AJAXURL
                     data :
                         'paymentMethodNonce' : paymentMethodNonce
                         'selectedPlanId' : @selectedPlanId
-                        'action' : 'make-payment'
+                        'customerId' : customerId
+                        'currentSubscriptionId' : @subscriptionId
+                        'status' : status
+                        'action' : 'new-card-payment'
 
                 $.ajax( options ).done ( response )=>
                     if response.code == "OK"
@@ -71,7 +83,7 @@ define [ 'app', 'controllers/base-controller'
                     data :
                         'cardToken' : data.token
                         'selectedPlanId' : @selectedPlanId
-                        'currentSubscriptionId' :  @subscriptionId
+                        'currentSubscriptionId' : @subscriptionId
                         'action' : data.action
 
                 $.ajax( options ).done ( response )=>
@@ -98,8 +110,8 @@ define [ 'app', 'controllers/base-controller'
                 new Payment.View.PaymentView
                     model : creditCardModel
 
-            getFirstTimePaymentView : ( creditCardModel )->
-                new Payment.View.FirstPaymentView
+            getNewCardPaymentView : ( creditCardModel )->
+                new Payment.View.NewCardPaymentView
                     model : creditCardModel
 
 

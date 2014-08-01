@@ -16,16 +16,16 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         pendingSubscriptionModel = App.request("get:pending:subscription", this.subscriptionId);
         return App.execute("when:fetched", pendingSubscriptionModel, (function(_this) {
           return function() {
-            var status, view;
+            var status;
             status = pendingSubscriptionModel.get('pending');
             if (status === true) {
-              view = _this.getView(pendingSubscriptionModel);
+              _this.view = _this.getView(pendingSubscriptionModel);
             } else {
               _this.subscriptionModel = App.request("get:subscription:by:id", _this.subscriptionId);
-              view = _this.getLinkView(_this.subscriptionModel);
+              _this.view = _this.getLinkView(_this.subscriptionModel);
             }
-            _this.listenTo(view, "switch:to:free:plan", _this.deactiveSubscription);
-            return _this.show(view, {
+            _this.listenTo(_this.view, "switch:to:free:plan", _this.deactiveSubscription);
+            return _this.show(_this.view, {
               loading: true
             });
           };
@@ -45,7 +45,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       Controller.prototype.deactiveSubscription = function() {
-        return App.execute("when:fetched", subscriptionModel, (function(_this) {
+        return App.execute("when:fetched", this.subscriptionModel, (function(_this) {
           return function() {
             var cancelDate, options, status;
             status = _this.subscriptionModel.get('status');
@@ -61,7 +61,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
               }
             };
             return $.ajax(options).done(function(response) {
-              return console.log(response);
+              return _this.view.triggerMethod("plan:deactivated");
             });
           };
         })(this));
@@ -89,14 +89,22 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return LinkView.__super__.constructor.apply(this, arguments);
       }
 
-      LinkView.prototype.template = '<a href="javascript:void(0)" class="red-link" id="deactivate-sub"> <span class="glyphicon glyphicon-ban-circle"></span> Deactivate Subscription</a>';
+      LinkView.prototype.template = '<a href="javascript:void(0)" class="red-link" id="deactivate-sub"> <span class="glyphicon glyphicon-ban-circle"></span> Deactivate Subscription</a> <img src="{{THEMEURL}}/images/loader.gif" width="38" height="30" id="pay_loader" style="display:none "> <div class="alert alert-success" id="display-msg" style="display:none;"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> {{#polyglot}}Plan deactivated.{{/polyglot}} </div>';
 
       LinkView.prototype.events = {
         'click #deactivate-sub ': function() {
           if (confirm("Deactivate plan?")) {
+            this.$el.find('#pay_loader').show();
             return this.trigger("switch:to:free:plan");
           }
         }
+      };
+
+      LinkView.prototype.serializeData = function() {
+        var data;
+        data = LinkView.__super__.serializeData.call(this);
+        data.THEMEURL = THEMEURL;
+        return data;
       };
 
       LinkView.prototype.onShow = function() {
@@ -105,6 +113,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         if (planName === 'Free') {
           return this.$el.hide();
         }
+      };
+
+      LinkView.prototype.onPlanDeactivated = function() {
+        this.$el.find('#pay_loader').hide();
+        return this.$el.find('#display-msg').show();
       };
 
       return LinkView;

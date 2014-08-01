@@ -13,14 +13,14 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
                     if status is true
 
-                        view = @getView pendingSubscriptionModel
+                        @view = @getView pendingSubscriptionModel
                     else
                         @subscriptionModel = App.request "get:subscription:by:id", @subscriptionId
-                        view = @getLinkView @subscriptionModel
+                        @view = @getLinkView @subscriptionModel
 
-                    @listenTo view, "switch:to:free:plan", @deactiveSubscription
+                    @listenTo @view, "switch:to:free:plan", @deactiveSubscription
 
-                    @show view,
+                    @show @view,
                         loading : true
 
             getView : ( pendingSubscriptionModel ) ->
@@ -32,7 +32,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                     model : @subscriptionModel
 
             deactiveSubscription : ->
-                App.execute "when:fetched", subscriptionModel, =>
+                App.execute "when:fetched", @subscriptionModel, =>
                     status = @subscriptionModel.get 'status'
                     cancelDate = @subscriptionModel.get 'bill_end'
 
@@ -46,8 +46,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                             'action' : 'change-to-free-plan'
 
                     $.ajax( options ).done ( response )=>
-                        console.log response
-        #                    window.location.reload()
+                        @view.triggerMethod "plan:deactivated"
 
 
         class PendingSubscription.View extends Marionette.ItemView
@@ -64,16 +63,35 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
             template : '<a href="javascript:void(0)" class="red-link" id="deactivate-sub">
                                                 <span class="glyphicon glyphicon-ban-circle"></span>
-                                                Deactivate Subscription</a>'
+                                                Deactivate Subscription</a>
+                        <img src="{{THEMEURL}}/images/loader.gif" width="38" height="30"
+                        id="pay_loader" style="display:none ">
+                        <div class="alert alert-success" id="display-msg" style="display:none;">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                &times;
+                            </button>
+                            {{#polyglot}}Plan deactivated.{{/polyglot}}
+                        </div>'
+
             events :
                 'click #deactivate-sub ' : ->
                     if confirm "Deactivate plan?"
+                        @$el.find('#pay_loader').show()
                         @trigger "switch:to:free:plan"
+
+            serializeData : ->
+                data = super()
+                data.THEMEURL = THEMEURL
+                data
+
             onShow :->
                 planName =  @model.get 'plan_name'
                 if planName is 'Free'
                     @$el.hide()
 
+            onPlanDeactivated :->
+                @$el.find('#pay_loader').hide()
+                @$el.find('#display-msg').show()
 
 
         App.commands.setHandler "show:pending:subscription", ( opts ) ->

@@ -86,7 +86,7 @@ function ajax_read_creditcard() {
     $customer_id = $_REQUEST[ 'customer_id' ];
 
     if ( empty( $customer_id ) ) {
-        $credit_card_data = array( 'card_exists' => false );
+        $credit_card_data = array( 'card_exists' => false, 'customer_id' => $customer_id );
     } else {
         $credit_card_data = get_customer_credit_card_details( $customer_id );
     }
@@ -101,35 +101,56 @@ add_action( 'wp_ajax_read-creditcard', 'ajax_read_creditcard' );
 /**
  * Function to make payment
  */
-function ajax_make_payment() {
+function ajax_new_card_payment() {
+
+    //get $_POST data
     $selected_plan_id = $_POST[ 'selectedPlanId' ];
+    $payment_method_nonce = $_POST[ 'paymentMethodNonce' ];
+    $customer_id = $_POST[ 'customerId' ];
+    $status = $_POST[ 'status' ];
+    $current_subscription_id = $_POST[ 'currentSubscriptionId' ];
+    unset( $_POST[ 'action' ] );
 
-    $current_user = wp_get_current_user();
-    $user_name = $current_user->display_name;
+    // if no customer is created in braintree
+    if ( empty( $customer_id ) ) {
 
-    $customer_array = array(
-        'payment_method_nonce' => $_POST[ 'paymentMethodNonce' ],
-        'user_name' => $user_name );
+        $customer = create_customer_with_credit_card( $payment_method_nonce );
 
-    // create the  user with credit card
-    $customer = create_customer_with_card( $customer_array );
-    if ( $customer[ 'code' ] == 'ERROR' )
-        wp_send_json( array( 'code' => 'ERROR', 'msg' => $customer[ 'msg' ] ) );
+        if ( $customer[ 'code' ] == 'ERROR' )
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => $customer[ 'msg' ] ) );
 
-    //update braintree customer id
-    update_option( 'braintree-customer-id', $customer[ 'customer_id' ] );
+        $card_token = $customer[ 'card_token' ];
 
-    //create subscription in braintree
-    $subscription = create_subscription_in_braintree( $customer[ 'credit_card_token' ], $selected_plan_id );
-    if ( $subscription[ 'code' ] == 'ERROR' )
-        wp_send_json( array( 'code' => 'ERROR', 'msg' => $subscription[ 'msg' ] ) );
+    } else {
+        $create_card = add_new_credit_card_to_customer( $customer_id, $payment_method_nonce );
 
-    update_option( 'braintree-subscription', $subscription[ 'subscription_id' ] );
+        if ( $create_card[ 'code' ] == 'ERROR' )
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => $create_card[ 'msg' ] ) );
+
+        $card_token = $create_card[ 'credit_card_token' ];
+    }
+
+    if ( $status == "pending" ) {
+
+        $pending_subscription = create_pending_subscription( $card_token, $selected_plan_id, $current_subscription_id );
+        if ( $pending_subscription[ 'code' ] == 'ERROR' )
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => $pending_subscription[ 'msg' ] ) );
+
+    } else if ( $status == "active" ) {
+
+        //create new  subscription in braintree
+        $subscription = create_subscription_in_braintree( $card_token, $selected_plan_id );
+        if ( $subscription[ 'code' ] == 'ERROR' )
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => $subscription[ 'msg' ] ) );
+
+        update_option( 'braintree-subscription', $subscription[ 'subscription_id' ] );
+
+    }
 
     wp_send_json( array( 'code' => 'OK' ) );
 }
 
-add_action( 'wp_ajax_make-payment', 'ajax_make_payment' );
+add_action( 'wp_ajax_new-card-payment', 'ajax_new_card_payment' );
 
 
 function ajax_stored_payment() {
@@ -228,6 +249,7 @@ function ajax_get_customer_billing_address() {
 }
 
 add_action( 'wp_ajax_read-billingaddress', 'ajax_get_customer_billing_address' );
+
 
 function ajax_get_update_billingaddress() {
 
