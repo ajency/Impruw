@@ -39,8 +39,14 @@ class TextElement extends Element {
         parent::__construct( $element );
 
         $current_language = ICL_LANGUAGE_CODE;
-        $content        = isset( $element[ 'content' ][ $current_language ] ) ? $element[ 'content' ][
+        $content = '';
+        if(is_array($element[ 'content' ])){
+            $content        = isset( $element[ 'content' ][ $current_language ] ) ? $element[ 'content' ][
         $current_language ] : $element[ 'content' ][ wpml_get_default_language() ];
+        }
+        else{
+            $content = $element[ 'content' ];
+        }
         $this->content  = stripcslashes(trim( $content ));
 
         $this->markup = $this->generate_markup();

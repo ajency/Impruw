@@ -554,7 +554,13 @@ function add_page_to_menu( $page_id ) {
 function translate_element(&$element, $language_code){
     global $sitepress;
     //Remove html tags if any
-    $english_content = strip_tags($element['content']['en']);
+    $english_content = '';
+    if(is_array($element['content'])){
+        $english_content = strip_tags($element['content']['en']);
+    }
+    else{
+        $english_content = strip_tags($element['content']);
+    }
         
     $sitepress->switch_lang($language_code);
         load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
