@@ -556,10 +556,12 @@ function translate_element(&$element, $language_code){
     //Remove html tags if any
     $english_content = strip_tags($element['content']['en']);
         
-    $sitepress->switch_lang($language_code);
-        load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
-        $translated_content = __($english_content,'impruwclientparent');
-    $sitepress->switch_lang(wpml_get_default_language());
+    // $sitepress->switch_lang($language_code);
+    //     load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
+    //     $translated_content = __($english_content,'impruwclientparent');
+    // $sitepress->switch_lang(wpml_get_default_language());
+
+    $translated_content=impruw_wpml_get_string_translation($english_content, $language_code);
 
     if( ($translated_content===$english_content) && $language_code!='en'){
         $translated_content.= '(not translated)';
