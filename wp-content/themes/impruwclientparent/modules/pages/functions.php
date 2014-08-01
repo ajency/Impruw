@@ -560,6 +560,7 @@ function translate_element(&$element, $language_code){
     }
     else{
         $english_content = strip_tags($element['content']);
+        $element['content'] = array();
     }
         
     $sitepress->switch_lang($language_code);

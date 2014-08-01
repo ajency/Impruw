@@ -33,8 +33,8 @@ define ['app'], (App)->
 
                 CKEDITOR.on 'instanceCreated', @configureEditor
                 @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
-
-                @editor.setData _.stripslashes @model.get('content')[WPML_DEFAULT_LANG]
+                content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
+                @editor.setData _.stripslashes content ? ''
 
             # destroy the Ckeditor instance to avoiid memory leaks on close of element
             # this.editor will hold the reference to the editor instance
