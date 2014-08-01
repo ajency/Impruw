@@ -58,7 +58,12 @@ define ['app'], (App)->
             # after run remove the data-src attribute of the image to avoid
             # reloading placeholder image again
             onShow : ->
-                return if @model.isNew()
+                if @model.isNew()
+                    @$el.resizable
+                        helper : "ui-image-resizable-helper"
+                        handles: "s"
+                    return
+
 
                 # to be done in css
                 @$el.css 'overflow','hidden'
@@ -140,8 +145,10 @@ define ['app'], (App)->
 
             adjustImagePosition:->
                 top = parseInt _(@$el.find('img').css('top')).rtrim('px')
-                if top < @$el.height()-@$el.find('img').height()
-                    @$el.find('img').css 'top', "#{@$el.height()-@$el.find('img').height()}px"
+#                if top < @$el.height()-@$el.find('img').height()
+#                    @$el.find('img').css 'top', "#{@$el.height()-@$el.find('img').height()}px"
+                if top > 0
+                    @$el.find('img').css 'top','0px'
 
                 @trigger 'set:image:top:position',@$el.width(),parseInt @$el.find('img').css 'top'
 

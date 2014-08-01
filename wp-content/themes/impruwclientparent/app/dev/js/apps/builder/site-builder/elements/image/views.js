@@ -57,6 +57,10 @@ define(['app'], function(App) {
 
       ImageView.prototype.onShow = function() {
         if (this.model.isNew()) {
+          this.$el.resizable({
+            helper: "ui-image-resizable-helper",
+            handles: "s"
+          });
           return;
         }
         this.$el.css('overflow', 'hidden');
@@ -128,8 +132,8 @@ define(['app'], function(App) {
       ImageView.prototype.adjustImagePosition = function() {
         var top;
         top = parseInt(_(this.$el.find('img').css('top')).rtrim('px'));
-        if (top < this.$el.height() - this.$el.find('img').height()) {
-          this.$el.find('img').css('top', "" + (this.$el.height() - this.$el.find('img').height()) + "px");
+        if (top > 0) {
+          this.$el.find('img').css('top', '0px');
         }
         return this.trigger('set:image:top:position', this.$el.width(), parseInt(this.$el.find('img').css('top')));
       };
