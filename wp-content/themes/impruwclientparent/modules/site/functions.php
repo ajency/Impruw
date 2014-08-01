@@ -568,22 +568,6 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
     }
 }
 
-function print_page_json($page_id){
-    global $sitepress;
-    $sitepress->switch_lang('es');
-    _e('Find us here', 'impruwclientparent');
-    $sitepress->switch_lang(wpml_get_default_language());
-
-    echo "<br/>Current site id= ".get_current_blog_id()."<br/>";
-
-    $data = get_page_content_json( $page_id, false );
-    echo "<br/>PAge json for HOme page <br/>";
-    echo "<pre>";
-    print_r($data);
-    echo "</pre>";
-    echo "<br/>PAge json for HOme page ENDS <br/>";
-}
-
 
 /**
  * Function to clone and translate a site based on theme site id
@@ -929,13 +913,3 @@ function impruw_wpml_get_string_translation($string, $lang){
 }
 
 
-function translation_keys(){
-    __('Home', 'impruwclientparent');
-    __('About Us', 'impruwclientparent');
-    __('Home title', 'impruwclientparent');
-    __('Home sub title', 'impruwclientparent');
-    __('Contact Address', 'impruwclientparent');
-    __('Find us here', 'impruwclientparent');
-}
-
-//add_action('init','add_pages_to_site_t');
