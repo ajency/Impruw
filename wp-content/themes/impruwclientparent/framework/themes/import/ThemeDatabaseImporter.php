@@ -37,7 +37,7 @@ class ThemeDatabaseImporter implements ThemeImporterInterface {
         if ( get_post( $ID ) === null )
             return new \InvalidArgumentException( 'No such page found' );
 
-        $data = set_json_to_site( $page_json );
+        $data = set_json_to_site( $page_json, 'en', true );
         add_page_json( $ID, $data );
 
         delete_all_revisions( $ID );
