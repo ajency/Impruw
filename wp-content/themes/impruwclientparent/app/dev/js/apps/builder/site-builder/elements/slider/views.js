@@ -62,11 +62,7 @@ define(['app'], function(App) {
       SliderView.prototype.itemViewContainer = '.fullwidthbanner > ul';
 
       SliderView.prototype.events = {
-        'click': function(e) {
-          var ratio;
-          ratio = this._getSliderRatio();
-          return this.trigger("show:slides:manager", ratio);
-        },
+        'click': 'sliderClick',
         'click .tp-rightarrow,.tp-leftarrow,.bullet': function(e) {
           return e.stopPropagation();
         }
@@ -120,10 +116,26 @@ define(['app'], function(App) {
               _this.revapi = _this.$el.find(".fullwidthbanner").revolution(options);
               return _this._saveSliderHeightWidth();
             };
+          })(this),
+          start: (function(_this) {
+            return function(evt, ui) {
+              return $(_this).addClass('noclick');
+            };
           })(this)
         });
         $('.aj-imp-publish').on('click', this._saveSliderHeightWidth);
         return this._saveSliderHeightWidth();
+      };
+
+      SliderView.prototype.sliderClick = function(e) {
+        var ratio;
+        e.stopPropagation();
+        if ($(e.target).hasClass('noclick')) {
+          return $(e.target).removeClass('noclick');
+        } else {
+          ratio = this._getSliderRatio();
+          return this.trigger("show:slides:manager", ratio);
+        }
       };
 
       SliderView.prototype._saveSliderHeightWidth = function() {

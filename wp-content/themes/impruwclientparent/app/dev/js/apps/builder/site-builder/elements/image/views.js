@@ -34,12 +34,7 @@ define(['app'], function(App) {
       };
 
       ImageView.prototype.events = {
-        'click': function(e) {
-          var ratio;
-          e.stopPropagation();
-          ratio = this._getImageRatio();
-          return this.trigger("show:media:manager", ratio);
-        }
+        'click': 'imageClick'
       };
 
       ImageView.prototype.initialize = function(options) {
@@ -81,7 +76,9 @@ define(['app'], function(App) {
             };
           })(this),
           start: (function(_this) {
-            return function(evt, ui) {};
+            return function(evt, ui) {
+              return $(_this).addClass('noclick');
+            };
           })(this)
         });
         this.$el.find('img').draggable({
@@ -119,6 +116,17 @@ define(['app'], function(App) {
         })(this));
         this.assignImagePath();
         return console.log("view rendered");
+      };
+
+      ImageView.prototype.imageClick = function(e) {
+        var ratio;
+        e.stopPropagation();
+        if ($(e.target).hasClass('noclick')) {
+          return $(e.target).removeClass('noclick');
+        } else {
+          ratio = this._getImageRatio();
+          return this.trigger("show:media:manager", ratio);
+        }
       };
 
       ImageView.prototype.assignImagePath = function() {

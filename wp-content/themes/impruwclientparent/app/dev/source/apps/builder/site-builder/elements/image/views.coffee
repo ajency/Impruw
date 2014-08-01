@@ -36,10 +36,7 @@ define ['app'], (App)->
                 data
 
             events :
-                'click' : (e)->
-                    e.stopPropagation()
-                    ratio = @_getImageRatio()
-                    @trigger "show:media:manager", ratio
+                'click' : 'imageClick'
 
             initialize :(options)->
                 @imageHeightRatio = Marionette.getOption @,'imageHeightRatio'
@@ -86,6 +83,7 @@ define ['app'], (App)->
                         
 
                     start:(evt,ui)=>
+                        $(@).addClass('noclick')
                         #@$el.resizable( "option", "maxHeight", @$el.find('img').height() )
 
 
@@ -127,7 +125,18 @@ define ['app'], (App)->
                 
 
             # throttled :->
-            #     _.throttle(@assignImagePath(), 50)    
+            #     _.throttle(@assignImagePath(), 50)
+
+            imageClick : (e)->
+                e.stopPropagation()
+
+                if $(e.target).hasClass('noclick')
+                    $(e.target).removeClass('noclick')
+
+                else
+                    ratio = @_getImageRatio()
+                    @trigger "show:media:manager", ratio
+
 
 
             assignImagePath :->
