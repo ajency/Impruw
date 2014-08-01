@@ -1,22 +1,22 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: impruwclientparent\n"
-"POT-Creation-Date: 2014-08-01 17:51+0530\n"
-"PO-Revision-Date: 2014-08-01 17:51+0530\n"
+"Project-Id-Version: impruw\n"
+"POT-Creation-Date: 2014-08-01 17:50+0530\n"
+"PO-Revision-Date: 2014-08-01 18:04+0530\n"
 "Last-Translator: Nutan Kamat <nutan@ajency.in>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
-"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../functions.php:174
 msgid "room"
-msgstr ""
+msgstr "Zimmer"
 
 #: ../functions.php:217
 msgid "Search Facilities"
@@ -309,57 +309,57 @@ msgstr ""
 
 #: ../page-reset-password.php:49
 msgid "New Password"
-msgstr "Nueva contraseña"
+msgstr ""
 
 #: ../page-reset-password.php:76
 msgid "Submit"
-msgstr "Enviar"
+msgstr ""
 
 #: ../modules/site/theme_texts_for_translation.php:3
 msgid "Home"
-msgstr "Inicio"
+msgstr "Zuhause"
 
 #: ../modules/site/theme_texts_for_translation.php:4
 msgid "About Us"
-msgstr "Quiénes somos"
+msgstr "Über uns"
 
 #: ../modules/site/theme_texts_for_translation.php:5
 msgid "Rooms"
-msgstr "Habitaciones"
+msgstr "Zimmer"
 
 #: ../modules/site/theme_texts_for_translation.php:6
 msgid "Gallery"
-msgstr "Galería"
+msgstr "Galerie"
 
 #: ../modules/site/theme_texts_for_translation.php:7
 msgid "Contact us"
-msgstr "contáctenos"
+msgstr "Kontaktieren Sie uns"
 
 #: ../modules/site/theme_texts_for_translation.php:8
 msgid "Click Here To Enter Title"
-msgstr "Haga clic aquí para entrar en el Título"
+msgstr "Klicken Sie hier, um Titel eingeben"
 
 #: ../modules/site/theme_texts_for_translation.php:9
 msgid "Make A Booking"
-msgstr "Hacer una reserva"
+msgstr "Buchung vornehmen"
 
 #: ../modules/site/theme_texts_for_translation.php:10
 msgid "Logo"
-msgstr "logo"
+msgstr "Logo"
 
 #: ../modules/site/theme_texts_for_translation.php:11
 msgid "Room Image"
-msgstr "imagen de habitaciones"
+msgstr "Zimmer Bild"
 
 #: ../modules/site/theme_texts_for_translation.php:12
 #: ../modules/site/theme_texts_for_translation.php:17
 #: ../modules/site/theme_texts_for_translation.php:18
 msgid "Your Room Title"
-msgstr "Su sala de títulos"
+msgstr "Ihre Zimmer Titel"
 
 #: ../modules/site/theme_texts_for_translation.php:13
 msgid "Good Morning Happy Visitor!"
-msgstr "Buena mañana feliz de Visitantes!"
+msgstr "Guten Morgen Glückliche Besucher!"
 
 #: ../modules/site/theme_texts_for_translation.php:14
 msgid ""
@@ -367,19 +367,19 @@ msgid ""
 "of rooms and link to the single room page will be displayed here. To make "
 "any changes to the room go to Room from your dashboard."
 msgstr ""
-"Elegir un espacio para mostrar de configuración. Su descripción de la "
-"habitación, imagen, número de habitaciones y enlace a la página de una "
-"habitación se mostrará aquí. Para realizar ningún cambio en la habitación "
-"van a la habitación de su tablero de instrumentos."
+"Wählen Sie einen Raum, um von Einstellungen anzuzeigen. Ihr Zimmer "
+"Beschreibung, Bild, Anzahl der Zimmer und Link auf die Einzelzimmer-Seite "
+"wird hier angezeigt. Um alle Änderungen an den Raum gehen, um Zimmer aus dem "
+"Armaturenbrett."
 
 #: ../modules/site/theme_texts_for_translation.php:15
 msgid "View details"
-msgstr "Ver detalles"
+msgstr "Details anzeigen"
 
 #: ../modules/site/theme_texts_for_translation.php:16
 #, fuzzy
 msgid "Take  A Look At Our Rooms"
-msgstr "Visita nuestra Habitaciones"
+msgstr "Besuche unsere Zimmer"
 
 #: ../modules/site/theme_texts_for_translation.php:19
 msgid ""
@@ -389,160 +389,162 @@ msgid ""
 "the Room Booking element. When the button is pressed on your site, it will "
 "take you to the booking area."
 msgstr ""
-"Esto funciona solamente en una página sola habitación. Cambia tu página a la "
-"página de una habitación y añadir este elemento. El título de la cuarto "
-"mostrará en su website.Also para hacer el \"Reservas y disponibilidad \" "
-"trabajo botón, utilice el elemento de Reservas. Cuando se pulsa el botón en "
-"su sitio, que le llevará a la zona de la reserva."
+"Dies wird nur auf einem einzigen Zimmer Seite zu arbeiten. Ändern Sie Ihre "
+"Seite, um das Einzelzimmer Seite und fügen Sie dieses Element. Das Zimmer "
+"Titel des Raumes wird auf Ihrem website.Also anzuzeigen, die \"Buchung und "
+"Verfügbarkeit\"-Taste funktioniert, verwenden Sie den Raum Buchen Element. "
+"Wenn die Taste auf Ihrer Website gedrückt wird, wird es Ihnen mit der "
+"Buchung stattfinden."
 
 #: ../modules/site/theme_texts_for_translation.php:20
 msgid "Booking and Availibility"
-msgstr "Reservas y de Disponibilidad"
+msgstr "Buchung und nach Verfügbarkeit"
 
 #: ../modules/site/theme_texts_for_translation.php:21
 msgid "Room Price"
-msgstr "Precio de habitación"
+msgstr "Zimmer Preis"
 
 #: ../modules/site/theme_texts_for_translation.php:22
 msgid "View the prices for different dates here."
-msgstr "Ver los precios de diferentes fechas aquí."
+msgstr "Sehen Sie sich die Preise für die verschiedenen Termine hier."
 
 #: ../modules/site/theme_texts_for_translation.php:23
 msgid "Monthly Calendar"
-msgstr "Calendario mensual"
+msgstr "Monatskalender"
 
 #: ../modules/site/theme_texts_for_translation.php:24
 msgid "You have selected"
-msgstr "Usted ha seleccionado"
+msgstr "Sie haben gewählt"
 
 #: ../modules/site/theme_texts_for_translation.php:25
 msgid "Additional Charge"
-msgstr "Cargo adicional"
+msgstr "Aufpreis"
 
 #: ../modules/site/theme_texts_for_translation.php:26
 #: ../modules/site/theme_texts_for_translation.php:53
 msgid "Find Us Here"
-msgstr "Encontrarnos aquí"
+msgstr "Hier finden Sie uns"
 
 #: ../modules/site/theme_texts_for_translation.php:27
 msgid "Failed to geocode your address. Please click here to update."
 msgstr ""
-"Error al codificar geográficamente su dirección. Por favor haga clic aquí "
-"para actualizarlo."
+"Versäumt, Ihre Adresse geocodieren. Bitte klicken Sie hier, um zu "
+"aktualisieren."
 
 #: ../modules/site/theme_texts_for_translation.php:28
 #: ../modules/site/theme_texts_for_translation.php:29
 msgid "Update logo in your site profile"
-msgstr "Actualización de logotipo en su perfil de sitio"
+msgstr "Update-Logo in Ihre Website-Profil"
 
 #: ../modules/site/theme_texts_for_translation.php:30
 msgid "Update address here"
-msgstr "Actualización de la dirección aquí"
+msgstr "Update-Adresse hier"
 
 #: ../modules/site/theme_texts_for_translation.php:31
 msgid "Please visit to update social links"
-msgstr "Por favor, visite para actualizar los vínculos sociales"
+msgstr "Bitte besuchen Sie die soziale Verknüpfungen aktualisieren"
 
 #: ../modules/site/theme_texts_for_translation.php:32
 msgid "Weddings & Events"
-msgstr "Bodas y Eventos"
+msgstr "Weddings & Events"
 
 #: ../modules/site/theme_texts_for_translation.php:33
 msgid "Private"
-msgstr "Privado"
+msgstr "Privat"
 
 #: ../modules/site/theme_texts_for_translation.php:34
 msgid "More"
-msgstr "Más"
+msgstr "Mehr"
 
 #: ../modules/site/theme_texts_for_translation.php:35
 msgid "Popular Info"
-msgstr "Popular Info"
+msgstr "Beliebte Info"
 
 #: ../modules/site/theme_texts_for_translation.php:36
 msgid "Most"
-msgstr "La mayoría"
+msgstr "Am meisten"
 
 #: ../modules/site/theme_texts_for_translation.php:37
 msgid "New Site Smell Added at No Extra Charge!"
-msgstr "Nueva Olor Sitio Alta sin cargo extra!"
+msgstr "Neue Site Geruch Hinzugefügt ohne Aufpreis!"
 
 #: ../modules/site/theme_texts_for_translation.php:38
 msgid "Sunbeams"
-msgstr "Rayos de sol"
+msgstr "Sonnenstrahlen"
 
 #: ../modules/site/theme_texts_for_translation.php:39
 msgid "Nature"
-msgstr "Naturaleza"
+msgstr "Natur"
 
 #: ../modules/site/theme_texts_for_translation.php:40
 msgid "Luxury"
-msgstr "Lujo"
+msgstr "Luxus"
 
 #: ../modules/site/theme_texts_for_translation.php:41
 msgid "Beaches"
-msgstr "Playas"
+msgstr "Strände"
 
 #: ../modules/site/theme_texts_for_translation.php:42
 msgid "Five Star Luxury"
-msgstr "Cinco estrellas de lujo"
+msgstr "Fünf-Sterne-Luxus-"
 
 #: ../modules/site/theme_texts_for_translation.php:43
 msgid "Whats New"
-msgstr "Qué hay de nuevo"
+msgstr "Was ist neu"
 
 #: ../modules/site/theme_texts_for_translation.php:44
 msgid "Luxury getaways to Malaysia"
-msgstr "Escapadas de lujo a Malasia"
+msgstr "Luxustrips nach Malaysia"
 
 #: ../modules/site/theme_texts_for_translation.php:45
 msgid "All new, just for you!"
-msgstr "Todo nuevo, sólo para ti!"
+msgstr "Alle neuen, nur für Sie!"
 
 #: ../modules/site/theme_texts_for_translation.php:46
 msgid "Services"
-msgstr "Servicios"
+msgstr "Dienstleistungen"
 
 #: ../modules/site/theme_texts_for_translation.php:47
 msgid "Nightlife"
-msgstr "Nightlife"
+msgstr "Nachtleben"
 
 #: ../modules/site/theme_texts_for_translation.php:48
 msgid "Cuisine"
-msgstr "Cocina"
+msgstr "Küche"
 
 #: ../modules/site/theme_texts_for_translation.php:49
 msgid "Adventure"
-msgstr "Aventura"
+msgstr "Abenteuer"
 
 #: ../modules/site/theme_texts_for_translation.php:50
 msgid "All about our Hotel"
-msgstr "Todo sobre nuestro hotel"
+msgstr "Alle über unser Hotel"
 
 #: ../modules/site/theme_texts_for_translation.php:51
 msgid "Check out our amazing"
-msgstr "Echa un vistazo a nuestro increíble"
+msgstr "Besuche unsere erstaunliche"
 
 #: ../modules/site/theme_texts_for_translation.php:52
 msgid "This is how you can"
-msgstr "Esta es la forma en que pueda"
+msgstr "Dies ist, wie Sie"
 
 #: ../modules/site/theme_texts_for_translation.php:54
 #, fuzzy
 msgid "Welcome To Our Hotel"
-msgstr "Todo sobre nuestro hotel"
+msgstr "Alle über unser Hotel"
 
 #: ../modules/site/theme_texts_for_translation.php:56
 msgid "Check Out Our Rooms"
-msgstr "Visita nuestra Habitaciones"
+msgstr "Besuche unsere Zimmer"
 
 #: ../modules/user/functions.php:185
 msgid "Password Reset"
-msgstr "Restablecer contraseña"
+msgstr "Passwort zurücksetzen"
 
 #: ../modules/user/functions.php:187
 msgid "Someone requested that the password be reset for the following account:"
-msgstr "Alguien pidió que la contraseña se restablecerá a la siguiente cuenta:"
+msgstr ""
+"Jemand beantragt, dass das Passwort für das Konto zurückgesetzt werden:"
 
 #: ../modules/user/functions.php:189
 #, php-format
@@ -552,71 +554,64 @@ msgstr ""
 #: ../modules/user/functions.php:190
 msgid "If this was a mistake, just ignore this email and nothing will happen."
 msgstr ""
-"Si esto fue un error, simplemente ignorar este mensaje y no pasará nada."
+"Wenn dies ein Fehler war, nur diese E-Mail ignorieren und nichts wird "
+"passieren."
 
 #: ../modules/user/functions.php:191
 msgid "To reset your password, visit the following address:"
-msgstr "Para restablecer su contraseña, visite la siguiente dirección:"
+msgstr "Um Ihr Passwort zurückzusetzen, besuchen Sie die folgende Adresse:"
 
 #: ../modules/user/functions.php:195
 msgid "The e-mail could not be sent."
-msgstr "El e-mail no se ha podido enviar."
+msgstr "Die E-Mail konnte nicht gesendet werden."
 
 #: ../modules/user/functions.php:195
 msgid "Possible reason: your host may have disabled the mail() function."
 msgstr ""
-"Posible motivo: su anfitrión puede haber deshabilitado la función mail ()."
-
-#~ msgid "Find us here"
-#~ msgstr "Encuéntrenos aquí"
+"Mögliche Ursache: Ihr Gastgeber kann die E-Mail () Funktion deaktiviert "
+"haben."
 
 #~ msgid "CLICK HERE TO ENTER TITLE"
-#~ msgstr "HAGA CLIC AQUÍ PARA ENTRAR TÍTULO"
+#~ msgstr "KLICKEN SIE HIER UM Titel eingeben"
 
 #~ msgid "MAKE A BOOKING"
-#~ msgstr "Hacer una reserva"
+#~ msgstr "Buchung vornehmen"
 
 #~ msgid "YOUR ROOM TITLE"
-#~ msgstr "TU HABITACION TÍTULO"
+#~ msgstr "IHR ZIMMER TITEL"
 
 #~ msgid "GOOD MORNING HAPPY VISITOR!"
-#~ msgstr "BUENOS DÍAS VISITANTE FELIZ!"
+#~ msgstr "GUTEN MORGEN GLÜCKLICHE Besucher!"
 
 #~ msgid "TAKE  A LOOK AT OUR ROOMS"
-#~ msgstr "TOMAR UNA MIRADA A NUESTRAS HABITACIONES"
+#~ msgstr "TAKE A LOOK AT UNSERE ZIMMER"
 
 #~ msgid "MONTHLY CALENDAR"
-#~ msgstr "CALENDARIO MENSUAL"
+#~ msgstr "Monatskalender"
 
 #~ msgid "ADDITIONAL CHARGE"
-#~ msgstr "CARGO ADICIONAL"
+#~ msgstr "ZUSCHLAG"
 
 #~ msgid "FIND US HERE"
-#~ msgstr "DONDE ESTAMOS AQUÍ"
+#~ msgstr "FINDEN UNS HIER"
 
 #~ msgid "WEDDINGS & EVENTS"
-#~ msgstr "BODAS Y EVENTOS"
+#~ msgstr "Hochzeit & Events"
 
 #~ msgid "PRIVATE"
-#~ msgstr "PRIVADO"
+#~ msgstr "PRIVATE"
 
 #~ msgid "POPULAR INFO"
-#~ msgstr "INFO POPULAR"
+#~ msgstr "POPULAR INFO"
 
 #~ msgid "MOST"
-#~ msgstr "MÁS"
+#~ msgstr "MOST"
 
 #~ msgid "FIVE STAR LUXURY"
-#~ msgstr "CINCO ESTRELLAS DE LUJO"
+#~ msgstr "FIVE STAR LUXURY"
 
 #~ msgid "WHATS NEW"
-#~ msgstr "LO NUEVO"
+#~ msgstr "NEUHEITEN"
 
 #~ msgid "WELCOME TO OUR HOTEL"
-#~ msgstr "BIENVENIDOS A NUESTRO HOTEL"
-
-#~ msgid "Home title"
-#~ msgstr "Inicio title_Espano"
-
-#~ msgid "Home sub title"
-#~ msgstr "Home sub title_Espano"
+#~ msgstr "HERZLICH WILLKOMMEN"

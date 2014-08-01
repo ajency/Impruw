@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: impruwclientparent\n"
+"Project-Id-Version: impruw\n"
 "POT-Creation-Date: 2014-08-01 17:51+0530\n"
 "PO-Revision-Date: 2014-08-01 17:51+0530\n"
 "Last-Translator: Nutan Kamat <nutan@ajency.in>\n"
@@ -11,355 +11,354 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../functions.php:174
 msgid "room"
-msgstr ""
+msgstr "room"
 
 #: ../functions.php:217
 msgid "Search Facilities"
-msgstr ""
+msgstr "Search Facilities"
 
 #: ../functions.php:218
 msgid "Popular Faclilities"
-msgstr ""
+msgstr "Popular Faclilities"
 
 #: ../functions.php:219
 msgid "All Facilities"
-msgstr ""
+msgstr "All Facilities"
 
 #: ../functions.php:222
 msgid "Edit Facility"
-msgstr ""
+msgstr "Edit Facility"
 
 #: ../functions.php:223
 msgid "Update Facility"
-msgstr ""
+msgstr "Update Facility"
 
 #: ../functions.php:224
 msgid "Add New Facility"
-msgstr ""
+msgstr "Add New Facility"
 
 #: ../functions.php:225
 msgid "New Facility Name"
-msgstr ""
+msgstr "New Facility Name"
 
 #: ../functions.php:226
 msgid "Separate facilities with commas"
-msgstr ""
+msgstr "Separate facilities with commas"
 
 #: ../functions.php:227
 msgid "Add or remove facilities"
-msgstr ""
+msgstr "Add or remove facilities"
 
 #: ../functions.php:228
 msgid "Choose from the most used facilities"
-msgstr ""
+msgstr "Choose from the most used facilities"
 
 #: ../functions.php:229
 msgid "No facilities found."
-msgstr ""
+msgstr "No facilities found."
 
 #: ../functions.php:230
 msgid "Facilities"
-msgstr ""
+msgstr "Facilities"
 
 #: ../functions.php:299
 msgid "New Size"
-msgstr ""
+msgstr "New Size"
 
 #: ../functions.php:1291
 msgid "Error removing business logo"
-msgstr ""
+msgstr "Error removing business logo"
 
 #: ../functions.php:1296
 msgid "Business logo removed successfully"
-msgstr ""
+msgstr "Business logo removed successfully"
 
 #: ../functions.php:1327
 msgid "Could not save site profile"
-msgstr ""
+msgstr "Could not save site profile"
 
 #: ../functions.php:1427
 msgid "User profile updated successfully"
-msgstr ""
+msgstr "User profile updated successfully"
 
 #: ../functions.php:1476
 msgid "Password changed successfully"
-msgstr ""
+msgstr "Password changed successfully"
 
 #: ../functions.php:2088
 msgid "Error updating Tariff plan"
-msgstr ""
+msgstr "Error updating Tariff plan"
 
 #: ../functions.php:2102
 msgid "Tariff plan is successfully updated"
-msgstr ""
+msgstr "Tariff plan is successfully updated"
 
 #: ../functions.php:2109
 msgid "Error updating tariff plan"
-msgstr ""
+msgstr "Error updating tariff plan"
 
 #: ../functions.php:2148
 msgid "New facility is successfully added"
-msgstr ""
+msgstr "New facility is successfully added"
 
 #: ../functions.php:2185
 msgid "The tax name already exists"
-msgstr ""
+msgstr "The tax name already exists"
 
 #: ../functions.php:2205
 msgid "New tax added successfully"
-msgstr ""
+msgstr "New tax added successfully"
 
 #: ../functions.php:2211
 msgid "Error adding the tax"
-msgstr ""
+msgstr "Error adding the tax"
 
 #: ../functions.php:2248
 msgid "The addon type already exists"
-msgstr ""
+msgstr "The addon type already exists"
 
 #: ../functions.php:2268
 msgid "New addon type added successfully"
-msgstr ""
+msgstr "New addon type added successfully"
 
 #: ../functions.php:2274
 msgid "Error adding the addon type"
-msgstr ""
+msgstr "Error adding the addon type"
 
 #: ../functions.php:2341
 msgid "Addon type updated successfully"
-msgstr ""
+msgstr "Addon type updated successfully"
 
 #: ../functions.php:2348
 msgid "Error updating the addon type"
-msgstr ""
+msgstr "Error updating the addon type"
 
 #: ../functions.php:2398
 msgid "Tax type updated successfully"
-msgstr ""
+msgstr "Tax type updated successfully"
 
 #: ../functions.php:2405
 msgid "Error updating the tax type"
-msgstr ""
+msgstr "Error updating the tax type"
 
 #: ../functions.php:2429
 msgid "Facility is successfully Deleted"
-msgstr ""
+msgstr "Facility is successfully Deleted"
 
 #: ../functions.php:2434
 msgid "Error deleting facility"
-msgstr ""
+msgstr "Error deleting facility"
 
 #: ../functions.php:2466
 msgid "Addon type is successfully Deleted"
-msgstr ""
+msgstr "Addon type is successfully Deleted"
 
 #: ../functions.php:2471
 msgid "Error deleting addon type"
-msgstr ""
+msgstr "Error deleting addon type"
 
 #: ../functions.php:2505
 msgid "Error deleting tax type"
-msgstr ""
+msgstr "Error deleting tax type"
 
 #: ../functions.php:2539
 msgid "Facility updated successfully"
-msgstr ""
+msgstr "Facility updated successfully"
 
 #: ../functions.php:2560
 msgid "Check-in time updated successfully"
-msgstr ""
+msgstr "Check-in time updated successfully"
 
 #: ../functions.php:2567
 msgid "Error updating check-in time"
-msgstr ""
+msgstr "Error updating check-in time"
 
 #: ../functions.php:2605
 msgid "Tax option updated successfully"
-msgstr ""
+msgstr "Tax option updated successfully"
 
 #: ../functions.php:2611
 msgid "Error updating tax option"
-msgstr ""
+msgstr "Error updating tax option"
 
 #: ../functions.php:2626
 msgid "Check-in format updated successfully"
-msgstr ""
+msgstr "Check-in format updated successfully"
 
 #: ../functions.php:2632
 msgid "Error updating Check-in format"
-msgstr ""
+msgstr "Error updating Check-in format"
 
 #: ../functions.php:2677
 msgid "Date range is successfully added"
-msgstr ""
+msgstr "Date range is successfully added"
 
 #: ../functions.php:2683
 msgid "Error adding Date range"
-msgstr ""
+msgstr "Error adding Date range"
 
 #: ../functions.php:2715
 msgid "Date range updated successfully"
-msgstr ""
+msgstr "Date range updated successfully"
 
 #: ../functions.php:2721
 msgid "Error updating Date range"
-msgstr ""
+msgstr "Error updating Date range"
 
 #: ../functions.php:2782
 msgid "Error adding Tariff plan"
-msgstr ""
+msgstr "Error adding Tariff plan"
 
 #: ../functions.php:2797
 msgid "Tariff plan is successfully added"
-msgstr ""
+msgstr "Tariff plan is successfully added"
 
 #: ../functions.php:2804 ../functions.php:2840
 msgid "Error adding plan"
-msgstr ""
+msgstr "Error adding plan"
 
 #: ../functions.php:2834
 msgid "Plan is successfully added"
-msgstr ""
+msgstr "Plan is successfully added"
 
 #: ../functions.php:2925
 msgid "Error updating plan"
-msgstr ""
+msgstr "Error updating plan"
 
 #: ../functions.php:2931
 msgid "The plan updated successfully"
-msgstr ""
+msgstr "The plan updated successfully"
 
 #: ../functions.php:3132
 msgid "Date range successfully deleted"
-msgstr ""
+msgstr "Date range successfully deleted"
 
 #: ../functions.php:3137
 msgid "Error deleting date range"
-msgstr ""
+msgstr "Error deleting date range"
 
 #: ../functions.php:3226
 msgid "New Room added successfully"
-msgstr ""
+msgstr "New Room added successfully"
 
 #: ../functions.php:3302
 msgid "Room Details updated successfully"
-msgstr ""
+msgstr "Room Details updated successfully"
 
 #: ../functions.php:3996
 msgid "Invalid Form Data"
-msgstr ""
+msgstr "Invalid Form Data"
 
 #: ../page-login.php:10 ../page-login.php:64
 msgid "Sign in"
-msgstr ""
+msgstr "Sign in"
 
 #: ../page-login.php:11 ../page-reset-password.php:11
 msgid "Impruw"
-msgstr ""
+msgstr "Impruw"
 
 #: ../page-login.php:15 ../page-reset-password.php:15
 msgid "To access your website first Sign in to Impruw"
-msgstr ""
+msgstr "To access your website first Sign in to Impruw"
 
 #: ../page-login.php:30 ../page-login.php:92
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: ../page-login.php:38 ../page-login.php:102
 msgid "A valid email address is required to sign in"
-msgstr ""
+msgstr "A valid email address is required to sign in"
 
 #: ../page-login.php:46 ../page-reset-password.php:62
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: ../page-login.php:52 ../page-reset-password.php:54
 #: ../page-reset-password.php:68
 msgid "You need to enter a password"
-msgstr ""
+msgstr "You need to enter a password"
 
 #: ../page-login.php:58
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Forgot your password?"
 
 #: ../page-login.php:70
 msgid "Keep me logged in."
-msgstr ""
+msgstr "Keep me logged in."
 
 #: ../page-login.php:76
 msgid "Dont have an account?"
-msgstr ""
+msgstr "Dont have an account?"
 
 #: ../page-login.php:77
 msgid "Sign Up!"
-msgstr ""
+msgstr "Sign Up!"
 
 #: ../page-login.php:112 ../page-reset-password.php:10
 msgid "Reset Password"
-msgstr ""
+msgstr "Reset Password"
 
 #: ../page-login.php:121
 msgid "&laquo; Sign In"
-msgstr ""
+msgstr "&laquo; Sign In"
 
 #: ../page-reset-password.php:49
 msgid "New Password"
-msgstr "Nueva contraseña"
+msgstr "New Password"
 
 #: ../page-reset-password.php:76
 msgid "Submit"
-msgstr "Enviar"
+msgstr "Submit"
 
 #: ../modules/site/theme_texts_for_translation.php:3
 msgid "Home"
-msgstr "Inicio"
+msgstr "Home"
 
 #: ../modules/site/theme_texts_for_translation.php:4
 msgid "About Us"
-msgstr "Quiénes somos"
+msgstr "About Us"
 
 #: ../modules/site/theme_texts_for_translation.php:5
 msgid "Rooms"
-msgstr "Habitaciones"
+msgstr "Rooms"
 
 #: ../modules/site/theme_texts_for_translation.php:6
 msgid "Gallery"
-msgstr "Galería"
+msgstr "Gallery"
 
 #: ../modules/site/theme_texts_for_translation.php:7
 msgid "Contact us"
-msgstr "contáctenos"
+msgstr "Contact us"
 
 #: ../modules/site/theme_texts_for_translation.php:8
 msgid "Click Here To Enter Title"
-msgstr "Haga clic aquí para entrar en el Título"
+msgstr "Click Here To Enter Title"
 
 #: ../modules/site/theme_texts_for_translation.php:9
 msgid "Make A Booking"
-msgstr "Hacer una reserva"
+msgstr "Make A Booking"
 
 #: ../modules/site/theme_texts_for_translation.php:10
 msgid "Logo"
-msgstr "logo"
+msgstr "Logo"
 
 #: ../modules/site/theme_texts_for_translation.php:11
 msgid "Room Image"
-msgstr "imagen de habitaciones"
+msgstr "Room Image"
 
 #: ../modules/site/theme_texts_for_translation.php:12
 #: ../modules/site/theme_texts_for_translation.php:17
 #: ../modules/site/theme_texts_for_translation.php:18
 msgid "Your Room Title"
-msgstr "Su sala de títulos"
+msgstr "Your Room Title"
 
 #: ../modules/site/theme_texts_for_translation.php:13
 msgid "Good Morning Happy Visitor!"
-msgstr "Buena mañana feliz de Visitantes!"
+msgstr "Good Morning Happy Visitor!"
 
 #: ../modules/site/theme_texts_for_translation.php:14
 msgid ""
@@ -367,19 +366,18 @@ msgid ""
 "of rooms and link to the single room page will be displayed here. To make "
 "any changes to the room go to Room from your dashboard."
 msgstr ""
-"Elegir un espacio para mostrar de configuración. Su descripción de la "
-"habitación, imagen, número de habitaciones y enlace a la página de una "
-"habitación se mostrará aquí. Para realizar ningún cambio en la habitación "
-"van a la habitación de su tablero de instrumentos."
+"Choose a room to display from settings. Your room description, image, number "
+"of rooms and link to the single room page will be displayed here. To make "
+"any changes to the room go to Room from your dashboard."
 
 #: ../modules/site/theme_texts_for_translation.php:15
 msgid "View details"
-msgstr "Ver detalles"
+msgstr "View details"
 
 #: ../modules/site/theme_texts_for_translation.php:16
 #, fuzzy
 msgid "Take  A Look At Our Rooms"
-msgstr "Visita nuestra Habitaciones"
+msgstr "Check Out Our Rooms"
 
 #: ../modules/site/theme_texts_for_translation.php:19
 msgid ""
@@ -389,71 +387,69 @@ msgid ""
 "the Room Booking element. When the button is pressed on your site, it will "
 "take you to the booking area."
 msgstr ""
-"Esto funciona solamente en una página sola habitación. Cambia tu página a la "
-"página de una habitación y añadir este elemento. El título de la cuarto "
-"mostrará en su website.Also para hacer el \"Reservas y disponibilidad \" "
-"trabajo botón, utilice el elemento de Reservas. Cuando se pulsa el botón en "
-"su sitio, que le llevará a la zona de la reserva."
+"This will work only on a single room page. Change your page to the single "
+"room page and add this element. The room title of the room will display on "
+"your website.Also to make the \"Booking and Availability\" button work, use "
+"the Room Booking element. When the button is pressed on your site, it will "
+"take you to the booking area."
 
 #: ../modules/site/theme_texts_for_translation.php:20
 msgid "Booking and Availibility"
-msgstr "Reservas y de Disponibilidad"
+msgstr "Booking and Availibility"
 
 #: ../modules/site/theme_texts_for_translation.php:21
 msgid "Room Price"
-msgstr "Precio de habitación"
+msgstr "Room Price"
 
 #: ../modules/site/theme_texts_for_translation.php:22
 msgid "View the prices for different dates here."
-msgstr "Ver los precios de diferentes fechas aquí."
+msgstr "View the prices for different dates here."
 
 #: ../modules/site/theme_texts_for_translation.php:23
 msgid "Monthly Calendar"
-msgstr "Calendario mensual"
+msgstr "Monthly Calendar"
 
 #: ../modules/site/theme_texts_for_translation.php:24
 msgid "You have selected"
-msgstr "Usted ha seleccionado"
+msgstr "You have selected"
 
 #: ../modules/site/theme_texts_for_translation.php:25
 msgid "Additional Charge"
-msgstr "Cargo adicional"
+msgstr "Additional Charge"
 
 #: ../modules/site/theme_texts_for_translation.php:26
 #: ../modules/site/theme_texts_for_translation.php:53
 msgid "Find Us Here"
-msgstr "Encontrarnos aquí"
+msgstr "Find Us Here"
 
 #: ../modules/site/theme_texts_for_translation.php:27
 msgid "Failed to geocode your address. Please click here to update."
-msgstr ""
-"Error al codificar geográficamente su dirección. Por favor haga clic aquí "
-"para actualizarlo."
+msgstr "Failed to geocode your address. Please click here to update."
 
 #: ../modules/site/theme_texts_for_translation.php:28
 #: ../modules/site/theme_texts_for_translation.php:29
 msgid "Update logo in your site profile"
-msgstr "Actualización de logotipo en su perfil de sitio"
+msgstr "Update logo in your site profile"
 
 #: ../modules/site/theme_texts_for_translation.php:30
 msgid "Update address here"
-msgstr "Actualización de la dirección aquí"
+msgstr "Update address here"
 
 #: ../modules/site/theme_texts_for_translation.php:31
 msgid "Please visit to update social links"
-msgstr "Por favor, visite para actualizar los vínculos sociales"
+msgstr "Please visit to update social links"
 
 #: ../modules/site/theme_texts_for_translation.php:32
 msgid "Weddings & Events"
-msgstr "Bodas y Eventos"
+msgstr "Weddings & Events"
 
 #: ../modules/site/theme_texts_for_translation.php:33
 msgid "Private"
-msgstr "Privado"
+msgstr "Private"
 
 #: ../modules/site/theme_texts_for_translation.php:34
 msgid "More"
-msgstr "Más"
+msgstr "More"
 
 #: ../modules/site/theme_texts_for_translation.php:35
 msgid "Popular Info"
@@ -461,47 +457,47 @@ msgstr "Popular Info"
 
 #: ../modules/site/theme_texts_for_translation.php:36
 msgid "Most"
-msgstr "La mayoría"
+msgstr "Most"
 
 #: ../modules/site/theme_texts_for_translation.php:37
 msgid "New Site Smell Added at No Extra Charge!"
-msgstr "Nueva Olor Sitio Alta sin cargo extra!"
+msgstr "New Site Smell Added at No Extra Charge!"
 
 #: ../modules/site/theme_texts_for_translation.php:38
 msgid "Sunbeams"
-msgstr "Rayos de sol"
+msgstr "Sunbeams"
 
 #: ../modules/site/theme_texts_for_translation.php:39
 msgid "Nature"
-msgstr "Naturaleza"
+msgstr "Nature"
 
 #: ../modules/site/theme_texts_for_translation.php:40
 msgid "Luxury"
-msgstr "Lujo"
+msgstr "Luxury"
 
 #: ../modules/site/theme_texts_for_translation.php:41
 msgid "Beaches"
-msgstr "Playas"
+msgstr "Beaches"
 
 #: ../modules/site/theme_texts_for_translation.php:42
 msgid "Five Star Luxury"
-msgstr "Cinco estrellas de lujo"
+msgstr "Five Star Luxury"
 
 #: ../modules/site/theme_texts_for_translation.php:43
 msgid "Whats New"
-msgstr "Qué hay de nuevo"
+msgstr "Whats New"
 
 #: ../modules/site/theme_texts_for_translation.php:44
 msgid "Luxury getaways to Malaysia"
-msgstr "Escapadas de lujo a Malasia"
+msgstr "Luxury getaways to Malaysia"
 
 #: ../modules/site/theme_texts_for_translation.php:45
 msgid "All new, just for you!"
-msgstr "Todo nuevo, sólo para ti!"
+msgstr "All new, just for you!"
 
 #: ../modules/site/theme_texts_for_translation.php:46
 msgid "Services"
-msgstr "Servicios"
+msgstr "Services"
 
 #: ../modules/site/theme_texts_for_translation.php:47
 msgid "Nightlife"
@@ -509,114 +505,104 @@ msgstr "Nightlife"
 
 #: ../modules/site/theme_texts_for_translation.php:48
 msgid "Cuisine"
-msgstr "Cocina"
+msgstr "Cuisine"
 
 #: ../modules/site/theme_texts_for_translation.php:49
 msgid "Adventure"
-msgstr "Aventura"
+msgstr "Adventure"
 
 #: ../modules/site/theme_texts_for_translation.php:50
 msgid "All about our Hotel"
-msgstr "Todo sobre nuestro hotel"
+msgstr "All about our Hotel"
 
 #: ../modules/site/theme_texts_for_translation.php:51
 msgid "Check out our amazing"
-msgstr "Echa un vistazo a nuestro increíble"
+msgstr "Check out our amazing"
 
 #: ../modules/site/theme_texts_for_translation.php:52
 msgid "This is how you can"
-msgstr "Esta es la forma en que pueda"
+msgstr "This is how you can"
 
 #: ../modules/site/theme_texts_for_translation.php:54
 #, fuzzy
 msgid "Welcome To Our Hotel"
-msgstr "Todo sobre nuestro hotel"
+msgstr "All about our Hotel"
 
 #: ../modules/site/theme_texts_for_translation.php:56
 msgid "Check Out Our Rooms"
-msgstr "Visita nuestra Habitaciones"
+msgstr "Check Out Our Rooms"
 
 #: ../modules/user/functions.php:185
 msgid "Password Reset"
-msgstr "Restablecer contraseña"
+msgstr "Password Reset"
 
 #: ../modules/user/functions.php:187
 msgid "Someone requested that the password be reset for the following account:"
-msgstr "Alguien pidió que la contraseña se restablecerá a la siguiente cuenta:"
+msgstr ""
+"Someone requested that the password be reset for the following account:"
 
 #: ../modules/user/functions.php:189
 #, php-format
 msgid "Username: %s"
-msgstr ""
+msgstr "Username: %s"
 
 #: ../modules/user/functions.php:190
 msgid "If this was a mistake, just ignore this email and nothing will happen."
-msgstr ""
-"Si esto fue un error, simplemente ignorar este mensaje y no pasará nada."
+msgstr "If this was a mistake, just ignore this email and nothing will happen."
 
 #: ../modules/user/functions.php:191
 msgid "To reset your password, visit the following address:"
-msgstr "Para restablecer su contraseña, visite la siguiente dirección:"
+msgstr "To reset your password, visit the following address:"
 
 #: ../modules/user/functions.php:195
 msgid "The e-mail could not be sent."
-msgstr "El e-mail no se ha podido enviar."
+msgstr "The e-mail could not be sent."
 
 #: ../modules/user/functions.php:195
 msgid "Possible reason: your host may have disabled the mail() function."
-msgstr ""
-"Posible motivo: su anfitrión puede haber deshabilitado la función mail ()."
-
-#~ msgid "Find us here"
-#~ msgstr "Encuéntrenos aquí"
+msgstr "Possible reason: your host may have disabled the mail() function."
 
 #~ msgid "CLICK HERE TO ENTER TITLE"
-#~ msgstr "HAGA CLIC AQUÍ PARA ENTRAR TÍTULO"
+#~ msgstr "CLICK HERE TO ENTER TITLE"
 
 #~ msgid "MAKE A BOOKING"
-#~ msgstr "Hacer una reserva"
+#~ msgstr "MAKE A BOOKING"
 
 #~ msgid "YOUR ROOM TITLE"
-#~ msgstr "TU HABITACION TÍTULO"
+#~ msgstr "YOUR ROOM TITLE"
 
 #~ msgid "GOOD MORNING HAPPY VISITOR!"
-#~ msgstr "BUENOS DÍAS VISITANTE FELIZ!"
+#~ msgstr "GOOD MORNING HAPPY VISITOR!"
 
 #~ msgid "TAKE  A LOOK AT OUR ROOMS"
-#~ msgstr "TOMAR UNA MIRADA A NUESTRAS HABITACIONES"
+#~ msgstr "TAKE  A LOOK AT OUR ROOMS"
 
 #~ msgid "MONTHLY CALENDAR"
-#~ msgstr "CALENDARIO MENSUAL"
+#~ msgstr "MONTHLY CALENDAR"
 
 #~ msgid "ADDITIONAL CHARGE"
-#~ msgstr "CARGO ADICIONAL"
+#~ msgstr "ADDITIONAL CHARGE"
 
 #~ msgid "FIND US HERE"
-#~ msgstr "DONDE ESTAMOS AQUÍ"
+#~ msgstr "FIND US HERE"
 
 #~ msgid "WEDDINGS & EVENTS"
-#~ msgstr "BODAS Y EVENTOS"
+#~ msgstr "WEDDINGS & EVENTS"
 
 #~ msgid "PRIVATE"
-#~ msgstr "PRIVADO"
+#~ msgstr "PRIVATE"
 
 #~ msgid "POPULAR INFO"
-#~ msgstr "INFO POPULAR"
+#~ msgstr "POPULAR INFO"
 
 #~ msgid "MOST"
-#~ msgstr "MÁS"
+#~ msgstr "MOST"
 
 #~ msgid "FIVE STAR LUXURY"
-#~ msgstr "CINCO ESTRELLAS DE LUJO"
+#~ msgstr "FIVE STAR LUXURY"
 
 #~ msgid "WHATS NEW"
-#~ msgstr "LO NUEVO"
+#~ msgstr "WHATS NEW"
 
 #~ msgid "WELCOME TO OUR HOTEL"
-#~ msgstr "BIENVENIDOS A NUESTRO HOTEL"
-
-#~ msgid "Home title"
-#~ msgstr "Inicio title_Espano"
-
-#~ msgid "Home sub title"
-#~ msgstr "Home sub title_Espano"
+#~ msgstr "WELCOME TO OUR HOTEL"

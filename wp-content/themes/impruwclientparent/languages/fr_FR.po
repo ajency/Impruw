@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: impruw\n"
-"POT-Creation-Date: 2014-08-01 15:09+0530\n"
-"PO-Revision-Date: 2014-08-01 15:24+0530\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2014-08-01 17:51+0530\n"
+"PO-Revision-Date: 2014-08-01 17:55+0530\n"
+"Last-Translator: Nutan Kamat <nutan@ajency.in>\n"
 "Language-Team: \n"
 "Language: French\n"
 "MIME-Version: 1.0\n"
@@ -315,10 +315,6 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: ../modules/site/functions.php:574
-msgid "Find us here"
-msgstr "Retrouvez-nous ici"
-
 #: ../modules/site/theme_texts_for_translation.php:3
 msgid "Home"
 msgstr "Maison"
@@ -340,12 +336,12 @@ msgid "Contact us"
 msgstr "Contactez-nous"
 
 #: ../modules/site/theme_texts_for_translation.php:8
-msgid "CLICK HERE TO ENTER TITLE"
-msgstr "CLIQUEZ ICI POUR ENTRER TITRE"
+msgid "Click Here To Enter Title"
+msgstr "Cliquez ici pour entrer le titre"
 
 #: ../modules/site/theme_texts_for_translation.php:9
-msgid "MAKE A BOOKING"
-msgstr "FAIRE UNE RESERVATION"
+msgid "Make A Booking"
+msgstr "Faire une réservation"
 
 #: ../modules/site/theme_texts_for_translation.php:10
 msgid "Logo"
@@ -356,12 +352,14 @@ msgid "Room Image"
 msgstr "Chambre Image"
 
 #: ../modules/site/theme_texts_for_translation.php:12
-msgid "YOUR ROOM TITLE"
-msgstr "VOTRE CHAMBRE TITRE"
+#: ../modules/site/theme_texts_for_translation.php:17
+#: ../modules/site/theme_texts_for_translation.php:18
+msgid "Your Room Title"
+msgstr "Votre chambre Titre"
 
 #: ../modules/site/theme_texts_for_translation.php:13
-msgid "GOOD MORNING HAPPY VISITOR!"
-msgstr "BONJOUR DU VISITEUR HEUREUX!"
+msgid "Good Morning Happy Visitor!"
+msgstr "Bonjour Bonne visiteurs!"
 
 #: ../modules/site/theme_texts_for_translation.php:14
 msgid ""
@@ -379,13 +377,9 @@ msgid "View details"
 msgstr "Voir les détails"
 
 #: ../modules/site/theme_texts_for_translation.php:16
-msgid "TAKE  A LOOK AT OUR ROOMS"
-msgstr "PRENDRE UN REGARD SUR NOS CHAMBRES"
-
-#: ../modules/site/theme_texts_for_translation.php:17
-#: ../modules/site/theme_texts_for_translation.php:18
-msgid "Your Room Title"
-msgstr "Votre chambre Titre"
+#, fuzzy
+msgid "Take  A Look At Our Rooms"
+msgstr "Consultez nos Chambres"
 
 #: ../modules/site/theme_texts_for_translation.php:19
 msgid ""
@@ -415,20 +409,22 @@ msgid "View the prices for different dates here."
 msgstr "Voir les prix des différentes dates ici."
 
 #: ../modules/site/theme_texts_for_translation.php:23
-msgid "MONTHLY CALENDAR"
-msgstr "CALENDRIER MENSUEL"
+msgid "Monthly Calendar"
+msgstr "Calendrier mensuel"
 
 #: ../modules/site/theme_texts_for_translation.php:24
 msgid "You have selected"
 msgstr "Vous avez sélectionné"
 
 #: ../modules/site/theme_texts_for_translation.php:25
-msgid "ADDITIONAL CHARGE"
-msgstr "FRAIS SUPPLÉMENTAIRES"
+msgid "Additional Charge"
+msgstr "Charge supplémentaire"
 
 #: ../modules/site/theme_texts_for_translation.php:26
-msgid "FIND US HERE"
-msgstr "NOUS TROUVER ICI"
+#: ../modules/site/theme_texts_for_translation.php:53
+#, fuzzy
+msgid "Find Us Here"
+msgstr "Retrouvez-nous ici"
 
 #: ../modules/site/theme_texts_for_translation.php:27
 msgid "Failed to geocode your address. Please click here to update."
@@ -450,24 +446,24 @@ msgid "Please visit to update social links"
 msgstr "S'il vous plaît visitez mettre à jour les liens sociaux"
 
 #: ../modules/site/theme_texts_for_translation.php:32
-msgid "WEDDINGS & EVENTS"
-msgstr "Mariages et événements"
+msgid "Weddings & Events"
+msgstr "Mariages & événements"
 
 #: ../modules/site/theme_texts_for_translation.php:33
-msgid "PRIVATE"
-msgstr "PRIVÉ"
+msgid "Private"
+msgstr "Privé"
 
 #: ../modules/site/theme_texts_for_translation.php:34
 msgid "More"
 msgstr "Plus"
 
 #: ../modules/site/theme_texts_for_translation.php:35
-msgid "POPULAR INFO"
-msgstr "INFO POPULAIRE"
+msgid "Popular Info"
+msgstr "Infos populaire"
 
 #: ../modules/site/theme_texts_for_translation.php:36
-msgid "MOST"
-msgstr "PLUS"
+msgid "Most"
+msgstr "Plus"
 
 #: ../modules/site/theme_texts_for_translation.php:37
 msgid "New Site Smell Added at No Extra Charge!"
@@ -490,12 +486,12 @@ msgid "Beaches"
 msgstr "Plages"
 
 #: ../modules/site/theme_texts_for_translation.php:42
-msgid "FIVE STAR LUXURY"
-msgstr "FIVE STAR LUXURY"
+msgid "Five Star Luxury"
+msgstr "Cinq étoiles de luxe"
 
 #: ../modules/site/theme_texts_for_translation.php:43
-msgid "WHATS NEW"
-msgstr "QUOI DE NEUF"
+msgid "Whats New"
+msgstr "Quoi de neuf"
 
 #: ../modules/site/theme_texts_for_translation.php:44
 msgid "Luxury getaways to Malaysia"
@@ -533,14 +529,10 @@ msgstr "Consultez notre incroyable"
 msgid "This is how you can"
 msgstr "C'est ainsi que vous pouvez"
 
-#: ../modules/site/theme_texts_for_translation.php:53
-#, fuzzy
-msgid "Find Us Here"
-msgstr "Retrouvez-nous ici"
-
 #: ../modules/site/theme_texts_for_translation.php:54
-msgid "WELCOME TO OUR HOTEL"
-msgstr "BIENVENUE SUR NOTRE HÔTEL"
+#, fuzzy
+msgid "Welcome To Our Hotel"
+msgstr "Tout à propos de notre Hôtel"
 
 #: ../modules/site/theme_texts_for_translation.php:56
 msgid "Check Out Our Rooms"
@@ -578,6 +570,54 @@ msgstr "L'e-mail n'a pas pu être envoyé."
 msgid "Possible reason: your host may have disabled the mail() function."
 msgstr ""
 "Cause possible: votre hébergeur peut avoir désactivé la fonction mail ()."
+
+#~ msgid "Find us here"
+#~ msgstr "Retrouvez-nous ici"
+
+#~ msgid "CLICK HERE TO ENTER TITLE"
+#~ msgstr "CLIQUEZ ICI POUR ENTRER TITRE"
+
+#~ msgid "MAKE A BOOKING"
+#~ msgstr "FAIRE UNE RESERVATION"
+
+#~ msgid "YOUR ROOM TITLE"
+#~ msgstr "VOTRE CHAMBRE TITRE"
+
+#~ msgid "GOOD MORNING HAPPY VISITOR!"
+#~ msgstr "BONJOUR DU VISITEUR HEUREUX!"
+
+#~ msgid "TAKE  A LOOK AT OUR ROOMS"
+#~ msgstr "PRENDRE UN REGARD SUR NOS CHAMBRES"
+
+#~ msgid "MONTHLY CALENDAR"
+#~ msgstr "CALENDRIER MENSUEL"
+
+#~ msgid "ADDITIONAL CHARGE"
+#~ msgstr "FRAIS SUPPLÉMENTAIRES"
+
+#~ msgid "FIND US HERE"
+#~ msgstr "NOUS TROUVER ICI"
+
+#~ msgid "WEDDINGS & EVENTS"
+#~ msgstr "Mariages et événements"
+
+#~ msgid "PRIVATE"
+#~ msgstr "PRIVÉ"
+
+#~ msgid "POPULAR INFO"
+#~ msgstr "INFO POPULAIRE"
+
+#~ msgid "MOST"
+#~ msgstr "PLUS"
+
+#~ msgid "FIVE STAR LUXURY"
+#~ msgstr "FIVE STAR LUXURY"
+
+#~ msgid "WHATS NEW"
+#~ msgstr "QUOI DE NEUF"
+
+#~ msgid "WELCOME TO OUR HOTEL"
+#~ msgstr "BIENVENUE SUR NOTRE HÔTEL"
 
 #~ msgid "Home sub title"
 #~ msgstr "Accueil titre de sous"
