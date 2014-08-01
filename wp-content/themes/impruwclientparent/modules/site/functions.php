@@ -763,10 +763,12 @@ function create_translated_page($page, $language_code){
     $tbl_icl_translations = $wpdb->prefix ."icl_translations";
     $element_type = "post_page";
 
-    $sitepress->switch_lang($language_code);
-        load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
-        $post_title =__($page->post_title, 'impruwclientparent') ;
-    $sitepress->switch_lang(wpml_get_default_language());
+    // $sitepress->switch_lang($language_code);
+    //     load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
+    //     $post_title =__($page->post_title, 'impruwclientparent') ;
+    // $sitepress->switch_lang(wpml_get_default_language());
+
+    $post_title = impruw_wpml_get_string_translation($page->post_title, $language_code);
 
     if($post_title === $page->post_title)
         $post_title .= '(not translated)';
@@ -888,6 +890,44 @@ function translate_page( $theme_site_id, $language_code, $post_id){
     update_page_autosave( $post_id, $data );
 
 }
+
+/**
+ * Returns the translation of a string in a specific language if it exists or the original if it does not.
+ * @ param $string The string to retrieve
+ * @ param $lang The language code of the translation e.g. de
+ *
+ * @ return the translated string or the original record if a translation does not exist. 
+ * If WPML is not active the original string will be returned.
+ */
+function impruw_wpml_get_string_translation($string, $lang){
+    // WPML is not used? return the original string
+    $output = $string;
+
+    
+    global $wpdb;
+
+        // the tables
+    $table1         = $wpdb->prefix . "icl_strings";
+    $table2         = $wpdb->prefix . "icl_string_translations";
+        // the sql
+    $sql            = "SELECT * FROM $table1, $table2 WHERE $table1.value = %s AND ($table1.status = '1' OR $table1.status = '3') AND $table1.id = $table2.string_id AND $table2.language = %s ";
+        // make it safe
+    $safe_sql      = $wpdb->prepare($sql, $string, $lang);
+        // get row
+    $result             = $wpdb->get_row($safe_sql, ARRAY_A);
+
+        // if we have a record
+    if(!is_null($result)){
+        $output = $result['value'];
+    }
+        // no record? return the original string
+    else{
+        $output = $string;
+    }
+
+    return $output; 
+}
+
 
 function translation_keys(){
     __('Home', 'impruwclientparent');
