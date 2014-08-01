@@ -32,6 +32,9 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').checkbox('check');
         }
+        if (this.eleModel.get('target') === '_BLANK') {
+          this.$el.find('input[name="target"]').checkbox('check');
+        }
         _.each(['link', 'text'], (function(_this) {
           return function(field, i) {
             return _this.$el.find("input[name='" + field + "']").val(_this.eleModel.get(field));
@@ -61,7 +64,7 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
           }
         },
         'change input[name="target"]': function(evt) {
-          return this.trigger("element:target:changed", $(evt.target).is(':checked') ? '_BLANK' : 'self');
+          return this.trigger("element:target:changed", $(evt.target).is(':checked') ? '_BLANK' : '_self');
         }
       };
 

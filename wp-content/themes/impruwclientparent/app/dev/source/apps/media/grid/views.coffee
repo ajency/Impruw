@@ -26,13 +26,26 @@ define [ 'app'
             @trigger "media:element:selected"
 
 
+      class EmptyMediaGrid extends Marionette.ItemView
+
+         template : '<p>No media uploaded. Please upload</p>'
+
+
+
       # collection view
       class Views.GridView extends Marionette.CompositeView
+         
          className : 'row'
+         
          template : '<div id="selectable-images"></div>
-                              <div id="edit-image-view"></div>'
+                     <div id="edit-image-view"></div>'
+
          itemView : MediaView
+
+         emptyView : EmptyMediaGrid
+         
          itemViewContainer : '#selectable-images'
+
          onCollectionRendered : ->
             if @multiSelect
                @$el.find( '#selectable-images' ).bind "mousedown", ( e )->

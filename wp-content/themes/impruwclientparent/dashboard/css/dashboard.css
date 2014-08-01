@@ -27,6 +27,15 @@ a:focus {
   color: #ff7e00;
   outline: 0;
 }
+a.blue-link {
+  color: #849fb0;
+  display: inline-block;
+  margin: 0 0.5em;
+}
+a.blue-link.pull-left,
+a.blue-link.pull-right {
+  margin: 0.5em;
+}
 a.red-link {
   color: #ee4423;
   display: inline-block;
@@ -49,6 +58,11 @@ a.red-link.pull-right {
   clear: both;
   content: "";
   display: table;
+}
+/****Paragraph Styles****/
+p {
+  color: #777777;
+  font-size: 1em;
 }
 /****Text Alignment Classes****/
 .t-a-r {
@@ -1970,6 +1984,10 @@ form .aj-imp-submit:hover {
 .rooms-layout .add-room {
   background: #ff7e00;
 }
+.rooms-layout .add-room:hover,
+.rooms-layout .add-room:focus {
+  background: #ff9833;
+}
 .empty-info {
   clear: both;
   padding: 0.8em 1em 0.7em;
@@ -2803,10 +2821,12 @@ form .aj-imp-submit:hover {
 .aj-imp-block-button.add-new-slide {
   margin-left: 0;
 }
-.add-gallery-images {
+.add-gallery-images,
+.aj-imp-blue-btn {
   background: #849fb0;
 }
-.add-gallery-images:hover {
+.add-gallery-images:hover,
+.aj-imp-blue-btn:hover {
   background: #a3b7c4;
 }
 .isotope {
@@ -4509,4 +4529,41 @@ form .aj-imp-submit:hover {
 #edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button:hover,
 #edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button:focus {
   background: #a6a6a6;
+}
+/**** Help Text ****/
+.aj-imp-help-text {
+  font-size: 0.88em;
+  color: #c3c3c3;
+  margin: 0.5em 0 1em;
+  padding: 0.3em;
+  border: 1px dotted #dddddd;
+  *zoom: 1;
+}
+.aj-imp-help-text:after,
+.aj-imp-help-text:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.aj-imp-help-text .icon {
+  color: #c2cfd8;
+  font-size: 1.7em;
+  display: block;
+  float: left;
+  margin-right: 0.2em;
+}
+.aj-imp-help-text p {
+  margin-bottom: 0;
+  font-size: 1em;
+}
+/**** Style Guide Styles ****/
+.guide-wrapper {
+  padding: 1em;
+  border: 1px solid #aaaaaa;
+}
+.guide-wrapper .guide-header {
+  border-bottom: 2px solid #000;
+}
+.guide-wrapper .prism {
+  margin-bottom: 2.5em;
 }

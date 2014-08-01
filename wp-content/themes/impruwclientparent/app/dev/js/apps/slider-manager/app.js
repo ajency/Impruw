@@ -88,6 +88,7 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontro
       };
 
       SliderManagerController.prototype.onClose = function() {
+        App.currentImageRatio = false;
         return App.navigate('');
       };
 
