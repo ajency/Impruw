@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/templates/view.html', 'apps/billing/update-billing/card-details/controller'], function(App, AppController, viewTpl) {
+define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/templates/view.html', 'apps/billing/update-billing/address/controller', 'apps/billing/update-billing/card-details/controller'], function(App, AppController, viewTpl) {
   return App.module('BillingApp.UpdateBilling', function(UpdateBilling, App, Backbone, Marionette, $, _) {
     var LayoutView;
     UpdateBilling.Controller = (function(_super) {
@@ -20,8 +20,12 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
             return App.execute("when:fetched", _this.siteModel, function() {
               var customerId;
               customerId = _this.siteModel.get('braintree_customer_id');
-              return App.execute("show:card", {
+              App.execute("show:card", {
                 region: _this.layout.cardRegion,
+                customerId: customerId
+              });
+              return App.execute("show:address", {
+                region: _this.layout.addressRegion,
                 customerId: customerId
               });
             });

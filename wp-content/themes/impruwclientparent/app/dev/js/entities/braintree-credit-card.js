@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.CreditCard", function(BraintreecreditCard, App, Backbone, Marionette, $, _) {
-    var API, CreditCard;
+    var API, BillingAddress, CreditCard;
     CreditCard = (function(_super) {
       __extends(CreditCard, _super);
 
@@ -18,6 +18,20 @@ define(["app", 'backbone'], function(App, Backbone) {
       return CreditCard;
 
     })(Backbone.Model);
+    BillingAddress = (function(_super) {
+      __extends(BillingAddress, _super);
+
+      function BillingAddress() {
+        return BillingAddress.__super__.constructor.apply(this, arguments);
+      }
+
+      BillingAddress.prototype.name = 'billingaddress';
+
+      BillingAddress.prototype.idAttribute = 'customerId';
+
+      return BillingAddress;
+
+    })(Backbone.Model);
     API = {
       getCardById: function(customerId) {
         var creditCardModel;
@@ -26,10 +40,21 @@ define(["app", 'backbone'], function(App, Backbone) {
         });
         creditCardModel.fetch();
         return creditCardModel;
+      },
+      getBillingAddress: function(customerId) {
+        var BillingAddressModel;
+        BillingAddressModel = new BillingAddress({
+          'customerId': customerId
+        });
+        BillingAddressModel.fetch();
+        return BillingAddressModel;
       }
     };
-    return App.reqres.setHandler("get:card:info", function(customerId) {
+    App.reqres.setHandler("get:card:info", function(customerId) {
       return API.getCardById(customerId);
+    });
+    return App.reqres.setHandler("get:billing:address", function(customerId) {
+      return API.getBillingAddress(customerId);
     });
   });
 });

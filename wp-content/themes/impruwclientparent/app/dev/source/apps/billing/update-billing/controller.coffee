@@ -1,5 +1,6 @@
 define [ 'app', 'controllers/base-controller'
          'text!apps/billing/update-billing/templates/view.html'
+         'apps/billing/update-billing/address/controller'
          'apps/billing/update-billing/card-details/controller'], ( App, AppController,viewTpl )->
     App.module 'BillingApp.UpdateBilling', ( UpdateBilling, App, Backbone, Marionette, $, _ )->
 
@@ -22,6 +23,9 @@ define [ 'app', 'controllers/base-controller'
                             region :@layout.cardRegion
                             customerId : customerId
 
+                        App.execute "show:address",
+                            region :@layout.addressRegion
+                            customerId : customerId
                 @show @layout
 
             getLayout : ->

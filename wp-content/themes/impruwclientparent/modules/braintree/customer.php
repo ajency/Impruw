@@ -15,15 +15,15 @@
  */
 function create_customer_with_card( $customer_data ) {
 
-    $create_customer_with_card = Braintree_Customer::create(array(
-        'firstName' => $customer_data['user_name'],
+    $create_customer_with_card = Braintree_Customer::create( array(
+        'firstName' => $customer_data[ 'user_name' ],
         'creditCard' => array(
-            'paymentMethodNonce' => $customer_data['payment_method_nonce'],
+            'paymentMethodNonce' => $customer_data[ 'payment_method_nonce' ],
             'options' => array(
                 'verifyCard' => true
             )
         )
-    ));
+    ) );
 
     if ( $create_customer_with_card->success ) {
 
@@ -31,8 +31,8 @@ function create_customer_with_card( $customer_data ) {
         $customer_id = $create_customer_with_card->customer->id;
 
         $success_msg = array( 'code' => 'OK',
-                            'credit_card_token' => $credit_card_token,
-                            'customer_id' => $customer_id);
+            'credit_card_token' => $credit_card_token,
+            'customer_id' => $customer_id );
         return $success_msg;
 
     } else {
@@ -88,5 +88,68 @@ function customer_credit_card_details( $credit_cards ) {
 
     return $credit_card_details;
 
+
+}
+
+function  get_customer_address( $braintree_customer_id ) {
+
+    $billing_address = array();
+
+    $customer = Braintree_Customer::find( $braintree_customer_id );
+    $address = $customer->addresses;
+
+    if ( !empty( $address ) ) {
+
+        $billing_address[ 'customerId' ] = $address[ 0 ]->customerId;
+        $billing_address[ 'id' ] = $address[ 0 ]->id;
+        $billing_address[ 'streetAddress' ] = $address[ 0 ]->streetAddress;
+        $billing_address[ 'postalCode' ] = $address[ 0 ]->postalCode;
+        $billing_address[ 'region' ] = $address[ 0 ]->region;
+        $billing_address[ 'countryName' ] = $address[ 0 ]->countryName;
+        $billing_address[ 'address_exists' ] = true;
+
+    }
+
+    return $billing_address;
+}
+
+function create_customer_billing_address( $address_data ) {
+
+    try {
+
+        $result = Braintree_Address::create( $address_data );
+        if ( $result->success ) {
+
+            return array( 'code' => 'OK' );
+        } else {
+
+            $error_msg = array( 'code' => 'ERROR', 'msg' => 'Address not added' );
+            return $error_msg;
+        }
+    } catch ( Braintree_Exception_NotFound $e ) {
+
+        return array( 'code' => 'ERROR', 'msg' => 'Address not added' );
+
+    }
+
+}
+
+
+function update_customer_billing_address( $address_data ) {
+
+    $customer_id = $address_data[ 'customerId' ];
+    $address_id = $address_data[ 'id' ];
+
+    unset( $address_data[ 'id' ] );
+    unset( $address_data[ 'customerId' ] );
+
+    $address_update = Braintree_Address::update( $customer_id, $address_id, $address_data );
+
+    if ( $address_update->success ) {
+        return array( 'code' => 'OK' );
+    } else {
+        $error_msg = array( 'code' => 'ERROR', 'msg' => $address_update->message );
+        return $error_msg;
+    }
 
 }

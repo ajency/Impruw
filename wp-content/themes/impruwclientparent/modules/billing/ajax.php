@@ -193,7 +193,7 @@ function ajax_get_pending_subscription() {
 add_action( 'wp_ajax_get-pending-subscription', 'ajax_get_pending_subscription' );
 
 
-function ajax_create_customer_with_card(){
+function ajax_create_customer_with_card() {
 
     $current_user = wp_get_current_user();
     $user_name = $current_user->display_name;
@@ -210,6 +210,59 @@ function ajax_create_customer_with_card(){
     wp_send_json( array( 'code' => 'OK' ) );
 
 }
+
 add_action( 'wp_ajax_create-customer-with-card', 'ajax_create_customer_with_card' );
+
+
+function ajax_get_customer_billing_address() {
+
+    $braintree_customer_id = $_REQUEST[ 'customerId' ];
+
+    $billing_address = get_customer_address( $braintree_customer_id );
+
+    if ( empty( $billing_address ) )
+        $billing_address = array( 'address_exists' => false );
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $billing_address ) );
+
+}
+
+add_action( 'wp_ajax_read-billingaddress', 'ajax_get_customer_billing_address' );
+
+function ajax_get_update_billingaddress() {
+
+    $address_data = $_POST;
+
+    unset( $address_data[ 'action' ] );
+
+    $address_data = array_filter( $address_data );
+
+    if ( $_POST[ 'address_exists' ] == 'false' ) {
+
+        unset( $address_data[ 'address_exists' ] );
+        $billing_address_created = create_customer_billing_address( $address_data );
+
+        if ( $billing_address_created[ 'code' ] == "ERROR" )
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => $billing_address_created[ 'msg' ] ) );
+
+        $address_data[ 'address_exists' ] = true;
+
+    } else {
+
+        unset( $address_data[ 'address_exists' ] );
+        $update_address = update_customer_billing_address( $address_data );
+
+        if ( $update_address[ 'code' ] == "ERROR" )
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => $update_address[ 'msg' ] ) );
+
+        $address_data[ 'address_exists' ] = true;
+    }
+
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $address_data ) );
+
+}
+
+add_action( 'wp_ajax_update-billingaddress', 'ajax_get_update_billingaddress' );
 
 

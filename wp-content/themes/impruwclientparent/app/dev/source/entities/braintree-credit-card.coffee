@@ -9,6 +9,11 @@ define ["app", 'backbone'], (App, Backbone) ->
             name: 'creditcard'
             idAttribute :'customer_id'
 
+        class BillingAddress extends Backbone.Model
+
+            name: 'billingaddress'
+            idAttribute :'customerId'
+
 
         API =
 
@@ -17,6 +22,14 @@ define ["app", 'backbone'], (App, Backbone) ->
                 creditCardModel.fetch()
                 creditCardModel
 
+            getBillingAddress : ( customerId ) ->
+                BillingAddressModel = new BillingAddress 'customerId' : customerId
+                BillingAddressModel.fetch()
+                BillingAddressModel
+
 
         App.reqres.setHandler "get:card:info",( customerId ) ->
             API.getCardById customerId
+
+        App.reqres.setHandler "get:billing:address",( customerId ) ->
+            API.getBillingAddress customerId
