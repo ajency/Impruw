@@ -23,6 +23,9 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                 if @eleModel.get('draggable') is true
                     @$el.find('input[name="draggable"]').checkbox 'check'
 
+                if @eleModel.get('target') is '_BLANK'
+                    @$el.find('input[name="target"]').checkbox 'check'
+
                 _.each ['link', 'text'], (field, i)=>
                     @$el.find("input[name='#{field}']").val @eleModel.get field
 
@@ -43,7 +46,7 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                         name = $(evt.target).attr 'name'
                         @trigger "element:#{name}:changed", $(evt.target).val()
                 'change input[name="target"]': (evt)->
-                    @trigger "element:target:changed", if $(evt.target).is(':checked') then '_BLANK' else 'self'
+                    @trigger "element:target:changed", if $(evt.target).is(':checked') then '_BLANK' else '_self'
 
             onBeforeClose: ->
                 #trigger blur events so that the model gets updated

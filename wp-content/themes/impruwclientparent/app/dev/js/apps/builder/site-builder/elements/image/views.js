@@ -34,12 +34,7 @@ define(['app'], function(App) {
       };
 
       ImageView.prototype.events = {
-        'click': function(e) {
-          var ratio;
-          e.stopPropagation();
-          ratio = this._getImageRatio();
-          return this.trigger("show:media:manager", ratio);
-        }
+        'click': 'imageClick'
       };
 
       ImageView.prototype.initialize = function(options) {
@@ -57,6 +52,10 @@ define(['app'], function(App) {
 
       ImageView.prototype.onShow = function() {
         if (this.model.isNew()) {
+          this.$el.resizable({
+            helper: "ui-image-resizable-helper",
+            handles: "s"
+          });
           return;
         }
         this.$el.css('overflow', 'hidden');
@@ -77,7 +76,9 @@ define(['app'], function(App) {
             };
           })(this),
           start: (function(_this) {
-            return function(evt, ui) {};
+            return function(evt, ui) {
+              return $(_this).addClass('noclick');
+            };
           })(this)
         });
         this.$el.find('img').draggable({
@@ -117,6 +118,17 @@ define(['app'], function(App) {
         return console.log("view rendered");
       };
 
+      ImageView.prototype.imageClick = function(e) {
+        var ratio;
+        e.stopPropagation();
+        if ($(e.target).hasClass('noclick')) {
+          return $(e.target).removeClass('noclick');
+        } else {
+          ratio = this._getImageRatio();
+          return this.trigger("show:media:manager", ratio);
+        }
+      };
+
       ImageView.prototype.assignImagePath = function() {
         var image, width;
         width = this.$el.width();
@@ -128,8 +140,8 @@ define(['app'], function(App) {
       ImageView.prototype.adjustImagePosition = function() {
         var top;
         top = parseInt(_(this.$el.find('img').css('top')).rtrim('px'));
-        if (top < this.$el.height() - this.$el.find('img').height()) {
-          this.$el.find('img').css('top', "" + (this.$el.height() - this.$el.find('img').height()) + "px");
+        if (top > 0) {
+          this.$el.find('img').css('top', '0px');
         }
         return this.trigger('set:image:top:position', this.$el.width(), parseInt(this.$el.find('img').css('top')));
       };

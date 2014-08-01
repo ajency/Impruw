@@ -23,10 +23,10 @@ define [
    'mustache'
    'bootstrapselect'
    'isotope'
-   'lightbox'
    'jpanelmenu'
    'minicolors'
    'polyglot'
    'additionalmethod'
    'timepicker'
+   'braintree'
 ], ->

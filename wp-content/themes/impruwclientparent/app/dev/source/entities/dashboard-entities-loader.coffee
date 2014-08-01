@@ -10,4 +10,8 @@ define [
     'entities/user'
     'entities/daterange'
     'entities/booking'
+    'entities/braintree-plans'
+    'entities/braintree-subscription'
+    'entities/braintree-credit-card'
+    'entities/braintree-transaction'
 ], ->
