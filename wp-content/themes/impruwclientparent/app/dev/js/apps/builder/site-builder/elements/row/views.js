@@ -75,7 +75,7 @@ define(['app'], function(App) {
           left: 50,
           top: 25
         });
-        return "<div style='width: 100px; top:100px; height: 50px; border: 2px; background-color: pink;'></div>";
+        return "<div class='element-helper'></div>";
       };
 
       return ColumnView;
