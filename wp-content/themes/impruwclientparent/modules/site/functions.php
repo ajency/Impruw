@@ -763,10 +763,12 @@ function create_translated_page($page, $language_code){
     $tbl_icl_translations = $wpdb->prefix ."icl_translations";
     $element_type = "post_page";
 
-    $sitepress->switch_lang($language_code);
-        load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
-        $post_title =__($page->post_title, 'impruwclientparent') ;
-    $sitepress->switch_lang(wpml_get_default_language());
+    // $sitepress->switch_lang($language_code);
+    //     load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
+    //     $post_title =__($page->post_title, 'impruwclientparent') ;
+    // $sitepress->switch_lang(wpml_get_default_language());
+
+    $post_title = impruw_wpml_get_string_translation($page->post_title, $language_code);
 
     if($post_title === $page->post_title)
         $post_title .= '(not translated)';
