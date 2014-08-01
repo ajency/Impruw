@@ -81,7 +81,7 @@ define [ 'app'
                 html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                                         &times;
                                         </button>
-                                        Payment Processed'
+                                        Card Added Succesfully'
                 @$el.find( '#billingsave_status' ).append(html)
 
             onPaymentError : ( errorMsg )->

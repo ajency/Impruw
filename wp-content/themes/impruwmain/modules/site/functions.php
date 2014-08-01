@@ -216,8 +216,10 @@ function create_additional_tables( $site_id ) {
     // cancel subscription table
     $query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}cancel_subscription(
 				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-				subscription_id INT,
-				cancel_date DATE ";
+				old_subscription_id VARCHAR(50),
+				new_subscription_id VARCHAR(50),
+				cancel_date DATE,
+				status INT ";
 
     $wpdb->query( $query );
 

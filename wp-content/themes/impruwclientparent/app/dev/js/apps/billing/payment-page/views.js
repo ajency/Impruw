@@ -101,7 +101,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
-        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Processed';
+        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Card Added Succesfully';
         return this.$el.find('#billingsave_status').append(html);
       };
 
