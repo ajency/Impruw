@@ -269,7 +269,7 @@ define [ 'app'
              left = $(original).width()/2
              @$el.find( '.droppable-column' ).sortable( "option", "cursorAt", { left: 50, top: 25 } );
 
-             "<div style='width: 100px; top:100px; height: 50px; border: 2px; background-color: pink;'></div>"
+             "<div class='element-helper'></div>"
 
 
 

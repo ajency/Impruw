@@ -330,7 +330,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           left: 50,
           top: 25
         });
-        return "<div style='width: 100px; top:100px; height: 50px; border: 2px; background-color: pink;'></div>";
+        return "<div class='element-helper'></div>";
       };
 
       Builder.prototype.elementDropped = function(evt, ui) {
