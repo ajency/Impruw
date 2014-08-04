@@ -31,21 +31,23 @@ define [ 'app'
 
             onShow : ->
                 siteModelPlanId = @model.get 'plan_id'
-                collectionModelPlanId = Marionette.getOption @, 'activeBraintreePlanID'
-
-                console.log siteModelPlanId
-                console.log collectionModelPlanId
+                activePlanID = Marionette.getOption @, 'activePlanID'
+                pendingPlanID = Marionette.getOption @, 'pendingPlanID'
 
                 #append  the plan id to the plan activation link
                 activateLink = @$el.find( '.activate-link' ).attr 'href'
                 newactivateLink = "#{activateLink}/#{siteModelPlanId}"
-                @$el.find( '.activate-link' ).attr 'href',newactivateLink
+                @$el.find( '.activate-link' ).attr 'href', newactivateLink
 
                 #highlight the active plan
-                if siteModelPlanId == collectionModelPlanId
+                if  siteModelPlanId is activePlanID
                     @$el.find( '.panel-default' ).addClass 'active'
                     @$el.find( '.activate-link' ).text 'Active Plan'
-                    @$el.find( '.activate-link' ).attr 'href','javascript:void(0)'
+                    @$el.find( '.activate-link' ).attr 'href', 'javascript:void(0)'
+
+                #highlight the selected plan
+                if  siteModelPlanId is pendingPlanID
+                    @$el.find( '.panel-heading' ).append( '<span>selected</span>' )
 
 
         class View.PlansView extends Marionette.CompositeView
@@ -57,8 +59,31 @@ define [ 'app'
             itemViewContainer : '.price-plans'
 
             itemViewOptions : ->
-                currency : @model.get 'currency'
-                activeBraintreePlanID : @model.get 'braintree_plan_id'
+                currency : Marionette.getOption @, 'currency'
+                activePlanID : Marionette.getOption @, 'activePlanId'
+                pendingPlanID : Marionette.getOption @, 'pendingPlanId'
+
+            onShow : ->
+                activePlanID = Marionette.getOption @, 'activePlanId'
+                pendingPlanID = Marionette.getOption @, 'pendingPlanId'
+
+                if activePlanID is 'Free'
+                    @$el.find( '#free-plan' ).addClass 'active'
+                    @$el.find( '#free-plan' ).text 'Active Plan'
+
+                if pendingPlanID is 'Free'
+                    @$el.find( '#free-plan .panel-heading' ).append '<span>Selected</span>'
+
+            events :
+                'click .free-plan-link' : ->
+                    activePlanID = Marionette.getOption @, 'activePlanId'
+                    if activePlanID != "Free"
+                        if confirm "Switch to free plan?"
+                            @trigger "switch:to:free:plan"
+
+
+
+
 
 
 

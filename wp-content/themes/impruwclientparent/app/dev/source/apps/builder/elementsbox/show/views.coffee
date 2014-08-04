@@ -12,9 +12,9 @@ define [ 'app'
          className : 'element'
 
          template : '<a href="#" class="drag builder-element">
-                                       										<div class="aj-imp-builder-icon {{icon}}"></div>
-                                           									<div class="aj-imp-builder-title">{{elementName}}</div>
-                                           								</a>'
+                        <div class="aj-imp-builder-icon {{icon}}"></div>
+								<div class="aj-imp-builder-title">{{elementName}}</div>
+							</a>'
 
          serializeData : ->
             data = super()
@@ -88,8 +88,11 @@ define [ 'app'
          _setDraggableElements : ->
             @$el.find( '*[data-element]' ).draggable
                connectToSortable : '.droppable-column'
-               helper : 'clone'
+               helper : @_getHelper
                delay : 5
                addClasses : false
                distance : 5
                revert : 'invalid'
+
+         _getHelper : ->
+            '<div class="element-helper"></div> '

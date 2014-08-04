@@ -1,0 +1,114 @@
+/**** Login Form Styles ****/
+.aj-imp-login-form {
+	width: 100%;
+	margin: auto;
+	padding: 3em 1em;
+	color: @text-color;
+	max-width: 960px;
+	background: @white;
+	border-left: 1px solid @quarternary1;
+	border-right: 1px solid @quarternary1;
+	.aj-imp-login-header {
+		border-bottom: 1px solid @text-color;
+		text-align: center;
+		h1 {
+			font-size: 2.5em;
+			font-weight: 700;
+			span {
+				color: @secondary1;
+			}
+		}
+		.desc {
+			font-size: 1.1em;
+			color: @text-color;
+		}
+	}
+	.aj-imp-login, .aj-imp-forgot {
+		margin: 2em 0 0;
+		padding: 0 1em;
+		form {
+			border: 0;
+			padding: 0;
+			.aj-imp-log-forgot {
+				font-size: 0.8em;
+				margin-top: 2em;
+				display: inline-block;
+				@media (max-width: 767px) { 
+					margin-top: 1em;
+				}
+			}
+			.row {
+				position: relative;
+				.control-label {
+					position: absolute;
+					left: 0;
+					top: 1em;
+					@media (max-width: 767px) { 
+						position: static;
+					}
+				}
+			}
+			.form-group {
+				.col-sm-offset-3 {
+					margin-left: 0;
+				}
+			}
+			.form-control {
+				&:focus {
+					border-color: @primary1;
+				}
+			}
+			.checkbox {
+				padding-top: 0;
+				.icons {
+					color: @text-color;
+					.first-icon, .second-icon {
+						background: transparent;
+					}
+				}
+				&.checked {
+					color: @primary1;
+					.second-icon {
+						color: @primary1;
+					}
+				}
+				&.keep-log {
+					display: inline-block;
+					margin-left: 1em;
+				}
+			}
+			.parsley-error-list {
+				padding: 0;
+				margin: 0.5em 0;
+				list-style: none;
+				li {
+					color: #ff3333;
+				}
+			}
+			.aj-imp-submit {
+				background: @button-color;
+				color: @white;
+				&:hover {
+					background: lighten(@button-color, 10%);
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) { 
+/*Responive*/
+.aj-imp-login-form {
+	width: 80%;
+	padding: 1em;
+	.aj-imp-login {
+		form {
+			padding: 0 1em;
+			label {
+				padding: 0 0 1em;
+			}
+		}
+	}
+}
+/*Responive*/
+}

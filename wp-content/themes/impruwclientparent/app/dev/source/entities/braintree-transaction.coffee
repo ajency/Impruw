@@ -1,30 +1,32 @@
-define ["app", 'backbone'], (App, Backbone) ->
+define [ "app", 'backbone' ], ( App, Backbone ) ->
 
     # App state entity
-    App.module "Entities.BraintreeTransaction", (BraintreeTransaction, App, Backbone, Marionette, $, _)->
+    App.module "Entities.BraintreeTransaction", ( BraintreeTransaction, App, Backbone, Marionette, $, _ )->
 
         # transaction model
         class BraintreeTransaction extends Backbone.Model
 
-            name: 'braintreetransaction'
+            name : 'braintreetransaction'
             idAttribute : 'transaction_id'
 
 
         class BraintreePlanCollection extends Backbone.Collection
 
-            model: BraintreeTransaction
+            model : BraintreeTransaction
 
-            url: ->
+            url : ->
                 "#{AJAXURL}?action=fetch-braintreetransaction"
 
 
         API =
 
-            getTransactions : ->
+            getTransactions : ( customerId ) ->
                 transactionCollection = new BraintreePlanCollection
-                transactionCollection.fetch()
+                transactionCollection.fetch
+                    data :
+                        'customerID' : customerId
                 transactionCollection
 
 
-        App.reqres.setHandler "get:transactions",->
-            API.getTransactions()
+        App.reqres.setHandler "get:transactions", ( customerId )->
+            API.getTransactions customerId

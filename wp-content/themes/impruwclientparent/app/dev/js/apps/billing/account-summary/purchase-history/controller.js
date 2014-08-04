@@ -11,21 +11,28 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/purc
       }
 
       Controller.prototype.initialize = function(opts) {
-        var transaction;
-        transaction = App.request("get:transactions");
-        return App.execute("when:fetched", transaction, (function(_this) {
-          return function() {
-            _this.view = _this.getView(transaction);
-            App.vent.trigger("set:active:menu", 'billing');
-            return _this.show(_this.view);
-          };
-        })(this));
+        var brainTreeCustomerId, transactionCollection;
+        brainTreeCustomerId = opts.braintreeCustomerId;
+        if (_.isEmpty(brainTreeCustomerId)) {
+          this.view = this.getEmptyView();
+        } else {
+          transactionCollection = App.request("get:transactions", brainTreeCustomerId);
+          this.view = this.getView(transactionCollection);
+        }
+        App.vent.trigger("set:active:menu", 'billing');
+        return this.show(this.view, {
+          loading: true
+        });
       };
 
-      Controller.prototype.getView = function(transaction) {
+      Controller.prototype.getView = function(transactionCollection) {
         return new PurchaseHistory.View.Transaction({
-          collection: transaction
+          collection: transactionCollection
         });
+      };
+
+      Controller.prototype.getEmptyView = function() {
+        return new PurchaseHistory.View.EmptyView;
       };
 
       return Controller;

@@ -15,14 +15,21 @@ define ['app'], (App)->
                     connectWith: '.droppable-column,.column'
                     handle: '.aj-imp-drag-handle'
                     start: (e, ui)->
-                        ui.placeholder.height ui.item.height()
+#                        ui.placeholder.height ui.item.height()
                         window.dragging = true
                         return
                     stop: (e, ui)->
                         window.dragging = false
                         return
-                    helper: 'clone'
+                    helper: @_getHelper
                     opacity: .65
+                    placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
+                    out : ()->
+                        window.dragging = false
+                        return
+                    over : ()->
+                        window.dragging = true
+                        return
                     remove: (evt, ui)=>
                         @trigger "element:moved", $(evt.target)
                         if $(evt.target).children().length is 0
@@ -37,6 +44,14 @@ define ['app'], (App)->
 
             onClose: ->
                 @$el.sortable('destroy') if @$el.hasClass 'ui-sortable'
+
+            _getHelper : (evt,original)=>
+
+                left = $(original).width()/2
+                @$el.sortable( "option", "cursorAt", { left: 50, top: 25 } );
+
+                "<div class='element-helper'></div>"
+
 
 
         # Menu item view

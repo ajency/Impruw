@@ -5,25 +5,65 @@ define [ 'app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize : ( opts )->
+                @siteModel = App.request "get:site:model"
 
-                @siteModel =  App.request "get:site:model"
+                App.execute "when:fetched", @siteModel, =>
+                    @subscriptionId = @siteModel.get 'braintree_subscription'
 
-                brainTreePlans = App.request "get:braintree:plans"
+                    @currency = @siteModel.get 'currency'
 
-                @view = @getView brainTreePlans
+                    brainTreePlans = App.request "get:braintree:plans"
 
-                # trigger set:active:menu event
-                App.vent.trigger "set:active:menu", 'billing'
+                    @subscriptionModel = App.request "get:subscription:by:id", @subscriptionId
 
-                # show main layout
-                @show @view,
-                    loading :true
+                    @pendingSubscriptionModel = App.request "get:pending:subscription", @subscriptionId
 
-            # get layout
-            getView :( brainTreePlanCollection ) =>
+
+                    App.execute "when:fetched", @subscriptionModel, =>
+                        @activePlanId = @subscriptionModel.get 'plan_id'
+
+                        App.execute "when:fetched", @pendingSubscriptionModel, =>
+
+                            @pendingPlanId = @pendingSubscriptionModel.get 'plan_id'
+
+                            @view = @getView brainTreePlans
+
+                            @listenTo @view, "switch:to:free:plan", @changeToFreePlan
+
+                            # trigger set:active:menu event
+                            App.vent.trigger "set:active:menu", 'billing'
+
+                            @show @view
+
+
+            getView : ( brainTreePlanCollection ) =>
                 new PaymentPlans.View.PlansView
                     collection : brainTreePlanCollection
-                    model : @siteModel
+                    currency : @currency
+                    activePlanId : @activePlanId
+                    pendingPlanId : @pendingPlanId
+
+            changeToFreePlan : ->
+                status = @subscriptionModel.get 'status'
+
+                if status is 'Pending'
+                    cancelDate = @subscriptionModel.get 'start_date'
+                else
+                    cancelDate = @subscriptionModel.get 'bill_end'
+
+                options =
+                    method : 'POST'
+                    url : AJAXURL
+                    data :
+                        'currentSubscriptionId' : @subscriptionId
+                        'cancelDate' : cancelDate
+                        'status' : status
+                        'action' : 'change-to-free-plan'
+
+                $.ajax( options ).done ( response )=>
+                    console.log response
+#                    window.location.reload()
+
 
         App.commands.setHandler "show:plans:app", ( opts ) ->
             new PaymentPlans.Controller opts

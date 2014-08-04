@@ -242,19 +242,34 @@ define [ 'app'
                items : '> .element-wrapper'
                connectWith : '.droppable-column,.column'
                start : ( e, ui )->
-                  w = ui.item.width()
-                  h = if ui.item.height() > 200 then 200 else ui.item.height()
-                  ui.placeholder.height h
+#                  w = ui.item.width()
+#                  h = if ui.item.height() > 200 then 200 else ui.item.height()
+#                  ui.placeholder.height h
                   window.dragging = true
                   return
                stop : ( e, ui )->
                   window.dragging = false
                   return
+               out : ()->
+                  window.dragging = false
+                  return
+               over : ()->
+                    window.dragging = true
+                    return
                handle : '.aj-imp-drag-handle'
-               helper : 'clone'
+               helper : @_getHelper
                opacity : .65
                tolerance : 'pointer'
                receive : @elementDropped
+               placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
+
+
+         _getHelper : (evt,original)=>
+
+             left = $(original).width()/2
+             @$el.find( '.droppable-column' ).sortable( "option", "cursorAt", { left: 50, top: 25 } );
+
+             "<div class='element-helper'></div>"
 
 
 

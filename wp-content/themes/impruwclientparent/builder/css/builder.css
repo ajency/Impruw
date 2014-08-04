@@ -212,6 +212,13 @@ a:focus {
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li.ui-draggable-dragging a {
   background: rgba(0, 0, 0, 0.8);
 }
+.element-helper {
+  max-width: 220px;
+  max-height: 50px;
+  border: 1px solid #994c00;
+  background: #ff7e00;
+  border-radius: 3px;
+}
 /****Builder Top Nav****/
 .aj-imp-builder-top-nav {
   background: #ECF0F1 !important;
@@ -730,7 +737,7 @@ a:focus {
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-title {
   font-size: 1.1em;
-  text-align: center;
+  text-align: right;
   margin: 0 0 0.8em;
   color: #808080;
   font-weight: 700;
@@ -761,6 +768,14 @@ a:focus {
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-title .bootstrap-select .dropdown-menu .selected a:focus {
   background: #ff7e00;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .pages-help {
+  font-size: 0.88em;
+  color: #aaaaaa;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .pages-help .glyphicon {
+  font-size: 1.4em;
+  top: 3px;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page {
   background: transparent;
@@ -1301,13 +1316,22 @@ a:focus {
   margin-right: 1px;
   padding: 1px 8px;
 }
-.settings-box .form-horizontal .form-group .set-column-count a:hover {
+.settings-box .form-horizontal .form-group .set-column-count a:hover,
+.settings-box .form-horizontal .form-group .set-column-count a.selected {
   background: #ff7e00;
   color: #fff;
 }
 .settings-box .form-horizontal .form-group .field-error {
   color: #ff3333;
   padding: 0.5em 0;
+}
+.settings-box .form-horizontal .form-group .help-block {
+  padding: 0 1em;
+  color: #aaaaaa;
+  font-size: 0.88em;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 0;
 }
 /****Builder Element Layout Mode Styles****/
 .aj-imp-builder-layout-mode [class^="aj-imp-elem-"] {
@@ -1479,6 +1503,15 @@ a:focus {
 /****Modal Styles****/
 .modal-backdrop {
   background: #333333;
+}
+.modal-help-text {
+  padding: 1em;
+  border: 1px dotted #aaaaaa;
+  color: #849fb0;
+  text-align: center;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+  border-radius: 3px;
 }
 .modal .modal-dialog .modal-content {
   box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.25);
@@ -1923,6 +1956,7 @@ a:focus {
 }
 .modal .aj-imp-add-menu-item h4 {
   font-size: 2em;
+  color: #aaaaaa;
 }
 .modal .aj-imp-add-menu-item .desc {
   font-size: 0.9em;

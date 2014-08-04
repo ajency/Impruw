@@ -36,20 +36,31 @@ define ['app'], (App)->
                 data
 
             events :
-                'click' : (e)->
-                    e.stopPropagation()
-                    @trigger "show:media:manager"
+                'click' : 'imageClick'
 
             initialize :(options)->
                 @imageHeightRatio = Marionette.getOption @,'imageHeightRatio'
                 @positionTopRatio = Marionette.getOption @, 'positionTopRatio' 
+
+
+            _getImageRatio : ->
+                console.log @$el
+                width = @$el.width()
+                height = @$el.height()
+                "#{parseInt width}:#{parseInt height}"
+
 
             # check if a valid image_id is set for the element
             # if present ignore else run the Holder.js to show a placeholder
             # after run remove the data-src attribute of the image to avoid
             # reloading placeholder image again
             onShow : ->
-                return if @model.isNew()
+                if @model.isNew()
+                    @$el.resizable
+                        helper : "ui-image-resizable-helper"
+                        handles: "s"
+                    return
+
 
                 # to be done in css
                 @$el.css 'overflow','hidden'
@@ -72,7 +83,8 @@ define ['app'], (App)->
                         
 
                     start:(evt,ui)=>
-                        @$el.resizable( "option", "maxHeight", @$el.find('img').height() )
+                        $(@).addClass('noclick')
+                        #@$el.resizable( "option", "maxHeight", @$el.find('img').height() )
 
 
 
@@ -113,7 +125,18 @@ define ['app'], (App)->
                 
 
             # throttled :->
-            #     _.throttle(@assignImagePath(), 50)    
+            #     _.throttle(@assignImagePath(), 50)
+
+            imageClick : (e)->
+                e.stopPropagation()
+
+                if $(e.target).hasClass('noclick')
+                    $(e.target).removeClass('noclick')
+
+                else
+                    ratio = @_getImageRatio()
+                    @trigger "show:media:manager", ratio
+
 
 
             assignImagePath :->
@@ -131,8 +154,10 @@ define ['app'], (App)->
 
             adjustImagePosition:->
                 top = parseInt _(@$el.find('img').css('top')).rtrim('px')
-                if top < @$el.height()-@$el.find('img').height()
-                    @$el.find('img').css 'top', "#{@$el.height()-@$el.find('img').height()}px"
+#                if top < @$el.height()-@$el.find('img').height()
+#                    @$el.find('img').css 'top', "#{@$el.height()-@$el.find('img').height()}px"
+                if top > 0
+                    @$el.find('img').css 'top','0px'
 
                 @trigger 'set:image:top:position',@$el.width(),parseInt @$el.find('img').css 'top'
 

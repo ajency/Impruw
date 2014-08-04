@@ -23,11 +23,6 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
 
     })(Marionette.AppRouter);
     API = {
-      getSiteModel: function() {
-        var siteProfileModel;
-        siteProfileModel = App.request("get:site:model");
-        return siteProfileModel;
-      },
       summary: function() {
         return App.execute("show:account:summary:app", {
           region: App.rightRegion
@@ -44,17 +39,10 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
         });
       },
       payment: function(planId) {
-        var sitemodel;
-        sitemodel = this.getSiteModel();
-        return App.execute("when:fetched", sitemodel, (function(_this) {
-          return function() {
-            return App.execute("show:payment:app", {
-              region: App.rightRegion,
-              model: sitemodel,
-              planId: planId
-            });
-          };
-        })(this));
+        return App.execute("show:payment:app", {
+          region: App.rightRegion,
+          planId: planId
+        });
       }
     };
     return BillingApp.on({

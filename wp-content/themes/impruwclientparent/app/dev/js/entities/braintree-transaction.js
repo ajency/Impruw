@@ -35,15 +35,19 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     API = {
-      getTransactions: function() {
+      getTransactions: function(customerId) {
         var transactionCollection;
         transactionCollection = new BraintreePlanCollection;
-        transactionCollection.fetch();
+        transactionCollection.fetch({
+          data: {
+            'customerID': customerId
+          }
+        });
         return transactionCollection;
       }
     };
-    return App.reqres.setHandler("get:transactions", function() {
-      return API.getTransactions();
+    return App.reqres.setHandler("get:transactions", function(customerId) {
+      return API.getTransactions(customerId);
     });
   });
 });

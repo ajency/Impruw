@@ -6,13 +6,15 @@ define ['app'
         class SingleTranscation extends Marionette.ItemView
             template : '
                             <td>{{date}}</td>
-                            <td>Neon</td>
                             <td>{{plan_name}}</td>
                             <td>{{description}}</td>
-                            <td>&pound; {{amount}}</td>'
+                            <td>&pound; {{amount}}</td>
+                            <td><a href="#">Print</a></td>'
             tagName : 'tr'
 
+        class View.EmptyView extends Marionette.ItemView
 
+            template: '<td>No transaction history found</td>'
 
         class View.Transaction extends Marionette.CompositeView
 

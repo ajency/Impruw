@@ -1,0 +1,28 @@
+/**** Title Styles****/
+.title {
+	&.site-title{
+		color: @primary1;
+    	font-weight: 300;
+    	font-size: 3em;
+    	text-transform: uppercase;
+    	padding: @regular;
+    	text-align: center;
+	}
+	&.page-title {
+		color: @primary1;
+		font-size: 2em;
+		margin: 0.5em 0;
+		text-transform: uppercase;
+	}
+	&.sub-title {
+		font-weight: 300;
+		color: @text-color;
+		font-size: 1.5em;
+		margin-bottom: @large;
+		text-transform: uppercase;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	}
+	@media(max-width:991px) {
+		text-align: center;
+	}
+}

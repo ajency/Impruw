@@ -225,6 +225,14 @@ a {
 	}
 }
 
+.element-helper {
+	max-width: 220px;
+	max-height: 50px;
+	border: 1px solid darken(@orange, 20%);
+	background: @orange;
+	border-radius: 3px;
+}
+
 /****Builder Top Nav****/
 .aj-imp-builder-top-nav {
 	background: #ECF0F1 !important;
@@ -759,7 +767,7 @@ a {
 			}
 			.aj-imp-browser-title {
 				font-size: 1.1em;
-				text-align: center;
+				text-align: right;
 				margin: 0 0 0.8em;
 				color: lighten(@3-grey, 30%);
 				font-weight: 700;
@@ -791,6 +799,14 @@ a {
 							}
 						}
 					}
+				}
+			}
+			.pages-help {
+				font-size: 0.88em;
+				color: @dash-grey;
+				.glyphicon {
+					font-size: 1.4em;
+					top: 3px;
 				}
 			}
 			.add-new-page {
@@ -1346,7 +1362,7 @@ a {
 				a {
 					margin-right: 1px;
 					padding: 1px 8px;
-					&:hover {
+					&:hover, &.selected {
 						background: @orange;
 						color: #fff;
 					}
@@ -1355,6 +1371,14 @@ a {
 			.field-error {
 				color: @error-red;
 				padding: 0.5em 0;
+			}
+			.help-block {
+				padding: 0 1em;
+				color: @dash-grey;
+				font-size: 0.88em;
+				font-style: italic;
+				text-align: center;
+				margin-bottom: 0;
 			}
 		}
 	}
@@ -1539,6 +1563,16 @@ a {
 /****Modal Styles****/
 .modal-backdrop {
 	background: @3-grey; 
+}
+
+.modal-help-text {
+	padding: 1em;
+	border: 1px dotted @dash-grey;
+	color: @blue-grey;
+	text-align: center;
+	margin-bottom: 0.5em;
+	font-size: 1.1em;
+	border-radius: 3px;
 }
 
 .modal {
@@ -1988,6 +2022,7 @@ a {
 	.aj-imp-add-menu-item {
 		h4 {
 			font-size: 2em;
+			color: @dash-grey;
 		}
 		.desc {
 			font-size: 0.9em;

@@ -49,8 +49,9 @@ define ['app'
                 App.execute "when:fetched", slidesCollection, =>
                     view = @_getSliderView slidesCollection
 
-                    @listenTo view, "show:slides:manager", =>
+                    @listenTo view, "show:slides:manager", (ratio)=>
                         App.execute "show:slides:manager", slidesCollection
+                        App.currentImageRatio = ratio
 
                     @listenTo view, "set:slider:height:width", (height,width)=>
                         @layout.model.set 'width', width

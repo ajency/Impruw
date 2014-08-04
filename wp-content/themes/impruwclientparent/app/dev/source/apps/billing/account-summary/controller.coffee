@@ -1,6 +1,7 @@
 define [ 'app', 'controllers/base-controller'
          'apps/billing/account-summary/account-info/controller'
          'apps/billing/account-summary/billing-info/controller'
+         'apps/billing/account-summary/pending-subscription/controller'
          'apps/billing/account-summary/purchase-history/controller'
          'apps/billing/account-summary/views' ], ( App, AppController )->
     App.module 'BillingApp.AccountSummary', ( AccountSummary, App, Backbone, Marionette, $, _ )->
@@ -18,9 +19,6 @@ define [ 'app', 'controllers/base-controller'
 
                 @listenTo @layout ,"show",=>
 
-                    App.execute "show:purchase:history",
-                        region : @layout.purchaseHistoryRegion
-
                     App.execute "when:fetched",@siteModel,=>
 
                         subscriptionId = @siteModel.get 'braintree_subscription'
@@ -30,8 +28,16 @@ define [ 'app', 'controllers/base-controller'
                             region : @layout.accountInfoRegion
                             subscriptionId : subscriptionId
 
+                        App.execute "show:pending:subscription",
+                            region : @layout.pendingSubscriptionRegion
+                            subscriptionId : subscriptionId
+
                         App.execute "show:billing:info",
                             region : @layout.billingInfoRegion
+                            braintreeCustomerId : braintreeCustomerId
+
+                        App.execute "show:purchase:history",
+                            region : @layout.purchaseHistoryRegion
                             braintreeCustomerId : braintreeCustomerId
 
 
