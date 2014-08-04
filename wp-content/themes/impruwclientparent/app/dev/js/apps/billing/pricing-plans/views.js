@@ -78,6 +78,8 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
 
       PlansView.prototype.events = {
         'click .free-plan-link': function() {
+          var activePlanID;
+          activePlanID = Marionette.getOption(this, 'activePlanId');
           if (confirm("Switch to free plan?")) {
             return this.trigger("switch:to:free:plan");
           }
