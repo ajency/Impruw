@@ -5,10 +5,7 @@ define [ 'app', 'controllers/base-controller'
 
             # initialize controller
             initialize : ( opts )->
-
-                subscriptionId = opts.subscriptionId
-
-                subscriptionModel = App.request "get:subscription:by:id", subscriptionId
+                subscriptionModel = opts.subscriptionModel
 
                 @view = @getView subscriptionModel
 

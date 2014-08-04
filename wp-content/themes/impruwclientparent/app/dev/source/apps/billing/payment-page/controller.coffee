@@ -9,7 +9,7 @@ define [ 'app', 'controllers/base-controller'
 
                 #selected plan data
                 @selectedPlanId = opts.planId
-                @selectedPlanModel = App.request "get:plan:by:id", @selectedPlanId
+                @selectedPlanModel = App.request "get:braintreeplan:by:id", @selectedPlanId
 
                 @layout = @getLayout @siteModel
 

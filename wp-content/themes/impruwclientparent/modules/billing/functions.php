@@ -18,6 +18,7 @@ function getFreeSubscriptionData( $subscription_id ) {
     $subscription_data[ 'price' ] = '0';
     $subscription_data[ 'bill_start' ] = 'N/A';
     $subscription_data[ 'bill_end' ] = 'N/A';
+    $subscription_data[ 'payment_method_token' ] = '';
 
     if ( $subscription_id == null ):
         $site_data = get_blog_details( get_current_blog_id() );
