@@ -86,7 +86,7 @@ define [ 'app'
 
                 if activePlanID is 'Free'
                     @$el.find( '#free-plan' ).addClass 'active'
-                    @$el.find( '#free-plan' ).text 'Active Plan'
+                    @$el.find( '#free-plan .free-plan-link' ).text 'Active Plan'
 
                 if pendingPlanID is 'Free'
                     @$el.find( '#free-plan .panel-heading' ).append '<span>Pending Activation</span>'

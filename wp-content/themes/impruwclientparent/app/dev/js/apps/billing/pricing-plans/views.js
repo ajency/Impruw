@@ -82,7 +82,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
         pendingPlanID = Marionette.getOption(this, 'pendingPlanId');
         if (activePlanID === 'Free') {
           this.$el.find('#free-plan').addClass('active');
-          this.$el.find('#free-plan').text('Active Plan');
+          this.$el.find('#free-plan .free-plan-link').text('Active Plan');
         }
         if (pendingPlanID === 'Free') {
           this.$el.find('#free-plan .panel-heading').append('<span>Pending Activation</span>');

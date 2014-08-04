@@ -3950,6 +3950,9 @@ form .aj-imp-submit:hover {
 .billing-container .info ul li:hover {
   color: #849fb0;
 }
+.billing-container #billing-info {
+  margin-bottom: 0.5em;
+}
 .billing-container .card-list {
   margin-bottom: 1em;
 }
@@ -3975,6 +3978,7 @@ form .aj-imp-submit:hover {
   color: #333333;
   font-weight: 700;
   padding: 0;
+  background: #fff;
 }
 .billing-container .card-list .single-card:hover {
   box-shadow: 0 0 2px 2px #f3f3f3;
