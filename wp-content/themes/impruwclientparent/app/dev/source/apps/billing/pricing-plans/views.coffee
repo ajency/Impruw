@@ -94,7 +94,7 @@ define [ 'app'
                     siteName = Marionette.getOption @, 'siteName'
                     html = "<span>Domain name: #{siteName}.com</span><br>
                                                 <span>Will activate on: #{startDate} </span>"
-                    @$el.find( '.panel-body' ).append html
+                    @$el.find( '#free-plan .panel-body' ).append html
 
             events :
                 'click .free-plan-link' : ->

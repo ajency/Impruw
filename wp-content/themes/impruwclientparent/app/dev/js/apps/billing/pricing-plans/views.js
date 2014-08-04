@@ -89,7 +89,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           startDate = Marionette.getOption(this, 'startDate');
           siteName = Marionette.getOption(this, 'siteName');
           html = "<span>Domain name: " + siteName + ".com</span><br> <span>Will activate on: " + startDate + " </span>";
-          return this.$el.find('.panel-body').append(html);
+          return this.$el.find('#free-plan .panel-body').append(html);
         }
       };
 
