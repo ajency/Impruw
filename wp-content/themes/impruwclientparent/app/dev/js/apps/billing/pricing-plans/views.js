@@ -36,7 +36,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           this.$el.find('.activate-link').attr('href', 'javascript:void(0)');
         }
         if (siteModelPlanId === pendingPlanID) {
-          return this.$el.find('.panel-heading').append('<span>selected</span>');
+          return this.$el.find('.panel-heading').append('<span>Pending Activation</span>');
         }
       };
 
@@ -73,7 +73,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           this.$el.find('#free-plan').text('Active Plan');
         }
         if (pendingPlanID === 'Free') {
-          return this.$el.find('#free-plan .panel-heading').append('<span>Selected</span>');
+          return this.$el.find('#free-plan .panel-heading').append('<span>Pending Activation</span>');
         }
       };
 

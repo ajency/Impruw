@@ -47,7 +47,7 @@ define [ 'app'
 
                 #highlight the selected plan
                 if  siteModelPlanId is pendingPlanID
-                    @$el.find( '.panel-heading' ).append( '<span>selected</span>' )
+                    @$el.find( '.panel-heading' ).append( '<span>Pending Activation</span>' )
 
 
         class View.PlansView extends Marionette.CompositeView
@@ -72,7 +72,7 @@ define [ 'app'
                     @$el.find( '#free-plan' ).text 'Active Plan'
 
                 if pendingPlanID is 'Free'
-                    @$el.find( '#free-plan .panel-heading' ).append '<span>Selected</span>'
+                    @$el.find( '#free-plan .panel-heading' ).append '<span>Pending Activation</span>'
 
             events :
                 'click .free-plan-link' : ->

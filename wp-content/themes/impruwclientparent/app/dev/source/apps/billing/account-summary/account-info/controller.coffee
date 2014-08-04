@@ -5,6 +5,7 @@ define [ 'app', 'controllers/base-controller'
 
             # initialize controller
             initialize : ( opts )->
+
                 subscriptionModel = opts.subscriptionModel
 
                 @view = @getView subscriptionModel
