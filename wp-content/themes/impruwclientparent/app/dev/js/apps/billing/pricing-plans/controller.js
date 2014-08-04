@@ -28,6 +28,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
               _this.billEnd = _this.subscriptionModel.get('bill_end');
               _this.activePlanId = _this.subscriptionModel.get('plan_id');
               return App.execute("when:fetched", _this.pendingSubscriptionModel, function() {
+                _this.startDate = _this.pendingSubscriptionModel.get('start_date');
                 _this.pendingPlanId = _this.pendingSubscriptionModel.get('plan_id');
                 _this.view = _this.getView(brainTreePlans);
                 _this.listenTo(_this.view, "switch:to:free:plan", _this.changeToFreePlan);
@@ -47,7 +48,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
           pendingPlanId: this.pendingPlanId,
           siteName: this.siteName,
           billStart: this.billStart,
-          billEnd: this.billEnd
+          billEnd: this.billEnd,
+          startDate: this.startDate
         });
       };
 

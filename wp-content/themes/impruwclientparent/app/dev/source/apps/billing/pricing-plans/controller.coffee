@@ -28,6 +28,8 @@ define [ 'app', 'controllers/base-controller'
 
                         App.execute "when:fetched", @pendingSubscriptionModel, =>
 
+                            @startDate =  @pendingSubscriptionModel.get 'start_date'
+
                             @pendingPlanId = @pendingSubscriptionModel.get 'plan_id'
 
                             @view = @getView brainTreePlans
@@ -49,6 +51,7 @@ define [ 'app', 'controllers/base-controller'
                     siteName : @siteName
                     billStart : @billStart
                     billEnd : @billEnd
+                    startDate : @startDate
 
             changeToFreePlan : ->
                 status = @subscriptionModel.get 'status'
