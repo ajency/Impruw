@@ -44,10 +44,25 @@ define [ 'app'
                     @$el.find( '.panel-default' ).addClass 'active'
                     @$el.find( '.activate-link' ).text 'Active Plan'
                     @$el.find( '.activate-link' ).attr 'href', 'javascript:void(0)'
+                    siteName = Marionette.getOption @, 'siteName'
+                    billStart = Marionette.getOption @, 'billStart'
+                    billEnd = Marionette.getOption @, 'billEnd'
 
-                #highlight the selected plan
+                    html = "<span>Domain name: #{siteName}.com</span><br>
+                            <span>Billing cycle:From #{billStart} to #{billEnd} </span>"
+                    @$el.find( '.panel-body' ).append html
+
+
+                #highlight the pending plan
                 if  siteModelPlanId is pendingPlanID
-                    @$el.find( '.panel-heading' ).append( '<span>selected</span>' )
+                    @$el.find( '.panel-heading' ).append( '<span>Pending Activation</span>' )
+                    siteName = Marionette.getOption @, 'siteName'
+                    billStart = Marionette.getOption @, 'billStart'
+                    billEnd = Marionette.getOption @, 'billEnd'
+
+                    html = "<span>Domain name: #{siteName}.com</span><br>
+                                                <span>Billing cycle:From #{billStart} to #{billEnd} </span>"
+                    @$el.find( '.panel-body' ).append html
 
 
         class View.PlansView extends Marionette.CompositeView
@@ -62,6 +77,9 @@ define [ 'app'
                 currency : Marionette.getOption @, 'currency'
                 activePlanID : Marionette.getOption @, 'activePlanId'
                 pendingPlanID : Marionette.getOption @, 'pendingPlanId'
+                siteName : Marionette.getOption @, 'siteName'
+                billStart : Marionette.getOption @, 'billStart'
+                billEnd : Marionette.getOption @, 'billEnd'
 
             onShow : ->
                 activePlanID = Marionette.getOption @, 'activePlanId'
@@ -72,7 +90,7 @@ define [ 'app'
                     @$el.find( '#free-plan' ).text 'Active Plan'
 
                 if pendingPlanID is 'Free'
-                    @$el.find( '#free-plan .panel-heading' ).append '<span>Selected</span>'
+                    @$el.find( '#free-plan .panel-heading' ).append '<span>Pending Activation</span>'
 
             events :
                 'click .free-plan-link' : ->
