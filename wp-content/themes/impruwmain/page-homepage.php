@@ -9,8 +9,10 @@ get_header();
     
     <div class="home-1">
     	<h1><?php _e('Grow Your Online Hotel Business<br> With <span>Impruw</span>','impruwmain')?></h1>
-    	<a href="<?php echo site_url(); ?>/register/" class="btn btn-hg big-sign"><span class="icon icon-pen"></span> <?php _e('Sign up for a free trial','impruwmain')?></a>
-    	<img src="<?php echo get_template_directory_uri(); ?>/images/HOME_banner.png" title="Impruw Themes" alt="Impruw Themes" class="img-responsive" />
+        <?php if( !is_user_logged_in() ) { ?>
+        	<a href="<?php echo site_url(); ?>/register/" class="btn btn-hg big-sign"><span class="icon icon-pen"></span> <?php _e('Sign up for a free trial','impruwmain')?></a>
+        <?php } ?>
+        <img src="<?php echo get_template_directory_uri(); ?>/images/HOME_banner.png" title="Impruw Themes" alt="Impruw Themes" class="img-responsive" />
     </div>
 
     <div class="home-2">
@@ -101,17 +103,19 @@ get_header();
     	<p><?php _e('Lorem Ipsum is simply dummy text of the printing and typesetting industry.','impruwmain')?></p>
     	<img src="<?php echo get_template_directory_uri(); ?>/images/HOME_devices.png" title="Impruw Site Builder" alt="Impruw Site Builder" class="img-responsive" />
     </div>
-
+    
+    <?php if( !is_user_logged_in() ) { ?>
     <div class="home-6">
     	<div class="row">
     		<div class="col-sm-6">
     			<h4><?php _e('Ready to get Started?','impruwmain')?></h4>
     		</div>
     		<div class="col-sm-6">
-    			<a href="<?php echo site_url(); ?>/register/" class="btn btn-hg big-sign"><span class="icon icon-pen"></span> <?php _e('Sign up for a free trial','impruwmain')?></a>
+                <a href="<?php echo site_url(); ?>/register/" class="btn btn-hg big-sign"><span class="icon icon-pen"></span> <?php _e('Sign up for a free trial','impruwmain')?></a>
     		</div>
     	</div>
     </div>
+    <?php } ?>
 
 </div>
 
