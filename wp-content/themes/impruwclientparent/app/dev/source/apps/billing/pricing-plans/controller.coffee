@@ -8,6 +8,8 @@ define [ 'app', 'controllers/base-controller'
                 @siteModel = App.request "get:site:model"
 
                 App.execute "when:fetched", @siteModel, =>
+                    @siteName =  @siteModel.get 'site_name'
+
                     @subscriptionId = @siteModel.get 'braintree_subscription'
 
                     @currency = @siteModel.get 'currency'
@@ -20,6 +22,8 @@ define [ 'app', 'controllers/base-controller'
 
 
                     App.execute "when:fetched", @subscriptionModel, =>
+                        @billStart =  @subscriptionModel.get 'bill_start'
+                        @billEnd =  @subscriptionModel.get 'bill_end'
                         @activePlanId = @subscriptionModel.get 'plan_id'
 
                         App.execute "when:fetched", @pendingSubscriptionModel, =>
@@ -42,6 +46,9 @@ define [ 'app', 'controllers/base-controller'
                     currency : @currency
                     activePlanId : @activePlanId
                     pendingPlanId : @pendingPlanId
+                    siteName : @siteName
+                    billStart : @billStart
+                    billEnd : @billEnd
 
             changeToFreePlan : ->
                 status = @subscriptionModel.get 'status'

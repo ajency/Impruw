@@ -23,7 +23,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
       };
 
       SinglePlanView.prototype.onShow = function() {
-        var activateLink, activePlanID, newactivateLink, pendingPlanID, siteModelPlanId;
+        var activateLink, activePlanID, billEnd, billStart, html, newactivateLink, pendingPlanID, siteModelPlanId, siteName;
         siteModelPlanId = this.model.get('plan_id');
         activePlanID = Marionette.getOption(this, 'activePlanID');
         pendingPlanID = Marionette.getOption(this, 'pendingPlanID');
@@ -34,9 +34,19 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           this.$el.find('.panel-default').addClass('active');
           this.$el.find('.activate-link').text('Active Plan');
           this.$el.find('.activate-link').attr('href', 'javascript:void(0)');
+          siteName = Marionette.getOption(this, 'siteName');
+          billStart = Marionette.getOption(this, 'billStart');
+          billEnd = Marionette.getOption(this, 'billEnd');
+          html = "<span>Domain name: " + siteName + ".com</span><br> <span>Billing cycle:From " + billStart + " to " + billEnd + " </span>";
+          this.$el.find('.panel-body').append(html);
         }
         if (siteModelPlanId === pendingPlanID) {
-          return this.$el.find('.panel-heading').append('<span>Pending Activation</span>');
+          this.$el.find('.panel-heading').append('<span>Pending Activation</span>');
+          siteName = Marionette.getOption(this, 'siteName');
+          billStart = Marionette.getOption(this, 'billStart');
+          billEnd = Marionette.getOption(this, 'billEnd');
+          html = "<span>Domain name: " + siteName + ".com</span><br> <span>Billing cycle:From " + billStart + " to " + billEnd + " </span>";
+          return this.$el.find('.panel-body').append(html);
         }
       };
 
@@ -60,7 +70,10 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
         return {
           currency: Marionette.getOption(this, 'currency'),
           activePlanID: Marionette.getOption(this, 'activePlanId'),
-          pendingPlanID: Marionette.getOption(this, 'pendingPlanId')
+          pendingPlanID: Marionette.getOption(this, 'pendingPlanId'),
+          siteName: Marionette.getOption(this, 'siteName'),
+          billStart: Marionette.getOption(this, 'billStart'),
+          billEnd: Marionette.getOption(this, 'billEnd')
         };
       };
 

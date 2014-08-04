@@ -87,51 +87,49 @@ define [ 'app', 'controllers/base-controller'
             onCardError : ( errorMsg )->
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#pay_loader' ).hide()
-                html = "<button type='button' class='close' data-dismiss='alert'
-                                            aria-hidden='true'>&times;</button>
-                                            #{errorMsg}"
+                html = "<div class='alert'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            #{errorMsg}
+                        </div>"
                 @$el.find( '#billingsave_status' ).append( html )
 
         class SingleCardView extends Marionette.ItemView
-            template : '
-                                    <h4>{{card_type}}</h4>
-                                    <div class="">
-                                        <label class="">Name on the Card</label>
-
-                                        <div class="">
-                                           <span>{{customer_name}}</span>
-                                        </div>
+            template : '<div class="col-sm-4">
+                            <div class="single-card form-horizontal">
+                                <h4 class="aj-imp-sub-head-thin">{{card_type}}</h4>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-5">Name on the Card:</label>
+                                    <div class="col-sm-7 col-sm-offset-5">
+                                       <span class="form-control">{{customer_name}}</span>
                                     </div>
-                                    <div class="">
-                                        <label class="">Card Number</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-5">Card Number:</label>
+                                    <div class="col-sm-7 col-sm-offset-5">
+                                        <span class="form-control">{{card_number}}</span>
+                                    </div>
+                                </div>
 
-                                        <div class="">
-                                         <span>{{card_number}}</span>
-                                        </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-5">CVV:</label>
+                                    <div class="col-sm-7 col-sm-offset-5">
+                                        <span class="form-control">***</span>
                                     </div>
 
-                                    <div class="">
-                                        <label class="">CVV</label>
-
-                                        <div class="">
-                                         <span>***</span>
-
-                                        </div>
-
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-5">Expires On:</label>
+                                    <div class="col-sm-7 col-sm-offset-5">
+                                        <span class="form-control">{{expiration_date}}</span>
                                     </div>
-                                    <div class="">
-                                        <label class="">Expires On</label>
-                                        <div class="">
-                                            <span>{{expiration_date}}</span>
-
-                                        </div>
-
-                                    </div>'
+                                </div>
+                            </div>
+                        </div>'
 
 
         class CardsView extends Marionette.CompositeView
 
-            template : "<div><div class='card-list'></div></div>"
+            template : "<div class='card-list row'></div>"
             itemView : SingleCardView
             itemViewContainer : '.card-list'
 

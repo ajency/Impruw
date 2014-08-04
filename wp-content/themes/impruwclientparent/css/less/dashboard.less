@@ -3989,6 +3989,35 @@ form {
 			}
 		}
 	}
+	.card-list {
+		margin-bottom: 1em;
+		.single-card {
+			border: 1px solid darken(@preview-grey, 10%);
+			padding: 0.5em 1em;
+			border-radius: 3px;
+			background: #fff;
+			.aj-imp-sub-head-thin {
+				border-bottom: 1px solid @preview-grey;
+			}
+			.form-group {
+				margin-bottom: 0em;
+				.control-label {
+					color: @dash-grey;
+					padding-top: 0;
+					bottom: auto;
+				}
+				.form-control {
+					border: 0;
+					color: @3-grey;
+					font-weight: 700;
+					padding: 0;
+				}
+			}
+			&:hover {
+				box-shadow: 0 0 2px 2px @preview-grey;
+			}
+		}
+	}
 }
 
 /**** Pagination Styles ****/
