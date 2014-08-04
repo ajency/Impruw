@@ -82,6 +82,9 @@ a:focus {
 .dropdown-menu li.selected a:hover {
   background: #849fb0;
 }
+.dropdown-menu li.selected a:focus {
+  background: #ff7e00;
+}
 .dropdown-menu li:last-child {
   border-bottom: 0;
 }
