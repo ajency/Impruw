@@ -76,6 +76,7 @@ define [ 'app'
 
             events :
                 'click .free-plan-link' :->
+                    activePlanID = Marionette.getOption @, 'activePlanId'
                     if confirm "Switch to free plan?"
                         @trigger "switch:to:free:plan"
 
