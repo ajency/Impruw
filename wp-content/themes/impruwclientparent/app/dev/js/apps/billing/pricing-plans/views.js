@@ -70,6 +70,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
         pendingPlanID = Marionette.getOption(this, 'pendingPlanId');
         if (activePlanID === 'Free') {
           this.$el.find('#free-plan').addClass('active');
+          this.$el.find('#free-plan').text('Active Plan');
         }
         if (pendingPlanID === 'Free') {
           return this.$el.find('#free-plan .panel-heading').append('<span>Selected</span>');
@@ -80,8 +81,10 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
         'click .free-plan-link': function() {
           var activePlanID;
           activePlanID = Marionette.getOption(this, 'activePlanId');
-          if (confirm("Switch to free plan?")) {
-            return this.trigger("switch:to:free:plan");
+          if (activePlanID !== "Free") {
+            if (confirm("Switch to free plan?")) {
+              return this.trigger("switch:to:free:plan");
+            }
           }
         }
       };
