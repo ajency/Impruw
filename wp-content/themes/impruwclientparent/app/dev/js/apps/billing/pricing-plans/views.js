@@ -23,10 +23,11 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
       };
 
       SinglePlanView.prototype.onShow = function() {
-        var activateLink, activePlanID, billEnd, billStart, html, newactivateLink, pendingPlanID, siteModelPlanId, siteName;
+        var activateLink, activePlanID, billEnd, billStart, html, newactivateLink, pendingPlanID, siteModelPlanId, siteName, startDate;
         siteModelPlanId = this.model.get('plan_id');
         activePlanID = Marionette.getOption(this, 'activePlanID');
         pendingPlanID = Marionette.getOption(this, 'pendingPlanID');
+        siteName = Marionette.getOption(this, 'siteName');
         activateLink = this.$el.find('.activate-link').attr('href');
         newactivateLink = "" + activateLink + "/" + siteModelPlanId;
         this.$el.find('.activate-link').attr('href', newactivateLink);
@@ -34,7 +35,6 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           this.$el.find('.panel-default').addClass('active');
           this.$el.find('.activate-link').text('Active Plan');
           this.$el.find('.activate-link').attr('href', 'javascript:void(0)');
-          siteName = Marionette.getOption(this, 'siteName');
           billStart = Marionette.getOption(this, 'billStart');
           billEnd = Marionette.getOption(this, 'billEnd');
           html = "<span>Domain name: " + siteName + ".com</span><br> <span>Billing cycle:From " + billStart + " to " + billEnd + " </span>";
@@ -42,10 +42,8 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
         }
         if (siteModelPlanId === pendingPlanID) {
           this.$el.find('.panel-heading').append('<span>Pending Activation</span>');
-          siteName = Marionette.getOption(this, 'siteName');
-          billStart = Marionette.getOption(this, 'billStart');
-          billEnd = Marionette.getOption(this, 'billEnd');
-          html = "<span>Domain name: " + siteName + ".com</span><br> <span>Billing cycle:From " + billStart + " to " + billEnd + " </span>";
+          startDate = Marionette.getOption(this, 'startDate');
+          html = "<span>Domain name: " + siteName + ".com</span><br> <span>Will activate on: " + startDate + " </span>";
           return this.$el.find('.panel-body').append(html);
         }
       };
@@ -73,12 +71,13 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           pendingPlanID: Marionette.getOption(this, 'pendingPlanId'),
           siteName: Marionette.getOption(this, 'siteName'),
           billStart: Marionette.getOption(this, 'billStart'),
-          billEnd: Marionette.getOption(this, 'billEnd')
+          billEnd: Marionette.getOption(this, 'billEnd'),
+          startDate: Marionette.getOption(this, 'startDate')
         };
       };
 
       PlansView.prototype.onShow = function() {
-        var activePlanID, pendingPlanID;
+        var activePlanID, html, pendingPlanID, siteName, startDate;
         activePlanID = Marionette.getOption(this, 'activePlanId');
         pendingPlanID = Marionette.getOption(this, 'pendingPlanId');
         if (activePlanID === 'Free') {
@@ -86,7 +85,11 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           this.$el.find('#free-plan .free-plan-link').text('Active Plan');
         }
         if (pendingPlanID === 'Free') {
-          return this.$el.find('#free-plan .panel-heading').append('<span>Pending Activation</span>');
+          this.$el.find('#free-plan .panel-heading').append('<span>Pending Activation</span>');
+          startDate = Marionette.getOption(this, 'startDate');
+          siteName = Marionette.getOption(this, 'siteName');
+          html = "<span>Domain name: " + siteName + ".com</span><br> <span>Will activate on: " + startDate + " </span>";
+          return this.$el.find('#free-plan .panel-body').append(html);
         }
       };
 
