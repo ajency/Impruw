@@ -134,7 +134,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.className = 'panel panel-default moveable';
 
-      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-5"></div> <div class="imgactions col-sm-3"> <a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>&nbsp; <a href="#/edit-image" class="edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a> </div> </div> </a> </div>';
+      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-5"></div> <div class="imgactions col-sm-3"> <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp; <a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> </a> </div>';
 
       SlideView.prototype.modelEvents = {
         'change:thumb_url change:full_url': 'render'
@@ -225,16 +225,18 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       SlidesListView.prototype.onShowEditImage = function(editView) {
         this.$el.find('.slides-list').hide();
         this.$el.find('.edit-image-view').html(editView.$el).show();
+        $('.crop-help').show();
         return editView.triggerMethod('show');
       };
 
       SlidesListView.prototype.onImageEditingCancelled = function() {
         var self;
         self = this;
-        return this.$el.find('.edit-image-view').fadeOut('fast', function() {
+        this.$el.find('.edit-image-view').fadeOut('fast', function() {
           $(this).empty();
           return self.$el.find('.slides-list').show();
         });
+        return $('.crop-help').hide();
       };
 
       return SlidesListView;
@@ -247,7 +249,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return SlidesListLayout.__super__.constructor.apply(this, arguments);
       }
 
-      SlidesListLayout.prototype.template = '<div class="row"> <div class="col-sm-8"> <div id="slides-list-region"></div> </div> <div class="col-sm-4"> <div id="slides-info"> {{#polyglot}}Click the button to select images to add to your slider. You can change the order of the images by dragging them up or down in the list to the left.{{/polyglot}} </div> <div class="aj-imp-block-button add-new-slide"> <button class="btn btn-default btn-hg"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button> </div> </div> </div> <div id="add-slide-region"></div>';
+      SlidesListLayout.prototype.template = '<div class="row"> <div class="col-sm-8"> <div id="slides-list-region"></div> </div> <div class="col-sm-4"> <div class="alert alert-info crop-help"> <p><b>{{#polyglot}}Steps to fit your image edge to edge inside the slider{{/polyglot}}</b></p> <ul> <li>{{#polyglot}}Select the area to be cropped.{{/polyglot}}</li> <li>{{#polyglot}}Notice how initially the crop button is disabled. Crop is enabled once you have selected the image close to the aspect ratio of the slider.{{/polyglot}}</li> <li>{{#polyglot}}Your image dimensions are displayed in scale image area and the required dimensions are displayed under image crop area.{{/polyglot}}</li> <li>{{#polyglot}}As you increase the decrease your selection, the selection area height and width will also change.{{/polyglot}}</li> <li>{{#polyglot}}Once it reaches the maximum point for expected image width or height, you will not be able to increase the selection area anymore. If you want a larger image, we suggest you increase the width of the slider from sitebuilder for best results.{{/polyglot}}</li> <li>{{#polyglot}}When you are happy with your selection area to be cropped, click the crop button from the tool bar above.{{/polyglot}}</li> </ul> </div> <div id="slides-info"> {{#polyglot}}Click the button to select images to add to your slider. You can change the order of the images by dragging them up or down in the list to the left.{{/polyglot}} </div> <div class="aj-imp-block-button add-new-slide"> <button class="btn btn-default btn-hg"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button> </div> </div> </div> <div id="add-slide-region"></div>';
 
       SlidesListLayout.prototype.events = {
         'click .add-new-slide': function() {
