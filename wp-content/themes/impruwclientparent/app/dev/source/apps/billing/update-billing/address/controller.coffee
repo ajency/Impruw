@@ -35,15 +35,15 @@ define [ 'app', 'controllers/base-controller'
 
             addressAdded : ( addressModel, response )=>
                 if response.code == "OK"
-                    @view.triggerMethod "card:added"
+                    @view.triggerMethod "address:added"
                 else
-                    @view.triggerMethod "card:not:added", response.msg
+                    @view.triggerMethod "address:not:added", response.msg
 
             addressUpdated : ( addressModel, response )=>
                 if response.code == "OK"
-                    @view.triggerMethod "card:updated"
+                    @view.triggerMethod "address:updated"
                 else
-                    @view.triggerMethod "card:not:updated", response.msg
+                    @view.triggerMethod "address:not:updated", response.msg
 
 
         class BillingAddressView extends Marionette.ItemView
@@ -75,7 +75,7 @@ define [ 'app', 'controllers/base-controller'
                     @trigger "update:address", addressUpdateData
 
 
-            onCardAdded : ->
+            onAddresssAdded : ->
                 @$el.find( '#msg' ).empty()
                 @$el.find( '#display-msg' ).show()
                 @$el.find( '#pay_loader' ).hide()
@@ -83,7 +83,7 @@ define [ 'app', 'controllers/base-controller'
                 @$el.find( '.btn-add' ).hide()
                 @$el.find( '.btn-update' ).show()
 
-            onCardUpdated : ->
+            onAddresssUpdated : ->
                 @$el.find( '#msg' ).empty()
                 @$el.find( '#display-msg' ).show()
                 @$el.find( '#pay_loader' ).hide()
@@ -91,13 +91,13 @@ define [ 'app', 'controllers/base-controller'
                 @$el.find( '.btn-add' ).hide()
                 @$el.find( '.btn-update' ).show()
 
-            onCardNotAdded : ( errorMsg )->
+            onAddresssNotAdded : ( errorMsg )->
                 @$el.find( '#msg' ).empty()
                 @$el.find( '#display-msg' ).show()
                 @$el.find( '#pay_loader' ).hide()
                 @$el.find( '#msg' ).text errorMsg
 
-            onCardNotUpdated : ( errorMsg )->
+            onAddresssNotUpdated : ( errorMsg )->
                 @$el.find( '#msg' ).empty()
                 @$el.find( '#display-msg' ).show()
                 @$el.find( '#pay_loader' ).hide()

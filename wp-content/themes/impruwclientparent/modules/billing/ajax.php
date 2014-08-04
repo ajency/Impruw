@@ -98,6 +98,27 @@ function ajax_read_creditcard() {
 
 add_action( 'wp_ajax_read-creditcard', 'ajax_read_creditcard' );
 
+
+/**
+ * Function to get all credit card details of user
+ */
+function ajax_get_credit_cards() {
+
+    $customer_id = $_REQUEST[ 'customerId' ];
+
+    if ( empty( $customer_id ) ) {
+        $credit_card_data = array( 'card_exists' => false,
+                                   'customer_id' => $customer_id,
+                                   'braintree_client_token' => generate_client_token());
+    } else {
+        $credit_card_data = get_customer_credit_card_details( $customer_id );
+    }
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $credit_card_data ) );
+}
+
+add_action( 'wp_ajax_get-credit-cards', 'ajax_get_credit_cards' );
+
 /**
  * Function to make payment
  */
@@ -238,6 +259,10 @@ add_action( 'wp_ajax_create-customer-with-card', 'ajax_create_customer_with_card
 function ajax_get_customer_billing_address() {
 
     $braintree_customer_id = $_REQUEST[ 'customerId' ];
+
+
+    if ( empty( $braintree_customer_id ) )
+        wp_send_json( array( 'code' => 'OK', 'data' => array( 'address_exists' => false ) ) );
 
     $billing_address = get_customer_address( $braintree_customer_id );
 

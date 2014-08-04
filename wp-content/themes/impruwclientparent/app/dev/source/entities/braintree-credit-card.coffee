@@ -1,18 +1,26 @@
-define ["app", 'backbone'], (App, Backbone) ->
+define [ "app", 'backbone' ], ( App, Backbone ) ->
 
     # App state entity
-    App.module "Entities.CreditCard", (BraintreecreditCard, App, Backbone, Marionette, $, _)->
+    App.module "Entities.CreditCard", ( BraintreecreditCard, App, Backbone, Marionette, $, _ )->
 
         # creditCard model
         class CreditCard extends Backbone.Model
 
-            name: 'creditcard'
-            idAttribute :'customer_id'
+            name : 'creditcard'
+            idAttribute : 'token'
+
+        # plan collection
+        class CreditCardCollection extends Backbone.Collection
+
+            model : CreditCard
+
+            url : ->
+                "#{AJAXURL}?action=get-credit-cards"
 
         class BillingAddress extends Backbone.Model
 
-            name: 'billingaddress'
-            idAttribute :'customerId'
+            name : 'billingaddress'
+            idAttribute : 'customerId'
 
 
         API =
@@ -27,9 +35,19 @@ define ["app", 'backbone'], (App, Backbone) ->
                 BillingAddressModel.fetch()
                 BillingAddressModel
 
+            getCreditCards : ( customerId )->
+                creditCardCollection = new CreditCardCollection
+                creditCardCollection.fetch
+                    data :
+                        'customerId' : customerId
+                creditCardCollection
 
-        App.reqres.setHandler "get:card:info",( customerId ) ->
+
+        App.reqres.setHandler "get:card:info", ( customerId ) ->
             API.getCardById customerId
 
-        App.reqres.setHandler "get:billing:address",( customerId ) ->
+        App.reqres.setHandler "get:credit:cards", ( customerId ) ->
+            API.getCreditCards customerId
+
+        App.reqres.setHandler "get:billing:address", ( customerId ) ->
             API.getBillingAddress customerId
