@@ -14,7 +14,7 @@ define ['app'
 
         class View.EmptyView extends Marionette.ItemView
 
-            template: '<td>No transaction history found</td>'
+            template: '<div class="empty-info">No transaction history found.</div>'
 
         class View.Transaction extends Marionette.CompositeView
 
