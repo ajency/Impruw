@@ -46,7 +46,8 @@
         imageareaselect: '../../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min',
         imageedit: '../../../../../../wp-admin/js/image-edit',
         json2: '../../../../../../wp-includes/js/json2',
-        svgpainter: '../../../../../../wp-admin/js/svg-painter'
+        svgpainter: '../../../../../../wp-admin/js/svg-painter',
+        braintree : 'plugins/braintree'
     },
     shim: {
         imageedit: ['jquery', 'json2', 'imageareaselect'],
@@ -85,6 +86,7 @@
         backboneform: ['backbone'],
         backbonesyphon: ['backbone'],
         backboneassociations: ['backbone'],
+        braintree : ['jquery'],
         jqueryspin: ['spin'],
         bootstrap: ['jquery'],
         isotope: ['jquery'],
