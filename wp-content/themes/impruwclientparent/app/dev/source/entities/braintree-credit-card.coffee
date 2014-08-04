@@ -25,8 +25,8 @@ define [ "app", 'backbone' ], ( App, Backbone ) ->
 
         API =
 
-            getCardById : ( customerId ) ->
-                creditCardModel = new CreditCard 'customer_id' : customerId
+            getCardByToken : ( cardToken ) ->
+                creditCardModel = new CreditCard 'token' : cardToken
                 creditCardModel.fetch()
                 creditCardModel
 
@@ -43,8 +43,8 @@ define [ "app", 'backbone' ], ( App, Backbone ) ->
                 creditCardCollection
 
 
-        App.reqres.setHandler "get:card:info", ( customerId ) ->
-            API.getCardById customerId
+        App.reqres.setHandler "get:card:info", ( cardToken ) ->
+            API.getCardByToken cardToken
 
         App.reqres.setHandler "get:credit:cards", ( customerId ) ->
             API.getCreditCards customerId

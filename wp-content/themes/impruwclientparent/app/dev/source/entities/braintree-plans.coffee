@@ -22,17 +22,17 @@ define ["app", 'backbone'], (App, Backbone) ->
 
         API =
             getBraintreePlansCollection: ->
-                planCollection = new BraintreePlanCollection
-                planCollection.fetch()
-                planCollection
+                braintreePlanCollection = new BraintreePlanCollection
+                braintreePlanCollection.fetch()
+                braintreePlanCollection
 
             getPlanByPlanId : ( planId ) ->
-                planModel = new BraintreePlan 'plan_id' : planId
-                planModel.fetch()
-                planModel
+                brainTreePlanModel = new BraintreePlan 'plan_id' : planId
+                brainTreePlanModel.fetch()
+                brainTreePlanModel
 
         App.reqres.setHandler "get:braintree:plans", ->
             API.getBraintreePlansCollection()
 
-        App.reqres.setHandler "get:plan:by:id",( planId ) ->
+        App.reqres.setHandler "get:braintreeplan:by:id",( planId ) ->
             API.getPlanByPlanId planId

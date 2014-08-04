@@ -83,17 +83,15 @@ add_action( 'wp_ajax_fetch-braintreetransaction', 'ajax_read_braintreetransactio
  */
 function ajax_read_creditcard() {
 
-    $customer_id = $_REQUEST[ 'customer_id' ];
+    $card_token = $_REQUEST[ 'token' ];
 
-    if ( empty( $customer_id ) ) {
-        $credit_card_data = array( 'card_exists' => false, 'customer_id' => $customer_id );
-    } else {
-        $credit_card_data = get_customer_credit_card_details( $customer_id );
-    }
+    $credit_card_data = get_credit_card_details_by_token($card_token);
 
-    $credit_card_data[ 'braintree_client_token' ] = generate_client_token();
+    if ( $credit_card_data[ 'code' ] == 'ERROR' )
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => $credit_card_data[ 'msg' ] ) );
 
-    wp_send_json( array( 'code' => 'OK', 'data' => $credit_card_data ) );
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $credit_card_data[ 'credit_card_details' ] ) );
 }
 
 add_action( 'wp_ajax_read-creditcard', 'ajax_read_creditcard' );

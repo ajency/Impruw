@@ -16,7 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
       Controller.prototype.initialize = function(opts) {
         this.siteModel = App.request("get:site:model");
         this.selectedPlanId = opts.planId;
-        this.selectedPlanModel = App.request("get:plan:by:id", this.selectedPlanId);
+        this.selectedPlanModel = App.request("get:braintreeplan:by:id", this.selectedPlanId);
         this.layout = this.getLayout(this.siteModel);
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {

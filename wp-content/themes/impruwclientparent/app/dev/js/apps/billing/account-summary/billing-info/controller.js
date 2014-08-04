@@ -11,10 +11,23 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/bill
       }
 
       Controller.prototype.initialize = function(opts) {
-        var brainTreeCustomerId, creditCollection;
-        brainTreeCustomerId = opts.braintreeCustomerId;
-        creditCollection = App.request("get:credit:cards", brainTreeCustomerId);
-        return console.log(creditCollection);
+        var subscriptionModel;
+        subscriptionModel = opts.subscriptionModel;
+        return App.execute("when:fetched", subscriptionModel, (function(_this) {
+          return function() {
+            var creditCardModel, creditCardToken;
+            creditCardToken = subscriptionModel.get('payment_method_token');
+            if (_.isEmpty(creditCardToken)) {
+              _this.view = _this.getEmptyCardView();
+            } else {
+              creditCardModel = App.request("get:card:info", creditCardToken);
+              _this.view = _this.getView(creditCardModel);
+            }
+            return _this.show(_this.view, {
+              loading: true
+            });
+          };
+        })(this));
       };
 
       Controller.prototype.getEmptyCardView = function() {

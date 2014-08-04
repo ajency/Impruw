@@ -49,10 +49,10 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Model);
     API = {
-      getCardById: function(customerId) {
+      getCardByToken: function(cardToken) {
         var creditCardModel;
         creditCardModel = new CreditCard({
-          'customer_id': customerId
+          'token': cardToken
         });
         creditCardModel.fetch();
         return creditCardModel;
@@ -76,8 +76,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         return creditCardCollection;
       }
     };
-    App.reqres.setHandler("get:card:info", function(customerId) {
-      return API.getCardById(customerId);
+    App.reqres.setHandler("get:card:info", function(cardToken) {
+      return API.getCardByToken(cardToken);
     });
     App.reqres.setHandler("get:credit:cards", function(customerId) {
       return API.getCreditCards(customerId);
