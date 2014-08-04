@@ -48,7 +48,6 @@ function ajax_read_braintreesubscription() {
         $subscription_data = get_subscription_details( $subscription_id );
     }
 
-
     wp_send_json( array( 'code' => 'OK', 'data' => $subscription_data ) );
 }
 
