@@ -38,6 +38,7 @@ require.config
       minicolors : 'plugins/jquery.minicolors.min'
       additionalmethod : 'plugins/validate.additional.methods'
       timepicker : 'plugins/jquery.timepicker.min'
+      braintree : 'plugins/braintree'
       # wordpress cropping js
       imageareaselect : '../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min'
       imageedit : '../../../../../wp-admin/js/image-edit'
@@ -70,6 +71,7 @@ require.config
       jpanelmenu : ['jquery']
       minicolors : ['jquery']
       timepicker : ['jquery']
+      braintree : ['jquery']
       additionalmethod : ['jquery', 'jqueryvalidate']
       underscorestring : ['underscore']
       backboneform : ['backbone']

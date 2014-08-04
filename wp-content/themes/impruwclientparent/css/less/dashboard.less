@@ -3931,7 +3931,7 @@ form {
 }
 
 .billing-container {
-	.aj-imp-widget-head {
+	.aj-imp-table-head {
 		margin-bottom: 1em;
 		.bootstrap-select {
 			.dropdown-toggle {
@@ -3996,6 +3996,14 @@ form {
 					margin: -10px -15px;
 					border-radius: 0 0 3px 3px;
 					font-size: 2em;
+					.activate-link {
+						background: transparent;
+						color: #fff;
+						&:hover, &:focus {
+							background: transparent;
+							color: #fff;
+						}
+					}
 				}
 			}
 			&:hover {
@@ -4019,6 +4027,22 @@ form {
 					&:hover {
 						background: lighten(@orange, 10%);
 					}
+				}
+			}
+		}
+	}
+	.info {
+		background: @preview-grey;
+		padding: 1em;
+		margin-bottom: 1em;
+		ul {
+			list-style: circle;
+			li {
+				color: @dash-grey;
+				margin-bottom: 0.5em;
+				font-size: 1.3em;
+				&:hover {
+					color: @blue-grey;
 				}
 			}
 		}

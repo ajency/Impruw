@@ -40,9 +40,7 @@ define ['app'], (App)->
             itemViewContainer: '.fullwidthbanner > ul'
 
             events:
-                'click': (e)->
-                    ratio = @_getSliderRatio()
-                    @trigger "show:slides:manager", ratio
+                'click': 'sliderClick'
                 'click .tp-rightarrow,.tp-leftarrow,.bullet': (e)->
                     e.stopPropagation()
 
@@ -91,6 +89,9 @@ define ['app'], (App)->
                         @revapi = @$el.find(".fullwidthbanner").revolution options
                         @_saveSliderHeightWidth()
 
+                    start : (evt,ui)=>
+                        $(@).addClass('noclick')
+
                     
                     
 
@@ -99,6 +100,17 @@ define ['app'], (App)->
                 $('.aj-imp-publish').on 'click',@_saveSliderHeightWidth
 
                 @_saveSliderHeightWidth()
+
+
+            sliderClick : (e)->
+                e.stopPropagation()
+
+                if $(e.target).hasClass('noclick')
+                    $(e.target).removeClass('noclick')
+
+                else
+                    ratio = @_getSliderRatio()
+                    @trigger "show:slides:manager", ratio
 
 
 

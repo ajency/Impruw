@@ -47,8 +47,13 @@ require_once 'modules/elements/ajax.php';
 require_once 'modules/media/ajax.php';
 require_once 'modules/language/ajax.php';
 require_once 'modules/language/languagefunctions.php';
+require_once 'modules/billing/ajax.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 
+/***
+ * Load braintree PHP library
+ */
+require_once 'modules/braintree/main-config.php';
 
 global $page_id;
 $page_id = 0;

@@ -14,4 +14,8 @@ define [
     'entities/pages'
     'entities/language-facilities'
     'entities/page-elements'
+    'entities/braintree-plans'
+    'entities/braintree-subscription'
+    'entities/braintree-credit-card'
+    'entities/braintree-transaction'
 ], ->

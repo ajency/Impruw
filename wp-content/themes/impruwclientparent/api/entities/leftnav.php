@@ -64,17 +64,14 @@ function get_menu_items() {
             'title' => 'Billing',
             'icon' => 'wallet',
             'submenu' => array(
-                array( 'url' => '#/billing/purchase-history',
-                    'title' => 'Purchase History',
+                array( 'url' => '#/billing/account-summary',
+                    'title' => 'Account Summary',
                     'icon' => 'stats1' ),
-                array( 'url' => '#/billing/billing-info',
-                    'title' => 'Billing Info',
+                array( 'url' => '#/billing/update-billing',
+                    'title' => 'Update Billing',
                     'icon' => 'stats2' ),
                 array( 'url' => '#/billing/pricing-plans',
-                    'title' => 'Pricing Plans',
-                    'icon' => 'stats2' ),
-                array( 'url' => '#/billing/payment-page',
-                    'title' => 'Payment Page',
+                    'title' => 'View Plans',
                     'icon' => 'stats2' )
             )
         ),
