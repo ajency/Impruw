@@ -222,7 +222,7 @@ function create_additional_tables( $site_id ) {
 				old_subscription_id VARCHAR(50),
 				new_subscription_id VARCHAR(50),
 				cancel_date DATE,
-				status INT ";
+				status INT )";
 
     $wpdb->query( $query );
 
