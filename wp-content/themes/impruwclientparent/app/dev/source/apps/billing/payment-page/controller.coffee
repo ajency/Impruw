@@ -28,29 +28,40 @@ define [ 'app', 'controllers/base-controller'
 
                     #show payment page
                     brainTreeCustomerId = @siteModel.get 'braintree_customer_id'
-                    @creditCardModel = App.request "get:card:info", brainTreeCustomerId
-                    App.execute "when:fetched", @creditCardModel, =>
-
-                        #check if card details exists
-                        cardExists = @creditCardModel.get 'card_exists'
+                    creditCardCollection = App.request "get:credit:cards", brainTreeCustomerId
+                    App.execute "when:fetched", creditCardCollection, =>
+                        #check if any stored credit card exists
+                        creditCardFirstModel = creditCardCollection.at 0
+                        cardExists = creditCardFirstModel.get 'card_exists'
 
                         if cardExists is true
-                            @paymentView = @getPaymentView @creditCardModel
+                            @paymentView = @getPaymentPageView creditCardCollection
                         else
-                            @paymentView = @getNewCardPaymentView @creditCardModel
+                            @paymentView = @getFirstTimePaymentPageView creditCardFirstModel
+
 
                         @layout.paymentRegion.show @paymentView
 
-                        @listenTo @paymentView, "new:credit:card:payment",( paymentMethodNonce )=>
-                            @newCardPayment paymentMethodNonce,'active'
-
-                        @listenTo @paymentView, "make:payment:with:stored:card", @payWithStoredCard
-
-                        @listenTo @paymentView, "change:card", =>
-                            @paymentView = @getNewCardPaymentView @creditCardModel
-                            @layout.paymentRegion.show @paymentView
-                            @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
-                                @newCardPayment paymentMethodNonce,'pending'
+#                        #check if card details exists
+#                        cardExists = @creditCardModel.get 'card_exists'
+#
+#                        if cardExists is true
+#                            @paymentView = @getPaymentView @creditCardModel
+#                        else
+#                            @paymentView = @getNewCardPaymentView @creditCardModel
+#
+#                        @layout.paymentRegion.show @paymentView
+#
+#                        @listenTo @paymentView, "new:credit:card:payment",( paymentMethodNonce )=>
+#                            @newCardPayment paymentMethodNonce,'active'
+#
+#                        @listenTo @paymentView, "make:payment:with:stored:card", @payWithStoredCard
+#
+#                        @listenTo @paymentView, "change:card", =>
+#                            @paymentView = @getNewCardPaymentView @creditCardModel
+#                            @layout.paymentRegion.show @paymentView
+#                            @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
+#                                @newCardPayment paymentMethodNonce,'pending'
 
 
                 # show main layout
@@ -106,12 +117,16 @@ define [ 'app', 'controllers/base-controller'
                 new Payment.View.ActiveSubscriptionView
                     model : subscriptionModel
 
-            getPaymentView : ( creditCardModel )->
-                new Payment.View.PaymentView
-                    model : creditCardModel
+#            getPaymentView : ( creditCardModel )->
+#                new Payment.View.PaymentView
+#                    model : creditCardModel
 
-            getNewCardPaymentView : ( creditCardModel )->
-                new Payment.View.NewCardPaymentView
+            getPaymentPageView : ( creditCardCollection )->
+                new Payment.View.PaymentPageView
+                    collection : creditCardCollection
+
+            getFirstTimePaymentPageView : ( creditCardModel )->
+                new Payment.View.FirstTimePaymentView
                     model : creditCardModel
 
 
