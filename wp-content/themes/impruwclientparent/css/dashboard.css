@@ -3888,14 +3888,17 @@ form .aj-imp-submit:hover {
 .billing-container .price-plans .panel .panel-heading h3 {
   color: #aaaaaa;
 }
-.billing-container .price-plans .panel .panel-heading span {
+.billing-container .price-plans .panel .panel-heading span,
+.billing-container .price-plans .panel .panel-body span {
   display: block;
   margin-bottom: 0.2em;
 }
-.billing-container .price-plans .panel .panel-heading span.active {
+.billing-container .price-plans .panel .panel-heading span.active,
+.billing-container .price-plans .panel .panel-body span.active {
   color: #2ecc71;
 }
-.billing-container .price-plans .panel .panel-heading span.pending {
+.billing-container .price-plans .panel .panel-heading span.pending,
+.billing-container .price-plans .panel .panel-body span.pending {
   color: #f54545;
 }
 .billing-container .price-plans .panel.active {
