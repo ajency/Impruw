@@ -46,7 +46,7 @@ define [ 'app'
 
             className : 'aj-imp-widget-head row'
 
-        #payment page view when no credit card info available
+        #payment page view when new credit card used
         class View.FirstTimePaymentView extends  Marionette.ItemView
 
             template : newpaymentViewTpl
@@ -59,7 +59,6 @@ define [ 'app'
                 data
 
             onShow :->
-                @$el.find( 'input[type="checkbox"]' ).checkbox()
                 @$el.find( 'select' ).selectpicker()
 
 
@@ -76,7 +75,7 @@ define [ 'app'
                     clientToken = @model.get 'braintree_client_token'
                     client = new braintree.api.Client clientToken : clientToken
                     client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
-                        @trigger "new:credit:card:payment", nonce
+                        @trigger "new:credit:card:payment", nonce,'active'
 
             onPaymentSuccess : ->
                 @$el.find( '#billingsave_status' ).empty()
@@ -160,17 +159,12 @@ define [ 'app'
                 data
 
             events :
-                'click .btn-pay' :(e)->
-                    e.preventDefault()
-                    console.log @model.get 'token'
-                    console.log @model
-                    @$el.find( '.loader' ).show()
-#                    cardNumber = @$el.find( '#card_number' ).val()
-#                    nameOnCard = @$el.find( '#card_name' ).val()
-#                    expdate = @$el.find( '#expiration-date' ).val()
-                    console.log cvv = @$el.find( '.card-cvv' ).val()
+                'click' :->
+                    @$el.addClass 'active'
 
 
+
+        #payment view when using stored credit card info
         class View.PaymentPageView extends  Marionette.CompositeView
 
             template : paymentViewTpl
@@ -183,6 +177,22 @@ define [ 'app'
 
             onShow : ->
                 @$el.find( 'select' ).selectpicker()
+
+            events :
+                'click #btn-pay':(e)->
+                    e.preventDefault()
+                    @$el.find( '#pay_loader' ).show()
+                    cardNumber = @$el.find( '#card_number' ).val()
+                    nameOnCard = @$el.find( '#card_name' ).val()
+                    expMonth = @$el.find( '#exp_month' ).val()
+                    expYear = @$el.find( '#exp_year' ).val()
+                    cvv = @$el.find( '#card-cvv' ).val()
+
+                    clientToken =  @collection.models[0].get 'braintree_client_token'
+                    client = new braintree.api.Client clientToken : clientToken
+                    client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
+                        @trigger "new:credit:card:payment", nonce , 'pending'
+
 
 
 

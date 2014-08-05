@@ -69,7 +69,6 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
       };
 
       FirstTimePaymentView.prototype.onShow = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
         return this.$el.find('select').selectpicker();
       };
 
@@ -95,7 +94,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
             expiration_year: expYear
           }, (function(_this) {
             return function(err, nonce) {
-              return _this.trigger("new:credit:card:payment", nonce);
+              return _this.trigger("new:credit:card:payment", nonce, 'active');
             };
           })(this));
         }
@@ -137,13 +136,8 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
       };
 
       SingleCreditCard.prototype.events = {
-        'click .btn-pay': function(e) {
-          var cvv;
-          e.preventDefault();
-          console.log(this.model.get('token'));
-          console.log(this.model);
-          this.$el.find('.loader').show();
-          return console.log(cvv = this.$el.find('.card-cvv').val());
+        'click': function() {
+          return this.$el.addClass('active');
         }
       };
 
@@ -167,6 +161,34 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
 
       PaymentPageView.prototype.onShow = function() {
         return this.$el.find('select').selectpicker();
+      };
+
+      PaymentPageView.prototype.events = {
+        'click #btn-pay': function(e) {
+          var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
+          e.preventDefault();
+          this.$el.find('#pay_loader').show();
+          cardNumber = this.$el.find('#card_number').val();
+          nameOnCard = this.$el.find('#card_name').val();
+          expMonth = this.$el.find('#exp_month').val();
+          expYear = this.$el.find('#exp_year').val();
+          cvv = this.$el.find('#card-cvv').val();
+          clientToken = this.collection.models[0].get('braintree_client_token');
+          client = new braintree.api.Client({
+            clientToken: clientToken
+          });
+          return client.tokenizeCard({
+            number: cardNumber,
+            cvv: cvv,
+            cardholderName: nameOnCard,
+            expiration_month: expMonth,
+            expiration_year: expYear
+          }, (function(_this) {
+            return function(err, nonce) {
+              return _this.trigger("new:credit:card:payment", nonce, 'pending');
+            };
+          })(this));
+        }
       };
 
       return PaymentPageView;

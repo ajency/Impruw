@@ -107,6 +107,7 @@ function create_pending_subscription( $payment_method_token, $selected_plan_id, 
     } else {
         delete_previous_subscription( $current_subscription_id );
         create_cancelled_subscription_in_db( $current_subscription_id, $pending_subscription[ 'subscription_id' ], $bill_end_date );
+        return array( 'code' => 'OK');
     }
 
 }

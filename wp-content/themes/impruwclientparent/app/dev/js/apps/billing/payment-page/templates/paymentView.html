@@ -1,6 +1,13 @@
 <h6 class="aj-imp-widget-title">Saved Card Details</h6>
 
-<div class="card-list row">
+<div class="card-list row"></div>
+
+<div class="form-group margin-top">
+    <div class="col-sm-8 col-sm-offset-4">
+        <button type="submit" class="btn btn-xs aj-imp-orange-btn btn-pay">
+            Proceed to Pay
+        </button>
+    </div>
 </div>
 
 <a data-toggle="collapse" data-target="#add-new-card" class="blue-link" style="cursor:pointer;">
@@ -8,7 +15,7 @@
 </a>
 <div class="collapse" id="add-new-card">
     <hr>
-    <form class="form-horizontal" id="checkout">
+    <form class="form-horizontal">
         <div class="form-group">
             <label class="col-sm-3 control-label">Name on the Card</label>
 
@@ -46,7 +53,7 @@
             <label class="col-sm-3 control-label">Expires On</label>
 
             <div class="col-sm-2 col-sm-offset-3">
-                <select data-braintree-name="expiration_month" id="exp_month" class="payment">
+                <select data-braintree-name="expiration_month" id="exp_month" >
                     <option>Month</option>
                     <option>01</option>
                     <option>02</option>
@@ -63,7 +70,7 @@
                 </select>
             </div>
             <div class="col-sm-2">
-                <select data-braintree-name="expiration_year" id="exp_year" class="payment">
+                <select data-braintree-name="expiration_year" id="exp_year" >
                     <option>Year</option>
                     <option>2015</option>
                     <option>2016</option>
@@ -82,10 +89,11 @@
             <div class="col-sm-8 col-sm-offset-3">
                 <button type="submit" class="btn btn-wide aj-imp-orange-btn"
                         id="btn-pay">
-                    Add
+                    Pay
                 </button>
             </div>
         </div>
     </form>
 </div>
+<img src="{{THEMEURL}}/images/loader.gif" width="38" height="30" id="pay-loader" style="display:none ">
 <div id="billingsave_status"></div>

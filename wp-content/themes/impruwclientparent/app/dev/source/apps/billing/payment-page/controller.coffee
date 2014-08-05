@@ -29,10 +29,12 @@ define [ 'app', 'controllers/base-controller'
                     #show payment page
                     brainTreeCustomerId = @siteModel.get 'braintree_customer_id'
                     creditCardCollection = App.request "get:credit:cards", brainTreeCustomerId
+
                     App.execute "when:fetched", creditCardCollection, =>
                         #check if any stored credit card exists
                         creditCardFirstModel = creditCardCollection.at 0
                         cardExists = creditCardFirstModel.get 'card_exists'
+                        @customerId = creditCardFirstModel.get 'customer_id'
 
                         if cardExists is true
                             @paymentView = @getPaymentPageView creditCardCollection
@@ -42,41 +44,41 @@ define [ 'app', 'controllers/base-controller'
 
                         @layout.paymentRegion.show @paymentView
 
-#                        #check if card details exists
-#                        cardExists = @creditCardModel.get 'card_exists'
-#
-#                        if cardExists is true
-#                            @paymentView = @getPaymentView @creditCardModel
-#                        else
-#                            @paymentView = @getNewCardPaymentView @creditCardModel
-#
-#                        @layout.paymentRegion.show @paymentView
-#
-#                        @listenTo @paymentView, "new:credit:card:payment",( paymentMethodNonce )=>
-#                            @newCardPayment paymentMethodNonce,'active'
-#
-#                        @listenTo @paymentView, "make:payment:with:stored:card", @payWithStoredCard
-#
-#                        @listenTo @paymentView, "change:card", =>
-#                            @paymentView = @getNewCardPaymentView @creditCardModel
-#                            @layout.paymentRegion.show @paymentView
-#                            @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
-#                                @newCardPayment paymentMethodNonce,'pending'
+                        @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce, status )=>
+                            @newCardPayment paymentMethodNonce, status
 
+                #                        #check if card details exists
+                #                        cardExists = @creditCardModel.get 'card_exists'
+                #
+                #                        if cardExists is true
+                #                            @paymentView = @getPaymentView @creditCardModel
+                #                        else
+                #                            @paymentView = @getNewCardPaymentView @creditCardModel
+                #
+                #                        @layout.paymentRegion.show @paymentView
+                #
+                #                        @listenTo @paymentView, "new:credit:card:payment",( paymentMethodNonce )=>
+                #                            @newCardPayment paymentMethodNonce,'active'
+                #
+                #                        @listenTo @paymentView, "make:payment:with:stored:card", @payWithStoredCard
+                #
+                #                        @listenTo @paymentView, "change:card", =>
+                #                            @paymentView = @getNewCardPaymentView @creditCardModel
+                #                            @layout.paymentRegion.show @paymentView
+                #                            @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
+                #                                @newCardPayment paymentMethodNonce,'pending'
 
-                # show main layout
                 @show @layout,
                     loading : true
 
             newCardPayment : ( paymentMethodNonce, status )=>
-                customerId = @creditCardModel.get 'customer_id'
                 options =
                     method : 'POST'
                     url : AJAXURL
                     data :
                         'paymentMethodNonce' : paymentMethodNonce
                         'selectedPlanId' : @selectedPlanId
-                        'customerId' : customerId
+                        'customerId' : @customerId
                         'currentSubscriptionId' : @subscriptionId
                         'status' : status
                         'action' : 'new-card-payment'

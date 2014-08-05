@@ -117,7 +117,7 @@ function ajax_get_credit_cards() {
 add_action( 'wp_ajax_get-credit-cards', 'ajax_get_credit_cards' );
 
 /**
- * Function to make payment
+ * Function to make payment  using a  new card
  */
 function ajax_new_card_payment() {
 
@@ -170,7 +170,9 @@ function ajax_new_card_payment() {
 
 add_action( 'wp_ajax_new-card-payment', 'ajax_new_card_payment' );
 
-
+/**
+ * Function to make a payment using stored credit card
+ */
 function ajax_stored_payment() {
 
     $selected_plan_id = $_POST[ 'selectedPlanId' ];

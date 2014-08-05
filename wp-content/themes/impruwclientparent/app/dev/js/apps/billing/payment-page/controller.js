@@ -36,12 +36,16 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
               var cardExists, creditCardFirstModel;
               creditCardFirstModel = creditCardCollection.at(0);
               cardExists = creditCardFirstModel.get('card_exists');
+              _this.customerId = creditCardFirstModel.get('customer_id');
               if (cardExists === true) {
                 _this.paymentView = _this.getPaymentPageView(creditCardCollection);
               } else {
                 _this.paymentView = _this.getFirstTimePaymentPageView(creditCardFirstModel);
               }
-              return _this.layout.paymentRegion.show(_this.paymentView);
+              _this.layout.paymentRegion.show(_this.paymentView);
+              return _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce, status) {
+                return _this.newCardPayment(paymentMethodNonce, status);
+              });
             });
           };
         })(this));
@@ -51,15 +55,14 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
       };
 
       Controller.prototype.newCardPayment = function(paymentMethodNonce, status) {
-        var customerId, options;
-        customerId = this.creditCardModel.get('customer_id');
+        var options;
         options = {
           method: 'POST',
           url: AJAXURL,
           data: {
             'paymentMethodNonce': paymentMethodNonce,
             'selectedPlanId': this.selectedPlanId,
-            'customerId': customerId,
+            'customerId': this.customerId,
             'currentSubscriptionId': this.subscriptionId,
             'status': status,
             'action': 'new-card-payment'
