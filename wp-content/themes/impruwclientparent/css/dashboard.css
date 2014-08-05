@@ -3965,9 +3965,6 @@ form .aj-imp-submit:hover {
 .billing-container .card-list .single-card .aj-imp-sub-head-thin {
   border-bottom: 1px solid #f3f3f3;
 }
-.billing-container .card-list .single-card .form-group {
-  margin-bottom: 0em;
-}
 .billing-container .card-list .single-card .form-group .control-label {
   color: #aaaaaa;
   padding-top: 0;
