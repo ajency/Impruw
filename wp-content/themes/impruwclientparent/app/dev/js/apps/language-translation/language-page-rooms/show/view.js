@@ -21,7 +21,10 @@ define(['app', 'text!apps/language-translation/language-page-rooms/templates/lan
         originalRoomFacilities: "#original-rooms-facilities",
         translatedRoomFacilities: "#translated-rooms-facilities",
         originalRoomDateranges: "#original-rooms-dateranges",
-        translatedRoomDateranges: "#translated-rooms-dateranges"
+        translatedRoomDateranges: "#translated-rooms-dateranges",
+        choosePlans: ".pick-plan",
+        originalPlanContent: ".original-plan-content",
+        translatedPlanContent: ".translated-plan-content"
       };
 
       return PageRooomsLayout;

@@ -3,10 +3,12 @@ define ['app', 'controllers/base-controller'
         'apps/language-translation/language-page-rooms/original-language-rooms/controller'
         'apps/language-translation/language-page-rooms/translated-language-rooms/controller'
         'apps/language-translation/language-page-rooms/choose-rooms/controller'
+        'apps/language-translation/language-page-rooms/choose-plans/controller'
         'apps/language-translation/language-page-rooms/original-room-facilities/controller'
         'apps/language-translation/language-page-rooms/translated-room-facilities/controller'
         'apps/language-translation/language-page-rooms/original-room-dateranges/controller'
         'apps/language-translation/language-page-rooms/translated-room-dateranges/controller'
+        'apps/language-translation/language-page-rooms/original-room-plans/controller'
         ], (App, AppController)->
     App.module 'LanguageApp.LanguagePageRooms', (LanguagePageRooms, App, Backbone, Marionette, $, _)->
         class LanguagePageRooms.Controller extends AppController
@@ -46,11 +48,18 @@ define ['app', 'controllers/base-controller'
 
                     App.execute "translated:room:dateranges:app",
                         region: @pageLanguageLayout.translatedRoomDateranges,
-                        editLang : @editingLang                                                
+                        editLang : @editingLang  
+
+                    App.execute 'choose:plans:app',
+                        region: @pageLanguageLayout.choosePlans                                              
 
                 @listenTo @pageLanguageLayout.chooseRooms, "original:room", @_loadOriginalRooms 
 
-                @listenTo @pageLanguageLayout.chooseRooms, "translated:room", @_loadTranslatedRooms   
+                @listenTo @pageLanguageLayout.chooseRooms, "translated:room", @_loadTranslatedRooms 
+
+                @listenTo @pageLanguageLayout.choosePlans, "original:plan", @_loadOriginalPlans 
+
+                @listenTo @pageLanguageLayout.choosePlans, "translated:plan", @_loadTranslatedPlans   
             
             _getLanguageLayout : ->
                     new LanguagePageRooms.Views.PageRooomsLayout
@@ -67,6 +76,12 @@ define ['app', 'controllers/base-controller'
                         roomId: selectedRoomIndex
                         editingLang: @editingLang
                     return
+
+            _loadOriginalPlans : (selectedPlan) =>
+                    App.execute 'show:original:plans:app',
+                        region: @pageLanguageLayout.originalPlanContent 
+                        planId: selectedPlan
+                    return                      
 
 
         App.commands.setHandler "show:language:page:rooms:app", (opts) ->

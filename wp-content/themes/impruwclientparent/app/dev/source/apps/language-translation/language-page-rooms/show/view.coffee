@@ -16,7 +16,10 @@ define ['app'
                         originalRoomFacilities: "#original-rooms-facilities",
                         translatedRoomFacilities: "#translated-rooms-facilities",
                         originalRoomDateranges: "#original-rooms-dateranges",
-                        translatedRoomDateranges: "#translated-rooms-dateranges"
+                        translatedRoomDateranges: "#translated-rooms-dateranges",
+                        choosePlans: ".pick-plan",
+                        originalPlanContent: ".original-plan-content",
+                        translatedPlanContent: ".translated-plan-content",
 
 
                   
