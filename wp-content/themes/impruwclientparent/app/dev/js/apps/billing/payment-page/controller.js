@@ -124,7 +124,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
       };
 
       Controller.prototype.getFirstTimePaymentPageView = function(creditCardModel) {
-        return new Payment.View.NewPaymentView({
+        return new Payment.View.FirstTimePaymentView({
           model: creditCardModel
         });
       };
