@@ -11,9 +11,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
       }
 
       Controller.prototype.initialize = function(opts) {
-        var subscriptionId, subscriptionModel;
-        subscriptionId = opts.subscriptionId;
-        subscriptionModel = App.request("get:subscription:by:id", subscriptionId);
+        var subscriptionModel;
+        subscriptionModel = opts.subscriptionModel;
         this.view = this.getView(subscriptionModel);
         App.vent.trigger("set:active:menu", 'billing');
         return this.show(this.view, {

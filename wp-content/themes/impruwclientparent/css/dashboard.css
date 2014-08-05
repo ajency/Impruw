@@ -4008,6 +4008,58 @@ form .aj-imp-submit:hover {
 .billing-container .info ul li:hover {
   color: #849fb0;
 }
+.billing-container #billing-info {
+  margin-bottom: 0.5em;
+}
+.billing-container .card-list {
+  margin-bottom: 1em;
+}
+.billing-container .card-list .single-card {
+  border: 1px solid #dadada;
+  padding: 0.5em 1em;
+  border-radius: 3px;
+  background: #fff;
+  position: relative;
+}
+.billing-container .card-list .single-card .ticker {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  color: #fff;
+  padding: 3px 4px;
+  border-radius: 2px;
+  text-shadow: 0 0 1px #f3f3f3;
+  background: #ff7e00;
+  display: none;
+  box-shadow: 0 0 2px #aaaaaa;
+}
+.billing-container .card-list .single-card .ticker:hover {
+  cursor: pointer;
+}
+.billing-container .card-list .single-card .aj-imp-sub-head-thin {
+  border-bottom: 1px solid #f3f3f3;
+}
+.billing-container .card-list .single-card .form-group .control-label {
+  color: #aaaaaa;
+  padding-top: 0;
+  bottom: auto;
+}
+.billing-container .card-list .single-card .form-group .form-control {
+  border: 0;
+  color: #333333;
+  font-weight: 700;
+  padding: 0;
+  background: #fff;
+}
+.billing-container .card-list .single-card:hover {
+  box-shadow: 0 0 2px 2px #f3f3f3;
+}
+.billing-container .card-list .single-card.selected {
+  border-color: #ff7e00;
+}
+.billing-container .card-list .single-card.selected .ticker {
+  display: block;
+}
 /**** Pagination Styles ****/
 .pagination ul li a:hover,
 .pagination ul li a:focus {

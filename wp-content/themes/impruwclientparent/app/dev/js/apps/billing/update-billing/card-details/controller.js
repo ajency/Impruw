@@ -1,9 +1,9 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/templates/cardView.html'], function(App, AppController, viewTpl) {
+define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/templates/noCardView.html'], function(App, AppController, noCardViewTpl) {
   return App.module('BillingApp.CardDetails', function(CardDetails, App, Backbone, Marionette, $, _) {
-    var CardView, NoCardView;
+    var CardsView, NoCardView, SingleCardView;
     CardDetails.Controller = (function(_super) {
       __extends(Controller, _super);
 
@@ -12,27 +12,28 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
       }
 
       Controller.prototype.initialize = function(opts) {
-        var brainTreeCustomerId, creditCardModel;
+        var brainTreeCustomerId, creditCardCollection;
         brainTreeCustomerId = opts.customerId;
-        creditCardModel = App.request("get:card:info", brainTreeCustomerId);
-        return App.execute("when:fetched", creditCardModel, (function(_this) {
+        creditCardCollection = App.request("get:credit:cards", brainTreeCustomerId);
+        return App.execute("when:fetched", creditCardCollection, (function(_this) {
           return function() {
-            var cardExists;
-            cardExists = creditCardModel.get('card_exists');
+            var cardExists, creditCardFirstModel;
+            creditCardFirstModel = creditCardCollection.at(0);
+            cardExists = creditCardFirstModel.get('card_exists');
             if (cardExists === true) {
-              _this.view = _this.getCardView(creditCardModel);
+              _this.view = _this.getCardsView(creditCardCollection);
             } else {
-              _this.view = _this.getNoCardView(creditCardModel);
+              _this.view = _this.getNoCardView(creditCardFirstModel);
             }
-            _this.listenTo(_this.view, "add:card:to:customer", _this.addCardToCustomer);
+            _this.listenTo(_this.view, "create:customer:with:card", _this.createCustomerWithCard);
             return _this.show(_this.view);
           };
         })(this));
       };
 
-      Controller.prototype.getCardView = function(creditCardModel) {
-        return new CardView({
-          model: creditCardModel
+      Controller.prototype.getCardsView = function(creditCardCollection) {
+        return new CardsView({
+          collection: creditCardCollection
         });
       };
 
@@ -42,7 +43,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         });
       };
 
-      Controller.prototype.addCardToCustomer = function(paymentMethodNonce) {
+      Controller.prototype.createCustomerWithCard = function(paymentMethodNonce) {
         var options;
         options = {
           method: 'POST',
@@ -73,7 +74,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         return NoCardView.__super__.constructor.apply(this, arguments);
       }
 
-      NoCardView.prototype.template = viewTpl;
+      NoCardView.prototype.template = noCardViewTpl;
 
       NoCardView.prototype.onShow = function() {
         return this.$el.find('select').selectpicker();
@@ -87,8 +88,9 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
       };
 
       NoCardView.prototype.events = {
-        'click #btn-add': function() {
+        'click #btn-add': function(e) {
           var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
+          e.preventDefault();
           this.$el.find('#pay_loader').show();
           cardNumber = this.$el.find('#card_number').val();
           nameOnCard = this.$el.find('#card_name').val();
@@ -107,7 +109,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
             expiration_year: expYear
           }, (function(_this) {
             return function(err, nonce) {
-              return _this.trigger("add:card:to:customer", nonce);
+              return _this.trigger("create:customer:with:card", nonce);
             };
           })(this));
         }
@@ -117,7 +119,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
-        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Processed';
+        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times;</button> Card Added Successfuly ';
         this.$el.find('#billingsave_status').append(html);
         return this.$el.find('#btn-reset').click();
       };
@@ -126,25 +128,41 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
-        html = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg;
+        html = "<div class='alert'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
         return this.$el.find('#billingsave_status').append(html);
       };
 
       return NoCardView;
 
     })(Marionette.ItemView);
-    CardView = (function(_super) {
-      __extends(CardView, _super);
+    SingleCardView = (function(_super) {
+      __extends(SingleCardView, _super);
 
-      function CardView() {
-        return CardView.__super__.constructor.apply(this, arguments);
+      function SingleCardView() {
+        return SingleCardView.__super__.constructor.apply(this, arguments);
       }
 
-      CardView.prototype.template = '<div class=""> <label class="">Name on the Card</label> <div class=""> <span>{{customer_name}}</span> </div> </div> <div class=""> <label class="">Card Number</label> <div class=""> <span>{{card_number}}</span> </div> </div> <div class=""> <label class="">CVV</label> <div class=""> <span>***</span> </div> </div> <div class=""> <label class="">Expires On</label> <div class=""> <span>{{expiration_date}}</span> </div> </div>';
+      SingleCardView.prototype.template = '<div class="col-sm-4"> <div class="single-card form-horizontal"> <div class="ticker"> <span class="glyphicon glyphicon-ok"></span> </div> <h6 class="aj-imp-sub-head-thin">{{card_type}}</h6> <div class="form-group"> <label class="control-label col-sm-5">Name on the Card:</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">{{customer_name}}</span> </div> </div> <div class="form-group"> <label class="control-label col-sm-5">Card Number:</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">{{card_number}}</span> </div> </div> <div class="form-group"> <label class="control-label col-sm-5">CVV:</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">***</span> </div> </div> <div class="form-group"> <label class="control-label col-sm-5">Expires On:</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">{{expiration_date}}</span> </div> </div> </div> </div>';
 
-      return CardView;
+      return SingleCardView;
 
     })(Marionette.ItemView);
+    CardsView = (function(_super) {
+      __extends(CardsView, _super);
+
+      function CardsView() {
+        return CardsView.__super__.constructor.apply(this, arguments);
+      }
+
+      CardsView.prototype.template = "<div class='card-list row'></div>";
+
+      CardsView.prototype.itemView = SingleCardView;
+
+      CardsView.prototype.itemViewContainer = '.card-list';
+
+      return CardsView;
+
+    })(Marionette.CompositeView);
     return App.commands.setHandler("show:card", function(opts) {
       return new CardDetails.Controller(opts);
     });

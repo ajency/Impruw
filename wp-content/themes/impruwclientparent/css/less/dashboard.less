@@ -4050,6 +4050,60 @@ form {
 			}
 		}
 	}
+	#billing-info {
+		margin-bottom: 0.5em;
+	}
+	.card-list {
+		margin-bottom: 1em;
+		.single-card {
+			border: 1px solid darken(@preview-grey, 10%);
+			padding: 0.5em 1em;
+			border-radius: 3px;
+			background: #fff;
+			position: relative;
+			.ticker {
+				position: absolute;
+				top: -7px;
+				right: -7px;
+				color: #fff;
+				padding: 3px 4px;
+				border-radius: 2px;
+				text-shadow: 0 0 1px @preview-grey;
+				background: @orange;
+				display: none;
+				box-shadow: 0 0 2px @dash-grey;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+			.aj-imp-sub-head-thin {
+				border-bottom: 1px solid @preview-grey;
+			}
+			.form-group {
+				.control-label {
+					color: @dash-grey;
+					padding-top: 0;
+					bottom: auto;
+				}
+				.form-control {
+					border: 0;
+					color: @3-grey;
+					font-weight: 700;
+					padding: 0;
+					background: #fff;
+				}
+			}
+			&:hover {
+				box-shadow: 0 0 2px 2px @preview-grey;
+			}
+			&.selected {
+				border-color: @orange;
+				.ticker {
+					display: block;
+				}
+			}
+		}
+	}
 }
 
 /**** Pagination Styles ****/

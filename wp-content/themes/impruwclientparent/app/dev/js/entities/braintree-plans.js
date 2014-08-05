@@ -36,24 +36,24 @@ define(["app", 'backbone'], function(App, Backbone) {
     })(Backbone.Collection);
     API = {
       getBraintreePlansCollection: function() {
-        var planCollection;
-        planCollection = new BraintreePlanCollection;
-        planCollection.fetch();
-        return planCollection;
+        var braintreePlanCollection;
+        braintreePlanCollection = new BraintreePlanCollection;
+        braintreePlanCollection.fetch();
+        return braintreePlanCollection;
       },
       getPlanByPlanId: function(planId) {
-        var planModel;
-        planModel = new BraintreePlan({
+        var brainTreePlanModel;
+        brainTreePlanModel = new BraintreePlan({
           'plan_id': planId
         });
-        planModel.fetch();
-        return planModel;
+        brainTreePlanModel.fetch();
+        return brainTreePlanModel;
       }
     };
     App.reqres.setHandler("get:braintree:plans", function() {
       return API.getBraintreePlansCollection();
     });
-    return App.reqres.setHandler("get:plan:by:id", function(planId) {
+    return App.reqres.setHandler("get:braintreeplan:by:id", function(planId) {
       return API.getPlanByPlanId(planId);
     });
   });

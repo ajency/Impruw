@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.CreditCard", function(BraintreecreditCard, App, Backbone, Marionette, $, _) {
-    var API, BillingAddress, CreditCard;
+    var API, BillingAddress, CreditCard, CreditCardCollection;
     CreditCard = (function(_super) {
       __extends(CreditCard, _super);
 
@@ -13,11 +13,27 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       CreditCard.prototype.name = 'creditcard';
 
-      CreditCard.prototype.idAttribute = 'customer_id';
+      CreditCard.prototype.idAttribute = 'token';
 
       return CreditCard;
 
     })(Backbone.Model);
+    CreditCardCollection = (function(_super) {
+      __extends(CreditCardCollection, _super);
+
+      function CreditCardCollection() {
+        return CreditCardCollection.__super__.constructor.apply(this, arguments);
+      }
+
+      CreditCardCollection.prototype.model = CreditCard;
+
+      CreditCardCollection.prototype.url = function() {
+        return "" + AJAXURL + "?action=get-credit-cards";
+      };
+
+      return CreditCardCollection;
+
+    })(Backbone.Collection);
     BillingAddress = (function(_super) {
       __extends(BillingAddress, _super);
 
@@ -33,10 +49,10 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Model);
     API = {
-      getCardById: function(customerId) {
+      getCardByToken: function(cardToken) {
         var creditCardModel;
         creditCardModel = new CreditCard({
-          'customer_id': customerId
+          'token': cardToken
         });
         creditCardModel.fetch();
         return creditCardModel;
@@ -48,10 +64,23 @@ define(["app", 'backbone'], function(App, Backbone) {
         });
         BillingAddressModel.fetch();
         return BillingAddressModel;
+      },
+      getCreditCards: function(customerId) {
+        var creditCardCollection;
+        creditCardCollection = new CreditCardCollection;
+        creditCardCollection.fetch({
+          data: {
+            'customerId': customerId
+          }
+        });
+        return creditCardCollection;
       }
     };
-    App.reqres.setHandler("get:card:info", function(customerId) {
-      return API.getCardById(customerId);
+    App.reqres.setHandler("get:card:info", function(cardToken) {
+      return API.getCardByToken(cardToken);
+    });
+    App.reqres.setHandler("get:credit:cards", function(customerId) {
+      return API.getCreditCards(customerId);
     });
     return App.reqres.setHandler("get:billing:address", function(customerId) {
       return API.getBillingAddress(customerId);

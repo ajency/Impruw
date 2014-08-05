@@ -25,7 +25,7 @@ define(['app', 'text!apps/billing/account-summary/templates/purchaseHistory.html
         return EmptyView.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyView.prototype.template = '<td>No transaction history found</td>';
+      EmptyView.prototype.template = '<div class="empty-info">No transaction history found.</div>';
 
       return EmptyView;
 
