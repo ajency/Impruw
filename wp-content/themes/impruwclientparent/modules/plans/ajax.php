@@ -15,11 +15,18 @@ add_action( 'wp_ajax_fetch-plans', 'fetch_plans' );
 // function to create new plan
 function create_plan_ajax() {
 
+    //get default language (en or nb)
+    $default_language = wpml_get_default_language();
+    
     // get all form data
-    $plan_name        = $_POST[ 'plan_name' ];
-    $plan_description = $_POST[ 'plan_description' ];
+    $plan_name[$default_language]        = $_POST[ 'plan_name' ];
+    $plan_description[$default_language] = $_POST[ 'plan_description' ];
 
-    $formdata = array( 'plan_name' => $plan_name, 'plan_description' => $plan_description );
+    //$plan_name and $plan_desciption shd be serialized array
+    $plan_name_with_language = maybe_serialize( $plan_name );
+    $plan_desc_with_language = maybe_serialize( $plan_description );
+
+    $formdata = array( 'plan_name' => $plan_name_with_language, 'plan_description' => $plan_desc_with_language );
 
     // pass the formdata to the insert function, returns the new plan id
     $plan_id = wp_insert_plan( $formdata );
@@ -31,13 +38,19 @@ add_action( 'wp_ajax_create-plan', 'create_plan_ajax' );
 
 function update_plan_ajax() {
 
+    //get default language (en or nb)
+    $default_language = wpml_get_default_language();
+
     $plan_id = $_POST[ 'id' ];
 
-    $plan_name = $_POST[ 'plan_name' ];
+    $plan_name[$default_language]        = $_POST[ 'plan_name' ];
+    $plan_description[$default_language] = $_POST[ 'plan_description' ];
 
-    $plan_description = $_POST[ 'plan_description' ];
+    //$plan_name and $plan_desciption shd be serialized array
+    $plan_name_with_language = maybe_serialize( $plan_name );
+    $plan_desc_with_language = maybe_serialize( $plan_description );
 
-    $formdata = array( 'plan_name' => $plan_name, 'plan_description' => $plan_description, 'id' => $plan_id );
+    $formdata = array( 'plan_name' => $plan_name_with_language, 'plan_description' => $plan_desc_with_language, 'id' => $plan_id );
 
     $plan_id = wp_update_plan( $formdata );
 
