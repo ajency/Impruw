@@ -45,8 +45,7 @@
     imageareaselect: '../../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min',
     imageedit: '../../../../../../wp-admin/js/image-edit',
     json2: '../../../../../../wp-includes/js/json2',
-    svgpainter: '../../../../../../wp-admin/js/svg-painter',
-    braintree : 'plugins/braintree'
+    svgpainter: '../../../../../../wp-admin/js/svg-painter'
   },
   shim: {
     imageedit: ['jquery', 'json2', 'imageareaselect'],
@@ -94,5 +93,5 @@
     bootstrapselect: ['bootstrap'],
     bootstrapswitch: ['bootstrap'],
     app: ['plugins/dashboard-plugin-loader', 'configs/dashboard-config-loader']
-  },
+  }
 })
