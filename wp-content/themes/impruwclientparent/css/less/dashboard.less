@@ -4000,6 +4000,22 @@ form {
 			padding: 0.5em 1em;
 			border-radius: 3px;
 			background: #fff;
+			position: relative;
+			.ticker {
+				position: absolute;
+				top: -7px;
+				right: -7px;
+				color: #fff;
+				padding: 3px 4px;
+				border-radius: 2px;
+				text-shadow: 0 0 1px @preview-grey;
+				background: @orange;
+				display: none;
+				box-shadow: 0 0 2px @dash-grey;
+				&:hover {
+					cursor: pointer;
+				}
+			}
 			.aj-imp-sub-head-thin {
 				border-bottom: 1px solid @preview-grey;
 			}
@@ -4019,6 +4035,12 @@ form {
 			}
 			&:hover {
 				box-shadow: 0 0 2px 2px @preview-grey;
+			}
+			&.selected {
+				border-color: @orange;
+				.ticker {
+					display: block;
+				}
 			}
 		}
 	}

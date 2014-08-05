@@ -130,7 +130,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
 
       SingleCreditCard.prototype.events = {
         'click': function() {
-          return this.$el.addClass('selected').siblings().removeClass("selected");
+          return this.$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass("selected");
         }
       };
 

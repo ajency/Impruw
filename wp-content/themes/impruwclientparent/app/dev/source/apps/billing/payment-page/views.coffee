@@ -155,7 +155,7 @@ define [ 'app'
 
             events :
                 'click' :->
-                    @$el.addClass('selected').siblings().removeClass "selected"
+                    @$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass "selected"
 
 
 
