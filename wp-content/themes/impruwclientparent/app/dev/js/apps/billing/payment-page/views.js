@@ -152,6 +152,13 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
 
       PaymentPageView.prototype.className = 'col-sm-8';
 
+      PaymentPageView.prototype.serializeData = function() {
+        var data;
+        data = PaymentPageView.__super__.serializeData.call(this);
+        data.THEMEURL = THEMEURL;
+        return data;
+      };
+
       PaymentPageView.prototype.onShow = function() {
         return this.$el.find('select').selectpicker();
       };
@@ -182,7 +189,9 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
             };
           })(this));
         },
-        'click #btn-stored-pay': function() {}
+        'click #btn-stored-pay': function() {
+          return this.$el.find('.selected');
+        }
       };
 
       return PaymentPageView;

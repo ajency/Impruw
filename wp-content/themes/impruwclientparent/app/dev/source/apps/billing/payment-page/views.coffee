@@ -170,6 +170,11 @@ define [ 'app'
 
             className : 'col-sm-8'
 
+            serializeData :->
+                data = super()
+                data.THEMEURL = THEMEURL
+                data
+
             onShow : ->
                 @$el.find( 'select' ).selectpicker()
 
@@ -189,6 +194,7 @@ define [ 'app'
                         @trigger "new:credit:card:payment", nonce , 'pending'
 
                 'click #btn-stored-pay' :->
+                    @$el.find('.selected')
 
 
 
