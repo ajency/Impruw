@@ -73,7 +73,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            return console.log(response);
+            return _this.view.triggerMethod("free:plan:switch");
           };
         })(this));
       };

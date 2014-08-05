@@ -236,15 +236,7 @@ add_action( 'wp_ajax_get-pending-subscription', 'ajax_get_pending_subscription' 
 
 function ajax_create_customer_with_card() {
 
-    $current_user = wp_get_current_user();
-    $user_name = $current_user->display_name;
-
-    $customer_array = array(
-        'payment_method_nonce' => $_POST[ 'paymentMethodNonce' ],
-        'user_name' => $user_name );
-
-    // create the  user with credit card
-    $customer = create_customer_with_card( $customer_array );
+    $customer = create_customer_with_credit_card( $_POST[ 'paymentMethodNonce' ] );
     if ( $customer[ 'code' ] == 'ERROR' )
         wp_send_json( array( 'code' => 'ERROR', 'msg' => $customer[ 'msg' ] ) );
 

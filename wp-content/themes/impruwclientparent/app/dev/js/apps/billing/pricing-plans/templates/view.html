@@ -7,12 +7,6 @@
 </header>
 <div class="row">
     <div class="aj-imp-dash-content col-md-12">
-        <div class="alert alert-success" id="billingsave_status" style="display:none;">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                &times;
-            </button>
-            {{#polyglot}}Details saved{{/polyglot}}
-        </div>
         <div class="billing-container">
             <h6 class="aj-imp-sub-head">{{#polyglot}}Pricing Plans{{/polyglot}}</h6>
             <hr>
@@ -42,3 +36,6 @@
         </div>
     </div>
 </div>
+<img src="{{THEMEURL}}/images/loader.gif" width="38" height="30"
+     id="pay_loader" style="display:none ">
+<div class="alert alert-success" id="billingsave_status"></div>

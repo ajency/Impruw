@@ -64,6 +64,13 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
 
       PlansView.prototype.itemViewContainer = '.price-plans';
 
+      PlansView.prototype.serializeData = function() {
+        var data;
+        data = PlansView.__super__.serializeData.call(this);
+        data.THEMEURL = THEMEURL;
+        return data;
+      };
+
       PlansView.prototype.itemViewOptions = function() {
         return {
           currency: Marionette.getOption(this, 'currency'),
@@ -99,10 +106,18 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           activePlanID = Marionette.getOption(this, 'activePlanId');
           if (activePlanID !== "Free") {
             if (confirm("Switch to free plan?")) {
+              this.$el.find('#pay_loader').show();
               return this.trigger("switch:to:free:plan");
             }
           }
         }
+      };
+
+      PlansView.prototype.onFreePlanSwitch = function() {
+        var html;
+        this.$el.find('#pay_loader').hide();
+        html = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> Switched to free plan after end of billing cycle";
+        return this.$el.find('#billingsave_status').append(html);
       };
 
       return PlansView;

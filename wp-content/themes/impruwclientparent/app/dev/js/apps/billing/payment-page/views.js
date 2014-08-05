@@ -76,7 +76,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         'click #btn-pay': function(e) {
           var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
           e.preventDefault();
-          this.$el.find('#pay_loader').show();
+          this.$el.find('#loader').show();
           cardNumber = this.$el.find('#card_number').val();
           nameOnCard = this.$el.find('#card_name').val();
           expMonth = this.$el.find('#exp_month').val();
@@ -103,7 +103,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
       FirstTimePaymentView.prototype.onPaymentSuccess = function() {
         var html;
         this.$el.find('#billingsave_status').empty();
-        this.$el.find('#pay_loader').hide();
+        this.$el.find('#loader').hide();
         html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Succesfull';
         return this.$el.find('#billingsave_status').append(html);
       };
@@ -111,7 +111,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
       FirstTimePaymentView.prototype.onPaymentError = function(errorMsg) {
         var html;
         this.$el.find('#billingsave_status').empty();
-        this.$el.find('#pay_loader').hide();
+        this.$el.find('#loader').hide();
         html = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg;
         return this.$el.find('#billingsave_status').append(html);
       };
@@ -167,7 +167,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         'click #btn-pay': function(e) {
           var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
           e.preventDefault();
-          this.$el.find('#pay_loader').show();
+          this.$el.find('#loader').show();
           cardNumber = this.$el.find('#card_number').val();
           nameOnCard = this.$el.find('#card_name').val();
           expMonth = this.$el.find('#exp_month').val();
@@ -189,9 +189,36 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
             };
           })(this));
         },
-        'click #btn-stored-pay': function() {
-          return this.$el.find('.selected');
+        'click #btn-stored-pay': function(e) {
+          var cardToken, html;
+          e.preventDefault();
+          cardToken = this.$el.find('.selected .token').val();
+          if (_.isUndefined(cardToken)) {
+            html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Please select a card';
+            return this.$el.find('#billingsave_status').append(html);
+          } else {
+            this.$el.find('#loader').show();
+            this.$el.find('#billingsave_status').empty();
+            return this.trigger("make:payment:with:stored:card", cardToken);
+          }
         }
+      };
+
+      PaymentPageView.prototype.onPaymentSuccess = function() {
+        var html;
+        this.$el.find('#billingsave_status').empty();
+        this.$el.find('#loader').hide();
+        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Succesfull';
+        this.$el.find('#billingsave_status').append(html);
+        return this.$el.find('#btn-stored-pay').hide();
+      };
+
+      PaymentPageView.prototype.onPaymentError = function(errorMsg) {
+        var html;
+        this.$el.find('#billingsave_status').empty();
+        this.$el.find('#loader').hide();
+        html = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg;
+        return this.$el.find('#billingsave_status').append(html);
       };
 
       return PaymentPageView;

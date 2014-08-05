@@ -61,7 +61,8 @@ define [ 'app', 'controllers/base-controller'
 
 
             events :
-                'click #btn-add' : ->
+                'click #btn-add' :(e) ->
+                    e.preventDefault()
                     @$el.find( '#pay_loader' ).show()
                     cardNumber = @$el.find( '#card_number' ).val()
                     nameOnCard = @$el.find( '#card_name' ).val()
@@ -78,10 +79,8 @@ define [ 'app', 'controllers/base-controller'
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#pay_loader' ).hide()
                 html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                                                                                    &times;
-                                                                                    </button>
-                                                                                    Payment Processed'
-                @$el.find( '#billingsave_status' ).append( html )
+                        &times;</button> Card Added Successfuly '
+                @$el.find( '#billingsave_status' ).append html
                 @$el.find( '#btn-reset' ).click()
 
             onCardError : ( errorMsg )->

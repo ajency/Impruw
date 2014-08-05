@@ -88,8 +88,9 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
       };
 
       NoCardView.prototype.events = {
-        'click #btn-add': function() {
+        'click #btn-add': function(e) {
           var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
+          e.preventDefault();
           this.$el.find('#pay_loader').show();
           cardNumber = this.$el.find('#card_number').val();
           nameOnCard = this.$el.find('#card_name').val();
@@ -118,7 +119,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
-        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Processed';
+        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times;</button> Card Added Successfuly ';
         this.$el.find('#billingsave_status').append(html);
         return this.$el.find('#btn-reset').click();
       };

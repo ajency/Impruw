@@ -65,7 +65,7 @@ define [ 'app'
             events :
                 'click #btn-pay' : ( e ) ->
                     e.preventDefault()
-                    @$el.find( '#pay_loader' ).show()
+                    @$el.find( '#loader' ).show()
                     cardNumber = @$el.find( '#card_number' ).val()
                     nameOnCard = @$el.find( '#card_name' ).val()
                     expMonth = @$el.find( '#exp_month' ).val()
@@ -79,7 +79,7 @@ define [ 'app'
 
             onPaymentSuccess : ->
                 @$el.find( '#billingsave_status' ).empty()
-                @$el.find( '#pay_loader' ).hide()
+                @$el.find( '#loader' ).hide()
                 html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                                                         &times;
                                                         </button>
@@ -88,7 +88,7 @@ define [ 'app'
 
             onPaymentError : ( errorMsg )->
                 @$el.find( '#billingsave_status' ).empty()
-                @$el.find( '#pay_loader' ).hide()
+                @$el.find( '#loader' ).hide()
                 html = "<button type='button' class='close' data-dismiss='alert'
                                                         aria-hidden='true'>&times;</button>
                                                         #{errorMsg}"
@@ -112,7 +112,7 @@ define [ 'app'
 #
 #            events :
 #                'click #btn-pay' : ->
-#                    @$el.find( '#pay_loader' ).show()
+#                    @$el.find( '#loader' ).show()
 #                    cardNumber = @$el.find( '#card_number' ).val()
 #                    nameOnCard = @$el.find( '#card_name' ).val()
 #                    expdate = @$el.find( '#expiration-date' ).val()
@@ -133,7 +133,7 @@ define [ 'app'
 #
 #            onPaymentSuccess : ->
 #                @$el.find( '#billingsave_status' ).empty()
-#                @$el.find( '#pay_loader' ).hide()
+#                @$el.find( '#loader' ).hide()
 #                html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
 #                                                        &times;
 #                                                        </button>
@@ -142,7 +142,7 @@ define [ 'app'
 #
 #            onPaymentError : ( errorMsg )->
 #                @$el.find( '#billingsave_status' ).empty()
-#                @$el.find( '#pay_loader' ).hide()
+#                @$el.find( '#loader' ).hide()
 #                html = "<button type='button' class='close' data-dismiss='alert'
 #                                                        aria-hidden='true'>&times;</button>
 #                                                        #{errorMsg}"
@@ -181,7 +181,7 @@ define [ 'app'
             events :
                 'click #btn-pay':(e)->
                     e.preventDefault()
-                    @$el.find( '#pay_loader' ).show()
+                    @$el.find( '#loader' ).show()
                     cardNumber = @$el.find( '#card_number' ).val()
                     nameOnCard = @$el.find( '#card_name' ).val()
                     expMonth = @$el.find( '#exp_month' ).val()
@@ -193,9 +193,39 @@ define [ 'app'
                     client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
                         @trigger "new:credit:card:payment", nonce , 'pending'
 
-                'click #btn-stored-pay' :->
-                    @$el.find('.selected')
+                'click #btn-stored-pay' :(e)->
+                    e.preventDefault()
+                    cardToken = @$el.find('.selected .token').val()
 
+                    if _.isUndefined cardToken
+                        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                &times;
+                                </button>
+                                Please select a card'
+                        @$el.find( '#billingsave_status' ).append html
+                    else
+                        @$el.find( '#loader' ).show()
+                        @$el.find( '#billingsave_status' ).empty()
+                        @trigger "make:payment:with:stored:card", cardToken
+
+            onPaymentSuccess : ->
+                @$el.find( '#billingsave_status' ).empty()
+                @$el.find( '#loader' ).hide()
+                html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                                                        &times;
+                                                                        </button>
+                                                                        Payment Succesfull'
+                @$el.find( '#billingsave_status' ).append( html )
+                @$el.find( '#btn-stored-pay' ).hide()
+
+
+            onPaymentError : ( errorMsg )->
+                @$el.find( '#billingsave_status' ).empty()
+                @$el.find( '#loader' ).hide()
+                html = "<button type='button' class='close' data-dismiss='alert'
+                                                                        aria-hidden='true'>&times;</button>
+                                                                        #{errorMsg}"
+                @$el.find( '#billingsave_status' ).append( html )
 
 
 

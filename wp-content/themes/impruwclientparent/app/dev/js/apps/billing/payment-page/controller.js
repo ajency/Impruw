@@ -43,9 +43,10 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
                 _this.paymentView = _this.getFirstTimePaymentPageView(creditCardFirstModel);
               }
               _this.layout.paymentRegion.show(_this.paymentView);
-              return _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce, status) {
+              _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce, status) {
                 return _this.newCardPayment(paymentMethodNonce, status);
               });
+              return _this.listenTo(_this.paymentView, "make:payment:with:stored:card", _this.payWithStoredCard);
             });
           };
         })(this));
@@ -79,16 +80,16 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
         })(this));
       };
 
-      Controller.prototype.payWithStoredCard = function(data) {
+      Controller.prototype.payWithStoredCard = function(cardToken) {
         var options;
         options = {
           method: 'POST',
           url: AJAXURL,
           data: {
-            'cardToken': data.token,
+            'cardToken': cardToken,
             'selectedPlanId': this.selectedPlanId,
             'currentSubscriptionId': this.subscriptionId,
-            'action': data.action
+            'action': "payment-with-stored-card"
           }
         };
         return $.ajax(options).done((function(_this) {

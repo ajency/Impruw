@@ -47,6 +47,8 @@ define [ 'app', 'controllers/base-controller'
                         @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce, status )=>
                             @newCardPayment paymentMethodNonce, status
 
+                        @listenTo @paymentView, "make:payment:with:stored:card", @payWithStoredCard
+
                 #                        #check if card details exists
                 #                        cardExists = @creditCardModel.get 'card_exists'
                 #
@@ -89,15 +91,15 @@ define [ 'app', 'controllers/base-controller'
                     else
                         @paymentView.triggerMethod "payment:error", response.msg
 
-            payWithStoredCard : ( data )=>
+            payWithStoredCard : ( cardToken )=>
                 options =
                     method : 'POST'
                     url : AJAXURL
                     data :
-                        'cardToken' : data.token
+                        'cardToken' : cardToken
                         'selectedPlanId' : @selectedPlanId
                         'currentSubscriptionId' : @subscriptionId
-                        'action' : data.action
+                        'action' : "payment-with-stored-card"
 
                 $.ajax( options ).done ( response )=>
                     if response.code == "OK"

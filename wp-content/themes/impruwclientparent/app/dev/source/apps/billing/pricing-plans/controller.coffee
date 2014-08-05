@@ -71,8 +71,7 @@ define [ 'app', 'controllers/base-controller'
                         'action' : 'change-to-free-plan'
 
                 $.ajax( options ).done ( response )=>
-                    console.log response
-#                    window.location.reload()
+                    @view.triggerMethod "free:plan:switch"
 
 
         App.commands.setHandler "show:plans:app", ( opts ) ->

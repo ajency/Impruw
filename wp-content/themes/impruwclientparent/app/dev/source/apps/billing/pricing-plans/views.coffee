@@ -71,6 +71,11 @@ define [ 'app'
 
             itemViewContainer : '.price-plans'
 
+            serializeData :->
+                data = super()
+                data.THEMEURL = THEMEURL
+                data
+
             itemViewOptions : ->
                 currency : Marionette.getOption @, 'currency'
                 activePlanID : Marionette.getOption @, 'activePlanId'
@@ -101,7 +106,17 @@ define [ 'app'
                     activePlanID = Marionette.getOption @, 'activePlanId'
                     if activePlanID != "Free"
                         if confirm "Switch to free plan?"
+                            @$el.find('#pay_loader').show()
                             @trigger "switch:to:free:plan"
+
+            onFreePlanSwitch :->
+                @$el.find('#pay_loader').hide()
+                html = "<button type='button' class='close' data-dismiss='alert'
+                        aria-hidden='true'>&times;</button>
+                        Switched to free plan after end of billing cycle"
+                @$el.find('#billingsave_status').append html
+
+
 
 
 
