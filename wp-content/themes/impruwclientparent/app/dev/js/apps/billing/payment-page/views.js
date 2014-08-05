@@ -128,16 +128,9 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
 
       SingleCreditCard.prototype.template = cardListTpl;
 
-      SingleCreditCard.prototype.serializeData = function() {
-        var data;
-        data = SingleCreditCard.__super__.serializeData.call(this);
-        data.THEMEURL = THEMEURL;
-        return data;
-      };
-
       SingleCreditCard.prototype.events = {
         'click': function() {
-          return this.$el.addClass('active');
+          return this.$el.addClass('selected').siblings().removeClass("selected");
         }
       };
 
@@ -188,7 +181,8 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
               return _this.trigger("new:credit:card:payment", nonce, 'pending');
             };
           })(this));
-        }
+        },
+        'click #btn-stored-pay': function() {}
       };
 
       return PaymentPageView;

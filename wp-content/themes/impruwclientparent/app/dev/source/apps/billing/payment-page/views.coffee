@@ -153,14 +153,9 @@ define [ 'app'
 
             template : cardListTpl
 
-            serializeData : ->
-                data = super()
-                data.THEMEURL = THEMEURL
-                data
-
             events :
                 'click' :->
-                    @$el.addClass 'active'
+                    @$el.addClass('selected').siblings().removeClass "selected"
 
 
 
@@ -192,6 +187,9 @@ define [ 'app'
                     client = new braintree.api.Client clientToken : clientToken
                     client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
                         @trigger "new:credit:card:payment", nonce , 'pending'
+
+                'click #btn-stored-pay' :->
+
 
 
 
