@@ -58,11 +58,11 @@ function get_customer_credit_card_details( $customer_id ) {
     $customer = Braintree_Customer::find( $customer_id );
 
     if ( empty( $customer->creditCards ) )
-        return array( 'card_exists' => false, 'customer_id'=>$customer_id );
+        return array( 'card_exists' => false,
+            'customer_id' => $customer_id,
+            'braintree_client_token' => generate_client_token() );
 
     $customer_credit_card_data = customer_credit_card_details( $customer->creditCards );
-
-    $customer_credit_card_data[ 'customer_id' ] = $customer_id;
 
     return $customer_credit_card_data;
 
@@ -79,15 +79,19 @@ function get_customer_credit_card_details( $customer_id ) {
  */
 function customer_credit_card_details( $credit_cards ) {
 
-    $credit_card_details[ 'customer_name' ] = $credit_cards[ 0 ]->cardholderName;
-    $credit_card_details[ 'card_number' ] = $credit_cards[ 0 ]->maskedNumber;
-    $credit_card_details[ 'expiration_date' ] = $credit_cards[ 0 ]->expirationDate;
-    $credit_card_details[ 'token' ] = $credit_cards[ 0 ]->token;
-    $credit_card_details[ 'card_type' ] = $credit_cards[ 0 ]->cardType;
-    $credit_card_details[ 'card_exists' ] = true;
+    foreach ( $credit_cards as $key => $credit_card ) {
 
+        $credit_card_details[ $key ][ 'customer_name' ] = $credit_card->cardholderName;
+        $credit_card_details[ $key ][ 'customer_id' ] = $credit_card->customerId;
+        $credit_card_details[ $key ][ 'card_number' ] = $credit_card->maskedNumber;
+        $credit_card_details[ $key ][ 'expiration_date' ] = $credit_card->expirationDate;
+        $credit_card_details[ $key ][ 'token' ] = $credit_card->token;
+        $credit_card_details[ $key ][ 'card_type' ] = $credit_card->cardType;
+        $credit_card_details[ $key ][ 'card_exists' ] = true;
+        $credit_card_details[ $key ][ 'braintree_client_token' ] = generate_client_token();
+
+    }
     return $credit_card_details;
-
 
 }
 
@@ -159,7 +163,7 @@ function  add_new_credit_card_to_customer( $customer_id, $payment_method_nonce )
 
     $create_card = Braintree_Customer::update( $customer_id, array(
         'creditCard' => array(
-            'paymentMethodNonce' =>$payment_method_nonce,
+            'paymentMethodNonce' => $payment_method_nonce,
             'options' => array(
                 'verifyCard' => true
             )
@@ -175,4 +179,29 @@ function  add_new_credit_card_to_customer( $customer_id, $payment_method_nonce )
         $error_msg = array( 'code' => 'ERROR', 'msg' => $create_card->message );
         return $error_msg;
     }
+}
+
+
+function get_credit_card_details_by_token( $card_token ) {
+
+    try {
+        $credit_card = Braintree_PaymentMethod::find( $card_token );
+
+        $credit_card_details[ 'customer_name' ] = $credit_card->cardholderName;
+        $credit_card_details[ 'customer_id' ] = $credit_card->customerId;
+        $credit_card_details[ 'card_number' ] = $credit_card->maskedNumber;
+        $credit_card_details[ 'expiration_date' ] = $credit_card->expirationDate;
+        $credit_card_details[ 'token' ] = $credit_card->token;
+        $credit_card_details[ 'card_type' ] = $credit_card->cardType;
+        $credit_card_details[ 'card_exists' ] = true;
+        $credit_card_details[ 'braintree_client_token' ] = generate_client_token();
+
+        return array('code'=>'OK','credit_card_details'=>$credit_card_details);
+
+    } catch ( Braintree_Exception_NotFound $e ) {
+
+        return array( 'code' => 'ERROR', 'msg' => 'Card not found' );
+
+    }
+
 }

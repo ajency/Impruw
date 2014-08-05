@@ -1,8 +1,9 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/billing/payment-page/templates/newpaymentView.html', 'text!apps/billing/payment-page/templates/paymentView.html'], function(App, viewTpl, newpaymentViewTpl, paymentViewTpl) {
+define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/billing/payment-page/templates/newpaymentView.html', 'text!apps/billing/payment-page/templates/paymentView.html', 'text!apps/billing/payment-page/templates/cardList.html'], function(App, viewTpl, newpaymentViewTpl, paymentViewTpl, cardListTpl) {
   return App.module('BillingApp.Payment.View', function(View, App, Backbone, Marionette, $, _) {
+    var SingleCreditCard;
     View.Layout = (function(_super) {
       __extends(Layout, _super);
 
@@ -49,34 +50,33 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
       return ActiveSubscriptionView;
 
     })(Marionette.ItemView);
-    View.NewCardPaymentView = (function(_super) {
-      __extends(NewCardPaymentView, _super);
+    View.FirstTimePaymentView = (function(_super) {
+      __extends(FirstTimePaymentView, _super);
 
-      function NewCardPaymentView() {
-        return NewCardPaymentView.__super__.constructor.apply(this, arguments);
+      function FirstTimePaymentView() {
+        return FirstTimePaymentView.__super__.constructor.apply(this, arguments);
       }
 
-      NewCardPaymentView.prototype.template = newpaymentViewTpl;
+      FirstTimePaymentView.prototype.template = newpaymentViewTpl;
 
-      NewCardPaymentView.prototype.className = 'col-sm-8';
+      FirstTimePaymentView.prototype.className = 'col-sm-8';
 
-      NewCardPaymentView.prototype.serializeData = function() {
+      FirstTimePaymentView.prototype.serializeData = function() {
         var data;
-        data = NewCardPaymentView.__super__.serializeData.call(this);
+        data = FirstTimePaymentView.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
         return data;
       };
 
-      NewCardPaymentView.prototype.onShow = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
+      FirstTimePaymentView.prototype.onShow = function() {
         return this.$el.find('select').selectpicker();
       };
 
-      NewCardPaymentView.prototype.events = {
+      FirstTimePaymentView.prototype.events = {
         'click #btn-pay': function(e) {
           var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
           e.preventDefault();
-          this.$el.find('#pay_loader').show();
+          this.$el.find('#loader').show();
           cardNumber = this.$el.find('#card_number').val();
           nameOnCard = this.$el.find('#card_name').val();
           expMonth = this.$el.find('#exp_month').val();
@@ -94,105 +94,136 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
             expiration_year: expYear
           }, (function(_this) {
             return function(err, nonce) {
-              return _this.trigger("new:credit:card:payment", nonce);
+              return _this.trigger("new:credit:card:payment", nonce, 'active');
             };
           })(this));
         }
       };
 
-      NewCardPaymentView.prototype.onPaymentSuccess = function() {
+      FirstTimePaymentView.prototype.onPaymentSuccess = function() {
         var html;
         this.$el.find('#billingsave_status').empty();
-        this.$el.find('#pay_loader').hide();
+        this.$el.find('#loader').hide();
         html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Succesfull';
         return this.$el.find('#billingsave_status').append(html);
       };
 
-      NewCardPaymentView.prototype.onPaymentError = function(errorMsg) {
+      FirstTimePaymentView.prototype.onPaymentError = function(errorMsg) {
         var html;
         this.$el.find('#billingsave_status').empty();
-        this.$el.find('#pay_loader').hide();
+        this.$el.find('#loader').hide();
         html = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg;
         return this.$el.find('#billingsave_status').append(html);
       };
 
-      return NewCardPaymentView;
+      return FirstTimePaymentView;
 
     })(Marionette.ItemView);
-    return View.PaymentView = (function(_super) {
-      __extends(PaymentView, _super);
+    SingleCreditCard = (function(_super) {
+      __extends(SingleCreditCard, _super);
 
-      function PaymentView() {
-        return PaymentView.__super__.constructor.apply(this, arguments);
+      function SingleCreditCard() {
+        return SingleCreditCard.__super__.constructor.apply(this, arguments);
       }
 
-      PaymentView.prototype.template = paymentViewTpl;
+      SingleCreditCard.prototype.template = cardListTpl;
 
-      PaymentView.prototype.className = 'col-sm-8';
+      SingleCreditCard.prototype.events = {
+        'click': function() {
+          return this.$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass("selected");
+        }
+      };
 
-      PaymentView.prototype.serializeData = function() {
+      return SingleCreditCard;
+
+    })(Marionette.ItemView);
+    return View.PaymentPageView = (function(_super) {
+      __extends(PaymentPageView, _super);
+
+      function PaymentPageView() {
+        return PaymentPageView.__super__.constructor.apply(this, arguments);
+      }
+
+      PaymentPageView.prototype.template = paymentViewTpl;
+
+      PaymentPageView.prototype.itemView = SingleCreditCard;
+
+      PaymentPageView.prototype.itemViewContainer = '.card-list';
+
+      PaymentPageView.prototype.className = 'col-sm-8';
+
+      PaymentPageView.prototype.serializeData = function() {
         var data;
-        data = PaymentView.__super__.serializeData.call(this);
+        data = PaymentPageView.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
         return data;
       };
 
-      PaymentView.prototype.onShow = function() {
+      PaymentPageView.prototype.onShow = function() {
         return this.$el.find('select').selectpicker();
       };
 
-      PaymentView.prototype.events = {
-        'click #btn-pay': function() {
-          var cardNumber, client, clientToken, cvv, expdate, nameOnCard;
-          this.$el.find('#pay_loader').show();
+      PaymentPageView.prototype.events = {
+        'click #btn-pay': function(e) {
+          var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
+          e.preventDefault();
+          this.$el.find('#loader').show();
           cardNumber = this.$el.find('#card_number').val();
           nameOnCard = this.$el.find('#card_name').val();
-          expdate = this.$el.find('#expiration-date').val();
+          expMonth = this.$el.find('#exp_month').val();
+          expYear = this.$el.find('#exp_year').val();
           cvv = this.$el.find('#card-cvv').val();
-          clientToken = this.model.get('braintree_client_token');
+          clientToken = this.collection.models[0].get('braintree_client_token');
           client = new braintree.api.Client({
             clientToken: clientToken
           });
           return client.tokenizeCard({
             number: cardNumber,
-            cardholderName: nameOnCard,
             cvv: cvv,
-            expiration_date: expdate
+            cardholderName: nameOnCard,
+            expiration_month: expMonth,
+            expiration_year: expYear
           }, (function(_this) {
             return function(err, nonce) {
-              var data;
-              data = {
-                action: "payment-with-stored-card",
-                nonce: nonce,
-                token: _this.model.get('token')
-              };
-              return _this.trigger("make:payment:with:stored:card", data);
+              return _this.trigger("new:credit:card:payment", nonce, 'pending');
             };
           })(this));
         },
-        'click #btn-change-card': function() {
-          return this.trigger("change:card");
+        'click #btn-stored-pay': function(e) {
+          var cardToken, html;
+          e.preventDefault();
+          cardToken = this.$el.find('.selected .token').val();
+          if (_.isUndefined(cardToken)) {
+            html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Please select a card';
+            return this.$el.find('#billingsave_status').append(html);
+          } else {
+            this.$el.find('#loader').show();
+            this.$el.find('#billingsave_status').empty();
+            return this.trigger("make:payment:with:stored:card", cardToken);
+          }
         }
       };
 
-      PaymentView.prototype.onPaymentSuccess = function() {
+      PaymentPageView.prototype.onPaymentSuccess = function() {
         var html;
         this.$el.find('#billingsave_status').empty();
-        this.$el.find('#pay_loader').hide();
-        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Processed';
-        return this.$el.find('#billingsave_status').append(html);
+        this.$el.find('#loader').hide();
+        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Succesfull';
+        this.$el.find('#billingsave_status').append(html);
+        this.$el.find('#btn-stored-pay').hide();
+        return this.$el.find('#btn-pay').hide();
       };
 
-      PaymentView.prototype.onPaymentError = function(errorMsg) {
+      PaymentPageView.prototype.onPaymentError = function(errorMsg) {
         var html;
         this.$el.find('#billingsave_status').empty();
-        this.$el.find('#pay_loader').hide();
+        this.$el.find('#loader').hide();
         html = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg;
         return this.$el.find('#billingsave_status').append(html);
       };
 
-      return PaymentView;
+      return PaymentPageView;
 
-    })(Marionette.ItemView);
+    })(Marionette.CompositeView);
   });
 });

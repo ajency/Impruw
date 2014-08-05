@@ -52,12 +52,11 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
         class PendingSubscription.View extends Marionette.ItemView
             template : '
                                                 <div>
-                                                Your subscription to <b>{{plan_name}}</b> will begin at the end
-                                                of current billing cycle. You will be billed for your
-                                                selected plan on <b> {{start_date}} </b>(except free plan).
-                                                If you have decided to opt for the free plan,
-                                                your current plan will not be renewed and you will lose
-                                                your domain name</div>'
+                                                Your subscription to <b>{{plan_name}}</b> plan will begin at the end of
+                                                current billing cycle. You will be billed for your selected plan on
+                                                <b> {{start_date}} </b> unless its Free Plan.
+                                                If you have decided to opt for the Free plan, your current
+                                                plan will not be renewed and you will lose your domain name.</div>'
 
         class PendingSubscription.LinkView extends Marionette.ItemView
 
