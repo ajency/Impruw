@@ -201,6 +201,11 @@ function get_elementbox_elements() {
             'styles' => get_styles( 'ImageWithText' )
         ),
         array(
+            'element' => 'Table',
+            'title' => 'Table',
+            'icon' => 'bicon icon-uniF101'
+        ),
+        array(
             'element' => 'Address',
             'icon' => 'bicon icon-uniF183',
             'styles' => get_styles( 'Address' ),
@@ -284,6 +289,7 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF101',
             'category' => 'room'
         )
+        
     );
 
     if ( !current_user_can( 'edit_impruw_theme' ) ) {
