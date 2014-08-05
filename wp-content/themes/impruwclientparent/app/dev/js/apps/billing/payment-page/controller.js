@@ -16,12 +16,12 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
       Controller.prototype.initialize = function(opts) {
         this.siteModel = App.request("get:site:model");
         this.selectedPlanId = opts.planId;
-        this.selectedPlanModel = App.request("get:plan:by:id", this.selectedPlanId);
+        this.selectedPlanModel = App.request("get:braintreeplan:by:id", this.selectedPlanId);
         this.layout = this.getLayout(this.siteModel);
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
-            var brainTreeCustomerId, subscriptionModel;
+            var brainTreeCustomerId, creditCardCollection, subscriptionModel;
             App.execute("when:fetched", _this.selectedPlanModel, function() {
               return _this.layout.selectedPlanRegion.show(_this.selectedPlan(_this.selectedPlanModel));
             });
@@ -31,27 +31,22 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
               return _this.layout.activeSubscriptionRegion.show(_this.activeSubscription(subscriptionModel));
             });
             brainTreeCustomerId = _this.siteModel.get('braintree_customer_id');
-            _this.creditCardModel = App.request("get:card:info", brainTreeCustomerId);
-            return App.execute("when:fetched", _this.creditCardModel, function() {
-              var cardExists;
-              cardExists = _this.creditCardModel.get('card_exists');
+            creditCardCollection = App.request("get:credit:cards", brainTreeCustomerId);
+            return App.execute("when:fetched", creditCardCollection, function() {
+              var cardExists, creditCardFirstModel;
+              creditCardFirstModel = creditCardCollection.at(0);
+              cardExists = creditCardFirstModel.get('card_exists');
+              _this.customerId = creditCardFirstModel.get('customer_id');
               if (cardExists === true) {
-                _this.paymentView = _this.getPaymentView(_this.creditCardModel);
+                _this.paymentView = _this.getPaymentPageView(creditCardCollection);
               } else {
-                _this.paymentView = _this.getNewCardPaymentView(_this.creditCardModel);
+                _this.paymentView = _this.getFirstTimePaymentPageView(creditCardFirstModel);
               }
               _this.layout.paymentRegion.show(_this.paymentView);
-              _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce) {
-                return _this.newCardPayment(paymentMethodNonce, 'active');
+              _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce, status) {
+                return _this.newCardPayment(paymentMethodNonce, status);
               });
-              _this.listenTo(_this.paymentView, "make:payment:with:stored:card", _this.payWithStoredCard);
-              return _this.listenTo(_this.paymentView, "change:card", function() {
-                _this.paymentView = _this.getNewCardPaymentView(_this.creditCardModel);
-                _this.layout.paymentRegion.show(_this.paymentView);
-                return _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce) {
-                  return _this.newCardPayment(paymentMethodNonce, 'pending');
-                });
-              });
+              return _this.listenTo(_this.paymentView, "make:payment:with:stored:card", _this.payWithStoredCard);
             });
           };
         })(this));
@@ -61,15 +56,14 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
       };
 
       Controller.prototype.newCardPayment = function(paymentMethodNonce, status) {
-        var customerId, options;
-        customerId = this.creditCardModel.get('customer_id');
+        var options;
         options = {
           method: 'POST',
           url: AJAXURL,
           data: {
             'paymentMethodNonce': paymentMethodNonce,
             'selectedPlanId': this.selectedPlanId,
-            'customerId': customerId,
+            'customerId': this.customerId,
             'currentSubscriptionId': this.subscriptionId,
             'status': status,
             'action': 'new-card-payment'
@@ -86,16 +80,16 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
         })(this));
       };
 
-      Controller.prototype.payWithStoredCard = function(data) {
+      Controller.prototype.payWithStoredCard = function(cardToken) {
         var options;
         options = {
           method: 'POST',
           url: AJAXURL,
           data: {
-            'cardToken': data.token,
+            'cardToken': cardToken,
             'selectedPlanId': this.selectedPlanId,
             'currentSubscriptionId': this.subscriptionId,
-            'action': data.action
+            'action': "payment-with-stored-card"
           }
         };
         return $.ajax(options).done((function(_this) {
@@ -127,14 +121,14 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
         });
       };
 
-      Controller.prototype.getPaymentView = function(creditCardModel) {
-        return new Payment.View.PaymentView({
-          model: creditCardModel
+      Controller.prototype.getPaymentPageView = function(creditCardCollection) {
+        return new Payment.View.PaymentPageView({
+          collection: creditCardCollection
         });
       };
 
-      Controller.prototype.getNewCardPaymentView = function(creditCardModel) {
-        return new Payment.View.NewCardPaymentView({
+      Controller.prototype.getFirstTimePaymentPageView = function(creditCardModel) {
+        return new Payment.View.FirstTimePaymentView({
           model: creditCardModel
         });
       };

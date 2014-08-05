@@ -24,9 +24,11 @@ define [ 'app', 'controllers/base-controller'
                         subscriptionId = @siteModel.get 'braintree_subscription'
                         braintreeCustomerId = @siteModel.get 'braintree_customer_id'
 
+                        subscriptionModel = App.request "get:subscription:by:id", subscriptionId
+
                         App.execute "show:account:info",
                             region : @layout.accountInfoRegion
-                            subscriptionId : subscriptionId
+                            subscriptionModel : subscriptionModel
 
                         App.execute "show:pending:subscription",
                             region : @layout.pendingSubscriptionRegion
@@ -34,7 +36,7 @@ define [ 'app', 'controllers/base-controller'
 
                         App.execute "show:billing:info",
                             region : @layout.billingInfoRegion
-                            braintreeCustomerId : braintreeCustomerId
+                            subscriptionModel : subscriptionModel
 
                         App.execute "show:purchase:history",
                             region : @layout.purchaseHistoryRegion

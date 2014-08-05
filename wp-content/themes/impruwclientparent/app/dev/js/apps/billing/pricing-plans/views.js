@@ -23,10 +23,11 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
       };
 
       SinglePlanView.prototype.onShow = function() {
-        var activateLink, activePlanID, newactivateLink, pendingPlanID, siteModelPlanId;
+        var activateLink, activePlanID, billEnd, billStart, html, newactivateLink, pendingPlanID, siteModelPlanId, siteName, startDate;
         siteModelPlanId = this.model.get('plan_id');
         activePlanID = Marionette.getOption(this, 'activePlanID');
         pendingPlanID = Marionette.getOption(this, 'pendingPlanID');
+        siteName = Marionette.getOption(this, 'siteName');
         activateLink = this.$el.find('.activate-link').attr('href');
         newactivateLink = "" + activateLink + "/" + siteModelPlanId;
         this.$el.find('.activate-link').attr('href', newactivateLink);
@@ -34,9 +35,16 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           this.$el.find('.panel-default').addClass('active');
           this.$el.find('.activate-link').text('Active Plan');
           this.$el.find('.activate-link').attr('href', 'javascript:void(0)');
+          billStart = Marionette.getOption(this, 'billStart');
+          billEnd = Marionette.getOption(this, 'billEnd');
+          html = "<span>Domain name: " + siteName + ".com</span><br> <span>Billing cycle:From " + billStart + " to " + billEnd + " </span>";
+          this.$el.find('.panel-body').append(html);
         }
         if (siteModelPlanId === pendingPlanID) {
-          return this.$el.find('.panel-heading').append('<span>selected</span>');
+          this.$el.find('.panel-heading').append('<span>Pending Activation</span>');
+          startDate = Marionette.getOption(this, 'startDate');
+          html = "<span>Domain name: " + siteName + ".com</span><br> <span>Will activate on: " + startDate + " </span>";
+          return this.$el.find('.panel-body').append(html);
         }
       };
 
@@ -56,32 +64,60 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
 
       PlansView.prototype.itemViewContainer = '.price-plans';
 
+      PlansView.prototype.serializeData = function() {
+        var data;
+        data = PlansView.__super__.serializeData.call(this);
+        data.THEMEURL = THEMEURL;
+        return data;
+      };
+
       PlansView.prototype.itemViewOptions = function() {
         return {
           currency: Marionette.getOption(this, 'currency'),
           activePlanID: Marionette.getOption(this, 'activePlanId'),
-          pendingPlanID: Marionette.getOption(this, 'pendingPlanId')
+          pendingPlanID: Marionette.getOption(this, 'pendingPlanId'),
+          siteName: Marionette.getOption(this, 'siteName'),
+          billStart: Marionette.getOption(this, 'billStart'),
+          billEnd: Marionette.getOption(this, 'billEnd'),
+          startDate: Marionette.getOption(this, 'startDate')
         };
       };
 
       PlansView.prototype.onShow = function() {
-        var activePlanID, pendingPlanID;
+        var activePlanID, html, pendingPlanID, siteName, startDate;
         activePlanID = Marionette.getOption(this, 'activePlanId');
         pendingPlanID = Marionette.getOption(this, 'pendingPlanId');
         if (activePlanID === 'Free') {
           this.$el.find('#free-plan').addClass('active');
+          this.$el.find('#free-plan .free-plan-link').text('Active Plan');
         }
         if (pendingPlanID === 'Free') {
-          return this.$el.find('#free-plan .panel-heading').append('<span>Selected</span>');
+          this.$el.find('#free-plan .panel-heading').append('<span>Pending Activation</span>');
+          startDate = Marionette.getOption(this, 'startDate');
+          siteName = Marionette.getOption(this, 'siteName');
+          html = "<span>Domain name: " + siteName + ".com</span><br> <span>Will activate on: " + startDate + " </span>";
+          return this.$el.find('#free-plan .panel-body').append(html);
         }
       };
 
       PlansView.prototype.events = {
         'click .free-plan-link': function() {
-          if (confirm("Switch to free plan?")) {
-            return this.trigger("switch:to:free:plan");
+          var activePlanID;
+          activePlanID = Marionette.getOption(this, 'activePlanId');
+          if (activePlanID !== "Free") {
+            if (confirm("Switch to free plan?")) {
+              this.$el.find('#pay_loader').show();
+              return this.trigger("switch:to:free:plan");
+            }
           }
         }
+      };
+
+      PlansView.prototype.onFreePlanSwitch = function() {
+        var html;
+        this.$el.find('#pay_loader').hide();
+        html = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> Switched to free plan after end of billing cycle";
+        return this.$el.find('#billingsave_status').append(html);
       };
 
       return PlansView;

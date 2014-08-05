@@ -7,12 +7,13 @@ define ['app'
 
             template: viewTpl
 
+
         class View.EmptyBillingInfoView extends Marionette.ItemView
 
             template: '<div class="row">
                             <div class="col-sm-12">
-                                <div class="alert alert-info">
-                                    No Billing Info Available
+                                <div class="empty-info">
+                                    No active credit card info available.
                                 </div>
                             </div>
                         </div>'

@@ -6,26 +6,21 @@ define [ 'app', 'controllers/base-controller'
             # initiliaze controller
             initialize : ( opts )->
 
-                brainTreeCustomerId = opts.braintreeCustomerId
+                subscriptionModel = opts.subscriptionModel
 
-                creditCardModel =  App.request "get:card:info",brainTreeCustomerId
+                App.execute "when:fetched",subscriptionModel,=>
 
-                App.execute "when:fetched",creditCardModel,=>
+                    creditCardToken =  subscriptionModel.get 'payment_method_token'
 
-                    cardExists = creditCardModel.get 'card_exists'
-
-                    if cardExists is true
-                        @view = @getView creditCardModel
-                    else
+                    if _.isEmpty creditCardToken
                         @view = @getEmptyCardView()
-
-                    # trigger set:active:menu event
-                    App.vent.trigger "set:active:menu", 'billing'
-
-                    # show main layout
-                    @show @view
+                    else
+                        creditCardModel = App.request "get:card:info", creditCardToken
+                        @view = @getView creditCardModel
 
 
+                    @show @view,
+                        loading :true
 
             getEmptyCardView :->
                 new BillingInfo.View.EmptyBillingInfoView
