@@ -50,30 +50,30 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
       return ActiveSubscriptionView;
 
     })(Marionette.ItemView);
-    View.NewPaymentView = (function(_super) {
-      __extends(NewPaymentView, _super);
+    View.FirstTimePaymentView = (function(_super) {
+      __extends(FirstTimePaymentView, _super);
 
-      function NewPaymentView() {
-        return NewPaymentView.__super__.constructor.apply(this, arguments);
+      function FirstTimePaymentView() {
+        return FirstTimePaymentView.__super__.constructor.apply(this, arguments);
       }
 
-      NewPaymentView.prototype.template = newpaymentViewTpl;
+      FirstTimePaymentView.prototype.template = newpaymentViewTpl;
 
-      NewPaymentView.prototype.className = 'col-sm-8';
+      FirstTimePaymentView.prototype.className = 'col-sm-8';
 
-      NewPaymentView.prototype.serializeData = function() {
+      FirstTimePaymentView.prototype.serializeData = function() {
         var data;
-        data = NewPaymentView.__super__.serializeData.call(this);
+        data = FirstTimePaymentView.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
         return data;
       };
 
-      NewPaymentView.prototype.onShow = function() {
+      FirstTimePaymentView.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
         return this.$el.find('select').selectpicker();
       };
 
-      NewPaymentView.prototype.events = {
+      FirstTimePaymentView.prototype.events = {
         'click #btn-pay': function(e) {
           var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
           e.preventDefault();
@@ -101,7 +101,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         }
       };
 
-      NewPaymentView.prototype.onPaymentSuccess = function() {
+      FirstTimePaymentView.prototype.onPaymentSuccess = function() {
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
@@ -109,7 +109,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         return this.$el.find('#billingsave_status').append(html);
       };
 
-      NewPaymentView.prototype.onPaymentError = function(errorMsg) {
+      FirstTimePaymentView.prototype.onPaymentError = function(errorMsg) {
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
@@ -117,7 +117,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         return this.$el.find('#billingsave_status').append(html);
       };
 
-      return NewPaymentView;
+      return FirstTimePaymentView;
 
     })(Marionette.ItemView);
     SingleCreditCard = (function(_super) {
