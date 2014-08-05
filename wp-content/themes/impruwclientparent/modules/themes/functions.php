@@ -13,7 +13,7 @@ function get_impruw_themes( $args = array() ) {
     // all themes are located on main site. so switch to blog
     switch_to_blog( 1 );
 
-    $args = wp_parse_args( $args, array( 'post_type' => 'theme' ) );
+    $args = wp_parse_args( $args, array( 'post_type' => 'theme', 'posts_per_page' => -1, 'status' => 'published' ) );
 
     $themes = get_posts( $args );
 
