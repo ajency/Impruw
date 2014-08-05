@@ -119,7 +119,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
-        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times;</button> Card Added Successfuly ';
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Card Added Successfuly </div>';
         this.$el.find('#billingsave_status').append(html);
         return this.$el.find('#btn-reset').click();
       };
@@ -128,7 +128,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
-        html = "<div class='alert'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
+        html = "<div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
         return this.$el.find('#billingsave_status').append(html);
       };
 

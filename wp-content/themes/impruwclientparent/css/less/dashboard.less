@@ -3923,6 +3923,16 @@ form {
 				h3 {
 					color: @dash-grey;
 				}
+				span {
+					display: block;
+					margin-bottom: 0.2em;
+					&.active {
+						color: @success-green;
+					}
+					&.pending {
+						color: lighten(@red, 10%);
+					}
+				}
 			}
 			&.active {
 				border-color: @success-green;
