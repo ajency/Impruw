@@ -56,6 +56,18 @@ define [ 'app'
                @$el.find( '#selectable-images' ).selectable
                   cancel : '.delete-media-img'
 
+            if @collection.length < @collection.totalMedia
+               @$el.find('#selectable-images').after('<button type="button" class="btn btn-primary load-more">Load More</button>')
+
+               @$el.find('#selectable-images').parent().find('.load-more').click @loadMoreClicked
+
+         loadMoreClicked : (evt)=>
+            @collection.fetch
+                        success : =>
+                           @$el.find('#selectable-images').parent().find('.load-more').remove()
+                           if @collection.length < @collection.totalMedia
+                              @$el.find('#selectable-images').after('<button type="button" class="btn btn-primary load-more">Load More</button>')
+                              @$el.find('#selectable-images').parent().find('.load-more').click @loadMoreClicked
 
          onShow : ->
             @on 'after:item:added', ( imageView )=>

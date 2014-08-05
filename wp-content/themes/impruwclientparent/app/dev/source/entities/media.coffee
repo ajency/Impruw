@@ -31,13 +31,41 @@ define ["app", 'backbone'], ( App, Backbone ) ->
       #Media collection
       class Media.MediaCollection extends Backbone.Collection
 
-         filters :
-            order : 'DESC'
-            orderby : 'date'
-            paged : 1
-            posts_per_page : 40
+         initialize : (options = {})->
+            
+            @perPage = 6
+
+            @totalMedia = 0
+
+            @filters = 
+               order : 'DESC'
+               orderby : 'date'
+               paged : 1
+               posts_per_page : @perPage
 
          model : Media.MediaModel
+
+         fetch : (options = {})->
+            
+            if @models.length is 0
+               paged = 1
+            else
+               paged = ( Math.floor @models.length / @perPage ) + 1
+               
+            @filters = 
+               order : 'DESC'
+               orderby : 'date'
+               paged : paged
+               posts_per_page : @perPage
+
+            options.add  = true
+            options.remove  = false
+            options.data = @filters
+            xhr = super options
+            xhr.done (response)=>
+               @totalMedia = response.total
+
+            xhr
 
          url : ->
             "#{AJAXURL}?action=query_attachments"
@@ -54,13 +82,8 @@ define ["app", 'backbone'], ( App, Backbone ) ->
       ##PUBLIC API FOR ENitity
       API =
          fetchMedia : ( params = {}, reset )->
-            _.defaults params, mediaCollection.filters
-
-            mediaCollection.fetch
-               reset : reset
-               data : params
-
-            mediaCollection
+            
+            Media.MediaCollection
 
       #get a media
          getMediaById : ( mediaId )->
