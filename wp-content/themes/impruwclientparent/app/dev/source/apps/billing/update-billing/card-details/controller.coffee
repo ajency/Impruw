@@ -96,7 +96,10 @@ define [ 'app', 'controllers/base-controller'
         class SingleCardView extends Marionette.ItemView
             template : '<div class="col-sm-4">
                             <div class="single-card form-horizontal">
-                                <h4 class="aj-imp-sub-head-thin">{{card_type}}</h4>
+                                <div class="ticker">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                </div>
+                                <h6 class="aj-imp-sub-head-thin">{{card_type}}</h6>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5">Name on the Card:</label>
                                     <div class="col-sm-7 col-sm-offset-5">
