@@ -19,7 +19,9 @@ define(['app', 'text!apps/language-translation/language-page-rooms/templates/lan
         originalRoomContent: ".original-content",
         translatedRoomContent: ".translated-content",
         originalRoomFacilities: "#original-rooms-facilities",
-        translatedRoomFacilities: "#translated-rooms-facilities"
+        translatedRoomFacilities: "#translated-rooms-facilities",
+        originalRoomDateranges: "#original-rooms-dateranges",
+        translatedRoomDateranges: "#translated-rooms-dateranges"
       };
 
       return PageRooomsLayout;

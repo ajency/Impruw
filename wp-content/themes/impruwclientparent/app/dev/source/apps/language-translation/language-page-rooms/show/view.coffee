@@ -15,6 +15,8 @@ define ['app'
                         translatedRoomContent: ".translated-content",
                         originalRoomFacilities: "#original-rooms-facilities",
                         translatedRoomFacilities: "#translated-rooms-facilities",
+                        originalRoomDateranges: "#original-rooms-dateranges",
+                        translatedRoomDateranges: "#translated-rooms-dateranges"
 
 
                   
