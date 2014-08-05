@@ -530,7 +530,7 @@ form .form-group.pic-upload .control-label {
   top: 0;
 }
 form .form-group.pic-upload .fileinput .thumbnail {
-  border-radius: 0;
+  border-radius: 2px;
 }
 form .form-group.pic-upload .fileinput .btn {
   color: #849fb0;
@@ -1467,6 +1467,7 @@ form .aj-imp-submit:hover {
 .modal #selectable-images .single-img .thumbnail {
   margin-bottom: 40px;
   border: 2px solid #aaaaaa;
+  border-radius: 2px;
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb,
 .modal #selectable-images .single-img .thumbnail .imgthumb {
@@ -1497,12 +1498,12 @@ form .aj-imp-submit:hover {
   top: -7px;
   right: 5px;
   color: #fff;
-  padding: 3px 4px;
+  padding: 2px 4px;
   border-radius: 2px;
   text-shadow: 0 0 1px #f3f3f3;
   background: #849fb0;
   display: none;
-  box-shadow: 0 0 2px #333;
+  box-shadow: 0 0 2px #aaaaaa;
 }
 .modal .thumbnails .single-img .ticker .glyphicon-minus,
 .modal #selectable-images .single-img .ticker .glyphicon-minus {
@@ -1883,6 +1884,7 @@ form .aj-imp-submit:hover {
 .alert {
   margin-top: 1em;
   color: #333333;
+  border-radius: 2px;
 }
 .alert.alert-success {
   background: #c5e5de;

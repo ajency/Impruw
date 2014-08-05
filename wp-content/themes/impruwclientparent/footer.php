@@ -69,10 +69,3 @@
 <?php wp_footer(); ?>
 </body>
 </html>
-        }
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-<?php endif; ?>
-<?php wp_footer(); ?>
-</body>
-</html>

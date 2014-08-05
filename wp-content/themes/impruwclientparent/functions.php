@@ -869,6 +869,7 @@ function get_theme_JS() {
         jQuery(document).ready(function () {
             if (jQuery('.gallery').length === 0)
                 return;
+            
             var $container = jQuery('.gallery').imagesLoaded(function () {
                 $container.isotope({
                     // options
