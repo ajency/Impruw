@@ -1,0 +1,58 @@
+<?php
+function translation_keys(){
+    __('Home', 'impruwclientparent');
+    __('About Us', 'impruwclientparent');
+    __('Rooms', 'impruwclientparent');
+    __('Gallery', 'impruwclientparent');
+    __('Contact us', 'impruwclientparent');
+    __('Click Here To Enter Title', 'impruwclientparent');
+    __('Make A Booking', 'impruwclientparent');
+    __('Logo', 'impruwclientparent');
+    __('Room Image', 'impruwclientparent');
+    __('Your Room Title', 'impruwclientparent');
+    __('Good Morning Happy Visitor!', 'impruwclientparent');
+    __('Choose a room to display from settings. Your room description, image, number of rooms and link to the single room page will be displayed here. To make any changes to the room go to Room from your dashboard.', 'impruwclientparent');
+    __('View details', 'impruwclientparent');
+    __('Take  A Look At Our Rooms', 'impruwclientparent');
+    __('Your Room Title', 'impruwclientparent');
+    __('Your Room Title', 'impruwclientparent');
+    __('This will work only on a single room page. Change your page to the single room page and add this element. The room title of the room will display on your website.Also to make the "Booking and Availability" button work, use the Room Booking element. When the button is pressed on your site, it will take you to the booking area.', 'impruwclientparent');
+    __('Booking and Availibility', 'impruwclientparent');
+    __('Room Price', 'impruwclientparent');
+    __('View the prices for different dates here.', 'impruwclientparent');
+    __('Monthly Calendar', 'impruwclientparent');
+    __('You have selected', 'impruwclientparent');
+    __('Additional Charge', 'impruwclientparent');
+    __('Find Us Here', 'impruwclientparent');
+    __('Failed to geocode your address. Please click here to update.', 'impruwclientparent');
+    __('Update logo in your site profile', 'impruwclientparent');
+    __('Update logo in your site profile', 'impruwclientparent');
+    __('Update address here', 'impruwclientparent');
+    __('Please visit to update social links', 'impruwclientparent');
+    __('Weddings & Events', 'impruwclientparent');
+    __('Private', 'impruwclientparent');
+	__('More', 'impruwclientparent');
+	__('Popular Info', 'impruwclientparent');
+	__('Most', 'impruwclientparent');
+	__('New Site Smell Added at No Extra Charge!', 'impruwclientparent');
+	__('Sunbeams', 'impruwclientparent');
+	__('Nature', 'impruwclientparent');
+	__('Luxury', 'impruwclientparent');
+	__('Beaches', 'impruwclientparent');
+	__('Five Star Luxury', 'impruwclientparent');
+	__('Whats New', 'impruwclientparent');
+	__('Luxury getaways to Malaysia', 'impruwclientparent');
+	__('All new, just for you!', 'impruwclientparent');
+	__('Services', 'impruwclientparent');
+	__('Nightlife' , 'impruwclientparent');
+	__('Cuisine', 'impruwclientparent');
+	__('Adventure', 'impruwclientparent');
+	__('All about our Hotel', 'impruwclientparent');
+	__('Check out our amazing', 'impruwclientparent');
+	__('This is how you can', 'impruwclientparent');
+	__('Find Us Here', 'impruwclientparent');
+	__('Welcome To Our Hotel', 'impruwclientparent');
+	​__('Keep in Touch', 'impruwclientparent');
+	__('Check Out Our Rooms', 'impruwclientparent');
+}
+?>
