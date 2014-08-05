@@ -9,7 +9,7 @@ define [ 'app', 'controllers/base-controller'
 
                 #selected plan data
                 @selectedPlanId = opts.planId
-                @selectedPlanModel = App.request "get:plan:by:id", @selectedPlanId
+                @selectedPlanModel = App.request "get:braintreeplan:by:id", @selectedPlanId
 
                 @layout = @getLayout @siteModel
 
@@ -28,44 +28,59 @@ define [ 'app', 'controllers/base-controller'
 
                     #show payment page
                     brainTreeCustomerId = @siteModel.get 'braintree_customer_id'
-                    @creditCardModel = App.request "get:card:info", brainTreeCustomerId
-                    App.execute "when:fetched", @creditCardModel, =>
+                    creditCardCollection = App.request "get:credit:cards", brainTreeCustomerId
 
-                        #check if card details exists
-                        cardExists = @creditCardModel.get 'card_exists'
+                    App.execute "when:fetched", creditCardCollection, =>
+                        #check if any stored credit card exists
+                        creditCardFirstModel = creditCardCollection.at 0
+                        cardExists = creditCardFirstModel.get 'card_exists'
+                        @customerId = creditCardFirstModel.get 'customer_id'
 
                         if cardExists is true
-                            @paymentView = @getPaymentView @creditCardModel
+                            @paymentView = @getPaymentPageView creditCardCollection
                         else
-                            @paymentView = @getNewCardPaymentView @creditCardModel
+                            @paymentView = @getFirstTimePaymentPageView creditCardFirstModel
+
 
                         @layout.paymentRegion.show @paymentView
 
-                        @listenTo @paymentView, "new:credit:card:payment",( paymentMethodNonce )=>
-                            @newCardPayment paymentMethodNonce,'active'
+                        @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce, status )=>
+                            @newCardPayment paymentMethodNonce, status
 
                         @listenTo @paymentView, "make:payment:with:stored:card", @payWithStoredCard
 
-                        @listenTo @paymentView, "change:card", =>
-                            @paymentView = @getNewCardPaymentView @creditCardModel
-                            @layout.paymentRegion.show @paymentView
-                            @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
-                                @newCardPayment paymentMethodNonce,'pending'
+                #                        #check if card details exists
+                #                        cardExists = @creditCardModel.get 'card_exists'
+                #
+                #                        if cardExists is true
+                #                            @paymentView = @getPaymentView @creditCardModel
+                #                        else
+                #                            @paymentView = @getNewCardPaymentView @creditCardModel
+                #
+                #                        @layout.paymentRegion.show @paymentView
+                #
+                #                        @listenTo @paymentView, "new:credit:card:payment",( paymentMethodNonce )=>
+                #                            @newCardPayment paymentMethodNonce,'active'
+                #
+                #                        @listenTo @paymentView, "make:payment:with:stored:card", @payWithStoredCard
+                #
+                #                        @listenTo @paymentView, "change:card", =>
+                #                            @paymentView = @getNewCardPaymentView @creditCardModel
+                #                            @layout.paymentRegion.show @paymentView
+                #                            @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
+                #                                @newCardPayment paymentMethodNonce,'pending'
 
-
-                # show main layout
                 @show @layout,
                     loading : true
 
             newCardPayment : ( paymentMethodNonce, status )=>
-                customerId = @creditCardModel.get 'customer_id'
                 options =
                     method : 'POST'
                     url : AJAXURL
                     data :
                         'paymentMethodNonce' : paymentMethodNonce
                         'selectedPlanId' : @selectedPlanId
-                        'customerId' : customerId
+                        'customerId' : @customerId
                         'currentSubscriptionId' : @subscriptionId
                         'status' : status
                         'action' : 'new-card-payment'
@@ -76,15 +91,15 @@ define [ 'app', 'controllers/base-controller'
                     else
                         @paymentView.triggerMethod "payment:error", response.msg
 
-            payWithStoredCard : ( data )=>
+            payWithStoredCard : ( cardToken )=>
                 options =
                     method : 'POST'
                     url : AJAXURL
                     data :
-                        'cardToken' : data.token
+                        'cardToken' : cardToken
                         'selectedPlanId' : @selectedPlanId
                         'currentSubscriptionId' : @subscriptionId
-                        'action' : data.action
+                        'action' : "payment-with-stored-card"
 
                 $.ajax( options ).done ( response )=>
                     if response.code == "OK"
@@ -106,12 +121,16 @@ define [ 'app', 'controllers/base-controller'
                 new Payment.View.ActiveSubscriptionView
                     model : subscriptionModel
 
-            getPaymentView : ( creditCardModel )->
-                new Payment.View.PaymentView
-                    model : creditCardModel
+#            getPaymentView : ( creditCardModel )->
+#                new Payment.View.PaymentView
+#                    model : creditCardModel
 
-            getNewCardPaymentView : ( creditCardModel )->
-                new Payment.View.NewCardPaymentView
+            getPaymentPageView : ( creditCardCollection )->
+                new Payment.View.PaymentPageView
+                    collection : creditCardCollection
+
+            getFirstTimePaymentPageView : ( creditCardModel )->
+                new Payment.View.FirstTimePaymentView
                     model : creditCardModel
 
 

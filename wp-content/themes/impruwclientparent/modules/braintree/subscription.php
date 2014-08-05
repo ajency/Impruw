@@ -28,6 +28,7 @@ function get_subscription_details( $subscription_id ) {
     $subscription_data[ 'subscription_type' ] = $plan_description;
     $subscription_data[ 'price' ] = $subscription->price;
     $subscription_data['start_date'] = $subscription->firstBillingDate->format( 'M d, Y' );
+    $subscription_data['payment_method_token'] = $subscription->paymentMethodToken;
 
     if ( !empty( $subscription->billingPeriodStartDate ) ||
         !empty( $subscription->billingPeriodEndDate )
