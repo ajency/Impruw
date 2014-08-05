@@ -21,12 +21,9 @@ get_header();
     			<img src="<?php echo get_template_directory_uri(); ?>/images/video.png" title="Impruw Themes" alt="Impruw Themes" class="img-responsive" />
     		</div>
     		<div class="col-sm-8">
-    			<h2><?php _e('Our Cloud Software Provides','impruwmain')?></h2>
+    			<h2><?php _e('Impruw is the low-cost online hosting solution for accommodation providers of any size.','impruwmain')?></h2>
     			<p>
-    				<?php _e('Businesses run succesfully on Impruw across the world. You can set up a website to showcase your hotel in less than an hour and give your local business the coverage it deserves!','impruwmain')?>
-    			</p>
-    			<p>
-    				<?php _e('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Praesent id metus massa, ut blandit odio. Proin quis tortor orci.','impruwmain')?> 
+    				<?php _e('Whether your property is grand hotel, country cottage, boutique seaside B&B or ultra-sleek city apartment, your website is the first thing every guest will see. That\'s why Impruw allows you to get the most out of marketing your hospitality business online. It\'s the fast, inexpensive, no-hassle way to build and manage a complete online presence for your property - and because it\'s so easy no third parties are needed, so you\'re in control of your business at every step. With Impruw you can set up a website to showcase your hotel in less than an hour and give your local business the coverage it deserves!','impruwmain')?>
     			</p>
     		</div>
     	</div>
@@ -56,16 +53,34 @@ get_header();
     </div>
 
     <div class="home-4">
-    	<h2><?php _e('Lorem Ipsum Dolor Sit Amet!','impruwmain')?></h2>
-    	<p><?php _e('Lorem Ipsum is simply dummy text of the printing and typesetting industry.','impruwmain')?></p>
+    	<h2><?php _e('Why choose Impruw?','impruwmain')?></h2>
+    	<p><?php _e('Impruw is your low cost, user friendly, complete hotel management system.','impruwmain')?></p>
     	<div class="info-blocks clearfix">
     		<div class="block row">
     			<div class="col-sm-2 icon-holder">
-    				<span class="icon icon-magnifier"></span>
+    				<span class="icon icon-paper-plane"></span>
     			</div>
     			<div class="col-sm-10">
-    				<h4><?php _e('Search Engine Friendly','impruwmain')?></h4>
-    				<p><?php _e('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s','impruwmain')?></p>
+    				<h4><?php _e('Fast website creation','impruwmain')?></h4>
+    				<p><?php _e('With our dynamic website builder you can create an elegant and welcoming web presence for your property in just a few clicks - no software downloads required. Choose from an ever-expanding range of templates and design features, add widgets and easily update any element of your website at any time.','impruwmain')?></p>
+    			</div>
+    		</div>
+    		<div class="block row">
+    			<div class="col-sm-2 icon-holder">
+    				<span class="icon icon-chat"></span>
+    			</div>
+    			<div class="col-sm-10">
+    				<h4><?php _e('Multi-Language Support','impruwmain')?></h4>
+    				<p><?php _e('In a hotel business your guest could come from any part of the world, and you need to have a website that caters to all. Impruw provides support for five widely spoke European languages to help your content reach online visitors around the world. Add your custom translations while maintaining the aesthetic feel and look of the website.','impruwmain')?></p>
+    			</div>
+    		</div>
+    		<div class="block row">
+    			<div class="col-sm-2 icon-holder">
+    				<span class="icon icon-smiley"></span>
+    			</div>
+    			<div class="col-sm-10">
+    				<h4><?php _e('No technical experience needed','impruwmain')?></h4>
+    				<p><?php _e('We understand that you have a business to run - that\'s why we\'ve made it our mission to take the time and hassle out of managing your website, eliminating the need for any specialist knowledge of coding, software or digital marketing. With Impruw anyone can successfully create and manage an attractive website with minimal resources or know-how.','impruwmain')?></p>
     			</div>
     		</div>
     		<div class="block row">
@@ -73,34 +88,16 @@ get_header();
     				<span class="icon icon-tools"></span>
     			</div>
     			<div class="col-sm-10">
-    				<h4><?php _e('Norway and London Based Support Team','impruwmain')?></h4>
-    				<p><?php _e('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s','impruwmain')?></p>
-    			</div>
-    		</div>
-    		<div class="block row">
-    			<div class="col-sm-2 icon-holder">
-    				<span class="icon icon-wallet"></span>
-    			</div>
-    			<div class="col-sm-10">
-    				<h4><?php _e('Friendly to your Pocket','impruwmain')?></h4>
-    				<p><?php _e('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s','impruwmain')?></p>
-    			</div>
-    		</div>
-    		<div class="block row">
-    			<div class="col-sm-2 icon-holder">
-    				<span class="icon icon-box"></span>
-    			</div>
-    			<div class="col-sm-10">
-    				<h4><?php _e('Works out of the box','impruwmain')?></h4>
-    				<p><?php _e('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s','impruwmain')?></p>
+    				<h4><?php _e('Continuous development','impruwmain')?></h4>
+    				<p><?php _e('The internet is a fast moving place - our team of developers and digital marketing experts come from a solid understanding of the web and how search engines work, which means we\'re committed to never stop devising new ways of saving your time and money, while keeping your website\'s visibility the highest priority.','impruwmain')?></p>
     			</div>
     		</div>
     	</div>
     </div>
 
     <div class="home-5">
-    	<h2><?php _e('Lorem Ipsum Dolor Sit Amet!','impruwmain')?></h2>
-    	<p><?php _e('Lorem Ipsum is simply dummy text of the printing and typesetting industry.','impruwmain')?></p>
+    	<h2><?php _e('Fully functional across mobile devices','impruwmain')?></h2>
+    	<p><?php _e('Mobile web is here to stay. All websites created with Impruw are designed to be fully compatible with all new and future mobile and tablet devices, and adjust dynamically to screen sizes for the best possible user experience.','impruwmain')?></p>
     	<img src="<?php echo get_template_directory_uri(); ?>/images/HOME_devices.png" title="Impruw Site Builder" alt="Impruw Site Builder" class="img-responsive" />
     </div>
     
