@@ -3844,6 +3844,7 @@ form .aj-imp-submit:hover {
 }
 .language .pick-room .bootstrap-select {
   font-size: 0.5em;
+  margin-bottom: 0.8em;
 }
 .language .pick-room .bootstrap-select .btn:hover,
 .language .pick-room .bootstrap-select .btn:focus {

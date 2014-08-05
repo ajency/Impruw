@@ -34,6 +34,22 @@ a {
 		outline: none;
 		color: lighten(@orange, 10%);
 	}
+	&.blue-link {
+		color: @blue-grey;
+		display: inline-block;
+		margin: 0 0.5em;
+		&.pull-left, &.pull-right {
+			margin: 0.5em;
+		}
+	}
+	&.red-link {
+		color: @error-red;
+		display: inline-block;
+		margin: 0 0.5em;
+		&.pull-left, &.pull-right {
+			margin: 0.5em;
+		}
+	}
 }
 
 /****Clearfix****/
@@ -90,6 +106,9 @@ a {
 				}
 				&:hover {
 					background: @blue-grey;
+				}
+				&:focus {
+					background: @orange;
 				}
 			}
 		}
@@ -2644,6 +2663,11 @@ a {
 	color: darken(@dash-grey, 10%);
 	border: 2px solid lighten(@dash-grey, 20%);
 	border-radius: 4px;
+}
+
+.crop-help {
+	margin-right: 0.5em;
+	display: none;
 }
 
 .moveable {

@@ -93,5 +93,5 @@
     bootstrapselect: ['bootstrap'],
     bootstrapswitch: ['bootstrap'],
     app: ['plugins/dashboard-plugin-loader', 'configs/dashboard-config-loader']
-  },
+  }
 })
