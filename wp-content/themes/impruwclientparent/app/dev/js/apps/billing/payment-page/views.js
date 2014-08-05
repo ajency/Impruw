@@ -210,7 +210,8 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         this.$el.find('#loader').hide();
         html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Succesfull';
         this.$el.find('#billingsave_status').append(html);
-        return this.$el.find('#btn-stored-pay').hide();
+        this.$el.find('#btn-stored-pay').hide();
+        return this.$el.find('#btn-pay').hide();
       };
 
       PaymentPageView.prototype.onPaymentError = function(errorMsg) {

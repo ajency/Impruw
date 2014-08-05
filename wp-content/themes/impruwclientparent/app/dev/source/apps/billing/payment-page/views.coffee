@@ -217,6 +217,7 @@ define [ 'app'
                                                                         Payment Succesfull'
                 @$el.find( '#billingsave_status' ).append( html )
                 @$el.find( '#btn-stored-pay' ).hide()
+                @$el.find( '#btn-pay' ).hide()
 
 
             onPaymentError : ( errorMsg )->
