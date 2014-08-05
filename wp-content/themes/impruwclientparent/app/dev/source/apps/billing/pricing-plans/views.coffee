@@ -49,17 +49,17 @@ define [ 'app'
                     billStart = Marionette.getOption @, 'billStart'
                     billEnd = Marionette.getOption @, 'billEnd'
 
-                    html = "<span>Domain name: #{siteName}.com</span><br>
-                            <span>Billing cycle:From #{billStart} to #{billEnd} </span>"
+                    html = "<span class='active'>Domain name: #{siteName}.com</span>
+                            <span class='active'>Billing cycle:From #{billStart} to #{billEnd} </span>"
                     @$el.find( '.panel-body' ).append html
 
 
                 #highlight the pending plan
                 if  siteModelPlanId is pendingPlanID
-                    @$el.find( '.panel-heading' ).append( '<span>Pending Activation</span>' )
+                    @$el.find( '.panel-heading' ).append( '<span class="pending">Pending Activation</span>' )
                     startDate = Marionette.getOption @, 'startDate'
-                    html = "<span>Domain name: #{siteName}.com</span><br>
-                            <span>Will activate on: #{startDate} </span>"
+                    html = "<span class='pending'>Domain name: #{siteName}.com</span>
+                            <span class='pending'>Will activate on: #{startDate} </span>"
                     @$el.find( '.panel-body' ).append html
 
 
@@ -94,11 +94,11 @@ define [ 'app'
                     @$el.find( '#free-plan .free-plan-link' ).text 'Active Plan'
 
                 if pendingPlanID is 'Free'
-                    @$el.find( '#free-plan .panel-heading' ).append '<span>Pending Activation</span>'
+                    @$el.find( '#free-plan .panel-heading' ).append '<span class="pending">Pending Activation</span>'
                     startDate = Marionette.getOption @, 'startDate'
                     siteName = Marionette.getOption @, 'siteName'
-                    html = "<span>Domain name: #{siteName}.com</span><br>
-                                                <span>Will activate on: #{startDate} </span>"
+                    html = "<span class='pending'>Domain name: #{siteName}.com</span>
+                            <span class='pending'>Will activate on: #{startDate} </span>"
                     @$el.find( '#free-plan .panel-body' ).append html
 
             events :
@@ -111,9 +111,10 @@ define [ 'app'
 
             onFreePlanSwitch :->
                 @$el.find('#pay_loader').hide()
-                html = "<button type='button' class='close' data-dismiss='alert'
-                        aria-hidden='true'>&times;</button>
-                        Switched to free plan after end of billing cycle"
+                html = "<div class='alert alert-success'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            Switched to free plan after end of billing cycle.
+                        </div>"
                 @$el.find('#billingsave_status').append html
 
 

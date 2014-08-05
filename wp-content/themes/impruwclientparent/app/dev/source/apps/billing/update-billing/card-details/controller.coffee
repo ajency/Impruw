@@ -78,15 +78,17 @@ define [ 'app', 'controllers/base-controller'
             onCardSuccess : ->
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#pay_loader' ).hide()
-                html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        &times;</button> Card Added Successfuly '
+                html = '<div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> 
+                            Card Added Successfuly 
+                        </div>'
                 @$el.find( '#billingsave_status' ).append html
                 @$el.find( '#btn-reset' ).click()
 
             onCardError : ( errorMsg )->
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#pay_loader' ).hide()
-                html = "<div class='alert'>
+                html = "<div class='alert alert-error'>
                             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                             #{errorMsg}
                         </div>"
