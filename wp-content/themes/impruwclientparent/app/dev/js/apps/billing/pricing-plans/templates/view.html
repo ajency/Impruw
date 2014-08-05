@@ -1,18 +1,12 @@
 <header class="aj-imp-dash-header row">
     <div class="aj-imp-dash-title col-sm-12">
         <h2 class="aj-imp-page-head">
-            {{#polyglot}}Plans{{/polyglot}}
+            {{#polyglot}}View Plans{{/polyglot}}
         </h2>
     </div>
 </header>
 <div class="row">
     <div class="aj-imp-dash-content col-md-12">
-        <div class="alert alert-success" id="billingsave_status" style="display:none;">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                &times;
-            </button>
-            {{#polyglot}}Details saved{{/polyglot}}
-        </div>
         <div class="billing-container">
             <h6 class="aj-imp-sub-head">{{#polyglot}}Pricing Plans{{/polyglot}}</h6>
             <hr>
@@ -39,22 +33,9 @@
                 </div>
 
             </div>
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="info">
-                        <h6 class="aj-imp-sub-head-thin">All Plans Include:</h6>
-                        <ul>
-                            <li>Mobile &amp; Tablet Ready Site</li>
-                            <li>Unlimited Pages</li>
-                            <li>5 Languages</li>
-                            <li>Flexible, easy-to-use Site builder</li>
-                            <li>24/7 security monitoring</li>
-                            <li>24/7 technical support</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
+<img src="{{THEMEURL}}/images/loader.gif" width="38" height="30"
+     id="pay_loader" style="display:none ">
+<div class="alert alert-success" id="billingsave_status"></div>

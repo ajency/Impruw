@@ -17,14 +17,18 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
         return App.execute("when:fetched", this.siteModel, (function(_this) {
           return function() {
             var brainTreePlans;
+            _this.siteName = _this.siteModel.get('site_name');
             _this.subscriptionId = _this.siteModel.get('braintree_subscription');
             _this.currency = _this.siteModel.get('currency');
             brainTreePlans = App.request("get:braintree:plans");
             _this.subscriptionModel = App.request("get:subscription:by:id", _this.subscriptionId);
             _this.pendingSubscriptionModel = App.request("get:pending:subscription", _this.subscriptionId);
             return App.execute("when:fetched", _this.subscriptionModel, function() {
+              _this.billStart = _this.subscriptionModel.get('bill_start');
+              _this.billEnd = _this.subscriptionModel.get('bill_end');
               _this.activePlanId = _this.subscriptionModel.get('plan_id');
               return App.execute("when:fetched", _this.pendingSubscriptionModel, function() {
+                _this.startDate = _this.pendingSubscriptionModel.get('start_date');
                 _this.pendingPlanId = _this.pendingSubscriptionModel.get('plan_id');
                 _this.view = _this.getView(brainTreePlans);
                 _this.listenTo(_this.view, "switch:to:free:plan", _this.changeToFreePlan);
@@ -41,7 +45,11 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
           collection: brainTreePlanCollection,
           currency: this.currency,
           activePlanId: this.activePlanId,
-          pendingPlanId: this.pendingPlanId
+          pendingPlanId: this.pendingPlanId,
+          siteName: this.siteName,
+          billStart: this.billStart,
+          billEnd: this.billEnd,
+          startDate: this.startDate
         });
       };
 
@@ -65,7 +73,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            return console.log(response);
+            return _this.view.triggerMethod("free:plan:switch");
           };
         })(this));
       };

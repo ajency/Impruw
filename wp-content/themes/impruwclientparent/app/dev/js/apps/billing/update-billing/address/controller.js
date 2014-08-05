@@ -52,17 +52,17 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
 
       Controller.prototype.addressAdded = function(addressModel, response) {
         if (response.code === "OK") {
-          return this.view.triggerMethod("card:added");
+          return this.view.triggerMethod("address:added");
         } else {
-          return this.view.triggerMethod("card:not:added", response.msg);
+          return this.view.triggerMethod("address:not:added", response.msg);
         }
       };
 
       Controller.prototype.addressUpdated = function(addressModel, response) {
         if (response.code === "OK") {
-          return this.view.triggerMethod("card:updated");
+          return this.view.triggerMethod("address:updated");
         } else {
-          return this.view.triggerMethod("card:not:updated", response.msg);
+          return this.view.triggerMethod("address:not:updated", response.msg);
         }
       };
 
@@ -108,7 +108,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         }
       };
 
-      BillingAddressView.prototype.onCardAdded = function() {
+      BillingAddressView.prototype.onAddresssAdded = function() {
         this.$el.find('#msg').empty();
         this.$el.find('#display-msg').show();
         this.$el.find('#pay_loader').hide();
@@ -117,7 +117,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         return this.$el.find('.btn-update').show();
       };
 
-      BillingAddressView.prototype.onCardUpdated = function() {
+      BillingAddressView.prototype.onAddresssUpdated = function() {
         this.$el.find('#msg').empty();
         this.$el.find('#display-msg').show();
         this.$el.find('#pay_loader').hide();
@@ -126,14 +126,14 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         return this.$el.find('.btn-update').show();
       };
 
-      BillingAddressView.prototype.onCardNotAdded = function(errorMsg) {
+      BillingAddressView.prototype.onAddresssNotAdded = function(errorMsg) {
         this.$el.find('#msg').empty();
         this.$el.find('#display-msg').show();
         this.$el.find('#pay_loader').hide();
         return this.$el.find('#msg').text(errorMsg);
       };
 
-      BillingAddressView.prototype.onCardNotUpdated = function(errorMsg) {
+      BillingAddressView.prototype.onAddresssNotUpdated = function(errorMsg) {
         this.$el.find('#msg').empty();
         this.$el.find('#display-msg').show();
         this.$el.find('#pay_loader').hide();

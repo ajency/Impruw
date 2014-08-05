@@ -48,7 +48,6 @@ function ajax_read_braintreesubscription() {
         $subscription_data = get_subscription_details( $subscription_id );
     }
 
-
     wp_send_json( array( 'code' => 'OK', 'data' => $subscription_data ) );
 }
 
@@ -83,23 +82,42 @@ add_action( 'wp_ajax_fetch-braintreetransaction', 'ajax_read_braintreetransactio
  */
 function ajax_read_creditcard() {
 
-    $customer_id = $_REQUEST[ 'customer_id' ];
+    $card_token = $_REQUEST[ 'token' ];
 
-    if ( empty( $customer_id ) ) {
-        $credit_card_data = array( 'card_exists' => false, 'customer_id' => $customer_id );
-    } else {
-        $credit_card_data = get_customer_credit_card_details( $customer_id );
-    }
+    $credit_card_data = get_credit_card_details_by_token($card_token);
 
-    $credit_card_data[ 'braintree_client_token' ] = generate_client_token();
+    if ( $credit_card_data[ 'code' ] == 'ERROR' )
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => $credit_card_data[ 'msg' ] ) );
 
-    wp_send_json( array( 'code' => 'OK', 'data' => $credit_card_data ) );
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $credit_card_data[ 'credit_card_details' ] ) );
 }
 
 add_action( 'wp_ajax_read-creditcard', 'ajax_read_creditcard' );
 
+
 /**
- * Function to make payment
+ * Function to get all credit card details of user
+ */
+function ajax_get_credit_cards() {
+
+    $customer_id = $_REQUEST[ 'customerId' ];
+
+    if ( empty( $customer_id ) ) {
+        $credit_card_data = array( 'card_exists' => false,
+                                   'customer_id' => $customer_id,
+                                   'braintree_client_token' => generate_client_token());
+    } else {
+        $credit_card_data = get_customer_credit_card_details( $customer_id );
+    }
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $credit_card_data ) );
+}
+
+add_action( 'wp_ajax_get-credit-cards', 'ajax_get_credit_cards' );
+
+/**
+ * Function to make payment  using a  new card
  */
 function ajax_new_card_payment() {
 
@@ -152,7 +170,9 @@ function ajax_new_card_payment() {
 
 add_action( 'wp_ajax_new-card-payment', 'ajax_new_card_payment' );
 
-
+/**
+ * Function to make a payment using stored credit card
+ */
 function ajax_stored_payment() {
 
     $selected_plan_id = $_POST[ 'selectedPlanId' ];
@@ -216,15 +236,7 @@ add_action( 'wp_ajax_get-pending-subscription', 'ajax_get_pending_subscription' 
 
 function ajax_create_customer_with_card() {
 
-    $current_user = wp_get_current_user();
-    $user_name = $current_user->display_name;
-
-    $customer_array = array(
-        'payment_method_nonce' => $_POST[ 'paymentMethodNonce' ],
-        'user_name' => $user_name );
-
-    // create the  user with credit card
-    $customer = create_customer_with_card( $customer_array );
+    $customer = create_customer_with_credit_card( $_POST[ 'paymentMethodNonce' ] );
     if ( $customer[ 'code' ] == 'ERROR' )
         wp_send_json( array( 'code' => 'ERROR', 'msg' => $customer[ 'msg' ] ) );
 
@@ -238,6 +250,10 @@ add_action( 'wp_ajax_create-customer-with-card', 'ajax_create_customer_with_card
 function ajax_get_customer_billing_address() {
 
     $braintree_customer_id = $_REQUEST[ 'customerId' ];
+
+
+    if ( empty( $braintree_customer_id ) )
+        wp_send_json( array( 'code' => 'OK', 'data' => array( 'address_exists' => false ) ) );
 
     $billing_address = get_customer_address( $braintree_customer_id );
 

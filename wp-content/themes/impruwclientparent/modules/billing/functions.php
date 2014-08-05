@@ -18,6 +18,7 @@ function getFreeSubscriptionData( $subscription_id ) {
     $subscription_data[ 'price' ] = '0';
     $subscription_data[ 'bill_start' ] = 'N/A';
     $subscription_data[ 'bill_end' ] = 'N/A';
+    $subscription_data[ 'payment_method_token' ] = '';
 
     if ( $subscription_id == null ):
         $site_data = get_blog_details( get_current_blog_id() );
@@ -106,6 +107,7 @@ function create_pending_subscription( $payment_method_token, $selected_plan_id, 
     } else {
         delete_previous_subscription( $current_subscription_id );
         create_cancelled_subscription_in_db( $current_subscription_id, $pending_subscription[ 'subscription_id' ], $bill_end_date );
+        return array( 'code' => 'OK');
     }
 
 }
