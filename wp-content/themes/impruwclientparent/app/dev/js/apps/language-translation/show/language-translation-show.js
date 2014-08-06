@@ -9,6 +9,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
 
       function Controller() {
         this._loadPageContent = __bind(this._loadPageContent, this);
+        this._loadSiteContent = __bind(this._loadSiteContent, this);
         this._loadPageRoomContent = __bind(this._loadPageRoomContent, this);
         this._loadPageNavBar = __bind(this._loadPageNavBar, this);
         return Controller.__super__.constructor.apply(this, arguments);
@@ -28,7 +29,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
         })(this));
         this.listenTo(this.languageLayout.languageSelectionRegion, "load:page:nav:bar", this._loadPageNavBar);
         this.listenTo(this.languageLayout.languagePageNav, "load:page:room:content", this._loadPageRoomContent);
-        return this.listenTo(this.languageLayout.languagePageNav, "load:other:page:content", this._loadPageContent);
+        this.listenTo(this.languageLayout.languagePageNav, "load:other:page:content", this._loadPageContent);
+        return this.listenTo(this.languageLayout.languagePageNav, "load:site:content", this._loadSiteContent);
       };
 
       Controller.prototype._getLanguageLayout = function() {
@@ -44,6 +46,13 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
 
       Controller.prototype._loadPageRoomContent = function(editingLanguage) {
         return App.execute("show:language:page:rooms:app", {
+          region: this.languageLayout.languagePageRooms,
+          editLang: editingLanguage
+        });
+      };
+
+      Controller.prototype._loadSiteContent = function(editingLanguage) {
+        return App.execute("show:site:content:app", {
           region: this.languageLayout.languagePageRooms,
           editLang: editingLanguage
         });

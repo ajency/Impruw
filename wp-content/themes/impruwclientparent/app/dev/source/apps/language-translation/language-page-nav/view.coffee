@@ -21,11 +21,23 @@ define ['app'], (App)->
                         @trigger "page:content", pageId
 
 
-                class Views.LanguagePageNavView extends Marionette.CollectionView  
-                    
-                    tagName : 'ul'
+                class Views.LanguagePageNavView extends Marionette.CompositeView  
+                   
+                    template : '<ul class="nav nav-pills" id="js-page-nav-bar">
+                                    <li>
+                                        <a href="#site" id="site" data-toggle="tab">
+                                        Site Profile
+                                        </a>
+                                    </li>
+                                </ul>'
 
-                    className : 'nav nav-pills'
+                    itemView :  LanguagePageNavItemView 
 
-                    itemView :  LanguagePageNavItemView  
+                    itemViewContainer : '#js-page-nav-bar' 
+
+                    events:
+                        'click a#site' : 'loadSiteContent'
+
+                    loadSiteContent: (e) ->
+                        @trigger "site:translate:content"
 

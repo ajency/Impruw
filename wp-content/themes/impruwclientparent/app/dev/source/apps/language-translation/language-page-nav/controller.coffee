@@ -17,6 +17,7 @@ define ['app', 'controllers/base-controller'
 
                 @listenTo @languagePageNavView, "itemview:page:room:content", @loadLanguagePageRoomContent
                 @listenTo @languagePageNavView, "itemview:page:content", @loadLanguagePageContent
+                @listenTo @languagePageNavView, "site:translate:content", @loadSiteContent
 
                 #function to load view
                 @show @languagePageNavView,
@@ -40,6 +41,9 @@ define ['app', 'controllers/base-controller'
                     Marionette.triggerMethod.call @region, "load:other:page:content", @editingLanguage, pageId, originalId
 
                 $.post "#{AJAXURL}?action=get-language-page", data, responseFn, 'json'
+
+            loadSiteContent :->
+                Marionette.triggerMethod.call @region, "load:site:content", @editingLanguage
 
 
         App.commands.setHandler "show:language:page:nav:app", (opts) ->

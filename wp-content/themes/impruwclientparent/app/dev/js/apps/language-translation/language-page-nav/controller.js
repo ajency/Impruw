@@ -18,6 +18,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.languagePageNavView = this._getPageNavView(this.collection);
         this.listenTo(this.languagePageNavView, "itemview:page:room:content", this.loadLanguagePageRoomContent);
         this.listenTo(this.languagePageNavView, "itemview:page:content", this.loadLanguagePageContent);
+        this.listenTo(this.languagePageNavView, "site:translate:content", this.loadSiteContent);
         return this.show(this.languagePageNavView, {
           loading: true
         });
@@ -48,6 +49,10 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
           };
         })(this);
         return $.post("" + AJAXURL + "?action=get-language-page", data, responseFn, 'json');
+      };
+
+      Controller.prototype.loadSiteContent = function() {
+        return Marionette.triggerMethod.call(this.region, "load:site:content", this.editingLanguage);
       };
 
       return Controller;

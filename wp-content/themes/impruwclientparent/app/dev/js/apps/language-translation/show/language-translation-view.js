@@ -16,7 +16,8 @@ define(['app', 'text!apps/language-translation/show/templates/languageview.html'
         languageSelectionRegion: "#pick-language",
         languagePageNav: "#js-page-nav",
         languagePageContent: "#js-other-tabs",
-        languagePageRooms: "#js-rooms-tab"
+        languagePageRooms: "#js-rooms-tab",
+        languageAddressContent: "#js-address-tab"
       };
 
       LanguageLayout.prototype.onShow = function() {

@@ -40,14 +40,22 @@ define(['app'], function(App) {
         return LanguagePageNavView.__super__.constructor.apply(this, arguments);
       }
 
-      LanguagePageNavView.prototype.tagName = 'ul';
-
-      LanguagePageNavView.prototype.className = 'nav nav-pills';
+      LanguagePageNavView.prototype.template = '<ul class="nav nav-pills" id="js-page-nav-bar"> <li> <a href="#site" id="site" data-toggle="tab"> Site Profile </a> </li> </ul>';
 
       LanguagePageNavView.prototype.itemView = LanguagePageNavItemView;
 
+      LanguagePageNavView.prototype.itemViewContainer = '#js-page-nav-bar';
+
+      LanguagePageNavView.prototype.events = {
+        'click a#site': 'loadSiteContent'
+      };
+
+      LanguagePageNavView.prototype.loadSiteContent = function(e) {
+        return this.trigger("site:translate:content");
+      };
+
       return LanguagePageNavView;
 
-    })(Marionette.CollectionView);
+    })(Marionette.CompositeView);
   });
 });

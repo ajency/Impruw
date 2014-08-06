@@ -19,6 +19,7 @@ define ['app', 'controllers/base-controller'
 
                 @listenTo @languageLayout.languagePageNav, "load:page:room:content", @_loadPageRoomContent
                 @listenTo @languageLayout.languagePageNav, "load:other:page:content", @_loadPageContent
+                @listenTo @languageLayout.languagePageNav, "load:site:content", @_loadSiteContent
 
 
             _getLanguageLayout: ->
@@ -31,6 +32,11 @@ define ['app', 'controllers/base-controller'
 
             _loadPageRoomContent: (editingLanguage)=>
                 App.execute "show:language:page:rooms:app",
+                    region: @languageLayout.languagePageRooms
+                    editLang: editingLanguage
+
+            _loadSiteContent: (editingLanguage)=>
+                App.execute "show:site:content:app",
                     region: @languageLayout.languagePageRooms
                     editLang: editingLanguage
 

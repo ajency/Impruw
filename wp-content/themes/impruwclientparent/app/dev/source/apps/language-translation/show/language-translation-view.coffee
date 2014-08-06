@@ -13,6 +13,7 @@ define ['app'
                         languagePageNav: "#js-page-nav",
                         languagePageContent: "#js-other-tabs",
                         languagePageRooms: "#js-rooms-tab",
+                        languageAddressContent: "#js-address-tab",
 
 
                     onShow: ->
