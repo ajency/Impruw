@@ -19,8 +19,12 @@ define ['app', 'controllers/base-controller'
                     loading: true
 
             _getPlansView : (collection) ->
-                new ChoosePlans.Views.ChoosePlansView
-                    collection:collection
+                if collection.length==0
+                   new ChoosePlans.Views.EmptyView
+                    collection:collection 
+                else
+                    new ChoosePlans.Views.ChoosePlansView
+                     collection:collection
 
             loadOriginalPlans: (selectedPlanId) ->
                 Marionette.triggerMethod.call @region, "original:plan", selectedPlanId

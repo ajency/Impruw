@@ -22,9 +22,15 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype._getPlansView = function(collection) {
-        return new ChoosePlans.Views.ChoosePlansView({
-          collection: collection
-        });
+        if (collection.length === 0) {
+          return new ChoosePlans.Views.EmptyView({
+            collection: collection
+          });
+        } else {
+          return new ChoosePlans.Views.ChoosePlansView({
+            collection: collection
+          });
+        }
       };
 
       Controller.prototype.loadOriginalPlans = function(selectedPlanId) {

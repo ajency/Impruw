@@ -3,6 +3,18 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('LanguageApp.LanguagePageRooms.ChoosePlans.Views', function(Views, App, Backbone, Marionette, $, _) {
+    Views.EmptyView = (function(_super) {
+      __extends(EmptyView, _super);
+
+      function EmptyView() {
+        return EmptyView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyView.prototype.template = '<div class="empty-info">No Plans found for translation.</div>';
+
+      return EmptyView;
+
+    })(Marionette.ItemView);
     return Views.ChoosePlansView = (function(_super) {
       __extends(ChoosePlansView, _super);
 
@@ -36,8 +48,14 @@ define(['app'], function(App) {
         var selectedIndex, selectedPlanId;
         selectedIndex = $(e.currentTarget).attr('rel');
         selectedPlanId = $('select#js-plan-select option:eq(' + selectedIndex + ')').attr('value');
-        this.trigger('load:original:plans', selectedPlanId);
-        return this.trigger('load:translated:plans', selectedPlanId);
+        if (selectedPlanId !== '-1') {
+          this.trigger('load:original:plans', selectedPlanId);
+          return this.trigger('load:translated:plans', selectedPlanId);
+        } else {
+          this.$el.find('.alert').remove();
+          this.$el.append('<div class="alert alert-success">' + _.polyglot.t("Please select a plan to translate") + '</div>');
+          return this.$el.find('.alert').fadeOut(5000);
+        }
       };
 
       return ChoosePlansView;

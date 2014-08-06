@@ -2,6 +2,10 @@ define ['app'], (App)->
 
             App.module 'LanguageApp.LanguagePageRooms.ChoosePlans.Views', (Views, App, Backbone, Marionette, $, _)->
 
+                class Views.EmptyView extends Marionette.ItemView
+
+                    template: '<div class="empty-info">No Plans found for translation.</div>' 
+
                 class Views.ChoosePlansView extends Marionette.ItemView 
 
                     template: "<form class='form-horizontal'>
@@ -31,6 +35,11 @@ define ['app'], (App)->
                         #The the option's value based on the selectedIndex
                         selectedPlanId = $('select#js-plan-select option:eq(' + selectedIndex + ')').attr('value')
 
-                        @trigger 'load:original:plans', selectedPlanId  
-                        @trigger 'load:translated:plans', selectedPlanId 
+                        unless selectedPlanId is '-1'
+                            @trigger 'load:original:plans', selectedPlanId   
+                            @trigger 'load:translated:plans', selectedPlanId 
+                        else
+                            @$el.find('.alert').remove()
+                            @$el.append('<div class="alert alert-success">'+_.polyglot.t("Please select a plan to translate")+'</div>')
+                            @$el.find('.alert').fadeOut 5000  
 
