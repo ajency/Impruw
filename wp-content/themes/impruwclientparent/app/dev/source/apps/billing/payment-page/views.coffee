@@ -80,18 +80,19 @@ define [ 'app'
             onPaymentSuccess : ->
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#loader' ).hide()
-                html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                                                        &times;
-                                                        </button>
-                                                        Payment Succesfull'
+                html = '<div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Payment Successful!
+                        </div>'
                 @$el.find( '#billingsave_status' ).append( html )
 
             onPaymentError : ( errorMsg )->
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#loader' ).hide()
-                html = "<button type='button' class='close' data-dismiss='alert'
-                                                        aria-hidden='true'>&times;</button>
-                                                        #{errorMsg}"
+                html = "<div class='alert alert-error'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            #{errorMsg}
+                        </div>"
                 @$el.find( '#billingsave_status' ).append( html )
 
 #        #payment page view when credit card info available
@@ -198,10 +199,10 @@ define [ 'app'
                     cardToken = @$el.find('.selected .token').val()
 
                     if _.isUndefined cardToken
-                        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                                &times;
-                                </button>
-                                Please select a card'
+                        html = '<div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    Please select a card
+                                </div>'
                         @$el.find( '#billingsave_status' ).append html
                     else
                         @$el.find( '#loader' ).show()
@@ -211,10 +212,10 @@ define [ 'app'
             onPaymentSuccess : ->
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#loader' ).hide()
-                html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                                                                        &times;
-                                                                        </button>
-                                                                        Payment Succesfull'
+                html = '<div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Payment Successful!
+                        </div>'
                 @$el.find( '#billingsave_status' ).append( html )
                 @$el.find( '#btn-stored-pay' ).hide()
                 @$el.find( '#btn-pay' ).hide()
@@ -223,9 +224,10 @@ define [ 'app'
             onPaymentError : ( errorMsg )->
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#loader' ).hide()
-                html = "<button type='button' class='close' data-dismiss='alert'
-                                                                        aria-hidden='true'>&times;</button>
-                                                                        #{errorMsg}"
+                html = "<div class='alert alert-error'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            #{errorMsg}
+                        </div>"
                 @$el.find( '#billingsave_status' ).append( html )
 
 
