@@ -64,12 +64,19 @@
 					<div class="table-responsive" data-pattern="priority-columns">
 		               <table cellspacing="0" id="tech-companies-1" class="table table-small-font table-bordered table-striped">
 		                  <thead>
-		                     <tr>
+		                     <!--<tr>
 		                        <th data-resizable-column-id="company">Company</th>
 		                        <th data-priority="1" data-resizable-column-id="last-trade">Last Trade</th>
 		                        <th data-priority="3" data-resizable-column-id="trade-time">Trade Time</th>
 		                        <th data-priority="6" data-resizable-column-id="lorem">Lorem</th>
 		                        <th data-priority="6" data-resizable-column-id="ipsum">Ipsum</th>
+		                     </tr>-->
+		                     <tr>
+		                        <th style="width: 20%;">Company</th>
+		                        <th data-priority="1" style="width: 20%;">Last Trade</th>
+		                        <th data-priority="3" style="width: 20%;">Trade Time</th>
+		                        <th data-priority="6" style="width: 20%;">Lorem</th>
+		                        <th data-priority="6" style="width: 20%;">Ipsum</th>
 		                     </tr>
 		                  </thead>
 		                  <tbody>
@@ -127,7 +134,7 @@
 			
 		</div>
 		
-		<footer class="layout-footer">
+		<footer class="layout-footer" style="height: 600px;">
 			
 
 
@@ -149,11 +156,11 @@
 	<!-- Plugin -->
 	<script src="js/jquery.resizableColumns.min.js"></script>
 	<script>
-		jQuery(function(){
+		/*jQuery(function(){
 			jQuery(".table-responsive .table").resizableColumns({
 				store: window.store
 			});
-		});
+		});*/
 	</script>
 	
 	<script>
