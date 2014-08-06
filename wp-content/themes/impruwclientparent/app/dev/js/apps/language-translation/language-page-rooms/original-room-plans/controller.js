@@ -14,7 +14,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         var planId, planModel;
         planId = opts.planId;
         this.planModel = planModel = App.request("get:plan:by:id", planId);
-        console.log(planModel);
         this.originalPlanView = this._getPlanView(planModel);
         return this.show(this.originalPlanView, {
           loading: true

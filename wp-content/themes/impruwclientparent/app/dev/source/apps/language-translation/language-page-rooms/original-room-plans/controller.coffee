@@ -12,8 +12,6 @@ define ['app', 'controllers/base-controller'
                 #get plan model by id
                 @planModel = planModel = App.request "get:plan:by:id", planId
 
-                console.log planModel
-
                 @originalPlanView = @_getPlanView planModel
 
                 #function to load view

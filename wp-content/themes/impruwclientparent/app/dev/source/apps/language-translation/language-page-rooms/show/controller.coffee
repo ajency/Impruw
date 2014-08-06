@@ -9,6 +9,7 @@ define ['app', 'controllers/base-controller'
         'apps/language-translation/language-page-rooms/original-room-dateranges/controller'
         'apps/language-translation/language-page-rooms/translated-room-dateranges/controller'
         'apps/language-translation/language-page-rooms/original-room-plans/controller'
+        'apps/language-translation/language-page-rooms/translated-room-plans/controller'
         ], (App, AppController)->
     App.module 'LanguageApp.LanguagePageRooms', (LanguagePageRooms, App, Backbone, Marionette, $, _)->
         class LanguagePageRooms.Controller extends AppController
@@ -81,7 +82,14 @@ define ['app', 'controllers/base-controller'
                     App.execute 'show:original:plans:app',
                         region: @pageLanguageLayout.originalPlanContent 
                         planId: selectedPlan
-                    return                      
+                    return
+
+            _loadTranslatedPlans : (selectedPlan) =>
+                    App.execute 'show:translated:plans:app',
+                        region: @pageLanguageLayout.translatedPlanContent 
+                        planId: selectedPlan
+                        editingLang: @editingLang
+                    return                     
 
 
         App.commands.setHandler "show:language:page:rooms:app", (opts) ->

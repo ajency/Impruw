@@ -59,6 +59,58 @@ function get_plans() {
     return $plan_array;
 }
 
+function get_room_plan_by_id($plan_id){
+    global $wpdb;
+
+     $table_name = $wpdb->prefix . 'plans';
+
+     $query = "SELECT * FROM $table_name WHERE id=".$plan_id;
+
+     $plan = $wpdb->get_row( $query );
+
+     return $plan;
+}
+
+function get_translated_plan_by_id($plan_id, $language){
+ global $wpdb;
+
+ $table_name = $wpdb->prefix . 'plans';
+
+ $query = "SELECT * FROM $table_name WHERE id=".$plan_id;
+
+ $plan = $wpdb->get_row( $query );
+
+ $plan_array = array();
+
+ //unserialize plan_name and plan_description 
+ $plan_name_unserialized = maybe_unserialize( $plan->plan_name);
+ $plan_desc_unserialized = maybe_unserialize( $plan->plan_description);
+
+ if(is_array($plan_name_unserialized)){
+    $plan_name = isset($plan_name_unserialized[$language]) ? $plan_name_unserialized[$language] : '';
+}
+else{
+    $plan_name = '';
+}
+
+if(is_array($plan_desc_unserialized)){
+    $plan_description = isset($plan_desc_unserialized[$language]) ? $plan_desc_unserialized[$language] : '';        
+}
+else{
+    $plan_description = '';
+}
+
+
+$plan_array = array(
+    'id' => $plan->id,
+    'plan_name' =>  $plan_name,
+    'plan_description' => $plan_description
+    );
+ 
+
+return $plan_array;    
+}
+
 function wp_update_plan( $formdata ) {
 
     global $wpdb;
