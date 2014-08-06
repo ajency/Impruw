@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'text!apps/media/grid/templates/media.html'], function(App, mediaTpl) {
   return App.module('Media.Grid.Views', function(Views, App) {
@@ -13,10 +14,16 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
 
       MediaView.prototype.template = mediaTpl;
 
-      MediaView.prototype.className = 'col-sm-2 single-img';
+      MediaView.prototype.className = 'col-sm-1 single-img';
 
       MediaView.prototype.modelEvents = {
         'change': 'render'
+      };
+
+      MediaView.prototype.mixinTemplateHelpers = function(data) {
+        data = MediaView.__super__.mixinTemplateHelpers.call(this, data);
+        data.image_url = data.sizes.thumbnail ? data.sizes.thumbnail.url : data.sizes.full.url;
+        return data;
       };
 
       MediaView.prototype.events = {
@@ -59,6 +66,7 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
       __extends(GridView, _super);
 
       function GridView() {
+        this.loadMoreClicked = __bind(this.loadMoreClicked, this);
         return GridView.__super__.constructor.apply(this, arguments);
       }
 
@@ -74,16 +82,34 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
 
       GridView.prototype.onCollectionRendered = function() {
         if (this.multiSelect) {
-          return this.$el.find('#selectable-images').bind("mousedown", function(e) {
+          this.$el.find('#selectable-images').bind("mousedown", function(e) {
             return e.metaKey = true;
           }).selectable({
             cancel: '.delete-media-img'
           });
         } else {
-          return this.$el.find('#selectable-images').selectable({
+          this.$el.find('#selectable-images').selectable({
             cancel: '.delete-media-img'
           });
         }
+        if (this.collection.length < this.collection.totalMedia) {
+          this.$el.find('#selectable-images').after('<button type="button" class="btn btn-xs load-more"><span class="glyphicon glyphicon-repeat"></span> Load More</button>');
+          return this.$el.find('#selectable-images').parent().find('.load-more').click(this.loadMoreClicked);
+        }
+      };
+
+      GridView.prototype.loadMoreClicked = function(evt) {
+        return this.collection.fetch({
+          success: (function(_this) {
+            return function() {
+              _this.$el.find('#selectable-images').parent().find('.load-more').remove();
+              if (_this.collection.length < _this.collection.totalMedia) {
+                _this.$el.find('#selectable-images').after('<button type="button" class="btn btn-xs load-more"><span class="glyphicon glyphicon-repeat"></span> Load More</button>');
+                return _this.$el.find('#selectable-images').parent().find('.load-more').click(_this.loadMoreClicked);
+              }
+            };
+          })(this)
+        });
       };
 
       GridView.prototype.onShow = function() {

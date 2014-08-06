@@ -11,8 +11,10 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
       }
 
       Controller.prototype.initialize = function() {
-        var view;
-        this.mediaCollection = App.request("fetch:media", true);
+        var MediaCollection, view;
+        MediaCollection = App.request("fetch:media", true);
+        this.mediaCollection = window.f = new MediaCollection;
+        this.mediaCollection.fetch();
         view = this._getView(this.mediaCollection);
         this.listenTo(view, "itemview:media:element:selected", (function(_this) {
           return function(iv) {
