@@ -20,6 +20,12 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
         'change': 'render'
       };
 
+      MediaView.prototype.mixinTemplateHelpers = function(data) {
+        data = MediaView.__super__.mixinTemplateHelpers.call(this, data);
+        data.image_url = data.sizes.thumbnail ? data.sizes.thumbnail.url : data.sizes.full.url;
+        return data;
+      };
+
       MediaView.prototype.events = {
         'click a.thumbnail': function(e) {
           e.preventDefault();

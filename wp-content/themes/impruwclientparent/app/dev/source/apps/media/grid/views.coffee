@@ -5,11 +5,18 @@ define [ 'app'
 
       # single media view
       class MediaView extends Marionette.ItemView
+         
          template : mediaTpl
+
          className : 'col-sm-1 single-img'
 
          modelEvents :
             'change' : 'render'
+
+         mixinTemplateHelpers : (data)->
+            data = super data
+            data.image_url = if data.sizes.thumbnail then data.sizes.thumbnail.url else data.sizes.full.url
+            data
 
          events :
             'click a.thumbnail' : ( e )->
