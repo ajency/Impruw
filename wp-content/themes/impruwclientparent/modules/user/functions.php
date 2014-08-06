@@ -11,6 +11,9 @@ function update_user_lang( $user_id, $language ) {
 
     update_user_meta( $user_id, 'user_lang', $language );
 
+    global $sitepress;
+    $sitepress->set_default_language($language);
+
     wp_send_json( array( 'code' => 'OK', 'ID' => $user_id,
         'user_lang' => $language, 'PHRASES' => load_language_phrases() ) );
 }

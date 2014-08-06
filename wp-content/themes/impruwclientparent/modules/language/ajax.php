@@ -111,6 +111,8 @@ add_action( 'wp_ajax_fetch-language-facility', 'fetch_language_facility_ajax' );
 function get_language_page_ajax(){
 
     $page_id = $_REQUEST['pageId'];
+    $page_id= icl_object_id( $page_id, 'page', TRUE, 'en' );
+    
     $language = $_REQUEST['language'];
 
     $data = get_language_page($page_id,$language);

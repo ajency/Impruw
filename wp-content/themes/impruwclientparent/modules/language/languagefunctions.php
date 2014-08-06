@@ -282,9 +282,11 @@ function get_all_childsite_pages(){
         $page_based_on_lang = get_post($page_id_based_on_lang);
         $page_slug_based_on_lang = $page_based_on_lang->post_name;
 
+        //get page meta for each page
+        $impruw_page_template_name = get_post_meta( $page_id_based_on_lang, 'impruw_page_template', true );
 
         //TODO check language based slugs, right now check is made for english pages only
-        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang=='single-room' || $page_slug_based_on_lang==null){
+        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang=='reset-password' || $impruw_page_template_name=='single-room' || $page_slug_based_on_lang==null){
             $is_child_site_page = false;
         }
         else{
@@ -292,7 +294,7 @@ function get_all_childsite_pages(){
         }
 
         //TODO could be titled differently in other languages. check that. Will depend on what names are given at the time of first creating the 6 default posts
-        if($page_slug_based_on_lang == "rooms" || $page_slug_based_on_lang == "rooms-nb"){
+        if($impruw_page_template_name == "rooms" || $page_slug_based_on_lang == "rooms"){
             $is_room_page = true;
         }
 
