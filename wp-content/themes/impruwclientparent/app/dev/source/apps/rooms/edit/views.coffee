@@ -23,11 +23,13 @@ define ['app'
                 'click .add-gallery-images': ->
                     @trigger "show:edit:slider"
 
+                'click .fileinput-new' : ->
+                    @trigger "show:media:manager"
+
             serializeData: ->
                 data = super()
-
                 data.THEMEURL = THEMEURL
-                
+                data.image_url = "http://placehold.it/100&text=" + _.polyglot.t( 'Image' ) if data.image_url is false
                 data
 
 
@@ -55,6 +57,13 @@ define ['app'
 
             onSetSliderId: (slider_id)->
                 @$el.find('input[name="slider_id"]').val slider_id
+
+            onSetFeatureImage : ( media ) ->
+                image_id = media.get 'id'
+                media_size = media.get 'sizes'
+                image_path = media_size.thumbnail.url
+                @$el.find( '.feature-image' ).attr 'src', image_path
+                @$el.find( '#feature-image-id' ).attr 'value', image_id
 
             regions:
                 facilitiesRegion: '#facilities-region'

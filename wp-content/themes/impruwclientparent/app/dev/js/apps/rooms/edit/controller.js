@@ -49,6 +49,18 @@ define(['app', 'controllers/base-controller', 'apps/rooms/edit/views', 'apps/roo
                 });
               });
             });
+            _this.listenTo(_this.layout, "show:media:manager", function() {
+              App.navigate("media-manager", {
+                trigger: true
+              });
+              _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
+                _this.layout.triggerMethod("set:feature:image", media);
+                return _this.stopListening(App.vent, "media:manager:choosed:media");
+              });
+              return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {
+                return _this.stopListening(App.vent, "media:manager:choosed:media");
+              });
+            });
             _this.listenTo(_this.layout, "show:edit:slider", function() {
               return App.execute("show:slides:list", {
                 region: App.dialogRegion,

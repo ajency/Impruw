@@ -24,6 +24,7 @@ function updateroom( $room_data ) {
     $post_status  = 'publish';
     $slider_id    = $room_data[ 'slider_id' ];
     $no_of_rooms  = $room_data[ 'no_of_rooms' ];
+    $feature_image_id  = $room_data[ 'feature_image_id' ];
 
 
     // prepare facility array
@@ -78,6 +79,9 @@ function updateroom( $room_data ) {
 
         update_post_meta( $post_id, 'no_of_rooms', $no_of_rooms );
 
+        // set the feature image for the post
+        update_post_meta( $post_id, '_thumbnail_id', $feature_image_id );
+
 
         // set the facilities selected for the room
         wp_set_post_terms( $post_id, $facility_ids, 'impruw_room_facility' );
@@ -119,7 +123,7 @@ function get_room( $roomid ) {
 
     $attachment_id = get_post_thumbnail_id( $room_id );
 
-    $image = (int) $attachment_id > 0 ? wp_get_attachment_image_src( $attachment_id, 'medium' ) : array();
+    $image = (int) $attachment_id > 0 ? wp_get_attachment_image_src( $attachment_id, 'thumbnail' ) : array();
 
     $check_in = get_option( 'checkin-time', 'none' );
     $check_out = get_option( 'checkout-time', 'none' );

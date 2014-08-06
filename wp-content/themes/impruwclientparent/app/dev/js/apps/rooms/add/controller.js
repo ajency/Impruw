@@ -54,6 +54,18 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
                 collection: _this.slidesCollection
               });
             });
+            _this.listenTo(_this.layout, "show:media:manager", function() {
+              App.navigate("media-manager", {
+                trigger: true
+              });
+              _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
+                _this.layout.triggerMethod("set:feature:image", media);
+                return _this.stopListening(App.vent, "media:manager:choosed:media");
+              });
+              return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {
+                return _this.stopListening(App.vent, "media:manager:choosed:media");
+              });
+            });
             _this.listenTo(_this.layout, "save:new:room", function(data) {
               return _this._saveNewRoom(data);
             });
