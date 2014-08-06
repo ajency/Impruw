@@ -14,7 +14,7 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
 
       MediaView.prototype.template = mediaTpl;
 
-      MediaView.prototype.className = 'col-sm-2 single-img';
+      MediaView.prototype.className = 'col-sm-1 single-img';
 
       MediaView.prototype.modelEvents = {
         'change': 'render'
@@ -87,7 +87,7 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
           });
         }
         if (this.collection.length < this.collection.totalMedia) {
-          this.$el.find('#selectable-images').after('<button type="button" class="btn btn-primary load-more">Load More</button>');
+          this.$el.find('#selectable-images').after('<button type="button" class="btn btn-xs load-more"><span class="glyphicon glyphicon-repeat"></span> Load More</button>');
           return this.$el.find('#selectable-images').parent().find('.load-more').click(this.loadMoreClicked);
         }
       };
@@ -98,7 +98,7 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
             return function() {
               _this.$el.find('#selectable-images').parent().find('.load-more').remove();
               if (_this.collection.length < _this.collection.totalMedia) {
-                _this.$el.find('#selectable-images').after('<button type="button" class="btn btn-primary load-more">Load More</button>');
+                _this.$el.find('#selectable-images').after('<button type="button" class="btn btn-xs load-more"><span class="glyphicon glyphicon-repeat"></span> Load More</button>');
                 return _this.$el.find('#selectable-images').parent().find('.load-more').click(_this.loadMoreClicked);
               }
             };

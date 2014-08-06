@@ -53,7 +53,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         if (options == null) {
           options = {};
         }
-        this.perPage = 6;
+        this.perPage = 12;
         this.totalMedia = 0;
         return this.filters = {
           order: 'DESC',

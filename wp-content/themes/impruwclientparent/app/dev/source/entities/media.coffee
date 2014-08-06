@@ -33,7 +33,7 @@ define ["app", 'backbone'], ( App, Backbone ) ->
 
          initialize : (options = {})->
             
-            @perPage = 6
+            @perPage = 12
 
             @totalMedia = 0
 
