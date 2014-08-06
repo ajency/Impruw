@@ -22,9 +22,15 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype._getLanguageView = function(collection) {
-        return new ChooseRooms.Views.ChooseRoomsView({
-          collection: collection
-        });
+        if (collection.length === 0) {
+          return new ChooseRooms.Views.EmptyView({
+            collection: collection
+          });
+        } else {
+          return new ChooseRooms.Views.ChooseRoomsView({
+            collection: collection
+          });
+        }
       };
 
       Controller.prototype.loadOriginalRooms = function(selectedRoomId) {

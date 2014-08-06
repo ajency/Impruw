@@ -3,17 +3,16 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('LanguageApp.LanguagePageRooms.ChooseRooms.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var ChooseRoomsItemView;
-    ChooseRoomsItemView = (function(_super) {
-      __extends(ChooseRoomsItemView, _super);
+    Views.EmptyView = (function(_super) {
+      __extends(EmptyView, _super);
 
-      function ChooseRoomsItemView() {
-        return ChooseRoomsItemView.__super__.constructor.apply(this, arguments);
+      function EmptyView() {
+        return EmptyView.__super__.constructor.apply(this, arguments);
       }
 
-      ChooseRoomsItemView.prototype.template = '<option value="{{ID}}"">{{post_title}}</option>';
+      EmptyView.prototype.template = '<div class="empty-info">You have no rooms. Add rooms by going to Rooms tab on the Dashboard. Once you have filled out your room details, you can come back here to add translations.</div>';
 
-      return ChooseRoomsItemView;
+      return EmptyView;
 
     })(Marionette.ItemView);
     return Views.ChooseRoomsView = (function(_super) {
@@ -23,34 +22,44 @@ define(['app'], function(App) {
         return ChooseRoomsView.__super__.constructor.apply(this, arguments);
       }
 
-      ChooseRoomsView.prototype.template = "<form class='form-horizontal'> Pick a Room: <select class='js-room-select' id='js-room-select'> <option>Choose a room</option> </select> </form>";
-
-      ChooseRoomsView.prototype.itemView = ChooseRoomsItemView;
-
-      ChooseRoomsView.prototype.itemViewContainer = ".js-room-select";
+      ChooseRoomsView.prototype.template = "<form class='form-horizontal'> Pick a Room: <select class='js-room-select' id='js-room-select'> <option value='-1'>Choose a room</option> </select> </form>";
 
       ChooseRoomsView.prototype.events = {
         "click div.js-room-select ul.selectpicker li": "loadRoomApps"
       };
 
       ChooseRoomsView.prototype.onShow = function() {
-        return this.$el.find('select').selectpicker();
+        _.each(this.collection.models, (function(_this) {
+          return function(model, index) {
+            var html, room_id, room_name;
+            room_id = model.get('ID');
+            room_name = model.get('post_title');
+            html = "<option value='" + room_id + "' >" + room_name + "</option>";
+            return _this.$el.find('select').append(html);
+          };
+        })(this));
+        this.$el.find("#js-room-select option[value='-1']").attr({
+          'selected': 'selected'
+        });
+        return this.$el.find('#js-room-select').selectpicker();
       };
 
       ChooseRoomsView.prototype.loadRoomApps = function(e) {
         var selectedIndex, selectedRoomId;
         selectedIndex = $(e.currentTarget).attr('rel');
         selectedRoomId = $('select#js-room-select option:eq(' + selectedIndex + ')').attr('value');
-        if (selectedRoomId !== "") {
+        if (selectedRoomId !== '-1') {
           this.trigger('load:original:rooms', selectedRoomId);
-        }
-        if (selectedRoomId !== "") {
           return this.trigger('load:translated:rooms', selectedRoomId);
+        } else {
+          this.$el.find('.alert').remove();
+          this.$el.append('<div class="alert alert-success">' + _.polyglot.t("Please select a room to translate") + '</div>');
+          return this.$el.find('.alert').fadeOut(5000);
         }
       };
 
       return ChooseRoomsView;
 
-    })(Marionette.CompositeView);
+    })(Marionette.ItemView);
   });
 });

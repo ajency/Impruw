@@ -19,8 +19,12 @@ define ['app', 'controllers/base-controller'
                     loading: true
 
             _getLanguageView : (collection) ->
-                new ChooseRooms.Views.ChooseRoomsView
-                    collection:collection
+                if collection.length==0
+                   new ChooseRooms.Views.EmptyView
+                    collection:collection 
+                else
+                    new ChooseRooms.Views.ChooseRoomsView
+                     collection:collection
 
             loadOriginalRooms: (selectedRoomId) ->
                 Marionette.triggerMethod.call @region, "original:room", selectedRoomId
