@@ -69,3 +69,6 @@ define ['app'], (App)->
                         { name: 'colors' },
                         { name: 'about' }
                     ]
+
+                    editor.config.extraPlugins='confighelper'
+                    editor.config.placeholder = 'Enter your Title...'

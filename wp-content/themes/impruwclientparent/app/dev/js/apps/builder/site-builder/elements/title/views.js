@@ -43,7 +43,7 @@ define(['app'], function(App) {
         editor = event.editor;
         element = editor.element;
         return editor.on("configLoaded", function() {
-          return editor.config.toolbarGroups = [
+          editor.config.toolbarGroups = [
             {
               name: 'clipboard',
               groups: ['clipboard', 'undo']
@@ -77,6 +77,8 @@ define(['app'], function(App) {
               name: 'about'
             }
           ];
+          editor.config.extraPlugins = 'confighelper';
+          return editor.config.placeholder = 'Enter your Title...';
         });
       };
 
