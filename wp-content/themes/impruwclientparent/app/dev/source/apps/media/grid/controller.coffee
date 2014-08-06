@@ -8,7 +8,12 @@ define [ 'app', 'controllers/base-controller', 'apps/media/grid/views' ], ( App,
 
 			# initialize
 			initialize : ()->
-				@mediaCollection = App.request "fetch:media", true
+
+				MediaCollection = App.request "fetch:media", true
+				
+				@mediaCollection = window.f = new MediaCollection
+				@mediaCollection.fetch()
+
 				view = @_getView @mediaCollection
 
 				@listenTo view, "itemview:media:element:selected", ( iv ) =>

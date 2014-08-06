@@ -49,14 +49,49 @@ define(["app", 'backbone'], function(App, Backbone) {
         return MediaCollection.__super__.constructor.apply(this, arguments);
       }
 
-      MediaCollection.prototype.filters = {
-        order: 'DESC',
-        orderby: 'date',
-        paged: 1,
-        posts_per_page: 40
+      MediaCollection.prototype.initialize = function(options) {
+        if (options == null) {
+          options = {};
+        }
+        this.perPage = 12;
+        this.totalMedia = 0;
+        return this.filters = {
+          order: 'DESC',
+          orderby: 'date',
+          paged: 1,
+          posts_per_page: this.perPage
+        };
       };
 
       MediaCollection.prototype.model = Media.MediaModel;
+
+      MediaCollection.prototype.fetch = function(options) {
+        var paged, xhr;
+        if (options == null) {
+          options = {};
+        }
+        if (this.models.length === 0) {
+          paged = 1;
+        } else {
+          paged = (Math.floor(this.models.length / this.perPage)) + 1;
+        }
+        this.filters = {
+          order: 'DESC',
+          orderby: 'date',
+          paged: paged,
+          posts_per_page: this.perPage
+        };
+        options.add = true;
+        options.remove = false;
+        options.data = this.filters;
+        xhr = MediaCollection.__super__.fetch.call(this, options);
+        xhr.done((function(_this) {
+          return function(response) {
+            return _this.totalMedia = response.total;
+          };
+        })(this));
+        return xhr;
+      };
 
       MediaCollection.prototype.url = function() {
         return "" + AJAXURL + "?action=query_attachments";
@@ -78,12 +113,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         if (params == null) {
           params = {};
         }
-        _.defaults(params, mediaCollection.filters);
-        mediaCollection.fetch({
-          reset: reset,
-          data: params
-        });
-        return mediaCollection;
+        return Media.MediaCollection;
       },
       getMediaById: function(mediaId) {
         var media;
