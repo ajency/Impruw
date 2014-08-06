@@ -31,6 +31,9 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         },
         'click .add-gallery-images': function() {
           return this.trigger("show:edit:slider");
+        },
+        'click .fileinput-new': function() {
+          return this.trigger("show:media:manager");
         }
       };
 
@@ -60,6 +63,15 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       AddRoomLayout.prototype.onSetSliderId = function(slider_id) {
         return this.$el.find('input[name="slider_id"]').val(slider_id);
+      };
+
+      AddRoomLayout.prototype.onSetFeatureImage = function(media) {
+        var image_id, image_path, media_size;
+        image_id = media.get('id');
+        media_size = media.get('sizes');
+        image_path = media_size.thumbnail.url;
+        this.$el.find('.feature-image').attr('src', image_path);
+        return this.$el.find('#feature-image-id').attr('value', image_id);
       };
 
       AddRoomLayout.prototype.regions = {

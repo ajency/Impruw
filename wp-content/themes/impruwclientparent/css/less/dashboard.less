@@ -3926,6 +3926,18 @@ form {
 					color: @dash-grey;
 				}
 			}
+			.panel-heading, .panel-body {
+				span {
+					display: block;
+					margin-bottom: 0.2em;
+					&.active {
+						color: @success-green;
+					}
+					&.pending {
+						color: lighten(@red, 10%);
+					}
+				}
+			}
 			&.active {
 				border-color: @success-green;
 				.panel-heading {
