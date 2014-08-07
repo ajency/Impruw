@@ -47,19 +47,39 @@ define ['app'], (App)->
                                   </div>'
 
             events :
-                'click' : 'showRoomSummaryEditPopup'
+                  'click' : 'showRoomSummaryEditPopup'
+
+
+            mixinTemplateHelpers : (data)->
+               data = super data
+               data.post_content = _.prune data.post_content, 200
+               data
+
 
             showRoomSummaryEditPopup :(evt)->
-                evt.preventDefault()
-                @$el.closest('.element-wrapper').find('.aj-imp-settings-btn').click()
+                  evt.preventDefault()
+                  @$el.closest('.element-wrapper').find('.aj-imp-settings-btn').click()
+
+            onShow:->
+               isSingle = Marionette.getOption @, 'isSingleRoom'
+
+               if not _.isUndefined isSingle
+                  @$el.closest('.element-wrapper').children('.element-controls').find('.aj-imp-settings-btn').remove()
+
+                  @$el.attr "data-content", _.polyglot.t('Update display details')+ " <a href='#{SITEURL}/dashboard/#/room-summary'>"+_.polyglot.t('here')+"</a> "
+                  @$el.popover
+                     html : true
+                     placement : 'top'
+
+
 
             onBeforeRender: ->
-                isSingle = Marionette.getOption @, 'isSingleRoom'
+               isSingle = Marionette.getOption @, 'isSingleRoom'
 
-                if not _.isUndefined isSingle
-                    @template = @singleRoomTemplate
+               if not _.isUndefined isSingle
+                  @template = @singleRoomTemplate
 
-                roomNotSet = Marionette.getOption @, 'roomNotSet'
+               roomNotSet = Marionette.getOption @, 'roomNotSet'
 
-                if not _.isUndefined roomNotSet
-                    @template = @roomNotSetTemplate
+               if not _.isUndefined roomNotSet
+                  @template = @roomNotSetTemplate

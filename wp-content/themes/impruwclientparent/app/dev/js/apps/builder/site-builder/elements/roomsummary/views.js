@@ -20,9 +20,28 @@ define(['app'], function(App) {
         'click': 'showRoomSummaryEditPopup'
       };
 
+      RoomSummaryView.prototype.mixinTemplateHelpers = function(data) {
+        data = RoomSummaryView.__super__.mixinTemplateHelpers.call(this, data);
+        data.post_content = _.prune(data.post_content, 200);
+        return data;
+      };
+
       RoomSummaryView.prototype.showRoomSummaryEditPopup = function(evt) {
         evt.preventDefault();
         return this.$el.closest('.element-wrapper').find('.aj-imp-settings-btn').click();
+      };
+
+      RoomSummaryView.prototype.onShow = function() {
+        var isSingle;
+        isSingle = Marionette.getOption(this, 'isSingleRoom');
+        if (!_.isUndefined(isSingle)) {
+          this.$el.closest('.element-wrapper').children('.element-controls').find('.aj-imp-settings-btn').remove();
+          this.$el.attr("data-content", _.polyglot.t('Update display details') + (" <a href='" + SITEURL + "/dashboard/#/room-summary'>") + _.polyglot.t('here') + "</a> ");
+          return this.$el.popover({
+            html: true,
+            placement: 'top'
+          });
+        }
       };
 
       RoomSummaryView.prototype.onBeforeRender = function() {
