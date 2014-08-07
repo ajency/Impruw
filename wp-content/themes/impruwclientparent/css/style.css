@@ -1632,3 +1632,7 @@ and open the template in the editor.
   }
   /*Responive*/
 }
+/**** Table Styles****/
+.table {
+  border-color: #ff7e00;
+}
