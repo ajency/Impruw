@@ -13,7 +13,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype.initialize = function(opts) {
         var siteModel;
         this.siteModel = siteModel = App.request("get:site:model");
-        console.log(this.siteModel);
         this.originalAddressView = this._getAddressView(siteModel);
         return this.show(this.originalAddressView, {
           loading: true

@@ -7,8 +7,16 @@
  *
  * @return type
  */
-function get_site_details( $site_id = 0 ) {
+function get_site_details( $site_id = 0, $language=FALSE ) {
 
+    if($language===FALSE){
+        $translation_language = wpml_get_default_language();
+    }
+    else{
+        $translation_language = $language;
+    }
+
+    
     if ( $site_id === 0 )
         $site_id = get_current_blog_id();
 
@@ -17,20 +25,37 @@ function get_site_details( $site_id = 0 ) {
     $image_path = wp_get_attachment_image_src( $logo_id );;
     $image_path = $image_path === false ? '' : $image_path[ 0 ];
 
-    return array( 'site_id' => $site_id,
+    $original_street = get_option('street','');
+    $translated_street = impruw_wpml_get_string_translation($original_street, $translation_language);
+
+    // if($translated_street===$original_street){
+    //     $translated_street.= '(not translated)';
+    // }
+
+    $original_city = get_option('city','');
+    $translated_city = impruw_wpml_get_string_translation($original_city, $translation_language);
+
+    // if($translated_city===$original_city){
+    //     $translated_city.= '(not translated)';
+    // }
+    
+    $site_array = array( 'site_id' => $site_id,
         'site_domain' => get_site_domain( $site_id ),
         'site_name' => get_option( 'blogname' ),
         'admin_email' => get_option( 'admin_email' ),
-        'street' => get_option( 'street', '' ),
+        'street' => $translated_street,
         'postal_code' => get_option( 'postal_code', '' ),
-        'city' => get_option( 'city', '' ),
+        'city' => $translated_city,
         'logo_id' => $logo_id,
         'logo_url' => $image_path, 'country' => get_option( 'country', '' ),
         'site_email' => get_option( 'site_email', get_bloginfo( 'admin_email' ) ),
         'other_phone_no' => get_option( 'other_phone_no', array() ),
         'facebook' => get_option( 'facebook', '' ),
         'twitter' => get_option( 'twitter', '' ) );
+
+    return $site_array;
 }
+
 
 /**
  * Returns the domain of the site
@@ -388,6 +413,11 @@ function update_site_profile( $formdata ) {
             update_option( $key, $value );
         }
 
+        //Register strings for translation
+        if($key=='street'||$key=='city'){
+            icl_register_string('Site Profile', $key, $value);
+        }
+        
         // prepare array conatining all the form values
         $return_array[ $key ] = $value;
     }

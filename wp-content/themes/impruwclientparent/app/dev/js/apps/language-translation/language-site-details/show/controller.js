@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/language-translation/language-site-details/show/view', 'apps/language-translation/language-site-details/original-address-content/controller'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'apps/language-translation/language-site-details/show/view', 'apps/language-translation/language-site-details/original-address-content/controller', 'apps/language-translation/language-site-details/translated-address-content/controller'], function(App, AppController) {
   return App.module('LanguageApp.LanguageSiteContent', function(LanguageSiteContent, App, Backbone, Marionette, $, _) {
     LanguageSiteContent.Controller = (function(_super) {
       __extends(Controller, _super);

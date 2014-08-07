@@ -20,6 +20,14 @@ define ["app", 'backbone'], (App, Backbone) ->
                 siteModel.fetch()
                 siteModel
 
+            getLanguageBasedSite : ( language )->
+                siteModelByLang = new SiteModel
+                siteModelByLang.fetch
+                    data :
+                        'language' : language
+                        'action' : 'read-language-based-site'
+                siteModelByLang                
+
         # get site social
             getSiteSocial: ->
                 new Backbone.Collection [
@@ -32,6 +40,9 @@ define ["app", 'backbone'], (App, Backbone) ->
                 # REQUEST HANDLERS
         App.reqres.setHandler "get:site:model", ->
             API.getSiteModel()
+
+        App.reqres.setHandler "get:language:based:site",(language) ->
+            API.getLanguageBasedSite(language)            
 
         App.reqres.setHandler "get:site:social", ->
             API.getSiteSocial()

@@ -41,6 +41,26 @@ function read_site_ajax() {
 
 add_action( 'wp_ajax_read-site', 'read_site_ajax' );
 
+function read_language_based_site_ajax(){
+
+    $language = $_REQUEST['language'];
+
+    $site_id = get_current_blog_id();
+    $data = get_site_details( $site_id, $language );
+    $data[ 'default_language' ] = get_native_language_name(wpml_get_default_language());
+    $data['translation_language'] = get_native_language_name($language);
+
+     if ( is_array( $data ) )
+        wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+    else
+        wp_send_json( array( 'code' => 'ERROR', 'message' => 'Failed to fetch data' ) );
+
+
+}
+
+add_action( 'wp_ajax_read-language-based-site', 'read_language_based_site_ajax' );
+
+
 /**
  *
  */
@@ -114,6 +134,37 @@ function update_site_ajax() {
 }
 
 add_action( 'wp_ajax_update-site', 'update_site_ajax' );
+
+
+
+function update_translated_siteprofile_ajax(){
+    $translatedSiteprofile = $_REQUEST['translatedSiteprofile'];
+    $editing_language = $_REQUEST['editingLanguage'];
+    $i =0;
+    $updated_string_ids = array();
+
+    while($i<sizeof($translatedSiteprofile)) {
+
+        //translatedSiteprofile[0][translated_option]:A streetsss-fr
+        //translatedSiteprofile[0][translation_of_option]:street
+        $option_to_be_translated = $translatedSiteprofile[$i]['translation_of_option'];
+        $original_option_value = get_option($option_to_be_translated,'');
+        $translated_option_value = $translatedSiteprofile[$i]['translated_option'];
+
+        $original_string_id = icl_get_string_id($original_option_value, 'Site Profile');
+
+        $string_id = icl_add_string_translation( $original_string_id, $editing_language, $translated_option_value, ICL_STRING_TRANSLATION_COMPLETE );
+
+        array_push($updated_string_ids,$string_id);
+
+        $i++;
+    }
+
+    wp_send_json( array( 'code' => 'OK', 'data' => array( 'string_id' => $updated_string_ids ) ) );
+
+}
+
+add_action( 'wp_ajax_update-translated-siteprofile', 'update_translated_siteprofile_ajax' );
 
 
 function update_tracking() {

@@ -9,7 +9,6 @@ define ['app', 'controllers/base-controller'
 
                 #get site collection
                 @siteModel = siteModel = App.request "get:site:model"
-                console.log @siteModel
 
                 @originalAddressView = @_getAddressView siteModel
 

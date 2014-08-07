@@ -1,6 +1,7 @@
 define ['app', 'controllers/base-controller'
         'apps/language-translation/language-site-details/show/view'
-        'apps/language-translation/language-site-details/original-address-content/controller'], (App, AppController)->
+        'apps/language-translation/language-site-details/original-address-content/controller'
+        'apps/language-translation/language-site-details/translated-address-content/controller'], (App, AppController)->
     App.module 'LanguageApp.LanguageSiteContent', (LanguageSiteContent, App, Backbone, Marionette, $, _)->
         class LanguageSiteContent.Controller extends AppController
 
