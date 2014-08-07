@@ -73,13 +73,13 @@ define [ 'app'
             if not isSingleRoom
                @$el.find( '#room-elements ul' ).remove()
                roomSummaryhtml = '<ul class="aj-imp-builder-items clearfix">
-                                                                                      <li class="element" data-element="RoomSummary">
-                                                                                         <a href="#" class="drag builder-element">
-                                                                                             <div class="aj-imp-builder-icon bicon icon-uniF15B"></div>
-                                                                                             <div class="aj-imp-builder-title">Display Rooms</div>
-                                                                                         </a>
-                                                                                      </li>
-                                                                                    </ul>'
+                                   <li class="element" data-element="RoomSummary">
+                                      <a href="#" class="drag builder-element">
+                                          <div class="aj-imp-builder-icon bicon icon-uniF15B"></div>
+                                          <div class="aj-imp-builder-title">Room Summary</div>
+                                      </a>
+                                   </li>
+                                 </ul>'
                @$el.find( '#room-elements' ).append( roomSummaryhtml )
 
 
