@@ -21,8 +21,12 @@ define(["app", 'backbone'], function(App, Backbone) {
     siteModel = new SiteModel;
     API = {
       getSiteModel: function() {
-        siteModel;
-        siteModel.fetch();
+        siteModel = new SiteModel;
+        siteModel.fetch({
+          data: {
+            'action': 'read-language-based-site'
+          }
+        });
         return siteModel;
       },
       getLanguageBasedSite: function(language) {

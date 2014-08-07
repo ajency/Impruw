@@ -25,17 +25,22 @@ function get_site_details( $site_id = 0, $language=FALSE ) {
     $image_path = wp_get_attachment_image_src( $logo_id );;
     $image_path = $image_path === false ? '' : $image_path[ 0 ];
 
+            
     $original_street = get_option('street','');
+    //Check if present in string translation table , ie if it is registered 
+    $street_string_id = icl_get_string_id( $original_street, 'Site Profile');
     $translated_street = impruw_wpml_get_string_translation($original_street, $translation_language);
 
-    // if($translated_street===$original_street){
+    // if(($translated_street===$original_street)&&($street_string_id!=NULL)){
     //     $translated_street.= '(not translated)';
     // }
 
     $original_city = get_option('city','');
+    //Check if present in string translation table , ie if it is registered 
+    $city_string_id = icl_get_string_id( $original_street, 'Site Profile');
     $translated_city = impruw_wpml_get_string_translation($original_city, $translation_language);
 
-    // if($translated_city===$original_city){
+    // if(($translated_city===$original_city)&&($street_string_id!=NULL)){
     //     $translated_city.= '(not translated)';
     // }
     
@@ -416,6 +421,20 @@ function update_site_profile( $formdata ) {
         //Register strings for translation
         if($key=='street'||$key=='city'){
             icl_register_string('Site Profile', $key, $value);
+
+            $default_language = wpml_get_default_language();
+
+            //Add itself to english translation if default lang is english
+            if($default_language === 'en'){
+                $original_string_id = icl_get_string_id($value, 'Site Profile');
+
+                $string_id = icl_add_string_translation( $original_string_id, 'en', $value, ICL_STRING_TRANSLATION_COMPLETE );
+            }
+            else if($default_language === 'nb'){
+                $original_string_id = icl_get_string_id($value, 'Site Profile');
+
+                $string_id = icl_add_string_translation( $original_string_id, 'nb', $value, ICL_STRING_TRANSLATION_COMPLETE );
+            }
         }
         
         // prepare array conatining all the form values

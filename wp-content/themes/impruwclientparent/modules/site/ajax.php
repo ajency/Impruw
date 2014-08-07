@@ -43,10 +43,33 @@ add_action( 'wp_ajax_read-site', 'read_site_ajax' );
 
 function read_language_based_site_ajax(){
 
-    $language = $_REQUEST['language'];
+    if(isset($_REQUEST['language'])){
+        $language = $_REQUEST['language'];
+    }
 
+    else{
+        $language = wpml_get_default_language();
+    }
+    
     $site_id = get_current_blog_id();
     $data = get_site_details( $site_id, $language );
+
+    $data [ 'checkin_time' ] = get_option( 'checkin-time', '' );
+    $data [ 'checkout_time' ] = get_option( 'checkout-time', '' );
+    $data [ 'time_format' ] = get_option( 'time-format', '' );
+    $data [ 'additional_policy' ] = get_option( 'additional-policy', '' );
+    $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );
+    $data [ 'currency' ] = get_option( 'currency','NOK' );
+//    $data [ 'braintree_plan_id' ] = get_option( 'braintree-plan','hn62' );
+    $data [ 'braintree_customer_id' ] = get_option( 'braintree-customer-id','');
+//    $data [ 'braintree_plan_name' ] = get_option( 'braintree-plan-name','Free' );
+    $data [ 'braintree_subscription' ] = get_option( 'braintree-subscription',null );
+//    $data [ 'braintree_client_token' ] = generate_client_token();
+//    $data ['subscription_start_date'] = get_option('subscription-start-date');
+    $data [ 'hotel_name' ] = get_option( 'hotel_name','' );
+    $data [ 'piwik_path' ] = PIWIK_PATH;
+    $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
+
     $data[ 'default_language' ] = get_native_language_name(wpml_get_default_language());
     $data['translation_language'] = get_native_language_name($language);
 

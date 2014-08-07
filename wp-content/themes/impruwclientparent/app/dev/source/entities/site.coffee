@@ -16,8 +16,10 @@ define ["app", 'backbone'], (App, Backbone) ->
         API =
         # get site model
             getSiteModel: ()->
-                siteModel
-                siteModel.fetch()
+                siteModel = new SiteModel
+                siteModel.fetch
+                    data :
+                        'action' : 'read-language-based-site'
                 siteModel
 
             getLanguageBasedSite : ( language )->
