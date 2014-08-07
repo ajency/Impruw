@@ -28,28 +28,24 @@ define(['app'], function(App) {
         },
         'click .table-holder': 'destroyEditor',
         'click .spinner .btn:first-of-type': 'increaseCount',
-        'click .spinner .btn:last-of-type': 'decreaseCount'
-      };
-
-      TableView.prototype.modelEvents = {
-        'change:row': 'rowChanged',
-        'change:column': 'columnChanged'
+        'click .spinner .btn:last-of-type': 'decreaseCount',
+        'column:resize:stop.rc table': 'saveTableMarkup'
       };
 
       TableView.prototype.onShow = function() {
         this.$el.find('.table-holder').html(_.stripslashes(this.model.get('content')));
         this.$el.find('table').resizableColumns();
-        return $('select').selectpicker();
+        return this.$el.find('select').selectpicker();
       };
 
       TableView.prototype.increaseCount = function(evt) {
         evt.stopPropagation();
         $(evt.target).closest('.spinner').find('input').val(parseInt($(evt.target).closest('.spinner').find('input').val(), 10) + 1);
         if ($(evt.target).closest('.spinner').hasClass('column-spinner')) {
-          this.model.set('column', $(evt.target).closest('.spinner').find('input').val());
+          this.columnChanged(parseInt($(evt.target).closest('.spinner').find('input').val()));
         }
         if ($(evt.target).closest('.spinner').hasClass('row-spinner')) {
-          return this.model.set('row', $(evt.target).closest('.spinner').find('input').val());
+          return this.rowChanged(parseInt($(evt.target).closest('.spinner').find('input').val()));
         }
       };
 
@@ -57,39 +53,55 @@ define(['app'], function(App) {
         evt.stopPropagation();
         $(evt.target).closest('.spinner').find('input').val(parseInt($(evt.target).closest('.spinner').find('input').val(), 10) - 1);
         if ($(evt.target).closest('.spinner').hasClass('column-spinner')) {
-          this.model.set('column', $(evt.target).closest('.spinner').find('input').val());
+          this.columnChanged(parseInt($(evt.target).closest('.spinner').find('input').val()));
         }
         if ($(evt.target).closest('.spinner').hasClass('row-spinner')) {
-          return this.model.set('row', $(evt.target).closest('.spinner').find('input').val());
+          return this.rowChanged(parseInt($(evt.target).closest('.spinner').find('input').val()));
         }
       };
 
-      TableView.prototype.rowChanged = function(model, row) {
-        var html, ind, _i, _ref;
-        if (row > model.previous('row')) {
+      TableView.prototype.rowChanged = function(row) {
+        var html, index, _i, _ref;
+        if (row > this.model.get('row')) {
+          this.model.set('row', row);
           html = '<tr>';
-          for (ind = _i = 1, _ref = model.get('column'); 1 <= _ref ? _i <= _ref : _i >= _ref; ind = 1 <= _ref ? ++_i : --_i) {
+          for (index = _i = 1, _ref = this.model.get('column'); 1 <= _ref ? _i <= _ref : _i >= _ref; index = 1 <= _ref ? ++_i : --_i) {
             html += '<td><div>demo</div></td>';
           }
           html += '</tr>';
-          return this.$el.find('tbody').append(html);
+          this.$el.find('tbody').append(html);
         } else {
-
+          if (confirm('Removing a ROW might cause a loss of data. Do you want to continue?')) {
+            this.model.set('row', row);
+            this.$el.find('tbody tr:last-of-type').remove();
+          } else {
+            this.$el.find('.row-spinner input').val(this.model.get('row'));
+          }
         }
+        return this.saveTableMarkup();
       };
 
-      TableView.prototype.columnChanged = function(model, column) {
+      TableView.prototype.columnChanged = function(column) {
         var tableRows;
-        if (column > model.previous('column')) {
+        if (column > this.model.get('column')) {
+          this.model.set('column', column);
           this.$el.find('thead tr').append('<th><div>demo</div></th>');
           tableRows = this.$el.find('tbody tr');
           _.each(tableRows, function(row, index) {
             return $(row).append('<td><div>demo</div></td>');
           });
-          return this.$el.find('table').resizableColumns();
+          this.$el.find('table').resizableColumns('destroy');
+          this.$el.find('table').resizableColumns();
         } else {
-
+          if (confirm('Removing a COLUMN might cause a loss of data. Do you want to continue?')) {
+            this.model.set('column', column);
+            this.$el.find('thead tr th:last-of-type').remove();
+            tableRows = this.$el.find('tbody tr td:last-of-type').remove();
+          } else {
+            this.$el.find('.column-spinner input').val(this.model.get('column'));
+          }
         }
+        return this.saveTableMarkup();
       };
 
       TableView.prototype.showEditor = function(evt) {
@@ -108,10 +120,18 @@ define(['app'], function(App) {
         evt.stopPropagation();
         if (this.editor) {
           this.editor.destroy();
+          this.editor = null;
           console.log('editor destroyed');
-          this.$el.find('td div, th div').attr('contenteditable', 'false').removeAttr('id');
+          this.$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr('id');
+          this.$el.find('table').resizableColumns('destroy');
+          this.$el.find('table').resizableColumns();
+          return this.saveTableMarkup();
         }
-        return this.$el.find('table').resizableColumns();
+      };
+
+      TableView.prototype.saveTableMarkup = function() {
+        console.log('save table');
+        return this.trigger('save:table', this.$el.find('.table-holder').html());
       };
 
       return TableView;

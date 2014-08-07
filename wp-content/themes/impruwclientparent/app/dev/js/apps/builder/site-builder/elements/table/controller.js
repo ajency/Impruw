@@ -35,6 +35,14 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
       Controller.prototype.renderElement = function() {
         this.removeSpinner();
         this.view = this._getTableView();
+        this.listenTo(this.view, "save:table", (function(_this) {
+          return function(html) {
+            _this.layout.model.set('content', "" + html);
+            if (_this.layout.model.hasChanged()) {
+              return _this.layout.model.save();
+            }
+          };
+        })(this));
         return this.layout.elementRegion.show(this.view);
       };
 

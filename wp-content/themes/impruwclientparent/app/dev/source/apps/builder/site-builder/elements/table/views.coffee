@@ -56,51 +56,73 @@ define ['app'], (App)->
 				'click .spinner .btn:first-of-type' : 'increaseCount'
 				'click .spinner .btn:last-of-type' : 'decreaseCount'
 
-			modelEvents : 
-				'change:row' : 'rowChanged'
-				'change:column' : 'columnChanged'
+
+				'column:resize:stop.rc table' : 'saveTableMarkup'
+
+
 
 			onShow :->
 				@$el.find('.table-holder').html _.stripslashes @model.get 'content'
 				@$el.find('table').resizableColumns()
-				$('select').selectpicker()
-
+				@$el.find('select').selectpicker()
 
 
 			increaseCount : (evt)->
 				evt.stopPropagation()
 				$(evt.target).closest('.spinner').find('input').val parseInt($(evt.target).closest('.spinner').find('input').val(),10)+1
-				@model.set 'column', $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'column-spinner'
-				@model.set 'row', $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'row-spinner'
+				@columnChanged parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'column-spinner'
+				@rowChanged parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'row-spinner'
 
 
 			decreaseCount : (evt)->
 				evt.stopPropagation()
 				$(evt.target).closest('.spinner').find('input').val parseInt($(evt.target).closest('.spinner').find('input').val(),10)-1
-				@model.set 'column', $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'column-spinner'
-				@model.set 'row', $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'row-spinner'
+				@columnChanged parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'column-spinner'
+				@rowChanged parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'row-spinner'
 
 
-			rowChanged:(model,row)->
-				if row > model.previous 'row'
+			rowChanged:(row)->
+				if row > @model.get 'row'
+					@model.set 'row', row
 					html = '<tr>'
-					for ind in [1..model.get('column')]
+					for index in [1..@model.get('column')]
 						html += '<td><div>demo</div></td>'
 					html += '</tr>'
 					@$el.find('tbody').append html
 				else
-					# @todo : remove row
+					if confirm 'Removing a ROW might cause a loss of data.
+					 	Do you want to continue?'
+					 	@model.set 'row', row
+					 	@$el.find('tbody tr:last-of-type').remove()
+					else 
+					 	# model.set 'row', row+1
+						@$el.find('.row-spinner input').val @model.get 'row'
+				@saveTableMarkup()
 
-			columnChanged : (model,column)->
-				if column > model.previous 'column'
+			columnChanged : (column)->
+				if column > @model.get 'column'
+					@model.set 'column',column
 					@$el.find('thead tr').append '<th><div>demo</div></th>'
 					tableRows = @$el.find('tbody tr')
 					_.each tableRows,(row,index)->
 						$(row).append '<td><div>demo</div></td>'
 
+					@$el.find('table').resizableColumns('destroy')
 					@$el.find('table').resizableColumns()
 				else 
-					# @todo : remove column
+					if confirm 'Removing a COLUMN might cause a loss of data.
+					 	Do you want to continue?'
+					 	@model.set 'column',column
+					 	@$el.find('thead tr th:last-of-type').remove()
+					 	tableRows = @$el.find('tbody tr td:last-of-type').remove()
+					else
+						# model.set 'column', column+1
+						# console.log column+1
+						@$el.find('.column-spinner input').val @model.get 'column'
+
+				@saveTableMarkup()
+
+
 
 
 			showEditor :(evt)->
@@ -119,12 +141,17 @@ define ['app'], (App)->
 
 				if @editor
 					@editor.destroy()
+					@editor = null
 					console.log 'editor destroyed'
-					@$el.find('td div, th div').attr('contenteditable', 'false').removeAttr 'id'
+					@$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr 'id'
 					# $(evt.target).closest('div').attr('contenteditable', 'false').removeAttr 'id'
-				@$el.find('table').resizableColumns()
+					@$el.find('table').resizableColumns('destroy')
+					@$el.find('table').resizableColumns()
+					@saveTableMarkup()				
 
-
+			saveTableMarkup:->
+				console.log 'save table'
+				@trigger 'save:table',@$el.find('.table-holder').html()
 
 
 
