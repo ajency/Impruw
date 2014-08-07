@@ -43,14 +43,18 @@ define ['app','bootbox'], (App,bootbox)->
 			# itemContainer : 'tbody'
 
 			ui:
-				editableData: 'table td div'
-				editableHead : 'table th div'
+				editableData: 'table td '
+				editableHead : 'table th '
 
 			events : 
-				'dblclick @ui.editableData,@ui.editableHead' : 'showEditor'
+				'click @ui.editableData,@ui.editableHead' : 'showEditor'
 				# 'blur @ui.editableData,@ui.editableHead' : 'destroyEditor'
 				'click .cke_editable' : (e)->
 					e.stopPropagation()
+
+				'click a': (e)->
+                    e.preventDefault()
+
 				'click .table-holder' : 'destroyEditor'
 
 				'click .spinner .btn:first-of-type' : 'increaseCount'
@@ -131,12 +135,24 @@ define ['app','bootbox'], (App,bootbox)->
 				evt.stopPropagation()
 				if @editor
 					@editor.destroy()
+					@$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr 'id'
+
+					@saveTableMarkup()	
 				
 				console.log 'showEditor'
 				id = _.uniqueId 'text-'
-				$(evt.target).closest('div').attr('contenteditable', 'true').attr 'id', id
+				$(evt.target).closest('td,th').find('div').attr('contenteditable', 'true').attr 'id', id
+				CKEDITOR.on 'instanceCreated', @configureEditor
 				@editor = CKEDITOR.inline document.getElementById id
 				# @editor.setData _.stripslashes @model.get 'content'
+
+			configureEditor : (event) =>
+                editor = event.editor
+                element = editor.element
+
+                if element.getAttribute('id') is @$el.attr 'id'
+                    editor.on 'configLoaded', ->
+                        editor.config.placeholder = 'Enter Data'
 
 			destroyEditor :(evt)=>
 				evt.stopPropagation()
@@ -153,7 +169,7 @@ define ['app','bootbox'], (App,bootbox)->
 
 			saveTableMarkup:->
 				console.log 'save table'
-				@trigger 'save:table',@$el.find('.table-holder').html()
+				@trigger 'save:table',@$el.find('.table-holder')
 
 
 

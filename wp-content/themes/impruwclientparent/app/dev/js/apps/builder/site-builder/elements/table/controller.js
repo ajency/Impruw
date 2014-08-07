@@ -36,8 +36,12 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
         this.removeSpinner();
         this.view = this._getTableView();
         this.listenTo(this.view, "save:table", (function(_this) {
-          return function(html) {
-            _this.layout.model.set('content', "" + html);
+          return function(tableHolder) {
+            var html;
+            html = $(tableHolder).clone();
+            $(html).find('.rc-handle-container').remove();
+            $(html).find('td div, th div').removeAllAttr();
+            _this.layout.model.set('content', "" + ($(html).html()));
             if (_this.layout.model.hasChanged()) {
               return _this.layout.model.save();
             }

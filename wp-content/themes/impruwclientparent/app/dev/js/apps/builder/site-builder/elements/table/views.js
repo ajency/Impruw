@@ -9,6 +9,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       function TableView() {
         this.destroyEditor = __bind(this.destroyEditor, this);
+        this.configureEditor = __bind(this.configureEditor, this);
         return TableView.__super__.constructor.apply(this, arguments);
       }
 
@@ -17,14 +18,17 @@ define(['app', 'bootbox'], function(App, bootbox) {
       TableView.prototype.template = '<div class="table-settings-bar"> <div class="form-inline"> <div class="control-group"> <label for="spinner-01">Columns: </label> <div class="input-group spinner column-spinner"> <input type="text" class="form-control" value="{{column}}"> <div class="input-group-btn-vertical"> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-up"></i></button> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-down"></i></button> </div> </div> </div> <div class="control-group"> <label for="spinner-02">Rows: </label> <div class="input-group spinner row-spinner"> <input type="text" class="form-control" value="{{row}}"> <div class="input-group-btn-vertical"> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-up"></i></button> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-down"></i></button> </div> </div> </div> <div class="control-group"> <label for="style">Style: </label> <select id="style"> <option value="1">Style 1</option> <option value="2">Style 2</option> </select> </div> </div> </div> <div class="table-holder"></div>';
 
       TableView.prototype.ui = {
-        editableData: 'table td div',
-        editableHead: 'table th div'
+        editableData: 'table td ',
+        editableHead: 'table th '
       };
 
       TableView.prototype.events = {
-        'dblclick @ui.editableData,@ui.editableHead': 'showEditor',
+        'click @ui.editableData,@ui.editableHead': 'showEditor',
         'click .cke_editable': function(e) {
           return e.stopPropagation();
+        },
+        'click a': function(e) {
+          return e.preventDefault();
         },
         'click .table-holder': 'destroyEditor',
         'click .spinner .btn:first-of-type': 'increaseCount',
@@ -117,11 +121,25 @@ define(['app', 'bootbox'], function(App, bootbox) {
         evt.stopPropagation();
         if (this.editor) {
           this.editor.destroy();
+          this.$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr('id');
+          this.saveTableMarkup();
         }
         console.log('showEditor');
         id = _.uniqueId('text-');
-        $(evt.target).closest('div').attr('contenteditable', 'true').attr('id', id);
+        $(evt.target).closest('td,th').find('div').attr('contenteditable', 'true').attr('id', id);
+        CKEDITOR.on('instanceCreated', this.configureEditor);
         return this.editor = CKEDITOR.inline(document.getElementById(id));
+      };
+
+      TableView.prototype.configureEditor = function(event) {
+        var editor, element;
+        editor = event.editor;
+        element = editor.element;
+        if (element.getAttribute('id') === this.$el.attr('id')) {
+          return editor.on('configLoaded', function() {
+            return editor.config.placeholder = 'Enter Data';
+          });
+        }
       };
 
       TableView.prototype.destroyEditor = function(evt) {
@@ -139,7 +157,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       TableView.prototype.saveTableMarkup = function() {
         console.log('save table');
-        return this.trigger('save:table', this.$el.find('.table-holder').html());
+        return this.trigger('save:table', this.$el.find('.table-holder'));
       };
 
       return TableView;
