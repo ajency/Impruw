@@ -52,7 +52,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
       MainView.prototype.itemView = Views.SingleElement;
 
       MainView.prototype.onShow = function() {
-        this.$el.draggable({
+        this.$el.css('position', 'fixed').draggable({
           handle: "p.desc",
           addClasses: false,
           containment: 'document',
