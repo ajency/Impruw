@@ -38,7 +38,8 @@ define(['app'], function(App) {
 
       TableView.prototype.onShow = function() {
         this.$el.find('.table-holder').html(_.stripslashes(this.model.get('content')));
-        return this.$el.find('table').resizableColumns();
+        this.$el.find('table').resizableColumns();
+        return $('select').selectpicker();
       };
 
       TableView.prototype.increaseCount = function(evt) {

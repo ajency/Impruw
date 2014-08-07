@@ -63,6 +63,7 @@ define ['app'], (App)->
 			onShow :->
 				@$el.find('.table-holder').html _.stripslashes @model.get 'content'
 				@$el.find('table').resizableColumns()
+				$('select').selectpicker()
 
 
 
