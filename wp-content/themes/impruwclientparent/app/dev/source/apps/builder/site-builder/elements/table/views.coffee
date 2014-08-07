@@ -1,4 +1,4 @@
-define ['app'], (App)->
+define ['app','bootbox'], (App,bootbox)->
 
 	# Row views
 	App.module 'SiteBuilderApp.Element.Table.Views', (Views, App, Backbone, Marionette, $, _)->
@@ -90,13 +90,14 @@ define ['app'], (App)->
 					html += '</tr>'
 					@$el.find('tbody').append html
 				else
-					if confirm 'Removing a ROW might cause a loss of data.
-					 	Do you want to continue?'
-					 	@model.set 'row', row
-					 	@$el.find('tbody tr:last-of-type').remove()
-					else 
-					 	# model.set 'row', row+1
-						@$el.find('.row-spinner input').val @model.get 'row'
+					bootbox.confirm 'Removing a ROW might cause a loss of data.
+					 	Do you want to continue?',(result)=>
+						if result
+							@model.set 'row', row
+							@$el.find('tbody tr:last-of-type').remove()
+						else 
+							# model.set 'row', row+1
+							@$el.find('.row-spinner input').val @model.get 'row'
 				@saveTableMarkup()
 
 			columnChanged : (column)->
@@ -110,15 +111,16 @@ define ['app'], (App)->
 					@$el.find('table').resizableColumns('destroy')
 					@$el.find('table').resizableColumns()
 				else 
-					if confirm 'Removing a COLUMN might cause a loss of data.
-					 	Do you want to continue?'
-					 	@model.set 'column',column
-					 	@$el.find('thead tr th:last-of-type').remove()
-					 	tableRows = @$el.find('tbody tr td:last-of-type').remove()
-					else
-						# model.set 'column', column+1
-						# console.log column+1
-						@$el.find('.column-spinner input').val @model.get 'column'
+					bootbox.confirm 'Removing a COLUMN might cause a loss of data.
+					 	Do you want to continue?',(result)=>
+						if result
+						 	@model.set 'column',column
+						 	@$el.find('thead tr th:last-of-type').remove()
+						 	tableRows = @$el.find('tbody tr td:last-of-type').remove()
+						else
+							# model.set 'column', column+1
+							# console.log column+1
+							@$el.find('.column-spinner input').val @model.get 'column'
 
 				@saveTableMarkup()
 

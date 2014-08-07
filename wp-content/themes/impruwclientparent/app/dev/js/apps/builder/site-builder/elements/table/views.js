@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app'], function(App) {
+define(['app', 'bootbox'], function(App, bootbox) {
   return App.module('SiteBuilderApp.Element.Table.Views', function(Views, App, Backbone, Marionette, $, _) {
     return Views.TableView = (function(_super) {
       __extends(TableView, _super);
@@ -71,12 +71,16 @@ define(['app'], function(App) {
           html += '</tr>';
           this.$el.find('tbody').append(html);
         } else {
-          if (confirm('Removing a ROW might cause a loss of data. Do you want to continue?')) {
-            this.model.set('row', row);
-            this.$el.find('tbody tr:last-of-type').remove();
-          } else {
-            this.$el.find('.row-spinner input').val(this.model.get('row'));
-          }
+          bootbox.confirm('Removing a ROW might cause a loss of data. Do you want to continue?', (function(_this) {
+            return function(result) {
+              if (result) {
+                _this.model.set('row', row);
+                return _this.$el.find('tbody tr:last-of-type').remove();
+              } else {
+                return _this.$el.find('.row-spinner input').val(_this.model.get('row'));
+              }
+            };
+          })(this));
         }
         return this.saveTableMarkup();
       };
@@ -93,13 +97,17 @@ define(['app'], function(App) {
           this.$el.find('table').resizableColumns('destroy');
           this.$el.find('table').resizableColumns();
         } else {
-          if (confirm('Removing a COLUMN might cause a loss of data. Do you want to continue?')) {
-            this.model.set('column', column);
-            this.$el.find('thead tr th:last-of-type').remove();
-            tableRows = this.$el.find('tbody tr td:last-of-type').remove();
-          } else {
-            this.$el.find('.column-spinner input').val(this.model.get('column'));
-          }
+          bootbox.confirm('Removing a COLUMN might cause a loss of data. Do you want to continue?', (function(_this) {
+            return function(result) {
+              if (result) {
+                _this.model.set('column', column);
+                _this.$el.find('thead tr th:last-of-type').remove();
+                return tableRows = _this.$el.find('tbody tr td:last-of-type').remove();
+              } else {
+                return _this.$el.find('.column-spinner input').val(_this.model.get('column'));
+              }
+            };
+          })(this));
         }
         return this.saveTableMarkup();
       };
