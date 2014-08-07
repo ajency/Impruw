@@ -16,6 +16,50 @@
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+    	.spinner {
+		  width: 100px;
+		  float: right;
+		}
+		.spinner input {
+		  text-align: right;
+		}
+		.input-group-btn-vertical {
+		  position: relative;
+		  white-space: nowrap;
+		  width: 1%;
+		  vertical-align: middle;
+		  display: table-cell;
+		}
+		.input-group-btn-vertical > .btn {
+		  display: block;
+		  float: none;
+		  width: 100%;
+		  max-width: 100%;
+		  padding: 8px;
+		  margin-left: -1px;
+		  position: relative;
+		  border-radius: 0;
+		}
+		.input-group-btn-vertical > .btn:first-child {
+		  border-top-right-radius: 4px;
+		}
+		.input-group-btn-vertical > .btn:last-child {
+		  margin-top: -2px;
+		  border-bottom-right-radius: 4px;
+		}
+		.input-group-btn-vertical i{
+		  position: absolute;
+		  top: 0;
+		  left: 4px;
+		}
+
+		.table-settings-bar .control-group {
+			width: 30%;
+			margin-right: 1%;
+			display: inline-block;
+		}
+    </style>
   </head>
   <body>
     <!-- CLIENT SITE START -->
@@ -60,7 +104,37 @@
 
 			<div class="row topbar container">
 				<div class="col-sm-12">
-			
+					<div class="table-settings-bar">
+						<div class="form-inline">
+							<div class="control-group">
+								<label for="spinner-01">Columns: </label>
+							  	<div class="input-group spinner">
+									<input type="text" class="form-control" value="42">
+									<div class="input-group-btn-vertical">
+										<button class="btn btn-default"><i class="glyphicon glyphicon-chevron-up"></i></button>
+										<button class="btn btn-default"><i class="glyphicon glyphicon-chevron-down"></i></button>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="spinner-02">Rows: </label>
+							  	<div class="input-group spinner">
+									<input type="text" class="form-control" value="42">
+									<div class="input-group-btn-vertical">
+										<button class="btn btn-default"><i class="glyphicon glyphicon-chevron-up"></i></button>
+										<button class="btn btn-default"><i class="glyphicon glyphicon-chevron-down"></i></button>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="style">Style: </label>
+							  	<select id="style">
+							  		<option value="1">Style 1</option>
+							  		<option value="2">Style 2</option>
+							  	</select>
+							</div>
+						</div>
+					</div>
 					<div class="table-responsive" data-pattern="priority-columns">
 		               <table cellspacing="0" id="tech-companies-1" class="table table-small-font table-bordered table-striped">
 		                  <thead>
