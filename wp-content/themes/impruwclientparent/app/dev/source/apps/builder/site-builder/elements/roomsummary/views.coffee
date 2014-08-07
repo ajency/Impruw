@@ -49,6 +49,13 @@ define ['app'], (App)->
             events :
                   'click' : 'showRoomSummaryEditPopup'
 
+
+            mixinTemplateHelpers : (data)->
+               data = super data
+               data.post_content = _.prune data.post_content, 200
+               data
+
+
             showRoomSummaryEditPopup :(evt)->
                   evt.preventDefault()
                   @$el.closest('.element-wrapper').find('.aj-imp-settings-btn').click()
