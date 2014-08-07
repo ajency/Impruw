@@ -56,9 +56,9 @@ define ['app'], (App)->
 				'click .spinner .btn:first-of-type' : 'increaseCount'
 				'click .spinner .btn:last-of-type' : 'decreaseCount'
 
-			modelEvents : 
-				'change:row' : 'rowChanged'
-				'change:column' : 'columnChanged'
+			# modelEvents : 
+			# 	'change:row' : 'rowChanged'
+			# 	'change:column' : 'columnChanged'
 
 			onShow :->
 				@$el.find('.table-holder').html _.stripslashes @model.get 'content'

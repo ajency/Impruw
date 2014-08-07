@@ -31,11 +31,6 @@ define(['app'], function(App) {
         'click .spinner .btn:last-of-type': 'decreaseCount'
       };
 
-      TableView.prototype.modelEvents = {
-        'change:row': 'rowChanged',
-        'change:column': 'columnChanged'
-      };
-
       TableView.prototype.onShow = function() {
         this.$el.find('.table-holder').html(_.stripslashes(this.model.get('content')));
         return this.$el.find('table').resizableColumns();
