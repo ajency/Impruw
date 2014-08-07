@@ -16,19 +16,11 @@ function read_site_ajax() {
     $data [ 'time_format' ] = get_option( 'time-format', '' );
     $data [ 'additional_policy' ] = get_option( 'additional-policy', '' );
     $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );
-    $data [ 'currency' ] = get_option( 'currency','NOK' );
-    $data [ 'braintree_customer_id' ] = get_option( 'braintree-customer-id','');
-
-    $braintree_subscription_id = get_option( 'braintree-subscription', null );
-    $data [ 'braintree_subscription' ] = $braintree_subscription_id;
-
-    if ($braintree_subscription_id == "ImpruwFree" || $braintree_subscription_id == null)
-        $data['domain_name'] = get_option( 'blogname' ).'.impruw.com';
-    else
-        $data['domain_name'] = 'test.com';
-
-
-    $data [ 'hotel_name' ] = get_option( 'hotel_name','' );
+    $data [ 'currency' ] = get_option( 'currency', 'NOK' );
+    $data [ 'braintree_customer_id' ] = get_option( 'braintree-customer-id', '' );
+    $data [ 'braintree_subscription' ] = get_option( 'braintree-subscription', null );
+    $data [ 'domain_name' ] = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
+    $data [ 'hotel_name' ] = get_option( 'hotel_name', '' );
     $data [ 'piwik_path' ] = PIWIK_PATH;
     $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
 
@@ -64,16 +56,16 @@ add_action( 'wp_ajax_assign-theme-to-site', 'assign_theme_to_site_ajax' );
 function choose_site_language_ajax() {
     global $sitepress;
 
-    $chosen_site_language = $_REQUEST['site_language'];
+    $chosen_site_language = $_REQUEST[ 'site_language' ];
 
-    $default_language = get_language_code($chosen_site_language);
+    $default_language = get_language_code( $chosen_site_language );
 
-    $sitepress->set_default_language($default_language);
+    $sitepress->set_default_language( $default_language );
 
-    wp_send_json( array( 'code' => 'OK' , 'language' => $chosen_site_language));
+    wp_send_json( array( 'code' => 'OK', 'language' => $chosen_site_language ) );
 }
 
-add_action('wp_ajax_choose-site-language', 'choose_site_language_ajax');
+add_action( 'wp_ajax_choose-site-language', 'choose_site_language_ajax' );
 
 /**
  * Function to add site profile details
@@ -110,7 +102,6 @@ function update_tracking() {
 add_action( 'wp_ajax_update-tracking', 'update_tracking' );
 
 
-
 function ajax_site_logout() {
 
     wp_logout();
@@ -119,3 +110,19 @@ function ajax_site_logout() {
 }
 
 add_action( 'wp_ajax_site-logout', 'ajax_site_logout' );
+
+
+function ajax_update_domain_mapping() {
+
+    unset( $_POST[ 'action' ] );
+    $domain_name = $_POST[ 'name' ];
+
+    if ( check_domain_name_exists( $domain_name ) )
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => "Domain name already taken" ) );
+
+    add_domain_for_mapping( $domain_name );
+
+    wp_send_json( array( 'code' => 'OK' ) );
+}
+
+add_action( 'wp_ajax_update-domain-name', 'ajax_update_domain_mapping' );

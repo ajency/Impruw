@@ -14,6 +14,10 @@ define [ 'app'
                 'click .fileinput-new' : ->
                     @trigger "show:media:manager"
 
+                'click .domain-update' : ->
+                    domainName = @$el.find( '#domain-name' ).val()
+                    @trigger "update:domain:mapping:name", domainName
+
             # show the image
             serializeData : ->
                 data = super()
@@ -27,7 +31,7 @@ define [ 'app'
                 if subscriptionId is "ImpruwFree" or subscriptionId is null
                     @$el.find( '#domain-name' ).attr 'readonly', 'readonly'
                     @$el.find( '.upgrade' ).show()
-                    @$el.find( '.domain-avail' ).hide()
+                    @$el.find( '.domain-update' ).hide()
 
 
                 #@$el.scrollSections()
@@ -47,7 +51,7 @@ define [ 'app'
             onSiteProfileAdded : ->
                 @$el.find( '.alert' ).remove()
                 @$el.find( '#form-siteprofile' ).prepend '<div class="alert alert-success alert-dismissable">
-                                                            							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
+                                                                            							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
                 _.polyglot.t( "Save successfully" ) + '</div>'
                 $( 'html, body' ).animate
                     scrollTop : 0
@@ -60,3 +64,7 @@ define [ 'app'
                 #@$el.find('.fileinput-preview ').append '<img src ="" class="site_profile_images"/>'
                 @$el.find( '.feature-image' ).attr 'src', image_path
                 @$el.find( '#logo_id' ).attr 'value', image_id
+
+            onDomainUpdate : ( Msg )->
+                @$el.find( '#msg' ).empty()
+                @$el.find( '#msg' ).text Msg
