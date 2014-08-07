@@ -1,49 +1,45 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'apps/builder/site-builder/elements/table/views', 'apps/builder/site-builder/elements/table/settings/controller'], function(App) {
-  App.module('SiteBuilderApp.Element.Table', function(Table, App, Backbone, Marionette, $, _) {
+define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.html', 'apps/builder/site-builder/elements/table/views'], function(App, tableTemplate) {
+  return App.module('SiteBuilderApp.Element.Table', function(Table, App, Backbone, Marionette, $, _) {
     return Table.Controller = (function(_super) {
       __extends(Controller, _super);
 
       function Controller() {
+        this.renderElement = __bind(this.renderElement, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Table',
-          content: {
-            header: ['header1', 'header1', 'header1'],
-            data: [['a', 'b', 'c', 'd'], ['1', '2', '3', '4']]
-          }
+          content: tableTemplate,
+          rows: 3,
+          column: 3
         });
-        Controller.__super__.initialize.call(this, options);
-        ({
-          bindEvents: function() {
-            return Controller.__super__.initialize.call(this);
-          },
-          _getTableView: function() {
-            return new Table.Views.TableView({
-              model: this.layout.model,
-              collection: this.rowCollection
-            });
-          },
-          renderElement: (function(_this) {
-            return function() {
-              return _this.removeSpinner();
-            };
-          })(this)
+        return Controller.__super__.initialize.call(this, options);
+      };
+
+      Controller.prototype.bindEvents = function() {
+        return Controller.__super__.bindEvents.call(this);
+      };
+
+      Controller.prototype._getTableView = function() {
+        return new Table.Views.TableView({
+          model: this.layout.model
         });
-        this.rowCollection = new Backbone.Collection;
-        this.rowCollection.set(this.layout.model.get('content')['data']);
-        console.log(this.rowCollection);
-        return this.view = this._getTableView();
+      };
+
+      Controller.prototype.renderElement = function() {
+        this.removeSpinner();
+        this.view = this._getTableView();
+        return this.layout.elementRegion.show(this.view);
       };
 
       return Controller;
 
     })(App.SiteBuilderApp.Element.Controller);
   });
-  return this.layout.elementRegion.show(this.view);
 });

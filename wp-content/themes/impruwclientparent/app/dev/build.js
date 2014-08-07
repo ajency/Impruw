@@ -46,6 +46,7 @@
         componentloader: 'components/builder-component-loader',
         minicolors: 'plugins/jquery.minicolors.min',
         drilldown: 'plugins/jquery.drilldown.min',
+        resizablecolumns : 'plugins/jquery.resizableColumns.min',
         imageareaselect: '../../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min',
         imageedit: '../../../../../../wp-admin/js/image-edit',
         json2: '../../../../../../wp-includes/js/json2',
@@ -102,6 +103,7 @@
             deps: ['bootstrap'],
             exports: 'bootbox'
         },
+        resizablecolumns : ['jquery'],
         app: ['pluginloader', 'configloader']
     }
 })

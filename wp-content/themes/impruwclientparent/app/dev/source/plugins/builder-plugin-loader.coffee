@@ -33,5 +33,6 @@ define [
    'moment'
    'minicolors'
    'drilldown'
+   'resizablecolumns'
    #'flippant'
 ], ->

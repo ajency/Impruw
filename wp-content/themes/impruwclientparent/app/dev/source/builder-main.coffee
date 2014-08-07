@@ -50,6 +50,7 @@ require.config
       app : 'builder-app'
       minicolors : 'plugins/jquery.minicolors.min'
       drilldown : 'plugins/jquery.drilldown.min'
+      resizablecolumns : 'plugins/jquery.resizableColumns.min'
       #flippant: 'plugins/flippant.min'
 
       # wordpress cropping js
@@ -97,6 +98,7 @@ require.config
       bootbox :
          deps : ['bootstrap']
          exports : 'bootbox'
+      resizablecolumns : ['jquery']
       app : ['pluginloader', 'configloader']
 
 
