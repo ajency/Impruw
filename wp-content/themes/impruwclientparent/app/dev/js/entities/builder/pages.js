@@ -83,6 +83,11 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("get:editable:pages", function() {
       return API.getPages();
     });
+    App.reqres.setHandler("get:fetched:page", function(id) {
+      var page;
+      page = pages.get(id);
+      return page;
+    });
     App.reqres.setHandler("create:page:model", function(data) {
       return API.createNewPage(data);
     });

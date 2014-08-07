@@ -52,7 +52,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
       MainView.prototype.itemView = Views.SingleElement;
 
       MainView.prototype.onShow = function() {
-        this.$el.draggable({
+        this.$el.css('position', 'fixed').draggable({
           handle: "p.desc",
           addClasses: false,
           containment: 'document',
@@ -86,7 +86,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
         isSingleRoom = Marionette.getOption(this, 'singleroom');
         if (!isSingleRoom) {
           this.$el.find('#room-elements ul').remove();
-          roomSummaryhtml = '<ul class="aj-imp-builder-items clearfix"> <li class="element" data-element="RoomSummary"> <a href="#" class="drag builder-element"> <div class="aj-imp-builder-icon bicon icon-uniF15B"></div> <div class="aj-imp-builder-title">Room Summary</div> </a> </li> </ul>';
+          roomSummaryhtml = '<ul class="aj-imp-builder-items clearfix"> <li class="element" data-element="RoomSummary"> <a href="#" class="drag builder-element"> <div class="aj-imp-builder-icon bicon icon-uniF15B"></div> <div class="aj-imp-builder-title">Display Rooms</div> </a> </li> </ul>';
           return this.$el.find('#room-elements').append(roomSummaryhtml);
         }
       };
