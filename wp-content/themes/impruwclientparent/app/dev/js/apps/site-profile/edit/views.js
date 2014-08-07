@@ -32,7 +32,13 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
       };
 
       MainView.prototype.onShow = function() {
-        var m, w;
+        var m, subscriptionId, w;
+        subscriptionId = this.model.get('braintree_subscription');
+        if (subscriptionId === "ImpruwFree" || subscriptionId === null) {
+          this.$el.find('#domain-name').attr('readonly', 'readonly');
+          this.$el.find('.upgrade').show();
+          this.$el.find('.domain-avail').hide();
+        }
         this.$el.find('select').selectpicker();
         this.$el.find('*[data-spy="affix"]').affix();
         w = $('.aj-imp-right').width();
