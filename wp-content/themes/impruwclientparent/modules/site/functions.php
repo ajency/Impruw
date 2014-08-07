@@ -1003,8 +1003,8 @@ function impruw_wpml_get_string_translation($string, $lang){
     return $output; 
 }
 
-
- /* Function to check if the domain name is available for mapping
+/*
+ * Function to check if the domain name is available for mapping
  *
  * @param $domain_name
  */
@@ -1040,4 +1040,3 @@ function add_domain_for_mapping( $domain_name ) {
     update_option( 'domain-name', $domain_name );
 
 }
-
