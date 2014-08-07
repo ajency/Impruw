@@ -1484,15 +1484,19 @@ form {
 		}
 	}
 	.thumbnails, #selectable-images {
+		padding-top: 10px;
+		max-height: 400px;
+		overflow-y: auto;
 		.single-img {
 			position: relative;
 			.thumbnail {
 				margin-bottom: 40px;
-				border: 2px solid @dash-grey;
-				border-radius: 2px;
+				border: 1px solid @dash-grey;
+				padding: 2px;
 				.imgthumb {
-					height: 145px;
+					height: 84px;
 					text-align: center;
+					overflow: hidden;
 					img {
 						vertical-align: middle;
 						max-height: 145px;
@@ -1514,14 +1518,15 @@ form {
 			.ticker {
 				position: absolute;
 				top: -7px;
-				right: 5px;
+				right: 7px;
 				color: #fff;
-				padding: 2px 4px;
+				padding: 2px 4px 3px;
 				border-radius: 2px;
 				text-shadow: 0 0 1px @preview-grey;
 				background: @blue-grey;
 				display: none;
 				box-shadow: 0 0 2px @dash-grey;
+				font-size: 0.6em;
 				.glyphicon-minus {
 					display: none;
 				}
@@ -1535,11 +1540,11 @@ form {
 					}
 				}
 			}
-			.delete-media-img, .edit-image {
+            .delete-media-img, .edit-image {
 				position: absolute;
 				bottom: 13px;
 				cursor: pointer;
-				font-size: 0.8em;
+				font-size: 0.78em;
 				margin-right: 10px;
 				&.delete-media-img {
 					color: #ff3333;
@@ -1562,6 +1567,10 @@ form {
 				}
 			}
 		}
+	}
+	.load-more {
+		margin: 0.5em auto 0;
+		float: right;
 	}
 	#edit-media-region, #selected-media-region {
 		border: 2px solid @dash-grey;
@@ -3924,6 +3933,18 @@ form {
 			.panel-heading {
 				h3 {
 					color: @dash-grey;
+				}
+			}
+			.panel-heading, .panel-body {
+				span {
+					display: block;
+					margin-bottom: 0.2em;
+					&.active {
+						color: @success-green;
+					}
+					&.pending {
+						color: lighten(@red, 10%);
+					}
 				}
 			}
 			&.active {

@@ -104,7 +104,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#loader').hide();
-        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Succesfull';
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Payment Successful! </div>';
         return this.$el.find('#billingsave_status').append(html);
       };
 
@@ -112,7 +112,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#loader').hide();
-        html = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg;
+        html = "<div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
         return this.$el.find('#billingsave_status').append(html);
       };
 
@@ -194,7 +194,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
           e.preventDefault();
           cardToken = this.$el.find('.selected .token').val();
           if (_.isUndefined(cardToken)) {
-            html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Please select a card';
+            html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Please select a card </div>';
             return this.$el.find('#billingsave_status').append(html);
           } else {
             this.$el.find('#loader').show();
@@ -208,7 +208,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#loader').hide();
-        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Succesfull';
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Payment Successful! </div>';
         this.$el.find('#billingsave_status').append(html);
         this.$el.find('#btn-stored-pay').hide();
         return this.$el.find('#btn-pay').hide();
@@ -218,7 +218,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#loader').hide();
-        html = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg;
+        html = "<div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
         return this.$el.find('#billingsave_status').append(html);
       };
 

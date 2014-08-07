@@ -1459,6 +1459,12 @@ form .aj-imp-submit:hover {
   border: 1px solid #aaaaaa;
   padding: 1px;
 }
+.modal .thumbnails,
+.modal #selectable-images {
+  padding-top: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+}
 .modal .thumbnails .single-img,
 .modal #selectable-images .single-img {
   position: relative;
@@ -1466,13 +1472,14 @@ form .aj-imp-submit:hover {
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
   margin-bottom: 40px;
-  border: 2px solid #aaaaaa;
-  border-radius: 2px;
+  border: 1px solid #aaaaaa;
+  padding: 2px;
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb,
 .modal #selectable-images .single-img .thumbnail .imgthumb {
-  height: 145px;
+  height: 84px;
   text-align: center;
+  overflow: hidden;
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb img,
 .modal #selectable-images .single-img .thumbnail .imgthumb img {
@@ -1496,14 +1503,15 @@ form .aj-imp-submit:hover {
 .modal #selectable-images .single-img .ticker {
   position: absolute;
   top: -7px;
-  right: 5px;
+  right: 7px;
   color: #fff;
-  padding: 2px 4px;
+  padding: 2px 4px 3px;
   border-radius: 2px;
   text-shadow: 0 0 1px #f3f3f3;
   background: #849fb0;
   display: none;
-  box-shadow: 0 0 2px #333;
+  box-shadow: 0 0 2px #aaaaaa;
+  font-size: 0.6em;
 }
 .modal .thumbnails .single-img .ticker .glyphicon-minus,
 .modal #selectable-images .single-img .ticker .glyphicon-minus {
@@ -1528,7 +1536,7 @@ form .aj-imp-submit:hover {
   position: absolute;
   bottom: 13px;
   cursor: pointer;
-  font-size: 0.8em;
+  font-size: 0.78em;
   margin-right: 10px;
 }
 .modal .thumbnails .single-img .delete-media-img.delete-media-img,
@@ -1556,6 +1564,10 @@ form .aj-imp-submit:hover {
 .modal .thumbnails .single-img.ui-selected .delete-media-img,
 .modal #selectable-images .single-img.ui-selected .delete-media-img {
   visibility: visible;
+}
+.modal .load-more {
+  margin: 0.5em auto 0;
+  float: right;
 }
 .modal #edit-media-region,
 .modal #selected-media-region {
@@ -3889,6 +3901,19 @@ form .aj-imp-submit:hover {
 }
 .billing-container .price-plans .panel .panel-heading h3 {
   color: #aaaaaa;
+}
+.billing-container .price-plans .panel .panel-heading span,
+.billing-container .price-plans .panel .panel-body span {
+  display: block;
+  margin-bottom: 0.2em;
+}
+.billing-container .price-plans .panel .panel-heading span.active,
+.billing-container .price-plans .panel .panel-body span.active {
+  color: #2ecc71;
+}
+.billing-container .price-plans .panel .panel-heading span.pending,
+.billing-container .price-plans .panel .panel-body span.pending {
+  color: #f54545;
 }
 .billing-container .price-plans .panel.active {
   border-color: #2ecc71;

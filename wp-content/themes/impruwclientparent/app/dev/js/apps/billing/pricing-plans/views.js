@@ -37,13 +37,13 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           this.$el.find('.activate-link').attr('href', 'javascript:void(0)');
           billStart = Marionette.getOption(this, 'billStart');
           billEnd = Marionette.getOption(this, 'billEnd');
-          html = "<span>Domain name: " + siteName + ".com</span><br> <span>Billing cycle:From " + billStart + " to " + billEnd + " </span>";
+          html = "<span class='active'>Domain name: " + siteName + ".com</span> <span class='active'>Billing cycle:From " + billStart + " to " + billEnd + " </span>";
           this.$el.find('.panel-body').append(html);
         }
         if (siteModelPlanId === pendingPlanID) {
-          this.$el.find('.panel-heading').append('<span>Pending Activation</span>');
+          this.$el.find('.panel-heading').append('<span class="pending">Pending Activation</span>');
           startDate = Marionette.getOption(this, 'startDate');
-          html = "<span>Domain name: " + siteName + ".com</span><br> <span>Will activate on: " + startDate + " </span>";
+          html = "<span class='pending'>Domain name: " + siteName + ".com</span> <span class='pending'>Will activate on: " + startDate + " </span>";
           return this.$el.find('.panel-body').append(html);
         }
       };
@@ -92,10 +92,10 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           this.$el.find('#free-plan .free-plan-link').text('Active Plan');
         }
         if (pendingPlanID === 'Free') {
-          this.$el.find('#free-plan .panel-heading').append('<span>Pending Activation</span>');
+          this.$el.find('#free-plan .panel-heading').append('<span class="pending">Pending Activation</span>');
           startDate = Marionette.getOption(this, 'startDate');
           siteName = Marionette.getOption(this, 'siteName');
-          html = "<span>Domain name: " + siteName + ".com</span><br> <span>Will activate on: " + startDate + " </span>";
+          html = "<span class='pending'>Domain name: " + siteName + ".com</span> <span class='pending'>Will activate on: " + startDate + " </span>";
           return this.$el.find('#free-plan .panel-body').append(html);
         }
       };
@@ -116,7 +116,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
       PlansView.prototype.onFreePlanSwitch = function() {
         var html;
         this.$el.find('#pay_loader').hide();
-        html = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> Switched to free plan after end of billing cycle";
+        html = "<div class='alert alert-success'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> Switched to free plan after end of billing cycle. </div>";
         return this.$el.find('#billingsave_status').append(html);
       };
 

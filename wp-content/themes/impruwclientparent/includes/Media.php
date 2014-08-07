@@ -23,7 +23,7 @@
         $posts = array_map('wp_prepare_attachment_for_js', $query->posts);
         $posts = array_filter($posts);
 
-        return $posts;
+        return array('data' => $posts, 'total' => (int)$query->found_posts);
     }
 
     function impruw_media()

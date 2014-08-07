@@ -252,6 +252,13 @@ a {
 	border-radius: 3px;
 }
 
+/****Placeholder Styles****/
+.element-markup {
+	.placeholder {
+		opacity: 0.6;
+	}
+}
+
 /****Builder Top Nav****/
 .aj-imp-builder-top-nav {
 	background: #ECF0F1 !important;
@@ -1839,14 +1846,19 @@ a {
 		}
 	}
 	.thumbnails, #selectable-images {
+		padding-top: 10px;
+		max-height: 400px;
+		overflow-y: auto;
 		.single-img {
 			position: relative;
 			.thumbnail {
 				margin-bottom: 40px;
-				border: 2px solid @dash-grey;
+				border: 1px solid @dash-grey;
+				padding: 2px;
 				.imgthumb {
-					height: 145px;
+					height: 84px;
 					text-align: center;
+					overflow: hidden;
 					img {
 						vertical-align: middle;
 						max-height: 145px;
@@ -1868,14 +1880,15 @@ a {
 			.ticker {
 				position: absolute;
 				top: -7px;
-				right: 5px;
+				right: 7px;
 				color: #fff;
-				padding: 3px 4px;
+				padding: 2px 4px 4px;
 				border-radius: 2px;
 				text-shadow: 0 0 1px @preview-grey;
 				background: @blue-grey;
 				display: none;
-				box-shadow: 0 0 2px #333;
+				box-shadow: 0 0 2px @dash-grey;
+				font-size: 0.6em;
 				.glyphicon-minus {
 					display: none;
 				}
@@ -1893,7 +1906,7 @@ a {
 				position: absolute;
 				bottom: 13px;
 				cursor: pointer;
-				font-size: 0.8em;
+				font-size: 0.78em;
 				margin-right: 10px;
 				&.delete-media-img {
 					color: #ff3333;
@@ -1916,6 +1929,10 @@ a {
 				}
 			}
 		}
+	}
+	.load-more {
+		margin: 0.5em auto 0;
+		float: right;
 	}
 	#edit-media-region, #selected-media-region {
 		border: 2px solid @dash-grey;

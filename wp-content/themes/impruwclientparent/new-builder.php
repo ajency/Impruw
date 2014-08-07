@@ -69,6 +69,7 @@
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
     var _WPNONCE = '<?php echo wp_create_nonce('media-form'); ?>';
+    var _RVNONCE = '<?php echo wp_create_nonce("revslider_actions"); ?>';
     var JSVERSION = '<?php echo JSVERSION; ?>';
     var ROOMS = <?php echo json_encode(get_rooms()); ?>;
     var ISTHEMESELECTED = <?php echo is_theme_choosed() ?>;

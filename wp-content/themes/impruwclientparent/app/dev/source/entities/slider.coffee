@@ -31,15 +31,22 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             saveOrder: (options = {})->
                 @sort()
+                data = 
+                    arrIDs : []
 
-                slideIds = @map (slide, index)->
+                data.arrIDs = @map (slide, index)->
                     return slide.get 'id'
 
+                data['sliderID'] = @at(0).get 'slider_id'
+
+                params = 
+                    action: 'revslider_ajax_action'
+                    client_action : 'update_slides_order'
+                    data : data
+                    nonce : _RVNONCE
+
                 $.post AJAXURL,
-                    {
-                      action: 'update-slides-order'
-                      newOrder: slideIds
-                    },
+                    params 
                     (response)=>
                         options.success() if options.success
                         @trigger "slides:order:updated"
