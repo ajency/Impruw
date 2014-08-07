@@ -54,6 +54,11 @@ define [ "app", 'backbone' ], ( App, Backbone ) ->
         App.reqres.setHandler "get:editable:pages", ->
             API.getPages()
 
+        App.reqres.setHandler "get:fetched:page", (id)->
+            page = pages.get id
+            page
+
+
         App.reqres.setHandler "create:page:model", ( data )->
             API.createNewPage data
 
