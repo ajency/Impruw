@@ -266,7 +266,7 @@ function get_elementbox_elements() {
         ),
         array(
             'element' => 'RoomSummary',
-            'title' => 'Display Rooms',
+            'title' => 'Room Summary',
             'styles' => get_styles( 'RoomSummary' ),
             'rooms' => get_all_rooms(),
             'icon' => 'bicon icon-uniF15B',
