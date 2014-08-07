@@ -65,3 +65,4 @@ define ['app'], (App)->
                 @editor = CKEDITOR.inline document.getElementById @$el.children('p.editor').attr 'id'
                 content = Marionette.getOption(this, 'templateHelpers').content
                 @editor.setData _.stripslashes content
+                @editor.config.placeholder = 'Click here to enter your text...'

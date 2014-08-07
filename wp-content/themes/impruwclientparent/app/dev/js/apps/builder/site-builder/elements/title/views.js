@@ -31,7 +31,8 @@ define(['app'], function(App) {
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
         CKEDITOR.on('instanceCreated', this.configureEditor);
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
-        return this.editor.setData(_.stripslashes(this.model.get('content')));
+        this.editor.setData(_.stripslashes(this.model.get('content')));
+        return this.editor.config.placeholder = 'Click here to enter Title';
       };
 
       TitleView.prototype.onClose = function() {
@@ -43,7 +44,7 @@ define(['app'], function(App) {
         editor = event.editor;
         element = editor.element;
         return editor.on("configLoaded", function() {
-          return editor.config.toolbarGroups = [
+          editor.config.toolbarGroups = [
             {
               name: 'clipboard',
               groups: ['clipboard', 'undo']
@@ -77,6 +78,7 @@ define(['app'], function(App) {
               name: 'about'
             }
           ];
+          return editor.config.extraPlugins = 'confighelper';
         });
       };
 
