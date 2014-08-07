@@ -17,6 +17,7 @@ $me = new Mustache_Engine ();
 
 //load framework
 require 'framework/autoload.php';
+require 'api/class-wp-json-rooms.php';
 
 new \framework\cron\ThemeExportCron();
 new \framework\cron\ThemeImportCron();
