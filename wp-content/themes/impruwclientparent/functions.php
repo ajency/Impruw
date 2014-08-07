@@ -1544,12 +1544,21 @@ function get_menu_to_array( $mn, $by = 'name' ) {
     // create all top level menu
     foreach ( (array) $m as $menu_item ) {
 
+        //Get translation of menu title in default language
+        $menu_item_page_id = $menu_item->object_id;
+        $default_language = wpml_get_default_language();
+        $translated_item_page_id = icl_object_id($menu_item_page_id, 'page', true, $default_language);
+
+        $translated_item_page = get_post($translated_item_page_id);
+
+        $translated_menu_item_page_title = $translated_item_page->post_title;
+
         $mn = array(
             'ID'              => $menu_item->ID,
             'order'           => $menu_item->menu_order,
-            'menu_item_title' => $menu_item->title,
+            'menu_item_title' => $translated_menu_item_page_title,
             'menu_item_url'   => $menu_item->url,
-            'menu_id'         => $menu->term_id
+            'menu_id'         => $menu->term_id,
         );
 
         if ( (int) $menu_item->menu_item_parent === 0 ) {
