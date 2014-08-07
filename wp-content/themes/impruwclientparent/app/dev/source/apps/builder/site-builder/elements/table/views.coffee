@@ -56,9 +56,9 @@ define ['app'], (App)->
 				'click .spinner .btn:first-of-type' : 'increaseCount'
 				'click .spinner .btn:last-of-type' : 'decreaseCount'
 
-			# modelEvents : 
-			# 	'change:row' : 'rowChanged'
-			# 	'change:column' : 'columnChanged'
+			modelEvents : 
+				'change:row' : 'rowChanged'
+				'change:column' : 'columnChanged'
 
 			onShow :->
 				@$el.find('.table-holder').html _.stripslashes @model.get 'content'
@@ -79,6 +79,27 @@ define ['app'], (App)->
 				@model.set 'column', $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'column-spinner'
 				@model.set 'row', $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'row-spinner'
 
+
+			rowChanged:(model,row)->
+				if row > model.previous 'row'
+					html = '<tr>'
+					for ind in [1..model.get('column')]
+						html += '<td><div>demo</div></td>'
+					html += '</tr>'
+					@$el.find('tbody').append html
+				else
+					# @todo : remove row
+
+			columnChanged : (model,column)->
+				if column > model.previous 'column'
+					@$el.find('thead tr').append '<th><div>demo</div></th>'
+					tableRows = @$el.find('tbody tr')
+					_.each tableRows,(row,index)->
+						$(row).append '<td><div>demo</div></td>'
+
+					@$el.find('table').resizableColumns()
+				else 
+					# @todo : remove column
 
 
 			showEditor :(evt)->

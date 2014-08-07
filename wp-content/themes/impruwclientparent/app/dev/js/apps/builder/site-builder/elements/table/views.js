@@ -31,6 +31,11 @@ define(['app'], function(App) {
         'click .spinner .btn:last-of-type': 'decreaseCount'
       };
 
+      TableView.prototype.modelEvents = {
+        'change:row': 'rowChanged',
+        'change:column': 'columnChanged'
+      };
+
       TableView.prototype.onShow = function() {
         this.$el.find('.table-holder').html(_.stripslashes(this.model.get('content')));
         return this.$el.find('table').resizableColumns();
@@ -55,6 +60,34 @@ define(['app'], function(App) {
         }
         if ($(evt.target).closest('.spinner').hasClass('row-spinner')) {
           return this.model.set('row', $(evt.target).closest('.spinner').find('input').val());
+        }
+      };
+
+      TableView.prototype.rowChanged = function(model, row) {
+        var html, ind, _i, _ref;
+        if (row > model.previous('row')) {
+          html = '<tr>';
+          for (ind = _i = 1, _ref = model.get('column'); 1 <= _ref ? _i <= _ref : _i >= _ref; ind = 1 <= _ref ? ++_i : --_i) {
+            html += '<td><div>demo</div></td>';
+          }
+          html += '</tr>';
+          return this.$el.find('tbody').append(html);
+        } else {
+
+        }
+      };
+
+      TableView.prototype.columnChanged = function(model, column) {
+        var tableRows;
+        if (column > model.previous('column')) {
+          this.$el.find('thead tr').append('<th><div>demo</div></th>');
+          tableRows = this.$el.find('tbody tr');
+          _.each(tableRows, function(row, index) {
+            return $(row).append('<td><div>demo</div></td>');
+          });
+          return this.$el.find('table').resizableColumns();
+        } else {
+
         }
       };
 

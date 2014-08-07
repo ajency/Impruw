@@ -16,7 +16,7 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
         _.defaults(options.modelData, {
           element: 'Table',
           content: tableTemplate,
-          rows: 3,
+          row: 3,
           column: 3
         });
         return Controller.__super__.initialize.call(this, options);

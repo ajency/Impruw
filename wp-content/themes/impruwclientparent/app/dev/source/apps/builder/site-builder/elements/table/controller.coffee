@@ -13,7 +13,7 @@ define ['app'
 				_.defaults options.modelData,
 					element: 'Table'
 					content	: tableTemplate
-					rows : 3
+					row : 3
 					column : 3
 
 				super(options)
