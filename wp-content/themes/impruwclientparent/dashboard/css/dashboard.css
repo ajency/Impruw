@@ -3873,18 +3873,18 @@ form .aj-imp-submit:hover {
 .language .pick-language-container .pick-languages .languages li .form-group {
   margin: 0;
 }
-.language .pick-room {
+.language .pick-room .form-horizontal {
   font-size: 1.2em;
   margin: 0 0 1em;
   padding: 0.5em;
   border: 1px dotted #aaaaaa;
 }
-.language .pick-room .bootstrap-select {
+.language .pick-room .form-horizontal .bootstrap-select {
   font-size: 0.5em;
   margin-bottom: 0.8em;
 }
-.language .pick-room .bootstrap-select .btn:hover,
-.language .pick-room .bootstrap-select .btn:focus {
+.language .pick-room .form-horizontal .bootstrap-select .btn:hover,
+.language .pick-room .form-horizontal .bootstrap-select .btn:focus {
   background: transparent;
 }
 .language .trans-field {
