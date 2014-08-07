@@ -123,7 +123,7 @@ function get_room( $roomid ) {
 
     $attachment_id = get_post_thumbnail_id( $room_id );
 
-    $image = (int) $attachment_id > 0 ? wp_get_attachment_image_src( $attachment_id, 'thumbnail' ) : array();
+    $image = (int) $attachment_id > 0 ? wp_get_attachment_image_src( $attachment_id, 'medium' ) : array();
 
     $check_in = get_option( 'checkin-time', 'none' );
     $check_out = get_option( 'checkout-time', 'none' );
