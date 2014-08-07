@@ -25,6 +25,19 @@ define(['app'], function(App) {
         return this.$el.closest('.element-wrapper').find('.aj-imp-settings-btn').click();
       };
 
+      RoomSummaryView.prototype.onShow = function() {
+        var isSingle;
+        isSingle = Marionette.getOption(this, 'isSingleRoom');
+        if (!_.isUndefined(isSingle)) {
+          this.$el.closest('.element-wrapper').children('.element-controls').find('.aj-imp-settings-btn').remove();
+          this.$el.attr("data-content", _.polyglot.t('Update display details') + (" <a href='" + SITEURL + "/dashboard/#/room-summary'>") + _.polyglot.t('here') + "</a> ");
+          return this.$el.popover({
+            html: true,
+            placement: 'top'
+          });
+        }
+      };
+
       RoomSummaryView.prototype.onBeforeRender = function() {
         var isSingle, roomNotSet;
         isSingle = Marionette.getOption(this, 'isSingleRoom');
