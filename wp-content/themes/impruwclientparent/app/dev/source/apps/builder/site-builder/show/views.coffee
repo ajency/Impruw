@@ -26,6 +26,7 @@ define [ 'app'
                App.execute "publish:page"
 
             'change select#builder-page-sel' : ( evt )->
+               @_addToPageSlug parseInt $( evt.target ).val()
                @trigger 'editable:page:changed', $( evt.target ).val()
                App.vent.trigger "change:page:check:single:room"
                @changePreviewLinkUrl()
@@ -102,6 +103,7 @@ define [ 'app'
                else
                   @$el.find( 'select#builder-page-sel' ).selectpicker 'val', pageId
 
+               @_addToPageSlug pageId
                @trigger 'editable:page:changed', pageId
                @changePreviewLinkUrl()
             , 250
@@ -111,6 +113,16 @@ define [ 'app'
 
             #update the page name links
             @displayPageNameForUpdate()
+            
+
+         _addToPageSlug : (pageId)=>
+            page = App.request "get:fetched:page", pageId
+            toArray = $('.page-slug-edit').val().split('/')
+            newUrl = toArray.pop()
+            #newUrl = toArray.pop()
+            newUrl = toArray.push page.get 'post_name'
+            newUrl = toArray.join '/'
+            $('.page-slug-edit').val newUrl
 
          #set the selectpicker for the drop down
          enableSelectPicker : =>
@@ -186,13 +198,13 @@ define [ 'app'
          tagName : 'li'
 
          template : '<div class="aj-imp-revision row">
-                                                          <div class="col-sm-5 date">
-                                                            {{datetime}}
-                                                          </div>
-                                                          <div class="col-sm-7 time">
-                                                            {{post_name}} {{timeago}}
-                                                          </div>
-                                                      </div>'
+                         <div class="col-sm-5 date">
+                           {{datetime}}
+                         </div>
+                         <div class="col-sm-7 time">
+                           {{post_name}} {{timeago}}
+                         </div>
+                     </div>'
 
          events :
             'click' : ( e )->

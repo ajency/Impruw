@@ -12,6 +12,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.revisionLinkClicked = __bind(this.revisionLinkClicked, this);
         this.addPageRevisions = __bind(this.addPageRevisions, this);
         this.enableSelectPicker = __bind(this.enableSelectPicker, this);
+        this._addToPageSlug = __bind(this._addToPageSlug, this);
         this.onPagePublished = __bind(this.onPagePublished, this);
         this.getCurrentPageId = __bind(this.getCurrentPageId, this);
         this.getCurrentPageName = __bind(this.getCurrentPageName, this);
@@ -44,6 +45,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           return App.execute("publish:page");
         },
         'change select#builder-page-sel': function(evt) {
+          this._addToPageSlug(parseInt($(evt.target).val()));
           this.trigger('editable:page:changed', $(evt.target).val());
           App.vent.trigger("change:page:check:single:room");
           this.changePreviewLinkUrl();
@@ -129,12 +131,23 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             } else {
               _this.$el.find('select#builder-page-sel').selectpicker('val', pageId);
             }
+            _this._addToPageSlug(pageId);
             _this.trigger('editable:page:changed', pageId);
             return _this.changePreviewLinkUrl();
           };
         })(this), 250);
         this.$el.find('#aj-imp-revision-sel').on('show.bs.dropdown', this.addPageRevisions);
         return this.displayPageNameForUpdate();
+      };
+
+      MainView.prototype._addToPageSlug = function(pageId) {
+        var newUrl, page, toArray;
+        page = App.request("get:fetched:page", pageId);
+        toArray = $('.page-slug-edit').val().split('/');
+        newUrl = toArray.pop();
+        newUrl = toArray.push(page.get('post_name'));
+        newUrl = toArray.join('/');
+        return $('.page-slug-edit').val(newUrl);
       };
 
       MainView.prototype.enableSelectPicker = function() {
