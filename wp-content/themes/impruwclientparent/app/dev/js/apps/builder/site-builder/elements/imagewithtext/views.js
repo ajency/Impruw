@@ -67,7 +67,7 @@ define(['app'], function(App) {
         content = Marionette.getOption(this, 'templateHelpers').content[WPML_DEFAULT_LANG];
         content = (_ref = Marionette.getOption(this, 'templateHelpers').content[WPML_DEFAULT_LANG]) != null ? _ref : Marionette.getOption(this, 'templateHelpers').content;
         this.editor.setData(_.stripslashes(content != null ? content : ''));
-        return this.editor.setData(_.stripslashes(content));
+        return this.editor.config.placeholder = 'Click here to enter your text...';
       };
 
       return ImageWithTextView;

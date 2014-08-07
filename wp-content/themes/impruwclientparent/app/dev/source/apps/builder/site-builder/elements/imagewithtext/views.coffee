@@ -67,5 +67,4 @@ define ['app'], (App)->
                 
                 content = Marionette.getOption(this, 'templateHelpers').content[WPML_DEFAULT_LANG] ? Marionette.getOption(this, 'templateHelpers').content
                 @editor.setData _.stripslashes content ? ''
-
-                @editor.setData _.stripslashes content
+                @editor.config.placeholder = 'Click here to enter your text...'
