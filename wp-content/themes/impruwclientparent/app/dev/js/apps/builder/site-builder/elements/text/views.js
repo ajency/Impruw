@@ -28,7 +28,8 @@ define(['app'], function(App) {
       TextView.prototype.onShow = function() {
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
-        return this.editor.setData(_.stripslashes(this.model.get('content')));
+        this.editor.setData(_.stripslashes(this.model.get('content')));
+        return this.editor.config.placeholder = 'Click here to enter your text...';
       };
 
       TextView.prototype.onClose = function() {

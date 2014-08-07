@@ -65,7 +65,8 @@ define(['app'], function(App) {
         this.$el.children('p.editor').attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.children('p.editor').attr('id')));
         content = Marionette.getOption(this, 'templateHelpers').content;
-        return this.editor.setData(_.stripslashes(content));
+        this.editor.setData(_.stripslashes(content));
+        return this.editor.config.placeholder = 'Click here to enter your text...';
       };
 
       return ImageWithTextView;
