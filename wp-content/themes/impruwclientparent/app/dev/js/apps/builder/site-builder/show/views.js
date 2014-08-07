@@ -75,7 +75,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             modelId = model.get('ID');
             if (modelId === _this.new_page_id) {
               page_name = model.get('post_title');
-              select_html = "<option data-slug='" + (model.get('post_name')) + "' value='" + index + "'>" + page_name + "</option>";
+              select_html = "<option value='" + modelId + ("'>" + page_name + "</option>");
               selectpicker_html = "<li rel='" + index + "'> <a tabindex='0' class='' style=''> <span class='text'>" + page_name + "</span> <i class='glyphicon glyphicon-ok icon-ok check-mark'></i> </a> </li>";
               _this.$el.find('div .dropdown-menu ul').append(selectpicker_html);
               return _this.$el.find('select#builder-page-sel').append(select_html);
