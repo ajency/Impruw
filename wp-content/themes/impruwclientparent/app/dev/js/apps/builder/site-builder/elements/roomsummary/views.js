@@ -20,6 +20,12 @@ define(['app'], function(App) {
         'click': 'showRoomSummaryEditPopup'
       };
 
+      RoomSummaryView.prototype.mixinTemplateHelpers = function(data) {
+        data = RoomSummaryView.__super__.mixinTemplateHelpers.call(this, data);
+        data.post_content = _.prune(data.post_content, 200);
+        return data;
+      };
+
       RoomSummaryView.prototype.showRoomSummaryEditPopup = function(evt) {
         evt.preventDefault();
         return this.$el.closest('.element-wrapper').find('.aj-imp-settings-btn').click();
