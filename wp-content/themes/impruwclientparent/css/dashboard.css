@@ -3777,7 +3777,7 @@ form .aj-imp-submit:hover {
 }
 .language .aj-imp-widget-content .tab-content .original.title,
 .billing-container .aj-imp-widget-content .tab-content .original.title {
-  min-height: 41px;
+  min-height: 33px;
   height: auto;
 }
 .language .form-horizontal,
