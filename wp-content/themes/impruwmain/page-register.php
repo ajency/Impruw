@@ -71,7 +71,7 @@ get_header();
                 </div>
 
                 <div class="form-group aj-imp-site-name">
-                    <label for="inputSitename" class="col-sm-3 control-label"><?php echo __('Choose your new website name', 'impruwmain'); ?></label>
+                    <label for="inputSitename" class="col-sm-3 control-label"><?php echo __('Your website name', 'impruwmain'); ?></label>
 
                     <div class="col-sm-7 col-sm-offset-3">
 

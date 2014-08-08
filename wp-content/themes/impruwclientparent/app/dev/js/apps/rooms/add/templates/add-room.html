@@ -41,7 +41,7 @@
                 <div class="col-sm-10 col-sm-offset-2">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                       <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 150px;">
-                          <img src ="" class="feature-image"/>
+                          <img src="http://placehold.it/300&text={{#polyglot}}Featured Image{{/polyglot}}" class="feature-image"/>
                       </div>
                       <div>
                         <span class="btn btn-default btn-file">
@@ -55,6 +55,13 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+				<div class="col-sm-10 col-sm-offset-2">
+					<div class="help-block">
+						{{#polyglot}}A featured image represent the contents, mood, or theme of your room.{{/polyglot}}
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12" id="facilities-region"></div>
