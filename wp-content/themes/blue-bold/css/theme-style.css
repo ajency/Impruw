@@ -1627,6 +1627,53 @@ and open the template in the editor.
   }
   /*Responive*/
 }
+/**** Table Styles****/
+.table {
+  background: #f2f2f2;
+  color: #989898;
+}
+.table > thead > tr {
+  background: #e4e4e4;
+}
+.table > thead > tr th {
+  color: #07669e;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-top: 1px solid #989898;
+  text-align: left;
+}
+.table > thead > tr > th p,
+.table > tbody > tr > th p,
+.table > tfoot > tr > th p,
+.table > thead > tr > td p,
+.table > tbody > tr > td p,
+.table > tfoot > tr > td p {
+  margin: 0;
+  line-height: 1;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th {
+  border-bottom: 0;
+}
+.table.table-bordered {
+  border: 1px solid #555555;
+}
+.table.table-bordered > thead > tr td,
+.table.table-bordered > tbody > tr td,
+.table.table-bordered > thead > tr th,
+.table.table-bordered > tbody > tr th {
+  border: 1px solid #989898 !important;
+}
+.table.table-striped > tbody > tr:nth-child(2n) > td,
+.table.table-striped > tbody tr.selected-row > td {
+  background: #d9d9d9;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates

@@ -1646,7 +1646,50 @@ and open the template in the editor.
 }
 /**** Table Styles****/
 .table {
-  border-color: #24d07c;
+  background: #39435c;
+  color: #ffffff;
+}
+.table > thead > tr {
+  background: #ffffff;
+}
+.table > thead > tr th {
+  color: #24d07c;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-top: 1px solid #ffffff;
+  text-align: left;
+}
+.table > thead > tr > th p,
+.table > tbody > tr > th p,
+.table > tfoot > tr > th p,
+.table > thead > tr > td p,
+.table > tbody > tr > td p,
+.table > tfoot > tr > td p {
+  margin: 0;
+  line-height: 1;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th {
+  border-bottom: 0;
+}
+.table.table-bordered {
+  border: 1px solid #e223a1;
+}
+.table.table-bordered > thead > tr td,
+.table.table-bordered > tbody > tr td,
+.table.table-bordered > thead > tr th,
+.table.table-bordered > tbody > tr th {
+  border: 1px solid #ffffff !important;
+}
+.table.table-striped > tbody > tr:nth-child(2n) > td,
+.table.table-striped > tbody tr.selected-row > td {
+  background: #252c3d;
 }
 /*
 To change this license header, choose License Headers in Project Properties.

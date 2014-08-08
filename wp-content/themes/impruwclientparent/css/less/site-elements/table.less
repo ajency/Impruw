@@ -1,4 +1,47 @@
 /**** Table Styles****/
 .table {
-	border-color: @primary1;
+	background: @tertiary1;
+	color: @text-color;
+	> thead {
+		> tr {
+			background: lighten(@text-color, 30%);
+			th {
+				color: @primary1;
+			}
+		}
+	}
+	> thead, > tbody, > tfoot {
+		> tr {
+			> th, > td {
+				border-top: 1px solid @text-color;
+				text-align: left;
+				p {
+					margin: 0;
+					line-height: 1;
+				}
+			}
+			> th {
+				border-bottom: 0;
+			}
+		}
+	} 
+	&.table-bordered {
+		border: 1px solid @secondary1;
+		> thead, > tbody {
+			> tr {
+				td, th {
+					border: 1px solid @text-color !important;
+				}
+			}
+		}
+	}
+	&.table-striped {
+		> tbody {
+			> tr:nth-child(2n), tr.selected-row {
+				> td {
+					background: darken(@tertiary1, 10%);
+				}
+			}
+		}
+	}
 }

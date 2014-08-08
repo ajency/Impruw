@@ -1634,5 +1634,48 @@ and open the template in the editor.
 }
 /**** Table Styles****/
 .table {
-  border-color: #ff7e00;
+  background: #f2f2f2;
+  color: #bfbfbf;
+}
+.table > thead > tr {
+  background: #ffffff;
+}
+.table > thead > tr th {
+  color: #ff7e00;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-top: 1px solid #bfbfbf;
+  text-align: left;
+}
+.table > thead > tr > th p,
+.table > tbody > tr > th p,
+.table > tfoot > tr > th p,
+.table > thead > tr > td p,
+.table > tbody > tr > td p,
+.table > tfoot > tr > td p {
+  margin: 0;
+  line-height: 1;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th {
+  border-bottom: 0;
+}
+.table.table-bordered {
+  border: 1px solid #29333f;
+}
+.table.table-bordered > thead > tr td,
+.table.table-bordered > tbody > tr td,
+.table.table-bordered > thead > tr th,
+.table.table-bordered > tbody > tr th {
+  border: 1px solid #bfbfbf !important;
+}
+.table.table-striped > tbody > tr:nth-child(2n) > td,
+.table.table-striped > tbody tr.selected-row > td {
+  background: #d9d9d9;
 }
