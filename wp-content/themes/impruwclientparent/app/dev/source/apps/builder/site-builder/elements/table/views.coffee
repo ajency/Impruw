@@ -33,27 +33,26 @@ define ['app','bootbox'], (App,bootbox)->
 							<div class="control-group check-props">
 								<label for="properties">Properties: </label>
 							  	<div class="props">
-							  		<label class="checkbox" for="checkbox1">
-										<input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+							  		<label class="checkbox" for="checkbox-bordered">
+										<input type="checkbox" value="" id="checkbox-bordered" data-toggle="checkbox">
 										Bordered
 									</label>
-									<label class="checkbox" for="checkbox1">
-										<input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+									<label class="checkbox" for="checkbox-striped">
+										<input type="checkbox" value="" id="checkbox-striped" data-toggle="checkbox">
 										Striped
 									</label>
 							  	</div>
 							</div>
 							<div class="control-group styles">
 								<label for="style">Style: </label>
-							  	<select id="style">
-							  		<option value="1">Style 1</option>
-							  		<option value="2">Style 2</option>
+							  	<select id="table-style">
+							  		<option value="style-1">Style 1</option>
+							  		<option value="style-2">Style 2</option>
 							  	</select>
 							</div>
 						</div>
 					</div>
 					<div class="table-holder"></div>'
-			# itemContainer : 'tbody'
 
 			ui:
 				editableData: 'table td '
@@ -61,7 +60,6 @@ define ['app','bootbox'], (App,bootbox)->
 
 			events : 
 				'click @ui.editableData,@ui.editableHead' : 'showEditor'
-				# 'blur @ui.editableData,@ui.editableHead' : 'destroyEditor'
 				'click .cke_editable' : (e)->
 					e.stopPropagation()
 
@@ -76,10 +74,17 @@ define ['app','bootbox'], (App,bootbox)->
 
 				'column:resize:stop.rc table' : 'saveTableMarkup'
 
+				'change #checkbox-bordered' : 'changeBordered'
+				'change #checkbox-striped' : 'changeStriped'
+				'change #table-style' : 'changeStyle'
+
 
 
 			onShow :->
 				@$el.find('.table-holder').html _.stripslashes @model.get 'content'
+				@$el.find('#checkbox-bordered').prop 'checked', true if @$el.find('table').hasClass 'table-bordered'
+				@$el.find('#checkbox-striped').prop 'checked', true if @$el.find('table').hasClass 'table-striped'
+				@$el.find('#table-style').val @model.get 'style' 
 				@$el.find('table').resizableColumns()
 				@$el.find('select').selectpicker()
 				@$el.find('[data-toggle="checkbox"]').checkbox() 
@@ -107,16 +112,18 @@ define ['app','bootbox'], (App,bootbox)->
 						html += '<td><div>demo</div></td>'
 					html += '</tr>'
 					@$el.find('tbody').append html
+					@saveTableMarkup()
 				else
 					bootbox.confirm 'Removing a ROW might cause a loss of data.
 					 	Do you want to continue?',(result)=>
 						if result
 							@model.set 'row', row
 							@$el.find('tbody tr:last-of-type').remove()
+							@saveTableMarkup()
 						else 
 							# model.set 'row', row+1
 							@$el.find('.row-spinner input').val @model.get 'row'
-				@saveTableMarkup()
+				
 
 			columnChanged : (column)->
 				if column > @model.get 'column'
@@ -128,6 +135,7 @@ define ['app','bootbox'], (App,bootbox)->
 
 					@$el.find('table').resizableColumns('destroy')
 					@$el.find('table').resizableColumns()
+					@saveTableMarkup()
 				else 
 					bootbox.confirm 'Removing a COLUMN might cause a loss of data.
 					 	Do you want to continue?',(result)=>
@@ -135,12 +143,13 @@ define ['app','bootbox'], (App,bootbox)->
 						 	@model.set 'column',column
 						 	@$el.find('thead tr th:last-of-type').remove()
 						 	tableRows = @$el.find('tbody tr td:last-of-type').remove()
+						 	@saveTableMarkup()
 						else
 							# model.set 'column', column+1
 							# console.log column+1
 							@$el.find('.column-spinner input').val @model.get 'column'
 
-				@saveTableMarkup()
+				
 
 
 
@@ -186,5 +195,27 @@ define ['app','bootbox'], (App,bootbox)->
 				@trigger 'save:table',@$el.find('.table-holder')
 
 
+			changeBordered : (e)->
+				if $(e.target).prop 'checked'
+					@$el.find('table').addClass 'table-bordered'
+
+				else
+					@$el.find('table').removeClass 'table-bordered'
+
+				@saveTableMarkup()
 
 
+			changeStriped :(e)->
+				if $(e.target).prop 'checked'
+					@$el.find('table').addClass 'table-striped'
+
+				else
+					@$el.find('table').removeClass 'table-striped'
+
+				@saveTableMarkup()
+
+			changeStyle : (e)->
+				@$el.find('table').removeClass('style-1 style-2').addClass _.slugify $(e.target).val()
+				@model.set 'style', _.slugify $(e.target).val()
+
+				@saveTableMarkup()
