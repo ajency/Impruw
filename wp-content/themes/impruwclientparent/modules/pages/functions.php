@@ -557,9 +557,11 @@ function translate_element(&$element, $language_code){
     $english_content = '';
     if(is_array($element['content'])){
         $english_content = strip_tags($element['content']['en']);
+        $english_content = strtolower($english_content);
     }
     else{
         $english_content = strip_tags($element['content']);
+        $english_content = strtolower($english_content);
         $element['content'] = array();
     }
         

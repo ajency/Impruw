@@ -545,6 +545,18 @@
     "Applying...": "Applying..._N",
     "Page Translations": "Page Translations_N",
     "ImageWithText": "ImageWithText_N",
+    "Choose room to display": "Velg en plass til å vise fra innstillinger. Ditt rom beskrivelse, bilde, antall rom og link til enkeltrom siden vil bli vist her. Å gjøre noen endringer i rommet gå til Room fra dashbordet.",
+    "View Details": "Vis detaljer",
+    "Total:": "Totalt:",
+    "rooms": "rom",
+    "Failed to geocode your address. Please click": "Kunne ikke geokode adressen din. Klikk her",
+    "here to update.": "for å oppdatere",
+    "Update room information": "Informasjonsoppdatering rom",
+    "Room Features": "Rom Funksjoner",
+    "This will display the room description": "Dette vil vise rommet beskrivelsen du har lagt til rommet. Du kan ikke redigere ditt rom beskrivelse her. Slik redigerer rombeskrivelsen, gå til Rom fra Dashboard og redigere ditt rom beskrivelse der. Teksten du legge det vil vises på aktive nettstedet. Du kan ikke legge til lenker og formatering til rommet ditt beskrivelse. Formatet der teksten vises vil bli definert av temaet du bruker. For å vise din innsjekking / utsjekking tid og ekstra retningslinjene, dra og slipp Room Summary element til enkeltrom side.",
+    "Standard Book" : "Standard bok",
+    "Update booking information" : "Oppdater booking informasjon",
+    "Add plans to the room by going to Rooms from Dashboard and add plans to your room there. You will be able to see the added plans on the live site." : "Legg planer til rommet ved å gå til Rom fra Dashboard og legge planer til ditt rom der. Du vil være i stand til å se de tilføyde planer på aktive nettstedet.",
 
 
     "This field is required.": "Dette feltet er påkrevet.",
