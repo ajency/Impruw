@@ -16,7 +16,10 @@ define(['app', 'apps/builder/site-builder/elements/link/views', 'apps/builder/si
         _.defaults(options.modelData, {
           element: 'Link',
           link: '#',
-          text: 'Add link',
+          text: {
+            'en': 'Add link',
+            'nb': _.polyglot.t('Add link')
+          },
           target: 'self'
         });
         return Controller.__super__.initialize.call(this, options);

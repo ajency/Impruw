@@ -28,6 +28,9 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
 
                 _.each ['link', 'text'], (field, i)=>
                     @$el.find("input[name='#{field}']").val @eleModel.get field
+                    if field is 'text'
+                        textval = @eleModel.get field
+                        @$el.find("input[name='#{field}']").val textval[WPML_DEFAULT_LANG]
 
                 @$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'style'
 
