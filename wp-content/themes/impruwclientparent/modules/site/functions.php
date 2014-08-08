@@ -61,7 +61,6 @@ function get_site_domain( $site_id ) {
  * @param type $theme_id
  */
 function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
-
     // all themes are stored on main site
     switch_to_blog( 1 );
 
@@ -166,6 +165,7 @@ function add_menus_to_site() {
         wp_update_nav_menu_item( $menu_id, 0, array( 'menu-item-title' => $page->post_title,
             'menu-item-classes' => $page->post_name,
             'menu-item-url' => '',
+            'menu-item-position' =>$page->menu_order,
             'menu-item-object' => 'page',
             'menu-item-type' => 'post_type',
             'menu-item-object-id' => $page->ID,
