@@ -29,7 +29,7 @@ define ['app'
             serializeData: ->
                 data = super()
                 data.THEMEURL = THEMEURL
-                data.image_url = "http://placehold.it/100&text=" + _.polyglot.t( 'Image' ) if data.image_url is false
+                data.image_url = "http://placehold.it/300&text=" + _.polyglot.t( 'Featured Image' ) if data.image_url is false
                 data
 
 
