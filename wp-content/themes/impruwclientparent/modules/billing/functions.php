@@ -51,7 +51,7 @@ function get_plan_details_for_transaction( $transaction_details ) {
     }
     return $transaction;
 }
-
+//TODO : on cancelling the subscription usig cron update the domain-name option to empty and delete the entry in the domain mapping table
 function create_cancelled_subscription_in_db( $current_subscription_id, $new_subscription_id, $bill_end_date ) {
 
     global $wpdb;
