@@ -40,7 +40,7 @@ define(['app', 'text!apps/rooms/edit/templates/edit-room.html', 'jqueryvalidate'
         data = EditRoomLayout.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
         if (data.image_url === false) {
-          data.image_url = "http://placehold.it/100&text=" + _.polyglot.t('Image');
+          data.image_url = "http://placehold.it/300&text=" + _.polyglot.t('Featured Image');
         }
         return data;
       };
