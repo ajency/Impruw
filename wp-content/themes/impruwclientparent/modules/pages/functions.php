@@ -450,6 +450,10 @@ function create_new_element( &$ele, $language_code, $clone_first_time) {
     if($ele[ 'element' ] === 'Title' || $ele[ 'element' ] === 'Text'|| $ele[ 'element' ] === 'ImageWithText'){
         translate_element($ele, $language_code);
     }
+
+    if($ele[ 'element' ] === 'Link'){
+        translate_link_element($ele, $language_code);
+    }
     
     $serialized_element = maybe_serialize( $ele );
 
@@ -577,6 +581,31 @@ function translate_element(&$element, $language_code){
     }
 
     $element['content'][$language_code] = $translated_content;
+
+
+}
+
+function translate_link_element(&$element, $language_code){
+    global $sitepress;
+    //Remove html tags if any
+    $english_content = '';
+    if(is_array($element['text'])){
+        $english_content = strip_tags($element['text']['en']);
+        $english_content = strtolower($english_content);
+    }
+    else{
+        $english_content = strip_tags($element['text']);
+        $english_content = strtolower($english_content);
+        $element['text'] = array();
+    }
+
+    $translated_content=impruw_wpml_get_string_translation($english_content, $language_code);
+
+    if( ($translated_content===$english_content) && $language_code!='en'){
+        $translated_content.= '(not translated)';
+    }
+
+    $element['text'][$language_code] = $translated_content;
 
 
 }
