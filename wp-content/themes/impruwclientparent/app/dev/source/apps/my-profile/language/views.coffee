@@ -20,10 +20,10 @@ define ['app', 'text!apps/my-profile/language/templates/languageView.html'], (Ap
                     langName = @$el.find( '#user_language' ).val()
                     data =
                         'user_lang' : langName
-                    @trigger "update:user:lang:click", data
+                    if confirm(_.polyglot.t 'Change of language will cause the page to refresh. Are you sure you want to proceed?')
+                        @trigger "update:user:lang:click", data
 
             onUserLangUpdated: ->
-                @$el.find('.alert').remove()
-                @$el.prepend('<div class="alert alert-success">'+_.polyglot.t("User language updated")+'</div>')
+                window.location.reload()
 
 							
