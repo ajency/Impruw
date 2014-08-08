@@ -203,7 +203,7 @@ function get_elementbox_elements() {
         array(
             'element' => 'Table',
             'title' => 'Table',
-            'icon' => 'bicon icon-uniF101'
+            'icon' => 'bicon icon-uniF166'
         ),
         array(
             'element' => 'Address',

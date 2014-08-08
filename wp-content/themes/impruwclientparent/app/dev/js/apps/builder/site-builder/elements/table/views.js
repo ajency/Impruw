@@ -141,7 +141,8 @@ define(['app', 'bootbox'], function(App, bootbox) {
         id = _.uniqueId('text-');
         $(evt.target).closest('td,th').find('div').attr('contenteditable', 'true').attr('id', id);
         CKEDITOR.on('instanceCreated', this.configureEditor);
-        return this.editor = CKEDITOR.inline(document.getElementById(id));
+        this.editor = CKEDITOR.inline(document.getElementById(id));
+        return this.editor.config.placeholder = 'Click to enter text.';
       };
 
       TableView.prototype.configureEditor = function(event) {

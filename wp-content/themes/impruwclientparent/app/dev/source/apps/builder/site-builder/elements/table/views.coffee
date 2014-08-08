@@ -167,6 +167,7 @@ define ['app','bootbox'], (App,bootbox)->
 				$(evt.target).closest('td,th').find('div').attr('contenteditable', 'true').attr 'id', id
 				CKEDITOR.on 'instanceCreated', @configureEditor
 				@editor = CKEDITOR.inline document.getElementById id
+				@editor.config.placeholder = 'Click to enter text.'
 				# @editor.setData _.stripslashes @model.get 'content'
 
 			configureEditor : (event) =>

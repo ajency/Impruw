@@ -1644,7 +1644,7 @@ and open the template in the editor.
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  border-top: 1px solid #989898;
+  border-width: 0;
   text-align: left;
 }
 .table > thead > tr > th p,
@@ -1661,9 +1661,6 @@ and open the template in the editor.
 .table > tfoot > tr > th {
   border-bottom: 0;
 }
-.table.table-bordered {
-  border: 1px solid #555555;
-}
 .table.table-bordered > thead > tr td,
 .table.table-bordered > tbody > tr td,
 .table.table-bordered > thead > tr th,
@@ -1677,6 +1674,37 @@ and open the template in the editor.
 .table.table-hover > tbody > tr:hover > td,
 .table.table-hover > tbody > tr:hover > th {
   background: #d9d9d9;
+}
+.table.style-1 {
+  border-color: #07669e;
+  border-width: 1px;
+}
+.table.style-1 > thead > tr {
+  background: #07669e;
+}
+.table.style-1 > thead > tr th {
+  color: #ffffff;
+}
+.table.style-1 > thead > tr td,
+.table.style-1 > tbody > tr td,
+.table.style-1 > thead > tr th,
+.table.style-1 > tbody > tr th {
+  border-color: #07669e !important;
+}
+.table.style-2 {
+  border-color: #555555;
+}
+.table.style-2 > thead > tr {
+  background: #555555;
+}
+.table.style-2 > thead > tr th {
+  color: #07669e;
+}
+.table.style-2 > thead > tr td,
+.table.style-2 > tbody > tr td,
+.table.style-2 > thead > tr th,
+.table.style-2 > tbody > tr th {
+  border-color: #555555 !important;
 }
 /*
 To change this license header, choose License Headers in Project Properties.
