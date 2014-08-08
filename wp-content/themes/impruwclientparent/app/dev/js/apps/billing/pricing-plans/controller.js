@@ -54,20 +54,16 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
       };
 
       Controller.prototype.changeToFreePlan = function() {
-        var cancelDate, options, status;
-        status = this.subscriptionModel.get('status');
-        if (status === 'Pending') {
-          cancelDate = this.subscriptionModel.get('start_date');
-        } else {
-          cancelDate = this.subscriptionModel.get('bill_end');
-        }
+        var cancelDate, options, subscriptionType;
+        subscriptionType = this.subscriptionModel.get('subscription_type');
+        cancelDate = this.subscriptionModel.get('bill_end');
         options = {
           method: 'POST',
           url: AJAXURL,
           data: {
             'currentSubscriptionId': this.subscriptionId,
             'cancelDate': cancelDate,
-            'status': status,
+            'subscriptionType': subscriptionType,
             'action': 'change-to-free-plan'
           }
         };

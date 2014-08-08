@@ -54,13 +54,8 @@ define [ 'app', 'controllers/base-controller'
                     startDate : @startDate
 
             changeToFreePlan : ->
-                status = @subscriptionModel.get 'status'
                 subscriptionType = @subscriptionModel.get 'subscription_type'
-
-                if status is 'Pending'
-                    cancelDate = @subscriptionModel.get 'start_date'
-                else
-                    cancelDate = @subscriptionModel.get 'bill_end'
+                cancelDate = @subscriptionModel.get 'bill_end'
 
                 options =
                     method : 'POST'
@@ -68,7 +63,6 @@ define [ 'app', 'controllers/base-controller'
                     data :
                         'currentSubscriptionId' : @subscriptionId
                         'cancelDate' : cancelDate
-                        'status' : status
                         'subscriptionType' : subscriptionType
                         'action' : 'change-to-free-plan'
 

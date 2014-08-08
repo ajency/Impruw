@@ -33,7 +33,6 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
             deactiveSubscription : ->
                 App.execute "when:fetched", @subscriptionModel, =>
-                    status = @subscriptionModel.get 'status'
                     cancelDate = @subscriptionModel.get 'bill_end'
                     subscriptionType = @subscriptionModel.get 'subscription_type'
 
@@ -43,7 +42,6 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                         data :
                             'currentSubscriptionId' : @subscriptionId
                             'cancelDate' : cancelDate
-                            'status' : status
                             'subscriptionType' : subscriptionType
                             'action' : 'change-to-free-plan'
 

@@ -204,7 +204,7 @@ function ajax_switch_to_free_plan() {
 
     $cancel_date = $_POST[ 'cancelDate' ];
     $current_subscription_id = $_POST[ 'currentSubscriptionId' ];
-    $subscription_status = $_POST[ 'status' ];
+//    $subscription_status = $_POST[ 'status' ];
     $subscription_type = $_POST[ 'subscriptionType' ];
 
     if ( $subscription_type == "Yearly" ) {
@@ -213,9 +213,9 @@ function ajax_switch_to_free_plan() {
     }
 
     //take the day before the billing start day in case of  pending subscription
-    if ( $subscription_status == "Pending" ) {
-        $cancel_date = date( 'Y-m-d', ( strtotime( '-1 day', strtotime( $cancel_date ) ) ) );
-    }
+//    if ( $subscription_status == "Pending" ) {
+//        $cancel_date = date( 'Y-m-d', ( strtotime( '-1 day', strtotime( $cancel_date ) ) ) );
+//    }
 
     delete_previous_subscription( $current_subscription_id );
 
