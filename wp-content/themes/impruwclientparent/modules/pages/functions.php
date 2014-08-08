@@ -193,9 +193,9 @@ function update_footer_json( $footer_json, $autosave = FALSE ) {
 function get_all_menu_pages() {
 
     $args = array( 'post_type' => 'page',
-                    'posts_per_page' => -1,
-                    'orderby' => 'menu_order',
-                    'order' => 'ASC' );
+        'posts_per_page' => -1,
+        'orderby' => 'menu_order',
+        'order' => 'ASC' );
     $pages = new WP_query( $args );
 
     $p = array();
@@ -203,12 +203,12 @@ function get_all_menu_pages() {
     if ( $pages->have_posts() ) {
 
         $skip = array( 'Site Builder',
-                       'Sign In',
-                       'Dashboard',
-                       'Support',
-                       'Coming Soon',
-                       'Reset Password',
-                       'Sample Page' );
+            'Sign In',
+            'Dashboard',
+            'Support',
+            'Coming Soon',
+            'Reset Password',
+            'Sample Page' );
 
         foreach ( $pages->posts as $page ) {
 
@@ -262,12 +262,12 @@ function create_new_page( $data ) {
 
     //check if post_title is set
     $page_data[ 'post_title' ] = isset( $data[ 'post_title' ] ) ? $data[ 'post_title' ] : '';
-    $page_order =  $data[ 'menu_order' ]+1;
+    $page_order = $data[ 'menu_order' ] + 1;
 
     // set the post type to 'page'
     $page_data[ 'post_type' ] = 'page';
     $page_data[ 'post_status' ] = 'publish';
-    $page_data[ 'menu_order' ] =  $page_order;
+    $page_data[ 'menu_order' ] = $page_order;
 
     //let create a new page
     $page_id = wp_insert_post( $page_data, TRUE );
@@ -277,7 +277,7 @@ function create_new_page( $data ) {
 
     //check if add_to_menu set
     if ( $data[ 'add_to_menu' ] == "true" ) {
-        add_page_to_menu( $page_id );
+        add_page_to_menu( $page_id, $page_order );
     }
 
     // check what is the template id need to create the page
@@ -535,7 +535,7 @@ function get_single_room_page_content_json( $autosave = FALSE ) {
 /**Function to add a page to the Main Menu
  * @param $page_id
  */
-function add_page_to_menu( $page_id ) {
+function add_page_to_menu( $page_id , $page_order ) {
     // get the Main Menu Id
     $term = get_term_by( 'name', 'Main Menu', 'nav_menu' );
     $menu_id = $term->term_id;
@@ -546,6 +546,7 @@ function add_page_to_menu( $page_id ) {
         'menu-item-title' => $page_data[ 'post_title' ],
         'menu-item-classes' => '',
         'menu-item-url' => '',
+        'menu-item-position' => $page_order,
         'menu-item-object' => 'page',
         'menu-item-type' => 'post_type',
         'menu-item-object-id' => $page_id, 'menu-item-status' => 'publish'
