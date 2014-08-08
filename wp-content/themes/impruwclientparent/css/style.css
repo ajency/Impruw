@@ -1679,3 +1679,7 @@ and open the template in the editor.
 .table.table-striped > tbody tr.selected-row > td {
   background: #d9d9d9;
 }
+.table.table-hover > tbody > tr:hover > td,
+.table.table-hover > tbody > tr:hover > th {
+  background: #d9d9d9;
+}

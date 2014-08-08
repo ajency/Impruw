@@ -30,7 +30,20 @@ define ['app','bootbox'], (App,bootbox)->
 									</div>
 								</div>
 							</div>
-							<div class="control-group">
+							<div class="control-group check-props">
+								<label for="properties">Properties: </label>
+							  	<div class="props">
+							  		<label class="checkbox" for="checkbox1">
+										<input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+										Bordered
+									</label>
+									<label class="checkbox" for="checkbox1">
+										<input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+										Striped
+									</label>
+							  	</div>
+							</div>
+							<div class="control-group styles">
 								<label for="style">Style: </label>
 							  	<select id="style">
 							  		<option value="1">Style 1</option>
@@ -69,6 +82,7 @@ define ['app','bootbox'], (App,bootbox)->
 				@$el.find('.table-holder').html _.stripslashes @model.get 'content'
 				@$el.find('table').resizableColumns()
 				@$el.find('select').selectpicker()
+				@$el.find('[data-toggle="checkbox"]').checkbox() 
 
 
 			increaseCount : (evt)->

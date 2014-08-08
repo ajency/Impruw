@@ -15,7 +15,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       TableView.prototype.className = 'imp-table';
 
-      TableView.prototype.template = '<div class="table-settings-bar"> <div class="form-inline"> <div class="control-group"> <label for="spinner-01">Columns: </label> <div class="input-group spinner column-spinner"> <input type="text" class="form-control" value="{{column}}"> <div class="input-group-btn-vertical"> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-up"></i></button> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-down"></i></button> </div> </div> </div> <div class="control-group"> <label for="spinner-02">Rows: </label> <div class="input-group spinner row-spinner"> <input type="text" class="form-control" value="{{row}}"> <div class="input-group-btn-vertical"> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-up"></i></button> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-down"></i></button> </div> </div> </div> <div class="control-group"> <label for="style">Style: </label> <select id="style"> <option value="1">Style 1</option> <option value="2">Style 2</option> </select> </div> </div> </div> <div class="table-holder"></div>';
+      TableView.prototype.template = '<div class="table-settings-bar"> <div class="form-inline"> <div class="control-group"> <label for="spinner-01">Columns: </label> <div class="input-group spinner column-spinner"> <input type="text" class="form-control" value="{{column}}"> <div class="input-group-btn-vertical"> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-up"></i></button> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-down"></i></button> </div> </div> </div> <div class="control-group"> <label for="spinner-02">Rows: </label> <div class="input-group spinner row-spinner"> <input type="text" class="form-control" value="{{row}}"> <div class="input-group-btn-vertical"> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-up"></i></button> <button class="btn btn-default"><i class="glyphicon glyphicon-chevron-down"></i></button> </div> </div> </div> <div class="control-group check-props"> <label for="properties">Properties: </label> <div class="props"> <label class="checkbox" for="checkbox1"> <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox"> Bordered </label> <label class="checkbox" for="checkbox1"> <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox"> Striped </label> </div> </div> <div class="control-group styles"> <label for="style">Style: </label> <select id="style"> <option value="1">Style 1</option> <option value="2">Style 2</option> </select> </div> </div> </div> <div class="table-holder"></div>';
 
       TableView.prototype.ui = {
         editableData: 'table td ',
@@ -39,7 +39,8 @@ define(['app', 'bootbox'], function(App, bootbox) {
       TableView.prototype.onShow = function() {
         this.$el.find('.table-holder').html(_.stripslashes(this.model.get('content')));
         this.$el.find('table').resizableColumns();
-        return this.$el.find('select').selectpicker();
+        this.$el.find('select').selectpicker();
+        return this.$el.find('[data-toggle="checkbox"]').checkbox();
       };
 
       TableView.prototype.increaseCount = function(evt) {

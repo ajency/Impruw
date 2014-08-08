@@ -2978,13 +2978,29 @@ a.red-link.pull-right {
 }
 .table-settings-bar .form-inline .control-group {
   display: inline-block;
-  width: 100px;
+  width: 70px;
   margin-right: 2%;
   margin-bottom: 0.5em;
   vertical-align: top;
 }
-.table-settings-bar .form-inline .control-group:last-child {
-  width: 300px;
+.table-settings-bar .form-inline .control-group.check-props {
+  width: 180px;
+}
+.table-settings-bar .form-inline .control-group.check-props .checkbox {
+  padding-left: 28px;
+}
+.table-settings-bar .form-inline .control-group.check-props .checkbox .first-icon,
+.table-settings-bar .form-inline .control-group.check-props .checkbox .second-icon {
+  background: transparent;
+}
+.table-settings-bar .form-inline .control-group.check-props .checkbox.checked .second-icon {
+  color: #ff7e00;
+}
+.table-settings-bar .form-inline .control-group.styles {
+  width: 180px;
+}
+.table-settings-bar .form-inline .control-group.styles .bootstrap-select {
+  width: 180px;
 }
 .table-settings-bar .form-inline .control-group .spinner {
   display: table-row;

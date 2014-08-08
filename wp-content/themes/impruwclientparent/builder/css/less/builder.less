@@ -3132,12 +3132,29 @@ a {
 	.form-inline {
 		.control-group {
 			display: inline-block;
-			width: 100px;
+			width: 70px;
 			margin-right: 2%;
 			margin-bottom: 0.5em;
 			vertical-align: top;
-			&:last-child {
-				width: 300px;
+			&.check-props {
+				width: 180px;
+				.checkbox {
+					padding-left: 28px;
+					.first-icon, .second-icon {
+						background: transparent;
+					}
+					&.checked {
+						.second-icon {
+							color: @orange;
+						}
+					}
+				}
+			}
+			&.styles {
+				width: 180px;
+				.bootstrap-select {
+					width: 180px;
+				}
 			}
 			.spinner {
 			  display: table-row;
