@@ -43,9 +43,13 @@ define ['app'
 				# set it to the model. If it is a different markup it will
 				# change the model changed property to true
 				# save the new markup if the model is changed
-				@listenTo @view, "save:table", (html) =>
-				    @layout.model.set 'content', "#{html}"
-				    @layout.model.save() if @layout.model.hasChanged()
+				@listenTo @view, "save:table", (tableHolder) =>
+					html = $(tableHolder).clone()
+					$(html).find('.rc-handle-container').remove()
+					$(html).find('td div, th div').removeAllAttr()
+					@layout.model.set 'content', "#{$(html).html()}"
+					@layout.model.save() if @layout.model.hasChanged()
+				
 				@layout.elementRegion.show @view
 
 

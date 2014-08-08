@@ -127,17 +127,18 @@ function get_language_code( $language_name ) {
  */
 function clone_pages() {
 
-    $pages = array( array( 'post_title' => 'Home','menu_order' =>'1' ),
-        array( 'post_title' => 'About Us','menu_order' =>'2' ),
-        array( 'post_title' => 'Rooms','menu_order' =>'3' ),
-        array( 'post_title' => 'Single Room' ,'menu_order' =>'4'),
-        array( 'post_title' => 'Gallery', 'menu_order' =>'5'),
-        array( 'post_title' => 'Contact Us','menu_order' =>'6' ) );
+    $pages = array( array( 'post_title' => 'Home', 'menu_order' => '1' ),
+        array( 'post_title' => 'About Us', 'menu_order' => '2' ),
+        array( 'post_title' => 'Rooms', 'menu_order' => '3' ),
+        array( 'post_title' => 'Single Room', 'menu_order' => '4' ),
+        array( 'post_title' => 'Gallery', 'menu_order' => '5' ),
+        array( 'post_title' => 'Contact Us', 'menu_order' => '6' ) );
 
     add_pages_to_site( $pages );
 
     add_menus_to_site();
 }
+
 //add_action('admin_init','clone_pages');
 
 /**
@@ -204,7 +205,7 @@ function add_pages_to_site( $pages, $user_id = 0 ) {
             'post_content' => '',
             'post_status' => 'publish',
             'post_author' => $user_id,
-            'menu_order' =>$page[ 'menu_order' ],
+            'menu_order' => $page[ 'menu_order' ],
             'post_type' => 'page' );
 
         // Insert the post into the database
@@ -476,20 +477,20 @@ function update_site_profile( $formdata ) {
 
 function update_checkin_time( $formdata ) {
 
-    $checkout_time ="";
+    $checkout_time = "";
     $checkin_time = "";
     $format = "";
 
-    if (isset($formdata[ 'changes' ][ 'checkin_time' ])){
+    if ( isset( $formdata[ 'changes' ][ 'checkin_time' ] ) ) {
         $checkin_time = $formdata[ 'changes' ][ 'checkin_time' ];
         update_option( 'checkin-time', $checkin_time );
     }
 
-    if (isset($formdata[ 'changes' ][ 'checkout_time' ])){
+    if ( isset( $formdata[ 'changes' ][ 'checkout_time' ] ) ) {
         $checkout_time = $formdata[ 'changes' ][ 'checkout_time' ];
         update_option( 'checkout-time', $checkout_time );
     }
-    if (isset($formdata[ 'changes' ][ 'time_format' ])){
+    if ( isset( $formdata[ 'changes' ][ 'time_format' ] ) ) {
         $format = $formdata[ 'changes' ][ 'time_format' ];
         update_option( 'time-format', $format );
     }
@@ -585,5 +586,43 @@ function create_piwik_site( $site_id ) {
     $tracking_code = $wp_piwik_object->addPiwikSite();
 
     return $tracking_code;
+
+}
+
+/**
+ * Function to check if the domain name is available for mapping
+ *
+ * @param $domain_name
+ */
+function check_domain_name_exists( $domain_name ) {
+    global $wpdb;
+
+    $table_name = $wpdb->base_prefix . 'domain_mapping';
+
+    $sql = "SELECT * from " . $table_name . " WHERE domain = %s";
+
+    $result = $wpdb->get_results( $wpdb->prepare( $sql, $domain_name ), ARRAY_A );
+
+    if ( empty( $result ) )
+        return false;
+    else
+        return true;
+
+
+}
+
+function add_domain_for_mapping( $domain_name ) {
+
+    global $wpdb;
+
+    $table_name = $wpdb->base_prefix . 'domain_mapping';
+
+    $wpdb->insert( $table_name, array(
+        'domain' => $domain_name,
+        'blog_id' => get_current_blog_id(),
+        'active' => "1" ) );
+
+
+    update_option( 'domain-name', $domain_name );
 
 }

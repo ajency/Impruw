@@ -79,6 +79,15 @@ define(['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], function(
       scrollTop: $ele.offset().top
     }, 1000);
   };
+  $.fn.removeAllAttr = function() {
+    var attrs;
+    attrs = ['class', 'tabindex', 'contenteditable', 'id', 'spellcheck', 'role', 'aria-label', 'title', 'aria-describedby', 'style'];
+    return _.each(this, function(div) {
+      return _.each(attrs, function(attr) {
+        return $(div).removeAttr(attr);
+      });
+    });
+  };
   adjustPageDim = _.debounce(function() {
     var height, minHeight, navHeight;
     height = $(window).height();

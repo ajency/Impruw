@@ -15,7 +15,7 @@
                     {{#polyglot}}Current Page: {{/polyglot}}
                     <select id="builder-page-sel" name="builder-page-sel">
                         {{#pages}}
-                        <option value="{{ID}}">{{post_title}}</option>
+                        <option data-slug="{{post_name}}" value="{{ID}}">{{post_title}}</option>
                         {{/pages}}
                     </select>
                     <a href="#" class="add-new-page">
