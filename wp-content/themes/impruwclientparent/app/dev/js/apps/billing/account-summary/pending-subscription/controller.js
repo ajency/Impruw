@@ -47,9 +47,10 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       Controller.prototype.deactiveSubscription = function() {
         return App.execute("when:fetched", this.subscriptionModel, (function(_this) {
           return function() {
-            var cancelDate, options, status;
+            var cancelDate, options, status, subscriptionType;
             status = _this.subscriptionModel.get('status');
             cancelDate = _this.subscriptionModel.get('bill_end');
+            subscriptionType = _this.subscriptionModel.get('subscription_type');
             options = {
               method: 'POST',
               url: AJAXURL,
@@ -57,6 +58,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
                 'currentSubscriptionId': _this.subscriptionId,
                 'cancelDate': cancelDate,
                 'status': status,
+                'subscriptionType': subscriptionType,
                 'action': 'change-to-free-plan'
               }
             };

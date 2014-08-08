@@ -96,9 +96,15 @@ function delete_previous_subscription( $current_subscription_id ) {
 function create_pending_subscription( $payment_method_token, $selected_plan_id, $current_subscription_id ) {
 
     $subscription_details = get_subscription_details( $current_subscription_id );
+    $subscription_type = $subscription_details[ 'subscription_type' ];
     $next_bill_date = $subscription_details[ 'next_bill_date' ];
     $bill_end_date = $subscription_details[ 'bill_end' ];
 
+    if ($subscription_type == "Yearly"){
+        $subtract_year =   date( 'Y-m-d', ( strtotime( '-1 year', strtotime( $bill_end_date ) ) ) );
+        $bill_end_date = date("Y-m-t", strtotime($subtract_year));
+        $next_bill_date = $bill_end_date;
+    }
 
     $pending_subscription = create_pending_subscription_in_braintree( $payment_method_token, $selected_plan_id, $next_bill_date );
 
@@ -176,3 +182,25 @@ function create_customer_with_credit_card( $payment_method_nonce ) {
     return array( 'code' => 'OK', 'card_token' => $customer[ 'credit_card_token' ] );
 }
 
+
+/***
+ * Function to get the liast of all subscription to be cancelled using cron
+ */
+function get_cancel_subscription_list(){
+
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'cancel_subscription';
+
+    $sql = "SELECT * FROM " . $table_name . " WHERE status = '1' AND cancel_date >= CURDATE()";
+
+    $query_result = $wpdb->get_results( $sql, ARRAY_A );
+
+//    echo '<pre>';
+//    print_r($query_result);
+//
+//    $subscription = get_subscription_details( $query_result[ 0 ][ 'old_subscription_id' ] );
+//
+//    return $subscription[ 'bill_end' ];
+
+}

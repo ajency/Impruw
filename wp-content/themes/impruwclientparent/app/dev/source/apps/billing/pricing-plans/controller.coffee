@@ -55,6 +55,7 @@ define [ 'app', 'controllers/base-controller'
 
             changeToFreePlan : ->
                 status = @subscriptionModel.get 'status'
+                subscriptionType = @subscriptionModel.get 'subscription_type'
 
                 if status is 'Pending'
                     cancelDate = @subscriptionModel.get 'start_date'
@@ -68,6 +69,7 @@ define [ 'app', 'controllers/base-controller'
                         'currentSubscriptionId' : @subscriptionId
                         'cancelDate' : cancelDate
                         'status' : status
+                        'subscriptionType' : subscriptionType
                         'action' : 'change-to-free-plan'
 
                 $.ajax( options ).done ( response )=>

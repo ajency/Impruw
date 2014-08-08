@@ -4037,4 +4037,17 @@ add_filter( 'wp_title', 'get_site_title' );
 
 
 
+/**
+ * Function to cancel a braintree subscription
+ */
+
+function cancel_subscription(){
+
+    get_cancel_subscription_list();
+
+}
+//add_action('wp_cancel_subscription','cancel_subscription');
+//add_action('init','cancel_subscription');
+
+
 

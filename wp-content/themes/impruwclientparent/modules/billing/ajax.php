@@ -84,7 +84,7 @@ function ajax_read_creditcard() {
 
     $card_token = $_REQUEST[ 'token' ];
 
-    $credit_card_data = get_credit_card_details_by_token($card_token);
+    $credit_card_data = get_credit_card_details_by_token( $card_token );
 
     if ( $credit_card_data[ 'code' ] == 'ERROR' )
         wp_send_json( array( 'code' => 'ERROR', 'msg' => $credit_card_data[ 'msg' ] ) );
@@ -105,8 +105,8 @@ function ajax_get_credit_cards() {
 
     if ( empty( $customer_id ) ) {
         $credit_card_data = array( 'card_exists' => false,
-                                   'customer_id' => $customer_id,
-                                   'braintree_client_token' => generate_client_token());
+            'customer_id' => $customer_id,
+            'braintree_client_token' => generate_client_token() );
     } else {
         $credit_card_data = get_customer_credit_card_details( $customer_id );
     }
@@ -205,8 +205,14 @@ function ajax_switch_to_free_plan() {
     $cancel_date = $_POST[ 'cancelDate' ];
     $current_subscription_id = $_POST[ 'currentSubscriptionId' ];
     $subscription_status = $_POST[ 'status' ];
+    $subscription_type = $_POST[ 'subscriptionType' ];
 
-    // take the day before the billing start day in case of  pending subscription
+    if ( $subscription_type == "Yearly" ) {
+        $subtract_year = date( 'Y-m-d', ( strtotime( '-1 year', strtotime( $cancel_date ) ) ) );
+        $cancel_date = date( "Y-m-t", strtotime( $subtract_year ) );
+    }
+
+    //take the day before the billing start day in case of  pending subscription
     if ( $subscription_status == "Pending" ) {
         $cancel_date = date( 'Y-m-d', ( strtotime( '-1 day', strtotime( $cancel_date ) ) ) );
     }

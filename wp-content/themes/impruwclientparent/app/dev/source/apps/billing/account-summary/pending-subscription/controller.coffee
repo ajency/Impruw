@@ -35,6 +35,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                 App.execute "when:fetched", @subscriptionModel, =>
                     status = @subscriptionModel.get 'status'
                     cancelDate = @subscriptionModel.get 'bill_end'
+                    subscriptionType = @subscriptionModel.get 'subscription_type'
 
                     options =
                         method : 'POST'
@@ -43,6 +44,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                             'currentSubscriptionId' : @subscriptionId
                             'cancelDate' : cancelDate
                             'status' : status
+                            'subscriptionType' : subscriptionType
                             'action' : 'change-to-free-plan'
 
                     $.ajax( options ).done ( response )=>
