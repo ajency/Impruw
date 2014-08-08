@@ -50,10 +50,16 @@ define ['app', 'controllers/base-controller'
             updatePageElementContent :(view, newElemContent)->
 
                 model = view.model
-                content = model.get 'content'
+                
+                if model.get('element') is 'Link'
+                    content_text = 'text'
+                else
+                    content_text = 'content'
+
+                translatedContent = model.get content_text
                 editLang = @editLang
-                content[editLang] = newElemContent
-                model.set 'content', content
+                translatedContent[editLang] = newElemContent
+                model.set content_text, translatedContent
                 model.save null,
                     wait: true
                     success: @contentUpdated

@@ -23,13 +23,18 @@ define ['app'
             mixinTemplateHelpers: (data)->
                 data = super data
                 data.TypeOfElementClass = ->
-                    if data.element is "Title"
+                    if (data.element is "Title") or (data.element is "Link") 
                         return "title"
                     else
                         return "text"
+
                 data.originalContent = ->
-                    originalContent = data.content[WPML_DEFAULT_LANG]
-                    return originalContent
+                    if (data.element is "Link")
+                        originalContent = data.text[WPML_DEFAULT_LANG]
+                        return originalContent
+                    else
+                        originalContent = data.content[WPML_DEFAULT_LANG]
+                        return originalContent
                 data.element_in_language = ->
                     element_in_language = _.polyglot.t(data.element)
                     return element_in_language

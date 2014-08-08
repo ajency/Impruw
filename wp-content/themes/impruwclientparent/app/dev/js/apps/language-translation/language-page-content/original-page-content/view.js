@@ -20,7 +20,7 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
       OriginalPageItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalPageItemView.__super__.mixinTemplateHelpers.call(this, data);
         data.TypeOfElementClass = function() {
-          if (data.element === "Title") {
+          if ((data.element === "Title") || (data.element === "Link")) {
             return "title";
           } else {
             return "text";
@@ -28,8 +28,13 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
         };
         data.originalContent = function() {
           var originalContent;
-          originalContent = data.content[WPML_DEFAULT_LANG];
-          return originalContent;
+          if (data.element === "Link") {
+            originalContent = data.text[WPML_DEFAULT_LANG];
+            return originalContent;
+          } else {
+            originalContent = data.content[WPML_DEFAULT_LANG];
+            return originalContent;
+          }
         };
         data.element_in_language = function() {
           var element_in_language;

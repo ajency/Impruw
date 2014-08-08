@@ -23,11 +23,16 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
         editingLanguage = Marionette.getOption(this, 'editingLanguage');
         data.contentText = function() {
           var translated_text;
-          translated_text = data.content;
-          return translated_text[editingLanguage];
+          if (data.element === "Link") {
+            translated_text = data.text[editingLanguage];
+            return translated_text;
+          } else {
+            translated_text = data.content[editingLanguage];
+            return translated_text;
+          }
         };
         data.TypeOfElementClass = function() {
-          if (data.element === "Title") {
+          if ((data.element === "Title") || (data.element === "Link")) {
             return "title";
           } else {
             return "text";
@@ -49,7 +54,7 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
       };
 
       TranslatedPageItemView.prototype.onShow = function() {
-        var editingLanguage;
+        var content_text, editingLanguage;
         editingLanguage = Marionette.getOption(this, 'editingLanguage');
         if (this.model.get('element') === "Title") {
           this.$el.find('.translated-element-content').attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
@@ -57,10 +62,15 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
           this.$el.find('.translated-element-content').attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
         }
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.find('.translated-element-content').attr('id')));
-        if (this.model.get('content')[editingLanguage] === void 0) {
+        if (this.model.get('element') === 'Link') {
+          content_text = 'text';
+        } else {
+          content_text = 'content';
+        }
+        if (this.model.get(content_text)[editingLanguage] === void 0) {
           return this.editor.setData("");
         } else {
-          return this.editor.setData(_.stripslashes(this.model.get('content')[editingLanguage]));
+          return this.editor.setData(_.stripslashes(this.model.get(content_text)[editingLanguage]));
         }
       };
 

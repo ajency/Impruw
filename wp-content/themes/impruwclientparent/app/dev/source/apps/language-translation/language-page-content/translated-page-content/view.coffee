@@ -24,10 +24,16 @@ define ['app'
                 data = super data
                 editingLanguage = Marionette.getOption @, 'editingLanguage'
                 data.contentText = ->
-                    translated_text = data.content
-                    return translated_text[editingLanguage]
+                    if (data.element is "Link")
+                        translated_text = data.text[editingLanguage]
+                        return translated_text
+                    else
+                        translated_text = data.content[editingLanguage]
+                        return translated_text
+                        
+
                 data.TypeOfElementClass = ->
-                    if data.element is "Title"
+                    if (data.element is "Title") or (data.element is "Link") 
                         return "title"
                     else
                         return "text"
@@ -57,10 +63,15 @@ define ['app'
 
                 @editor = CKEDITOR.inline document.getElementById @$el.find('.translated-element-content').attr 'id'
 
-                if @model.get('content')[editingLanguage] is undefined
+                if (@model.get('element') is 'Link')
+                    content_text = 'text'
+                else
+                    content_text = 'content'
+
+                if @model.get(content_text)[editingLanguage] is undefined
                   @editor.setData ""
                 else
-                  @editor.setData _.stripslashes @model.get('content')[editingLanguage]
+                  @editor.setData _.stripslashes @model.get(content_text)[editingLanguage]
 
             # destroy the Ckeditor instance to avoiid memory leaks on close of element
             # this.editor will hold the reference to the editor instance

@@ -197,7 +197,7 @@ function get_page_translation_elements($page_id){
         if ( $element[ 'element' ] === 'Row' ) {
             get_row_translation_elements( $element,$elements );
         } else {
-            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText')))
+            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
                 $elements[] = $element;
         }
     }
@@ -212,7 +212,7 @@ function get_row_translation_elements( $row_element, &$elements ){
             if ( $element[ 'element' ] === 'Row' ) {
                 get_row_translation_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('Title','Text','ImageWithText')))
+                if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
                     $elements[] = $element;
             }
         }

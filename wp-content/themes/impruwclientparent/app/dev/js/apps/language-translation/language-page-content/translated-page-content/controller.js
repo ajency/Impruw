@@ -49,12 +49,17 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype.updatePageElementContent = function(view, newElemContent) {
-        var content, editLang, model;
+        var content_text, editLang, model, translatedContent;
         model = view.model;
-        content = model.get('content');
+        if (model.get('element') === 'Link') {
+          content_text = 'text';
+        } else {
+          content_text = 'content';
+        }
+        translatedContent = model.get(content_text);
         editLang = this.editLang;
-        content[editLang] = newElemContent;
-        model.set('content', content);
+        translatedContent[editLang] = newElemContent;
+        model.set(content_text, translatedContent);
         return model.save(null, {
           wait: true,
           success: this.contentUpdated
