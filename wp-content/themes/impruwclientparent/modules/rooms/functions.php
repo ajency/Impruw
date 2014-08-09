@@ -178,10 +178,17 @@ function get_roomss() {
     $rooms = new WP_Query( array( 'post_type' => 'impruw_room', 'posts_per_page' => -1, 'post_status' => 'publish' ) );
 
     $room_data = array();
+    $default_language = wpml_get_default_language();
 
     while ( $rooms->have_posts() ): $rooms->the_post();
 
-        $room_data[ ] = get_room( get_the_ID() );
+        /*Code to display rooms based on the default language*/
+        $post_id = get_the_ID();
+        // Get the post ID based on language so that only pages of default language could be listed
+        $post_id_based_on_lang = icl_object_id( $post_id, 'impruw_room', false, $default_language);
+        $post_title_based_on_lang =  get_the_title($post_id_based_on_lang);
+
+        $room_data[ ] = get_room( $post_id_based_on_lang );
 
     endwhile;
 
