@@ -4,7 +4,7 @@ define ["app", 'backbone'], (App, Backbone) ->
     	#Facility model
         class LanguageFacilities.FacilityModel extends Backbone.Model
             name: 'languagefacility'
-            idAttribute: 'facilityId' 
+            idAttribute: 'term_id'
 
 		#Collection class
         class LanguageFacilities.FacilityCollection extends Backbone.Collection

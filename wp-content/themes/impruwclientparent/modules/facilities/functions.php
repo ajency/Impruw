@@ -50,13 +50,10 @@ function update_facility( $postdata ) {
     // if term_id is the same as posted term id update the facility name
     if ( $response[ 'term_id' ] == $postdata[ 'term_id' ] ) {
 
-        //prepare the new slug string
-        $slug = sanitize_title( $postdata[ 'new_facility_name' ] );
-
-        $ret = wp_update_term( $response[ 'term_id' ], 'impruw_room_facility', array( 'name' => $postdata[ 'new_facility_name' ], 'slug' => $slug ) );
+        $ret= save_term_translation_wpml(wpml_get_default_language(), $response[ 'term_id' ], $postdata[ 'new_facility_name' ],'impruw_room_facility');
 
         // update the new name
-        $ret[ 'name' ] = $postdata[ 'new_facility_name' ];
+        // $ret[ 'name' ] = $postdata[ 'new_facility_name' ];
 
         return $ret;
     } else {
@@ -127,6 +124,8 @@ function save_term_translation_wpml($language, $original_term_id, $new_term_name
     $taxonomy           = $taxonomy_name;
     $language           = $language;
     $new_name           = $new_term_name;
+    //prepare the new slug string
+    $slug = sanitize_title( $new_term_name );
 
     $trid = $sitepress->get_element_trid($original_element, 'tax_' . $taxonomy);
     $translations = $sitepress->get_element_translations($trid, 'tax_' . $taxonomy);
@@ -138,7 +137,8 @@ function save_term_translation_wpml($language, $original_term_id, $new_term_name
     $errors = '';
 
     $term_args = array(
-        'name'        => $new_name
+        'name'  => $new_name,
+        'slug'  => $slug          
     );
 
     $original_tax = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->term_taxonomy} WHERE taxonomy=%s AND term_taxonomy_id = %d",$taxonomy, $original_element));

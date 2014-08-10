@@ -13,7 +13,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       FacilityModel.prototype.name = 'languagefacility';
 
-      FacilityModel.prototype.idAttribute = 'facilityId';
+      FacilityModel.prototype.idAttribute = 'term_id';
 
       return FacilityModel;
 

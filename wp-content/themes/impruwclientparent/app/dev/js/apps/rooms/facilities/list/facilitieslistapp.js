@@ -17,7 +17,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'
       FacilityListController.prototype.initialize = function(opt) {
         var collection, cview, facilities;
         facilities = opt.facilities;
-        this.collection = collection = App.request("get:all:facilities");
+        this.collection = collection = App.request("get:default:facilities");
         this.cview = cview = this._getFacilitiesView(collection, facilities);
         this.listenTo(cview, "itemview:delete:facility:clicked", this.deleteFacility);
         this.listenTo(cview, "itemview:update:facility:clicked", this.updateFacility);
