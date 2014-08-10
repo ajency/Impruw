@@ -9,6 +9,10 @@
  */
 function create_facility( $name ) {
 
+    global $sitepress;
+    $default_language = wpml_get_default_language();
+    $current_language = wpml_get_current_language();
+
     // check if the term already exists
     $term_id = term_exists( $name, 'impruw_room_facility' );
 
@@ -17,7 +21,23 @@ function create_facility( $name ) {
         return 'Facility Exists';
     } //else insert the term into the db
     else {
+        $sitepress->switch_lang($default_language);
         $newfacililty_data = wp_insert_term( $name, 'impruw_room_facility', $args = array( 'hide_empty' => 0 ) );
+        $sitepress->switch_lang($current_language);
+
+        if($default_language==='en'){
+
+            $language = 'nb';
+        }
+        else{
+
+            $language = 'en';
+        }
+        
+        $original_term_id = $newfacililty_data['term_id'] ;
+        //Create translated facility in other language (en or nb) as well
+        $new_term_name = $name."-".$language;
+        $translated_term = save_term_translation_wpml($language, $original_term_id, $new_term_name,'impruw_room_facility');
 
         return $newfacililty_data;
     }
