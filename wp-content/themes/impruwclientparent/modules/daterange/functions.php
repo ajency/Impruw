@@ -47,9 +47,17 @@ function get_date_range() {
         
         //unserialize plan_name and plan_description 
         $daterange_name_unserialized = maybe_unserialize( $date_range['daterange_name'] );
+
+        if($default_language==='en'){
+
+            $language = 'nb';
+        }
+        else{
+            $language = 'en';
+        }
         
         if(is_array($daterange_name_unserialized)){
-            $daterange_name = isset($daterange_name_unserialized[$default_language]) ? $daterange_name_unserialized[$default_language] : $daterange_name_unserialized['en'];
+            $daterange_name = isset($daterange_name_unserialized[$default_language]) ? $daterange_name_unserialized[$default_language] : $daterange_name_unserialized[$language];
         }
         else{
             $daterange_name = $daterange_name_unserialized;

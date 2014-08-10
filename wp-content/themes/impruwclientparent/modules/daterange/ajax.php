@@ -70,9 +70,18 @@ function ajax_create_daterange() {
 
     //get default language (en or nb)
     $default_language = wpml_get_default_language();
+
+    //Create plan in other language as well
+    if($default_language==='en'){
+        $other_language = 'nb';
+    }
+    else{
+        $other_language = 'en';
+    }
     
     // get daterange name
     $daterange_name[$default_language]   = $_POST[ 'daterange_name' ];
+    $daterange_name[$other_language]   = $_POST[ 'daterange_name' ].'(not translated)';
 
     //$daterange_name shd be serialized array
     $daterange_name_with_language = maybe_serialize( $daterange_name );
@@ -102,7 +111,16 @@ function ajax_update_daterange() {
     //get default language (en or nb)
     $default_language = wpml_get_default_language();
 
+    //update translation of other language as well
+    if($default_language==='en'){
+        $other_language = 'nb';
+    }
+    else{
+        $other_language = 'en';
+    }
+
     $daterange_name[$default_language] = $_POST[ 'daterange_name' ];
+    $daterange_name[$other_language] = $_POST[ 'daterange_name' ].'(not translated)';
 
     //date_range_name shd be serialized array
     $daterange_name_with_language = maybe_serialize( $daterange_name );
