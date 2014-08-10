@@ -36,8 +36,8 @@ define [ 'app', 'controllers/base-controller'
                 window.PHRASES = response.PHRASES
                 _.polyglot = new Polyglot
                     phrases : window.PHRASES
-                App.execute "show:leftnav:app"
-                App.execute "show:myprofile:app"
+                # App.execute "show:leftnav:app"
+                # App.execute "show:myprofile:app"
 
         App.commands.setHandler "show:language:form", ( opts ) ->
             new Language.Controller opts
