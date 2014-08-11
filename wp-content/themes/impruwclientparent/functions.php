@@ -345,6 +345,9 @@ function add_element_markup( $element ) {
         case 'Address' :
             $html = get_address_element_markup( $element );
             break;
+        case 'Table' :
+            $html = get_table_element_markup( $element );
+            break;
         case 'Social' :
             $html = get_social_element_markup( $element );
             break;
@@ -737,6 +740,22 @@ function get_text_element_markup( $element ) {
     $html = $text->get_markup();
 
     return $html;
+}
+
+/**
+ * Generates the table markup
+ *
+ * @param type $element
+ */
+function get_table_element_markup( $element ){
+    require_once PARENTTHEMEPATH . 'elements/TableElement.php';
+
+    $table = new TableElement( $element );
+
+    $html = $table->get_markup();
+
+    return $html;
+
 }
 
 /**
