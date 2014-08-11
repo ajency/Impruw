@@ -81,7 +81,7 @@ define(['app', 'marionette'], function(App, Marionette) {
       return this.model.fetch({
         success: (function(_this) {
           return function(model) {
-            return window.imageEdit.open(model.get('id'), model.get('nonces').edit, _this);
+            return _this.back();
           };
         })(this)
       });

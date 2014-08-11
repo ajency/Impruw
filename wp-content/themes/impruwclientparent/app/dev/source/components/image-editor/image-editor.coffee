@@ -64,7 +64,7 @@ define ['app', 'marionette'], ( App, Marionette )->
 		save : ->
 			@model.fetch 
 					success : (model)=>
-						window.imageEdit.open model.get( 'id' ), model.get( 'nonces' ).edit, @
+						@back()
 
 		refresh : ->
 			@model.fetch()
