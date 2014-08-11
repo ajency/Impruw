@@ -95,7 +95,9 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
           var languageCode, languageName;
           languageCode = m.get("code");
           languageName = _.polyglot.t(m.get("languageName"));
-          $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>");
+          if (languageCode !== WPML_DEFAULT_LANG) {
+            $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>");
+          }
           htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> ' + languageName + ' </div>';
         });
         this.$el.find(".selected-languages").html(htmlString);
@@ -122,7 +124,9 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
           var languageCode, languageName;
           languageCode = m.get("code");
           languageName = _.polyglot.t(m.get("languageName"));
-          $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>");
+          if (languageCode !== WPML_DEFAULT_LANG) {
+            $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>");
+          }
         });
         return this.$el.find('select').selectpicker();
       };

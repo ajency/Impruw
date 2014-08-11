@@ -81,7 +81,10 @@ define ['app'
                 collection.each (m) ->
                     languageCode = m.get("code")
                     languageName = _.polyglot.t(m.get("languageName"))
-                    $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>")
+
+                    unless languageCode is WPML_DEFAULT_LANG
+                        $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>")
+                    
                     htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> ' + languageName + ' </div>'
                     return
                 @$el.find(".selected-languages").html(htmlString)
@@ -105,7 +108,10 @@ define ['app'
                 @selectedLang.each (m) ->
                     languageCode = m.get("code")
                     languageName = _.polyglot.t(m.get("languageName"))
-                    $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>")
+
+                    unless languageCode is WPML_DEFAULT_LANG
+                        $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>")
+                    
                     return
 
                 @$el.find('select').selectpicker()

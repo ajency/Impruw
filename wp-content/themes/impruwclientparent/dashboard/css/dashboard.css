@@ -3919,6 +3919,12 @@ form .aj-imp-submit:hover {
 .language .trans-field .form-control:focus ~ .trans-action {
   opacity: 1;
 }
+.language .room-element-head .col-sm-7 > div .label-head {
+  display: none;
+}
+.language .room-element-head .col-sm-7 > div:first-child .label-head {
+  display: inline-block;
+}
 .billing-container .aj-imp-table-head {
   margin-bottom: 1em;
 }
