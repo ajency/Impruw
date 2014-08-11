@@ -53,10 +53,10 @@ define ['app'], (App)->
 
             onShow: ->
 
-                @$el.attr "data-content", _.polyglot.t("Manage room gallery")+" <a href='#{SITEURL}/dashboard/#/rooms'>"+_.polyglot.t("here")+"</a> "
+                ###@$el.attr "data-content", _.polyglot.t("Manage room gallery")+" <a href='#{SITEURL}/dashboard/#/rooms'>"+_.polyglot.t("here")+"</a> "
                 @$el.popover
                     html : true
-                    placement : 'top'
+                    placement : 'top'###
 
                 return if @collection.length is 0
 
