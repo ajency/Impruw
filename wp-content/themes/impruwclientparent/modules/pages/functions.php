@@ -191,12 +191,16 @@ function update_footer_json( $footer_json, $autosave = FALSE ) {
  * @return [type] [description]
  */
 function get_all_menu_pages() {
+    global $sitepress;
 
     $args = array( 'post_type' => 'page',
         'posts_per_page' => -1,
         'orderby' => 'menu_order',
         'order' => 'ASC' );
+
+    $sitepress->switch_lang(wpml_get_default_language());
     $pages = new WP_query( $args );
+    $sitepress->switch_lang();
 
     $p = array();
 
