@@ -15,7 +15,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         editLang = opts.editLang;
         this.editLang = editLang;
         this.translatedDaterangeCollection = translatedDaterangeCollection = App.request("get:translated:daterange:collection", editLang);
-        console.log(translatedDaterangeCollection);
         this.translatedDaterangesView = this._getTranslatedDaterangesView(translatedDaterangeCollection);
         this.listenTo(this.translatedDaterangesView, "update:translated:dateranges", this.updateTranslatedDateranges);
         return this.show(this.translatedDaterangesView, {
