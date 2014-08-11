@@ -3782,7 +3782,7 @@ form {
 				&:focus {
 					height: auto;
 					min-height: 100px;
-					max-height: 300px;
+					max-height: none;
 				}
 				&.title {
 					min-height: 33px;
@@ -3895,6 +3895,20 @@ form {
 			margin: 0 0 1em;
 			padding: 0.5em;
 			border: 1px dotted @dash-grey;
+			.bootstrap-select {
+				font-size: 0.5em;
+				margin-bottom: 0.8em;
+				.btn {
+					&:hover, &:focus {
+						background: transparent;
+					}
+				}
+			}
+		}
+	}
+	.pick-plan {
+		.form-horizontal {
+			margin: 0 0 1em;
 			.bootstrap-select {
 				font-size: 0.5em;
 				margin-bottom: 0.8em;
