@@ -774,7 +774,7 @@ a.red-link.pull-right {
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-title {
   font-size: 1.1em;
-  text-align: right;
+  text-align: center;
   margin: 0 0 0.8em;
   color: #808080;
   font-weight: 700;
@@ -814,11 +814,31 @@ a.red-link.pull-right {
   font-size: 1.4em;
   top: 3px;
 }
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name-label {
+  vertical-align: top;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-sel-del {
+  display: inline-block;
+  text-align: left;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-sel-del .delete-page {
+  color: #ff3333;
+  font-size: 0.76em;
+  margin: 0.5em 1em 0 0;
+  display: block;
+  font-weight: 300;
+  white-space: nowrap;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-sel-del .delete-page:hover {
+  color: #cc0000;
+}
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page {
   background: transparent;
   color: #849fb0;
   font-size: 0.8em;
   margin: 0 1em;
+  vertical-align: top;
+  white-space: nowrap;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page:hover {
   background: transparent;
