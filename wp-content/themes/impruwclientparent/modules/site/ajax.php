@@ -54,7 +54,14 @@ function read_language_based_site_ajax(){
     $data [ 'checkin_time' ] = get_option( 'checkin-time', '' );
     $data [ 'checkout_time' ] = get_option( 'checkout-time', '' );
     $data [ 'time_format' ] = get_option( 'time-format', '' );
-    $data [ 'additional_policy' ] = get_option( 'additional-policy', '' );
+
+    $original_policy = get_option('additional-policy','');
+    //Check if present in string translation table , ie if it is registered 
+    $policy_string_id = icl_get_string_id( $original_policy, 'Site Profile');
+    $translated_policy = impruw_wpml_get_string_translation($original_policy, $language);
+    $data [ 'additional_policy' ] = $translated_policy;
+    $data [ 'policy_string_id' ] =  $policy_string_id;
+
     $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );
     $data [ 'currency' ] = get_option( 'currency','NOK' );
 //    $data [ 'braintree_plan_id' ] = get_option( 'braintree-plan','hn62' );
@@ -165,13 +172,14 @@ function update_translated_siteprofile_ajax(){
 
     while($i<sizeof($translatedSiteprofile)) {
 
-        //translatedSiteprofile[0][translated_option]:A streetsss-fr
-        //translatedSiteprofile[0][translation_of_option]:street
         $option_to_be_translated = $translatedSiteprofile[$i]['translation_of_option'];
+        
         $original_option_value = get_option($option_to_be_translated,'');
+
         $translated_option_value = $translatedSiteprofile[$i]['translated_option'];
 
         $original_string_id = icl_get_string_id($original_option_value, 'Site Profile');
+
 
         $string_id = icl_add_string_translation( $original_string_id, $editing_language, $translated_option_value, ICL_STRING_TRANSLATION_COMPLETE );
 

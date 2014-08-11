@@ -30,10 +30,20 @@ function create_plan_ajax() {
 
     //get default language (en or nb)
     $default_language = wpml_get_default_language();
+
+    //Create plan in other language as well
+    if($default_language==='en'){
+        $other_language = 'nb';
+    }
+    else{
+        $other_language = 'en';
+    }
     
-    // get all form data
+    // create plan in both languages en and nb
     $plan_name[$default_language]        = $_POST[ 'plan_name' ];
+    $plan_name[$other_language]        = $_POST[ 'plan_name' ].'(not translated)';
     $plan_description[$default_language] = $_POST[ 'plan_description' ];
+    $plan_description[$other_language] = $_POST[ 'plan_description' ].'(not translated)';
 
     //$plan_name and $plan_desciption shd be serialized array
     $plan_name_with_language = maybe_serialize( $plan_name );
@@ -54,10 +64,20 @@ function update_plan_ajax() {
     //get default language (en or nb)
     $default_language = wpml_get_default_language();
 
+    //update translation of other language as well
+    if($default_language==='en'){
+        $other_language = 'nb';
+    }
+    else{
+        $other_language = 'en';
+    }
+
     $plan_id = $_POST[ 'id' ];
 
     $plan_name[$default_language]        = $_POST[ 'plan_name' ];
+    $plan_name[$other_language]        = $_POST[ 'plan_name' ].'(not translated)';
     $plan_description[$default_language] = $_POST[ 'plan_description' ];
+    $plan_description[$other_language] = $_POST[ 'plan_description' ].'(not translated)';
 
     //$plan_name and $plan_desciption shd be serialized array
     $plan_name_with_language = maybe_serialize( $plan_name );

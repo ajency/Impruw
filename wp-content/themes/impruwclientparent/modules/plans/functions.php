@@ -27,22 +27,31 @@ function get_plans() {
 
     $default_language = wpml_get_default_language();
 
+    $language = '';
+
     foreach ($plans as $plan) {
         
         //unserialize plan_name and plan_description 
         $plan_name_unserialized = maybe_unserialize( $plan['plan_name'] );
         $plan_desc_unserialized = maybe_unserialize( $plan['plan_description'] );
         
-        
+        if($default_language==='en'){
+
+            $language = 'nb';
+        }
+        else{
+            $language = 'en';
+        }
+
         if(is_array($plan_name_unserialized)){
-            $plan_name = isset($plan_name_unserialized[$default_language]) ? $plan_name_unserialized[$default_language] : $plan_name_unserialized['en'];
+            $plan_name = isset($plan_name_unserialized[$default_language]) ? $plan_name_unserialized[$default_language] : $plan_name_unserialized[$language];
         }
         else{
             $plan_name = $plan_name_unserialized;
         }
 
         if(is_array($plan_desc_unserialized)){
-            $plan_description = isset($plan_desc_unserialized[$default_language]) ? $plan_desc_unserialized[$default_language] : $plan_desc_unserialized['en'];        
+            $plan_description = isset($plan_desc_unserialized[$default_language]) ? $plan_desc_unserialized[$default_language] : $plan_desc_unserialized[$language];        
         }
         else{
             $plan_description = $plan_desc_unserialized;

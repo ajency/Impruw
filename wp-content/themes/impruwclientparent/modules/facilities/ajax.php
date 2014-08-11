@@ -60,7 +60,7 @@ function update_facility_ajax() {
     wp_send_json( array( 'code' => 'OK', 'data' => $ret ) );
 }
 
-add_action( 'wp_ajax_update-facility', 'update_facility_ajax' );
+add_action( 'wp_ajax_update-languagefacility', 'update_facility_ajax' );
 
 
 function fetch_default_facilities(){

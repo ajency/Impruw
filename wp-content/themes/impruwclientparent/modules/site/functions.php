@@ -467,17 +467,21 @@ function update_site_profile( $formdata ) {
 
             $default_language = wpml_get_default_language();
 
-            //Add itself to english translation if default lang is english
+            
             if($default_language === 'en'){
-                $original_string_id = icl_get_string_id($value, 'Site Profile');
-
-                $string_id = icl_add_string_translation( $original_string_id, 'en', $value, ICL_STRING_TRANSLATION_COMPLETE );
+                $other_language = 'nb';
             }
-            else if($default_language === 'nb'){
-                $original_string_id = icl_get_string_id($value, 'Site Profile');
+            else{
+                $other_language = 'en';
+            } 
 
-                $string_id = icl_add_string_translation( $original_string_id, 'nb', $value, ICL_STRING_TRANSLATION_COMPLETE );
-            }
+            
+            $original_string_id = icl_get_string_id($value, 'Site Profile');
+
+            //Add itself to english and Norwegian translation
+            $string_id = icl_add_string_translation( $original_string_id, $default_language, $value, ICL_STRING_TRANSLATION_COMPLETE );
+            $string_id = icl_add_string_translation( $original_string_id, $other_language, $value.'(not translated)', ICL_STRING_TRANSLATION_COMPLETE );
+
         }
         
         // prepare array conatining all the form values
@@ -524,10 +528,28 @@ function update_checkin_time( $formdata ) {
 function update_additional_policies( $formdata ) {
 
     $policy = $formdata[ 'changes' ][ 'additional_policy' ];
-
     update_option( 'additional-policy', $policy );
+    $string_id =array();
 
-    $return_array = array( 'additional_policy' => $policy );
+            //Register strings for translation
+    icl_register_string('Site Profile', 'additional-policy', $policy);
+
+    $default_language = wpml_get_default_language();
+
+    if($default_language === 'en'){
+        $other_language = 'nb';
+    }
+    else{
+        $other_language = 'en';
+    }
+
+
+    $original_string_id = icl_get_string_id($policy, 'Site Profile');
+
+    $string_id[] = icl_add_string_translation( $original_string_id, $default_language, $policy, ICL_STRING_TRANSLATION_COMPLETE );
+    $string_id[] = icl_add_string_translation( $original_string_id, $other_language, $policy.'(not translated)', ICL_STRING_TRANSLATION_COMPLETE );
+
+    $return_array = array( 'additional_policy' => $policy, 'translated_string_id' => $string_id );
 
     return $return_array;
 }

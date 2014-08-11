@@ -178,10 +178,17 @@ function get_roomss() {
     $rooms = new WP_Query( array( 'post_type' => 'impruw_room', 'posts_per_page' => -1, 'post_status' => 'publish' ) );
 
     $room_data = array();
+    $default_language = wpml_get_default_language();
 
     while ( $rooms->have_posts() ): $rooms->the_post();
 
-        $room_data[ ] = get_room( get_the_ID() );
+        /*Code to display rooms based on the default language*/
+        $post_id = get_the_ID();
+        // Get the post ID based on language so that only pages of default language could be listed
+        $post_id_based_on_lang = icl_object_id( $post_id, 'impruw_room', false, $default_language);
+        $post_title_based_on_lang =  get_the_title($post_id_based_on_lang);
+
+        $room_data[ ] = get_room( $post_id_based_on_lang );
 
     endwhile;
 
@@ -331,6 +338,7 @@ function get_language_translated_room($room_id, $editing_language)
 
     if($lang_post_id!=null){
         $room_post = get_post($lang_post_id);
+        set_translated_facilities($room_id,$editing_language_code, $lang_post_id);
         $data['translatedRoomTitle'] = $room_post->post_title;
         $data['translatedRoomDesc'] = $room_post->post_content;
         $data['defaultLangCode'] = $default_language_code;
@@ -341,6 +349,7 @@ function get_language_translated_room($room_id, $editing_language)
     }
     else{
         $translated_room_id = duplicate_language_post($room_id, "impruw_room", $editing_language_code);
+        set_translated_facilities($room_id,$editing_language_code, $translated_room_id);
         $room_post = get_post($translated_room_id);
         $data['translatedRoomTitle'] = $room_post->post_title;
         $data['translatedRoomDesc'] = $room_post->post_content;
@@ -393,13 +402,14 @@ function duplicate_language_post($post_id, $post_type, $lang){
     $tbl_icl_translations = $wpdb->prefix ."icl_translations";
 
     // Define title of translated post
-    $post_translated_title = get_post( $post_id )->post_title . ' (' . $lang . ')';
+    $post_translated_title = get_post( $post_id )->post_title .' ( not translated )';
+    $post_translated_desc = get_post( $post_id )->post_content .' ( not translated )';
 
     //element type
     $element_type = 'post_'.$post_type;
 
     // Insert translated post
-    $post_translated_id = wp_insert_post( array( 'post_title' =>$post_translated_title , 'post_type' =>$post_type, 'post_status'=> 'publish' ) );
+    $post_translated_id = wp_insert_post( array( 'post_title' =>$post_translated_title , 'post_content'  => $post_translated_desc , 'post_type' =>$post_type, 'post_status'=> 'publish' ) );
 
     // Get trid of original post
     $select_trid = $wpdb->get_row( "SELECT trid FROM $tbl_icl_translations WHERE element_id =".$post_id." AND element_type='".$element_type."'");
@@ -420,5 +430,32 @@ function duplicate_language_post($post_id, $post_type, $lang){
 
     return  $post_translated_id;
 
+}
+
+/*
+* Set translated versions of facilities to the translated rooms
+*/
+function set_translated_facilities($post_id,$lang, $translated_post_id){
+    //Get facility terms associated with original room_id 
+    $room_terms = wp_get_object_terms($post_id, 'impruw_room_facility');
+    $translated_facility_ids = array();
+    
+    //and for each such facility term get the translated facility term
+    if(!empty($room_terms)){
+        if(!is_wp_error( $room_terms )){
+            foreach($room_terms as $term){
+                $original_term_id = $term->term_id;
+                $translated_term_id = icl_object_id($original_term_id, 'impruw_room_facility', false,$lang);
+                
+                if($translated_term_id!='')
+                    $translated_facility_ids[ ] = $translated_term_id;
+            }
+        }
+    }
+    $translated_facility_ids = array_map( 'intval', $translated_facility_ids );
+    $translated_facility_ids = array_unique( $translated_facility_ids );
+    
+    //link translated facilities to the translated room
+    wp_set_object_terms( $translated_post_id, $translated_facility_ids, 'impruw_room_facility' );
 }
 

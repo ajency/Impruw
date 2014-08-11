@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/language-translation/language-page-rooms/show/view', 'apps/language-translation/language-page-rooms/original-language-rooms/controller', 'apps/language-translation/language-page-rooms/translated-language-rooms/controller', 'apps/language-translation/language-page-rooms/choose-rooms/controller', 'apps/language-translation/language-page-rooms/choose-plans/controller', 'apps/language-translation/language-page-rooms/original-room-facilities/controller', 'apps/language-translation/language-page-rooms/translated-room-facilities/controller', 'apps/language-translation/language-page-rooms/original-room-dateranges/controller', 'apps/language-translation/language-page-rooms/translated-room-dateranges/controller', 'apps/language-translation/language-page-rooms/original-room-plans/controller', 'apps/language-translation/language-page-rooms/translated-room-plans/controller'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'apps/language-translation/language-page-rooms/show/view', 'apps/language-translation/language-page-rooms/original-language-rooms/controller', 'apps/language-translation/language-page-rooms/translated-language-rooms/controller', 'apps/language-translation/language-page-rooms/choose-rooms/controller', 'apps/language-translation/language-page-rooms/choose-plans/controller', 'apps/language-translation/language-page-rooms/original-room-facilities/controller', 'apps/language-translation/language-page-rooms/translated-room-facilities/controller', 'apps/language-translation/language-page-rooms/original-room-dateranges/controller', 'apps/language-translation/language-page-rooms/translated-room-dateranges/controller', 'apps/language-translation/language-page-rooms/original-room-plans/controller', 'apps/language-translation/language-page-rooms/translated-room-plans/controller', 'apps/language-translation/language-page-rooms/original-policy/controller', 'apps/language-translation/language-page-rooms/translated-policy/controller'], function(App, AppController) {
   return App.module('LanguageApp.LanguagePageRooms', function(LanguagePageRooms, App, Backbone, Marionette, $, _) {
     LanguagePageRooms.Controller = (function(_super) {
       __extends(Controller, _super);
@@ -43,6 +43,14 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
             });
             App.execute("translated:room:dateranges:app", {
               region: _this.pageLanguageLayout.translatedRoomDateranges,
+              editLang: _this.editingLang
+            });
+            App.execute("original:room:policy:app", {
+              region: _this.pageLanguageLayout.originalPolicy,
+              editLang: _this.editingLang
+            });
+            App.execute("translated:room:policy:app", {
+              region: _this.pageLanguageLayout.translatedPolicy,
               editLang: _this.editingLang
             });
             return App.execute('choose:plans:app', {

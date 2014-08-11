@@ -10,6 +10,17 @@
 function update_user_lang( $user_id, $language ) {
 
     update_user_meta( $user_id, 'user_lang', $language );
+    global $sitepress;
+    $current_default_language = wpml_get_default_language();
+    //Also check for all the room created in the current default language
+    $sitepress->switch_lang($current_default_language);
+    $current_room_data = get_roomss();
+    $sitepress->switch_lang();
+
+    //and create its translated rooms in the new default language if they don't exist
+    foreach ($current_room_data as $current_room) {
+        $data = get_language_translated_room($current_room['ID'], $language);
+    }
 
     global $sitepress;
     $sitepress->set_default_language($language);

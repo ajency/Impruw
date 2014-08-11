@@ -13,7 +13,6 @@ define ['app', 'controllers/base-controller'
 
                 #get page collection
                 @translatedDaterangeCollection = translatedDaterangeCollection = App.request "get:translated:daterange:collection", editLang
-                console.log translatedDaterangeCollection
 
                 @translatedDaterangesView = @_getTranslatedDaterangesView translatedDaterangeCollection
 

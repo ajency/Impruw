@@ -33,7 +33,6 @@ define [ 'app', 'controllers/base-controller'
 
 
             saveSiteProfile : ( data ) ->
-                console.log data
                 @siteProfile.set data
                 @siteProfile.save null,
                     wait : true
