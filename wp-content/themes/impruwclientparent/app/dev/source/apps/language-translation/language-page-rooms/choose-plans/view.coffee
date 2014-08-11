@@ -9,10 +9,14 @@ define ['app'], (App)->
                 class Views.ChoosePlansView extends Marionette.ItemView 
 
                     template: "<form class='form-horizontal'>
-                                Pick a Plan: 
-                                <select class='js-plan-select' id='js-plan-select'>
-                                    <option value='-1'>Choose a Plan</option>
-                                </select>
+                                    <div class='form-group'>
+                                        <label class='col-sm-3 control-label label-head'>Plans</label> 
+                                        <div class='col-sm-9 col-sm-offset-3'>
+                                            <select class='js-plan-select' id='js-plan-select'>
+                                                <option value='-1'>Choose a Plan</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </form>"
 
                     events: "click div.js-plan-select ul.selectpicker li" : "loadPlanApps"  

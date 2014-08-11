@@ -3887,6 +3887,17 @@ form .aj-imp-submit:hover {
 .language .pick-room .form-horizontal .bootstrap-select .btn:focus {
   background: transparent;
 }
+.language .pick-plan .form-horizontal {
+  margin: 0 0 1em;
+}
+.language .pick-plan .form-horizontal .bootstrap-select {
+  font-size: 0.5em;
+  margin-bottom: 0.8em;
+}
+.language .pick-plan .form-horizontal .bootstrap-select .btn:hover,
+.language .pick-plan .form-horizontal .bootstrap-select .btn:focus {
+  background: transparent;
+}
 .language .trans-field {
   position: relative;
 }
