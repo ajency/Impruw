@@ -174,7 +174,7 @@ function update_translated_siteprofile_ajax(){
 
         $option_to_be_translated = $translatedSiteprofile[$i]['translation_of_option'];
         
-        $original_option_value = get_option($option_to_be_translated,'');
+        $original_option_value = get_option($option_to_be_translated, '');
 
         $translated_option_value = $translatedSiteprofile[$i]['translated_option'];
 

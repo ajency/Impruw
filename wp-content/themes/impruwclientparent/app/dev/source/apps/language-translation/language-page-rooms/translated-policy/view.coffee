@@ -10,7 +10,7 @@ define ['app'], (App)->
                     template : '<form class="form-horizontal edit_additional_policy">
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}"  class="form-control" value ="{{additional_policy}}" data-siteoption= "additional_policy">
+                                        <input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}"  class="form-control" value ="{{additional_policy}}" data-siteoption= "additional-policy">
                                     </div>
                                 </div> 
                                 </form>

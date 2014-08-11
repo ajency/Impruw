@@ -14,7 +14,7 @@ define(['app'], function(App) {
 
       TranslatedPolicyView.prototype.className = 'col-sm-5';
 
-      TranslatedPolicyView.prototype.template = '<form class="form-horizontal edit_additional_policy"> <div class="form-group"> <div class="col-sm-12"> <input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}"  class="form-control" value ="{{additional_policy}}" data-siteoption= "additional_policy"> </div> </div> </form> <div> <button class="btn btn-xs aj-imp-orange-btn" name="btn_update-additional_policy" id="btn_update-additional_policy"> Update </button> </div>';
+      TranslatedPolicyView.prototype.template = '<form class="form-horizontal edit_additional_policy"> <div class="form-group"> <div class="col-sm-12"> <input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}"  class="form-control" value ="{{additional_policy}}" data-siteoption= "additional-policy"> </div> </div> </form> <div> <button class="btn btn-xs aj-imp-orange-btn" name="btn_update-additional_policy" id="btn_update-additional_policy"> Update </button> </div>';
 
       TranslatedPolicyView.prototype.events = {
         "click #btn_update-additional_policy": "updatePolicy"
