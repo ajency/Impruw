@@ -5,7 +5,7 @@ define ['app'], (App)->
                 class OriginalRoomFacilitiesItemView extends Marionette.ItemView
 
                 	template : ' <div class="form-group">
-                					<label class="col-sm-3 control-label" for="">{{#polyglot}}Facility{{/polyglot}}</label>
+                					<label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Facilities{{/polyglot}}</label>
                 					<div class="col-sm-9 col-sm-offset-3">
                 						<p class="original title">{{name}}
                 						</p>

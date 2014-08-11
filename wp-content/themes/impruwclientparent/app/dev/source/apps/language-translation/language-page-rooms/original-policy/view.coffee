@@ -9,7 +9,7 @@ define ['app'], (App)->
             className : 'col-sm-7'
 
             template : '<div class="form-group">
-                   <label class="col-sm-3 control-label" for="">{{#polyglot}}Additional Policy{{/polyglot}}</label>
+                   <label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Additional Policy{{/polyglot}}</label>
                        <div class="col-sm-9 col-sm-offset-3">
                           <p class="original title">{{additional_policy}}
                               </p>
