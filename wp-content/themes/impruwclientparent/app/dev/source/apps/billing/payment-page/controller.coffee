@@ -49,26 +49,6 @@ define [ 'app', 'controllers/base-controller'
 
                         @listenTo @paymentView, "make:payment:with:stored:card", @payWithStoredCard
 
-                #                        #check if card details exists
-                #                        cardExists = @creditCardModel.get 'card_exists'
-                #
-                #                        if cardExists is true
-                #                            @paymentView = @getPaymentView @creditCardModel
-                #                        else
-                #                            @paymentView = @getNewCardPaymentView @creditCardModel
-                #
-                #                        @layout.paymentRegion.show @paymentView
-                #
-                #                        @listenTo @paymentView, "new:credit:card:payment",( paymentMethodNonce )=>
-                #                            @newCardPayment paymentMethodNonce,'active'
-                #
-                #                        @listenTo @paymentView, "make:payment:with:stored:card", @payWithStoredCard
-                #
-                #                        @listenTo @paymentView, "change:card", =>
-                #                            @paymentView = @getNewCardPaymentView @creditCardModel
-                #                            @layout.paymentRegion.show @paymentView
-                #                            @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
-                #                                @newCardPayment paymentMethodNonce,'pending'
 
                 @show @layout,
                     loading : true
@@ -120,10 +100,6 @@ define [ 'app', 'controllers/base-controller'
             activeSubscription : ( subscriptionModel ) ->
                 new Payment.View.ActiveSubscriptionView
                     model : subscriptionModel
-
-#            getPaymentView : ( creditCardModel )->
-#                new Payment.View.PaymentView
-#                    model : creditCardModel
 
             getPaymentPageView : ( creditCardCollection )->
                 new Payment.View.PaymentPageView

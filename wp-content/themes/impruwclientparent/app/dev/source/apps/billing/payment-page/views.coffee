@@ -95,60 +95,6 @@ define [ 'app'
                         </div>"
                 @$el.find( '#billingsave_status' ).append( html )
 
-#        #payment page view when credit card info available
-#        class View.PaymentView extends  Marionette.ItemView
-#
-#            template : paymentViewTpl
-#
-#            className : 'col-sm-8'
-#
-#            serializeData : ->
-#                data = super()
-#                data.THEMEURL = THEMEURL
-#                data
-#
-#            onShow : ->
-#                @$el.find( 'select' ).selectpicker()
-#
-#
-#            events :
-#                'click #btn-pay' : ->
-#                    @$el.find( '#loader' ).show()
-#                    cardNumber = @$el.find( '#card_number' ).val()
-#                    nameOnCard = @$el.find( '#card_name' ).val()
-#                    expdate = @$el.find( '#expiration-date' ).val()
-#                    cvv = @$el.find( '#card-cvv' ).val()
-#
-#                    clientToken = @model.get 'braintree_client_token'
-#                    client = new braintree.api.Client clientToken : clientToken
-#                    client.tokenizeCard number : cardNumber, cardholderName : nameOnCard, cvv : cvv, expiration_date : expdate, ( err, nonce )=>
-#                        data =
-#                            action : "payment-with-stored-card"
-#                            nonce : nonce
-#                            token : @model.get 'token'
-#                        @trigger "make:payment:with:stored:card", data
-#
-#                'click #btn-change-card' : ->
-#                    @trigger "change:card"
-#
-#
-#            onPaymentSuccess : ->
-#                @$el.find( '#billingsave_status' ).empty()
-#                @$el.find( '#loader' ).hide()
-#                html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-#                                                        &times;
-#                                                        </button>
-#                                                        Payment Processed'
-#                @$el.find( '#billingsave_status' ).append( html )
-#
-#            onPaymentError : ( errorMsg )->
-#                @$el.find( '#billingsave_status' ).empty()
-#                @$el.find( '#loader' ).hide()
-#                html = "<button type='button' class='close' data-dismiss='alert'
-#                                                        aria-hidden='true'>&times;</button>
-#                                                        #{errorMsg}"
-#                @$el.find( '#billingsave_status' ).append( html )
-
 
         class SingleCreditCard extends  Marionette.ItemView
 

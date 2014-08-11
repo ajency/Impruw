@@ -165,7 +165,7 @@ function add_menus_to_site() {
         wp_update_nav_menu_item( $menu_id, 0, array( 'menu-item-title' => $page->post_title,
             'menu-item-classes' => $page->post_name,
             'menu-item-url' => '',
-            'menu-item-position' =>$page->menu_order,
+            'menu-item-position' => $page->menu_order,
             'menu-item-object' => 'page',
             'menu-item-type' => 'post_type',
             'menu-item-object-id' => $page->ID,
@@ -611,18 +611,47 @@ function check_domain_name_exists( $domain_name ) {
 
 }
 
+/**
+ * Function to add the domain name for mapping
+ *
+ * @param $domain_name
+ */
 function add_domain_for_mapping( $domain_name ) {
 
     global $wpdb;
 
     $table_name = $wpdb->base_prefix . 'domain_mapping';
 
-    $wpdb->insert( $table_name, array(
-        'domain' => $domain_name,
-        'blog_id' => get_current_blog_id(),
-        'active' => "1" ) );
+    $sql = "SELECT * from " . $table_name . " WHERE blog_id = %s";
 
+    $current_site_id = get_current_blog_id();
+
+    $result = $wpdb->get_results( $wpdb->prepare( $sql, $current_site_id ), ARRAY_A );
+
+    if ( empty( $result ) ) {
+
+        $wpdb->insert( $table_name, array(
+            'domain' => $domain_name,
+            'blog_id' => $current_site_id,
+            'active' => "1" ) );
+    } else {
+        $wpdb->update( $table_name,
+            array( 'domain' => $domain_name ), array( 'blog_id' => $current_site_id ) );
+    }
 
     update_option( 'domain-name', $domain_name );
 
+}
+
+/**
+ * Function to delete a domain mapping record when shifting to free plan
+ */
+function delete_domain_mapping() {
+    global $wpdb;
+
+    $table_name = $wpdb->base_prefix . 'domain_mapping';
+
+    $wpdb->delete( $table_name, array( 'blog_id' => get_current_blog_id() ) );
+
+    update_option( 'domain-name',  get_option( 'blogname' ) . '.impruw.com' );
 }

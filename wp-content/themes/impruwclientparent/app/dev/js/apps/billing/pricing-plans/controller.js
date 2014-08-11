@@ -17,6 +17,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
         return App.execute("when:fetched", this.siteModel, (function(_this) {
           return function() {
             var brainTreePlans;
+            _this.domainName = _this.siteModel.get('domain_name');
             _this.siteName = _this.siteModel.get('site_name');
             _this.subscriptionId = _this.siteModel.get('braintree_subscription');
             _this.currency = _this.siteModel.get('currency');
@@ -46,6 +47,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
           currency: this.currency,
           activePlanId: this.activePlanId,
           pendingPlanId: this.pendingPlanId,
+          domainName: this.domainName,
           siteName: this.siteName,
           billStart: this.billStart,
           billEnd: this.billEnd,

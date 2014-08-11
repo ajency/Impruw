@@ -51,7 +51,7 @@ function get_plan_details_for_transaction( $transaction_details ) {
     }
     return $transaction;
 }
-//TODO : on cancelling the subscription usig cron update the domain-name option to empty and delete the entry in the domain mapping table
+
 function create_cancelled_subscription_in_db( $current_subscription_id, $new_subscription_id, $bill_end_date ) {
 
     global $wpdb;
@@ -100,9 +100,9 @@ function create_pending_subscription( $payment_method_token, $selected_plan_id, 
     $next_bill_date = $subscription_details[ 'next_bill_date' ];
     $bill_end_date = $subscription_details[ 'bill_end' ];
 
-    if ($subscription_type == "Yearly"){
-        $subtract_year =   date( 'Y-m-d', ( strtotime( '-1 year', strtotime( $bill_end_date ) ) ) );
-        $bill_end_date = date("Y-m-t", strtotime($subtract_year));
+    if ( $subscription_type == "Yearly" ) {
+        $subtract_year = date( 'Y-m-d', ( strtotime( '-1 year', strtotime( $bill_end_date ) ) ) );
+        $bill_end_date = date( "Y-m-t", strtotime( $subtract_year ) );
         $next_bill_date = $bill_end_date;
     }
 
@@ -113,7 +113,7 @@ function create_pending_subscription( $payment_method_token, $selected_plan_id, 
     } else {
         delete_previous_subscription( $current_subscription_id );
         create_cancelled_subscription_in_db( $current_subscription_id, $pending_subscription[ 'subscription_id' ], $bill_end_date );
-        return array( 'code' => 'OK');
+        return array( 'code' => 'OK' );
     }
 
 }
@@ -186,21 +186,32 @@ function create_customer_with_credit_card( $payment_method_nonce ) {
 /***
  * Function to get the liast of all subscription to be cancelled using cron
  */
-function get_cancel_subscription_list(){
+function get_cancel_subscription_list() {
 
     global $wpdb;
 
     $table_name = $wpdb->prefix . 'cancel_subscription';
 
-    $sql = "SELECT * FROM " . $table_name . " WHERE status = '1' AND cancel_date >= CURDATE()";
+    $sql = "SELECT * FROM " . $table_name . " WHERE status = '1' AND cancel_date = CURDATE()";
 
     $query_result = $wpdb->get_results( $sql, ARRAY_A );
 
-//    echo '<pre>';
-//    print_r($query_result);
-//
-//    $subscription = get_subscription_details( $query_result[ 0 ][ 'old_subscription_id' ] );
-//
-//    return $subscription[ 'bill_end' ];
+    if ( empty ( $query_result ) )
+        return array();
+    else
+        return $query_result[ 0 ];
+}
 
+/**
+ * Function to update the status of the subscription entry
+ *
+ * @param $subscription_record_id
+ */
+function update_subscription_table( $subscription_record_id ) {
+
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'cancel_subscription';
+
+    $wpdb->update( $table_name, array( 'status' => '0' ), array( 'id' => $subscription_record_id ) );
 }

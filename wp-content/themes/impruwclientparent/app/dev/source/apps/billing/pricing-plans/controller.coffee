@@ -8,6 +8,8 @@ define [ 'app', 'controllers/base-controller'
                 @siteModel = App.request "get:site:model"
 
                 App.execute "when:fetched", @siteModel, =>
+                    @domainName =  @siteModel.get 'domain_name'
+
                     @siteName =  @siteModel.get 'site_name'
 
                     @subscriptionId = @siteModel.get 'braintree_subscription'
@@ -48,6 +50,7 @@ define [ 'app', 'controllers/base-controller'
                     currency : @currency
                     activePlanId : @activePlanId
                     pendingPlanId : @pendingPlanId
+                    domainName : @domainName
                     siteName : @siteName
                     billStart : @billStart
                     billEnd : @billEnd
