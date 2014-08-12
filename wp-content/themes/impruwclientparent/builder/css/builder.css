@@ -839,6 +839,8 @@ a.red-link.pull-right {
   margin: 0 1em;
   vertical-align: top;
   white-space: nowrap;
+  position: relative;
+  top: 0.5em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page:hover {
   background: transparent;
