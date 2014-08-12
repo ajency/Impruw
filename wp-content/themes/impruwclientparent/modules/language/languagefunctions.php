@@ -142,11 +142,15 @@ function duplicate_language_page($page_id,$language,$post_type){
     global $wpdb, $sitepress;
     $tbl_icl_translations = $wpdb->prefix ."icl_translations";
 
+    $original_page = get_post($page_id);
+    $original_page_name = $original_page->post_title;
+    $translated_page_name = $original_page_name.'( not translated)';
+
     $element_type = "post_".$post_type;
 
     // Insert translated post
     $page_translated_id = wp_insert_post(
-        array('post_title' => " ",
+        array('post_title' => $translated_page_name,
             'post_type' => $post_type,
             'post_status' => 'publish'));
 
