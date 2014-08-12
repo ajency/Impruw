@@ -48,9 +48,10 @@ define [ 'app'
             @new_page_id = @modelAddedToCollection.get 'ID'
             _.each @collection.models, ( model, index ) =>
                modelId = model.get 'ID'
+               originalPageId = model.get 'original_id'
                if modelId == @new_page_id
                   page_name = model.get 'post_title'
-                  select_html = "<option value='"+modelId+"'>#{page_name}</option>"
+                  select_html = "<option value='"+modelId+"' data-originalid='"+originalPageId+"'>#{page_name}</option>"
                   selectpicker_html = "<li rel='#{index}'>
                                             <a tabindex='0' class='' style=''>
                                                 <span class='text'>#{page_name}</span>
@@ -64,6 +65,7 @@ define [ 'app'
          initialize : ->
             App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
             App.reqres.setHandler "get:current:editable:page", @getCurrentPageId
+            App.reqres.setHandler "get:original:editable:page", @getOriginalPageId
 
          # return the name of the currently editable page
          getCurrentPageName : =>
@@ -74,6 +76,11 @@ define [ 'app'
          # returns the page id of the currently selected page
          getCurrentPageId : =>
             pageId = @$el.find( 'select#builder-page-sel' ).val()
+            parseInt pageId
+
+         # returns the original page id of the currently selected page
+         getOriginalPageId : =>
+            pageId = @$el.find( 'select#builder-page-sel' ).find(':selected').data('originalid')
             parseInt pageId
 
          onPagePublished : =>
