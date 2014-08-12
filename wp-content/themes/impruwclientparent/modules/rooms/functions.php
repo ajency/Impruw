@@ -336,6 +336,8 @@ function get_language_translated_room($room_id, $editing_language)
 
     $lang_post_id = get_translated_id($room_id, $editing_language_code,$element_type);
 
+    $original_room_count = get_post_meta( $room_id, 'no_of_rooms', true );
+
     if($lang_post_id!=null){
         $room_post = get_post($lang_post_id);
         set_translated_facilities($room_id,$editing_language_code, $lang_post_id);
@@ -345,6 +347,10 @@ function get_language_translated_room($room_id, $editing_language)
         $data['editingLanguage'] = $language_name;
         $data['translatedPostID'] = $lang_post_id;
         $data['isTranslated'] = true;
+
+        //Update room count for Translated room
+        update_post_meta( $lang_post_id, 'no_of_rooms', $original_room_count );
+        $data['roomCount'] = get_post_meta( $lang_post_id, 'no_of_rooms', true );
 
     }
     else{
@@ -356,7 +362,11 @@ function get_language_translated_room($room_id, $editing_language)
         $data['defaultLangCode'] = $default_language_code;
         $data['editingLanguage'] = $language_name;
         $data['translatedPostID'] = $translated_room_id;
-        $data['isTranslated'] = false;       
+        $data['isTranslated'] = false;  
+
+        //Update room count for Translated room
+        update_post_meta( $translated_room_id, 'no_of_rooms', $original_room_count ); 
+        $data['roomCount'] = get_post_meta( $translated_room_id, 'no_of_rooms', true );    
 
     }
 

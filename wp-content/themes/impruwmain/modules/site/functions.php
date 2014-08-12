@@ -192,8 +192,8 @@ function create_additional_tables( $site_id ) {
     // plan table
     $query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}plans(
 			    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-			    plan_name VARCHAR(100),
-			    plan_description VARCHAR(200))";
+			    plan_name LONGTEXT,
+			    plan_description LONGTEXT)";
 
     $wpdb->query( $query );
 
@@ -202,7 +202,7 @@ function create_additional_tables( $site_id ) {
                 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 from_date DATE,
                 to_date DATE,
-                daterange_name VARCHAR(100),
+                daterange_name LONGTEXT,
                 daterange_colour VARCHAR(20))";
 
     $wpdb->query( $query );

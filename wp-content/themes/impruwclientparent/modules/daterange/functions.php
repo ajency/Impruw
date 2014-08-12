@@ -65,10 +65,10 @@ function get_date_range() {
 
         $date_range_array[ ] = array(
             'id' => $date_range['id'],
-            'from_date' =>  $date_range['id'],
-            'to_date' => $date_range['id'],
+            'from_date' =>  $date_range['from_date'],
+            'to_date' => $date_range['to_date'],
             'daterange_name' => $daterange_name,
-            'daterange_colour' => $date_range['id']
+            'daterange_colour' => $date_range['daterange_colour']
             );
     }
 
