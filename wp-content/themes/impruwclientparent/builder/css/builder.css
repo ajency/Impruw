@@ -2912,6 +2912,10 @@ a.red-link.pull-right {
   color: #919191;
   margin: 0 0 0.3em;
 }
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group .imgedit-group-top .imgedit-submit .nowrap {
+  margin-bottom: 0.25em;
+  display: inline-block;
+}
 #edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group.imgedit-applyto img {
   padding: 0.2em;
   border: 1px solid #c3c3c3;
