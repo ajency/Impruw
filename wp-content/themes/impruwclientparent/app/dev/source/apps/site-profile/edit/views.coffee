@@ -31,7 +31,7 @@ define [ 'app'
                 if subscriptionId is "ImpruwFree" or subscriptionId is null
                     @$el.find( '#domain-name' ).attr 'readonly', 'readonly'
                     @$el.find( '.upgrade' ).show()
-                    @$el.find( '.domain-update' ).hide()
+                    @$el.find( '.domain-update, .update-help' ).hide()
 
 
                 #@$el.scrollSections()
