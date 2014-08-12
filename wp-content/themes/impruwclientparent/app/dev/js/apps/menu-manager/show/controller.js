@@ -77,7 +77,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       MediaMangerLayout.prototype.className = 'menu-manager-container row';
 
-      MediaMangerLayout.prototype.template = '<div id="add-menu-items" class="col-md-6"></div> <div id="list-menu-items" class="col-md-6"></div>';
+      MediaMangerLayout.prototype.template = '<div class="col-md-12"> <div class="modal-help-text"> {{#polyglot}}If you wanted to go to a particular page you can do that by selecting the page in Current Page: drop down on the site builder right below the header.{{/polyglot}} </div> </div> <div id="add-menu-items" class="col-md-6"></div> <div id="list-menu-items" class="col-md-6"></div>';
 
       MediaMangerLayout.prototype.dialogOptions = {
         modal_title: _.polyglot.t('Menu Manager')

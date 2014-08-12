@@ -6,7 +6,7 @@ define ["app", 'backbone'], (App, Backbone) ->
             name: 'language'
             idAttribute: 'code'
 
-		#Facilities Collection class
+		#Languages Collection class
         class Languages.LanguagesCollection extends Backbone.Collection
 
             model: Languages.LanguageModel

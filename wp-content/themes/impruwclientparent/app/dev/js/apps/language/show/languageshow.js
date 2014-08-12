@@ -12,6 +12,7 @@ define(['app', 'controllers/base-controller', 'apps/language/show/languageviews'
 
       Controller.prototype.initialize = function(options) {
         this.languageView = this._getLanguageView();
+        App.vent.trigger("set:active:menu", 'language');
         return this.show(this.languageView);
       };
 

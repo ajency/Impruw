@@ -16,6 +16,14 @@
           media="screen">
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" rel="stylesheet" media="screen">
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/main.min.css" rel="stylesheet" media="screen">
+
+    <!-- Wordpress image editor -->
+    <link href="<?php echo site_url(); ?>//wp-includes/css/dashicons.min.css" rel="stylesheet" media="screen">
+    <link href="<?php echo site_url(); ?>/wp-includes/js/imgareaselect/imgareaselect.css" rel="stylesheet"
+          media="screen">
+    <link href="<?php echo site_url(); ?>/wp-admin/css/media-rtl.css" rel="stylesheet" media="screen">
+    <link href="<?php echo site_url(); ?>/wp-admin/css/media.css" rel="stylesheet" media="screen">
+
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.minicolors.css" rel="stylesheet"
           media="screen">
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.timepicker.css" rel="stylesheet"
@@ -55,7 +63,7 @@
 <script>
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
-    var AJAXURL = '<?php echo admin_url('admin-ajax.php'); ?>';
+    var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var USERDATA = <?php $impruwUserModel = new ImpruwUser(get_current_user_id());
 echo json_encode($impruwUserModel->get_user_basic_info());
 ?>;
@@ -71,13 +79,17 @@ echo json_encode($impruwUserModel->get_user_basic_info());
 
     /*************************Language Phrases************************/
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
+    var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
+    var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
 </script>
 <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
 <?php if ( ENV === 'production' ): ?>
-    <script
-        src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo JSVERSION ?>"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo
+    JSVERSION ?>"></script>
 <?php else: ?>
     <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
     <script data-main="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/dashboard-main"
             src="<?php echo get_parent_template_directory_uri(); ?>/dashboard/require.js"></script>
 <?php endif; ?>

@@ -34,10 +34,7 @@ define(['app'], function(App) {
       };
 
       ImageView.prototype.events = {
-        'click': function(e) {
-          e.stopPropagation();
-          return this.trigger("show:media:manager");
-        }
+        'click': 'imageClick'
       };
 
       ImageView.prototype.initialize = function(options) {
@@ -45,8 +42,20 @@ define(['app'], function(App) {
         return this.positionTopRatio = Marionette.getOption(this, 'positionTopRatio');
       };
 
+      ImageView.prototype._getImageRatio = function() {
+        var height, width;
+        console.log(this.$el);
+        width = this.$el.width();
+        height = this.$el.height();
+        return "" + (parseInt(width)) + ":" + (parseInt(height));
+      };
+
       ImageView.prototype.onShow = function() {
         if (this.model.isNew()) {
+          this.$el.resizable({
+            helper: "ui-image-resizable-helper",
+            handles: "s"
+          });
           return;
         }
         this.$el.css('overflow', 'hidden');
@@ -68,7 +77,7 @@ define(['app'], function(App) {
           })(this),
           start: (function(_this) {
             return function(evt, ui) {
-              return _this.$el.resizable("option", "maxHeight", _this.$el.find('img').height());
+              return $(_this).addClass('noclick');
             };
           })(this)
         });
@@ -109,6 +118,17 @@ define(['app'], function(App) {
         return console.log("view rendered");
       };
 
+      ImageView.prototype.imageClick = function(e) {
+        var ratio;
+        e.stopPropagation();
+        if ($(e.target).hasClass('noclick')) {
+          return $(e.target).removeClass('noclick');
+        } else {
+          ratio = this._getImageRatio();
+          return this.trigger("show:media:manager", ratio);
+        }
+      };
+
       ImageView.prototype.assignImagePath = function() {
         var image, width;
         width = this.$el.width();
@@ -120,8 +140,8 @@ define(['app'], function(App) {
       ImageView.prototype.adjustImagePosition = function() {
         var top;
         top = parseInt(_(this.$el.find('img').css('top')).rtrim('px'));
-        if (top < this.$el.height() - this.$el.find('img').height()) {
-          this.$el.find('img').css('top', "" + (this.$el.height() - this.$el.find('img').height()) + "px");
+        if (top > 0) {
+          this.$el.find('img').css('top', '0px');
         }
         return this.trigger('set:image:top:position', this.$el.width(), parseInt(this.$el.find('img').css('top')));
       };

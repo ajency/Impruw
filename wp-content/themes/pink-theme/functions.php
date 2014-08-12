@@ -146,6 +146,28 @@
         return array(312, 40);
     }
 
+    /**
+     * Image sizes for the theme 
+     **/
+        // Thumbnails
+        update_option('thumbnail_size_w', 200);
+        update_option('thumbnail_size_h', 200);
+        update_option('thumbnail_crop', array('center', 'center'));
+
+        add_image_size( 'small_img', 300, 225 );
+
+        // Medium
+        update_option('medium_size_w', 400);
+        update_option('medium_size_h', 400);
+        update_option('thumbnail_crop', 0);
+
+        add_image_size( 'medium_img', 600, 450 );
+
+        // Large
+        update_option('large_size_w', 1200);
+        update_option('large_size_h', 1200);
+        update_option('large_crop', 0);
+
     global $element_templates;
 
     $element_templates = array('Menu' => array(array('name' => 'Left Menu')), 'Title' => array(array('name' => 'Page Title',), array('name' => 'Blue Capital Title',)), 'Row' => array(array('name' => 'Slideshow Container'), array('name' => 'Long Bar')), 'Social' => array(array('name' => 'Default Style'), array('name' => 'Small Social')), 'Link' => array(array('name' => 'Default Style'), array('name' => 'Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));

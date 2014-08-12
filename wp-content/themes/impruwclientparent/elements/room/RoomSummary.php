@@ -72,6 +72,10 @@ class RoomSummary extends Element {
                                 <span class="key">Check-in</span>
                                 <span class="value">{{check-in}}</span>
                             </div>
+                            <div class="room-summary-item">
+                                <span class="key">Check-out</span>
+                                <span class="value">{{check-out}}</span>
+                            </div>
                            <div class="room-summary-item">
                                 <span class="key">Additional policy</span>
                                 <span class="value"> {{additional-policy}}</span>
@@ -128,13 +132,15 @@ class RoomSummary extends Element {
 
     function generate_dummy_markup() {
 
+        $language_code = wpml_get_current_language();
+        $english_content = 'choose a room to display from settings. your room description, image, number of rooms and link to the single room page will be displayed here. to make any changes to the room go to room from your dashboard.';
+        $translated_content = impruw_wpml_get_string_translation($english_content, $language_code);
+
         $template = '<div class="roomsummary ' . $this->margins . ' "><div class="room-img">
                          <div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>
                     </div>
                     <div class="room-title">Your Room Title</div>
-                    <div class="room-excerpt">Choose a room to display from settings. Your room description, image, number of
-                                            rooms and link to the single room page will be displayed here. To make any
-                                            changes to the room go to Room from your dashboard.</div>
+                    <div class="room-excerpt">' .$translated_content. '</div>
                     <div class="room-actions">
                             <div class="price"><small>Total:</small> 0 rooms</div>
                             <a href="#" class="btn btn-room">View Details</a>

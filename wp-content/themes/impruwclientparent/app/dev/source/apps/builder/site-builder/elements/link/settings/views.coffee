@@ -23,8 +23,14 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                 if @eleModel.get('draggable') is true
                     @$el.find('input[name="draggable"]').checkbox 'check'
 
+                if @eleModel.get('target') is '_BLANK'
+                    @$el.find('input[name="target"]').checkbox 'check'
+
                 _.each ['link', 'text'], (field, i)=>
                     @$el.find("input[name='#{field}']").val @eleModel.get field
+                    if field is 'text'
+                        textval = @eleModel.get field
+                        @$el.find("input[name='#{field}']").val textval[WPML_DEFAULT_LANG]
 
                 @$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'style'
 
@@ -32,18 +38,16 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
             events:
                 'click .close-settings': (evt)->
                     evt.preventDefault()
-                    if @$el.find('form').valid()
-                        App.settingsRegion.close()
+                    App.settingsRegion.close()
                 'change input[name="draggable"]': (evt)->
                     @trigger "element:draggable:changed", $(evt.target).is(':checked')
                 'change select[name="style"]': (evt)->
                     @trigger "element:style:changed", $(evt.target).val()
                 'blur input.linktext': (evt)->
-                    if $(evt.target).valid()
-                        name = $(evt.target).attr 'name'
-                        @trigger "element:#{name}:changed", $(evt.target).val()
+                    name = $(evt.target).attr 'name'
+                    @trigger "element:#{name}:changed", $(evt.target).val()
                 'change input[name="target"]': (evt)->
-                    @trigger "element:target:changed", if $(evt.target).is(':checked') then '_BLANK' else 'self'
+                    @trigger "element:target:changed", if $(evt.target).is(':checked') then '_BLANK' else '_self'
 
             onBeforeClose: ->
                 #trigger blur events so that the model gets updated

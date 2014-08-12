@@ -49,13 +49,20 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       AddFacilityView.prototype.className = 'facility add';
 
-      AddFacilityView.prototype.template = '<div class="input-group"> <input type="text" name="name" class="form-control" placeholder="{{#polyglot}}Add a Facility{{/polyglot}}"> <span class="input-group-btn add-facility input-group-addon"><span class="icon icon-plus"></span>{{#polyglot}}Add{{/polyglot}}</span> </div>';
+      AddFacilityView.prototype.template = '<div class="input-group"> <input type="text" name="name" class="form-control" placeholder="{{#polyglot}}Add a Facility{{/polyglot}}"> <span class="input-group-btn add-facility input-group-addon"> <span class="icon icon-plus"></span>{{#polyglot}}Add{{/polyglot}} </span> </div><span id="error-msg"></span>';
 
       AddFacilityView.prototype.events = {
         'click .add-facility': function() {
-          return this.trigger("add:new:facility", {
-            name: this.$el.find('input[name="name"]').val()
-          });
+          var facilityName;
+          this.$el.find('#error-msg').empty();
+          facilityName = this.$el.find('input[name="name"]').val();
+          if (_.isEmpty(facilityName)) {
+            return this.$el.find('#error-msg').text('Facility name required');
+          } else {
+            return this.trigger("add:new:facility", {
+              name: this.$el.find('input[name="name"]').val()
+            });
+          }
         }
       };
 

@@ -1,5 +1,7 @@
 define ['app', 'controllers/base-controller', 'apps/builder/unused-elements/views'], (App, AppController)->
+    
     App.module 'UnusedElement', (UnusedElement, App, Backbone, Marionette, $, _)->
+
         class UnusedElementController extends AppController
 
             initialize: (opts)->

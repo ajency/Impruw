@@ -88,7 +88,8 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
         this.onSetActiveMenu(hash);
         jPM = $.jPanelMenu({
           menu: '.aj-imp-dash-nav',
-          trigger: '#nav-trigger'
+          trigger: '#nav-trigger',
+          keyboardShortcuts: false
         });
         return jPM.on();
       };

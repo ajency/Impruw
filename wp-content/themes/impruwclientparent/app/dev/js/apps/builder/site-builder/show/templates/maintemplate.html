@@ -10,22 +10,32 @@
                     <li class="green"><span>&nbsp;</span></li>
                 </div>
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 <div class="aj-imp-browser-title">
-                    {{#polyglot}}Current Page: {{/polyglot}}
-                    <select id="builder-page-sel" name="builder-page-sel">
-                        {{#pages}}
-                        <option value="{{ID}}">{{post_title}}</option>
-                        {{/pages}}
-                    </select>
+                    <label class="page-name-label">
+                        {{#polyglot}}Current Page: {{/polyglot}}
+                    </label>
+                    <div class="page-sel-del">
+                        <select id="builder-page-sel" name="builder-page-sel">
+                            {{#pages}}
+                            <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
+                            {{/pages}}
+                        </select>
+                        <a href="#" class="delete-page">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            {{#polyglot}}Delete this Page{{/polyglot}}
+                        </a>
+                    </div>
                     <a href="#" class="add-new-page">
                         <span class="glyphicon glyphicon-plus-sign"></span>
                         {{#polyglot}}Add Page{{/polyglot}}
                     </a>
                 </div>
             </div>
-            <div class="col-sm-2">
-                
+            <div class="col-sm-3">
+                <div class="pages-help">
+                    <span class="glyphicon glyphicon-hand-left"></span> {{#polyglot}}You can add, remove and edit the pages on your site from here.{{/polyglot}}
+                </div>
             </div>
         </div>
         <!--second row-->
@@ -56,7 +66,7 @@
                                     <ul class="clearfix">
                                         <li><a href="#"
                                                class="selected preview-current-page"
-                                               target="_BLANK"><span class="bicon icon-uniF121"></span></a></li>
+                                               target="_newtab"><span class="bicon icon-uniF121"></span></a></li>
                                         <li><a href="#"><span class="bicon icon-uniF120"></span></a></li>
                                     </ul>
                                 </div>

@@ -19,6 +19,7 @@ require.config({
     plupload: 'plugins/plupload.full',
     datepicker: 'plugins/datepicker',
     isotope: 'plugins/isotope',
+    lightbox: 'plugins/lightbox',
     radio: 'plugins/flatui-radio',
     checkbox: 'plugins/flatui-checkbox',
     backboneform: 'plugins/backbone.form',
@@ -33,9 +34,17 @@ require.config({
     scrollsections: 'plugins/ajency.scrolldots',
     minicolors: 'plugins/jquery.minicolors.min',
     additionalmethod: 'plugins/validate.additional.methods',
-    timepicker: 'plugins/jquery.timepicker.min'
+    timepicker: 'plugins/jquery.timepicker.min',
+    braintree: 'plugins/braintree',
+    imageareaselect: '../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min',
+    imageedit: '../../../../../wp-admin/js/image-edit',
+    json2: '../../../../../wp-includes/js/json2',
+    svgpainter: '../../../../../wp-admin/js/svg-painter'
   },
   shim: {
+    imageedit: ['jquery', 'json2', 'imageareaselect'],
+    imageareaselect: ['jquery'],
+    svgpainter: ['jquery'],
     underscore: {
       exports: '_'
     },
@@ -62,12 +71,14 @@ require.config({
     jpanelmenu: ['jquery'],
     minicolors: ['jquery'],
     timepicker: ['jquery'],
+    braintree: ['jquery'],
     additionalmethod: ['jquery', 'jqueryvalidate'],
     underscorestring: ['underscore'],
     backboneform: ['backbone'],
     backbonesyphon: ['backbone'],
     backboneassociations: ['backbone'],
     isotope: ['jquery'],
+    lightbox: ['jquery'],
     jqueryspin: ['spin'],
     bootstrap: ['jquery'],
     radio: ['bootstrap'],

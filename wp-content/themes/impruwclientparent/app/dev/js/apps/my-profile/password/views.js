@@ -31,7 +31,10 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
       PasswordForm.prototype.onShow = function() {
         return this.$el.validate({
           rules: {
-            newPassword: "required",
+            newPassword: {
+              required: true,
+              minlength: 6
+            },
             confirmNewPassword: {
               equalTo: "#newPassword"
             }

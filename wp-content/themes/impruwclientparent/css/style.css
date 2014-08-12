@@ -499,7 +499,8 @@ and open the template in the editor.
   line-height: 60px;
   color: #29333f;
 }
-.social li a:hover {
+.social li a:hover,
+.social li a:focus {
   text-decoration: none !important;
 }
 .social li:hover {
@@ -1029,7 +1030,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #ffffff;
-  border-bottom: 1px dashed #280E0E;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
   padding-bottom: 5%;
   margin-bottom: 5%;
 }
@@ -1491,6 +1492,19 @@ and open the template in the editor.
   border: 1px dashed #29333f;
   margin: 1em 0;
 }
+.map .empty-view {
+  text-align: center;
+  font-size: 1.2em;
+  color: #bfbfbf;
+  padding: 3em 0.3em;
+  height: 100%;
+}
+.map .empty-view .glyphicon {
+  display: block;
+  margin: 0.2em 0 0.5em;
+  font-size: 3em;
+  color: #d9d9d9;
+}
 .map:hover {
   border: 1px solid #ff7e00;
 }
@@ -1554,10 +1568,6 @@ and open the template in the editor.
     position: static;
   }
 }
-.aj-imp-login-form .aj-imp-login form .form-group .col-sm-offset-3,
-.aj-imp-login-form .aj-imp-forgot form .form-group .col-sm-offset-3 {
-  margin-left: 0;
-}
 .aj-imp-login-form .aj-imp-login form .form-control:focus,
 .aj-imp-login-form .aj-imp-forgot form .form-control:focus {
   border-color: #ff7e00;
@@ -1586,7 +1596,7 @@ and open the template in the editor.
 }
 .aj-imp-login-form .aj-imp-login form .checkbox.keep-log,
 .aj-imp-login-form .aj-imp-forgot form .checkbox.keep-log {
-  display: inline-block;
+  display: none;
   margin-left: 1em;
 }
 .aj-imp-login-form .aj-imp-login form .parsley-error-list,

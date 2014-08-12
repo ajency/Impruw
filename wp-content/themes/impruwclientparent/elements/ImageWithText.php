@@ -50,7 +50,18 @@ class ImageWithText extends Element {
         $this->image_id = isset($element['image_id']) ? $element['image_id'] : 0;
         //$this->size 	= $element['size'];
         $this->align    = isset($element['align']) ? $element['align'] : 'left';
-        $this->content 	= stripslashes($element['content']);
+
+        $current_language = ICL_LANGUAGE_CODE;
+        $content = '';
+        if(is_array($element[ 'content' ])){
+            $content        = isset( $element[ 'content' ][ $current_language ] ) ? $element[ 'content' ][
+        $current_language ] : $element[ 'content' ][ wpml_get_default_language() ];
+        }
+        else{
+            $content = $element[ 'content' ];
+        }
+        $this->content  = stripcslashes(trim( $content ));
+
         $this->style 	= sanitize_title($element['style']);
         $this->markup   = $this->generate_markup();
         

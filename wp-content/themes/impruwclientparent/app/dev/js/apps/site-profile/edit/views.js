@@ -18,6 +18,11 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         },
         'click .fileinput-new': function() {
           return this.trigger("show:media:manager");
+        },
+        'click .domain-update': function() {
+          var domainName;
+          domainName = this.$el.find('#domain-name').val();
+          return this.trigger("update:domain:mapping:name", domainName);
         }
       };
 
@@ -32,7 +37,13 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
       };
 
       MainView.prototype.onShow = function() {
-        var m, w;
+        var m, subscriptionId, w;
+        subscriptionId = this.model.get('braintree_subscription');
+        if (subscriptionId === "ImpruwFree" || subscriptionId === null) {
+          this.$el.find('#domain-name').attr('readonly', 'readonly');
+          this.$el.find('.upgrade').show();
+          this.$el.find('.domain-update, .update-help').hide();
+        }
         this.$el.find('select').selectpicker();
         this.$el.find('*[data-spy="affix"]').affix();
         w = $('.aj-imp-right').width();
@@ -53,9 +64,14 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         var image_id, image_path, media_size;
         image_id = media.get('id');
         media_size = media.get('sizes');
-        image_path = media_size.full.url;
-        this.$el.find('.site_profile_images').attr('src', image_path);
+        image_path = media_size.thumbnail.url;
+        this.$el.find('.feature-image').attr('src', image_path);
         return this.$el.find('#logo_id').attr('value', image_id);
+      };
+
+      MainView.prototype.onDomainUpdate = function(Msg) {
+        this.$el.find('#msg').empty();
+        return this.$el.find('#msg').text(Msg);
       };
 
       return MainView;

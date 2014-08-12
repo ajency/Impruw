@@ -12,6 +12,7 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width">
     <title><?php wp_title('|', true, 'right'); ?></title>
+    <meta name="description" content="<?php bloginfo('description'); ?>" />
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 
@@ -50,38 +51,77 @@
         <div class="col-md-9 lang-actions">
 
             <?php
-
-                $defaults = array(
-                    'theme_location'  => '',
-                    'menu'            => 'home',
-                    'container'       => 'div',
-                    'container_class' => 'main-menu',
-                    'container_id'    => '',
-                    'menu_class'      => 'menu',
-                    'menu_id'         => '',
-                    'echo'            => true,
-                    'fallback_cb'     => 'wp_page_menu',
-                    'before'          => '',
-                    'after'           => '',
-                    'link_before'     => '',
-                    'link_after'      => '',
-                    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                    'depth'           => 0,
-                    'walker'          => ''
-                );
+                if( is_user_logged_in() ) { 
+                    $defaults = array(
+                        'theme_location'  => '',
+                        'menu'            => 'Main Menu',
+                        'container'       => 'div',
+                        'container_class' => 'main-menu',
+                        'container_id'    => '',
+                        'menu_class'      => 'menu',
+                        'menu_id'         => '',
+                        'echo'            => true,
+                        'fallback_cb'     => 'wp_page_menu',
+                        'before'          => '',
+                        'after'           => '',
+                        'link_before'     => '',
+                        'link_after'      => '',
+                        'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                        'depth'           => 0,
+                        'walker'          => ''
+                    );
+                } else {
+                    $defaults = array(
+                        'theme_location'  => '',
+                        'menu'            => 'Main Menu Logged Out',
+                        'container'       => 'div',
+                        'container_class' => 'main-menu',
+                        'container_id'    => '',
+                        'menu_class'      => 'menu',
+                        'menu_id'         => '',
+                        'echo'            => true,
+                        'fallback_cb'     => 'wp_page_menu',
+                        'before'          => '',
+                        'after'           => '',
+                        'link_before'     => '',
+                        'link_after'      => '',
+                        'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                        'depth'           => 0,
+                        'walker'          => ''
+                    );
+                }
 
                 wp_nav_menu( $defaults );
 
             ?>
-            <?php if( ! is_user_logged_in() ): ?>
-            <a href="#" class="login-btn" data-toggle="popover">
-                <span class="glyphicon glyphicon-lock"></span> <?php _e('Sign In', 'impruwmain'); ?>
-            </a>
-            <?php endif; ?>
+            <?php if( ! is_user_logged_in() ) { ?>
+                <a href="#" class="login-btn" data-toggle="popover">
+                    <span class="glyphicon glyphicon-lock"></span> <?php _e('Sign In', 'impruwmain'); ?>
+                </a>
+            <?php } else {
+                global $current_user;
+                get_currentuserinfo(); 
+                $blog = get_active_blog_for_user( get_current_user_id() );
+                $link = $blog->path;
+                ?>
+                <div class="logged-in-actions dropdown">
+                    <a data-toggle="dropdown" href="#"><?php _e('Hello', 'impruwmain');?> <?php echo $current_user->display_name; ?> <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="<?php echo $link; ?>dashboard/"><?php _e('Dashboard', 'impruwmain');?></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo wp_logout_url( get_permalink() ); ?>" class="logout-btn" title="Logout">
+                                <?php _e('Sign Out', 'impruwmain');?>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            <?php }; ?>
 
-            <div class="lang-sel">
-                <?php do_action('icl_language_selector'); ?>
-            </div>
+<!--            <div class="lang-sel">-->
+<!--                --><?php //do_action('icl_language_selector'); ?>
+<!--            </div>-->
 
         </div>
     </div>

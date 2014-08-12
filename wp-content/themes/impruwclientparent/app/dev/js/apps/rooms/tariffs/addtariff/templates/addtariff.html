@@ -9,7 +9,7 @@
 					type="checkbox" data-toggle="checkbox" class="chk_tariffdays"
 					tariff-type='weekday' checked="checked">{{#polyglot}} Weekday {{/polyglot}}</label> <span class="help-block">{{#polyglot}}Monday to Friday{{/polyglot}}</span> <input type="text"
 					class="form-control formel_weedaytariff" id="weekday_tariff"
-					name="weekday[charge]" placeholder="420" value="">
+					name="weekday[charge]" placeholder="420" value="" data-rule-number="true">
 			</div>
 		</div>
 	</div>
@@ -20,8 +20,8 @@
 				<label for="checkbox2" class="checkbox"> <input 
 					type="checkbox" data-toggle="checkbox" class="chk_tariffdays"
 					tariff-type='weekend' checked="checked">{{#polyglot}} Weekend {{/polyglot}}</label> <span class="help-block">{{#polyglot}}Saturday to Sunday{{/polyglot}}</span> <input type="text"
-					class="form-control formel_weekendtariff" required id="weekend_tariff"
-					name="weekend[charge]" placeholder="999" value="">
+					class="form-control formel_weekendtariff" id="weekend_tariff"
+					name="weekend[charge]" placeholder="999" value="" data-rule-number="true">
 			</div>
 		</div>
 	</div>
@@ -41,7 +41,7 @@
 			<div class="col-sm-7 col-sm-offset-5">
 				<input type="text" class="form-control formel_weedaytariff"
 					id="weekday_maxadults" name="weekday[max_adults]" placeholder="10" 
-					value='' >
+					value='' data-rule-number="true" >
 			</div>
 		</div>
 	</div>
@@ -50,7 +50,7 @@
 			<div class="col-sm-7">
 				<input type="text" class="form-control formel_weekendtariff"
 					id="weekend_maxadults" name="weekend[max_adults]" placeholder="10" 
-					value="">
+					value="" data-rule-number="true">
 			</div>
 		</div>
 	</div>
@@ -64,7 +64,7 @@
 			<div class="col-sm-7 col-sm-offset-5">
 				<input type="text" class="form-control formel_weedaytariff"
 					id="weekday_maxchildren" name="weekday[max_children]"	placeholder="10"
-					 value='' >
+					 value='' data-rule-number="true" >
 			</div>
 		</div>
 	</div>
@@ -73,7 +73,7 @@
 			<div class="col-sm-7">
 				<input type="text" class="form-control formel_weekendtariff"
 					id="weekend_maxchildren" name="weekend[max_children]"  placeholder="10"
-					value=''>
+					value='' data-rule-number="true">
 			</div>
 		</div>
 	</div>
@@ -87,7 +87,7 @@
 			<div class="col-sm-7 col-sm-offset-5">
 				<input type="text" class="form-control formel_weedaytariff"
 					id="weekday_charges_extra_adult" name="weekday[extra_adult]" placeholder="28"
-					value='' >
+					value='' data-rule-number="true" >
 			</div>
 		</div>
 	</div>
@@ -96,7 +96,7 @@
 			<div class="col-sm-7">
 				<input type="text" class="form-control formel_weekendtariff"
 					id="weekend_charges_extra_adult" name="weekend[extra_adult]" placeholder="32"
-					value='' >
+					value='' data-rule-number="true" >
 			</div>
 		</div>
 	</div>
@@ -110,7 +110,7 @@
 			<div class="col-sm-7 col-sm-offset-5">
 				<input type="text" class="form-control formel_weedaytariff"
 					id="weekday_charges_extra_child" name="weekday[extra_child]" placeholder="17"
-					value='' />
+					value='' data-rule-number="true" />
 			</div>
 		</div>
 	</div>
@@ -119,7 +119,7 @@
 			<div class="col-sm-7">
 				<input type="text" class="form-control formel_weekendtariff"
 					id="weekend_charges_extra_child" name="weekend[extra_child]" placeholder="19"
-					value=''>
+					value='' data-rule-number="true">
 			</div>
 		</div>
 	</div>

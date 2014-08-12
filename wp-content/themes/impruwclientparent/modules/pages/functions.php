@@ -191,24 +191,41 @@ function update_footer_json( $footer_json, $autosave = FALSE ) {
  * @return [type] [description]
  */
 function get_all_menu_pages() {
+    global $sitepress;
 
-    $args = array( 'post_type' => 'page', 'posts_per_page' => -1 );
+    $args = array( 'post_type' => 'page',
+        'posts_per_page' => -1,
+        'orderby' => 'menu_order',
+        'order' => 'ASC' );
+
+    $sitepress->switch_lang(wpml_get_default_language());
     $pages = new WP_query( $args );
+    $sitepress->switch_lang();
 
     $p = array();
 
     if ( $pages->have_posts() ) {
 
-        $skip = array( 'Site Builder','Sign In', 'Dashboard', 'Support', 'Coming Soon', 'Sample Page' );
+        $skip = array( 'Site Builder',
+            'Sign In',
+            'Dashboard',
+            'Support',
+            'Coming Soon',
+            'Reset Password',
+            'Sample Page' );
 
         foreach ( $pages->posts as $page ) {
+            //Also send original page id to the page object
+            $page = (array)$page;
+            $page['original_id'] = icl_object_id($page['ID'], 'page', true, 'en');
+            $page = (object)$page;
 
             if ( !in_array( $page->post_title, $skip ) )
                 $p[ ] = $page;
         }
     }
 
-    return array_reverse($p);
+    return $p;
 }
 
 /**
@@ -253,10 +270,12 @@ function create_new_page( $data ) {
 
     //check if post_title is set
     $page_data[ 'post_title' ] = isset( $data[ 'post_title' ] ) ? $data[ 'post_title' ] : '';
+    $page_order = $data[ 'menu_order' ] + 1;
 
     // set the post type to 'page'
     $page_data[ 'post_type' ] = 'page';
     $page_data[ 'post_status' ] = 'publish';
+    $page_data[ 'menu_order' ] = $page_order;
 
     //let create a new page
     $page_id = wp_insert_post( $page_data, TRUE );
@@ -266,7 +285,7 @@ function create_new_page( $data ) {
 
     //check if add_to_menu set
     if ( $data[ 'add_to_menu' ] == "true" ) {
-        add_page_to_menu( $page_id );
+        add_page_to_menu( $page_id, $page_order );
     }
 
     // check what is the template id need to create the page
@@ -373,28 +392,28 @@ function validate_element( &$element ) {
 /**
  * this function will set the fetched json data from on site to another
  */
-function set_json_to_site( $elements ) {
+function set_json_to_site( $elements, $language_code, $clone_first_time) {
 
     foreach ( $elements as &$element ) {
         if ( $element[ 'element' ] === 'Row' ) {
             $element[ 'columncount' ] = count( $element[ 'elements' ] );
-            set_row_elements( $element );
+            set_row_elements( $element, $language_code, $clone_first_time );
         } else
-            $element = create_new_element( $element );
+            $element = create_new_element( $element, $language_code , $clone_first_time);
     }
 
     return $elements;
 }
 
-function set_row_elements( &$element ) {
+function set_row_elements( &$element, $language_code, $clone_first_time) {
 
     foreach ( $element[ 'elements' ] as &$column ) {
         foreach ( $column[ 'elements' ] as &$ele ) {
             if ( $ele[ 'element' ] === 'Row' ) {
                 $ele[ 'columncount' ] = count( $ele[ 'elements' ] );
-                set_row_elements( $ele );
+                set_row_elements( $ele, $language_code, $clone_first_time );
             } else {
-                $ele = create_new_element( $ele );
+                $ele = create_new_element( $ele, $language_code , $clone_first_time);
             }
         }
     }
@@ -403,12 +422,14 @@ function set_row_elements( &$element ) {
 /**
  *
  */
-function create_new_element( &$ele ) {
+function create_new_element( &$ele, $language_code, $clone_first_time) {
 
     global $wpdb;
 
-    //unset the existing meta_id
-    unset( $ele[ 'meta_id' ] );
+    //unset the existing meta_id if cloning for the first time
+    if($clone_first_time===TRUE){
+        unset( $ele[ 'meta_id' ] );
+    }
 
     //handle_unavailable_fields($ele);
     //insert the element in postmeta and retunr the meta_id
@@ -434,12 +455,31 @@ function create_new_element( &$ele ) {
         $ele[ 'room_id' ] = 0;
     }
 
+    if($ele[ 'element' ] === 'Title' || $ele[ 'element' ] === 'Text'|| $ele[ 'element' ] === 'ImageWithText'){
+        translate_element($ele, $language_code);
+    }
+
+    if($ele[ 'element' ] === 'Link'){
+        translate_link_element($ele, $language_code);
+    }
+    
     $serialized_element = maybe_serialize( $ele );
 
-    $wpdb->insert( $wpdb->postmeta, array( 'post_id' => 0, 'meta_value' => $serialized_element,
+    if($clone_first_time===TRUE){
+
+        $wpdb->insert( $wpdb->postmeta, array( 'post_id' => 0, 'meta_value' => $serialized_element,
         'meta_key' => $ele[ 'element' ] ) );
 
-    return array( 'meta_id' => $wpdb->insert_id, 'element' => $ele[ 'element' ] );
+        return array( 'meta_id' => $wpdb->insert_id, 'element' => $ele[ 'element' ] );
+    }
+    else if(($clone_first_time===FALSE)&& isset($ele['meta_id'])){
+
+        $wpdb->update( $wpdb->postmeta, array('post_id' => 0, 'meta_value' => $serialized_element,
+        'meta_key' => $ele[ 'element' ] ), array( 'meta_id' => $ele[ 'meta_id' ]));
+
+        return array( 'meta_id' => $ele[ 'meta_id' ], 'element' => $ele[ 'element' ] );
+    }
+
 }
 
 function get_primary_menu_id() {
@@ -503,7 +543,7 @@ function get_single_room_page_content_json( $autosave = FALSE ) {
 /**Function to add a page to the Main Menu
  * @param $page_id
  */
-function add_page_to_menu( $page_id ) {
+function add_page_to_menu( $page_id , $page_order ) {
     // get the Main Menu Id
     $term = get_term_by( 'name', 'Main Menu', 'nav_menu' );
     $menu_id = $term->term_id;
@@ -514,13 +554,69 @@ function add_page_to_menu( $page_id ) {
         'menu-item-title' => $page_data[ 'post_title' ],
         'menu-item-classes' => '',
         'menu-item-url' => '',
+        'menu-item-position' => $page_order,
         'menu-item-object' => 'page',
         'menu-item-type' => 'post_type',
-        'menu-item-object-id' => $page_id,
-        'menu-item-status' => 'publish'
-    );
+        'menu-item-object-id' => $page_id, 'menu-item-status' => 'publish'
+        );
 
     wp_update_nav_menu_item( $menu_id, 0, $formdata );
+}
+
+
+function translate_element(&$element, $language_code){
+    global $sitepress;
+    //Remove html tags if any
+    $english_content = '';
+    if(is_array($element['content'])){
+        $english_content = strip_tags($element['content']['en']);
+        $english_content = strtolower($english_content);
+    }
+    else{
+        $english_content = strip_tags($element['content']);
+        $english_content = strtolower($english_content);
+        $element['content'] = array();
+    }
+        
+    // $sitepress->switch_lang($language_code);
+    //     load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
+    //     $translated_content = __($english_content,'impruwclientparent');
+    // $sitepress->switch_lang(wpml_get_default_language());
+
+    $translated_content=impruw_wpml_get_string_translation($english_content, $language_code);
+
+    if( ($translated_content===$english_content) && $language_code!='en'){
+        $translated_content.= '(not translated)';
+    }
+
+    $element['content'][$language_code] = $translated_content;
+
+
+}
+
+function translate_link_element(&$element, $language_code){
+    global $sitepress;
+    //Remove html tags if any
+    $english_content = '';
+    if(is_array($element['text'])){
+        $english_content = strip_tags($element['text']['en']);
+        $english_content = strtolower($english_content);
+    }
+    else{
+        $english_content = strip_tags($element['text']);
+        $english_content = strtolower($english_content);
+        $element['text'] = array();
+    }
+
+    $translated_content=impruw_wpml_get_string_translation($english_content, $language_code);
+
+    if( ($translated_content===$english_content) && $language_code!='en'){
+        $translated_content.= '(not translated)';
+    }
+
+    $element['text'][$language_code] = $translated_content;
+
+
 }
 
 

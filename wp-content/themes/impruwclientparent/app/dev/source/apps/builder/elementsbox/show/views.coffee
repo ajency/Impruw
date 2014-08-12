@@ -12,9 +12,9 @@ define [ 'app'
          className : 'element'
 
          template : '<a href="#" class="drag builder-element">
-                                       										<div class="aj-imp-builder-icon {{icon}}"></div>
-                                           									<div class="aj-imp-builder-title">{{elementName}}</div>
-                                           								</a>'
+                        <div class="aj-imp-builder-icon {{icon}}"></div>
+								<div class="aj-imp-builder-title">{{elementName}}</div>
+							</a>'
 
          serializeData : ->
             data = super()
@@ -44,13 +44,15 @@ define [ 'app'
          # on show make the element draggable
          # secondly, make all the elements draggable
          onShow : ->
-            @$el.draggable
+            @$el.css('position','fixed').draggable
                handle : "p.desc"
                addClasses : false
                containment : 'document'
                scroll : true
 
             @_setDraggableElements()
+            
+
 
          # append html
          appendHtml : ( cv, view, index )->
@@ -73,13 +75,13 @@ define [ 'app'
             if not isSingleRoom
                @$el.find( '#room-elements ul' ).remove()
                roomSummaryhtml = '<ul class="aj-imp-builder-items clearfix">
-                                                                                      <li class="element" data-element="RoomSummary">
-                                                                                         <a href="#" class="drag builder-element">
-                                                                                             <div class="aj-imp-builder-icon bicon icon-uniF15B"></div>
-                                                                                             <div class="aj-imp-builder-title">Display Rooms</div>
-                                                                                         </a>
-                                                                                      </li>
-                                                                                    </ul>'
+                                      <li class="element" data-element="RoomSummary">
+                                         <a href="#" class="drag builder-element">
+                                             <div class="aj-imp-builder-icon bicon icon-uniF15B"></div>
+                                             <div class="aj-imp-builder-title">Display Rooms</div>
+                                         </a>
+                                      </li>
+                                    </ul>'
                @$el.find( '#room-elements' ).append( roomSummaryhtml )
 
 
@@ -88,8 +90,11 @@ define [ 'app'
          _setDraggableElements : ->
             @$el.find( '*[data-element]' ).draggable
                connectToSortable : '.droppable-column'
-               helper : 'clone'
+               helper : @_getHelper
                delay : 5
                addClasses : false
                distance : 5
                revert : 'invalid'
+
+         _getHelper : ->
+            '<div class="element-helper"></div> '

@@ -11,11 +11,11 @@ define ['app'], (App)->
             roomNotSetTemplate: '   <div class="room-img">
                                         <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Room Image</div>
                                     </div>
-                                    <div class="room-title">Your Room Title</div>
-                                    <div class="room-excerpt">Choose a room to display from settings. Your room description, image, number of rooms and link to the single room page will be displayed here. To make any changes to the room go to Room from your dashboard.</div>
+                                    <div class="room-title">'+_.polyglot.t("Your Room Title")+'</div>
+                                    <div class="room-excerpt">'+_.polyglot.t("Choose room to display")+'</div>
                                     <div class="room-actions">
-                                        <div class="price">Total: {{no_of_rooms}}<small> rooms</small></div>
-                                        <button class="btn btn-room">View Details</button>
+                                        <div class="price">'+_.polyglot.t("Total:")+'{{no_of_rooms}}<small> '+_.polyglot.t("rooms")+'</small></div>
+                                        <button class="btn btn-room">'+_.polyglot.t("View Details")+'</button>
             					    </div>'
 
             singleRoomTemplate: '<div class="room-summary-container">
@@ -47,19 +47,39 @@ define ['app'], (App)->
                                   </div>'
 
             events :
-                'click' : 'showRoomSummaryEditPopup'
+                  'click' : 'showRoomSummaryEditPopup'
+
+
+            mixinTemplateHelpers : (data)->
+               data = super data
+               data.post_content = _.prune data.post_content, 200
+               data
+
 
             showRoomSummaryEditPopup :(evt)->
-                evt.preventDefault()
-                @$el.closest('.element-wrapper').find('.aj-imp-settings-btn').click()
+                  evt.preventDefault()
+                  @$el.closest('.element-wrapper').find('.aj-imp-settings-btn').click()
+
+            onShow:->
+               isSingle = Marionette.getOption @, 'isSingleRoom'
+
+               if not _.isUndefined isSingle
+                  @$el.closest('.element-wrapper').children('.element-controls').find('.aj-imp-settings-btn').remove()
+
+                  @$el.attr "data-content", _.polyglot.t('Update display details')+ " <a href='#{SITEURL}/dashboard/#/room-summary'>"+_.polyglot.t('here')+"</a> "
+                  @$el.popover
+                     html : true
+                     placement : 'top'
+
+
 
             onBeforeRender: ->
-                isSingle = Marionette.getOption @, 'isSingleRoom'
+               isSingle = Marionette.getOption @, 'isSingleRoom'
 
-                if not _.isUndefined isSingle
-                    @template = @singleRoomTemplate
+               if not _.isUndefined isSingle
+                  @template = @singleRoomTemplate
 
-                roomNotSet = Marionette.getOption @, 'roomNotSet'
+               roomNotSet = Marionette.getOption @, 'roomNotSet'
 
-                if not _.isUndefined roomNotSet
-                    @template = @roomNotSetTemplate
+               if not _.isUndefined roomNotSet
+                  @template = @roomNotSetTemplate

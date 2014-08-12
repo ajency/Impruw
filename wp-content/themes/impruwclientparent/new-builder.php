@@ -25,6 +25,15 @@
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet"
           media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" rel="stylesheet" media="screen"/>
+
+    <!-- Wordpress image editor -->
+    <link href="<?php echo site_url(); ?>//wp-includes/css/dashicons.min.css" rel="stylesheet" media="screen">
+    <link href="<?php echo site_url(); ?>/wp-includes/js/imgareaselect/imgareaselect.css" rel="stylesheet"
+          media="screen">
+    <link href="<?php echo site_url(); ?>/wp-admin/css/media-rtl.css" rel="stylesheet" media="screen">
+    <link href="<?php echo site_url(); ?>/wp-admin/css/media.css" rel="stylesheet" media="screen">
+
+
     <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/main.css" rel="stylesheet"
           media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/builder.css" rel="stylesheet"
@@ -55,9 +64,10 @@
 <script type="text/javascript">
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
-    var AJAXURL = '<?php echo admin_url('admin-ajax.php'); ?>';
+    var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
     var _WPNONCE = '<?php echo wp_create_nonce('media-form'); ?>';
+    var _RVNONCE = '<?php echo wp_create_nonce("revslider_actions"); ?>';
     var JSVERSION = '<?php echo JSVERSION; ?>';
     var ROOMS = <?php echo json_encode(get_rooms()); ?>;
     var ISTHEMESELECTED = <?php echo is_theme_choosed() ?>;
@@ -67,9 +77,12 @@
     var BUILDERURL = '<?php echo site_url('site-builder'); ?>';
     var CURRENTTHEME = '<?php echo wp_get_theme()->get_stylesheet() ?>';
     var THEMECOLORSET = '<?php echo get_option('current_color_set','default'); ?>';
-    var AUTOSAVEINTERVAL = 55 * 1000;
+    var AUTOSAVEINTERVAL = 10000;
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
     var ADDRESS = '<?php echo get_hotel_address() ?>';
+    var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
+    var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
+    var PLUGIN_URI  = '<?php echo WP_PLUGIN_URL; ?>';
     var ISTHEMEEDITOR = '<?php echo current_user_can( 'edit_impruw_theme' ) ? 'yes' : 'no' ?>';
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>

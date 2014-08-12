@@ -23,37 +23,57 @@ define(['app', 'apps/statistics/show/controller', 'apps/statistics/realtime/cont
     })(Marionette.AppRouter);
     API = {
       getSiteModel: function() {
-        var siteProfile;
-        siteProfile = App.request("get:site:model");
-        return siteProfile;
+        var siteProfileModel;
+        siteProfileModel = App.request("get:site:model");
+        return siteProfileModel;
       },
       show: function() {
-        this.sitemodel = this.getSiteModel();
-        return new StatisticsApp.Show.Controller({
-          region: App.rightRegion,
-          model: this.sitemodel
-        });
+        var sitemodel;
+        sitemodel = this.getSiteModel();
+        return App.execute("when:fetched", sitemodel, (function(_this) {
+          return function() {
+            return new StatisticsApp.Show.Controller({
+              region: App.rightRegion,
+              model: sitemodel
+            });
+          };
+        })(this));
       },
       realtime: function() {
-        this.sitemodel = this.getSiteModel();
-        return App.execute("show:realtime:view", {
-          region: App.rightRegion,
-          model: this.sitemodel
-        });
+        var sitemodel;
+        sitemodel = this.getSiteModel();
+        return App.execute("when:fetched", sitemodel, (function(_this) {
+          return function() {
+            return App.execute("show:realtime:view", {
+              region: App.rightRegion,
+              model: sitemodel
+            });
+          };
+        })(this));
       },
       visits: function() {
-        this.sitemodel = this.getSiteModel();
-        return App.execute("show:visits:view", {
-          region: App.rightRegion,
-          model: this.sitemodel
-        });
+        var sitemodel;
+        sitemodel = this.getSiteModel();
+        return App.execute("when:fetched", sitemodel, (function(_this) {
+          return function() {
+            return App.execute("show:visits:view", {
+              region: App.rightRegion,
+              model: sitemodel
+            });
+          };
+        })(this));
       },
       traffic: function() {
-        this.sitemodel = this.getSiteModel();
-        return App.execute("show:traffic:view", {
-          region: App.rightRegion,
-          model: this.sitemodel
-        });
+        var sitemodel;
+        sitemodel = this.getSiteModel();
+        return App.execute("when:fetched", sitemodel, (function(_this) {
+          return function() {
+            return App.execute("show:traffic:view", {
+              region: App.rightRegion,
+              model: sitemodel
+            });
+          };
+        })(this));
       }
     };
     return StatisticsApp.on({

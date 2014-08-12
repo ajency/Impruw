@@ -1,6 +1,7 @@
 define ['app'
-        'text!apps/rooms/edit/templates/edit-room.html'],
-(App, addRoomTpl)->
+        'text!apps/rooms/edit/templates/edit-room.html'
+        'jqueryvalidate'],
+(App, addRoomTpl ,  jqueryvalidate)->
     App.module 'RoomsApp.Edit.View', (View, App, Backbone, Marionette, $, _)->
         class View.EditRoomLayout extends Marionette.Layout
 
@@ -22,9 +23,18 @@ define ['app'
                 'click .add-gallery-images': ->
                     @trigger "show:edit:slider"
 
+                'click .fileinput-new' : ->
+                    @trigger "show:media:manager"
+
+            serializeData: ->
+                data = super()
+                data.THEMEURL = THEMEURL
+                data.image_url = "http://placehold.it/300&text=" + _.polyglot.t( 'Featured Image' ) if data.image_url is false
+                data
+
+
             onShow: ->
                 #@$el.scrollSections()
-
                 # set affix
                 @$el.find('*[data-spy="affix"]').affix()
 
@@ -37,7 +47,6 @@ define ['app'
 
                 @$el.find('.currency' ).text Marionette.getOption @, 'currency'
 
-
             onShowSuccessMessage: ->
                 @$el.find('.alert').remove()
                 @$el.prepend "<div class=\"alert alert-success\">" + _.polyglot.t("Room updated successfully") + "</div>"
@@ -48,6 +57,13 @@ define ['app'
 
             onSetSliderId: (slider_id)->
                 @$el.find('input[name="slider_id"]').val slider_id
+
+            onSetFeatureImage : ( media ) ->
+                image_id = media.get 'id'
+                media_size = media.get 'sizes'
+                image_path = media_size.thumbnail.url
+                @$el.find( '.feature-image' ).attr 'src', image_path
+                @$el.find( '#feature-image-id' ).attr 'value', image_id
 
             regions:
                 facilitiesRegion: '#facilities-region'

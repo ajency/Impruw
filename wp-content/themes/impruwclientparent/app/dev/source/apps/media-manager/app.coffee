@@ -36,9 +36,9 @@ define ['app'
 
                 @listenTo @layout.gridRegion, "media:element:selected", (media)=>
                     @choosedMedia = media
-                    App.execute "show:edit:media",
-                      media,
-                      @layout.editMediaRegion
+#                    App.execute "show:edit:media",
+#                      media,
+#                      @layout.editMediaRegion
 
                 @listenTo @layout.uploadRegion, "media:upload:complete", =>
                     App.execute "start:media:grid:app", region: @layout.gridRegion

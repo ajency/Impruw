@@ -23,7 +23,7 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
           loading: true
         });
         this.listenTo(this.view, "save:site:profile", this.saveSiteProfile);
-        return this.listenTo(this.view, "show:media:manager", (function(_this) {
+        this.listenTo(this.view, "show:media:manager", (function(_this) {
           return function() {
             App.navigate("media-manager", {
               trigger: true
@@ -37,6 +37,7 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
             });
           };
         })(this));
+        return this.listenTo(this.view, "update:domain:mapping:name", this.addDomainNameForMapping);
       };
 
       Controller.prototype.saveSiteProfile = function(data) {
@@ -56,6 +57,27 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
 
       Controller.prototype.siteProfileSuccess = function() {
         return this.view.triggerMethod("site:profile:added");
+      };
+
+      Controller.prototype.addDomainNameForMapping = function(domainName) {
+        var options;
+        options = {
+          method: 'POST',
+          url: AJAXURL,
+          data: {
+            'name': domainName,
+            'action': 'update-domain-name'
+          }
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            if (response.code === "OK") {
+              return _this.view.triggerMethod("domain:update", "Domain added succesfully");
+            } else {
+              return _this.view.triggerMethod("domain:update", response.msg);
+            }
+          };
+        })(this));
       };
 
       return Controller;

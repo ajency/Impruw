@@ -13,13 +13,16 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
       }
 
       Controller.prototype.initialize = function(options) {
+        var data;
+        data = {};
+        data[WPML_DEFAULT_LANG] = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.';
         _.defaults(options.modelData, {
           element: 'ImageWithText',
           image_id: 0,
           size: 'thumbnail',
           align: 'left',
           style: '',
-          content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+          content: data
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -78,7 +81,10 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
               });
             });
             _this.listenTo(view, "text:element:blur", function(html) {
-              _this.layout.model.set('content', "" + html);
+              var data;
+              data = {};
+              data[WPML_DEFAULT_LANG] = html;
+              _this.layout.model.set('content', data);
               if (_this.layout.model.hasChanged()) {
                 return _this.layout.model.save();
               }

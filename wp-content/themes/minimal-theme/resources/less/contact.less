@@ -1,0 +1,40 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3 Mar, 2014, 16:08:41 PM
+    Author     : jarr-head
+*/
+
+.contactform {
+	text-align: left;
+	.infoPoint {
+		display: none;
+	}
+	label {
+		display: none;
+	}
+	.flat {
+		border-radius: 0;
+		margin-bottom: 0.8em;
+		border-width: 1px;
+		border-color: rgba(0, 0, 0, 0.2);
+		&:focus, &:active {
+			border-color: @secondary1;
+		}
+	}
+	.btn {
+		border-radius: 0;
+		margin-top: 0.3em;
+		background: @button-color;
+		&:hover {
+			background: lighten(@button-color, 10%);
+			color: @secondary1;
+		}
+	}
+	@media(max-width:991px) {
+		margin-bottom: @large !important;
+	}
+}

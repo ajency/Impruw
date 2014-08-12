@@ -11,6 +11,14 @@ jQuery(document).ready(function(){
     });
     jQuery('.login-btn').on('shown.bs.popover', function () {
         jQuery('.popover').addClass('login-pop');
+
+        jQuery('#InputEmail').keypress(function(evt){
+
+            if ( evt.which == 13 )
+               jQuery('#btn_login2').click() 
+
+        });
+
         jQuery('#btn_login2').click(function() {
 
             jQuery("#login_status_div").hide();

@@ -14,9 +14,8 @@ define(['app', 'controllers/base-controller', 'apps/room-summary/checkin/views']
       }
 
       Controller.prototype.initialize = function(opts) {
-        var sitemodel;
-        this.sitemodel = sitemodel = opts.model;
-        this.view = this.getCheckinFormView(sitemodel);
+        this.sitemodel = opts.model;
+        this.view = this.getCheckinFormView(this.sitemodel);
         this.listenTo(this.view, "update:checkin:time:click", this.updateCheckinTime);
         return this.show(this.view, {
           loading: true

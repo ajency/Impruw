@@ -52,7 +52,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
       MainView.prototype.itemView = Views.SingleElement;
 
       MainView.prototype.onShow = function() {
-        this.$el.draggable({
+        this.$el.css('position', 'fixed').draggable({
           handle: "p.desc",
           addClasses: false,
           containment: 'document',
@@ -94,12 +94,16 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
       MainView.prototype._setDraggableElements = function() {
         return this.$el.find('*[data-element]').draggable({
           connectToSortable: '.droppable-column',
-          helper: 'clone',
+          helper: this._getHelper,
           delay: 5,
           addClasses: false,
           distance: 5,
           revert: 'invalid'
         });
+      };
+
+      MainView.prototype._getHelper = function() {
+        return '<div class="element-helper"></div> ';
       };
 
       return MainView;

@@ -69,18 +69,27 @@ class MenuElement extends Element {
 
         $menu = get_menu_to_array($this->menu_id, 'id');
 
+
         if (isset($menu['code']) == "ERROR")
                 return $html;
 
+//        $justified = $this->justified ? 'nav-justified' : '';
+//
+//        $html = "<ul class='nav {$this->style} $justified {$this->margins}'>";
+//        foreach ($menu['menu_items'] as $item):
+//            $html .= '<li>' . $me->render('<a href="{{menu_item_url}}">{{menu_item_title}}</a>', $item) . '</li>';
+//        endforeach;
+//
+//        $html .= "</ul>";
+
+        $menu_name = $menu['menu_name'];
+
         $justified = $this->justified ? 'nav-justified' : '';
-        
-        $html = "<ul class='nav {$this->style} $justified {$this->margins}'>";
-        foreach ($menu['menu_items'] as $item):
-            $html .= '<li>' . $me->render('<a href="{{menu_item_url}}">{{menu_item_title}}</a>', $item) . '</li>';
-        endforeach;
-        
-        $html .= "</ul>";
-        
+        $menu_class = 'nav '.$this->style.' '.$justified.' '.$this->margins;
+
+        $html = wp_nav_menu( array('menu' => $menu_name, 'container' => false ,'menu_class'=>$menu_class, 'echo'=> false));
+
+
         return $html;
     }
 

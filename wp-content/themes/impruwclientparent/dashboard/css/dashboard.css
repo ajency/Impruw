@@ -1,6 +1,8 @@
 @import url(icon-fonts.css);
 
 @import url(../../builder/css/builder-icon-fonts.css);
+
+@import url(lightbox.css);
 /*
 Theme Name:     Impruw Dashboard
 Theme URI:      http://ajency.in/
@@ -11,6 +13,7 @@ Template:       impruw
 Version:        0.1.0
 */
 /****Icon Font****/
+/****Lightbox CSS****/
 /****Colors****/
 /****Link Styles****/
 a {
@@ -24,6 +27,15 @@ a:focus {
   color: #ff7e00;
   outline: 0;
 }
+a.blue-link {
+  color: #849fb0;
+  display: inline-block;
+  margin: 0 0.5em;
+}
+a.blue-link.pull-left,
+a.blue-link.pull-right {
+  margin: 0.5em;
+}
 a.red-link {
   color: #ee4423;
   display: inline-block;
@@ -32,6 +44,10 @@ a.red-link {
 a.red-link.pull-left,
 a.red-link.pull-right {
   margin: 0.5em;
+}
+/****Button Styles****/
+.btn {
+  border-radius: 2px;
 }
 /****Clearfix****/
 .clearfix {
@@ -42,6 +58,21 @@ a.red-link.pull-right {
   clear: both;
   content: "";
   display: table;
+}
+/****Paragraph Styles****/
+p {
+  color: #777777;
+  font-size: 1em;
+}
+/****Text Alignment Classes****/
+.t-a-r {
+  text-align: right;
+}
+.t-a-l {
+  text-align: left;
+}
+.t-a-c {
+  text-align: center;
 }
 /****Container and Menu Styles****/
 .aj-imp-container {
@@ -347,7 +378,7 @@ a.red-link.pull-right {
   margin-right: 1em;
   border: 1px solid rgba(0, 0, 0, 0.8);
   border-top: 0;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 3px 3px;
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions.affix .action .affix-show {
   display: block;
@@ -467,6 +498,10 @@ form .form-group .control-label {
   position: absolute;
   bottom: 0;
   left: 0;
+  /*&.dd-label {
+				bottom: 10px;
+			}*/
+
 }
 form .form-group .control-label small {
   display: block;
@@ -482,9 +517,6 @@ form .form-group .control-label.label-25 {
 form .form-group .control-label.label-75 {
   left: 75%;
 }
-form .form-group .control-label.dd-label {
-  bottom: 10px;
-}
 form .form-group .control-label.label-head {
   color: #777777;
   text-transform: uppercase;
@@ -498,7 +530,7 @@ form .form-group.pic-upload .control-label {
   top: 0;
 }
 form .form-group.pic-upload .fileinput .thumbnail {
-  border-radius: 0;
+  border-radius: 2px;
 }
 form .form-group.pic-upload .fileinput .btn {
   color: #849fb0;
@@ -508,7 +540,7 @@ form .form-group.pic-upload .fileinput .btn:hover {
   color: #65879c;
 }
 form .form-group.add-another .control-label {
-  top: 1em;
+  top: 0.3em;
 }
 form .form-group.add-another .div_email,
 form .form-group.add-another .div_phone {
@@ -601,6 +633,8 @@ form .form-control {
   border-radius: 0;
   border: 0;
   border-bottom: 1px solid #c3c3c3;
+  padding-bottom: 3px;
+  height: auto;
 }
 form .form-control:focus {
   border-color: #ff7e00;
@@ -620,6 +654,7 @@ form .input-group .input-group-addon {
   color: #c3c3c3;
   border: 0;
   border-bottom: 1px solid #c3c3c3;
+  padding-bottom: 3px;
 }
 form .aj-imp-submit {
   background: #ff7e00;
@@ -675,6 +710,7 @@ form .aj-imp-submit:hover {
   border-radius: 0 !important;
   border: 0;
   border-bottom: 1px solid #c3c3c3;
+  padding-bottom: 3px;
 }
 .bootstrap-select .dropdown-toggle .filter-option {
   margin-right: 1em;
@@ -703,6 +739,17 @@ form .aj-imp-submit:hover {
 }
 .bootstrap-select.open .dropdown-toggle .caret {
   border-top-color: #ff7e00;
+}
+.bootstrap-select.country {
+  width: 100%;
+}
+.bootstrap-select.country .selectpicker {
+  width: 100%;
+}
+.bootstrap-select.country .selectpicker .caret {
+  position: absolute;
+  right: 1em;
+  top: 1.25em;
 }
 /****Logged Out Header, Footer & Coming Soon Styles****/
 .aj-imp-lo-header {
@@ -1412,19 +1459,27 @@ form .aj-imp-submit:hover {
   border: 1px solid #aaaaaa;
   padding: 1px;
 }
+.modal .thumbnails,
+.modal #selectable-images {
+  padding-top: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+}
 .modal .thumbnails .single-img,
 .modal #selectable-images .single-img {
   position: relative;
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
-  margin-bottom: 30px;
-  border: 2px solid #aaaaaa;
+  margin-bottom: 40px;
+  border: 1px solid #aaaaaa;
+  padding: 2px;
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb,
 .modal #selectable-images .single-img .thumbnail .imgthumb {
-  height: 145px;
+  height: 84px;
   text-align: center;
+  overflow: hidden;
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb img,
 .modal #selectable-images .single-img .thumbnail .imgthumb img {
@@ -1448,14 +1503,15 @@ form .aj-imp-submit:hover {
 .modal #selectable-images .single-img .ticker {
   position: absolute;
   top: -7px;
-  right: 5px;
+  right: 7px;
   color: #fff;
-  padding: 3px 4px;
+  padding: 2px 4px 3px;
   border-radius: 2px;
   text-shadow: 0 0 1px #f3f3f3;
   background: #849fb0;
   display: none;
-  box-shadow: 0 0 2px #333;
+  box-shadow: 0 0 2px #aaaaaa;
+  font-size: 0.6em;
 }
 .modal .thumbnails .single-img .ticker .glyphicon-minus,
 .modal #selectable-images .single-img .ticker .glyphicon-minus {
@@ -1474,23 +1530,44 @@ form .aj-imp-submit:hover {
   display: inline-block;
 }
 .modal .thumbnails .single-img .delete-media-img,
-.modal #selectable-images .single-img .delete-media-img {
-  display: none;
+.modal #selectable-images .single-img .delete-media-img,
+.modal .thumbnails .single-img .edit-image,
+.modal #selectable-images .single-img .edit-image {
   position: absolute;
-  bottom: 10px;
-  color: #ff3333;
+  bottom: 13px;
   cursor: pointer;
-  font-size: 0.8em;
+  font-size: 0.78em;
+  margin-right: 10px;
+}
+.modal .thumbnails .single-img .delete-media-img.delete-media-img,
+.modal #selectable-images .single-img .delete-media-img.delete-media-img,
+.modal .thumbnails .single-img .edit-image.delete-media-img,
+.modal #selectable-images .single-img .edit-image.delete-media-img {
+  color: #ff3333;
+  left: 60px;
+  visibility: hidden;
+}
+.modal .thumbnails .single-img .delete-media-img.edit-image,
+.modal #selectable-images .single-img .delete-media-img.edit-image,
+.modal .thumbnails .single-img .edit-image.edit-image,
+.modal #selectable-images .single-img .edit-image.edit-image {
+  color: #849fb0;
 }
 .modal .thumbnails .single-img.ui-selected .thumbnail,
 .modal #selectable-images .single-img.ui-selected .thumbnail {
   border-color: #849fb0;
 }
 .modal .thumbnails .single-img.ui-selected .ticker,
-.modal #selectable-images .single-img.ui-selected .ticker,
+.modal #selectable-images .single-img.ui-selected .ticker {
+  display: block;
+}
 .modal .thumbnails .single-img.ui-selected .delete-media-img,
 .modal #selectable-images .single-img.ui-selected .delete-media-img {
-  display: block;
+  visibility: visible;
+}
+.modal .load-more {
+  margin: 0.5em auto 0;
+  float: right;
 }
 .modal #edit-media-region,
 .modal #selected-media-region {
@@ -1819,6 +1896,7 @@ form .aj-imp-submit:hover {
 .alert {
   margin-top: 1em;
   color: #333333;
+  border-radius: 2px;
 }
 .alert.alert-success {
   background: #c5e5de;
@@ -1895,6 +1973,11 @@ form .aj-imp-submit:hover {
 #add-facility-region .input-group:hover {
   border-color: transparent;
 }
+#add-facility-region #error-msg {
+  display: block;
+  margin: 0.5em 0;
+  color: #f21515;
+}
 .facility,
 .facility_update {
   border: 0;
@@ -1914,6 +1997,10 @@ form .aj-imp-submit:hover {
 }
 .rooms-layout .add-room {
   background: #ff7e00;
+}
+.rooms-layout .add-room:hover,
+.rooms-layout .add-room:focus {
+  background: #ff9833;
 }
 .empty-info {
   clear: both;
@@ -2165,9 +2252,8 @@ form .aj-imp-submit:hover {
   list-style: none;
 }
 .new-room-list li {
-  width: 30%;
-  margin: 0 1% 1em;
-  float: left;
+  margin: 0 0 1em;
+  border-bottom: 1px solid #f3f3f3;
 }
 .new-room-list li .roomsummary {
   *zoom: 1;
@@ -2219,6 +2305,18 @@ form .aj-imp-submit:hover {
 }
 .new-room-list li .roomsummary .room-actions .btn-room:hover {
   background: #ffb266;
+}
+.new-room-list li .roomsummary .room-actions .editroom_link {
+  margin-left: 0.5em;
+  background: #849fb0;
+}
+.new-room-list li .roomsummary .room-actions .editroom_link:hover,
+.new-room-list li .roomsummary .room-actions .editroom_link:focus {
+  background: #65879c;
+}
+.new-room-list li .roomsummary .room-actions .deleteroom_link {
+  color: #ee4423;
+  font-size: 0.8em;
 }
 @media (max-width: 767px) {
   .new-room-list li {
@@ -2429,9 +2527,9 @@ form .aj-imp-submit:hover {
   text-align: right;
   font-weight: 300;
   position: absolute;
-  width: 80px;
+  width: 100px;
   background: #fff;
-  max-width: 80px;
+  max-width: 100px;
   padding-right: 10px;
   min-height: 150px;
   font-size: 0.88em;
@@ -2457,7 +2555,7 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid .tariff .packages {
   width: 100%;
-  padding-left: 90px;
+  padding-left: 110px;
   min-height: 150px;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .btn-add-plan {
@@ -2473,8 +2571,8 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer {
   display: inline-block;
-  min-width: 200px;
-  max-width: 200px;
+  min-width: 300px;
+  max-width: 300px;
   white-space: normal;
   margin-right: 0.5em;
 }
@@ -2676,6 +2774,11 @@ form .aj-imp-submit:hover {
 .slide-image-selected {
   margin-top: 0.5em;
 }
+.plan-help-link {
+  font-size: 0.8em;
+  display: inline-block;
+  margin-top: 1.2em;
+}
 /****Gallery Styling****/
 #gallery-region {
   width: 70%;
@@ -2732,11 +2835,12 @@ form .aj-imp-submit:hover {
 .aj-imp-block-button.add-new-slide {
   margin-left: 0;
 }
-.add-gallery-images {
+.add-gallery-images,
+.aj-imp-blue-btn {
   background: #849fb0;
-  border-radius: 0;
 }
-.add-gallery-images:hover {
+.add-gallery-images:hover,
+.aj-imp-blue-btn:hover {
   background: #a3b7c4;
 }
 .isotope {
@@ -3602,31 +3706,35 @@ form .aj-imp-submit:hover {
   text-transform: uppercase;
   font-weight: 300;
 }
-.language .nav-pills li a,
-.billing-container .nav-pills li a {
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:hover,
+.billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:hover,
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:focus,
+.billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:focus {
+  background: transparent;
+}
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-menu,
+.billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-menu {
+  min-height: initial !important;
+}
+.language .aj-imp-dash-widget .nav-pills li a,
+.billing-container .aj-imp-dash-widget .nav-pills li a {
   background: transparent;
   border-radius: 0;
   border: none;
   border-bottom: 2px solid transparent;
   color: #849fb0;
 }
-.language .nav-pills li:hover a,
-.billing-container .nav-pills li:hover a,
-.language .nav-pills li:focus a,
-.billing-container .nav-pills li:focus a {
+.language .aj-imp-dash-widget .nav-pills li:hover a,
+.billing-container .aj-imp-dash-widget .nav-pills li:hover a,
+.language .aj-imp-dash-widget .nav-pills li :focus a,
+.billing-container .aj-imp-dash-widget .nav-pills li :focus a {
   border-color: #849fb0;
   text-shadow: none;
 }
-.language .nav-pills li.active a,
-.billing-container .nav-pills li.active a {
+.language .aj-imp-dash-widget .nav-pills li.active a,
+.billing-container .aj-imp-dash-widget .nav-pills li.active a {
   color: #ff7e00;
   border-color: #ff7e00;
-}
-.language .nav-pills li.active a:hover,
-.billing-container .nav-pills li.active a:hover,
-.language .nav-pills li.active a:focus,
-.billing-container .nav-pills li.active a:focus {
-  background: transparent;
 }
 .language .aj-imp-widget-content .tab-content,
 .billing-container .aj-imp-widget-content .tab-content {
@@ -3636,7 +3744,7 @@ form .aj-imp-submit:hover {
 }
 .language .aj-imp-widget-content .tab-content .legend-group,
 .billing-container .aj-imp-widget-content .tab-content .legend-group {
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 .language .aj-imp-widget-content .tab-content .legend-group .form-group,
 .billing-container .aj-imp-widget-content .tab-content .legend-group .form-group {
@@ -3650,7 +3758,27 @@ form .aj-imp-submit:hover {
 .billing-container .aj-imp-widget-content .tab-content .original {
   margin-bottom: 0;
   border-bottom: 1px solid #aaaaaa;
-  padding: 8px 12px;
+  padding: 8px 12px 3px;
+  line-height: 1.6;
+  height: 100px;
+  max-height: 100px;
+  overflow: hidden;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.language .aj-imp-widget-content .tab-content .original:focus,
+.billing-container .aj-imp-widget-content .tab-content .original:focus {
+  height: auto;
+  min-height: 100px;
+  max-height: none;
+}
+.language .aj-imp-widget-content .tab-content .original.title,
+.billing-container .aj-imp-widget-content .tab-content .original.title {
+  min-height: 33px;
+  height: auto;
 }
 .language .form-horizontal,
 .billing-container .form-horizontal {
@@ -3718,6 +3846,16 @@ form .aj-imp-submit:hover {
 .language .pick-language-container .pick-languages .selected-languages .single-language .icon.icon-cancel {
   color: #f21515;
 }
+.language .pick-language-container .pick-languages .add-more-langs {
+  background: transparent;
+  color: #849fb0;
+  padding: 0;
+  margin-bottom: 1em;
+}
+.language .pick-language-container .pick-languages .add-more-langs:hover,
+.language .pick-language-container .pick-languages .add-more-langs:focus {
+  color: #65879c;
+}
 .language .pick-language-container .pick-languages #all-languages {
   padding: 0.5em;
   margin: 0.5em 0;
@@ -3735,27 +3873,77 @@ form .aj-imp-submit:hover {
 .language .pick-language-container .pick-languages .languages li .form-group {
   margin: 0;
 }
-.language .pick-room {
+.language .pick-room .form-horizontal {
   font-size: 1.2em;
   margin: 0 0 1em;
   padding: 0.5em;
   border: 1px dotted #aaaaaa;
 }
-.language .pick-room .bootstrap-select {
+.language .pick-room .form-horizontal .bootstrap-select {
   font-size: 0.5em;
+  margin-bottom: 0.8em;
 }
-.language .pick-room .bootstrap-select .btn:hover,
-.language .pick-room .bootstrap-select .btn:focus {
+.language .pick-room .form-horizontal .bootstrap-select .btn:hover,
+.language .pick-room .form-horizontal .bootstrap-select .btn:focus {
   background: transparent;
 }
-.billing-container .aj-imp-widget-head {
+.language .pick-plan .form-horizontal {
+  margin: 0 0 1em;
+}
+.language .pick-plan .form-horizontal .bootstrap-select {
+  font-size: 0.5em;
+  margin-bottom: 0.8em;
+}
+.language .pick-plan .form-horizontal .bootstrap-select .btn:hover,
+.language .pick-plan .form-horizontal .bootstrap-select .btn:focus {
+  background: transparent;
+}
+.language .trans-field {
+  position: relative;
+}
+.language .trans-field .trans-action {
+  position: absolute;
+  bottom: 0;
+  right: -4em;
+  opacity: 0;
+}
+.language .trans-field .translated-element-content {
+  height: 100px;
+  background: #fff;
+  border-bottom: 1px solid #aaaaaa;
+  padding: 8px 12px 3px;
+  margin-bottom: 0;
+  overflow-y: scroll;
+}
+.language .trans-field .translated-element-content.title {
+  height: 33px;
+  overflow: hidden;
+}
+.language .trans-field .translated-element-content:focus {
+  border-bottom-color: #ff7e00;
+  box-shadow: inset 0 0 3px #aaaaaa;
+  outline: none;
+}
+.language .trans-field .translated-element-content:focus ~ .trans-action {
+  opacity: 1;
+}
+.language .trans-field .form-control:focus ~ .trans-action {
+  opacity: 1;
+}
+.language .room-element-head .col-sm-7 > div .label-head {
+  display: none;
+}
+.language .room-element-head .col-sm-7 > div:first-child .label-head {
+  display: inline-block;
+}
+.billing-container .aj-imp-table-head {
   margin-bottom: 1em;
 }
-.billing-container .aj-imp-widget-head .bootstrap-select .dropdown-toggle {
+.billing-container .aj-imp-table-head .bootstrap-select .dropdown-toggle {
   background: transparent;
   border-bottom: 0;
 }
-.billing-container .aj-imp-widget-head .bootstrap-select.open > .dropdown-menu {
+.billing-container .aj-imp-table-head .bootstrap-select.open > .dropdown-menu {
   min-height: initial !important;
   text-align: left;
 }
@@ -3786,6 +3974,19 @@ form .aj-imp-submit:hover {
 .billing-container .price-plans .panel .panel-heading h3 {
   color: #aaaaaa;
 }
+.billing-container .price-plans .panel .panel-heading span,
+.billing-container .price-plans .panel .panel-body span {
+  display: block;
+  margin-bottom: 0.2em;
+}
+.billing-container .price-plans .panel .panel-heading span.active,
+.billing-container .price-plans .panel .panel-body span.active {
+  color: #2ecc71;
+}
+.billing-container .price-plans .panel .panel-heading span.pending,
+.billing-container .price-plans .panel .panel-body span.pending {
+  color: #f54545;
+}
 .billing-container .price-plans .panel.active {
   border-color: #2ecc71;
 }
@@ -3800,6 +4001,15 @@ form .aj-imp-submit:hover {
   margin: -10px -15px;
   border-radius: 0 0 3px 3px;
   font-size: 2em;
+}
+.billing-container .price-plans .panel.active .ribbon .activate-link {
+  background: transparent;
+  color: #fff;
+}
+.billing-container .price-plans .panel.active .ribbon .activate-link:hover,
+.billing-container .price-plans .panel.active .ribbon .activate-link:focus {
+  background: transparent;
+  color: #fff;
 }
 .billing-container .price-plans .panel:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -3823,6 +4033,74 @@ form .aj-imp-submit:hover {
 }
 .billing-container .price-plans .panel:hover .btn:hover {
   background: #ff9833;
+}
+.billing-container .info {
+  background: #f3f3f3;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+.billing-container .info ul {
+  list-style: circle;
+}
+.billing-container .info ul li {
+  color: #aaaaaa;
+  margin-bottom: 0.5em;
+  font-size: 1.3em;
+}
+.billing-container .info ul li:hover {
+  color: #849fb0;
+}
+.billing-container #billing-info {
+  margin-bottom: 0.5em;
+}
+.billing-container .card-list {
+  margin-bottom: 1em;
+}
+.billing-container .card-list .single-card {
+  border: 1px solid #dadada;
+  padding: 0.5em 1em;
+  border-radius: 3px;
+  background: #fff;
+  position: relative;
+}
+.billing-container .card-list .single-card .ticker {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  color: #fff;
+  padding: 3px 4px;
+  border-radius: 2px;
+  text-shadow: 0 0 1px #f3f3f3;
+  background: #ff7e00;
+  display: none;
+  box-shadow: 0 0 2px #aaaaaa;
+}
+.billing-container .card-list .single-card .ticker:hover {
+  cursor: pointer;
+}
+.billing-container .card-list .single-card .aj-imp-sub-head-thin {
+  border-bottom: 1px solid #f3f3f3;
+}
+.billing-container .card-list .single-card .form-group .control-label {
+  color: #aaaaaa;
+  padding-top: 0;
+  bottom: auto;
+}
+.billing-container .card-list .single-card .form-group .form-control {
+  border: 0;
+  color: #333333;
+  font-weight: 700;
+  padding: 0;
+  background: #fff;
+}
+.billing-container .card-list .single-card:hover {
+  box-shadow: 0 0 2px 2px #f3f3f3;
+}
+.billing-container .card-list .single-card.selected {
+  border-color: #ff7e00;
+}
+.billing-container .card-list .single-card.selected .ticker {
+  display: block;
 }
 /**** Pagination Styles ****/
 .pagination ul li a:hover,
@@ -4300,4 +4578,148 @@ form .aj-imp-submit:hover {
 .aj-imp-faqpage .faqs .category-head a {
   font-size: 0.5em;
   color: #c3c3c3;
+}
+/**** Cropping Tool Styles ****/
+#edit-image-view .loading {
+  color: #aaaaaa;
+}
+#edit-image-view .imgedit-wrap {
+  border: 1px solid #dddddd;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings {
+  width: 25%;
+  background: #f3f3f3;
+  padding-left: 10px;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group {
+  padding: 0 0 0.5em;
+  margin: 0 0.5em 0.5em;
+  border-bottom: 1px solid #dddddd;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group .imgedit-group-top {
+  margin: 0.5em 0;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group .imgedit-group-top h3 {
+  font-size: 1.3em;
+  color: #919191;
+  margin: 0 0 0.3em;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group .imgedit-group-top .imgedit-submit .nowrap {
+  margin-bottom: 0.25em;
+  display: inline-block;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group.imgedit-applyto img {
+  padding: 0.2em;
+  border: 1px solid #c3c3c3;
+  margin-right: 0;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group:last-child {
+  border-bottom: 0;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings p {
+  font-size: 1em;
+  color: #aaaaaa;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings input {
+  height: 36px;
+  padding: 8px;
+  border: 1px solid #aaaaaa;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings input:focus {
+  border-color: #ff7e00;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings input.button {
+  padding: 8px 13px 9px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: #849fb0;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings input.button:hover,
+#edit-image-view .imgedit-wrap .imgedit-settings input.button:focus {
+  background: #a3b7c4;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings input[type="radio"] {
+  height: auto;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content {
+  margin: 1em 0;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-menu {
+  *zoom: 1;
+  border-bottom: 1px solid #aaaaaa;
+  padding-bottom: 0.5em;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-menu:after,
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-menu:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-crop-wrap {
+  margin: 1em 0;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit {
+  border-top: 1px solid #aaaaaa;
+  padding-top: 0.5em;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input {
+  height: 36px;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button {
+  padding: 8px 13px 9px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: #c0c0c0;
+  cursor: pointer;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button.button-primary {
+  background: #ff7e00;
+  margin: 0 0.5em;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button.button-primary:hover,
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button.button-primary:focus {
+  background: #ff9833;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button:hover,
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button:focus {
+  background: #a6a6a6;
+}
+/**** Help Text ****/
+.aj-imp-help-text {
+  font-size: 0.88em;
+  color: #c3c3c3;
+  margin: 0.5em 0 1em;
+  padding: 0.3em;
+  border: 1px dotted #dddddd;
+  *zoom: 1;
+}
+.aj-imp-help-text:after,
+.aj-imp-help-text:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.aj-imp-help-text .icon {
+  color: #c2cfd8;
+  font-size: 1.7em;
+  display: block;
+  float: left;
+  margin-right: 0.2em;
+}
+.aj-imp-help-text p {
+  margin-bottom: 0;
+  font-size: 1em;
+}
+/**** Style Guide Styles ****/
+.guide-wrapper {
+  padding: 1em;
+  border: 1px solid #aaaaaa;
+}
+.guide-wrapper .guide-header {
+  border-bottom: 2px solid #000;
+}
+.guide-wrapper .prism {
+  margin-bottom: 2.5em;
 }

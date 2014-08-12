@@ -1,9 +1,11 @@
 define ['app'
         'controllers/base-controller'], (App, AppController)->
     App.module 'SliderManager.EditSlider.SlidesList', (SlidesList, App, Backbone, Marionette, $, _)->
+        
         class SlidesListController extends AppController
 
             initialize: (opt)->
+
                 {collection} = opt
 
                 # if slider id is not present
@@ -28,6 +30,18 @@ define ['app'
                 @listenTo listView, "itemview:remove:slide", (iv, slide)->
                     slide.destroy wait: true
 
+                @listenTo listView, "itemview:edit:image", (iv, imageId)->
+                    mediaId = parseInt iv.model.get 'image_id'
+                    ratio  = App.currentImageRatio 
+
+                    editView = App.request "get:image:editor:view", mediaId, 
+                                                                aspectRatio : ratio
+                                                                                     
+                    @updateImageThumb iv.model, editView.model                     
+                    listView.triggerMethod "show:edit:image", editView
+                    listView.listenTo editView, "image:editing:cancelled", ->
+                        listView.triggerMethod "image:editing:cancelled"
+
                 @listenTo layout, "show:add:new:slide", =>
                     App.execute "show:add:new:slide",
                         region: layout.addSlideRegion
@@ -50,11 +64,19 @@ define ['app'
 
                 @show layout, loading: true
 
+            # update image thumb
+            updateImageThumb : (slideModel, mediaModel)=>
+                @listenTo mediaModel, 'change', (model)->
+                    fullSize = model.get('sizes').large ?  model.get('sizes').full
+                    thumbSize = model.get('sizes').thumbnail ?  model.get('sizes').full
+                    slideModel.set 
+                            thumb_url : thumbSize.url
+                            full_url : fullSize.url
 
             # edit layout
             _getSlidesListView: (collection)->
                 new SlidesListView
-                    collection: collection
+                        collection: collection
 
             _getSlidesListLayout: ->
                 new SlidesListLayout
@@ -74,18 +96,22 @@ define ['app'
             className: 'panel panel-default moveable'
 
             template: '<div class="panel-heading">
-            								  <a class="accordion-toggle">
-            									<div class="aj-imp-image-item row">
-            										<div class="imgthumb col-sm-4">
-            											<img src="{{thumb_url}}" class="img-responsive">
-            										</div>
-            										<div class="imgname col-sm-5">{{file_name}}</div>
-            										<div class="imgactions col-sm-3">
-            											<a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
-            										</div>
-            									</div>
-            								  </a>
-            								</div>'
+						  <a class="accordion-toggle">
+							<div class="aj-imp-image-item row">
+								<div class="imgthumb col-sm-4">
+									<img src="{{thumb_url}}" class="img-responsive">
+								</div>
+								<div class="imgname col-sm-5"></div>
+								<div class="imgactions col-sm-3">
+									<a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;
+                                    <a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
+								</div>
+							</div>
+						  </a>
+						</div>'
+
+            modelEvents : 
+                'change:thumb_url change:full_url' : 'render'
 
             events:
                 'click .update-slide': ->
@@ -98,6 +124,10 @@ define ['app'
                     if confirm(_.polyglot.t 'Are you sure?')
                         @trigger "remove:slide", @model
 
+                'click .edit-image' : (e)->
+                    e.preventDefault()
+                    @trigger "edit:image"
+
             onRender: ->
                 @$el.attr 'data-slide-id', @model.get 'id'
 
@@ -108,18 +138,22 @@ define ['app'
         # colllection view
         class SlidesListView extends Marionette.CompositeView
 
-            template: '<div class="aj-imp-image-header row">
-            									<div class="col-sm-4">
-            										&nbsp;
-            									</div>
-            									<div class="col-sm-5">
-            										{{#polyglot}}File Name{{/polyglot}}
-            									</div>
-            									<div class="col-sm-3">
-            										{{#polyglot}}Actions{{/polyglot}}
-            									</div>
-            								</div>
-            								<div class="panel-group" id="slides-accordion"></div>'
+            template: ' <div class="slides-list">
+                            <div class="aj-imp-image-header row">
+    							<div class="col-sm-4">
+    								&nbsp;
+    							</div>
+    							<div class="col-sm-5">
+    								{{#polyglot}}File Name{{/polyglot}}
+    							</div>
+    							<div class="col-sm-3">
+    								{{#polyglot}}Actions{{/polyglot}}
+    							</div>
+    						</div>
+    						<div class="panel-group" id="slides-accordion"></div>
+                        </div>
+                        <div id="edit-image-view" class="edit-image-view"></div>'
+
 
             itemView: SlideView
 
@@ -148,14 +182,39 @@ define ['app'
             onClose: ->
                 @$el.find('#slides-accordion').sortable 'destroy'
 
+            onShowEditImage : (editView)->
+                @$el.find( '.slides-list' ).hide()
+                @$el.find( '.edit-image-view' ).html( editView.$el ).show()
+                $( '.crop-help' ).show()
+                editView.triggerMethod 'show'
+
+            onImageEditingCancelled : ->
+                self = @
+                @$el.find( '.edit-image-view' ).fadeOut 'fast', ->
+                   $( @ ).empty()
+                   self.$el.find( '.slides-list' ).show()
+                $( '.crop-help' ).hide()
+
+
 
         class SlidesListLayout extends Marionette.Layout
 
             template: '<div class="row">
-                        <div class="col-sm-7">
+                        <div class="col-sm-8">
                             <div id="slides-list-region"></div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
+                            <div class="alert alert-info crop-help">
+                                <p><b>{{#polyglot}}Steps to fit your image edge to edge inside the slider{{/polyglot}}</b></p>
+                                <ul>
+                                    <li>{{#polyglot}}Select the area to be cropped.{{/polyglot}}</li>
+                                    <li>{{#polyglot}}Notice how initially the crop button is disabled. Crop is enabled once you have selected the image close to the aspect ratio of the slider.{{/polyglot}}</li>
+                                    <li>{{#polyglot}}Your image dimensions are displayed in scale image area and the required dimensions are displayed under image crop area.{{/polyglot}}</li>
+                                    <li>{{#polyglot}}As you increase the decrease your selection, the selection area height and width will also change.{{/polyglot}}</li>
+                                    <li>{{#polyglot}}Once it reaches the maximum point for expected image width or height, you will not be able to increase the selection area anymore. If you want a larger image, we suggest you increase the width of the slider from sitebuilder for best results.{{/polyglot}}</li>
+                                    <li>{{#polyglot}}When you are happy with your selection area to be cropped, click the crop button from the tool bar above.{{/polyglot}}</li>
+                                </ul>
+                            </div>
                             <div id="slides-info">
                                 {{#polyglot}}Click the button to select images to add to your slider. You can change the order of the images by dragging them up or down in the list to the left.{{/polyglot}}
                             </div>

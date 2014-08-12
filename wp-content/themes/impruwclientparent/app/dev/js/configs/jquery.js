@@ -54,6 +54,13 @@ define(['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], function(
       top: (($(parent).height() - this.outerHeight()) / 2) + $(parent).scrollTop() + "px",
       left: (($(parent).width() - this.outerWidth()) / 2) + $(parent).scrollLeft() + "px"
     });
+    $(window).on('scroll', (function(_this) {
+      return function() {
+        return _this.css({
+          top: (($(parent).height() - _this.outerHeight()) / 2) + $(parent).scrollTop() + "px"
+        });
+      };
+    })(this));
     return this;
   };
   $.fn.selectSelectableElements = function(elementsToSelect) {

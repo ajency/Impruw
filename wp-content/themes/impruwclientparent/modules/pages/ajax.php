@@ -31,13 +31,34 @@ function create_page_ajax() {
     //unset action param
     unset( $data[ 'action' ] );
 
+    $default_language = wpml_get_default_language();
+    $other_language = '';
+
+    if($default_language==='en'){
+        $other_language = 'nb';
+    }
+    else{
+        $other_language = 'en' ;
+    }
+
     //pass remaining data to create a new page
     $id_or_error = create_new_page( $data );
 
     if ( is_wp_error( $id_or_error ) )
         wp_send_json( array( 'code' => 'ERROR', 'message' => $id_or_error->get_error_message() ) );
-    else
+    else{
+        //Create translated version of the page in $other_language->en or nb
+        $page_id = $id_or_error;
+
+        $page_id_based_on_lang = duplicate_language_page($page_id,$other_language,"page");
+
         $page_data = get_post( $id_or_error, ARRAY_A );
+
+        if($other_language==='en')
+            $page_data['original_id'] = $page_id_based_on_lang;
+        else
+            $page_data['original_id'] = $page_id;
+    }
 
     wp_send_json( array( 'code' => 'OK', 'data' => $page_data ) );
 }
@@ -126,7 +147,7 @@ function ajax_update_page() {
     $page_id = $_POST[ 'ID' ];
     $page_name = $_POST[ 'post_title' ];
 
-    wp_update_post( array( 'ID' => $page_id, 'post_title' => $page_name,'post_name' => '' ) );
+    wp_update_post( array( 'ID' => $page_id, 'post_title' => $page_name ) );
 
     $page_data = get_post( $page_id, ARRAY_A );
 

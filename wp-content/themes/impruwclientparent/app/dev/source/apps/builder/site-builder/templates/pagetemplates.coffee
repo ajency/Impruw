@@ -44,13 +44,18 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
         class PageTemplatesGrid extends Marionette.CompositeView
 
             template: '<h4>{{#polyglot}}Choose page Template{{/polyglot}}</h4>
-            		   <ul class="templates"></ul>'
+            		   <ul class="templates"></ul>
+            		   <input type="text" style="display: none" name="menu_order" id="menu-order">'
 
             itemView: TemplateView
 
             itemViewContainer : '.templates'
 
             emptyView: EmptyView
+
+            onShow :->
+                lastPageModel =  @collection.last()
+                @$el.find('#menu-order' ).val lastPageModel.get 'menu_order'
 
         App.commands.setHandler "show:templates:grid", (opt)->
             new PageTemplatesController opt

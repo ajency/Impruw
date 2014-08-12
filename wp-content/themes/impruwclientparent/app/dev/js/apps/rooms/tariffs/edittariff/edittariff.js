@@ -100,17 +100,18 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
       };
 
       EditTariffView.prototype.onSavedTariff = function() {
+        this.$el.find('.alert').remove();
         return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Tariff updated successfully") + "</div>");
       };
 
       EditTariffView.prototype.onDeletedTariff = function() {
-        console.log('hi');
         return this.trigger("dialog:close");
       };
 
       EditTariffView.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
-        return this.$el.find('.currency').text(Marionette.getOption(this, 'currency'));
+        this.$el.find('.currency').text(Marionette.getOption(this, 'currency'));
+        return this.$el.validate();
       };
 
       return EditTariffView;

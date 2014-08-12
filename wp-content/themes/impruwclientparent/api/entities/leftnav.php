@@ -15,7 +15,7 @@ function get_menu_items() {
         array(
             'url' => site_url( 'site-builder' ),
             'title' => 'Site Builder',
-            'target' => '_BLANK',
+            'target' => '_newtab' . rand(1,99),
             'icon' => 'tools'
         ),
         array(
@@ -58,34 +58,20 @@ function get_menu_items() {
             'url' => '#/language',
             'title' => 'Language',
             'icon' => 'chat2',
-            'submenu' => array(
-                array( 'url' => '#',
-                    'title' => 'Norwegian',
-                    'icon' => 'stats1' ),
-                array( 'url' => '#',
-                    'title' => 'Swedish',
-                    'icon' => 'stats2' ),
-                array( 'url' => '#s',
-                    'title' => 'German',
-                    'icon' => 'stats3' )
-            )
         ),
         array(
             'url' => '#/billing',
             'title' => 'Billing',
             'icon' => 'wallet',
             'submenu' => array(
-                array( 'url' => '#/billing/purchase-history',
-                    'title' => 'Purchase History',
+                array( 'url' => '#/billing/account-summary',
+                    'title' => 'Account Summary',
                     'icon' => 'stats1' ),
-                array( 'url' => '#/billing/billing-info',
-                    'title' => 'Billing Info',
+                array( 'url' => '#/billing/update-billing',
+                    'title' => 'Update Billing',
                     'icon' => 'stats2' ),
                 array( 'url' => '#/billing/pricing-plans',
-                    'title' => 'Pricing Plans',
-                    'icon' => 'stats2' ),
-                array( 'url' => '#/billing/payment-page',
-                    'title' => 'Payment Page',
+                    'title' => 'View Plans',
                     'icon' => 'stats2' )
             )
         ),
@@ -194,6 +180,13 @@ function get_elementbox_elements() {
             'category' => 'hotel'
         ),
         array(
+            'element' => 'LanguageSwitcher',
+            'title' => 'Language Switcher',
+            'icon' => 'bicon icon-uniF124',
+            'styles' => array(),
+            'size' => ''
+        ),
+        array(
             'element' => 'Text',
             'icon' => 'bicon icon-uniF111',
             'styles' => array()
@@ -280,7 +273,7 @@ function get_elementbox_elements() {
         ),
         array(
             'element' => 'RoomSummary',
-            'title' => 'Display Rooms',
+            'title' => 'Room Summary',
             'styles' => get_styles( 'RoomSummary' ),
             'rooms' => get_all_rooms(),
             'icon' => 'bicon icon-uniF15B',
@@ -302,7 +295,7 @@ function get_elementbox_elements() {
 
     if ( !current_user_can( 'edit_impruw_theme' ) ) {
         $filtered = array();
-        $unset_elements = array( 'Menu' );
+        $unset_elements = array( 'Menu', 'LanguageSwitcher' );
         foreach ( $elements as $element ) {
             if ( !in_array( $element[ 'element' ], $unset_elements ) )
                 $filtered[ ] = $element;
@@ -388,6 +381,7 @@ function set_element_data( $data ) {
         if ( $data[ 'element' ] == 'Slider' ) {
             $slider_data = get_slider_by_id( $data[ 'slider_id' ] );
             $slider_data[ 'height' ] = $data[ 'height' ];
+            $slider_data[ 'width' ] = $data[ 'width' ];
             update_slider( $slider_data, $data[ 'slider_id' ] );
 
         }
@@ -734,6 +728,7 @@ function get_page_main_json( $page_id = 0 ) {
 function read_page_json() {
 
     $page_id = $_REQUEST [ 'page_id' ];
+    $page_id= icl_object_id( $page_id, 'page', TRUE, 'en' );
     $data = get_page_json_for_site( $page_id, TRUE );
     wp_send_json( array(
         'code' => 'OK',

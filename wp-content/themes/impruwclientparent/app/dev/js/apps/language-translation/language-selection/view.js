@@ -19,6 +19,13 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         "change input[type='checkbox']": "saveLanguage"
       };
 
+      LanguageItemView.prototype.serializeData = function() {
+        var data;
+        data = LanguageItemView.__super__.serializeData.call(this);
+        data.languageName = _.polyglot.t(data.languageName);
+        return data;
+      };
+
       LanguageItemView.prototype.onShow = function() {
         return this.$el.find('input[type="checkbox"]').checkbox();
       };
@@ -44,7 +51,8 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
       LanguageSelectionView.prototype.itemViewContainer = '.languages.clearfix';
 
       LanguageSelectionView.prototype.events = {
-        'click #btn_update-enabled-languages': 'setEnabledLanguages'
+        'click #btn_update-enabled-languages': 'setEnabledLanguages',
+        "click div.js-enabled-languages ul.selectpicker li": "loadLanguagePageNav"
       };
 
       LanguageSelectionView.prototype.onShow = function() {
@@ -68,15 +76,28 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         return this.trigger('update:enabled:languages', selectedlanguage);
       };
 
+      LanguageSelectionView.prototype.loadLanguagePageNav = function(e) {
+        var selectedIndex, selectedLangVal;
+        $('.aj-imp-widget-content').hide();
+        selectedIndex = $(e.currentTarget).attr('rel');
+        selectedLangVal = $('select#select_editing_language option:eq(' + selectedIndex + ')').attr('value');
+        if (selectedLangVal !== "") {
+          return this.trigger('load:language:page:nav', selectedLangVal);
+        }
+      };
+
       LanguageSelectionView.prototype.onSelectedLanguagesEnabled = function(collection) {
         var htmlString;
         htmlString = "";
         $('select.js-enabled-languages').empty();
+        $("select.js-enabled-languages").append("<option value = ''>" + _.polyglot.t('Select a Language') + "</option>");
         collection.each(function(m) {
           var languageCode, languageName;
           languageCode = m.get("code");
-          languageName = m.get("languageName");
-          $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>");
+          languageName = _.polyglot.t(m.get("languageName"));
+          if (languageCode !== WPML_DEFAULT_LANG) {
+            $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>");
+          }
           htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> ' + languageName + ' </div>';
         });
         this.$el.find(".selected-languages").html(htmlString);
@@ -91,18 +112,21 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         this.selectedLang.each(function(m) {
           var languageCode, languageName;
           languageCode = m.get("code");
-          languageName = m.get("languageName");
+          languageName = _.polyglot.t(m.get("languageName"));
           return htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> ' + languageName + ' </div>';
         });
         return this.$el.find(".selected-languages").html(htmlString);
       };
 
       LanguageSelectionView.prototype.loadLanguageDropdown = function() {
+        $("select.js-enabled-languages").append("<option value = ''>" + _.polyglot.t('Select a Language') + "</option>");
         this.selectedLang.each(function(m) {
           var languageCode, languageName;
           languageCode = m.get("code");
-          languageName = m.get("languageName");
-          $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>");
+          languageName = _.polyglot.t(m.get("languageName"));
+          if (languageCode !== WPML_DEFAULT_LANG) {
+            $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>");
+          }
         });
         return this.$el.find('select').selectpicker();
       };

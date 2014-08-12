@@ -9,7 +9,7 @@ define ['app', 'moment'], (App, moment)->
             className: 'package-block-outer'
 
             template: '<div class="block clearfix">
-                            <h6>{{plan_name}}</h6>
+                            <h6>{{planname}}</h6>
                             <div class="package-desc">
                                 {{plandescription}}
                             </div>
@@ -27,9 +27,10 @@ define ['app', 'moment'], (App, moment)->
 
             serializeData: ->
                 data = super()
-
+                data.planname = ->
+                    _(@plan_name).prune(25)
                 data.plandescription = ->
-                    _(@plan_description).prune(50)
+                    _(@plan_description).prune(35)
 
                 data
 
@@ -140,7 +141,7 @@ define ['app', 'moment'], (App, moment)->
                         {{/id}}'
 
 
-        class DateRageView extends Marionette.CompositeView
+        class DateRangeView extends Marionette.CompositeView
 
             template: '<div class="date-range">
                            <div class="range-name">{{daterange_name}}</div>
@@ -204,7 +205,7 @@ define ['app', 'moment'], (App, moment)->
 
             serializeData: ->
                 data = super()
-
+                data.daterange_name = _(data.daterange_name).prune 30
                 data.fromdate = ->
                     moment(@from_date).format 'Do-MMM'
 
@@ -226,7 +227,7 @@ define ['app', 'moment'], (App, moment)->
 
             className: 'tariff clearfix'
 
-            itemView: DateRageView
+            itemView: DateRangeView
 
             itemViewOptions: (item, index)->
                 roomId = Marionette.getOption @, 'roomId'

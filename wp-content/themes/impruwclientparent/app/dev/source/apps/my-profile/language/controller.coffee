@@ -29,12 +29,15 @@ define [ 'app', 'controllers/base-controller'
 
 
             languageUpdated : ( model , response ) =>
+                #since page does not get re-loaded, jquery validate msgs and modal titles and similiar js strings
+                # reflect previously selected language strings
+                #TODO so either re-load the page on language change or find another solution
                 @view.triggerMethod "user:lang:updated"
                 window.PHRASES = response.PHRASES
                 _.polyglot = new Polyglot
                     phrases : window.PHRASES
-                App.execute "show:leftnav:app"
-                App.execute "show:myprofile:app"
+                # App.execute "show:leftnav:app"
+                # App.execute "show:myprofile:app"
 
         App.commands.setHandler "show:language:form", ( opts ) ->
             new Language.Controller opts

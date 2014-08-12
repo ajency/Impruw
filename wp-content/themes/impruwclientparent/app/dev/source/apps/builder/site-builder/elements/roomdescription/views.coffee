@@ -10,16 +10,13 @@ define ['app'], (App)->
 
             template: '<div class="room-description-container clearfix">
             							<div class="room-description">
-            								<h1>Room Description</h1>
-            								<div class="room-description-desc">Lorem Ipsum is simply dummy text of the printing
-            								and typesetting industry. Lorem Ipsum has been the industry\'s
-            								standard dummy text ever since the 1500s, when an unknown printer
-            								took a galley of type and scrambled it to make a type specimen book.</div>
+            								<h1>{{#polyglot}}Room Description{{/polyglot}}</h1>
+            								<div class="room-description-desc">{{#polyglot}}This will display the room description{{/polyglot}}</div>
             							</div>
             						</div>'
 
             onShow:->
-                @$el.attr "data-content", "Update room information <a href='#{SITEURL}/dashboard/#/rooms'>here</a> "
+                @$el.attr "data-content", ""+_.polyglot.t('Update room information')+" <a href='#{SITEURL}/dashboard/#/rooms'>"+_.polyglot.t('here')+"</a> "
                 @$el.popover
                     html : true
                     placement : 'top'

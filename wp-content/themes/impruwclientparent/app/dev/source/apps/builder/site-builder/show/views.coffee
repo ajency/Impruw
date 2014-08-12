@@ -26,6 +26,7 @@ define [ 'app'
                App.execute "publish:page"
 
             'change select#builder-page-sel' : ( evt )->
+               @_addToPageSlug parseInt $( evt.target ).val()
                @trigger 'editable:page:changed', $( evt.target ).val()
                App.vent.trigger "change:page:check:single:room"
                @changePreviewLinkUrl()
@@ -47,15 +48,16 @@ define [ 'app'
             @new_page_id = @modelAddedToCollection.get 'ID'
             _.each @collection.models, ( model, index ) =>
                modelId = model.get 'ID'
+               originalPageId = model.get 'original_id'
                if modelId == @new_page_id
                   page_name = model.get 'post_title'
-                  select_html = "<option value='#{index}'>#{page_name}</option>"
+                  select_html = "<option value='"+modelId+"' data-originalid='"+originalPageId+"'>#{page_name}</option>"
                   selectpicker_html = "<li rel='#{index}'>
-                                                                  <a tabindex='0' class='' style=''>
-                                                                      <span class='text'>#{page_name}</span>
-                                                                      <i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
-                                                                  </a>
-                                                              </li>"
+                                            <a tabindex='0' class='' style=''>
+                                                <span class='text'>#{page_name}</span>
+                                                <i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
+                                            </a>
+                                        </li>"
                   @$el.find( 'div .dropdown-menu ul' ).append( selectpicker_html )
                   @$el.find( 'select#builder-page-sel' ).append( select_html )
             @enableSelectPicker()
@@ -63,6 +65,7 @@ define [ 'app'
          initialize : ->
             App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
             App.reqres.setHandler "get:current:editable:page", @getCurrentPageId
+            App.reqres.setHandler "get:original:editable:page", @getOriginalPageId
 
          # return the name of the currently editable page
          getCurrentPageName : =>
@@ -75,6 +78,11 @@ define [ 'app'
             pageId = @$el.find( 'select#builder-page-sel' ).val()
             parseInt pageId
 
+         # returns the original page id of the currently selected page
+         getOriginalPageId : =>
+            pageId = @$el.find( 'select#builder-page-sel' ).find(':selected').data('originalid')
+            parseInt pageId
+
          onPagePublished : =>
             @$el.find( '.publish-page ' ).text 'Publish'
             _.delay =>
@@ -85,7 +93,9 @@ define [ 'app'
          changePreviewLinkUrl : ->
             currentPageId = App.request "get:current:editable:page"
             previewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}"
-            @$el.find( 'a.preview-current-page' ).attr 'href', previewUrl
+            @$el.find( 'a.preview-current-page' )
+               .attr 'href', previewUrl
+               .attr 'target', '_newtab' + Math.floor(Math.random()*999999)
 
          # trigger the editable page changed event on show
          onShow : ->
@@ -100,6 +110,7 @@ define [ 'app'
                else
                   @$el.find( 'select#builder-page-sel' ).selectpicker 'val', pageId
 
+               @_addToPageSlug pageId
                @trigger 'editable:page:changed', pageId
                @changePreviewLinkUrl()
             , 250
@@ -109,6 +120,16 @@ define [ 'app'
 
             #update the page name links
             @displayPageNameForUpdate()
+            
+
+         _addToPageSlug : (pageId)=>
+            page = App.request "get:fetched:page", pageId
+            toArray = $('.page-slug-edit').val().split('/')
+            newUrl = toArray.pop()
+            #newUrl = toArray.pop()
+            newUrl = toArray.push page.get 'post_name'
+            newUrl = toArray.join '/'
+            $('.page-slug-edit').val newUrl
 
          #set the selectpicker for the drop down
          enableSelectPicker : =>
@@ -184,13 +205,13 @@ define [ 'app'
          tagName : 'li'
 
          template : '<div class="aj-imp-revision row">
-                                                 <div class="col-sm-5 date">
-                                                   {{datetime}}
-                                                 </div>
-                                                 <div class="col-sm-7 time">
-                                                   {{post_name}} {{timeago}}
-                                                 </div>
-                                             </div>'
+                         <div class="col-sm-5 date">
+                           {{datetime}}
+                         </div>
+                         <div class="col-sm-7 time">
+                           {{post_name}} {{timeago}}
+                         </div>
+                     </div>'
 
          events :
             'click' : ( e )->
@@ -240,19 +261,34 @@ define [ 'app'
                items : '> .element-wrapper'
                connectWith : '.droppable-column,.column'
                start : ( e, ui )->
-                  w = ui.item.width()
-                  h = if ui.item.height() > 200 then 200 else ui.item.height()
-                  ui.placeholder.height h
+#                  w = ui.item.width()
+#                  h = if ui.item.height() > 200 then 200 else ui.item.height()
+#                  ui.placeholder.height h
                   window.dragging = true
                   return
                stop : ( e, ui )->
                   window.dragging = false
                   return
+               out : ()->
+                  window.dragging = false
+                  return
+               over : ()->
+                    window.dragging = true
+                    return
                handle : '.aj-imp-drag-handle'
-               helper : 'clone'
+               helper : @_getHelper
                opacity : .65
                tolerance : 'pointer'
                receive : @elementDropped
+               placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
+
+
+         _getHelper : (evt,original)=>
+
+             left = $(original).width()/2
+             @$el.find( '.droppable-column' ).sortable( "option", "cursorAt", { left: 50, top: 25 } );
+
+             "<div class='element-helper'></div>"
 
 
 

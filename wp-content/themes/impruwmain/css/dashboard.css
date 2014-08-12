@@ -849,6 +849,21 @@ form .aj-imp-submit:hover {
   display: inline-block;
   margin-top: 0.5em;
 }
+.aj-imp-lo-header > .row .lang-actions .logged-in-actions {
+  border-radius: 3px;
+  float: right;
+  display: inline-block;
+  margin-top: 0.5em;
+}
+.aj-imp-lo-header > .row .lang-actions .logged-in-actions .glyphicon {
+  font-size: 0.66em;
+  color: #aaaaaa;
+}
+.aj-imp-lo-header > .row .lang-actions .logged-in-actions .dropdown-menu {
+  left: auto;
+  right: 0;
+  top: 1.5em;
+}
 @media (max-width: 979px) {
   .aj-imp-lo-header > .row .lang-actions {
     text-align: center;
@@ -1071,6 +1086,9 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-register-form .aj-imp-register-left .site-lang-sel .dropdown-menu {
   min-height: auto !important;
+}
+.aj-imp-register-form .aj-imp-register-left .site-lang-sel .dropdown-toggle .caret {
+  top: 10px;
 }
 .aj-imp-register-form .aj-imp-register-right {
   margin: 2em 0 0;
@@ -3533,7 +3551,8 @@ form .aj-imp-submit:hover {
 .aj-imp-homepage .home-2 h2 {
   font-weight: 300;
   color: #000;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
+  font-size: 2.5em;
 }
 @media (max-width: 767px) {
   .aj-imp-homepage .home-2 h2 {
@@ -3564,7 +3583,7 @@ form .aj-imp-submit:hover {
   vertical-align: top;
   font-size: 1.2em;
   font-weight: 300;
-  text-align: left;
+  text-align: center;
   line-height: 1.5em;
 }
 .aj-imp-homepage .home-2 .info-blocks .block:last-child {

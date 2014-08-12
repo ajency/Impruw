@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app'], function(App) {
   return App.module('SiteBuilderApp.Element.Slider.Views', function(Views, App, Backbone, Marionette, $, _) {
@@ -11,12 +12,18 @@ define(['app'], function(App) {
         return SliderItem.__super__.constructor.apply(this, arguments);
       }
 
-      SliderItem.prototype.template = '<img src="{{full_url}}" alt="Slide" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat"/>';
+      SliderItem.prototype.template = '<img src="{{full_url}}" alt="Slide" data-bgfit="contain" data-bgposition="center center" data-bgrepeat="no-repeat"/>';
 
       SliderItem.prototype.tagName = 'li';
 
       SliderItem.prototype.onRender = function() {
-        return this.$el.attr('data-transition', 'fade').attr('data-slotamount', '7').attr('data-masterspeed', '1500');
+        return this.$el.attr('data-transition', 'fade').attr('data-slotamount', '0').attr('data-masterspeed', '500');
+      };
+
+      SliderItem.prototype.modelEvents = {
+        'change:thumb_url change:full_url': function(model) {
+          return model.collection.trigger('slide:image:url:updated');
+        }
       };
 
       return SliderItem;
@@ -38,6 +45,7 @@ define(['app'], function(App) {
       __extends(SliderView, _super);
 
       function SliderView() {
+        this._saveSliderHeightWidth = __bind(this._saveSliderHeightWidth, this);
         return SliderView.__super__.constructor.apply(this, arguments);
       }
 
@@ -54,11 +62,16 @@ define(['app'], function(App) {
       SliderView.prototype.itemViewContainer = '.fullwidthbanner > ul';
 
       SliderView.prototype.events = {
-        'click': function(e) {
-          return this.trigger("show:slides:manager");
-        },
+        'click': 'sliderClick',
         'click .tp-rightarrow,.tp-leftarrow,.bullet': function(e) {
           return e.stopPropagation();
+        }
+      };
+
+      SliderView.prototype.collectionEvents = {
+        'slide:image:url:updated': function() {
+          this.render();
+          return this.triggerMethod('show');
         }
       };
 
@@ -66,18 +79,27 @@ define(['app'], function(App) {
         return delete this.revapi;
       };
 
-      SliderView.prototype.initialize = function() {
+      SliderView.prototype._getSliderRatio = function() {
+        var height, width;
+        width = this.$el.width();
+        height = this.$el.height();
+        return "" + (parseInt(width)) + ":" + (parseInt(height));
+      };
+
+      SliderView.prototype.initialize = function(options) {
+        if (options == null) {
+          options = {};
+        }
+        SliderView.__super__.initialize.call(this, options);
         return this.sliderHeight = Marionette.getOption(this, 'sliderHeight');
       };
 
       SliderView.prototype.onShow = function() {
         var defaults, options;
-        console.log("slider");
         if (this.collection.length === 0) {
           return;
         }
         defaults = this._getDefaults();
-        console.log(this.sliderHeight);
         options = {
           startheight: this.sliderHeight
         };
@@ -92,11 +114,32 @@ define(['app'], function(App) {
               options.startheight = _this.$el.height();
               _this.$el.width('auto');
               _this.revapi = _this.$el.find(".fullwidthbanner").revolution(options);
-              return _this.trigger("set:slider:height", options.startheight);
+              return _this._saveSliderHeightWidth();
+            };
+          })(this),
+          start: (function(_this) {
+            return function(evt, ui) {
+              return $(_this).addClass('noclick');
             };
           })(this)
         });
-        return this.trigger("set:slider:height", options.startheight);
+        $('.aj-imp-publish').on('click', this._saveSliderHeightWidth);
+        return this._saveSliderHeightWidth();
+      };
+
+      SliderView.prototype.sliderClick = function(e) {
+        var ratio;
+        e.stopPropagation();
+        if ($(e.target).hasClass('noclick')) {
+          return $(e.target).removeClass('noclick');
+        } else {
+          ratio = this._getSliderRatio();
+          return this.trigger("show:slides:manager", ratio);
+        }
+      };
+
+      SliderView.prototype._saveSliderHeightWidth = function() {
+        return this.trigger("set:slider:height:width", this.$el.height(), this.$el.width());
       };
 
       SliderView.prototype.getTallestColumnHeight = function() {
@@ -159,6 +202,10 @@ define(['app'], function(App) {
           startWithSlide: 0,
           fullScreenOffsetContainer: ""
         };
+      };
+
+      SliderView.prototype.onBeforeClose = function() {
+        return $('.aj-imp-publish').off('click', this._saveSliderHeightWidth);
       };
 
       return SliderView;

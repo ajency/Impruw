@@ -83,10 +83,21 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
       EditDateRangeView.prototype.events = {
         'click #btn_updatedaterange': function() {
-          var data;
+          var check, data;
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
-            return this.trigger("update:daterange:details", data);
+            if (moment(data.to_date).isAfter(data.from_date) === true) {
+              check = this.checkDaterangeValid(data);
+              if (check === 0) {
+                this.$el.parent().find('.alert').remove();
+                return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Date range overlaps existing date range") + "</div>");
+              } else {
+                return this.trigger("update:daterange:details", data);
+              }
+            } else {
+              this.$el.parent().find('.alert').remove();
+              return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Select valid daterange") + "</div>");
+            }
           }
         },
         'click #btn_deletedaterange': function(e) {
@@ -95,6 +106,34 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
             return this.trigger("delete:daterange", this.model);
           }
         }
+      };
+
+      EditDateRangeView.prototype.checkDaterangeValid = function(selectedDate) {
+        var dateRangeId, dateRangeModelId, daterangeCollection, daterangeModel, fromDate, fromDateCheck, temp, toDate, toDateCheck, _i, _len, _ref;
+        temp = 1;
+        daterangeCollection = App.request("get:daterange:collection");
+        _ref = daterangeCollection.models;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          daterangeModel = _ref[_i];
+          dateRangeModelId = this.model.get('id');
+          dateRangeId = daterangeModel.get('id');
+          if (dateRangeModelId !== dateRangeId) {
+            fromDate = daterangeModel.get('from_date');
+            toDate = daterangeModel.get('to_date');
+            fromDate = moment(fromDate).subtract('days', 1);
+            toDate = moment(toDate).add('days', 1);
+            fromDateCheck = moment(selectedDate.from_date).isAfter(fromDate);
+            toDateCheck = moment(selectedDate.to_date).isBefore(toDate);
+            if (fromDateCheck === true && toDateCheck === false) {
+              temp = temp + 1;
+            } else {
+              temp = 0;
+            }
+          } else {
+            break;
+          }
+        }
+        return temp;
       };
 
       EditDateRangeView.prototype.serializeData = function() {
@@ -107,7 +146,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
       EditDateRangeView.prototype.onUpdatedDaterange = function() {
         this.$el.parent().find('.alert').remove();
-        return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>");
+        this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>");
+        return this.displayDatePicker();
       };
 
       EditDateRangeView.prototype.onDeletedDaterange = function() {
@@ -117,12 +157,17 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       EditDateRangeView.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
         this.$el.find('#daterange_colour').minicolors();
+        return this.displayDatePicker();
+      };
+
+      EditDateRangeView.prototype.displayDatePicker = function() {
         return this.$el.find('.dated').datepicker({
           showOtherMonths: true,
           selectOtherMonths: true,
           dateFormat: "yy-mm-dd",
           beforeShowDay: this.disableDateRange,
-          beforeShow: this.setDateRangeColorDelayed
+          beforeShow: this.setDateRangeColorDelayed,
+          onChangeMonthYear: this.displayColorMonthChange
         }).prev('.btn').on('click', (function(_this) {
           return function(e) {
             e && e.preventDefault();

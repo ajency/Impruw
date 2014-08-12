@@ -32,9 +32,17 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').checkbox('check');
         }
+        if (this.eleModel.get('target') === '_BLANK') {
+          this.$el.find('input[name="target"]').checkbox('check');
+        }
         _.each(['link', 'text'], (function(_this) {
           return function(field, i) {
-            return _this.$el.find("input[name='" + field + "']").val(_this.eleModel.get(field));
+            var textval;
+            _this.$el.find("input[name='" + field + "']").val(_this.eleModel.get(field));
+            if (field === 'text') {
+              textval = _this.eleModel.get(field);
+              return _this.$el.find("input[name='" + field + "']").val(textval[WPML_DEFAULT_LANG]);
+            }
           };
         })(this));
         return this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
@@ -43,9 +51,7 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
       SettingsView.prototype.events = {
         'click .close-settings': function(evt) {
           evt.preventDefault();
-          if (this.$el.find('form').valid()) {
-            return App.settingsRegion.close();
-          }
+          return App.settingsRegion.close();
         },
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));
@@ -55,13 +61,11 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
         },
         'blur input.linktext': function(evt) {
           var name;
-          if ($(evt.target).valid()) {
-            name = $(evt.target).attr('name');
-            return this.trigger("element:" + name + ":changed", $(evt.target).val());
-          }
+          name = $(evt.target).attr('name');
+          return this.trigger("element:" + name + ":changed", $(evt.target).val());
         },
         'change input[name="target"]': function(evt) {
-          return this.trigger("element:target:changed", $(evt.target).is(':checked') ? '_BLANK' : 'self');
+          return this.trigger("element:target:changed", $(evt.target).is(':checked') ? '_BLANK' : '_self');
         }
       };
 

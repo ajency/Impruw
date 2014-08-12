@@ -31,40 +31,41 @@
         var BOOKING = <?php echo json_encode(get_bookings()); ?>;
     </script>
 <?php endif; ?>
-<?php if ( is_page( 'contact-us' ) ): ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
-<?php endif; ?>
-
+<script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
 <?php get_theme_JS(); ?>
-<?php if ( is_page( 'contact-us' ) ): ?>
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <script>
-        var map, geocoder;
-        function initialize() {
-            geocoder = new google.maps.Geocoder();
 
-            var mapOptions = {
-                zoom: 8,
-                center: new google.maps.LatLng(-34.397, 150.644)
-            };
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script>
+    var map, geocoder;
+    function initialize() {
 
-            geocoder.geocode({'address': HOTELADDRESS}, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-                    map.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: results[0].geometry.location
-                    });
-                }
-                else{
-                    jQuery('#map_canvas').parent().remove();
-                }
-            });
-        }
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-<?php endif; ?>
+        if(jQuery('#map_canvas').length === 0)
+            return;
+
+        geocoder = new google.maps.Geocoder();
+
+        var mapOptions = {
+            zoom: 8,
+            center: new google.maps.LatLng(-34.397, 150.644)
+        };
+
+        geocoder.geocode({'address': HOTELADDRESS}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            }
+            else{
+                jQuery('#map_canvas').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+            }
+        });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
 <?php wp_footer(); ?>
 </body>
 </html>

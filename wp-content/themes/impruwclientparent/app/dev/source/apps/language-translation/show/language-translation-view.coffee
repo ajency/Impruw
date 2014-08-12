@@ -9,9 +9,11 @@ define ['app'
                     template : languageviewTpl
 
                     regions: 
-                        #TODO change to proper divs
-                        languageSelectionRegion: ".pick-language-container",
-                        languageTranslateRegion: ".aj-imp-dash-widget",
+                        languageSelectionRegion: "#pick-language",
+                        languagePageNav: "#js-page-nav",
+                        languagePageContent: "#js-other-tabs",
+                        languagePageRooms: "#js-rooms-tab",
+                        languageAddressContent: "#js-address-tab",
 
 
                     onShow: ->
@@ -28,3 +30,4 @@ define ['app'
 
                         m = $('.aj-imp-left').width()
                         @$el.find('*[data-spy="affix"]').css('margin-left', m)
+

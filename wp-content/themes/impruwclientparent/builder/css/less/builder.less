@@ -30,8 +30,35 @@ Version:        0.1.0
 /**** Link Styles Basic ****/
 a {
 	color: @orange;
-	&:focus {
+	&:hover, &:focus {
 		outline: none;
+		color: lighten(@orange, 10%);
+	}
+	&.blue-link {
+		color: @blue-grey;
+		display: inline-block;
+		margin: 0 0.5em;
+		&.pull-left, &.pull-right {
+			margin: 0.5em;
+		}
+	}
+	&.red-link {
+		color: @error-red;
+		display: inline-block;
+		margin: 0 0.5em;
+		&.pull-left, &.pull-right {
+			margin: 0.5em;
+		}
+	}
+}
+
+/****Clearfix****/
+.clearfix {
+    *zoom: 1;
+	&:after, &:before {
+		clear: both;
+		content: "";
+		display: table;
 	}
 }
 
@@ -79,6 +106,9 @@ a {
 				}
 				&:hover {
 					background: @blue-grey;
+				}
+				&:focus {
+					background: @orange;
 				}
 			}
 		}
@@ -214,6 +244,21 @@ a {
 	}
 }
 
+.element-helper {
+	max-width: 220px;
+	max-height: 50px;
+	border: 1px solid darken(@orange, 20%);
+	background: @orange;
+	border-radius: 3px;
+}
+
+/****Placeholder Styles****/
+.element-markup {
+	.placeholder {
+		opacity: 0.6;
+	}
+}
+
 /****Builder Top Nav****/
 .aj-imp-builder-top-nav {
 	background: #ECF0F1 !important;
@@ -277,6 +322,17 @@ a {
 			font-weight: 300;
 			text-align: right;
 			padding-right: 2%;
+		}
+		.builder-info {
+			display: inline-block;
+			margin-right: 1em;
+			margin-top: 0.72em;
+			float: left;
+			color: @dash-grey;
+			font-size: 0.88em;
+			&:hover, &:focus {
+				color: @orange;
+			}
 		}
 	}
 	.aj-imp-builder-top-title {
@@ -782,11 +838,41 @@ a {
 					}
 				}
 			}
+			.pages-help {
+				font-size: 0.88em;
+				color: @dash-grey;
+				.glyphicon {
+					font-size: 1.4em;
+					top: 3px;
+				}
+			}
+			.page-name-label {
+				vertical-align: top;
+			}
+			.page-sel-del {
+				display: inline-block;
+				text-align: left;
+				.delete-page {
+					color: @error-red;
+					font-size: 0.76em;
+					margin: 0.5em 1em 0 0;
+					display: block;
+					font-weight: 300;
+					white-space: nowrap;
+					&:hover {
+						color: darken(@error-red, 20%);
+					}
+				}
+			}
 			.add-new-page {
 				background: transparent;
 				color: @blue-grey;
 				font-size: 0.8em;
 				margin: 0 1em;
+				vertical-align: top;
+				white-space: nowrap;
+				position: relative;
+				top: 0.5em;
 				&:hover {
 					background: transparent;
 					color: @orange;
@@ -1335,7 +1421,7 @@ a {
 				a {
 					margin-right: 1px;
 					padding: 1px 8px;
-					&:hover {
+					&:hover, &.selected {
 						background: @orange;
 						color: #fff;
 					}
@@ -1344,6 +1430,14 @@ a {
 			.field-error {
 				color: @error-red;
 				padding: 0.5em 0;
+			}
+			.help-block {
+				padding: 0 1em;
+				color: @dash-grey;
+				font-size: 0.88em;
+				font-style: italic;
+				text-align: center;
+				margin-bottom: 0;
 			}
 		}
 	}
@@ -1528,6 +1622,16 @@ a {
 /****Modal Styles****/
 .modal-backdrop {
 	background: @3-grey; 
+}
+
+.modal-help-text {
+	padding: 1em;
+	border: 1px dotted @dash-grey;
+	color: @blue-grey;
+	text-align: center;
+	margin-bottom: 0.5em;
+	font-size: 1.1em;
+	border-radius: 3px;
 }
 
 .modal {
@@ -1775,14 +1879,19 @@ a {
 		}
 	}
 	.thumbnails, #selectable-images {
+		padding-top: 10px;
+		max-height: 400px;
+		overflow-y: auto;
 		.single-img {
 			position: relative;
 			.thumbnail {
-				margin-bottom: 30px;
-				border: 2px solid @dash-grey;
+				margin-bottom: 40px;
+				border: 1px solid @dash-grey;
+				padding: 2px;
 				.imgthumb {
-					height: 145px;
+					height: 84px;
 					text-align: center;
+					overflow: hidden;
 					img {
 						vertical-align: middle;
 						max-height: 145px;
@@ -1804,14 +1913,15 @@ a {
 			.ticker {
 				position: absolute;
 				top: -7px;
-				right: 5px;
+				right: 7px;
 				color: #fff;
-				padding: 3px 4px;
+				padding: 2px 4px 4px;
 				border-radius: 2px;
 				text-shadow: 0 0 1px @preview-grey;
 				background: @blue-grey;
 				display: none;
-				box-shadow: 0 0 2px #333;
+				box-shadow: 0 0 2px @dash-grey;
+				font-size: 0.6em;
 				.glyphicon-minus {
 					display: none;
 				}
@@ -1825,23 +1935,37 @@ a {
 					}
 				}
 			}
-            .delete-media-img {
-              display: none;
-              position: absolute;
-              bottom: 10px;
-              color: @error-red;
-              cursor: pointer;
-              font-size: 0.8em;
-            }
+            .delete-media-img, .edit-image {
+				position: absolute;
+				bottom: 13px;
+				cursor: pointer;
+				font-size: 0.78em;
+				margin-right: 10px;
+				&.delete-media-img {
+					color: #ff3333;
+					left: 60px;
+					visibility: hidden;
+	            }
+	            &.edit-image {
+	            	color: @blue-grey;
+	            }
+			}
 			&.ui-selected {
 				.thumbnail {
 					border-color: @blue-grey;
 				}
-				.ticker, .delete-media-img {
+              	.ticker {
 					display: block;
+				}
+				.delete-media-img {
+					visibility: visible;
 				}
 			}
 		}
+	}
+	.load-more {
+		margin: 0.5em auto 0;
+		float: right;
 	}
 	#edit-media-region, #selected-media-region {
 		border: 2px solid @dash-grey;
@@ -1967,6 +2091,7 @@ a {
 	.aj-imp-add-menu-item {
 		h4 {
 			font-size: 2em;
+			color: @dash-grey;
 		}
 		.desc {
 			font-size: 0.9em;
@@ -2186,6 +2311,8 @@ a {
 			list-style: none;
 			margin: 0;
 			padding: 0;
+			max-height: 400px;
+			overflow-y: auto;
 			.trash-elem {
 				border-radius: 2px;
 			    box-shadow: 0 0 1px #000 inset;
@@ -2406,8 +2533,13 @@ a {
 	.aj-imp-theme-area {
 		display: block;
 	}
-	#builder-region, #elements-box-region, #header-region, #fl_menu {
+	#builder-region, #elements-box-region, #fl_menu {
 		display: none;
+	}
+	#header-region {
+		.aj-imp-page-layout {
+			visibility: hidden;
+		}
 	}
 }
 
@@ -2583,6 +2715,11 @@ a {
 	color: darken(@dash-grey, 10%);
 	border: 2px solid lighten(@dash-grey, 20%);
 	border-radius: 4px;
+}
+
+.crop-help {
+	margin-right: 0.5em;
+	display: none;
 }
 
 .moveable {
@@ -2908,4 +3045,109 @@ a {
 			}
 		}
 	}
+}
+
+/**** Cropping Tool Styles ****/
+#edit-image-view {
+	.loading {
+		color: @dash-grey;
+	}
+    .imgedit-wrap {
+        border: 1px solid lighten(@dash-grey, 20%);
+        .imgedit-settings {
+            width: 25%;
+            background: @preview-grey;
+            padding-left: 10px;
+            .imgedit-group {
+                padding: 0 0 0.5em;
+                margin: 0 0.5em 0.5em;
+                border-bottom: 1px solid lighten(@dash-grey, 20%);
+                .imgedit-group-top {
+                    margin: 0.5em 0;
+                    h3 {
+                        font-size: 1.3em;
+                        color: darken(@dash-grey, 10%);
+                        margin: 0 0 0.3em;
+                    }
+                    .imgedit-submit {
+                    	.nowrap {
+                    		margin-bottom: 0.25em;
+                    		display: inline-block;
+                    	}
+                    }
+                }
+                &.imgedit-applyto {
+                    img {
+                        padding: 0.2em;
+                        border: 1px solid lighten(@dash-grey, 10%);
+                        margin-right: 0;
+                    }
+                }
+                &:last-child {
+                    border-bottom: 0;
+                }
+            }
+            p {
+                font-size: 1em;
+                color: @dash-grey;
+            }
+            input {
+                height: 36px;
+                padding: 8px;
+                border: 1px solid @dash-grey;
+                &:focus {
+                    border-color: @orange;
+                }
+                &.button {
+                    padding: 8px 13px 9px;
+                    border: 0;
+                    border-radius: 6px;
+                    color: #fff;
+                    background: @blue-grey;
+                    &:hover, &:focus {
+                        background: lighten(@blue-grey, 10%);
+                    }
+                }
+                &[type="radio"] {
+                    height: auto;
+                }
+            }
+        }
+        .imgedit-panel-content {
+            margin: 1em 0;
+            .imgedit-menu {
+                .clearfix;
+                border-bottom: 1px solid @dash-grey;
+                padding-bottom: 0.5em;
+            }
+            .imgedit-crop-wrap {
+                margin: 1em 0;
+            }
+            .imgedit-submit {
+                border-top: 1px solid @dash-grey;
+                padding-top: 0.5em;
+                input {
+                    height: 36px;
+                    &.button {
+                        padding: 8px 13px 9px;
+                        border: 0;
+                        border-radius: 6px;
+                        color: #fff;
+                        background: darken(@preview-grey, 20%);
+                        cursor: pointer;
+                        &.button-primary {
+                            background: @orange;
+                            margin: 0 0.5em;
+                            &:hover, &:focus {
+                                background: lighten(@orange, 10%);
+                            }
+                        }
+                        &:hover, &:focus {
+                            background: darken(@preview-grey, 30%);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

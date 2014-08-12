@@ -46,7 +46,21 @@ class LinkElement extends Element {
         parent::__construct( $element );
 
         $this->link   = $element[ 'link' ];
-        $this->text   = $element[ 'text' ];
+
+        $current_language = ICL_LANGUAGE_CODE;
+        $text = '';
+
+        if(is_array($element[ 'text' ])){
+            $text        = isset( $element[ 'text' ][ $current_language ] ) ? $element[ 'text' ][
+        $current_language ] : $element[ 'text' ][ wpml_get_default_language() ];
+        }
+        else{
+            $text = $element[ 'text' ];
+        }
+        
+        $this->text   = $text;
+
+
         $this->target = $element[ 'target' ];
         $this->style  = sanitize_title( $element[ 'style' ] );
         $this->markup = $this->generate_markup();

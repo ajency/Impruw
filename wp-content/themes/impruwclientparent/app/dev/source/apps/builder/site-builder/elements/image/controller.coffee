@@ -51,19 +51,21 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                     view = @_getImageView imageModel
 
                     #trigger media manager popup and start listening to "media:manager:choosed:media" event
-                    @listenTo view, "show:media:manager", =>
+                    @listenTo view, "show:media:manager", (ratio = false)=>
                         App.navigate "media-manager", trigger: true
+                        App.currentImageRatio = ratio
                         @listenTo App.vent, "media:manager:choosed:media", (media)=>
                             @layout.model.set 'image_id', media.get 'id'
+                            App.currentImageRatio = false
                             @stopListening App.vent, "media:manager:choosed:media"
 
                         @listenTo App.vent, "stop:listening:to:media:manager", =>
+                            App.currentImageRatio = false
                             @stopListening App.vent, "media:manager:choosed:media"
 
                     @listenTo view, "image:size:selected", (size)=>
                         @layout.model.set 'size', size
                         if @layout.model.hasChanged()
-                            console.log 'save     '+size
                             @layout.model.save()
 
                     @listenTo view, 'set:image:height',(height,width)=>

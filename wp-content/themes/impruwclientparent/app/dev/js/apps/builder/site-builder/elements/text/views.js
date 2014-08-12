@@ -26,9 +26,12 @@ define(['app'], function(App) {
       };
 
       TextView.prototype.onShow = function() {
+        var content, _ref;
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
-        return this.editor.setData(_.stripslashes(this.model.get('content')));
+        content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
+        this.editor.setData(_.stripslashes(content != null ? content : ''));
+        return this.editor.config.placeholder = 'Click here to enter your text...';
       };
 
       TextView.prototype.onClose = function() {

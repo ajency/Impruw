@@ -19,7 +19,10 @@ define [ 'app', 'text!apps/my-profile/password/templates/passwordform.html' ], (
             onShow : ->
                 @$el.validate
                     rules :
-                        newPassword : "required"
+                        newPassword :
+                            required : true,
+                            minlength: 6
+
                         confirmNewPassword :
                             equalTo : "#newPassword"
 

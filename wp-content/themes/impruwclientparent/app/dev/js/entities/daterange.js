@@ -60,6 +60,16 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
       getDateRangeCollection: function() {
         return dateRangeCollection;
       },
+      getTranslatedDateRangeCollection: function(language) {
+        var translatedDateRangeCollection;
+        translatedDateRangeCollection = new DateRangeCollection;
+        translatedDateRangeCollection.fetch({
+          data: {
+            language: language
+          }
+        });
+        return translatedDateRangeCollection;
+      },
       getDateRangeNameForDate: function(date) {
         var checkDateRange, models, time;
         time = date.getTime();
@@ -92,6 +102,9 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
     };
     App.reqres.setHandler("get:daterange:collection", function() {
       return API.getDateRangeCollection();
+    });
+    App.reqres.setHandler("get:translated:daterange:collection", function(language) {
+      return API.getTranslatedDateRangeCollection(language);
     });
     App.reqres.setHandler("create:new:daterange:model", function(data) {
       return API.createDateRangeModel(data);

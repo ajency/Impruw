@@ -8,7 +8,7 @@ define ['app'], (App)->
 						<h6 class="desc">{{post_title}}</h6>
 						<div class="aj-imp-choose-btn">
 							{{^currentTheme}}<a href="#" class="btn choose-theme"><span class="glyphicon glyphicon-ok"></span>&nbsp;{{#polyglot}}Choose{{/polyglot}}</a>{{/currentTheme}}
-							<a href="{{preview_link}}" target="_BLANK" class="btn"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;{{#polyglot}}Preview{{/polyglot}}</a>
+							<a href="{{preview_link}}" target="_newtab{{ID}}" class="btn"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;{{#polyglot}}Preview{{/polyglot}}</a>
 						</div>
 						{{#currentTheme}}<div class="current-wrapper"><div class="current">{{#polyglot}}Current Theme{{/polyglot}}</div></div>{{/currentTheme}}'
 
@@ -19,13 +19,14 @@ define ['app'], (App)->
 			serializeData:->
 				data = super()
 				data.currentTheme = CURRENTTHEME is data.post_name
+				data.post_title = _.polyglot.t(data.post_title)
 				data
 
 			events:
 				'click a.choose-theme': (e)->
 					e.stopPropagation()
 					e.preventDefault()
-					@$el.find('.choose-theme').text 'Applying...'
+					@$el.find('.choose-theme').text _.polyglot.t('Applying...')
 					@trigger "choose:theme:clicked", @model
 
 
@@ -33,22 +34,16 @@ define ['app'], (App)->
 		# choose theme view
 		class Views.ChooseThemeView extends Marionette.CompositeView
 
-			template: '<h2 class="page-title">{{#polyglot}}Choose Site Theme{{/polyglot}}</h2>\n
-						<p class="desc">{{#polyglot}}Theme applied for pages{{/polyglot}}\n    {{#polyglot}}Customise logo colors{{/polyglot}}\n    {{#polyglot}}Suit site preferences{{/polyglot}}</p>\n
-							{{^ISTHEMESELECTED}}
-								<div class="default-language-selection">
-									<h3 class="lang-title">{{#polyglot}}Choose default Language{{/polyglot}}</h3>\n
-									<select class="select-site-language">
-										<option value="English">{{#polyglot}}English{{/polyglot}}</option>
-										<option value="Norwegian">{{#polyglot}}Norwegian{{/polyglot}}</option>
-									</select>
-									<button class="btn choose-site-language"><span class="bicon icon-uniF19A"></span>&nbsp;{{#polyglot}}Choose Language{{/polyglot}}</button>\n
-								</div>
-							{{/ISTHEMESELECTED}}\n
-							{{#ISTHEMESELECTED}}\n
+			template: '<h2 class="page-title list-title">{{#polyglot}}Choose Site Theme{{/polyglot}}</h2>\n
+						<p class="desc list-desc">{{#polyglot}}Theme applied for pages{{/polyglot}}\n
+                            {{#polyglot}}Customise logo colors{{/polyglot}}\n    {{#polyglot}}Suit site preferences{{/polyglot}}</p>\n
+
+   							{{#ISTHEMESELECTED}}\n
 								<button class="btn btn-danger cancel-theme-switch">{{#polyglot}}Cancel{{/polyglot}}</button>\n
 							{{/ISTHEMESELECTED}}\n
-					<div class="aj-imp-block-list {{^ISTHEMESELECTED}}hidden{{/ISTHEMESELECTED}}">\n    <ul></ul>\n</div>'
+					<div class="aj-imp-block-list">\n
+                        <ul></ul>\n
+                    </div>'
 
 			events:
 				'click button.cancel-theme-switch' : ->
@@ -78,8 +73,4 @@ define ['app'], (App)->
 				# remove body class
 				$('body').removeClass 'choose-theme-page'
 
-			onSiteLanguageUpdated :->
-				# hide langauge
-				@$el.find('.default-language-selection').hide()
-				# show themes
-				@$el.find('.aj-imp-block-list').removeClass 'hidden'
+

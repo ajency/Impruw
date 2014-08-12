@@ -5,14 +5,18 @@ define ['app'], (App)->
 
         class SliderItem extends Marionette.ItemView
 
-            template: '<img src="{{full_url}}" alt="Slide" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat"/>'
+            template: '<img src="{{full_url}}" alt="Slide" data-bgfit="contain" data-bgposition="center center" data-bgrepeat="no-repeat"/>'
 
             tagName: 'li'
 
             onRender: ->
                 @$el.attr 'data-transition', 'fade'
-                .attr 'data-slotamount', '7'
-                    .attr 'data-masterspeed', '1500'
+                    .attr 'data-slotamount', '0'
+                    .attr 'data-masterspeed', '500'
+
+            modelEvents : 
+                'change:thumb_url change:full_url' : (model)->
+                    model.collection.trigger 'slide:image:url:updated'
 
 
         class EmptySlider extends Marionette.ItemView
@@ -36,25 +40,35 @@ define ['app'], (App)->
             itemViewContainer: '.fullwidthbanner > ul'
 
             events:
-                'click': (e)->
-                    @trigger "show:slides:manager"
+                'click': 'sliderClick'
                 'click .tp-rightarrow,.tp-leftarrow,.bullet': (e)->
                     e.stopPropagation()
+
+            collectionEvents : 
+                'slide:image:url:updated' : ->
+                    @render()
+                    @triggerMethod 'show'
 
             # close revolution slider on close
             onClose: ->
                 delete @revapi
 
-            initialize:->
+            _getSliderRatio : ->
+                width = @$el.width()
+                height = @$el.height()
+                "#{parseInt width}:#{parseInt height}"
+
+
+            initialize: (options = {}) ->
+                super options
                 @sliderHeight = Marionette.getOption @,'sliderHeight'
 
+
             onShow: ->
-                console.log "slider"
+                
                 return if @collection.length is 0
 
                 defaults = @_getDefaults()
-
-                console.log @sliderHeight
 
                 options =
                     startheight: @sliderHeight
@@ -73,12 +87,36 @@ define ['app'], (App)->
                         options.startheight = @$el.height() 
                         @$el.width('auto') 
                         @revapi = @$el.find(".fullwidthbanner").revolution options
-                        @trigger "set:slider:height", options.startheight
+                        @_saveSliderHeightWidth()
+
+                    start : (evt,ui)=>
+                        $(@).addClass('noclick')
 
                     
                     
 
-                @trigger "set:slider:height", options.startheight
+                # @trigger "set:slider:height", options.startheight
+
+                $('.aj-imp-publish').on 'click',@_saveSliderHeightWidth
+
+                @_saveSliderHeightWidth()
+
+
+            sliderClick : (e)->
+                e.stopPropagation()
+
+                if $(e.target).hasClass('noclick')
+                    $(e.target).removeClass('noclick')
+
+                else
+                    ratio = @_getSliderRatio()
+                    @trigger "show:slides:manager", ratio
+
+
+
+            _saveSliderHeightWidth : =>
+                @trigger "set:slider:height:width", @$el.height(), @$el.width()
+
 
             getTallestColumnHeight: ->
                 column = @$el.closest('.column')
@@ -138,3 +176,7 @@ define ['app'], (App)->
                 hideAllCaptionAtLilmit: 0
                 startWithSlide: 0
                 fullScreenOffsetContainer: ""
+
+
+            onBeforeClose :->
+                $('.aj-imp-publish').off 'click',@_saveSliderHeightWidth

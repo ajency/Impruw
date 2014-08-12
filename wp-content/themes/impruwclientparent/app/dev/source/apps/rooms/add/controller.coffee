@@ -14,7 +14,7 @@ define [ 'app', 'controllers/base-controller'
                 App.execute "when:fetched", sitemodel, =>
                     @currentCurrency = sitemodel.get 'currency'
 
-                    @layout = layout = @getAddRoomLayout @roomModel , @currentCurrency
+                    @layout = layout = @getAddRoomLayout @roomModel, @currentCurrency
 
                     @slidesCollection = App.request "get:slides:collection"
 
@@ -48,6 +48,15 @@ define [ 'app', 'controllers/base-controller'
                             region : layout.galleryRegion
                             collection : @slidesCollection
 
+                    #trigger media manager popup and start listening to "media:manager:choosed:media" event
+                    @listenTo @layout, "show:media:manager", =>
+                        App.navigate "media-manager", trigger : true
+                        @listenTo App.vent, "media:manager:choosed:media", ( media )=>
+                            @layout.triggerMethod "set:feature:image", media
+                            @stopListening App.vent, "media:manager:choosed:media"
+
+                        @listenTo App.vent, "stop:listening:to:media:manager", =>
+                            @stopListening App.vent, "media:manager:choosed:media"
 
                     @listenTo @layout, "save:new:room", ( data )=>
                         @_saveNewRoom data

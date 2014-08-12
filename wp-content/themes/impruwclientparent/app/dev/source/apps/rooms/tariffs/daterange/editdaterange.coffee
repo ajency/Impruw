@@ -56,12 +56,80 @@ define ['app', 'controllers/base-controller',
                 'click #btn_updatedaterange': ->
                     if @$el.valid()
                         data = Backbone.Syphon.serialize @
-                        @trigger "update:daterange:details", data
+                        if moment( data.to_date ).isAfter( data.from_date ) is true
+                            check = @checkDaterangeValid data
+#                            console.log check
+                            if check is 0
+                                @$el.parent().find( '.alert' ).remove()
+                                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Date range overlaps existing date range" ) + "</div>"
+                            else
+                                @trigger "update:daterange:details", data
+                        else
+                            @$el.parent().find( '.alert' ).remove()
+                            @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Select valid daterange" ) + "</div>"
 
                 'click #btn_deletedaterange': (e) ->
                     e.preventDefault()
                     if confirm _.polyglot.t 'All plans with date range deleted confirm'
                         @trigger "delete:daterange", @model
+
+            checkDaterangeValid : ( selectedDate )->
+                temp = 1;
+
+                daterangeCollection = App.request "get:daterange:collection"
+
+#                _.each daterangeCollection.models, ( daterangeModel, index ) =>
+#                    dateRangeModelId =  @model.get 'id'
+#                    dateRangeId=daterangeModel.get 'id'
+#                    console.log dateRangeModelId
+#                    console.log dateRangeId
+#
+#                    if dateRangeModelId != dateRangeId
+#
+#                        fromDate = daterangeModel.get 'from_date'
+#                        toDate = daterangeModel.get 'to_date'
+#
+#                        fromDate = moment( fromDate ).subtract( 'days', 1 )
+#                        toDate = moment( toDate ).add( 'days', 1 )
+#
+#                        fromDateCheck = moment( selectedDate.from_date ).isAfter( fromDate )
+#                        toDateCheck = moment( selectedDate.to_date ).isBefore( toDate )
+#
+#                        if fromDateCheck is true and toDateCheck is false
+#                            temp = temp + 1
+#                        else
+#                            temp = 0
+#                    else
+#                        console.log 'hii'
+#                        console.log temp
+#                        false
+
+                for daterangeModel in daterangeCollection.models
+
+                    dateRangeModelId =  @model.get 'id'
+                    dateRangeId=daterangeModel.get 'id'
+#                    console.log dateRangeModelId
+#                    console.log dateRangeId
+
+                    if dateRangeModelId != dateRangeId
+
+                        fromDate = daterangeModel.get 'from_date'
+                        toDate = daterangeModel.get 'to_date'
+
+                        fromDate = moment( fromDate ).subtract( 'days', 1 )
+                        toDate = moment( toDate ).add( 'days', 1 )
+
+                        fromDateCheck = moment( selectedDate.from_date ).isAfter( fromDate )
+                        toDateCheck = moment( selectedDate.to_date ).isBefore( toDate )
+
+                        if fromDateCheck is true and toDateCheck is false
+                            temp = temp + 1
+                        else
+                            temp = 0
+                    else
+                        break
+
+                temp
 
             serializeData: ->
                 data = super()
@@ -72,6 +140,7 @@ define ['app', 'controllers/base-controller',
             onUpdatedDaterange: ->
                 @$el.parent().find('.alert').remove()
                 @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>"
+                @displayDatePicker()
 
             onDeletedDaterange: ->
                 @trigger "dialog:close"
@@ -80,17 +149,21 @@ define ['app', 'controllers/base-controller',
             onShow: ->
                 @$el.find('input[type="checkbox"]').checkbox()
                 @$el.find('#daterange_colour').minicolors()
+                @displayDatePicker()
 
-                @$el.find('.dated').datepicker
-                    showOtherMonths: true
-                    selectOtherMonths: true
-                    dateFormat: "yy-mm-dd"
+
+            displayDatePicker :->
+
+                @$el.find( '.dated' ).datepicker
+                    showOtherMonths : true
+                    selectOtherMonths : true
+                    dateFormat : "yy-mm-dd"
                     beforeShowDay : @disableDateRange
                     beforeShow : @setDateRangeColorDelayed
-
-                .prev('.btn').on 'click', (e) =>
+                    onChangeMonthYear : @displayColorMonthChange
+                .prev( '.btn' ).on 'click', ( e ) =>
                     e && e.preventDefault();
-                    $(datepickerSelector).focus();
+                    $( datepickerSelector ).focus()
 
             disableDateRange : ( date ) =>
                 currentDateRange =  @model.get 'daterange_name'

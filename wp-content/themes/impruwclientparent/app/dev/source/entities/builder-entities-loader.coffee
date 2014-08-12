@@ -15,4 +15,5 @@ define [
     'entities/facilities'
     'entities/roomtitle'
     'entities/builder/revisions'
+    'entities/languages'
 ], ->
