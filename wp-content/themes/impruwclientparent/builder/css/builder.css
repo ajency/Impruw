@@ -2230,6 +2230,8 @@ a.red-link.pull-right {
   list-style: none;
   margin: 0;
   padding: 0;
+  max-height: 400px;
+  overflow-y: auto;
 }
 .aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem {
   border-radius: 2px;
