@@ -205,7 +205,7 @@ define ['app', 'moment'], (App, moment)->
 
             serializeData: ->
                 data = super()
-                data.daterange_name = _(data.daterange_name).prune 20
+                data.daterange_name = _(data.daterange_name).prune 30
                 data.fromdate = ->
                     moment(@from_date).format 'Do-MMM'
 
