@@ -431,7 +431,7 @@
 .daterange-legends{
 	text-transform:uppercase;
 	font-size:0.9em;
-	color:@tertiary1;
+	color:@text-color;
 	li{
 		span{
 			width: 13px;
@@ -524,7 +524,7 @@
 				}
 				.booking-price{
 					font-size:0.8em;
-					font-weight:100;
+					font-weight:300;
 					margin-top:3%;
 					b{
 						font-size:2.0em;
@@ -541,13 +541,13 @@
 			h4{
 				font-weight: 600;
 				font-size: 1.5em;
-				color: @tertiary1;
+				color: @secondary1;
 				text-transform: uppercase;
 				margin-bottom: 30px;
 				margin-top: 30px;
 				.glyphicon {
 					font-size: 1.5em;
-					color: @tertiary1;
+					color: @secondary1;
 					float: left;
 					margin-right: 1%;
 				}
@@ -621,6 +621,13 @@
 										line-height: 49px;
 										text-align: center;
 										border:0px;
+										background: transparent;
+								}
+								a {
+									color: @primary1;
+									&:hover {
+										color: darken(@primary1, 10%);
+									}
 								}
 								> span {
 									background: rgba(255, 255, 255, 0.6);
@@ -693,8 +700,11 @@
 										}
 									}
 					.ui-state-active {
-						background: transparent;
-						color: #34495E;
+						background: lighten(@primary1, 20%);
+						color: @secondary1;
+						&:hover {
+							background: lighten(@primary1, 30%);
+						}
 					}
 					.ui-state-highlight {
 						border-color: lighten(@primary1, 20%);

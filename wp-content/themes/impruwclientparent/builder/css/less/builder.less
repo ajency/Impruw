@@ -804,7 +804,7 @@ a {
 			}
 			.aj-imp-browser-title {
 				font-size: 1.1em;
-				text-align: right;
+				text-align: center;
 				margin: 0 0 0.8em;
 				color: lighten(@3-grey, 30%);
 				font-weight: 700;
@@ -846,11 +846,33 @@ a {
 					top: 3px;
 				}
 			}
+			.page-name-label {
+				vertical-align: top;
+			}
+			.page-sel-del {
+				display: inline-block;
+				text-align: left;
+				.delete-page {
+					color: @error-red;
+					font-size: 0.76em;
+					margin: 0.5em 1em 0 0;
+					display: block;
+					font-weight: 300;
+					white-space: nowrap;
+					&:hover {
+						color: darken(@error-red, 20%);
+					}
+				}
+			}
 			.add-new-page {
 				background: transparent;
 				color: @blue-grey;
 				font-size: 0.8em;
 				margin: 0 1em;
+				vertical-align: top;
+				white-space: nowrap;
+				position: relative;
+				top: 0.5em;
 				&:hover {
 					background: transparent;
 					color: @orange;
