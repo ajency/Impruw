@@ -416,7 +416,7 @@
 .daterange-legends{
 	text-transform:uppercase;
 	font-size:0.9em;
-	color:@tertiary1;
+	color:@text-color;
 	li{
 		span{
 			width: 13px;
@@ -452,14 +452,14 @@
 		margin: 0 15px;
 	}
 	.room-booking-container{
-		background: lighten(@primary1, 20%);
+		background: lighten(@primary1, 10%);
 		.room-booking-data{
-			background: @primary1;
+			background: @secondary1;
 			padding-top:@medium;
 			min-height: 590px;
 			.date-range{
 				font-size:1.3em;
-				color: @secondary1;
+				color: @text-color;
 				margin-bottom: 10%;
 				b {
 					font-size: 1.5em;
@@ -473,17 +473,17 @@
 				}
 			}
 			.room-booking-plan {
-				color: @secondary1;
+				color: @text-color;
 				border-bottom: 1px dashed @tertiary1;
 				padding-bottom: 5%;
 				margin-bottom: 5%;
 				h5{
 					font-weight: 600;
 					font-size: 1.5em;
-					color:lighten(@tertiary1, 20%);
+					color:@tertiary1;
 				}
 				.plan-bg{
-					background:lighten(@primary1, 10%);
+					background:rgba(255, 255, 255, 0.3);
 					padding:1px 4px;
 					margin-top: 2%;
 				}
@@ -492,7 +492,7 @@
 					float:left;
 					font-size:0.9em;
 					font-weight:300;
-					color:lighten(@secondary1, 20%);
+					color:@text-color;
 					span{
 						font-weight:800;
 						font-size:1.8em;
@@ -503,13 +503,14 @@
 					font-weight:600;
 					font-size:1.0em;
 					text-transform:uppercase;
-					color:lighten(@secondary1, 20%);
+					color:@secondary1;
 					
 				}
 				.booking-price{
 					font-size:0.8em;
 					font-weight:100;
 					margin-top:3%;
+					color: @primary1;
 					b{
 						font-size:2.0em;
 					}
@@ -525,7 +526,7 @@
 			h4{
 				font-weight: 600;
 				font-size: 1.5em;
-				color: @tertiary1;
+				color: @text-color;
 				text-transform: uppercase;
 				margin-bottom: 30px;
 				margin-top: 30px;
