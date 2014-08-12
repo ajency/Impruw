@@ -14,6 +14,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.enableSelectPicker = __bind(this.enableSelectPicker, this);
         this._addToPageSlug = __bind(this._addToPageSlug, this);
         this.onPagePublished = __bind(this.onPagePublished, this);
+        this.getOriginalPageId = __bind(this.getOriginalPageId, this);
         this.getCurrentPageId = __bind(this.getCurrentPageId, this);
         this.getCurrentPageName = __bind(this.getCurrentPageName, this);
         this.addPageDropDown = __bind(this.addPageDropDown, this);
@@ -71,11 +72,12 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.new_page_id = this.modelAddedToCollection.get('ID');
         _.each(this.collection.models, (function(_this) {
           return function(model, index) {
-            var modelId, page_name, select_html, selectpicker_html;
+            var modelId, originalPageId, page_name, select_html, selectpicker_html;
             modelId = model.get('ID');
+            originalPageId = model.get('original_id');
             if (modelId === _this.new_page_id) {
               page_name = model.get('post_title');
-              select_html = "<option value='" + modelId + ("'>" + page_name + "</option>");
+              select_html = "<option value='" + modelId + "' data-originalid='" + originalPageId + ("'>" + page_name + "</option>");
               selectpicker_html = "<li rel='" + index + "'> <a tabindex='0' class='' style=''> <span class='text'>" + page_name + "</span> <i class='glyphicon glyphicon-ok icon-ok check-mark'></i> </a> </li>";
               _this.$el.find('div .dropdown-menu ul').append(selectpicker_html);
               return _this.$el.find('select#builder-page-sel').append(select_html);
@@ -87,7 +89,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       MainView.prototype.initialize = function() {
         App.reqres.setHandler("get:current:editable:page:name", this.getCurrentPageName);
-        return App.reqres.setHandler("get:current:editable:page", this.getCurrentPageId);
+        App.reqres.setHandler("get:current:editable:page", this.getCurrentPageId);
+        return App.reqres.setHandler("get:original:editable:page", this.getOriginalPageId);
       };
 
       MainView.prototype.getCurrentPageName = function() {
@@ -100,6 +103,12 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.getCurrentPageId = function() {
         var pageId;
         pageId = this.$el.find('select#builder-page-sel').val();
+        return parseInt(pageId);
+      };
+
+      MainView.prototype.getOriginalPageId = function() {
+        var pageId;
+        pageId = this.$el.find('select#builder-page-sel').find(':selected').data('originalid');
         return parseInt(pageId);
       };
 

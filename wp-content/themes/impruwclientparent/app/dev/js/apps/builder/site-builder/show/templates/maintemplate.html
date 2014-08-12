@@ -18,7 +18,7 @@
                     <div class="page-sel-del">
                         <select id="builder-page-sel" name="builder-page-sel">
                             {{#pages}}
-                            <option data-slug="{{post_name}}" value="{{ID}}">{{post_title}}</option>
+                            <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
                             {{/pages}}
                         </select>
                         <a href="#" class="delete-page">

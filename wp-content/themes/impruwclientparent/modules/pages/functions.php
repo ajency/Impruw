@@ -215,6 +215,10 @@ function get_all_menu_pages() {
             'Sample Page' );
 
         foreach ( $pages->posts as $page ) {
+            //Also send original page id to the page object
+            $page = (array)$page;
+            $page['original_id'] = icl_object_id($page['ID'], 'page', true, 'en');
+            $page = (object)$page;
 
             if ( !in_array( $page->post_title, $skip ) )
                 $p[ ] = $page;
