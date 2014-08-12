@@ -13,7 +13,7 @@ define(['app', 'moment'], function(App, moment) {
 
       PackageSingle.prototype.className = 'package-block-outer';
 
-      PackageSingle.prototype.template = '<div class="block clearfix"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plandescription}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit{{/polyglot}}</a> </div>';
+      PackageSingle.prototype.template = '<div class="block clearfix"> <h6>{{planname}}</h6> <div class="package-desc"> {{plandescription}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit{{/polyglot}}</a> </div>';
 
       PackageSingle.prototype.modelEvents = {
         "change": "render"
@@ -31,8 +31,11 @@ define(['app', 'moment'], function(App, moment) {
       PackageSingle.prototype.serializeData = function() {
         var data;
         data = PackageSingle.__super__.serializeData.call(this);
+        data.planname = function() {
+          return _(this.plan_name).prune(25);
+        };
         data.plandescription = function() {
-          return _(this.plan_description).prune(50);
+          return _(this.plan_description).prune(35);
         };
         return data;
       };
@@ -177,6 +180,7 @@ define(['app', 'moment'], function(App, moment) {
       DateRangeView.prototype.serializeData = function() {
         var data;
         data = DateRangeView.__super__.serializeData.call(this);
+        data.daterange_name = _(data.daterange_name).prune(20);
         data.fromdate = function() {
           return moment(this.from_date).format('Do-MMM');
         };
