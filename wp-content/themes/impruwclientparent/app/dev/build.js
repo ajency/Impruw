@@ -1,8 +1,8 @@
 ({
-    baseUrl: './js',
-    name: 'plugins/almond',
-    include: 'builder-main',
-    exclude: ['plugins/ckeditor'],
+    baseUrl : './js/',
+    name : 'plugins/almond',
+    include : 'builder-main',
+    exclude : ['plugins/ckeditor'],
     //optimize: 'none',
     wrap: false,
     out: '../production/builder-main.js',
@@ -50,58 +50,58 @@
         imageedit: '../../../../../../wp-admin/js/image-edit',
         json2: '../../../../../../wp-includes/js/json2',
         svgpainter: '../../../../../../wp-admin/js/svg-painter',
-        app: 'builder-app'
+        app : 'builder-app'
     },
-    shim: {
+    shim : {
         imageedit: ['jquery', 'json2', 'imageareaselect'],
         imageareaselect: ['jquery'],
         svgpainter: ['jquery'],
-        underscore: {
-            exports: '_'
+        underscore : {
+            exports : '_'
         },
-        jquery: ['underscore'],
-        jqueryui: ['jquery'],
-        backbone: {
-            deps: ['jquery', 'underscore'],
-            exports: 'Backbone'
+        jquery : ['underscore'],
+        jqueryui : ['jquery'],
+        backbone : {
+            deps : ['jquery', 'underscore'],
+            exports : 'Backbone'
         },
-        marionette: {
-            deps: ['backbone'],
-            exports: 'Marionette'
+        marionette : {
+            deps : ['backbone'],
+            exports : 'Marionette'
         },
-        googlemap: {
-            exports: 'google'
+        googlemap : {
+            exports : 'google'
         },
-        polyglot: {
-            exports: 'Polyglot'
+        polyglot : {
+            exports : 'Polyglot'
         },
-        holder: 'Holder',
-        jqueryvalidate: ['jquery'],
-        underscorestring: ['underscore'],
-        backboneform: ['backbone'],
-        backbonesyphon: ['backbone'],
-        backbonerelational: ['backbone'],
-        backboneassociations: ['backbone'],
-        imgLiquid: ['jquery'],
-        jqueryspin: ['spin'],
-        bootstrap: ['jquery'],
-        themepunch: ['jquery'],
-        isotope: ['jquery'],
-        minicolors: ['jquery'],
-        revslider: ['themepunch'],
-        plupload: {
-            deps: ['jquery'],
-            exports: 'plupload'
+        holder : 'Holder',
+        jqueryvalidate : ['jquery'],
+        underscorestring : ['underscore'],
+        backboneform : ['backbone'],
+        backbonesyphon : ['backbone'],
+        backbonerelational : ['backbone'],
+        backboneassociations : ['backbone'],
+        imgLiquid : ['jquery'],
+        jqueryspin : ['spin'],
+        bootstrap : ['jquery'],
+        themepunch : ['jquery'],
+        isotope : ['jquery'],
+        minicolors : ['jquery'],
+        revslider : ['themepunch'],
+        plupload : {
+            deps : ['jquery'],
+            exports : 'plupload'
         },
-        cookie: ['jquery'],
-        nestedsortable: ['jqueryui'],
-        radio: ['bootstrap'],
-        checkbox: ['bootstrap'],
-        bootstrapselect: ['bootstrap'],
-        bootbox: {
-            deps: ['bootstrap'],
-            exports: 'bootbox'
+        cookie : ['jquery'],
+        nestedsortable : ['jqueryui'],
+        radio : ['bootstrap'],
+        checkbox : ['bootstrap'],
+        bootstrapselect : ['bootstrap'],
+        bootbox : {
+            deps : ['bootstrap'],
+            exports : 'bootbox'
         },
-        app: ['pluginloader', 'configloader']
+        app : ['pluginloader', 'configloader']
     }
 })

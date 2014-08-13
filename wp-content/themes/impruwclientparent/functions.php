@@ -3,6 +3,8 @@
  * File Name: functions.php Description: This file has a list of the following functions used in this theme
  */
 
+// Include WPML API
+include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
 
 use framework\elements\PageElementsCollection;
 
@@ -43,6 +45,7 @@ require_once 'modules/bookings/ajax.php';
 require_once 'modules/revision/ajax.php';
 require_once 'modules/elements/ajax.php';
 require_once 'modules/media/ajax.php';
+require_once 'modules/language/ajax.php';
 require_once 'modules/language/languagefunctions.php';
 require_once 'modules/billing/ajax.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
@@ -68,7 +71,8 @@ add_theme_support( 'post-thumbnails' );
 
 // remove wordpress admin bar
 show_admin_bar( FALSE );
-load_theme_textdomain( 'impruwclientparent' );
+//load_theme_textdomain( 'impruwclientparent' );
+load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
 
 /**
  * [send_contact_form_message description]
@@ -259,6 +263,11 @@ function generate_markup( $section ) {
 
     $id = !is_null( $post ) ? $post->ID : 0;
 
+    //Generate page markup based on language
+    ////if ( wpml_get_current_language() != wpml_get_default_language() ) {
+        $id = icl_object_id( $id, 'page', TRUE, 'en' );
+    //}
+
     $autosave = FALSE;
 
     if ( isset( $_GET[ 'preview' ] ) && $_GET[ 'preview' ] == 'true' ) {
@@ -359,6 +368,9 @@ function add_element_markup( $element ) {
             break;
         case 'Logo' :
             $html = get_logo_element_markup( $element );
+            break;
+        case 'LanguageSwitcher' :
+            $html = get_language_switcher_element_markup( $element );
             break;
         case 'RoomDescription' :
             $html = get_room_description_markup( $element );
@@ -658,6 +670,23 @@ function get_logo_element_markup( $element ) {
 
     return $html;
 }
+
+/**
+ * Generates the language switcher markup
+ *
+ * @param type $element
+ */
+function get_language_switcher_element_markup( $element ){
+    require_once PARENTTHEMEPATH . 'elements/LanguageSwitcher.php';
+
+    $languageSwitcher = new LanguageSwitcher( $element );
+
+    $html = $languageSwitcher->get_markup();
+
+    return $html;
+
+}
+
 
 /**
  * Generates the address markup
@@ -1515,12 +1544,21 @@ function get_menu_to_array( $mn, $by = 'name' ) {
     // create all top level menu
     foreach ( (array)$m as $menu_item ) {
 
+        //Get translation of menu title in default language
+        $menu_item_page_id = $menu_item->object_id;
+        $default_language = wpml_get_default_language();
+        $translated_item_page_id = icl_object_id($menu_item_page_id, 'page', true, $default_language);
+
+        $translated_item_page = get_post($translated_item_page_id);
+
+        $translated_menu_item_page_title = $translated_item_page->post_title;
+
         $mn = array(
-            'ID' => $menu_item->ID,
-            'order' => $menu_item->menu_order,
-            'menu_item_title' => $menu_item->title,
-            'menu_item_url' => $menu_item->url,
-            'menu_id' => $menu->term_id
+            'ID'              => $menu_item->ID,
+            'order'           => $menu_item->menu_order,
+            'menu_item_title' => $translated_menu_item_page_title,
+            'menu_item_url'   => $menu_item->url,
+            'menu_id'         => $menu->term_id,
         );
 
         if ( (int)$menu_item->menu_item_parent === 0 ) {

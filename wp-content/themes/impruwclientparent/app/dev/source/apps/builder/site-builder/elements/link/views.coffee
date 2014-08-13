@@ -8,9 +8,17 @@ define ['app'], (App)->
 
             tagName: 'span'
 
-            template: '<a href="{{link}}" target="{{target}}">{{text}}</a>'
+            template: '<a href="{{link}}" target="{{target}}">{{textContent}}</a>'
 
             className: 'link'
+
+            mixinTemplateHelpers: (data)->
+                data = super data
+
+                data.textContent = ->
+                    textContent = data.text[WPML_DEFAULT_LANG]
+                    return textContent
+                data
 
             onRender: ()->
                 className = _.slugify @model.get 'style'

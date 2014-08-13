@@ -27,8 +27,8 @@ define ['app'], (App)->
             className: 'room-facilities-container'
 
             template: "<div class='room-facilities-title'>
-            							<h5>Room Features</h5>
-            							<h4>Standard Book</h5>
+            							<h5>{{#polyglot}}Room Features{{/polyglot}}</h5>
+            							<h4>{{#polyglot}}Standard Book{{/polyglot}}</h5>
             						</div>
             						<ul class='facilities clearfix'>
             						</ul>"

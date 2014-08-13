@@ -45,7 +45,7 @@ define(['app'], function(App) {
 
       RoomFacilitiesView.prototype.className = 'room-facilities-container';
 
-      RoomFacilitiesView.prototype.template = "<div class='room-facilities-title'> <h5>Room Features</h5> <h4>Standard Book</h5> </div> <ul class='facilities clearfix'> </ul>";
+      RoomFacilitiesView.prototype.template = "<div class='room-facilities-title'> <h5>{{#polyglot}}Room Features{{/polyglot}}</h5> <h4>{{#polyglot}}Standard Book{{/polyglot}}</h5> </div> <ul class='facilities clearfix'> </ul>";
 
       RoomFacilitiesView.prototype.itemView = RoomFacilitiesItemView;
 

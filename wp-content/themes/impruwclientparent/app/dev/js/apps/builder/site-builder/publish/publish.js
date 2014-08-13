@@ -27,7 +27,7 @@ define(['app'], function(App) {
         if (!_.isObject(_sectionJson)) {
           throw new Error("invalid json...");
         }
-        _page_id = App.request("get:current:editable:page");
+        _page_id = App.request("get:original:editable:page");
         options = {
           type: 'POST',
           url: AJAXURL,

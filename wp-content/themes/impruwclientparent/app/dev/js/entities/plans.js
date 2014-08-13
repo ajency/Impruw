@@ -60,6 +60,18 @@ define(["app", 'backbone'], function(App, Backbone) {
         var plan;
         plan = planCollection.get(parseInt(id));
         return plan;
+      },
+      getTranslatedPlanById: function(id, language) {
+        var translatedPlanModel;
+        translatedPlanModel = new Plan;
+        translatedPlanModel.fetch({
+          data: {
+            plan_id: id,
+            language: language,
+            action: 'fetch-plan-by-language'
+          }
+        });
+        return translatedPlanModel;
       }
     };
     App.reqres.setHandler("get:plans:collection", function() {
@@ -68,8 +80,11 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("create:plan:model", function(data) {
       return API.createPlanModel(data);
     });
-    return App.reqres.setHandler("get:plan:by:id", function(id) {
+    App.reqres.setHandler("get:plan:by:id", function(id) {
       return API.getPlanById(id);
+    });
+    return App.reqres.setHandler("get:translated:plan:by:id", function(id, language) {
+      return API.getTranslatedPlanById(id, language);
     });
   });
 });

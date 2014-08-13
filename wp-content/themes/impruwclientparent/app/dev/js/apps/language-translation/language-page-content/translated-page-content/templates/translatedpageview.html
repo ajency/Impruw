@@ -1,0 +1,31 @@
+<div class="form-group legend-group">
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <h6 class="aj-imp-widget-title">
+                    {{#polyglot}}Translation{{/polyglot}} (<small>{{language}}</small>)
+                </h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-group legend-group">
+    <div class="col-sm-12">
+        <div class="form-group trans-field">
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="translated-page-title" value ="{{pageTitle}}"/>
+                <input type="hidden" id= "translated-page-id" value="{{pageId}}">
+                <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-page-title">
+                    {{#polyglot}}Save{{/polyglot}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="translated-page-elements">
+</div>
+
+

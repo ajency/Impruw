@@ -1,41 +1,46 @@
-define ['app', 'apps/builder/site-builder/elements/text/views',
-        'apps/builder/site-builder/elements/text/settings/controller'],
-(App)->
-    App.module 'SiteBuilderApp.Element.Text', (Text, App, Backbone, Marionette, $, _)->
+define [ 'app', 'apps/builder/site-builder/elements/text/views',
+         'apps/builder/site-builder/elements/text/settings/controller' ],
+( App )->
+   App.module 'SiteBuilderApp.Element.Text', ( Text, App, Backbone, Marionette, $, _ )->
 
-        # menu controller
-        class Text.Controller extends App.SiteBuilderApp.Element.Controller
+      # menu controller
+      class Text.Controller extends App.SiteBuilderApp.Element.Controller
 
-            # intializer
-            initialize: (options)->
-                _.defaults options.modelData,
-                    element: 'Text'
-                    content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    														   Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s'
+         # intializer
+         initialize : ( options )->
+            data = {}
+            data[WPML_DEFAULT_LANG] = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                    Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s'
 
-                super(options)
+            _.defaults options.modelData,
+               element : 'Text'
+               content : data
 
-            bindEvents: ->
-                # start listening to model events
-                #@listenTo @layout.model, "change:content", @renderElement
-                super()
+            super( options )
 
-            _getTextView: (model)->
-                new Text.Views.TextView
-                    model: model
+         bindEvents : ->
+            # start listening to model events
+            #@listenTo @layout.model, "change:content", @renderElement
+            super()
 
-            # setup templates for the element
-            renderElement: ()=>
-                @removeSpinner()
-                view = @_getTextView @layout.model
+         _getTextView : ( model )->
+            new Text.Views.TextView
+                           model : model
 
-                # listen to "text:element:blur" event
-                # this will pass the current html for the text element.
-                # set it to the model. If it is a different markup it will
-                # change the model changed property to true
-                # save the new markup if the model is changed
-                @listenTo view, "text:element:blur", (html) =>
-                    @layout.model.set 'content', "#{html}"
-                    @layout.model.save() if @layout.model.hasChanged()
+         # setup templates for the element
+         renderElement : ()=>
+            @removeSpinner()
+            view = @_getTextView @layout.model
 
-                @layout.elementRegion.show view
+            # listen to "text:element:blur" event
+            # this will pass the current html for the text element.
+            # set it to the model. If it is a different markup it will
+            # change the model changed property to true
+            # save the new markup if the model is changed
+            @listenTo view, "text:element:blur", ( html ) =>
+               data = {}
+               data[WPML_DEFAULT_LANG] = html
+               @layout.model.set 'content', data
+               @layout.model.save() if @layout.model.hasChanged()
+
+            @layout.elementRegion.show view

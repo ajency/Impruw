@@ -32,13 +32,14 @@ define(['app', 'text!apps/my-profile/language/templates/languageView.html'], fun
           data = {
             'user_lang': langName
           };
-          return this.trigger("update:user:lang:click", data);
+          if (confirm(_.polyglot.t('Change of language will cause the page to refresh. Are you sure you want to proceed?'))) {
+            return this.trigger("update:user:lang:click", data);
+          }
         }
       };
 
       LanguageForm.prototype.onUserLangUpdated = function() {
-        this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("User language updated") + '</div>');
+        return window.location.reload();
       };
 
       return LanguageForm;

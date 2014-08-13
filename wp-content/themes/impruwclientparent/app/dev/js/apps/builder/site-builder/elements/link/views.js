@@ -12,9 +12,19 @@ define(['app'], function(App) {
 
       LinkView.prototype.tagName = 'span';
 
-      LinkView.prototype.template = '<a href="{{link}}" target="{{target}}">{{text}}</a>';
+      LinkView.prototype.template = '<a href="{{link}}" target="{{target}}">{{textContent}}</a>';
 
       LinkView.prototype.className = 'link';
+
+      LinkView.prototype.mixinTemplateHelpers = function(data) {
+        data = LinkView.__super__.mixinTemplateHelpers.call(this, data);
+        data.textContent = function() {
+          var textContent;
+          textContent = data.text[WPML_DEFAULT_LANG];
+          return textContent;
+        };
+        return data;
+      };
 
       LinkView.prototype.onRender = function() {
         var className;
