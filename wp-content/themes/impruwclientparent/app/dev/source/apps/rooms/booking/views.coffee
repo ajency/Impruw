@@ -129,8 +129,8 @@ define ['app'
                             <div id='booking-slider' data-value='#{value}'></div>
                             <div class='row'>
                                 <div class='col-md-4 available'><span>#{_.polyglot.t('available')}</span></div>
-                                <div class='col-md-4 semi-available'><span>#{_.polyglot.t('semi-available')}</span></div>
-                                <div class='col-md-4 unavailable'><span>#{_.polyglot.t('unavailable')}</span></div>
+                                <div class='col-md-4 semi-available'><span>#{_.polyglot.t('filling fast')}</span></div>
+                                <div class='col-md-4 unavailable'><span>#{_.polyglot.t('sold out')}</span></div>
                             </div>
                         </div>"
                 html
