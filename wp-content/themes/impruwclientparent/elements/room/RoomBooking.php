@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class is responsible for all actions/functions related to 
+ * This class is responsible for all actions/functions related to
  * Room Title Element
  *
  * @category   layout
@@ -19,7 +19,7 @@ class RoomBooking extends Element {
 
     /**
      * The default type property for element
-     * @var String 
+     * @var String
      */
     var $type = 'roombooking';
 
@@ -27,23 +27,30 @@ class RoomBooking extends Element {
      * The config to create a row element
      * @param array $element
      */
-    function __construct($element, $post_id = 0) {
+    function __construct( $element, $post_id = 0 ) {
 
-        parent::__construct($element);
+        parent::__construct( $element );
 
-        $this->markup = $this->generate_markup();
+        if ( isset($_GET[ 'preview' ]) && $_GET[ 'preview' ] === "true" ) {
+
+            $this->markup = $this->generate_preview_markup();
+        } else {
+            $this->markup = $this->generate_markup();
+        }
+
+
     }
 
     /**
      * Create the basic markup for an element
      * @uses className and tagName properties of element
      * @return String basic markup
-     */ 
+     */
     function generate_markup() {
-     $html = '       
-         <script src="'.site_url().'/wp-content/themes/impruwclientparent/dashboard/lib/jquery.ui.min.js"></script>
-          <script src="'.site_url().'/wp-content/themes/impruwclientparent/dashboard/lib/moment.min.js"></script>
-              <script src="'.site_url().'/wp-content/themes/impruwclientparent/dashboard/lib/moment-range.js"></script>
+        $html = '
+         <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/jquery.ui.min.js"></script>
+          <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment.min.js"></script>
+              <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment-range.js"></script>
               
             <h4 class="booking-title">Booking &amp; Availability</h4>
             <div class="room-booking front" id="room-booking-region">
@@ -63,10 +70,10 @@ class RoomBooking extends Element {
                                 <br>
                                 <br>
                                 <ul class="list-inline daterange-legends"> ';
-                                
-                                     $html .= $this->get_daterange_legends();
 
-               $html .= '       </ul>
+        $html .= $this->get_daterange_legends();
+
+        $html .= '       </ul>
                             </div>
                             
                       </div>
@@ -106,41 +113,121 @@ class RoomBooking extends Element {
                     
                 </div> <!-- room-booking-region end  -->';
 
-     return $html;
+        return $html;
     }
-    
-  // slug the date range name  
-    function slugify($str){
-        $str = strtolower(trim($str));
-	$str = preg_replace('/[^a-z0-9-]/', '-', $str);
-	$str = preg_replace('/-+/', "-", $str);
-	return $str;
+
+    // slug the date range name
+    function slugify( $str ) {
+        $str = strtolower( trim( $str ) );
+        $str = preg_replace( '/[^a-z0-9-]/', '-', $str );
+        $str = preg_replace( '/-+/', "-", $str );
+        return $str;
     }
-    
+
     function get_daterange_legends() {
         global $me;
-        
-        $html ='';
-        
-        $daterange =get_date_range();
-        
-      
-        foreach ($daterange as $key => $value) {
-            
+
+        $html = '';
+
+        $daterange = get_date_range();
+
+
+        foreach ( $daterange as $key => $value ) {
+
             $data = array(
-                            'daterange_name'=> $daterange[$key]['daterange_name'],
-                            'daterange_class'=> $this->slugify($daterange[$key]['daterange_name'])
-                    );
-            
+                'daterange_name' => $daterange[ $key ][ 'daterange_name' ],
+                'daterange_class' => $this->slugify( $daterange[ $key ][ 'daterange_name' ] )
+            );
+
             $template = ' <li>
                             <span class="{{daterange_class}}">&nbsp;</span>
                             {{daterange_name}}
                          </li>';
-            
-            $html .= $me->render($template,$data);
+
+            $html .= $me->render( $template, $data );
         }
-        
+
         return $html;
     }
 
+    function generate_preview_markup() {
+
+        $currency = get_option( 'currency', 'NOK' );
+
+        $html = '
+         <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/jquery.ui.min.js"></script>
+          <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment.min.js"></script>
+              <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment-range.js"></script>
+
+            <h4 class="booking-title">Booking &amp; Availability</h4>
+            <div class="room-booking front" id="room-booking-region">
+
+                <div class="row room-booking-container">
+
+                     <div class="col-md-8">
+
+                            <div class="room-booking-calender" id="calendar-region">
+                                <h4>
+                                     <span class="glyphicon glyphicon-calendar"></span>
+                                     Monthly Calendar <span class="excerpt">Choose the dates
+                                     you want to check availability for.</span>
+                                </h4>
+                                <div id="room-booking-calendar"></div>
+                                <br>
+                                <br>
+                                <br>
+                                <ul class="list-inline daterange-legends"> ';
+
+        $html .= $this->get_daterange_legends();
+
+        $html .= '       </ul>
+                            </div>
+
+                      </div>
+
+                      <div class="col-md-4 room-booking-data" id="plans-details-region">
+                            <div class="date-range">
+                                <span class="display-label"></span>
+                                <b> </b></br>
+                                <span class="label label-success status"></span>
+                            </div>
+
+                            <div class="room-booking-plan">
+                                    <h5>Plan 1</h5>
+                                    <p>Add plans to the room by going to Rooms from Dashboard and add plans to your room there. You will be able to see the added plans on the live site.</p>
+
+                                    <div class="booking-detail">
+                                        Max Adults:
+                                            <span>02</span>
+                                    </div>
+                                    <div class="booking-detail">
+                                        Max Children:
+                                        <span>02</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="plan-bg">
+                                    <h6>Additional Charge</h6>
+                                    <div class="booking-detail">
+                                        per extra Adult : '.$currency.'200
+
+                                    </div>
+                                    <div class="booking-detail">
+                                         per extra Child : '.$currency.'152
+
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                    <div class="booking-price">WEEKDAYS <b>'.$currency.'300</b></div>
+                                     </div>
+                                </div>
+
+                          </div> <!-- plans-details-region end -->
+
+                    </div> <!-- room-booking-container end -->
+
+                </div> <!-- room-booking-region end  -->';
+
+        return $html;
+
+    }
 }
