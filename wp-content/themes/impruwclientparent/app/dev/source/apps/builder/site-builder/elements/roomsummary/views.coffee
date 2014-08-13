@@ -11,11 +11,11 @@ define ['app'], (App)->
             roomNotSetTemplate: '   <div class="room-img">
                                         <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Room Image</div>
                                     </div>
-                                    <div class="room-title">Your Room Title</div>
-                                    <div class="room-excerpt">Choose a room to display from settings. Your room description, image, number of rooms and link to the single room page will be displayed here. To make any changes to the room go to Room from your dashboard.</div>
+                                    <div class="room-title">'+_.polyglot.t("Your Room Title")+'</div>
+                                    <div class="room-excerpt">'+_.polyglot.t("Choose room to display")+'</div>
                                     <div class="room-actions">
-                                        <div class="price">Total: {{no_of_rooms}}<small> rooms</small></div>
-                                        <button class="btn btn-room">View Details</button>
+                                        <div class="price">'+_.polyglot.t("Total:")+'{{no_of_rooms}}<small> '+_.polyglot.t("rooms")+'</small></div>
+                                        <button class="btn btn-room">'+_.polyglot.t("View Details")+'</button>
             					    </div>'
 
             singleRoomTemplate: '<div class="room-summary-container">

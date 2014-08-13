@@ -60,4 +60,55 @@ function update_facility_ajax() {
     wp_send_json( array( 'code' => 'OK', 'data' => $ret ) );
 }
 
-add_action( 'wp_ajax_update-facility', 'update_facility_ajax' );
+add_action( 'wp_ajax_update-languagefacility', 'update_facility_ajax' );
+
+
+function fetch_default_facilities(){
+
+    if(isset($_REQUEST['editLang'])){
+         $language = $_REQUEST['editLang'];
+    }
+    else{
+         $language = wpml_get_default_language();
+    }
+   
+    $data = get_language_based_facilities($language);
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+
+}
+add_action( 'wp_ajax_fetch-default-facilities', 'fetch_default_facilities' );
+
+
+function update_translated_facilities(){
+    //translatedFacilityTerms[0][name], translatedFacilityTerms[0][id]
+    $translatedFacilityTerms = $_REQUEST['translatedFacilityTerms'];
+    $editing_language = $_REQUEST['editingLanguage'];
+    $updated_term_ids = array();
+    $term_update_errors = array();
+    $i = 0;
+
+    while($i<sizeof($translatedFacilityTerms)) {
+        $facility_name = $translatedFacilityTerms[$i]['name'];
+        $facility_id = $translatedFacilityTerms[$i]['id'];
+        $original_facility_id = $translatedFacilityTerms[$i]['translation_of'];
+        $taxonomy_name = "impruw_room_facility";
+        $element_type = "tax_".$taxonomy_name;
+
+        $translated_term = save_term_translation_wpml($editing_language, $original_facility_id, $facility_name,$taxonomy_name);
+
+        array_push($updated_term_ids,$translated_term['term_id']);
+        array_push($term_update_errors,$translated_term['term_error']);
+
+        $i++;
+    }
+
+    if (strlen(implode($term_update_errors)) == 0){
+        $errormsg = "Translation successfully updated";
+    }
+    else{
+        $errormsg = "Translation Failed";
+    }
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $updated_term_ids, 'msg' => $errormsg) );
+}
+add_action( 'wp_ajax_update-translated-facilities', 'update_translated_facilities' );

@@ -1,0 +1,10 @@
+<wpml-config>
+    <custom-types>
+        <custom-type translate="1">impruw_room</custom-type>
+    </custom-types>    
+    <taxonomies>
+        <taxonomy translate="1">impruw_room_facility</taxonomy>
+    </taxonomies> 
+</wpml-config>
+
+

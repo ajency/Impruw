@@ -3,6 +3,8 @@
  * File Name: functions.php Description: This file has a list of the following functions used in this theme
  */
 
+// Include WPML API
+include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
 
 use framework\elements\PageElementsCollection;
 
@@ -44,6 +46,7 @@ require_once 'modules/bookings/ajax.php';
 require_once 'modules/revision/ajax.php';
 require_once 'modules/elements/ajax.php';
 require_once 'modules/media/ajax.php';
+require_once 'modules/language/ajax.php';
 require_once 'modules/language/languagefunctions.php';
 require_once 'modules/billing/ajax.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
@@ -69,7 +72,8 @@ add_theme_support( 'post-thumbnails' );
 
 // remove wordpress admin bar
 show_admin_bar( FALSE );
-load_theme_textdomain( 'impruwclientparent' );
+//load_theme_textdomain( 'impruwclientparent' );
+load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
 
 /**
  * [send_contact_form_message description]
@@ -82,7 +86,7 @@ function send_contact_form_message() {
 
     $headers = 'From:contact@impruw.com ';
 
-    $site_email = get_option( 'admin_email', get_bloginfo('admin_email') );
+    $site_email = get_option( 'admin_email', get_bloginfo( 'admin_email' ) );
 
 
     $message = $_POST [ 'c-message' ];
@@ -260,6 +264,11 @@ function generate_markup( $section ) {
 
     $id = !is_null( $post ) ? $post->ID : 0;
 
+    //Generate page markup based on language
+    ////if ( wpml_get_current_language() != wpml_get_default_language() ) {
+        $id = icl_object_id( $id, 'page', TRUE, 'en' );
+    //}
+
     $autosave = FALSE;
 
     if ( isset( $_GET[ 'preview' ] ) && $_GET[ 'preview' ] == 'true' ) {
@@ -360,6 +369,9 @@ function add_element_markup( $element ) {
             break;
         case 'Logo' :
             $html = get_logo_element_markup( $element );
+            break;
+        case 'LanguageSwitcher' :
+            $html = get_language_switcher_element_markup( $element );
             break;
         case 'RoomDescription' :
             $html = get_room_description_markup( $element );
@@ -661,6 +673,23 @@ function get_logo_element_markup( $element ) {
 }
 
 /**
+ * Generates the language switcher markup
+ *
+ * @param type $element
+ */
+function get_language_switcher_element_markup( $element ){
+    require_once PARENTTHEMEPATH . 'elements/LanguageSwitcher.php';
+
+    $languageSwitcher = new LanguageSwitcher( $element );
+
+    $html = $languageSwitcher->get_markup();
+
+    return $html;
+
+}
+
+
+/**
  * Generates the address markup
  *
  * @param type $element
@@ -870,7 +899,7 @@ function get_theme_JS() {
         jQuery(document).ready(function () {
             if (jQuery('.gallery').length === 0)
                 return;
-            
+
             var $container = jQuery('.gallery').imagesLoaded(function () {
                 $container.isotope({
                     // options
@@ -1451,7 +1480,7 @@ function update_user_passwrd_ajx() {
         header( 'Content-Type: application/json' );
         echo json_encode( array(
             'code' => 'OK',
-            'msg'  => _( 'Password changed successfully' )
+            'msg' => _( 'Password changed successfully' )
         ) );
         die();
     }
@@ -1505,7 +1534,7 @@ function get_menu_to_array( $mn, $by = 'name' ) {
 
     if ( !is_object( $menu ) )
         return array(
-            'code'    => 'ERROR',
+            'code' => 'ERROR',
             'message' => 'Invalid menu id'
         );
 
@@ -1514,44 +1543,53 @@ function get_menu_to_array( $mn, $by = 'name' ) {
     $sorted_menu_items = array();
 
     // create all top level menu
-    foreach ( (array) $m as $menu_item ) {
+    foreach ( (array)$m as $menu_item ) {
+
+        //Get translation of menu title in default language
+        $menu_item_page_id = $menu_item->object_id;
+        $default_language = wpml_get_default_language();
+        $translated_item_page_id = icl_object_id($menu_item_page_id, 'page', true, $default_language);
+
+        $translated_item_page = get_post($translated_item_page_id);
+
+        $translated_menu_item_page_title = $translated_item_page->post_title;
 
         $mn = array(
             'ID'              => $menu_item->ID,
             'order'           => $menu_item->menu_order,
-            'menu_item_title' => $menu_item->title,
+            'menu_item_title' => $translated_menu_item_page_title,
             'menu_item_url'   => $menu_item->url,
-            'menu_id'         => $menu->term_id
+            'menu_id'         => $menu->term_id,
         );
 
-        if ( (int) $menu_item->menu_item_parent === 0 ) {
+        if ( (int)$menu_item->menu_item_parent === 0 ) {
 
             $sorted_menu_items [ ] = $mn;
         }
     }
 
     // add submenus
-    foreach ( (array) $m as $menu_item ) {
+    foreach ( (array)$m as $menu_item ) {
 
         $mn = array(
-            'ID'              => $menu_item->ID,
-            'order'           => $menu_item->menu_order,
+            'ID' => $menu_item->ID,
+            'order' => $menu_item->menu_order,
             'menu_item_title' => $menu_item->title,
-            'menu_item_url'   => $menu_item->url,
-            'menu_id'         => (int) $menu->term_id
+            'menu_item_url' => $menu_item->url,
+            'menu_id' => (int)$menu->term_id
         );
 
-        if ( (int) $menu_item->menu_item_parent !== 0 ) {
+        if ( (int)$menu_item->menu_item_parent !== 0 ) {
             $sorted_menu_items [ ] [ 'subMenu' ] [ ] = $mn;
         }
     }
 
     $wp_menu = array(
-        'id'               => (int) $menu->term_id,
-        'menu_name'        => $menu->name,
-        'menu_slug'        => $menu->slug,
+        'id' => (int)$menu->term_id,
+        'menu_name' => $menu->name,
+        'menu_slug' => $menu->slug,
         'menu_description' => $menu->description,
-        'menu_items'       => $sorted_menu_items
+        'menu_items' => $sorted_menu_items
     );
 
     return $wp_menu;
@@ -1569,7 +1607,7 @@ function update_menu_order() {
         $p_id = $value [ 'id' ];
 
         wp_update_post( array(
-            'ID'         => $p_id,
+            'ID' => $p_id,
             'menu_order' => $order
         ) );
 
@@ -1584,7 +1622,7 @@ function update_menu_order() {
                 $p_id = $v [ 'id' ];
 
                 wp_update_post( array(
-                    'ID'         => $p_id,
+                    'ID' => $p_id,
                     'menu_order' => $order
                 ) );
                 update_post_meta( $p_id, '_menu_item_menu_item_parent', $parent );
@@ -1595,7 +1633,7 @@ function update_menu_order() {
     }
 
     wp_send_json( array(
-        'code'  => 'OK',
+        'code' => 'OK',
         'items' => get_menu_to_array( $menu_id )
     ) );
 
@@ -1623,12 +1661,12 @@ function get_site_menus() {
 
             $sorted_menu_items = array();
 
-            foreach ( (array) $m as $menu_item ) {
+            foreach ( (array)$m as $menu_item ) {
                 $mn = array(
-                    'ID'        => $menu_item->ID,
+                    'ID' => $menu_item->ID,
                     'menuOrder' => $menu_item->menu_order,
-                    'title'     => $menu_item->title,
-                    'url'       => $menu_item->url
+                    'title' => $menu_item->title,
+                    'url' => $menu_item->url
                 );
 
                 if ( $menu_item->menu_item_parent != 0 ) {
@@ -1639,11 +1677,11 @@ function get_site_menus() {
             }
 
             $wp_menus [ ] = array(
-                'id'          => (int) $menu->term_id,
-                'name'        => $menu->name,
-                'slug'        => $menu->slug,
+                'id' => (int)$menu->term_id,
+                'name' => $menu->name,
+                'slug' => $menu->slug,
                 'description' => $menu->description,
-                'items'       => $sorted_menu_items
+                'items' => $sorted_menu_items
             );
         }
     }
@@ -1668,7 +1706,7 @@ function save_menu_item() {
 
     if ( 'POST' !== $_SERVER [ 'REQUEST_METHOD' ] )
         wp_send_json( array(
-            'code'    => 'ERROR',
+            'code' => 'ERROR',
             'message' => 'Invalid request'
         ) );
 
@@ -1680,35 +1718,35 @@ function save_menu_item() {
 
     $item_url = $_POST [ 'item-url' ];
 
-    if ( (int) $item_id === 0 ) {
+    if ( (int)$item_id === 0 ) {
 
         $item = wp_update_nav_menu_item( $menu_id, 0, array(
-            'menu-item-title'   => $item_title,
+            'menu-item-title' => $item_title,
             'menu-item-classes' => sanitize_title( $item_title ),
-            'menu-item-url'     => $item_url,
-            'menu-item-type'    => 'custom',
-            'menu-item-status'  => 'publish'
+            'menu-item-url' => $item_url,
+            'menu-item-type' => 'custom',
+            'menu-item-status' => 'publish'
         ) );
         if ( is_wp_error( $item ) )
             wp_send_json( array(
-                'code'    => 'ERROR',
+                'code' => 'ERROR',
                 'message' => $item->get_error_message()
             ) );
         else
             wp_send_json( array(
-                'code'   => 'OK',
+                'code' => 'OK',
                 'itemID' => $item
             ) );
     } else {
 
         wp_update_post( array(
-            'ID'         => $item_id,
+            'ID' => $item_id,
             'post_title' => $item_title
         ) );
 
         update_post_meta( $item_id, '_menu_item_url', esc_url_raw( $item_url ) );
         wp_send_json( array(
-            'code'   => 'OK',
+            'code' => 'OK',
             'itemID' => $item_id
         ) );
     }
@@ -1725,12 +1763,12 @@ function remove_menu_item() {
 
     if ( is_nav_menu_item( $item_id ) && wp_delete_post( $item_id, TRUE ) )
         wp_send_json( array(
-            'code'   => 'OK',
+            'code' => 'OK',
             'itemID' => $item_id
         ) );
     else
         wp_send_json( array(
-            'code'    => 'ERROR',
+            'code' => 'ERROR',
             'message' => 'Failed to remove. Please try again'
         ) );
 
@@ -1744,17 +1782,17 @@ function query_attachments() {
     require_once PARENTTHEMEPATH . 'includes/Media.php';
 
     $query = array();
-    $query['order'] = $_REQUEST['order'];
-    $query['orderby'] = $_REQUEST['orderby'];
-    $query['posts_per_page'] = $_REQUEST['posts_per_page'];
-    $query['paged'] = $_REQUEST['paged'];
+    $query[ 'order' ] = $_REQUEST[ 'order' ];
+    $query[ 'orderby' ] = $_REQUEST[ 'orderby' ];
+    $query[ 'posts_per_page' ] = $_REQUEST[ 'posts_per_page' ];
+    $query[ 'paged' ] = $_REQUEST[ 'paged' ];
 
     $media = get_site_media( $query );
 
     wp_send_json( array(
         'code' => 'OK',
-        'data' => $media['data'],
-        'total' => $media['total']
+        'data' => $media[ 'data' ],
+        'total' => $media[ 'total' ]
     ) );
 }
 
@@ -1766,30 +1804,30 @@ add_action( 'wp_ajax_nopriv_query_attachments', 'query_attachments' );
  */
 function fetch_all_room_facilities() {
 
-    $taxonomies      = array(
+    $taxonomies = array(
         'impruw_room_facility'
     );
     $room_facilities = get_terms( $taxonomies, array(
         'hide_empty' => 0
     ) );
-    $addons_types    = fetch_all_addons();
-    $tax_types       = fetch_all_tax_types();
-    $date_range      = fetch_all_daterange();
+    $addons_types = fetch_all_addons();
+    $tax_types = fetch_all_tax_types();
+    $date_range = fetch_all_daterange();
 
-    $checkin_format      = get_option( 'checkin-format' );
-    $checkin_time        = get_option( 'checkin-time' );
+    $checkin_format = get_option( 'checkin-format' );
+    $checkin_time = get_option( 'checkin-time' );
     $additional_policies = get_option( 'additional-policies' );
-    $tax_option          = get_option( 'tax-option' );
+    $tax_option = get_option( 'tax-option' );
 
     $room_data = array(
-        'facilities'         => $room_facilities,
-        'addontypes'         => $addons_types,
-        'taxtypes'           => $tax_types,
-        'checkinformat'      => ( $checkin_format == FALSE ? '' : $checkin_format ),
-        'checkintime'        => ( $checkin_time == FALSE ? '' : $checkin_time ),
+        'facilities' => $room_facilities,
+        'addontypes' => $addons_types,
+        'taxtypes' => $tax_types,
+        'checkinformat' => ( $checkin_format == FALSE ? '' : $checkin_format ),
+        'checkintime' => ( $checkin_time == FALSE ? '' : $checkin_time ),
         'additionalpolicies' => ( $additional_policies == FALSE ? '' : $additional_policies ),
-        'taxoption'          => ( $tax_option == FALSE ? '' : $tax_option ),
-        'dateranges'         => $date_range
+        'taxoption' => ( $tax_option == FALSE ? '' : $tax_option ),
+        'dateranges' => $date_range
     );
 
     wp_send_json( array(
@@ -1844,19 +1882,19 @@ function fetch_all_daterange() {
 
             $daterange_from = date( 'd/m/y', strtotime( $daterange_val->from_date ) );
 
-            $daterange_to    = date( 'd/m/y', strtotime( $daterange_val->to_date ) );
+            $daterange_to = date( 'd/m/y', strtotime( $daterange_val->to_date ) );
             $daterange_label = $daterange_val->label;
 
             $plans = fetch_daterange_plans( $daterange_val->id );
 
             $daterangeplans [ ] = array(
-                'id'            => $daterange_val->id,
-                'from'          => $daterange_from,
-                'to'            => $daterange_to,
+                'id' => $daterange_val->id,
+                'from' => $daterange_from,
+                'to' => $daterange_to,
                 'from_calendar' => date( 'd F, Y', strtotime( $daterange_val->from_date ) ),
-                'to_calendar'   => date( 'd F, Y', strtotime( $daterange_val->to_date ) ),
-                'label'         => $daterange_label,
-                'plans'         => $plans
+                'to_calendar' => date( 'd F, Y', strtotime( $daterange_val->to_date ) ),
+                'label' => $daterange_label,
+                'plans' => $plans
             );
         }
 
@@ -1879,7 +1917,7 @@ function fetch_daterange_plans( $daterange_id ) {
     global $wpdb;
     // fetch_plan_details(2);
 
-    $plandata_result    = array();
+    $plandata_result = array();
     $qry_daterangeplans = $wpdb->prepare( "SELECT a.tarriff as plan_tariff , a.plan_id as plan_id from  {$wpdb->prefix}datetarriff a    where a.daterange_id =  %d	", $daterange_id );
     // var_dump($qry_daterangeplans);
     $result_daterangeplans = $wpdb->get_results( $qry_daterangeplans );
@@ -1889,27 +1927,27 @@ function fetch_daterange_plans( $daterange_id ) {
     $plans_data = maybe_unserialize( get_option( 'plans' ) );
     foreach ( $plans_data as $plan_data ) {
 
-        $plan_name        = $plan_data [ 'label' ];
+        $plan_name = $plan_data [ 'label' ];
         $plan_description = $plan_data [ 'description' ];
-        $plan_id          = $plan_data [ 'id' ];
-        $weekend_tariff   = ' - ';
-        $weekday_tariff   = ' - ';
+        $plan_id = $plan_data [ 'id' ];
+        $weekend_tariff = ' - ';
+        $weekday_tariff = ' - ';
         if ( count( $result_daterangeplans ) > 0 ) {
             foreach ( $result_daterangeplans as $plan ) {
                 if ( $plan_data [ 'id' ] == $plan->plan_id ) {
 
-                    $tariff         = maybe_unserialize( $plan->plan_tariff );
+                    $tariff = maybe_unserialize( $plan->plan_tariff );
                     $weekday_tariff = $tariff [ 'weekday' ] [ 'tariff' ];
                     $weekend_tariff = $tariff [ 'weekend' ] [ 'tariff' ];
                 }
             }
         }
         $plans [ ] = array(
-            'plan_id'          => $plan_id,
-            'plan_name'        => $plan_name,
+            'plan_id' => $plan_id,
+            'plan_name' => $plan_name,
             'plan_description' => $plan_description,
-            'weekend_tariff'   => $weekend_tariff,
-            'weekday_tariff'   => $weekday_tariff
+            'weekend_tariff' => $weekend_tariff,
+            'weekday_tariff' => $weekday_tariff
         );
     }
 
@@ -1957,8 +1995,8 @@ function fetch_plan_details( $planid ) {
     $plans_data = maybe_unserialize( get_option( 'plans' ) );
     foreach ( $plans_data as $plan_data ) {
         if ( $plan_data [ 'id' ] == $planid ) {
-            $plan_details [ 'plan_id' ]          = trim( $planid );
-            $plan_details [ 'plan_name' ]        = trim( $plan_data [ 'label' ] );
+            $plan_details [ 'plan_id' ] = trim( $planid );
+            $plan_details [ 'plan_name' ] = trim( $plan_data [ 'label' ] );
             $plan_details [ 'plan_description' ] = trim( $plan_data [ 'description' ] );
         }
     }
@@ -1973,16 +2011,16 @@ function fetch_plan_details( $planid ) {
 function fetch_daterange_plan_tariff_data_ajx() {
 
     $daterange_plan_tariff_id = $_POST [ 'daterange_plan_tariff_i' ];
-    $result                   = fetch_tariff_data( $daterange_plan_tariff_id );
+    $result = fetch_tariff_data( $daterange_plan_tariff_id );
     if ( $result )
         wp_send_json( array(
-            'code'       => 'OK',
+            'code' => 'OK',
             'dateTariff' => $result
         ) );
     else
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => 'Error fetching data'
+            'msg' => 'Error fetching data'
         ) );
 }
 
@@ -2017,21 +2055,21 @@ function save_updated_plan_tariff_ajx() {
     // var_dump($tariff_data);
 
     $daterange_id = $tariff_data [ 'hdn_daterangeId' ];
-    $plan_id      = $tariff_data [ 'hdn_planId' ];
+    $plan_id = $tariff_data [ 'hdn_planId' ];
 
     $daterange_plan_tariff_id = $tariff_data [ 'hdn_dateplantariff' ];
 
-    $rad_weekday                 = ( !isset( $tariff_data [ 'rad_weekday' ] ) ? '' : $tariff_data [ 'rad_weekday' ] );
-    $weekday_tariff              = ( !isset( $tariff_data [ 'weekday_tariff' ] ) ? '' : $tariff_data [ 'weekday_tariff' ] );
-    $weekday_maxadults           = ( !isset( $tariff_data [ 'weekday_maxadults' ] ) ? '' : $tariff_data [ 'weekday_maxadults' ] );
-    $weekday_maxchildren         = ( !isset( $tariff_data [ 'weekday_maxchildren' ] ) ? '' : $tariff_data [ 'weekday_maxchildren' ] );
+    $rad_weekday = ( !isset( $tariff_data [ 'rad_weekday' ] ) ? '' : $tariff_data [ 'rad_weekday' ] );
+    $weekday_tariff = ( !isset( $tariff_data [ 'weekday_tariff' ] ) ? '' : $tariff_data [ 'weekday_tariff' ] );
+    $weekday_maxadults = ( !isset( $tariff_data [ 'weekday_maxadults' ] ) ? '' : $tariff_data [ 'weekday_maxadults' ] );
+    $weekday_maxchildren = ( !isset( $tariff_data [ 'weekday_maxchildren' ] ) ? '' : $tariff_data [ 'weekday_maxchildren' ] );
     $weekday_charges_extra_adult = ( !isset( $tariff_data [ 'weekday_charges_extra_adult' ] ) ? '' : $tariff_data [ 'weekday_charges_extra_adult' ] );
     $weekday_charges_extra_child = ( !isset( $tariff_data [ 'weekday_charges_extra_child' ] ) ? '' : $tariff_data [ 'weekday_charges_extra_child' ] );
 
-    $rad_weekend                 = ( !isset( $tariff_data [ 'rad_weekend' ] ) ? '' : $tariff_data [ 'rad_weekend' ] );
-    $weekend_tariff              = ( !isset( $tariff_data [ 'weekend_tariff' ] ) ? '' : $tariff_data [ 'weekend_tariff' ] );
-    $weekend_maxadults           = ( !isset( $tariff_data [ 'weekend_maxadults' ] ) ? '' : $tariff_data [ 'weekend_maxadults' ] );
-    $weekend_maxchildren         = ( !isset( $tariff_data [ 'weekend_maxchildren' ] ) ? '' : $tariff_data [ 'weekend_maxchildren' ] );
+    $rad_weekend = ( !isset( $tariff_data [ 'rad_weekend' ] ) ? '' : $tariff_data [ 'rad_weekend' ] );
+    $weekend_tariff = ( !isset( $tariff_data [ 'weekend_tariff' ] ) ? '' : $tariff_data [ 'weekend_tariff' ] );
+    $weekend_maxadults = ( !isset( $tariff_data [ 'weekend_maxadults' ] ) ? '' : $tariff_data [ 'weekend_maxadults' ] );
+    $weekend_maxchildren = ( !isset( $tariff_data [ 'weekend_maxchildren' ] ) ? '' : $tariff_data [ 'weekend_maxchildren' ] );
     $weekend_charges_extra_adult = ( !isset( $tariff_data [ 'weekend_charges_extra_adult' ] ) ? '' : $tariff_data [ 'weekend_charges_extra_adult' ] );
     $weekend_charges_extra_child = ( !isset( $tariff_data [ 'weekend_charges_extra_child' ] ) ? '' : $tariff_data [ 'weekend_charges_extra_child' ] );
 
@@ -2042,17 +2080,17 @@ function save_updated_plan_tariff_ajx() {
     $weekdaytariff = array();
 
     $weekendtariff = array(
-        'tariff'              => $weekend_tariff,
-        'maxadults'           => $weekend_maxadults,
-        'maxchildren'         => $weekend_maxchildren,
+        'tariff' => $weekend_tariff,
+        'maxadults' => $weekend_maxadults,
+        'maxchildren' => $weekend_maxchildren,
         'extra_adult_charges' => $weekend_charges_extra_adult,
         'extra_child_charges' => $weekend_charges_extra_child
     );
 
     $weekdaytariff = array(
-        'tariff'              => $weekday_tariff,
-        'maxadults'           => $weekday_maxadults,
-        'maxchildren'         => $weekday_maxchildren,
+        'tariff' => $weekday_tariff,
+        'maxadults' => $weekday_maxadults,
+        'maxchildren' => $weekday_maxchildren,
         'extra_adult_charges' => $weekday_charges_extra_adult,
         'extra_child_charges' => $weekday_charges_extra_child
     );
@@ -2064,28 +2102,28 @@ function save_updated_plan_tariff_ajx() {
         if ( $tariff_result === FALSE ) {
             wp_send_json( array(
                 'code' => 'ERROR',
-                'msg'  => _( 'Error updating Tariff plan' )
+                'msg' => _( 'Error updating Tariff plan' )
             ) );
         } else {
 
             $tariff_details = array(
-                'weekdaytariff'         => $weekday_tariff,
-                'weekendtariff'         => $weekend_tariff,
+                'weekdaytariff' => $weekday_tariff,
+                'weekendtariff' => $weekend_tariff,
                 'daterangePlanTariffId' => $daterange_plan_tariff_id,
-                'daterangeid'           => $daterange_id,
-                'planid'                => $plan_id
+                'daterangeid' => $daterange_id,
+                'planid' => $plan_id
             );
 
             wp_send_json( array(
-                'code'       => 'OK',
-                'msg'        => _( 'Tariff plan is successfully updated' ),
+                'code' => 'OK',
+                'msg' => _( 'Tariff plan is successfully updated' ),
                 'tariffdata' => $tariff_details
             ) );
         }
     } else {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error updating tariff plan' )
+            'msg' => _( 'Error updating tariff plan' )
         ) );
     }
 }
@@ -2118,13 +2156,13 @@ function save_new_room_facility() {
 
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => $error_msg
+            'msg' => $error_msg
         ) );
     } else {
 
         wp_send_json( array(
-            'code'      => 'OK',
-            'msg'       => _( 'New facility is successfully added' ),
+            'code' => 'OK',
+            'msg' => _( 'New facility is successfully added' ),
             'facililty' => $newfacililty_data
         ) );
     }
@@ -2138,9 +2176,9 @@ add_action( 'wp_ajax_nopriv_save_new_room_facility', 'save_new_room_facility' );
  */
 function save_new_tax() {
 
-    $new_tax_name    = $_POST [ 'new_tax_name' ];
+    $new_tax_name = $_POST [ 'new_tax_name' ];
     $new_tax_percent = $_POST [ 'new_tax_percent' ];
-    $max_tax_id      = 0;
+    $max_tax_id = 0;
 
     $tax_array = array();
     $tax_array = maybe_unserialize( get_option( 'tax-type' ) );
@@ -2161,33 +2199,33 @@ function save_new_tax() {
     if ( $tax_exists )
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'The tax name already exists' )
+            'msg' => _( 'The tax name already exists' )
         ) );
 
     $newtax_id = $max_tax_id + 1;
 
     $tax_array [ ] = array(
-        'id'      => $newtax_id,
-        'name'    => $new_tax_name,
+        'id' => $newtax_id,
+        'name' => $new_tax_name,
         'percent' => $new_tax_percent
     );
     $update_result = update_option( 'tax-type', maybe_serialize( $tax_array ) );
 
     if ( $update_result ) {
         $new_addon_type_data = array(
-            'id'      => $newtax_id,
-            'name'    => $new_tax_name,
+            'id' => $newtax_id,
+            'name' => $new_tax_name,
             'percent' => $new_tax_percent
         );
         wp_send_json( array(
-            'code'    => 'OK',
-            'msg'     => _( 'New tax added successfully' ),
+            'code' => 'OK',
+            'msg' => _( 'New tax added successfully' ),
             'taxData' => $new_addon_type_data
         ) );
     } else {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error adding the tax' )
+            'msg' => _( 'Error adding the tax' )
         ) );
     }
 }
@@ -2200,9 +2238,9 @@ add_action( 'wp_ajax_nopriv_save_new_tax', 'save_new_tax' );
  */
 function save_new_addon_type() {
 
-    $new_addon_type  = $_POST [ 'new_addon_type' ];
+    $new_addon_type = $_POST [ 'new_addon_type' ];
     $new_addon_price = $_POST [ 'new_addon_price' ];
-    $max_addonid     = 0;
+    $max_addonid = 0;
 
     $addon_types = array();
 
@@ -2224,33 +2262,33 @@ function save_new_addon_type() {
     if ( $addon_exists )
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'The addon type already exists' )
+            'msg' => _( 'The addon type already exists' )
         ) );
 
     $newaddon_id = $max_addonid + 1;
 
     $addon_types [ ] = array(
-        'id'    => $newaddon_id,
+        'id' => $newaddon_id,
         'label' => $new_addon_type,
         'price' => $new_addon_price
     );
-    $update_result   = update_option( 'addon-type', maybe_serialize( $addon_types ) );
+    $update_result = update_option( 'addon-type', maybe_serialize( $addon_types ) );
 
     if ( $update_result ) {
         $new_addon_type_data = array(
-            'id'    => $newaddon_id,
+            'id' => $newaddon_id,
             'label' => $new_addon_type,
             'price' => $new_addon_price
         );
         wp_send_json( array(
-            'code'      => 'OK',
-            'msg'       => _( 'New addon type added successfully' ),
+            'code' => 'OK',
+            'msg' => _( 'New addon type added successfully' ),
             'addontype' => $new_addon_type_data
         ) );
     } else {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error adding the addon type' )
+            'msg' => _( 'Error adding the addon type' )
         ) );
     }
 }
@@ -2280,12 +2318,12 @@ function array_col( array $a, $x ) {
  */
 function update_addon_type() {
 
-    $addon_type     = $_POST [ 'addon_type' ];
-    $addon_price    = $_POST [ 'addon_price' ];
+    $addon_type = $_POST [ 'addon_type' ];
+    $addon_price = $_POST [ 'addon_price' ];
     $addontype_edit = $_POST [ 'addon_edit' ];
-    $addon_types    = array();
+    $addon_types = array();
 
-    $addon_types         = maybe_unserialize( get_option( 'addon-type' ) );
+    $addon_types = maybe_unserialize( get_option( 'addon-type' ) );
     $updated_addon_types = array();
     // var_dump($addon_types);
     if ( $addon_types ) {
@@ -2293,13 +2331,13 @@ function update_addon_type() {
 
             if ( $addontype_val [ 'id' ] != $addontype_edit )
                 $updated_addon_types [ ] = array(
-                    'id'    => $addontype_val [ 'id' ],
+                    'id' => $addontype_val [ 'id' ],
                     'label' => $addontype_val [ 'label' ],
                     'price' => $addontype_val [ 'price' ]
                 );
             else
                 $updated_addon_types [ ] = array(
-                    'id'    => $addontype_val [ 'id' ],
+                    'id' => $addontype_val [ 'id' ],
                     'label' => $addon_type,
                     'price' => $addon_price
                 );
@@ -2310,21 +2348,21 @@ function update_addon_type() {
 
     if ( $update_result ) {
         $addon_type_data = array(
-            'id'    => $addontype_edit,
+            'id' => $addontype_edit,
             'label' => $addon_type,
             'price' => $addon_price
         );
 
         wp_send_json( array(
-            'code'             => 'OK',
-            'msg'              => _( 'Addon type updated successfully' ),
+            'code' => 'OK',
+            'msg' => _( 'Addon type updated successfully' ),
             'updatedaddontype' => $addon_type_data,
-            'editaddontype'    => $addontype_edit
+            'editaddontype' => $addontype_edit
         ) );
     } else {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error updating the addon type' )
+            'msg' => _( 'Error updating the addon type' )
         ) );
     }
 }
@@ -2337,12 +2375,12 @@ add_action( 'wp_ajax_nopriv_update_addon_type', 'update_addon_type' );
  */
 function update_tax_type() {
 
-    $tax_type     = $_POST [ 'tax_typename' ];
-    $tax_percent  = $_POST [ 'tax_percent' ];
+    $tax_type = $_POST [ 'tax_typename' ];
+    $tax_percent = $_POST [ 'tax_percent' ];
     $taxtype_edit = $_POST [ 'tax_editid' ];
-    $tax_types    = array();
+    $tax_types = array();
 
-    $tax_types         = maybe_unserialize( get_option( 'tax-type' ) );
+    $tax_types = maybe_unserialize( get_option( 'tax-type' ) );
     $updated_tax_types = array();
     // var_dump($tax_types);
     if ( $tax_types ) {
@@ -2350,14 +2388,14 @@ function update_tax_type() {
 
             if ( $taxtype_val [ 'id' ] != $taxtype_edit )
                 $updated_tax_types [ ] = array(
-                    'id'      => $taxtype_val [ 'id' ],
-                    'name'    => $taxtype_val [ 'name' ],
+                    'id' => $taxtype_val [ 'id' ],
+                    'name' => $taxtype_val [ 'name' ],
                     'percent' => $taxtype_val [ 'percent' ]
                 );
             else
                 $updated_tax_types [ ] = array(
-                    'id'      => $taxtype_val [ 'id' ],
-                    'name'    => $tax_type,
+                    'id' => $taxtype_val [ 'id' ],
+                    'name' => $tax_type,
                     'percent' => $tax_percent
                 );
         }
@@ -2367,21 +2405,21 @@ function update_tax_type() {
 
     if ( $update_result ) {
         $tax_type_data = array(
-            'id'      => $taxtype_edit,
-            'name'    => $tax_type,
+            'id' => $taxtype_edit,
+            'name' => $tax_type,
             'percent' => $tax_percent
         );
 
         wp_send_json( array(
-            'code'           => 'OK',
-            'msg'            => _( 'Tax type updated successfully' ),
+            'code' => 'OK',
+            'msg' => _( 'Tax type updated successfully' ),
             'updatedtaxtype' => $tax_type_data,
-            'edittaxtype'    => $taxtype_edit
+            'edittaxtype' => $taxtype_edit
         ) );
     } else {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error updating the tax type' )
+            'msg' => _( 'Error updating the tax type' )
         ) );
     }
 }
@@ -2405,12 +2443,12 @@ function delete_room_facility() {
     if ( $del_facililty_data ) {
         wp_send_json( array(
             'code' => 'OK',
-            'msg'  => _( 'Facility is successfully Deleted' )
+            'msg' => _( 'Facility is successfully Deleted' )
         ) );
     } else {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error deleting facility' )
+            'msg' => _( 'Error deleting facility' )
         ) );
     }
 }
@@ -2424,14 +2462,14 @@ add_action( 'wp_ajax_nopriv_delete_room_facility', 'delete_room_facility' );
 function delete_room_addon_type() {
 
     $addontype_id = $_POST [ 'addonTypeId' ];
-    $addon_types  = maybe_unserialize( get_option( 'addon-type' ) );
+    $addon_types = maybe_unserialize( get_option( 'addon-type' ) );
     // var_dump($addon_types);
     $updated_addon_types = array();
     if ( $addon_types ) {
         foreach ( $addon_types as $addontype_key => $addontype_val ) {
             if ( $addontype_val [ 'id' ] != $addontype_id )
                 $updated_addon_types [ ] = array(
-                    'id'    => $addontype_val [ 'id' ],
+                    'id' => $addontype_val [ 'id' ],
                     'label' => $addontype_val [ 'label' ],
                     'price' => $addontype_val [ 'price' ]
                 );
@@ -2442,12 +2480,12 @@ function delete_room_addon_type() {
     if ( $delete_result ) {
         wp_send_json( array(
             'code' => 'OK',
-            'msg'  => _( 'Addon type is successfully Deleted' )
+            'msg' => _( 'Addon type is successfully Deleted' )
         ) );
     } else {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error deleting addon type' )
+            'msg' => _( 'Error deleting addon type' )
         ) );
     }
 }
@@ -2458,15 +2496,15 @@ add_action( 'wp_ajax_nopriv_delete_room_addon_type', 'delete_room_addon_type' );
 function delete_room_tax_type() {
 
     $taxtype_id = $_POST [ 'taxTypeId' ];
-    $tax_types  = maybe_unserialize( get_option( 'tax-type' ) );
+    $tax_types = maybe_unserialize( get_option( 'tax-type' ) );
 
     $updated_tax_types = array();
     if ( $tax_types ) {
         foreach ( $tax_types as $taxtype_key => $taxtype_val ) {
             if ( $taxtype_val [ 'id' ] != $taxtype_id )
                 $updated_tax_types [ ] = array(
-                    'id'      => $taxtype_val [ 'id' ],
-                    'name'    => $taxtype_val [ 'name' ],
+                    'id' => $taxtype_val [ 'id' ],
+                    'name' => $taxtype_val [ 'name' ],
                     'percent' => $taxtype_val [ 'percent' ]
                 );
         }
@@ -2476,12 +2514,12 @@ function delete_room_tax_type() {
     if ( $delete_result ) {
         wp_send_json( array(
             'code' => 'OK',
-            'msg'  => ( 'tax type is successfully Deleted' )
+            'msg' => ( 'tax type is successfully Deleted' )
         ) );
     } else {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error deleting tax type' )
+            'msg' => _( 'Error deleting tax type' )
         ) );
     }
 }
@@ -2494,7 +2532,7 @@ add_action( 'wp_ajax_nopriv_delete_room_tax_type', 'delete_room_tax_type' );
  */
 function update_room_facility() {
 
-    $facility_id   = $_POST [ 'fac_id' ];
+    $facility_id = $_POST [ 'fac_id' ];
     $facility_name = $_POST [ 'fac_name' ];
 
     $facility_slug = str_replace( " ", "-", $facility_name );
@@ -2509,13 +2547,13 @@ function update_room_facility() {
 
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( $error_msg )
+            'msg' => _( $error_msg )
         ) );
     } else {
 
         wp_send_json( array(
-            'code'      => 'OK',
-            'msg'       => _( 'Facility updated successfully' ),
+            'code' => 'OK',
+            'msg' => _( 'Facility updated successfully' ),
             'facililty' => $facility_data
         ) );
     }
@@ -2526,7 +2564,7 @@ add_action( 'wp_ajax_nopriv_update_room_facility', 'update_room_facility' );
 
 function update_checkintime() {
 
-    $checkintime    = $_POST [ 'checkintime' ];
+    $checkintime = $_POST [ 'checkintime' ];
     $checkin_format = $_POST [ 'checkinformat' ];
 
     $result_checkintime = update_option( 'checkin-time', $checkintime );
@@ -2535,15 +2573,15 @@ function update_checkintime() {
 
     if ( $result_checkinformat == TRUE || $result_checkintime == TRUE )
         wp_send_json( array(
-            'code'          => 'OK',
-            'msg'           => _( 'Check-in time updated successfully' ),
-            'checkinTime'   => $checkintime,
+            'code' => 'OK',
+            'msg' => _( 'Check-in time updated successfully' ),
+            'checkinTime' => $checkintime,
             'checkinformat' => $checkin_format
         ) );
     else
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error updating check-in time' )
+            'msg' => _( 'Error updating check-in time' )
         ) );
 }
 
@@ -2580,14 +2618,14 @@ function update_taxoption() {
     $result = update_option( 'tax-option', $tax_option );
     if ( $result )
         wp_send_json( array(
-            'code'      => 'OK',
-            'msg'       => _( 'Tax option updated successfully' ),
+            'code' => 'OK',
+            'msg' => _( 'Tax option updated successfully' ),
             'taxoption' => $tax_option
         ) );
     else
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error updating tax option' )
+            'msg' => _( 'Error updating tax option' )
         ) );
 }
 
@@ -2601,14 +2639,14 @@ function update_checkinformat() {
     $result = update_option( 'checkin-format', $checkin_format );
     if ( $result )
         wp_send_json( array(
-            'code'          => 'OK',
-            'msg'           => _( 'Check-in format updated successfully' ),
+            'code' => 'OK',
+            'msg' => _( 'Check-in format updated successfully' ),
             'checkinformat' => $checkin_format
         ) );
     else
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error updating Check-in format' )
+            'msg' => _( 'Error updating Check-in format' )
         ) );
 }
 
@@ -2621,8 +2659,8 @@ add_action( 'wp_ajax_nopriv_update_checkinformat', 'update_checkinformat' );
 function add_date_range() {
 
     $from_daterange = date( 'Y-m-d H:i:s', strtotime( $_POST [ 'fromdaterange' ] ) );
-    $to_daterange   = date( 'Y-m-d H:i:s', strtotime( $_POST [ 'todaterange' ] ) );
-    $label          = "winter season test";
+    $to_daterange = date( 'Y-m-d H:i:s', strtotime( $_POST [ 'todaterange' ] ) );
+    $label = "winter season test";
 
     global $wpdb;
 
@@ -2634,8 +2672,8 @@ function add_date_range() {
 
     $result = $wpdb->insert( $table_name, array(
         'from_date' => $from_daterange,
-        'to_date'   => $to_daterange,
-        'label'     => $label
+        'to_date' => $to_daterange,
+        'label' => $label
     ), array(
         '%s',
         '%s',
@@ -2643,23 +2681,23 @@ function add_date_range() {
     ) );
 
     $datarange_data = array(
-        'id'        => $wpdb->insert_id,
+        'id' => $wpdb->insert_id,
         'from_date' => date( 'd/m/y', strtotime( $_POST [ 'fromdaterange' ] ) ),
-        'to_date'   => date( 'd/m/y', strtotime( $_POST [ 'todaterange' ] ) ),
-        'label'     => $label
+        'to_date' => date( 'd/m/y', strtotime( $_POST [ 'todaterange' ] ) ),
+        'label' => $label
     );
     switch_to_blog( get_current_blog_id() );
 
     if ( $result == TRUE )
         wp_send_json( array(
-            'code'      => 'OK',
-            'msg'       => _( 'Date range is successfully added' ),
+            'code' => 'OK',
+            'msg' => _( 'Date range is successfully added' ),
             'daterange' => $datarange_data
         ) );
     else
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error adding Date range' )
+            'msg' => _( 'Error adding Date range' )
         ) );
 }
 
@@ -2670,8 +2708,8 @@ function update_daterange() {
 
     global $wpdb;
     $from_daterange = date( 'Y-m-d H:i:s', strtotime( $_POST [ 'from_daterange' ] ) );
-    $to_daterange   = date( 'Y-m-d H:i:s', strtotime( $_POST [ 'to_daterange' ] ) );
-    $daterange_id   = $_POST [ 'daterange_id' ];
+    $to_daterange = date( 'Y-m-d H:i:s', strtotime( $_POST [ 'to_daterange' ] ) );
+    $daterange_id = $_POST [ 'daterange_id' ];
 
     $table_name = $wpdb->prefix . "daterange";
 
@@ -2685,19 +2723,19 @@ function update_daterange() {
 
     $daterange_data = array(
         'from_date' => date( 'd/m/y', strtotime( $_POST [ 'from_daterange' ] ) ),
-        'to_date'   => date( 'd/m/y', strtotime( $_POST [ 'to_daterange' ] ) )
+        'to_date' => date( 'd/m/y', strtotime( $_POST [ 'to_daterange' ] ) )
     );
 
     if ( $result == TRUE )
         wp_send_json( array(
-            'code'           => 'OK',
-            'msg'            => _( 'Date range updated successfully' ),
+            'code' => 'OK',
+            'msg' => _( 'Date range updated successfully' ),
             'daterange_data' => $daterange_data
         ) );
     else
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error updating Date range' )
+            'msg' => _( 'Error updating Date range' )
         ) );
 }
 
@@ -2713,19 +2751,19 @@ function add_new_plan_tariff() {
     // var_dump($tariff_data);
 
     $daterange_id = $tariff_data [ 'hdn_daterangeId' ];
-    $plan_id      = $tariff_data [ 'hdn_planId' ];
+    $plan_id = $tariff_data [ 'hdn_planId' ];
 
-    $rad_weekday                 = ( !isset( $tariff_data [ 'rad_weekday' ] ) ? '' : $tariff_data [ 'rad_weekday' ] );
-    $weekday_tariff              = ( !isset( $tariff_data [ 'weekday_tariff' ] ) ? '' : $tariff_data [ 'weekday_tariff' ] );
-    $weekday_maxadults           = ( !isset( $tariff_data [ 'weekday_maxadults' ] ) ? '' : $tariff_data [ 'weekday_maxadults' ] );
-    $weekday_maxchildren         = ( !isset( $tariff_data [ 'weekday_maxchildren' ] ) ? '' : $tariff_data [ 'weekday_maxchildren' ] );
+    $rad_weekday = ( !isset( $tariff_data [ 'rad_weekday' ] ) ? '' : $tariff_data [ 'rad_weekday' ] );
+    $weekday_tariff = ( !isset( $tariff_data [ 'weekday_tariff' ] ) ? '' : $tariff_data [ 'weekday_tariff' ] );
+    $weekday_maxadults = ( !isset( $tariff_data [ 'weekday_maxadults' ] ) ? '' : $tariff_data [ 'weekday_maxadults' ] );
+    $weekday_maxchildren = ( !isset( $tariff_data [ 'weekday_maxchildren' ] ) ? '' : $tariff_data [ 'weekday_maxchildren' ] );
     $weekday_charges_extra_adult = ( !isset( $tariff_data [ 'weekday_charges_extra_adult' ] ) ? '' : $tariff_data [ 'weekday_charges_extra_adult' ] );
     $weekday_charges_extra_child = ( !isset( $tariff_data [ 'weekday_charges_extra_child' ] ) ? '' : $tariff_data [ 'weekday_charges_extra_child' ] );
 
-    $rad_weekend                 = ( !isset( $tariff_data [ 'rad_weekend' ] ) ? '' : $tariff_data [ 'rad_weekend' ] );
-    $weekend_tariff              = ( !isset( $tariff_data [ 'weekend_tariff' ] ) ? '' : $tariff_data [ 'weekend_tariff' ] );
-    $weekend_maxadults           = ( !isset( $tariff_data [ 'weekend_maxadults' ] ) ? '' : $tariff_data [ 'weekend_maxadults' ] );
-    $weekend_maxchildren         = ( !isset( $tariff_data [ 'weekend_maxchildren' ] ) ? '' : $tariff_data [ 'weekend_maxchildren' ] );
+    $rad_weekend = ( !isset( $tariff_data [ 'rad_weekend' ] ) ? '' : $tariff_data [ 'rad_weekend' ] );
+    $weekend_tariff = ( !isset( $tariff_data [ 'weekend_tariff' ] ) ? '' : $tariff_data [ 'weekend_tariff' ] );
+    $weekend_maxadults = ( !isset( $tariff_data [ 'weekend_maxadults' ] ) ? '' : $tariff_data [ 'weekend_maxadults' ] );
+    $weekend_maxchildren = ( !isset( $tariff_data [ 'weekend_maxchildren' ] ) ? '' : $tariff_data [ 'weekend_maxchildren' ] );
     $weekend_charges_extra_adult = ( !isset( $tariff_data [ 'weekend_charges_extra_adult' ] ) ? '' : $tariff_data [ 'weekend_charges_extra_adult' ] );
     $weekend_charges_extra_child = ( !isset( $tariff_data [ 'weekend_charges_extra_child' ] ) ? '' : $tariff_data [ 'weekend_charges_extra_child' ] );
 
@@ -2736,17 +2774,17 @@ function add_new_plan_tariff() {
     $weekdaytariff = array();
 
     $weekendtariff = array(
-        'tariff'              => $weekend_tariff,
-        'maxadults'           => $weekend_maxadults,
-        'maxchildren'         => $weekend_maxchildren,
+        'tariff' => $weekend_tariff,
+        'maxadults' => $weekend_maxadults,
+        'maxchildren' => $weekend_maxchildren,
         'extra_adult_charges' => $weekend_charges_extra_adult,
         'extra_child_charges' => $weekend_charges_extra_child
     );
 
     $weekdaytariff = array(
-        'tariff'              => $weekday_tariff,
-        'maxadults'           => $weekday_maxadults,
-        'maxchildren'         => $weekday_maxchildren,
+        'tariff' => $weekday_tariff,
+        'maxadults' => $weekday_maxadults,
+        'maxchildren' => $weekday_maxchildren,
         'extra_adult_charges' => $weekday_charges_extra_adult,
         'extra_child_charges' => $weekday_charges_extra_child
     );
@@ -2758,29 +2796,29 @@ function add_new_plan_tariff() {
         if ( $tariff_result === FALSE ) {
             wp_send_json( array(
                 'code' => 'ERROR',
-                'msg'  => _( 'Error adding Tariff plan' )
+                'msg' => _( 'Error adding Tariff plan' )
             ) );
         } else {
 
             $tariff_details = array(
-                'planid'                => $plan_id,
-                'daterangeid'           => $daterange_id,
-                'plantariffid'          => $tariff_result,
-                'weekdaytariff'         => $weekday_tariff,
-                'weekendtariff'         => $weekend_tariff,
+                'planid' => $plan_id,
+                'daterangeid' => $daterange_id,
+                'plantariffid' => $tariff_result,
+                'weekdaytariff' => $weekday_tariff,
+                'weekendtariff' => $weekend_tariff,
                 'daterangePlanTariffId' => $tariff_result
             );
 
             wp_send_json( array(
-                'code'       => 'OK',
-                'msg'        => _( 'Tariff plan is successfully added' ),
+                'code' => 'OK',
+                'msg' => _( 'Tariff plan is successfully added' ),
                 'tariffdata' => $tariff_details
             ) );
         }
     } else {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error adding plan' )
+            'msg' => _( 'Error adding plan' )
         ) );
     }
 }
@@ -2803,20 +2841,20 @@ function add_new_plan_ajx() {
     if ( $plan_result !== FALSE ) {
 
         $plan_details = array(
-            'plan'            => $plantype,
+            'plan' => $plantype,
             'plandescription' => $plandescription,
-            'planid'          => $plan_result
+            'planid' => $plan_result
         );
 
         wp_send_json( array(
-            'code'     => 'OK',
-            'msg'      => _( 'Plan is successfully added' ),
+            'code' => 'OK',
+            'msg' => _( 'Plan is successfully added' ),
             'plandata' => $plan_details
         ) );
     } else {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error adding plan' )
+            'msg' => _( 'Error adding plan' )
         ) );
     }
 }
@@ -2862,9 +2900,9 @@ function add_new_plan( $plantype, $plandescription ) {
 
     $newplan_id = $max_planid + 1;
 
-    $plans [ ]     = array(
-        'id'          => $newplan_id,
-        'label'       => $plantype,
+    $plans [ ] = array(
+        'id' => $newplan_id,
+        'label' => $plantype,
         'description' => $plandescription
     );
     $update_result = update_option( 'plans', maybe_serialize( $plans ) );
@@ -2884,30 +2922,30 @@ function update_plan_ajx() {
     $plan_data = serializedform_to_array( $_POST [ 'editplan_data' ] );
 
     $updated_plan = array(
-        'plan_id'          => $plan_data [ 'hdn_planid' ],
-        'plan_label'       => $plan_data [ 'plantype' ],
+        'plan_id' => $plan_data [ 'hdn_planid' ],
+        'plan_label' => $plan_data [ 'plantype' ],
         'plan_description' => $plan_data [ 'plandescription' ],
-        'daterange_id'     => $plan_data [ 'hdn_daterange' ]
+        'daterange_id' => $plan_data [ 'hdn_daterange' ]
     );
 
     $result = update_plan( $plan_data );
     if ( strlen( $result ) > 5 )
         wp_send_json( array(
-            'code'     => 'ERROR',
-            'msg'      => _( $result ),
+            'code' => 'ERROR',
+            'msg' => _( $result ),
             'plandata' => $updated_plan
         ) );
 
     if ( !$result )
         wp_send_json( array(
-            'code'     => 'ERROR',
-            'msg'      => _( 'Error updating plan' ),
+            'code' => 'ERROR',
+            'msg' => _( 'Error updating plan' ),
             'plandata' => $updated_plan
         ) );
     else
         wp_send_json( array(
-            'code'     => 'OK',
-            'msg'      => _( 'The plan updated successfully' ),
+            'code' => 'OK',
+            'msg' => _( 'The plan updated successfully' ),
             'plandata' => $updated_plan
         ) );
 }
@@ -2927,12 +2965,12 @@ add_action( 'wp_ajax_nopriv_update_plan_ajx', 'update_plan_ajx' );
  */
 function update_plan( $plan_data ) {
 
-    $plan_id         = $plan_data [ 'hdn_planid' ];
-    $plantype        = $plan_data [ 'plantype' ];
+    $plan_id = $plan_data [ 'hdn_planid' ];
+    $plantype = $plan_data [ 'plantype' ];
     $plandescription = $plan_data [ 'plandescription' ];
 
     // check if the plan already exists
-    $plans       = maybe_unserialize( get_option( 'plans' ), TRUE );
+    $plans = maybe_unserialize( get_option( 'plans' ), TRUE );
     $plan_exists = FALSE;
     // update plan
     if ( $plans ) {
@@ -2949,14 +2987,14 @@ function update_plan( $plan_data ) {
 
                 if ( $plan_val [ 'id' ] == $plan_id ) {
                     $updated_plan_data [ ] = array(
-                        'id'          => trim( $plan_id ),
-                        'label'       => trim( $plantype ),
+                        'id' => trim( $plan_id ),
+                        'label' => trim( $plantype ),
                         'description' => trim( $plandescription )
                     );
                 } else {
                     $updated_plan_data [ ] = array(
-                        'id'          => trim( $plan_val [ 'id' ] ),
-                        'label'       => trim( $plan_val [ 'label' ] ),
+                        'id' => trim( $plan_val [ 'id' ] ),
+                        'label' => trim( $plan_val [ 'label' ] ),
                         'description' => trim( $plan_val [ 'description' ] )
                     );
                 }
@@ -3017,8 +3055,8 @@ function add_daterangeplan_tariff( $weekend_tariff, $weekday_tariff, $plan_id, $
 
     $result = $wpdb->insert( $table_name, array(
         'daterange_id' => $daterange_id,
-        'plan_id'      => $plan_id,
-        'tarriff'      => maybe_serialize( array(
+        'plan_id' => $plan_id,
+        'tarriff' => maybe_serialize( array(
             'weekend' => $weekend_tariff,
             'weekday' => $weekday_tariff
         ) )
@@ -3048,12 +3086,12 @@ function delete_plan_ajx() {
     if ( !$result ) {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => 'Error deleting plan'
+            'msg' => 'Error deleting plan'
         ) );
     } else {
         wp_send_json( array(
             'code' => 'OK',
-            'msg'  => 'Tariff plan successfully deleted'
+            'msg' => 'Tariff plan successfully deleted'
         ) );
     }
 }
@@ -3073,15 +3111,15 @@ function delete_plan( $plan_id ) {
 
     // delete plan from options table
     $new_plan_data1 = array();
-    $plan_details1  = maybe_unserialize( get_option( 'plans' ) );
+    $plan_details1 = maybe_unserialize( get_option( 'plans' ) );
 
     if ( count( $plan_details1 ) ) {
         foreach ( $plan_details1 as $plan_data1 ) {
 
             if ( $plan_data1 [ 'id' ] != $plan_id ) {
                 $new_plan_data1 [ ] = array(
-                    'id'          => $plan_data1 [ 'id' ],
-                    'label'       => $plan_data1 [ 'label' ],
+                    'id' => $plan_data1 [ 'id' ],
+                    'label' => $plan_data1 [ 'label' ],
                     'description' => $plan_data1 [ 'description' ]
                 );
             }
@@ -3092,7 +3130,7 @@ function delete_plan( $plan_id ) {
     // delete tariff details for the plan
     global $wpdb;
     $table_name = $wpdb->prefix . "datetarriff";
-    $result     = $wpdb->delete( $table_name, array(
+    $result = $wpdb->delete( $table_name, array(
         'plan_id' => $plan_id
     ) );
 
@@ -3108,12 +3146,12 @@ function delete_daterange_ajx() {
     if ( $result !== FALSE ) {
         wp_send_json( array(
             'code' => 'OK',
-            'msg'  => _( 'Date range successfully deleted' )
+            'msg' => _( 'Date range successfully deleted' )
         ) );
     } else {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error deleting date range' )
+            'msg' => _( 'Error deleting date range' )
         ) );
     }
 }
@@ -3129,7 +3167,7 @@ function delete_daterange( $daterange_id ) {
     $result_delete_plans = $wpdb->delete( $datetariff_name, array(
         'daterange_id' => $daterange_id
     ) );
-    $daterange_table     = $wpdb->prefix . "daterange";
+    $daterange_table = $wpdb->prefix . "daterange";
     $result_delete_plans = $wpdb->delete( $daterange_table, array(
         'id' => $daterange_id
     ) );
@@ -3143,50 +3181,50 @@ function delete_daterange( $daterange_id ) {
 function add_new_room_ajx() {
 
     // var_dump($_POST);
-    $room_name           = $_POST [ 'category' ];
-    $room_nos            = $_POST [ 'nos' ];
-    $room_desc           = $_POST [ 'description' ];
-    $room_facilities     = $_POST [ 'facilities' ];
-    $checkin_format      = $_POST [ 'checkinformat' ];
-    $checkin_time        = $_POST [ 'checkintime' ];
+    $room_name = $_POST [ 'category' ];
+    $room_nos = $_POST [ 'nos' ];
+    $room_desc = $_POST [ 'description' ];
+    $room_facilities = $_POST [ 'facilities' ];
+    $checkin_format = $_POST [ 'checkinformat' ];
+    $checkin_time = $_POST [ 'checkintime' ];
     $additional_policies = $_POST [ 'additionalpolicies' ];
-    $tax_option          = $_POST [ 'tax_option' ];
-    $room_attachments    = $_POST [ 'room_attachments' ];
-    $room_plantariff     = $_POST [ 'plantariffids' ];
+    $tax_option = $_POST [ 'tax_option' ];
+    $room_attachments = $_POST [ 'room_attachments' ];
+    $room_plantariff = $_POST [ 'plantariffids' ];
 
     $array = array(
-        'post_title'       => $room_name,
-        'post_content'     => $room_desc,
-        'user_id'          => get_current_user_id(),
-        'inventory'        => $room_nos,
-        'terms'            => $room_facilities,
+        'post_title' => $room_name,
+        'post_content' => $room_desc,
+        'user_id' => get_current_user_id(),
+        'inventory' => $room_nos,
+        'terms' => $room_facilities,
         'room_attachments' => $room_attachments,
-        'plantariff'       => $room_plantariff
+        'plantariff' => $room_plantariff
     );
 
     $attribute_array = array(
-        'weekday_price'        => '10',
-        'weekend_price'        => '20',
-        'num_of_adults'        => '2',
-        'num_of_children'      => '2',
-        'extra_adult'          => '10',
-        'extra_child'          => '10',
-        'include_tax'          => 'yes',
-        'tax_percent'          => '12',
+        'weekday_price' => '10',
+        'weekend_price' => '20',
+        'num_of_adults' => '2',
+        'num_of_children' => '2',
+        'extra_adult' => '10',
+        'extra_child' => '10',
+        'include_tax' => 'yes',
+        'tax_percent' => '12',
         'terms_and_conditions' => 'agree'
     );
 
     $addons_array = array(
         'breakfast at bed' => '10',
-        'lunch_buffet'     => '10'
+        'lunch_buffet' => '10'
     );
 
     $tariff_array = array(
         array(
             'start_date' => date( "Y/m/d" ),
-            'end_date'   => date( "Y/m/d" ),
+            'end_date' => date( "Y/m/d" ),
             'attributes' => $attribute_array,
-            'add_ons'    => $addons_array
+            'add_ons' => $addons_array
         )
     );
 
@@ -3197,12 +3235,12 @@ function add_new_room_ajx() {
     update_option( 'additional-policies', $additional_policies );
     update_option( 'tax-option', $tax_option );
 
-    $newroom     = new RoomModel( $newroom_id );
+    $newroom = new RoomModel( $newroom_id );
     $newroomdata = $newroom->get_all_roomdata();
 
     wp_send_json( array(
-        'code'     => 'OK',
-        'msg'      => _( 'New Room added successfully' ),
+        'code' => 'OK',
+        'msg' => _( 'New Room added successfully' ),
         'roomdata' => $newroomdata
     ) );
 }
@@ -3217,52 +3255,52 @@ add_action( 'wp_ajax_nopriv_add_new_room_ajx', 'add_new_room_ajx' );
 function update_room_ajx() {
 
     // var_dump($_POST);
-    $room_id             = $_POST [ 'room_id' ];
-    $room_name           = $_POST [ 'category' ];
-    $room_nos            = $_POST [ 'nos' ];
-    $room_desc           = $_POST [ 'description' ];
-    $room_facilities     = $_POST [ 'facilities' ];
-    $checkin_format      = $_POST [ 'checkinformat' ];
-    $checkin_time        = $_POST [ 'checkintime' ];
+    $room_id = $_POST [ 'room_id' ];
+    $room_name = $_POST [ 'category' ];
+    $room_nos = $_POST [ 'nos' ];
+    $room_desc = $_POST [ 'description' ];
+    $room_facilities = $_POST [ 'facilities' ];
+    $checkin_format = $_POST [ 'checkinformat' ];
+    $checkin_time = $_POST [ 'checkintime' ];
     $additional_policies = $_POST [ 'additionalpolicies' ];
-    $tax_option          = $_POST [ 'tax_option' ];
-    $room_attachments    = $_POST [ 'room_attachments' ];
-    $room_plantariff     = $_POST [ 'plantariffids' ];
+    $tax_option = $_POST [ 'tax_option' ];
+    $room_attachments = $_POST [ 'room_attachments' ];
+    $room_plantariff = $_POST [ 'plantariffids' ];
 
     $array = array(
-        'ID'               => $room_id,
-        'post_title'       => $room_name,
-        'post_content'     => $room_desc,
-        'user_id'          => get_current_user_id(),
-        'inventory'        => $room_nos,
-        'terms'            => $room_facilities,
+        'ID' => $room_id,
+        'post_title' => $room_name,
+        'post_content' => $room_desc,
+        'user_id' => get_current_user_id(),
+        'inventory' => $room_nos,
+        'terms' => $room_facilities,
         'room_attachments' => $room_attachments,
-        'plantariff'       => $room_plantariff
+        'plantariff' => $room_plantariff
     );
 
     $attribute_array = array(
-        'weekday_price'        => '10',
-        'weekend_price'        => '20',
-        'num_of_adults'        => '2',
-        'num_of_children'      => '2',
-        'extra_adult'          => '10',
-        'extra_child'          => '10',
-        'include_tax'          => 'yes',
-        'tax_percent'          => '12',
+        'weekday_price' => '10',
+        'weekend_price' => '20',
+        'num_of_adults' => '2',
+        'num_of_children' => '2',
+        'extra_adult' => '10',
+        'extra_child' => '10',
+        'include_tax' => 'yes',
+        'tax_percent' => '12',
         'terms_and_conditions' => 'agree'
     );
 
     $addons_array = array(
         'breakfast at bed' => '10',
-        'lunch_buffet'     => '10'
+        'lunch_buffet' => '10'
     );
 
     $tariff_array = array(
         array(
             'start_date' => date( "Y/m/d" ),
-            'end_date'   => date( "Y/m/d" ),
+            'end_date' => date( "Y/m/d" ),
             'attributes' => $attribute_array,
-            'add_ons'    => $addons_array
+            'add_ons' => $addons_array
         )
     );
 
@@ -3273,12 +3311,12 @@ function update_room_ajx() {
     update_option( 'additional-policies', $additional_policies );
     update_option( 'tax-option', $tax_option );
 
-    $newroom     = new RoomModel( $newroom_id );
+    $newroom = new RoomModel( $newroom_id );
     $newroomdata = $newroom->get_all_roomdata();
 
     wp_send_json( array(
-        'code'     => 'OK',
-        'msg'      => _( 'Room Details updated successfully' ),
+        'code' => 'OK',
+        'msg' => _( 'Room Details updated successfully' ),
         'roomdata' => $newroomdata
     ) );
 }
@@ -3299,12 +3337,12 @@ function update_room( $blog_id, $array, $tariff_array ) {
 
     switch_to_blog( $blog_id );
     $my_post = array(
-        'ID'           => $array [ 'ID' ],
-        'post_title'   => $array [ 'post_title' ],
+        'ID' => $array [ 'ID' ],
+        'post_title' => $array [ 'post_title' ],
         'post_content' => $array [ 'post_content' ],
-        'post_status'  => 'publish',
-        'post_author'  => $array [ 'user_id' ],
-        'post_type'    => 'impruw_room'
+        'post_status' => 'publish',
+        'post_author' => $array [ 'user_id' ],
+        'post_type' => 'impruw_room'
     );
     // print_r($array['terms']);exit;
     // Insert the post into the database
@@ -3320,7 +3358,7 @@ function update_room( $blog_id, $array, $tariff_array ) {
      * if(count($array['room_attachments'])>0){ update_post_meta($array['ID'],'thumbnail-id',$array['room_attachments'][0] ); }
      */
 
-    $plan_tariff_array      = explode( ',', $array [ 'plantariff' ] );
+    $plan_tariff_array = explode( ',', $array [ 'plantariff' ] );
     $plan_tariff_serialized = maybe_serialize( $plan_tariff_array );
 
     update_post_meta( $array [ 'ID' ], 'room-plantariff', $plan_tariff_serialized );
@@ -3340,8 +3378,8 @@ function get_room_list_ajx() {
 
     global $wpdb;
     $rooms_list = get_posts( array(
-        'post_type'      => 'impruw_room',
-        'post_status'    => 'publish',
+        'post_type' => 'impruw_room',
+        'post_status' => 'publish',
         'posts_per_page' => -1
     ) );
 
@@ -3375,7 +3413,7 @@ function delete_room_ajx() {
         ) );
     else
         wp_send_json( array(
-            'code'    => 'OK',
+            'code' => 'OK',
             'room_id' => $room_id
         ) );
 }
@@ -3390,8 +3428,8 @@ add_action( 'wp_ajax_nopriv_delete_room_ajx', 'delete_room_ajx' );
  */
 function get_all_themes() {
 
-    $args   = array(
-        'post_type'      => 'theme',
+    $args = array(
+        'post_type' => 'theme',
         'posts_per_page' => -1
     );
     $themes = new WP_query( $args );
@@ -3410,8 +3448,8 @@ function get_all_themes() {
 function save_initial_layout() {
 
     $theme_id = $_POST [ 'forTheme' ];
-    $page_id  = $_POST [ 'forPage' ];
-    $json     = isset( $_POST [ 'json' ] ) ? $_POST [ 'json' ] : array();
+    $page_id = $_POST [ 'forPage' ];
+    $json = isset( $_POST [ 'json' ] ) ? $_POST [ 'json' ] : array();
 
     // get header section json
     $header = isset( $json [ 'header' ] ) && is_array( $json [ 'header' ] ) ? $json [ 'header' ] : FALSE;
@@ -3454,8 +3492,8 @@ add_action( 'wp_ajax_save_initial_layout', 'save_initial_layout' );
 function get_initial_saved_layout() {
 
     $theme_id = $_GET [ 'forTheme' ];
-    $page_id  = $_GET [ 'forPage' ];
-    $json     = array();
+    $page_id = $_GET [ 'forPage' ];
+    $json = array();
 
     // switch_to_blog(1);
 
@@ -3525,7 +3563,7 @@ function is_single_room_edit() {
 function get_image_url() {
 
     $attId = $_GET [ 'attId' ];
-    $size  = $_GET [ 'size' ];
+    $size = $_GET [ 'size' ];
 
     $path = wp_get_attachment_image_src( $attId, $size );
 
@@ -3536,7 +3574,7 @@ function get_image_url() {
     else
         wp_send_json( array(
             'code' => 'OK',
-            'url'  => $path [ 0 ]
+            'url' => $path [ 0 ]
         ) );
 }
 
@@ -3551,7 +3589,7 @@ add_action( 'wp_ajax_nopriv_get_image_url', 'get_image_url' );
 function get_rooms() {
 
     $rooms = new WP_Query( array(
-        'post_type'      => 'impruw_room',
+        'post_type' => 'impruw_room',
         'posts_per_page' => -1
     ) );
 
@@ -3561,7 +3599,7 @@ function get_rooms() {
         $rooms->the_post();
 
         $r [ ] = array(
-            'id'   => get_the_ID(),
+            'id' => get_the_ID(),
             'name' => get_the_title()
         );
     endwhile;
@@ -3580,7 +3618,7 @@ function impruw_app_model() {
         return '{}';
     else
         return json_encode( array(
-            'userId'      => get_current_user_id(),
+            'userId' => get_current_user_id(),
             'accessToken' => 'oicdaso34983hsvdsklkccxiodas897',
             'loginStatus' => TRUE
         ) );
@@ -3608,7 +3646,7 @@ add_action( 'wp_ajax_nopriv_check_email_exists', 'check_email_exists' );
 
 function check_page_access() {
 
-    if ( is_user_logged_in() && is_page( 'sign-in' ) ){
+    if ( is_user_logged_in() && is_page( 'sign-in' ) ) {
         wp_safe_redirect( site_url( 'dashboard' ) );
         die();
     }
@@ -3685,15 +3723,15 @@ function is_current_user_impruw_manager() {
 
 function on_own_site() {
 
-    $user_id      = get_current_user_id();
+    $user_id = get_current_user_id();
     $primary_blog = get_user_meta( $user_id, "primary_blog", TRUE );
 
-    return (int) $primary_blog === (int) get_current_blog_id();
+    return (int)$primary_blog === (int)get_current_blog_id();
 }
 
 function get_user_dashboard_url() {
 
-    $user_id      = get_current_user_id();
+    $user_id = get_current_user_id();
     $primary_blog = get_user_meta( $user_id, "primary_blog", TRUE );
 
     $site_url = get_site_url( $primary_blog );
@@ -3875,7 +3913,7 @@ function get_compiled_stylesheet_directory_uri() {
 global $base_element_templates;
 
 $base_element_templates = array(
-    'Row'         => array(
+    'Row' => array(
         array(
             'name' => 'Center Container'
         ),
@@ -3889,7 +3927,7 @@ $base_element_templates = array(
             'name' => 'Column Dividers'
         )
     ),
-    'Menu'        => array(
+    'Menu' => array(
         array(
             'name' => 'Slimmenu'
         ),
@@ -3897,12 +3935,12 @@ $base_element_templates = array(
             'name' => 'Footer Menu'
         )
     ),
-    'Title'       => array(
+    'Title' => array(
         array(
             'name' => 'Sub Title'
         )
     ),
-    'Image'       => array(
+    'Image' => array(
         array(
             'name' => 'Image Bordered'
         ),
@@ -3910,17 +3948,17 @@ $base_element_templates = array(
             'name' => 'Image Rounded'
         )
     ),
-    'Address'     => array(
+    'Address' => array(
         array(
-            'name'     => 'Default Style',
+            'name' => 'Default Style',
             'template' => '<ul><li><span class="fui-home"></span> {{street}}, {{city}}, {{postal_code}}, {{country}}</li><li><span class="glyphicon glyphicon-earphone"></span> {{phone_no}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
         ),
         array(
-            'name'     => 'Small Address',
+            'name' => 'Small Address',
             'template' => '<div><div class="info"> {{street}}, {{city}}, {{postal_code}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
         )
     ),
-    'Social'      => array(
+    'Social' => array(
         array(
             'name' => 'Social Right'
         ),
@@ -3933,11 +3971,11 @@ $base_element_templates = array(
     ),
     'RoomSummary' => array(
         array(
-            'name'     => 'Room Summary Default',
+            'name' => 'Room Summary Default',
             'template' => '<div class="room-img"><img src="{{image_url}}" width="100%" class="img-responsive"></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">Total: {{no_of_rooms}}<small> rooms</small></div><button class="btn btn-room">View Details</button></div>'
         ),
         array(
-            'name'     => 'Room Summary New',
+            'name' => 'Room Summary New',
             'template' => '<div class="room-img"><img src="{{image_url}}" width="100%"  class="img-responsive"></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">Total: {{no_of_rooms}}<small> rooms</small></div><button class="btn btn-room">View Details</button></div>'
         )
     )
@@ -3954,19 +3992,19 @@ function user_login() {
     if ( is_user_logged_in() ) {
         global $user;
 
-        $blog     = get_active_blog_for_user( get_current_user_id() );
-        $blogUrl  = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
+        $blog = get_active_blog_for_user( get_current_user_id() );
+        $blogUrl = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
         $response = array( "code" => "OK", 'blog_url' => $blogUrl, 'msg' => 'User already logged in' );
         wp_send_json( $response );
     }
 
 
     $pd_email = trim( $_POST[ 'pdemail' ] );
-    $pd_pass  = trim( $_POST[ 'pdpass' ] );
+    $pd_pass = trim( $_POST[ 'pdpass' ] );
 
     $credentials = array();
 
-    $credentials[ 'user_login' ]    = $pd_email;
+    $credentials[ 'user_login' ] = $pd_email;
     $credentials[ 'user_password' ] = $pd_pass;
 
 
@@ -3982,17 +4020,17 @@ function user_login() {
         $user = wp_signon( $credentials );
 
         if ( is_wp_error( $user ) ) {
-            $msg      = "The email / password doesn't seem right. Check if your caps is on and try again.";
+            $msg = "The email / password doesn't seem right. Check if your caps is on and try again.";
             $response = array( 'code' => "FAILED", 'user' => $user_->user_login . $pd_pass, 'msg' => $msg );
             wp_send_json( $response );
         } else {
-            $blog     = get_active_blog_for_user( $user->ID );
+            $blog = get_active_blog_for_user( $user->ID );
             $blog_url = $blog->siteurl;
             $response = array( "code" => "OK", 'blog_url' => $blog_url, 'msg' => 'You will be redirected to your dashboard shortly.' );
             wp_send_json( $response );
         }
     } else {
-        $msg      = "The email / password doesn't seem right. Check if your caps is on and try again.";
+        $msg = "The email / password doesn't seem right. Check if your caps is on and try again.";
         $response = array( 'code' => "FAILED", 'msg' => $msg );
         wp_send_json( $response );
     }
@@ -4027,7 +4065,7 @@ function remove_tracking_code_from_preview() {
  */
 function get_site_title( $title ) {
 
-    $site_page  = $title;
+    $site_page = $title;
     $hotel_name = get_option( 'hotel_name', '' );
     $site_title = $site_page . ' | ' . $hotel_name;
 
@@ -4036,6 +4074,28 @@ function get_site_title( $title ) {
 
 add_filter( 'wp_title', 'get_site_title' );
 
+
+/**
+ * Function to cancel a braintree subscription
+ */
+
+function cancel_subscription() {
+
+    $cancel_subscription_array = get_cancel_subscription_list();
+
+    $subscription_cancelled = cancel_subscription_in_braintree( $cancel_subscription_array[ 'old_subscription_id' ] );
+
+    if ( $subscription_cancelled['code'] == "OK" ) {
+
+        if ( $cancel_subscription_array[ 'new_subscription_id' ] == "ImpruwFree" )
+            delete_domain_mapping();
+
+        update_option( 'braintree-subscription', $cancel_subscription_array[ 'new_subscription_id' ] );
+        update_subscription_table( $cancel_subscription_array[ 'id' ] );
+
+    }
+}
+add_action( 'wp_cancel_subscription', 'cancel_subscription' );
 
 
 

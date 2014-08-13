@@ -31,7 +31,8 @@ define ['app'], (App)->
             onShow: ->
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'text-'
                 @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
-                @editor.setData _.stripslashes @model.get 'content'
+                content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
+                @editor.setData _.stripslashes content ? ''
                 @editor.config.placeholder = 'Click here to enter your text...'
 
             # destroy the Ckeditor instance to avoiid memory leaks on close of element

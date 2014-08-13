@@ -14,6 +14,9 @@ define [ 'app'
          template : '<a href="#" class="drag builder-element">
                         <div class="aj-imp-builder-icon {{icon}}"></div>
 								<div class="aj-imp-builder-title">{{elementName}}</div>
+                        <div class="element-help hide">
+                           Hi! I am help text to help you understand this element!
+                        </div>
 							</a>'
 
          serializeData : ->

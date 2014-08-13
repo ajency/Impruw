@@ -232,6 +232,28 @@ a {
 						background: rgba(0, 0, 0, 0);
 					}
 				}
+				&.selected-element {
+					width: 97%;
+					background: @preview-grey;
+					transition-duration: 0.6s;
+					a {
+						color: @orange;
+						background: rgba(0, 0, 0, 0);
+						.aj-imp-builder-icon {
+							color: @orange;
+						}
+						.aj-imp-builder-title {
+							height: auto;
+						}
+						.element-help {
+							color: lighten(@3-grey, 20%);
+							text-transform: capitalize;
+							padding: 0.5em;
+							font-size: 1.15em;
+							display: block !important;
+						}
+					}
+				}
 				&.ui-draggable-dragging {
 					background: transparent;
 					box-shadow: none;
@@ -804,7 +826,7 @@ a {
 			}
 			.aj-imp-browser-title {
 				font-size: 1.1em;
-				text-align: right;
+				text-align: center;
 				margin: 0 0 0.8em;
 				color: lighten(@3-grey, 30%);
 				font-weight: 700;
@@ -846,11 +868,34 @@ a {
 					top: 3px;
 				}
 			}
+			.page-name-label {
+				vertical-align: top;
+			}
+			.page-sel-del {
+				display: inline-block;
+				text-align: left;
+				.delete-page {
+					color: @error-red;
+					font-size: 0.6em;
+					margin: 0.3em 0 0;
+					display: block;
+					font-weight: 400;
+					text-align: right;
+					white-space: nowrap;
+					&:hover {
+						color: darken(@error-red, 20%);
+					}
+				}
+			}
 			.add-new-page {
 				background: transparent;
 				color: @blue-grey;
 				font-size: 0.8em;
 				margin: 0 1em;
+				vertical-align: top;
+				white-space: nowrap;
+				position: relative;
+				top: 0.5em;
 				&:hover {
 					background: transparent;
 					color: @orange;
@@ -2289,6 +2334,8 @@ a {
 			list-style: none;
 			margin: 0;
 			padding: 0;
+			max-height: 400px;
+			overflow-y: auto;
 			.trash-elem {
 				border-radius: 2px;
 			    box-shadow: 0 0 1px #000 inset;
@@ -3044,6 +3091,12 @@ a {
                         font-size: 1.3em;
                         color: darken(@dash-grey, 10%);
                         margin: 0 0 0.3em;
+                    }
+                    .imgedit-submit {
+                    	.nowrap {
+                    		margin-bottom: 0.25em;
+                    		display: inline-block;
+                    	}
                     }
                 }
                 &.imgedit-applyto {

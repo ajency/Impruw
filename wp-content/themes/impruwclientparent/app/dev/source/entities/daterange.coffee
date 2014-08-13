@@ -44,6 +44,13 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
             getDateRangeCollection: ->
                 dateRangeCollection
 
+            getTranslatedDateRangeCollection: (language) ->
+                translatedDateRangeCollection = new DateRangeCollection
+                translatedDateRangeCollection.fetch
+                    data:
+                        language : language
+                translatedDateRangeCollection
+
             getDateRangeNameForDate: (date)->
                 time = date.getTime()
                 checkDateRange = (daterange)->
@@ -73,6 +80,9 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
         App.reqres.setHandler "get:daterange:collection", ->
             API.getDateRangeCollection()
+
+        App.reqres.setHandler "get:translated:daterange:collection", (language) ->
+            API.getTranslatedDateRangeCollection language
 
         App.reqres.setHandler "create:new:daterange:model", (data) ->
             API.createDateRangeModel data

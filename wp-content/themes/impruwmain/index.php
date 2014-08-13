@@ -7,7 +7,7 @@
 <html>
     <head>
         <?php
-        do_action('icl_language_selector');
+        //do_action('icl_language_selector');
         wp_head();
         
         ?>

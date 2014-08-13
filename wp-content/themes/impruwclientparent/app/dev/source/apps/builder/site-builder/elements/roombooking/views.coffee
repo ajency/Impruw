@@ -18,7 +18,7 @@ define ['app'
                         numberOfMonths: 2
                         dateFormat: 'yy-mm-dd'
 
-                @$el.attr "data-content", "Update booking information <a href='#{SITEURL}/dashboard/#/rooms'>here</a> "
+                @$el.attr "data-content", " "+_.polyglot.t('Update booking information')+" <a href='#{SITEURL}/dashboard/#/rooms'>"+_.polyglot.t('here')+"</a> "
                 @$el.popover
                     html : true
                     placement : 'top'

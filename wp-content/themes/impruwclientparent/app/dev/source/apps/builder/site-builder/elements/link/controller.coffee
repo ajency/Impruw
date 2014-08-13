@@ -11,7 +11,9 @@ define ['app', 'apps/builder/site-builder/elements/link/views',
                 _.defaults options.modelData,
                     element: 'Link'
                     link: '#'
-                    text: 'Add link'
+                    text: 
+                        'en':'Add link'
+                        'nb': _.polyglot.t('Add link')
                     target: 'self'
 
                 super(options)

@@ -37,7 +37,12 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
         }
         _.each(['link', 'text'], (function(_this) {
           return function(field, i) {
-            return _this.$el.find("input[name='" + field + "']").val(_this.eleModel.get(field));
+            var textval;
+            _this.$el.find("input[name='" + field + "']").val(_this.eleModel.get(field));
+            if (field === 'text') {
+              textval = _this.eleModel.get(field);
+              return _this.$el.find("input[name='" + field + "']").val(textval[WPML_DEFAULT_LANG]);
+            }
           };
         })(this));
         return this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));

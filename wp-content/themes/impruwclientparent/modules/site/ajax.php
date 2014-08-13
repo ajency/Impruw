@@ -24,6 +24,12 @@ function read_site_ajax() {
     $data [ 'piwik_path' ] = PIWIK_PATH;
     $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
 
+    //Get site default language
+    $wpml_options = get_option( 'icl_sitepress_settings' );
+    $default_language_code = $wpml_options['default_language'];
+
+    $data[ 'default_language' ] = get_language_names($default_language_code);
+
     if ( is_array( $data ) )
         wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
     else
@@ -32,17 +38,78 @@ function read_site_ajax() {
 
 add_action( 'wp_ajax_read-site', 'read_site_ajax' );
 
+function read_language_based_site_ajax(){
+
+    if(isset($_REQUEST['language'])){
+        $language = $_REQUEST['language'];
+    }
+
+    else{
+        $language = wpml_get_default_language();
+    }
+    
+    $site_id = get_current_blog_id();
+    $data = get_site_details( $site_id, $language );
+
+    $data [ 'checkin_time' ] = get_option( 'checkin-time', '' );
+    $data [ 'checkout_time' ] = get_option( 'checkout-time', '' );
+    $data [ 'time_format' ] = get_option( 'time-format', '' );
+
+    $original_policy = get_option('additional-policy','');
+    //Check if present in string translation table , ie if it is registered 
+    $policy_string_id = icl_get_string_id( $original_policy, 'Site Profile');
+    $translated_policy = impruw_wpml_get_string_translation($original_policy, $language);
+    $data [ 'additional_policy' ] = $translated_policy;
+    $data [ 'policy_string_id' ] =  $policy_string_id;
+
+    $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );
+    $data [ 'currency' ] = get_option( 'currency','NOK' );
+//    $data [ 'braintree_plan_id' ] = get_option( 'braintree-plan','hn62' );
+    $data [ 'braintree_customer_id' ] = get_option( 'braintree-customer-id','');
+//    $data [ 'braintree_plan_name' ] = get_option( 'braintree-plan-name','Free' );
+    $data [ 'braintree_subscription' ] = get_option( 'braintree-subscription',null );
+//    $data [ 'braintree_client_token' ] = generate_client_token();
+//    $data ['subscription_start_date'] = get_option('subscription-start-date');
+    $data [ 'hotel_name' ] = get_option( 'hotel_name','' );
+    $data [ 'piwik_path' ] = PIWIK_PATH;
+    $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
+
+    $data[ 'default_language' ] = get_native_language_name(wpml_get_default_language());
+    $data['translation_language'] = get_native_language_name($language);
+
+     if ( is_array( $data ) )
+        wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+    else
+        wp_send_json( array( 'code' => 'ERROR', 'message' => 'Failed to fetch data' ) );
+
+
+}
+
+add_action( 'wp_ajax_read-language-based-site', 'read_language_based_site_ajax' );
+
+
 /**
  *
  */
 function assign_theme_to_site_ajax() {
 
+    global $sitepress;
     $site_id = get_current_blog_id();
+    $site_current_language = wpml_get_current_language();
+    $site_default_language = wpml_get_default_language();
+
+    //Change site's default language to English
+    $sitepress->set_default_language('en');
+    $sitepress->switch_lang('en');
 
     $new_theme_id = $_POST[ 'new_theme_id' ];
     $clone_pages = !isset( $_POST[ 'clone_pages' ] ) ? TRUE : FALSE;
 
     assign_theme_to_site( $new_theme_id, $clone_pages );
+
+    //Restore default language back to original
+    $sitepress->switch_lang($site_current_language);
+    $sitepress->set_default_language($site_default_language);
 
     wp_send_json( array( 'code' => 'OK' ) );
 }
@@ -68,6 +135,16 @@ function choose_site_language_ajax() {
 add_action( 'wp_ajax_choose-site-language', 'choose_site_language_ajax' );
 
 /**
+ * Function to get all pages of the child site 
+ */
+function get_childsite_pages() {
+   $data = get_all_childsite_pages();
+
+   wp_send_json( array( 'code' => 'OK' , 'data' => $data));
+}
+add_action('wp_ajax_get-childsite-pages', 'get_childsite_pages');
+
+/**
  * Function to add site profile details
  * returns all the form data passed
  *
@@ -84,6 +161,38 @@ function update_site_ajax() {
 }
 
 add_action( 'wp_ajax_update-site', 'update_site_ajax' );
+
+
+
+function update_translated_siteprofile_ajax(){
+    $translatedSiteprofile = $_REQUEST['translatedSiteprofile'];
+    $editing_language = $_REQUEST['editingLanguage'];
+    $i =0;
+    $updated_string_ids = array();
+
+    while($i<sizeof($translatedSiteprofile)) {
+
+        $option_to_be_translated = $translatedSiteprofile[$i]['translation_of_option'];
+        
+        $original_option_value = get_option($option_to_be_translated, '');
+
+        $translated_option_value = $translatedSiteprofile[$i]['translated_option'];
+
+        $original_string_id = icl_get_string_id($original_option_value, 'Site Profile');
+
+
+        $string_id = icl_add_string_translation( $original_string_id, $editing_language, $translated_option_value, ICL_STRING_TRANSLATION_COMPLETE );
+
+        array_push($updated_string_ids,$string_id);
+
+        $i++;
+    }
+
+    wp_send_json( array( 'code' => 'OK', 'data' => array( 'string_id' => $updated_string_ids ) ) );
+
+}
+
+add_action( 'wp_ajax_update-translated-siteprofile', 'update_translated_siteprofile_ajax' );
 
 
 function update_tracking() {

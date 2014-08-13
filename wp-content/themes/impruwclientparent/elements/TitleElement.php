@@ -43,8 +43,18 @@ class TitleElement extends Element {
     function __construct($element) {
         
         parent::__construct($element);
-        
-        $this->content = stripslashes($element['content']);
+
+        $current_language = ICL_LANGUAGE_CODE;
+        $content = '';
+        if(is_array($element[ 'content' ])){
+            $content        = isset( $element[ 'content' ][ $current_language ] ) ? $element[ 'content' ][
+        $current_language ] : $element[ 'content' ][ wpml_get_default_language() ];
+        }
+        else{
+            $content = $element[ 'content' ];
+        }
+        $this->content  = stripcslashes(trim( $content ));
+
         $this->style = sanitize_title($element['style']);
         
         $this->markup  = $this->generate_markup();

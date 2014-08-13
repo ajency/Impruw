@@ -21,9 +21,24 @@ define(["app", 'backbone'], function(App, Backbone) {
     siteModel = new SiteModel;
     API = {
       getSiteModel: function() {
-        siteModel;
-        siteModel.fetch();
+        siteModel = new SiteModel;
+        siteModel.fetch({
+          data: {
+            'action': 'read-language-based-site'
+          }
+        });
         return siteModel;
+      },
+      getLanguageBasedSite: function(language) {
+        var siteModelByLang;
+        siteModelByLang = new SiteModel;
+        siteModelByLang.fetch({
+          data: {
+            'language': language,
+            'action': 'read-language-based-site'
+          }
+        });
+        return siteModelByLang;
       },
       getSiteSocial: function() {
         return new Backbone.Collection([
@@ -40,6 +55,9 @@ define(["app", 'backbone'], function(App, Backbone) {
     };
     App.reqres.setHandler("get:site:model", function() {
       return API.getSiteModel();
+    });
+    App.reqres.setHandler("get:language:based:site", function(language) {
+      return API.getLanguageBasedSite(language);
     });
     App.reqres.setHandler("get:site:social", function() {
       return API.getSiteSocial();

@@ -33,7 +33,7 @@ define [ 'app'
                 siteModelPlanId = @model.get 'plan_id'
                 activePlanID = Marionette.getOption @, 'activePlanID'
                 pendingPlanID = Marionette.getOption @, 'pendingPlanID'
-                siteName = Marionette.getOption @, 'siteName'
+                domainName = Marionette.getOption @, 'domainName'
 
                 #append  the plan id to the plan activation link
                 activateLink = @$el.find( '.activate-link' ).attr 'href'
@@ -49,7 +49,7 @@ define [ 'app'
                     billStart = Marionette.getOption @, 'billStart'
                     billEnd = Marionette.getOption @, 'billEnd'
 
-                    html = "<span class='active'>Domain name: #{siteName}.com</span>
+                    html = "<span class='active'>Domain name: #{domainName}</span>
                             <span class='active'>Billing cycle:From #{billStart} to #{billEnd} </span>"
                     @$el.find( '.panel-body' ).append html
 
@@ -58,7 +58,7 @@ define [ 'app'
                 if  siteModelPlanId is pendingPlanID
                     @$el.find( '.panel-heading' ).append( '<span class="pending">Pending Activation</span>' )
                     startDate = Marionette.getOption @, 'startDate'
-                    html = "<span class='pending'>Domain name: #{siteName}.com</span>
+                    html = "<span class='pending'>Domain name: #{domainName}</span>
                             <span class='pending'>Will activate on: #{startDate} </span>"
                     @$el.find( '.panel-body' ).append html
 
@@ -80,7 +80,7 @@ define [ 'app'
                 currency : Marionette.getOption @, 'currency'
                 activePlanID : Marionette.getOption @, 'activePlanId'
                 pendingPlanID : Marionette.getOption @, 'pendingPlanId'
-                siteName : Marionette.getOption @, 'siteName'
+                domainName : Marionette.getOption @, 'domainName'
                 billStart : Marionette.getOption @, 'billStart'
                 billEnd : Marionette.getOption @, 'billEnd'
                 startDate : Marionette.getOption @, 'startDate'
@@ -97,7 +97,7 @@ define [ 'app'
                     @$el.find( '#free-plan .panel-heading' ).append '<span class="pending">Pending Activation</span>'
                     startDate = Marionette.getOption @, 'startDate'
                     siteName = Marionette.getOption @, 'siteName'
-                    html = "<span class='pending'>Domain name: #{siteName}.com</span>
+                    html = "<span class='pending'>Domain name: #{siteName}.impruw.com</span>
                             <span class='pending'>Will activate on: #{startDate} </span>"
                     @$el.find( '#free-plan .panel-body' ).append html
 
