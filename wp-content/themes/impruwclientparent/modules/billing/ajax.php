@@ -148,13 +148,7 @@ function ajax_new_card_payment() {
         $card_token = $create_card[ 'credit_card_token' ];
     }
 
-    if ( $status == "pending" ) {
-
-        $pending_subscription = create_pending_subscription( $card_token, $selected_plan_id, $current_subscription_id );
-        if ( $pending_subscription[ 'code' ] == 'ERROR' )
-            wp_send_json( array( 'code' => 'ERROR', 'msg' => $pending_subscription[ 'msg' ] ) );
-
-    } else if ( $status == "active" ) {
+    if ( $current_subscription_id == "ImpruwFree" ) {
 
         //create new  subscription in braintree
         $subscription = create_subscription_in_braintree( $card_token, $selected_plan_id );
@@ -162,6 +156,14 @@ function ajax_new_card_payment() {
             wp_send_json( array( 'code' => 'ERROR', 'msg' => $subscription[ 'msg' ] ) );
 
         update_option( 'braintree-subscription', $subscription[ 'subscription_id' ] );
+
+
+    } else {
+
+        $pending_subscription = create_pending_subscription( $card_token, $selected_plan_id, $current_subscription_id );
+        if ( $pending_subscription[ 'code' ] == 'ERROR' )
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => $pending_subscription[ 'msg' ] ) );
+
 
     }
 
