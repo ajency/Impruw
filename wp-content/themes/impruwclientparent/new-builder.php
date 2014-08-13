@@ -82,6 +82,9 @@
     var AUTOSAVEINTERVAL = 10000;
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
     var ADDRESS = '<?php echo get_hotel_address() ?>';
+    var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
+    var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
+    var PLUGIN_URI  = '<?php echo WP_PLUGIN_URL; ?>';
     var ISTHEMEEDITOR = '<?php echo current_user_can( 'edit_impruw_theme' ) ? 'yes' : 'no' ?>';
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>

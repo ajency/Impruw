@@ -1027,7 +1027,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #f9f8f4;
-  border-bottom: 1px dashed #280E0E;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
   padding-bottom: 5%;
   margin-bottom: 5%;
 }

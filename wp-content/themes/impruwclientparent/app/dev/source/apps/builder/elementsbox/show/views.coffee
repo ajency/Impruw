@@ -14,7 +14,11 @@ define [ 'app'
          template : '<a href="#" class="drag builder-element">
                         <div class="aj-imp-builder-icon {{icon}}"></div>
 								<div class="aj-imp-builder-title">{{elementName}}</div>
-							</a>'
+							</a>
+                     <div class="element-help hide">
+                        <a class="close-help">&times;</a>
+                        Hi! I am help text to help you understand this element!
+                     </div>'
 
          serializeData : ->
             data = super()

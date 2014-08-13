@@ -90,7 +90,7 @@ define(['app'], function(App) {
       };
 
       MapView.prototype.displayGeoCodeErrorMessage = function() {
-        return this.$el.html("<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Failed to geocode your address. Please click <a href='" + SITEURL + "/dashboard/#/site-profile'> here to update.</a></div>");
+        return this.$el.html("<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>" + _.polyglot.t('Failed to geocode your address. Please click') + ("<a href='" + SITEURL + "/dashboard/#/site-profile'> ") + _.polyglot.t('here to update.') + "</a></div>");
       };
 
       return MapView;

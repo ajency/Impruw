@@ -87,7 +87,7 @@ define [ 'app'
                @$el.find( '#selectable-images' ).selectSelectableElements imageView.$el
 
          onShowEditImage : ( editView )->
-            @$el.find( '#selectable-images' ).hide()
+            @$el.find( '#selectable-images, .load-more' ).hide()
             @$el.find( '#edit-image-view' ).html( editView.render().$el ).show()
             editView.triggerMethod 'show'
 
@@ -95,6 +95,6 @@ define [ 'app'
             self = @
             @$el.find( '#edit-image-view' ).fadeOut 'fast', ->
                $( @ ).empty()
-               self.$el.find( '#selectable-images' ).show()
+               self.$el.find( '#selectable-images, .load-more' ).show()
 
 

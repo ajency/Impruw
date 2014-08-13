@@ -217,14 +217,63 @@ a.red-link.pull-right {
   overflow: hidden;
 }
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li:hover,
-.aj-imp-drag-menu .tab-content .aj-imp-builder-items li:focus {
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li:focus,
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element {
   background: #ff7e00;
   transition-duration: 0.6s;
 }
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li:hover a,
-.aj-imp-drag-menu .tab-content .aj-imp-builder-items li:focus a {
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li:focus a,
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element a {
   color: #fff;
   background: rgba(0, 0, 0, 0);
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element {
+  position: relative;
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element .element-help {
+  background: #29333f;
+  color: #aaaaaa;
+  text-transform: capitalize;
+  position: absolute;
+  border-radius: 2px;
+  border: 1px solid #aaaaaa;
+  padding: 0.5em;
+  padding-right: 15px;
+  font-size: 1.15em;
+  width: 140px;
+  top: 80px;
+  display: block !important;
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element .element-help .close-help {
+  display: inline-block;
+  height: auto;
+  width: auto;
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  min-height: initial;
+  cursor: pointer;
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element .element-help:after {
+  content: '';
+  position: absolute;
+  top: -13px;
+  left: 10px;
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  border-bottom: 6px solid #29333f;
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element .element-help:before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 10px;
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  border-bottom: 6px solid #aaaaaa;
 }
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li.ui-draggable-dragging {
   background: transparent;
@@ -774,7 +823,7 @@ a.red-link.pull-right {
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-title {
   font-size: 1.1em;
-  text-align: right;
+  text-align: center;
   margin: 0 0 0.8em;
   color: #808080;
   font-weight: 700;
@@ -814,11 +863,34 @@ a.red-link.pull-right {
   font-size: 1.4em;
   top: 3px;
 }
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name-label {
+  vertical-align: top;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-sel-del {
+  display: inline-block;
+  text-align: left;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-sel-del .delete-page {
+  color: #ff3333;
+  font-size: 0.6em;
+  margin: 0.3em 0 0;
+  display: block;
+  font-weight: 400;
+  text-align: right;
+  white-space: nowrap;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-sel-del .delete-page:hover {
+  color: #cc0000;
+}
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page {
   background: transparent;
   color: #849fb0;
   font-size: 0.8em;
   margin: 0 1em;
+  vertical-align: top;
+  white-space: nowrap;
+  position: relative;
+  top: 0.5em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page:hover {
   background: transparent;
@@ -2208,6 +2280,8 @@ a.red-link.pull-right {
   list-style: none;
   margin: 0;
   padding: 0;
+  max-height: 400px;
+  overflow-y: auto;
 }
 .aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem {
   border-radius: 2px;
@@ -2889,6 +2963,10 @@ a.red-link.pull-right {
   font-size: 1.3em;
   color: #919191;
   margin: 0 0 0.3em;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group .imgedit-group-top .imgedit-submit .nowrap {
+  margin-bottom: 0.25em;
+  display: inline-block;
 }
 #edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group.imgedit-applyto img {
   padding: 0.2em;

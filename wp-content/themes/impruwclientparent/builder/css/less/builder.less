@@ -224,12 +224,59 @@ a {
 						overflow: hidden;
 					}
 				}
-				&:hover, &:focus {
+				&:hover, &:focus, &.selected-element {
 					background: @orange;
 					transition-duration: 0.6s;
 					a {
 						color: #fff;
 						background: rgba(0, 0, 0, 0);
+					}
+				}
+				&.selected-element {
+					position: relative;
+					.element-help {
+						background: @dark-blue;
+						color: @dash-grey;
+						text-transform: capitalize;
+						position: absolute;
+						border-radius: 2px;
+						border: 1px solid @dash-grey;
+						padding: 0.5em;
+						padding-right: 15px;
+						font-size: 1.15em;
+						width: 140px;
+						top: 80px;
+						display: block !important;
+						.close-help {
+							display: inline-block;
+							height: auto;
+							width: auto;
+							position: absolute;
+							top: 2px;
+							right: 5px;
+							min-height: initial;
+							cursor: pointer;
+						}
+						&:after {
+							content: '';
+							position: absolute;
+							top: -13px;
+							left: 10px;
+							width: 0;
+							height: 0;
+							border: 7px solid transparent;
+							border-bottom: 6px solid @dark-blue;
+						}
+						&:before {
+							content: '';
+							position: absolute;
+							top: -14px;
+							left: 10px;
+							width: 0;
+							height: 0;
+							border: 7px solid transparent;
+							border-bottom: 6px solid @dash-grey;
+						}
 					}
 				}
 				&.ui-draggable-dragging {
@@ -804,7 +851,7 @@ a {
 			}
 			.aj-imp-browser-title {
 				font-size: 1.1em;
-				text-align: right;
+				text-align: center;
 				margin: 0 0 0.8em;
 				color: lighten(@3-grey, 30%);
 				font-weight: 700;
@@ -846,11 +893,34 @@ a {
 					top: 3px;
 				}
 			}
+			.page-name-label {
+				vertical-align: top;
+			}
+			.page-sel-del {
+				display: inline-block;
+				text-align: left;
+				.delete-page {
+					color: @error-red;
+					font-size: 0.6em;
+					margin: 0.3em 0 0;
+					display: block;
+					font-weight: 400;
+					text-align: right;
+					white-space: nowrap;
+					&:hover {
+						color: darken(@error-red, 20%);
+					}
+				}
+			}
 			.add-new-page {
 				background: transparent;
 				color: @blue-grey;
 				font-size: 0.8em;
 				margin: 0 1em;
+				vertical-align: top;
+				white-space: nowrap;
+				position: relative;
+				top: 0.5em;
 				&:hover {
 					background: transparent;
 					color: @orange;
@@ -2289,6 +2359,8 @@ a {
 			list-style: none;
 			margin: 0;
 			padding: 0;
+			max-height: 400px;
+			overflow-y: auto;
 			.trash-elem {
 				border-radius: 2px;
 			    box-shadow: 0 0 1px #000 inset;
@@ -3044,6 +3116,12 @@ a {
                         font-size: 1.3em;
                         color: darken(@dash-grey, 10%);
                         margin: 0 0 0.3em;
+                    }
+                    .imgedit-submit {
+                    	.nowrap {
+                    		margin-bottom: 0.25em;
+                    		display: inline-block;
+                    	}
                     }
                 }
                 &.imgedit-applyto {

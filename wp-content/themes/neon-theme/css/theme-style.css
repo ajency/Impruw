@@ -1042,7 +1042,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #e1e1e1;
-  border-bottom: 1px dashed #280E0E;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
   padding-bottom: 5%;
   margin-bottom: 5%;
 }
@@ -2629,7 +2629,7 @@ and open the template in the editor.
 .daterange-legends {
   text-transform: uppercase;
   font-size: 0.9em;
-  color: #39435c;
+  color: #ffffff;
 }
 .daterange-legends li span {
   width: 13px;
@@ -2665,16 +2665,16 @@ and open the template in the editor.
   margin: 0 15px;
 }
 .room-booking .room-booking-container {
-  background: #73e7ae;
+  background: #48df95;
 }
 .room-booking .room-booking-container .room-booking-data {
-  background: #24d07c;
+  background: #e223a1;
   padding-top: 1em;
   min-height: 590px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
-  color: #e223a1;
+  color: #ffffff;
   margin-bottom: 10%;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
@@ -2688,7 +2688,7 @@ and open the template in the editor.
   padding-top: 13px;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
-  color: #e223a1;
+  color: #ffffff;
   border-bottom: 1px dashed #39435c;
   padding-bottom: 5%;
   margin-bottom: 5%;
@@ -2696,10 +2696,10 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .room-booking-plan h5 {
   font-weight: 600;
   font-size: 1.5em;
-  color: #60719b;
+  color: #39435c;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .plan-bg {
-  background: #48df95;
+  background: rgba(255, 255, 255, 0.3);
   padding: 1px 4px;
   margin-top: 2%;
 }
@@ -2708,7 +2708,7 @@ and open the template in the editor.
   float: left;
   font-size: 0.9em;
   font-weight: 300;
-  color: #ee7dc8;
+  color: #ffffff;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-detail span {
   font-weight: 800;
@@ -2719,12 +2719,13 @@ and open the template in the editor.
   font-weight: 600;
   font-size: 1.0em;
   text-transform: uppercase;
-  color: #ee7dc8;
+  color: #e223a1;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-price {
   font-size: 0.8em;
   font-weight: 100;
   margin-top: 3%;
+  color: #24d07c;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-price b {
   font-size: 2.0em;
@@ -2740,7 +2741,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender h4 {
   font-weight: 600;
   font-size: 1.5em;
-  color: #39435c;
+  color: #ffffff;
   text-transform: uppercase;
   margin-bottom: 30px;
   margin-top: 30px;

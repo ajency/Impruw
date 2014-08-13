@@ -61,11 +61,12 @@ define(['app'], function(App) {
       };
 
       ImageWithTextView.prototype.onShow = function() {
-        var content;
+        var content, _ref;
         this.$el.children('p.editor').attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.children('p.editor').attr('id')));
-        content = Marionette.getOption(this, 'templateHelpers').content;
-        this.editor.setData(_.stripslashes(content));
+        content = Marionette.getOption(this, 'templateHelpers').content[WPML_DEFAULT_LANG];
+        content = (_ref = Marionette.getOption(this, 'templateHelpers').content[WPML_DEFAULT_LANG]) != null ? _ref : Marionette.getOption(this, 'templateHelpers').content;
+        this.editor.setData(_.stripslashes(content != null ? content : ''));
         return this.editor.config.placeholder = 'Click here to enter your text...';
       };
 

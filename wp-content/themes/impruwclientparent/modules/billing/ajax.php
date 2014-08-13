@@ -84,7 +84,7 @@ function ajax_read_creditcard() {
 
     $card_token = $_REQUEST[ 'token' ];
 
-    $credit_card_data = get_credit_card_details_by_token($card_token);
+    $credit_card_data = get_credit_card_details_by_token( $card_token );
 
     if ( $credit_card_data[ 'code' ] == 'ERROR' )
         wp_send_json( array( 'code' => 'ERROR', 'msg' => $credit_card_data[ 'msg' ] ) );
@@ -105,8 +105,8 @@ function ajax_get_credit_cards() {
 
     if ( empty( $customer_id ) ) {
         $credit_card_data = array( 'card_exists' => false,
-                                   'customer_id' => $customer_id,
-                                   'braintree_client_token' => generate_client_token());
+            'customer_id' => $customer_id,
+            'braintree_client_token' => generate_client_token() );
     } else {
         $credit_card_data = get_customer_credit_card_details( $customer_id );
     }
@@ -125,7 +125,6 @@ function ajax_new_card_payment() {
     $selected_plan_id = $_POST[ 'selectedPlanId' ];
     $payment_method_nonce = $_POST[ 'paymentMethodNonce' ];
     $customer_id = $_POST[ 'customerId' ];
-    $status = $_POST[ 'status' ];
     $current_subscription_id = $_POST[ 'currentSubscriptionId' ];
     unset( $_POST[ 'action' ] );
 
@@ -148,13 +147,7 @@ function ajax_new_card_payment() {
         $card_token = $create_card[ 'credit_card_token' ];
     }
 
-    if ( $status == "pending" ) {
-
-        $pending_subscription = create_pending_subscription( $card_token, $selected_plan_id, $current_subscription_id );
-        if ( $pending_subscription[ 'code' ] == 'ERROR' )
-            wp_send_json( array( 'code' => 'ERROR', 'msg' => $pending_subscription[ 'msg' ] ) );
-
-    } else if ( $status == "active" ) {
+    if ( $current_subscription_id == "ImpruwFree" ) {
 
         //create new  subscription in braintree
         $subscription = create_subscription_in_braintree( $card_token, $selected_plan_id );
@@ -162,6 +155,14 @@ function ajax_new_card_payment() {
             wp_send_json( array( 'code' => 'ERROR', 'msg' => $subscription[ 'msg' ] ) );
 
         update_option( 'braintree-subscription', $subscription[ 'subscription_id' ] );
+
+
+    } else {
+
+        $pending_subscription = create_pending_subscription( $card_token, $selected_plan_id, $current_subscription_id );
+        if ( $pending_subscription[ 'code' ] == 'ERROR' )
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => $pending_subscription[ 'msg' ] ) );
+
 
     }
 
@@ -204,12 +205,18 @@ function ajax_switch_to_free_plan() {
 
     $cancel_date = $_POST[ 'cancelDate' ];
     $current_subscription_id = $_POST[ 'currentSubscriptionId' ];
-    $subscription_status = $_POST[ 'status' ];
+//    $subscription_status = $_POST[ 'status' ];
+    $subscription_type = $_POST[ 'subscriptionType' ];
 
-    // take the day before the billing start day in case of  pending subscription
-    if ( $subscription_status == "Pending" ) {
-        $cancel_date = date( 'Y-m-d', ( strtotime( '-1 day', strtotime( $cancel_date ) ) ) );
+    if ( $subscription_type == "Yearly" ) {
+        $subtract_year = date( 'Y-m-d', ( strtotime( '-1 year', strtotime( $cancel_date ) ) ) );
+        $cancel_date = date( "Y-m-t", strtotime( $subtract_year ) );
     }
+
+    //take the day before the billing start day in case of  pending subscription
+//    if ( $subscription_status == "Pending" ) {
+//        $cancel_date = date( 'Y-m-d', ( strtotime( '-1 day', strtotime( $cancel_date ) ) ) );
+//    }
 
     delete_previous_subscription( $current_subscription_id );
 

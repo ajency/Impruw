@@ -44,6 +44,16 @@ define ["app", 'backbone'], (App, Backbone) ->
                 plan = planCollection.get parseInt id
                 plan
 
+            getTranslatedPlanById: (id,language)->
+                translatedPlanModel = new Plan
+                translatedPlanModel.fetch
+                    data:
+                        plan_id: id
+                        language : language
+                        action: 'fetch-plan-by-language'
+                translatedPlanModel
+
+
         App.reqres.setHandler "get:plans:collection", ->
             API.getPlansCollection()
 
@@ -52,3 +62,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
         App.reqres.setHandler "get:plan:by:id", (id)->
             API.getPlanById id
+
+        App.reqres.setHandler "get:translated:plan:by:id", (id, language)->
+            API.getTranslatedPlanById id, language

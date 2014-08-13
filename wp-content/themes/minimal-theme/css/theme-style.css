@@ -1041,7 +1041,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #ffffff;
-  border-bottom: 1px dashed #280E0E;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
   padding-bottom: 5%;
   margin-bottom: 5%;
 }
@@ -2578,7 +2578,7 @@ and open the template in the editor.
 .daterange-legends {
   text-transform: uppercase;
   font-size: 0.9em;
-  color: #ffffff;
+  color: #282827;
 }
 .daterange-legends li span {
   width: 13px;
@@ -2673,7 +2673,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-price {
   font-size: 0.8em;
-  font-weight: 100;
+  font-weight: 300;
   margin-top: 3%;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-price b {
@@ -2690,14 +2690,14 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender h4 {
   font-weight: 600;
   font-size: 1.5em;
-  color: #ffffff;
+  color: #831618;
   text-transform: uppercase;
   margin-bottom: 30px;
   margin-top: 30px;
 }
 .room-booking .room-booking-container .room-booking-calender h4 .glyphicon {
   font-size: 1.5em;
-  color: #ffffff;
+  color: #831618;
   float: left;
   margin-right: 1%;
 }
@@ -2774,6 +2774,13 @@ and open the template in the editor.
   line-height: 49px;
   text-align: center;
   border: 0px;
+  background: transparent;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a {
+  color: #ed1c24;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a:hover {
+  color: #c61017;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td > span {
   background: rgba(255, 255, 255, 0.6);
@@ -2833,8 +2840,11 @@ and open the template in the editor.
   background: url(../images/gray-semi.png) right no-repeat;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-active {
-  background: transparent;
-  color: #34495E;
+  background: #f47b7f;
+  color: #831618;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-active:hover {
+  background: #f8aaad;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-highlight {
   border-color: #f47b7f;

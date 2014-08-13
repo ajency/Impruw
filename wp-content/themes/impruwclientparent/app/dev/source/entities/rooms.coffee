@@ -55,8 +55,22 @@ define ["app", 'backbone'], (App, Backbone) ->
                 #console.log room
                 room
 
+            getDefaultRoomModel: (room_id) ->
+                roomModel = new Rooms.RoomModel
+                roomModel.fetch
+                    data:
+                        action: "read-language-room"
+                        roomId : room_id
+                roomModel            
 
-
+            getTranslatedRoomModel: (room_id,editing_lang) ->
+                roomModel = new Rooms.RoomModel
+                roomModel.fetch
+                    data:
+                        action: "read-translated-room"
+                        roomId : room_id
+                        editingLang: editing_lang
+                roomModel
 
             addRoomModelToCollection: (model)->
                 rooms.add model
@@ -70,7 +84,14 @@ define ["app", 'backbone'], (App, Backbone) ->
             API.createNewRoomModel data
 
         App.reqres.setHandler "get:room:model", (room_id) ->
+            console.log "Get room model"
             API.getRoomModel room_id
+
+        App.reqres.setHandler "get:default:room:model", (room_id) ->
+            API.getDefaultRoomModel room_id        
+
+        App.reqres.setHandler "get:translated:room:model", (room_id, editing_lang) ->
+            API.getTranslatedRoomModel room_id, editing_lang
 
         App.commands.setHandler "add:room:model", (model)->
             return false if not _.isObject model

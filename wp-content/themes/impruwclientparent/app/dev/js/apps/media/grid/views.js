@@ -123,7 +123,7 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
       };
 
       GridView.prototype.onShowEditImage = function(editView) {
-        this.$el.find('#selectable-images').hide();
+        this.$el.find('#selectable-images, .load-more').hide();
         this.$el.find('#edit-image-view').html(editView.render().$el).show();
         return editView.triggerMethod('show');
       };
@@ -133,7 +133,7 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
         self = this;
         return this.$el.find('#edit-image-view').fadeOut('fast', function() {
           $(this).empty();
-          return self.$el.find('#selectable-images').show();
+          return self.$el.find('#selectable-images, .load-more').show();
         });
       };
 
