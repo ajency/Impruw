@@ -18,10 +18,7 @@ function create_customer_with_card( $customer_data ) {
     $create_customer_with_card = Braintree_Customer::create( array(
         'firstName' => $customer_data[ 'user_name' ],
         'creditCard' => array(
-            'paymentMethodNonce' => $customer_data[ 'payment_method_nonce' ],
-            'options' => array(
-                'verifyCard' => true
-            )
+            'paymentMethodNonce' => $customer_data[ 'payment_method_nonce' ]
         )
     ) );
 
@@ -161,17 +158,25 @@ function update_customer_billing_address( $address_data ) {
 
 function  add_new_credit_card_to_customer( $customer_id, $payment_method_nonce ) {
 
-    $create_card = Braintree_Customer::update( $customer_id, array(
-        'creditCard' => array(
-            'paymentMethodNonce' => $payment_method_nonce,
-            'options' => array(
-                'verifyCard' => true
-            )
+    $create_card = Braintree_PaymentMethod::create(array(
+        'customerId' => $customer_id,
+        'paymentMethodNonce' => $payment_method_nonce,
+        'options' => array(
+            'failOnDuplicatePaymentMethod' => true
         )
-    ) );
+    ));
+
+//    $create_card = Braintree_Customer::update( $customer_id, array(
+//        'creditCard' => array(
+//            'paymentMethodNonce' => $payment_method_nonce,
+//            'options' => array(
+//                'verifyCard' => true
+//            )
+//        )
+//    ) );
 
     if ( $create_card->success ) {
-        $credit_card_token = $create_card->customer->creditCards[ 0 ]->token;
+        $credit_card_token = $create_card->paymentMethod->token;
         $success_msg = array( 'code' => 'OK', 'credit_card_token' => $credit_card_token );
         return $success_msg;
 

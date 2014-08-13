@@ -125,7 +125,6 @@ function ajax_new_card_payment() {
     $selected_plan_id = $_POST[ 'selectedPlanId' ];
     $payment_method_nonce = $_POST[ 'paymentMethodNonce' ];
     $customer_id = $_POST[ 'customerId' ];
-    $status = $_POST[ 'status' ];
     $current_subscription_id = $_POST[ 'currentSubscriptionId' ];
     unset( $_POST[ 'action' ] );
 
