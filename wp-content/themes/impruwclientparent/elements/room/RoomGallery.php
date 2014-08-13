@@ -47,8 +47,49 @@ class RoomGallery extends SliderElement {
         //parent::__construct($element );
             
         $this->slider_id = isset($element['slider_id']) ? $element['slider_id'] : $this->get_slider_id();
+        
+        if((int)$this->slider_id !== 0){
+          $this->markup    =    $this->generate_markup();
+        }
+        else if((int)$this->slider_id === 0){
+          if ($_GET['preview'] === "true"){
+            $this->markup = $this->generate_preview_markup();
+          }
+          else{
+            $this->markup = $this->generate_placeholder_markup(); 
+          }
+        }
+    }
+
+    function generate_placeholder_markup(){
+
+      return '<h2>Add your placeholder markup here</h2>';  
+
+    }
+
+    function generate_preview_markup(){
+
+        $html = '';
+        
+        if(is_singular('impruw_room'))
+          $html = '<h3 class="gallery-title">Gallery</h3>';
            
-        $this->markup    =  $this->slider_id === 0 ? '' :  $this->generate_markup();
+
+        $html .= '<ul class="gallery">';
+        
+        for($i = 1; $i <= 5; $i++) {
+           
+           $image_path = get_parent_template_directory_uri() . '/images/galler_thumb_' . $i . '.jpg';
+
+           $image_full = get_parent_template_directory_uri() . '/images/galler_full_' . $i . '.jpg';
+           
+           $html .= '<li class="isotope-element"><a href="'.$image_full.'" data-lightbox="gallery"><img src="'.$image_path.'" class="img-responsive"></a></li>' ; 
+        }
+        
+        $html .= '</ul>';
+          
+        return $html;
+
     }
     
     function get_slider_id(){
@@ -76,13 +117,14 @@ class RoomGallery extends SliderElement {
        
         $sliderID = $this->slider_id;
        
-        $slides =get_slides($sliderID);
+        $slides = get_slides($sliderID);
         
         $html = '';
         
         if(is_singular('impruw_room'))
         	$html = '<h3 class="gallery-title">Gallery</h3>';
-        	
+        	 
+
         $html .= '<ul class="gallery">';
         
         foreach ($slides as $key => $value) {
