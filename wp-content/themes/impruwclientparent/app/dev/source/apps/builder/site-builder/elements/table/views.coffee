@@ -11,7 +11,7 @@ define ['app','bootbox'], (App,bootbox)->
 			template : '<div class="table-settings-bar">
 						 <div class="form-inline">
 							<div class="control-group">
-								<label for="spinner-01">Columns: </label>
+								<label for="spinner-01">{{#polyglot}}Columns{{/polyglot}}: </label>
 							  	<div class="input-group spinner column-spinner">
 									<input type="text" class="form-control" value="{{column}}">
 									<div class="input-group-btn-vertical">
@@ -21,7 +21,7 @@ define ['app','bootbox'], (App,bootbox)->
 								</div>
 							</div>
 							<div class="control-group">
-								<label for="spinner-02">Rows: </label>
+								<label for="spinner-02">{{#polyglot}}Rows{{/polyglot}}: </label>
 							  	<div class="input-group spinner row-spinner">
 									<input type="text" class="form-control" value="{{row}}">
 									<div class="input-group-btn-vertical">
@@ -31,20 +31,20 @@ define ['app','bootbox'], (App,bootbox)->
 								</div>
 							</div>
 							<div class="control-group check-props">
-								<label for="properties">Properties: </label>
+								<label for="properties">{{#polyglot}}Properties{{/polyglot}}: </label>
 							  	<div class="props">
 							  		<label class="checkbox" for="checkbox-bordered">
 										<input type="checkbox" value="" id="checkbox-bordered" data-toggle="checkbox">
-										Bordered
+										{{#polyglot}}Bordered{{/polyglot}}
 									</label>
 									<label class="checkbox" for="checkbox-striped">
 										<input type="checkbox" value="" id="checkbox-striped" data-toggle="checkbox">
-										Striped
+										{{#polyglot}}Striped{{/polyglot}}
 									</label>
 							  	</div>
 							</div>
 							<div class="control-group styles">
-								<label for="style">Style: </label>
+								<label for="style">{{#polyglot}}Style{{/polyglot}}: </label>
 							  	<select id="table-style">
 							  		<option value="style-1">Style 1</option>
 							  		<option value="style-2">Style 2</option>
