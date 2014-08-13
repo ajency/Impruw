@@ -44,8 +44,8 @@ define [ 'app', 'controllers/base-controller'
 
                         @layout.paymentRegion.show @paymentView
 
-                        @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce, status )=>
-                            @newCardPayment paymentMethodNonce, status
+                        @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
+                            @newCardPayment paymentMethodNonce
 
                         @listenTo @paymentView, "make:payment:with:stored:card", @payWithStoredCard
 
@@ -53,7 +53,7 @@ define [ 'app', 'controllers/base-controller'
                 @show @layout,
                     loading : true
 
-            newCardPayment : ( paymentMethodNonce, status )=>
+            newCardPayment : ( paymentMethodNonce )=>
                 options =
                     method : 'POST'
                     url : AJAXURL
@@ -62,7 +62,6 @@ define [ 'app', 'controllers/base-controller'
                         'selectedPlanId' : @selectedPlanId
                         'customerId' : @customerId
                         'currentSubscriptionId' : @subscriptionId
-                        'status' : status
                         'action' : 'new-card-payment'
 
                 $.ajax( options ).done ( response )=>

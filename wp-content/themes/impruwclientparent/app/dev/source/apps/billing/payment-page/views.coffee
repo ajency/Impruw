@@ -75,7 +75,7 @@ define [ 'app'
                     clientToken = @model.get 'braintree_client_token'
                     client = new braintree.api.Client clientToken : clientToken
                     client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
-                        @trigger "new:credit:card:payment", nonce,'active'
+                        @trigger "new:credit:card:payment", nonce
 
             onPaymentSuccess : ->
                 @$el.find( '#billingsave_status' ).empty()
@@ -138,7 +138,7 @@ define [ 'app'
                     clientToken =  @collection.models[0].get 'braintree_client_token'
                     client = new braintree.api.Client clientToken : clientToken
                     client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
-                        @trigger "new:credit:card:payment", nonce , 'pending'
+                        @trigger "new:credit:card:payment", nonce
 
                 'click #btn-stored-pay' :(e)->
                     e.preventDefault()
