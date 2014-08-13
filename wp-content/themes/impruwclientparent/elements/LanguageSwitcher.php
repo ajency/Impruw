@@ -57,7 +57,7 @@ class LanguageSwitcher extends Element {
         do_action('icl_language_selector');
 
         $html .= ob_get_clean();
-        $html .= '<div>';
+        $html .= '</div>';
 
         return $html;
     }

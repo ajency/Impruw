@@ -5,6 +5,6 @@ define [ 'app'
         # Genral form
         class View.SeoView extends Marionette.ItemView
 
-            template : "<div>Heloooo</div>"
+            template : formTpl
 
-            className : 'form-horizontal'
+            className : 'seo-container'
