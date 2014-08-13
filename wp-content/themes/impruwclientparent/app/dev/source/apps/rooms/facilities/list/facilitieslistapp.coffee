@@ -8,7 +8,7 @@ define ['app'
                 {facilities} = opt
 
                 # get the facilities collection
-                @collection = collection = App.request "get:all:facilities"
+                @collection = collection = App.request "get:default:facilities"
 
                 @cview = cview = @_getFacilitiesView collection, facilities
 

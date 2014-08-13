@@ -553,7 +553,7 @@
                             id int(11) NOT NULL AUTO_INCREMENT,
                             from_date datetime NOT NULL,
                             to_date datetime NOT NULL,
-                            label varchar(250) CHARACTER SET utf8 NOT NULL,
+                            label LONGTEXT CHARACTER SET utf8 NOT NULL,
                                 PRIMARY KEY (id)
                             )");
 

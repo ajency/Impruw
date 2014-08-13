@@ -13,8 +13,11 @@ define(['app', 'text!apps/language-translation/show/templates/languageview.html'
       LanguageLayout.prototype.template = languageviewTpl;
 
       LanguageLayout.prototype.regions = {
-        languageSelectionRegion: ".pick-language-container",
-        languageTranslateRegion: ".aj-imp-dash-widget"
+        languageSelectionRegion: "#pick-language",
+        languagePageNav: "#js-page-nav",
+        languagePageContent: "#js-other-tabs",
+        languagePageRooms: "#js-rooms-tab",
+        languageAddressContent: "#js-address-tab"
       };
 
       LanguageLayout.prototype.onShow = function() {

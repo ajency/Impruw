@@ -3706,31 +3706,35 @@ form .aj-imp-submit:hover {
   text-transform: uppercase;
   font-weight: 300;
 }
-.language .nav-pills li a,
-.billing-container .nav-pills li a {
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:hover,
+.billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:hover,
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:focus,
+.billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:focus {
+  background: transparent;
+}
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-menu,
+.billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-menu {
+  min-height: initial !important;
+}
+.language .aj-imp-dash-widget .nav-pills li a,
+.billing-container .aj-imp-dash-widget .nav-pills li a {
   background: transparent;
   border-radius: 0;
   border: none;
   border-bottom: 2px solid transparent;
   color: #849fb0;
 }
-.language .nav-pills li:hover a,
-.billing-container .nav-pills li:hover a,
-.language .nav-pills li:focus a,
-.billing-container .nav-pills li:focus a {
+.language .aj-imp-dash-widget .nav-pills li:hover a,
+.billing-container .aj-imp-dash-widget .nav-pills li:hover a,
+.language .aj-imp-dash-widget .nav-pills li :focus a,
+.billing-container .aj-imp-dash-widget .nav-pills li :focus a {
   border-color: #849fb0;
   text-shadow: none;
 }
-.language .nav-pills li.active a,
-.billing-container .nav-pills li.active a {
+.language .aj-imp-dash-widget .nav-pills li.active a,
+.billing-container .aj-imp-dash-widget .nav-pills li.active a {
   color: #ff7e00;
   border-color: #ff7e00;
-}
-.language .nav-pills li.active a:hover,
-.billing-container .nav-pills li.active a:hover,
-.language .nav-pills li.active a:focus,
-.billing-container .nav-pills li.active a:focus {
-  background: transparent;
 }
 .language .aj-imp-widget-content .tab-content,
 .billing-container .aj-imp-widget-content .tab-content {
@@ -3740,7 +3744,7 @@ form .aj-imp-submit:hover {
 }
 .language .aj-imp-widget-content .tab-content .legend-group,
 .billing-container .aj-imp-widget-content .tab-content .legend-group {
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 .language .aj-imp-widget-content .tab-content .legend-group .form-group,
 .billing-container .aj-imp-widget-content .tab-content .legend-group .form-group {
@@ -3756,6 +3760,25 @@ form .aj-imp-submit:hover {
   border-bottom: 1px solid #aaaaaa;
   padding: 8px 12px 3px;
   line-height: 1.6;
+  height: 100px;
+  max-height: 100px;
+  overflow: hidden;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.language .aj-imp-widget-content .tab-content .original:focus,
+.billing-container .aj-imp-widget-content .tab-content .original:focus {
+  height: auto;
+  min-height: 100px;
+  max-height: none;
+}
+.language .aj-imp-widget-content .tab-content .original.title,
+.billing-container .aj-imp-widget-content .tab-content .original.title {
+  min-height: 33px;
+  height: auto;
 }
 .language .form-horizontal,
 .billing-container .form-horizontal {
@@ -3850,19 +3873,68 @@ form .aj-imp-submit:hover {
 .language .pick-language-container .pick-languages .languages li .form-group {
   margin: 0;
 }
-.language .pick-room {
+.language .pick-room .form-horizontal {
   font-size: 1.2em;
   margin: 0 0 1em;
   padding: 0.5em;
   border: 1px dotted #aaaaaa;
 }
-.language .pick-room .bootstrap-select {
+.language .pick-room .form-horizontal .bootstrap-select {
   font-size: 0.5em;
   margin-bottom: 0.8em;
 }
-.language .pick-room .bootstrap-select .btn:hover,
-.language .pick-room .bootstrap-select .btn:focus {
+.language .pick-room .form-horizontal .bootstrap-select .btn:hover,
+.language .pick-room .form-horizontal .bootstrap-select .btn:focus {
   background: transparent;
+}
+.language .pick-plan .form-horizontal {
+  margin: 0 0 1em;
+}
+.language .pick-plan .form-horizontal .bootstrap-select {
+  font-size: 0.5em;
+  margin-bottom: 0.8em;
+}
+.language .pick-plan .form-horizontal .bootstrap-select .btn:hover,
+.language .pick-plan .form-horizontal .bootstrap-select .btn:focus {
+  background: transparent;
+}
+.language .trans-field {
+  position: relative;
+}
+.language .trans-field .trans-action {
+  position: absolute;
+  bottom: 0;
+  right: -4em;
+  opacity: 0;
+}
+.language .trans-field .translated-element-content {
+  height: 100px;
+  background: #fff;
+  border-bottom: 1px solid #aaaaaa;
+  padding: 8px 12px 3px;
+  margin-bottom: 0;
+  overflow-y: scroll;
+}
+.language .trans-field .translated-element-content.title {
+  height: 33px;
+  overflow: hidden;
+}
+.language .trans-field .translated-element-content:focus {
+  border-bottom-color: #ff7e00;
+  box-shadow: inset 0 0 3px #aaaaaa;
+  outline: none;
+}
+.language .trans-field .translated-element-content:focus ~ .trans-action {
+  opacity: 1;
+}
+.language .trans-field .form-control:focus ~ .trans-action {
+  opacity: 1;
+}
+.language .room-element-head .col-sm-7 > div .label-head {
+  display: none;
+}
+.language .room-element-head .col-sm-7 > div:first-child .label-head {
+  display: inline-block;
 }
 .billing-container .aj-imp-table-head {
   margin-bottom: 1em;
@@ -4531,6 +4603,10 @@ form .aj-imp-submit:hover {
   font-size: 1.3em;
   color: #919191;
   margin: 0 0 0.3em;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group .imgedit-group-top .imgedit-submit .nowrap {
+  margin-bottom: 0.25em;
+  display: inline-block;
 }
 #edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group.imgedit-applyto img {
   padding: 0.2em;

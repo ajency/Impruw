@@ -76,6 +76,11 @@ function get_menu_items() {
             )
         ),
         array(
+            'url' => '#/seo',
+            'title' => 'SEO',
+            'icon' => 'chat2',
+        ),
+        array(
             'url' => '#/logout',
             'title' => 'Logout',
             'icon' => 'switch2'
@@ -178,6 +183,13 @@ function get_elementbox_elements() {
             'styles' => array(),
             'size' => '', //get_logo_size(),
             'category' => 'hotel'
+        ),
+        array(
+            'element' => 'LanguageSwitcher',
+            'title' => 'Language Switcher',
+            'icon' => 'bicon icon-uniF124',
+            'styles' => array(),
+            'size' => ''
         ),
         array(
             'element' => 'Text',
@@ -288,7 +300,7 @@ function get_elementbox_elements() {
 
     if ( !current_user_can( 'edit_impruw_theme' ) ) {
         $filtered = array();
-        $unset_elements = array( 'Menu' );
+        $unset_elements = array( 'Menu', 'LanguageSwitcher' );
         foreach ( $elements as $element ) {
             if ( !in_array( $element[ 'element' ], $unset_elements ) )
                 $filtered[ ] = $element;
@@ -721,6 +733,7 @@ function get_page_main_json( $page_id = 0 ) {
 function read_page_json() {
 
     $page_id = $_REQUEST [ 'page_id' ];
+    $page_id= icl_object_id( $page_id, 'page', TRUE, 'en' );
     $data = get_page_json_for_site( $page_id, TRUE );
     wp_send_json( array(
         'code' => 'OK',

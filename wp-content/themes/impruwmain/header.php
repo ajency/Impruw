@@ -119,9 +119,9 @@
                 </div>
             <?php }; ?>
 
-            <div class="lang-sel">
-                <?php do_action('icl_language_selector'); ?>
-            </div>
+<!--            <div class="lang-sel">-->
+<!--                --><?php //do_action('icl_language_selector'); ?>
+<!--            </div>-->
 
         </div>
     </div>

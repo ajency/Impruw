@@ -20,7 +20,7 @@ define(['app', 'text!apps/builder/site-builder/elements/roombooking/template/mai
           numberOfMonths: 2,
           dateFormat: 'yy-mm-dd'
         });
-        this.$el.attr("data-content", "Update booking information <a href='" + SITEURL + "/dashboard/#/rooms'>here</a> ");
+        this.$el.attr("data-content", " " + _.polyglot.t('Update booking information') + (" <a href='" + SITEURL + "/dashboard/#/rooms'>") + _.polyglot.t('here') + "</a> ");
         return this.$el.popover({
           html: true,
           placement: 'top'

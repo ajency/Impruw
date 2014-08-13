@@ -41,7 +41,6 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
       };
 
       Controller.prototype.saveSiteProfile = function(data) {
-        console.log(data);
         this.siteProfile.set(data);
         return this.siteProfile.save(null, {
           wait: true,

@@ -43,7 +43,7 @@ define(['app'], function(App) {
       };
 
       LogoView.prototype.onShow = function() {
-        this.$el.attr("data-content", "Update logo in your <a href='" + SITEURL + "/dashboard/#/site-profile' target='_BLANK'>site profile</a>");
+        this.$el.attr("data-content", " " + _.polyglot.t('Update logo in your') + (" <a href='" + SITEURL + "/dashboard/#/site-profile' target='_BLANK'>") + _.polyglot.t('site profile') + "</a>");
         return this.$el.popover({
           html: true,
           placement: 'top'
