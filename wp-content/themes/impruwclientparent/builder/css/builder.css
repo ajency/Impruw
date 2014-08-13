@@ -226,6 +226,28 @@ a.red-link.pull-right {
   color: #fff;
   background: rgba(0, 0, 0, 0);
 }
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element {
+  width: 97%;
+  background: #f3f3f3;
+  transition-duration: 0.6s;
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element a {
+  color: #ff7e00;
+  background: rgba(0, 0, 0, 0);
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element a .aj-imp-builder-icon {
+  color: #ff7e00;
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element a .aj-imp-builder-title {
+  height: auto;
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element a .element-help {
+  color: #666666;
+  text-transform: capitalize;
+  padding: 0.5em;
+  font-size: 1.15em;
+  display: block !important;
+}
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li.ui-draggable-dragging {
   background: transparent;
   box-shadow: none;
@@ -823,10 +845,11 @@ a.red-link.pull-right {
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-sel-del .delete-page {
   color: #ff3333;
-  font-size: 0.76em;
-  margin: 0.5em 1em 0 0;
+  font-size: 0.6em;
+  margin: 0.3em 0 0;
   display: block;
-  font-weight: 300;
+  font-weight: 400;
+  text-align: right;
   white-space: nowrap;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-sel-del .delete-page:hover {

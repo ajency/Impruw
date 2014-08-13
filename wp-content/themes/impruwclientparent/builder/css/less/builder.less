@@ -232,6 +232,28 @@ a {
 						background: rgba(0, 0, 0, 0);
 					}
 				}
+				&.selected-element {
+					width: 97%;
+					background: @preview-grey;
+					transition-duration: 0.6s;
+					a {
+						color: @orange;
+						background: rgba(0, 0, 0, 0);
+						.aj-imp-builder-icon {
+							color: @orange;
+						}
+						.aj-imp-builder-title {
+							height: auto;
+						}
+						.element-help {
+							color: lighten(@3-grey, 20%);
+							text-transform: capitalize;
+							padding: 0.5em;
+							font-size: 1.15em;
+							display: block !important;
+						}
+					}
+				}
 				&.ui-draggable-dragging {
 					background: transparent;
 					box-shadow: none;
@@ -854,10 +876,11 @@ a {
 				text-align: left;
 				.delete-page {
 					color: @error-red;
-					font-size: 0.76em;
-					margin: 0.5em 1em 0 0;
+					font-size: 0.6em;
+					margin: 0.3em 0 0;
 					display: block;
-					font-weight: 300;
+					font-weight: 400;
+					text-align: right;
 					white-space: nowrap;
 					&:hover {
 						color: darken(@error-red, 20%);
