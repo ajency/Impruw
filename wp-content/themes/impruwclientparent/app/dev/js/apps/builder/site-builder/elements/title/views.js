@@ -46,41 +46,9 @@ define(['app'], function(App) {
         editor = event.editor;
         element = editor.element;
         return editor.on("configLoaded", function() {
-          editor.config.toolbarGroups = [
-            {
-              name: 'clipboard',
-              groups: ['clipboard', 'undo']
-            }, {
-              name: 'editing',
-              groups: ['find', 'selection', 'spellchecker']
-            }, {
-              name: 'links'
-            }, {
-              name: 'insert'
-            }, {
-              name: 'forms'
-            }, {
-              name: 'tools'
-            }, {
-              name: 'document',
-              groups: ['mode', 'document', 'doctools']
-            }, {
-              name: 'others'
-            }, '/', {
-              name: 'basicstyles',
-              groups: ['basicstyles', 'cleanup']
-            }, {
-              name: 'paragraph',
-              groups: ['list', 'indent', 'blocks', 'align', 'bidi']
-            }, {
-              name: 'styles'
-            }, {
-              name: 'colors'
-            }, {
-              name: 'about'
-            }
-          ];
-          return editor.config.extraPlugins = 'confighelper';
+          editor.config.toolbar = [['Source', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'], '/', ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyFull'], ['TextColor', 'BGColor', '-', 'Rule', 'PageBreak'], ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'], ['Blockquote', '-', 'Smiley'], ['Link', 'Unlink']];
+          editor.config.extraPlugins = 'confighelper';
+          return editor.config.extraPlugins = 'justify';
         });
       };
 
