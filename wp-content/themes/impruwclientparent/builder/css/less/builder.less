@@ -224,12 +224,59 @@ a {
 						overflow: hidden;
 					}
 				}
-				&:hover, &:focus {
+				&:hover, &:focus, &.selected-element {
 					background: @orange;
 					transition-duration: 0.6s;
 					a {
 						color: #fff;
 						background: rgba(0, 0, 0, 0);
+					}
+				}
+				&.selected-element {
+					position: relative;
+					.element-help {
+						background: @dark-blue;
+						color: @dash-grey;
+						text-transform: capitalize;
+						position: absolute;
+						border-radius: 2px;
+						border: 1px solid @dash-grey;
+						padding: 0.5em;
+						padding-right: 15px;
+						font-size: 1.15em;
+						width: 140px;
+						top: 80px;
+						display: block !important;
+						.close-help {
+							display: inline-block;
+							height: auto;
+							width: auto;
+							position: absolute;
+							top: 2px;
+							right: 5px;
+							min-height: initial;
+							cursor: pointer;
+						}
+						&:after {
+							content: '';
+							position: absolute;
+							top: -13px;
+							left: 10px;
+							width: 0;
+							height: 0;
+							border: 7px solid transparent;
+							border-bottom: 6px solid @dark-blue;
+						}
+						&:before {
+							content: '';
+							position: absolute;
+							top: -14px;
+							left: 10px;
+							width: 0;
+							height: 0;
+							border: 7px solid transparent;
+							border-bottom: 6px solid @dash-grey;
+						}
 					}
 				}
 				&.ui-draggable-dragging {
@@ -854,10 +901,11 @@ a {
 				text-align: left;
 				.delete-page {
 					color: @error-red;
-					font-size: 0.76em;
-					margin: 0.5em 1em 0 0;
+					font-size: 0.6em;
+					margin: 0.3em 0 0;
 					display: block;
-					font-weight: 300;
+					font-weight: 400;
+					text-align: right;
 					white-space: nowrap;
 					&:hover {
 						color: darken(@error-red, 20%);

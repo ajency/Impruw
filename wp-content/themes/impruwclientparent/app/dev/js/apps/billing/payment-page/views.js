@@ -94,7 +94,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
             expiration_year: expYear
           }, (function(_this) {
             return function(err, nonce) {
-              return _this.trigger("new:credit:card:payment", nonce, 'active');
+              return _this.trigger("new:credit:card:payment", nonce);
             };
           })(this));
         }
@@ -185,7 +185,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
             expiration_year: expYear
           }, (function(_this) {
             return function(err, nonce) {
-              return _this.trigger("new:credit:card:payment", nonce, 'pending');
+              return _this.trigger("new:credit:card:payment", nonce);
             };
           })(this));
         },

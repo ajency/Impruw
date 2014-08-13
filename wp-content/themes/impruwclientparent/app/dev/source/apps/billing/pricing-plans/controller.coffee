@@ -8,6 +8,8 @@ define [ 'app', 'controllers/base-controller'
                 @siteModel = App.request "get:site:model"
 
                 App.execute "when:fetched", @siteModel, =>
+                    @domainName =  @siteModel.get 'domain_name'
+
                     @siteName =  @siteModel.get 'site_name'
 
                     @subscriptionId = @siteModel.get 'braintree_subscription'
@@ -48,18 +50,15 @@ define [ 'app', 'controllers/base-controller'
                     currency : @currency
                     activePlanId : @activePlanId
                     pendingPlanId : @pendingPlanId
+                    domainName : @domainName
                     siteName : @siteName
                     billStart : @billStart
                     billEnd : @billEnd
                     startDate : @startDate
 
             changeToFreePlan : ->
-                status = @subscriptionModel.get 'status'
-
-                if status is 'Pending'
-                    cancelDate = @subscriptionModel.get 'start_date'
-                else
-                    cancelDate = @subscriptionModel.get 'bill_end'
+                subscriptionType = @subscriptionModel.get 'subscription_type'
+                cancelDate = @subscriptionModel.get 'bill_end'
 
                 options =
                     method : 'POST'
@@ -67,7 +66,7 @@ define [ 'app', 'controllers/base-controller'
                     data :
                         'currentSubscriptionId' : @subscriptionId
                         'cancelDate' : cancelDate
-                        'status' : status
+                        'subscriptionType' : subscriptionType
                         'action' : 'change-to-free-plan'
 
                 $.ajax( options ).done ( response )=>
