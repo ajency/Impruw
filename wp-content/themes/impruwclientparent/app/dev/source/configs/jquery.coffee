@@ -90,6 +90,16 @@ define ['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], ($, _)->
         , 1000
 
 
+
+
+    $.fn.removeAllAttr = ->
+      attrs = ['class','tabindex','contenteditable','id','spellcheck','role','aria-label','title','aria-describedby','style']
+      _.each @ ,(div)->
+        # console.log div.attributes
+        _.each attrs ,(attr)->
+          $(div).removeAttr attr
+
+
     # adjust the dimesion of upper content and also the left section and right section
     # Uses jquery to get window dimensions and sets min-height css property so that if height
     # is greater it will not hide the content
