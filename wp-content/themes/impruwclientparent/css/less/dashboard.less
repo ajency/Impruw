@@ -262,6 +262,29 @@ p {
 		.aj-imp-dash-content {
 			position: relative;
 			.aj-imp-dash-widget {
+				.nav-pills {
+					li {
+						a {
+							background: transparent;
+							border-radius: 0;
+							border: none;
+							border-bottom: 2px solid transparent;
+							color: @blue-grey;
+						}
+						&:hover, :focus {
+							a {
+								border-color: @blue-grey;
+								text-shadow: none;
+							}
+						}
+						&.active {
+							a {
+								color: @orange;
+								border-color: @orange;
+							}
+						}
+					}
+				}
 				.aj-imp-widget-container {
 					border-radius: 0;
 					color: @dash-grey;
@@ -329,6 +352,11 @@ p {
 							color: lighten(@3-grey, 20%);
 							letter-spacing: 0.06em;
 							word-spacing: 0.1em;
+						}
+						.tab-content {
+							border-radius: 0;
+							border: 0;
+							padding: 1em 0 0.5em;
 						}
 					}
 				}
@@ -3727,36 +3755,8 @@ form {
 			}
 		}
 	}
-	.aj-imp-dash-widget {
-		.nav-pills {
-			li {
-				a {
-					background: transparent;
-					border-radius: 0;
-					border: none;
-					border-bottom: 2px solid transparent;
-					color: @blue-grey;
-				}
-				&:hover, :focus {
-					a {
-						border-color: @blue-grey;
-						text-shadow: none;
-					}
-				}
-				&.active {
-					a {
-						color: @orange;
-						border-color: @orange;
-					}
-				}
-			}
-		}
-	}
 	.aj-imp-widget-content {
 		.tab-content {
-			border-radius: 0;
-			border: 0;
-			padding: 1em 0 0.5em;
 			.legend-group {
 				margin-bottom: 1em;
 				.form-group {

@@ -78,7 +78,7 @@ function get_menu_items() {
         array(
             'url' => '#/seo',
             'title' => 'SEO',
-            'icon' => 'chat2',
+            'icon' => 'magnifier',
         ),
         array(
             'url' => '#/logout',
@@ -187,7 +187,7 @@ function get_elementbox_elements() {
         array(
             'element' => 'LanguageSwitcher',
             'title' => 'Language Switcher',
-            'icon' => 'bicon icon-uniF124',
+            'icon' => 'bicon icon-uniF10B',
             'styles' => array(),
             'size' => ''
         ),
