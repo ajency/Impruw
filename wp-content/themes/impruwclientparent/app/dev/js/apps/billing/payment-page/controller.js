@@ -43,8 +43,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
                 _this.paymentView = _this.getFirstTimePaymentPageView(creditCardFirstModel);
               }
               _this.layout.paymentRegion.show(_this.paymentView);
-              _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce, status) {
-                return _this.newCardPayment(paymentMethodNonce, status);
+              _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce) {
+                return _this.newCardPayment(paymentMethodNonce);
               });
               return _this.listenTo(_this.paymentView, "make:payment:with:stored:card", _this.payWithStoredCard);
             });
@@ -55,7 +55,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
         });
       };
 
-      Controller.prototype.newCardPayment = function(paymentMethodNonce, status) {
+      Controller.prototype.newCardPayment = function(paymentMethodNonce) {
         var options;
         options = {
           method: 'POST',
@@ -65,7 +65,6 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
             'selectedPlanId': this.selectedPlanId,
             'customerId': this.customerId,
             'currentSubscriptionId': this.subscriptionId,
-            'status': status,
             'action': 'new-card-payment'
           }
         };

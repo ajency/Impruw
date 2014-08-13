@@ -76,6 +76,11 @@ function get_menu_items() {
             )
         ),
         array(
+            'url' => '#/seo',
+            'title' => 'SEO',
+            'icon' => 'chat2',
+        ),
+        array(
             'url' => '#/logout',
             'title' => 'Logout',
             'icon' => 'switch2'
