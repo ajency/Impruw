@@ -256,6 +256,22 @@ p {
 .aj-imp-container .aj-imp-right .aj-imp-dash-content {
   position: relative;
 }
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .nav-pills li a {
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #849fb0;
+}
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .nav-pills li:hover a,
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .nav-pills li :focus a {
+  border-color: #849fb0;
+  text-shadow: none;
+}
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .nav-pills li.active a {
+  color: #ff7e00;
+  border-color: #ff7e00;
+}
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .aj-imp-widget-container {
   border-radius: 0;
   color: #aaaaaa;
@@ -335,6 +351,11 @@ p {
   color: #666666;
   letter-spacing: 0.06em;
   word-spacing: 0.1em;
+}
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .aj-imp-widget-container .aj-imp-widget-content .tab-content {
+  border-radius: 0;
+  border: 0;
+  padding: 1em 0 0.5em;
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-text-widget {
   margin: 0 0 2em;
@@ -3715,32 +3736,6 @@ form .aj-imp-submit:hover {
 .language .aj-imp-sub-head-thin .bootstrap-select .dropdown-menu,
 .billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-menu {
   min-height: initial !important;
-}
-.language .aj-imp-dash-widget .nav-pills li a,
-.billing-container .aj-imp-dash-widget .nav-pills li a {
-  background: transparent;
-  border-radius: 0;
-  border: none;
-  border-bottom: 2px solid transparent;
-  color: #849fb0;
-}
-.language .aj-imp-dash-widget .nav-pills li:hover a,
-.billing-container .aj-imp-dash-widget .nav-pills li:hover a,
-.language .aj-imp-dash-widget .nav-pills li :focus a,
-.billing-container .aj-imp-dash-widget .nav-pills li :focus a {
-  border-color: #849fb0;
-  text-shadow: none;
-}
-.language .aj-imp-dash-widget .nav-pills li.active a,
-.billing-container .aj-imp-dash-widget .nav-pills li.active a {
-  color: #ff7e00;
-  border-color: #ff7e00;
-}
-.language .aj-imp-widget-content .tab-content,
-.billing-container .aj-imp-widget-content .tab-content {
-  border-radius: 0;
-  border: 0;
-  padding: 1em 0 0.5em;
 }
 .language .aj-imp-widget-content .tab-content .legend-group,
 .billing-container .aj-imp-widget-content .tab-content .legend-group {

@@ -10,9 +10,9 @@ define(['app', 'text!apps/seo/templates/view.html'], function(App, formTpl) {
         return SeoView.__super__.constructor.apply(this, arguments);
       }
 
-      SeoView.prototype.template = "<div>Heloooo</div>";
+      SeoView.prototype.template = formTpl;
 
-      SeoView.prototype.className = 'form-horizontal';
+      SeoView.prototype.className = 'seo-container';
 
       return SeoView;
 
