@@ -13,7 +13,6 @@ define ['app', 'controllers/base-controller'
 
                 #get site collection
                 @siteModel = siteModel = App.request "get:language:based:site" , @editLang
-                console.log siteModel
 
                 @translatedPolicyView = @_getTranslatedPolicyView siteModel
 

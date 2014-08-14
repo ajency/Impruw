@@ -581,5 +581,12 @@
     "Please enter a value between {0} and {1} characters long.": "Oppgi en verdi mellom {0} og {1} tegn.",
     "Please enter a value between {0} and {1}.": "Oppgi en verdi mellom {0} og {1}.",
     "Please enter a value less than or equal to {0}.": "Oppgi en verdi mindre enn eller lik {0}.",
-    "Please enter a value greater than or equal to {0}.": "Oppgi en verdi større enn eller lik {0}."
+    "Please enter a value greater than or equal to {0}.": "Oppgi en verdi større enn eller lik {0}.",
+    
+    "Rows":"Rows_N",
+      "Properties" : "Properties_N",
+      "Columns" : "Columns_N",
+      "Bordered" : "Bordered_N",
+      "Striped" : "Striped_N",
+      "Style" : "Style_N"
 }

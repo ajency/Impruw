@@ -284,11 +284,30 @@ function delete_room_tariffs( $room_id ) {
  *
  * @param type $room_id
  */
+
 function delete_room_postdata( $room_id ) {
 
     if ( get_post_status( $room_id ) ) {
+        global $sitepress, $wpdb;
+        $element_type = 'post_impruw_room';
 
-        wp_delete_post( $room_id );
+        $post_id = $room_id;
+
+        $trid         = $sitepress->get_element_trid( $post_id, $element_type );
+        
+        $translations = $sitepress->get_element_translations( $trid, $element_type );
+
+        foreach ( $translations as $t ) {
+
+            $deleted_posts[ ] = $post_id;
+            $post_exists_sql  = $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE id = %d", array( $t->element_id ) );
+            $post_exists      = $wpdb->get_col( $post_exists_sql );
+            if ( $post_exists ) {
+                wp_delete_post( $t->element_id );
+            }
+            
+        }
+
     }
 }
 

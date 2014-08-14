@@ -1627,6 +1627,85 @@ and open the template in the editor.
   }
   /*Responive*/
 }
+/**** Table Styles****/
+.table {
+  background: #e1e1e1;
+  color: #7f7f7f;
+}
+.table > thead > tr {
+  background: #cbcbcb;
+}
+.table > thead > tr th {
+  color: #5ca9a1;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-width: 0;
+  text-align: left;
+}
+.table > thead > tr > th p,
+.table > tbody > tr > th p,
+.table > tfoot > tr > th p,
+.table > thead > tr > td p,
+.table > tbody > tr > td p,
+.table > tfoot > tr > td p {
+  margin: 0;
+  line-height: 1;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th {
+  border-bottom: 0;
+}
+.table.table-bordered > thead > tr td,
+.table.table-bordered > tbody > tr td,
+.table.table-bordered > thead > tr th,
+.table.table-bordered > tbody > tr th {
+  border: 1px solid #7f7f7f !important;
+}
+.table.table-striped > tbody > tr:nth-child(2n) > td,
+.table.table-striped > tbody tr.selected-row > td {
+  background: #c8c8c8;
+}
+.table.table-hover > tbody > tr:hover > td,
+.table.table-hover > tbody > tr:hover > th {
+  background: #c8c8c8;
+}
+.table.style-1 {
+  border-color: #5ca9a1;
+  border-width: 1px;
+}
+.table.style-1 > thead > tr {
+  background: #5ca9a1;
+}
+.table.style-1 > thead > tr th {
+  color: #ffffff;
+}
+.table.style-1 > thead > tr td,
+.table.style-1 > tbody > tr td,
+.table.style-1 > thead > tr th,
+.table.style-1 > tbody > tr th {
+  border-color: #5ca9a1 !important;
+}
+.table.style-2 {
+  border-color: #656565;
+}
+.table.style-2 > thead > tr {
+  background: #656565;
+}
+.table.style-2 > thead > tr th {
+  color: #5ca9a1;
+}
+.table.style-2 > thead > tr td,
+.table.style-2 > tbody > tr td,
+.table.style-2 > thead > tr th,
+.table.style-2 > tbody > tr th {
+  border-color: #656565 !important;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates

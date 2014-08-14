@@ -15,7 +15,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         editLang = opts.editLang;
         this.editLang = editLang;
         this.siteModel = siteModel = App.request("get:language:based:site", this.editLang);
-        console.log(siteModel);
         this.translatedPolicyView = this._getTranslatedPolicyView(siteModel);
         this.listenTo(this.translatedPolicyView, "update:translated:policy", this.updateTranslatedPolicy);
         return this.show(this.translatedPolicyView, {

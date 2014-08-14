@@ -20,6 +20,7 @@ define ['app'], (App)->
                 'click a': (e)->
                     e.preventDefault()
                 'blur': ->
+                    # console.log 'blur'
                     @trigger "text:element:blur", @$el.html()
 
 
