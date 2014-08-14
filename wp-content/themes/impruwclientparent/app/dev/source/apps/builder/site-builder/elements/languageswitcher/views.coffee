@@ -44,6 +44,12 @@ define [ 'app' ], (App)->
 
             itemViewContainer: '#language-selector-lang'
 
+            onRender: ()->
+                # get the className from options
+                style = Marionette.getOption @, 'style'
+                className = _.slugify style
+                @$el.addClass className
+
             mixinTemplateHelpers: (data)->
                 data = super data
                 data.placeholder = true
