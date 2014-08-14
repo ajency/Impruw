@@ -55,21 +55,12 @@ define ['app'], (App)->
                 editor.on "configLoaded", ->
 
                     # Rearrange the layout of the toolbar.
-                    editor.config.toolbarGroups = [
-                        { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                        { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
-                        { name: 'links' },
-                        { name: 'insert' },
-                        { name: 'forms' },
-                        { name: 'tools' },
-                        { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                        { name: 'others' },
+                    editor.config.toolbar = [
+                        ['Source','-','Cut','Copy','Paste','PasteText','PasteFromWord'],['Undo','Redo','Find','Replace','-','SelectAll','RemoveFormat'],
                         '/',
-                        { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                        { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
-                        { name: 'styles' },
-                        { name: 'colors' },
-                        { name: 'about' }
+                        ['Bold','Italic','Underline','Strike','-','JustifyLeft','JustifyCenter','JustifyRight'],['Link','Unlink'],
+                        ['InsertImage']
                     ]
 
                     editor.config.extraPlugins = 'confighelper'
+                    editor.config.extraPlugins = 'justify'
