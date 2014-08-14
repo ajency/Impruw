@@ -61,6 +61,7 @@ define [ 'app'
                     html = "<span class='pending'>Domain name: #{domainName}</span>
                             <span class='pending'>Will activate on: #{startDate} </span>"
                     @$el.find( '.panel-body' ).append html
+                    @$el.find( '.activate-link' ).attr 'href', 'javascript:void(0)'
 
 
         class View.PlansView extends Marionette.CompositeView
