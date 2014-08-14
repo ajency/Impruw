@@ -52,6 +52,11 @@ a {
 	}
 }
 
+/****Button Styles****/
+.btn {
+	border-radius: 2px;
+}
+
 /****Clearfix****/
 .clearfix {
     *zoom: 1;
@@ -2222,6 +2227,14 @@ a {
 			}
 		}
 		
+	}
+	&.bootbox {
+		.btn-primary {
+			background: @orange;
+			&:hover {
+				background: lighten(@orange, 10%);
+			}
+		}
 	}
 }
 

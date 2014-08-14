@@ -180,7 +180,7 @@ define(['app', 'moment'], function(App, moment) {
       DateRangeView.prototype.serializeData = function() {
         var data;
         data = DateRangeView.__super__.serializeData.call(this);
-        data.daterange_name = _(data.daterange_name).prune(30);
+        data.daterange_name = _(data.daterange_name).prune(40);
         data.fromdate = function() {
           return moment(this.from_date).format('Do-MMM');
         };
