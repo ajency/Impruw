@@ -46,7 +46,7 @@ define(['app'], function(App) {
         editor = event.editor;
         element = editor.element;
         return editor.on("configLoaded", function() {
-          editor.config.toolbar = [['Source', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'], '/', ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyFull'], ['TextColor', 'BGColor', '-', 'Rule', 'PageBreak'], ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'], ['Blockquote', '-', 'Smiley'], ['Link', 'Unlink']];
+          editor.config.toolbar = [['Source', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'], ['Undo', 'Redo', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'], '/', ['Bold', 'Italic', 'Underline', 'Strike', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight'], ['Link', 'Unlink'], ['InsertImage']];
           editor.config.extraPlugins = 'confighelper';
           return editor.config.extraPlugins = 'justify';
         });

@@ -56,11 +56,10 @@ define ['app'], (App)->
 
                     # Rearrange the layout of the toolbar.
                     editor.config.toolbar = [
-                        ['Source','-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','Find','Replace','-','SelectAll','RemoveFormat'],
+                        ['Source','-','Cut','Copy','Paste','PasteText','PasteFromWord'],['Undo','Redo','Find','Replace','-','SelectAll','RemoveFormat'],
                         '/',
-                        ['Bold','Italic','Underline','Strike','-','Subscript','Superscript','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
-                        ['TextColor','BGColor','-','Rule','PageBreak'],['NumberedList','BulletedList','-','Outdent','Indent'],
-                        ['Blockquote','-','Smiley'],['Link','Unlink']
+                        ['Bold','Italic','Underline','Strike','-','JustifyLeft','JustifyCenter','JustifyRight'],['Link','Unlink'],
+                        ['InsertImage']
                     ]
 
                     editor.config.extraPlugins = 'confighelper'
