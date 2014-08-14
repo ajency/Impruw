@@ -100,6 +100,7 @@ function create_pending_subscription( $payment_method_token, $selected_plan_id, 
     $next_bill_date = $subscription_details[ 'next_bill_date' ];
     $bill_end_date = $subscription_details[ 'bill_end' ];
 
+    // change the bill end date based on yearly or monthly plan
     if ( $subscription_type == "Yearly" ) {
         $subtract_year = date( 'Y-m-d', ( strtotime( '-1 year', strtotime( $bill_end_date ) ) ) );
         $bill_end_date = date( "Y-m-t", strtotime( $subtract_year ) );
