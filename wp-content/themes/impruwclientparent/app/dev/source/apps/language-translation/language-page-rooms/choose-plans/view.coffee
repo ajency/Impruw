@@ -33,8 +33,7 @@ define ['app'], (App)->
                             html = "<option value='"+plan_id+"' >"+plan_name+"</option>"
                             @$el.find('#js-plan-select').append html
 
-                        @$el.find( "#js-plan-select option[value='-1']" ).attr 'selected' : 'selected'
-                        @$el.find('#js-plan-select').selectpicker()
+                        @defaultPlanApps()
 
                     loadPlanApps: (e) ->
                         #get the selectedIndex from the li element
@@ -49,5 +48,15 @@ define ['app'], (App)->
                         else
                             @$el.find('.alert').remove()
                             @$el.append('<div class="alert alert-success">'+_.polyglot.t("Please select a plan to translate")+'</div>')
-                            @$el.find('.alert').fadeOut 5000  
+                            @$el.find('.alert').fadeOut 5000 
+
+                    defaultPlanApps:()->
+                        selectedPlanId = @$el.find("select#js-plan-select")[0].options[1].value
+                        
+                        unless selectedPlanId is '-1'
+                            @trigger 'load:original:plans', selectedPlanId   
+                            @trigger 'load:translated:plans', selectedPlanId 
+
+                        @$el.find( "#js-plan-select option[value='"+selectedPlanId+"']" ).attr 'selected' : 'selected'
+                        @$el.find('#js-plan-select').selectpicker() 
 
