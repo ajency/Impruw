@@ -40,6 +40,13 @@ define(['app'], function(App) {
 
       LanguageSwitcherView.prototype.itemViewContainer = '#language-selector-lang';
 
+      LanguageSwitcherView.prototype.onRender = function() {
+        var className, style;
+        style = Marionette.getOption(this, 'style');
+        className = _.slugify(style);
+        return this.$el.addClass(className);
+      };
+
       LanguageSwitcherView.prototype.mixinTemplateHelpers = function(data) {
         data = LanguageSwitcherView.__super__.mixinTemplateHelpers.call(this, data);
         data.placeholder = true;
