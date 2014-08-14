@@ -1,6 +1,6 @@
-var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/views'], function(App, AppController) {
   return App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
@@ -10,6 +10,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
       __extends(BuilderController, _super);
 
       function BuilderController() {
+        this.startAutoSave = __bind(this.startAutoSave, this);
         return BuilderController.__super__.constructor.apply(this, arguments);
       }
 
@@ -99,7 +100,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
             }
           };
         })(this));
-        return this.startAutoSave();
+        return _.delay(this.startAutoSave, 5000);
       };
 
       BuilderController.prototype.startAutoSave = function() {

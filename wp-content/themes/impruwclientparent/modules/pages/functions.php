@@ -503,10 +503,15 @@ function get_page_content_json( $page_id, $autosave = FALSE ) {
         $page_id = $page->ID;
     }
 
-    if ( $autosave === TRUE )
+    if ( $autosave === TRUE ){
         $json = get_autosave_post_json( $page_id );
-    else
+        
+        if(is_empty($json))
+            $json = get_post_meta( $page_id, "page-json", TRUE );
+    }
+    else{
         $json = get_post_meta( $page_id, "page-json", TRUE );
+    }
 
     return $json;
 }

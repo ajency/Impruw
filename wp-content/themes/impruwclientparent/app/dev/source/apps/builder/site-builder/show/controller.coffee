@@ -76,11 +76,11 @@ define [ 'app', 'controllers/base-controller'
                     else
                         App.request "add:new:element", container, element.element, element
 
-                @startAutoSave()
+                _.delay @startAutoSave, 5000
 
             # start the save revision interval.
             # uses: siteInterval(fn, interval)
-            startAutoSave : ->
+            startAutoSave : =>
                 clearInterval( window.autoSaveInterval ) if window.autoSaveInterval
 
                 window.autoSaveInterval = setInterval ->
