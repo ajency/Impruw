@@ -45,8 +45,7 @@ define ['app'], (App)->
 
                     defaultRoomApps:()->
                         selectedRoomId = @$el.find("select#js-room-select")[0].options[1].value
-                        console.log selectedRoomId
-
+                        
                         unless selectedRoomId is '-1'
                             @trigger 'load:original:rooms', selectedRoomId  
                             @trigger 'load:translated:rooms', selectedRoomId 

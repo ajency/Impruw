@@ -58,7 +58,6 @@ define(['app'], function(App) {
       ChooseRoomsView.prototype.defaultRoomApps = function() {
         var selectedRoomId;
         selectedRoomId = this.$el.find("select#js-room-select")[0].options[1].value;
-        console.log(selectedRoomId);
         if (selectedRoomId !== '-1') {
           this.trigger('load:original:rooms', selectedRoomId);
           this.trigger('load:translated:rooms', selectedRoomId);
