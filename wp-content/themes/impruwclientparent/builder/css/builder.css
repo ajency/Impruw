@@ -42,6 +42,10 @@ a.red-link.pull-left,
 a.red-link.pull-right {
   margin: 0.5em;
 }
+/****Button Styles****/
+.btn {
+  border-radius: 2px;
+}
 /****Clearfix****/
 .clearfix {
   *zoom: 1;
