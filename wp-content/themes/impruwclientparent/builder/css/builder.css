@@ -1859,6 +1859,7 @@ a.red-link.pull-right {
 .modal .thumbnails .single-img,
 .modal #selectable-images .single-img {
   position: relative;
+  padding: 0 5px;
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
@@ -1868,7 +1869,7 @@ a.red-link.pull-right {
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb,
 .modal #selectable-images .single-img .thumbnail .imgthumb {
-  height: 84px;
+  height: 100px;
   text-align: center;
   overflow: hidden;
 }
@@ -1894,7 +1895,7 @@ a.red-link.pull-right {
 .modal #selectable-images .single-img .ticker {
   position: absolute;
   top: -7px;
-  right: 7px;
+  right: 0px;
   color: #fff;
   padding: 2px 4px 4px;
   border-radius: 2px;
@@ -3001,7 +3002,7 @@ a.red-link.pull-right {
 #edit-image-view .imgedit-wrap .imgedit-settings input.button {
   padding: 8px 13px 9px;
   border: 0;
-  border-radius: 6px;
+  border-radius: 2px;
   color: #fff;
   background: #849fb0;
 }
@@ -3039,7 +3040,7 @@ a.red-link.pull-right {
 #edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button {
   padding: 8px 13px 9px;
   border: 0;
-  border-radius: 6px;
+  border-radius: 2px;
   color: #fff;
   background: #c0c0c0;
   cursor: pointer;
