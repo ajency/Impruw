@@ -506,7 +506,7 @@ function get_page_content_json( $page_id, $autosave = FALSE ) {
     if ( $autosave === TRUE ){
         $json = get_autosave_post_json( $page_id );
         
-        if(is_empty($json))
+        if(empty($json))
             $json = get_post_meta( $page_id, "page-json", TRUE );
     }
     else{
