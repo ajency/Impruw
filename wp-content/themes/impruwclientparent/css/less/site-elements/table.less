@@ -1,0 +1,92 @@
+/**** Table Styles****/
+.table {
+	background: @tertiary1;
+	color: @text-color;
+	> thead {
+		> tr {
+			background: lighten(@text-color, 30%);
+			th {
+				color: @primary1;
+			}
+		}
+	}
+	> thead, > tbody, > tfoot {
+		> tr {
+			> th, > td {
+				border-width: 0;
+				text-align: left;
+				p {
+					margin: 0;
+					line-height: 1;
+				}
+			}
+			> th {
+				border-bottom: 0;
+			}
+		}
+	} 
+	&.table-bordered {
+		> thead, > tbody {
+			> tr {
+				td, th {
+					border: 1px solid @text-color !important;
+				}
+			}
+		}
+	}
+	&.table-striped {
+		> tbody {
+			> tr:nth-child(2n), tr.selected-row {
+				> td {
+					background: darken(@tertiary1, 10%);
+				}
+			}
+		}
+	}
+	&.table-hover {
+		> tbody {
+			> tr:hover {
+				> td, > th {
+					background: darken(@tertiary1, 10%);
+				}
+			}
+		}
+	}
+	&.style-1 {
+		border-color: @primary1;
+		border-width: 1px;
+		> thead {
+			> tr {
+				background: @primary1;
+				th {
+					color: @white;
+				}
+			}
+		}
+		> thead, > tbody {
+			> tr {
+				td, th {
+					border-color: @primary1 !important;
+				}
+			}
+		}
+	}
+	&.style-2 {
+		border-color: @secondary1;
+		> thead {
+			> tr {
+				background: @secondary1;
+				th {
+					color: @primary1;
+				}
+			}
+		}
+		> thead, > tbody {
+			> tr {
+				td, th {
+					border-color: @secondary1 !important;
+				}
+			}
+		}
+	}
+}

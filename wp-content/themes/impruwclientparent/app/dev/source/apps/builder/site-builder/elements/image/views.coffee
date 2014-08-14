@@ -13,7 +13,7 @@ define ['app'], (App)->
                           <div class="clearfix"></div>
                         {{/image}}
                         {{#placeholder}}
-                          <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div>
+                          <div class="image-placeholder" style="height:100%;"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div>
                         {{/placeholder}}'
 
             # override serializeData to set holder property for the view
@@ -59,6 +59,8 @@ define ['app'], (App)->
                     @$el.resizable
                         helper : "ui-image-resizable-helper"
                         handles: "s"
+                        stop : (evt, ui)=>
+                            @$el.css 'width','auto'
                     return
 
 
@@ -121,11 +123,7 @@ define ['app'], (App)->
 
                 @assignImagePath()
 
-                console.log  "view rendered"
                 
-
-            # throttled :->
-            #     _.throttle(@assignImagePath(), 50)
 
             imageClick : (e)->
                 e.stopPropagation()

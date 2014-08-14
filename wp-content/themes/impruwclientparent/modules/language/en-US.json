@@ -453,7 +453,6 @@
       "OK": "OK",
       "Choose default Language": "Choose your default Language",
       "Choose Language": "Choose Language",
-      "Translations": "Translations",
       "Room Name": "Room Name",
       "Common Room Elements": "Common Room Elements",
       "Your default language is:": "Your default language is:",
@@ -567,10 +566,7 @@
       "Account Summary" : "Account Summary",
       "Update Billing" : "Update Billing",
       "View Plans" : "View Plans",
-      "Fast Filling": "Fast Filling",
-      "Sold Out" : "Sold Out",
       "Change of language will cause the page to refresh. Are you sure you want to proceed?" : "Change of language will cause the page to refresh. Are you sure you want to proceed?",
-
       "This field is required.": "This field is required.",
       "Please fix this field.": "Please fix this field.",
       "Please enter a valid email address.": "Please enter a valid email address.",
@@ -586,5 +582,13 @@
       "Please enter a value between {0} and {1} characters long.": "Please enter a value between {0} and {1} characters long.",
       "Please enter a value between {0} and {1}.": "Please enter a value between {0} and {1}.",
       "Please enter a value less than or equal to {0}.": "Please enter a value less than or equal to {0}.",
-      "Please enter a value greater than or equal to {0}.": "Please enter a value greater than or equal to {0}."
+      "Please enter a value greater than or equal to {0}.": "Please enter a value greater than or equal to {0}.",
+      "Rows":"Rows",
+      "Properties" : "Properties",
+      "Columns" : "Columns",
+      "Bordered" : "Bordered",
+      "Striped" : "Striped",
+      "Style" : "Style",
+      "Fast Filling": "Fast Filling",
+      "Sold Out" : "Sold Out",
     }

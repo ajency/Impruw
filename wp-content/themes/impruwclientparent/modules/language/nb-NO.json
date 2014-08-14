@@ -8,7 +8,7 @@
     "It lets you add your": "Det lar oss legge inn",
     "Business details": "Detaljer som logo, adresse og mer om din bedrift",
     "Add facebook urls": "Legg til URL til facebook- / twitter-side",
-    "Selec  people": "Velg hvem som har tilgang til å endre nettsiden din",
+    "Select  people": "Velg hvem som har tilgang til å endre nettsiden din",
     "Fill Website details": "Vi vet hvor omstendelig det er å fylle ut det samme innholdet om og om igjen hver gang du skal endre på nettsiden din. Vi vil gjøre det enklere. Fyll inn detaljene med en gang og jobben er gjort.",
     "Update website profile": "Klikk her for å oppdatere nettsiden din",
     "Site Builder": "Nettsidebygger",
@@ -524,6 +524,9 @@
     "Available languages updated" : "Available languages updated_N",
     "Current password mismatch" : "Current password mismatch_N",
     "Your password has been changed. You will be redirected to login page to sign in with your new password" : "Your password has been changed. You will be redirected to login page to sign in with your new password_N",
+    "Your default language is:": "Your default language is_N",
+    "Room Name": "Room Name_N",
+    "Common Room Elements": "Common Room Elements_N",
     "Date Ranges": "Date Ranges_N",
     "Plans": "Plans_N" ,
     "Seniors Plan": "Seniors Plan_N",
@@ -563,11 +566,7 @@
     "Account Summary" : "Account Summary_N",
     "Update Billing" : "Update Billing_N",
     "View Plans" : "View Plans_N",
-    "Fast Filling" : "Fast Filling_N",
-    "Sold Out" : "Sold Out_N",
     "Change of language will cause the page to refresh. Are you sure you want to proceed?" : "Change of language will cause the page to refresh. Are you sure you want to proceed?_N",
-
-
     "This field is required.": "Dette feltet er påkrevet.",
     "Please fix this field.": "Få orden på dette feltet.",
     "Please enter a valid email address.": "Oppgi en gyldig e-postadresse.",
@@ -583,5 +582,13 @@
     "Please enter a value between {0} and {1} characters long.": "Oppgi en verdi mellom {0} og {1} tegn.",
     "Please enter a value between {0} and {1}.": "Oppgi en verdi mellom {0} og {1}.",
     "Please enter a value less than or equal to {0}.": "Oppgi en verdi mindre enn eller lik {0}.",
-    "Please enter a value greater than or equal to {0}.": "Oppgi en verdi større enn eller lik {0}."
+    "Please enter a value greater than or equal to {0}.": "Oppgi en verdi større enn eller lik {0}.",
+    "Rows":"Rows_N",
+    "Properties" : "Properties_N",
+    "Columns" : "Columns_N",
+    "Bordered" : "Bordered_N",
+    "Striped" : "Striped_N",
+    "Style" : "Style_N",
+    "Fast Filling" : "Fast Filling_N",
+    "Sold Out" : "Sold Out_N"
 }
