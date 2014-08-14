@@ -2548,9 +2548,9 @@ form .aj-imp-submit:hover {
   text-align: right;
   font-weight: 300;
   position: absolute;
-  width: 100px;
+  width: 125px;
   background: #fff;
-  max-width: 100px;
+  max-width: 125px;
   padding-right: 10px;
   min-height: 150px;
   font-size: 0.88em;
@@ -2576,7 +2576,7 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid .tariff .packages {
   width: 100%;
-  padding-left: 110px;
+  padding-left: 135px;
   min-height: 150px;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .btn-add-plan {
