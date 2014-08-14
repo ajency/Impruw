@@ -2150,6 +2150,12 @@ a.red-link.pull-right {
 .modal .aj-imp-menu-item-list .list-group .list-group-item:hover .menu-name {
   color: #849fb0;
 }
+.modal.bootbox .btn-primary {
+  background: #ff7e00;
+}
+.modal.bootbox .btn-primary:hover {
+  background: #ff9833;
+}
 .drop-highlight {
   height: 3em;
   margin: 0.2em 0;
