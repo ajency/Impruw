@@ -25,8 +25,7 @@ define ['app'], (App)->
                             html = "<option value='"+room_id+"' >"+room_name+"</option>"
                             @$el.find('select').append html 
 
-                        @$el.find( "#js-room-select option[value='-1']" ).attr 'selected' : 'selected'
-                        @$el.find('#js-room-select').selectpicker()
+                        @defaultRoomApps()
 
                     loadRoomApps: (e) ->
                         #get the selectedIndex from the li element
@@ -42,5 +41,17 @@ define ['app'], (App)->
                         else
                             @$el.find('.alert').remove()
                             @$el.append('<div class="alert alert-success">'+_.polyglot.t("Please select a room to translate")+'</div>')
-                            @$el.find('.alert').fadeOut 5000  
+                            @$el.find('.alert').fadeOut 5000 
+
+                    defaultRoomApps:()->
+                        selectedRoomId = @$el.find("select#js-room-select")[0].options[1].value
+                        console.log selectedRoomId
+
+                        unless selectedRoomId is '-1'
+                            @trigger 'load:original:rooms', selectedRoomId  
+                            @trigger 'load:translated:rooms', selectedRoomId 
+
+                        @$el.find( "#js-room-select option[value='"+selectedRoomId+"']" ).attr 'selected' : 'selected'
+                        @$el.find('#js-room-select').selectpicker()
+
 
