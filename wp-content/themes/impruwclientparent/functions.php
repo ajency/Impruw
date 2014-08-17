@@ -3987,6 +3987,17 @@ $base_element_templates = array(
             'name' => 'Social Left'
         )
     ),
+    'LanguageSwitcher' => array(
+        array(
+            'name' => 'Align Right'
+        ),
+        array(
+            'name' => 'Align Center'
+        ),
+        array(
+            'name' => 'Align Left'
+        )
+    ),
     'RoomSummary' => array(
         array(
             'name' => 'Room Summary Default',
