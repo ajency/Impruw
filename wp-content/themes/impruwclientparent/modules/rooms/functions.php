@@ -87,9 +87,57 @@ function updateroom( $room_data ) {
         wp_set_post_terms( $post_id, $facility_ids, 'impruw_room_facility' );
     }
 
+    //Create english room if it does not already exist and if current default language is not english
+    $current_default_language = wpml_get_default_language();
+    $english_room_id = icl_object_id($post_id, 'impruw_room', false,'en');
+
+    if(($current_default_language != 'en')&& is_null($english_room_id)){
+        $data = get_language_translated_room($post_id, 'en');
+        $english_room_id = $data['translatedPostID'];
+
+        //if tariff is assigned to room in $current_default_language, 
+        //then update it to have english room id instead
+        $updated_tariff = update_english_room_tariff($post_id, $english_room_id);
+
+    }
+
     //return the room id
     return $post_id;
 }
+
+function update_english_room_tariff($original_room_id, $english_room_id){
+
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'tariffs';
+    $tariff_ids = array();
+
+    //Current room tariff
+    $query = "SELECT * FROM $table_name WHERE room_id = $original_room_id ";
+
+    $tariffs = $wpdb->get_results( $query);
+
+    if($wpdb->num_rows>0){
+
+        foreach ($tariffs as $tariff) {
+            //get tariff id
+            $tariff_id = $tariff->id;
+            
+            //update
+            $wpdb->update(
+                $table_name, 
+                array('room_id'  => $english_room_id), 
+                array( 'id' => $tariff_id ) 
+                );
+            $tariff_ids[] = $tariff_id;
+        }
+
+    }
+
+    return $tariff_ids ;
+
+}
+
+
 
 function create_draft_room() {
 
