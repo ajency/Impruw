@@ -26,6 +26,16 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         return data;
       };
 
+      LanguageItemView.prototype.mixinTemplateHelpers = function(data) {
+        data = LanguageItemView.__super__.mixinTemplateHelpers.call(this, data);
+        if ((data.code === 'en') || (data.code === WPML_DEFAULT_LANG)) {
+          data.isDefaultLanguage = true;
+        } else {
+          data.isDefaultLanguage = false;
+        }
+        return data;
+      };
+
       LanguageItemView.prototype.onShow = function() {
         return this.$el.find('input[type="checkbox"]').checkbox();
       };
