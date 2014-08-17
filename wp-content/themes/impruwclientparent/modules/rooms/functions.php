@@ -99,6 +99,10 @@ function updateroom( $room_data ) {
         //then update it to have english room id instead
         $updated_tariff = update_english_room_tariff($post_id, $english_room_id);
 
+        //if booking is assigned to room in $current_default_language, 
+        //then update it to have english room id instead
+        $updated_booking = update_english_room_booking($post_id, $english_room_id);
+
     }
 
     //return the room id
@@ -134,6 +138,38 @@ function update_english_room_tariff($original_room_id, $english_room_id){
     }
 
     return $tariff_ids ;
+
+}
+
+function update_english_room_booking($original_room_id, $english_room_id){
+
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'bookings';
+    $booking_ids = array();
+
+    //Current room tariff
+    $query = "SELECT * FROM $table_name WHERE room_id = $original_room_id ";
+
+    $bookings = $wpdb->get_results( $query);
+
+    if($wpdb->num_rows>0){
+
+        foreach ($bookings as $booking) {
+            //get tariff id
+            $booking_id = $booking->id;
+            
+            //update
+            $wpdb->update(
+                $table_name, 
+                array('room_id'  => $english_room_id), 
+                array( 'id' => $booking_id ) 
+                );
+            $booking_ids[] = $booking_id;
+        }
+
+    }
+
+    return $booking_ids ;
 
 }
 
