@@ -316,6 +316,9 @@ function delete_room_bookings( $room_id ) {
  */
 function delete_room_tariffs( $room_id ) {
 
+    //Delete using english room id
+    $room_id = icl_object_id($room_id, 'impruw_room', true,'en');
+
     global $wpdb;
 
     $table_name = $wpdb->prefix . 'tariffs';
