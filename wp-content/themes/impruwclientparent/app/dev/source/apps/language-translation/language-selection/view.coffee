@@ -56,6 +56,11 @@ define ['app'
 
                 @viewEnabledLanguages()
 
+            serializeData: ->
+                data = super()
+                data.default_language = _.polyglot.t data.default_language
+                data
+
             setEnabledLanguages: (e)->
                 e.preventDefault()
 
