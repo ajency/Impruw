@@ -1724,6 +1724,26 @@ ul.gallery {
 .table.style-2 > tbody > tr th {
   border-color: #555555 !important;
 }
+.lang-sel {
+  text-align: right;
+}
+.lang-sel.align-left {
+  text-align: left;
+}
+.lang-sel.align-right {
+  text-align: right;
+}
+.lang-sel.align-center {
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .lang-sel {
+    text-align: center;
+  }
+}
+.lang-sel > div {
+  text-align: left;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
