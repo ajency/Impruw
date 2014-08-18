@@ -245,6 +245,9 @@ and open the template in the editor.
   background: #252c3d;
   color: #24d07c;
 }
+.nav.slimmenu > li.gallery {
+  margin-bottom: 0;
+}
 .nav.slimmenu > li.active {
   background: #24d07c;
 }
@@ -1444,6 +1447,21 @@ ul.gallery {
   border-bottom: 1px solid #ffffff;
   margin: 0 0 0.5em;
   text-align: left;
+}
+/**** Empty View ****/
+.gallery-empty-view {
+  text-align: center;
+  font-size: 1.2em;
+  color: #ffffff;
+  padding: 3em 0.3em;
+  height: 100%;
+  border: 1px dashed #ffffff;
+}
+.gallery-empty-view .glyphicon {
+  display: block;
+  margin: 0.2em 0 0.5em;
+  font-size: 3em;
+  color: #ffffff;
 }
 /**** Isotope Filtering ****/
 .isotope-item {

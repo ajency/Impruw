@@ -63,7 +63,10 @@ class RoomGallery extends SliderElement {
 
     function generate_placeholder_markup(){
 
-      return '<h2>Add your placeholder markup here</h2>';  
+      return '<div class="gallery-empty-view">
+                <span class="glyphicon glyphicon-picture"></span>
+                No Images Found in Gallery
+              </div>';  
 
     }
 
