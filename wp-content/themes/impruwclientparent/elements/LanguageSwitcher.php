@@ -49,7 +49,7 @@ class LanguageSwitcher extends Element {
      * @return String basic markup
      */
     function generate_markup(){
-        echo "Generate";
+        // echo "Generate";
 
         $html = '<div class="lang-sel">';
         ob_start();
