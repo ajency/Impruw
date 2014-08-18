@@ -119,7 +119,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
-        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Card Added Successfuly </div>';
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Card Added Successfuly") + '</div>';
         this.$el.find('#billingsave_status').append(html);
         return this.$el.find('#btn-reset').click();
       };
@@ -142,7 +142,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         return SingleCardView.__super__.constructor.apply(this, arguments);
       }
 
-      SingleCardView.prototype.template = '<div class="col-sm-4"> <div class="single-card form-horizontal"> <div class="ticker"> <span class="glyphicon glyphicon-ok"></span> </div> <h6 class="aj-imp-sub-head-thin">{{card_type}}</h6> <div class="form-group"> <label class="control-label col-sm-5">Name on the Card:</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">{{customer_name}}</span> </div> </div> <div class="form-group"> <label class="control-label col-sm-5">Card Number:</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">{{card_number}}</span> </div> </div> <div class="form-group"> <label class="control-label col-sm-5">CVV:</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">***</span> </div> </div> <div class="form-group"> <label class="control-label col-sm-5">Expires On:</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">{{expiration_date}}</span> </div> </div> </div> </div>';
+      SingleCardView.prototype.template = '<div class="col-sm-4"> <div class="single-card form-horizontal"> <div class="ticker"> <span class="glyphicon glyphicon-ok"></span> </div> <h6 class="aj-imp-sub-head-thin">{{card_type}}</h6> <div class="form-group"> <label class="control-label col-sm-5">{{#polyglot}}Name on the Card:{{/polyglot}}</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">{{customer_name}}</span> </div> </div> <div class="form-group"> <label class="control-label col-sm-5">{{#polyglot}}Card Number:{{/polyglot}}</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">{{card_number}}</span> </div> </div> <div class="form-group"> <label class="control-label col-sm-5">{{#polyglot}}CVV:{{/polyglot}}</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">***</span> </div> </div> <div class="form-group"> <label class="control-label col-sm-5">{{#polyglot}}Expires On:{{/polyglot}}</label> <div class="col-sm-7 col-sm-offset-5"> <span class="form-control">{{expiration_date}}</span> </div> </div> </div> </div>';
 
       return SingleCardView;
 

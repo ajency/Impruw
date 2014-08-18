@@ -72,6 +72,13 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         return this.viewEnabledLanguages();
       };
 
+      LanguageSelectionView.prototype.serializeData = function() {
+        var data;
+        data = LanguageSelectionView.__super__.serializeData.call(this);
+        data.default_language = _.polyglot.t(data.default_language);
+        return data;
+      };
+
       LanguageSelectionView.prototype.setEnabledLanguages = function(e) {
         var arr, selectedlanguage;
         e.preventDefault();

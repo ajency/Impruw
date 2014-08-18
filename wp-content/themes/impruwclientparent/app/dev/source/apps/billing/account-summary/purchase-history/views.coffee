@@ -9,12 +9,12 @@ define ['app'
                             <td>{{plan_name}}</td>
                             <td>{{description}}</td>
                             <td>&pound; {{amount}}</td>
-                            <td><a href="#">Print</a></td>'
+                            <td><a href="#">'+_.polyglot.t("Print")+'</a></td>'
             tagName : 'tr'
 
         class View.EmptyView extends Marionette.ItemView
 
-            template: '<div class="empty-info">No transaction history found.</div>'
+            template: '<div class="empty-info">'+_.polyglot.t("No transaction history found.")+'</div>'
 
         class View.Transaction extends Marionette.CompositeView
 

@@ -6,7 +6,7 @@
 
         <div class="col-sm-8 col-sm-offset-3">
             <input type="text" class="form-control " id="card_name"
-            placeholder="Name on the Card" data-braintree-name="cardholderName">
+            placeholder="{{#polyglot}}Name on the Card{{/polyglot}}" data-braintree-name="cardholderName">
         </div>
     </div>
     <div class="form-group">
@@ -14,7 +14,7 @@
 
         <div class="col-sm-8 col-sm-offset-3">
             <input type="text" class="form-control " id="card_number"
-            placeholder="Card Number" data-braintree-name="number" >
+            placeholder="{{#polyglot}}Card Number{{/polyglot}}" data-braintree-name="number" >
         </div>
     </div>
     <div class="form-group">
@@ -26,7 +26,7 @@
         <label class="col-sm-3 control-label">{{#polyglot}}Security Code{{/polyglot}}</label>
 
         <div class="col-sm-2 col-sm-offset-3">
-            <input type="password" class="form-control" placeholder="CVV"
+            <input type="password" class="form-control" placeholder="{{#polyglot}}CVV{{/polyglot}}"
                    data-braintree-name="cvv" id="card-cvv" >
 
         </div>
@@ -43,7 +43,7 @@
                 <option>01</option>
                 <option>02</option>
                 <option>03</option>
-                <option>{{#polyglot}}04</option>
+                <option>04</option>
                 <option>05</option>
                 <option>06</option>
                 <option>07</option>

@@ -11,7 +11,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
         return SinglePlanView.__super__.constructor.apply(this, arguments);
       }
 
-      SinglePlanView.prototype.template = '<div class="panel panel-default text-center"> <div class="panel-heading"> <h3>{{plan_name}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">&#163; {{price}}</h3> </div> <ul class="list-group"> <li class="list-group-item">Mobile & Tablet Ready Site</li> <li class="list-group-item">Unlimited Pages</li> <li class="list-group-item">5 Languages</li> <li class="list-group-item">Flexible, easy-to-use Site builder</li> <li class="list-group-item">24/7 security monitoring</li> <li class="list-group-item">24/7 technical support</li> <li class="list-group-item"><span class="ribbon"> <a href="#/billing/payment-page" class="btn btn-block activate-link">Choose Plan</a></span></li> </ul> </div>';
+      SinglePlanView.prototype.template = '<div class="panel panel-default text-center"> <div class="panel-heading"> <h3>{{plan_name}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">&#163; {{price}}</h3> </div> <ul class="list-group"> <li class="list-group-item">{{#polyglot}}Mobile and Tablet Ready Site{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Unlimited Pages{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}5 Languages{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Flexible, easy-to-use Site builder{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}24/7 security monitoring{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}24/7 technical support{{/polyglot}}</li> <li class="list-group-item"><span class="ribbon"> <a href="#/billing/payment-page" class="btn btn-block activate-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span></li> </ul> </div>';
 
       SinglePlanView.prototype.className = 'col-sm-4';
 
@@ -33,17 +33,17 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
         this.$el.find('.activate-link').attr('href', newactivateLink);
         if (siteModelPlanId === activePlanID) {
           this.$el.find('.panel-default').addClass('active');
-          this.$el.find('.activate-link').text('Active Plan');
+          this.$el.find('.activate-link').text(_.polyglot.t('Active Plan'));
           this.$el.find('.activate-link').attr('href', 'javascript:void(0)');
           billStart = Marionette.getOption(this, 'billStart');
           billEnd = Marionette.getOption(this, 'billEnd');
-          html = "<span class='active'>Domain name: " + domainName + "</span> <span class='active'>Billing cycle:From " + billStart + " to " + billEnd + " </span>";
+          html = "<span class='active'>" + _.polyglot.t('Domain name:') + (" " + domainName + "</span> <span class='active'>") + _.polyglot.t('Billing cycle: From') + (" " + billStart + " ") + _.polyglot.t('to') + (" " + billEnd + " </span>");
           this.$el.find('.panel-body').append(html);
         }
         if (siteModelPlanId === pendingPlanID) {
-          this.$el.find('.panel-heading').append('<span class="pending">Pending Activation</span>');
+          this.$el.find('.panel-heading').append('<span class="pending">' + _.polyglot.t("Pending Activation") + '</span>');
           startDate = Marionette.getOption(this, 'startDate');
-          html = "<span class='pending'>Domain name: " + domainName + "</span> <span class='pending'>Will activate on: " + startDate + " </span>";
+          html = "<span class='pending'>" + _.polyglot.t('Domain name:') + (" " + domainName + "</span> <span class='pending'>") + _.polyglot.t('Will activate on:') + (" " + startDate + " </span>");
           this.$el.find('.panel-body').append(html);
           return this.$el.find('.activate-link').attr('href', 'javascript:void(0)');
         }
@@ -90,13 +90,13 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
         pendingPlanID = Marionette.getOption(this, 'pendingPlanId');
         if (activePlanID === 'Free') {
           this.$el.find('#free-plan').addClass('active');
-          this.$el.find('#free-plan .free-plan-link').text('Active Plan');
+          this.$el.find('#free-plan .free-plan-link').text(_.polyglot.t('Active Plan'));
         }
         if (pendingPlanID === 'Free') {
-          this.$el.find('#free-plan .panel-heading').append('<span class="pending">Pending Activation</span>');
+          this.$el.find('#free-plan .panel-heading').append('<span class="pending">' + _.polyglot.t("Pending Activation") + '</span>');
           startDate = Marionette.getOption(this, 'startDate');
           siteName = Marionette.getOption(this, 'siteName');
-          html = "<span class='pending'>Domain name: " + siteName + ".impruw.com</span> <span class='pending'>Will activate on: " + startDate + " </span>";
+          html = "<span class='pending'>" + _.polyglot.t('Domain name:') + (" " + siteName + ".impruw.com</span> <span class='pending'>") + _.polyglot.t('Will activate on:') + (" " + startDate + " </span>");
           return this.$el.find('#free-plan .panel-body').append(html);
         }
       };
@@ -117,7 +117,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
       PlansView.prototype.onFreePlanSwitch = function() {
         var html;
         this.$el.find('#pay_loader').hide();
-        html = "<div class='alert alert-success'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> Switched to free plan after end of billing cycle. </div>";
+        html = "<div class='alert alert-success'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + _.polyglot.t('Switched to free plan after end of billing cycle.') + "</div>";
         return this.$el.find('#billingsave_status').append(html);
       };
 

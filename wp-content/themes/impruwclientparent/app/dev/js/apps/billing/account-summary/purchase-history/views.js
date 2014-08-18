@@ -11,7 +11,7 @@ define(['app', 'text!apps/billing/account-summary/templates/purchaseHistory.html
         return SingleTranscation.__super__.constructor.apply(this, arguments);
       }
 
-      SingleTranscation.prototype.template = '<td>{{date}}</td> <td>{{plan_name}}</td> <td>{{description}}</td> <td>&pound; {{amount}}</td> <td><a href="#">Print</a></td>';
+      SingleTranscation.prototype.template = '<td>{{date}}</td> <td>{{plan_name}}</td> <td>{{description}}</td> <td>&pound; {{amount}}</td> <td><a href="#">' + _.polyglot.t("Print") + '</a></td>';
 
       SingleTranscation.prototype.tagName = 'tr';
 
@@ -25,7 +25,7 @@ define(['app', 'text!apps/billing/account-summary/templates/purchaseHistory.html
         return EmptyView.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyView.prototype.template = '<div class="empty-info">No transaction history found.</div>';
+      EmptyView.prototype.template = '<div class="empty-info">' + _.polyglot.t("No transaction history found.") + '</div>';
 
       return EmptyView;
 
