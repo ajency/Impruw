@@ -112,7 +112,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         this.$el.find('#msg').empty();
         this.$el.find('#display-msg').show();
         this.$el.find('#pay_loader').hide();
-        this.$el.find('#msg').text('Address added successfully');
+        this.$el.find('#msg').text(_.polyglot.t('Address added successfully'));
         this.$el.find('.btn-add').hide();
         return this.$el.find('.btn-update').show();
       };
@@ -121,7 +121,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
         this.$el.find('#msg').empty();
         this.$el.find('#display-msg').show();
         this.$el.find('#pay_loader').hide();
-        this.$el.find('#msg').text('Address updated successfully');
+        this.$el.find('#msg').text(_.polyglot.t('Address updated successfully'));
         this.$el.find('.btn-add').hide();
         return this.$el.find('.btn-update').show();
       };

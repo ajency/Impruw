@@ -29,7 +29,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         return SelectedPlanView.__super__.constructor.apply(this, arguments);
       }
 
-      SelectedPlanView.prototype.template = '<div class="panel-heading"> <h3>{{plan_name}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">${{price}}</h3> </div> <ul class="list-group"> <li class="list-group-item"><span class="ribbon">Chosen Plan</span></li> </ul>';
+      SelectedPlanView.prototype.template = '<div class="panel-heading"> <h3>{{plan_name}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">£{{price}}</h3> </div> <ul class="list-group"> <li class="list-group-item"><span class="ribbon">' + _.polyglot.t("Chosen Plan") + '</span></li> </ul>';
 
       SelectedPlanView.prototype.className = 'panel panel-default text-center active';
 
@@ -43,7 +43,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         return ActiveSubscriptionView.__super__.constructor.apply(this, arguments);
       }
 
-      ActiveSubscriptionView.prototype.template = '<div class="col-sm-6 left"> <h6 class="aj-imp-sub-head"> <small>{{#polyglot}}Active Plan: {{/polyglot}}</small> {{plan_name}} </h6> </div> <div class="col-sm-6 right"> <h6 class="aj-imp-sub-head"> <small>{{#polyglot}}Active Since: {{/polyglot}}</small> {{start_date}} </h6> </div>';
+      ActiveSubscriptionView.prototype.template = '<div class="col-sm-6 left"> <h6 class="aj-imp-sub-head"> <small>{{#polyglot}}Active Plan:{{/polyglot}}</small> {{plan_name}} </h6> </div> <div class="col-sm-6 right"> <h6 class="aj-imp-sub-head"> <small>{{#polyglot}}Active Since:{{/polyglot}}</small> {{start_date}} </h6> </div>';
 
       ActiveSubscriptionView.prototype.className = 'aj-imp-widget-head row';
 
@@ -104,7 +104,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#loader').hide();
-        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Payment Successful! </div>';
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Payment Successful!") + '</div>';
         return this.$el.find('#billingsave_status').append(html);
       };
 
@@ -194,7 +194,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
           e.preventDefault();
           cardToken = this.$el.find('.selected .token').val();
           if (_.isUndefined(cardToken)) {
-            html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Please select a card </div>';
+            html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card") + '</div>';
             return this.$el.find('#billingsave_status').append(html);
           } else {
             this.$el.find('#loader').show();
@@ -208,7 +208,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#loader').hide();
-        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Payment Successful! </div>';
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Payment Successful!") + '</div>';
         this.$el.find('#billingsave_status').append(html);
         this.$el.find('#btn-stored-pay').hide();
         return this.$el.find('#btn-pay').hide();

@@ -20,10 +20,10 @@ define [ 'app'
                                                         <h3>{{plan_name}}</h3>
                                                     </div>
                                                     <div class="panel-body">
-                                                        <h3 class="panel-title price">${{price}}</h3>
+                                                        <h3 class="panel-title price">£{{price}}</h3>
                                                     </div>
                                                     <ul class="list-group">
-                                                        <li class="list-group-item"><span class="ribbon">Chosen Plan</span></li>
+                                                        <li class="list-group-item"><span class="ribbon">'+_.polyglot.t("Chosen Plan")+'</span></li>
                                                     </ul>'
 
             className : 'panel panel-default text-center active'
@@ -33,13 +33,13 @@ define [ 'app'
 
             template : '<div class="col-sm-6 left">
                                             <h6 class="aj-imp-sub-head">
-                                                <small>{{#polyglot}}Active Plan: {{/polyglot}}</small>
+                                                <small>{{#polyglot}}Active Plan:{{/polyglot}}</small>
                                                 {{plan_name}}
                                             </h6>
                                         </div>
                                         <div class="col-sm-6 right">
                                             <h6 class="aj-imp-sub-head">
-                                                <small>{{#polyglot}}Active Since: {{/polyglot}}</small>
+                                                <small>{{#polyglot}}Active Since:{{/polyglot}}</small>
                                                 {{start_date}}
                                             </h6>
                                         </div>'
@@ -81,9 +81,7 @@ define [ 'app'
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#loader' ).hide()
                 html = '<div class="alert alert-success">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Payment Successful!
-                        </div>'
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Payment Successful!")+'</div>'
                 @$el.find( '#billingsave_status' ).append( html )
 
             onPaymentError : ( errorMsg )->
@@ -146,9 +144,7 @@ define [ 'app'
 
                     if _.isUndefined cardToken
                         html = '<div class="alert alert-error">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                    Please select a card
-                                </div>'
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card")+'</div>'
                         @$el.find( '#billingsave_status' ).append html
                     else
                         @$el.find( '#loader' ).show()
@@ -159,9 +155,7 @@ define [ 'app'
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#loader' ).hide()
                 html = '<div class="alert alert-success">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Payment Successful!
-                        </div>'
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Payment Successful!")+'</div>'
                 @$el.find( '#billingsave_status' ).append( html )
                 @$el.find( '#btn-stored-pay' ).hide()
                 @$el.find( '#btn-pay' ).hide()

@@ -77,7 +77,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return View.__super__.constructor.apply(this, arguments);
       }
 
-      View.prototype.template = '<div class="aj-imp-help-text"> <span class="icon icon-info2"></span> <p> Your subscription to <b>{{plan_name}}</b> plan will begin at the end of current billing cycle. You will be billed for your selected plan on <b> {{start_date}} </b> unless its Free Plan. If you have decided to opt for the Free plan, your current plan will not be renewed and you will lose your domain name. </p> </div>';
+      View.prototype.template = '<div class="aj-imp-help-text"> <span class="icon icon-info2"></span> <p> {{#polyglot}}Your subscription to{{/polyglot}} <b>{{plan_name}}</b> {{#polyglot}}plan will begin at the end of current billing cycle. You will be billed for your selected plan on{{/polyglot}} <b> {{start_date}} </b> {{#polyglot}}unless its Free Plan. If you have decided to opt for the Free plan, your current plan will not be renewed and you will lose your domain name.{{/polyglot}} </p> </div>';
 
       return View;
 
@@ -89,7 +89,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return LinkView.__super__.constructor.apply(this, arguments);
       }
 
-      LinkView.prototype.template = '<a href="javascript:void(0)" class="red-link" id="deactivate-sub"> <span class="glyphicon glyphicon-ban-circle"></span> Deactivate Subscription </a> <img src="{{THEMEURL}}/images/loader.gif" width="38" height="30" id="pay_loader" style="display:none "> <div class="alert alert-success" id="display-msg" style="display:none;"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> {{#polyglot}}Plan deactivated.{{/polyglot}} </div>';
+      LinkView.prototype.template = '<a href="javascript:void(0)" class="red-link" id="deactivate-sub"> <span class="glyphicon glyphicon-ban-circle"></span> {{#polyglot}}Deactivate Subscription{{/polyglot}} </a> <img src="{{THEMEURL}}/images/loader.gif" width="38" height="30" id="pay_loader" style="display:none "> <div class="alert alert-success" id="display-msg" style="display:none;"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> {{#polyglot}}Plan deactivated.{{/polyglot}} </div>';
 
       LinkView.prototype.events = {
         'click #deactivate-sub ': function() {

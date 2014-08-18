@@ -12,9 +12,7 @@ define ['app'
 
             template: '<div class="row">
                             <div class="col-sm-12">
-                                <div class="empty-info">
-                                    No active credit card info available.
-                                </div>
+                                <div class="empty-info">'+_.polyglot.t("No active credit card info available.")+'</div>
                             </div>
                         </div>'
 
