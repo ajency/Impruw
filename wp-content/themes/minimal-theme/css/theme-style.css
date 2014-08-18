@@ -1432,7 +1432,7 @@ and open the template in the editor.
   margin: 0 0 1em;
   list-style: none;
 }
-.gallery {
+ul.gallery {
   margin: 0 0 1em;
   padding: 0;
   list-style: none;
