@@ -588,5 +588,7 @@
       "Columns" : "Columns_N",
       "Bordered" : "Bordered_N",
       "Striped" : "Striped_N",
-      "Style" : "Style_N"
+      "Style" : "Style_N",
+      "Table"  : "Table_N",
+      "Widget" : "Widget_N"
 }

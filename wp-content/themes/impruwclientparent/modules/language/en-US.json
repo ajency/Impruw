@@ -590,5 +590,7 @@
       "Columns" : "Columns",
       "Bordered" : "Bordered",
       "Striped" : "Striped",
-      "Style" : "Style"
+      "Style" : "Style",
+      "Table"  : "Table",
+      "Widget" : "Widget"
     }

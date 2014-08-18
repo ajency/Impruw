@@ -247,6 +247,12 @@ function get_elementbox_elements() {
             'styles' => get_styles( 'Map' ),
             'category' => 'hotel'
         ),
+         array(
+            'element' => 'Widget',
+            'icon' => 'bicon icon-uniF11A',
+            // 'styles' => get_styles( 'Wid' ),
+            'category' => 'hotel'
+        ),
         array(
             'element' => 'Slider',
             'icon' => 'bicon icon-uniF119',
