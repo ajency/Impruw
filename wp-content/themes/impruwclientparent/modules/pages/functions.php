@@ -283,15 +283,12 @@ function create_new_page( $data ) {
     if ( is_wp_error( $page_id ) )
         return $page_id;
 
-    //check if add_to_menu set
-    if ( $data[ 'add_to_menu' ] == "true" ) {
-        add_page_to_menu( $page_id, $page_order );
-    }
+    return $page_id;
+}
 
-    // check what is the template id need to create the page
-    // if 0 no template is choosed. ignore pulling json from page
-    $template_page_id = (int)$data[ 'template_page_id' ];
+function assign_page_template($template_page_id, $page_id){
 
+    // if 0 no template is chosen. ignore pulling json from page
     // return post id if template id is 0
     if ( $template_page_id === 0 )
         return $page_id;
