@@ -20,7 +20,7 @@ define [ 'app'
                                                         <h3>{{plan_name}}</h3>
                                                     </div>
                                                     <div class="panel-body">
-                                                        <h3 class="panel-title price">${{price}}</h3>
+                                                        <h3 class="panel-title price">&pound;{{price}}</h3>
                                                     </div>
                                                     <ul class="list-group">
                                                         <li class="list-group-item"><span class="ribbon">Chosen Plan</span></li>
