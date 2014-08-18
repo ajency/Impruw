@@ -44,7 +44,8 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
           this.$el.find('.panel-heading').append('<span class="pending">Pending Activation</span>');
           startDate = Marionette.getOption(this, 'startDate');
           html = "<span class='pending'>Domain name: " + domainName + "</span> <span class='pending'>Will activate on: " + startDate + " </span>";
-          return this.$el.find('.panel-body').append(html);
+          this.$el.find('.panel-body').append(html);
+          return this.$el.find('.activate-link').attr('href', 'javascript:void(0)');
         }
       };
 

@@ -18,6 +18,19 @@ function update_tariff( $formdata ) {
         if ( $key == "weekend" || $key == "weekday" ) {
             $formdata[ $key ] = maybe_serialize( $value );
         }
+
+        //Check for the language of the passed room
+        //if it is english do nothing 
+        //else if it is in norwegian, get english room id and associate tarrif to that room id
+
+        if( $key == "room_id") {
+            $current_room_id = $formdata[ $key ];
+
+            $english_room_id = icl_object_id($current_room_id, 'impruw_room', true,'en');
+
+            //Set room_id of formdata to english room id
+            $formdata[ $key ] = $english_room_id;
+        }
     }
 
     $wpdb->update( $table_name, $formdata, array( 'id' => $formdata[ 'id' ] ) );
@@ -33,15 +46,31 @@ function update_tariff( $formdata ) {
  */
 function add_tariff( $formdata ) {
 
-    global $wpdb;
+    global $wpdb, $sitepress;
 
     $table_name = $wpdb->prefix . 'tariffs';
+
+    //get current default language
+    $current_default_language = wpml_get_default_language();
 
     // serializing the weekend and weekday array
     foreach ( $formdata as $key => $value ) {
 
         if ( $key == "weekend" || $key == "weekday" ) {
             $formdata[ $key ] = maybe_serialize( $value );
+        }
+
+        //Check for the language of the passed room
+        //if it is english do nothing 
+        //else if it is in norwegian, get english room id and associate tarrif to that room id
+
+        if( $key == "room_id") {
+            $current_room_id = $formdata[ $key ];
+
+            $english_room_id = icl_object_id($current_room_id, 'impruw_room', true,'en');
+
+            //Set room_id of formdata to english room id
+            $formdata[ $key ] = $english_room_id;
         }
     }
 

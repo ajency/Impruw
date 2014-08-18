@@ -6,7 +6,9 @@ function fetch_tariffs() {
 
     $room_id = (int) $_REQUEST[ 'room_id' ];
 
-    $tariffs = get_tariff( $room_id );
+    //Check language of the room id passed, if english do nothing else get the english room id
+    $english_room_id = icl_object_id($room_id, 'impruw_room', true,'en');
+    $tariffs = get_tariff( $english_room_id );
 
     wp_send_json( array( 'code' => 'OK', 'data' => $tariffs ) );
 }
