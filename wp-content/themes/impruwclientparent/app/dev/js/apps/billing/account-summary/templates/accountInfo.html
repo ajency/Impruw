@@ -1,33 +1,33 @@
 <div class="aj-imp-widget-head row">
     <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
-            <small>Active Plan: </small>
+            <small>{{#polyglot}}Active Plan:{{/polyglot}}</small>
             {{plan_name}}
         </h6>
     </div>
     <div class="col-sm-6 right">
         <h6 class="aj-imp-sub-head-thin">
-            <small>Active Since: </small>
+            <small>{{#polyglot}}Active Since:{{/polyglot}}</small>
             {{start_date}}
         </h6>
     </div>
     <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
-            <small>Subscription Type: </small>
+            <small>{{#polyglot}}Subscription Type:{{/polyglot}} </small>
             {{subscription_type}}
         </h6>
     </div>
     <div class="col-sm-6 right">
         <h6 class="aj-imp-sub-head-thin">
-            <small>Payment: </small>
+            <small>{{#polyglot}}Payment:{{/polyglot}} </small>
             &#163; {{price}}
         </h6>
     </div>
     <div class="col-sm-12 ">
         <h6 class="aj-imp-sub-head-thin">
-            <small>Current billing cycle: </small>
+            <small>{{#polyglot}}Current billing cycle:{{/polyglot}} </small>
             <span>
-                <small>From: </small>
+                <small>{{#polyglot}}From:{{/polyglot}} </small>
                  {{bill_start}}
             </span>
             <span>
@@ -38,4 +38,4 @@
     </div>
 </div>
 <br>
-<a href="#/billing/pricing-plans" class="btn btn-xs aj-imp-orange-btn">Change Plan</a>
+<a href="#/billing/pricing-plans" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Change Plan{{/polyglot}}</a>

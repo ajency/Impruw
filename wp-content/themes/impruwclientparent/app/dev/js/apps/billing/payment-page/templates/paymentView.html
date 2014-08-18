@@ -1,11 +1,11 @@
-<h6 class="aj-imp-widget-title">Saved Card Details</h6>
+<h6 class="aj-imp-widget-title">{{#polyglot}}Saved Card Details{{/polyglot}}</h6>
 
 <div class="card-list row"></div>
 
 <div class="row">
     <div class="col-sm-12">
         <button type="submit" class="btn btn-xs aj-imp-orange-btn" id="btn-stored-pay">
-            Proceed to Pay
+            {{#polyglot}}Proceed to Pay{{/polyglot}}
         </button>
     </div>
 </div>
@@ -15,13 +15,13 @@
 <div id="billingsave_status"></div>
 
 <a data-toggle="collapse" data-target="#add-new-card" class="blue-link" style="cursor:pointer;margin-top: 1em;">
-    <span class="glyphicon glyphicon-plus"></span> Add Card
+    <span class="glyphicon glyphicon-plus"></span> {{#polyglot}}Add Card{{/polyglot}}
 </a>
 <div class="collapse" id="add-new-card">
     <hr>
     <form class="form-horizontal">
         <div class="form-group">
-            <label class="col-sm-3 control-label">Name on the Card</label>
+            <label class="col-sm-3 control-label">{{#polyglot}}Name on the Card{{/polyglot}}</label>
 
             <div class="col-sm-8 col-sm-offset-3">
                 <input type="text" class="form-control " id="card_name"
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Card Number</label>
+            <label class="col-sm-3 control-label">{{#polyglot}}Card Number{{/polyglot}}</label>
 
             <div class="col-sm-8 col-sm-offset-3">
                 <input type="text" class="form-control " id="card_number"
@@ -38,11 +38,11 @@
         </div>
         <div class="form-group">
             <div class="col-sm-8 col-sm-offset-3">
-                <span class="help-block">Enter the Card Number without any spaces.</span>
+                <span class="help-block">{{#polyglot}}Enter the Card Number without any spaces.{{/polyglot}}</span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Security Code</label>
+            <label class="col-sm-3 control-label">{{#polyglot}}Security Code{{/polyglot}}</label>
 
             <div class="col-sm-2 col-sm-offset-3">
                 <input type="password" class="form-control" placeholder="CVV"
@@ -50,15 +50,15 @@
 
             </div>
             <div class="col-sm-5">
-                <span class="help-block"><a href="#">Whats this?</a></span>
+                <span class="help-block"><a href="#">{{#polyglot}}Whats this?{{/polyglot}}</a></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Expires On</label>
+            <label class="col-sm-3 control-label">{{#polyglot}}Expires On{{/polyglot}}</label>
 
             <div class="col-sm-2 col-sm-offset-3">
                 <select data-braintree-name="expiration_month" id="exp_month" >
-                    <option>Month</option>
+                    <option>{{#polyglot}}Month{{/polyglot}}</option>
                     <option>01</option>
                     <option>02</option>
                     <option>03</option>
@@ -75,7 +75,7 @@
             </div>
             <div class="col-sm-2">
                 <select data-braintree-name="expiration_year" id="exp_year" >
-                    <option>Year</option>
+                    <option>{{#polyglot}}Year{{/polyglot}}</option>
                     <option>2015</option>
                     <option>2016</option>
                     <option>2017</option>
@@ -93,7 +93,7 @@
             <div class="col-sm-8 col-sm-offset-3">
                 <button type="submit" class="btn btn-wide aj-imp-orange-btn"
                         id="btn-pay">
-                    Pay
+                    {{#polyglot}}Pay{{/polyglot}}
                 </button>
             </div>
         </div>

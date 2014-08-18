@@ -1,8 +1,8 @@
-<h6 class="aj-imp-widget-title">Card Details</h6>
+<h6 class="aj-imp-widget-title">{{#polyglot}}Card Details{{/polyglot}}</h6>
 
 <form class="form-horizontal" id="checkout">
     <div class="form-group">
-        <label class="col-sm-3 control-label">Name on the Card</label>
+        <label class="col-sm-3 control-label">{{#polyglot}}Name on the Card{{/polyglot}}</label>
 
         <div class="col-sm-8 col-sm-offset-3">
             <input type="text" class="form-control " id="card_name"
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-3 control-label">Card Number</label>
+        <label class="col-sm-3 control-label">{{#polyglot}}Card Number{{/polyglot}}</label>
 
         <div class="col-sm-8 col-sm-offset-3">
             <input type="text" class="form-control " id="card_number"
@@ -19,11 +19,11 @@
     </div>
     <div class="form-group">
         <div class="col-sm-8 col-sm-offset-3">
-            <span class="help-block">Enter the Card Number without any spaces.</span>
+            <span class="help-block">{{#polyglot}}Enter the Card Number without any spaces.{{/polyglot}}</span>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-3 control-label">Security Code</label>
+        <label class="col-sm-3 control-label">{{#polyglot}}Security Code{{/polyglot}}</label>
 
         <div class="col-sm-2 col-sm-offset-3">
             <input type="password" class="form-control" placeholder="CVV"
@@ -31,19 +31,19 @@
 
         </div>
         <div class="col-sm-5">
-            <span class="help-block"><a href="#">Whats this?</a></span>
+            <span class="help-block"><a href="#">{{#polyglot}}Whats this?{{/polyglot}}</a></span>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-3 control-label">Expires On</label>
+        <label class="col-sm-3 control-label">{{#polyglot}}Expires On{{/polyglot}}</label>
 
         <div class="col-sm-2 col-sm-offset-3">
             <select data-braintree-name="expiration_month" id="exp_month" class="payment">
-                <option>Month</option>
+                <option>{{#polyglot}}Month{{/polyglot}}</option>
                 <option>01</option>
                 <option>02</option>
                 <option>03</option>
-                <option>04</option>
+                <option>{{#polyglot}}04</option>
                 <option>05</option>
                 <option>06</option>
                 <option>07</option>
@@ -56,7 +56,7 @@
         </div>
         <div class="col-sm-2">
             <select data-braintree-name="expiration_year" id="exp_year" class="payment">
-                <option>Year</option>
+                <option>{{#polyglot}}Year{{/polyglot}}</option>
                 <option>2015</option>
                 <option>2016</option>
                 <option>2017</option>
@@ -74,7 +74,7 @@
         <div class="col-sm-8 col-sm-offset-3">
             <button type="submit" class="btn btn-wide aj-imp-orange-btn"
                     id="btn-pay">
-                Pay
+                {{#polyglot}}Pay{{/polyglot}}
             </button>
         </div>
     </div>
