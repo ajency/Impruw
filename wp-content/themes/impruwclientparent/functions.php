@@ -918,7 +918,7 @@ function get_theme_JS() {
             if (jQuery('.gallery').length === 0)
                 return;
 
-            var $container = jQuery('.gallery').imagesLoaded(function () {
+            var $container = jQuery('ul.gallery').imagesLoaded(function () {
                 $container.isotope({
                     // options
                     itemSelector: '.isotope-element'

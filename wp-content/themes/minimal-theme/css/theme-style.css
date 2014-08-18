@@ -1432,7 +1432,7 @@ and open the template in the editor.
   margin: 0 0 1em;
   list-style: none;
 }
-.gallery {
+ul.gallery {
   margin: 0 0 1em;
   padding: 0;
   list-style: none;
@@ -1766,12 +1766,12 @@ and open the template in the editor.
   bottom: -10px;
 }
 .row.menu-bar:before {
-  border-width: 0 10px 10px 0;
+  border-width: 0 9px 10px 0;
   border-right-color: #831618;
   left: -10px;
 }
 .row.menu-bar:after {
-  border-width: 0 0 10px 10px;
+  border-width: 0 0 10px 9px;
   border-left-color: #831618;
   right: -10px;
 }

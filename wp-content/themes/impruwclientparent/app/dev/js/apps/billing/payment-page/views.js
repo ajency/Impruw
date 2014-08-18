@@ -29,7 +29,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
         return SelectedPlanView.__super__.constructor.apply(this, arguments);
       }
 
-      SelectedPlanView.prototype.template = '<div class="panel-heading"> <h3>{{plan_name}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">£{{price}}</h3> </div> <ul class="list-group"> <li class="list-group-item"><span class="ribbon">' + _.polyglot.t("Chosen Plan") + '</span></li> </ul>';
+      SelectedPlanView.prototype.template = '<div class="panel-heading"> <h3>{{plan_name}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">&pound;{{price}}</h3> </div> <ul class="list-group"> <li class="list-group-item"><span class="ribbon">' + _.polyglot.t("Chosen Plan") + '</span></li> </ul>';
 
       SelectedPlanView.prototype.className = 'panel panel-default text-center active';
 
