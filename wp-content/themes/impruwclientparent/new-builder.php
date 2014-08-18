@@ -94,14 +94,18 @@
 <!-- Unused Elements Box -->
 
 <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/flippant.min.js"></script>
+<script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
 
 <?php if ( ENV === 'production' ): ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
+    
+     
     <script
         src="<?php echo get_parent_template_directory_uri(); ?>/app/production/builder-main.js?ver=<?php echo JSVERSION ?>"></script>
 <?php else: ?>
-    <!--  <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
+    <!--  <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+
+    <script src="<?php  get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>-->
+
     <script data-main="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/builder-main"
             src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
 <?php endif; ?>

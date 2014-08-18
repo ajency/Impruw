@@ -30,7 +30,6 @@ define(['app'], function(App) {
       TitleView.prototype.onShow = function() {
         var content, _ref;
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
-        CKEDITOR.on('instanceCreated', this.configureEditor);
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
         content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
         this.editor.setData(_.stripslashes(content != null ? content : ''));
@@ -46,7 +45,6 @@ define(['app'], function(App) {
         editor = event.editor;
         element = editor.element;
         return editor.on("configLoaded", function() {
-          editor.config.toolbar = [['Source', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'], ['Undo', 'Redo', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'], '/', ['Bold', 'Italic', 'Underline', 'Strike', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight'], ['Link', 'Unlink'], ['InsertImage']];
           editor.config.extraPlugins = 'confighelper';
           return editor.config.extraPlugins = 'justify';
         });

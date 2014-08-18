@@ -31,7 +31,7 @@ define ['app'], (App)->
             onShow: ->
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
 
-                CKEDITOR.on 'instanceCreated', @configureEditor
+                # CKEDITOR.on 'instanceCreated', @configureEditor
                 @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
                 content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
                 @editor.setData _.stripslashes content ? ''
@@ -55,12 +55,12 @@ define ['app'], (App)->
                 editor.on "configLoaded", ->
 
                     # Rearrange the layout of the toolbar.
-                    editor.config.toolbar = [
-                        ['Source','-','Cut','Copy','Paste','PasteText','PasteFromWord'],['Undo','Redo','Find','Replace','-','SelectAll','RemoveFormat'],
-                        '/',
-                        ['Bold','Italic','Underline','Strike','-','JustifyLeft','JustifyCenter','JustifyRight'],['Link','Unlink'],
-                        ['InsertImage']
-                    ]
+                    # editor.config.toolbar = [
+                    #     ['Source','-','Cut','Copy','Paste','PasteText','PasteFromWord'],['Undo','Redo','Find','Replace','-','SelectAll','RemoveFormat'],
+                    #     '/',
+                    #     ['Bold','Italic','Underline','Strike','-','JustifyLeft','JustifyCenter','JustifyRight'],['Link','Unlink'],
+                    #     ['InsertImage']
+                    # ]
 
                     editor.config.extraPlugins = 'confighelper'
                     editor.config.extraPlugins = 'justify'
