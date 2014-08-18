@@ -276,6 +276,9 @@ and open the template in the editor.
   background: #1b2642;
   color: #ff5f5f;
 }
+.nav.slimmenu > li.gallery {
+  margin-bottom: 0;
+}
 .nav.slimmenu > li.active {
   background: #ff5f5f;
 }
@@ -1476,6 +1479,21 @@ ul.gallery {
   margin: 0 0 0.5em;
   text-align: left;
 }
+/**** Empty View ****/
+.gallery-empty-view {
+  text-align: center;
+  font-size: 1.2em;
+  color: #989898;
+  padding: 3em 0.3em;
+  height: 100%;
+  border: 1px dashed #989898;
+}
+.gallery-empty-view .glyphicon {
+  display: block;
+  margin: 0.2em 0 0.5em;
+  font-size: 3em;
+  color: #b2b2b2;
+}
 /**** Isotope Filtering ****/
 .isotope-item {
   z-index: 2;
@@ -1753,6 +1771,26 @@ ul.gallery {
 .table.style-2 > thead > tr th,
 .table.style-2 > tbody > tr th {
   border-color: #e9e9e9 !important;
+}
+.lang-sel {
+  text-align: right;
+}
+.lang-sel.align-left {
+  text-align: left;
+}
+.lang-sel.align-right {
+  text-align: right;
+}
+.lang-sel.align-center {
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .lang-sel {
+    text-align: center;
+  }
+}
+.lang-sel > div {
+  text-align: left;
 }
 /*
 To change this license header, choose License Headers in Project Properties.

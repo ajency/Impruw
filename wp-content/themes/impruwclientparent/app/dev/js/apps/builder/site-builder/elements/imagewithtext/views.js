@@ -12,7 +12,7 @@ define(['app'], function(App) {
 
       ImageWithTextView.prototype.className = 'imagewithtext';
 
-      ImageWithTextView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/> {{/image}} {{#placeholder}} <div class="image-placeholder {{alignclass}}"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div> {{/placeholder}} <p class="editor"></p> <div class="clearfix"></div>';
+      ImageWithTextView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/> {{/image}} {{#placeholder}} <div class="image-placeholder {{alignclass}}"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div> {{/placeholder}} <div class="editor"></div> <div class="clearfix"></div>';
 
       ImageWithTextView.prototype.mixinTemplateHelpers = function(data) {
         data = ImageWithTextView.__super__.mixinTemplateHelpers.call(this, data);
@@ -45,8 +45,8 @@ define(['app'], function(App) {
           e.stopPropagation();
           return this.trigger("show:media:manager");
         },
-        'blur p.editor': function(e) {
-          return this.trigger("text:element:blur", this.$el.children('p.editor').html());
+        'blur .editor': function(e) {
+          return this.trigger("text:element:blur", this.$el.children('.editor').html());
         }
       };
 
@@ -62,8 +62,8 @@ define(['app'], function(App) {
 
       ImageWithTextView.prototype.onShow = function() {
         var content, _ref;
-        this.$el.children('p.editor').attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
-        this.editor = CKEDITOR.inline(document.getElementById(this.$el.children('p.editor').attr('id')));
+        this.$el.children('.editor').attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
+        this.editor = CKEDITOR.inline(document.getElementById(this.$el.children('.editor').attr('id')));
         content = Marionette.getOption(this, 'templateHelpers').content[WPML_DEFAULT_LANG];
         content = (_ref = Marionette.getOption(this, 'templateHelpers').content[WPML_DEFAULT_LANG]) != null ? _ref : Marionette.getOption(this, 'templateHelpers').content;
         this.editor.setData(_.stripslashes(content != null ? content : ''));

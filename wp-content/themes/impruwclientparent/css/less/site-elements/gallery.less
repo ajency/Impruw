@@ -19,6 +19,22 @@ ul.gallery {
   text-align: left;
 }
 
+/**** Empty View ****/
+.gallery-empty-view {
+  text-align: center;
+  font-size: 1.2em;
+  color: @text-color;
+  padding: 3em 0.3em;
+  height: 100%;
+  border: 1px dashed @text-color;
+  .glyphicon {
+    display: block;
+    margin: 0.2em 0 0.5em;
+    font-size: 3em;
+    color: lighten(@text-color, 10%);
+  }
+}
+
 /**** Isotope Filtering ****/
 .isotope-item {
   z-index: 2;
