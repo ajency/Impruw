@@ -46,7 +46,11 @@ class RoomGallery extends SliderElement {
        
         //parent::__construct($element );
             
-        $this->slider_id = isset($element['slider_id']) ? $element['slider_id'] : $this->get_slider_id();
+        if(!is_singular('impruw_room')) {
+          $this->slider_id = $element['slider_id'];
+        } else {
+          $this->slider_id = $this->get_slider_id();
+        } 
         
         if((int)$this->slider_id !== 0){
           $this->markup    =    $this->generate_markup();
