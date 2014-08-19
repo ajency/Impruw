@@ -58,7 +58,19 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
           containment: 'document',
           scroll: true
         });
-        return this._setDraggableElements();
+        this._setDraggableElements();
+        $('body').on('click', (function(_this) {
+          return function() {
+            console.log('body clicked');
+            return _this.$el.closest('#controls-drag').find('.element').removeClass('selected-element');
+          };
+        })(this));
+        return App.ElementsBoxApp.ElementsBoxEvtAggr.on('highlight:element', (function(_this) {
+          return function(title) {
+            _this.$el.closest('#controls-drag').find('li').removeClass('selected-element');
+            return _this.$el.closest('#controls-drag').find("li[data-element='" + title + "']").addClass('selected-element');
+          };
+        })(this));
       };
 
       MainView.prototype.appendHtml = function(cv, view, index) {

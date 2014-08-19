@@ -29,6 +29,11 @@ define [ 'app'
                evt.stopPropagation()
                @trigger "delete:element", @model
 
+            # on click of element trigger event
+            'click':(e)->
+               e.stopPropagation()
+               App.ElementsBoxApp.ElementsBoxEvtAggr.trigger 'highlight:element', @model.get 'element'
+
          initialize : =>
             # bind event only once
             @once 'before:render:element', =>
