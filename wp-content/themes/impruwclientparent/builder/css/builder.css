@@ -243,21 +243,11 @@ a.red-link.pull-right {
   border-radius: 2px;
   border: 1px solid #aaaaaa;
   padding: 0.5em;
-  padding-right: 15px;
   font-size: 1.15em;
   width: 140px;
   top: 80px;
   display: block !important;
-}
-.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element .element-help .close-help {
-  display: inline-block;
-  height: auto;
-  width: auto;
-  position: absolute;
-  top: 2px;
-  right: 5px;
-  min-height: initial;
-  cursor: pointer;
+  z-index: 1;
 }
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element .element-help:after {
   content: '';

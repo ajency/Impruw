@@ -16,7 +16,6 @@ define [ 'app'
 								<div class="aj-imp-builder-title">{{elementName}}</div>
 							</a>
                      <div class="element-help hide">
-                        <a class="close-help">&times;</a>
                         Hi! I am help text to help you understand this element!
                      </div>'
 
