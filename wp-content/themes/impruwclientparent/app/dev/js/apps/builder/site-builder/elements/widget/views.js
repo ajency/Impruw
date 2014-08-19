@@ -10,18 +10,28 @@ define(['app'], function(App) {
         return WidgetView.__super__.constructor.apply(this, arguments);
       }
 
-      WidgetView.prototype.className = 'widget';
+      WidgetView.prototype.className = 'widget embed-responsive ';
 
       WidgetView.prototype.templates = '';
 
+      WidgetView.prototype.modelEvents = {
+        'change:widgetCode': 'render'
+      };
+
       WidgetView.prototype.onRender = function() {
-        var html;
+        var height, ratio, widgetHtml, width;
         console.log('in on render');
-        html = $.parseHTML(_.stripslashes(this.model.get('htmlData')));
-        this.trigger('save:html:data', $(html).get(0));
-        $(html).find('div').attr('data-width', this.$el.width());
-        console.log(html);
-        return this.$el.html(html);
+        widgetHtml = $.parseHTML(_.stripslashes(this.model.get('widgetCode')));
+        this.$el.html(widgetHtml);
+        if (this.model.get('type') === 'youtube') {
+          this.$el.find('iframe').wrap('<div class="embed-responsive-item"></div>');
+          width = this.$el.find('iframe').attr('width');
+          height = this.$el.find('iframe').attr('height');
+          ratio = 100 * height / width;
+          console.log(ratio);
+          this.$el.css('padding-bottom', "" + ratio + "%");
+        }
+        return console.log(widgetHtml);
       };
 
       WidgetView.prototype.onShow = function() {

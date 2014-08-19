@@ -1,5 +1,6 @@
 define ['app'
 		'apps/builder/site-builder/elements/widget/views'
+        'apps/builder/site-builder/elements/widget/settings/controller'
 ],(App,RegionController)->
 	App.module 'SiteBuilderApp.Element.Widget',(Widget,App)->
 
@@ -9,7 +10,10 @@ define ['app'
             initialize: (options)->
                 _.defaults options.modelData,
                     element: 'Widget'
-                    htmlData : '<div class="fb-widget"><div class="fb-like-box" data-href="https://www.facebook.com/FacebookDevelopers" data-width="500" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div></div>'                    #'<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80" 
+                    type : ''
+                    widgetCode : ''#'<iframe  width="1280" height="720" src="//www.youtube.com/embed/nZVIGsm5WeY" frameborder="0" allowfullscreen></iframe>'
+                        # '<div class="fb-widget"><div class="fb-like-box" data-href="https://www.facebook.com/FacebookDevelopers" data-width="500" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div></div>'                    
+                    #'<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80" 
                     	# scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>'
 
                 super(options)

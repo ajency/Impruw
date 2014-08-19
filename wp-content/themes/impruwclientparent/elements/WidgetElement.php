@@ -38,7 +38,7 @@ class WidgetElement extends Element {
         parent::__construct($element);
         
         
-        $this->htmlData         = stripcslashes(trim($element['htmlData']));
+        $this->htmlData         = stripcslashes(trim($element['widgetCode']));
         
         $this->markup           = $this->generate_markup();
 
@@ -55,13 +55,14 @@ class WidgetElement extends Element {
         
         $attr = array();
         
+        $html = "<div class='embed-responsive embed-responsive-16by9'>".$this->htmlData."</div>";
        
 
-        $html = $this->htmlData;
+        // $html = $this->htmlData;
         // if(empty($this->content))
         //     $html       .= $this->get_open_tag($attr);
         
-        $html           .= "<script>
+        $html  .= "<script>
                 
                 jQuery('.fb-widget').last().find('div').attr('data-width',jQuery('.fb-widget').last().parent().width());
             console.log(jQuery('.fb_widget').last().width());
