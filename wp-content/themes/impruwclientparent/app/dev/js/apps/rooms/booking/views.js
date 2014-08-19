@@ -161,7 +161,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         if (currentStatus === 'unavailable') {
           value = 60;
         }
-        html = "<button type='button' class='close booking-popover-close' aria-hidden='true'>&times;</button> <div class='booking-slider-pop'> <div id='booking-slider' data-value='" + value + "'></div> <div class='row'> <div class='col-md-4 available'><span>" + (_.polyglot.t('available')) + "</span></div> <div class='col-md-4 semi-available'><span>" + (_.polyglot.t('filling fast')) + "</span></div> <div class='col-md-4 unavailable'><span>" + (_.polyglot.t('sold out')) + "</span></div> </div> </div>";
+        html = "<button type='button' class='close booking-popover-close' aria-hidden='true'>&times;</button> <div class='booking-slider-pop'> <div id='booking-slider' data-value='" + value + "'></div> <div class='row'> <div class='col-md-4 available'><span>" + (_.polyglot.t('available')) + "</span></div> <div class='col-md-4 semi-available'><span>" + (_.polyglot.t('Filling Fast')) + "</span></div> <div class='col-md-4 unavailable'><span>" + (_.polyglot.t('Sold Out')) + "</span></div> </div> </div>";
         return html;
       };
 

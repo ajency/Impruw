@@ -34,6 +34,9 @@ function load_language_phrases(){
     $jsonString = file_get_contents($filepath);
     $jsonlangObject = json_decode($jsonString, true); 
 
+    // Uncomment to see if there are any errors while reading from json file
+    // echo json_last_error();
+
     return $jsonlangObject;
 }
 

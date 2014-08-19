@@ -34,5 +34,6 @@ define [
    'minicolors'
    'drilldown'
    'resizablecolumns'
+   'jqueryuii18n'
    #'flippant'
 ], ->

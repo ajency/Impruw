@@ -79,7 +79,7 @@ define [ 'app', 'controllers/base-controller'
                 @$el.find( '#msg' ).empty()
                 @$el.find( '#display-msg' ).show()
                 @$el.find( '#pay_loader' ).hide()
-                @$el.find( '#msg' ).text 'Address added successfully'
+                @$el.find( '#msg' ).text _.polyglot.t('Address added successfully')
                 @$el.find( '.btn-add' ).hide()
                 @$el.find( '.btn-update' ).show()
 
@@ -87,7 +87,7 @@ define [ 'app', 'controllers/base-controller'
                 @$el.find( '#msg' ).empty()
                 @$el.find( '#display-msg' ).show()
                 @$el.find( '#pay_loader' ).hide()
-                @$el.find( '#msg' ).text 'Address updated successfully'
+                @$el.find( '#msg' ).text _.polyglot.t('Address updated successfully')
                 @$el.find( '.btn-add' ).hide()
                 @$el.find( '.btn-update' ).show()
 

@@ -42,6 +42,10 @@ a.red-link.pull-left,
 a.red-link.pull-right {
   margin: 0.5em;
 }
+/****Button Styles****/
+.btn {
+  border-radius: 2px;
+}
 /****Clearfix****/
 .clearfix {
   *zoom: 1;
@@ -239,21 +243,11 @@ a.red-link.pull-right {
   border-radius: 2px;
   border: 1px solid #aaaaaa;
   padding: 0.5em;
-  padding-right: 15px;
   font-size: 1.15em;
   width: 140px;
   top: 80px;
   display: block !important;
-}
-.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element .element-help .close-help {
-  display: inline-block;
-  height: auto;
-  width: auto;
-  position: absolute;
-  top: 2px;
-  right: 5px;
-  min-height: initial;
-  cursor: pointer;
+  z-index: 1;
 }
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element .element-help:after {
   content: '';
@@ -1855,6 +1849,7 @@ a.red-link.pull-right {
 .modal .thumbnails .single-img,
 .modal #selectable-images .single-img {
   position: relative;
+  padding: 0 5px;
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
@@ -1864,7 +1859,7 @@ a.red-link.pull-right {
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb,
 .modal #selectable-images .single-img .thumbnail .imgthumb {
-  height: 84px;
+  height: 100px;
   text-align: center;
   overflow: hidden;
 }
@@ -1890,7 +1885,7 @@ a.red-link.pull-right {
 .modal #selectable-images .single-img .ticker {
   position: absolute;
   top: -7px;
-  right: 7px;
+  right: 0px;
   color: #fff;
   padding: 2px 4px 4px;
   border-radius: 2px;
@@ -2145,6 +2140,12 @@ a.red-link.pull-right {
 }
 .modal .aj-imp-menu-item-list .list-group .list-group-item:hover .menu-name {
   color: #849fb0;
+}
+.modal.bootbox .btn-primary {
+  background: #ff7e00;
+}
+.modal.bootbox .btn-primary:hover {
+  background: #ff9833;
 }
 .drop-highlight {
   height: 3em;
@@ -2991,7 +2992,7 @@ a.red-link.pull-right {
 #edit-image-view .imgedit-wrap .imgedit-settings input.button {
   padding: 8px 13px 9px;
   border: 0;
-  border-radius: 6px;
+  border-radius: 2px;
   color: #fff;
   background: #849fb0;
 }
@@ -3029,7 +3030,7 @@ a.red-link.pull-right {
 #edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button {
   padding: 8px 13px 9px;
   border: 0;
-  border-radius: 6px;
+  border-radius: 2px;
   color: #fff;
   background: #c0c0c0;
   cursor: pointer;

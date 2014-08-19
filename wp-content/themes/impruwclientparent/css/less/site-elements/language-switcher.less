@@ -1,0 +1,18 @@
+.lang-sel {
+	text-align: right;
+	&.align-left {
+		text-align: left;
+	}
+	&.align-right {
+		text-align: right;
+	}
+	&.align-center {
+		text-align: center;
+	}
+	@media(max-width:767px){
+		text-align: center;
+	}
+	> div {
+		text-align: left;
+	}
+}

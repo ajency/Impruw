@@ -1517,12 +1517,13 @@ form {
 		overflow-y: auto;
 		.single-img {
 			position: relative;
+			padding: 0 5px;
 			.thumbnail {
 				margin-bottom: 40px;
 				border: 1px solid @dash-grey;
 				padding: 2px;
 				.imgthumb {
-					height: 84px;
+					height: 100px;
 					text-align: center;
 					overflow: hidden;
 					img {
@@ -1546,7 +1547,7 @@ form {
 			.ticker {
 				position: absolute;
 				top: -7px;
-				right: 7px;
+				right: 0px;
 				color: #fff;
 				padding: 2px 4px 3px;
 				border-radius: 2px;
@@ -2570,9 +2571,9 @@ form {
 				text-align: right;
 				font-weight: 300;
 				position: absolute;
-				width: 100px;
+				width: 125px;
 				background: #fff;
-				max-width: 100px;
+				max-width: 125px;
 				padding-right: 10px;
 				min-height: 150px;
 				font-size: 0.88em;
@@ -2599,7 +2600,7 @@ form {
 			}
 			.packages {
 				width: 100%;
-				padding-left: 110px;
+				padding-left: 135px;
 				min-height: 150px;
 				.btn-add-plan {
 					position: absolute;
@@ -2942,6 +2943,11 @@ form {
 	color: darken(@dash-grey, 10%);
 	border: 2px solid lighten(@dash-grey, 20%);
 	border-radius: 4px;
+}
+
+.crop-help {
+	margin-right: 0.5em;
+	display: none;
 }
 
 .moveable {
@@ -4683,7 +4689,7 @@ form {
                 &.button {
                     padding: 8px 13px 9px;
                     border: 0;
-                    border-radius: 6px;
+                    border-radius: 2px;
                     color: #fff;
                     background: @blue-grey;
                     &:hover, &:focus {
@@ -4713,7 +4719,7 @@ form {
                     &.button {
                         padding: 8px 13px 9px;
                         border: 0;
-                        border-radius: 6px;
+                        border-radius: 2px;
                         color: #fff;
                         background: darken(@preview-grey, 20%);
                         cursor: pointer;

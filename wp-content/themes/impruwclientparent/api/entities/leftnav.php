@@ -188,7 +188,7 @@ function get_elementbox_elements() {
             'element' => 'LanguageSwitcher',
             'title' => 'Language Switcher',
             'icon' => 'bicon icon-uniF10B',
-            'styles' => array(),
+            'styles' => get_styles( 'LanguageSwitcher' ),
             'size' => ''
         ),
         array(

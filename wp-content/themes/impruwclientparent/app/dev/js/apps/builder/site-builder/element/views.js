@@ -31,6 +31,10 @@ define(['app', 'text!apps/builder/site-builder/element/templates/element.html'],
         'click .aj-imp-delete-btn': function(evt) {
           evt.stopPropagation();
           return this.trigger("delete:element", this.model);
+        },
+        'click': function(e) {
+          e.stopPropagation();
+          return App.ElementsBoxApp.ElementsBoxEvtAggr.trigger('highlight:element', this.model.get('element'));
         }
       };
 

@@ -20,66 +20,9 @@ function update_user_lang( $user_id, $language ) {
     //and create its translated rooms in the new default language if they don't exist
     foreach ($current_room_data as $current_room) {
         $data = get_language_translated_room($current_room['ID'], $language);
-
-        //For translated room add tarriff
-        $room_id = $current_room['ID'];  
-        // echo $current_room['ID'];
-        $translated_room_id = $data['translatedPostID'];  
-
-        $table_name = $wpdb->prefix . 'tariffs';
-
-        //Current room tariff
-        $query = "SELECT * FROM $table_name WHERE room_id = $room_id ";
-
-        // echo $query;
-
-        $tariffs = $wpdb->get_results( $query);
-
-        foreach ($tariffs as $tariff) {
-
-            // print_r($tariff);
-            
-            //get daterange
-            $daterange = $tariff->daterange_id;
-            //Check if tarrif exists for the translated room
-            $query = "SELECT * FROM $table_name WHERE room_id = $translated_room_id AND daterange_id = $daterange";
-
-            $translated_tarrif = $wpdb->get_row( $query);
-
-            //if not insert 
-            if($translated_tarrif==null){
-                // echo "insert";
-
-                $wpdb->insert( $table_name, array(
-                    'room_id'       => $translated_room_id,
-                    'daterange_id'  => $tariff->daterange_id,
-                    'plan_id'       => $tariff->plan_id,
-                    'weekday'       => $tariff->weekday,
-                    'weekend'       => $tariff->weekend
-                    )
-                );
-
-            }
-            else
-            {
-            //else update
-                // echo "update";
-                $wpdb->update(
-                    $table_name, 
-                    array(
-                        'daterange_id'  => $tariff->daterange_id,
-                        'plan_id'       => $tariff->plan_id,
-                        'weekday'       => $tariff->weekday,
-                        'weekend'       => $tariff->weekend
-                        ), array( 'room_id' => $translated_room_id ) );
-            }
-
-        }
-        
     }
 
-
-    global $sitepress;
+    //set new default language
     $sitepress->set_default_language($language);
 
     wp_send_json( array( 'code' => 'OK', 'ID' => $user_id,

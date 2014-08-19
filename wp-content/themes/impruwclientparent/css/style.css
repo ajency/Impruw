@@ -233,6 +233,9 @@ and open the template in the editor.
   background: #d9d9d9;
   color: #ff7e00;
 }
+.nav.slimmenu > li.gallery {
+  margin-bottom: 0;
+}
 .nav.slimmenu > li.active {
   background: #ff7e00;
 }
@@ -1421,7 +1424,7 @@ and open the template in the editor.
   margin: 0 0 1em;
   list-style: none;
 }
-.gallery {
+ul.gallery {
   margin: 0 0 1em;
   padding: 0;
   list-style: none;
@@ -1432,6 +1435,21 @@ and open the template in the editor.
   border-bottom: 1px solid #bfbfbf;
   margin: 0 0 0.5em;
   text-align: left;
+}
+/**** Empty View ****/
+.gallery-empty-view {
+  text-align: center;
+  font-size: 1.2em;
+  color: #bfbfbf;
+  padding: 3em 0.3em;
+  height: 100%;
+  border: 1px dashed #bfbfbf;
+}
+.gallery-empty-view .glyphicon {
+  display: block;
+  margin: 0.2em 0 0.5em;
+  font-size: 3em;
+  color: #d9d9d9;
 }
 /**** Isotope Filtering ****/
 .isotope-item {
@@ -1710,4 +1728,50 @@ and open the template in the editor.
 .table.style-2 > thead > tr th,
 .table.style-2 > tbody > tr th {
   border-color: #29333f !important;
+}
+.lang-sel {
+  text-align: right;
+}
+.lang-sel.align-left {
+  text-align: left;
+}
+.lang-sel.align-right {
+  text-align: right;
+}
+.lang-sel.align-center {
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .lang-sel {
+    text-align: center;
+  }
+}
+.lang-sel > div {
+  text-align: left;
+}
+/**** Responsive Embed Styles ****/
+.embed-responsive {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.embed-responsive .embed-responsive-item,
+.embed-responsive iframe,
+.embed-responsive embed,
+.embed-responsive object {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  border: 0;
+}
+.embed-responsive.embed-responsive-16by9 {
+  padding-bottom: 56.25%;
+}
+.embed-responsive.embed-responsive-4by3 {
+  padding-bottom: 75%;
 }

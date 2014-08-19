@@ -80,7 +80,7 @@ define [ 'app', 'controllers/base-controller'
                 @$el.find( '#pay_loader' ).hide()
                 html = '<div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> 
-                            Card Added Successfuly 
+                            '+_.polyglot.t("Card Added Successfuly")+' 
                         </div>'
                 @$el.find( '#billingsave_status' ).append html
                 @$el.find( '#btn-reset' ).click()
@@ -102,27 +102,27 @@ define [ 'app', 'controllers/base-controller'
                                 </div>
                                 <h6 class="aj-imp-sub-head-thin">{{card_type}}</h6>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5">Name on the Card:</label>
+                                    <label class="control-label col-sm-5">{{#polyglot}}Name on the Card:{{/polyglot}}</label>
                                     <div class="col-sm-7 col-sm-offset-5">
                                        <span class="form-control">{{customer_name}}</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5">Card Number:</label>
+                                    <label class="control-label col-sm-5">{{#polyglot}}Card Number:{{/polyglot}}</label>
                                     <div class="col-sm-7 col-sm-offset-5">
                                         <span class="form-control">{{card_number}}</span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5">CVV:</label>
+                                    <label class="control-label col-sm-5">{{#polyglot}}CVV:{{/polyglot}}</label>
                                     <div class="col-sm-7 col-sm-offset-5">
                                         <span class="form-control">***</span>
                                     </div>
 
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5">Expires On:</label>
+                                    <label class="control-label col-sm-5">{{#polyglot}}Expires On:{{/polyglot}}</label>
                                     <div class="col-sm-7 col-sm-offset-5">
                                         <span class="form-control">{{expiration_date}}</span>
                                     </div>

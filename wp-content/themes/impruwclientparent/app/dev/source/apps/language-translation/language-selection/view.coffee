@@ -19,6 +19,16 @@ define ['app'
                 data.languageName = _.polyglot.t data.languageName
                 data
 
+            mixinTemplateHelpers:(data)->
+                data = super data
+
+                if (data.code is 'en') or (data.code is WPML_DEFAULT_LANG)
+                    data.isDefaultLanguage = true
+                else
+                    data.isDefaultLanguage = false
+                data
+
+
             onShow: ->
                 @$el.find('input[type="checkbox"]').checkbox()
 
@@ -45,6 +55,11 @@ define ['app'
                 @loadLanguageDropdown()
 
                 @viewEnabledLanguages()
+
+            serializeData: ->
+                data = super()
+                data.default_language = _.polyglot.t data.default_language
+                data
 
             setEnabledLanguages: (e)->
                 e.preventDefault()

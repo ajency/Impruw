@@ -29,4 +29,5 @@ define [
    'additionalmethod'
    'timepicker'
    'braintree'
+   'jqueryuii18n'
 ], ->

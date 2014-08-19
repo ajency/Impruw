@@ -16,7 +16,6 @@ define [ 'app'
 								<div class="aj-imp-builder-title">{{elementName}}</div>
 							</a>
                      <div class="element-help hide">
-                        <a class="close-help">&times;</a>
                         Hi! I am help text to help you understand this element!
                      </div>'
 
@@ -32,6 +31,9 @@ define [ 'app'
 
          onRender : ->
             @$el.attr 'data-element', @model.get 'element'
+
+         
+
 
 
       # Composite view wrapper for element box region
@@ -55,7 +57,16 @@ define [ 'app'
                scroll : true
 
             @_setDraggableElements()
-            
+
+            # on click of body un highlight 
+            $('body').on 'click',=>
+               console.log 'body clicked'
+               @$el.closest('#controls-drag').find('.element').removeClass 'selected-element'
+
+            # triggered when an element is clicked in the builder area
+            App.ElementsBoxApp.ElementsBoxEvtAggr.on 'highlight:element',(title)=>
+                  @$el.closest('#controls-drag').find('li').removeClass 'selected-element'
+                  @$el.closest('#controls-drag').find("li[data-element='#{title}']").addClass 'selected-element'
 
 
          # append html
