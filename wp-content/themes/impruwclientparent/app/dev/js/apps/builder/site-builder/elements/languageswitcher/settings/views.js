@@ -32,7 +32,7 @@ define(['app', 'text!apps/builder/site-builder/elements/languageswitcher/setting
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').checkbox('check');
         }
-        this.$el.find('select[name="align"]').selectpicker('val', this.eleModel.get('align'));
+        this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
         this.$el.find('select[name="top_margin"]').selectpicker('val', this.eleModel.get('top_margin'));
         this.$el.find('select[name="left_margin"]').selectpicker('val', this.eleModel.get('left_margin'));
         this.$el.find('select[name="bottom_margin"]').selectpicker('val', this.eleModel.get('bottom_margin'));
