@@ -47,7 +47,7 @@ define(['app', 'apps/builder/site-builder/elements/languageswitcher/views', 'app
         return App.execute("when:fetched", languageSwitcherModel, (function(_this) {
           return function() {
             var view;
-            view = _this._getLanguageSwitcherView(languageSwitcherModel);
+            view = _this._getLanguageSwitcherView(languageSwitcherModel, style);
             return _this.layout.elementRegion.show(view);
           };
         })(this));

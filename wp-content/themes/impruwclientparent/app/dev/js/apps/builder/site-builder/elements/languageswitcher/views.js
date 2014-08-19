@@ -32,7 +32,7 @@ define(['app'], function(App) {
         return LanguageSwitcherView.__super__.constructor.apply(this, arguments);
       }
 
-      LanguageSwitcherView.prototype.className = 'lang_sel';
+      LanguageSwitcherView.prototype.className = 'lang-sel';
 
       LanguageSwitcherView.prototype.template = '{{#placeholder}} <div id="lang_sel"> <ul> <li> <a href="#" class="lang_sel_sel icl-{{defaultLanguageCode}}"> <img class="iclflag" src="{{pluginUri}}/sitepress-multilingual-cms/res/flags/{{defaultLanguageCode}}.png" alt="{{defaultLanguageCode}}" title="{{defaultLanguageName}}">&nbsp;{{defaultLanguageName}} </a> <ul id="language-selector-lang"> </ul> </li> </ul> </div> {{/placeholder}}';
 

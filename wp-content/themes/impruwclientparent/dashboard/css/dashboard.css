@@ -2917,6 +2917,10 @@ form .aj-imp-submit:hover {
   border: 2px solid #dddddd;
   border-radius: 4px;
 }
+.crop-help {
+  margin-right: 0.5em;
+  display: none;
+}
 .moveable {
   cursor: move;
 }
