@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], function($, _) {
+define(['jquery', 'underscore', 'jqueryvalidate', 'jqueryuii18n', 'configs/polyglot'], function($, _) {
   var adjustPageDim;
   $.fn.isEmptyColumn = function(params) {
     if (params == null) {
@@ -19,6 +19,7 @@ define(['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], function(
     })(this));
     return empty;
   };
+  $.datepicker.setDefaults($.datepicker.regional[WPML_DEFAULT_LANG]);
   $.validator.setDefaults({
     ignore: [],
     errorElement: 'div',

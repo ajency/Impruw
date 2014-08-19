@@ -1,6 +1,6 @@
 ## You can add your own jquery plugins here
 ## Or even mixin some extra functions
-define ['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], ($, _)->
+define ['jquery', 'underscore', 'jqueryvalidate', 'jqueryuii18n' , 'configs/polyglot'], ($, _)->
 
     # define helper functions
     $.fn.isEmptyColumn = (params = {})->
@@ -15,6 +15,9 @@ define ['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], ($, _)->
                 empty = false
 
         empty
+
+
+    $.datepicker.setDefaults $.datepicker.regional[WPML_DEFAULT_LANG]
 
     $.validator.setDefaults
         ignore: []
