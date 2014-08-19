@@ -24,7 +24,7 @@ define ['app'
                     @model.set 'type',type
 
                 @listenTo view, 'widget:code:changed',(code)=>
-                    @model.set 'widgetCode', code
+                    @model.set 'widgetCode', _.stripslashes code
 
                 @show view
 

@@ -16,6 +16,7 @@ define(['app', 'apps/builder/site-builder/elements/widget/views', 'apps/builder/
         _.defaults(options.modelData, {
           element: 'Widget',
           type: '',
+          aspectRatio: 50,
           widgetCode: ''
         });
         return Controller.__super__.initialize.call(this, options);

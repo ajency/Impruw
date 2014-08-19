@@ -40,7 +40,15 @@ class WidgetElement extends Element {
         
         $this->htmlData         = stripcslashes(trim($element['widgetCode']));
         
+        $this->widget_type             = $element['type'];
+
+        $this->aspectRatio      = $element['aspectRatio'];
+
         $this->markup           = $this->generate_markup();
+
+        
+
+
 
         
         
@@ -55,18 +63,29 @@ class WidgetElement extends Element {
         
         $attr = array();
         
-        $html = "<div class='embed-responsive embed-responsive-16by9'>".$this->htmlData."</div>";
+        
        
 
         // $html = $this->htmlData;
         // if(empty($this->content))
         //     $html       .= $this->get_open_tag($attr);
+        $html = '';
+        // var_dump($this);
         
-        $html  .= "<script>
-                
-                jQuery('.fb-widget').last().find('div').attr('data-width',jQuery('.fb-widget').last().parent().width());
-            console.log(jQuery('.fb_widget').last().width());
-            </script>";
+        if ($this->widget_type == 'facebook'){
+            $html = "<div class='fb-widget '>".$this->htmlData."</div>";
+            $html  .= "<script>              
+                    jQuery('.fb-widget ').last().find('div').attr('data-width',jQuery('.fb-widget ').last().parent().width());
+                console.log(jQuery('.fb-widget ').last().width());
+                </script>";
+        }
+
+        elseif ($this->widget_type == 'youtube'){
+            $html = "<div class='embed-responsive '>".$this->htmlData."</div>";
+            $html .= "<script>
+                jQuery('.embed-responsive').css('padding-bottom','".$this->aspectRatio."%');
+                </script>";
+        }
         // if(empty($this->content))
         //     $html       .= $this->get_close_tag();
         

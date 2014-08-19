@@ -11,6 +11,7 @@ define ['app'
                 _.defaults options.modelData,
                     element: 'Widget'
                     type : ''
+                    aspectRatio : 50
                     widgetCode : ''#'<iframe  width="1280" height="720" src="//www.youtube.com/embed/nZVIGsm5WeY" frameborder="0" allowfullscreen></iframe>'
                         # '<div class="fb-widget"><div class="fb-like-box" data-href="https://www.facebook.com/FacebookDevelopers" data-width="500" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div></div>'                    
                     #'<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80" 

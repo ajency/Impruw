@@ -9,6 +9,12 @@ define ['app'],(App)->
 
 			modelEvents : 
 				'change:widgetCode' : 'render'
+				'change:type' : 'render'
+
+			mixinTemplateHelpers:(data)->
+				data = super data
+				console.log 'mixin'
+				data
 
 			onRender :->
 				console.log 'in on render'
@@ -21,9 +27,18 @@ define ['app'],(App)->
 					@$el.find('iframe').wrap('<div class="embed-responsive-item"></div>')
 					width = @$el.find('iframe').attr 'width'
 					height = @$el.find('iframe').attr 'height'
-					ratio = 100 * height/width
-					console.log ratio
-					@$el.css 'padding-bottom',"#{ratio}%"
+					aspectRatio = 100 * height/width
+					@model.set 'aspectRatio',aspectRatio
+
+					@$el.css 'padding-bottom',"#{aspectRatio}%"
+
+				if @model.get('type') is 'facebook'
+					@$el.removeAttr 'style'
+					@$el.html '<div>the facebook placeholder comes here</div>'
+
+				if @model.get('type') is 'tripadvisor'
+					@$el.removeAttr 'style'
+					@$el.html '<div>the tripadvisor placeholder comes here</div>'
 
 
 				# @trigger 'save:html:data', $(widgetHtml).get(0)

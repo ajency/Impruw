@@ -36,7 +36,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
         })(this));
         this.listenTo(view, 'widget:code:changed', (function(_this) {
           return function(code) {
-            return _this.model.set('widgetCode', code);
+            return _this.model.set('widgetCode', _.stripslashes(code));
           };
         })(this));
         return this.show(view);

@@ -15,11 +15,18 @@ define(['app'], function(App) {
       WidgetView.prototype.templates = '';
 
       WidgetView.prototype.modelEvents = {
-        'change:widgetCode': 'render'
+        'change:widgetCode': 'render',
+        'change:type': 'render'
+      };
+
+      WidgetView.prototype.mixinTemplateHelpers = function(data) {
+        data = WidgetView.__super__.mixinTemplateHelpers.call(this, data);
+        console.log('mixin');
+        return data;
       };
 
       WidgetView.prototype.onRender = function() {
-        var height, ratio, widgetHtml, width;
+        var aspectRatio, height, widgetHtml, width;
         console.log('in on render');
         widgetHtml = $.parseHTML(_.stripslashes(this.model.get('widgetCode')));
         this.$el.html(widgetHtml);
@@ -27,9 +34,17 @@ define(['app'], function(App) {
           this.$el.find('iframe').wrap('<div class="embed-responsive-item"></div>');
           width = this.$el.find('iframe').attr('width');
           height = this.$el.find('iframe').attr('height');
-          ratio = 100 * height / width;
-          console.log(ratio);
-          this.$el.css('padding-bottom', "" + ratio + "%");
+          aspectRatio = 100 * height / width;
+          this.model.set('aspectRatio', aspectRatio);
+          this.$el.css('padding-bottom', "" + aspectRatio + "%");
+        }
+        if (this.model.get('type') === 'facebook') {
+          this.$el.removeAttr('style');
+          this.$el.html('<div>the facebook placeholder comes here</div>');
+        }
+        if (this.model.get('type') === 'tripadvisor') {
+          this.$el.removeAttr('style');
+          this.$el.html('<div>the tripadvisor placeholder comes here</div>');
         }
         return console.log(widgetHtml);
       };
