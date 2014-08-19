@@ -198,6 +198,10 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return this.saveTableMarkup();
       };
 
+      TableView.prototype.onClose = function() {
+        return this.$el.find('table').resizableColumns('destroy');
+      };
+
       return TableView;
 
     })(Marionette.ItemView);
