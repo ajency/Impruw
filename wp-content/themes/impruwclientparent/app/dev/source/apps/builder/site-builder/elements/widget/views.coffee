@@ -19,13 +19,13 @@ define ['app'],(App)->
 			renderWidget :->
 				if @model.get('widgetCode') is ''
 					if @model.get('type') is ''
-						@$el.html '<div>place holder image for all widget</div>'
+						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>Choose your widget type and add your embed code from the settings</div>'
 					else if @model.get('type') is 'youtube'
-						@$el.html '<div>place holder image for youtube widget</div>'
+						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Youtube embed code in the settings</div>'
 					else if @model.get('type') is 'facebook'
-						@$el.html '<div>place holder image for facebook widget</div>'
+						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Facebook embed code in the settings</div>'
 					else if @model.get('type') is 'tripadvisor'
-						@$el.html '<div>place holder image for tripadvisor widget</div>'
+						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Tripadvisor embed code in the settings</div>'
 					return
 
 
@@ -64,7 +64,7 @@ define ['app'],(App)->
 
 				if @model.get('type') is 'tripadvisor'
 					@$el.removeAttr 'style'
-					@$el.html '<div>the tripadvisor placeholder comes here</div>'
+					@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Tripadvisor embed code in the settings</div>'
 
 
 				# @trigger 'save:html:data', $(widgetHtml).get(0)

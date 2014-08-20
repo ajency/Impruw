@@ -1749,6 +1749,10 @@ ul.gallery {
 .lang-sel > div {
   text-align: left;
 }
+/**** Widget Styles ****/
+.widget {
+  color: #bfbfbf;
+}
 /**** Responsive Embed Styles ****/
 .embed-responsive {
   position: relative;

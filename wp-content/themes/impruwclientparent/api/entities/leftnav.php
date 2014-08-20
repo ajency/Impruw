@@ -249,7 +249,7 @@ function get_elementbox_elements() {
         ),
          array(
             'element' => 'Widget',
-            'icon' => 'bicon icon-uniF11A',
+            'icon' => 'bicon icon-uniF162',
             // 'styles' => get_styles( 'Wid' ),
             'category' => 'hotel'
         ),

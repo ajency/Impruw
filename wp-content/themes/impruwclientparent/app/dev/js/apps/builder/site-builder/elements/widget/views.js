@@ -29,13 +29,13 @@ define(['app'], function(App) {
         var aspectRatio, height, widgetHtml, width;
         if (this.model.get('widgetCode') === '') {
           if (this.model.get('type') === '') {
-            this.$el.html('<div>place holder image for all widget</div>');
+            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>Choose your widget type and add your embed code from the settings</div>');
           } else if (this.model.get('type') === 'youtube') {
-            this.$el.html('<div>place holder image for youtube widget</div>');
+            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Youtube embed code in the settings</div>');
           } else if (this.model.get('type') === 'facebook') {
-            this.$el.html('<div>place holder image for facebook widget</div>');
+            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Facebook embed code in the settings</div>');
           } else if (this.model.get('type') === 'tripadvisor') {
-            this.$el.html('<div>place holder image for tripadvisor widget</div>');
+            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Tripadvisor embed code in the settings</div>');
           }
           return;
         }
@@ -69,7 +69,7 @@ define(['app'], function(App) {
         }
         if (this.model.get('type') === 'tripadvisor') {
           this.$el.removeAttr('style');
-          return this.$el.html('<div>the tripadvisor placeholder comes here</div>');
+          return this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Tripadvisor embed code in the settings</div>');
         }
       };
 

@@ -1402,6 +1402,9 @@ a.red-link.pull-right {
   color: #aaaaaa;
   font-weight: normal;
 }
+.settings-box .form-horizontal .form-group .form-control {
+  width: 220px;
+}
 .settings-box .form-horizontal .form-group .checkbox {
   margin-top: 8px;
 }
