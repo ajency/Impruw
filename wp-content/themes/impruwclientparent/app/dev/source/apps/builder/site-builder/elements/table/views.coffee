@@ -220,3 +220,6 @@ define ['app','bootbox'], (App,bootbox)->
 				@model.set 'style', _.slugify $(e.target).val()
 
 				@saveTableMarkup()
+
+			onClose : ->
+				@$el.find('table').resizableColumns('destroy')

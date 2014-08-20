@@ -31,7 +31,8 @@ define [ 'app'
 
             # on click of element trigger event
             'click':(e)->
-               e.stopPropagation()
+               if @model.get('element') isnt 'Table'
+                  e.stopPropagation()
                App.ElementsBoxApp.ElementsBoxEvtAggr.trigger 'highlight:element', @model.get 'element'
 
          initialize : =>

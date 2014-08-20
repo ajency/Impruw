@@ -33,7 +33,9 @@ define(['app', 'text!apps/builder/site-builder/element/templates/element.html'],
           return this.trigger("delete:element", this.model);
         },
         'click': function(e) {
-          e.stopPropagation();
+          if (this.model.get('element') !== 'Table') {
+            e.stopPropagation();
+          }
           return App.ElementsBoxApp.ElementsBoxEvtAggr.trigger('highlight:element', this.model.get('element'));
         }
       };
