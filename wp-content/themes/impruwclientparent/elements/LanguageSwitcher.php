@@ -52,7 +52,7 @@ class LanguageSwitcher extends Element {
      */
     function generate_markup(){
 
-        $html .= "<div class='lang-sel {$this->style_class}'>";
+        $html = "<div class='lang-sel {$this->style_class}'>";
         ob_start();
 
         do_action('icl_language_selector');
