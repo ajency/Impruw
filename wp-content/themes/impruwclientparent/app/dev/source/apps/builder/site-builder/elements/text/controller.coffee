@@ -9,7 +9,9 @@ define [ 'app', 'apps/builder/site-builder/elements/text/views',
          # intializer
          initialize : ( options )->
             data = {}
-            data[WPML_DEFAULT_LANG] = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            data['en'] = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                    Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s'
+            data['nb'] = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                                     Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s'
 
             _.defaults options.modelData,
@@ -38,9 +40,18 @@ define [ 'app', 'apps/builder/site-builder/elements/text/views',
             # change the model changed property to true
             # save the new markup if the model is changed
             @listenTo view, "text:element:blur", ( html ) =>
-               data = {}
+               #get original data
+               original_data =  @layout.model.get('content')
+
+               if _.isObject original_data
+                  data = original_data
+               else
+                  data = {}
+                  data['en'] = original_data
+               
                data[WPML_DEFAULT_LANG] = html
+
                @layout.model.set 'content', data
-               @layout.model.save() if @layout.model.hasChanged()
+               @layout.model.save()
 
             @layout.elementRegion.show view

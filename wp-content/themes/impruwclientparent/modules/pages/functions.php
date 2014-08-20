@@ -593,6 +593,11 @@ function translate_element(&$element, $language_code){
 
     $element['content'][$language_code] = $translated_content;
 
+    if(is_null($element['content']['en'])){
+         $element['content']['en'] = $english_content;
+    }
+
+
 
 }
 
