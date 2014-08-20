@@ -14,13 +14,16 @@
  * @since      Class available since Release 0.1
  * @deprecated NA
  */
-class LogoElement extends Element {
+
+require_once 'ImageElement.php';
+
+class LogoElement extends ImageElement {
     
     /**
      * The default type property for element
      * @var String 
      */
-    var $type       = 'image';
+    var $type       = 'logo';
     
     /**
      * Set draggable property of element.
@@ -38,76 +41,76 @@ class LogoElement extends Element {
     
     
     
-    /**
-     * The config to create a row element
-     * @param array $config
-     */
-    function __construct($element) {
+    // /**
+    //  * The config to create a row element
+    //  * @param array $config
+    //  */
+    // function __construct($element) {
         
-        parent::__construct($element);
+    //     parent::__construct($element);
 
-        //$this->margins = $this->get_margin_classes($element);
+    //     //$this->margins = $this->get_margin_classes($element);
         
-        $this->markup    = $this->generate_markup();
-    }
+    //     $this->markup    = $this->generate_markup();
+    // }
     
-    /**
-     * Create the basic markup for an element
-     * @uses className and tagName properties of element
-     * @return String basic markup
-     */
-    function generate_markup(){
+    // /**
+    //  * Create the basic markup for an element
+    //  * @uses className and tagName properties of element
+    //  * @return String basic markup
+    //  */
+    // function generate_markup(){
         
-        $html       = "<div class='logo {$this->margins}'>";
+    //     $html       = "<div class='logo {$this->margins}'>";
         
-        $html       .= $this->get_image();
+    //     $html       .= $this->get_image();
         
-        $html       .= "</div>";
+    //     $html       .= "</div>";
         
-        return $html;
-    }
+    //     return $html;
+    // }
     
-    /**
-     * 
-     * @return int
-     */
-    function get_image_id(){
+    // /**
+    //  * 
+    //  * @return int
+    //  */
+    // function get_image_id(){
          
-       $logo_id = get_option('logo_id', 0);
+    //    $logo_id = get_option('logo_id', 0);
        
-       return $logo_id;
-    }
+    //    return $logo_id;
+    // }
     
-    /**
-     * 
-     * @return string
-     */
-    function get_image_size(){
+    // /**
+    //  * 
+    //  * @return string
+    //  */
+    // function get_image_size(){
             
-        return 'full';
-    }
+    //     return 'full';
+    // }
     
-    /**
-     * 
-     * @return string
-     */
-    function get_image(){
+    // /**
+    //  * 
+    //  * @return string
+    //  */
+    // function get_image(){
         
-        $a_id = $this->get_image_id();
+    //     $a_id = $this->get_image_id();
 
-        $size = $this->get_image_size();
+    //     $size = $this->get_image_size();
         
-       	if($a_id === 0){
-            return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
-        }
+    //    	if($a_id === 0){
+    //         return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
+    //     }
 
-        $image = wp_get_attachment_image_src($a_id, 'medium');
-        if($image !== false) {
-            return sprintf("<a href='%s'><img src='%s' class='img-responsive' /></a>", site_url(), $image[0]);
-        }
-        else{
-            return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
-        } 
-    }
+    //     $image = wp_get_attachment_image_src($a_id, 'medium');
+    //     if($image !== false) {
+    //         return sprintf("<a href='%s'><img src='%s' class='img-responsive' /></a>", site_url(), $image[0]);
+    //     }
+    //     else{
+    //         return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
+    //     } 
+    // }
     
 }

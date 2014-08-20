@@ -401,6 +401,10 @@ function set_element_data( $data ) {
             }
         }
 
+        if ( $data[ 'element' ] === 'Logo') {
+            update_option('logo_id', $data['image_id'] );
+        }
+
         $serialized_element = maybe_serialize( $data );
 
         $wpdb->update( $wpdb->postmeta, array(
