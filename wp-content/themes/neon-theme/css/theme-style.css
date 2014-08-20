@@ -1761,6 +1761,9 @@ ul.gallery {
 .lang-sel > div {
   text-align: left;
 }
+.lang-sel > div .iclflag {
+  top: -1px !important;
+}
 /**** Responsive Embed Styles ****/
 .embed-responsive {
   position: relative;
