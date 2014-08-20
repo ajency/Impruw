@@ -44,7 +44,6 @@ define ['app'], (App)->
 
 
             _getImageRatio : ->
-                console.log @$el
                 width = @$el.width()
                 height = @$el.height()
                 "#{parseInt width}:#{parseInt height}"

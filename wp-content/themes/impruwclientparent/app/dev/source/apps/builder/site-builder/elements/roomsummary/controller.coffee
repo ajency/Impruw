@@ -11,7 +11,8 @@ define ['app'
             initialize: (options)->
                 _.defaults options.modelData,
                     element: 'RoomSummary'
-                    room_id: 0
+                    room_id : 0
+                    image_id : 0
                     style: 'Room Summary Default'
 
 
@@ -21,11 +22,13 @@ define ['app'
                 # start listening to model events
                 @listenTo @layout.model, "change:style", @renderElement
                 @listenTo @layout.model, "change:room_id", @renderElement
+                @listenTo @layout.model, "change:image_id", @renderElement
                 super()
 
-            _getRoomSummaryView: (model, template)->
+            _getRoomSummaryView: (model, imageModel,  template)->
                 opt =
                     model: model
+                    imageModel : imageModel
 
                 if @isSingleRoomPage()
                     opt.isSingleRoom = true
@@ -47,8 +50,26 @@ define ['app'
                 @removeSpinner()
                 roomId = @layout.model.get 'room_id'
                 model = App.request "get:room:model", roomId
-                App.execute "when:fetched", model, =>
+                imageModel = App.request "get:media:by:id", @layout.model.get 'image_id'
+
+                App.execute "when:fetched", [model,imageModel], =>
                     # get the address element template
                     template = @_getElementTemplate @layout.model
-                    view = @_getRoomSummaryView model, template
+                    view = @_getRoomSummaryView model,imageModel, template
+                    
+                    @listenTo view, "show:media:manager", (ratio = false)=>
+                        App.navigate "media-manager", trigger: true
+                        App.currentImageRatio = ratio
+                        @listenTo App.vent, "media:manager:choosed:media", (media)=>
+                            @layout.model.set 'image_id', media.get 'id'
+                            App.currentImageRatio = false
+                            @stopListening App.vent, "media:manager:choosed:media"
+                            @layout.model.save()
+
+                        @listenTo App.vent, "stop:listening:to:media:manager", =>
+                            App.currentImageRatio = false
+                            @stopListening App.vent, "media:manager:choosed:media"
+
                     @layout.elementRegion.show view
+
+

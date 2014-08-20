@@ -36,11 +36,11 @@ class RoomSummary extends Element {
             $this->markup = $this->generate_dummy_markup();
             return;
         }
-
-
+        $this->image_id = $element['image_id'];
         $this->room   = get_room( $this->room_id );
         $this->style  = $element[ 'style' ];
         $this->markup = $this->generate_markup();
+        
     }
 
     /**
@@ -96,6 +96,11 @@ class RoomSummary extends Element {
 
         $data           = $this->room;
         $data[ 'link' ] = get_permalink( $this->room_id );
+        $path = wp_get_attachment_image_src($this->image_id, 'medium');
+        if($path !== false) {
+            $data[ 'image_url' ] = $path[0];
+        }
+
         if ( empty( $data[ 'image_url' ] ) ) {
             $template = '<div class="roomsummary ' . $this->margins . ' ">
                             <div class="room-img">
