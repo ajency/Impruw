@@ -40,5 +40,5 @@ define ['app', 'apps/builder/site-builder/elements/languageswitcher/views'
                 collection = App.request "get:site:languageswitcher"
 
                 App.execute "when:fetched", languageSwitcherModel, =>
-                    view = @_getLanguageSwitcherView languageSwitcherModel
+                    view = @_getLanguageSwitcherView languageSwitcherModel, style
                     @layout.elementRegion.show view
