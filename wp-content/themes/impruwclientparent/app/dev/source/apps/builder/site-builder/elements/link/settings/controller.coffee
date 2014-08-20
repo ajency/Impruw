@@ -19,9 +19,19 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                 @listenTo view, "element:link:changed", (link)=>
                     @model.set "link", link
                 @listenTo view, "element:text:changed", (text)=>
-                    textdata = {}
+                    #get original data
+                    original_data =  @model.get('text')
+                    
+                    if _.isObject original_data
+                        textdata = original_data
+                    else
+                        textdata = {}
+                        textdata['en'] = original_data
+
                     textdata[WPML_DEFAULT_LANG] = text
+
                     @model.set "text", textdata
+
                 @listenTo view, "element:target:changed", (target)=>
                     @model.set "target", target
 
