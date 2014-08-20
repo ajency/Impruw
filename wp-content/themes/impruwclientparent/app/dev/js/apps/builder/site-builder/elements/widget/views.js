@@ -10,13 +10,13 @@ define(['app'], function(App) {
         return WidgetView.__super__.constructor.apply(this, arguments);
       }
 
-      WidgetView.prototype.className = 'widget embed-responsive ';
+      WidgetView.prototype.className = 'widget  ';
 
       WidgetView.prototype.templates = '';
 
       WidgetView.prototype.modelEvents = {
-        'change:widgetCode': 'render',
-        'change:type': 'render'
+        'change:widgetCode': 'renderWidget',
+        'change:type': 'renderWidget'
       };
 
       WidgetView.prototype.mixinTemplateHelpers = function(data) {
@@ -25,9 +25,20 @@ define(['app'], function(App) {
         return data;
       };
 
-      WidgetView.prototype.onRender = function() {
+      WidgetView.prototype.renderWidget = function() {
         var aspectRatio, height, widgetHtml, width;
-        console.log('in on render');
+        if (this.model.get('widgetCode') === '') {
+          if (this.model.get('type') === '') {
+            this.$el.html('<div>place holder image for all widget</div>');
+          } else if (this.model.get('type') === 'youtube') {
+            this.$el.html('<div>place holder image for youtube widget</div>');
+          } else if (this.model.get('type') === 'facebook') {
+            this.$el.html('<div>place holder image for facebook widget</div>');
+          } else if (this.model.get('type') === 'tripadvisor') {
+            this.$el.html('<div>place holder image for tripadvisor widget</div>');
+          }
+          return;
+        }
         widgetHtml = $.parseHTML(_.stripslashes(this.model.get('widgetCode')));
         this.$el.html(widgetHtml);
         if (this.model.get('type') === 'youtube') {
@@ -36,23 +47,37 @@ define(['app'], function(App) {
           height = this.$el.find('iframe').attr('height');
           aspectRatio = 100 * height / width;
           this.model.set('aspectRatio', aspectRatio);
+          this.$el.addClass('embed-responsive');
           this.$el.css('padding-bottom', "" + aspectRatio + "%");
         }
         if (this.model.get('type') === 'facebook') {
+          this.$el.removeClass('embed-responsive');
+          this.$el.find('div').attr('data-width', this.$el.closest('.element-markup').width());
           this.$el.removeAttr('style');
-          this.$el.html('<div>the facebook placeholder comes here</div>');
+          (function(d, s, id) {
+            var fjs, js;
+            js = void 0;
+            if (d.getElementById(id)) {
+              return;
+            }
+            fjs = d.getElementsByTagName(s)[0];
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+          })(document, "script", "facebook-jssdk");
         }
         if (this.model.get('type') === 'tripadvisor') {
           this.$el.removeAttr('style');
-          this.$el.html('<div>the tripadvisor placeholder comes here</div>');
+          return this.$el.html('<div>the tripadvisor placeholder comes here</div>');
         }
-        return console.log(widgetHtml);
       };
 
       WidgetView.prototype.onShow = function() {
+        this.renderWidget();
         return this.$el.closest('.column').on('class:changed', (function(_this) {
           return function() {
-            return _this.onRender();
+            return _this.renderWidget();
           };
         })(this));
       };

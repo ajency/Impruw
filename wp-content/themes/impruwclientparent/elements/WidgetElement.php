@@ -76,7 +76,13 @@ class WidgetElement extends Element {
             $html = "<div class='fb-widget '>".$this->htmlData."</div>";
             $html  .= "<script>              
                     jQuery('.fb-widget ').last().find('div').attr('data-width',jQuery('.fb-widget ').last().parent().width());
-                console.log(jQuery('.fb-widget ').last().width());
+                    (function(d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0];
+                      if (d.getElementById(id)) return;
+                      js = d.createElement(s); js.id = id;
+                      js.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0';
+                      fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
                 </script>";
         }
 
