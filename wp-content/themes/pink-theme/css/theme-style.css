@@ -1774,6 +1774,7 @@ ul.gallery {
 }
 .lang-sel {
   text-align: right;
+  margin: 0.2em 0;
 }
 .lang-sel.align-left {
   text-align: left;
