@@ -395,8 +395,10 @@ function set_element_data( $data ) {
             update_slider( $slider_data, $data[ 'slider_id' ] );
         }
 
-        if ( $data[ 'element' ] == 'RoomSummary' && is_numeric($data['image_id'])) {
-            
+        if ( $data[ 'element' ] === 'RoomSummary') {
+            if(is_numeric($data['room_id'])){
+                update_post_meta( $data['room_id'], '_thumbnail_id', $data['image_id'] );
+            }
         }
 
         $serialized_element = maybe_serialize( $data );

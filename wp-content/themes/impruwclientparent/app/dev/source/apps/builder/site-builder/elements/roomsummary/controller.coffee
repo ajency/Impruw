@@ -50,6 +50,7 @@ define ['app'
                 @removeSpinner()
                 roomId = @layout.model.get 'room_id'
                 model = App.request "get:room:model", roomId
+                console.log @layout.model
                 imageModel = App.request "get:media:by:id", @layout.model.get 'image_id'
 
                 App.execute "when:fetched", [model,imageModel], =>

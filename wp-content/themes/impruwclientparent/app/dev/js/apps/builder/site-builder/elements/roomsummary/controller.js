@@ -56,6 +56,7 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
         this.removeSpinner();
         roomId = this.layout.model.get('room_id');
         model = App.request("get:room:model", roomId);
+        console.log(this.layout.model);
         imageModel = App.request("get:media:by:id", this.layout.model.get('image_id'));
         return App.execute("when:fetched", [model, imageModel], (function(_this) {
           return function() {
