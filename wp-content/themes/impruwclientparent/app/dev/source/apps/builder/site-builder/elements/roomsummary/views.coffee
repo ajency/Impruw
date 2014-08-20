@@ -8,7 +8,8 @@ define ['app'], (App)->
 
             className: 'roomsummary'
 
-            roomNotSetTemplate: '   <div class="room-img">
+            roomNotSetTemplate: '<div class="room-placeholder">
+                                    <div class="room-img">
                                         <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Room Image</div>
                                     </div>
                                     <div class="room-title">'+_.polyglot.t("Your Room Title")+'</div>
@@ -16,6 +17,7 @@ define ['app'], (App)->
                                     <div class="room-actions">
                                         <div class="price">'+_.polyglot.t("Total:")+'{{no_of_rooms}}<small> '+_.polyglot.t("rooms")+'</small></div>
                                         <button class="btn btn-room">'+_.polyglot.t("View Details")+'</button>
+                                  </div>
             					    </div>'
 
             singleRoomTemplate: '<div class="room-summary-container">
@@ -47,13 +49,27 @@ define ['app'], (App)->
                                   </div>'
 
             events :
-                  'click' : 'showRoomSummaryEditPopup'
+               'click .room-img > img' : 'showMediaManager'
+               'click .room-placeholder' : 'showRoomSummaryEditPopup'
 
+            showMediaManager : (e)->
+               e.stopPropagation()
+               @trigger "show:media:manager", @_getImageRatio()
 
             mixinTemplateHelpers : (data)->
                data = super data
+               
                data.post_content = _.prune data.post_content, 200
+               imageModel = Marionette.getOption @, 'imageModel'
+               if not imageModel.isNew()
+                  data.image_url = if imageModel.get('sizes').medium then imageModel.get('sizes').medium.url else imageModel.get('sizes').full.url
+
                data
+
+            _getImageRatio : ->
+               width = @$el.find('.room-img > img').width()
+               height = @$el.find('.room-img > img').height()
+               "#{parseInt width}:#{parseInt height}"
 
 
             showRoomSummaryEditPopup :(evt)->

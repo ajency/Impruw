@@ -21,7 +21,6 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
             bindEvents: ->
                 # start listening to model events
                 @listenTo @layout.model, "change:image_id", @renderElement
-                # @listenTo @layout.model, "change:size", @renderElement
                 @listenTo @layout.model, "change:align", @renderElement
                 super()
 
@@ -58,6 +57,7 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                             @layout.model.set 'image_id', media.get 'id'
                             App.currentImageRatio = false
                             @stopListening App.vent, "media:manager:choosed:media"
+                            @layout.model.save()
 
                         @listenTo App.vent, "stop:listening:to:media:manager", =>
                             App.currentImageRatio = false

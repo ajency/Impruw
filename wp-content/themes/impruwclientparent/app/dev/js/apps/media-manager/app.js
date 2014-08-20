@@ -66,7 +66,7 @@ define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates
       };
 
       ShowController.prototype.onClose = function() {
-        return App.navigate('');
+        return App.navigate('/');
       };
 
       ShowController.prototype._getLayout = function() {

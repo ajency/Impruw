@@ -65,7 +65,8 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
               _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
                 _this.layout.model.set('image_id', media.get('id'));
                 App.currentImageRatio = false;
-                return _this.stopListening(App.vent, "media:manager:choosed:media");
+                _this.stopListening(App.vent, "media:manager:choosed:media");
+                return _this.layout.model.save();
               });
               return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {
                 App.currentImageRatio = false;

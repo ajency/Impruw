@@ -365,6 +365,11 @@ function get_meta_values( $element, $create = FALSE ) {
     $ele[ 'meta_id' ] = $create ? create_new_record( $ele ) : $element[ 'meta_id' ];
     validate_element( $ele );
 
+    if($ele['element'] === 'RoomSummary' && $create === false){
+        $img_id = get_post_meta( $ele['room_id'], '_thumbnail_id', true );
+        $ele['image_id'] = (int) $img_id;
+    }
+
     return $ele;
 }
 
