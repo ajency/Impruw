@@ -3,6 +3,21 @@
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
 
+ CKEDITOR.stylesSet.add( 'imp_styles', [
+    // Block-level styles.
+    
+
+    // Inline styles.
+    { name: 'Sub Title', element: 'span', attributes: { 'class': 'title sub-title' } },
+    { name: 'Site Title', element: 'span', attributes: { 'class': 'title site-title' } },
+    { name: 'Page Title', element: 'span', attributes: { 'class': 'title page-title' } },
+    { name: 'Box Title', element: 'span', attributes: { 'class': 'title box-title' } },
+    { name: 'Small Title', element: 'span', attributes: { 'class': 'title small-title' } },
+    { name: 'Action Title', element: 'span', attributes: { 'class': 'title action-title' } },
+    { name: 'Footer Title', element: 'span', attributes: { 'class': 'title footer-title' } },
+]);
+
+
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
 	// For complete reference see:
@@ -22,11 +37,15 @@ CKEDITOR.editorConfig = function( config ) {
 	{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl' ] },
 	{ name: 'links', items: [ 'Link', 'Unlink' ] },
 	{ name: 'insert', items: [  'SpecialChar'] },
-	
+	'/',
 	{ name: 'styles', items: [ 'Styles',  'Font', 'FontSize' ] },
 	{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
 	
 ];
+
+
+
+config.stylesSet = 'imp_styles';
 
 
 	// Remove some buttons provided by the standard plugins, which are

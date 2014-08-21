@@ -69,6 +69,10 @@ function read_language_based_site_ajax(){
     $data [ 'domain_name' ] = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
 
     $data [ 'hotel_name' ] = get_option( 'hotel_name','' );
+    $data [ 'logo_id' ] = get_option( 'logo_id', 0 );
+    $image_path = wp_get_attachment_image_src( $data [ 'logo_id' ], 'medium' );
+    $image_path = $image_path === false ? '' : $image_path[ 0 ];
+    $data [ 'logo_url' ] = $image_path;
     $data [ 'piwik_path' ] = PIWIK_PATH;
     $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
 

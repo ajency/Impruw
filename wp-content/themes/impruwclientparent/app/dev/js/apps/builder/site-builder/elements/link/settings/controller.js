@@ -36,8 +36,14 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
         })(this));
         this.listenTo(view, "element:text:changed", (function(_this) {
           return function(text) {
-            var textdata;
-            textdata = {};
+            var original_data, textdata;
+            original_data = _this.model.get('text');
+            if (_.isObject(original_data)) {
+              textdata = original_data;
+            } else {
+              textdata = {};
+              textdata['en'] = original_data;
+            }
             textdata[WPML_DEFAULT_LANG] = text;
             return _this.model.set("text", textdata);
           };

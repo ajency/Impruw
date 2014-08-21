@@ -365,6 +365,11 @@ function get_meta_values( $element, $create = FALSE ) {
     $ele[ 'meta_id' ] = $create ? create_new_record( $ele ) : $element[ 'meta_id' ];
     validate_element( $ele );
 
+    if($ele['element'] === 'RoomSummary' && $create === false){
+        $img_id = get_post_meta( $ele['room_id'], '_thumbnail_id', true );
+        $ele['image_id'] = (int) $img_id;
+    }
+
     return $ele;
 }
 
@@ -593,6 +598,11 @@ function translate_element(&$element, $language_code){
 
     $element['content'][$language_code] = $translated_content;
 
+    if(is_null($element['content']['en'])){
+         $element['content']['en'] = $english_content;
+    }
+
+
 
 }
 
@@ -617,6 +627,10 @@ function translate_link_element(&$element, $language_code){
     }
 
     $element['text'][$language_code] = $translated_content;
+
+    if(is_null($element['text']['en'])){
+         $element['text']['en'] = $english_content;
+    }
 
 
 }
