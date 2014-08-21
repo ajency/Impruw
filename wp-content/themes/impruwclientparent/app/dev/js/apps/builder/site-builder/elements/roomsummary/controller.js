@@ -16,6 +16,7 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
         _.defaults(options.modelData, {
           element: 'RoomSummary',
           room_id: 0,
+          image_id: 0,
           style: 'Room Summary Default'
         });
         return Controller.__super__.initialize.call(this, options);
@@ -24,13 +25,15 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
       Controller.prototype.bindEvents = function() {
         this.listenTo(this.layout.model, "change:style", this.renderElement);
         this.listenTo(this.layout.model, "change:room_id", this.renderElement);
+        this.listenTo(this.layout.model, "change:image_id", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 
-      Controller.prototype._getRoomSummaryView = function(model, template) {
+      Controller.prototype._getRoomSummaryView = function(model, imageModel, template) {
         var opt;
         opt = {
-          model: model
+          model: model,
+          imageModel: imageModel
         };
         if (this.isSingleRoomPage()) {
           opt.isSingleRoom = true;
@@ -49,15 +52,36 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
       };
 
       Controller.prototype.renderElement = function() {
-        var model, roomId;
+        var imageModel, model, roomId;
         this.removeSpinner();
         roomId = this.layout.model.get('room_id');
         model = App.request("get:room:model", roomId);
-        return App.execute("when:fetched", model, (function(_this) {
+        console.log(this.layout.model);
+        imageModel = App.request("get:media:by:id", this.layout.model.get('image_id'));
+        return App.execute("when:fetched", [model, imageModel], (function(_this) {
           return function() {
             var template, view;
             template = _this._getElementTemplate(_this.layout.model);
-            view = _this._getRoomSummaryView(model, template);
+            view = _this._getRoomSummaryView(model, imageModel, template);
+            _this.listenTo(view, "show:media:manager", function(ratio) {
+              if (ratio == null) {
+                ratio = false;
+              }
+              App.navigate("media-manager", {
+                trigger: true
+              });
+              App.currentImageRatio = ratio;
+              _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
+                _this.layout.model.set('image_id', media.get('id'));
+                App.currentImageRatio = false;
+                _this.stopListening(App.vent, "media:manager:choosed:media");
+                return _this.layout.model.save();
+              });
+              return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {
+                App.currentImageRatio = false;
+                return _this.stopListening(App.vent, "media:manager:choosed:media");
+              });
+            });
             return _this.layout.elementRegion.show(view);
           };
         })(this));

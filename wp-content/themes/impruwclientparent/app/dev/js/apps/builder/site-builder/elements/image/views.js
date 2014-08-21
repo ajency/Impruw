@@ -44,7 +44,6 @@ define(['app'], function(App) {
 
       ImageView.prototype._getImageRatio = function() {
         var height, width;
-        console.log(this.$el);
         width = this.$el.width();
         height = this.$el.height();
         return "" + (parseInt(width)) + ":" + (parseInt(height));

@@ -1743,6 +1743,7 @@ ul.gallery {
 }
 .lang-sel {
   text-align: right;
+  margin: 0.2em 0;
 }
 .lang-sel.align-left {
   text-align: left;
@@ -1760,6 +1761,9 @@ ul.gallery {
 }
 .lang-sel > div {
   text-align: left;
+}
+.lang-sel > div .iclflag {
+  top: -1px !important;
 }
 /**** Responsive Embed Styles ****/
 .embed-responsive {

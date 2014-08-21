@@ -51,6 +51,7 @@
         imageedit: '../../../../../../wp-admin/js/image-edit',
         json2: '../../../../../../wp-includes/js/json2',
         svgpainter: '../../../../../../wp-admin/js/svg-painter',
+        jqueryuii18n : 'plugins/jquery-ui-i18n',
         app : 'builder-app'
     },
     shim : {

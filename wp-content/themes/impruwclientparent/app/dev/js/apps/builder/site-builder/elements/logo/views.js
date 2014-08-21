@@ -10,48 +10,12 @@ define(['app'], function(App) {
         return LogoView.__super__.constructor.apply(this, arguments);
       }
 
-      LogoView.prototype.className = 'logo';
+      LogoView.prototype.className = 'image';
 
       LogoView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/> <div class="clearfix"></div> {{/image}} {{#placeholder}} <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Logo</div> {{/placeholder}}';
 
-      LogoView.prototype.mixinTemplateHelpers = function(data) {
-        data = LogoView.__super__.mixinTemplateHelpers.call(this, data);
-        if (this.model.isNew()) {
-          data.placeholder = true;
-        } else {
-          data.image = true;
-          data.imageurl = function() {
-            var url;
-            if (_.isUndefined(this.sizes['medium'])) {
-              url = this.sizes['full'].url;
-            } else {
-              url = this.sizes['medium'].url;
-            }
-            return url;
-          };
-        }
-        return data;
-      };
-
-      LogoView.prototype.events = {
-        'click': function(e) {
-          return e.stopPropagation();
-        },
-        'click a': function(e) {
-          return e.preventDefault();
-        }
-      };
-
-      LogoView.prototype.onShow = function() {
-        this.$el.attr("data-content", " " + _.polyglot.t('Update logo in your') + (" <a href='" + SITEURL + "/dashboard/#/site-profile' target='_BLANK'>") + _.polyglot.t('site profile') + "</a>");
-        return this.$el.popover({
-          html: true,
-          placement: 'top'
-        });
-      };
-
       return LogoView;
 
-    })(Marionette.ItemView);
+    })(App.SiteBuilderApp.Element.Image.Views.ImageView);
   });
 });

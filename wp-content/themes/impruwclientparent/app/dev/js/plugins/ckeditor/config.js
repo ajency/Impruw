@@ -37,7 +37,7 @@ CKEDITOR.editorConfig = function( config ) {
 	{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl' ] },
 	{ name: 'links', items: [ 'Link', 'Unlink' ] },
 	{ name: 'insert', items: [  'SpecialChar'] },
-	
+	'/',
 	{ name: 'styles', items: [ 'Styles',  'Font', 'FontSize' ] },
 	{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
 	
