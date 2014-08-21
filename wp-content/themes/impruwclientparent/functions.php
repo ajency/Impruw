@@ -1010,10 +1010,25 @@ function get_theme_CSS() {
         }
     }
     ?>
+    <?php 
+        // if the theme preview color changing is enabled and cookie is set 
+        $theme_preview_ids = explode(',', THEME_ID);
+        if( isset($_COOKIE['color_scheme']) && in_array(get_current_blog_id(), $theme_preview_ids)){
+            $color_scheme = strtolower($_COOKIE['color_scheme']);
+            $color_scheme = str_replace(' ', '-', $color_scheme);
+            $file = "theme-style-".$color_scheme.".css";
+             echo "<link rel='stylesheet' href='" . get_template_directory_uri() . "/css/color_scheme/$file' type='text/css'/>";
+        }
+
+        else{
+            
+        ?>
+        }
     <link
         href="<?php echo get_theme_style_sheet_file_path(); ?>"
         type="text/css" rel="stylesheet"/>
 <?php
+}
 }
 
 /**

@@ -67,24 +67,13 @@
 
 <!-- Site Preview Options -->
 <?php
-print_r(get_current_blog_id());
-print_r($_COOKIE);
-$theme_preview_ids = explode(',', THEME_ID);
- if (in_array(get_current_blog_id(), $theme_preview_ids)):?>
+
+
+    $theme_preview_ids = explode(',', THEME_ID);
+    if (in_array(get_current_blog_id(), $theme_preview_ids)):?>
 
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.tabSlideOut.v1.3.js"></script>
-    <script type="text/javascript">
-        jQuery(function(){
-            jQuery('.options-div').tabSlideOut({
-                tabHandle: '.handle',                     //class of the element that will become your tab
-                tabLocation: 'left',                      //side of screen where tab lives, top, right, bottom, or left
-                speed: 300,                               //speed of animation
-                action: 'click',                          //options: 'click' or 'hover', action to trigger animation
-                topPos: '150px',                          //position from the top/ use if tabLocation is left or right
-                fixedPosition: true                       //options: true makes it stick(fixed position) on scroll
-            });
-        });
-    </script>
+   
     <style type="text/css">
         .options-div {
             background: #333;
@@ -153,7 +142,7 @@ $theme_preview_ids = explode(',', THEME_ID);
                 // var_dump($theme_set_color);
 
                 foreach ($theme_set_color as $color_scheme ) {
-                    echo "<li> <a href='#' class='active hhh' data-color=".$color_scheme['name'].">";
+                    echo "<li> <a href='#' class='active hhh' data-color='{$color_scheme['name']}'>";
                     echo "<h6>{$color_scheme['name']}</h6>";
                     foreach ($color_scheme as $key => $value) {
                         if($key != 'name')
@@ -170,11 +159,24 @@ $theme_preview_ids = explode(',', THEME_ID);
             
         </ul>
     </div>
+     <script type="text/javascript">
+     
+        jQuery(function(){
+            jQuery('.options-div').tabSlideOut({
+                tabHandle: '.handle',                     //class of the element that will become your tab
+                tabLocation: 'left',                      //side of screen where tab lives, top, right, bottom, or left
+                speed: 300,                               //speed of animation
+                action: 'click',                          //options: 'click' or 'hover', action to trigger animation
+                topPos: '150px',                          //position from the top/ use if tabLocation is left or right
+                leftPos: '20px', 
+                fixedPosition: false                       //options: true makes it stick(fixed position) on scroll
+            });
+        });
+    </script>
     <script type="text/javascript">
         
         jQuery('a[data-color]').click(function(e){
             console.log(jQuery(this).attr('data-color'));
-            console.log(AJAXURL);
             color_scheme_name = jQuery(this).attr('data-color');
             
             document.cookie = "color_scheme="+color_scheme_name+";"
