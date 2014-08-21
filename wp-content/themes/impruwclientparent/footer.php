@@ -67,10 +67,8 @@
 
 <!-- Site Preview Options -->
 <?php
-
-
     $theme_preview_ids = explode(',', THEME_ID);
-    if (in_array(get_current_blog_id(), $theme_preview_ids)):?>
+    if (in_array(get_current_blog_id(), $theme_preview_ids)): ?>
 
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.tabSlideOut.v1.3.js"></script>
    
@@ -150,18 +148,14 @@
                     }
 
                     echo '</a></li>';
-                }
-
-                
-
-
-             ?>
+                } 
+            ?>
             
         </ul>
     </div>
-     <script type="text/javascript">
+    <script type="text/javascript">
      
-        jQuery(function(){
+        jQuery(document).ready(function(){
             jQuery('.options-div').tabSlideOut({
                 tabHandle: '.handle',                     //class of the element that will become your tab
                 tabLocation: 'left',                      //side of screen where tab lives, top, right, bottom, or left

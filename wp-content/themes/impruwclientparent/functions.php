@@ -1020,15 +1020,11 @@ function get_theme_CSS() {
              echo "<link rel='stylesheet' href='" . get_template_directory_uri() . "/css/color_scheme/$file' type='text/css'/>";
         }
 
-        else{
-            
-        ?>
-        }
-    <link
-        href="<?php echo get_theme_style_sheet_file_path(); ?>"
-        type="text/css" rel="stylesheet"/>
-<?php
-}
+        else { ?>
+            <link
+                href="<?php echo get_theme_style_sheet_file_path(); ?>"
+                type="text/css" rel="stylesheet"/>
+        <?php }
 }
 
 /**
