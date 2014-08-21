@@ -3050,13 +3050,14 @@ a.red-link.pull-right {
 #edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button:focus {
   background: #a6a6a6;
 }
-/**** Builder Table-settings Bar Styles ****/
+/**** Builder Table Settings Bar Styles ****/
 .table-settings-bar {
   width: 100%;
   background: #f3f3f3;
   margin: 0.2em 0 0.5em;
   border-radius: 2px;
   padding: 0.5em 0.5em 0;
+  text-align: left;
 }
 .table-settings-bar .form-inline .control-group {
   display: inline-block;
