@@ -30,7 +30,6 @@ define(['app'], function(App) {
       TitleView.prototype.onShow = function() {
         var content, _ref;
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
-        CKEDITOR.on('instanceCreated', this.configureEditor);
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
         content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
         this.editor.setData(_.stripslashes(content != null ? content : ''));
@@ -46,41 +45,8 @@ define(['app'], function(App) {
         editor = event.editor;
         element = editor.element;
         return editor.on("configLoaded", function() {
-          editor.config.toolbarGroups = [
-            {
-              name: 'clipboard',
-              groups: ['clipboard', 'undo']
-            }, {
-              name: 'editing',
-              groups: ['find', 'selection', 'spellchecker']
-            }, {
-              name: 'links'
-            }, {
-              name: 'insert'
-            }, {
-              name: 'forms'
-            }, {
-              name: 'tools'
-            }, {
-              name: 'document',
-              groups: ['mode', 'document', 'doctools']
-            }, {
-              name: 'others'
-            }, '/', {
-              name: 'basicstyles',
-              groups: ['basicstyles', 'cleanup']
-            }, {
-              name: 'paragraph',
-              groups: ['list', 'indent', 'blocks', 'align', 'bidi']
-            }, {
-              name: 'styles'
-            }, {
-              name: 'colors'
-            }, {
-              name: 'about'
-            }
-          ];
-          return editor.config.extraPlugins = 'confighelper';
+          editor.config.extraPlugins = 'confighelper';
+          return editor.config.extraPlugins = 'justify';
         });
       };
 

@@ -22,7 +22,7 @@ define [ 'app' ], (App)->
 
         class Views.LanguageSwitcherView extends Marionette.CompositeView
 
-            className : 'lang_sel'
+            className : 'lang-sel'
 
             template: '{{#placeholder}}
                         <div id="lang_sel">
@@ -43,6 +43,12 @@ define [ 'app' ], (App)->
             itemView: LanguageSwitcherItemView
 
             itemViewContainer: '#language-selector-lang'
+
+            onRender: ()->
+                # get the className from options
+                style = Marionette.getOption @, 'style'
+                className = _.slugify style
+                @$el.addClass className
 
             mixinTemplateHelpers: (data)->
                 data = super data

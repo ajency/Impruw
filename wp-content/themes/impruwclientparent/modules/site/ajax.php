@@ -64,13 +64,15 @@ function read_language_based_site_ajax(){
 
     $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );
     $data [ 'currency' ] = get_option( 'currency','NOK' );
-//    $data [ 'braintree_plan_id' ] = get_option( 'braintree-plan','hn62' );
     $data [ 'braintree_customer_id' ] = get_option( 'braintree-customer-id','');
-//    $data [ 'braintree_plan_name' ] = get_option( 'braintree-plan-name','Free' );
     $data [ 'braintree_subscription' ] = get_option( 'braintree-subscription',null );
-//    $data [ 'braintree_client_token' ] = generate_client_token();
-//    $data ['subscription_start_date'] = get_option('subscription-start-date');
+    $data [ 'domain_name' ] = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
+
     $data [ 'hotel_name' ] = get_option( 'hotel_name','' );
+    $data [ 'logo_id' ] = get_option( 'logo_id', 0 );
+    $image_path = wp_get_attachment_image_src( $data [ 'logo_id' ], 'medium' );
+    $image_path = $image_path === false ? '' : $image_path[ 0 ];
+    $data [ 'logo_url' ] = $image_path;
     $data [ 'piwik_path' ] = PIWIK_PATH;
     $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
 

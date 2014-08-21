@@ -25,6 +25,8 @@
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet"
           media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" rel="stylesheet" media="screen"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.resizableColumns.css" rel="stylesheet" media="screen"/>
+
 
     <!-- Wordpress image editor -->
     <link href="<?php echo site_url(); ?>//wp-includes/css/dashicons.min.css" rel="stylesheet" media="screen">
@@ -77,7 +79,7 @@
     var BUILDERURL = '<?php echo site_url('site-builder'); ?>';
     var CURRENTTHEME = '<?php echo wp_get_theme()->get_stylesheet() ?>';
     var THEMECOLORSET = '<?php echo get_option('current_color_set','default'); ?>';
-    var AUTOSAVEINTERVAL = 10000;
+    var AUTOSAVEINTERVAL = 20000;
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
     var ADDRESS = '<?php echo get_hotel_address() ?>';
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
@@ -92,14 +94,18 @@
 <!-- Unused Elements Box -->
 
 <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/flippant.min.js"></script>
+<script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
 
 <?php if ( ENV === 'production' ): ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
+    
+     
     <script
         src="<?php echo get_parent_template_directory_uri(); ?>/app/production/builder-main.js?ver=<?php echo JSVERSION ?>"></script>
 <?php else: ?>
-    <!--  <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
+    <!--  <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+
+    <script src="<?php  get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>-->
+
     <script data-main="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/builder-main"
             src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
 <?php endif; ?>

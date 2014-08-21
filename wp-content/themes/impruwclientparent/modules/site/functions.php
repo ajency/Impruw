@@ -664,11 +664,15 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
 
     // check if cloned for the first time
     if ( $clone_pages === TRUE ) {
+
+        scan_for_strings();
+
         translate_site($theme_site_id, 'en',$clone_pages);
         $clone_pages = FALSE;
         translate_site($current_site_id, 'nb',$clone_pages);
     }
     else if($clone_pages === FALSE ){
+        // scan_for_strings();
         //for each of the enabled languages call translate_site()
         $current_active_languages = wpml_get_active_languages();
 
@@ -694,7 +698,7 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
 function translate_site($theme_site_id, $language_code, $clone_pages=FALSE){
     global $sitepress;
 
-    scan_for_strings();
+    enable_language($language_code);
 
     add_pages_to_site_t($language_code,$clone_pages);
 
@@ -910,30 +914,32 @@ function create_translated_page($page, $language_code){
 
 
 function scan_for_strings(){
-    
-        global $wpdb, $sitepress_settings;
 
-        $scan_stats = icl_st_scan_theme_files();
+    global $wpdb, $sitepress_settings;
 
-        if (true) {
-            $mo_files = icl_st_get_mo_files( TEMPLATEPATH );
-            foreach ( (array)$mo_files as $m ) {
-                $i = preg_match( '#[-]?([a-z_]+)\.mo$#i', $m, $matches );
-                if ( $i && $lang = $wpdb->get_var( "SELECT code FROM {$wpdb->prefix}icl_locale_map WHERE locale='" . $matches[ 1 ] . "'" ) ) {
-                    $tr_pairs = icl_st_load_translations_from_mo( $m );
-                    foreach ( $tr_pairs as $original => $translation ) {
-                        foreach ( $sitepress_settings[ 'st' ][ 'theme_localization_domains' ] as $tld ) {
-                            $string_id = icl_get_string_id( $original, 'theme ' . $tld );
-                            if ( $string_id ) {
-                                break;
-                            }
-                        }
+    $scan_stats = icl_st_scan_theme_files();
 
-                        icl_add_string_translation( $string_id, $lang, $translation, ICL_STRING_TRANSLATION_COMPLETE );
+    $mo_files = icl_st_get_mo_files( TEMPLATEPATH );
+    foreach ( (array)$mo_files as $m ) {
+        $i = preg_match( '#[-]?([a-z_]+)\.mo$#i', $m, $matches );
+        $language = explode("_",$matches[1]);
+        $lang = $language[0];
+        if ( $i ) {
+            $tr_pairs = icl_st_load_translations_from_mo( $m );
+            foreach ( $tr_pairs as $original => $translation ) {
+                foreach ( $sitepress_settings[ 'st' ][ 'theme_localization_domains' ] as $tld ) {
+                    $string_id = icl_get_string_id( $original, 'theme ' . $tld );
+                    if ( $string_id ) {
+                        break;
                     }
                 }
+
+                icl_add_string_translation( $string_id, $lang, $translation, ICL_STRING_TRANSLATION_COMPLETE );
             }
         }
+
+
+    }
 }
 
 

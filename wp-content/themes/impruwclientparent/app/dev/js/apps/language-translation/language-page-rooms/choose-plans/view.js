@@ -38,10 +38,7 @@ define(['app'], function(App) {
             return _this.$el.find('#js-plan-select').append(html);
           };
         })(this));
-        this.$el.find("#js-plan-select option[value='-1']").attr({
-          'selected': 'selected'
-        });
-        return this.$el.find('#js-plan-select').selectpicker();
+        return this.defaultPlanApps();
       };
 
       ChoosePlansView.prototype.loadPlanApps = function(e) {
@@ -56,6 +53,19 @@ define(['app'], function(App) {
           this.$el.append('<div class="alert alert-success">' + _.polyglot.t("Please select a plan to translate") + '</div>');
           return this.$el.find('.alert').fadeOut(5000);
         }
+      };
+
+      ChoosePlansView.prototype.defaultPlanApps = function() {
+        var selectedPlanId;
+        selectedPlanId = this.$el.find("select#js-plan-select")[0].options[1].value;
+        if (selectedPlanId !== '-1') {
+          this.trigger('load:original:plans', selectedPlanId);
+          this.trigger('load:translated:plans', selectedPlanId);
+        }
+        this.$el.find("#js-plan-select option[value='" + selectedPlanId + "']").attr({
+          'selected': 'selected'
+        });
+        return this.$el.find('#js-plan-select').selectpicker();
       };
 
       return ChoosePlansView;

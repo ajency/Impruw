@@ -9,7 +9,8 @@ define [ 'app'
          # intializer
          initialize : ( options )->
             data = {}
-            data[WPML_DEFAULT_LANG] = 'Click here to enter title'
+            data['en'] = 'Click here to enter title'
+            data['nb'] = 'Klikk her for å skrive inn tittel'
 
             _.defaults options.modelData,
                element : 'Title'
@@ -40,9 +41,18 @@ define [ 'app'
             # change the model changed property to true
             # save the new markup if the model is changed
             @listenTo view, "title:element:blur", ( html ) =>
-               data = {}
+               #get original data
+               original_data =  @layout.model.get('content')
+
+               if _.isObject original_data
+                  data = original_data
+               else
+                  data = {}
+                  data['en'] = original_data
+               
                data[WPML_DEFAULT_LANG] = html
+
                @layout.model.set 'content', data
-               @layout.model.save() if @layout.model.hasChanged()
+               @layout.model.save()
 
             @layout.elementRegion.show view

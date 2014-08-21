@@ -50,6 +50,7 @@ require.config
       app : 'builder-app'
       minicolors : 'plugins/jquery.minicolors.min'
       drilldown : 'plugins/jquery.drilldown.min'
+      resizablecolumns : 'plugins/jquery.resizableColumns.min'
       #flippant: 'plugins/flippant.min'
 
       # wordpress cropping js
@@ -57,6 +58,7 @@ require.config
       imageedit : '../../../../../wp-admin/js/image-edit'
       json2 : '../../../../../wp-includes/js/json2'
       svgpainter : '../../../../../wp-admin/js/svg-painter'
+      jqueryuii18n : 'plugins/jquery-ui-i18n'
 
    shim :
       imageedit : ['jquery','json2','imageareaselect']
@@ -97,6 +99,8 @@ require.config
       bootbox :
          deps : ['bootstrap']
          exports : 'bootbox'
+      resizablecolumns : ['jquery']
+      jqueryuii18n : ['jquery' , 'jqueryui']
       app : ['pluginloader', 'configloader']
 
 

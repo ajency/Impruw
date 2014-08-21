@@ -2,7 +2,7 @@
     baseUrl : './js/',
     name : 'plugins/almond',
     include : 'builder-main',
-    exclude : ['plugins/ckeditor'],
+    exclude : ['plugins/ckeditor/ckeditor'],
     //optimize: 'none',
     wrap: false,
     out: '../production/builder-main.js',
@@ -46,10 +46,12 @@
         componentloader: 'components/builder-component-loader',
         minicolors: 'plugins/jquery.minicolors.min',
         drilldown: 'plugins/jquery.drilldown.min',
+        resizablecolumns : 'plugins/jquery.resizableColumns.min',
         imageareaselect: '../../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min',
         imageedit: '../../../../../../wp-admin/js/image-edit',
         json2: '../../../../../../wp-includes/js/json2',
         svgpainter: '../../../../../../wp-admin/js/svg-painter',
+        jqueryuii18n : 'plugins/jquery-ui-i18n',
         app : 'builder-app'
     },
     shim : {

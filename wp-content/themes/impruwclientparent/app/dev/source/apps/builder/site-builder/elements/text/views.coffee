@@ -6,7 +6,7 @@ define ['app'], (App)->
         # Menu item view
         class Views.TextView extends Marionette.ItemView
 
-            tagName: 'p'
+            tagName: 'div'
 
             template: ''
 
@@ -20,6 +20,7 @@ define ['app'], (App)->
                 'click a': (e)->
                     e.preventDefault()
                 'blur': ->
+                    # console.log 'blur'
                     @trigger "text:element:blur", @$el.html()
 
 

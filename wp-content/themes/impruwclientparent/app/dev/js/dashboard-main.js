@@ -39,7 +39,8 @@ require.config({
     imageareaselect: '../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min',
     imageedit: '../../../../../wp-admin/js/image-edit',
     json2: '../../../../../wp-includes/js/json2',
-    svgpainter: '../../../../../wp-admin/js/svg-painter'
+    svgpainter: '../../../../../wp-admin/js/svg-painter',
+    jqueryuii18n: 'plugins/jquery-ui-i18n'
   },
   shim: {
     imageedit: ['jquery', 'json2', 'imageareaselect'],
@@ -85,6 +86,7 @@ require.config({
     checkbox: ['bootstrap'],
     bootstrapselect: ['bootstrap'],
     bootstrapswitch: ['bootstrap'],
+    jqueryuii18n: ['jquery', 'jqueryui'],
     app: ['plugins/dashboard-plugin-loader', 'configs/dashboard-config-loader']
   }
 });

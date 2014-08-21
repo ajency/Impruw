@@ -46,7 +46,11 @@ class RoomGallery extends SliderElement {
        
         //parent::__construct($element );
             
-        $this->slider_id = isset($element['slider_id']) ? $element['slider_id'] : $this->get_slider_id();
+        if(!is_singular('impruw_room')) {
+          $this->slider_id = $element['slider_id'];
+        } else {
+          $this->slider_id = $this->get_slider_id();
+        } 
         
         if((int)$this->slider_id !== 0){
           $this->markup    =    $this->generate_markup();
@@ -63,7 +67,10 @@ class RoomGallery extends SliderElement {
 
     function generate_placeholder_markup(){
 
-      return '<h2>Add your placeholder markup here</h2>';  
+      return '<div class="gallery-empty-view">
+                <span class="glyphicon glyphicon-picture"></span>
+                No Images Found in Gallery
+              </div>';  
 
     }
 

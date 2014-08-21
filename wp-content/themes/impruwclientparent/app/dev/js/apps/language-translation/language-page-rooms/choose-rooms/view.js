@@ -38,10 +38,7 @@ define(['app'], function(App) {
             return _this.$el.find('select').append(html);
           };
         })(this));
-        this.$el.find("#js-room-select option[value='-1']").attr({
-          'selected': 'selected'
-        });
-        return this.$el.find('#js-room-select').selectpicker();
+        return this.defaultRoomApps();
       };
 
       ChooseRoomsView.prototype.loadRoomApps = function(e) {
@@ -56,6 +53,19 @@ define(['app'], function(App) {
           this.$el.append('<div class="alert alert-success">' + _.polyglot.t("Please select a room to translate") + '</div>');
           return this.$el.find('.alert').fadeOut(5000);
         }
+      };
+
+      ChooseRoomsView.prototype.defaultRoomApps = function() {
+        var selectedRoomId;
+        selectedRoomId = this.$el.find("select#js-room-select")[0].options[1].value;
+        if (selectedRoomId !== '-1') {
+          this.trigger('load:original:rooms', selectedRoomId);
+          this.trigger('load:translated:rooms', selectedRoomId);
+        }
+        this.$el.find("#js-room-select option[value='" + selectedRoomId + "']").attr({
+          'selected': 'selected'
+        });
+        return this.$el.find('#js-room-select').selectpicker();
       };
 
       return ChooseRoomsView;

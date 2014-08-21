@@ -355,6 +355,9 @@ function add_element_markup( $element ) {
         case 'Address' :
             $html = get_address_element_markup( $element );
             break;
+        case 'Table' :
+            $html = get_table_element_markup( $element );
+            break;
         case 'Social' :
             $html = get_social_element_markup( $element );
             break;
@@ -770,6 +773,22 @@ function get_text_element_markup( $element ) {
 }
 
 /**
+ * Generates the table markup
+ *
+ * @param type $element
+ */
+function get_table_element_markup( $element ){
+    require_once PARENTTHEMEPATH . 'elements/TableElement.php';
+
+    $table = new TableElement( $element );
+
+    $html = $table->get_markup();
+
+    return $html;
+
+}
+
+/**
  * Generates the title markup
  *
  * @param type $element
@@ -897,10 +916,10 @@ function get_theme_JS() {
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
     <script>
         jQuery(document).ready(function () {
-            if (jQuery('.gallery').length === 0)
+            if (jQuery('ul.gallery li').length === 0)
                 return;
 
-            var $container = jQuery('.gallery').imagesLoaded(function () {
+            var $container = jQuery('ul.gallery').imagesLoaded(function () {
                 $container.isotope({
                     // options
                     itemSelector: '.isotope-element'
@@ -992,10 +1011,21 @@ function get_theme_CSS() {
         }
     }
     ?>
-    <link
-        href="<?php echo get_theme_style_sheet_file_path(); ?>"
-        type="text/css" rel="stylesheet"/>
-<?php
+    <?php 
+        // if the theme preview color changing is enabled and cookie is set 
+        $theme_preview_ids = explode(',', THEME_ID);
+        if( isset($_COOKIE['color_scheme']) && in_array(get_current_blog_id(), $theme_preview_ids)){
+            $color_scheme = strtolower($_COOKIE['color_scheme']);
+            $color_scheme = str_replace(' ', '-', $color_scheme);
+            $file = "theme-style-".$color_scheme.".css";
+             echo "<link rel='stylesheet' href='" . get_template_directory_uri() . "/color_scheme_css/$file' type='text/css'/>";
+        }
+
+        else { ?>
+            <link
+                href="<?php echo get_theme_style_sheet_file_path(); ?>"
+                type="text/css" rel="stylesheet"/>
+        <?php }
 }
 
 /**
@@ -3967,6 +3997,17 @@ $base_element_templates = array(
         ),
         array(
             'name' => 'Social Left'
+        )
+    ),
+    'LanguageSwitcher' => array(
+        array(
+            'name' => 'Align Right'
+        ),
+        array(
+            'name' => 'Align Center'
+        ),
+        array(
+            'name' => 'Align Left'
         )
     ),
     'RoomSummary' => array(

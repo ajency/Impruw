@@ -1,6 +1,6 @@
 ## You can add your own jquery plugins here
 ## Or even mixin some extra functions
-define ['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], ($, _)->
+define ['jquery', 'underscore', 'jqueryvalidate', 'jqueryuii18n' , 'configs/polyglot'], ($, _)->
 
     # define helper functions
     $.fn.isEmptyColumn = (params = {})->
@@ -15,6 +15,9 @@ define ['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], ($, _)->
                 empty = false
 
         empty
+
+
+    $.datepicker.setDefaults $.datepicker.regional[WPML_DEFAULT_LANG]
 
     $.validator.setDefaults
         ignore: []
@@ -88,6 +91,16 @@ define ['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], ($, _)->
         $('html, body').animate
             scrollTop: $ele.offset().top
         , 1000
+
+
+
+
+    $.fn.removeAllAttr = ->
+      attrs = ['class','tabindex','contenteditable','id','spellcheck','role','aria-label','title','aria-describedby','style']
+      _.each @ ,(div)->
+        # console.log div.attributes
+        _.each attrs ,(attr)->
+          $(div).removeAttr attr
 
 
     # adjust the dimesion of upper content and also the left section and right section

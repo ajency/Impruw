@@ -14,7 +14,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
 
       SingleElement.prototype.className = 'element';
 
-      SingleElement.prototype.template = '<a href="#" class="drag builder-element"> <div class="aj-imp-builder-icon {{icon}}"></div> <div class="aj-imp-builder-title">{{elementName}}</div> </a> <div class="element-help hide"> <a class="close-help">&times;</a> Hi! I am help text to help you understand this element! </div>';
+      SingleElement.prototype.template = '<a href="#" class="drag builder-element"> <div class="aj-imp-builder-icon {{icon}}"></div> <div class="aj-imp-builder-title">{{elementName}}</div> </a> <div class="element-help hide"> Hi! I am help text to help you understand this element! </div>';
 
       SingleElement.prototype.serializeData = function() {
         var data;
@@ -58,7 +58,19 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
           containment: 'document',
           scroll: true
         });
-        return this._setDraggableElements();
+        this._setDraggableElements();
+        $('body').on('click', (function(_this) {
+          return function() {
+            console.log('body clicked');
+            return _this.$el.closest('#controls-drag').find('.element').removeClass('selected-element');
+          };
+        })(this));
+        return App.ElementsBoxApp.ElementsBoxEvtAggr.on('highlight:element', (function(_this) {
+          return function(title) {
+            _this.$el.closest('#controls-drag').find('li').removeClass('selected-element');
+            return _this.$el.closest('#controls-drag').find("li[data-element='" + title + "']").addClass('selected-element');
+          };
+        })(this));
       };
 
       MainView.prototype.appendHtml = function(cv, view, index) {

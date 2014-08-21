@@ -1489,6 +1489,7 @@ form .aj-imp-submit:hover {
 .modal .thumbnails .single-img,
 .modal #selectable-images .single-img {
   position: relative;
+  padding: 0 5px;
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
@@ -1498,7 +1499,7 @@ form .aj-imp-submit:hover {
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb,
 .modal #selectable-images .single-img .thumbnail .imgthumb {
-  height: 84px;
+  height: 100px;
   text-align: center;
   overflow: hidden;
 }
@@ -1524,7 +1525,7 @@ form .aj-imp-submit:hover {
 .modal #selectable-images .single-img .ticker {
   position: absolute;
   top: -7px;
-  right: 7px;
+  right: 0px;
   color: #fff;
   padding: 2px 4px 3px;
   border-radius: 2px;
@@ -2548,9 +2549,9 @@ form .aj-imp-submit:hover {
   text-align: right;
   font-weight: 300;
   position: absolute;
-  width: 100px;
+  width: 125px;
   background: #fff;
-  max-width: 100px;
+  max-width: 125px;
   padding-right: 10px;
   min-height: 150px;
   font-size: 0.88em;
@@ -2576,7 +2577,7 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid .tariff .packages {
   width: 100%;
-  padding-left: 110px;
+  padding-left: 135px;
   min-height: 150px;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .btn-add-plan {
@@ -2915,6 +2916,10 @@ form .aj-imp-submit:hover {
   color: #919191;
   border: 2px solid #dddddd;
   border-radius: 4px;
+}
+.crop-help {
+  margin-right: 0.5em;
+  display: none;
 }
 .moveable {
   cursor: move;
@@ -3326,6 +3331,7 @@ form .aj-imp-submit:hover {
   margin: 0.5em 0;
   border: 1px solid #aaaaaa;
   padding: 1em 0.2em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 .booking-slider-pop .available:before,
 .booking-slider-pop .semi-available:before,
@@ -3340,7 +3346,7 @@ form .aj-imp-submit:hover {
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
 }
 .booking-slider-pop .available span {
-  background: #2ecc71;
+  background: #25a25a;
   color: #fff;
 }
 .booking-slider-pop .available:before {
@@ -3374,7 +3380,7 @@ form .aj-imp-submit:hover {
   color: #fff;
 }
 .booking-slider-pop .unavailable span {
-  background: #f21515;
+  background: #c90b0b;
   color: #fff;
   text-decoration: line-through;
 }
@@ -4626,7 +4632,7 @@ form .aj-imp-submit:hover {
 #edit-image-view .imgedit-wrap .imgedit-settings input.button {
   padding: 8px 13px 9px;
   border: 0;
-  border-radius: 6px;
+  border-radius: 2px;
   color: #fff;
   background: #849fb0;
 }
@@ -4664,7 +4670,7 @@ form .aj-imp-submit:hover {
 #edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button {
   padding: 8px 13px 9px;
   border: 0;
-  border-radius: 6px;
+  border-radius: 2px;
   color: #fff;
   background: #c0c0c0;
   cursor: pointer;

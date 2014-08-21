@@ -42,10 +42,12 @@ require.config({
     app: 'builder-app',
     minicolors: 'plugins/jquery.minicolors.min',
     drilldown: 'plugins/jquery.drilldown.min',
+    resizablecolumns: 'plugins/jquery.resizableColumns.min',
     imageareaselect: '../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min',
     imageedit: '../../../../../wp-admin/js/image-edit',
     json2: '../../../../../wp-includes/js/json2',
-    svgpainter: '../../../../../wp-admin/js/svg-painter'
+    svgpainter: '../../../../../wp-admin/js/svg-painter',
+    jqueryuii18n: 'plugins/jquery-ui-i18n'
   },
   shim: {
     imageedit: ['jquery', 'json2', 'imageareaselect'],
@@ -91,6 +93,8 @@ require.config({
       deps: ['bootstrap'],
       exports: 'bootbox'
     },
+    resizablecolumns: ['jquery'],
+    jqueryuii18n: ['jquery', 'jqueryui'],
     app: ['pluginloader', 'configloader']
   }
 });

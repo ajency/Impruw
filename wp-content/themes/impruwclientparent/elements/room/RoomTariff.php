@@ -48,11 +48,36 @@ class RoomTariff extends Element {
 
         $table_name = $wpdb->prefix . 'daterange';
 
-        $query = "SELECT * FROM $table_name ORDER BY FROM_DATE ASC";
+        $query = "SELECT * FROM $table_name ORDER BY from_date ASC";
 
-        $date_range = $wpdb->get_results($query, ARRAY_A);
+        $date_ranges = $wpdb->get_results( $query, ARRAY_A );
 
-        return $date_range;
+        $date_range_array = array();
+        $current_language = wpml_get_current_language();
+        $default_language = wpml_get_default_language();
+
+        foreach ($date_ranges as $date_range) {
+
+        //unserialize plan_name and plan_description 
+            $daterange_name_unserialized = maybe_unserialize( $date_range['daterange_name'] );
+
+            if(is_array($daterange_name_unserialized)){
+                $daterange_name = isset($daterange_name_unserialized[$current_language]) ? $daterange_name_unserialized[$current_language] : $daterange_name_unserialized[$default_language];
+            }
+            else{
+                $daterange_name = $daterange_name_unserialized;
+            }
+
+            $date_range_array[ ] = array(
+                'id' => $date_range['id'],
+                'from_date' =>  $date_range['from_date'],
+                'to_date' => $date_range['to_date'],
+                'daterange_name' => $daterange_name,
+                'daterange_colour' => $date_range['daterange_colour']
+                );
+        }
+
+        return $date_range_array;
     }
 
     function get_tariff($room_id) {
@@ -61,7 +86,9 @@ class RoomTariff extends Element {
 
         $table_name = $wpdb->prefix . 'tariffs';
 
-        $query = "SELECT * FROM $table_name WHERE room_id = $room_id ";
+        $english_room_id = icl_object_id($room_id, 'impruw_room', true,'en');
+
+        $query = "SELECT * FROM $table_name WHERE room_id = $english_room_id ";
 
         $tariff = $wpdb->get_results($query, ARRAY_A);
 
@@ -77,7 +104,37 @@ class RoomTariff extends Element {
 
         $plans = $wpdb->get_results($query, ARRAY_A);
 
-        return $plans;
+        $current_language = wpml_get_current_language();
+        $default_language = wpml_get_default_language();
+
+        foreach ($plans as $plan) {
+            //unserialize plan_name and plan_description 
+            $plan_name_unserialized = maybe_unserialize( $plan['plan_name'] );
+            $plan_desc_unserialized = maybe_unserialize( $plan['plan_description'] );
+
+            if(is_array($plan_name_unserialized)){
+                $plan_name = isset($plan_name_unserialized[$current_language]) ? $plan_name_unserialized[$current_language] : $plan_name_unserialized[$default_language];
+            }
+            else{
+                $plan_name = $plan_name_unserialized;
+            }
+
+            if(is_array($plan_desc_unserialized)){
+                $plan_description = isset($plan_desc_unserialized[$current_language]) ? $plan_desc_unserialized[$current_language] : $plan_desc_unserialized[$default_language];        
+            }
+            else{
+                $plan_description = $plan_desc_unserialized;
+            }
+
+
+            $plan_array[ ] = array(
+                'id' => $plan['id'],
+                'plan_name' =>  $plan_name,
+                'plan_description' => $plan_description
+                );
+        }
+
+        return $plan_array;
     }
 
     /**

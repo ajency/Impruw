@@ -26,38 +26,52 @@ add_action( 'wp_ajax_get-pages', 'get_pages1' );
  * Create a new page
  */
 function create_page_ajax() {
-
+    global $sitepress;
+    $current_default_language = wpml_get_default_language();
     $data = $_POST;
     //unset action param
     unset( $data[ 'action' ] );
 
-    $default_language = wpml_get_default_language();
-    $other_language = '';
-
-    if($default_language==='en'){
-        $other_language = 'nb';
-    }
-    else{
-        $other_language = 'en' ;
-    }
-
     //pass remaining data to create a new page
     $id_or_error = create_new_page( $data );
 
-    if ( is_wp_error( $id_or_error ) )
+    if ( is_wp_error( $id_or_error ) ){
         wp_send_json( array( 'code' => 'ERROR', 'message' => $id_or_error->get_error_message() ) );
-    else{
-        //Create translated version of the page in $other_language->en or nb
-        $page_id = $id_or_error;
+    }
+    else
+    {
+        //create translated versions of the above page in all available languages
+        $current_active_languages = wpml_get_active_languages();
 
-        $page_id_based_on_lang = duplicate_language_page($page_id,$other_language,"page");
+        $original_page_id = $id_or_error;
 
-        $page_data = get_post( $id_or_error, ARRAY_A );
+        foreach ($current_active_languages as $language) {
+            if($language['code']!=$current_default_language){
+               $page_id_based_on_lang = duplicate_language_page($original_page_id,$language['code'],"page");
+           }
+       }
 
-        if($other_language==='en')
-            $page_data['original_id'] = $page_id_based_on_lang;
-        else
-            $page_data['original_id'] = $page_id;
+        //Get english id of the page
+        $english_page_id = icl_object_id($original_page_id, 'page', true,'en');
+
+        //check if add_to_menu is set then add the english version of the page to menu
+        $page_order = $data[ 'menu_order' ] + 1;
+        if ( $data[ 'add_to_menu' ] == "true" ) {
+            add_page_to_menu( $english_page_id, $page_order );
+        }
+
+        // check what is the template id needed to create the page
+        $template_page_id = (int)$data[ 'template_page_id' ];
+        
+        //get english page template id
+        $english_template_id = icl_object_id($template_page_id, 'page', true,'en');
+
+        //Assign english page's template json to english version of the page
+        $json_page_id = assign_page_template($english_template_id, $english_page_id);
+
+        //Pass the id of the english version of the page as $page_data['original_id']
+        $page_data = get_post( $original_page_id, ARRAY_A );
+        $page_data['original_id'] = $english_page_id;
     }
 
     wp_send_json( array( 'code' => 'OK', 'data' => $page_data ) );

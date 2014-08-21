@@ -11,14 +11,14 @@ define [ 'app'
                                 <h3 class="panel-title price">&#163; {{price}}</h3>
                             </div>
                             <ul class="list-group">
-                                <li class="list-group-item">Mobile & Tablet Ready Site</li>
-                                <li class="list-group-item">Unlimited Pages</li>
-                                <li class="list-group-item">5 Languages</li>
-                                <li class="list-group-item">Flexible, easy-to-use Site builder</li>
-                                <li class="list-group-item">24/7 security monitoring</li>
-                                <li class="list-group-item">24/7 technical support</li>
+                                <li class="list-group-item">{{#polyglot}}Mobile and Tablet Ready Site{{/polyglot}}</li>
+                                <li class="list-group-item">{{#polyglot}}Unlimited Pages{{/polyglot}}</li>
+                                <li class="list-group-item">{{#polyglot}}5 Languages{{/polyglot}}</li>
+                                <li class="list-group-item">{{#polyglot}}Flexible, easy-to-use Site builder{{/polyglot}}</li>
+                                <li class="list-group-item">{{#polyglot}}24/7 security monitoring{{/polyglot}}</li>
+                                <li class="list-group-item">{{#polyglot}}24/7 technical support{{/polyglot}}</li>
                                 <li class="list-group-item"><span class="ribbon">
-                                    <a href="#/billing/payment-page" class="btn btn-block activate-link">Choose Plan</a></span></li>
+                                    <a href="#/billing/payment-page" class="btn btn-block activate-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span></li>
                             </ul>
                         </div>'
 
@@ -43,24 +43,25 @@ define [ 'app'
                 #highlight the active plan
                 if  siteModelPlanId is activePlanID
                     @$el.find( '.panel-default' ).addClass 'active'
-                    @$el.find( '.activate-link' ).text 'Active Plan'
+                    @$el.find( '.activate-link' ).text _.polyglot.t('Active Plan')
                     @$el.find( '.activate-link' ).attr 'href', 'javascript:void(0)'
 
                     billStart = Marionette.getOption @, 'billStart'
                     billEnd = Marionette.getOption @, 'billEnd'
 
-                    html = "<span class='active'>Domain name: #{domainName}</span>
-                            <span class='active'>Billing cycle:From #{billStart} to #{billEnd} </span>"
+                    html = "<span class='active'>"+_.polyglot.t('Domain name:')+" #{domainName}</span>
+                            <span class='active'>"+_.polyglot.t('Billing cycle: From')+" #{billStart} "+_.polyglot.t('to')+" #{billEnd} </span>"
                     @$el.find( '.panel-body' ).append html
 
 
                 #highlight the pending plan
                 if  siteModelPlanId is pendingPlanID
-                    @$el.find( '.panel-heading' ).append( '<span class="pending">Pending Activation</span>' )
+                    @$el.find( '.panel-heading' ).append( '<span class="pending">'+_.polyglot.t("Pending Activation")+'</span>' )
                     startDate = Marionette.getOption @, 'startDate'
-                    html = "<span class='pending'>Domain name: #{domainName}</span>
-                            <span class='pending'>Will activate on: #{startDate} </span>"
+                    html = "<span class='pending'>"+_.polyglot.t('Domain name:')+" #{domainName}</span>
+                            <span class='pending'>"+_.polyglot.t('Will activate on:')+" #{startDate} </span>"
                     @$el.find( '.panel-body' ).append html
+                    @$el.find( '.activate-link' ).attr 'href', 'javascript:void(0)'
 
 
         class View.PlansView extends Marionette.CompositeView
@@ -91,14 +92,14 @@ define [ 'app'
 
                 if activePlanID is 'Free'
                     @$el.find( '#free-plan' ).addClass 'active'
-                    @$el.find( '#free-plan .free-plan-link' ).text 'Active Plan'
+                    @$el.find( '#free-plan .free-plan-link' ).text _.polyglot.t('Active Plan')
 
                 if pendingPlanID is 'Free'
-                    @$el.find( '#free-plan .panel-heading' ).append '<span class="pending">Pending Activation</span>'
+                    @$el.find( '#free-plan .panel-heading' ).append '<span class="pending">'+_.polyglot.t("Pending Activation")+'</span>'
                     startDate = Marionette.getOption @, 'startDate'
                     siteName = Marionette.getOption @, 'siteName'
-                    html = "<span class='pending'>Domain name: #{siteName}.impruw.com</span>
-                            <span class='pending'>Will activate on: #{startDate} </span>"
+                    html = "<span class='pending'>"+_.polyglot.t('Domain name:')+" #{siteName}.impruw.com</span>
+                            <span class='pending'>"+_.polyglot.t('Will activate on:')+" #{startDate} </span>"
                     @$el.find( '#free-plan .panel-body' ).append html
 
             events :
@@ -112,9 +113,7 @@ define [ 'app'
             onFreePlanSwitch :->
                 @$el.find('#pay_loader').hide()
                 html = "<div class='alert alert-success'>
-                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                            Switched to free plan after end of billing cycle.
-                        </div>"
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>"+_.polyglot.t('Switched to free plan after end of billing cycle.')+"</div>"
                 @$el.find('#billingsave_status').append html
 
 

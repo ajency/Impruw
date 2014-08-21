@@ -26,6 +26,16 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         return data;
       };
 
+      LanguageItemView.prototype.mixinTemplateHelpers = function(data) {
+        data = LanguageItemView.__super__.mixinTemplateHelpers.call(this, data);
+        if ((data.code === 'en') || (data.code === WPML_DEFAULT_LANG)) {
+          data.isDefaultLanguage = true;
+        } else {
+          data.isDefaultLanguage = false;
+        }
+        return data;
+      };
+
       LanguageItemView.prototype.onShow = function() {
         return this.$el.find('input[type="checkbox"]').checkbox();
       };
@@ -60,6 +70,13 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         this.selectedLang = selectedLang = App.request("get:selected:languages");
         this.loadLanguageDropdown();
         return this.viewEnabledLanguages();
+      };
+
+      LanguageSelectionView.prototype.serializeData = function() {
+        var data;
+        data = LanguageSelectionView.__super__.serializeData.call(this);
+        data.default_language = _.polyglot.t(data.default_language);
+        return data;
       };
 
       LanguageSelectionView.prototype.setEnabledLanguages = function(e) {

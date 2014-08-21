@@ -55,7 +55,7 @@ add_action( 'wp_ajax_read-braintreesubscription', 'ajax_read_braintreesubscripti
 
 
 /**
- * Function to get get trasaction data
+ * Function to get get trasaction data for purchase history
  */
 
 function ajax_read_braintreetransaction() {
@@ -147,7 +147,7 @@ function ajax_new_card_payment() {
         $card_token = $create_card[ 'credit_card_token' ];
     }
 
-    if ( $current_subscription_id == "ImpruwFree" ) {
+    if ( $current_subscription_id == "ImpruwFree" || $current_subscription_id == null  ) {
 
         //create new  subscription in braintree
         $subscription = create_subscription_in_braintree( $card_token, $selected_plan_id );

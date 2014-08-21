@@ -33,5 +33,7 @@ define [
    'moment'
    'minicolors'
    'drilldown'
+   'resizablecolumns'
+   'jqueryuii18n'
    #'flippant'
 ], ->

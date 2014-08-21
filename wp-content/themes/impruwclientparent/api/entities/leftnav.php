@@ -188,7 +188,7 @@ function get_elementbox_elements() {
             'element' => 'LanguageSwitcher',
             'title' => 'Language Switcher',
             'icon' => 'bicon icon-uniF10B',
-            'styles' => array(),
+            'styles' => get_styles( 'LanguageSwitcher' ),
             'size' => ''
         ),
         array(
@@ -211,6 +211,11 @@ function get_elementbox_elements() {
             'title' => 'Image With Text',
             'icon' => 'bicon icon-uniF112',
             'styles' => get_styles( 'ImageWithText' )
+        ),
+        array(
+            'element' => 'Table',
+            'title' => 'Table',
+            'icon' => 'bicon icon-uniF166'
         ),
         array(
             'element' => 'Address',
@@ -296,6 +301,7 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF101',
             'category' => 'room'
         )
+        
     );
 
     if ( !current_user_can( 'edit_impruw_theme' ) ) {
@@ -381,14 +387,22 @@ function set_element_data( $data ) {
     if ( isset( $data [ 'meta_id' ] ) ) {
         $meta_id = $data [ 'meta_id' ];
 
-
         // TODO: 
         if ( $data[ 'element' ] == 'Slider' ) {
             $slider_data = get_slider_by_id( $data[ 'slider_id' ] );
             $slider_data[ 'height' ] = $data[ 'height' ];
             $slider_data[ 'width' ] = $data[ 'width' ];
             update_slider( $slider_data, $data[ 'slider_id' ] );
+        }
 
+        if ( $data[ 'element' ] === 'RoomSummary') {
+            if(is_numeric($data['room_id'])){
+                update_post_meta( $data['room_id'], '_thumbnail_id', $data['image_id'] );
+            }
+        }
+
+        if ( $data[ 'element' ] === 'Logo') {
+            update_option('logo_id', $data['image_id'] );
         }
 
         $serialized_element = maybe_serialize( $data );

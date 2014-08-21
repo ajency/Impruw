@@ -6,6 +6,9 @@ function fetch_bookings() {
 
     $room_id = $_REQUEST[ 'room_id' ];
 
+    //fetch booking using english room id 
+    $room_id = icl_object_id($room_id, 'impruw_room', true,'en');
+
     $data = get_bookings( $room_id );
 
     wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
@@ -21,7 +24,11 @@ function create_booking() {
     $data = array();
 
     $data[ 'bdate' ]   = $_POST[ 'bdate' ];
-    $data[ 'room_id' ] = $_POST[ 'room_id' ];
+
+    //create booking using english room id 
+    $room_id = $_POST[ 'room_id' ];
+    $data[ 'room_id' ] = icl_object_id($room_id, 'impruw_room', true,'en');
+
     $data[ 'status' ]  = $_POST[ 'status' ];
     $id                = create_new_booking( $data );
 
@@ -39,7 +46,11 @@ function update_booking_ajax() {
     $data = array();
 
     $data[ 'bdate' ]   = $_POST[ 'bdate' ];
-    $data[ 'room_id' ] = $_POST[ 'room_id' ];
+
+    //create booking using english room id 
+    $room_id = $_POST[ 'room_id' ];
+    $data[ 'room_id' ] = icl_object_id($room_id, 'impruw_room', true,'en');
+
     $data[ 'status' ]  = $_POST[ 'status' ];
 
     $id = $_POST[ 'id' ];

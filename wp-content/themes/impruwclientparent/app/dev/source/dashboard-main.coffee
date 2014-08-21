@@ -44,6 +44,7 @@ require.config
       imageedit : '../../../../../wp-admin/js/image-edit'
       json2 : '../../../../../wp-includes/js/json2'
       svgpainter : '../../../../../wp-admin/js/svg-painter'
+      jqueryuii18n : 'plugins/jquery-ui-i18n'
 
    shim :
       # wordpress js
@@ -85,6 +86,7 @@ require.config
       checkbox : ['bootstrap']
       bootstrapselect : ['bootstrap']
       bootstrapswitch : ['bootstrap']
+      jqueryuii18n : ['jquery' , 'jqueryui']
       app : ['plugins/dashboard-plugin-loader', 'configs/dashboard-config-loader']
 
 

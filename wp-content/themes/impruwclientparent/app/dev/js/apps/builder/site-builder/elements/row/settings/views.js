@@ -25,6 +25,7 @@ define(['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
       SettingsView.prototype.onRender = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
         this.$el.find('select').selectpicker();
+        this.$el.find(".set-column-count a.btn." + (this.eleModel.get('columncount')) + "-col").addClass('selected');
         return this.setFields();
       };
 
@@ -41,6 +42,9 @@ define(['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
           return App.settingsRegion.close();
         },
         'click .set-column-count a.btn': function(evt) {
+          evt.stopPropagation();
+          this.$el.find('.set-column-count a.btn').removeClass('selected');
+          $(evt.target).addClass('selected');
           return this.trigger("element:column:count:changed", parseInt($(evt.target).text()));
         },
         'change select[name="style"]': function(evt) {

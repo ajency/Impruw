@@ -12,7 +12,7 @@ define(['app'], function(App) {
 
       ImageView.prototype.className = 'image';
 
-      ImageView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/> <div class="clearfix"></div> {{/image}} {{#placeholder}} <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div> {{/placeholder}}';
+      ImageView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/> <div class="clearfix"></div> {{/image}} {{#placeholder}} <div class="image-placeholder" style="height:100%;"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div> {{/placeholder}}';
 
       ImageView.prototype.mixinTemplateHelpers = function(data) {
         data = ImageView.__super__.mixinTemplateHelpers.call(this, data);
@@ -44,7 +44,6 @@ define(['app'], function(App) {
 
       ImageView.prototype._getImageRatio = function() {
         var height, width;
-        console.log(this.$el);
         width = this.$el.width();
         height = this.$el.height();
         return "" + (parseInt(width)) + ":" + (parseInt(height));
@@ -54,7 +53,12 @@ define(['app'], function(App) {
         if (this.model.isNew()) {
           this.$el.resizable({
             helper: "ui-image-resizable-helper",
-            handles: "s"
+            handles: "s",
+            stop: (function(_this) {
+              return function(evt, ui) {
+                return _this.$el.css('width', 'auto');
+              };
+            })(this)
           });
           return;
         }
@@ -114,8 +118,7 @@ define(['app'], function(App) {
             return _this.adjustImagePosition();
           };
         })(this));
-        this.assignImagePath();
-        return console.log("view rendered");
+        return this.assignImagePath();
       };
 
       ImageView.prototype.imageClick = function(e) {

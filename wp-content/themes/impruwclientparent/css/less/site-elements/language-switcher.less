@@ -1,0 +1,22 @@
+.lang-sel {
+	text-align: right;
+	margin: 0.2em 0;
+	&.align-left {
+		text-align: left;
+	}
+	&.align-right {
+		text-align: right;
+	}
+	&.align-center {
+		text-align: center;
+	}
+	@media(max-width:767px){
+		text-align: center;
+	}
+	> div {
+		text-align: left;
+		.iclflag {
+			top: -1px !important;
+		}
+	}
+}

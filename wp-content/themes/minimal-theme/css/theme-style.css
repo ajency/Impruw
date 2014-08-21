@@ -244,6 +244,9 @@ and open the template in the editor.
   background: #e6e6e6;
   color: #ed1c24;
 }
+.nav.slimmenu > li.gallery {
+  margin-bottom: 0;
+}
 .nav.slimmenu > li.active {
   background: #ed1c24;
 }
@@ -1432,7 +1435,7 @@ and open the template in the editor.
   margin: 0 0 1em;
   list-style: none;
 }
-.gallery {
+ul.gallery {
   margin: 0 0 1em;
   padding: 0;
   list-style: none;
@@ -1443,6 +1446,21 @@ and open the template in the editor.
   border-bottom: 1px solid #282827;
   margin: 0 0 0.5em;
   text-align: left;
+}
+/**** Empty View ****/
+.gallery-empty-view {
+  text-align: center;
+  font-size: 1.2em;
+  color: #282827;
+  padding: 3em 0.3em;
+  height: 100%;
+  border: 1px dashed #282827;
+}
+.gallery-empty-view .glyphicon {
+  display: block;
+  margin: 0.2em 0 0.5em;
+  font-size: 3em;
+  color: #424240;
 }
 /**** Isotope Filtering ****/
 .isotope-item {
@@ -1643,6 +1661,152 @@ and open the template in the editor.
   }
   /*Responive*/
 }
+/**** Table Styles****/
+.table {
+  background: #ffffff;
+  color: #282827;
+  margin: 0;
+}
+.table > thead > tr {
+  background: #757573;
+}
+.table > thead > tr th {
+  color: #ed1c24;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-width: 0;
+  text-align: left;
+}
+.table > thead > tr > th p,
+.table > tbody > tr > th p,
+.table > tfoot > tr > th p,
+.table > thead > tr > td p,
+.table > tbody > tr > td p,
+.table > tfoot > tr > td p {
+  margin: 0;
+  line-height: 1;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th {
+  border-bottom: 0;
+}
+.table.table-bordered > thead > tr td,
+.table.table-bordered > tbody > tr td,
+.table.table-bordered > thead > tr th,
+.table.table-bordered > tbody > tr th {
+  border: 1px solid #282827 !important;
+}
+.table.table-striped > tbody > tr:nth-child(2n) > td,
+.table.table-striped > tbody tr.selected-row > td {
+  background: #e6e6e6;
+}
+.table.table-hover > tbody > tr:hover > td,
+.table.table-hover > tbody > tr:hover > th {
+  background: #e6e6e6;
+}
+.table.style-1 {
+  border-color: #ed1c24;
+  border-width: 1px;
+}
+.table.style-1 > thead > tr {
+  background: #ed1c24;
+}
+.table.style-1 > thead > tr th {
+  color: #ffffff;
+}
+.table.style-1 > thead > tr td,
+.table.style-1 > tbody > tr td,
+.table.style-1 > thead > tr th,
+.table.style-1 > tbody > tr th {
+  border-color: #ed1c24 !important;
+}
+.table.style-2 {
+  border-color: #831618;
+}
+.table.style-2 > thead > tr {
+  background: #831618;
+}
+.table.style-2 > thead > tr th {
+  color: #ed1c24;
+}
+.table.style-2 > thead > tr td,
+.table.style-2 > tbody > tr td,
+.table.style-2 > thead > tr th,
+.table.style-2 > tbody > tr th {
+  border-color: #831618 !important;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 1em;
+}
+@media (max-width: 979px) {
+  .table-responsive {
+    margin: 1em 0;
+    border-color: #ffffff;
+  }
+  .table-responsive > .table {
+    background: #ffffff;
+  }
+}
+.lang-sel {
+  text-align: right;
+  margin: 0.2em 0;
+}
+.lang-sel.align-left {
+  text-align: left;
+}
+.lang-sel.align-right {
+  text-align: right;
+}
+.lang-sel.align-center {
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .lang-sel {
+    text-align: center;
+  }
+}
+.lang-sel > div {
+  text-align: left;
+}
+.lang-sel > div .iclflag {
+  top: -1px !important;
+}
+/**** Responsive Embed Styles ****/
+.embed-responsive {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.embed-responsive .embed-responsive-item,
+.embed-responsive iframe,
+.embed-responsive embed,
+.embed-responsive object {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  border: 0;
+}
+.embed-responsive.embed-responsive-16by9 {
+  padding-bottom: 56.25%;
+}
+.embed-responsive.embed-responsive-4by3 {
+  padding-bottom: 75%;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -1687,12 +1851,12 @@ and open the template in the editor.
   bottom: -10px;
 }
 .row.menu-bar:before {
-  border-width: 0 10px 10px 0;
+  border-width: 0 9px 10px 0;
   border-right-color: #831618;
   left: -10px;
 }
 .row.menu-bar:after {
-  border-width: 0 0 10px 10px;
+  border-width: 0 0 10px 9px;
   border-left-color: #831618;
   right: -10px;
 }

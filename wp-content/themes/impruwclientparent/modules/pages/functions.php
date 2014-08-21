@@ -283,15 +283,12 @@ function create_new_page( $data ) {
     if ( is_wp_error( $page_id ) )
         return $page_id;
 
-    //check if add_to_menu set
-    if ( $data[ 'add_to_menu' ] == "true" ) {
-        add_page_to_menu( $page_id, $page_order );
-    }
+    return $page_id;
+}
 
-    // check what is the template id need to create the page
-    // if 0 no template is choosed. ignore pulling json from page
-    $template_page_id = (int)$data[ 'template_page_id' ];
+function assign_page_template($template_page_id, $page_id){
 
+    // if 0 no template is chosen. ignore pulling json from page
     // return post id if template id is 0
     if ( $template_page_id === 0 )
         return $page_id;
@@ -367,6 +364,11 @@ function get_meta_values( $element, $create = FALSE ) {
     $ele = maybe_unserialize( $meta->meta_value );
     $ele[ 'meta_id' ] = $create ? create_new_record( $ele ) : $element[ 'meta_id' ];
     validate_element( $ele );
+
+    if($ele['element'] === 'RoomSummary' && $create === false){
+        $img_id = get_post_meta( $ele['room_id'], '_thumbnail_id', true );
+        $ele['image_id'] = (int) $img_id;
+    }
 
     return $ele;
 }
@@ -503,10 +505,15 @@ function get_page_content_json( $page_id, $autosave = FALSE ) {
         $page_id = $page->ID;
     }
 
-    if ( $autosave === TRUE )
+    if ( $autosave === TRUE ){
         $json = get_autosave_post_json( $page_id );
-    else
+        
+        if(empty($json))
+            $json = get_post_meta( $page_id, "page-json", TRUE );
+    }
+    else{
         $json = get_post_meta( $page_id, "page-json", TRUE );
+    }
 
     return $json;
 }
@@ -591,6 +598,11 @@ function translate_element(&$element, $language_code){
 
     $element['content'][$language_code] = $translated_content;
 
+    if(is_null($element['content']['en'])){
+         $element['content']['en'] = $english_content;
+    }
+
+
 
 }
 
@@ -615,6 +627,10 @@ function translate_link_element(&$element, $language_code){
     }
 
     $element['text'][$language_code] = $translated_content;
+
+    if(is_null($element['text']['en'])){
+         $element['text']['en'] = $english_content;
+    }
 
 
 }

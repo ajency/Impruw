@@ -3,6 +3,8 @@ define ['app', 'apps/builder/elementsbox/show/controller'], (App)->
 
         #@startWithParent = false
 
+        ElementsBoxApp.ElementsBoxEvtAggr = new Backbone.Wreqr.EventAggregator()
+
         #PUBLIC API
         API =
             show: ()->
@@ -11,4 +13,5 @@ define ['app', 'apps/builder/elementsbox/show/controller'], (App)->
 
 
         ElementsBoxApp.on 'start', ->
+
             API.show()
