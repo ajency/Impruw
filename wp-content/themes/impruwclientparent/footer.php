@@ -162,8 +162,7 @@
                 speed: 300,                               //speed of animation
                 action: 'click',                          //options: 'click' or 'hover', action to trigger animation
                 topPos: '150px',                          //position from the top/ use if tabLocation is left or right
-                leftPos: '20px', 
-                fixedPosition: false                       //options: true makes it stick(fixed position) on scroll
+                fixedPosition: true                       //options: true makes it stick(fixed position) on scroll
             });
         });
     </script>
