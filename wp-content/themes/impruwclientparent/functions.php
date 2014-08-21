@@ -1017,7 +1017,7 @@ function get_theme_CSS() {
             $color_scheme = strtolower($_COOKIE['color_scheme']);
             $color_scheme = str_replace(' ', '-', $color_scheme);
             $file = "theme-style-".$color_scheme.".css";
-             echo "<link rel='stylesheet' href='" . get_template_directory_uri() . "/css/color_scheme/$file' type='text/css'/>";
+             echo "<link rel='stylesheet' href='" . get_template_directory_uri() . "/color_scheme_css/$file' type='text/css'/>";
         }
 
         else { ?>
