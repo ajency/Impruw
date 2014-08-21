@@ -3129,3 +3129,22 @@ a.red-link.pull-right {
   left: 3px;
   font-size: 0.8em;
 }
+/**** Resizable Styles ****/
+.ui-resizable .ui-resizable-handle.ui-resizable-s {
+  height: 20px;
+}
+.ui-resizable .ui-resizable-handle:before {
+  display: none;
+  color: #aaaaaa;
+  width: 100%;
+  height: 10px;
+  font-size: 10px;
+  content: "\2191 \2193";
+  text-align: center;
+}
+.ui-resizable:hover .ui-resizable-handle {
+  background: #f3f3f3;
+}
+.ui-resizable:hover .ui-resizable-handle:before {
+  display: block;
+}
