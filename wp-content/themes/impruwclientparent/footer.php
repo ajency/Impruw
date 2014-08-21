@@ -66,7 +66,11 @@
 </script>
 
 <!-- Site Preview Options -->
-<?php if(isset($_GET['preview'])):?>
+<?php
+print_r(get_current_blog_id());
+print_r($_COOKIE);
+$theme_preview_ids = explode(',', THEME_ID);
+ if (in_array(get_current_blog_id(), $theme_preview_ids)):?>
 
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.tabSlideOut.v1.3.js"></script>
     <script type="text/javascript">
@@ -136,39 +140,52 @@
         <a class="handle" href="#"><span class="glyphicon glyphicon-cog"></span></a>
         <h5>Color Options</h5>
         <ul class="option-colors">
-            <li>
-                <a href="#" class="active">
-                    <h6>Default</h6>
-                    <span class="color" style="background: #24D07C;"></span>
-                    <span class="color" style="background: #E223A1;"></span>
-                    <span class="color" style="background: #39435C;"></span>
-                    <span class="color" style="background: #545D73;"></span>
-                    <span class="color" style="background: #E1E1E1;"></span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <h6>Lemon Dash</h6>
-                    <span class="color" style="background: #ECFF33;"></span>
-                    <span class="color" style="background: #212121;"></span>
-                    <span class="color" style="background: #2F8F74;"></span>
-                    <span class="color" style="background: #A0FB70;"></span>
-                    <span class="color" style="background: #E1E1E1;"></span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <h6>Desert Song</h6>
-                    <span class="color" style="background: #72451E;"></span>
-                    <span class="color" style="background: #E7512E;"></span>
-                    <span class="color" style="background: #B6AEA1;"></span>
-                    <span class="color" style="background: #CBCBC1;"></span>
-                    <span class="color" style="background: #E1E1E1;"></span>
-                </a>
-            </li>
+
+            <?php 
+                $theme_set_color = theme_color_sets();
+                $custom_set = get_option( 'custom_theme_color_set' );
+                if ( !empty( $custom_set ) ) {
+
+                    $custom_set_array = array( maybe_unserialize( $custom_set ) );
+
+                    $theme_set_color = wp_parse_args( $custom_set_array, $theme_set_color );
+                }
+                // var_dump($theme_set_color);
+
+                foreach ($theme_set_color as $color_scheme ) {
+                    echo "<li> <a href='#' class='active hhh' data-color=".$color_scheme['name'].">";
+                    echo "<h6>{$color_scheme['name']}</h6>";
+                    foreach ($color_scheme as $key => $value) {
+                        if($key != 'name')
+                            echo "<span class='color' style='background: ".$value['color'].";'></span>";
+                    }
+
+                    echo '</a></li>';
+                }
+
+                
+
+
+             ?>
+            
         </ul>
     </div>
+    <script type="text/javascript">
+        
+        jQuery('a[data-color]').click(function(e){
+            console.log(jQuery(this).attr('data-color'));
+            console.log(AJAXURL);
+            color_scheme_name = jQuery(this).attr('data-color');
+            
+            document.cookie = "color_scheme="+color_scheme_name+";"
+            
+
+            window.location.reload(true);
+            
+        });
+    </script>
 <?php endif; ?>
+
 
 <?php wp_footer(); ?>
 </body>
