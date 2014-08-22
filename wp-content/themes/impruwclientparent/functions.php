@@ -916,7 +916,7 @@ function get_theme_JS() {
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
     <script>
         jQuery(document).ready(function () {
-            if (jQuery('.gallery').length === 0)
+            if (jQuery('ul.gallery li').length === 0)
                 return;
 
             var $container = jQuery('ul.gallery').imagesLoaded(function () {
@@ -1011,10 +1011,21 @@ function get_theme_CSS() {
         }
     }
     ?>
-    <link
-        href="<?php echo get_theme_style_sheet_file_path(); ?>"
-        type="text/css" rel="stylesheet"/>
-<?php
+    <?php 
+        // if the theme preview color changing is enabled and cookie is set 
+        $theme_preview_ids = explode(',', THEME_ID);
+        if( isset($_COOKIE['color_scheme']) && in_array(get_current_blog_id(), $theme_preview_ids)){
+            $color_scheme = strtolower($_COOKIE['color_scheme']);
+            $color_scheme = str_replace(' ', '-', $color_scheme);
+            $file = "theme-style-".$color_scheme.".css";
+             echo "<link rel='stylesheet' href='" . get_template_directory_uri() . "/color_scheme_css/$file' type='text/css'/>";
+        }
+
+        else { ?>
+            <link
+                href="<?php echo get_theme_style_sheet_file_path(); ?>"
+                type="text/css" rel="stylesheet"/>
+        <?php }
 }
 
 /**
