@@ -9,9 +9,11 @@ define ['app', 'controllers/base-controller'
                 @language = opts.language
 
                 #get page seo collection
-                @seomodel = App.request "get:site:model"
+                @seomodel = App.request "get:seo:model", @pageId
 
                 @seoPageContentView = @_getPageContentView @seomodel
+
+                @listenTo @seoPageContentView, "page:seo:save", @pageSeoSave
 
                 #function to load view
                 @show @seoPageContentView,
@@ -20,6 +22,19 @@ define ['app', 'controllers/base-controller'
             _getPageContentView :(model) ->
                 new SeoPageContent.Views.SeoPageContentView
                 	model: model
+            
+            pageSeoSave:(newSeoTitle ,newSeoDesc, newSeoKeywords)->
+                data= []
+                data['seo_title'] = newSeoTitle
+                data['meta_description'] = newSeoDesc
+                @seomodel.set data
+                @seomodel.save null,
+                    wait : true
+                    onlyChanged : true
+                    success : @pageSeoUpdated
+
+            pageSeoUpdated :(model, response) =>
+                @seoPageContentView.triggerMethod "page:seo:updated"            
 
 
         App.commands.setHandler "show:seo:page:content:app", (opts = {}) ->
