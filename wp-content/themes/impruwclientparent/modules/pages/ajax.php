@@ -49,7 +49,7 @@ function create_page_ajax() {
             if($language['code']!=$current_default_language){
                $page_id_based_on_lang = duplicate_language_page($original_page_id,$language['code'],"page");
            }
-       }
+        }
 
         //Get english id of the page
         $english_page_id = icl_object_id($original_page_id, 'page', true,'en');

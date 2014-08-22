@@ -3289,3 +3289,29 @@ a {
 		}
 	}
 }
+
+/**** Resizable Styles ****/
+.ui-resizable {
+	.ui-resizable-handle {
+		&.ui-resizable-s {
+			height: 20px;
+		}
+		&:before {
+			display: none;
+			color: @dash-grey;
+			width: 100%;
+			height: 10px;
+			font-size: 10px;
+			content: "\2191 \2193";
+			text-align: center;
+		}
+	}
+	&:hover {
+		.ui-resizable-handle {
+			background: @preview-grey;
+			&:before {
+				display: block;
+			}
+		}
+	}
+}
