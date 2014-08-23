@@ -7,7 +7,7 @@ jQuery(document).ready(function(){
     jQuery('.login-btn').popover({
         'placement': 'auto bottom',
         'html': true,
-        'content': '<form id="frm_login" name="frm_login"><div class="form-group"><input type="text" class="form-control" id="InputEmail" placeholder="'+user_login_texts.placeholder_email+'"></div><div class="form-group"><button id="btn_login2" name="btn_login2" type="button" class="btn btn-xs btn-block aj-imp-submit">'+user_login_texts.btn_sign_in+'</button></div><div id="login_status_div"><span class="icon icon-warning"></span> <span id="login_status"></span></div></form>',
+        'content': '<form id="frm_login" name="frm_login"><div class="form-group"><input type="email" class="form-control" id="InputEmail" placeholder="'+user_login_texts.placeholder_email+'"></div><div class="form-group"><button id="btn_login2" name="btn_login2" type="button" class="btn btn-xs btn-block aj-imp-submit">'+user_login_texts.btn_sign_in+'</button></div><div id="login_status_div"><span class="icon icon-warning"></span> <span id="login_status"></span></div></form>',
         'container': 'body'
     });
 
@@ -22,10 +22,12 @@ jQuery(document).ready(function(){
 
     });
 
-    jQuery('#InputEmail').live('keyup',function(evt){
-
-        if ( evt.which === 13 )
-           jQuery('#btn_login2').click() 
+    jQuery('#InputEmail').live('keypress',function(evt){
+    
+        if ( evt.which === 13 ){
+            evt.preventDefault();
+            jQuery('#btn_login2').click() 
+        }
 
     });
 
@@ -43,7 +45,7 @@ jQuery(document).ready(function(){
             if (response.code == 'OK') {
                 window.location.href = response.blog_url + '/sign-in?email='+response.email;
                 return true;
-            } else if ((response.code == 'FAILED')) {
+            } else if ((response.code == 'FAILED' || response.code == 'ERROR')) {
 
                 jQuery("#login_status_div").show();
                 jQuery("#login_status").html(response.msg);
