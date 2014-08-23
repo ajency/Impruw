@@ -11,7 +11,9 @@
       6) impruw_add_user_role_to_email - Function to add user role's to a an email.
       7) wp_impruw_get_user_roles - Function to return all roles used in impruw site.
      */
-
+  
+    //add async tasks
+    require_once 'async-tasks/wpml-setup.php';
 
     /* ============================================================= */
 
