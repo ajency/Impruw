@@ -46,7 +46,8 @@ function create_new_site( $site_name, $user_id ) {
     create_additional_tables( $site_id );
 
     //set up wpml for the site
-    wpml_setup($site_id,$user_id);
+    //wpml_setup($site_id,$user_id);
+    do_action('imp_setup_wpml', $site_id, $user_id);
 
     // add pages to site
     $pages = array(
