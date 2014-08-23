@@ -6,7 +6,7 @@ define [ 'app' ], ( App )->
 		# Menu item view
 		class Views.LogoView extends App.SiteBuilderApp.Element.Image.Views.ImageView
 
-			className : 'image'
+			className : 'logo'
 
 			template : '{{#image}}
 							 <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
