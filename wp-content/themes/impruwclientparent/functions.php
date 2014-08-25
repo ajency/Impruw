@@ -1015,7 +1015,6 @@ function get_theme_CSS() {
         $theme_preview_ids = explode(',', THEME_ID);
         if( isset($_COOKIE['color_scheme']) && in_array(get_current_blog_id(), $theme_preview_ids)){
             $color_scheme = strtolower($_COOKIE['color_scheme']);
-            print_r($_COOKIE);
             $color_scheme = str_replace(' ', '-', $color_scheme);
             $file = "theme-style-".$color_scheme.".css";
             echo "<link rel='stylesheet' href='" . get_template_directory_uri() . "/color_scheme_css/$file' type='text/css'/>";
