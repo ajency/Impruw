@@ -1,7 +1,7 @@
 define ['app'
 		'text!apps/builder/site-builder/elements/table/templates/table.html'
 		'apps/builder/site-builder/elements/table/views'		
-		# 'apps/builder/site-builder/elements/table/settings/controller'
+		'apps/builder/site-builder/elements/table/settings/controller'
 ],(App,tableTemplate)->
 	App.module 'SiteBuilderApp.Element.Table', (Table, App, Backbone, Marionette, $, _)->
 
