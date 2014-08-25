@@ -1649,6 +1649,7 @@ ul.gallery {
 .table {
   background: #e1e1e1;
   color: #7f7f7f;
+  margin: 0;
 }
 .table > thead > tr {
   background: #cbcbcb;
@@ -1723,6 +1724,22 @@ ul.gallery {
 .table.style-2 > thead > tr th,
 .table.style-2 > tbody > tr th {
   border-color: #656565 !important;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 1em;
+}
+@media (max-width: 979px) {
+  .table-responsive {
+    margin: 1em 0;
+    border-color: #e1e1e1;
+  }
+  .table-responsive > .table {
+    background: #e1e1e1;
+  }
 }
 .lang-sel {
   text-align: right;

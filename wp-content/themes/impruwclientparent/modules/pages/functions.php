@@ -294,12 +294,21 @@ function assign_page_template($template_page_id, $page_id){
         return $page_id;
 
     // get the template json
-    $template_json = get_post_meta( $template_page_id, 'page-json', TRUE );
-
-    //and set it to page
-    //update_post_meta($page_id, 'page-json', $template_json);
+    $template_json = get_json_to_clone( 'page-json', $template_page_id ); 
+    $template_json = set_json_to_site( $template_json, 'en', true);
     add_page_json( $page_id, $template_json );
     update_page_autosave( $page_id, $template_json );
+
+    $current_active_languages = wpml_get_active_languages();
+
+    foreach ($current_active_languages as $language) {
+        if($language['code']!= 'en'){
+            $template_json = get_json_to_clone( 'page-json', $page_id ); 
+            $template_json = set_json_to_site( $template_json, $language['code'], false);
+            add_page_json( $page_id, $template_json );
+            update_page_autosave( $page_id, $template_json );
+        }
+    }
 
     return $page_id;
 }
@@ -445,15 +454,15 @@ function create_new_element( &$ele, $language_code, $clone_first_time) {
         $ele[ 'menu_id' ] = get_primary_menu_id();
     }
 
-    if ( ( $ele[ 'element' ] === 'Image' || $ele[ 'element' ] === 'ImageWithText' ) && isset( $ele[ 'image_id' ] ) ) {
+    if ( ( $ele[ 'element' ] === 'Image' || $ele[ 'element' ] === 'ImageWithText' ) && isset( $ele[ 'image_id' ] ) &&  $clone_first_time===TRUE ) {
         $ele[ 'image_id' ] = 0;
     }
 
-    if ( $ele[ 'element' ] === 'Slider' && isset( $ele[ 'slider_id' ] ) ) {
+    if ( $ele[ 'element' ] === 'Slider' && isset( $ele[ 'slider_id' ] )  &&  $clone_first_time===TRUE ) {
         $ele[ 'slider_id' ] = 0;
     }
 
-    if ( $ele[ 'element' ] === 'RoomSummary' && isset( $ele[ 'room_id' ] ) ) {
+    if ( $ele[ 'element' ] === 'RoomSummary' && isset( $ele[ 'room_id' ] )  &&  $clone_first_time===TRUE ) {
         $ele[ 'room_id' ] = 0;
     }
 
