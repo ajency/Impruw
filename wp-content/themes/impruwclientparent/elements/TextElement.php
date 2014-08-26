@@ -69,7 +69,7 @@ class TextElement extends Element {
         // if(empty($this->content))
         //     $html       .= $this->get_open_tag($attr);
 
-        $html .= "<p class='text'>{$this->content}</p>";
+        $html .= "<div class='text'>{$this->content}</div>";
         // if(empty($this->content))
         //     $html       .= $this->get_close_tag();
 

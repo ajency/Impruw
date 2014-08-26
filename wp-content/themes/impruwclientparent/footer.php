@@ -172,7 +172,7 @@
             console.log(jQuery(this).attr('data-color'));
             color_scheme_name = jQuery(this).attr('data-color');
             
-            document.cookie = "color_scheme="+color_scheme_name+";"
+            document.cookie = "color_scheme="+color_scheme_name+"; path=/";
             
 
             window.location.reload(true);

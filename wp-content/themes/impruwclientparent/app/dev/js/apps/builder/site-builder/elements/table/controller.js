@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.html', 'apps/builder/site-builder/elements/table/views'], function(App, tableTemplate) {
+define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.html', 'apps/builder/site-builder/elements/table/views', 'apps/builder/site-builder/elements/table/settings/controller'], function(App, tableTemplate) {
   return App.module('SiteBuilderApp.Element.Table', function(Table, App, Backbone, Marionette, $, _) {
     return Table.Controller = (function(_super) {
       __extends(Controller, _super);

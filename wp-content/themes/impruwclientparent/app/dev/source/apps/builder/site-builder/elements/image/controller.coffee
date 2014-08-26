@@ -44,7 +44,10 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
             renderElement: ()=>
                 @removeSpinner()
                 # get logo attachment
-                imageModel = App.request "get:media:by:id", @layout.model.get 'image_id'
+                if not @imageModel
+                    imageModel = App.request "get:media:by:id", @layout.model.get 'image_id'
+                else
+                    imageModel = @imageModel
 
                 App.execute "when:fetched", imageModel, =>
                     view = @_getImageView imageModel
@@ -58,6 +61,9 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                             App.currentImageRatio = false
                             @stopListening App.vent, "media:manager:choosed:media"
                             @layout.model.save()
+                            @imageModel = media
+                            @renderElement()
+                            
 
                         @listenTo App.vent, "stop:listening:to:media:manager", =>
                             App.currentImageRatio = false

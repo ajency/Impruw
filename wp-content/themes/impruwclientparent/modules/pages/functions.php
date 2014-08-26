@@ -454,15 +454,15 @@ function create_new_element( &$ele, $language_code, $clone_first_time) {
         $ele[ 'menu_id' ] = get_primary_menu_id();
     }
 
-    if ( ( $ele[ 'element' ] === 'Image' || $ele[ 'element' ] === 'ImageWithText' ) && isset( $ele[ 'image_id' ] ) ) {
+    if ( ( $ele[ 'element' ] === 'Image' || $ele[ 'element' ] === 'ImageWithText' ) && isset( $ele[ 'image_id' ] ) &&  $clone_first_time===TRUE ) {
         $ele[ 'image_id' ] = 0;
     }
 
-    if ( $ele[ 'element' ] === 'Slider' && isset( $ele[ 'slider_id' ] ) ) {
+    if ( $ele[ 'element' ] === 'Slider' && isset( $ele[ 'slider_id' ] )  &&  $clone_first_time===TRUE ) {
         $ele[ 'slider_id' ] = 0;
     }
 
-    if ( $ele[ 'element' ] === 'RoomSummary' && isset( $ele[ 'room_id' ] ) ) {
+    if ( $ele[ 'element' ] === 'RoomSummary' && isset( $ele[ 'room_id' ] )  &&  $clone_first_time===TRUE ) {
         $ele[ 'room_id' ] = 0;
     }
 
