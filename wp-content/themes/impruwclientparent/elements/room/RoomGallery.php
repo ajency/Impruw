@@ -105,7 +105,7 @@ class RoomGallery extends SliderElement {
            return 0;
        
        // ge the room id
-       $room_id = get_the_ID();
+       $room_id  = icl_object_id(get_the_ID(), 'impruw_room', true,'en');
        
        $slider_id = get_post_meta ( $room_id, 'slider_id', true );
        
