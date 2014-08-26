@@ -49,7 +49,11 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
       Controller.prototype.renderElement = function() {
         var imageModel;
         this.removeSpinner();
-        imageModel = App.request("get:media:by:id", this.layout.model.get('image_id'));
+        if (!this.imageModel) {
+          imageModel = App.request("get:media:by:id", this.layout.model.get('image_id'));
+        } else {
+          imageModel = this.imageModel;
+        }
         return App.execute("when:fetched", imageModel, (function(_this) {
           return function() {
             var view;
@@ -66,7 +70,9 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
                 _this.layout.model.set('image_id', media.get('id'));
                 App.currentImageRatio = false;
                 _this.stopListening(App.vent, "media:manager:choosed:media");
-                return _this.layout.model.save();
+                _this.layout.model.save();
+                _this.imageModel = media;
+                return _this.renderElement();
               });
               return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {
                 App.currentImageRatio = false;
