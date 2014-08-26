@@ -30,9 +30,6 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], ( App, A
 
             @layout.roomRegion.show @listView
 
-            imageEdit = App.request "get:image:crop:view",34
-            @layout.editorRegion.show imageEdit
-
 
          _getLayout : ( collection )->
             new List.Views.RoomListLayout

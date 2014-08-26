@@ -8,6 +8,8 @@ function get_bookings( $room_id = 0 ) {
     if ( $room_id === 0 )
         $room_id = get_the_ID();
 
+    $room_id = icl_object_id($room_id, 'impruw_room', true,'en');
+
     global $wpdb;
 
     $table_name = $wpdb->prefix . 'bookings';

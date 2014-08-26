@@ -1789,6 +1789,10 @@ ul.gallery {
 .lang-sel > div .iclflag {
   top: -1px !important;
 }
+/**** Widget Styles ****/
+.widget {
+  color: #282827;
+}
 /**** Responsive Embed Styles ****/
 .embed-responsive {
   position: relative;
