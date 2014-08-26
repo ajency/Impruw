@@ -1762,6 +1762,14 @@ ul.gallery {
 .lang-sel > div {
   text-align: left;
 }
+.lang-sel > div ul,
+.lang-sel > div li {
+  min-width: 170px;
+}
+.lang-sel > div ul ul,
+.lang-sel > div li ul {
+  z-index: 1;
+}
 .lang-sel > div .iclflag {
   top: -1px !important;
 }
