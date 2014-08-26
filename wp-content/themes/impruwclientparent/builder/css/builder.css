@@ -116,6 +116,18 @@ a.red-link.pull-right {
   padding: 0.5em;
   background: #29333f;
   z-index: 10;
+  border-radius: 0 0 2px 0;
+}
+.aj-imp-drag-menu .handle {
+  background: #29333f;
+  padding: 0.4em 0.5em 0.5em;
+  color: #aaaaaa;
+  font-size: 1.5em;
+  border-radius: 0 2px 2px 0;
+  cursor: pointer;
+}
+.aj-imp-drag-menu .handle:hover {
+  color: #ff7e00;
 }
 .aj-imp-drag-menu .desc {
   font-size: 0.88em;

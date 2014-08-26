@@ -61,7 +61,7 @@ define [ 'app'
                 tabLocation: 'left'                     
                 speed: 300                              
                 action: 'click'                          
-                topPos: '25px'                          
+                topPos: '90px'                          
                 fixedPosition: true                       
             
 
