@@ -51,6 +51,9 @@
           media="screen">
 </head>
 <body <?php body_class(); ?>>
+
+<div id="fb-root"></div>
+
 <div id="choose-theme-region"></div>
 <div class="aj-imp-builder container">
     <div id="header-region"></div>
