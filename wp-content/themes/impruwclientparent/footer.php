@@ -22,8 +22,8 @@
 </script>
 <?php if ( is_singular() ): ?>
     <script type="text/javascript">
-        var PLANS = <?php echo json_encode(get_plans()); ?>;
-        var DATERANGE = <?php echo json_encode(get_date_range()); ?>;
+        var PLANS = <?php echo json_encode(get_plans(FALSE)); ?>;
+        var DATERANGE = <?php echo json_encode(get_date_range(FALSE)); ?>;
         //var TARIFF =
         <?php echo json_encode(get_tariff(2)); ?>;
         var TARIFF = <?php echo json_encode(get_tariff(get_the_ID())); ?>;
