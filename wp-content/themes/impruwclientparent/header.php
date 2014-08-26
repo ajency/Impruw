@@ -37,6 +37,9 @@
 </head>
 
 <body <?php body_class(); ?>>
+    
+    <div id="fb-root"></div>
+
 <div class="site-style-container">
     <header class="site-header">
         <?php //do_action('icl_language_selector');?>

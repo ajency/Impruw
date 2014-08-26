@@ -32,7 +32,7 @@ class RoomTariff extends Element {
         parent::__construct($element);
 
         //$this->room_id = get_the_ID();
-        $this->room_id = get_the_ID();
+        $this->room_id = icl_object_id(get_the_ID(), 'impruw_room', true,'en');
 
         $this->date_range = $this->get_date_range();
 
