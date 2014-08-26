@@ -24,7 +24,11 @@ function updateroom( $room_data ) {
     $post_status  = 'publish';
     $slider_id    = $room_data[ 'slider_id' ];
     $no_of_rooms  = $room_data[ 'no_of_rooms' ];
+
     $feature_image_id  = $room_data[ 'feature_image_id' ];
+    
+    if($room_data['feature_image_id']==="")
+        $feature_image_id = $room_data[ 'thumbnail_id' ];
 
 
     // prepare facility array
@@ -52,6 +56,8 @@ function updateroom( $room_data ) {
     //insert data array into the post table using wp function
     $post_id = wp_update_post( $data, FALSE );
 
+    $english_post_id = icl_object_id($post_id, 'impruw_room', true,'en');
+
 
     // if post insert succesfull
     if ( $post_id != 0 ) {
@@ -61,7 +67,7 @@ function updateroom( $room_data ) {
 
         if ( $slider_return == TRUE ) {
 
-            update_post_meta( $post_id, 'slider_id', $slider_id );
+            update_post_meta( $english_post_id, 'slider_id', $slider_id );
 
             $all_slides = get_slides( $slider_id );
 
@@ -70,17 +76,17 @@ function updateroom( $room_data ) {
 
             $slide = $all_slides[ $slide_random_key ];
 
-            set_post_thumbnail( $post_id, $slide[ 'image_id' ] );
+            set_post_thumbnail( $english_post_id, $slide[ 'image_id' ] );
         } else {
 
-            update_post_meta( $post_id, 'slider_id', 0 );
+            update_post_meta( $english_post_id, 'slider_id', 0 );
         }
 
 
-        update_post_meta( $post_id, 'no_of_rooms', $no_of_rooms );
+        update_post_meta( $english_post_id, 'no_of_rooms', $no_of_rooms );
 
         // set the feature image for the post
-        update_post_meta( $post_id, '_thumbnail_id', $feature_image_id );
+        update_post_meta( $english_post_id, '_thumbnail_id', $feature_image_id );
 
 
         // set the facilities selected for the room
@@ -94,6 +100,32 @@ function updateroom( $room_data ) {
     if(($current_default_language != 'en')&& is_null($english_room_id)){
         $data = get_language_translated_room($post_id, 'en');
         $english_room_id = $data['translatedPostID'];
+
+        //check if slider exsists
+        $slider_return = slider_exists( $slider_id );
+
+        if ( $slider_return == TRUE ) {
+
+            update_post_meta( $english_room_id, 'slider_id', $slider_id );
+
+            $all_slides = get_slides( $slider_id );
+
+            if ( !empty( $all_slides ) )
+                $slide_random_key = array_rand( $all_slides );
+
+            $slide = $all_slides[ $slide_random_key ];
+
+            set_post_thumbnail( $english_room_id, $slide[ 'image_id' ] );
+        } else {
+
+            update_post_meta( $english_room_id, 'slider_id', 0 );
+        }
+
+
+        update_post_meta( $english_room_id, 'no_of_rooms', $no_of_rooms );
+
+        // set the feature image for the english post
+        update_post_meta( $english_room_id, '_thumbnail_id', $feature_image_id );
 
         //if tariff is assigned to room in $current_default_language, 
         //then update it to have english room id instead
@@ -200,12 +232,14 @@ function get_room( $roomid ) {
     if ( $room_post === null )
         return array();
 
+    $english_room_id = icl_object_id($room_id, 'impruw_room', true,'en');
+
     // returns a string of the post meta value
-    $room_slider_id = get_post_meta( $room_id, 'slider_id', TRUE );
+    $room_slider_id = get_post_meta( $english_room_id, 'slider_id', TRUE );
 
-    $no_of_rooms = get_post_meta( $room_id, 'no_of_rooms', TRUE );
+    $no_of_rooms = get_post_meta( $english_room_id, 'no_of_rooms', TRUE );
 
-    $attachment_id = get_post_thumbnail_id( $room_id );
+    $attachment_id = get_post_thumbnail_id( $english_room_id );
 
     $image = (int) $attachment_id > 0 ? wp_get_attachment_image_src( $attachment_id, 'medium' ) : array();
 
@@ -442,7 +476,7 @@ function get_language_translated_room($room_id, $editing_language)
 
     $lang_post_id = get_translated_id($room_id, $editing_language_code,$element_type);
 
-    $original_room_count = get_post_meta( $room_id, 'no_of_rooms', true );
+    // $original_room_count = get_post_meta( $room_id, 'no_of_rooms', true );
 
     if($lang_post_id!=null){
         $room_post = get_post($lang_post_id);
@@ -454,9 +488,9 @@ function get_language_translated_room($room_id, $editing_language)
         $data['translatedPostID'] = $lang_post_id;
         $data['isTranslated'] = true;
 
-        //Update room count for Translated room
-        update_post_meta( $lang_post_id, 'no_of_rooms', $original_room_count );
-        $data['roomCount'] = get_post_meta( $lang_post_id, 'no_of_rooms', true );
+        // //Update room count for Translated room
+        // update_post_meta( $lang_post_id, 'no_of_rooms', $original_room_count );
+        // $data['roomCount'] = get_post_meta( $lang_post_id, 'no_of_rooms', true );
 
     }
     else{
@@ -470,9 +504,9 @@ function get_language_translated_room($room_id, $editing_language)
         $data['translatedPostID'] = $translated_room_id;
         $data['isTranslated'] = false;  
 
-        //Update room count for Translated room
-        update_post_meta( $translated_room_id, 'no_of_rooms', $original_room_count ); 
-        $data['roomCount'] = get_post_meta( $translated_room_id, 'no_of_rooms', true );    
+        // //Update room count for Translated room
+        // update_post_meta( $translated_room_id, 'no_of_rooms', $original_room_count ); 
+        // $data['roomCount'] = get_post_meta( $translated_room_id, 'no_of_rooms', true );    
 
     }
 
