@@ -11,6 +11,10 @@ define ['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
 
                 view = @getUnsedElementView unusedElementCollection
 
+                @listenTo view ,"show:theme:color:clicked",->
+
+                            App.execute "show:theme:color:set", region : App.dialogRegion
+
                 @show view,
                     loading: true
 
