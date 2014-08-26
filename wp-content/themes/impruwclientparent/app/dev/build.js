@@ -52,6 +52,7 @@
         json2: '../../../../../../wp-includes/js/json2',
         svgpainter: '../../../../../../wp-admin/js/svg-painter',
         jqueryuii18n : 'plugins/jquery-ui-i18n',
+        tabslideout : 'plugins/jquery.tabSlideOut.v1.3',
         app : 'builder-app'
     },
     shim : {
@@ -104,6 +105,7 @@
             deps : ['bootstrap'],
             exports : 'bootbox'
         },
+        tabslideout : ['jquery'],
         app : ['pluginloader', 'configloader']
     }
 })

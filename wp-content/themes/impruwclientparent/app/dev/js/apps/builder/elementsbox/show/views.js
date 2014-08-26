@@ -58,6 +58,14 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
           containment: 'document',
           scroll: true
         });
+        this.$el.tabSlideOut({
+          tabHandle: '.handle',
+          tabLocation: 'left',
+          speed: 300,
+          action: 'click',
+          topPos: '25px',
+          fixedPosition: true
+        });
         this._setDraggableElements();
         $('body').on('click', (function(_this) {
           return function() {

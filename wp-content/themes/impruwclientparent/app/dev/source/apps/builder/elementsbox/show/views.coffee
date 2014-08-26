@@ -55,6 +55,15 @@ define [ 'app'
                addClasses : false
                containment : 'document'
                scroll : true
+               
+            @$el.tabSlideOut
+                tabHandle: '.handle'                   
+                tabLocation: 'left'                     
+                speed: 300                              
+                action: 'click'                          
+                topPos: '25px'                          
+                fixedPosition: true                       
+            
 
             @_setDraggableElements()
 

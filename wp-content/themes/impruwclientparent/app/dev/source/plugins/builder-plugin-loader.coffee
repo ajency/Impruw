@@ -35,5 +35,6 @@ define [
    'drilldown'
    'resizablecolumns'
    'jqueryuii18n'
+   'tabslideout'
    #'flippant'
 ], ->
