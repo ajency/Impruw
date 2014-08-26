@@ -357,6 +357,9 @@ function add_element_markup( $element ) {
         case 'Table' :
             $html = get_table_element_markup( $element );
             break;
+        case 'Widget' :
+            $html = get_widget_element_markup( $element );
+            break;
         case 'Social' :
             $html = get_social_element_markup( $element );
             break;
@@ -782,6 +785,17 @@ function get_table_element_markup( $element ){
     $table = new TableElement( $element );
 
     $html = $table->get_markup();
+
+    return $html;
+
+}
+
+function get_widget_element_markup( $element ){
+    require_once PARENTTHEMEPATH . 'elements/WidgetElement.php';
+
+    $widget = new WidgetElement( $element );
+
+    $html = $widget->get_markup();
 
     return $html;
 
