@@ -1773,6 +1773,10 @@ ul.gallery {
 .lang-sel > div .iclflag {
   top: -1px !important;
 }
+/**** Widget Styles ****/
+.widget {
+  color: #7f7f7f;
+}
 /**** Responsive Embed Styles ****/
 .embed-responsive {
   position: relative;
