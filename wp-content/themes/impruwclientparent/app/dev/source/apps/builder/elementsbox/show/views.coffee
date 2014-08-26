@@ -61,8 +61,8 @@ define [ 'app'
                 tabLocation: 'left'                     
                 speed: 300                              
                 action: 'click'                          
-                topPos: '90px'                          
-                fixedPosition: true                       
+                topPos: '30px'                          
+                fixedPosition: false                       
             
 
             @_setDraggableElements()

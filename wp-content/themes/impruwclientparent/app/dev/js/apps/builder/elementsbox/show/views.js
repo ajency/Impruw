@@ -63,8 +63,8 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
           tabLocation: 'left',
           speed: 300,
           action: 'click',
-          topPos: '90px',
-          fixedPosition: true
+          topPos: '30px',
+          fixedPosition: false
         });
         this._setDraggableElements();
         $('body').on('click', (function(_this) {
