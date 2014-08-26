@@ -56,8 +56,11 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
         this.removeSpinner();
         roomId = this.layout.model.get('room_id');
         model = App.request("get:room:model", roomId);
-        console.log(this.layout.model);
-        imageModel = App.request("get:media:by:id", this.layout.model.get('image_id'));
+        if (!this.imageModel) {
+          imageModel = App.request("get:media:by:id", this.layout.model.get('image_id'));
+        } else {
+          imageModel = this.imageModel;
+        }
         return App.execute("when:fetched", [model, imageModel], (function(_this) {
           return function() {
             var template, view;
@@ -75,7 +78,9 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
                 _this.layout.model.set('image_id', media.get('id'));
                 App.currentImageRatio = false;
                 _this.stopListening(App.vent, "media:manager:choosed:media");
-                return _this.layout.model.save();
+                _this.layout.model.save();
+                _this.imageModel = media;
+                return _this.renderElement();
               });
               return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {
                 App.currentImageRatio = false;
