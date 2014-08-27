@@ -154,24 +154,49 @@ add_action( 'wp_ajax_get-page-elements', 'get_page_elements_ajax' );
 function update_translated_page_title(){
     $page_title = $_REQUEST['page_title'];
     $page_id = $_REQUEST['page_id'];
-    $page_slug = sanitize_title($page_title);
+
+    //Get old page slug
+    $post_before_update = get_post($page_id,ARRAY_A);
+
+    $haystack = $post_before_update['post_title'];
+    $needle = 'not translated)';
+
+    if (strpos($haystack,$needle) !== false) {
+        add_filter( 'wp_insert_post_data', 'page_update_slug', 99, 2 );
+    }
 
     // Update post with id = $room_id
     $page = array(
         'ID'           => $page_id,
         'post_title'   => $page_title,
-        'post_type'    => 'page',
-        'post_name' => $page_slug
+        'post_type'    => 'page'
     );
 
     // Update the post into the database
     $return_post_id = wp_update_post( $page );
 
     $data['post_id'] = $return_post_id;
-    $data['page_slug'] = $page_slug;
 
     wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
 }
 add_action( 'wp_ajax_update-translated-page-title', 'update_translated_page_title' );
 
 add_action( 'wp_ajax_create-pageElements', 'update_element_model' );
+
+function page_update_slug( $data, $postarr ) {
+  if ( !in_array( $data['post_status'], array( 'draft', 'pending', 'auto-draft' ) ) ) {
+
+        $data['post_name'] = get_unique_post_slug($postarr);
+    }
+
+    return $data;
+}
+
+function get_unique_post_slug($postdata){
+    remove_all_filters( 'wp_unique_post_slug');
+
+    $unique_slug = wp_unique_post_slug( sanitize_title( $postdata['post_title'] ), $postdata['ID'], $postdata['post_status'], $postdata['post_type'], $postdata['post_parent'] );
+
+    return $unique_slug;
+}
+
