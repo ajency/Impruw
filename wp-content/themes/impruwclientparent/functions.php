@@ -925,6 +925,14 @@ function get_theme_JS() {
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/user_management.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/polyglot.js"></script>
+    <?php
+        if ( is_page_template( 'page-login.php' ) ) {
+            // Do NOT load lightbox
+        } else { ?>
+            <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
+        <?php }
+    ?>
+    
     <!-- Isotope -->
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/isotope.js"></script>
     <script>
@@ -992,6 +1000,9 @@ function get_theme_CSS() {
         type="text/css" rel="stylesheet"/>
     <link
         href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css"
+        type="text/css" rel="stylesheet"/>
+    <link
+        href="<?php echo get_parent_template_directory_uri(); ?>/css/lightbox.css"
         type="text/css" rel="stylesheet"/>
     <link
         href="<?php echo get_parent_template_directory_uri(); ?>/css/style.css"
