@@ -22,12 +22,13 @@
 </script>
 <?php if ( is_singular() ): ?>
     <script type="text/javascript">
-        var PLANS = <?php echo json_encode(get_plans()); ?>;
-        var DATERANGE = <?php echo json_encode(get_date_range()); ?>;
+        var PLANS = <?php echo json_encode(get_plans(FALSE)); ?>;
+        var DATERANGE = <?php echo json_encode(get_date_range(FALSE)); ?>;
         //var TARIFF =
         <?php echo json_encode(get_tariff(2)); ?>;
         var TARIFF = <?php echo json_encode(get_tariff(get_the_ID())); ?>;
         var BOOKING = <?php echo json_encode(get_bookings()); ?>;
+        var PHRASES = <?php echo json_encode(load_language_phrases(FALSE));?>;
     </script>
 <?php endif; ?>
 <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>

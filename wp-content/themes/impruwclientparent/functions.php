@@ -924,9 +924,9 @@ function get_theme_JS() {
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.slimmenu.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/user_management.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/polyglot.js"></script>
     <!-- Isotope -->
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/isotope.js"></script>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
     <script>
         jQuery(document).ready(function () {
             if (jQuery('ul.gallery li').length === 0)
@@ -992,9 +992,6 @@ function get_theme_CSS() {
         type="text/css" rel="stylesheet"/>
     <link
         href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css"
-        type="text/css" rel="stylesheet"/>
-    <link
-        href="<?php echo get_parent_template_directory_uri(); ?>/css/lightbox.css"
         type="text/css" rel="stylesheet"/>
     <link
         href="<?php echo get_parent_template_directory_uri(); ?>/css/style.css"
