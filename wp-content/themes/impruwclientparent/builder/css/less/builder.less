@@ -132,7 +132,7 @@ a {
 	border-radius: 0 0 2px 0;
 	.handle {
 		background: @dark-blue;
-        padding: 0.4em 0.5em 0.5em;
+        padding: 0.6em 0.5em 0.5em;
         color: @dash-grey;
         font-size: 1.5em;
         border-radius: 0 2px 2px 0;
@@ -3289,6 +3289,51 @@ a {
 			background: @preview-grey;
 			&:before {
 				display: block;
+			}
+		}
+	}
+}
+
+/**** Right Toolbox Styles ****/
+.right-toolbox {
+	background: @dark-blue;
+	padding: 1em;
+	border-radius: 0 0 0 2px;
+	text-align: right;
+	.handle-right {
+		background: @dark-blue;
+        padding: 0.6em 0.5em 0.5em;
+        color: @dash-grey;
+        font-size: 1.5em;
+        border-radius: 2px 0 0 2px;
+        cursor: pointer;
+        &:hover {
+        	color: @orange;
+        }
+	}
+	.choose-theme {
+		position: relative;
+		padding: 8px 13px 9px 28px;
+		margin: 0.5em 0;
+		.bicon {
+			font-size: 1.6em;
+			position: absolute;
+			left: 9px;
+			top: 6px;
+		}
+		&:hover {
+			background: @blue-grey;
+		}
+	}
+	#aj-imp-color-sel {
+		margin: 0.5em 0;
+		.btn {
+			width: auto;
+			background: transparent;
+			color: @dash-grey;
+			.caret {
+				margin-left: 1.2em;
+				border-top-color: lighten(@dash-grey, 10%);
 			}
 		}
 	}

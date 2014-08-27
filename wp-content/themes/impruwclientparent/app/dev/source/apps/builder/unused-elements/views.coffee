@@ -41,7 +41,9 @@ define ['app'], (App)->
 
             emtpyView: EmptyUnsedElementView
 
-            template: '<div class="handle-right"><span class="bicon icon-uniF162"></span></div>
+            className: 'right-toolbox'
+
+            template: '<div class="handle-right"><span class="bicon icon-uniF164"></span></div>
                         
                         <div class="aj-imp-builder-top-options "> 
                             <a href="#" class="builder-help">{{#polyglot}}Need Help{{/polyglot}}&nbsp;<span class="bicon icon-uniF13B"></span></a>
