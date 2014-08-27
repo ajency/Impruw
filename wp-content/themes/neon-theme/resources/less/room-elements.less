@@ -366,7 +366,7 @@
 /****Room List Summary Styles****/
 .roomsummary {
 	.clearfix;
-	margin: 0 0 @medium;
+	margin: @medium 0;
 	.room-img {
 		width: 100%;
 	}
@@ -403,6 +403,11 @@
 				text-decoration: none;
 			}
 		}
+	}
+	@media(max-width:991px) {
+		border-bottom: 1px dotted darken(@tertiary1, 20%);
+		padding-bottom: @medium;
+		margin-bottom: @large;
 	}
 }
 

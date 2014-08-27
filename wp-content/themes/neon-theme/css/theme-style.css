@@ -1856,6 +1856,9 @@ and open the template in the editor.
     margin-bottom: 1.5em !important;
     border-bottom: 1px solid #2f384c;
   }
+  .row.footer-columns > .column:last-child {
+    border-bottom: 0;
+  }
 }
 .row.menu-bar {
   padding-bottom: 1.5em;
@@ -1900,7 +1903,7 @@ and open the template in the editor.
 }
 @media (max-width: 991px) {
   .row.padded-container {
-    margin: 0 0 1.5em !important;
+    margin: 0 -15px 1.5em !important;
   }
   .row.padded-container > .column {
     padding-right: 0;
@@ -1913,6 +1916,11 @@ and open the template in the editor.
 }
 .row.shadow-box > .column {
   padding: 1.5em;
+}
+@media (max-width: 991px) {
+  .row.shadow-box > .column {
+    padding: 0.5em;
+  }
 }
 @media (max-width: 991px) {
   .row.shadow-box {
@@ -2665,7 +2673,7 @@ and open the template in the editor.
 /****Room List Summary Styles****/
 .roomsummary {
   *zoom: 1;
-  margin: 0 0 1em;
+  margin: 1em 0;
 }
 .roomsummary:after,
 .roomsummary:before {
@@ -2715,6 +2723,13 @@ and open the template in the editor.
 .roomsummary .room-actions .btn-room:hover {
   background: #ee7dc8;
   text-decoration: none;
+}
+@media (max-width: 991px) {
+  .roomsummary {
+    border-bottom: 1px dotted #12151d;
+    padding-bottom: 1em;
+    margin-bottom: 1.5em;
+  }
 }
 /* Calender Booking */
 .booking-title {
@@ -3230,6 +3245,11 @@ and open the template in the editor.
 .map:hover {
   border: 3px solid #e223a1;
 }
+@media (max-width: 991px) {
+  .map {
+    margin: 1em 0;
+  }
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -3440,7 +3460,7 @@ and open the template in the editor.
 }
 @media (max-width: 767px) {
   .lang-sel {
-    text-align: center;
+    text-align: center !important;
   }
 }
 .lang-sel > div {
