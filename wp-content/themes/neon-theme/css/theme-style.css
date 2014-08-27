@@ -3233,7 +3233,7 @@ and open the template in the editor.
 }
 @media (max-width: 991px) {
   .social {
-    text-align: center;
+    text-align: center !important;
   }
 }
 .map {
@@ -3458,7 +3458,7 @@ and open the template in the editor.
 .lang-sel.align-center {
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .lang-sel {
     text-align: center !important;
   }
