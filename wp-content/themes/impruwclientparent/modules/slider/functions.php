@@ -120,18 +120,38 @@ function update_slider( $data, $slider_id = 0 ) {
     $arrData[ "title" ] = $data[ 'title' ];
     $arrData[ "alias" ] = $data[ 'alias' ];
     $arrData[ "height"] = $data[ 'height' ];
+    // print_r($data);exit;
     $params             = wp_parse_args( $data, slider_defaults() );
     unset( $arrData[ "height"] );
 
     //change params to json
     $arrData[ "params" ] = json_encode( $params );
+    // print_r($arrData['params']);exit;
 
     if ( $slider_id === 0 ) { //create slider
-        $wpdb->insert( GlobalsRevSlider::$table_sliders, $arrData );
+        $slider_id = $wpdb->insert( GlobalsRevSlider::$table_sliders, $arrData );
 
-        return ( $wpdb->insert_id );
+        // return ( $wpdb->insert_id );
     } else { //update slider
-        $slider_id = $wpdb->update( GlobalsRevSlider::$table_sliders, $arrData, array( "id" => $slider_id ) );
+        $wpdb->update( GlobalsRevSlider::$table_sliders, $arrData, array( "id" => $slider_id ) );
+    }
+
+    // set slide-transition for each slide of the slider on update of slider
+    if (isset($data['reset_transitions'])){
+        $tabs = GlobalsRevSlider::$table_slides;
+
+        $slides = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$tabs} WHERE slider_id = %d",$slider_id),ARRAY_A);
+        // print_r($slides);exit;
+        foreach ($slides as $slide) {
+            $slide_params = json_decode($slide['params']);
+            $slide_params->slide_transition = $data['reset_transitions'];
+            $slide_data = array( 'params' => json_encode($slide_params));
+            $wpdb->update( GlobalsRevSlider::$table_slides, $slide_data, array("id" => $slide['id'] ) );
+        }
+
+        // $slide_data = array('slide_transition'=>$data['reset_transitions']) ;
+
+        // $wpdb->update( GlobalsRevSlider::$table_slides, $slide_data, array("slider_id" => $slider_id ) );
     }
 
     return $slider_id;
@@ -236,7 +256,7 @@ function slider_defaults() {
         'first_transition_type'        => 'fade',
         'first_transition_duration'    => 300,
         'first_transition_slot_amount' => 7,
-        'reset_transitions'            => '',
+        'reset_transitions'            => 'fade',
         'reset_transition_duration'    => 0,
         0                              => 'Execute settings on all slides',
         'jquery_noconflict'            => 'on',
@@ -312,7 +332,7 @@ function slide_defaults() {
         "state"               => "published",
         "date_from"           => "",
         "date_to"             => "",
-        "slide_transition"    => "random",
+        "slide_transition"    => "fade",
         "0"                   => "Remove",
         "slot_amount"         => 7,
         "transition_rotation" => 0,

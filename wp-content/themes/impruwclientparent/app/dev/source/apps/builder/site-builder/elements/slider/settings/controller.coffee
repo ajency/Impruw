@@ -21,6 +21,9 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                 @listenTo view, "element:spacing:changed", (spacing, value)=>
                     @model.set spacing, value
 
+                @listenTo view, "element:slide:transition:changed",(slide_transition)=>
+                    @model.set 'reset_transitions',slide_transition
+
                 @show view
 
             # time to save model to server
