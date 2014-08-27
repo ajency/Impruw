@@ -6,6 +6,8 @@
 
 jQuery(document).ready(function ($) {
 
+    var polyglot = new Polyglot({phrases: PHRASES});
+
     //Function to send mail from the Contact Form
 
     $('#contact-form-save').click(function () {
@@ -264,11 +266,11 @@ jQuery(document).ready(function ($) {
 
         $('.display-label').empty();
 
-        $('.display-label').prepend("You have selected");
+        $('.display-label').prepend(polyglot.t("You have selected"));
 
         $('.date-range').find('b').text(selected_date);
 
-        $('.status').text(getAvailabilityClassName(date));
+        $('.status').text(polyglot.t(getAvailabilityClassName(date)));
 
     }
 
@@ -279,14 +281,7 @@ jQuery(document).ready(function ($) {
      * Display all the plans for the selected date
      */
     function showPlans(date) {
-        var html = '<div class="item active">\n\
-                        <div class="room-booking-plan">\n\
-                            <h5>\n\
-                                Selected date does not exsists in any of the\n\
-                                available dateranges\n\
-                            </h5>\n\
-                        </div>\n\
-                   </div>';
+        var html = '<div class="item active"><div class="room-booking-plan"><h5>'+polyglot.t("Selected date does not exsists in any of the available dateranges")+'</h5></div></div>';
 
         var range = DateInRange(date);
 
@@ -308,8 +303,7 @@ jQuery(document).ready(function ($) {
         var temp = 0;
 
         if (TARIFF.length === 0)
-            return ' <div class="room-booking-plan"><h5>No tariff/plans \n\
-                    exsists for selected date</h5></div>';
+            return ' <div class="room-booking-plan"><h5>'+polyglot.t("No tariff/plans exsists for selected date")+'</h5></div>';
 
         for (var i = 0; i < TARIFF.length; i++) {
 
@@ -334,49 +328,49 @@ jQuery(document).ready(function ($) {
 
                     html += '<div class="room-booking-plan">' + plans;
 
-                    html += '<div class="booking-detail">Max Adults Weekdays:<span>' +
+                    html += '<div class="booking-detail">'+polyglot.t("Max Adults Weekdays:")+'<span>' +
                         weekday.max_adults + '</span></div>';
 
-                    html += '<div class="booking-detail">Max Children Weekdays:<span>' +
+                    html += '<div class="booking-detail">'+polyglot.t("Max Children Weekdays:")+'<span>' +
                         weekday.max_children + '</span></div>';
 
                     html += '<div class="clearfix"></div>';
 
                     html += '<div class="plan-bg">'
 
-                    html += '<h6>Additional Charge Weekdays</h6>' +
-                        '<div class="booking-detail">per extra Adult:$'
+                    html += '<h6>'+polyglot.t("Additional Charge Weekdays")+'</h6>' +
+                        '<div class="booking-detail">'+polyglot.t("per extra Adult:")+'$'
                         + weekday.extra_adult + '</div>';
 
-                    html += '<div class="booking-detail">per extra Child:$'
+                    html += '<div class="booking-detail">'+polyglot.t("per extra Child:")+'$'
                         + weekday.extra_child + '</div>';
 
                     html += '<div class="clearfix"></div>';
 
-                    html += '<div class="booking-price">WEEKDAYS <b>$' + weekday.charge + '</b></div>';
+                    html += '<div class="booking-price">'+polyglot.t("WEEKDAYS")+' <b>$' + weekday.charge + '</b></div>';
 
                     html += '</div>';
 
-                    html += '<div class="booking-detail">Max Adults Weekend:<span>' +
+                    html += '<div class="booking-detail">'+polyglot.t("Max Adults Weekend:")+'<span>' +
                         weekend.max_adults + '</span></div>';
 
-                    html += '<div class="booking-detail">Max Children Weekend:<span>' +
+                    html += '<div class="booking-detail">'+polyglot.t("Max Children Weekend:")+'<span>' +
                         weekend.max_children + '</span></div>';
 
                     html += '<div class="clearfix"></div>';
 
                     html += '<div class="plan-bg">';
 
-                    html += '<h6>Additional Charge Weekend</h6>' +
-                        '<div class="booking-detail">per extra Adult:$'
+                    html += '<h6>'+polyglot.t("Additional Charge Weekend")+'</h6>' +
+                        '<div class="booking-detail">'+polyglot.t("per extra Adult:")+'$'
                         + weekend.extra_adult + '</div>';
 
-                    html += '<div class="booking-detail">per extra Child:$'
+                    html += '<div class="booking-detail">'+polyglot.t("per extra Child:")+'$'
                         + weekend.extra_child + '</div>';
 
                     html += '<div class="clearfix"></div>';
 
-                    html += '<div class="booking-price">WEEKEND <b>$' + weekend.charge + '</b></div>';
+                    html += '<div class="booking-price">'+polyglot.t("WEEKEND")+' <b>$' + weekend.charge + '</b></div>';
 
                     html += '</div></div></div>';
 
