@@ -25,10 +25,10 @@ function updateroom( $room_data ) {
     $slider_id    = $room_data[ 'slider_id' ];
     $no_of_rooms  = $room_data[ 'no_of_rooms' ];
 
-    $feature_image_id  = $room_data[ 'feature_image_id' ];
+    $feature_image_id  = 0;
     
-    if($room_data['feature_image_id']==="")
-        $feature_image_id = $room_data[ 'thumbnail_id' ];
+    if(isset($room_data['feature_image_id']))
+        $feature_image_id = $room_data[ 'feature_image_id' ];
 
 
     // prepare facility array
@@ -251,7 +251,7 @@ function get_room( $roomid ) {
     // prepare the post meta strings to array
     $room_post_meta = array( 'slider_id'         => $room_slider_id,
                              'no_of_rooms'       => $no_of_rooms,
-                             'thumbnail_id'      => (int) $attachment_id,
+                             'feature_image_id'  => (int) $attachment_id,
                              'post_excerpt'      => '',
                              'check-in'          => $check_in,
                              'check-out'          => $check_out,

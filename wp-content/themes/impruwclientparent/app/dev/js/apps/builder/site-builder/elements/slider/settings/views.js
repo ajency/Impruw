@@ -14,6 +14,32 @@ define(['app', 'text!apps/builder/site-builder/elements/slider/settings/template
 
       SettingsView.prototype.className = 'modal-content settings-box';
 
+      SettingsView.prototype.mixinTemplateHelpers = function(data) {
+        data = SettingsView.__super__.mixinTemplateHelpers.call(this, data);
+        data.transitions = [
+          {
+            name: 'Fade',
+            value: 'fade'
+          }, {
+            name: 'Slide To Left',
+            value: 'slideleft'
+          }, {
+            name: 'No Transition',
+            value: 'notransition'
+          }, {
+            name: 'Fly In',
+            value: 'flyin'
+          }, {
+            name: 'Paper Cut',
+            value: 'papercut'
+          }, {
+            name: 'Slide Boxes',
+            value: 'boxslide'
+          }
+        ];
+        return data;
+      };
+
       SettingsView.prototype.initialize = function(opt) {
         if (opt == null) {
           opt = {};
@@ -24,19 +50,20 @@ define(['app', 'text!apps/builder/site-builder/elements/slider/settings/template
 
       SettingsView.prototype.onRender = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
-        this.$el.find('select').selectpicker();
-        return this.setFields();
+        this.setFields();
+        return this.$el.find('select').selectpicker();
       };
 
       SettingsView.prototype.setFields = function() {
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').checkbox('check');
         }
-        this.$el.find('select[name="align"]').selectpicker('val', this.eleModel.get('align'));
-        this.$el.find('select[name="top_margin"]').selectpicker('val', this.eleModel.get('top_margin'));
-        this.$el.find('select[name="left_margin"]').selectpicker('val', this.eleModel.get('left_margin'));
-        this.$el.find('select[name="bottom_margin"]').selectpicker('val', this.eleModel.get('bottom_margin'));
-        return this.$el.find('select[name="right_margin"]').selectpicker('val', this.eleModel.get('right_margin'));
+        this.$el.find('select[name="slide_transition"]').val(this.eleModel.get('reset_transitions'));
+        this.$el.find('select[name="align"]').val(this.eleModel.get('align'));
+        this.$el.find('select[name="top_margin"]').val(this.eleModel.get('top_margin'));
+        this.$el.find('select[name="left_margin"]').val(this.eleModel.get('left_margin'));
+        this.$el.find('select[name="bottom_margin"]').val(this.eleModel.get('bottom_margin'));
+        return this.$el.find('select[name="right_margin"]').val(this.eleModel.get('right_margin'));
       };
 
       SettingsView.prototype.events = {
@@ -46,6 +73,9 @@ define(['app', 'text!apps/builder/site-builder/elements/slider/settings/template
         },
         'change select[name="slider_id"]': function(evt) {
           return this.trigger("element:slider_id:changed", $(evt.target).val());
+        },
+        'change select[name="slide_transition"]': function(evt) {
+          return this.trigger("element:slide:transition:changed", $(evt.target).val());
         },
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));

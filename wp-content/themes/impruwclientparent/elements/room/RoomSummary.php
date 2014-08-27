@@ -36,7 +36,11 @@ class RoomSummary extends Element {
             $this->markup = $this->generate_dummy_markup();
             return;
         }
-        $this->image_id = $element['image_id'];
+
+        $thumbnail_id = get_post_thumbnail_id($this->room_id );
+        
+        $this->image_id = $thumbnail_id > 0 ? $thumbnail_id : 0;
+        
         $this->room   = get_room( $this->room_id );
         $this->style  = $element[ 'style' ];
         $this->markup = $this->generate_markup();
