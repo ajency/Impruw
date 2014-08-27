@@ -13,7 +13,7 @@ function wp_insert_plan( $formdata ) {
     return $wpdb->insert_id;
 }
 
-function get_plans() {
+function get_plans($dashboard=TRUE) {
 
     global $wpdb;
 
@@ -25,16 +25,15 @@ function get_plans() {
     
     $plan_array = array();
 
-    $default_language = wpml_get_default_language();
-
     $language = '';
 
-    foreach ($plans as $plan) {
-        
-        //unserialize plan_name and plan_description 
-        $plan_name_unserialized = maybe_unserialize( $plan['plan_name'] );
-        $plan_desc_unserialized = maybe_unserialize( $plan['plan_description'] );
-        
+    if($dashboard===FALSE){
+        $default_language = wpml_get_current_language();
+        $language =  wpml_get_default_language();
+    }
+    else{
+        $default_language = wpml_get_default_language();
+
         if($default_language==='en'){
 
             $language = 'nb';
@@ -42,6 +41,15 @@ function get_plans() {
         else{
             $language = 'en';
         }
+    }
+   
+
+    foreach ($plans as $plan) {
+        
+        //unserialize plan_name and plan_description 
+        $plan_name_unserialized = maybe_unserialize( $plan['plan_name'] );
+        $plan_desc_unserialized = maybe_unserialize( $plan['plan_description'] );
+        
 
         if(is_array($plan_name_unserialized)){
             $plan_name = isset($plan_name_unserialized[$default_language]) ? $plan_name_unserialized[$default_language] : $plan_name_unserialized[$language];

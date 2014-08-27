@@ -30,7 +30,7 @@ function wp_insert_daterange( $formdata ) {
  *
  * @return Ambigous <mixed, NULL, multitype:, multitype:multitype: , multitype:Ambigous <multitype:, NULL> >
  */
-function get_date_range() {
+function get_date_range($dashboard=TRUE) {
 
     global $wpdb;
 
@@ -41,12 +41,15 @@ function get_date_range() {
     $date_ranges = $wpdb->get_results( $query, ARRAY_A );
 
     $date_range_array = array();
-    $default_language = wpml_get_default_language();
 
-    foreach ($date_ranges as $date_range) {
-        
-        //unserialize plan_name and plan_description 
-        $daterange_name_unserialized = maybe_unserialize( $date_range['daterange_name'] );
+    $language = '';
+
+    if($dashboard===FALSE){
+        $default_language = wpml_get_current_language();
+        $language =  wpml_get_default_language();
+    }
+    else{
+        $default_language = wpml_get_default_language();
 
         if($default_language==='en'){
 
@@ -55,6 +58,12 @@ function get_date_range() {
         else{
             $language = 'en';
         }
+    }
+
+    foreach ($date_ranges as $date_range) {
+        
+        //unserialize plan_name and plan_description 
+        $daterange_name_unserialized = maybe_unserialize( $date_range['daterange_name'] );
         
         if(is_array($daterange_name_unserialized)){
             $daterange_name = isset($daterange_name_unserialized[$default_language]) ? $daterange_name_unserialized[$default_language] : $daterange_name_unserialized[$language];
