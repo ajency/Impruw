@@ -13,9 +13,7 @@ define(['app', 'controllers/base-controller', 'apps/media/upload/views'], functi
       Controller.prototype.initialize = function() {
         var view;
         view = this._getView();
-        this.listenTo(view, "upload:complete", function() {
-          return Marionette.triggerMethod.call(this.region, "media:upload:complete");
-        });
+        this.listenTo(view, "upload:complete", function() {});
         return this.show(view);
       };
 

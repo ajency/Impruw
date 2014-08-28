@@ -36,6 +36,7 @@ define ['app'
 
                 @listenTo @layout.gridRegion, "media:element:selected", (media)=>
                     @choosedMedia = media
+                    
 #                    App.execute "show:edit:media",
 #                      media,
 #                      @layout.editMediaRegion

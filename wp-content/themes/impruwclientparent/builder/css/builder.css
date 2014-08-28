@@ -1202,18 +1202,18 @@ a.red-link.pull-right {
   line-height: 18px;
   display: block;
 }
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover {
+.aj-imp-builder-layout-mode .element-wrapper.hover-class {
   border: 1px solid #ff7e00;
 }
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-controls .aj-imp-drag-handle,
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-controls .aj-imp-delete-btn,
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-controls .aj-imp-settings-btn {
+.aj-imp-builder-layout-mode .element-wrapper.hover-class > .element-controls .aj-imp-drag-handle,
+.aj-imp-builder-layout-mode .element-wrapper.hover-class > .element-controls .aj-imp-delete-btn,
+.aj-imp-builder-layout-mode .element-wrapper.hover-class > .element-controls .aj-imp-settings-btn {
   display: block;
 }
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-markup > .row > .column {
+.aj-imp-builder-layout-mode .element-wrapper.hover-class > .element-markup > .row > .column {
   border-right: 1px dotted #c3c3c3;
 }
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-markup > .row > .column:last-child {
+.aj-imp-builder-layout-mode .element-wrapper.hover-class > .element-markup > .row > .column:last-child {
   border-right: 0;
 }
 .aj-imp-builder-layout-mode .aj-imp-col-sel {
