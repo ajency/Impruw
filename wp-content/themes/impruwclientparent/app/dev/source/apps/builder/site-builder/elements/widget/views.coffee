@@ -19,13 +19,13 @@ define ['app'],(App)->
 			renderWidget :->
 				if @model.get('widgetCode') is ''
 					if @model.get('type') is ''
-						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>Choose your widget type and add your embed code from the settings</div>'
+						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>'+_.polyglot.t('Choose your widget type and add your embed code from the settings')+'</div>'
 					else if @model.get('type') is 'youtube'
-						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Youtube embed code in the settings</div>'
+						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>'+_.polyglot.t('Add Youtube embed code in the settings')+'</div>'
 					else if @model.get('type') is 'facebook'
-						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Facebook embed code in the settings</div>'
+						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>'+_.polyglot.t('Add Facebook embed code in the settings')+'</div>'
 					else if @model.get('type') is 'tripadvisor'
-						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Tripadvisor embed code in the settings</div>'
+						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>'+_.polyglot.t('Add Tripadvisor embed code in the settings')+'</div>'
 					return
 
 
