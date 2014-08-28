@@ -14,7 +14,7 @@ define ['app', 'apps/builder/site-builder/elements/link/views',
                     text: 
                         'en':'Add link'
                         'nb': _.polyglot.t('Add link')
-                    target: 'self'
+                    target: '_self'
 
                 super(options)
 

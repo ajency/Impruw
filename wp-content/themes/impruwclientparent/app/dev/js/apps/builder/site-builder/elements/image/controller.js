@@ -19,14 +19,15 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
           size: 'thumbnail',
           align: 'left',
           heightRatio: 'auto',
-          topRatio: 0
+          topRatio: 0,
+          link: '#',
+          target: '_self'
         });
         return Controller.__super__.initialize.call(this, options);
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:image_id", this.renderElement);
-        this.listenTo(this.layout.model, "change:align", this.renderElement);
+        this.listenTo(this.layout.model, "change:image_id change:align change:link change:target", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -38,10 +39,12 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
       };
 
       Controller.prototype._getImageView = function(imageModel) {
+        console.log(this.layout.model);
         return new Image.Views.ImageView({
           model: imageModel,
           imageHeightRatio: this.layout.model.get('heightRatio'),
           positionTopRatio: this.layout.model.get('topRatio'),
+          eleModel: this.layout.model,
           templateHelpers: this._getTemplateHelpers()
         });
       };
