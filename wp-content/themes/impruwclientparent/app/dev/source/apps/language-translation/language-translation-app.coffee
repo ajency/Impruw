@@ -4,7 +4,8 @@ define ['app'
         'apps/language-translation/language-page-nav/controller'
         'apps/language-translation/language-page-content/show/controller'
         'apps/language-translation/language-page-rooms/show/controller'
-        'apps/language-translation/language-site-details/show/controller'], (App)->
+        'apps/language-translation/language-site-details/show/controller'
+        'apps/language-translation/language-header/show/controller'], (App)->
 
     App.module 'LanguageApp', (LanguageApp, App, Backbone, Marionette, $, _)->
 

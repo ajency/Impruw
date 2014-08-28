@@ -40,18 +40,23 @@ define(['app'], function(App) {
         return LanguagePageNavView.__super__.constructor.apply(this, arguments);
       }
 
-      LanguagePageNavView.prototype.template = '<ul class="nav nav-pills" id="js-page-nav-bar"> <li> <a href="#site" id="site" data-toggle="tab"> Site Profile </a> </li> </ul>';
+      LanguagePageNavView.prototype.template = '<ul class="nav nav-pills" id="js-page-nav-bar"> <li> <a href="#site" id="site" data-toggle="tab"> {{#polyglot}}Site Profile{{/polyglot}} </a> </li> <li> <a href="#page-header" id="page-header" data-toggle="tab"> {{#polyglot}}Page Header{{/polyglot}} </a> </li> <li> <a href="#page-footer" id="page-footer" data-toggle="tab"> {{#polyglot}}Page Footer{{/polyglot}} </a> </li> </ul>';
 
       LanguagePageNavView.prototype.itemView = LanguagePageNavItemView;
 
       LanguagePageNavView.prototype.itemViewContainer = '#js-page-nav-bar';
 
       LanguagePageNavView.prototype.events = {
-        'click a#site': 'loadSiteContent'
+        'click a#site': 'loadSiteContent',
+        'click a#page-header': 'loadHeaderContent'
       };
 
       LanguagePageNavView.prototype.loadSiteContent = function(e) {
         return this.trigger("site:translate:content");
+      };
+
+      LanguagePageNavView.prototype.loadHeaderContent = function(e) {
+        return this.trigger("header:translate:content");
       };
 
       return LanguagePageNavView;
