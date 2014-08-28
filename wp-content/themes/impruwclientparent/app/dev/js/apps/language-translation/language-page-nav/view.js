@@ -48,7 +48,8 @@ define(['app'], function(App) {
 
       LanguagePageNavView.prototype.events = {
         'click a#site': 'loadSiteContent',
-        'click a#page-header': 'loadHeaderContent'
+        'click a#page-header': 'loadHeaderContent',
+        'click a#page-footer': 'loadFooterContent'
       };
 
       LanguagePageNavView.prototype.loadSiteContent = function(e) {
@@ -57,6 +58,10 @@ define(['app'], function(App) {
 
       LanguagePageNavView.prototype.loadHeaderContent = function(e) {
         return this.trigger("header:translate:content");
+      };
+
+      LanguagePageNavView.prototype.loadFooterContent = function(e) {
+        return this.trigger("footer:translate:content");
       };
 
       return LanguagePageNavView;

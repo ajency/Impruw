@@ -255,6 +255,25 @@ function get_header_translation_elements(){
    return $elements;
 }
 
+//Function to get all page footer elements of a site
+function get_footer_translation_elements(){
+
+    $data = get_json_to_clone('theme-footer');
+
+    $elements = array();
+
+    foreach ( $data as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_translation_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;
+}
+
 function get_row_translation_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {

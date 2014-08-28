@@ -49,11 +49,14 @@ define ['app'], (App)->
                     events:
                         'click a#site' : 'loadSiteContent'
                         'click a#page-header' : 'loadHeaderContent'
-                        # 'click a#page-footer' : 'loadFooterContent'
+                        'click a#page-footer' : 'loadFooterContent'
 
                     loadSiteContent: (e) ->
                         @trigger "site:translate:content"
 
                     loadHeaderContent: (e) ->
                         @trigger "header:translate:content"
+
+                    loadFooterContent: (e) ->
+                        @trigger "footer:translate:content"
 
