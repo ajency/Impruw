@@ -738,5 +738,8 @@
       "CVV:": "CVV:",
       "Expires On:": "Expires On:",
       "Card Added Successfuly": "Card Added Successfuly",
-      "Print" : "Print"
+      "Print" : "Print",
+      "Page Header": "Page Header",
+      "Page Footer": "Page Footer",
+      "Page Header Translations" : "Page Header Translations" 
 }
