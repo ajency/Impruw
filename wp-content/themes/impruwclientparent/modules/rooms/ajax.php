@@ -135,21 +135,30 @@ function update_translated_room(){
     $room_title = $_REQUEST['room_title'];
     $room_desc = $_REQUEST['room_desc'];
     $room_id = $_REQUEST['room_id'];
-    $room_slug = sanitize_title($room_title);
+
+    //Get old room slug
+    $post_before_update = get_post($room_id,ARRAY_A);
+
+    //Check if the post title before update contains the string 'not translated)' 
+    //if yes then update the slug else dont
+    $haystack = $post_before_update['post_title'];
+    $needle = 'not translated)';
+
+    if (strpos($haystack,$needle) !== false) {
+        add_filter( 'wp_insert_post_data', 'page_update_slug', 99, 2 );
+    }
 
     // Update post with id = $room_id
     $room_post = array(
       'ID'           => $room_id,
       'post_title'   => $room_title,
-      'post_content' => $room_desc,
-      'post_name' => $room_slug
+      'post_content' => $room_desc
       );
 
     // Update the post into the database
     $return_post_id = wp_update_post( $room_post );
 
     $data['post_id'] = $return_post_id;
-    $data['room_slug'] = $room_slug;
 
     wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
     

@@ -171,7 +171,7 @@ function duplicate_language_page($page_id,$language,$post_type){
 
     $original_page = get_post($page_id);
     $original_page_name = $original_page->post_title;
-    $translated_page_name = $original_page_name.'( not translated)';
+    $translated_page_name = $original_page_name.'(not translated)';
 
     $element_type = "post_".$post_type;
 
@@ -372,7 +372,22 @@ function get_native_language_name($language_code){
     return $native_language_name;
 }
 
+function page_update_slug( $data, $postarr ) {
+    if( !in_array( $data['post_status'], array( 'draft', 'pending', 'auto-draft' ) ) ) {
 
+        $data['post_name'] = get_unique_post_slug($postarr);
+    }
+        
+    return $data;
+}
+
+function get_unique_post_slug($postdata){
+    remove_all_filters( 'wp_unique_post_slug');
+
+    $unique_slug = wp_unique_post_slug( sanitize_title( $postdata['post_title'] ), $postdata['ID'], $postdata['post_status'], $postdata['post_type'], $postdata['post_parent'] );
+
+    return $unique_slug;
+}
 
 
 

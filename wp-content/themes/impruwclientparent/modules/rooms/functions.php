@@ -552,8 +552,8 @@ function duplicate_language_post($post_id, $post_type, $lang){
     $tbl_icl_translations = $wpdb->prefix ."icl_translations";
 
     // Define title of translated post
-    $post_translated_title = get_post( $post_id )->post_title .' ( not translated )';
-    $post_translated_desc = get_post( $post_id )->post_content .' ( not translated )';
+    $post_translated_title = get_post( $post_id )->post_title .' (not translated)';
+    $post_translated_desc = get_post( $post_id )->post_content .' (not translated)';
 
     //element type
     $element_type = 'post_'.$post_type;

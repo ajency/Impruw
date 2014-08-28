@@ -158,6 +158,8 @@ function update_translated_page_title(){
     //Get old page slug
     $post_before_update = get_post($page_id,ARRAY_A);
 
+    //Check if the post title before update contains the string 'not translated)' 
+    //if yes then update the slug else dont
     $haystack = $post_before_update['post_title'];
     $needle = 'not translated)';
 
@@ -183,20 +185,4 @@ add_action( 'wp_ajax_update-translated-page-title', 'update_translated_page_titl
 
 add_action( 'wp_ajax_create-pageElements', 'update_element_model' );
 
-function page_update_slug( $data, $postarr ) {
-  if ( !in_array( $data['post_status'], array( 'draft', 'pending', 'auto-draft' ) ) ) {
-
-        $data['post_name'] = get_unique_post_slug($postarr);
-    }
-
-    return $data;
-}
-
-function get_unique_post_slug($postdata){
-    remove_all_filters( 'wp_unique_post_slug');
-
-    $unique_slug = wp_unique_post_slug( sanitize_title( $postdata['post_title'] ), $postdata['ID'], $postdata['post_status'], $postdata['post_type'], $postdata['post_parent'] );
-
-    return $unique_slug;
-}
 
