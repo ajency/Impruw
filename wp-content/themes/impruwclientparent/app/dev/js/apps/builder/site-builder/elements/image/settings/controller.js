@@ -44,6 +44,16 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
             return _this.model.set(spacing, value);
           };
         })(this));
+        this.listenTo(view, "element:link:changed", (function(_this) {
+          return function(link) {
+            return _this.model.set("link", link);
+          };
+        })(this));
+        this.listenTo(view, "element:target:changed", (function(_this) {
+          return function(target) {
+            return _this.model.set("target", target);
+          };
+        })(this));
         return this.show(view);
       };
 

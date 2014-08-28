@@ -20,7 +20,7 @@ define(['app', 'apps/builder/site-builder/elements/link/views', 'apps/builder/si
             'en': 'Add link',
             'nb': _.polyglot.t('Add link')
           },
-          target: 'self'
+          target: '_self'
         });
         return Controller.__super__.initialize.call(this, options);
       };

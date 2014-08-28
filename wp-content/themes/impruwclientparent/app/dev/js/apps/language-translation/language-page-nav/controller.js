@@ -20,6 +20,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.listenTo(this.languagePageNavView, "itemview:page:content", this.loadLanguagePageContent);
         this.listenTo(this.languagePageNavView, "site:translate:content", this.loadSiteContent);
         this.listenTo(this.languagePageNavView, "header:translate:content", this.loadHeaderContent);
+        this.listenTo(this.languagePageNavView, "footer:translate:content", this.loadFooterContent);
         return this.show(this.languagePageNavView, {
           loading: true
         });
@@ -58,6 +59,10 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
       Controller.prototype.loadHeaderContent = function() {
         return Marionette.triggerMethod.call(this.region, "load:header:content", this.editingLanguage);
+      };
+
+      Controller.prototype.loadFooterContent = function() {
+        return Marionette.triggerMethod.call(this.region, "load:footer:content", this.editingLanguage);
       };
 
       return Controller;
