@@ -88,7 +88,7 @@
                     'description' => 'Used in Menu, Room Elements, Row Element, Titles'
                 ),
                 'text-color' => array(
-                    'color' => '#989898',
+                    'color' => '#444444',
                     'title' => 'Text Colour',
                     'tooltip' => 'Text Elements',
                     'description' => 'Used for the text colour across the site'
