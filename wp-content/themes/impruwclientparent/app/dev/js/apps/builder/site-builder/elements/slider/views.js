@@ -17,7 +17,7 @@ define(['app'], function(App) {
       SliderItem.prototype.tagName = 'li';
 
       SliderItem.prototype.onRender = function() {
-        return this.$el.attr('data-transition', 'fade').attr('data-slotamount', '0').attr('data-masterspeed', '500');
+        return this.$el.attr('data-slotamount', '0').attr('data-masterspeed', '500').attr('data-transition', Marionette.getOption(this, 'slide_transition'));
       };
 
       SliderItem.prototype.modelEvents = {
@@ -61,11 +61,21 @@ define(['app'], function(App) {
 
       SliderView.prototype.itemViewContainer = '.fullwidthbanner > ul';
 
+      SliderView.prototype.itemViewOptions = function() {
+        return {
+          slide_transition: this.model.get('reset_transitions')
+        };
+      };
+
       SliderView.prototype.events = {
         'click': 'sliderClick',
         'click .tp-rightarrow,.tp-leftarrow,.bullet': function(e) {
           return e.stopPropagation();
         }
+      };
+
+      SliderView.prototype.modelEvents = {
+        'change:reset_transitions': 'changeTransitions'
       };
 
       SliderView.prototype.collectionEvents = {
@@ -77,6 +87,10 @@ define(['app'], function(App) {
 
       SliderView.prototype.onClose = function() {
         return delete this.revapi;
+      };
+
+      SliderView.prototype.changeTransitions = function(model, reset_transitions) {
+        return this.trigger('render:slider');
       };
 
       SliderView.prototype._getSliderRatio = function() {

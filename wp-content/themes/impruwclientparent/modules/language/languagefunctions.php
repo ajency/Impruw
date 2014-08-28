@@ -12,23 +12,47 @@ function detect_user_language(){
     return $currentUserLang;
 }
 
-function load_language_phrases(){
+function load_language_phrases($dashboard=TRUE){
 
-    $currentUserLang = detect_user_language();
+    if($dashboard===FALSE){
+        $currentUserLang = wpml_get_current_language();
+    }
+    else{
+        $currentUserLang = detect_user_language();
+    }
 
     if($currentUserLang==="en"){
         $file = "en-US.json"; 
     }
     else if($currentUserLang==="nb"){
         $file = "nb-NO.json"; 
-    }    
+    }
+    else if($currentUserLang==="fr"){
+        $file = "fr-FR.json"; 
+    } 
+    else if($currentUserLang==="es"){
+        $file = "es-ES.json"; 
+    }
+    else if($currentUserLang==="de"){
+        $file = "de-DE.json"; 
+    } 
+    else if($currentUserLang==="it"){
+        $file = "it-IT.json"; 
+    }      
     else{
         $file = "en-US.json";
     }
 
     
     $filepath = get_theme_root_uri();
-    $filepath .= "/impruwclientparent/modules/language/";
+
+    if($dashboard===FALSE){
+        $filepath .= "/impruwclientparent/modules/language/frontend/";
+    }
+    else{
+      $filepath .= "/impruwclientparent/modules/language/";
+    }
+   
     $filepath .= $file;
 
     $jsonString = file_get_contents($filepath);
@@ -147,7 +171,7 @@ function duplicate_language_page($page_id,$language,$post_type){
 
     $original_page = get_post($page_id);
     $original_page_name = $original_page->post_title;
-    $translated_page_name = $original_page_name.'( not translated)';
+    $translated_page_name = $original_page_name ;
 
     $element_type = "post_".$post_type;
 
@@ -347,7 +371,6 @@ function get_native_language_name($language_code){
     $native_language_name = $language_details['display_name'];
     return $native_language_name;
 }
-
 
 
 

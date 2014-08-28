@@ -1,0 +1,18 @@
+{
+	"You have selected":"You have selected",
+	"unavailable" : "unavailable",
+	"available": "available",
+	"semi-available": "semi-available",
+	"Max Adults Weekdays:": "Max Adults Weekdays:",
+	"Max Children Weekdays:": "Max Children Weekdays:",
+	"Additional Charge Weekdays": "Additional Charge Weekdays",
+	"per extra Adult:": "per extra Adult:" ,
+	"per extra Child:": "per extra Child:" ,
+	"WEEKDAYS": "WEEKDAYS" ,
+	"Max Adults Weekend:": "Max Adults Weekend:",
+	"Max Children Weekend:": "Max Children Weekend:",
+	"Additional Charge Weekend": "Additional Charge Weekend",
+	"WEEKEND": "WEEKEND" ,
+	"Selected date does not exsists in any of the available dateranges": "Selected date does not exsists in any of the available dateranges" ,
+	"No tariff/plans exsists for selected date": "No tariff/plans exsists for selected date" 
+}

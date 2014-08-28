@@ -22,12 +22,13 @@
 </script>
 <?php if ( is_singular() ): ?>
     <script type="text/javascript">
-        var PLANS = <?php echo json_encode(get_plans()); ?>;
-        var DATERANGE = <?php echo json_encode(get_date_range()); ?>;
+        var PLANS = <?php echo json_encode(get_plans(FALSE)); ?>;
+        var DATERANGE = <?php echo json_encode(get_date_range(FALSE)); ?>;
         //var TARIFF =
         <?php echo json_encode(get_tariff(2)); ?>;
         var TARIFF = <?php echo json_encode(get_tariff(get_the_ID())); ?>;
         var BOOKING = <?php echo json_encode(get_bookings()); ?>;
+        var PHRASES = <?php echo json_encode(load_language_phrases(FALSE));?>;
     </script>
 <?php endif; ?>
 <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
@@ -140,7 +141,10 @@
                 // var_dump($theme_set_color);
 
                 foreach ($theme_set_color as $color_scheme ) {
-                    echo "<li> <a href='#' class='active hhh' data-color='{$color_scheme['name']}'>";
+                    if( (isset($_COOKIE['color_scheme']) && $color_scheme['name'] == $_COOKIE['color_scheme']) || (!isset($_COOKIE['color_scheme']) && $color_scheme['name'] == 'Default') )
+                        echo "<li> <a href='#' class='active' data-color='{$color_scheme['name']}'>";
+                    else 
+                        echo "<li> <a href='#' class='' data-color='{$color_scheme['name']}'>";
                     echo "<h6>{$color_scheme['name']}</h6>";
                     foreach ($color_scheme as $key => $value) {
                         if($key != 'name')

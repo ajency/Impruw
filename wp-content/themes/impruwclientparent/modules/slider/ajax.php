@@ -37,6 +37,7 @@ add_action( 'wp_ajax_create-slider', 'create_slider' );
 function update_slider_ajax() {
 
     $data = $_POST;
+    print_r($_POST);
 
     $slider_id = $_POST[ 'id' ];
 

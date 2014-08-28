@@ -358,6 +358,9 @@ function add_element_markup( $element ) {
         case 'Table' :
             $html = get_table_element_markup( $element );
             break;
+        case 'Widget' :
+            $html = get_widget_element_markup( $element );
+            break;
         case 'Social' :
             $html = get_social_element_markup( $element );
             break;
@@ -788,6 +791,17 @@ function get_table_element_markup( $element ){
 
 }
 
+function get_widget_element_markup( $element ){
+    require_once PARENTTHEMEPATH . 'elements/WidgetElement.php';
+
+    $widget = new WidgetElement( $element );
+
+    $html = $widget->get_markup();
+
+    return $html;
+
+}
+
 /**
  * Generates the title markup
  *
@@ -911,9 +925,17 @@ function get_theme_JS() {
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.slimmenu.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/user_management.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/polyglot.js"></script>
+    <?php
+        if ( is_page_template( 'page-login.php' ) ) {
+            // Do NOT load lightbox
+        } else { ?>
+            <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
+        <?php }
+    ?>
+    
     <!-- Isotope -->
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/isotope.js"></script>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
     <script>
         jQuery(document).ready(function () {
             if (jQuery('ul.gallery li').length === 0)

@@ -1,0 +1,45 @@
+.lang-sel {
+	text-align: right;
+	margin: 2em 0 0.5em;
+	&.align-left {
+		text-align: left;
+	}
+	&.align-right {
+		text-align: right;
+	}
+	&.align-center {
+		text-align: center;
+	}
+	@media(max-width:991px){
+		text-align: center !important;
+	}
+	> div {
+		text-align: left;
+		ul, li {
+			width: 170px;
+			ul {
+				z-index: 1;
+				border: 0 !important;
+			}
+			a {
+				background-color: @quarternary1 !important;
+				color: @tertiary1 !important;
+				border: 0 !important;
+				&:hover {
+					color: @secondary1 !important;
+				}
+				&.lang_sel_sel {
+					border: 0 !important;
+					background-position: 150px center !important;
+					&:hover {
+						color: @secondary1 !important;
+					}
+				}
+			}
+			
+		}
+		.iclflag {
+			top: -1px !important;
+		}
+	}
+}
