@@ -53,27 +53,27 @@ define [ 'app', 'controllers/base-controller',
                             @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Select valid daterange" ) + "</div>"
 
             checkDaterangeValid : ( selectedDate )->
-                temp = 0;
+                temp = 1
 
                 daterangeCollection = App.request "get:daterange:collection"
 
                 if daterangeCollection.models.length is 0
                     temp =1
                 else
-                    _.each daterangeCollection.models, ( daterangeModel, index ) =>
-                            fromDate = daterangeModel.get 'from_date'
-                            toDate = daterangeModel.get 'to_date'
+                    for daterangeModel in daterangeCollection.models
+                        fromDate = daterangeModel.get 'from_date'
+                        toDate = daterangeModel.get 'to_date'
 
-                            fromDate = moment( fromDate ).subtract( 'days', 1 )
-                            toDate = moment( toDate ).add( 'days', 1 )
+                        fromDate = moment( fromDate ).subtract( 'days', 1 )
+                        toDate = moment( toDate ).add( 'days', 1 )
+                        console.info fromDate, toDate
+                        # fromDateCheck = moment( selectedDate.from_date ).isAfter( fromDate )
+                        # toDateCheck = moment( selectedDate.to_date ).isBefore( toDate )
 
-                            fromDateCheck = moment( selectedDate.from_date ).isAfter( fromDate )
-                            toDateCheck = moment( selectedDate.to_date ).isBefore( toDate )
+                        if ( moment( selectedDate.from_date ).isBefore( fromDate ) and moment( selectedDate.to_date ).isAfter( toDate ) ) or ( moment( selectedDate.from_date ).isAfter( fromDate ) and moment( selectedDate.from_date ).isBefore( toDate ) ) or ( moment( selectedDate.from_date ).isBefore( fromDate ) and moment( selectedDate.to_date ).isAfter( fromDate ))
+                            temp = 0
+                            break
 
-                            if fromDateCheck is true and toDateCheck is false
-                                temp = temp + 1
-                            else
-                                temp = 0
                 temp
 
 
