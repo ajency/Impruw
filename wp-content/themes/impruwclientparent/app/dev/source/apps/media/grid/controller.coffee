@@ -41,6 +41,9 @@ define [ 'app', 'controllers/base-controller', 'apps/media/grid/views' ], ( App,
 					view.listenTo editView, "image:editing:cancelled", ->
 						view.triggerMethod "image:editing:cancelled"
 
+				App.commands.setHandler "new:media:added",(media)=>
+                    @mediaCollection.add media
+
 				@show view, loading : true
 
 

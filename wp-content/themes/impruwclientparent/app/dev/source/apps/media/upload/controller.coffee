@@ -11,7 +11,7 @@ define [ 'app', 'controllers/base-controller', 'apps/media/upload/views' ], ( Ap
                 view = @_getView()
 
                 @listenTo view,"upload:complete", ->
-                    Marionette.triggerMethod.call( @region, "media:upload:complete" )
+                    # Marionette.triggerMethod.call( @region, "media:upload:complete" )
 
                 @show view
 
