@@ -90,7 +90,12 @@ class AddressElement extends Element {
 
         $contact_at  = wp_parse_args($contact_at , $defaults);
         
-        //extract( $contact_at, EXTR_SKIP );
+        $themes = explode(',', THEME_ID);
+
+        if(in_array(get_current_blog_id(), $themes)){
+            $contact_at['email'] = 'info@impruw.com';     
+        }
+
         global $me;
         $html = $me->render($this->template, $contact_at);
         return $html;
