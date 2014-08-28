@@ -127,7 +127,7 @@
                     'description' => 'Used for the text colour across the site'
                 ),
                 'button-color' => array(
-                    'color' => '#DC3D24',
+                    'color' => '#99CD4E',
                     'title' => 'Button Colour',
                     'tooltip' => 'Button Elements',
                     'description' => 'Used in Buttons'
