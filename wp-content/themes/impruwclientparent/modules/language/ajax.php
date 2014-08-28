@@ -155,18 +155,6 @@ function update_translated_page_title(){
     $page_title = $_REQUEST['page_title'];
     $page_id = $_REQUEST['page_id'];
 
-    //Get old page slug
-    $post_before_update = get_post($page_id,ARRAY_A);
-
-    //Check if the post title before update contains the string 'not translated)' 
-    //if yes then update the slug else dont
-    $haystack = $post_before_update['post_title'];
-    $needle = 'not translated)';
-
-    if (strpos($haystack,$needle) !== false) {
-        add_filter( 'wp_insert_post_data', 'page_update_slug', 99, 2 );
-    }
-
     // Update post with id = $room_id
     $page = array(
         'ID'           => $page_id,

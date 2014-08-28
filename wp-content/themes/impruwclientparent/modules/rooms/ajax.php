@@ -136,18 +136,6 @@ function update_translated_room(){
     $room_desc = $_REQUEST['room_desc'];
     $room_id = $_REQUEST['room_id'];
 
-    //Get old room slug
-    $post_before_update = get_post($room_id,ARRAY_A);
-
-    //Check if the post title before update contains the string 'not translated)' 
-    //if yes then update the slug else dont
-    $haystack = $post_before_update['post_title'];
-    $needle = 'not translated)';
-
-    if (strpos($haystack,$needle) !== false) {
-        add_filter( 'wp_insert_post_data', 'page_update_slug', 99, 2 );
-    }
-
     // Update post with id = $room_id
     $room_post = array(
       'ID'           => $room_id,
