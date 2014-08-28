@@ -171,7 +171,7 @@ function duplicate_language_page($page_id,$language,$post_type){
 
     $original_page = get_post($page_id);
     $original_page_name = $original_page->post_title;
-    $translated_page_name = $original_page_name.'( not translated)';
+    $translated_page_name = $original_page_name ;
 
     $element_type = "post_".$post_type;
 
@@ -371,7 +371,6 @@ function get_native_language_name($language_code){
     $native_language_name = $language_details['display_name'];
     return $native_language_name;
 }
-
 
 
 
