@@ -741,5 +741,12 @@
     "Print" : "Print_N",
     "Page Header": "Page Header_N",
     "Page Footer": "Page Footer_N",
-    "Page Header Translations" : "Page Header Translations_N" 
+    "Page Header Translations" : "Page Header Translations_N",
+    "Removing a ROW might cause a loss of data. Do you want to continue?" : "Removing a ROW might cause a loss of data. Do you want to continue?_N",
+    "Removing a COLUMN might cause a loss of data. Do you want to continue?" : "Removing a COLUMN might cause a loss of data. Do you want to continue?_N",
+    "Choose your widget type and add your embed code from the settings" : "Choose your widget type and add your embed code from the settings_N",
+    "Add Facebook embed code in the settings" : "Add Facebook embed code in the settings_N",
+    "Add Youtube embed code in the settings" : "Add Youtube embed code in the settings_N",
+    "Enter Widget Code" : "Enter Widget Code_N",
+    "Choose Widget Type" : "Choose Widget Type_N"
 }

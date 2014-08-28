@@ -29,13 +29,13 @@ define(['app'], function(App) {
         var aspectRatio, height, widgetHtml, width;
         if (this.model.get('widgetCode') === '') {
           if (this.model.get('type') === '') {
-            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>Choose your widget type and add your embed code from the settings</div>');
+            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>' + _.polyglot.t('Choose your widget type and add your embed code from the settings') + '</div>');
           } else if (this.model.get('type') === 'youtube') {
-            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Youtube embed code in the settings</div>');
+            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>' + _.polyglot.t('Add Youtube embed code in the settings') + '</div>');
           } else if (this.model.get('type') === 'facebook') {
-            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Facebook embed code in the settings</div>');
+            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>' + _.polyglot.t('Add Facebook embed code in the settings') + '</div>');
           } else if (this.model.get('type') === 'tripadvisor') {
-            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Tripadvisor embed code in the settings</div>');
+            this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>' + _.polyglot.t('Add Tripadvisor embed code in the settings') + '</div>');
           }
           return;
         }
