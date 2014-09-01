@@ -109,12 +109,12 @@ class ImageElement extends Element {
 
 
         if($a_id === 0){
-            return = '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';   
+            return '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';   
         }
 
         $path = wp_get_attachment_image_src($a_id, $size);
 
-        $markup .= "<a href='".$this->link."' target='".$this->target."' >";
+        $markup = "<a href='".$this->link."' target='".$this->target."' >";
         
         if($path !== false) {
             $markup .= "<div style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive {$this->margins}' width='100%' style=' position: relative;'/></div>";
