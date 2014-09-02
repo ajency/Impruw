@@ -9,6 +9,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       __extends(AddPageController, _super);
 
       function AddPageController() {
+        this.newMenuItemAdded = __bind(this.newMenuItemAdded, this);
         this.showSuccessMessage = __bind(this.showSuccessMessage, this);
         return AddPageController.__super__.constructor.apply(this, arguments);
       }
@@ -48,8 +49,33 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       AddPageController.prototype.showSuccessMessage = function(page) {
+        var data, menuId, menumodel;
         this.addToPageMenu(page);
-        return this.layout.triggerMethod("show:success:message");
+        this.layout.triggerMethod("show:success:message");
+        menuId = window.MENUID;
+        if (menuId === 0) {
+          return;
+        }
+        if (this.setAsMenuItem === true) {
+          menumodel = App.request("create:new:menu:item");
+          menumodel.set('menu_id', menuId);
+          data = {
+            menu_item_title: page.get('post_title'),
+            page_id: page.get('original_id'),
+            menu_item_parent: 0,
+            order: 0
+          };
+          return menumodel.save(data, {
+            wait: true,
+            success: this.newMenuItemAdded
+          });
+        }
+      };
+
+      AddPageController.prototype.newMenuItemAdded = function(model) {
+        var menuCollection;
+        menuCollection = App.request("get:menu:items:by:menuid", window.MENUID);
+        return menuCollection.add(model);
       };
 
       AddPageController.prototype.addToPageMenu = function(pageModel) {

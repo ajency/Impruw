@@ -79,7 +79,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
               page_name = model.get('post_title');
               select_html = "<option value='" + modelId + "' data-originalid='" + originalPageId + ("'>" + page_name + "</option>");
               selectpicker_html = "<li rel='" + index + "'> <a tabindex='0' class='' style=''> <span class='text'>" + page_name + "</span> <i class='glyphicon glyphicon-ok icon-ok check-mark'></i> </a> </li>";
-              _this.$el.find('div .dropdown-menu ul').append(selectpicker_html);
+              _this.$el.find('select#builder-page-sel').parent().find('div .dropdown-menu ul').append(selectpicker_html);
               return _this.$el.find('select#builder-page-sel').append(select_html);
             }
           };
