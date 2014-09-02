@@ -28,7 +28,6 @@ define ['app'],(App)->
 						@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>'+_.polyglot.t('Add Tripadvisor embed code in the settings')+'</div>'
 					return
 
-
 				widgetHtml = $.parseHTML _.stripslashes @model.get 'widgetCode'
 				@$el.html widgetHtml
 
@@ -64,7 +63,8 @@ define ['app'],(App)->
 
 				if @model.get('type') is 'tripadvisor'
 					@$el.removeAttr 'style'
-					@$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Tripadvisor embed code in the settings</div>'
+					@$el.html _.stripslashes @model.get 'widgetCode'
+					# @$el.html '<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Tripadvisor embed code in the settings</div>'
 
 
 				# @trigger 'save:html:data', $(widgetHtml).get(0)

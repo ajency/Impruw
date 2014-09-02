@@ -69,7 +69,7 @@ define(['app'], function(App) {
         }
         if (this.model.get('type') === 'tripadvisor') {
           this.$el.removeAttr('style');
-          return this.$el.html('<div class="empty-view"><span class="bicon icon-uniF162"></span>Add Tripadvisor embed code in the settings</div>');
+          return this.$el.html(_.stripslashes(this.model.get('widgetCode')));
         }
       };
 
