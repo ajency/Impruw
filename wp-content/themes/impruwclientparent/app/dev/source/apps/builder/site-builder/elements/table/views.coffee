@@ -63,8 +63,8 @@ define ['app','bootbox'], (App,bootbox)->
 					@$el.find('tbody').append html
 					@saveTableMarkup()
 				else
-					bootbox.confirm 'Removing a ROW might cause a loss of data.
-						Do you want to continue?',(result)=>
+					bootbox.confirm _.polyglot.t('Removing a ROW might cause a loss of data.
+						Do you want to continue?'),(result)=>
 						if result
 							@$el.find('tbody tr:last-of-type').remove()
 							@saveTableMarkup()
@@ -88,8 +88,8 @@ define ['app','bootbox'], (App,bootbox)->
 					@$el.find('table').resizableColumns()
 					@saveTableMarkup()
 				else 
-					bootbox.confirm 'Removing a COLUMN might cause a loss of data.
-						Do you want to continue?',(result)=>
+					bootbox.confirm _.polyglot.t('Removing a COLUMN might cause a loss of data.
+						Do you want to continue?'),(result)=>
 						if result
 							@$el.find('thead tr th:last-of-type').remove()
 							tableRows = @$el.find('tbody tr td:last-of-type').remove()

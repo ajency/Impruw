@@ -738,5 +738,16 @@
       "CVV:": "CVV:",
       "Expires On:": "Expires On:",
       "Card Added Successfuly": "Card Added Successfuly",
-      "Print" : "Print"
+      "Print" : "Print",
+      "Page Header": "Page Header",
+      "Page Footer": "Page Footer",
+      "Page Footer Translations": "Page Footer Translations",
+      "Page Header Translations" : "Page Header Translations",
+      "Removing a ROW might cause a loss of data. Do you want to continue?" : "Removing a ROW might cause a loss of data. Do you want to continue?",
+      "Removing a COLUMN might cause a loss of data. Do you want to continue?" : "Removing a COLUMN might cause a loss of data. Do you want to continue?",
+      "Choose your widget type and add your embed code from the settings" : "Choose your widget type and add your embed code from the settings",
+      "Add Facebook embed code in the settings" : "Add Facebook embed code in the settings",
+      "Add Youtube embed code in the settings" : "Add Youtube embed code in the settings",
+      "Enter Widget Code" : "Enter Widget Code",
+      "Choose Widget Type" : "Choose Widget Type" 
 }

@@ -9,6 +9,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
 
       function Controller() {
         this._loadPageContent = __bind(this._loadPageContent, this);
+        this._loadFooterContent = __bind(this._loadFooterContent, this);
+        this._loadHeaderContent = __bind(this._loadHeaderContent, this);
         this._loadSiteContent = __bind(this._loadSiteContent, this);
         this._loadPageRoomContent = __bind(this._loadPageRoomContent, this);
         this._loadPageNavBar = __bind(this._loadPageNavBar, this);
@@ -30,7 +32,9 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
         this.listenTo(this.languageLayout.languageSelectionRegion, "load:page:nav:bar", this._loadPageNavBar);
         this.listenTo(this.languageLayout.languagePageNav, "load:page:room:content", this._loadPageRoomContent);
         this.listenTo(this.languageLayout.languagePageNav, "load:other:page:content", this._loadPageContent);
-        return this.listenTo(this.languageLayout.languagePageNav, "load:site:content", this._loadSiteContent);
+        this.listenTo(this.languageLayout.languagePageNav, "load:site:content", this._loadSiteContent);
+        this.listenTo(this.languageLayout.languagePageNav, "load:header:content", this._loadHeaderContent);
+        return this.listenTo(this.languageLayout.languagePageNav, "load:footer:content", this._loadFooterContent);
       };
 
       Controller.prototype._getLanguageLayout = function() {
@@ -53,6 +57,20 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
 
       Controller.prototype._loadSiteContent = function(editingLanguage) {
         return App.execute("show:site:content:app", {
+          region: this.languageLayout.languagePageRooms,
+          editLang: editingLanguage
+        });
+      };
+
+      Controller.prototype._loadHeaderContent = function(editingLanguage) {
+        return App.execute("show:header:content:app", {
+          region: this.languageLayout.languagePageRooms,
+          editLang: editingLanguage
+        });
+      };
+
+      Controller.prototype._loadFooterContent = function(editingLanguage) {
+        return App.execute("show:footer:content:app", {
           region: this.languageLayout.languagePageRooms,
           editLang: editingLanguage
         });

@@ -61,7 +61,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
           this.$el.find('tbody').append(html);
           return this.saveTableMarkup();
         } else {
-          return bootbox.confirm('Removing a ROW might cause a loss of data. Do you want to continue?', (function(_this) {
+          return bootbox.confirm(_.polyglot.t('Removing a ROW might cause a loss of data. Do you want to continue?'), (function(_this) {
             return function(result) {
               if (result) {
                 _this.$el.find('tbody tr:last-of-type').remove();
@@ -89,7 +89,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
           this.$el.find('table').resizableColumns();
           return this.saveTableMarkup();
         } else {
-          return bootbox.confirm('Removing a COLUMN might cause a loss of data. Do you want to continue?', (function(_this) {
+          return bootbox.confirm(_.polyglot.t('Removing a COLUMN might cause a loss of data. Do you want to continue?'), (function(_this) {
             return function(result) {
               if (result) {
                 _this.$el.find('thead tr th:last-of-type').remove();

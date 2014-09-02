@@ -92,6 +92,15 @@ class WidgetElement extends Element {
                 jQuery('.embed-responsive').css('padding-bottom','".$this->aspectRatio."%');
                 </script>";
         }
+         elseif ($this->widget_type == 'tripadvisor'){
+            $html = "<div class=' '>".$this->htmlData."</div>";
+            // $html .= "<script>
+            //     jQuery('.embed-responsive').css('padding-bottom','".$this->aspectRatio."%');
+            //     </script>";
+        }
+        else { 
+            $html = "<div class=' '>".$this->htmlData."</div>";
+        }
         // if(empty($this->content))
         //     $html       .= $this->get_close_tag();
         

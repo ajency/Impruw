@@ -141,6 +141,7 @@
                 // var_dump($theme_set_color);
 
                 foreach ($theme_set_color as $color_scheme ) {
+                    if ($color_scheme['name'] == 'custom') continue;
                     if( (isset($_COOKIE['color_scheme']) && $color_scheme['name'] == $_COOKIE['color_scheme']) || (!isset($_COOKIE['color_scheme']) && $color_scheme['name'] == 'Default') )
                         echo "<li> <a href='#' class='active' data-color='{$color_scheme['name']}'>";
                     else 

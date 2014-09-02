@@ -151,6 +151,23 @@ function get_page_elements_ajax(){
 add_action( 'wp_ajax_get-page-elements', 'get_page_elements_ajax' );
 
 
+
+function get_header_elements_ajax(){
+    $data =  get_header_translation_elements();
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_get-header-elements', 'get_header_elements_ajax' );
+
+function get_footer_elements_ajax(){
+    $data =  get_footer_translation_elements();
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_get-footer-elements', 'get_footer_elements_ajax' );
+
+
+
 function update_translated_page_title(){
     $page_title = $_REQUEST['page_title'];
     $page_id = $_REQUEST['page_id'];
@@ -172,5 +189,7 @@ function update_translated_page_title(){
 add_action( 'wp_ajax_update-translated-page-title', 'update_translated_page_title' );
 
 add_action( 'wp_ajax_create-pageElements', 'update_element_model' );
+add_action( 'wp_ajax_create-headerElements', 'update_element_model' );
+add_action( 'wp_ajax_create-footerElements', 'update_element_model' );
 
 

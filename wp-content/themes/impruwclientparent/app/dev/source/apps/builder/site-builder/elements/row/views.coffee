@@ -24,10 +24,15 @@ define ['app'], (App)->
                     helper: @_getHelper
                     opacity: .65
                     placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
-                    out : ()->
+                    out : (evt,ui)=>
+                        @$el.closest('.row').closest('.element-wrapper').removeClass('hover-class')
+
                         window.dragging = false
                         return
-                    over : ()->
+                    over : ()=>
+                        _.delay =>
+                            @$el.closest('.row').closest('.element-wrapper').addClass('hover-class')
+                        ,100
                         window.dragging = true
                         return
                     remove: (evt, ui)=>
