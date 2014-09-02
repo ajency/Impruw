@@ -912,7 +912,7 @@
 }
 .roomsummary {
   *zoom: 1;
-  margin: 0 0 1em;
+  margin: 1em 0;
 }
 .roomsummary:after,
 .roomsummary:before {
@@ -2470,7 +2470,7 @@ ul.gallery {
 }
 .roomsummary {
   *zoom: 1;
-  margin: 0 0 1em;
+  margin: 1em 0;
 }
 .roomsummary:after,
 .roomsummary:before {
