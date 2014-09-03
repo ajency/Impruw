@@ -56,6 +56,15 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             return listView.triggerMethod("image:editing:cancelled");
           });
         });
+        this.listenTo(listView, "itemview:add:text", function(iv, imageId) {
+          return App.execute('show:slide:text:layer', {
+            region: layout.slidesListRegion,
+            model: iv.model
+          });
+        });
+        this.listenTo(layout.slidesListRegion, 'slide:layers:saved', function() {
+          return layout.slidesListRegion.show(listView);
+        });
         this.listenTo(layout, "show:add:new:slide", (function(_this) {
           return function() {
             return App.execute("show:add:new:slide", {
@@ -134,7 +143,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.className = 'panel panel-default moveable';
 
-      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-5"></div> <div class="imgactions col-sm-3"> <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp; <a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> </a> </div>';
+      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-5"></div> <div class="imgactions col-sm-3"> <a href="#" class="blue-link add-text" > <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Add Text{{/polyglot}} </a> <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp; <a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> </a> </div>';
 
       SlideView.prototype.modelEvents = {
         'change:thumb_url change:full_url': 'render'
@@ -156,6 +165,10 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         'click .edit-image': function(e) {
           e.preventDefault();
           return this.trigger("edit:image");
+        },
+        'click .add-text': function(e) {
+          e.preventDefault();
+          return this.trigger("add:text");
         }
       };
 

@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/setting/settingscontroller', 'apps/slider-manager/edit-slider/list-slides/listcontroller', 'apps/slider-manager/edit-slider/addedit-slide/addslidecontroller'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/setting/settingscontroller', 'apps/slider-manager/edit-slider/list-slides/listcontroller', 'apps/slider-manager/edit-slider/addedit-slide/addslidecontroller', 'apps/slider-manager/edit-slider/slide-text-layer/slide-text-layer-controller'], function(App, AppController) {
   return App.module('SliderManager.EditSlider', function(EditSlider, App, Backbone, Marionette, $, _) {
     var EditSliderController, EditSliderLayout;
     EditSliderController = (function(_super) {

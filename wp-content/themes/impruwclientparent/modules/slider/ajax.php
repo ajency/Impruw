@@ -128,11 +128,11 @@ function update_slide_ajax() {
 
     $slide_id = $_POST[ 'id' ];
 
-    //$data = $_POST;
-    $data = array(
-        'image' => 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/freeproductsamples.jpg',
-        'title' => 'myslide'
-    );
+    $data = $_POST;
+    // $data = array(
+    //     'image' => 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/freeproductsamples.jpg',
+    //     'title' => 'myslide'
+    // );
 
     unset( $data[ 'action' ] );
 
@@ -140,6 +140,23 @@ function update_slide_ajax() {
 
     wp_send_json( array( 'code' => 'OK', 'data' => array( 'id' => $slide_id_ret ) ) );
 }
+
+// function update_slide_ajax() {
+
+//     $slide_id = $_POST[ 'id' ];
+
+//     //$data = $_POST;
+//     $data = array(
+//         'image' => 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/freeproductsamples.jpg',
+//         'title' => 'myslide'
+//     );
+
+//     unset( $data[ 'action' ] );
+
+//     $slide_id_ret = update_slide( $data, $slide_id );
+
+//     wp_send_json( array( 'code' => 'OK', 'data' => array( 'id' => $slide_id_ret ) ) );
+// }
 
 add_action( 'wp_ajax_update-slide', 'update_slide_ajax' );
 

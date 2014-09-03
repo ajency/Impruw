@@ -42,6 +42,15 @@ define ['app'
                     listView.listenTo editView, "image:editing:cancelled", ->
                         listView.triggerMethod "image:editing:cancelled"
 
+                @listenTo listView, "itemview:add:text",(iv, imageId)->
+                    App.execute 'show:slide:text:layer',
+                        region : layout.slidesListRegion
+                        model : iv.model
+
+                @listenTo layout.slidesListRegion, 'slide:layers:saved',->
+                    layout.slidesListRegion.show listView
+
+
                 @listenTo layout, "show:add:new:slide", =>
                     App.execute "show:add:new:slide",
                         region: layout.addSlideRegion
@@ -103,6 +112,7 @@ define ['app'
 								</div>
 								<div class="imgname col-sm-5"></div>
 								<div class="imgactions col-sm-3">
+                                    <a href="#" class="blue-link add-text" > <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Add Text{{/polyglot}} </a>
 									<a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;
                                     <a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
 								</div>
@@ -127,6 +137,10 @@ define ['app'
                 'click .edit-image' : (e)->
                     e.preventDefault()
                     @trigger "edit:image"
+
+                'click .add-text' :(e)->
+                    e.preventDefault()
+                    @trigger "add:text"
 
             onRender: ->
                 @$el.attr 'data-slide-id', @model.get 'id'

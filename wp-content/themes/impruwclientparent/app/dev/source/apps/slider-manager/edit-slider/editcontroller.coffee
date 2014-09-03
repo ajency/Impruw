@@ -2,7 +2,9 @@ define ['app'
         'controllers/base-controller'
         'apps/slider-manager/edit-slider/setting/settingscontroller'
         'apps/slider-manager/edit-slider/list-slides/listcontroller'
-        'apps/slider-manager/edit-slider/addedit-slide/addslidecontroller'], (App, AppController)->
+        'apps/slider-manager/edit-slider/addedit-slide/addslidecontroller'
+        'apps/slider-manager/edit-slider/slide-text-layer/slide-text-layer-controller'
+], (App, AppController)->
     App.module 'SliderManager.EditSlider', (EditSlider, App, Backbone, Marionette, $, _)->
         class EditSliderController extends AppController
 
