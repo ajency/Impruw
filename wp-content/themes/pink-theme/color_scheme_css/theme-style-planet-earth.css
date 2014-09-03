@@ -175,6 +175,8 @@
 }
 .site-style-container .row.grey-background {
   background: #342800;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 .site-style-container .row.footer-container {
   background: #E2DA99;
@@ -1713,6 +1715,7 @@ ul.gallery {
 }
 .widget {
   color: #989898;
+  margin: 1em 0;
 }
 .embed-responsive {
   position: relative;
@@ -1772,6 +1775,8 @@ ul.gallery {
 }
 .row.grey-background {
   background: #E2DA99 !important;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 .row.slideshow-container {
   margin: 0 0 1em;

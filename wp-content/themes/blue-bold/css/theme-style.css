@@ -1776,6 +1776,7 @@ ul.gallery {
 /**** Widget Styles ****/
 .widget {
   color: #989898;
+  margin: 1em 0;
 }
 /**** Responsive Embed Styles ****/
 .embed-responsive {
@@ -3025,7 +3026,7 @@ and open the template in the editor.
 .lang-sel.align-center {
   text-align: center;
 }
-@media (max-width: 991px) {
+@media (max-width: 767px) {
   .lang-sel {
     text-align: center !important;
   }

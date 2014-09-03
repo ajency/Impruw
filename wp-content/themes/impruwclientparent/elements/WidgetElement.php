@@ -93,7 +93,7 @@ class WidgetElement extends Element {
                 </script>";
         }
          elseif ($this->widget_type == 'tripadvisor'){
-            $html = "<div class=' '>".$this->htmlData."</div>";
+            $html = "<div class='widget'>".$this->htmlData."</div>";
             // $html .= "<script>
             //     jQuery('.embed-responsive').css('padding-bottom','".$this->aspectRatio."%');
             //     </script>";
