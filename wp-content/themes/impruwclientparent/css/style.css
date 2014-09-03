@@ -1781,6 +1781,7 @@ ul.gallery {
 /**** Widget Styles ****/
 .widget {
   color: #bfbfbf;
+  margin: 1em 0;
 }
 /**** Responsive Embed Styles ****/
 .embed-responsive {
