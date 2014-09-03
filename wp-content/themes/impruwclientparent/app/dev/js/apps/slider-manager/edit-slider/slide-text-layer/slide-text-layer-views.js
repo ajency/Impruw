@@ -29,7 +29,8 @@ define(['app'], function(App) {
 
       TextLayerView.prototype.events = {
         'blur input': function(e) {
-          return this.model.set('text', $(e.target).val());
+          this.model.set('text', $(e.target).val());
+          return this.$el.closest('#text-layers').siblings('.slide-display').find("#" + this.textId).html($(e.target).val());
         },
         'click .view-text-layer': function() {
           this.$el.siblings().removeClass('text-layer-edit').addClass('text-layer-view');
@@ -38,6 +39,23 @@ define(['app'], function(App) {
         'click .remove-layer': function() {
           return this.trigger('remove:text:layer');
         }
+      };
+
+      TextLayerView.prototype.onShow = function() {
+        this.textId = _.uniqueId('text-');
+        this.$el.closest('#text-layers').siblings('.slide-display').prepend("<div class='movable' id='" + this.textId + "' style='position : absolute; top : " + (this.model.get('top')) + "px; left:" + (this.model.get('left')) + "px; z-index:1000'>" + (this.model.get('text')) + "</div>");
+        return this.$el.closest('#text-layers').siblings('.slide-display').find("#" + this.textId).draggable({
+          stop: (function(_this) {
+            return function(evt, ui) {
+              _this.model.set('top', ui.position.top);
+              return _this.model.set('left', ui.position.left);
+            };
+          })(this)
+        });
+      };
+
+      TextLayerView.prototype.onClose = function() {
+        return this.$el.closest('#text-layers').siblings('.slide-display').find("#" + this.textId).remove();
       };
 
       return TextLayerView;
@@ -50,7 +68,7 @@ define(['app'], function(App) {
         return TextlayerListView.__super__.constructor.apply(this, arguments);
       }
 
-      TextlayerListView.prototype.template = '<div id="text-layers"></div> <button id="add-text-layer"> Add Layer</button> <button id="save-layers"> Save Slide </button>';
+      TextlayerListView.prototype.template = '<div class="slide-display" style="text-align:center;"><img style=" height:100%; position : relative" src="{{full_url}}"></div> <div id="text-layers"></div> <button id="add-text-layer">Add Layer</button> <button id="save-layers"> Save Slide </button>';
 
       TextlayerListView.prototype.itemView = TextLayerView;
 
@@ -64,6 +82,15 @@ define(['app'], function(App) {
       };
 
       TextlayerListView.prototype.initialize = function() {};
+
+      TextlayerListView.prototype.onShow = function() {
+        var height, ratio, width;
+        ratio = App.currentImageRatio.split(':');
+        width = this.$el.find('.slide-display').width();
+        height = width * ratio[1] / ratio[0];
+        this.$el.find('.slide-display').width(width);
+        return this.$el.find('.slide-display').height(height);
+      };
 
       TextlayerListView.prototype._addTextLayer = function() {
         return this.trigger('add:text:layer');

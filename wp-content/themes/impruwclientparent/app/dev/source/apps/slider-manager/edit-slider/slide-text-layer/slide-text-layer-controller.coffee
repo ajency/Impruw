@@ -43,6 +43,7 @@ define ['app'
 			_getTextLayerView : ->
 				new SlideTextLayer.Views.TextlayerListView
 					collection : @collection
+					model : @model
 
 			layerDefault : ->
 				align_hor: "left"

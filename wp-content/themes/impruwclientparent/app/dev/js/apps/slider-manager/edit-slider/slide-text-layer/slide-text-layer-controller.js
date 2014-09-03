@@ -45,7 +45,8 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
 
       Controller.prototype._getTextLayerView = function() {
         return new SlideTextLayer.Views.TextlayerListView({
-          collection: this.collection
+          collection: this.collection,
+          model: this.model
         });
       };
 
