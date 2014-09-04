@@ -742,6 +742,10 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-lo-header > .row .lang-actions .lang-sele #lang_sel {
   text-align: left;
+  z-index: 1;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sele #lang_sel ul, .aj-imp-lo-header > .row .lang-actions .lang-sele #lang_sel li {
+  min-width: 170px;
 }
 .aj-imp-lo-header > .row .lang-actions .lang-sele #lang_sel .iclflag {
   top: -1px;
