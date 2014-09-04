@@ -137,7 +137,7 @@ function check_site_status() {
     $status = get_option( 'site_status', 'coming_soon' );
 
     // return if dashboard/site builder page
-    if ( is_page( 'dashboard' ) || is_page( 'site-builder' ) )
+    if ( is_page( 'dashboard' ) || is_page( 'site-builder' ) || is_page('sign-in') )
         return;
 
     if ( $status === 'coming_soon' && !is_page( 'coming-soon' ) ) {
