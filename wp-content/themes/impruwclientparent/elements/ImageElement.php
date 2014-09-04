@@ -128,7 +128,7 @@ class ImageElement extends Element {
         }
 
         if($path !== false) {
-            $markup .= "<div style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive {$this->class_name} {$this->margins}' width='100%' style=' position: relative;'/></div>";
+            $markup .= "<div class='{$this->class_name}' style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive  {$this->margins}' width='100%' style=' position: relative;'/></div>";
             
         }
         else{
