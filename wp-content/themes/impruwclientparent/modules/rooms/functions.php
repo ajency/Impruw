@@ -222,10 +222,18 @@ function create_draft_room() {
 
 // Function returns the data for the new room created
 // @param room ID
+// @param $dashboard -> set to FALSE when room details are requested for the front end
 
-function get_room( $roomid ) {
+function get_room( $roomid , $dashboard=TRUE) {
 
     $room_id = $roomid;
+
+    if($dashboard===TRUE)
+        $room_language = wpml_get_default_language();
+    else
+        $room_language = wpml_get_current_language();
+
+    $room_id = icl_object_id($room_id, 'impruw_room', true,$room_language);
 
     $room_post = get_post( $room_id, ARRAY_A );
 
