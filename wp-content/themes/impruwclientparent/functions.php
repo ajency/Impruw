@@ -263,6 +263,10 @@ function generate_markup( $section ) {
 
     $id = !is_null( $post ) ? $post->ID : 0;
 
+    //fallback if $id is 0
+    if($id === 0 && (is_home() && is_front_page()))
+        $id = get_option( 'page_on_front', 0);
+
     //Generate page markup based on language
     ////if ( wpml_get_current_language() != wpml_get_default_language() ) {
         $id = icl_object_id( $id, 'page', TRUE, 'en' );
