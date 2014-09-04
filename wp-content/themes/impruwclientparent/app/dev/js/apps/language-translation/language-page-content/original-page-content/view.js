@@ -28,13 +28,13 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
         };
         data.originalContent = function() {
           var originalContent;
+          originalContent = '';
           if (data.element === "Link") {
             originalContent = data.text[WPML_DEFAULT_LANG];
-            return originalContent;
           } else {
             originalContent = data.content[WPML_DEFAULT_LANG];
-            return originalContent;
           }
+          return _.stripslashes(originalContent);
         };
         data.element_in_language = function() {
           var element_in_language;

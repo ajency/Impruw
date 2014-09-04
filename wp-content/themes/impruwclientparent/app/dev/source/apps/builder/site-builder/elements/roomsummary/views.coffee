@@ -67,8 +67,8 @@ define ['app'], (App)->
                data
 
             _getImageRatio : ->
-               width = @$el.find('.room-img > img').width()
-               height = @$el.find('.room-img > img').height()
+               width = @$el.find('.room-img').width()
+               height = @$el.find('.room-img').height()
                "#{parseInt width}:#{parseInt height}"
 
 
