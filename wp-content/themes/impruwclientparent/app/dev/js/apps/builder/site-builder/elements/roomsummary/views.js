@@ -39,8 +39,8 @@ define(['app'], function(App) {
 
       RoomSummaryView.prototype._getImageRatio = function() {
         var height, width;
-        width = this.$el.find('.room-img > img').width();
-        height = this.$el.find('.room-img > img').height();
+        width = this.$el.find('.room-img').width();
+        height = this.$el.find('.room-img').height();
         return "" + (parseInt(width)) + ":" + (parseInt(height));
       };
 
