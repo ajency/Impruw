@@ -1041,7 +1041,6 @@ function get_theme_CSS() {
         $theme_preview_ids = explode(',', THEME_ID);
 
         if( isset($_COOKIE['color_scheme']) && in_array(get_current_blog_id(), $theme_preview_ids)){
-            print_r($_COOKIE['color_scheme']);
             $color_scheme = strtolower($_COOKIE['color_scheme']);
             $color_scheme = str_replace(' ', '-', $color_scheme);
             $file = "theme-style-".$color_scheme.".css";
