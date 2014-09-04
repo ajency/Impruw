@@ -117,7 +117,7 @@ class ImageElement extends Element {
         $markup = "<a href='".$this->link."' target='".$this->target."' >";
         
         if($path !== false) {
-            $markup .= "<div style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive {$this->margins}' width='100%' style=' position: relative;'/></div>";
+            $markup .= "<div style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive {$this->class_name} {$this->margins}' width='100%' style=' position: relative;'/></div>";
             // <script>
             // if({$height} != 'auto'){       
             //     jQuery('img').last().parent().height(parseInt(jQuery('img').last().parent().width())*{$height});
