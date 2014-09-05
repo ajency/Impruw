@@ -41,7 +41,7 @@ class RoomSummary extends Element {
         
         $this->image_id = $thumbnail_id > 0 ? $thumbnail_id : 0;
         
-        $this->room   = get_room( $this->room_id );
+        $this->room   = get_room( $this->room_id , FALSE);
         $this->style  = $element[ 'style' ];
         $this->markup = $this->generate_markup();
         
@@ -61,7 +61,7 @@ class RoomSummary extends Element {
 
     function generate_single_room_summary() {
 
-        $this->room = get_room( $this->room_id );
+        $this->room = get_room( $this->room_id , FALSE);
 
         $template   = '<div class="room-summary-container ' . $this->margins . ' ">
                         <div class="room-summary-title">
@@ -99,7 +99,8 @@ class RoomSummary extends Element {
     function get_room_summary() {
 
         $data           = $this->room;
-        $data[ 'link' ] = get_permalink( $this->room_id );
+        $link_room_id = icl_object_id($this->room_id, 'impruw_room', true,ICL_LANGUAGE_CODE);
+        $data[ 'link' ] = get_permalink( $link_room_id );
         $path = wp_get_attachment_image_src($this->image_id, 'medium');
         if($path !== false) {
             $data[ 'image_url' ] = $path[0];

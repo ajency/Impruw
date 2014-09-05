@@ -3,6 +3,7 @@ function translation_keys(){
     __('home', 'impruwclientparent');
     __('about us', 'impruwclientparent');
     __('rooms', 'impruwclientparent');
+    __('single room', 'impruwclientparent');
     __('gallery', 'impruwclientparent');
     __('contact us', 'impruwclientparent');
     __('click here to enter title', 'impruwclientparent');
@@ -14,7 +15,6 @@ function translation_keys(){
     __('choose a room to display from settings. your room description, image, number of rooms and link to the single room page will be displayed here. to make any changes to the room go to room from your dashboard.', 'impruwclientparent');
     __('view details', 'impruwclientparent');
     __('take  a look at our rooms', 'impruwclientparent');
-    __('your room title', 'impruwclientparent');
     __('your room title', 'impruwclientparent');
     __('this will work only on a single room page. change your page to the single room page and add this element. the room title of the room will display on your website.also to make the "booking and availability" button work, use the room booking element. when the button is pressed on your site, it will take you to the booking area.', 'impruwclientparent');
     __('booking and availibility', 'impruwclientparent');

@@ -462,6 +462,10 @@ function create_new_element( &$ele, $language_code, $clone_first_time) {
         $ele[ 'slider_id' ] = 0;
     }
 
+    if ( $ele[ 'element' ] === 'Gallery' && isset( $ele[ 'slider_id' ] )  &&  $clone_first_time===TRUE ) {
+        $ele[ 'slider_id' ] = 0;
+    }
+
     if ( $ele[ 'element' ] === 'RoomSummary' && isset( $ele[ 'room_id' ] )  &&  $clone_first_time===TRUE ) {
         $ele[ 'room_id' ] = 0;
     }

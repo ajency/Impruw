@@ -36,7 +36,7 @@ class RoomDescription extends Element {
         if ($this->post_id === 0 && get_the_ID() > 0)
             $this->post_id = get_the_ID();
 
-        $this->room = get_room($this->post_id);
+        $this->room = get_room($this->post_id, FALSE);
 
         $this->markup = $this->generate_markup();
     }

@@ -175,6 +175,8 @@
 }
 .site-style-container .row.grey-background {
   background: #fd8a33;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 .site-style-container .row.footer-container {
   background: #C3DAE3;
@@ -912,7 +914,7 @@
 }
 .roomsummary {
   *zoom: 1;
-  margin: 0 0 1em;
+  margin: 1em 0;
 }
 .roomsummary:after,
 .roomsummary:before {
@@ -1713,6 +1715,7 @@ ul.gallery {
 }
 .widget {
   color: #989898;
+  margin: 1em 0;
 }
 .embed-responsive {
   position: relative;
@@ -1772,6 +1775,8 @@ ul.gallery {
 }
 .row.grey-background {
   background: #C3DAE3 !important;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 .row.slideshow-container {
   margin: 0 0 1em;
@@ -2470,7 +2475,7 @@ ul.gallery {
 }
 .roomsummary {
   *zoom: 1;
-  margin: 0 0 1em;
+  margin: 1em 0;
 }
 .roomsummary:after,
 .roomsummary:before {

@@ -96,10 +96,10 @@
 
             $address = array();
 
-            $address['street']      = get_option('street', '');
-            $address['postal_code'] = get_option('postal_code', '');
-            $address['city']        = get_option('city', '');
-            $address['country']     = get_option('country', '');
+            $address['street']      = get_option('street', 'Street Name');
+            $address['postal_code'] = get_option('postal_code', '4200001');
+            $address['city']        = get_option('city', 'City');
+            $address['country']     = get_option('country', 'Country');
 
             $emails           = get_option('other_emails', array());
             $address['email'] = !empty($emails) ? $emails[0] : get_option('admin_email');
