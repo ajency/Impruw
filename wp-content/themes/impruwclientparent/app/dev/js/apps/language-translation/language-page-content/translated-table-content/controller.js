@@ -16,6 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.originalId = opts.originalId;
         this.pageTableCollection = App.request("get:page:table:elements", this.originalId, this.editLang);
         this.translatedContentView = this._getLanguageView(this.pageTableCollection);
+        this.listenTo(this.translatedContentView, "itemview:page:table:updated", this.updatePageTableContent);
         return this.show(this.translatedContentView, {
           loading: true
         });
@@ -23,8 +24,27 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
       Controller.prototype._getLanguageView = function(collection) {
         return new TranslatedTable.Views.TranslatedTableView({
-          collection: collection
+          collection: collection,
+          language: this.editLang
         });
+      };
+
+      Controller.prototype.updatePageTableContent = function(view, newElemContent) {
+        var editLang, model, translatedContent;
+        model = view.model;
+        translatedContent = model.get('content');
+        editLang = this.editLang;
+        translatedContent = newElemContent;
+        console.log(newElemContent);
+        model.set('content', newElemContent);
+        return model.save(null, {
+          wait: true,
+          success: this.contentUpdated
+        });
+      };
+
+      Controller.contentUpdated = function() {
+        return console.log("Successfully updated content");
       };
 
       return Controller;

@@ -4,54 +4,50 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
 define(['app'], function(App) {
   return App.module('LanguageApp.LanguagePageContent.TranslatedTable.Views', function(Views, App, Backbone, Marionette, $, _) {
-    return Views.TranslatedTableView = (function(_super) {
-      __extends(TranslatedTableView, _super);
+    var TranslatedTableItemView;
+    TranslatedTableItemView = (function(_super) {
+      __extends(TranslatedTableItemView, _super);
 
-      function TranslatedTableView() {
-        this.destroyEditor = __bind(this.destroyEditor, this);
+      function TranslatedTableItemView() {
         this.configureEditor = __bind(this.configureEditor, this);
-        return TranslatedTableView.__super__.constructor.apply(this, arguments);
+        return TranslatedTableItemView.__super__.constructor.apply(this, arguments);
       }
 
-      TranslatedTableView.prototype.tagName = 'div';
+      TranslatedTableItemView.prototype.tagName = 'div';
 
-      TranslatedTableView.prototype.className = 'form-group legend-group';
+      TranslatedTableItemView.prototype.className = 'form-group legend-group';
 
-      TranslatedTableView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field" id="translated-table-elements"> </div> </div>';
+      TranslatedTableItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field" id="translated-table-elements"> <div class="col-sm-10"> <div class="form-control translated-element-content {{element}} tabindex="1" id = "translated-table-content"> {{{content}}} </div> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-table"> {{#polyglot}}Save{{/polyglot}} </button> </div> </div> </div>';
 
-      TranslatedTableView.prototype.onShow = function() {
-        return _.each(this.collection.models, (function(_this) {
-          return function(model, index) {
-            var content, element, html, save_label;
-            element = model.get('element');
-            content = _.stripslashes(model.get('content'));
-            save_label = _.polyglot.t('Save');
-            html = '<div class="col-sm-10"> <div class="form-control translated-element-content ' + element + ' tabindex="1" id = "translated-table-content">' + content + '</div> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-table">' + save_label + '</button> </div>';
-            return _this.$el.find('#translated-table-elements').append(html);
-          };
-        })(this));
-      };
-
-      TranslatedTableView.prototype.events = {
+      TranslatedTableItemView.prototype.events = {
         "click #btn-save-translated-table": "updatePageTable",
         "click table td": "showEditor",
         "click table th": "showEditor"
       };
 
-      TranslatedTableView.prototype.updatePageTable = function(e) {
-        var newElementContent;
-        e.preventDefault();
-        newElementContent = this.$el.find('#translated-table-content').html();
-        return console.log(newElementContent);
+      TranslatedTableItemView.prototype.serializeData = function() {
+        var data;
+        data = TranslatedTableItemView.__super__.serializeData.call(this);
+        data.content = _.stripslashes(data.content);
+        return data;
       };
 
-      TranslatedTableView.prototype.showEditor = function(evt) {
+      TranslatedTableItemView.prototype.updatePageTable = function(e) {
+        var newElementContent, newHtmlContent;
+        e.preventDefault();
+        newHtmlContent = $('#translated-table-content').clone();
+        $(newHtmlContent).find('td div, th div').removeAllAttr();
+        newElementContent = "" + ($(newHtmlContent).html());
+        console.log(newElementContent);
+        return this.trigger("page:table:updated", newElementContent);
+      };
+
+      TranslatedTableItemView.prototype.showEditor = function(evt) {
         var id;
         evt.stopPropagation();
         if (this.editor) {
           this.editor.destroy();
           this.$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr('id');
-          this.saveTableMarkup();
         }
         console.log('showEditor');
         id = _.uniqueId('text-');
@@ -61,7 +57,7 @@ define(['app'], function(App) {
         return this.editor.config.placeholder = 'Click to enter text.';
       };
 
-      TranslatedTableView.prototype.configureEditor = function(event) {
+      TranslatedTableItemView.prototype.configureEditor = function(event) {
         var editor, element;
         editor = event.editor;
         element = editor.element;
@@ -72,26 +68,43 @@ define(['app'], function(App) {
         }
       };
 
-      TranslatedTableView.prototype.destroyEditor = function(evt) {
-        evt.stopPropagation();
+      TranslatedTableItemView.prototype.destroyEditor = function() {
         if (this.editor) {
           this.editor.destroy();
           this.editor = null;
           console.log('editor destroyed');
           this.$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr('id');
           this.$el.find('table').resizableColumns('destroy');
-          this.$el.find('table').resizableColumns();
-          return this.saveTableMarkup();
+          return this.$el.find('table').resizableColumns();
         }
       };
 
-      TranslatedTableView.prototype.saveTableMarkup = function() {
-        console.log('save table');
-        return this.trigger('save:table', this.$el.find('.table-holder'));
+      return TranslatedTableItemView;
+
+    })(Marionette.ItemView);
+    return Views.TranslatedTableView = (function(_super) {
+      __extends(TranslatedTableView, _super);
+
+      function TranslatedTableView() {
+        return TranslatedTableView.__super__.constructor.apply(this, arguments);
+      }
+
+      TranslatedTableView.prototype.template = '<div id="translatable-page-table"></div>';
+
+      TranslatedTableView.prototype.itemView = TranslatedTableItemView;
+
+      TranslatedTableView.prototype.itemViewContainer = '#translatable-page-table';
+
+      TranslatedTableView.prototype.itemViewOptions = function() {
+        var language;
+        language = Marionette.getOption(this, 'language');
+        return {
+          editingLanguage: language
+        };
       };
 
       return TranslatedTableView;
 
-    })(Marionette.ItemView);
+    })(Marionette.CompositeView);
   });
 });

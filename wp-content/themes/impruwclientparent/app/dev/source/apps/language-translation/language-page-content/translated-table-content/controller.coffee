@@ -15,6 +15,8 @@ define ['app', 'controllers/base-controller'
 
                 @translatedContentView = @_getLanguageView @pageTableCollection
 
+                @listenTo @translatedContentView, "itemview:page:table:updated", @updatePageTableContent 
+
                 #function to load view
                 @show @translatedContentView,
                     loading: true
@@ -22,6 +24,21 @@ define ['app', 'controllers/base-controller'
             _getLanguageView :(collection)->
                 new TranslatedTable.Views.TranslatedTableView
                     collection: collection
+                    language: @editLang
+
+            updatePageTableContent :(view,newElemContent)->
+                model = view.model
+                translatedContent = model.get 'content'
+                editLang = @editLang
+                translatedContent = newElemContent
+                console.log newElemContent
+                model.set 'content', newElemContent
+                model.save null,
+                    wait: true
+                    success: @contentUpdated
+
+            @contentUpdated :->
+                console.log "Successfully updated content"
 
         App.commands.setHandler "translated:table:content:app", (opts) ->
             new TranslatedTable.Controller opts
