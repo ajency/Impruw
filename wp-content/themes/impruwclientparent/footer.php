@@ -177,7 +177,7 @@
             console.log(jQuery(this).attr('data-color'));
             color_scheme_name = jQuery(this).attr('data-color');
             date = new Date();
-        date.setTime(date.getTime()+(24*60*60*1000));
+            date.setTime(date.getTime()+(24*60*60*1000));
             
             document.cookie = "color_scheme="+color_scheme_name+"; expires="+date.toGMTString()+"; path=/";
             
