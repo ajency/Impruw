@@ -436,17 +436,19 @@ jQuery(document).ready(function ($) {
 
 });
 
-    jQuery(document).ready(function(){
+    jQuery(window).load(function(){
         jQuery('img[data-height]').hide()
-        jQuery('img[data-height]').each(function(){
-             $ = jQuery
+        setTimeout(function(){
+            jQuery('img[data-height]').each(function(){
+                $ = jQuery
                 
-            if($(this).attr('data-height') != 'auto'){       
-                $(this).parent().height($(this).parent().width()*parseFloat($(this).attr('data-height')));
-            }
-            $(this).css('top',$(this).parent().width()*parseFloat($(this).attr('data-top'))+'px');
-            $(this).fadeIn()
-        });
+                if($(this).attr('data-height') != 'auto'){       
+                    $(this).parent().height($(this).parent().width()*parseFloat($(this).attr('data-height')));
+                }
+                $(this).css('top',$(this).parent().width()*parseFloat($(this).attr('data-top'))+'px');
+                $(this).fadeIn()
+            });
+        }, 500);
     });
 
  // jQuery(window).load( function (){
