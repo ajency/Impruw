@@ -1039,6 +1039,7 @@ function get_theme_CSS() {
     <?php 
         // if the theme preview color changing is enabled and cookie is set 
         $theme_preview_ids = explode(',', THEME_ID);
+
         if( isset($_COOKIE['color_scheme']) && in_array(get_current_blog_id(), $theme_preview_ids)){
             $color_scheme = strtolower($_COOKIE['color_scheme']);
             $color_scheme = str_replace(' ', '-', $color_scheme);
@@ -4006,11 +4007,11 @@ $base_element_templates = array(
     'Address' => array(
         array(
             'name' => 'Default Style',
-            'template' => '<ul><li><span class="fui-home"></span> {{street}}, {{city}}, {{postal_code}}, {{country}}</li><li><span class="glyphicon glyphicon-earphone"></span> {{phone_no}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
+            'template' => '<ul><li><span class="fui-home"></span> {{street}}, {{postal_code}}, {{city}}, {{country}}</li><li><span class="glyphicon glyphicon-earphone"></span> {{phone_no}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
         ),
         array(
             'name' => 'Small Address',
-            'template' => '<div><div class="info"> {{street}}, {{city}}, {{postal_code}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
+            'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
         )
     ),
     'Social' => array(
