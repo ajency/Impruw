@@ -24,6 +24,9 @@
 </script>
 <?php if ( is_singular() ): ?>
     <script type="text/javascript">
+            function replaceAll(find, replace, str) {
+              return str.replace(new RegExp(find, 'g'), replace);
+            }
         var PLANS = <?php echo json_encode(get_plans(FALSE)); ?>;
         var DATERANGE = <?php echo json_encode(get_date_range(FALSE)); ?>;
         //var TARIFF =
@@ -188,12 +191,14 @@
             
             var stylesPromises = [];
 
+            
+
             function applyStyle(){
                 var styleURL = CHILDTHEMEURL + '/css/theme-style.css';
                 var scheme = '';
                 scheme = $.cookie('color_scheme')
                 if( scheme !== undefined){
-                    scheme = '-' + scheme.replace(" ", "-").toLowerCase();
+                    scheme = '-' + replaceAll(" ", "-", scheme).toLowerCase();
                     styleURL = CHILDTHEMEURL +'/color_scheme_css/theme-style' + scheme + '.css';
                 }
                 
