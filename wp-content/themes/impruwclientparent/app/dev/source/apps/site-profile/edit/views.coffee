@@ -62,7 +62,7 @@ define [ 'app'
                 media_size = media.get 'sizes'
                 image_path = media_size.thumbnail.url
                 #@$el.find('.fileinput-preview ').append '<img src ="" class="site_profile_images"/>'
-                @$el.find( '.feature-image' ).attr 'src', image_path
+                @$el.find( '.site_profile_images' ).attr 'src', image_path
                 @$el.find( '#logo_id' ).attr 'value', image_id
 
             onDomainUpdate : ( Msg )->

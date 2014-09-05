@@ -18,6 +18,9 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                     link : '#'
                     target : '_self'
 
+                if options.modelData.element is 'Logo'
+                    options.modelData.image_id = window.LOGOID
+
                 super(options)
 
             bindEvents: ->
