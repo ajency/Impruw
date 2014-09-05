@@ -87,6 +87,7 @@
             color: #fff;
             z-index: 9999;
             border-radius: 0 0 2px 0;
+            height: auto !important;
         }
         .options-div .handle {
             background: #333;
@@ -94,6 +95,10 @@
             color: #fff;
             font-size: 1.5em;
             border-radius: 0 2px 2px 0;
+            right: -54px !important;
+        }
+        .options-div.open .handle {
+            right: -42px !important;
         }
         .options-div .handle:hover {
             color: #FF7E00
@@ -173,7 +178,7 @@
             jQuery('.options-div').tabSlideOut({
                 tabHandle: '.handle',                     //class of the element that will become your tab
                 tabLocation: 'left',                      //side of screen where tab lives, top, right, bottom, or left
-                speed: 300,                               //speed of animation
+                speed: 100,                               //speed of animation
                 action: 'click',                          //options: 'click' or 'hover', action to trigger animation
                 topPos: '150px',                          //position from the top/ use if tabLocation is left or right
                 fixedPosition: true                       //options: true makes it stick(fixed position) on scroll
