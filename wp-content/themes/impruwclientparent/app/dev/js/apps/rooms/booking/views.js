@@ -146,7 +146,14 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       };
 
       CalendarView.prototype.onBookingUpdated = function() {
-        return $('#booking-slider').slider('enable');
+        var dateTime, status;
+        $('#booking-slider').slider('enable');
+        dateTime = this.$el.find('#room-booking-calendar').datepicker('getDate');
+        status = App.request("get:avaliability:status", dateTime);
+        this.$el.find('td.ui-datepicker-current-day').removeClass('semi-available');
+        this.$el.find('td.ui-datepicker-current-day').removeClass('unavailable');
+        this.$el.find('td.ui-datepicker-current-day').removeClass('available');
+        return this.$el.find('td.ui-datepicker-current-day').addClass(status);
       };
 
       CalendarView.prototype.getAvailabilityMarkup = function(date) {
