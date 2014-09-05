@@ -3771,6 +3771,29 @@ form .aj-imp-submit:hover {
   height: auto;
   overflow: hidden;
 }
+.language .aj-imp-widget-content .tab-content .original-table-content .original,
+.billing-container .aj-imp-widget-content .tab-content .original-table-content .original {
+  height: auto;
+  max-height: initial;
+  padding: 0;
+  border: 0;
+}
+.language .aj-imp-widget-content .tab-content .original-table-content .original table td,
+.billing-container .aj-imp-widget-content .tab-content .original-table-content .original table td,
+.language .aj-imp-widget-content .tab-content .original-table-content .original table th,
+.billing-container .aj-imp-widget-content .tab-content .original-table-content .original table th {
+  border: 1px solid #aaaaaa;
+}
+.language .aj-imp-widget-content .tab-content .original-table-content .original table th,
+.billing-container .aj-imp-widget-content .tab-content .original-table-content .original table th {
+  border-bottom: 2px solid #aaaaaa;
+}
+.language .aj-imp-widget-content .tab-content .original-table-content .original table p,
+.billing-container .aj-imp-widget-content .tab-content .original-table-content .original table p {
+  margin: 0;
+  line-height: 1.231;
+  letter-spacing: 0 !important;
+}
 .language .form-horizontal,
 .billing-container .form-horizontal {
   margin: 0 0 1em;
@@ -3907,7 +3930,7 @@ form .aj-imp-submit:hover {
   overflow: auto;
 }
 .language .trans-field .translated-element-content.title {
-  height: 33px;
+  height: 34px;
   overflow: hidden;
 }
 .language .trans-field .translated-element-content:focus {
@@ -3920,6 +3943,24 @@ form .aj-imp-submit:hover {
 }
 .language .trans-field .form-control:focus ~ .trans-action {
   opacity: 1;
+}
+.language .translated-table-content .trans-field .translated-element-content {
+  height: auto;
+  max-height: initial;
+  padding: 0;
+  border: 0;
+}
+.language .translated-table-content .trans-field .translated-element-content table td,
+.language .translated-table-content .trans-field .translated-element-content table th {
+  border: 1px solid #aaaaaa;
+}
+.language .translated-table-content .trans-field .translated-element-content table th {
+  border-bottom: 2px solid #aaaaaa;
+}
+.language .translated-table-content .trans-field .translated-element-content table p {
+  margin: 0;
+  line-height: 1.231;
+  letter-spacing: 0 !important;
 }
 .language .room-element-head .col-sm-7 > div .label-head {
   display: none;

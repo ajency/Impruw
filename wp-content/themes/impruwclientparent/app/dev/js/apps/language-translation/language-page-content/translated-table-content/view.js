@@ -17,7 +17,7 @@ define(['app'], function(App) {
 
       TranslatedTableItemView.prototype.className = 'form-group legend-group';
 
-      TranslatedTableItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field" id="translated-table-elements"> <div class="col-sm-10"> <div class="form-control translated-element-content {{element}} tabindex="1" id = "translated-table-content"> {{{contentText}}} </div> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-table"> {{#polyglot}}Save{{/polyglot}} </button> </div> </div> </div>';
+      TranslatedTableItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field" id="translated-table-elements"> <div class="col-sm-10"> <div class="form-control translated-element-content {{element}}" tabindex="1" id="translated-table-content"> {{{contentText}}} </div> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-table"> {{#polyglot}}Save{{/polyglot}} </button> </div> </div> </div>';
 
       TranslatedTableItemView.prototype.events = {
         "click #btn-save-translated-table": "updatePageTable",

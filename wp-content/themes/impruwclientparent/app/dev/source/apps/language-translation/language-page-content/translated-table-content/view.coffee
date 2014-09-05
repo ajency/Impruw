@@ -11,7 +11,7 @@ define ['app'], (App)->
             template : '<div class="col-sm-12">
                             <div class="form-group trans-field" id="translated-table-elements">
                                 <div class="col-sm-10">
-                                    <div class="form-control translated-element-content {{element}} tabindex="1" id = "translated-table-content">
+                                    <div class="form-control translated-element-content {{element}}" tabindex="1" id="translated-table-content">
                                         {{{contentText}}}
                                     </div>
                                     <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-table">
