@@ -967,7 +967,7 @@ a.red-link.pull-right {
   cursor: default;
   border-radius: 3px;
   display: inline-block;
-  width: 58%;
+  width: 56%;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .page-slug-edit {
   width: 80%;
@@ -1074,7 +1074,7 @@ a.red-link.pull-right {
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name {
   display: inline-block;
-  width: 40%;
+  width: 41%;
   padding: 0.3em;
   border-right: 1px solid #dadada;
   color: #333333;
