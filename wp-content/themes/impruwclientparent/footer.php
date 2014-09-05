@@ -186,7 +186,7 @@
             
 
             jQuery('a[data-color]').click(function(e){
-            
+                e.preventDefault();
                 color_scheme_name = jQuery(this).attr('data-color');
                 $.cookie('color_scheme', color_scheme_name);
                 applyStyle(); 
