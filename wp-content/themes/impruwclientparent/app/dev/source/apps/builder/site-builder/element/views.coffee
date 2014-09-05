@@ -56,7 +56,7 @@ define [ 'app'
             @_disableOptions()
 
          _disableOptions : ()->
-            elements = [ 'RoomSummary', 'Row', 'Link' ]
+            elements = [ 'RoomSummary', 'Row', 'Link', 'Image', 'Table', 'Widget' ]
             if ISTHEMEEDITOR isnt 'yes'
                if elements.indexOf( @model.get 'element' ) is -1
                   @$el.children('.element-controls').children('.aj-imp-settings-btn' ).remove()
