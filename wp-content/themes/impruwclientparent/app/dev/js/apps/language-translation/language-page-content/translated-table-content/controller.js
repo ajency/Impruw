@@ -30,13 +30,20 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype.updatePageTableContent = function(view, newElemContent) {
-        var editLang, model, translatedContent;
+        var data, editLang, model, translatedContent;
         model = view.model;
         translatedContent = model.get('content');
+        if (_.isObject(translatedContent)) {
+          data = translatedContent;
+        } else {
+          data = {};
+          data['en'] = _.stripslashes(translatedContent);
+          data['nb'] = _.stripslashes(translatedContent);
+        }
         editLang = this.editLang;
-        translatedContent = newElemContent;
-        console.log(newElemContent);
-        model.set('content', newElemContent);
+        data[editLang] = newElemContent;
+        console.log(data);
+        model.set('content', data);
         return model.save(null, {
           wait: true,
           success: this.contentUpdated

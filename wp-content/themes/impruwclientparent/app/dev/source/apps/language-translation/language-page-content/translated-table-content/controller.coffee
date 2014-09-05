@@ -28,11 +28,21 @@ define ['app', 'controllers/base-controller'
 
             updatePageTableContent :(view,newElemContent)->
                 model = view.model
-                translatedContent = model.get 'content'
+
+                translatedContent =  model.get('content')
+
+                if _.isObject translatedContent
+                    data = translatedContent
+                else
+                    data = {}
+                    data['en'] = _.stripslashes translatedContent
+                    data['nb'] = _.stripslashes translatedContent
+
                 editLang = @editLang
-                translatedContent = newElemContent
-                console.log newElemContent
-                model.set 'content', newElemContent
+
+                data[editLang] = newElemContent
+                console.log data
+                model.set 'content', data
                 model.save null,
                     wait: true
                     success: @contentUpdated

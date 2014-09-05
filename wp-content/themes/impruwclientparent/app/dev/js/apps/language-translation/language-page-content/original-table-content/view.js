@@ -3,6 +3,39 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('LanguageApp.LanguagePageContent.OriginalTable.Views', function(Views, App, Backbone, Marionette, $, _) {
+    var OriginalTableItemView;
+    OriginalTableItemView = (function(_super) {
+      __extends(OriginalTableItemView, _super);
+
+      function OriginalTableItemView() {
+        return OriginalTableItemView.__super__.constructor.apply(this, arguments);
+      }
+
+      OriginalTableItemView.prototype.tagName = 'div';
+
+      OriginalTableItemView.prototype.className = 'form-group legend-group';
+
+      OriginalTableItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group table-elements"> <label class="col-sm-3 control-label" for="">{{element_name}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original {{element}}" tabindex="1"> {{{contentText}}} </div> </div> </div> </div>';
+
+      OriginalTableItemView.prototype.mixinTemplateHelpers = function(data) {
+        data = OriginalTableItemView.__super__.mixinTemplateHelpers.call(this, data);
+        data.element_name = function() {
+          var element_name;
+          element_name = _.polyglot.t(data.element);
+          return element_name;
+        };
+        data.contentText = function() {
+          var translated_text, _ref;
+          translated_text = (_ref = data.content[WPML_DEFAULT_LANG]) != null ? _ref : data.content;
+          translated_text = _.stripslashes(translated_text);
+          return translated_text;
+        };
+        return data;
+      };
+
+      return OriginalTableItemView;
+
+    })(Marionette.ItemView);
     return Views.OriginalTableView = (function(_super) {
       __extends(OriginalTableView, _super);
 
@@ -10,27 +43,14 @@ define(['app'], function(App) {
         return OriginalTableView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalTableView.prototype.tagName = 'div';
+      OriginalTableView.prototype.template = '<div id="original-page-table"></div>';
 
-      OriginalTableView.prototype.className = 'form-group legend-group';
+      OriginalTableView.prototype.itemView = OriginalTableItemView;
 
-      OriginalTableView.prototype.template = '<div class="col-sm-12"> <div class="form-group table-elements"> </div> </div>';
-
-      OriginalTableView.prototype.onShow = function() {
-        return _.each(this.collection.models, (function(_this) {
-          return function(model, index) {
-            var content, element, element_name, html;
-            element = model.get('element');
-            element_name = _.polyglot.t(element);
-            content = _.stripslashes(model.get('content'));
-            html = '<label class="col-sm-3 control-label" for="">' + element_name + '</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original ' + element + '" tabindex="1">' + content + '</div> </div>';
-            return _this.$el.find('.table-elements').append(html);
-          };
-        })(this));
-      };
+      OriginalTableView.prototype.itemViewContainer = '#original-page-table';
 
       return OriginalTableView;
 
-    })(Marionette.ItemView);
+    })(Marionette.CompositeView);
   });
 });

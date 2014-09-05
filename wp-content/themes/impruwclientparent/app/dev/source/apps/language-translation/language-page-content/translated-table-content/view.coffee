@@ -12,7 +12,7 @@ define ['app'], (App)->
                             <div class="form-group trans-field" id="translated-table-elements">
                                 <div class="col-sm-10">
                                     <div class="form-control translated-element-content {{element}} tabindex="1" id = "translated-table-content">
-                                        {{{content}}}
+                                        {{{contentText}}}
                                     </div>
                                     <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-table">
                                         {{#polyglot}}Save{{/polyglot}}
@@ -27,9 +27,20 @@ define ['app'], (App)->
                 "click table td" : "showEditor"
                 "click table th" : "showEditor"
 
-            serializeData: ()->
-                data = super()
-                data.content = _.stripslashes data.content
+            mixinTemplateHelpers: (data)->
+                data = super data
+                editingLanguage = Marionette.getOption @, 'editingLanguage'
+                data.contentText = ->
+                    if _.isObject(data.content)
+                      if data.content[editingLanguage] is undefined
+                        translated_text = data.content[WPML_DEFAULT_LANG]
+                      else
+                        translated_text = data.content[editingLanguage]
+                    else
+                      translated_text = data.content
+                    console.log translated_text
+                    translated_text = _.stripslashes translated_text
+                    translated_text
                 data
 
             updatePageTable:(e) ->

@@ -17,7 +17,7 @@ define(['app'], function(App) {
 
       TranslatedTableItemView.prototype.className = 'form-group legend-group';
 
-      TranslatedTableItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field" id="translated-table-elements"> <div class="col-sm-10"> <div class="form-control translated-element-content {{element}} tabindex="1" id = "translated-table-content"> {{{content}}} </div> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-table"> {{#polyglot}}Save{{/polyglot}} </button> </div> </div> </div>';
+      TranslatedTableItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field" id="translated-table-elements"> <div class="col-sm-10"> <div class="form-control translated-element-content {{element}} tabindex="1" id = "translated-table-content"> {{{contentText}}} </div> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-table"> {{#polyglot}}Save{{/polyglot}} </button> </div> </div> </div>';
 
       TranslatedTableItemView.prototype.events = {
         "click #btn-save-translated-table": "updatePageTable",
@@ -25,10 +25,25 @@ define(['app'], function(App) {
         "click table th": "showEditor"
       };
 
-      TranslatedTableItemView.prototype.serializeData = function() {
-        var data;
-        data = TranslatedTableItemView.__super__.serializeData.call(this);
-        data.content = _.stripslashes(data.content);
+      TranslatedTableItemView.prototype.mixinTemplateHelpers = function(data) {
+        var editingLanguage;
+        data = TranslatedTableItemView.__super__.mixinTemplateHelpers.call(this, data);
+        editingLanguage = Marionette.getOption(this, 'editingLanguage');
+        data.contentText = function() {
+          var translated_text;
+          if (_.isObject(data.content)) {
+            if (data.content[editingLanguage] === void 0) {
+              translated_text = data.content[WPML_DEFAULT_LANG];
+            } else {
+              translated_text = data.content[editingLanguage];
+            }
+          } else {
+            translated_text = data.content;
+          }
+          console.log(translated_text);
+          translated_text = _.stripslashes(translated_text);
+          return translated_text;
+        };
         return data;
       };
 
