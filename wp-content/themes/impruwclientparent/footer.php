@@ -16,12 +16,17 @@
 </div><!-- .container -->
 <script type="text/javascript">
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
+    var CHILDTHEMEURL = '<?php echo get_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
     var AJAXURL = '<?php echo admin_url('admin-ajax.php'); ?>';
     var HOTELADDRESS = '<?php echo get_hotel_address() ?>';
+    var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
 </script>
 <?php if ( is_singular() ): ?>
     <script type="text/javascript">
+            function replaceAll(find, replace, str) {
+              return str.replace(new RegExp(find, 'g'), replace);
+            }
         var PLANS = <?php echo json_encode(get_plans(FALSE)); ?>;
         var DATERANGE = <?php echo json_encode(get_date_range(FALSE)); ?>;
         //var TARIFF =
@@ -35,6 +40,7 @@
 <?php get_theme_JS(); ?>
 
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.cookie.js"></script>
 <script>
     var map, geocoder;
     function initialize() {
@@ -160,7 +166,10 @@
     </div>
     <script type="text/javascript">
      
-        jQuery(document).ready(function(){
+        jQuery(document).ready(function($){
+            
+
+
             jQuery('.options-div').tabSlideOut({
                 tabHandle: '.handle',                     //class of the element that will become your tab
                 tabLocation: 'left',                      //side of screen where tab lives, top, right, bottom, or left
@@ -169,26 +178,82 @@
                 topPos: '150px',                          //position from the top/ use if tabLocation is left or right
                 fixedPosition: true                       //options: true makes it stick(fixed position) on scroll
             });
+            
+
+            jQuery('a[data-color]').click(function(e){
+                e.preventDefault();
+                color_scheme_name = jQuery(this).attr('data-color');
+                $.cookie('color_scheme', color_scheme_name);
+                applyStyle(); 
+                $(this).closest('.option-colors').find('a').removeClass('active');
+                $(this).addClass('active');               
+            });
+            
+            var stylesPromises = [];
+
+            
+
+            function applyStyle(){
+                var styleURL = CHILDTHEMEURL + '/css/theme-style.css';
+                var scheme = '';
+                scheme = $.cookie('color_scheme')
+                if( scheme !== undefined){
+                    scheme = '-' + replaceAll(" ", "-", scheme).toLowerCase();
+                    styleURL = CHILDTHEMEURL +'/color_scheme_css/theme-style' + scheme + '.css';
+                }
+                
+                if(!stylesPromises[styleURL]){
+                    stylesPromises[styleURL] = $.ajax({
+                        url : styleURL, 
+                        success : function(data, textStatus, jqxhr){
+                            setHref(styleURL);
+                        }
+                    });
+                }
+                else{
+                    setHref(styleURL);
+                }
+
+                function setHref(href){
+                    var linkTag = '<link class="theme-style" href="'+href+'" type="text/css" rel="stylesheet"/>';
+                    $('.theme-style').first().after(linkTag);
+                    
+                    setTimeout(function(){
+                        $('.theme-style').first().remove();
+                        $('body').fadeIn();
+                    }, 300);
+                }
+                
+            }
+
+            applyStyle();
+
         });
+
+
     </script>
     <script type="text/javascript">
         
-        jQuery('a[data-color]').click(function(e){
-            console.log(jQuery(this).attr('data-color'));
-            color_scheme_name = jQuery(this).attr('data-color');
-            date = new Date();
-        date.setTime(date.getTime()+(24*60*60*1000));
-            
-            document.cookie = "color_scheme="+color_scheme_name+"; expires="+date.toGMTString()+"; path=/";
-            
+        
 
-            window.location.reload(true);
-            
-        });
+
     </script>
 <?php endif; ?>
 
 
 <?php wp_footer(); ?>
+<script>
+    function removejscssfile(filename, filetype){
+         var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none" //determine element type to create nodelist from
+         var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none" //determine corresponding attribute to test for
+         var allsuspects=document.getElementsByTagName(targetelement)
+         for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
+          if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1)
+           allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
+         }
+    }
+
+
+</script>
 </body>
 </html>
