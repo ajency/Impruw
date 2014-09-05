@@ -59,7 +59,9 @@ define ['app'
 
 	                data[WPML_DEFAULT_LANG] = $(html).html()
 
-	                console.log data 
+	                data['en'] = _.stripslashes data['en']
+	                data['nb'] = _.stripslashes data['nb']
+
 	                @layout.model.set 'content', data
 	                @layout.model.save()
 				
