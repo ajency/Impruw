@@ -38,7 +38,8 @@ define ['app','bootbox'], (App,bootbox)->
 
 
 			onShow :->
-				@$el.find('.table-holder').html _.stripslashes @model.get 'content'
+				tablecontent = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
+				@$el.find('.table-holder').html _.stripslashes tablecontent
 				# @$el.find('#checkbox-bordered').prop 'checked', true if @$el.find('table').hasClass 'table-bordered'
 				# @$el.find('#checkbox-striped').prop 'checked', true if @$el.find('table').hasClass 'table-striped'
 				# @$el.find('#table-style').val @model.get 'style' 
