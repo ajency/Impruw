@@ -1,7 +1,9 @@
 define ['app', 'controllers/base-controller'
         'apps/language-translation/language-page-content/show/view'
         'apps/language-translation/language-page-content/original-page-content/controller'
-        'apps/language-translation/language-page-content/translated-page-content/controller'], (App, AppController)->
+        'apps/language-translation/language-page-content/translated-page-content/controller'
+        'apps/language-translation/language-page-content/original-table-content/controller'
+        'apps/language-translation/language-page-content/translated-table-content/controller'], (App, AppController)->
     App.module 'LanguageApp.LanguagePageContent', (LanguagePageContent, App, Backbone, Marionette, $, _)->
         class LanguagePageContent.Controller extends AppController
 
@@ -31,6 +33,17 @@ define ['app', 'controllers/base-controller'
                     #always pass same id as original id so that original and translated app are in sync
                     App.execute "translated:page:content:app",
                         region: @languagePageContentLayout.translatedPageContent,
+                        editLang : @editLang
+                        pageId :  @pageId
+                        originalId : @originalId
+
+                    App.execute "original:table:content:app",
+                        region: @languagePageContentLayout.originalTableContent,
+                        editLang : @editLang
+                        pageId :  @originalId
+
+                    App.execute "translated:table:content:app",
+                        region: @languagePageContentLayout.translatedTableContent,
                         editLang : @editLang
                         pageId :  @pageId
                         originalId : @originalId

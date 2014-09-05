@@ -236,6 +236,24 @@ function get_page_translation_elements($page_id){
    return $elements;
 }
 
+//Function to get all page table elements
+function get_page_table_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+
+    $elements = array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_table_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('Table')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;    
+}
+
 //Function to get all page header elements of a site
 function get_header_translation_elements(){
 
@@ -282,6 +300,20 @@ function get_row_translation_elements( $row_element, &$elements ){
                 get_row_translation_elements( $element,$elements );
             } else {
                 if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
+                    $elements[] = $element;
+            }
+        }
+    }
+}
+
+function get_row_table_elements( $row_element, &$elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( $element[ 'element' ] === 'Row' ) {
+                get_row_table_elements( $element,$elements );
+            } else {
+                if(in_array($element[ 'element'] , array('Table')))
                     $elements[] = $element;
             }
         }
