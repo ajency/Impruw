@@ -55,11 +55,19 @@ define [ 'app'
 
             @_disableOptions()
 
+            @_noOptions()
+
          _disableOptions : ()->
             elements = [ 'RoomSummary', 'Row', 'Link', 'Image', 'Table', 'Widget' ]
             if ISTHEMEEDITOR isnt 'yes'
                if elements.indexOf( @model.get 'element' ) is -1
                   @$el.children('.element-controls').children('.aj-imp-settings-btn' ).remove()
+
+         # remove settings button by default
+         _noOptions : ()->
+            nosettings = [ 'Logo', 'Text' ]
+            if nosettings.indexOf( @model.get 'element' ) isnt -1
+               @$el.children('.element-controls').children('.aj-imp-settings-btn' ).remove()
 
          # set the hidden fields before rendering the element
          onBeforeRenderElement : ->
