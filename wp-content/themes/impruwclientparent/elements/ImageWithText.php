@@ -60,7 +60,7 @@ class ImageWithText extends Element {
         else{
             $content = $element[ 'content' ];
         }
-        $this->content  = strip_tags(stripcslashes(trim( $content )));
+        $this->content  = stripcslashes(trim( $content ));
 
         $this->style 	= sanitize_title($element['style']);
         $this->markup   = $this->generate_markup();
