@@ -60,7 +60,7 @@ class ImageWithText extends Element {
         else{
             $content = $element[ 'content' ];
         }
-        $this->content  = strip_tags(stripcslashes(trim( $content )));
+        $this->content  = stripcslashes(trim( $content ));
 
         $this->style 	= sanitize_title($element['style']);
         $this->markup   = $this->generate_markup();
@@ -84,7 +84,7 @@ class ImageWithText extends Element {
 					{{#placeholder}}
 						<div class="image-placeholder {{alignclass}}"><span class="glyphicon glyphicon-picture"></span>Image</div>
 					{{/placeholder}}
-					<p class="editor">{{content}}</p>
+					<p class="editor">{{{content}}}</p>
 					<div class="clearfix"></div>';
     	
     	$data = array();

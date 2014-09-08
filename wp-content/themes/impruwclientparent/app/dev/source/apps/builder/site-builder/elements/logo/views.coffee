@@ -9,7 +9,7 @@ define [ 'app' ], ( App )->
 			className : 'logo'
 
 			template : '{{#image}}
-							 <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
+							 <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive "/>
 							 <div class="clearfix"></div>
 						{{/image}}
 						{{#placeholder}}
