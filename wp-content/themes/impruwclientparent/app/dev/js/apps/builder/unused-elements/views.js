@@ -15,12 +15,14 @@ define(['app'], function(App) {
 
       SingleUnusedElement.prototype.className = 'trash-elem';
 
-      SingleUnusedElement.prototype.template = '<a href="#"> <div class="trash-elem-header"> <span class="bicon icon-uniF111"></span> {{element}} </div> <div class="trash-elem-content"> {{content}} </div> </a>';
+      SingleUnusedElement.prototype.template = '<a href="#"> <div class="trash-elem-header"> <span class="bicon icon-uniF111"></span> {{element}} </div> <div class="trash-elem-content"> {{{content}}} </div> </a>';
 
       SingleUnusedElement.prototype.serializeData = function() {
-        var serializedData;
+        var content, serializedData, _ref;
         serializedData = SingleUnusedElement.__super__.serializeData.call(this);
         serializedData.element = _.str.capitalize(serializedData.element);
+        content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
+        serializedData.content = _.stripslashes(content);
         return serializedData;
       };
 

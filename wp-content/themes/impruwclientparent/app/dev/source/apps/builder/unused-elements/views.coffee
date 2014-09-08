@@ -13,7 +13,7 @@ define ['app'], (App)->
 								<span class="bicon icon-uniF111"></span> {{element}}
 							</div>
 							<div class="trash-elem-content">
-								{{content}}
+								{{{content}}}
 							</div>
 						</a>'
 
