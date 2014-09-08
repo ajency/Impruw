@@ -105,14 +105,14 @@ define [ 'app'
 
             # trigger page change event to load the initial page
             _.delay =>
+
                pageId = $.cookie 'current-page-id'
                if isNaN parseInt pageId
                   pageId = @$el.find( 'select#builder-page-sel' ).selectpicker 'val'
-               else
-                  @$el.find( 'select#builder-page-sel' ).selectpicker 'val', pageId
-
+               
                @_addToPageSlug pageId
-               @trigger 'editable:page:changed', pageId
+               @$el.find( 'select#builder-page-sel' ).selectpicker 'val', pageId
+               #@trigger 'editable:page:changed', pageId
                @changePreviewLinkUrl()
             , 250
 

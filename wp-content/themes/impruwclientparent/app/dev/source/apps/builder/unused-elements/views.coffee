@@ -20,6 +20,8 @@ define ['app'], (App)->
             serializeData: ->
                 serializedData = super()
                 serializedData.element = _.str.capitalize serializedData.element
+                content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
+                serializedData.content = _.stripslashes content
                 serializedData
 
             onRender: ->
