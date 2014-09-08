@@ -49,7 +49,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       AddPageController.prototype.showSuccessMessage = function(page) {
-        var data, menuId, menumodel;
+        var data, menuCollection, menuId, menumodel;
         this.addToPageMenu(page);
         this.layout.triggerMethod("show:success:message");
         menuId = window.MENUID;
@@ -59,11 +59,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         if (this.setAsMenuItem === true) {
           menumodel = App.request("create:new:menu:item");
           menumodel.set('menu_id', menuId);
+          menuCollection = App.request("get:menu:items:by:menuid", window.MENUID);
           data = {
             menu_item_title: page.get('post_title'),
             page_id: page.get('original_id'),
             menu_item_parent: 0,
-            order: 0
+            order: menuCollection.length + 1
           };
           return menumodel.save(data, {
             wait: true,

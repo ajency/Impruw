@@ -44,12 +44,13 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                     menumodel = App.request "create:new:menu:item"
 
                     menumodel.set 'menu_id', menuId
+                    menuCollection = App.request "get:menu:items:by:menuid", window.MENUID
 
                     data =
                         menu_item_title: page.get 'post_title'
                         page_id : page.get 'original_id'
                         menu_item_parent: 0
-                        order: 0
+                        order: menuCollection.length + 1
 
                     menumodel.save data,
                         wait: true
