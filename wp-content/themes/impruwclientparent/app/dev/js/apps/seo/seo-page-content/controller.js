@@ -43,7 +43,7 @@ define(['app', 'controllers/base-controller', 'apps/seo/seo-page-content/view'],
       };
 
       Controller.prototype.pageSeoUpdated = function(model, response) {
-        return this.seoPageContentView.triggerMethod("page:seo:updated");
+        return console.log("Seo updated");
       };
 
       return Controller;

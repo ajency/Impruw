@@ -34,7 +34,8 @@ define ['app', 'controllers/base-controller'
                     success : @pageSeoUpdated
 
             pageSeoUpdated :(model, response) =>
-                @seoPageContentView.triggerMethod "page:seo:updated"            
+                console.log "Seo updated"
+                # @seoPageContentView.triggerMethod "page:seo:updated"            
 
 
         App.commands.setHandler "show:seo:page:content:app", (opts = {}) ->
