@@ -22,7 +22,10 @@ define(['app'], function(App) {
       TranslatedTableItemView.prototype.events = {
         "click #btn-save-translated-table": "updatePageTable",
         "click table td": "showEditor",
-        "click table th": "showEditor"
+        "click table th": "showEditor",
+        'click .cke_editable': function(e) {
+          return e.stopPropagation();
+        }
       };
 
       TranslatedTableItemView.prototype.mixinTemplateHelpers = function(data) {

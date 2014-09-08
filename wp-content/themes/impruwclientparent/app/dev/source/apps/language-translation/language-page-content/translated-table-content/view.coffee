@@ -26,6 +26,8 @@ define ['app'], (App)->
                 "click #btn-save-translated-table" : "updatePageTable"
                 "click table td" : "showEditor"
                 "click table th" : "showEditor"
+                'click .cke_editable' : (e)->
+                    e.stopPropagation()
 
             mixinTemplateHelpers: (data)->
                 data = super data
