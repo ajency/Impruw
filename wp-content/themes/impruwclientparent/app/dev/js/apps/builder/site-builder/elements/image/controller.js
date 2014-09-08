@@ -23,6 +23,9 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
           link: '#',
           target: '_self'
         });
+        if (options.modelData.element === 'Logo') {
+          options.modelData.image_id = window.LOGOID;
+        }
         return Controller.__super__.initialize.call(this, options);
       };
 
@@ -75,6 +78,7 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
                 _this.stopListening(App.vent, "media:manager:choosed:media");
                 _this.layout.model.save();
                 _this.imageModel = media;
+                window.LOGOID = media.get('id');
                 return _this.renderElement();
               });
               return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {

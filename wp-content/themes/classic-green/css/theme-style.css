@@ -925,6 +925,11 @@ and open the template in the editor.
   max-height: 240px;
   overflow: hidden;
 }
+.roomsummary .room-img a {
+  display: block;
+  min-height: 200px;
+  background-size: cover !important;
+}
 .roomsummary .room-title {
   font-size: 1.6em;
   color: #5ca9a1;
@@ -1014,7 +1019,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #ffffff;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;
@@ -1024,7 +1029,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .date-range .status {
   font-size: 1.0em;
   text-transform: uppercase;
-  padding-top: 13px;
+  padding: 8px;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #ffffff;

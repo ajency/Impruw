@@ -25,6 +25,7 @@ define ['app'
 
                 'click .spinner .btn:first-of-type' : 'increaseCount'
                 'click .spinner .btn:last-of-type' : 'decreaseCount'
+                'blur .spinner input' : 'changeCount'
                 'change #checkbox-bordered' : 'changeBordered'
                 'change #checkbox-striped' : 'changeStriped'
                 'change #table-style' : 'changeStyle'
@@ -54,18 +55,33 @@ define ['app'
                 @$el.find('#checkbox-striped').prop 'checked', @eleModel.get('striped')
                 @$el.find('#table-style').val @eleModel.get 'style' 
 
+
+            changeCount:(evt)->
+                count = parseInt $(evt.target).closest('.spinner').find('input').val()
+                if _.isNumber(count) and count > 0
+                    @eleModel.set 'column', count if $(evt.target).closest('.spinner').hasClass 'column-spinner'
+                    @eleModel.set 'row', count if $(evt.target).closest('.spinner').hasClass 'row-spinner'
+
             increaseCount : (evt)->
                 evt.stopPropagation()
-                $(evt.target).closest('.spinner').find('input').val parseInt($(evt.target).closest('.spinner').find('input').val(),10)+1
-                @eleModel.set 'column', parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'column-spinner'
-                @eleModel.set 'row', parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'row-spinner'
+
+                count = parseInt($(evt.target).closest('.spinner').find('input').val(),10)              
+                count++
+
+                $(evt.target).closest('.spinner').find('input').val count
+                @eleModel.set 'column', count if $(evt.target).closest('.spinner').hasClass 'column-spinner'
+                @eleModel.set 'row', count if $(evt.target).closest('.spinner').hasClass 'row-spinner'
 
 
             decreaseCount : (evt)->
                 evt.stopPropagation()
-                $(evt.target).closest('.spinner').find('input').val parseInt($(evt.target).closest('.spinner').find('input').val(),10)-1
-                @eleModel.set 'column', parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'column-spinner'
-                @eleModel.set 'row', parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'row-spinner'
+                count = parseInt($(evt.target).closest('.spinner').find('input').val(),10)
+                count--
+
+                if count > 0
+                    $(evt.target).closest('.spinner').find('input').val count
+                    @eleModel.set 'column', count if $(evt.target).closest('.spinner').hasClass 'column-spinner'
+                    @eleModel.set 'row', count if $(evt.target).closest('.spinner').hasClass 'row-spinner'
 
             changeRowCount :(model,row)->
                 @$el.find('.row-spinner input').val row

@@ -10,7 +10,8 @@ get_header();
     <h1 class="main-title"><?php _e('You can find us at the following locations.','impruwmain')?></h1>
 
     <div class="contact london">
-        <h2><?php _e('UK','impruwmain')?></h2>
+        <h2><?php _e('United Kingdom','impruwmain')?></h2>
+        <br>
         <div class="c-address">
             <?php _e('<b>Impruw Ltd.</b><br>21 Queens Road<br>Windsor<br>Berkshire<br>SL43BQ<br>Call Us: ','impruwmain')?>
             <a href="tel:+4712345678"><?php _e('+47 - 12 34 56 78', 'impruwmain'); ?></a><br>
@@ -24,9 +25,10 @@ get_header();
 
     <div class="contact norway">
         <h2><?php _e('Norway','impruwmain')?></h2>
+        <br>
         <div class="c-address">
             <?php _e('<b>Impruw Norge AS</b><br>St Jørgensvei 12<br>NO-0662<br>Oslo<br>Norway<br>Call Us: ','impruwmain')?>
-            <a href="tel:+4792034830"><?php _e('+47 - 92 03 48 30', 'impruwmain'); ?></a>
+            <a href="tel:+4792034830"><?php _e('+47 - 92 03 48 30', 'impruwmain'); ?></a><br>
             <?php _e('E-mail: ','impruwmain')?>
             <a href="mailto:info@impruw.com"><?php _e('info@impruw.com', 'impruwmain'); ?></a>
         </div>

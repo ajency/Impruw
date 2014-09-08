@@ -65,7 +65,7 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         image_id = media.get('id');
         media_size = media.get('sizes');
         image_path = media_size.thumbnail.url;
-        this.$el.find('.feature-image').attr('src', image_path);
+        this.$el.find('.site_profile_images').attr('src', image_path);
         return this.$el.find('#logo_id').attr('value', image_id);
       };
 

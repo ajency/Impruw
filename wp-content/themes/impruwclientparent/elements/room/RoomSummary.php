@@ -124,7 +124,7 @@ class RoomSummary extends Element {
         } else {
             $template = '<div class="roomsummary ' . $this->margins . ' ">
                             <div class="room-img">
-                                 <a href="{{link}}"><img src="{{image_url}}" width="100%" class="img-responsive"></a>
+                                 <a href="{{link}}" style="background: url({{image_url}}) no-repeat center center;"></a>
                             </div>
                             <div class="room-title"><a href="{{link}}">{{post_title}}</a></div>
                             <div class="room-excerpt">{{post_content}}</div>

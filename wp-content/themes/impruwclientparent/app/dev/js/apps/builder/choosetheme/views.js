@@ -20,7 +20,7 @@ define(['app'], function(App) {
       ThemeView.prototype.serializeData = function() {
         var data;
         data = ThemeView.__super__.serializeData.call(this);
-        data.currentTheme = CURRENTTHEME === data.post_name;
+        data.currentTheme = CURRENTTHEME === _.slugify(data.post_title);
         data.post_title = _.polyglot.t(data.post_title);
         return data;
       };

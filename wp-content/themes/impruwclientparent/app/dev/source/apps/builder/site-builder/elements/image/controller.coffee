@@ -18,6 +18,9 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                     link : '#'
                     target : '_self'
 
+                if options.modelData.element is 'Logo'
+                    options.modelData.image_id = window.LOGOID
+
                 super(options)
 
             bindEvents: ->
@@ -65,6 +68,7 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                             @stopListening App.vent, "media:manager:choosed:media"
                             @layout.model.save()
                             @imageModel = media
+                            window.LOGOID = media.get 'id'
                             @renderElement()
                             
 
