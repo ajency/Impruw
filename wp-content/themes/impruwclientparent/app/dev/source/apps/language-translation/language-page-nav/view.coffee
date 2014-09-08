@@ -7,14 +7,10 @@ define ['app'], (App)->
 
                     tagName: "li"
 
-                    template : '{{#isChildSitePage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href="#page"{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} {{^isRoomPage}}id="page"{{/isRoomPage}} data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isChildSitePage}}'
+                    template : '{{#isChildSitePage}}<a href="#page" id="page" data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isChildSitePage}}'
 
                     events:
-                    	'click a#rooms' : 'loadRoomContent'
                     	'click a#page' : 'loadPageContent'
-
-                    loadRoomContent: (e) ->
-                        @trigger "page:room:content"
 
                     loadPageContent: (e) ->
                         pageId = $(e.currentTarget).attr('data-pageid')
@@ -26,9 +22,25 @@ define ['app'], (App)->
                     template : '<ul class="nav nav-pills" id="js-page-nav-bar">
                                     <li>
                                         <a href="#site" id="site" data-toggle="tab">
-                                        Site Profile
+                                        {{#polyglot}}Site Profile{{/polyglot}}
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="#page-header" id="page-header" data-toggle="tab">
+                                        {{#polyglot}}Page Header{{/polyglot}}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#page-footer" id="page-footer" data-toggle="tab">
+                                        {{#polyglot}}Page Footer{{/polyglot}}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#rooms" id="rooms" data-toggle="tab">
+                                        {{#polyglot}}All Rooms{{/polyglot}}
+                                        </a>
+                                    </li>                                    
+
                                 </ul>'
 
                     itemView :  LanguagePageNavItemView 
@@ -37,7 +49,19 @@ define ['app'], (App)->
 
                     events:
                         'click a#site' : 'loadSiteContent'
+                        'click a#page-header' : 'loadHeaderContent'
+                        'click a#page-footer' : 'loadFooterContent'
+                        'click a#rooms' : 'loadRoomContent'
 
                     loadSiteContent: (e) ->
                         @trigger "site:translate:content"
+
+                    loadHeaderContent: (e) ->
+                        @trigger "header:translate:content"
+
+                    loadFooterContent: (e) ->
+                        @trigger "footer:translate:content"
+
+                    loadRoomContent: (e) ->
+                        @trigger "page:room:content"
 

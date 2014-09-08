@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: impruwclientparent\n"
-"POT-Creation-Date: 2014-08-08 06:15+0530\n"
-"PO-Revision-Date: 2014-08-08 06:39+0530\n"
+"POT-Creation-Date: 2014-09-04 15:14+0530\n"
+"PO-Revision-Date: 2014-09-04 15:15+0530\n"
 "Last-Translator: Nutan Kamat <nutan@ajency.in>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -66,191 +66,191 @@ msgstr ""
 msgid "Facilities"
 msgstr ""
 
-#: ../functions.php:304
+#: ../functions.php:308
 msgid "New Size"
 msgstr ""
 
-#: ../functions.php:1297
+#: ../functions.php:1353
 msgid "Error removing business logo"
 msgstr ""
 
-#: ../functions.php:1302
+#: ../functions.php:1358
 msgid "Business logo removed successfully"
 msgstr ""
 
-#: ../functions.php:1333
+#: ../functions.php:1389
 msgid "Could not save site profile"
 msgstr ""
 
-#: ../functions.php:1433
+#: ../functions.php:1489
 msgid "User profile updated successfully"
 msgstr ""
 
-#: ../functions.php:1482
+#: ../functions.php:1538
 msgid "Password changed successfully"
 msgstr ""
 
-#: ../functions.php:2104
+#: ../functions.php:2160
 msgid "Error updating Tariff plan"
 msgstr ""
 
-#: ../functions.php:2118
+#: ../functions.php:2174
 msgid "Tariff plan is successfully updated"
 msgstr ""
 
-#: ../functions.php:2125
+#: ../functions.php:2181
 msgid "Error updating tariff plan"
 msgstr ""
 
-#: ../functions.php:2164
+#: ../functions.php:2220
 msgid "New facility is successfully added"
 msgstr ""
 
-#: ../functions.php:2201
+#: ../functions.php:2257
 msgid "The tax name already exists"
 msgstr ""
 
-#: ../functions.php:2221
+#: ../functions.php:2277
 msgid "New tax added successfully"
 msgstr ""
 
-#: ../functions.php:2227
+#: ../functions.php:2283
 msgid "Error adding the tax"
 msgstr ""
 
-#: ../functions.php:2264
+#: ../functions.php:2320
 msgid "The addon type already exists"
 msgstr ""
 
-#: ../functions.php:2284
+#: ../functions.php:2340
 msgid "New addon type added successfully"
 msgstr ""
 
-#: ../functions.php:2290
+#: ../functions.php:2346
 msgid "Error adding the addon type"
 msgstr ""
 
-#: ../functions.php:2357
+#: ../functions.php:2413
 msgid "Addon type updated successfully"
 msgstr ""
 
-#: ../functions.php:2364
+#: ../functions.php:2420
 msgid "Error updating the addon type"
 msgstr ""
 
-#: ../functions.php:2414
+#: ../functions.php:2470
 msgid "Tax type updated successfully"
 msgstr ""
 
-#: ../functions.php:2421
+#: ../functions.php:2477
 msgid "Error updating the tax type"
 msgstr ""
 
-#: ../functions.php:2445
+#: ../functions.php:2501
 msgid "Facility is successfully Deleted"
 msgstr ""
 
-#: ../functions.php:2450
+#: ../functions.php:2506
 msgid "Error deleting facility"
 msgstr ""
 
-#: ../functions.php:2482
+#: ../functions.php:2538
 msgid "Addon type is successfully Deleted"
 msgstr ""
 
-#: ../functions.php:2487
+#: ../functions.php:2543
 msgid "Error deleting addon type"
 msgstr ""
 
-#: ../functions.php:2521
+#: ../functions.php:2577
 msgid "Error deleting tax type"
 msgstr ""
 
-#: ../functions.php:2555
+#: ../functions.php:2611
 msgid "Facility updated successfully"
 msgstr ""
 
-#: ../functions.php:2576
+#: ../functions.php:2632
 msgid "Check-in time updated successfully"
 msgstr ""
 
-#: ../functions.php:2583
+#: ../functions.php:2639
 msgid "Error updating check-in time"
 msgstr ""
 
-#: ../functions.php:2621
+#: ../functions.php:2677
 msgid "Tax option updated successfully"
 msgstr ""
 
-#: ../functions.php:2627
+#: ../functions.php:2683
 msgid "Error updating tax option"
 msgstr ""
 
-#: ../functions.php:2642
+#: ../functions.php:2698
 msgid "Check-in format updated successfully"
 msgstr ""
 
-#: ../functions.php:2648
+#: ../functions.php:2704
 msgid "Error updating Check-in format"
 msgstr ""
 
-#: ../functions.php:2693
+#: ../functions.php:2749
 msgid "Date range is successfully added"
 msgstr ""
 
-#: ../functions.php:2699
+#: ../functions.php:2755
 msgid "Error adding Date range"
 msgstr ""
 
-#: ../functions.php:2731
+#: ../functions.php:2787
 msgid "Date range updated successfully"
 msgstr ""
 
-#: ../functions.php:2737
+#: ../functions.php:2793
 msgid "Error updating Date range"
 msgstr ""
 
-#: ../functions.php:2798
+#: ../functions.php:2854
 msgid "Error adding Tariff plan"
 msgstr ""
 
-#: ../functions.php:2813
+#: ../functions.php:2869
 msgid "Tariff plan is successfully added"
 msgstr ""
 
-#: ../functions.php:2820 ../functions.php:2856
+#: ../functions.php:2876 ../functions.php:2912
 msgid "Error adding plan"
 msgstr ""
 
-#: ../functions.php:2850
+#: ../functions.php:2906
 msgid "Plan is successfully added"
 msgstr ""
 
-#: ../functions.php:2941
+#: ../functions.php:2997
 msgid "Error updating plan"
 msgstr ""
 
-#: ../functions.php:2947
+#: ../functions.php:3003
 msgid "The plan updated successfully"
 msgstr ""
 
-#: ../functions.php:3148
+#: ../functions.php:3204
 msgid "Date range successfully deleted"
 msgstr ""
 
-#: ../functions.php:3153
+#: ../functions.php:3209
 msgid "Error deleting date range"
 msgstr ""
 
-#: ../functions.php:3242
+#: ../functions.php:3298
 msgid "New Room added successfully"
 msgstr ""
 
-#: ../functions.php:3318
+#: ../functions.php:3374
 msgid "Room Details updated successfully"
 msgstr ""
 
-#: ../functions.php:4012
+#: ../functions.php:4079
 msgid "Invalid Form Data"
 msgstr ""
 
@@ -328,40 +328,43 @@ msgid "rooms"
 msgstr "rom"
 
 #: ../modules/site/theme_texts_for_translation.php:6
+msgid "single room"
+msgstr "Enkeltrom"
+
+#: ../modules/site/theme_texts_for_translation.php:7
 msgid "gallery"
 msgstr "Galleri"
 
-#: ../modules/site/theme_texts_for_translation.php:7
+#: ../modules/site/theme_texts_for_translation.php:8
 msgid "contact us"
 msgstr "Kontakt oss"
 
-#: ../modules/site/theme_texts_for_translation.php:8
+#: ../modules/site/theme_texts_for_translation.php:9
 msgid "click here to enter title"
 msgstr "Klikk her for å skrive inn tittel"
 
-#: ../modules/site/theme_texts_for_translation.php:9
+#: ../modules/site/theme_texts_for_translation.php:10
 msgid "make a booking"
 msgstr "Gjør en booking"
 
-#: ../modules/site/theme_texts_for_translation.php:10
+#: ../modules/site/theme_texts_for_translation.php:11
 msgid "logo"
 msgstr "logo"
 
-#: ../modules/site/theme_texts_for_translation.php:11
+#: ../modules/site/theme_texts_for_translation.php:12
 msgid "room image"
 msgstr "Room Bilde"
 
-#: ../modules/site/theme_texts_for_translation.php:12
-#: ../modules/site/theme_texts_for_translation.php:17
+#: ../modules/site/theme_texts_for_translation.php:13
 #: ../modules/site/theme_texts_for_translation.php:18
 msgid "your room title"
 msgstr "Your Room Tittel"
 
-#: ../modules/site/theme_texts_for_translation.php:13
+#: ../modules/site/theme_texts_for_translation.php:14
 msgid "good morning happy visitor!"
 msgstr "Good Morning Glad Visitor!"
 
-#: ../modules/site/theme_texts_for_translation.php:14
+#: ../modules/site/theme_texts_for_translation.php:15
 msgid ""
 "choose a room to display from settings. your room description, image, number "
 "of rooms and link to the single room page will be displayed here. to make "
@@ -371,11 +374,11 @@ msgstr ""
 "antall rom og link til enkeltrom siden vil bli vist her. Å gjøre noen "
 "endringer i rommet gå til Room fra dashbordet."
 
-#: ../modules/site/theme_texts_for_translation.php:15
+#: ../modules/site/theme_texts_for_translation.php:16
 msgid "view details"
 msgstr "Vis detaljer"
 
-#: ../modules/site/theme_texts_for_translation.php:16
+#: ../modules/site/theme_texts_for_translation.php:17
 msgid "take  a look at our rooms"
 msgstr "Ta en titt på våre rom"
 
@@ -558,33 +561,33 @@ msgstr "Ta en titt på våre rom"
 msgid "take&nbsp; a look at our rooms"
 msgstr "Ta en titt på våre rom"
 
-#: ../modules/user/functions.php:188
+#: ../modules/user/functions.php:199
 msgid "Password Reset"
 msgstr "Password Reset"
 
-#: ../modules/user/functions.php:190
+#: ../modules/user/functions.php:201
 msgid "Someone requested that the password be reset for the following account:"
 msgstr "Noen har bedt om at passordet tilbakestilles for følgende konto:"
 
-#: ../modules/user/functions.php:192
+#: ../modules/user/functions.php:203
 #, php-format
 msgid "Username: %s"
 msgstr ""
 
-#: ../modules/user/functions.php:193
+#: ../modules/user/functions.php:204
 msgid "If this was a mistake, just ignore this email and nothing will happen."
 msgstr ""
 "Hvis dette var en feil, bare ignorere denne e-posten, og ingenting vil skje."
 
-#: ../modules/user/functions.php:194
+#: ../modules/user/functions.php:205
 msgid "To reset your password, visit the following address:"
 msgstr "For å tilbakestille passordet ditt, kan du gå til følgende adresse:"
 
-#: ../modules/user/functions.php:198
+#: ../modules/user/functions.php:209
 msgid "The e-mail could not be sent."
 msgstr "E-posten kunne ikke sendes."
 
-#: ../modules/user/functions.php:198
+#: ../modules/user/functions.php:209
 msgid "Possible reason: your host may have disabled the mail() function."
 msgstr "Mulig årsak: verten kan ha deaktivert mail ()-funksjonen."
 

@@ -46,7 +46,8 @@ function create_new_site( $site_name, $user_id ) {
     create_additional_tables( $site_id );
 
     //set up wpml for the site
-    wpml_setup($site_id,$user_id);
+    //wpml_setup($site_id,$user_id);
+    do_action('imp_setup_wpml', $site_id, $user_id);
 
     // add pages to site
     $pages = array(
@@ -248,6 +249,14 @@ function wpml_setup($site_id, $user_id){
 
     wpml_setup_step_three();
 
+    $translation_codes = array('en','fr','nb','es', 'de', 'it' );
+
+    foreach ($translation_codes as $translation_code) {
+
+        impruw_update_language_name_switcher($translation_code);
+        
+    }
+
     restore_current_blog();
 
 
@@ -341,6 +350,50 @@ function wpml_setup_step_three(){
     $iclsettings['setup_complete'] = 1;
 
     $sitepress->save_settings($iclsettings);
+}
+
+/**
+ * WPML update norwegian ie Norwegian Bokmal to Norwegian translation in language switcher
+ */
+function impruw_update_language_name_switcher($translation_code)
+{
+    global $wpdb;
+    switch ($translation_code) {
+        case 'de':
+        $name = 'Norwegisch';
+        break;
+
+        case 'en':
+        $name = 'Norwegian';
+        break;
+
+        case 'es':
+        $name = 'Noruega';
+        break;
+
+        case 'fr':
+        $name = 'Norvégien';
+        break;
+
+        case 'it':
+        $name = 'Norvegese';
+        break;
+
+        case 'nb':
+        $name = 'Norwegian';
+        break;
+
+        default:
+        $name = 'Norwegian';
+        break;
+    }
+
+    if ($wpdb->get_var("SELECT id FROM {$wpdb->prefix}icl_languages_translations WHERE language_code='nb' AND display_language_code='".$translation_code."'")){
+
+        $wpdb->query("UPDATE {$wpdb->prefix}icl_languages_translations SET name='".$name."' WHERE language_code = 'nb' AND display_language_code = '".$translation_code."'");
+
+        delete_option('_icl_cache');
+    }
 }
 
 /**

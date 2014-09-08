@@ -19,4 +19,6 @@ define [
     'entities/braintree-credit-card'
     'entities/braintree-transaction'
     'entities/seo'
+    'entities/header-elements'
+    'entities/footer-elements'
 ], ->

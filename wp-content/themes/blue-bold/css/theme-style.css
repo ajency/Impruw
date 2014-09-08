@@ -925,6 +925,11 @@ and open the template in the editor.
   max-height: 240px;
   overflow: hidden;
 }
+.roomsummary .room-img a {
+  display: block;
+  min-height: 200px;
+  background-size: cover !important;
+}
 .roomsummary .room-title {
   font-size: 1.6em;
   color: #07669e;
@@ -1014,7 +1019,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #ffffff;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;
@@ -1024,7 +1029,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .date-range .status {
   font-size: 1.0em;
   text-transform: uppercase;
-  padding-top: 13px;
+  padding: 8px;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #ffffff;
@@ -1762,8 +1767,21 @@ ul.gallery {
 .lang-sel > div {
   text-align: left;
 }
+.lang-sel > div ul,
+.lang-sel > div li {
+  min-width: 170px;
+}
+.lang-sel > div ul ul,
+.lang-sel > div li ul {
+  z-index: 1;
+}
 .lang-sel > div .iclflag {
   top: -1px !important;
+}
+/**** Widget Styles ****/
+.widget {
+  color: #989898;
+  margin: 1em 0;
 }
 /**** Responsive Embed Styles ****/
 .embed-responsive {
@@ -2009,6 +2027,11 @@ and open the template in the editor.
   font-style: italic;
   font-weight: 700;
   font-size: 4em;
+}
+@media (max-width: 767px) {
+  .title.page-title {
+    font-size: 2.5em;
+  }
 }
 .title.title-super-text {
   font-size: 1.2em;
@@ -2503,6 +2526,12 @@ and open the template in the editor.
 .roomsummary .room-actions .btn-room:hover {
   background: #16a2f5;
 }
+@media (max-width: 767px) {
+  .roomsummary {
+    border-bottom: 1px solid #989898;
+    padding-bottom: 1em;
+  }
+}
 /* Calender Booking */
 .booking-title {
   font-size: 2em;
@@ -2988,4 +3017,58 @@ and open the template in the editor.
     padding: 0 0 1em;
   }
   /*Responive*/
+}
+.lang-sel {
+  text-align: right;
+  margin: 0 0 0.5em;
+}
+.lang-sel.align-left {
+  text-align: left;
+}
+.lang-sel.align-right {
+  text-align: right;
+}
+.lang-sel.align-center {
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .lang-sel {
+    text-align: center !important;
+  }
+}
+.lang-sel > div {
+  text-align: left;
+}
+.lang-sel > div ul,
+.lang-sel > div li {
+  width: 170px;
+}
+.lang-sel > div ul ul,
+.lang-sel > div li ul {
+  z-index: 1;
+  border: 0 !important;
+}
+.lang-sel > div ul a,
+.lang-sel > div li a {
+  background-color: #07669e !important;
+  color: #f2f2f2 !important;
+  border: 0 !important;
+}
+.lang-sel > div ul a:hover,
+.lang-sel > div li a:hover {
+  color: #f2f2f2 !important;
+  background-color: #555555 !important;
+}
+.lang-sel > div ul a.lang_sel_sel,
+.lang-sel > div li a.lang_sel_sel {
+  border: 0 !important;
+  background-position: 150px center !important;
+}
+.lang-sel > div ul a.lang_sel_sel:hover,
+.lang-sel > div li a.lang_sel_sel:hover {
+  color: #f2f2f2 !important;
+  background-color: #07669e !important;
+}
+.lang-sel > div .iclflag {
+  top: -1px !important;
 }

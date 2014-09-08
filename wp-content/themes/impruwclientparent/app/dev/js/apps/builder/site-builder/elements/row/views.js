@@ -36,12 +36,20 @@ define(['app'], function(App) {
           helper: this._getHelper,
           opacity: .65,
           placeholder: "ui-sortable-placeholder builder-sortable-placeholder",
-          out: function() {
-            window.dragging = false;
-          },
-          over: function() {
-            window.dragging = true;
-          },
+          out: (function(_this) {
+            return function(evt, ui) {
+              _this.$el.closest('.row').closest('.element-wrapper').removeClass('hover-class');
+              window.dragging = false;
+            };
+          })(this),
+          over: (function(_this) {
+            return function() {
+              _.delay(function() {
+                return _this.$el.closest('.row').closest('.element-wrapper').addClass('hover-class');
+              }, 100);
+              window.dragging = true;
+            };
+          })(this),
           remove: (function(_this) {
             return function(evt, ui) {
               _this.trigger("element:moved", $(evt.target));

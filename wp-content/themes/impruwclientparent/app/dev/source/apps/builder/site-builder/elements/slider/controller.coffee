@@ -13,6 +13,7 @@ define ['app'
                     element: 'Slider'
                     height: 350
                     slider_id : 0
+                    reset_transitions : 'fade'
 
                 super(options)
 
@@ -25,6 +26,7 @@ define ['app'
                 new Slider.Views.SliderView
                     collection: collection
                     sliderHeight : parseInt @layout.model.get 'height'
+                    model : @layout.model
 
             _getSlidesCollection: ->
                 if not @slidesCollection
@@ -60,5 +62,9 @@ define ['app'
 
                     @listenTo slidesCollection, "remove add slides:order:updated", =>
                         @renderElement()
+
+                    @listenTo view ,"render:slider",=>
+                        @layout.model.save()
+                        @layout.elementRegion.show view
 
                     @layout.elementRegion.show view

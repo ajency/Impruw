@@ -21,4 +21,5 @@ define ['apps/builder/site-builder/elements/menu/controller'
 		'apps/builder/site-builder/elements/roombooking/controller'
 		'apps/builder/site-builder/elements/roomsummary/controller'
 		'apps/builder/site-builder/elements/table/controller'
+		'apps/builder/site-builder/elements/widget/controller'
  ],->

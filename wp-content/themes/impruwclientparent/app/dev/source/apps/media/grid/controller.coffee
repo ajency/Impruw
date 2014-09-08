@@ -32,6 +32,7 @@ define [ 'app', 'controllers/base-controller', 'apps/media/grid/views' ], ( App,
 					@deleteImage model
 
 				@listenTo view, "itemview:show:image:editor", (iv, model) =>
+					_region = @region
 					ratio  = App.currentImageRatio
 					editView = App.request "get:image:editor:view", model, 
 																	aspectRatio : ratio
@@ -40,6 +41,11 @@ define [ 'app', 'controllers/base-controller', 'apps/media/grid/views' ], ( App,
 					view.triggerMethod "show:edit:image", editView
 					view.listenTo editView, "image:editing:cancelled", ->
 						view.triggerMethod "image:editing:cancelled"
+						_.delay ->
+							Marionette.triggerMethod.call( _region,"media:element:selected",model)
+
+				App.commands.setHandler "new:media:added",(media)=>
+                    @mediaCollection.add media
 
 				@show view, loading : true
 

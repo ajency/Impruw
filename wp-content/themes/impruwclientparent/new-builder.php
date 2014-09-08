@@ -51,6 +51,9 @@
           media="screen">
 </head>
 <body <?php body_class(); ?>>
+
+<div id="fb-root"></div>
+
 <div id="choose-theme-region"></div>
 <div class="aj-imp-builder container">
     <div id="header-region"></div>
@@ -86,6 +89,7 @@
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
     var PLUGIN_URI  = '<?php echo WP_PLUGIN_URL; ?>';
     var ISTHEMEEDITOR = '<?php echo current_user_can( 'edit_impruw_theme' ) ? 'yes' : 'no' ?>';
+    var MENUID = 0;
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>

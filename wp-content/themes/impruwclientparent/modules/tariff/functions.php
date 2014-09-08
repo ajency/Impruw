@@ -92,6 +92,8 @@ function get_tariff( $room_id = 0 ) {
     if ( $room_id === 0 )
         $room_id = get_the_ID();
 
+    $room_id = icl_object_id($room_id, 'impruw_room', true,'en');
+
     $table_name = $wpdb->prefix . 'tariffs';
 
     $query = "SELECT * FROM $table_name WHERE room_id = $room_id ";

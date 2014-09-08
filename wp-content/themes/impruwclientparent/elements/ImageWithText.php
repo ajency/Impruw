@@ -84,7 +84,7 @@ class ImageWithText extends Element {
 					{{#placeholder}}
 						<div class="image-placeholder {{alignclass}}"><span class="glyphicon glyphicon-picture"></span>Image</div>
 					{{/placeholder}}
-					<p class="editor">{{content}}</p>
+					<p class="editor">{{{content}}}</p>
 					<div class="clearfix"></div>';
     	
     	$data = array();

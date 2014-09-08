@@ -32,6 +32,10 @@ define(['app', 'text!apps/builder/site-builder/elements/image/settings/templates
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').checkbox('check');
         }
+        if (this.eleModel.get('target') === '_BLANK') {
+          this.$el.find('input[name="target"]').checkbox('check');
+        }
+        this.$el.find("input[name='link']").val(this.eleModel.get('link'));
         this.$el.find('select[name="align"]').selectpicker('val', this.eleModel.get('align'));
         this.$el.find('select[name="top_margin"]').selectpicker('val', this.eleModel.get('top_margin'));
         this.$el.find('select[name="left_margin"]').selectpicker('val', this.eleModel.get('left_margin'));
@@ -52,7 +56,18 @@ define(['app', 'text!apps/builder/site-builder/elements/image/settings/templates
         },
         'change select.spacing': function(evt) {
           return this.trigger("element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val());
+        },
+        'change input[name="target"]': function(evt) {
+          return this.trigger("element:target:changed", $(evt.target).is(':checked') ? '_BLANK' : '_self');
+        },
+        'blur input.linktext': function(evt) {
+          return this.trigger("element:link:changed", $(evt.target).val());
         }
+      };
+
+      SettingsView.prototype.onBeforeClose = function() {
+        this.$el.find('input.linktext').trigger('blur');
+        return true;
       };
 
       return SettingsView;

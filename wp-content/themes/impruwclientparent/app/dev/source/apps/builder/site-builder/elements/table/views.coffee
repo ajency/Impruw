@@ -8,51 +8,7 @@ define ['app','bootbox'], (App,bootbox)->
 
 			className : 'imp-table'
 
-			template : '<div class="table-settings-bar">
-						 <div class="form-inline">
-							<div class="control-group">
-								<label for="spinner-01">{{#polyglot}}Columns{{/polyglot}}: </label>
-							  	<div class="input-group spinner column-spinner">
-									<input type="text" class="form-control" value="{{column}}">
-									<div class="input-group-btn-vertical">
-										<button class="btn btn-default"><i class="glyphicon glyphicon-chevron-up"></i></button>
-										<button class="btn btn-default"><i class="glyphicon glyphicon-chevron-down"></i></button>
-									</div>
-								</div>
-							</div>
-							<div class="control-group">
-								<label for="spinner-02">{{#polyglot}}Rows{{/polyglot}}: </label>
-							  	<div class="input-group spinner row-spinner">
-									<input type="text" class="form-control" value="{{row}}">
-									<div class="input-group-btn-vertical">
-										<button class="btn btn-default"><i class="glyphicon glyphicon-chevron-up"></i></button>
-										<button class="btn btn-default"><i class="glyphicon glyphicon-chevron-down"></i></button>
-									</div>
-								</div>
-							</div>
-							<div class="control-group check-props">
-								<label for="properties">{{#polyglot}}Properties{{/polyglot}}: </label>
-							  	<div class="props">
-							  		<label class="checkbox" for="checkbox-bordered">
-										<input type="checkbox" value="" id="checkbox-bordered" data-toggle="checkbox">
-										{{#polyglot}}Bordered{{/polyglot}}
-									</label>
-									<label class="checkbox" for="checkbox-striped">
-										<input type="checkbox" value="" id="checkbox-striped" data-toggle="checkbox">
-										{{#polyglot}}Striped{{/polyglot}}
-									</label>
-							  	</div>
-							</div>
-							<div class="control-group styles">
-								<label for="style">{{#polyglot}}Style{{/polyglot}}: </label>
-							  	<select id="table-style">
-							  		<option value="style-1">Style 1</option>
-							  		<option value="style-2">Style 2</option>
-							  	</select>
-							</div>
-						</div>
-					</div>
-					<div class="table-holder"></div>'
+			template : '<div class="table-holder"></div>'
 
 			ui:
 				editableData: 'table td '
@@ -68,66 +24,61 @@ define ['app','bootbox'], (App,bootbox)->
 
 				'click .table-holder' : 'destroyEditor'
 
-				'click .spinner .btn:first-of-type' : 'increaseCount'
-				'click .spinner .btn:last-of-type' : 'decreaseCount'
-
 
 				'column:resize:stop.rc table' : 'saveTableMarkup'
 
-				'change #checkbox-bordered' : 'changeBordered'
-				'change #checkbox-striped' : 'changeStriped'
-				'change #table-style' : 'changeStyle'
+
+			modelEvents :
+				'change:row' : 'rowChanged'
+				'change:column' : 'columnChanged'
+				'change:bordered' : 'changeBordered'
+				'change:striped' : 'changeStriped'
+				'change:style' : 'changeStyle'
 
 
 
 			onShow :->
 				@$el.find('.table-holder').html _.stripslashes @model.get 'content'
-				@$el.find('#checkbox-bordered').prop 'checked', true if @$el.find('table').hasClass 'table-bordered'
-				@$el.find('#checkbox-striped').prop 'checked', true if @$el.find('table').hasClass 'table-striped'
-				@$el.find('#table-style').val @model.get 'style' 
+				# @$el.find('#checkbox-bordered').prop 'checked', true if @$el.find('table').hasClass 'table-bordered'
+				# @$el.find('#checkbox-striped').prop 'checked', true if @$el.find('table').hasClass 'table-striped'
+				# @$el.find('#table-style').val @model.get 'style' 
 				@$el.find('table').resizableColumns()
-				@$el.find('select').selectpicker()
-				@$el.find('[data-toggle="checkbox"]').checkbox() 
+				# @$el.find('select').selectpicker()
+				# @$el.find('[data-toggle="checkbox"]').checkbox() 
 
 
-			increaseCount : (evt)->
-				evt.stopPropagation()
-				$(evt.target).closest('.spinner').find('input').val parseInt($(evt.target).closest('.spinner').find('input').val(),10)+1
-				@columnChanged parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'column-spinner'
-				@rowChanged parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'row-spinner'
+	
 
+			rowChanged:(model,rows)->
+				currentRows = @$el.find('tbody tr').length 
 
-			decreaseCount : (evt)->
-				evt.stopPropagation()
-				$(evt.target).closest('.spinner').find('input').val parseInt($(evt.target).closest('.spinner').find('input').val(),10)-1
-				@columnChanged parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'column-spinner'
-				@rowChanged parseInt $(evt.target).closest('.spinner').find('input').val() if $(evt.target).closest('.spinner').hasClass 'row-spinner'
+				if currentRows is rows
+					return
 
-
-			rowChanged:(row)->
-				if row > @model.get 'row'
-					@model.set 'row', row
+				else if currentRows < rows
 					html = '<tr>'
-					for index in [1..@model.get('column')]
+					for index in [1..model.get('column')]
 						html += '<td><div>demo</div></td>'
 					html += '</tr>'
 					@$el.find('tbody').append html
 					@saveTableMarkup()
 				else
-					bootbox.confirm 'Removing a ROW might cause a loss of data.
-					 	Do you want to continue?',(result)=>
+					bootbox.confirm _.polyglot.t('Removing a ROW might cause a loss of data.
+						Do you want to continue?'),(result)=>
 						if result
-							@model.set 'row', row
 							@$el.find('tbody tr:last-of-type').remove()
 							@saveTableMarkup()
 						else 
-							# model.set 'row', row+1
-							@$el.find('.row-spinner input').val @model.get 'row'
+							model.set 'row', currentRows 
 				
 
-			columnChanged : (column)->
-				if column > @model.get 'column'
-					@model.set 'column',column
+			columnChanged : (model,columns)->
+				currentColumns = @$el.find('thead th').length 
+
+				if currentColumns is columns
+					return
+
+				else if currentColumns < columns
 					@$el.find('thead tr').append '<th><div>demo</div></th>'
 					tableRows = @$el.find('tbody tr')
 					_.each tableRows,(row,index)->
@@ -137,17 +88,18 @@ define ['app','bootbox'], (App,bootbox)->
 					@$el.find('table').resizableColumns()
 					@saveTableMarkup()
 				else 
-					bootbox.confirm 'Removing a COLUMN might cause a loss of data.
-					 	Do you want to continue?',(result)=>
+					bootbox.confirm _.polyglot.t('Removing a COLUMN might cause a loss of data.
+						Do you want to continue?'),(result)=>
 						if result
-						 	@model.set 'column',column
-						 	@$el.find('thead tr th:last-of-type').remove()
-						 	tableRows = @$el.find('tbody tr td:last-of-type').remove()
-						 	@saveTableMarkup()
+							@$el.find('thead tr th:last-of-type').remove()
+							tableRows = @$el.find('tbody tr td:last-of-type').remove()
+							@$el.find('table').resizableColumns('destroy')
+							@$el.find('table').resizableColumns()
+							@saveTableMarkup()
 						else
-							# model.set 'column', column+1
+							model.set 'column', currentColumns 
 							# console.log column+1
-							@$el.find('.column-spinner input').val @model.get 'column'
+
 
 				
 
@@ -196,8 +148,8 @@ define ['app','bootbox'], (App,bootbox)->
 				@trigger 'save:table',@$el.find('.table-holder')
 
 
-			changeBordered : (e)->
-				if $(e.target).prop 'checked'
+			changeBordered : (model,bordered)->
+				if bordered
 					@$el.find('table').addClass 'table-bordered'
 
 				else
@@ -206,8 +158,8 @@ define ['app','bootbox'], (App,bootbox)->
 				@saveTableMarkup()
 
 
-			changeStriped :(e)->
-				if $(e.target).prop 'checked'
+			changeStriped :(model,striped)->
+				if striped
 					@$el.find('table').addClass 'table-striped'
 
 				else
@@ -215,9 +167,8 @@ define ['app','bootbox'], (App,bootbox)->
 
 				@saveTableMarkup()
 
-			changeStyle : (e)->
-				@$el.find('table').removeClass('style-1 style-2').addClass _.slugify $(e.target).val()
-				@model.set 'style', _.slugify $(e.target).val()
+			changeStyle : (model,style)->
+				@$el.find('table').removeClass('style-1 style-2').addClass style
 
 				@saveTableMarkup()
 

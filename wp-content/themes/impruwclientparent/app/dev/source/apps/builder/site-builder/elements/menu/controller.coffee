@@ -21,7 +21,6 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
                 @listenTo @layout.model, "change:style", @renderElement
                 @listenTo @layout.model, "change:justified", (model)=>
                     @layout.elementRegion.currentView.triggerMethod "set:justified", model.get 'justified'
-                @listenTo App.vent, "new:page:added", @addNewMenuItem
                 super()
 
             addNewMenuItem : ( menu ) =>
@@ -32,7 +31,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
 
                 data =
                     menu_item_title: menu.get 'post_title'
-                    menu_item_url: menu.get 'guid'
+                    page_id : menu.get 'original_id'
                     menu_item_parent: 0
                     order: 0
 
@@ -68,6 +67,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
 
             # setup templates for the element
             renderElement: ()=>
+                window.MENUID = parseInt @layout.model.get 'menu_id'
                 @itemCollection = itemCollection = @_getMenuCollection()
 
                 model = @layout.model

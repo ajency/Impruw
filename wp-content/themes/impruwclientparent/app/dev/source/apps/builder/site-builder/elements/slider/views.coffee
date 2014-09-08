@@ -10,13 +10,15 @@ define ['app'], (App)->
             tagName: 'li'
 
             onRender: ->
-                @$el.attr 'data-transition', 'fade'
-                    .attr 'data-slotamount', '0'
+                @$el.attr 'data-slotamount', '0'
                     .attr 'data-masterspeed', '500'
+                    .attr 'data-transition', Marionette.getOption @,'slide_transition'
+                    
 
             modelEvents : 
                 'change:thumb_url change:full_url' : (model)->
                     model.collection.trigger 'slide:image:url:updated'
+
 
 
         class EmptySlider extends Marionette.ItemView
@@ -39,10 +41,16 @@ define ['app'], (App)->
 
             itemViewContainer: '.fullwidthbanner > ul'
 
+            itemViewOptions : ->
+                slide_transition : @model.get 'reset_transitions'
+
             events:
                 'click': 'sliderClick'
                 'click .tp-rightarrow,.tp-leftarrow,.bullet': (e)->
                     e.stopPropagation()
+
+            modelEvents : 
+                'change:reset_transitions' : 'changeTransitions'
 
             collectionEvents : 
                 'slide:image:url:updated' : ->
@@ -52,6 +60,11 @@ define ['app'], (App)->
             # close revolution slider on close
             onClose: ->
                 delete @revapi
+
+            changeTransitions : (model,reset_transitions)->
+                # @$el.find('.fullwidthbanner ul').children('li').attr 'data-transition',reset_transitions
+
+                @trigger 'render:slider'
 
             _getSliderRatio : ->
                 width = @$el.width()
@@ -176,6 +189,7 @@ define ['app'], (App)->
                 hideAllCaptionAtLilmit: 0
                 startWithSlide: 0
                 fullScreenOffsetContainer: ""
+                # reset_transitions : 'papercut'
 
 
             onBeforeClose :->

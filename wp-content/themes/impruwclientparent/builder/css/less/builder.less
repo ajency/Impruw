@@ -996,7 +996,7 @@ a {
 					cursor: default;
 					border-radius: 3px;
 					display: inline-block;
-					width: 58%;
+					width: 56%;
 					.page-slug-edit {
 						width: 80%;
 						display: inline-block;
@@ -1109,7 +1109,7 @@ a {
 			}
 			.page-name {
 				display: inline-block;
-				width: 40%;
+				width: 41%;
 				padding: 0.3em;
 				border-right: 1px solid darken(@preview-grey, 10%);
 				color: @3-grey;
@@ -1196,7 +1196,7 @@ a {
 					margin: auto;
 					color: @orange;
 					font-size: 20px;
-					line-height: 20px;
+					line-height: 16px;
 					background: #fff;
 					border: 1px solid @orange;
 					border-radius: 3px;
@@ -1236,7 +1236,7 @@ a {
 				}
 			}
 		}
-		&.hover-class:hover {
+		&.hover-class {
 			border: 1px solid @orange;
 			>.element-controls {
 				.aj-imp-drag-handle, .aj-imp-delete-btn, .aj-imp-settings-btn {
@@ -1449,6 +1449,9 @@ a {
 			.control-label {
 				color: @dash-grey;
 				font-weight: normal;
+			}
+			.form-control {
+				width: 220px;
 			}
 			.checkbox {
 				margin-top: 8px;
@@ -3205,58 +3208,18 @@ a {
 }
 
 /**** Builder Table Settings Bar Styles ****/
-.table-settings-bar {
-	width: 100%;
-	background: @preview-grey;
-	margin: 0.2em 0 0.5em;
-	border-radius: 2px;
-	padding: 0.5em 0.5em 0;
-	text-align: left;
-	.form-inline {
-		.control-group {
-			display: inline-block;
-			width: 70px;
-			margin-right: 2%;
-			margin-bottom: 0.5em;
-			vertical-align: top;
-			&.check-props {
-				width: 180px;
-				.checkbox {
-					padding-left: 28px;
-					.first-icon, .second-icon {
-						background: transparent;
-					}
-					&.checked {
-						.second-icon {
-							color: @orange;
-						}
-					}
-				}
-			}
-			&.styles {
-				width: 180px;
-				.bootstrap-select {
-					width: 180px;
-				}
-			}
-			.spinner {
-			  display: table-row;
-			  input {
-			  	text-align: right;
-			  	&:focus {
-			  		border-color: @orange;
-			  	}
-			  }
-			}
-			label {
-				display: block;
-				font-size: 0.88em;
-				color: @dash-grey;
-			}
-			.form-control {
-				display: table-cell;
-			}
-			.input-group-btn-vertical {
+.table-settings {
+	.form-group {
+		.spinner {
+		  display: table-row;
+		  input {
+		  	text-align: right;
+		  	width: 200px !important;
+		  	&:focus {
+		  		border-color: @orange;
+		  	}
+		  }
+		  .input-group-btn-vertical {
 			  position: relative;
 			  white-space: nowrap;
 			  width: 1%;
@@ -3286,6 +3249,9 @@ a {
 				  font-size: 0.8em;
 				}
 			}
+		}
+		.checkbox {
+			padding-top: 0;
 		}
 	}
 }

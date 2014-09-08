@@ -12,7 +12,6 @@ define ['app'
                 _.defaults options.modelData,
                     element: 'RoomSummary'
                     room_id : 0
-                    image_id : 0
                     style: 'Room Summary Default'
 
 
@@ -22,7 +21,6 @@ define ['app'
                 # start listening to model events
                 @listenTo @layout.model, "change:style", @renderElement
                 @listenTo @layout.model, "change:room_id", @renderElement
-                @listenTo @layout.model, "change:image_id", @renderElement
                 super()
 
             _getRoomSummaryView: (model, imageModel,  template)->
@@ -50,8 +48,12 @@ define ['app'
                 @removeSpinner()
                 roomId = @layout.model.get 'room_id'
                 model = App.request "get:room:model", roomId
-                console.log @layout.model
+                if model.has 'feature_image_id'
+                    @layout.model.set 'image_id', model.get 'feature_image_id'
+                
                 imageModel = App.request "get:media:by:id", @layout.model.get 'image_id'
+
+                
 
                 App.execute "when:fetched", [model,imageModel], =>
                     # get the address element template
@@ -63,9 +65,12 @@ define ['app'
                         App.currentImageRatio = ratio
                         @listenTo App.vent, "media:manager:choosed:media", (media)=>
                             @layout.model.set 'image_id', media.get 'id'
+                            model.set 'feature_image_id', media.get 'id'
                             App.currentImageRatio = false
                             @stopListening App.vent, "media:manager:choosed:media"
                             @layout.model.save()
+                            @imageModel = media
+                            @renderElement()
 
                         @listenTo App.vent, "stop:listening:to:media:manager", =>
                             App.currentImageRatio = false

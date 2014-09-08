@@ -138,7 +138,7 @@ function check_site_status() {
     $status = get_option( 'site_status', 'coming_soon' );
 
     // return if dashboard/site builder page
-    if ( is_page( 'dashboard' ) || is_page( 'site-builder' ) )
+    if ( is_page( 'dashboard' ) || is_page( 'site-builder' ) || is_page('sign-in') )
         return;
 
     if ( $status === 'coming_soon' && !is_page( 'coming-soon' ) ) {
@@ -149,7 +149,7 @@ function check_site_status() {
     }
 }
 
-//add_action ( 'template_redirect', 'check_site_status' );
+add_action ( 'template_redirect', 'check_site_status' );
 
 /*
  * -------------------------------------------------------------------------------------- impruw_register_room_init function to create a new post type called rooms -------------------------------------------------------------------------------------
@@ -264,6 +264,10 @@ function generate_markup( $section ) {
 
     $id = !is_null( $post ) ? $post->ID : 0;
 
+    //fallback if $id is 0
+    if($id === 0 && (is_home() && is_front_page()))
+        $id = get_option( 'page_on_front', 0);
+
     //Generate page markup based on language
     ////if ( wpml_get_current_language() != wpml_get_default_language() ) {
         $id = icl_object_id( $id, 'page', TRUE, 'en' );
@@ -357,6 +361,9 @@ function add_element_markup( $element ) {
             break;
         case 'Table' :
             $html = get_table_element_markup( $element );
+            break;
+        case 'Widget' :
+            $html = get_widget_element_markup( $element );
             break;
         case 'Social' :
             $html = get_social_element_markup( $element );
@@ -788,6 +795,17 @@ function get_table_element_markup( $element ){
 
 }
 
+function get_widget_element_markup( $element ){
+    require_once PARENTTHEMEPATH . 'elements/WidgetElement.php';
+
+    $widget = new WidgetElement( $element );
+
+    $html = $widget->get_markup();
+
+    return $html;
+
+}
+
 /**
  * Generates the title markup
  *
@@ -911,9 +929,17 @@ function get_theme_JS() {
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.slimmenu.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/user_management.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/polyglot.js"></script>
+    <?php
+        if ( is_page_template( 'page-login.php' ) ) {
+            // Do NOT load lightbox
+        } else { ?>
+            <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
+        <?php }
+    ?>
+    
     <!-- Isotope -->
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/isotope.js"></script>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
     <script>
         jQuery(document).ready(function () {
             if (jQuery('ul.gallery li').length === 0)
@@ -1014,18 +1040,17 @@ function get_theme_CSS() {
     <?php 
         // if the theme preview color changing is enabled and cookie is set 
         $theme_preview_ids = explode(',', THEME_ID);
-        if( isset($_COOKIE['color_scheme']) && in_array(get_current_blog_id(), $theme_preview_ids)){
-            $color_scheme = strtolower($_COOKIE['color_scheme']);
-            $color_scheme = str_replace(' ', '-', $color_scheme);
-            $file = "theme-style-".$color_scheme.".css";
-             echo "<link rel='stylesheet' href='" . get_template_directory_uri() . "/color_scheme_css/$file' type='text/css'/>";
-        }
 
-        else { ?>
-            <link
-                href="<?php echo get_theme_style_sheet_file_path(); ?>"
-                type="text/css" rel="stylesheet"/>
-        <?php }
+        if( !in_array(get_current_blog_id(), $theme_preview_ids)){ ?>
+
+            <link class="theme-style" href="<?php echo get_theme_style_sheet_file_path(); ?>" type="text/css" rel="stylesheet"/>
+        <?php } else { ?>
+            <style>
+                body {display:none;}
+            </style>
+            <link class="theme-style" href="" type="text/css" rel="stylesheet"/>
+        <?php
+        }
 }
 
 /**
@@ -3981,11 +4006,11 @@ $base_element_templates = array(
     'Address' => array(
         array(
             'name' => 'Default Style',
-            'template' => '<ul><li><span class="fui-home"></span> {{street}}, {{city}}, {{postal_code}}, {{country}}</li><li><span class="glyphicon glyphicon-earphone"></span> {{phone_no}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
+            'template' => '<ul><li><span class="fui-home"></span> {{street}}, {{postal_code}}, {{city}}, {{country}}</li><li><span class="glyphicon glyphicon-earphone"></span> {{phone_no}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
         ),
         array(
             'name' => 'Small Address',
-            'template' => '<div><div class="info"> {{street}}, {{city}}, {{postal_code}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
+            'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
         )
     ),
     'Social' => array(

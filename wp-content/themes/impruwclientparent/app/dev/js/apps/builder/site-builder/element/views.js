@@ -66,16 +66,25 @@ define(['app', 'text!apps/builder/site-builder/element/templates/element.html'],
             return _this.$el.removeClass('hover-class');
           };
         })(this));
-        return this._disableOptions();
+        this._disableOptions();
+        return this._noOptions();
       };
 
       ElementView.prototype._disableOptions = function() {
         var elements;
-        elements = ['RoomSummary', 'Row', 'Link'];
+        elements = ['RoomSummary', 'Row', 'Link', 'Image', 'Table', 'Widget'];
         if (ISTHEMEEDITOR !== 'yes') {
           if (elements.indexOf(this.model.get('element')) === -1) {
             return this.$el.children('.element-controls').children('.aj-imp-settings-btn').remove();
           }
+        }
+      };
+
+      ElementView.prototype._noOptions = function() {
+        var nosettings;
+        nosettings = ['Logo', 'Text'];
+        if (nosettings.indexOf(this.model.get('element')) !== -1) {
+          return this.$el.children('.element-controls').children('.aj-imp-settings-btn').remove();
         }
       };
 

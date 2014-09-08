@@ -31,6 +31,9 @@ and open the template in the editor.
 			@media(max-width:991px) {
 				margin-bottom: @large !important;
 				border-bottom: 1px solid darken(@tertiary1, 5%);
+				&:last-child {
+					border-bottom: 0;
+				}
 			}
 		}
 	}
@@ -75,7 +78,7 @@ and open the template in the editor.
 			}
 		}
 		@media(max-width:991px) {
-			margin: 0 0 @large !important;
+			margin: 0 -15px @large !important;
 			> .column {
 				padding-right: 0;
 			}
@@ -91,6 +94,9 @@ and open the template in the editor.
 				&:first-child {
 					
 				}
+			}
+			@media(max-width:991px) {
+				padding: @regular;
 			}
 		}
 		@media(max-width:991px) {

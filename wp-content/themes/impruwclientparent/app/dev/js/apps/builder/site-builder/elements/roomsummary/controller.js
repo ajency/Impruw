@@ -16,7 +16,6 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
         _.defaults(options.modelData, {
           element: 'RoomSummary',
           room_id: 0,
-          image_id: 0,
           style: 'Room Summary Default'
         });
         return Controller.__super__.initialize.call(this, options);
@@ -25,7 +24,6 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
       Controller.prototype.bindEvents = function() {
         this.listenTo(this.layout.model, "change:style", this.renderElement);
         this.listenTo(this.layout.model, "change:room_id", this.renderElement);
-        this.listenTo(this.layout.model, "change:image_id", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -56,7 +54,9 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
         this.removeSpinner();
         roomId = this.layout.model.get('room_id');
         model = App.request("get:room:model", roomId);
-        console.log(this.layout.model);
+        if (model.has('feature_image_id')) {
+          this.layout.model.set('image_id', model.get('feature_image_id'));
+        }
         imageModel = App.request("get:media:by:id", this.layout.model.get('image_id'));
         return App.execute("when:fetched", [model, imageModel], (function(_this) {
           return function() {
@@ -73,9 +73,12 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
               App.currentImageRatio = ratio;
               _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
                 _this.layout.model.set('image_id', media.get('id'));
+                model.set('feature_image_id', media.get('id'));
                 App.currentImageRatio = false;
                 _this.stopListening(App.vent, "media:manager:choosed:media");
-                return _this.layout.model.save();
+                _this.layout.model.save();
+                _this.imageModel = media;
+                return _this.renderElement();
               });
               return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {
                 App.currentImageRatio = false;

@@ -973,6 +973,11 @@ and open the template in the editor.
   max-height: 240px;
   overflow: hidden;
 }
+.roomsummary .room-img a {
+  display: block;
+  min-height: 200px;
+  background-size: cover !important;
+}
 .roomsummary .room-title {
   font-size: 1.6em;
   color: #ff5f5f;
@@ -1062,7 +1067,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #ffffff;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;
@@ -1072,7 +1077,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .date-range .status {
   font-size: 1.0em;
   text-transform: uppercase;
-  padding-top: 13px;
+  padding: 8px;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #ffffff;
@@ -1810,8 +1815,21 @@ ul.gallery {
 .lang-sel > div {
   text-align: left;
 }
+.lang-sel > div ul,
+.lang-sel > div li {
+  min-width: 170px;
+}
+.lang-sel > div ul ul,
+.lang-sel > div li ul {
+  z-index: 1;
+}
 .lang-sel > div .iclflag {
   top: -1px !important;
+}
+/**** Widget Styles ****/
+.widget {
+  color: #989898;
+  margin: 1em 0;
 }
 /**** Responsive Embed Styles ****/
 .embed-responsive {
@@ -1881,6 +1899,8 @@ and open the template in the editor.
 }
 .row.grey-background {
   background: #e9e9e9 !important;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 .row.slideshow-container {
   margin: 0 0 1em;
@@ -2596,7 +2616,7 @@ and open the template in the editor.
 /****Room List Summary Styles****/
 .roomsummary {
   *zoom: 1;
-  margin: 0 0 1em;
+  margin: 1em 0;
 }
 .roomsummary:after,
 .roomsummary:before {

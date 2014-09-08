@@ -12,23 +12,47 @@ function detect_user_language(){
     return $currentUserLang;
 }
 
-function load_language_phrases(){
+function load_language_phrases($dashboard=TRUE){
 
-    $currentUserLang = detect_user_language();
+    if($dashboard===FALSE){
+        $currentUserLang = wpml_get_current_language();
+    }
+    else{
+        $currentUserLang = detect_user_language();
+    }
 
     if($currentUserLang==="en"){
         $file = "en-US.json"; 
     }
     else if($currentUserLang==="nb"){
         $file = "nb-NO.json"; 
-    }    
+    }
+    else if($currentUserLang==="fr"){
+        $file = "fr-FR.json"; 
+    } 
+    else if($currentUserLang==="es"){
+        $file = "es-ES.json"; 
+    }
+    else if($currentUserLang==="de"){
+        $file = "de-DE.json"; 
+    } 
+    else if($currentUserLang==="it"){
+        $file = "it-IT.json"; 
+    }      
     else{
         $file = "en-US.json";
     }
 
     
     $filepath = get_theme_root_uri();
-    $filepath .= "/impruwclientparent/modules/language/";
+
+    if($dashboard===FALSE){
+        $filepath .= "/impruwclientparent/modules/language/frontend/";
+    }
+    else{
+      $filepath .= "/impruwclientparent/modules/language/";
+    }
+   
     $filepath .= $file;
 
     $jsonString = file_get_contents($filepath);
@@ -147,7 +171,7 @@ function duplicate_language_page($page_id,$language,$post_type){
 
     $original_page = get_post($page_id);
     $original_page_name = $original_page->post_title;
-    $translated_page_name = $original_page_name.'( not translated)';
+    $translated_page_name = $original_page_name ;
 
     $element_type = "post_".$post_type;
 
@@ -201,6 +225,44 @@ function get_page_translation_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_translation_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;
+}
+
+//Function to get all page header elements of a site
+function get_header_translation_elements(){
+
+    $data = get_json_to_clone('theme-header');
+
+    $elements = array();
+
+    foreach ( $data as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_translation_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;
+}
+
+//Function to get all page footer elements of a site
+function get_footer_translation_elements(){
+
+    $data = get_json_to_clone('theme-footer');
+
+    $elements = array();
+
+    foreach ( $data as $element ) {
         if ( $element[ 'element' ] === 'Row' ) {
             get_row_translation_elements( $element,$elements );
         } else {
@@ -275,7 +337,6 @@ function get_all_childsite_pages(){
         $page_title = $page->post_title;
         $page_slug = $page->post_name;
         $is_child_site_page = true;
-        $is_room_page = false;
         $editing_language = $_REQUEST['language'];
         $default_language = $sitepress ->get_default_language();
 
@@ -293,17 +354,17 @@ function get_all_childsite_pages(){
         $impruw_page_template_name = get_post_meta( $page_id_based_on_lang, 'impruw_page_template', true );
 
         //TODO check language based slugs, right now check is made for english pages only
-        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang=='reset-password' || $impruw_page_template_name=='single-room' || $page_slug_based_on_lang==null){
+        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang=='reset-password' || $page_slug_based_on_lang==null){
             $is_child_site_page = false;
         }
         else{
             $is_child_site_page = true;
         }
 
-        //TODO could be titled differently in other languages. check that. Will depend on what names are given at the time of first creating the 6 default posts
-        if($impruw_page_template_name == "rooms" || $page_slug_based_on_lang == "rooms"){
-            $is_room_page = true;
-        }
+        
+        // if($impruw_page_template_name == "rooms" || $page_slug_based_on_lang == "rooms"){
+        //     $is_room_page = true;
+        // }
 
         $all_pages_array[] = array(
             'pageId' => $page_id_based_on_lang,
@@ -312,8 +373,7 @@ function get_all_childsite_pages(){
             'pageTitle' => $page_title_based_on_lang,
             'isChildSitePage' => $is_child_site_page,
             'editingLang' => $editing_language,
-            'defaultLanguage' => $default_language,
-            'isRoomPage' => $is_room_page
+            'defaultLanguage' => $default_language
         );
     }
 
@@ -347,7 +407,6 @@ function get_native_language_name($language_code){
     $native_language_name = $language_details['display_name'];
     return $native_language_name;
 }
-
 
 
 

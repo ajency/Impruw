@@ -29,12 +29,14 @@ define ['app'
                         return "text"
 
                 data.originalContent = ->
+                    originalContent = ''
                     if (data.element is "Link")
                         originalContent = data.text[WPML_DEFAULT_LANG]
-                        return originalContent
                     else
                         originalContent = data.content[WPML_DEFAULT_LANG]
-                        return originalContent
+                        
+                    _.stripslashes originalContent
+
                 data.element_in_language = ->
                     element_in_language = _.polyglot.t(data.element)
                     return element_in_language
