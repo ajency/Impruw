@@ -45,7 +45,7 @@ define ['app'
             updatePageElement:(e) ->
                 e.preventDefault()
                 newElementContent = @$el.find('.translated-element-content').html()
-                console.log newElementContent
+                # console.log newElementContent
                 @trigger "page:element:updated", newElementContent
 
             # initialize the CKEditor for the text element on show

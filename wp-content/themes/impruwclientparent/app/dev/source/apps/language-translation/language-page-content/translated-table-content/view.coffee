@@ -40,7 +40,7 @@ define ['app'], (App)->
                         translated_text = data.content[editingLanguage]
                     else
                       translated_text = data.content
-                    console.log translated_text
+                    # console.log translated_text
                     translated_text = _.stripslashes translated_text
                     translated_text
                 data
@@ -50,7 +50,7 @@ define ['app'], (App)->
                 newHtmlContent  = $('#translated-table-content').clone()
                 $(newHtmlContent).find('td div, th div').removeAllAttr()
                 newElementContent =  "#{$(newHtmlContent).html()}"
-                console.log newElementContent
+                # console.log newElementContent
                 @trigger "page:table:updated", newElementContent
 
             showEditor :(evt)->
@@ -59,7 +59,7 @@ define ['app'], (App)->
                     @editor.destroy()
                     @$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr 'id'
                 
-                console.log 'showEditor'
+                # console.log 'showEditor'
                 id = _.uniqueId 'text-'
                 $(evt.target).closest('td,th').find('div').attr('contenteditable', 'true').attr 'id', id
                 CKEDITOR.on 'instanceCreated', @configureEditor
@@ -78,7 +78,7 @@ define ['app'], (App)->
                 if @editor
                     @editor.destroy()
                     @editor = null
-                    console.log 'editor destroyed'
+                    # console.log 'editor destroyed'
                     @$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr 'id'
                     @$el.find('table').resizableColumns('destroy')
                     @$el.find('table').resizableColumns()

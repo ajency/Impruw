@@ -42,7 +42,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         }
         editLang = this.editLang;
         data[editLang] = newElemContent;
-        console.log(data);
         model.set('content', data);
         return model.save(null, {
           wait: true,

@@ -49,7 +49,6 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
         var newElementContent;
         e.preventDefault();
         newElementContent = this.$el.find('.translated-element-content').html();
-        console.log(newElementContent);
         return this.trigger("page:element:updated", newElementContent);
       };
 

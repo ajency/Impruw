@@ -43,7 +43,6 @@ define(['app'], function(App) {
           } else {
             translated_text = data.content;
           }
-          console.log(translated_text);
           translated_text = _.stripslashes(translated_text);
           return translated_text;
         };
@@ -56,7 +55,6 @@ define(['app'], function(App) {
         newHtmlContent = $('#translated-table-content').clone();
         $(newHtmlContent).find('td div, th div').removeAllAttr();
         newElementContent = "" + ($(newHtmlContent).html());
-        console.log(newElementContent);
         return this.trigger("page:table:updated", newElementContent);
       };
 
@@ -67,7 +65,6 @@ define(['app'], function(App) {
           this.editor.destroy();
           this.$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr('id');
         }
-        console.log('showEditor');
         id = _.uniqueId('text-');
         $(evt.target).closest('td,th').find('div').attr('contenteditable', 'true').attr('id', id);
         CKEDITOR.on('instanceCreated', this.configureEditor);
@@ -90,7 +87,6 @@ define(['app'], function(App) {
         if (this.editor) {
           this.editor.destroy();
           this.editor = null;
-          console.log('editor destroyed');
           this.$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr('id');
           this.$el.find('table').resizableColumns('destroy');
           return this.$el.find('table').resizableColumns();

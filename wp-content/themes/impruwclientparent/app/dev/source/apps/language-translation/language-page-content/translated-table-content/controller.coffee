@@ -41,7 +41,7 @@ define ['app', 'controllers/base-controller'
                 editLang = @editLang
 
                 data[editLang] = newElemContent
-                console.log data
+                # console.log data
                 model.set 'content', data
                 model.save null,
                     wait: true
