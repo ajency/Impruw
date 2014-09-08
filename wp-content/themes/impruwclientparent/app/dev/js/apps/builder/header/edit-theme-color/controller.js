@@ -67,10 +67,23 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       EditThemeColorView.prototype.template = "<div class='edit-colors'> <h5>{{name}}</h5> <div class='color-sets'> </div> <div class='actions'> <button class='btn btn-xs closeCard'>{{#polyglot}}Cancel{{/polyglot}}</button> <button class='btn btn-xs btn-primary applyCard'>{{#polyglot}}Apply{{/polyglot}}</button> </div> </div>";
 
       EditThemeColorView.prototype.onShow = function() {
-        var colorSetTpl;
+        var colorSetTpl, self;
         colorSetTpl = this.displayEditColorSet();
         this.$el.find('.color-sets').append(colorSetTpl);
-        return this.$el.find('.theme_colour').minicolors();
+        self = this;
+        return this.$el.find('.theme_colour').minicolors({
+          defaults: {
+            inline: false
+          },
+          hide: function() {
+            return $(this).removeClass('show').addClass('hide');
+          },
+          change: function(hex, opacity) {
+            var id;
+            id = $(this).attr('name');
+            return self.$el.find("#" + id).css('background-color', hex);
+          }
+        });
       };
 
       EditThemeColorView.prototype.serializeData = function() {
@@ -91,6 +104,19 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           formdata = Backbone.Syphon.serialize(this);
           this.$el.find('.applyCard').text('Applying..');
           return this.trigger("create:custom:set:color", formdata);
+        },
+        'click .minicolor': function(e) {
+          var id;
+          id = $(e.target).attr('id');
+          this.$el.find("input[name='" + id + "']").removeClass('hide').addClass('show');
+          return _.delay((function(_this) {
+            return function() {
+              return _this.$el.find("input[name='" + id + "']").minicolors('show');
+            };
+          })(this), 100);
+        },
+        'click input': function() {
+          return console.log('clicked');
         }
       };
 
@@ -103,7 +129,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             if (attributeName !== 'name') {
               themeTitle = _.polyglot.t(attributeValue.title);
               themeDescription = _.polyglot.t(attributeValue.description);
-              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <input type='hidden' name='" + attributeName + "' class='theme_colour' readonly value='" + attributeValue.color + "'> </div> <div class='col-sm-10'> <h6>" + themeTitle + "</h6> <p>" + themeDescription + "</p> </div> </div>";
+              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <div id='" + attributeName + "' class=' minicolor' style='background-color:" + attributeValue.color + "; height:58px;'  ></div> <input type='text' name='" + attributeName + "' class='theme_colour hide'  value='" + attributeValue.color + "'> </div> <div class='col-sm-10'> <h6>" + themeTitle + "</h6> <p>" + themeDescription + "</p> </div> </div>";
             }
           };
         })(this));
