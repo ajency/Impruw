@@ -930,6 +930,11 @@ and open the template in the editor.
   max-height: 240px;
   overflow: hidden;
 }
+.roomsummary .room-img a {
+  display: block;
+  min-height: 200px;
+  background-size: cover !important;
+}
 .roomsummary .room-title {
   font-size: 1.6em;
   color: #ff7e00;
