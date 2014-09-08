@@ -188,7 +188,7 @@
             jQuery('a[data-color]').click(function(e){
                 e.preventDefault();
                 color_scheme_name = jQuery(this).attr('data-color');
-                $.cookie('color_scheme', color_scheme_name);
+                $.cookie('color_scheme', color_scheme_name, {path: '/' });
                 applyStyle(); 
                 $(this).closest('.option-colors').find('a').removeClass('active');
                 $(this).addClass('active');               
