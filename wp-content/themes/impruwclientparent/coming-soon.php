@@ -48,7 +48,17 @@
 </head>
 <body>
 <div class="coming-soon">
-    <h1><span><?php echo get_bloginfo( 'name' ); ?></span> is Coming Soon!</h1>
+    <?php 
+        $coming_soon_text = 'is Coming Soon!';
+        $default_language = wpml_get_default_language();
+
+        if($default_language==='nb')
+            $coming_soon_text = 'kommer snart !';
+        else
+            $coming_soon_text = 'is Coming Soon!';
+
+    ?>
+    <h1><span><?php echo get_bloginfo( 'name' ); ?></span> <?php echo $coming_soon_text; ?></h1>
     <footer class="fixed">
         &copy;Impruw 2014 | All Rights Reserved.
     </footer>
