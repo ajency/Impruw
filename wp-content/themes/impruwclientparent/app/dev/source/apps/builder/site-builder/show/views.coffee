@@ -121,6 +121,8 @@ define [ 'app'
 
             #update the page name links
             @displayPageNameForUpdate()
+
+            @$el.find('div.lock-message').height @$el.find('div.aj-imp-browser-header').height() - 28
             
 
          _addToPageSlug : (pageId)=>
@@ -199,6 +201,18 @@ define [ 'app'
             @$el.find( 'div .btn-group .filter-option' ).text( page_name )
             @$el.find( "select#builder-page-sel option[value='#{page_id}']" ).text( page_name )
             @enableSelectPicker()
+
+         onPageTookOver : (errorMessage)->
+            @$el.find('div.lock-message')
+               .removeClass 'hidden'
+               .addClass 'show'
+               .find 'span.message-span'
+                  .text errorMessage
+
+         onPageReleased : ->
+            @$el.find('div.lock-message')
+               .removeClass 'show'
+               .addClass 'hidden'
 
 
       class SingleRevision extends Marionette.ItemView

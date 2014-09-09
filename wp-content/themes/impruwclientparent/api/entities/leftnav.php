@@ -758,7 +758,8 @@ function read_page_json() {
     $data = get_page_json_for_site( $page_id, TRUE );
     wp_send_json( array(
         'code' => 'OK',
-        'data' => $data
+        'data' => $data,
+        'lock' => wp_set_post_lock( $page_id )
     ) );
 }
 

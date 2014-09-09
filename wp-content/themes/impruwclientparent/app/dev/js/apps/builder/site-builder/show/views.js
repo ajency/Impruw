@@ -144,7 +144,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           };
         })(this), 250);
         this.$el.find('#aj-imp-revision-sel').on('show.bs.dropdown', this.addPageRevisions);
-        return this.displayPageNameForUpdate();
+        this.displayPageNameForUpdate();
+        return this.$el.find('div.lock-message').height(this.$el.find('div.aj-imp-browser-header').height() - 28);
       };
 
       MainView.prototype._addToPageSlug = function(pageId) {
@@ -228,6 +229,14 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.$el.find('div .btn-group .filter-option').text(page_name);
         this.$el.find("select#builder-page-sel option[value='" + page_id + "']").text(page_name);
         return this.enableSelectPicker();
+      };
+
+      MainView.prototype.onPageTookOver = function(errorMessage) {
+        return this.$el.find('div.lock-message').removeClass('hidden').addClass('show').find('span.message-span').text(errorMessage);
+      };
+
+      MainView.prototype.onPageReleased = function() {
+        return this.$el.find('div.lock-message').removeClass('show').addClass('hidden');
       };
 
       return MainView;

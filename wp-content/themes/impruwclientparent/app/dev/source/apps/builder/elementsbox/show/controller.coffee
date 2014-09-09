@@ -14,6 +14,13 @@ define ['app', 'controllers/base-controller'
                     new Show.Controller
                             region: App.elementsBoxRegion
 
+                @listenTo App.vent, 'page:took:over', ->
+                    view.triggerMethod 'page:took:over'
+
+                @listenTo App.vent, 'page:released', ->
+                    view.triggerMethod 'page:released'
+
+
                 @show view,
                     loading: true
 

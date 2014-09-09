@@ -23,7 +23,13 @@ define ['app'
 					events:
 
 						'click #aj-imp-color-sel' :->
-							@trigger "show:theme:color:clicked"							
+							@trigger "show:theme:color:clicked"		
+
+					onPageTookOver : ->
+			            @$el.find('.aj-imp-builder-top-options.col-sm-8').fadeOut()
+
+			         onPageReleased : ->
+			           @$el.find('.aj-imp-builder-top-options.col-sm-8').fadeIn()			
 
 
 

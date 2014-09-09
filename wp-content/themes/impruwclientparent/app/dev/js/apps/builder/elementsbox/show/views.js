@@ -118,6 +118,14 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
         return '<div class="element-helper"></div> ';
       };
 
+      MainView.prototype.onPageTookOver = function() {
+        return this.$el.fadeOut();
+      };
+
+      MainView.prototype.onPageReleased = function() {
+        return this.$el.fadeIn();
+      };
+
       return MainView;
 
     })(Marionette.CompositeView);

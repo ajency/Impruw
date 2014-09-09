@@ -22,6 +22,12 @@ define(['app', 'controllers/base-controller', 'apps/builder/elementsbox/show/vie
             region: App.elementsBoxRegion
           });
         });
+        this.listenTo(App.vent, 'page:took:over', function() {
+          return view.triggerMethod('page:took:over');
+        });
+        this.listenTo(App.vent, 'page:released', function() {
+          return view.triggerMethod('page:released');
+        });
         return this.show(view, {
           loading: true
         });

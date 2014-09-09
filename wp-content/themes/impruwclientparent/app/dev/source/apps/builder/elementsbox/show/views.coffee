@@ -113,3 +113,9 @@ define [ 'app'
 
          _getHelper : ->
             '<div class="element-helper"></div> '
+
+         onPageTookOver : ->
+            @$el.fadeOut()
+
+         onPageReleased : ->
+            @$el.fadeIn()

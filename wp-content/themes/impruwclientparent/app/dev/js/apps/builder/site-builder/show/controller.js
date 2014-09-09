@@ -181,6 +181,12 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           };
         })(this));
         this.listenTo(layout, "update:page:name", this.updatePageName);
+        this.listenTo(App.vent, 'page:took:over', function(errorMessage) {
+          return layout.triggerMethod('page:took:over', errorMessage);
+        });
+        this.listenTo(App.vent, 'page:released', function() {
+          return layout.triggerMethod('page:released');
+        });
         return this.show(layout, {
           loading: true
         });
