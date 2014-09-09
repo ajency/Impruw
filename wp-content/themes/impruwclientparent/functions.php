@@ -21,6 +21,7 @@ $me = new Mustache_Engine ();
 require 'framework/autoload.php';
 require 'api/class-wp-json-rooms.php';
 
+
 new \framework\cron\ThemeExportCron();
 new \framework\cron\ThemeImportCron();
 
@@ -49,6 +50,7 @@ require_once 'modules/media/ajax.php';
 require_once 'modules/language/ajax.php';
 require_once 'modules/language/languagefunctions.php';
 require_once 'modules/billing/ajax.php';
+require_once 'modules/heartbeat/heartbeat.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 
 /***
