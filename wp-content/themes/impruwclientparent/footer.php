@@ -14,6 +14,7 @@
     <?php echo generate_markup( 'footer' ); ?>
 </footer><!-- .site-footer -->
 </div><!-- .container -->
+
 <script type="text/javascript">
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var CHILDTHEMEURL = '<?php echo get_template_directory_uri(); ?>';
@@ -21,23 +22,24 @@
     var AJAXURL = '<?php echo admin_url('admin-ajax.php'); ?>';
     var HOTELADDRESS = '<?php echo get_hotel_address() ?>';
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
+    var PHRASES = <?php echo json_encode(load_language_phrases(FALSE));?>;
 </script>
-<?php if ( is_singular() ): ?>
+<?php if ( is_singular('impruw_room') ): ?>
     <script type="text/javascript">
-            function replaceAll(find, replace, str) {
-              return str.replace(new RegExp(find, 'g'), replace);
-            }
+        function replaceAll(find, replace, str) {
+          return str.replace(new RegExp(find, 'g'), replace);
+        }
         var PLANS = <?php echo json_encode(get_plans(FALSE)); ?>;
         var DATERANGE = <?php echo json_encode(get_date_range(FALSE)); ?>;
         var TARIFF = <?php echo json_encode(get_tariff(get_the_ID())); ?>;
         var BOOKING = <?php echo json_encode(get_bookings()); ?>;
-        var PHRASES = <?php echo json_encode(load_language_phrases(FALSE));?>;
+        
     </script>
 <?php endif; ?>
 <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
 <?php get_theme_JS(); ?>
 
-<script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.cookie.js"></script>
+
 <script>
     var map, geocoder;
     jQuery(document).ready(function(){
@@ -81,7 +83,7 @@
 <?php
     $theme_preview_ids = explode(',', THEME_ID);
     if (in_array(get_current_blog_id(), $theme_preview_ids)): ?>
-
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.cookie.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.tabSlideOut.v1.3.js"></script>
    
     <style type="text/css">
