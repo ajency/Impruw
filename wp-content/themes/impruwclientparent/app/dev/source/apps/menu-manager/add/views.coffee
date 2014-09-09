@@ -7,7 +7,6 @@ define ['app'], (App)->
                         <h4>{{#polyglot}}Add Menu Item{{/polyglot}}</h4>
 
                         <p class="desc">{{#polyglot}}Add menu items by clicking on the Add menu item button below. You can edit the order of your menu items from the list on the right. You can only add pages to menu items, to edit the name of the page go back to your site builder and edit the name of page by editing the page title on the top left corner.{{/polyglot}}</p>
-                        <!--<a href="#{{menu_slug}}-add-menu" data-toggle="collapse" class="aj-imp-add-link"><span class="glyphicon glyphicon-plus-sign"></span> Add a New Menu Item</a>-->
                         <div id="{{menu_slug}}-add-menu" class="add-menu-form">
                             <form class="form-horizontal well">
                                 <div class="form-group">

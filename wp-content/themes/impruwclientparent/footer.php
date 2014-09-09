@@ -37,37 +37,44 @@
 <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
 <?php get_theme_JS(); ?>
 
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.cookie.js"></script>
 <script>
     var map, geocoder;
-    function initialize() {
+    jQuery(document).ready(function(){
 
         if(jQuery('#map_canvas').length === 0)
             return;
 
-        geocoder = new google.maps.Geocoder();
+        
+        window.initializeMap = function(){
 
-        var mapOptions = {
-            zoom: 8,
-            center: new google.maps.LatLng(-34.397, 150.644)
-        };
+            geocoder = new google.maps.Geocoder();
 
-        geocoder.geocode({'address': HOTELADDRESS}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-                map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-            }
-            else{
-                jQuery('#map_canvas').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
-            }
-        });
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
+            var mapOptions = {
+                zoom: 8,
+                center: new google.maps.LatLng(-34.397, 150.644)
+            };
+
+            geocoder.geocode({'address': HOTELADDRESS}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                    if(jQuery('#map_canvas').height() === 0)
+                        jQuery('#map_canvas').height(300);
+                }
+                else{
+                    jQuery('#map_canvas').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+                }
+            });
+        }
+        jQuery.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap');
+
+    });
+
 </script>
 
 <!-- Site Preview Options -->
