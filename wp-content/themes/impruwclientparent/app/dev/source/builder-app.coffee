@@ -68,5 +68,8 @@ define ['marionette'], (Marionette)->
             @rootRoute = if ISTHEMESELECTED is 1 then '' else 'choose-theme'
             App.navigate(@rootRoute, trigger: true)
 
+    # let the heart beat :P
+    App.execute "heartbeat-api"
+
 
     App

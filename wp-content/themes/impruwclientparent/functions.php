@@ -151,7 +151,7 @@ function check_site_status() {
     }
 }
 
-add_action ( 'template_redirect', 'check_site_status' );
+//add_action ( 'template_redirect', 'check_site_status' );
 
 /*
  * -------------------------------------------------------------------------------------- impruw_register_room_init function to create a new post type called rooms -------------------------------------------------------------------------------------
@@ -3733,7 +3733,7 @@ function check_page_access() {
     }
 }
 
-add_action( 'template_redirect', 'check_page_access' );
+//add_action( 'template_redirect', 'check_page_access' );
 
 function check_wp_admin_access() {
 
@@ -3754,7 +3754,7 @@ function check_wp_admin_access() {
     }
 }
 
-add_action( 'wp_loaded', 'check_wp_admin_access' );
+//add_action( 'wp_loaded', 'check_wp_admin_access' );
 
 function change_login_url( $login_url, $redirect ) {
 

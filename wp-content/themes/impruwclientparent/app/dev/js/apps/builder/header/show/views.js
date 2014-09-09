@@ -28,6 +28,14 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
         }
       };
 
+      MainView.prototype.onPageTookOver = function() {
+        return this.$el.find('.aj-imp-builder-top-options.col-sm-8').fadeOut();
+      };
+
+      MainView.prototype.onPageReleased = function() {
+        return this.$el.find('.aj-imp-builder-top-options.col-sm-8').fadeIn();
+      };
+
       return MainView;
 
     })(Marionette.Layout);

@@ -141,6 +141,13 @@ define [ 'app', 'controllers/base-controller'
 
                 @listenTo layout, "update:page:name", @updatePageName
 
+                # heartbeat API
+                @listenTo App.vent, 'page:took:over', (errorMessage)->
+                    layout.triggerMethod 'page:took:over', errorMessage
+
+                @listenTo App.vent, 'page:released', ->
+                    layout.triggerMethod 'page:released'
+
                 @show layout,
                     loading : true
 
