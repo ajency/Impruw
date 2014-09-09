@@ -151,11 +151,8 @@ function check_site_status() {
     }
 }
 
-<<<<<<< HEAD
 // add_action ( 'template_redirect', 'check_site_status' );
-=======
-//add_action ( 'template_redirect', 'check_site_status' );
->>>>>>> exprment
+
 
 /*
  * -------------------------------------------------------------------------------------- impruw_register_room_init function to create a new post type called rooms -------------------------------------------------------------------------------------

@@ -64,7 +64,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             'ID': currentPageId
           };
           return this.trigger("update:page:name", data);
-        }
+        },
+        'click #take-over-button': 'takeOverPage'
       };
 
       MainView.prototype.addPageDropDown = function() {
@@ -237,6 +238,17 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       MainView.prototype.onPageReleased = function() {
         return this.$el.find('div.lock-message').removeClass('show').addClass('hidden');
+      };
+
+      MainView.prototype.takeOverPage = function(evt) {
+        $(evt.currentTarget).text('Please wait...').attr('disabled', true);
+        return $.post(AJAXURL, {
+          action: 'take_over_page_editing',
+          page_id: $.cookie('current-page-id')
+        }, (function(resp) {
+          $(evt.currentTarget).text('Take Over').removeAttr('disabled');
+          return wp.heartbeat.connectNow();
+        }), 'json');
       };
 
       return MainView;

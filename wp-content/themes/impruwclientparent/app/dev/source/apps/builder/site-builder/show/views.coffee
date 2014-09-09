@@ -43,6 +43,8 @@ define [ 'app'
                   'ID' : currentPageId
                @trigger "update:page:name", data
 
+            'click #take-over-button' : 'takeOverPage'
+
          addPageDropDown : =>
             @modelAddedToCollection = @collection.last()
             @new_page_id = @modelAddedToCollection.get 'ID'
@@ -213,6 +215,22 @@ define [ 'app'
             @$el.find('div.lock-message')
                .removeClass 'show'
                .addClass 'hidden'
+
+         takeOverPage : (evt)->
+            $(evt.currentTarget).text 'Please wait...'
+               .attr 'disabled', true
+
+            $.post AJAXURL, 
+                  (  
+                     action : 'take_over_page_editing'
+                     page_id : $.cookie('current-page-id')
+                  ),
+                  ((resp)->
+                     $(evt.currentTarget).text 'Take Over'
+                        .removeAttr 'disabled'
+
+                     wp.heartbeat.connectNow()
+                  ), 'json'
 
 
       class SingleRevision extends Marionette.ItemView

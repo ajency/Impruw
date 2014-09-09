@@ -171,3 +171,12 @@ function ajax_update_page() {
 
 add_action( 'wp_ajax_update-page', 'ajax_update_page' );
 
+
+function take_over_page_editing(){
+
+    $page_id = $_REQUEST['page_id'];
+    wp_set_post_lock($page_id);
+    wp_send_json(1);
+}
+add_action('wp_ajax_take_over_page_editing', 'take_over_page_editing');
+
