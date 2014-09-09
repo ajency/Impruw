@@ -22,7 +22,7 @@ define [
                 siteProfileModel
 
             show: ()->
-                sitemodel = @getSiteModel()
+                sitemodel = App.request "get:site:model"
                 #wait till site model fetched
                 App.execute "when:fetched",sitemodel,=>
                     new StatisticsApp.Show.Controller
@@ -30,19 +30,19 @@ define [
                         model: sitemodel
 
             realtime: () ->
-                sitemodel = @getSiteModel()
+                sitemodel = App.request "get:site:model"
                 App.execute "when:fetched",sitemodel,=>
                     App.execute "show:realtime:view",
                         region: App.rightRegion
                         model: sitemodel
             visits: () ->
-                sitemodel = @getSiteModel()
+                sitemodel = App.request "get:site:model"
                 App.execute "when:fetched",sitemodel,=>
                     App.execute "show:visits:view",
                         region: App.rightRegion
                         model: sitemodel
             traffic: () ->
-                sitemodel = @getSiteModel()
+                sitemodel = App.request "get:site:model"
                 App.execute "when:fetched",sitemodel,=>
                     App.execute "show:traffic:view",
                         region: App.rightRegion

@@ -47,8 +47,7 @@ define(['app'], function(App) {
       ImageView.prototype.initialize = function(options) {
         this.imageHeightRatio = Marionette.getOption(this, 'imageHeightRatio');
         this.positionTopRatio = Marionette.getOption(this, 'positionTopRatio');
-        this.eleModel = Marionette.getOption(this, 'eleModel');
-        return console.log(this.eleModel);
+        return this.eleModel = Marionette.getOption(this, 'eleModel');
       };
 
       ImageView.prototype._getImageRatio = function() {
