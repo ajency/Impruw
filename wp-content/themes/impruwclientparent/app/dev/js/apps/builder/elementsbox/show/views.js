@@ -67,7 +67,6 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
         this._setDraggableElements();
         $('body').on('click', (function(_this) {
           return function() {
-            console.log('body clicked');
             return _this.$el.closest('#controls-drag').find('.element').removeClass('selected-element');
           };
         })(this));

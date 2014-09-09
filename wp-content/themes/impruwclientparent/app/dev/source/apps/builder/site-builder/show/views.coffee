@@ -44,7 +44,7 @@ define [ 'app'
                @trigger "update:page:name", data
 
             'click #take-over-button' : 'takeOverPage'
-
+            
          addPageDropDown : =>
             @modelAddedToCollection = @collection.last()
             @new_page_id = @modelAddedToCollection.get 'ID'

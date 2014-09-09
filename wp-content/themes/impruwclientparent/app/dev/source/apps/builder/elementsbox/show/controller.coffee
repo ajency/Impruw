@@ -20,7 +20,6 @@ define ['app', 'controllers/base-controller'
                 @listenTo App.vent, 'page:released', ->
                     view.triggerMethod 'page:released'
 
-
                 @show view,
                     loading: true
 
