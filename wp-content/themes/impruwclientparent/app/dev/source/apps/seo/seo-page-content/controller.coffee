@@ -8,6 +8,9 @@ define ['app', 'controllers/base-controller'
                 @pageId = opts.pageId
                 @language = opts.language
 
+                #Make page content div visible after the room content app is executed
+                $('.aj-imp-widget-content').show()
+
                 #get page seo collection
                 @seomodel = App.request "get:seo:model", @pageId
 

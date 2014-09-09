@@ -34,6 +34,7 @@ define(['app'], function(App) {
 
       SeoLanguageView.prototype.loadLanguagePageNav = function(e) {
         var langName, selectedLangVal;
+        $('.aj-imp-widget-content').hide();
         selectedLangVal = langName = this.$el.find('#select_seo_language').val();
         return this.trigger('load:seo:page:nav', selectedLangVal);
       };

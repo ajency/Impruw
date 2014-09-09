@@ -15,6 +15,7 @@ define(['app', 'controllers/base-controller', 'apps/seo/seo-page-content/view'],
       Controller.prototype.initialize = function(opts) {
         this.pageId = opts.pageId;
         this.language = opts.language;
+        $('.aj-imp-widget-content').show();
         this.seomodel = App.request("get:seo:model", this.pageId);
         this.seoPageContentView = this._getPageContentView(this.seomodel);
         this.listenTo(this.seoPageContentView, "page:seo:save", this.pageSeoSave);
