@@ -1853,6 +1853,7 @@ a.red-link.pull-right {
 .modal #selectable-images .single-img {
   position: relative;
   padding: 0 5px;
+  min-width: 120px;
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
