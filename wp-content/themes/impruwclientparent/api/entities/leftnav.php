@@ -310,16 +310,16 @@ function get_elementbox_elements() {
         
     );
 
-    if ( !current_user_can( 'edit_impruw_theme' ) ) {
-        $filtered = array();
-        $unset_elements = array( 'Menu', 'LanguageSwitcher' );
-        foreach ( $elements as $element ) {
-            if ( !in_array( $element[ 'element' ], $unset_elements ) )
-                $filtered[ ] = $element;
-        }
+    // if ( !current_user_can( 'edit_impruw_theme' ) ) {
+    //     $filtered = array();
+    //     $unset_elements = array( 'Menu', 'LanguageSwitcher' );
+    //     foreach ( $elements as $element ) {
+    //         if ( !in_array( $element[ 'element' ], $unset_elements ) )
+    //             $filtered[ ] = $element;
+    //     }
 
-        $elements = $filtered;
-    }
+    //     $elements = $filtered;
+    // }
 
     wp_send_json( array(
         'code' => 'OK',

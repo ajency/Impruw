@@ -16,6 +16,12 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
 
       SingleElement.prototype.template = '<a href="#" class="drag builder-element"> <div class="aj-imp-builder-icon {{icon}}"></div> <div class="aj-imp-builder-title">{{elementName}}</div> </a> <div class="element-help hide"> Hi! I am help text to help you understand this element! </div>';
 
+      SingleElement.prototype.events = {
+        'click a': function(e) {
+          return e.preventDefault();
+        }
+      };
+
       SingleElement.prototype.serializeData = function() {
         var data;
         data = SingleElement.__super__.serializeData.call(this);
