@@ -41,3 +41,76 @@ function update_page_seo( $seo_data ){
 
 	return $post_id;
 }
+
+
+//Function to get page excerpt
+function get_page_excerpt_from_json($page_id, $language){
+
+    $data = get_page_json_for_site($page_id, true);
+
+    $excerpt= array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_excerpt_elements( $element,$excerpt,$language );
+        } else {
+            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText'))){
+                $excerpt[]= $element['content'][$language];
+            }
+            if(in_array($element[ 'element'] , array('Link'))){
+                $excerpt []= $element['text'][$language];
+            }
+        }
+    }
+
+   return $excerpt;
+}
+
+function get_row_excerpt_elements( $row_element, &$excerpt, $language ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( $element[ 'element' ] === 'Row' ) {
+                get_row_excerpt_elements( $element, $excerpt , $language);
+            } else {
+            	if(in_array($element[ 'element'] , array('Title','Text','ImageWithText'))){
+            		$excerpt[]= $element['content'][$language];
+            	}
+            	if(in_array($element[ 'element'] , array('Link'))){
+            		$excerpt[]= $element['text'][$language];
+            	}
+            }
+        }
+    }
+}
+
+function prettify_content_piece_excerpt($excerpt_array){
+
+    $excerpt_array = __u::flatten($excerpt_array);
+
+    $excerpt_length =0;
+    $excerpt = '';
+
+    foreach($excerpt_array as $excerpt_item){
+        $ex = trim(stripslashes(strip_tags($excerpt_item)));
+
+        //IF CURRENT STRING HAS TEXT AND LENGTH OF EXCERPT TILL NOW IS LESS THAN 500
+        //CONTINUE ADDING TO EXCERPT
+
+        if(strlen($ex)>0 && $excerpt_length <500 ){
+            $excerpt.=$ex;
+            $excerpt_length += strlen($ex);
+            $excerpt.=' | ';
+        }
+    }
+
+    //IF EXCERPT TOTAL LENGTH IS GREATER THAN 500, REDUCE IT
+    if(strlen($excerpt)>500)
+        $excerpt= substr($excerpt,0,500);
+
+    //REMOVAL OF LAST 3 CHARACTERS WHICH MAY CONTAIN THE DIVIDER
+    $excerpt = substr($excerpt,0,-3);
+
+    return $excerpt;
+
+}

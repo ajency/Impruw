@@ -2,7 +2,8 @@
 /*
  * File Name: functions.php Description: This file has a list of the following functions used in this theme
  */
-
+//Used for page excerpt generation
+require_once 'underscore.php';
 // Include WPML API
 include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
 
@@ -4162,6 +4163,8 @@ function cancel_subscription() {
     }
 }
 add_action( 'wp_cancel_subscription', 'cancel_subscription' );
+
+add_post_type_support( 'page', 'excerpt' );
 
 
 
