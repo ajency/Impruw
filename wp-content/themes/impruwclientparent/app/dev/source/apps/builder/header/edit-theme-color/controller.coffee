@@ -112,8 +112,8 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                         themeDescription = _.polyglot.t attributeValue.description
                         colorSetHtml += "<div class='color row'>
                                             <div class='col-sm-2'>
-                                                <div id='#{attributeName}' class=' minicolor' style='background-color:#{attributeValue.color}; height:58px;'  ></div>
-                                                <input type='text' name='#{attributeName}' class='theme_colour hide'  value='#{attributeValue.color}'>
+                                                <div id='#{attributeName}' class=' minicolor' style='background-color:#{attributeValue.color};'  ></div>
+                                                <input type='text' name='#{attributeName}' class='theme_colour form-control hide'  value='#{attributeValue.color}'>
                                             </div>
                                             <div class='col-sm-10'>
                                                 <h6>#{themeTitle}</h6>

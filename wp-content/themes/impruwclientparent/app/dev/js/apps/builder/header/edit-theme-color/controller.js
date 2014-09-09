@@ -129,7 +129,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             if (attributeName !== 'name') {
               themeTitle = _.polyglot.t(attributeValue.title);
               themeDescription = _.polyglot.t(attributeValue.description);
-              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <div id='" + attributeName + "' class=' minicolor' style='background-color:" + attributeValue.color + "; height:58px;'  ></div> <input type='text' name='" + attributeName + "' class='theme_colour hide'  value='" + attributeValue.color + "'> </div> <div class='col-sm-10'> <h6>" + themeTitle + "</h6> <p>" + themeDescription + "</p> </div> </div>";
+              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <div id='" + attributeName + "' class=' minicolor' style='background-color:" + attributeValue.color + ";'  ></div> <input type='text' name='" + attributeName + "' class='theme_colour form-control hide'  value='" + attributeValue.color + "'> </div> <div class='col-sm-10'> <h6>" + themeTitle + "</h6> <p>" + themeDescription + "</p> </div> </div>";
             }
           };
         })(this));
