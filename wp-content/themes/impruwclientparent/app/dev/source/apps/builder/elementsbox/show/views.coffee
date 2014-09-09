@@ -1,7 +1,6 @@
 define [ 'app'
-         'text!apps/builder/elementsbox/show/templates/main.html'
-         'text!apps/builder/elementsbox/show/templates/error.html' ],
-( App, mainviewTpl, singleEleTpl, errorTpl )->
+         'text!apps/builder/elementsbox/show/templates/main.html' ],( App, mainviewTpl )->
+            
    App.module 'ElementsBoxApp.Show.Views', ( Views, App, Backbone, Marionette, $, _ )->
 
       # Single element region
