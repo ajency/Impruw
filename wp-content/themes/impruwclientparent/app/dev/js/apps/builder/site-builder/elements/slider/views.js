@@ -104,18 +104,26 @@ define(['app'], function(App) {
         if (options == null) {
           options = {};
         }
-        SliderView.__super__.initialize.call(this, options);
-        return this.sliderHeight = Marionette.getOption(this, 'sliderHeight');
+        return SliderView.__super__.initialize.call(this, options);
       };
 
       SliderView.prototype.onShow = function() {
         var defaults, options;
         if (this.collection.length === 0) {
+          this.$el.resizable({
+            helper: "ui-image-resizable-helper",
+            handles: "s",
+            stop: (function(_this) {
+              return function() {
+                return _this.model.set('height', _this.$el.height());
+              };
+            })(this)
+          });
           return;
         }
         defaults = this._getDefaults();
         options = {
-          startheight: this.sliderHeight
+          startheight: this.model.get('height')
         };
         options = _.defaults(options, defaults);
         this.revapi = this.$el.find(".fullwidthbanner").revolution(options);
