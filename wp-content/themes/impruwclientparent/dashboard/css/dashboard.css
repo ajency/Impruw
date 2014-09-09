@@ -1490,6 +1490,7 @@ form .aj-imp-submit:hover {
 .modal #selectable-images .single-img {
   position: relative;
   padding: 0 5px;
+  min-width: 120px;
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
