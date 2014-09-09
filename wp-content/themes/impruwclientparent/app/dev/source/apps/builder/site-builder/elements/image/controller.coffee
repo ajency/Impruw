@@ -37,7 +37,7 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                 alignment: @layout.model.get 'align'
 
             _getImageView: (imageModel)->
-                console.log @layout.model
+                
                 new Image.Views.ImageView
                     model: imageModel
                     imageHeightRatio : @layout.model.get 'heightRatio'

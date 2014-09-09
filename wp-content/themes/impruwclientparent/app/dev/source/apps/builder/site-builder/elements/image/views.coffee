@@ -50,7 +50,7 @@ define ['app'], (App)->
                 @imageHeightRatio = Marionette.getOption @,'imageHeightRatio'
                 @positionTopRatio = Marionette.getOption @, 'positionTopRatio' 
                 @eleModel = Marionette.getOption @, 'eleModel'
-                console.log @eleModel 
+                
 
 
             _getImageRatio : ->

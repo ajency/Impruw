@@ -42,7 +42,6 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
       };
 
       Controller.prototype._getImageView = function(imageModel) {
-        console.log(this.layout.model);
         return new Image.Views.ImageView({
           model: imageModel,
           imageHeightRatio: this.layout.model.get('heightRatio'),

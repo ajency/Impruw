@@ -15,14 +15,24 @@ define(['app', 'apps/builder/site-builder/elements/address/views', 'apps/builder
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Address',
-          street: '21 Street',
-          city: 'Oslo',
+          street: 'Street',
+          city: 'City',
           postal_code: '4000212',
-          country: 'Norway',
-          phone_no: '424434212',
+          country: 'Country',
+          phone_no: '9999888877',
           email: 'demo@email.com',
           style: 'Default Style'
         });
+        if (_.isObject(window.HOTELADDRESS)) {
+          options.modelData.street = window.HOTELADDRESS.street;
+          options.modelData.city = window.HOTELADDRESS.city;
+          options.modelData.country = window.HOTELADDRESS.country;
+          options.modelData.phone_no = window.HOTELADDRESS.other_phone_no[0];
+          options.modelData.email = window.HOTELADDRESS.site_email;
+        }
+        if (window.ISDEMOTHEME === '1') {
+          options.modelData.email = 'info@impruw.com';
+        }
         return Controller.__super__.initialize.call(this, options);
       };
 
