@@ -137,11 +137,9 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             pageId = $.cookie('current-page-id');
             if (isNaN(parseInt(pageId))) {
               pageId = _this.$el.find('select#builder-page-sel').selectpicker('val');
-            } else {
-              _this.$el.find('select#builder-page-sel').selectpicker('val', pageId);
             }
+            _this.$el.find('select#builder-page-sel').selectpicker('val', pageId);
             _this._addToPageSlug(pageId);
-            _this.trigger('editable:page:changed', pageId);
             return _this.changePreviewLinkUrl();
           };
         })(this), 250);

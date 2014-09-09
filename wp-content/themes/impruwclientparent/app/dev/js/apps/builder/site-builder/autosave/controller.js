@@ -28,6 +28,7 @@ define(['app'], function(App) {
           throw new Error("invalid json...");
         }
         _page_id = App.request("get:current:editable:page");
+        return;
         options = {
           type: 'POST',
           url: AJAXURL,

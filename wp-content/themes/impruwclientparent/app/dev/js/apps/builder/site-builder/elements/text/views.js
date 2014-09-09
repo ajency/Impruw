@@ -27,6 +27,7 @@ define(['app'], function(App) {
 
       TextView.prototype.onShow = function() {
         var content, _ref;
+        return;
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
         content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');

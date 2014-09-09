@@ -108,11 +108,11 @@ define [ 'app'
                pageId = $.cookie 'current-page-id'
                if isNaN parseInt pageId
                   pageId = @$el.find( 'select#builder-page-sel' ).selectpicker 'val'
-               else
-                  @$el.find( 'select#builder-page-sel' ).selectpicker 'val', pageId
+               
+               @$el.find( 'select#builder-page-sel' ).selectpicker 'val', pageId
 
                @_addToPageSlug pageId
-               @trigger 'editable:page:changed', pageId
+               
                @changePreviewLinkUrl()
             , 250
 

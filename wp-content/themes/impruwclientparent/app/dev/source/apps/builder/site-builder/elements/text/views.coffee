@@ -30,6 +30,7 @@ define ['app'], (App)->
             # hold the editor instance as the element property so that
             # we can destroy it on close of element
             onShow: ->
+                return
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'text-'
                 @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
                 content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')

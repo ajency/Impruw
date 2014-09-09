@@ -29,6 +29,7 @@ define ['app'], (App)->
             # hold the editor instance as the element property so that
             # we can destroy it on close of element
             onShow: ->
+                return
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
 
                 # CKEDITOR.on 'instanceCreated', @configureEditor
