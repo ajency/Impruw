@@ -143,11 +143,59 @@ function add_pages_to_site( $site_id, $user_id, $pages ) {
         // assign the template if passed
         if ( isset( $page [ 'template' ] ) )
             update_post_meta( $post_id, '_wp_page_template', $page [ 'template' ] );
+
+        if ($page[ 'post_title' ]==='Coming Soon') {
+            $page_id = create_page_in_other_language($post_id,$page_arr,'nb');
+
+            // assign the template if passed
+            if ( isset( $page [ 'template' ] ) )
+                update_post_meta( $page_id, '_wp_page_template', $page [ 'template' ] );
+        }
     }
 
     restore_current_blog();
 
     return TRUE;
+}
+
+/**
+ * Creates a given page in other languages
+ *
+ * @param int $page_id
+ * @param array $page_array
+ * @param string $language
+ * @return int $translated_page_id
+ */
+function create_page_in_other_language($page_id, $page_arr,$language){
+    global $wpdb;
+
+    //print_r($page_arr);
+
+    $tbl_icl_translations = $wpdb->prefix ."icl_translations";
+
+    $element_type = "post_page";
+
+    // Insert translated post
+    $page_translated_id = wp_insert_post($page_arr);
+
+    // Get trid of original post
+    $trid = wpml_get_content_trid( 'post_page', $page_id );
+
+
+    $lang_code_original = wpml_get_default_language();
+
+    // Associate original post and translated post
+    $updateQuery = $wpdb->update($tbl_icl_translations,
+        array(
+            'trid' => $trid,
+            'language_code' => $language,
+            'source_language_code' => $lang_code_original,
+            'element_type' => $element_type
+        ), array( 'element_id' => $page_translated_id ) );
+
+
+    return $page_translated_id;
+
 }
 
 /**

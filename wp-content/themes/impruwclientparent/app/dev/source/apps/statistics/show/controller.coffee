@@ -30,7 +30,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
             getStatisticsView : ( model )->
                 new StatisticsView
-                    model : model
+                        model : model
 
             updateTracking : ->
                 options =

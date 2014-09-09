@@ -2876,8 +2876,7 @@ a.red-link.pull-right {
   margin: 0 0 1em;
   box-shadow: 1px 1px 2px 1px #f3f3f3;
 }
-.edit-colors .color-sets .color .minicolors {
-  display: block;
+.edit-colors .color-sets .color .minicolor {
   width: 100%;
   border: 1px solid #aaaaaa;
   color: #fff;
@@ -2886,11 +2885,27 @@ a.red-link.pull-right {
   text-align: center;
   cursor: pointer;
 }
-.edit-colors .color-sets .color .minicolors .minicolors-swatch-color:before {
+.edit-colors .color-sets .color .minicolor:before {
   content: "Click to Edit";
 }
-.edit-colors .color-sets .color .minicolors .minicolors-swatch-color:focus {
-  color: transparent;
+.edit-colors .color-sets .color .minicolors {
+  display: block;
+}
+.edit-colors .color-sets .color .minicolors .minicolors-swatch {
+  display: none;
+}
+.edit-colors .color-sets .color .minicolors .minicolors-input {
+  height: auto;
+  padding-left: 12px;
+  width: 100%;
+  border-radius: 0;
+  border: 1px solid #aaaaaa;
+  color: #333333;
+  background: #f3f3f3;
+}
+.edit-colors .color-sets .color .minicolors .minicolors-input:focus {
+  border-color: #ff7e00;
+  background: #fff;
 }
 .edit-colors .color-sets .color h6 {
   color: #849fb0;

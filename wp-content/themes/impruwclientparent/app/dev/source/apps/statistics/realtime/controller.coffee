@@ -12,7 +12,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                     @view = @getDisabledTrackingView()
 
                 else
-                    @view =  @getRealTimeView sitemodel
+                    @view =  @getRealTimeView siteModel
 
                 # trigger set:active:menu event
                 App.vent.trigger "set:active:menu", 'statistics'
