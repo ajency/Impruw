@@ -15,6 +15,9 @@
     //add async tasks
     require_once 'async-tasks/wpml-setup.php';
 
+    // Include WPML API
+    include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
+
     /* ============================================================= */
 
     require_once 'Communication_module/user_shortcodes.php'; //file containing all shortcodes to fetch user information
