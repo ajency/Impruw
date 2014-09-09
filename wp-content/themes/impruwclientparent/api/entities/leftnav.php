@@ -92,43 +92,6 @@ function get_menu_items() {
 
 add_action( 'wp_ajax_get-menu-items', 'get_menu_items' );
 
-/**
- * [get_rooms description]
- *
- * @return [type] [description]
- */
-function get_rooms_list() {
-
-    wp_send_json( array(
-        array(
-            'name' => 'Room one1',
-            'attachments' => array(
-                array(
-                    'id' => 23
-                ),
-                array(
-                    'id' => 2
-                )
-            )
-        )
-    ) );
-}
-
-add_action( 'wp_ajax_get-rooms', 'get_rooms_list' );
-
-/**
- * [get_rooms description]
- *
- * @return [type] [description]
- */
-function get_site_profile() {
-
-    wp_send_json( array(
-        'name' => 'My Site Profile Data'
-    ) );
-}
-
-add_action( 'wp_ajax_get-site-profile', 'get_site_profile' );
 
 function get_media() {
 
@@ -310,24 +273,18 @@ function get_elementbox_elements() {
         
     );
 
-    // if ( !current_user_can( 'edit_impruw_theme' ) ) {
-    //     $filtered = array();
-    //     $unset_elements = array( 'Menu', 'LanguageSwitcher' );
-    //     foreach ( $elements as $element ) {
-    //         if ( !in_array( $element[ 'element' ], $unset_elements ) )
-    //             $filtered[ ] = $element;
-    //     }
+    return $elements;
+}
 
-    //     $elements = $filtered;
-    // }
-
+function ajax_get_elementbox_elements(){
+    $elements = get_elementbox_elements();
     wp_send_json( array(
         'code' => 'OK',
         'data' => $elements ) );
 }
 
-add_action( 'wp_ajax_get-elementbox-elements', 'get_elementbox_elements' );
-add_action( 'wp_ajax_nopriv_get-elementbox-elements', 'get_elementbox_elements' );
+add_action( 'wp_ajax_get-elementbox-elements', 'ajax_get_elementbox_elements' );
+add_action( 'wp_ajax_nopriv_get-elementbox-elements', 'ajax_get_elementbox_elements' );
 
 function fetch_facilities() {
 

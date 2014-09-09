@@ -49,7 +49,7 @@ define(['app', 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     facilities = new Facilities.FacilityCollection;
-    facilities.fetch();
+    facilities.add(window.FACILITIES);
     API = {
       getFacilities: function() {
         return facilities;

@@ -32,6 +32,22 @@ function get_impruw_themes( $args = array() ) {
     return $themes_data;
 }
 
+
+function get_theme_color_sets(){
+    $theme_set_color = theme_color_sets();
+
+    $custom_set = get_option( 'custom_theme_color_set' );
+
+    if ( !empty( $custom_set ) ) {
+
+        $custom_set_array = array( maybe_unserialize( $custom_set ) );
+
+        $theme_set_color = wp_parse_args( $custom_set_array, $theme_set_color );
+    }
+
+    return $theme_set_color;
+}
+
 /**
  * COnverts the passed theme id object in required format
  */
