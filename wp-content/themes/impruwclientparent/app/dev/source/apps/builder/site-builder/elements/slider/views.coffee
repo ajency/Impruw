@@ -74,17 +74,22 @@ define ['app'], (App)->
 
             initialize: (options = {}) ->
                 super options
-                @sliderHeight = Marionette.getOption @,'sliderHeight'
 
 
             onShow: ->
                 
-                return if @collection.length is 0
+                if @collection.length is 0
+                    @$el.resizable
+                        helper : "ui-image-resizable-helper"
+                        handles: "s"
+                        stop : =>
+                            @model.set 'height',@$el.height()
+                    return
 
                 defaults = @_getDefaults()
 
                 options =
-                    startheight: @sliderHeight
+                    startheight:  @model.get 'height'
 
                 options = _.defaults options, defaults
 
