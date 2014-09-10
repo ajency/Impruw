@@ -15,8 +15,8 @@ define(['app', 'apps/builder/site-builder/elements/title/views', 'apps/builder/s
       Controller.prototype.initialize = function(options) {
         var data;
         data = {};
-        data['en'] = 'Click here to enter title';
-        data['nb'] = 'Klikk her for å skrive inn tittel';
+        data['en'] = '<h3>Click here to enter title</h3>';
+        data['nb'] = '<h3>Klikk her for å skrive inn tittel</h3>';
         _.defaults(options.modelData, {
           element: 'Title',
           content: data

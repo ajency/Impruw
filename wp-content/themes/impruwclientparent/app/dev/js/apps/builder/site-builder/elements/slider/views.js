@@ -110,6 +110,7 @@ define(['app'], function(App) {
       SliderView.prototype.onShow = function() {
         var defaults, options;
         if (this.collection.length === 0) {
+          this.model.set('height', this.$el.height());
           this.$el.resizable({
             helper: "ui-image-resizable-helper",
             handles: "s",

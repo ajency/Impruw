@@ -6,7 +6,7 @@ define ['app'], (App)->
         # Menu item view
         class Views.TitleView extends Marionette.ItemView
 
-            tagName: 'h3'
+            tagName: 'div'
 
             template: ''
 
@@ -31,7 +31,7 @@ define ['app'], (App)->
             onShow: ->
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
 
-                # CKEDITOR.on 'instanceCreated', @configureEditor
+                CKEDITOR.on 'instanceCreated', @configureEditor
                 @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
                 content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
                 @editor.setData _.stripslashes content ? ''
@@ -52,7 +52,11 @@ define ['app'], (App)->
                 # which is fired after the configuration file loading and
                 # execution. This makes it possible to change the
                 # configurations before the editor initialization takes place.
-                editor.on "configLoaded", ->
+                if element.getAttribute('id') is @$el.attr 'id'
+                    editor.on 'configLoaded', ->
+                        console.log CURRENTTHEME
+                        editor.config.stylesSet = "#{CURRENTTHEME}_title_styles"
+                
 
                     # Rearrange the layout of the toolbar.
                     # editor.config.toolbar = [
@@ -62,5 +66,5 @@ define ['app'], (App)->
                     #     ['InsertImage']
                     # ]
 
-                    editor.config.extraPlugins = 'confighelper'
-                    editor.config.extraPlugins = 'justify'
+                    # editor.config.extraPlugins = 'confighelper'
+                    # editor.config.extraPlugins = 'justify'

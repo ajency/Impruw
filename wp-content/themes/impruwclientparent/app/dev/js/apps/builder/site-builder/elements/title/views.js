@@ -12,7 +12,7 @@ define(['app'], function(App) {
         return TitleView.__super__.constructor.apply(this, arguments);
       }
 
-      TitleView.prototype.tagName = 'h3';
+      TitleView.prototype.tagName = 'div';
 
       TitleView.prototype.template = '';
 
@@ -30,6 +30,7 @@ define(['app'], function(App) {
       TitleView.prototype.onShow = function() {
         var content, _ref;
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
+        CKEDITOR.on('instanceCreated', this.configureEditor);
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
         content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
         this.editor.setData(_.stripslashes(content != null ? content : ''));
@@ -44,10 +45,12 @@ define(['app'], function(App) {
         var editor, element;
         editor = event.editor;
         element = editor.element;
-        return editor.on("configLoaded", function() {
-          editor.config.extraPlugins = 'confighelper';
-          return editor.config.extraPlugins = 'justify';
-        });
+        if (element.getAttribute('id') === this.$el.attr('id')) {
+          return editor.on('configLoaded', function() {
+            console.log(CURRENTTHEME);
+            return editor.config.stylesSet = "" + CURRENTTHEME + "_title_styles";
+          });
+        }
       };
 
       return TitleView;
