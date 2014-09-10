@@ -34,6 +34,7 @@ define [ 'app', 'controllers/base-controller'
                 @listenTo @view, "dependencies:fetched", =>
                     _.delay =>
                         @startFillingElements()
+                        App.execute "autosave-api"
                     , 400
 
                 @show @view,
@@ -75,17 +76,6 @@ define [ 'app', 'controllers/base-controller'
                         @addNestedElements container, element
                     else
                         App.request "add:new:element", container, element.element, element
-
-                _.delay @startAutoSave, 5000
-
-            # start the save revision interval.
-            # uses: siteInterval(fn, interval)
-            startAutoSave : =>
-                clearInterval( window.autoSaveInterval ) if window.autoSaveInterval
-
-                window.autoSaveInterval = setInterval ->
-                    App.execute "auto:save"
-                , AUTOSAVEINTERVAL
 
 
             addNestedElements : ( container, element )->

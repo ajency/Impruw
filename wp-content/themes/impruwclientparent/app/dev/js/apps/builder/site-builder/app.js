@@ -13,11 +13,6 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
           });
         }
       },
-      autoSave: function() {
-        var autoSaveController;
-        autoSaveController = new SiteBuilderApp.AutoSave.Controller;
-        return autoSaveController.autoSave();
-      },
       publish: function() {
         var publishPage;
         publishPage = new SiteBuilderApp.Publish.Controller;
@@ -29,9 +24,6 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
         modelData = {};
       }
       return API.addNewElement(container, type, modelData);
-    });
-    App.commands.setHandler("auto:save", function() {
-      return API.autoSave();
     });
     App.commands.setHandler("publish:page", function() {
       return API.publish();

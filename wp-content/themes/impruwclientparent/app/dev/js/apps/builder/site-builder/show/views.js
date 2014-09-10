@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'moment'], function(App, mainviewTpl, moment) {
+define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'text!apps/builder/site-builder/show/templates/builder.html', 'moment'], function(App, mainviewTpl, builderTpl, moment) {
   return App.module('SiteBuilderApp.Show.View', function(View, App, Backbone, Marionette, $, _) {
     var NoRevisionView, RevisionView, SingleRevision;
     View.MainView = (function(_super) {
@@ -18,8 +18,6 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.getCurrentPageId = __bind(this.getCurrentPageId, this);
         this.getCurrentPageName = __bind(this.getCurrentPageName, this);
         this.addPageDropDown = __bind(this.addPageDropDown, this);
-        this.windowBeforeUnloadHandler = __bind(this.windowBeforeUnloadHandler, this);
-        this.windowUnloadHandler = __bind(this.windowUnloadHandler, this);
         return MainView.__super__.constructor.apply(this, arguments);
       }
 
@@ -48,16 +46,11 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           return App.execute("publish:page");
         },
         'change select#builder-page-sel': function(evt) {
-          this.releasePage();
           this._addToPageSlug(parseInt($(evt.target).val()));
           this.trigger('editable:page:changed', $(evt.target).val());
-          this.currentPageId = parseInt($(evt.target).val());
           App.vent.trigger("change:page:check:single:room");
           this.changePreviewLinkUrl();
           return this.displayPageNameForUpdate();
-        },
-        'change select#builder-page-sel-lock': function(evt) {
-          return this.$el.find('select#builder-page-sel').selectpicker('val', parseInt($(evt.target).val()));
         },
         'click .add-new-page': function() {
           return this.trigger("add:new:page:clicked");
@@ -71,46 +64,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             'ID': currentPageId
           };
           return this.trigger("update:page:name", data);
-        },
-        'click #take-over-button': 'takeOverPage'
-      };
-
-      MainView.prototype.handleWindowEvents = function() {
-        return $(window).on('unload.site-builder', this.windowUnloadHandler);
-      };
-
-      MainView.prototype.windowUnloadHandler = function(evt) {
-        var currentPageId;
-        currentPageId = this.getCurrentPageId();
-        return this.releasePage(currentPageId);
-      };
-
-      MainView.prototype.windowBeforeUnloadHandler = function() {
-        return "The changes you made will be lost if you navigate away from this page.";
-      };
-
-      MainView.prototype.releasePage = function(pageId) {
-        if (pageId == null) {
-          pageId = 0;
         }
-        if (pageId === 0 && this.currentPageId === 0) {
-          return false;
-        }
-        if (this.currentPageId > 0) {
-          pageId = this.currentPageId;
-        }
-        $.ajax({
-          type: 'POST',
-          url: AJAXURL,
-          async: false,
-          data: {
-            action: 'wp-remove-post-lock',
-            _wpnonce: window._wpnonce,
-            post_ID: pageId,
-            active_post_lock: window.lockValue
-          }
-        });
-        return true;
       };
 
       MainView.prototype.addPageDropDown = function() {
@@ -134,11 +88,9 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.initialize = function() {
-        this.currentPageId = 0;
         App.reqres.setHandler("get:current:editable:page:name", this.getCurrentPageName);
         App.reqres.setHandler("get:current:editable:page", this.getCurrentPageId);
-        App.reqres.setHandler("get:original:editable:page", this.getOriginalPageId);
-        return this.handleWindowEvents();
+        return App.reqres.setHandler("get:original:editable:page", this.getOriginalPageId);
       };
 
       MainView.prototype.getCurrentPageName = function() {
@@ -185,8 +137,9 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             pageId = $.cookie('current-page-id');
             if (isNaN(parseInt(pageId))) {
               pageId = _this.$el.find('select#builder-page-sel').selectpicker('val');
+            } else {
+              _this.$el.find('select#builder-page-sel').selectpicker('val', pageId);
             }
-            _this.$el.find('select#builder-page-sel-lock,select#builder-page-sel').selectpicker('val', pageId);
             _this._addToPageSlug(pageId);
             return _this.changePreviewLinkUrl();
           };
@@ -206,7 +159,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.enableSelectPicker = function() {
-        return this.$el.find('select#builder-page-sel,select#builder-page-sel-lock').selectpicker({
+        return this.$el.find('select#builder-page-sel').selectpicker({
           style: 'btn-xs btn-default',
           menuStyle: 'dropdown'
         });
@@ -276,25 +229,6 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.$el.find('div .btn-group .filter-option').text(page_name);
         this.$el.find("select#builder-page-sel option[value='" + page_id + "']").text(page_name);
         return this.enableSelectPicker();
-      };
-
-      MainView.prototype.onPageTookOver = function(errorMessage) {
-        return this.$el.find('div.lock-message').removeClass('hidden').addClass('show').find('div.message-span').text(errorMessage);
-      };
-
-      MainView.prototype.onPageReleased = function() {
-        return this.$el.find('div.lock-message').removeClass('show').addClass('hidden');
-      };
-
-      MainView.prototype.takeOverPage = function(evt) {
-        $(evt.currentTarget).text('Please wait...').attr('disabled', true);
-        return $.post(AJAXURL, {
-          action: 'take_over_page_editing',
-          page_id: $.cookie('current-page-id')
-        }, (function(resp) {
-          $(evt.currentTarget).text('Take Over').removeAttr('disabled');
-          return wp.heartbeat.connectNow();
-        }), 'json');
       };
 
       return MainView;
@@ -382,7 +316,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         return Builder.__super__.constructor.apply(this, arguments);
       }
 
-      Builder.prototype.template = '<header id="site-header-region" class="droppable-column"></header> <div id="site-page-content-region" class="droppable-column"></div> <footer id="site-footer-region" class="droppable-column"></footer>';
+      Builder.prototype.template = builderTpl;
 
       Builder.prototype.onShow = function() {
         return this.$el.find('.droppable-column').sortable({

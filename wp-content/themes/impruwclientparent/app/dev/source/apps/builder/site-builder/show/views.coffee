@@ -1,9 +1,9 @@
 define [ 'app'
          'text!apps/builder/site-builder/show/templates/maintemplate.html'
-         'moment' ], ( App, mainviewTpl, moment )->
-
+         'text!apps/builder/site-builder/show/templates/builder.html'
+         'moment' ],
+( App, mainviewTpl, builderTpl, moment )->
    App.module 'SiteBuilderApp.Show.View', ( View, App, Backbone, Marionette, $, _ )->
-
       class View.MainView extends Marionette.Layout
 
          template : mainviewTpl
@@ -26,17 +26,11 @@ define [ 'app'
                App.execute "publish:page"
 
             'change select#builder-page-sel' : ( evt )->
-               @releasePage()               
                @_addToPageSlug parseInt $( evt.target ).val()
                @trigger 'editable:page:changed', $( evt.target ).val()
-               @currentPageId = parseInt $( evt.target ).val()
                App.vent.trigger "change:page:check:single:room"
                @changePreviewLinkUrl()
                @displayPageNameForUpdate()
-               # @$el.find( 'select#builder-page-sel-lock' ).selectpicker 'val', parseInt $( evt.target ).val()
-
-            'change select#builder-page-sel-lock' : (evt)->
-               @$el.find( 'select#builder-page-sel' ).selectpicker 'val', parseInt $( evt.target ).val()
 
             'click .add-new-page' : ->
                @trigger "add:new:page:clicked"
@@ -49,40 +43,6 @@ define [ 'app'
                   'ID' : currentPageId
                @trigger "update:page:name", data
 
-            'click #take-over-button' : 'takeOverPage'
-
-         handleWindowEvents : ->
-            
-            $(window).on 'unload.site-builder', @windowUnloadHandler
-            #$(window).on 'beforeunload.site-builder', @windowBeforeUnloadHandler
-
-         windowUnloadHandler : (evt)=>
-            currentPageId = @getCurrentPageId()
-            @releasePage currentPageId
-
-         windowBeforeUnloadHandler : =>
-            return "The changes you made will be lost if you navigate away from this page."
-
-         releasePage : (pageId = 0)->
-
-            if pageId is 0 and @currentPageId is 0
-               return false
-
-            if @currentPageId > 0
-               pageId = @currentPageId
-             
-            $.ajax
-               type: 'POST',
-               url: AJAXURL,
-               async: false,
-               data: 
-                  action: 'wp-remove-post-lock',
-                  _wpnonce: window._wpnonce,
-                  post_ID: pageId,
-                  active_post_lock: window.lockValue
-
-            return true
-            
          addPageDropDown : =>
             @modelAddedToCollection = @collection.last()
             @new_page_id = @modelAddedToCollection.get 'ID'
@@ -101,15 +61,12 @@ define [ 'app'
                   @$el.find( 'select#builder-page-sel' )
                      .parent().find('div .dropdown-menu ul' ).append( selectpicker_html )
                   @$el.find( 'select#builder-page-sel' ).append( select_html )
-
             @enableSelectPicker()
 
          initialize : ->
-            @currentPageId = 0
             App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
             App.reqres.setHandler "get:current:editable:page", @getCurrentPageId
             App.reqres.setHandler "get:original:editable:page", @getOriginalPageId
-            @handleWindowEvents()
 
          # return the name of the currently editable page
          getCurrentPageName : =>
@@ -151,11 +108,10 @@ define [ 'app'
                pageId = $.cookie 'current-page-id'
                if isNaN parseInt pageId
                   pageId = @$el.find( 'select#builder-page-sel' ).selectpicker 'val'
-               
-               @$el.find( 'select#builder-page-sel-lock,select#builder-page-sel' ).selectpicker 'val', pageId
+               else
+                  @$el.find( 'select#builder-page-sel' ).selectpicker 'val', pageId
 
                @_addToPageSlug pageId
-               
                @changePreviewLinkUrl()
             , 250
 
@@ -164,8 +120,6 @@ define [ 'app'
 
             #update the page name links
             @displayPageNameForUpdate()
-
-            
             
 
          _addToPageSlug : (pageId)=>
@@ -179,7 +133,7 @@ define [ 'app'
 
          #set the selectpicker for the drop down
          enableSelectPicker : =>
-            @$el.find( 'select#builder-page-sel,select#builder-page-sel-lock' ).selectpicker
+            @$el.find( 'select#builder-page-sel' ).selectpicker
                style : 'btn-xs btn-default'
                menuStyle : 'dropdown'
 
@@ -245,34 +199,6 @@ define [ 'app'
             @$el.find( "select#builder-page-sel option[value='#{page_id}']" ).text( page_name )
             @enableSelectPicker()
 
-         onPageTookOver : (errorMessage)->
-            @$el.find('div.lock-message')
-               .removeClass 'hidden'
-               .addClass 'show'
-               .find 'div.message-span'
-                  .text errorMessage
-
-         onPageReleased : ->
-            @$el.find('div.lock-message')
-               .removeClass 'show'
-               .addClass 'hidden'
-
-         takeOverPage : (evt)->
-            $(evt.currentTarget).text 'Please wait...'
-               .attr 'disabled', true
-
-            $.post AJAXURL, 
-                  (  
-                     action : 'take_over_page_editing'
-                     page_id : $.cookie('current-page-id')
-                  ),
-                  ((resp)->
-                     $(evt.currentTarget).text 'Take Over'
-                        .removeAttr 'disabled'
-
-                     wp.heartbeat.connectNow()
-                  ), 'json'
-
 
       class SingleRevision extends Marionette.ItemView
 
@@ -327,9 +253,7 @@ define [ 'app'
 
       class View.Builder extends Marionette.ItemView
 
-         template : '<header id="site-header-region" class="droppable-column"></header>
-                     <div id="site-page-content-region" class="droppable-column"></div>
-                     <footer id="site-footer-region" class="droppable-column"></footer>'
+         template : builderTpl
 
          onShow : ->
             @$el.find( '.droppable-column' ).sortable
