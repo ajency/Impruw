@@ -310,16 +310,16 @@ function get_elementbox_elements() {
         
     );
 
-    if ( !current_user_can( 'edit_impruw_theme' ) ) {
-        $filtered = array();
-        $unset_elements = array( 'Menu', 'LanguageSwitcher' );
-        foreach ( $elements as $element ) {
-            if ( !in_array( $element[ 'element' ], $unset_elements ) )
-                $filtered[ ] = $element;
-        }
+    // if ( !current_user_can( 'edit_impruw_theme' ) ) {
+    //     $filtered = array();
+    //     $unset_elements = array( 'Menu', 'LanguageSwitcher' );
+    //     foreach ( $elements as $element ) {
+    //         if ( !in_array( $element[ 'element' ], $unset_elements ) )
+    //             $filtered[ ] = $element;
+    //     }
 
-        $elements = $filtered;
-    }
+    //     $elements = $filtered;
+    // }
 
     wp_send_json( array(
         'code' => 'OK',
@@ -398,6 +398,7 @@ function set_element_data( $data ) {
             $slider_data = get_slider_by_id( $data[ 'slider_id' ] );
             $slider_data[ 'height' ] = $data[ 'height' ];
             $slider_data[ 'width' ] = $data[ 'width' ];
+            $slider_data[ 'reset_transitions' ] = $data[ 'reset_transitions' ];
             update_slider( $slider_data, $data[ 'slider_id' ] );
         }
 

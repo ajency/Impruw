@@ -31,11 +31,35 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
 
             showSuccessMessage : ( page ) =>
+
                 @addToPageMenu page
                 @layout.triggerMethod "show:success:message"
                 #if page is selected to be added as a menu item
-#                if @setAsMenuItem is true
-#                    App.vent.trigger "new:page:added", page
+                menuId = window.MENUID
+
+                if menuId is 0
+                    return
+
+                if @setAsMenuItem is true
+                    menumodel = App.request "create:new:menu:item"
+
+                    menumodel.set 'menu_id', menuId
+                    menuCollection = App.request "get:menu:items:by:menuid", window.MENUID
+
+                    data =
+                        menu_item_title: page.get 'post_title'
+                        page_id : page.get 'original_id'
+                        menu_item_parent: 0
+                        order: menuCollection.length + 1
+
+                    menumodel.save data,
+                        wait: true
+                        success: @newMenuItemAdded
+
+            newMenuItemAdded:(model)=>
+                menuCollection = App.request "get:menu:items:by:menuid", window.MENUID
+                menuCollection.add model
+
 
             addToPageMenu : ( pageModel )->
                 pageCollection = App.request "get:editable:pages"

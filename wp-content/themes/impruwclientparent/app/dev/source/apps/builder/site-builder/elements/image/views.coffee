@@ -8,13 +8,17 @@ define ['app'], (App)->
 
             className : 'image'# imgLiquidFill'
 
-            template : '{{#image}}
+            template : '
+                        {{#image}}
+                        <a href="{{hyperlink}}" target="{{linkTarget}}">
                           <img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/>
+                        </a>
                           <div class="clearfix"></div>
                         {{/image}}
                         {{#placeholder}}
                           <div class="image-placeholder" style="height:100%;"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div>
-                        {{/placeholder}}'
+                        {{/placeholder}}
+                        '
 
             # override serializeData to set holder property for the view
             mixinTemplateHelpers : (data)->
@@ -32,15 +36,21 @@ define ['app'], (App)->
                                 return 'pull-left'
                             when 'right'
                                 return 'pull-right'
+                if @eleModel
+                    data.hyperlink = @eleModel.get 'link'
+                    data.linkTarget = @eleModel.get 'target'
 
                 data
 
             events :
                 'click' : 'imageClick'
+                'click a' : (e)-> e.preventDefault()
 
             initialize :(options)->
                 @imageHeightRatio = Marionette.getOption @,'imageHeightRatio'
                 @positionTopRatio = Marionette.getOption @, 'positionTopRatio' 
+                @eleModel = Marionette.getOption @, 'eleModel'
+                
 
 
             _getImageRatio : ->

@@ -979,7 +979,7 @@ a.red-link.pull-right {
   cursor: default;
   border-radius: 3px;
   display: inline-block;
-  width: 58%;
+  width: 56%;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .page-slug-edit {
   width: 80%;
@@ -1086,7 +1086,7 @@ a.red-link.pull-right {
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name {
   display: inline-block;
-  width: 40%;
+  width: 41%;
   padding: 0.3em;
   border-right: 1px solid #dadada;
   color: #333333;
@@ -1176,7 +1176,7 @@ a.red-link.pull-right {
   margin: auto;
   color: #ff7e00;
   font-size: 20px;
-  line-height: 20px;
+  line-height: 16px;
   background: #fff;
   border: 1px solid #ff7e00;
   border-radius: 3px;
@@ -1214,18 +1214,18 @@ a.red-link.pull-right {
   line-height: 18px;
   display: block;
 }
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover {
+.aj-imp-builder-layout-mode .element-wrapper.hover-class {
   border: 1px solid #ff7e00;
 }
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-controls .aj-imp-drag-handle,
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-controls .aj-imp-delete-btn,
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-controls .aj-imp-settings-btn {
+.aj-imp-builder-layout-mode .element-wrapper.hover-class > .element-controls .aj-imp-drag-handle,
+.aj-imp-builder-layout-mode .element-wrapper.hover-class > .element-controls .aj-imp-delete-btn,
+.aj-imp-builder-layout-mode .element-wrapper.hover-class > .element-controls .aj-imp-settings-btn {
   display: block;
 }
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-markup > .row > .column {
+.aj-imp-builder-layout-mode .element-wrapper.hover-class > .element-markup > .row > .column {
   border-right: 1px dotted #c3c3c3;
 }
-.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-markup > .row > .column:last-child {
+.aj-imp-builder-layout-mode .element-wrapper.hover-class > .element-markup > .row > .column:last-child {
   border-right: 0;
 }
 .aj-imp-builder-layout-mode .aj-imp-col-sel {
@@ -1865,6 +1865,7 @@ a.red-link.pull-right {
 .modal #selectable-images .single-img {
   position: relative;
   padding: 0 5px;
+  min-width: 120px;
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
@@ -2888,8 +2889,7 @@ a.red-link.pull-right {
   margin: 0 0 1em;
   box-shadow: 1px 1px 2px 1px #f3f3f3;
 }
-.edit-colors .color-sets .color .minicolors {
-  display: block;
+.edit-colors .color-sets .color .minicolor {
   width: 100%;
   border: 1px solid #aaaaaa;
   color: #fff;
@@ -2898,11 +2898,27 @@ a.red-link.pull-right {
   text-align: center;
   cursor: pointer;
 }
-.edit-colors .color-sets .color .minicolors .minicolors-swatch-color:before {
+.edit-colors .color-sets .color .minicolor:before {
   content: "Click to Edit";
 }
-.edit-colors .color-sets .color .minicolors .minicolors-swatch-color:focus {
-  color: transparent;
+.edit-colors .color-sets .color .minicolors {
+  display: block;
+}
+.edit-colors .color-sets .color .minicolors .minicolors-swatch {
+  display: none;
+}
+.edit-colors .color-sets .color .minicolors .minicolors-input {
+  height: auto;
+  padding-left: 12px;
+  width: 100%;
+  border-radius: 0;
+  border: 1px solid #aaaaaa;
+  color: #333333;
+  background: #f3f3f3;
+}
+.edit-colors .color-sets .color .minicolors .minicolors-input:focus {
+  border-color: #ff7e00;
+  background: #fff;
 }
 .edit-colors .color-sets .color h6 {
   color: #849fb0;

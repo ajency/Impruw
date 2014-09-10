@@ -1008,7 +1008,7 @@ a {
 					cursor: default;
 					border-radius: 3px;
 					display: inline-block;
-					width: 58%;
+					width: 56%;
 					.page-slug-edit {
 						width: 80%;
 						display: inline-block;
@@ -1121,7 +1121,7 @@ a {
 			}
 			.page-name {
 				display: inline-block;
-				width: 40%;
+				width: 41%;
 				padding: 0.3em;
 				border-right: 1px solid darken(@preview-grey, 10%);
 				color: @3-grey;
@@ -1208,7 +1208,7 @@ a {
 					margin: auto;
 					color: @orange;
 					font-size: 20px;
-					line-height: 20px;
+					line-height: 16px;
 					background: #fff;
 					border: 1px solid @orange;
 					border-radius: 3px;
@@ -1248,7 +1248,7 @@ a {
 				}
 			}
 		}
-		&.hover-class:hover {
+		&.hover-class {
 			border: 1px solid @orange;
 			>.element-controls {
 				.aj-imp-drag-handle, .aj-imp-delete-btn, .aj-imp-settings-btn {
@@ -1943,6 +1943,7 @@ a {
 		.single-img {
 			position: relative;
 			padding: 0 5px;
+			min-width: 120px;
 			.thumbnail {
 				margin-bottom: 40px;
 				border: 1px solid @dash-grey;
@@ -3036,8 +3037,7 @@ a {
 			padding: 1em;
 			margin: 0 0 1em;
 			box-shadow: 1px 1px 2px 1px @preview-grey;
-			.minicolors {
-				display: block;
+			.minicolor {
 				width: 100%;
 				border: 1px solid @dash-grey;
 				color: #fff;
@@ -3045,17 +3045,29 @@ a {
 				line-height: 4em;
 				text-align: center;
 				cursor: pointer;
-				.minicolors-swatch-color {
-					&:before {
-						content: "Click to Edit";
-					}
+				&:before {
+					content: "Click to Edit";
+				}
+			}
+			.minicolors {
+				display: block;
+				.minicolors-swatch {
+					display: none;
+				}
+				.minicolors-input {
+					height: auto;
+					padding-left: 12px;
+					width: 100%;
+					border-radius: 0;
+					border: 1px solid @dash-grey;
+					color: @3-grey;
+					background: @preview-grey;
 					&:focus {
-						color: transparent;
+						border-color: @orange;
+						background: #fff;
 					}
 				}
-				
 			}
-
 			h6 {
 				color: @blue-grey;
 			}

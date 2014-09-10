@@ -15,7 +15,7 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
 
       OriginalPageItemView.prototype.className = 'form-group legend-group';
 
-      OriginalPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{element_in_language}}</label> <div class="col-sm-9 col-sm-offset-3"> <p class="original {{TypeOfElementClass}}" tabindex="1"> {{{originalContent}}} </p> </div> </div> </div>';
+      OriginalPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{element_in_language}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original {{TypeOfElementClass}}" tabindex="1"> {{{originalContent}}} </div> </div> </div> </div>';
 
       OriginalPageItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalPageItemView.__super__.mixinTemplateHelpers.call(this, data);
@@ -28,13 +28,13 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
         };
         data.originalContent = function() {
           var originalContent;
+          originalContent = '';
           if (data.element === "Link") {
             originalContent = data.text[WPML_DEFAULT_LANG];
-            return originalContent;
           } else {
             originalContent = data.content[WPML_DEFAULT_LANG];
-            return originalContent;
           }
+          return _.stripslashes(originalContent);
         };
         data.element_in_language = function() {
           var element_in_language;

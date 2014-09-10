@@ -53,6 +53,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return this.$el.addClass("width-" + randomW + " height-" + randomH);
       };
 
+      SingleGalleryItem.prototype.events = {
+        'click': function(e) {
+          return e.preventDefault();
+        }
+      };
+
       return SingleGalleryItem;
 
     })(Marionette.ItemView);

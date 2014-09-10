@@ -734,10 +734,21 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-lo-header > .row .logo img {
   max-height: 80px;
+  margin-top: 13px;
 }
 .aj-imp-lo-header > .row .lang-actions {
   text-align: right;
-  padding: 20px 15px 5px;
+  padding: 5px 15px 5px;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sele #lang_sel {
+  text-align: left;
+  z-index: 1;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sele #lang_sel ul, .aj-imp-lo-header > .row .lang-actions .lang-sele #lang_sel li {
+  min-width: 170px;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sele #lang_sel .iclflag {
+  top: -1px;
 }
 .aj-imp-lo-header > .row .lang-actions #lang-pop {
   display: inline-block;

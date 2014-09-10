@@ -17,7 +17,7 @@ define(['app'], function(App) {
       SliderItem.prototype.tagName = 'li';
 
       SliderItem.prototype.onRender = function() {
-        return this.$el.attr('data-transition', 'fade').attr('data-slotamount', '0').attr('data-masterspeed', '500');
+        return this.$el.attr('data-slotamount', '0').attr('data-masterspeed', '500').attr('data-transition', Marionette.getOption(this, 'slide_transition'));
       };
 
       SliderItem.prototype.modelEvents = {
@@ -61,11 +61,21 @@ define(['app'], function(App) {
 
       SliderView.prototype.itemViewContainer = '.fullwidthbanner > ul';
 
+      SliderView.prototype.itemViewOptions = function() {
+        return {
+          slide_transition: this.model.get('reset_transitions')
+        };
+      };
+
       SliderView.prototype.events = {
         'click': 'sliderClick',
         'click .tp-rightarrow,.tp-leftarrow,.bullet': function(e) {
           return e.stopPropagation();
         }
+      };
+
+      SliderView.prototype.modelEvents = {
+        'change:reset_transitions': 'changeTransitions'
       };
 
       SliderView.prototype.collectionEvents = {
@@ -79,6 +89,10 @@ define(['app'], function(App) {
         return delete this.revapi;
       };
 
+      SliderView.prototype.changeTransitions = function(model, reset_transitions) {
+        return this.trigger('render:slider');
+      };
+
       SliderView.prototype._getSliderRatio = function() {
         var height, width;
         width = this.$el.width();
@@ -90,18 +104,26 @@ define(['app'], function(App) {
         if (options == null) {
           options = {};
         }
-        SliderView.__super__.initialize.call(this, options);
-        return this.sliderHeight = Marionette.getOption(this, 'sliderHeight');
+        return SliderView.__super__.initialize.call(this, options);
       };
 
       SliderView.prototype.onShow = function() {
         var defaults, options;
         if (this.collection.length === 0) {
+          this.$el.resizable({
+            helper: "ui-image-resizable-helper",
+            handles: "s",
+            stop: (function(_this) {
+              return function() {
+                return _this.model.set('height', _this.$el.height());
+              };
+            })(this)
+          });
           return;
         }
         defaults = this._getDefaults();
         options = {
-          startheight: this.sliderHeight
+          startheight: this.model.get('height')
         };
         options = _.defaults(options, defaults);
         this.revapi = this.$el.find(".fullwidthbanner").revolution(options);

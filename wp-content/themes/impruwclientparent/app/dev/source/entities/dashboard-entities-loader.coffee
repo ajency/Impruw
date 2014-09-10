@@ -18,4 +18,6 @@ define [
     'entities/braintree-subscription'
     'entities/braintree-credit-card'
     'entities/braintree-transaction'
+    'entities/header-elements'
+    'entities/footer-elements'
 ], ->

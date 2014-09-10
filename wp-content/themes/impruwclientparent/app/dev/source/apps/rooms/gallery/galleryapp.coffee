@@ -30,6 +30,10 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                 randomH = if Math.random() * 50 > 25 then 1 else 2
                 @$el.addClass "width-#{randomW} height-#{randomH}"
 
+            events : 
+                'click' : (e)->
+                    e.preventDefault()
+
 
         class NoGalleryItem extends Marionette.ItemView
 

@@ -82,13 +82,16 @@
     var BUILDERURL = '<?php echo site_url('site-builder'); ?>';
     var CURRENTTHEME = '<?php echo wp_get_theme()->get_stylesheet() ?>';
     var THEMECOLORSET = '<?php echo get_option('current_color_set','default'); ?>';
-    var AUTOSAVEINTERVAL = 20000;
+    var AUTOSAVEINTERVAL = 6000 * 10 * 2 ;
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
     var ADDRESS = '<?php echo get_hotel_address() ?>';
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
     var PLUGIN_URI  = '<?php echo WP_PLUGIN_URL; ?>';
     var ISTHEMEEDITOR = '<?php echo current_user_can( 'edit_impruw_theme' ) ? 'yes' : 'no' ?>';
+    var MENUID = 0;
+    var HOTELADDRESS = <?php echo json_encode(get_site_details()) ?>;
+    var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>

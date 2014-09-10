@@ -15,6 +15,9 @@
     //add async tasks
     require_once 'async-tasks/wpml-setup.php';
 
+    // Include WPML API
+    include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
+
     /* ============================================================= */
 
     require_once 'Communication_module/user_shortcodes.php'; //file containing all shortcodes to fetch user information
@@ -254,12 +257,12 @@
           wp_localize_script('pw-script2', 'myobject', $translation_array );
          */
 
-        wp_enqueue_script("bootstrap", get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), FALSE, TRUE);
-        wp_enqueue_script("flatui-checkbox", get_template_directory_uri() . '/js/flatui-checkbox.js', array('jquery'), FALSE, TRUE);
-        wp_enqueue_script("bootstrap-select", get_template_directory_uri() . '/js/bootstrap-select.js', array('jquery'), FALSE, TRUE);
-        wp_enqueue_script("flatui-radio", get_template_directory_uri() . '/js/flatui-radio.js', array('jquery'), FALSE, TRUE);
+        wp_enqueue_script("bootstrap", get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), JSVERSION, TRUE);
+        wp_enqueue_script("flatui-checkbox", get_template_directory_uri() . '/js/flatui-checkbox.js', array('jquery'), JSVERSION, TRUE);
+        wp_enqueue_script("bootstrap-select", get_template_directory_uri() . '/js/bootstrap-select.js', array('jquery'), JSVERSION, TRUE);
+        wp_enqueue_script("flatui-radio", get_template_directory_uri() . '/js/flatui-radio.js', array('jquery'), JSVERSION, TRUE);
 
-        wp_enqueue_script("user-login", get_template_directory_uri() . '/js/user-login.js', array('jquery'), FALSE, TRUE);
+        wp_enqueue_script("user-login", get_template_directory_uri() . '/js/user-login.js', array('jquery'), JSVERSION, TRUE);
 
         //Localize user-login to enable translation in wpml
         $user_login_translation = array(
@@ -275,12 +278,12 @@
             //Check for the current language and load the right parsley messages file
             $current_language = ICL_LANGUAGE_CODE;
             if ($current_language == 'nb'){
-                wp_enqueue_script('parsley-lang', get_template_directory_uri() . '/js/parsley/i18n/messages.no.js', array(), FALSE, TRUE);
+                wp_enqueue_script('parsley-lang', get_template_directory_uri() . '/js/parsley/i18n/messages.no.js', array(), JSVERSION, TRUE);
             }
 
-            wp_enqueue_script('parsley', get_template_directory_uri() . '/js/parsley/parsley.js', array('jquery'), '1.2.0', TRUE);
+            wp_enqueue_script('parsley', get_template_directory_uri() . '/js/parsley/parsley.js', array('jquery'), JSVERSION, TRUE);
 
-            wp_enqueue_script("user_management", get_template_directory_uri() . '/js/user_management.js', array(), FALSE, TRUE);
+            wp_enqueue_script("user_management", get_template_directory_uri() . '/js/user_management.js', array(), JSVERSION, TRUE);
 
         }
 
@@ -629,3 +632,28 @@
       </style>
     <?php }
     add_action( 'login_enqueue_scripts', 'impruw_login_logo' );
+
+    add_filter( 'wp_title', 'filter_wp_title' );
+    /**
+     * Filters the page title appropriately depending on the current page
+     *
+     * This function is attached to the 'wp_title' fiilter hook.
+     *
+     * @uses  get_bloginfo()
+     * @uses  is_home()
+     * @uses  is_front_page()
+     */
+    function filter_wp_title( $title ) {
+      global $page, $paged;
+
+      if ( is_feed() )
+        return $title;
+
+      $site_description = get_bloginfo( 'description' );
+
+      $filtered_title = $title . get_bloginfo( 'name' );
+      $filtered_title .= ( ! empty( $site_description ) && ( is_home() || is_front_page() ) ) ? ' | ' . $site_description: '';
+      $filtered_title .= ( 2 <= $paged || 2 <= $page ) ? ' | ' . sprintf( __( 'Page %s' ), max( $paged, $page ) ) : '';
+
+      return $filtered_title;
+    }

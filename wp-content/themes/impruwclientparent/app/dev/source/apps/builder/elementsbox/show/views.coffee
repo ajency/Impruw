@@ -19,6 +19,10 @@ define [ 'app'
                         Hi! I am help text to help you understand this element!
                      </div>'
 
+         events : 
+            'click a' : (e)->
+               e.preventDefault()
+
          serializeData : ->
             data = super()
             data.elementName = ->

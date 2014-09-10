@@ -135,21 +135,18 @@ function update_translated_room(){
     $room_title = $_REQUEST['room_title'];
     $room_desc = $_REQUEST['room_desc'];
     $room_id = $_REQUEST['room_id'];
-    $room_slug = sanitize_title($room_title);
 
     // Update post with id = $room_id
     $room_post = array(
       'ID'           => $room_id,
       'post_title'   => $room_title,
-      'post_content' => $room_desc,
-      'post_name' => $room_slug
+      'post_content' => $room_desc
       );
 
     // Update the post into the database
     $return_post_id = wp_update_post( $room_post );
 
     $data['post_id'] = $return_post_id;
-    $data['room_slug'] = $room_slug;
 
     wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
     

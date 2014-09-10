@@ -16,12 +16,11 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], ( App, A
             @listenTo @layout, 'add:new:room:clicked', () ->
                App.execute "show:add:room"
 
-
             # trigger set:active:menu event
             App.vent.trigger "set:active:menu", 'rooms'
 
             @show @layout,
-               loading : true
+                  loading : true
 
 
          showRoomsList : ->
@@ -33,13 +32,13 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], ( App, A
 
          _getLayout : ( collection )->
             new List.Views.RoomListLayout
-               collection : collection
+                        collection : collection
 
          _getRoomsListView : ( collection )->
             new List.Views.RoomsListView
-               collection : collection
+                        collection : collection
 
 
       App.commands.setHandler "show:rooms:list", ( opts )->
          new List.ListController
-            region : opts.region
+                  region : opts.region

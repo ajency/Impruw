@@ -33,15 +33,24 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
         })(this));
         this.listenTo(view, "itemview:show:image:editor", (function(_this) {
           return function(iv, model) {
-            var editView, ratio;
+            var editView, ratio, _region;
+            _region = _this.region;
             ratio = App.currentImageRatio;
             editView = App.request("get:image:editor:view", model, {
               aspectRatio: ratio
             });
             view.triggerMethod("show:edit:image", editView);
             return view.listenTo(editView, "image:editing:cancelled", function() {
-              return view.triggerMethod("image:editing:cancelled");
+              view.triggerMethod("image:editing:cancelled");
+              return _.delay(function() {
+                return Marionette.triggerMethod.call(_region, "media:element:selected", model);
+              });
             });
+          };
+        })(this));
+        App.commands.setHandler("new:media:added", (function(_this) {
+          return function(media) {
+            return _this.mediaCollection.add(media);
           };
         })(this));
         return this.show(view, {

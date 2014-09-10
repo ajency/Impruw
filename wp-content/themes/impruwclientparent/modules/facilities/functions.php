@@ -157,8 +157,7 @@ function save_term_translation_wpml($language, $original_term_id, $new_term_name
     $errors = '';
 
     $term_args = array(
-        'name'  => $new_name,
-        'slug'  => $slug          
+        'name'  => $new_name    
     );
 
     $original_tax = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->term_taxonomy} WHERE taxonomy=%s AND term_taxonomy_id = %d",$taxonomy, $original_element));

@@ -51,6 +51,15 @@ class ImageElement extends Element {
         $this->size = $element['size'];
         $this->height = isset($element['heightRatio']) ? $element['heightRatio'] : 'auto';
         $this->position_top = isset($element['topRatio']) ? $element['topRatio'] : 0;
+        
+        if($element['element'] === 'Logo'){
+            $this->link = site_url();
+        }else{
+            $this->link = isset($element['link']) ? $element['link'] : false;
+        }
+
+
+        $this->target = isset($element['target']) ? $element['target'] : '_self';
         // $this->margins = 
         $this->markup    = $this->generate_markup();
     }
@@ -105,28 +114,31 @@ class ImageElement extends Element {
         $height = $this->height;
         $position_top = $this->position_top;
 
-        
 
         if($a_id === 0){
-            return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
+            return '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';   
         }
 
         $path = wp_get_attachment_image_src($a_id, $size);
 
+        $markup = '';
 
-        
+        if ($this->link !== false){
+            $markup .= "<a href='".$this->link."' target='".$this->target."' >";
+        }
+
         if($path !== false) {
-            return "<div style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive {$this->margins}' width='100%' style=' position: relative;'/></div>";
-            // <script>
-            // if({$height} != 'auto'){       
-            //     jQuery('img').last().parent().height(parseInt(jQuery('img').last().parent().width())*{$height});
-            // }
-            // jQuery('img').last().css('top',parseInt(jQuery('img').last().parent().width())*{$position_top}+'px');
-            // </script>";
+            $markup .= "<div class='{$this->class_name}' style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive  {$this->margins}' width='100%' style=' position: relative;'/></div>";
+            
         }
         else{
-            return "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";
+            $markup .= "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";
         }
+
+        if ($this->link !== false)
+            $markup .= "</a>";
+
+        return $markup;
             
     }
     

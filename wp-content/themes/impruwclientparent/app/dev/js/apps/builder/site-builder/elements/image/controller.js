@@ -19,14 +19,18 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
           size: 'thumbnail',
           align: 'left',
           heightRatio: 'auto',
-          topRatio: 0
+          topRatio: 0,
+          link: '#',
+          target: '_self'
         });
+        if (options.modelData.element === 'Logo') {
+          options.modelData.image_id = window.LOGOID;
+        }
         return Controller.__super__.initialize.call(this, options);
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:image_id", this.renderElement);
-        this.listenTo(this.layout.model, "change:align", this.renderElement);
+        this.listenTo(this.layout.model, "change:image_id change:align change:link change:target", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -42,6 +46,7 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
           model: imageModel,
           imageHeightRatio: this.layout.model.get('heightRatio'),
           positionTopRatio: this.layout.model.get('topRatio'),
+          eleModel: this.layout.model,
           templateHelpers: this._getTemplateHelpers()
         });
       };
@@ -72,6 +77,7 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
                 _this.stopListening(App.vent, "media:manager:choosed:media");
                 _this.layout.model.save();
                 _this.imageModel = media;
+                window.LOGOID = media.get('id');
                 return _this.renderElement();
               });
               return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {

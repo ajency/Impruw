@@ -58,7 +58,8 @@ define [ 'app'
                                                 <i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
                                             </a>
                                         </li>"
-                  @$el.find( 'div .dropdown-menu ul' ).append( selectpicker_html )
+                  @$el.find( 'select#builder-page-sel' )
+                     .parent().find('div .dropdown-menu ul' ).append( selectpicker_html )
                   @$el.find( 'select#builder-page-sel' ).append( select_html )
             @enableSelectPicker()
 

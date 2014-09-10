@@ -18,7 +18,7 @@ define ['app'], (App)->
 
 			serializeData:->
 				data = super()
-				data.currentTheme = CURRENTTHEME is data.post_name
+				data.currentTheme = CURRENTTHEME is _.slugify data.post_title
 				data.post_title = _.polyglot.t(data.post_title)
 				data
 

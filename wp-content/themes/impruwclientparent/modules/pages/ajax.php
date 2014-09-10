@@ -56,9 +56,9 @@ function create_page_ajax() {
 
         //check if add_to_menu is set then add the english version of the page to menu
         $page_order = $data[ 'menu_order' ] + 1;
-        if ( $data[ 'add_to_menu' ] == "true" ) {
-            add_page_to_menu( $english_page_id, $page_order );
-        }
+        // if ( $data[ 'add_to_menu' ] == "true" ) {
+        //     add_page_to_menu( $english_page_id, $page_order );
+        // }
 
         // check what is the template id needed to create the page
         $template_page_id = (int)$data[ 'template_page_id' ];

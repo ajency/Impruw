@@ -15,13 +15,17 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                     align: 'left'
                     heightRatio : 'auto'
                     topRatio : 0
+                    link : '#'
+                    target : '_self'
+
+                if options.modelData.element is 'Logo'
+                    options.modelData.image_id = window.LOGOID
 
                 super(options)
 
             bindEvents: ->
                 # start listening to model events
-                @listenTo @layout.model, "change:image_id", @renderElement
-                @listenTo @layout.model, "change:align", @renderElement
+                @listenTo @layout.model, "change:image_id change:align change:link change:target", @renderElement
                 super()
 
             # private etmplate helper function
@@ -33,10 +37,12 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                 alignment: @layout.model.get 'align'
 
             _getImageView: (imageModel)->
+                
                 new Image.Views.ImageView
                     model: imageModel
                     imageHeightRatio : @layout.model.get 'heightRatio'
                     positionTopRatio : @layout.model.get 'topRatio'
+                    eleModel : @layout.model
                     templateHelpers: @_getTemplateHelpers()
 
 
@@ -62,6 +68,7 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                             @stopListening App.vent, "media:manager:choosed:media"
                             @layout.model.save()
                             @imageModel = media
+                            window.LOGOID = media.get 'id'
                             @renderElement()
                             
 

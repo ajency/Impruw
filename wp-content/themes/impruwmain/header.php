@@ -49,7 +49,9 @@
                     alt="Impruw"/></a>
         </div>
         <div class="col-md-9 lang-actions">
-
+            <div class="lang-sele">
+                <?php do_action('icl_language_selector'); ?>
+            </div>
             <?php
                 if( is_user_logged_in() ) { 
                     $defaults = array(

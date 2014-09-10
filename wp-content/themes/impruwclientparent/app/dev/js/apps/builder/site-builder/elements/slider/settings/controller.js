@@ -34,6 +34,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
             return _this.model.set(spacing, value);
           };
         })(this));
+        this.listenTo(view, "element:slide:transition:changed", (function(_this) {
+          return function(slide_transition) {
+            return _this.model.set('reset_transitions', slide_transition);
+          };
+        })(this));
         return this.show(view);
       };
 

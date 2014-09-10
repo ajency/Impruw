@@ -22,6 +22,10 @@ define ['app', 'text!apps/builder/site-builder/elements/image/settings/templates
             setFields: ->
                 if @eleModel.get('draggable') is true
                     @$el.find('input[name="draggable"]').checkbox('check')
+                if @eleModel.get('target') is '_BLANK'
+                    @$el.find('input[name="target"]').checkbox 'check'
+                
+                @$el.find("input[name='link']").val @eleModel.get 'link'                    
 
                 @$el.find('select[name="align"]').selectpicker 'val', @eleModel.get 'align'
                 @$el.find('select[name="top_margin"]').selectpicker 'val', @eleModel.get 'top_margin'
@@ -40,3 +44,16 @@ define ['app', 'text!apps/builder/site-builder/elements/image/settings/templates
                     @trigger "element:alignment:changed", $(evt.target).val()
                 'change select.spacing': (evt)->
                     @trigger "element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val()
+                'change input[name="target"]': (evt)->
+                    @trigger "element:target:changed", if $(evt.target).is(':checked') then '_BLANK' else '_self'
+                'blur input.linktext': (evt)->
+                    @trigger "element:link:changed", $(evt.target).val()
+
+
+            onBeforeClose: ->
+                #trigger blur events so that the model gets updated
+                @$el.find('input.linktext').trigger 'blur'
+                # this is important because this event is triggered to prevent the view from being closed
+                # the view needs to be closed but just trigger the blur events so that the element view is
+                # updated
+                return true

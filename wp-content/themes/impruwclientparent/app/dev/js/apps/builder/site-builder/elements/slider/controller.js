@@ -15,8 +15,9 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Slider',
-          height: 350,
-          slider_id: 0
+          height: 156,
+          slider_id: 0,
+          reset_transitions: 'fade'
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -29,7 +30,7 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
       Controller.prototype._getSliderView = function(collection) {
         return new Slider.Views.SliderView({
           collection: collection,
-          sliderHeight: parseInt(this.layout.model.get('height'))
+          model: this.layout.model
         });
       };
 
@@ -69,6 +70,10 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
             });
             _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {
               return _this.renderElement();
+            });
+            _this.listenTo(view, "render:slider", function() {
+              _this.layout.model.save();
+              return _this.layout.elementRegion.show(view);
             });
             return _this.layout.elementRegion.show(view);
           };

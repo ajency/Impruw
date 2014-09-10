@@ -25,10 +25,10 @@ function updateroom( $room_data ) {
     $slider_id    = $room_data[ 'slider_id' ];
     $no_of_rooms  = $room_data[ 'no_of_rooms' ];
 
-    $feature_image_id  = $room_data[ 'feature_image_id' ];
+    $feature_image_id  = 0;
     
-    if($room_data['feature_image_id']==="")
-        $feature_image_id = $room_data[ 'thumbnail_id' ];
+    if(isset($room_data['feature_image_id']))
+        $feature_image_id = $room_data[ 'feature_image_id' ];
 
 
     // prepare facility array
@@ -222,10 +222,18 @@ function create_draft_room() {
 
 // Function returns the data for the new room created
 // @param room ID
+// @param $dashboard -> set to FALSE when room details are requested for the front end
 
-function get_room( $roomid ) {
+function get_room( $roomid , $dashboard=TRUE) {
 
     $room_id = $roomid;
+
+    if($dashboard===TRUE)
+        $room_language = wpml_get_default_language();
+    else
+        $room_language = wpml_get_current_language();
+
+    $room_id = icl_object_id($room_id, 'impruw_room', true,$room_language);
 
     $room_post = get_post( $room_id, ARRAY_A );
 
@@ -251,7 +259,7 @@ function get_room( $roomid ) {
     // prepare the post meta strings to array
     $room_post_meta = array( 'slider_id'         => $room_slider_id,
                              'no_of_rooms'       => $no_of_rooms,
-                             'thumbnail_id'      => (int) $attachment_id,
+                             'feature_image_id'  => (int) $attachment_id,
                              'post_excerpt'      => '',
                              'check-in'          => $check_in,
                              'check-out'          => $check_out,
@@ -552,8 +560,8 @@ function duplicate_language_post($post_id, $post_type, $lang){
     $tbl_icl_translations = $wpdb->prefix ."icl_translations";
 
     // Define title of translated post
-    $post_translated_title = get_post( $post_id )->post_title .' ( not translated )';
-    $post_translated_desc = get_post( $post_id )->post_content .' ( not translated )';
+    $post_translated_title = get_post( $post_id )->post_title;
+    $post_translated_desc = get_post( $post_id )->post_content .' (not translated)';
 
     //element type
     $element_type = 'post_'.$post_type;
