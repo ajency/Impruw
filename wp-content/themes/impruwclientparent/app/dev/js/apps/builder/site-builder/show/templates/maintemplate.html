@@ -5,6 +5,12 @@
             <span class="bicon icon-uniF180"></span>
             <div class="message-span">{{#polyglot}}Editing has been locked for this page.{{/polyglot}}</div>
             <button id="take-over-button" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Take Over{{/polyglot}}</button>
+            <span class="option-or">{{#polyglot}}Or Edit Another Page:{{/polyglot}}</span>
+            <select id="builder-page-sel" name="builder-page-sel">
+                {{#pages}}
+                <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
+                {{/pages}}
+            </select>
         </div>
         <!--row first-->
         <div class="row">

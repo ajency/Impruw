@@ -1124,15 +1124,48 @@ a.red-link.pull-right {
   right: 0;
   bottom: 0;
   text-align: center;
-  padding: 1em;
+  padding: 0.5em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bicon {
   color: #333333;
   font-size: 2em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .message-span {
-  margin: 0.5em 0;
+  margin: 0.5em 0 1em;
+  color: #849fb0;
+  font-size: 1.2em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .option-or {
+  display: inline-block;
+  margin: 0 0.5em;
   color: #aaaaaa;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select {
+  margin-bottom: 0.25em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-toggle {
+  background: transparent;
+  color: #666666;
+  font-size: 1.2em;
+  padding: 0 0 0.25em;
+  border-radius: 0;
+  border-bottom: 1px solid #dddddd;
+  text-transform: uppercase;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-toggle .caret {
+  border-top-color: #c3c3c3;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-toggle:hover {
+  border-bottom-color: #aaaaaa;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-toggle:hover .caret {
+  border-top-color: #aaaaaa;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-menu {
+  text-align: left;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-menu .selected a:focus {
+  background: #ff7e00;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body {
   background: no-repeat center -0.5em #ffffff;
