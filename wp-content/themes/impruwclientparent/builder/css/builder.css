@@ -763,6 +763,7 @@ a.red-link.pull-right {
   padding: 1em 1em 0;
   border-radius: 6px 6px 0 0;
   margin: 0;
+  position: relative;
   box-shadow: 0 4px 4px -4px #aaaaaa;
   background: #f6f6f6;
   /* Old browsers */
@@ -1112,6 +1113,26 @@ a.red-link.pull-right {
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name .page-name-content .btn-update-pg-name:hover,
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name .page-name-content .btn-update-pg-name:focus {
   background: #fff;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px 6px 0 0;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  padding: 1em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bicon {
+  color: #333333;
+  font-size: 2em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .message-span {
+  margin: 0.5em 0;
+  color: #aaaaaa;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body {
   background: no-repeat center -0.5em #ffffff;
