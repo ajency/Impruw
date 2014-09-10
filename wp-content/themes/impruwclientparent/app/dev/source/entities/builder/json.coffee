@@ -52,7 +52,6 @@ define ["app", 'backbone','jquery'], (App, Backbone, $) ->
 
         API =
             getPageJSON: (pageId, revisionId)->
-                
                 json.set
                     page_id: parseInt pageId
                     revision_id: parseInt revisionId

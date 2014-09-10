@@ -1,6 +1,8 @@
-define(['app'], function(App) {
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat'], function(App, AutoSaveHelper) {
   return App.module('SiteBuilderApp.AutoSave', function(AutoSave, App, Backbone, Marionette, $, _) {
-    var $document, AutoSaveAPI, AutoSaveLocal, AutoSaveServer, getJson, getPageJson;
+    var $document, AutoSaveAPI, AutoSaveLocal, AutoSaveServer;
     $document = $(document);
     AutoSaveLocal = (function() {
       function AutoSaveLocal() {
@@ -25,76 +27,90 @@ define(['app'], function(App) {
 
     })();
     AutoSaveServer = (function() {
-      function AutoSaveServer() {}
+      function AutoSaveServer() {
+        this.handleTick = __bind(this.handleTick, this);
+        this.hbAutoSavePageJSONTick = __bind(this.hbAutoSavePageJSONTick, this);
+        this.hbAutoSavePageJSONSend = __bind(this.hbAutoSavePageJSONSend, this);
+        this.autoSaveData = false;
+        this.nextRun = 0;
+        $document.on('heartbeat-send.autosave-page-json', this.hbAutoSavePageJSONSend);
+        $document.on('heartbeat-tick.autosave-page-json', this.hbAutoSavePageJSONTick);
+      }
+
+      AutoSaveServer.prototype.hbAutoSavePageJSONSend = function(evt, data) {
+        this.autoSaveData = this.getAutoSaveData();
+        if (this.autoSaveData !== false) {
+          data['autosave-page-json'] = this.autoSaveData;
+        }
+        return data;
+      };
+
+      AutoSaveServer.prototype.triggerSave = function() {
+        this.nextRun = 0;
+        return wp.heartbeat.connectNow();
+      };
+
+      AutoSaveServer.prototype.getAutoSaveData = function() {
+        var data, json, pageId;
+        if ((new Date()).getTime() < this.nextRun) {
+          return false;
+        }
+        pageId = App.request("get:original:editable:page");
+        json = AutoSaveHelper.getPageJson();
+        if (json === false) {
+          return false;
+        }
+        this.disableButtons();
+        data = _.defaults(json, {
+          'page_id': pageId
+        });
+        return data;
+      };
+
+      AutoSaveServer.prototype.hbAutoSavePageJSONTick = function(event, data) {
+        if (data['autosave-page-json']) {
+          return this.handleTick(data['autosave-page-json']);
+        }
+      };
+
+      AutoSaveServer.prototype.handleTick = function() {
+        this.schedule();
+        this.enableButtons();
+        return this.autoSaveData = false;
+      };
+
+      AutoSaveServer.prototype.enableButtons = function() {
+        return App.vent.trigger('autosave:page:json:enable:buttons');
+      };
+
+      AutoSaveServer.prototype.disableButtons = function() {
+        return App.vent.trigger('autosave:page:json:disable:buttons');
+      };
+
+      AutoSaveServer.prototype.schedule = function() {
+        var autosaveInterval;
+        if (typeof window.autosaveInterval !== 'undefined') {
+          autosaveInterval = window.autosaveInterval;
+        } else {
+          autosaveInterval = 60;
+        }
+        return this.nextRun = (new Date()).getTime() + (autosaveInterval * 1000) || 60000;
+      };
 
       return AutoSaveServer;
 
     })();
     AutoSaveAPI = (function() {
       function AutoSaveAPI() {
-        this.$el = App.builderRegion.$el;
-        this.lastTriggerSave = 0;
         this.local = new AutoSaveLocal;
         this.server = new AutoSaveServer;
-        console.log(this.local.hasSupport);
       }
-
-      AutoSaveAPI.prototype.getPageJSON = function() {
-        var json;
-        json = getPageJson(siteRegion);
-        return json;
-      };
 
       return AutoSaveAPI;
 
     })();
-    getPageJson = function($site) {
-      var _json;
-      _json = {};
-      _.each(['header', 'page-content', 'footer'], (function(_this) {
-        return function(section, index) {
-          return _json["" + section + "-json"] = JSON.stringify(getJson($site.find("#site-" + section + "-region")));
-        };
-      })(this));
-      return _json;
-    };
-    getJson = function($element, arr) {
-      var elements;
-      if (arr == null) {
-        arr = [];
-      }
-      elements = $element.children('.element-wrapper');
-      _.each(elements, (function(_this) {
-        return function(element, index) {
-          var ele;
-          ele = {
-            element: $(element).find('form input[name="element"]').val(),
-            meta_id: parseInt($(element).find('form input[name="meta_id"]').val())
-          };
-          if (ele.element === 'Row') {
-            ele.draggable = $(element).children('form').find('input[name="draggable"]').val() === "true";
-            ele.style = $(element).children('form').find('input[name="style"]').val();
-            delete ele.meta_id;
-            ele.elements = [];
-            _.each($(element).children('.element-markup').children('.row').children('.column'), function(column, index) {
-              var className, col;
-              className = $(column).attr('data-class');
-              col = {
-                position: index + 1,
-                element: 'Column',
-                className: className,
-                elements: getJson($(column))
-              };
-              ele.elements.push(col);
-            });
-          }
-          return arr.push(ele);
-        };
-      })(this));
-      return arr;
-    };
     return App.commands.setHandler("autosave-api", function() {
-      return new AutoSaveAPI;
+      return App.autoSaveAPI = new AutoSaveAPI;
     });
   });
 });

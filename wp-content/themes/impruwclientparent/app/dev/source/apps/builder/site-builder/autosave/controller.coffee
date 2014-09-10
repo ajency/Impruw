@@ -1,4 +1,4 @@
-define ['app'], (App)->
+define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat'], (App, AutoSaveHelper)->
 
 	App.module 'SiteBuilderApp.AutoSave', (AutoSave, App, Backbone, Marionette, $, _)->
 
@@ -25,79 +25,79 @@ define ['app'], (App)->
 		class AutoSaveServer
 
 			constructor : ->
+				@autoSaveData = false
+				@nextRun = 0
+				$document.on 'heartbeat-send.autosave-page-json', @hbAutoSavePageJSONSend
+				$document.on 'heartbeat-tick.autosave-page-json', @hbAutoSavePageJSONTick
+
+
+			# provide data to heartbeat send
+			hbAutoSavePageJSONSend : ( evt,  data )=>
+
+				@autoSaveData = @getAutoSaveData()
+
+				if @autoSaveData isnt false
+					data['autosave-page-json'] = @autoSaveData
+
+				data
+
+			triggerSave : ->
+				@nextRun = 0
+				wp.heartbeat.connectNow()
+
+			getAutoSaveData : ->
+
+				if ( new Date() ).getTime() < @nextRun
+					return false
+
+				pageId = App.request "get:original:editable:page"
+
+				json = AutoSaveHelper.getPageJson()
+
+				if json is false
+					return false
+
+				@disableButtons()
+
+				data = _.defaults json, 'page_id' : pageId
+
+				data
+
+
+			hbAutoSavePageJSONTick : (event, data)=>
+				if data['autosave-page-json']
+					@handleTick data['autosave-page-json']
+
+			handleTick : =>
+				@schedule()
+				@enableButtons()
+
+				# reset autosave data
+				@autoSaveData = false
+
+			enableButtons : ->
+				App.vent.trigger 'autosave:page:json:enable:buttons'
+
+			disableButtons : ->
+				App.vent.trigger 'autosave:page:json:disable:buttons'
+
+			schedule : ->
+				if typeof window.autosaveInterval != 'undefined'
+					autosaveInterval = window.autosaveInterval
+				else
+					autosaveInterval = 60
+
+				@nextRun = ( new Date() ).getTime() + ( autosaveInterval * 1000 ) || 60000
 
 
 
-		
 		class AutoSaveAPI
 
 			constructor : ->
-
-				@$el = App.builderRegion.$el
-				
-				@lastTriggerSave = 0
-
 				@local = new AutoSaveLocal
 				@server = new AutoSaveServer
 
-				console.log @local.hasSupport
-
-				
-				
-
-			getPageJSON : ->
-				json = getPageJson siteRegion
-
-				json
-
-
-
-
-
-
-
-		# get the json
-		getPageJson = ($site)->
-			_json = {}
-
-			_.each ['header', 'page-content', 'footer'], (section, index)=>
-				#if App.request "is:section:modified", section
-				_json["#{section}-json"] = JSON.stringify getJson $site.find "#site-#{section}-region"
-
-			_json
-
-		# generate the JSON for the layout
-		# loops through rows and nested columns and elements inside it
-		getJson = ($element, arr = [])->
-
-			# find all elements inside $element container
-			elements = $element.children '.element-wrapper'
-
-			_.each elements, (element, index)=>
-				ele =
-					element: $(element).find('form input[name="element"]').val()
-					meta_id: parseInt $(element).find('form input[name="meta_id"]').val()
-
-				if ele.element is 'Row'
-					ele.draggable = $(element).children('form').find('input[name="draggable"]').val() is "true"
-					ele.style = $(element).children('form').find('input[name="style"]').val()
-					delete ele.meta_id
-					ele.elements = []
-					_.each $(element).children('.element-markup').children('.row').children('.column'), (column, index)=>
-						className = $(column).attr 'data-class'
-						col =
-							position: index + 1
-							element: 'Column'
-							className: className
-							elements: getJson $(column)
-
-						ele.elements.push col
-						return
-
-				arr.push ele
-
-			arr
 
 		App.commands.setHandler "autosave-api", ->
-			new AutoSaveAPI
+			App.autoSaveAPI = new AutoSaveAPI
 

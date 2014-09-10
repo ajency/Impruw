@@ -31,7 +31,7 @@ define [ 'app', 'controllers/base-controller'
                 # triggered when all models are fetched for the page
                 # usign this event to start filling up the builder
                 # with elements
-                @listenTo @view, "dependencies:fetched", =>
+                App.execute "when:fetched", [elements] ,=>
                     _.delay =>
                         @startFillingElements()
                         App.execute "autosave-api"

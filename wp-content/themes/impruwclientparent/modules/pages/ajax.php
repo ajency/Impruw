@@ -138,7 +138,7 @@ function auto_save() {
     wp_send_json_success( $autosave_id );
 }
 
-add_action( 'wp_ajax_auto-save', 'auto_save' );
+//add_action( 'wp_ajax_auto-save', 'auto_save' );
 
 /**
  * Function to read a single page data

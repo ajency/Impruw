@@ -38,7 +38,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           }
           return App.request("add:new:element", container, type, modelData);
         });
-        this.listenTo(this.view, "dependencies:fetched", (function(_this) {
+        App.execute("when:fetched", [elements], (function(_this) {
           return function() {
             return _.delay(function() {
               _this.startFillingElements();
