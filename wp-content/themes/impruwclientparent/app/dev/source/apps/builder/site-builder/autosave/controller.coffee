@@ -85,7 +85,7 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				if typeof window.autosaveInterval != 'undefined'
 					autosaveInterval = window.autosaveInterval
 				else
-					autosaveInterval = 60
+					autosaveInterval = 6
 
 				@nextRun = ( new Date() ).getTime() + ( autosaveInterval * 1000 ) || 60000
 

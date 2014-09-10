@@ -39,7 +39,7 @@ define ['app','jquery'], (App, $) ->
 							position: index + 1
 							element: 'Column'
 							className: className
-							elements: getJson $(column)
+							elements: AutoSaveHelper.getJson $(column)
 
 						ele.elements.push col
 						return

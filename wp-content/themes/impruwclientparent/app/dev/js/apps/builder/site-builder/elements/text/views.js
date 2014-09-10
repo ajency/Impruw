@@ -1,4 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app'], function(App) {
@@ -7,6 +8,7 @@ define(['app'], function(App) {
       __extends(TextView, _super);
 
       function TextView() {
+        this.setUpCKEditor = __bind(this.setUpCKEditor, this);
         return TextView.__super__.constructor.apply(this, arguments);
       }
 
@@ -25,14 +27,23 @@ define(['app'], function(App) {
         }
       };
 
+      TextView.prototype.initialize = function() {
+        return this.$el.on('focus', _.once(this.setUpCKEditor));
+      };
+
+      TextView.prototype.setUpCKEditor = function() {
+        var html;
+        this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
+        html = this.$el.html();
+        this.editor.setData(html);
+        return this.editor.config.placeholder = 'Click here to enter your text...';
+      };
+
       TextView.prototype.onShow = function() {
         var content, _ref;
-        return;
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
-        this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
         content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
-        this.editor.setData(_.stripslashes(content != null ? content : ''));
-        return this.editor.config.placeholder = 'Click here to enter your text...';
+        return this.$el.html(_.stripslashes(content != null ? content : ''));
       };
 
       TextView.prototype.onClose = function() {

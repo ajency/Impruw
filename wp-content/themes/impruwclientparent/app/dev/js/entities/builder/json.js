@@ -58,7 +58,7 @@ define(["app", 'backbone', 'jquery'], function(App, Backbone, $) {
         if (resp._wpnonce) {
           window._wpnonce = resp._wpnonce;
         }
-        return resp;
+        return resp.data;
       };
 
       return PageJson;

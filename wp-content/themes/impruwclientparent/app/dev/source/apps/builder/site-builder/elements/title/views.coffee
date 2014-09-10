@@ -22,6 +22,15 @@ define ['app'], (App)->
                 'blur': ->
                     @trigger "title:element:blur", @$el.html()
 
+            initialize:->
+                @$el.on 'focus', _.once @setUpCKEditor
+
+            setUpCKEditor : =>
+                
+                @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
+                html = @$el.html()
+                @editor.setData html
+                @editor.config.placeholder = 'Click here to enter Title'
 
             # initialize the CKEditor for the text element on show
             # used setData instead of showing in template. this works well
@@ -29,15 +38,10 @@ define ['app'], (App)->
             # hold the editor instance as the element property so that
             # we can destroy it on close of element
             onShow: ->
-                return
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
-
-                # CKEDITOR.on 'instanceCreated', @configureEditor
-                @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
                 content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
-                @editor.setData _.stripslashes content ? ''
-                @editor.config.placeholder = 'Click here to enter Title'
-
+                @$el.html _.stripslashes content ? ''
+                
 
             # destroy the Ckeditor instance to avoiid memory leaks on close of element
             # this.editor will hold the reference to the editor instance

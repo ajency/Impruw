@@ -52,12 +52,14 @@ define [ 'app', 'controllers/base-controller'
 
             # start filling elements
             startFillingElements : ()->
+                
                 section = @view.model.get( 'header' )
                 container = @_getContainer 'header'
                 _.each section, ( element, i )=>
                     if element.element is 'Row'
                         @addNestedElements container, element
                     else
+
                         App.request "add:new:element", container, element.element, element
 
                 section = @view.model.get( 'page' )

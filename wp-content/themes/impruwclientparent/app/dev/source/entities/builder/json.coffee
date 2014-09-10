@@ -46,7 +46,7 @@ define ["app", 'backbone','jquery'], (App, Backbone, $) ->
                 if resp._wpnonce
                     window._wpnonce = resp._wpnonce
 
-                resp
+                resp.data
 
         json = new PageJson
 

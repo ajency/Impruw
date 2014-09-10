@@ -9,6 +9,7 @@ define(['app'], function(App) {
 
       function TitleView() {
         this.configureEditor = __bind(this.configureEditor, this);
+        this.setUpCKEditor = __bind(this.setUpCKEditor, this);
         return TitleView.__super__.constructor.apply(this, arguments);
       }
 
@@ -27,14 +28,23 @@ define(['app'], function(App) {
         }
       };
 
+      TitleView.prototype.initialize = function() {
+        return this.$el.on('focus', _.once(this.setUpCKEditor));
+      };
+
+      TitleView.prototype.setUpCKEditor = function() {
+        var html;
+        this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
+        html = this.$el.html();
+        this.editor.setData(html);
+        return this.editor.config.placeholder = 'Click here to enter Title';
+      };
+
       TitleView.prototype.onShow = function() {
         var content, _ref;
-        return;
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
-        this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
         content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
-        this.editor.setData(_.stripslashes(content != null ? content : ''));
-        return this.editor.config.placeholder = 'Click here to enter Title';
+        return this.$el.html(_.stripslashes(content != null ? content : ''));
       };
 
       TitleView.prototype.onClose = function() {
