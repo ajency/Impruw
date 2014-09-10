@@ -49,6 +49,13 @@ define [ 'app' ],( App, elementTpl )->
             @once 'before:render:element', =>
                @trigger "bind:element:events"
 
+            @canEdit = true
+            @listenTo App.vent, 'page:took:over', (errorMessage)=>
+               @canEdit = false
+
+            @listenTo App.vent, 'page:released', =>
+                @canEdit = true
+
          # set the data-element attribute for element
          onRender : ->
             @$el.find( '.element-markup > span' ).spin @_getOptions()
@@ -57,7 +64,7 @@ define [ 'app' ],( App, elementTpl )->
          onShow : ()=>
             @$el.mouseover ( evt )=>
                evt.stopPropagation()
-               return if window.dragging
+               return if window.dragging || not @canEdit
                @$el.addClass 'hover-class'
             .mouseout ()=>
                   @$el.removeClass 'hover-class'

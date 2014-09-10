@@ -41,9 +41,20 @@ define(['app'], function(App, elementTpl) {
       };
 
       ElementView.prototype.initialize = function() {
-        return this.once('before:render:element', (function(_this) {
+        this.once('before:render:element', (function(_this) {
           return function() {
             return _this.trigger("bind:element:events");
+          };
+        })(this));
+        this.canEdit = true;
+        this.listenTo(App.vent, 'page:took:over', (function(_this) {
+          return function(errorMessage) {
+            return _this.canEdit = false;
+          };
+        })(this));
+        return this.listenTo(App.vent, 'page:released', (function(_this) {
+          return function() {
+            return _this.canEdit = true;
           };
         })(this));
       };
@@ -56,7 +67,7 @@ define(['app'], function(App, elementTpl) {
         this.$el.mouseover((function(_this) {
           return function(evt) {
             evt.stopPropagation();
-            if (window.dragging) {
+            if (window.dragging || !_this.canEdit) {
               return;
             }
             return _this.$el.addClass('hover-class');

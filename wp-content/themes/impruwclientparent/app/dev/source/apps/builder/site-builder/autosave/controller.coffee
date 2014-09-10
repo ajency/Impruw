@@ -22,13 +22,20 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				result
 
 
-		class AutoSaveServer
+		class AutoSaveServer extends Marionette.Controller
 
 			constructor : ->
 				@autoSaveData = false
 				@nextRun = 0
 				$document.on 'heartbeat-send.autosave-page-json', @hbAutoSavePageJSONSend
 				$document.on 'heartbeat-tick.autosave-page-json', @hbAutoSavePageJSONTick
+
+				@canAutosave = true
+				@listenTo App.vent, 'page:took:over', (errorMessage)=>
+					@canAutosave = false
+
+				@listenTo App.vent, 'page:released', =>
+					@canAutosave = true
 
 
 			# provide data to heartbeat send
@@ -47,6 +54,9 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
 			getAutoSaveData : ->
 
+				if not @canAutosave
+					return false
+
 				if ( new Date() ).getTime() < @nextRun
 					return false
 
@@ -54,7 +64,7 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
 				json = AutoSaveHelper.getPageJson()
 
-				if json is false
+				if json is false 
 					return false
 
 				@disableButtons()

@@ -1,4 +1,6 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat'], function(App, AutoSaveHelper) {
   return App.module('SiteBuilderApp.AutoSave', function(AutoSave, App, Backbone, Marionette, $, _) {
@@ -26,7 +28,9 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
       return AutoSaveLocal;
 
     })();
-    AutoSaveServer = (function() {
+    AutoSaveServer = (function(_super) {
+      __extends(AutoSaveServer, _super);
+
       function AutoSaveServer() {
         this.handleTick = __bind(this.handleTick, this);
         this.hbAutoSavePageJSONTick = __bind(this.hbAutoSavePageJSONTick, this);
@@ -35,6 +39,17 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
         this.nextRun = 0;
         $document.on('heartbeat-send.autosave-page-json', this.hbAutoSavePageJSONSend);
         $document.on('heartbeat-tick.autosave-page-json', this.hbAutoSavePageJSONTick);
+        this.canAutosave = true;
+        this.listenTo(App.vent, 'page:took:over', (function(_this) {
+          return function(errorMessage) {
+            return _this.canAutosave = false;
+          };
+        })(this));
+        this.listenTo(App.vent, 'page:released', (function(_this) {
+          return function() {
+            return _this.canAutosave = true;
+          };
+        })(this));
       }
 
       AutoSaveServer.prototype.hbAutoSavePageJSONSend = function(evt, data) {
@@ -52,6 +67,9 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
       AutoSaveServer.prototype.getAutoSaveData = function() {
         var data, json, pageId;
+        if (!this.canAutosave) {
+          return false;
+        }
         if ((new Date()).getTime() < this.nextRun) {
           return false;
         }
@@ -99,7 +117,7 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
       return AutoSaveServer;
 
-    })();
+    })(Marionette.Controller);
     AutoSaveAPI = (function() {
       function AutoSaveAPI() {
         this.local = new AutoSaveLocal;
