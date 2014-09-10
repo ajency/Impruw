@@ -21,7 +21,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Model);
     user = new Users.UserModel;
-    user.fetch();
+    user.set(USER);
     API = {
       getUserProfile: function() {
         return user;

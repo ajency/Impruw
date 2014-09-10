@@ -1,8 +1,7 @@
 define [ 'app'
          'text!apps/builder/site-builder/show/templates/maintemplate.html'
-         'text!apps/builder/site-builder/show/templates/builder.html'
          'moment' ],
-( App, mainviewTpl, builderTpl, moment )->
+( App, mainviewTpl, moment )->
    App.module 'SiteBuilderApp.Show.View', ( View, App, Backbone, Marionette, $, _ )->
       class View.MainView extends Marionette.Layout
 
@@ -286,7 +285,9 @@ define [ 'app'
 
       class View.Builder extends Marionette.ItemView
 
-         template : builderTpl
+         template : '<header id="site-header-region" class="droppable-column"></header>
+                     <div id="site-page-content-region" class="droppable-column"></div>
+                     <footer id="site-footer-region" class="droppable-column"></footer>'
 
          onShow : ->
             @$el.find( '.droppable-column' ).sortable

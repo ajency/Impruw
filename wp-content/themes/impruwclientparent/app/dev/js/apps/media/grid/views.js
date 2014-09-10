@@ -2,7 +2,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-define(['app', 'text!apps/media/grid/templates/media.html'], function(App, mediaTpl) {
+define(['app'], function(App, mediaTpl) {
   return App.module('Media.Grid.Views', function(Views, App) {
     var EmptyMediaGrid, MediaView;
     MediaView = (function(_super) {
@@ -12,7 +12,7 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
         return MediaView.__super__.constructor.apply(this, arguments);
       }
 
-      MediaView.prototype.template = mediaTpl;
+      MediaView.prototype.template = '<a href="#" class="thumbnail"> <div class="imgthumb"><img src="{{image_url}}" class="img-responsive"/></div> <div class="ticker"><span class="glyphicon glyphicon-ok"></span><span class="glyphicon glyphicon-minus"></span></div> </a> <div class="edit-image clearfix"> <span class="glyphicon glyphicon-edit edit"></span> Edit </div> <div class="delete-media-img"> <span class="glyphicon glyphicon-trash delete"></span> Delete </div>';
 
       MediaView.prototype.className = 'col-sm-1 single-img';
 

@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'text!apps/builder/site-builder/show/templates/builder.html', 'moment'], function(App, mainviewTpl, builderTpl, moment) {
+define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'moment'], function(App, mainviewTpl, moment) {
   return App.module('SiteBuilderApp.Show.View', function(View, App, Backbone, Marionette, $, _) {
     var NoRevisionView, RevisionView, SingleRevision;
     View.MainView = (function(_super) {
@@ -336,7 +336,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         return Builder.__super__.constructor.apply(this, arguments);
       }
 
-      Builder.prototype.template = builderTpl;
+      Builder.prototype.template = '<header id="site-header-region" class="droppable-column"></header> <div id="site-page-content-region" class="droppable-column"></div> <footer id="site-footer-region" class="droppable-column"></footer>';
 
       Builder.prototype.onShow = function() {
         return this.$el.find('.droppable-column').sortable({

@@ -67,6 +67,17 @@
 <div id="initial-loader"></div>
 
 <script type="text/javascript">
+    var USER = <?php echo json_encode(get_user_model()); ?>;
+    var ROOMS = <?php echo json_encode(get_roomss()); ?>;
+    var PAGES = <?php echo json_encode(get_all_menu_pages()); ?>;
+    var THEMECOLORSETS = <?php echo json_encode(get_theme_color_sets()); ?>;
+    var THEMES = <?php echo json_encode(get_impruw_themes()); ?>;
+    var FACILITIES = <?php echo json_encode(get_terms( 'impruw_room_facility', 
+                                                        array('hide_empty' => 0))) ?>;
+    var LANGUAGES = <?php echo json_encode(get_all_languages()); ?>;
+    var ELEMENTS = <?php echo json_encode(get_elementbox_elements()); ?>;
+
+
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
@@ -74,7 +85,7 @@
     var _WPNONCE = '<?php echo wp_create_nonce('media-form'); ?>';
     var _RVNONCE = '<?php echo wp_create_nonce("revslider_actions"); ?>';
     var JSVERSION = '<?php echo JSVERSION; ?>';
-    var ROOMS = <?php echo json_encode(get_rooms()); ?>;
+    
     var ISTHEMESELECTED = <?php echo is_theme_choosed() ?>;
     var LOGOID = <?php echo get_option('logo_id', 0) ?>;
     var LOGOUTURL = '<?php echo wp_logout_url(site_url()); ?>';

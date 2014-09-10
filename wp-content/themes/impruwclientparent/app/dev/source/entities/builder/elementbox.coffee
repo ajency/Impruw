@@ -29,14 +29,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 
         elements = new ElementBox.ElementCollection
-
+        elements.add window.ELEMENTS
+        
         # PUBLIC API FOR ENitity
         API =
             getElements: (param = {})->
-                elements.url = AJAXURL + '?action=get-elementbox-elements'
-                elements.fetch
-                    reset: true
-                    data: param
                 elements
 
         # returns the element settings options

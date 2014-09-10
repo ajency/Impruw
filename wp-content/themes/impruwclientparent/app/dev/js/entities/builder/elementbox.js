@@ -50,16 +50,12 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     elements = new ElementBox.ElementCollection;
+    elements.add(window.ELEMENTS);
     API = {
       getElements: function(param) {
         if (param == null) {
           param = {};
         }
-        elements.url = AJAXURL + '?action=get-elementbox-elements';
-        elements.fetch({
-          reset: true,
-          data: param
-        });
         return elements;
       },
       getElementSettingOptions: function(ele) {
