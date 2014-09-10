@@ -6,6 +6,48 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
   hb = wp.heartbeat;
   $document = $(document);
   HeartbeatAPI = {
+    AppNonceRefreshHb: function() {
+      var check, schedule, timeout;
+      schedule = function() {
+        var check, timeout;
+        check = false;
+        window.clearTimeout(timeout);
+        return timeout = window.setTimeout(function() {
+          return check = true;
+        }, 300000);
+      };
+      check = void 0;
+      timeout = void 0;
+      return $(document).on("heartbeat-send.wp-refresh-nonces", function(e, data) {
+        var nonce, post_id;
+        nonce = void 0;
+        post_id = void 0;
+        if (check) {
+          if ((post_id = $.cookie('current-page-id')) && (nonce = window.lockValue)) {
+            return data["wp-refresh-post-nonces"] = {
+              post_id: post_id,
+              post_nonce: nonce
+            };
+          }
+        }
+      }).on("heartbeat-tick.wp-refresh-nonces", function(e, data) {
+        var nonces;
+        nonces = data["wp-refresh-post-nonces"];
+        if (nonces) {
+          schedule();
+          if (nonces.replace) {
+            $.each(nonces.replace, function(selector, value) {
+              return window[selector] = value;
+            });
+          }
+          if (nonces.heartbeatNonce) {
+            return window.heartbeatSettings.nonce = nonces.heartbeatNonce;
+          }
+        }
+      }).ready(function() {
+        return schedule();
+      });
+    },
     AppAuthenticationHb: function() {
       return $document.on('heartbeat-tick.wp-auth-check', function(evt, data) {
         if (data['wp-auth-check'] === false) {
@@ -59,6 +101,7 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
   return App.commands.setHandler("heartbeat-api", function() {
     HeartbeatAPI.AppAuthenticationHb();
     HeartbeatAPI.AppPageEditHb();
+    HeartbeatAPI.AppNonceRefreshHb();
     return hb.interval(15);
   });
 });

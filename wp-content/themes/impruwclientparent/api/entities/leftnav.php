@@ -724,7 +724,7 @@ function read_page_json() {
         'code' => 'OK',
         'data' => $data,
         'lock' => $lock,
-        '_pagewpnonce' => wp_create_nonce( 'update-post_' . $page_id )
+        '_wpnonce' => wp_create_nonce( 'update-post_' . $page_id )
     ) );
 }
 

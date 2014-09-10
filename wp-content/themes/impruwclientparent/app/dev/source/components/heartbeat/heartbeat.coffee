@@ -8,6 +8,42 @@ define ['app', 'marionette', 'jquery', 'heartbeat'], ( App, Marionette, $ )->
 
 	# heartbeat API
 	HeartbeatAPI = 
+
+		AppNonceRefreshHb : ->
+			schedule = ->
+				check = false
+				window.clearTimeout timeout
+				timeout = window.setTimeout(->
+					check = true
+				, 300000)
+				
+			check = undefined
+			timeout = undefined
+
+			$(document).on("heartbeat-send.wp-refresh-nonces", (e, data) ->
+				nonce = undefined
+				post_id = undefined
+				if check
+					if (post_id = $.cookie 'current-page-id') and (nonce = window.lockValue)
+						data["wp-refresh-post-nonces"] =
+							post_id: post_id
+							post_nonce: nonce
+
+			).on("heartbeat-tick.wp-refresh-nonces", (e, data) ->
+				nonces = data["wp-refresh-post-nonces"]
+				if nonces
+					schedule()
+					if nonces.replace
+						$.each nonces.replace, (selector, value) ->
+							window[selector] = value
+
+					if nonces.heartbeatNonce
+						window.heartbeatSettings.nonce = nonces.heartbeatNonce	
+
+			).ready ->
+				schedule()
+
+
 		AppAuthenticationHb : ->
 			$document
 				# tick handler
@@ -66,5 +102,6 @@ define ['app', 'marionette', 'jquery', 'heartbeat'], ( App, Marionette, $ )->
 		
 		HeartbeatAPI.AppAuthenticationHb()
 		HeartbeatAPI.AppPageEditHb()
+		HeartbeatAPI.AppNonceRefreshHb()
 		# start heartbeat API
 		hb.interval 15

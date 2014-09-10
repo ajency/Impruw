@@ -26,13 +26,14 @@ define [ 'app'
                App.execute "publish:page"
 
             'change select#builder-page-sel' : ( evt )->
-               deferred = @releaseCurrentPage $( evt.target ).val()
-               deferred.then =>
-                  @_addToPageSlug parseInt $( evt.target ).val()
-                  @trigger 'editable:page:changed', $( evt.target ).val()
-                  App.vent.trigger "change:page:check:single:room"
-                  @changePreviewLinkUrl()
-                  @displayPageNameForUpdate()
+               released = @releasePage()
+               
+               @_addToPageSlug parseInt $( evt.target ).val()
+               @trigger 'editable:page:changed', $( evt.target ).val()
+               @currentPageId = parseInt $( evt.target ).val()
+               App.vent.trigger "change:page:check:single:room"
+               @changePreviewLinkUrl()
+               @displayPageNameForUpdate()
 
             'click .add-new-page' : ->
                @trigger "add:new:page:clicked"
@@ -50,25 +51,34 @@ define [ 'app'
          handleWindowEvents : ->
             
             $(window).on 'unload.site-builder', @windowUnloadHandler
-            $(window).on 'beforeunload.site-builder', @windowBeforeUnloadHandler
+            #$(window).on 'beforeunload.site-builder', @windowBeforeUnloadHandler
 
          windowUnloadHandler : (evt)=>
             currentPageId = @getCurrentPageId()
-            @releaseCurrentPage currentPageId
+            @releasePage currentPageId
 
          windowBeforeUnloadHandler : =>
             return "The changes you made will be lost if you navigate away from this page."
 
-         releaseCurrentPage : (pageId)->
+         releasePage : (pageId = 0)->
+
+            if pageId is 0 and @currentPageId is 0
+               return false
+
+            if @currentPageId > 0
+               pageId = @currentPageId
+             
             $.ajax
                type: 'POST',
                url: AJAXURL,
                async: false,
                data: 
                   action: 'wp-remove-post-lock',
-                  _wpnonce: window._pagewpnonce,
+                  _wpnonce: window._wpnonce,
                   post_ID: pageId,
                   active_post_lock: window.lockValue
+
+            return true
             
          addPageDropDown : =>
             @modelAddedToCollection = @collection.last()
@@ -91,6 +101,7 @@ define [ 'app'
             @enableSelectPicker()
 
          initialize : ->
+            @currentPageId = 0
             App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
             App.reqres.setHandler "get:current:editable:page", @getCurrentPageId
             App.reqres.setHandler "get:original:editable:page", @getOriginalPageId

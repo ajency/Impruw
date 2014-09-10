@@ -48,17 +48,14 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           return App.execute("publish:page");
         },
         'change select#builder-page-sel': function(evt) {
-          var deferred;
-          deferred = this.releaseCurrentPage($(evt.target).val());
-          return deferred.then((function(_this) {
-            return function() {
-              _this._addToPageSlug(parseInt($(evt.target).val()));
-              _this.trigger('editable:page:changed', $(evt.target).val());
-              App.vent.trigger("change:page:check:single:room");
-              _this.changePreviewLinkUrl();
-              return _this.displayPageNameForUpdate();
-            };
-          })(this));
+          var released;
+          released = this.releasePage();
+          this._addToPageSlug(parseInt($(evt.target).val()));
+          this.trigger('editable:page:changed', $(evt.target).val());
+          this.currentPageId = parseInt($(evt.target).val());
+          App.vent.trigger("change:page:check:single:room");
+          this.changePreviewLinkUrl();
+          return this.displayPageNameForUpdate();
         },
         'click .add-new-page': function() {
           return this.trigger("add:new:page:clicked");
@@ -77,32 +74,41 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.handleWindowEvents = function() {
-        $(window).on('unload.site-builder', this.windowUnloadHandler);
-        return $(window).on('beforeunload.site-builder', this.windowBeforeUnloadHandler);
+        return $(window).on('unload.site-builder', this.windowUnloadHandler);
       };
 
       MainView.prototype.windowUnloadHandler = function(evt) {
         var currentPageId;
         currentPageId = this.getCurrentPageId();
-        return this.releaseCurrentPage(currentPageId);
+        return this.releasePage(currentPageId);
       };
 
       MainView.prototype.windowBeforeUnloadHandler = function() {
         return "The changes you made will be lost if you navigate away from this page.";
       };
 
-      MainView.prototype.releaseCurrentPage = function(pageId) {
-        return $.ajax({
+      MainView.prototype.releasePage = function(pageId) {
+        if (pageId == null) {
+          pageId = 0;
+        }
+        if (pageId === 0 && this.currentPageId === 0) {
+          return false;
+        }
+        if (this.currentPageId > 0) {
+          pageId = this.currentPageId;
+        }
+        $.ajax({
           type: 'POST',
           url: AJAXURL,
           async: false,
           data: {
             action: 'wp-remove-post-lock',
-            _wpnonce: window._pagewpnonce,
+            _wpnonce: window._wpnonce,
             post_ID: pageId,
             active_post_lock: window.lockValue
           }
         });
+        return true;
       };
 
       MainView.prototype.addPageDropDown = function() {
@@ -126,6 +132,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.initialize = function() {
+        this.currentPageId = 0;
         App.reqres.setHandler("get:current:editable:page:name", this.getCurrentPageName);
         App.reqres.setHandler("get:current:editable:page", this.getCurrentPageId);
         App.reqres.setHandler("get:original:editable:page", this.getOriginalPageId);

@@ -45,8 +45,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         } else if (resp.lock === true) {
           wp.heartbeat.connectNow();
         }
-        if (resp._pagewpnonce) {
-          window._pagewpnonce = resp._pagewpnonce;
+        if (resp._wpnonce) {
+          window._wpnonce = resp._wpnonce;
         }
         return resp;
       };
