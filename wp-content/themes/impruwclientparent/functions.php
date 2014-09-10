@@ -957,6 +957,9 @@ function get_theme_JS() {
                     // options
                     itemSelector: '.isotope-element'
                 });
+                setTimeout(function () {
+                    jQuery(window).resize();
+                }, 500);
             });
         });
     </script>
