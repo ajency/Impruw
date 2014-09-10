@@ -6,7 +6,7 @@
 		'apps/builder/site-builder/elements/text/controller'
 		'apps/builder/site-builder/elements/title/controller'	
 		# 'apps/builder/site-builder/elements/logo/controller'
-		# 'apps/builder/site-builder/elements/imagewithtext/controller'
+		'apps/builder/site-builder/elements/imagewithtext/controller'
 		# 'apps/builder/site-builder/elements/address/controller'
 		# 'apps/builder/site-builder/elements/social/controller'
 		# 'apps/builder/site-builder/elements/link/controller'
