@@ -24,6 +24,11 @@ function get_page_seo( $post_id ){
 		$seodata['meta_description_default'] = $wpseo_meta->get_value( 'metadesc', $post_id );
 		$seodata['meta_description_default'] = $wpseo_frontend->metadesc( 'metadesc', $post_id );
 	}
+    if ($yoast_meta_keywords) { 
+        $seodata['meta_keywords'] = $yoast_meta_keywords;
+    }
+
+
 	
 
 	return $seodata;
@@ -34,10 +39,11 @@ function update_page_seo( $seo_data ){
 	$post_id = $seo_data['post_id'];
 	$yoast_meta_title = $seo_data['changes']['seo_title'];
 	$yoast_meta_description = $seo_data['changes']['meta_description'];
-	// $yoast_meta_keywords = 
+	$yoast_meta_keywords = $seo_data['changes']['meta_keywords'];
 
 	update_post_meta($post_id, '_yoast_wpseo_title', $yoast_meta_title); 
-	update_post_meta($post_id, '_yoast_wpseo_metadesc', $yoast_meta_description); 
+    update_post_meta($post_id, '_yoast_wpseo_metadesc', $yoast_meta_description); 
+	update_post_meta($post_id, '_yoast_wpseo_metakeywords', $yoast_meta_keywords); 
 
 	return $post_id;
 }

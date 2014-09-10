@@ -35,6 +35,7 @@ define(['app', 'controllers/base-controller', 'apps/seo/seo-page-content/view'],
         data = [];
         data['seo_title'] = newSeoTitle;
         data['meta_description'] = newSeoDesc;
+        data['meta_keywords'] = newSeoKeywords;
         this.seomodel.set(data);
         return this.seomodel.save(null, {
           wait: true,

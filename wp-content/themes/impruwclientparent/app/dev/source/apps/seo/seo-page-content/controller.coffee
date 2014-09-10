@@ -30,6 +30,7 @@ define ['app', 'controllers/base-controller'
                 data= []
                 data['seo_title'] = newSeoTitle
                 data['meta_description'] = newSeoDesc
+                data['meta_keywords'] = newSeoKeywords
                 @seomodel.set data
                 @seomodel.save null,
                     wait : true
