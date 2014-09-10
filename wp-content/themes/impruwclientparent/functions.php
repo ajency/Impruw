@@ -76,6 +76,12 @@ show_admin_bar( FALSE );
 //load_theme_textdomain( 'impruwclientparent' );
 load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
 
+function page_excerpt_support(){
+    add_post_type_support( 'page', 'excerpt' );
+    
+}
+add_action( 'after_setup_theme', 'page_excerpt_support' );
+
 /**
  * [send_contact_form_message description]
  *
@@ -4164,7 +4170,39 @@ function cancel_subscription() {
 }
 add_action( 'wp_cancel_subscription', 'cancel_subscription' );
 
-add_post_type_support( 'page', 'excerpt' );
+function generate_seo_page_excerpt($metadesc){
+    if ( defined( 'DOING_AJAX' ) && DOING_AJAX) {
+        return;
+    }
+
+    global $post;
+    $post_type = $post->post_type;
+    $manual_excerpt = $post->post_excerpt;
+
+    $wpseotitles = get_option('wpseo_titles');
+
+    $metadescription_template = $wpseotitles[ 'metadesc-' . $post_type ];
+
+    if (($metadescription_template === "%%excerpt%%")||($metadescription_template === "%%excerpt_only%%")) {
+        
+        if (($manual_excerpt==="")&&($post_type==='page')) {
+            $page_excerpt =  get_page_excerpt_from_json($post->ID, ICL_LANGUAGE_CODE);
+            $excerpt = prettify_content_piece_excerpt($page_excerpt); 
+        }
+        else if (($manual_excerpt!=="")&&($post_type==='page')) {
+            $excerpt = $manual_excerpt;
+        }
+        else {
+            $excerpt = $metadesc;
+        }
+
+        return $excerpt;
+    }
+    
+    return $metadesc;
+}
+
+add_filter( 'wpseo_metadesc' ,'generate_seo_page_excerpt' ,10,1);
 
 
 
