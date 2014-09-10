@@ -234,7 +234,7 @@ define [ 'app'
             @$el.find('div.lock-message')
                .removeClass 'hidden'
                .addClass 'show'
-               .find 'span.message-span'
+               .find 'div.message-span'
                   .text errorMessage
 
          onPageReleased : ->

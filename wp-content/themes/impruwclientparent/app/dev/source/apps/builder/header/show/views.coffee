@@ -26,10 +26,10 @@ define ['app'
 							@trigger "show:theme:color:clicked"		
 
 					onPageTookOver : ->
-			            @$el.find('.aj-imp-builder-top-options.col-sm-8').fadeOut()
+			            @$el.find('.hide-on-lock').fadeOut()
 
 			         onPageReleased : ->
-			           @$el.find('.aj-imp-builder-top-options.col-sm-8').fadeIn()			
+			           @$el.find('.hide-on-lock').fadeIn()			
 
 
 

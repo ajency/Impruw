@@ -29,11 +29,11 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
       };
 
       MainView.prototype.onPageTookOver = function() {
-        return this.$el.find('.aj-imp-builder-top-options.col-sm-8').fadeOut();
+        return this.$el.find('.hide-on-lock').fadeOut();
       };
 
       MainView.prototype.onPageReleased = function() {
-        return this.$el.find('.aj-imp-builder-top-options.col-sm-8').fadeIn();
+        return this.$el.find('.hide-on-lock').fadeIn();
       };
 
       return MainView;

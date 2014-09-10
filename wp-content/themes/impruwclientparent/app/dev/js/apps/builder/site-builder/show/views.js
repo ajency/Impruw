@@ -270,7 +270,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.onPageTookOver = function(errorMessage) {
-        return this.$el.find('div.lock-message').removeClass('hidden').addClass('show').find('span.message-span').text(errorMessage);
+        return this.$el.find('div.lock-message').removeClass('hidden').addClass('show').find('div.message-span').text(errorMessage);
       };
 
       MainView.prototype.onPageReleased = function() {
