@@ -47,4 +47,5 @@ define ['app'], (App)->
             # this.editor will hold the reference to the editor instance
             # Ckeditor has a destroy method to remove a editor instance
             onClose: ->
-                @editor.destroy()
+                if @editor
+                    @editor.destroy()

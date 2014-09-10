@@ -47,7 +47,9 @@ define(['app'], function(App) {
       };
 
       TextView.prototype.onClose = function() {
-        return this.editor.destroy();
+        if (this.editor) {
+          return this.editor.destroy();
+        }
       };
 
       return TextView;

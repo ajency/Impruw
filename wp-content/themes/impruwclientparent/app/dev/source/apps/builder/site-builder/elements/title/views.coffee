@@ -26,7 +26,6 @@ define ['app'], (App)->
                 @$el.on 'focus', _.once @setUpCKEditor
 
             setUpCKEditor : =>
-                
                 @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
                 html = @$el.html()
                 @editor.setData html
@@ -47,7 +46,8 @@ define ['app'], (App)->
             # this.editor will hold the reference to the editor instance
             # Ckeditor has a destroy method to remove a editor instance
             onClose: ->
-                @editor.destroy()
+                if @editor
+                    @editor.destroy()
 
             # set configuration for the Ckeditor
             configureEditor: (event) =>
@@ -58,14 +58,5 @@ define ['app'], (App)->
                 # execution. This makes it possible to change the
                 # configurations before the editor initialization takes place.
                 editor.on "configLoaded", ->
-
-                    # Rearrange the layout of the toolbar.
-                    # editor.config.toolbar = [
-                    #     ['Source','-','Cut','Copy','Paste','PasteText','PasteFromWord'],['Undo','Redo','Find','Replace','-','SelectAll','RemoveFormat'],
-                    #     '/',
-                    #     ['Bold','Italic','Underline','Strike','-','JustifyLeft','JustifyCenter','JustifyRight'],['Link','Unlink'],
-                    #     ['InsertImage']
-                    # ]
-
                     editor.config.extraPlugins = 'confighelper'
                     editor.config.extraPlugins = 'justify'

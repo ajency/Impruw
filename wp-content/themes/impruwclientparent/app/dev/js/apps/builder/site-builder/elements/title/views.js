@@ -48,7 +48,9 @@ define(['app'], function(App) {
       };
 
       TitleView.prototype.onClose = function() {
-        return this.editor.destroy();
+        if (this.editor) {
+          return this.editor.destroy();
+        }
       };
 
       TitleView.prototype.configureEditor = function(event) {
