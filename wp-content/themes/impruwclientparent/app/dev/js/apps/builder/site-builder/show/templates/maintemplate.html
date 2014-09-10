@@ -6,7 +6,7 @@
             <div class="message-span">{{#polyglot}}Editing has been locked for this page.{{/polyglot}}</div>
             <button id="take-over-button" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Take Over{{/polyglot}}</button>
             <span class="option-or">{{#polyglot}}Or Edit Another Page:{{/polyglot}}</span>
-            <select id="builder-page-sel" name="builder-page-sel">
+            <select id="builder-page-sel-lock" name="builder-page-sel">
                 {{#pages}}
                 <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
                 {{/pages}}
@@ -32,9 +32,6 @@
                             <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
                             {{/pages}}
                         </select>
-                        <!--<a href="#" class="delete-page">
-                            {{#polyglot}}Delete this Page{{/polyglot}}
-                        </a>-->
                     </div>
                     <a href="#" class="add-new-page">
                         <span class="glyphicon glyphicon-plus-sign"></span>

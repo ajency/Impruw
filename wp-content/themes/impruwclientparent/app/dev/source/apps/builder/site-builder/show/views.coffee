@@ -26,14 +26,17 @@ define [ 'app'
                App.execute "publish:page"
 
             'change select#builder-page-sel' : ( evt )->
-               released = @releasePage()
-               
+               @releasePage()               
                @_addToPageSlug parseInt $( evt.target ).val()
                @trigger 'editable:page:changed', $( evt.target ).val()
                @currentPageId = parseInt $( evt.target ).val()
                App.vent.trigger "change:page:check:single:room"
                @changePreviewLinkUrl()
                @displayPageNameForUpdate()
+               # @$el.find( 'select#builder-page-sel-lock' ).selectpicker 'val', parseInt $( evt.target ).val()
+
+            'change select#builder-page-sel-lock' : (evt)->
+               @$el.find( 'select#builder-page-sel' ).selectpicker 'val', parseInt $( evt.target ).val()
 
             'click .add-new-page' : ->
                @trigger "add:new:page:clicked"
@@ -98,6 +101,7 @@ define [ 'app'
                   @$el.find( 'select#builder-page-sel' )
                      .parent().find('div .dropdown-menu ul' ).append( selectpicker_html )
                   @$el.find( 'select#builder-page-sel' ).append( select_html )
+
             @enableSelectPicker()
 
          initialize : ->
@@ -148,7 +152,7 @@ define [ 'app'
                if isNaN parseInt pageId
                   pageId = @$el.find( 'select#builder-page-sel' ).selectpicker 'val'
                
-               @$el.find( 'select#builder-page-sel' ).selectpicker 'val', pageId
+               @$el.find( 'select#builder-page-sel-lock,select#builder-page-sel' ).selectpicker 'val', pageId
 
                @_addToPageSlug pageId
                
@@ -175,7 +179,7 @@ define [ 'app'
 
          #set the selectpicker for the drop down
          enableSelectPicker : =>
-            @$el.find( 'select#builder-page-sel' ).selectpicker
+            @$el.find( 'select#builder-page-sel,select#builder-page-sel-lock' ).selectpicker
                style : 'btn-xs btn-default'
                menuStyle : 'dropdown'
 

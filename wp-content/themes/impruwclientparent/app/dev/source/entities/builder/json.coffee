@@ -1,4 +1,5 @@
-define ["app", 'backbone'], (App, Backbone) ->
+define ["app", 'backbone','jquery'], (App, Backbone, $) ->
+
     App.module "Entities.SiteBuilderJSON", (SiteBuilderJSON, App, Backbone, Marionette, $, _)->
         
         class PageJson extends Backbone.Model
@@ -32,7 +33,14 @@ define ["app", 'backbone'], (App, Backbone) ->
             parse : (resp)->
                 if resp.lock isnt true
                     window.lockValue = resp.lock
+                    if @locked is true
+                        eventData = {}
+                        eventData['wp-refresh-post-lock'] = 'new_lock': resp.lock
+                        $(document).trigger 'heartbeat-tick', [ eventData ]
+                        @locked = false
+
                 else if resp.lock is true
+                    @locked = true
                     wp.heartbeat.connectNow()
 
                 if resp._wpnonce
@@ -40,11 +48,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 
                 resp
 
+        json = new PageJson
 
         API =
             getPageJSON: (pageId, revisionId)->
-                json = new PageJson
-
+                
                 json.set
                     page_id: parseInt pageId
                     revision_id: parseInt revisionId

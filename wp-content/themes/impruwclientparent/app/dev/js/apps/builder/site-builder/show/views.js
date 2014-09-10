@@ -48,14 +48,16 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           return App.execute("publish:page");
         },
         'change select#builder-page-sel': function(evt) {
-          var released;
-          released = this.releasePage();
+          this.releasePage();
           this._addToPageSlug(parseInt($(evt.target).val()));
           this.trigger('editable:page:changed', $(evt.target).val());
           this.currentPageId = parseInt($(evt.target).val());
           App.vent.trigger("change:page:check:single:room");
           this.changePreviewLinkUrl();
           return this.displayPageNameForUpdate();
+        },
+        'change select#builder-page-sel-lock': function(evt) {
+          return this.$el.find('select#builder-page-sel').selectpicker('val', parseInt($(evt.target).val()));
         },
         'click .add-new-page': function() {
           return this.trigger("add:new:page:clicked");
@@ -184,7 +186,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             if (isNaN(parseInt(pageId))) {
               pageId = _this.$el.find('select#builder-page-sel').selectpicker('val');
             }
-            _this.$el.find('select#builder-page-sel').selectpicker('val', pageId);
+            _this.$el.find('select#builder-page-sel-lock,select#builder-page-sel').selectpicker('val', pageId);
             _this._addToPageSlug(pageId);
             return _this.changePreviewLinkUrl();
           };
@@ -204,7 +206,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.enableSelectPicker = function() {
-        return this.$el.find('select#builder-page-sel').selectpicker({
+        return this.$el.find('select#builder-page-sel,select#builder-page-sel-lock').selectpicker({
           style: 'btn-xs btn-default',
           menuStyle: 'dropdown'
         });
