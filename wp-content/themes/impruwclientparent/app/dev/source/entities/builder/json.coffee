@@ -1,10 +1,14 @@
 define ["app", 'backbone'], (App, Backbone) ->
     App.module "Entities.SiteBuilderJSON", (SiteBuilderJSON, App, Backbone, Marionette, $, _)->
+        
         class PageJson extends Backbone.Model
 
             idAttribute: 'page_id'
 
             name: 'page-json'
+
+            initialize : ->
+                @lock = false
 
             url: ->
                 pageId = @get 'page_id'
@@ -25,6 +29,14 @@ define ["app", 'backbone'], (App, Backbone) ->
 
                 xhr
 
+            parse : (resp)->
+                if resp.lock isnt true
+                    window.lockValue = resp.lock
+                else if resp.lock is true
+                    wp.heartbeat.connectNow()
+
+                resp
+
 
         API =
             getPageJSON: (pageId, revisionId)->
@@ -39,5 +51,4 @@ define ["app", 'backbone'], (App, Backbone) ->
 
         # handlers
         App.reqres.setHandler "get:page:json", (pageId, revisionId)->
-            console.log revisionId
             API.getPageJSON pageId, revisionId

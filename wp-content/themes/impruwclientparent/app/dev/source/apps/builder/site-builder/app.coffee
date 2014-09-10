@@ -8,23 +8,23 @@ define ['app'
 
         #PUBLIC API
         API =
-        # show the site builder
+            # show the site builder
             show: ()->
                 @showController = new SiteBuilderApp.Show.Controller
 
-        # add a new element to the builder region
+            # add a new element to the builder region
             addNewElement: (container, type, modelData)->
                 if SiteBuilderApp.Element[type]
                     new SiteBuilderApp.Element[type].Controller
                         container: container
                         modelData: modelData
 
-        # auto save function call
+            # auto save function call
             autoSave: ()->
                 autoSaveController = new SiteBuilderApp.AutoSave.Controller
                 autoSaveController.autoSave()
 
-        # publish function call
+            # publish function call
             publish: ()->
                 publishPage = new SiteBuilderApp.Publish.Controller
                 publishPage.publish()

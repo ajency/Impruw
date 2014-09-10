@@ -25,16 +25,14 @@ define ['app', 'marionette', 'jquery', 'heartbeat'], ( App, Marionette, $ )->
 					App.execute 'connection-restored'
 
 		AppPageEditHb : ->	
-
-			pageId = 0
-			lock = ''
+			
 			locked = false
 
 			$document
 				# send handler
 				.on 'heartbeat-send.refresh-lock', (evt, data)->
 					pageId = $.cookie 'current-page-id'
-					lock = lock
+					lock = window.lockValue || false
 					send = {}
 					send.post_id = pageId
 					if ( lock )

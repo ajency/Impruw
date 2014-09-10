@@ -15,6 +15,10 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       PageJson.prototype.name = 'page-json';
 
+      PageJson.prototype.initialize = function() {
+        return this.lock = false;
+      };
+
       PageJson.prototype.url = function() {
         var pageId, revisionId;
         pageId = this.get('page_id');
@@ -35,6 +39,15 @@ define(["app", 'backbone'], function(App, Backbone) {
         return xhr;
       };
 
+      PageJson.prototype.parse = function(resp) {
+        if (resp.lock !== true) {
+          window.lockValue = resp.lock;
+        } else if (resp.lock === true) {
+          wp.heartbeat.connectNow();
+        }
+        return resp;
+      };
+
       return PageJson;
 
     })(Backbone.Model);
@@ -51,7 +64,6 @@ define(["app", 'backbone'], function(App, Backbone) {
       }
     };
     return App.reqres.setHandler("get:page:json", function(pageId, revisionId) {
-      console.log(revisionId);
       return API.getPageJSON(pageId, revisionId);
     });
   });

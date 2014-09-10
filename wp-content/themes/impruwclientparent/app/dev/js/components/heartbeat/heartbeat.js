@@ -21,14 +21,12 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
       });
     },
     AppPageEditHb: function() {
-      var lock, locked, pageId;
-      pageId = 0;
-      lock = '';
+      var locked;
       locked = false;
       return $document.on('heartbeat-send.refresh-lock', function(evt, data) {
-        var send;
+        var lock, pageId, send;
         pageId = $.cookie('current-page-id');
-        lock = lock;
+        lock = window.lockValue || false;
         send = {};
         send.post_id = pageId;
         if (lock) {
@@ -37,7 +35,7 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
         data['wp-refresh-post-lock'] = send;
         return data;
       }).on('heartbeat-tick.refresh-lock', function(evt, data) {
-        var received;
+        var lock, received;
         if (!data['wp-refresh-post-lock']) {
           return;
         }

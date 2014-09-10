@@ -713,10 +713,17 @@ function read_page_json() {
     $page_id = $_REQUEST [ 'page_id' ];
     $page_id= icl_object_id( $page_id, 'page', TRUE, 'en' );
     $data = get_page_json_for_site( $page_id, TRUE );
+    
+    $lock = true;
+    if( wp_check_post_lock( $page_id ) === false ){
+        $new_lock = wp_set_post_lock( $page_id );
+        $lock = implode( ':', $new_lock );
+    }
+    
     wp_send_json( array(
         'code' => 'OK',
         'data' => $data,
-        'lock' => wp_set_post_lock( $page_id )
+        'lock' => $lock
     ) );
 }
 
