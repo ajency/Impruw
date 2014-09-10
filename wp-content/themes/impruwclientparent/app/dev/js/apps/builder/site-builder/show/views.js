@@ -18,6 +18,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.getCurrentPageId = __bind(this.getCurrentPageId, this);
         this.getCurrentPageName = __bind(this.getCurrentPageName, this);
         this.addPageDropDown = __bind(this.addPageDropDown, this);
+        this.windowBeforeUnloadHandler = __bind(this.windowBeforeUnloadHandler, this);
+        this.windowUnloadHandler = __bind(this.windowUnloadHandler, this);
         return MainView.__super__.constructor.apply(this, arguments);
       }
 
@@ -46,11 +48,17 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           return App.execute("publish:page");
         },
         'change select#builder-page-sel': function(evt) {
-          this._addToPageSlug(parseInt($(evt.target).val()));
-          this.trigger('editable:page:changed', $(evt.target).val());
-          App.vent.trigger("change:page:check:single:room");
-          this.changePreviewLinkUrl();
-          return this.displayPageNameForUpdate();
+          var deferred;
+          deferred = this.releaseCurrentPage($(evt.target).val());
+          return deferred.then((function(_this) {
+            return function() {
+              _this._addToPageSlug(parseInt($(evt.target).val()));
+              _this.trigger('editable:page:changed', $(evt.target).val());
+              App.vent.trigger("change:page:check:single:room");
+              _this.changePreviewLinkUrl();
+              return _this.displayPageNameForUpdate();
+            };
+          })(this));
         },
         'click .add-new-page': function() {
           return this.trigger("add:new:page:clicked");
@@ -66,6 +74,35 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           return this.trigger("update:page:name", data);
         },
         'click #take-over-button': 'takeOverPage'
+      };
+
+      MainView.prototype.handleWindowEvents = function() {
+        $(window).on('unload.site-builder', this.windowUnloadHandler);
+        return $(window).on('beforeunload.site-builder', this.windowBeforeUnloadHandler);
+      };
+
+      MainView.prototype.windowUnloadHandler = function(evt) {
+        var currentPageId;
+        currentPageId = this.getCurrentPageId();
+        return this.releaseCurrentPage(currentPageId);
+      };
+
+      MainView.prototype.windowBeforeUnloadHandler = function() {
+        return "The changes you made will be lost if you navigate away from this page.";
+      };
+
+      MainView.prototype.releaseCurrentPage = function(pageId) {
+        return $.ajax({
+          type: 'POST',
+          url: AJAXURL,
+          async: false,
+          data: {
+            action: 'wp-remove-post-lock',
+            _wpnonce: window._pagewpnonce,
+            post_ID: pageId,
+            active_post_lock: window.lockValue
+          }
+        });
       };
 
       MainView.prototype.addPageDropDown = function() {
@@ -91,7 +128,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.initialize = function() {
         App.reqres.setHandler("get:current:editable:page:name", this.getCurrentPageName);
         App.reqres.setHandler("get:current:editable:page", this.getCurrentPageId);
-        return App.reqres.setHandler("get:original:editable:page", this.getOriginalPageId);
+        App.reqres.setHandler("get:original:editable:page", this.getOriginalPageId);
+        return this.handleWindowEvents();
       };
 
       MainView.prototype.getCurrentPageName = function() {
@@ -145,8 +183,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           };
         })(this), 250);
         this.$el.find('#aj-imp-revision-sel').on('show.bs.dropdown', this.addPageRevisions);
-        this.displayPageNameForUpdate();
-        return this.$el.find('div.lock-message').height(this.$el.find('div.aj-imp-browser-header').height() - 28);
+        return this.displayPageNameForUpdate();
       };
 
       MainView.prototype._addToPageSlug = function(pageId) {

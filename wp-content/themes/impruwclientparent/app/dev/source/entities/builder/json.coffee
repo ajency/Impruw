@@ -35,6 +35,9 @@ define ["app", 'backbone'], (App, Backbone) ->
                 else if resp.lock is true
                     wp.heartbeat.connectNow()
 
+                if resp._pagewpnonce
+                    window._pagewpnonce = resp._pagewpnonce
+
                 resp
 
 

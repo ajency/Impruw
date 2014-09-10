@@ -51,7 +51,7 @@ define ['app', 'marionette', 'jquery', 'heartbeat'], ( App, Marionette, $ )->
 						locked = true
 						App.vent.trigger 'page:took:over', received.lock_error.text
 					else if received.new_lock
-						lock = received.new_lock
+						window.lockValue = received.new_lock
 						if locked is true
 							locked = false
 							App.vent.trigger 'page:released', received

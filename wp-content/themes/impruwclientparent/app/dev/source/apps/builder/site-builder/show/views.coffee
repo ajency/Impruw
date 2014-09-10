@@ -1,8 +1,9 @@
 define [ 'app'
          'text!apps/builder/site-builder/show/templates/maintemplate.html'
-         'moment' ],
-( App, mainviewTpl, moment )->
+         'moment' ], ( App, mainviewTpl, moment )->
+
    App.module 'SiteBuilderApp.Show.View', ( View, App, Backbone, Marionette, $, _ )->
+
       class View.MainView extends Marionette.Layout
 
          template : mainviewTpl
@@ -25,11 +26,13 @@ define [ 'app'
                App.execute "publish:page"
 
             'change select#builder-page-sel' : ( evt )->
-               @_addToPageSlug parseInt $( evt.target ).val()
-               @trigger 'editable:page:changed', $( evt.target ).val()
-               App.vent.trigger "change:page:check:single:room"
-               @changePreviewLinkUrl()
-               @displayPageNameForUpdate()
+               deferred = @releaseCurrentPage $( evt.target ).val()
+               deferred.then =>
+                  @_addToPageSlug parseInt $( evt.target ).val()
+                  @trigger 'editable:page:changed', $( evt.target ).val()
+                  App.vent.trigger "change:page:check:single:room"
+                  @changePreviewLinkUrl()
+                  @displayPageNameForUpdate()
 
             'click .add-new-page' : ->
                @trigger "add:new:page:clicked"
@@ -43,6 +46,29 @@ define [ 'app'
                @trigger "update:page:name", data
 
             'click #take-over-button' : 'takeOverPage'
+
+         handleWindowEvents : ->
+            
+            $(window).on 'unload.site-builder', @windowUnloadHandler
+            $(window).on 'beforeunload.site-builder', @windowBeforeUnloadHandler
+
+         windowUnloadHandler : (evt)=>
+            currentPageId = @getCurrentPageId()
+            @releaseCurrentPage currentPageId
+
+         windowBeforeUnloadHandler : =>
+            return "The changes you made will be lost if you navigate away from this page."
+
+         releaseCurrentPage : (pageId)->
+            $.ajax
+               type: 'POST',
+               url: AJAXURL,
+               async: false,
+               data: 
+                  action: 'wp-remove-post-lock',
+                  _wpnonce: window._pagewpnonce,
+                  post_ID: pageId,
+                  active_post_lock: window.lockValue
             
          addPageDropDown : =>
             @modelAddedToCollection = @collection.last()
@@ -68,6 +94,7 @@ define [ 'app'
             App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
             App.reqres.setHandler "get:current:editable:page", @getCurrentPageId
             App.reqres.setHandler "get:original:editable:page", @getOriginalPageId
+            @handleWindowEvents()
 
          # return the name of the currently editable page
          getCurrentPageName : =>
@@ -123,7 +150,7 @@ define [ 'app'
             #update the page name links
             @displayPageNameForUpdate()
 
-            @$el.find('div.lock-message').height @$el.find('div.aj-imp-browser-header').height() - 28
+            
             
 
          _addToPageSlug : (pageId)=>

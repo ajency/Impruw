@@ -723,7 +723,8 @@ function read_page_json() {
     wp_send_json( array(
         'code' => 'OK',
         'data' => $data,
-        'lock' => $lock
+        'lock' => $lock,
+        '_pagewpnonce' => wp_create_nonce( 'update-post_' . $page_id )
     ) );
 }
 

@@ -35,7 +35,7 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
         data['wp-refresh-post-lock'] = send;
         return data;
       }).on('heartbeat-tick.refresh-lock', function(evt, data) {
-        var lock, received;
+        var received;
         if (!data['wp-refresh-post-lock']) {
           return;
         }
@@ -44,7 +44,7 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
           locked = true;
           return App.vent.trigger('page:took:over', received.lock_error.text);
         } else if (received.new_lock) {
-          lock = received.new_lock;
+          window.lockValue = received.new_lock;
           if (locked === true) {
             locked = false;
             return App.vent.trigger('page:released', received);
