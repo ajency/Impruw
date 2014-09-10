@@ -18,7 +18,7 @@ function get_page_seo( $post_id ){
 	}
 	
 	if ($yoast_meta_description) { 
-		$seodata['meta_description'] = $yoast_meta_title;
+		$seodata['meta_description'] = $yoast_meta_description;
 	}
 	else{
 		$seodata['meta_description_default'] = $wpseo_meta->get_value( 'metadesc', $post_id );
