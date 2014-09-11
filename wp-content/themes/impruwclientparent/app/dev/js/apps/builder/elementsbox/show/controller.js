@@ -17,11 +17,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/elementsbox/show/vie
         }
         this.elements = App.request("get:elementbox:elements");
         view = this.getView(this.elements);
-        this.listenTo(App.vent, "change:page:check:single:room", function() {
-          return new Show.Controller({
-            region: App.elementsBoxRegion
-          });
-        });
         this.listenTo(App.vent, 'page:took:over', function() {
           return view.triggerMethod('page:took:over');
         });

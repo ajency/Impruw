@@ -11,9 +11,9 @@ define ['app', 'controllers/base-controller'
 
                 view = @getView @elements
 
-                @listenTo App.vent,"change:page:check:single:room",()->
-                    new Show.Controller
-                            region: App.elementsBoxRegion
+                # @listenTo App.vent,"change:page:check:single:room",()->
+                #     new Show.Controller
+                #             region: App.elementsBoxRegion
 
                 @listenTo App.vent, 'page:took:over', ->
                     view.triggerMethod 'page:took:over'
