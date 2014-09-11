@@ -779,7 +779,7 @@ a.red-link.pull-right {
 }
 /****Connection Lost Overlay Style****/
 .conn-lost-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
