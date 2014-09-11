@@ -19,6 +19,7 @@ define [ 'app', 'controllers/base-controller'
 
                 @listenTo @seoLayoutView.seoLanguageSelection, "load:seo:page:nav:bar", @_loadNavBar 
                 @listenTo @seoLayoutView.seoPageNav, "load:seo:page:content", @_loadSeoPageContent 
+                @listenTo @seoLayoutView.seoPageNav, "load:seo:room:content", @_loadSeoRoomContent
 
             getMainView : ->
                 new Show.View.SeoView
@@ -32,7 +33,12 @@ define [ 'app', 'controllers/base-controller'
                 App.execute "show:seo:page:content:app",
                     region: @seoLayoutView.seoPageContent
                     language : language
-                    pageId : pageId         
+                    pageId : pageId   
+
+            _loadSeoRoomContent: (language)=>
+                App.execute "show:seo:rooms:app",
+                    region: @seoLayoutView.seoPageContent
+                    language: language      
 
 
 

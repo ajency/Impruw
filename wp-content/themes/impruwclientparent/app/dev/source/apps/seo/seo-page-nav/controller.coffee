@@ -15,7 +15,7 @@ define ['app', 'controllers/base-controller'
 
                 @seoPageNavView = @_getPageNavView @collection
 
-                # @listenTo @languagePageNavView, "itemview:page:room:content", @loadLanguagePageRoomContent
+                @listenTo @seoPageNavView, "seo:room:content", @loadSeoRoomContent
                 @listenTo @seoPageNavView, "itemview:page:content", @loadSeoPageContent
                 # @listenTo @languagePageNavView, "site:translate:content", @loadSiteContent
 
@@ -27,8 +27,8 @@ define ['app', 'controllers/base-controller'
                 new SeoPageNav.Views.SeoPageNavView
                     collection: collection
 
-            # loadLanguagePageRoomContent : ->
-            #     Marionette.triggerMethod.call @region, "load:page:room:content", @editingLanguage
+            loadSeoRoomContent : ->
+                Marionette.triggerMethod.call @region, "load:seo:room:content", @language
 
             loadSeoPageContent : (collection, pageId) ->
                 data =

@@ -16,6 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/seo/seo-page-nav/view'], fun
         this.language = language;
         this.collection = collection = App.request("get:language:pages", language);
         this.seoPageNavView = this._getPageNavView(this.collection);
+        this.listenTo(this.seoPageNavView, "seo:room:content", this.loadSeoRoomContent);
         this.listenTo(this.seoPageNavView, "itemview:page:content", this.loadSeoPageContent);
         return this.show(this.seoPageNavView, {
           loading: true
@@ -26,6 +27,10 @@ define(['app', 'controllers/base-controller', 'apps/seo/seo-page-nav/view'], fun
         return new SeoPageNav.Views.SeoPageNavView({
           collection: collection
         });
+      };
+
+      Controller.prototype.loadSeoRoomContent = function() {
+        return Marionette.triggerMethod.call(this.region, "load:seo:room:content", this.language);
       };
 
       Controller.prototype.loadSeoPageContent = function(collection, pageId) {

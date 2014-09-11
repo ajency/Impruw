@@ -8,7 +8,6 @@ define ['app', 'controllers/base-controller'
             initialize: (opts)->
                 #get language collection
                 @collection = collection = App.request "get:all:languages"
-                console.log @collection
 
                 @languageSelectionView = @_getLanguageView @collection
 

@@ -29,14 +29,23 @@ define ['app'], (App)->
                                         {{#polyglot}}Site{{/polyglot}}
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="#seo-rooms" id="seo-rooms" data-toggle="tab">
+                                        {{#polyglot}}All Rooms{{/polyglot}}
+                                        </a>
+                                    </li> 
                                 </ul>'
 
                     itemView :  SeoPageNavItemView 
 
                     itemViewContainer : '#js-seo-nav-bar' 
 
-                    # events:
-                    #     'click a#site' : 'loadSiteContent'
+                    events:
+                        'click a#seo-rooms' : 'loadSeoRoomContent'
+                        # 'click a#site' : 'loadSiteContent'
+
+                    loadSeoRoomContent: (e) ->
+                        @trigger "seo:room:content"
 
                     # loadSiteContent: (e) ->
                     #     @trigger "site:translate:content"

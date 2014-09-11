@@ -35,11 +35,19 @@ define(['app'], function(App) {
         return SeoPageNavView.__super__.constructor.apply(this, arguments);
       }
 
-      SeoPageNavView.prototype.template = '<ul class="nav nav-pills" id="js-seo-nav-bar"> <li> <a href="#site" id="site" data-toggle="tab"> {{#polyglot}}Site{{/polyglot}} </a> </li> </ul>';
+      SeoPageNavView.prototype.template = '<ul class="nav nav-pills" id="js-seo-nav-bar"> <li> <a href="#site" id="site" data-toggle="tab"> {{#polyglot}}Site{{/polyglot}} </a> </li> <li> <a href="#seo-rooms" id="seo-rooms" data-toggle="tab"> {{#polyglot}}All Rooms{{/polyglot}} </a> </li> </ul>';
 
       SeoPageNavView.prototype.itemView = SeoPageNavItemView;
 
       SeoPageNavView.prototype.itemViewContainer = '#js-seo-nav-bar';
+
+      SeoPageNavView.prototype.events = {
+        'click a#seo-rooms': 'loadSeoRoomContent'
+      };
+
+      SeoPageNavView.prototype.loadSeoRoomContent = function(e) {
+        return this.trigger("seo:room:content");
+      };
 
       return SeoPageNavView;
 

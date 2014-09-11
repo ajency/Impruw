@@ -8,6 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/seo/show/view'], function(Ap
       __extends(Controller, _super);
 
       function Controller() {
+        this._loadSeoRoomContent = __bind(this._loadSeoRoomContent, this);
         this._loadSeoPageContent = __bind(this._loadSeoPageContent, this);
         this._loadNavBar = __bind(this._loadNavBar, this);
         return Controller.__super__.constructor.apply(this, arguments);
@@ -26,7 +27,8 @@ define(['app', 'controllers/base-controller', 'apps/seo/show/view'], function(Ap
           };
         })(this));
         this.listenTo(this.seoLayoutView.seoLanguageSelection, "load:seo:page:nav:bar", this._loadNavBar);
-        return this.listenTo(this.seoLayoutView.seoPageNav, "load:seo:page:content", this._loadSeoPageContent);
+        this.listenTo(this.seoLayoutView.seoPageNav, "load:seo:page:content", this._loadSeoPageContent);
+        return this.listenTo(this.seoLayoutView.seoPageNav, "load:seo:room:content", this._loadSeoRoomContent);
       };
 
       Controller.prototype.getMainView = function() {
@@ -45,6 +47,13 @@ define(['app', 'controllers/base-controller', 'apps/seo/show/view'], function(Ap
           region: this.seoLayoutView.seoPageContent,
           language: language,
           pageId: pageId
+        });
+      };
+
+      Controller.prototype._loadSeoRoomContent = function(language) {
+        return App.execute("show:seo:rooms:app", {
+          region: this.seoLayoutView.seoPageContent,
+          language: language
         });
       };
 

@@ -13,7 +13,6 @@ define(['app', 'controllers/base-controller', 'apps/seo/seo-language/view'], fun
       Controller.prototype.initialize = function(opts) {
         var collection;
         this.collection = collection = App.request("get:all:languages");
-        console.log(this.collection);
         this.languageSelectionView = this._getLanguageView(this.collection);
         this.listenTo(this.languageSelectionView, "load:seo:page:nav", this.loadSeoPageNav);
         return this.show(this.languageSelectionView, {
