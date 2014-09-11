@@ -8,7 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/seo/seo-rooms/rooms-seo/view
       __extends(Controller, _super);
 
       function Controller() {
-        this.pageSeoUpdated = __bind(this.pageSeoUpdated, this);
+        this.roomSeoUpdated = __bind(this.roomSeoUpdated, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -46,12 +46,12 @@ define(['app', 'controllers/base-controller', 'apps/seo/seo-rooms/rooms-seo/view
         return this.roomSeoModel.save(null, {
           wait: true,
           onlyChanged: true,
-          success: this.pageSeoUpdated
+          success: this.roomSeoUpdated
         });
       };
 
-      Controller.prototype.pageSeoUpdated = function(model, response) {
-        return this.seoPageContentView.triggerMethod("room:seo:updated");
+      Controller.prototype.roomSeoUpdated = function(model, response) {
+        return this.roomContentView.triggerMethod("room:seo:updated");
       };
 
       return Controller;

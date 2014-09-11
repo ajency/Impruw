@@ -37,10 +37,10 @@ define ['app', 'controllers/base-controller'
                 @roomSeoModel.save null,
                     wait : true
                     onlyChanged : true
-                    success : @pageSeoUpdated
+                    success : @roomSeoUpdated
 
-            pageSeoUpdated :(model, response) =>
-                @seoPageContentView.triggerMethod "room:seo:updated"   
+            roomSeoUpdated :(model, response) =>
+                @roomContentView.triggerMethod "room:seo:updated"   
 
 
         App.commands.setHandler "show:seo:rooms", (opts = {}) ->

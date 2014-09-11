@@ -19,7 +19,9 @@ define ['app'
                     		@trigger "page:seo:save", newSeoTitle , newSeoDesc, newSeoKeywords
 
                     onPageSeoUpdated :->
-                    	console.log "success"
+                        @$el.find('.alert').remove()
+                        @$el.append('<div class="alert alert-success">'+_.polyglot.t("Page Seo Details updated")+'</div>')
+                        @$el.find('.alert').fadeOut 5000
 
 
 

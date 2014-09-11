@@ -26,7 +26,9 @@ define(['app', 'text!apps/seo/templates/seo-page-view.html'], function(App, seoP
       };
 
       SeoPageContentView.prototype.onPageSeoUpdated = function() {
-        return console.log("success");
+        this.$el.find('.alert').remove();
+        this.$el.append('<div class="alert alert-success">' + _.polyglot.t("Page Seo Details updated") + '</div>');
+        return this.$el.find('.alert').fadeOut(5000);
       };
 
       return SeoPageContentView;
