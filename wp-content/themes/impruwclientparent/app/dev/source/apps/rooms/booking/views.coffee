@@ -135,7 +135,7 @@ define ['app'
                         <div class='booking-slider-pop'>
                             <div id='booking-slider' data-value='#{value}'></div>
                             <div class='row'>
-                                <div class='col-md-4 available'><span>#{_.polyglot.t('available')}</span></div>
+                                <div class='col-md-4 available'><span>#{_.polyglot.t('Available')}</span></div>
                                 <div class='col-md-4 semi-available'><span>#{_.polyglot.t('Filling Fast')}</span></div>
                                 <div class='col-md-4 unavailable'><span>#{_.polyglot.t('Sold Out')}</span></div>
 
