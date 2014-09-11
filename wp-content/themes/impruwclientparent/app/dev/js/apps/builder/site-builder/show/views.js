@@ -287,6 +287,14 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         return this.trigger('editable:page:changed', this.getCurrentPageId());
       };
 
+      MainView.prototype.onAutosavePageJsonEnableButtons = function() {
+        return this.$el.find('.publish-page').removeAttr('disabled');
+      };
+
+      MainView.prototype.onAutosavePageJsonDisableButtons = function() {
+        return this.$el.find('.publish-page').attr('disabled', 'disabled');
+      };
+
       MainView.prototype.takeOverPage = function(evt) {
         $(evt.currentTarget).text('Please wait...').attr('disabled', true);
         return $.post(AJAXURL, {

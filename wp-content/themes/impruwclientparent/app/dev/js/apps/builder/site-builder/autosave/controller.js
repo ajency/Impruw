@@ -91,9 +91,12 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
         }
       };
 
-      AutoSaveServer.prototype.handleTick = function() {
+      AutoSaveServer.prototype.handleTick = function(data) {
         this.schedule();
         this.enableButtons();
+        if (data.success === false) {
+          App.vent.trigger("autosave:failed");
+        }
         return this.autoSaveData = false;
       };
 

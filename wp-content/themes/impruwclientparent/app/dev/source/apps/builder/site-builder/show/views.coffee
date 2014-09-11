@@ -259,6 +259,12 @@ define [ 'app'
 
             @trigger 'editable:page:changed', @getCurrentPageId()
 
+         onAutosavePageJsonEnableButtons : ->
+            @$el.find('.publish-page').removeAttr 'disabled'
+
+         onAutosavePageJsonDisableButtons : ->
+            @$el.find('.publish-page').attr 'disabled', 'disabled'
+
          takeOverPage : (evt)->
             $(evt.currentTarget).text 'Please wait...'
                .attr 'disabled', true

@@ -140,6 +140,13 @@ define [ 'app', 'controllers/base-controller'
                 @listenTo App.vent, 'page:released', ->
                     layout.triggerMethod 'page:released'
 
+                @listenTo App.vent, 'autosave:page:json:enable:buttons', ->
+                    layout.triggerMethod 'autosave:page:json:enable:buttons'                    
+
+                @listenTo App.vent, 'autosave:page:json:disable:buttons', ->
+                    layout.triggerMethod 'autosave:page:json:disable:buttons'                    
+
+
                 @show layout,
                     loading : true
 

@@ -78,10 +78,13 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				if data['autosave-page-json']
 					@handleTick data['autosave-page-json']
 
-			handleTick : =>
+			handleTick : (data)=>
 				@schedule()
 				@enableButtons()
 
+				if data.success is false
+					App.vent.trigger "autosave:failed"
+					
 				# reset autosave data
 				@autoSaveData = false
 
