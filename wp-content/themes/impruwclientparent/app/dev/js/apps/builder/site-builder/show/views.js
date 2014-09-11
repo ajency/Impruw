@@ -146,7 +146,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           };
         })(this), 250);
         this.$el.find('#aj-imp-revision-sel').on('show.bs.dropdown', this.addPageRevisions);
-        return this.displayPageNameForUpdate();
+        this.displayPageNameForUpdate();
+        return $('body').on('click', this._removeAllFocusClass);
       };
 
       MainView.prototype._addToPageSlug = function(pageId) {
@@ -230,6 +231,14 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.$el.find('div .btn-group .filter-option').text(page_name);
         this.$el.find("select#builder-page-sel option[value='" + page_id + "']").text(page_name);
         return this.enableSelectPicker();
+      };
+
+      MainView.prototype.onClose = function() {
+        return $('body').on('click', this._removeAllFocusClass);
+      };
+
+      MainView.prototype._removeAllFocusClass = function(e) {
+        return $('.element-wrapper').removeClass('focus-class');
       };
 
       return MainView;

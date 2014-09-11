@@ -62,7 +62,7 @@ class ImageWithText extends Element {
         }
         $this->content  = stripcslashes(trim( $content ));
 
-        $this->link = isset($element['link']) ? $element['link'] : false;
+        $this->link = isset($element['link']) && $element['link']!= '' ? $element['link'] : false;
         $this->target = isset($element['target']) ? $element['target'] : '_self';  
 
         $this->style 	= sanitize_title($element['style']);
@@ -81,15 +81,19 @@ class ImageWithText extends Element {
     	
     	
     	
-    	$template = '{{#image}}
-                        <a href="{{link}}" target="{{target}}">
-						<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
-                        </a>
-					{{/image}}
+    	$template = '{{#image}}';
+        if($this->link){
+            $template .= '<a href="{{link}}" target="{{target}}">';
+        }                      
+		$template .= '<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>';
+        if($this->link){
+            $template .= '</a>';
+        }                        
+		$template .= '{{/image}}
 					{{#placeholder}}
 						<div class="image-placeholder {{alignclass}}"><span class="glyphicon glyphicon-picture"></span>Image</div>
 					{{/placeholder}}
-					<p class="editor">{{{content}}}</p>
+					<div class="editor">{{{content}}}</div>
 					<div class="clearfix"></div>';
     	
     	$data = array();

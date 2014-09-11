@@ -121,6 +121,7 @@ define [ 'app'
 
             #update the page name links
             @displayPageNameForUpdate()
+            $('body').on 'click',@_removeAllFocusClass
             
 
          _addToPageSlug : (pageId)=>
@@ -199,6 +200,13 @@ define [ 'app'
             @$el.find( 'div .btn-group .filter-option' ).text( page_name )
             @$el.find( "select#builder-page-sel option[value='#{page_id}']" ).text( page_name )
             @enableSelectPicker()
+
+         onClose:->
+            $('body').on 'click',@_removeAllFocusClass
+
+         _removeAllFocusClass:(e)->
+            $('.element-wrapper').removeClass 'focus-class'
+
 
 
       class SingleRevision extends Marionette.ItemView
