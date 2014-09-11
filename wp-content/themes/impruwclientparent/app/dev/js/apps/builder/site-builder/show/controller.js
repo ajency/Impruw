@@ -42,7 +42,9 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           return function() {
             return _.delay(function() {
               _this.startFillingElements();
-              return App.execute("autosave-api");
+              App.execute("autosave-api");
+              App.autoSaveAPI.local.createStorage();
+              return App.autoSaveAPI.local.resume();
             }, 400);
           };
         })(this));

@@ -48,6 +48,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           return App.execute("publish:page");
         },
         'change select#builder-page-sel': function(evt) {
+          App.autoSaveAPI.local.suspend();
           this.releasePage();
           this._addToPageSlug(parseInt($(evt.target).val()));
           this.trigger('editable:page:changed', $(evt.target).val());

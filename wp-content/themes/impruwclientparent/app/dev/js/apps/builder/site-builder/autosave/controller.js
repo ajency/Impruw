@@ -25,6 +25,14 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
         return $document.ready(this.run);
       };
 
+      AutoSaveLocal.prototype.suspend = function() {
+        return this.suspended = true;
+      };
+
+      AutoSaveLocal.prototype.resume = function() {
+        return this.suspended = false;
+      };
+
       AutoSaveLocal.prototype.run = function() {
         return this.interval = window.setInterval(this.doAutoSave, 5 * 1000);
       };
@@ -194,7 +202,9 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
     })();
     return App.commands.setHandler("autosave-api", function() {
-      return App.autoSaveAPI = new AutoSaveAPI;
+      if (!App.autoSaveAPI) {
+        return App.autoSaveAPI = new AutoSaveAPI;
+      }
     });
   });
 });

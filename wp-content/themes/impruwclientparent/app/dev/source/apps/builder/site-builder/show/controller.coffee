@@ -35,6 +35,8 @@ define [ 'app', 'controllers/base-controller'
                     _.delay =>
                         @startFillingElements()
                         App.execute "autosave-api"
+                        App.autoSaveAPI.local.createStorage()
+                        App.autoSaveAPI.local.resume()
                     , 400
 
                 @show @view,

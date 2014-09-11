@@ -13,11 +13,16 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				@hasSupport = @checkLocalStorgeSupport()
 				@blogId = window.BLOGID
 
-
 				if @hasSupport
 					@createStorage()
 
 				$document.ready @run
+
+			suspend : ->
+				@suspended = true
+
+			resume : ->
+				@suspended =  false
 
 			run : =>
 				@interval = window.setInterval @doAutoSave, 5 * 1000
@@ -167,5 +172,8 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
 
 		App.commands.setHandler "autosave-api", ->
-			App.autoSaveAPI = new AutoSaveAPI
+			if not App.autoSaveAPI
+				App.autoSaveAPI = new AutoSaveAPI
+				# resume autosave
+				
 

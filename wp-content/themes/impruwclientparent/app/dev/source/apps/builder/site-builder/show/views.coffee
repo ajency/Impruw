@@ -26,6 +26,8 @@ define [ 'app'
                App.execute "publish:page"
 
             'change select#builder-page-sel' : ( evt )->
+               # suspend local autosaving
+               App.autoSaveAPI.local.suspend()
                @releasePage()               
                @_addToPageSlug parseInt $( evt.target ).val()
                @trigger 'editable:page:changed', $( evt.target ).val()
