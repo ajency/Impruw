@@ -32,7 +32,7 @@ define ['app'
         App.reqres.setHandler "add:new:element", (container, type, modelData = {})->
             API.addNewElement container, type, modelData
 
-        App.commands.setHandler "publish:page", ->
+        App.reqres.setHandler "publish:page", ->
             API.publish()
 
         # Show all region on start

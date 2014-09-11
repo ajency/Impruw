@@ -42,10 +42,12 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       MainView.prototype.events = {
         'click .publish-page': function(evt) {
+          var promise;
           evt.preventDefault();
           $(evt.currentTarget).attr('disabled', true);
           this.$el.find('.publish-page ').text('Publishing...');
-          return App.execute("publish:page");
+          promise = App.request("publish:page");
+          return promise.always(this.onPagePublished);
         },
         'change select#builder-page-sel': function(evt) {
           App.autoSaveAPI.local.suspend();
@@ -175,12 +177,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       MainView.prototype.onPagePublished = function() {
         this.$el.find('.publish-page ').text('Publish');
-        return _.delay((function(_this) {
-          return function() {
-            _this.$el.find('.publish-page ').removeAttr('disabled');
-            return _this.$el.find('.publish-page ').text('Publish');
-          };
-        })(this), 500);
+        return this.$el.find('.publish-page ').removeAttr('disabled');
       };
 
       MainView.prototype.changePreviewLinkUrl = function() {

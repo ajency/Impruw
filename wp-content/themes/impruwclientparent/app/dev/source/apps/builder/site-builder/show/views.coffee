@@ -23,7 +23,8 @@ define [ 'app'
                evt.preventDefault()
                $( evt.currentTarget ).attr 'disabled', true
                @$el.find( '.publish-page ' ).text 'Publishing...'
-               App.execute "publish:page"
+               promise = App.request "publish:page"
+               promise.always @onPagePublished
 
             'change select#builder-page-sel' : ( evt )->
                # suspend local autosaving
@@ -139,11 +140,9 @@ define [ 'app'
 
          onPagePublished : =>
             @$el.find( '.publish-page ' ).text 'Publish'
-            _.delay =>
-               @$el.find( '.publish-page ' ).removeAttr 'disabled'
-               @$el.find( '.publish-page ' ).text 'Publish'
-            , 500
-
+            @$el.find( '.publish-page ' ).removeAttr 'disabled'
+            
+            
          changePreviewLinkUrl : ->
             currentPageId = App.request "get:current:editable:page"
             previewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}"

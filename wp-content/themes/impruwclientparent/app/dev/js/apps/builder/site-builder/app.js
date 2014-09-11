@@ -27,7 +27,7 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
       }
       return API.addNewElement(container, type, modelData);
     });
-    App.commands.setHandler("publish:page", function() {
+    App.reqres.setHandler("publish:page", function() {
       return API.publish();
     });
     return SiteBuilderApp.on('start', function() {
