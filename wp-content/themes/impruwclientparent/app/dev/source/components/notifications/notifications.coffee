@@ -49,7 +49,9 @@ define ['app', 'jquery', 'mustache', 'underscore', 'heartbeat' ], (App, $, Musta
 		connectionNotification = $ Helper.toHtml messageText : _.polyglot.t "Connection Lost"
 		$notificationEle.append(connectionNotification)
 		connectionNotification.fadeIn()
+		$('.conn-lost-overlay').removeClass 'hidden'
 
 	App.vent.on 'connection-restored', ->
 		if connectionNotification isnt null
 			connectionNotification.fadeOut 'fast', -> connectionNotification.remove()
+		$('.conn-lost-overlay').addClass 'hidden'

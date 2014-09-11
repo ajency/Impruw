@@ -58,13 +58,15 @@ define(['app', 'jquery', 'mustache', 'underscore', 'heartbeat'], function(App, $
       messageText: _.polyglot.t("Connection Lost")
     }));
     $notificationEle.append(connectionNotification);
-    return connectionNotification.fadeIn();
+    connectionNotification.fadeIn();
+    return $('.conn-lost-overlay').removeClass('hidden');
   });
   return App.vent.on('connection-restored', function() {
     if (connectionNotification !== null) {
-      return connectionNotification.fadeOut('fast', function() {
+      connectionNotification.fadeOut('fast', function() {
         return connectionNotification.remove();
       });
     }
+    return $('.conn-lost-overlay').addClass('hidden');
   });
 });

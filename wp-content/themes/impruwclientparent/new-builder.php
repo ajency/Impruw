@@ -56,7 +56,7 @@
 <!-- Notifications -->
 
 <!-- Lost Connection -->
-<div class="conn-lost-overlay"></div>
+<div class="conn-lost-overlay hidden"></div>
 <!-- Lost Connection -->
 
 <div id="fb-root"></div>
