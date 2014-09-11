@@ -6,6 +6,7 @@ define ['app', 'controllers/base-controller'
         class Show.Controller extends AppController
 
             initialize: (opt = {})->
+                
                 @elements = App.request "get:elementbox:elements"
 
                 view = @getView @elements

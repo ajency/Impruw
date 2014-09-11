@@ -35,7 +35,8 @@ define [ 'app'
                App.vent.trigger "change:page:check:single:room"
                @changePreviewLinkUrl()
                @displayPageNameForUpdate()
-               # @$el.find( 'select#builder-page-sel-lock' ).selectpicker 'val', parseInt $( evt.target ).val()
+               @$el.find('.aj-imp-builder-drag-drop').fadeOut 'fast', -> App.resetElementRegistry()
+               
 
             'change select#builder-page-sel-lock' : (evt)->
                @$el.find( 'select#builder-page-sel' ).selectpicker 'val', parseInt $( evt.target ).val()
@@ -52,6 +53,13 @@ define [ 'app'
                @trigger "update:page:name", data
 
             'click #take-over-button' : 'takeOverPage'
+
+         onPageRendered : ->
+            @$el.find('.aj-imp-builder-drag-drop').fadeIn()
+
+         onPageRenderError : ->
+            @$el.empty()   
+            @$el.fadeIn()
 
          handleWindowEvents : ->
             

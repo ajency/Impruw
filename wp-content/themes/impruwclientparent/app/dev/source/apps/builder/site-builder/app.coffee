@@ -19,6 +19,8 @@ define ['app'
                     new SiteBuilderApp.Element[type].Controller
                         container: container
                         modelData: modelData
+                else
+                    return false
 
         # publish function call
             publish: ()->

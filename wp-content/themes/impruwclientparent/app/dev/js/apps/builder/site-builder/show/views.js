@@ -55,7 +55,10 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           this.currentPageId = parseInt($(evt.target).val());
           App.vent.trigger("change:page:check:single:room");
           this.changePreviewLinkUrl();
-          return this.displayPageNameForUpdate();
+          this.displayPageNameForUpdate();
+          return this.$el.find('.aj-imp-builder-drag-drop').fadeOut('fast', function() {
+            return App.resetElementRegistry();
+          });
         },
         'change select#builder-page-sel-lock': function(evt) {
           return this.$el.find('select#builder-page-sel').selectpicker('val', parseInt($(evt.target).val()));
@@ -74,6 +77,15 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           return this.trigger("update:page:name", data);
         },
         'click #take-over-button': 'takeOverPage'
+      };
+
+      MainView.prototype.onPageRendered = function() {
+        return this.$el.find('.aj-imp-builder-drag-drop').fadeIn();
+      };
+
+      MainView.prototype.onPageRenderError = function() {
+        this.$el.empty();
+        return this.$el.fadeIn();
       };
 
       MainView.prototype.handleWindowEvents = function() {

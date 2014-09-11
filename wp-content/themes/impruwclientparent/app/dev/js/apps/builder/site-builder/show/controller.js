@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __slice = [].slice,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/views'], function(App, AppController) {
@@ -41,10 +42,21 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         App.execute("when:fetched", [elements], (function(_this) {
           return function() {
             return _.delay(function() {
+              _this.deferreds = [];
               _this.startFillingElements();
-              App.autoSaveAPI.local.createStorage();
-              App.autoSaveAPI.local.resume();
-              return App.autoSaveAPI.local.doAutoSave();
+              return $.when.apply($, _this.deferreds).done(function() {
+                var elements;
+                elements = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+                App.autoSaveAPI.local.resume();
+                App.autoSaveAPI.local.doAutoSave();
+                App.vent.trigger("page:rendered");
+                _this.view.triggerMethod("page:rendered");
+                return _this.deferreds = [];
+              }).fail(function() {
+                return App.autoSaveAPI.local.suspend();
+              }).always(function() {
+                return App.autoSaveAPI.local.createStorage();
+              });
             }, 400);
           };
         })(this));
@@ -65,59 +77,40 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
       };
 
       BuilderController.prototype.startFillingElements = function() {
-        var container, section;
-        section = this.view.model.get('header');
-        container = this._getContainer('header');
-        _.each(section, (function(_this) {
-          return function(element, i) {
-            if (element.element === 'Row') {
-              return _this.addNestedElements(container, element);
-            } else {
-              return App.request("add:new:element", container, element.element, element);
-            }
-          };
-        })(this));
-        section = this.view.model.get('page');
-        container = this._getContainer('page');
-        _.each(section, (function(_this) {
-          return function(element, i) {
-            if (!_.isObject(element)) {
-              return;
-            }
-            if (element.element === 'Row') {
-              return _this.addNestedElements(container, element);
-            } else {
-              return App.request("add:new:element", container, element.element, element);
-            }
-          };
-        })(this));
-        section = this.view.model.get('footer');
-        container = this._getContainer('footer');
-        return _.each(section, (function(_this) {
-          return function(element, i) {
-            if (element.element === 'Row') {
-              return _this.addNestedElements(container, element);
-            } else {
-              return App.request("add:new:element", container, element.element, element);
-            }
+        return _.each(['header', 'page', 'footer'], (function(_this) {
+          return function(key, index) {
+            var container, section;
+            section = _this.view.model.get(key);
+            container = _this._getContainer(key);
+            return _.each(section, function(element, i) {
+              var eleController;
+              if (element.element === 'Row') {
+                return _this.addNestedElements(container, element);
+              } else {
+                eleController = App.request("add:new:element", container, element.element, element);
+                return _this.deferreds.push(eleController._promise);
+              }
+            });
           };
         })(this));
       };
 
       BuilderController.prototype.addNestedElements = function(container, element) {
-        var controller;
-        controller = App.request("add:new:element", container, element.element, element);
+        var eleController;
+        eleController = App.request("add:new:element", container, element.element, element);
+        this.deferreds.push(eleController._promise);
         return _.each(element.elements, (function(_this) {
           return function(column, index) {
             if (column.elements.length === 0) {
               return;
             }
-            container = controller.layout.elementRegion.currentView.$el.children().eq(index);
+            container = eleController.layout.elementRegion.currentView.$el.children().eq(index);
             return _.each(column.elements, function(ele, i) {
               if (element.element === 'Row') {
                 return _this.addNestedElements($(container), ele);
               } else {
-                return App.request("add:new:element", container, ele.element, ele);
+                eleController = App.request("add:new:element", container, ele.element, ele);
+                return _this.deferreds.push(eleController._promise);
               }
             });
           };
@@ -233,7 +226,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         if (revisionId == null) {
           revisionId = 0;
         }
-        App.resetElementRegistry();
         if (siteBuilderController !== null) {
           siteBuilderController.close();
         }

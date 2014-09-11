@@ -11,6 +11,8 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
             container: container,
             modelData: modelData
           });
+        } else {
+          return false;
         }
       },
       publish: function() {
