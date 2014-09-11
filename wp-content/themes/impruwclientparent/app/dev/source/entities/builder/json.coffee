@@ -47,6 +47,7 @@ define ["app", 'backbone','jquery'], (App, Backbone, $) ->
             parse : (resp)->
                 if resp.lock isnt true
                     window.lockValue = resp.lock
+                    @fetchEntire = true
                     if @locked is true
                         eventData = {}
                         eventData['wp-refresh-post-lock'] = 'new_lock': resp.lock

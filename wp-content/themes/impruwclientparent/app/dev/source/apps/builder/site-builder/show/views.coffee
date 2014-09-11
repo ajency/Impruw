@@ -257,6 +257,8 @@ define [ 'app'
                .removeClass 'show'
                .addClass 'hidden'
 
+            @trigger 'editable:page:changed', @getCurrentPageId()
+
          takeOverPage : (evt)->
             $(evt.currentTarget).text 'Please wait...'
                .attr 'disabled', true

@@ -60,6 +60,7 @@ define(["app", 'backbone', 'jquery'], function(App, Backbone, $) {
         var eventData;
         if (resp.lock !== true) {
           window.lockValue = resp.lock;
+          this.fetchEntire = true;
           if (this.locked === true) {
             eventData = {};
             eventData['wp-refresh-post-lock'] = {

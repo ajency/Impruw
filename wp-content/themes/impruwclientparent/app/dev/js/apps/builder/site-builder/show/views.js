@@ -283,7 +283,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.onPageReleased = function() {
-        return this.$el.find('div.lock-message').removeClass('show').addClass('hidden');
+        this.$el.find('div.lock-message').removeClass('show').addClass('hidden');
+        return this.trigger('editable:page:changed', this.getCurrentPageId());
       };
 
       MainView.prototype.takeOverPage = function(evt) {
