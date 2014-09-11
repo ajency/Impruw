@@ -51,7 +51,7 @@
           media="screen">
 </head>
 <body <?php body_class(); ?>>
-
+<div id="notification-element" style="position:fixed;top: 50px;" class="alert"></div>
 <div id="fb-root"></div>
 
 <div id="choose-theme-region"></div>
