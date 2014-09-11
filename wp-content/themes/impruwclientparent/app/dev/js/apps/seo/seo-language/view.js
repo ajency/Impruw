@@ -29,10 +29,11 @@ define(['app'], function(App) {
             }
           };
         })(this));
-        return this.$el.find('#select_seo_language').selectpicker();
+        this.$el.find('#select_seo_language').selectpicker();
+        return this.loadLanguagePageNav();
       };
 
-      SeoLanguageView.prototype.loadLanguagePageNav = function(e) {
+      SeoLanguageView.prototype.loadLanguagePageNav = function() {
         var langName, selectedLangVal;
         $('.aj-imp-widget-content').hide();
         selectedLangVal = langName = this.$el.find('#select_seo_language').val();

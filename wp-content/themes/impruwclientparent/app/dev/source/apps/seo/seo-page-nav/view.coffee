@@ -24,17 +24,21 @@ define ['app'], (App)->
                 class Views.SeoPageNavView extends Marionette.CompositeView  
                    
                     template : '<ul class="nav nav-pills" id="js-seo-nav-bar">
-                                    <li>
+                                    <!--li>
                                         <a href="#site" id="site" data-toggle="tab">
                                         {{#polyglot}}Site{{/polyglot}}
                                         </a>
-                                    </li>
+                                    </li-->
                                     <li>
                                         <a href="#seo-rooms" id="seo-rooms" data-toggle="tab">
                                         {{#polyglot}}All Rooms{{/polyglot}}
                                         </a>
                                     </li> 
                                 </ul>'
+
+                    onShow:->
+                        @loadSeoRoomContent()
+                        @$el.find( "li" ).first().addClass( 'active' )
 
                     itemView :  SeoPageNavItemView 
 

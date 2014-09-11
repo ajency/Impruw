@@ -24,7 +24,9 @@ define ['app'], (App)->
 
                 @$el.find('#select_seo_language').selectpicker()
 
-            loadLanguagePageNav: (e)->
+                @loadLanguagePageNav()
+
+            loadLanguagePageNav: ()->
                 #hide the page content div when the editing lanhuage is changed
                 $('.aj-imp-widget-content').hide()
                 selectedLangVal = langName = @$el.find( '#select_seo_language' ).val()
