@@ -122,7 +122,6 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
 				@disableButtons()
 
-			
 				# update local copy
 				@local.saveLocal data
 
@@ -131,7 +130,8 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 			isPageModified : (data)->
 				lastLocalSaved = @local.getLastSaved()
 				stringifyJson = JSON.stringify data
-				lastLocalSaved isnt stringifyJson
+				modified = lastLocalSaved isnt stringifyJson
+				modified
 
 
 			hbAutoSavePageJSONTick : (event, data)=>

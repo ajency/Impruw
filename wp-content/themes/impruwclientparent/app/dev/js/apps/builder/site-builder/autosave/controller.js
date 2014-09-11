@@ -149,10 +149,11 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
       };
 
       AutoSaveServer.prototype.isPageModified = function(data) {
-        var lastLocalSaved, stringifyJson;
+        var lastLocalSaved, modified, stringifyJson;
         lastLocalSaved = this.local.getLastSaved();
         stringifyJson = JSON.stringify(data);
-        return lastLocalSaved !== stringifyJson;
+        modified = lastLocalSaved !== stringifyJson;
+        return modified;
       };
 
       AutoSaveServer.prototype.hbAutoSavePageJSONTick = function(event, data) {
