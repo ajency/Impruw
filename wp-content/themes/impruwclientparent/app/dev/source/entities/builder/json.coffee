@@ -10,11 +10,25 @@ define ["app", 'backbone','jquery'], (App, Backbone, $) ->
 
             initialize : ->
                 @lock = false
+                @fetchEntire = false
+                # heartbeat API
+                @listenTo App.vent, 'page:released', =>
+                    @fetchEntire = true
 
             url: ->
                 pageId = @get 'page_id'
                 revisionId = @get 'revision_id'
-                "#{AJAXURL}?action=read-page-json&page_id=#{pageId}&revision_id=#{revisionId}"
+                onlyPage = '&only_page=no'
+                if @fetchOnlyPage()
+                    onlyPage = '&only_page=yes'
+                
+                "#{AJAXURL}?action=read-page-json&page_id=#{pageId}&revision_id=#{revisionId}#{onlyPage}"
+
+            fetchOnlyPage : ->
+                if @has('header') && @has('footer') && not @fetchEntire
+                    return true
+
+                return false
 
             sync: (method, model, options)->
                 params =
@@ -51,7 +65,7 @@ define ["app", 'backbone','jquery'], (App, Backbone, $) ->
         json = new PageJson
 
         API =
-            getPageJSON: (pageId, revisionId)->
+            getPageJSON: (pageId, revisionId, onlyPage)->
                 json.set
                     page_id: parseInt pageId
                     revision_id: parseInt revisionId
@@ -60,5 +74,5 @@ define ["app", 'backbone','jquery'], (App, Backbone, $) ->
                 json
 
         # handlers
-        App.reqres.setHandler "get:page:json", (pageId, revisionId)->
-            API.getPageJSON pageId, revisionId
+        App.reqres.setHandler "get:page:json", (pageId, revisionId, onlyPage)->
+            API.getPageJSON pageId, revisionId, onlyPage
