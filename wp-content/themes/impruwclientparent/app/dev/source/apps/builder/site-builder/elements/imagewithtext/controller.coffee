@@ -21,6 +21,8 @@ define ['app', 'apps/builder/site-builder/elements/imagewithtext/views',
                     align: 'left'
                     style: ''
                     content: data
+                    link : '#'
+                    target : '_self'
 
                 super(options)
 

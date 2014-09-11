@@ -23,7 +23,9 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
           size: 'thumbnail',
           align: 'left',
           style: '',
-          content: data
+          content: data,
+          link: '#',
+          target: '_self'
         });
         return Controller.__super__.initialize.call(this, options);
       };
