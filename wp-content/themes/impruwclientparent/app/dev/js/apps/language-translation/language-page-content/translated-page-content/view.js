@@ -15,7 +15,7 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
 
       TranslatedPageItemView.prototype.className = 'form-group legend-group';
 
-      TranslatedPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <p class="form-control translated-element-content {{TypeOfElementClass}}">{{contentText}}</p> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-element"> {{#polyglot}}Save{{/polyglot}} </button> </div> </div> </div>';
+      TranslatedPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <div class="form-control translated-element-content {{TypeOfElementClass}}">{{contentText}}</div> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-element"> {{#polyglot}}Save{{/polyglot}} </button> </div> </div> </div>';
 
       TranslatedPageItemView.prototype.mixinTemplateHelpers = function(data) {
         var editingLanguage;
@@ -49,7 +49,6 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
         var newElementContent;
         e.preventDefault();
         newElementContent = this.$el.find('.translated-element-content').html();
-        console.log(newElementContent);
         return this.trigger("page:element:updated", newElementContent);
       };
 
