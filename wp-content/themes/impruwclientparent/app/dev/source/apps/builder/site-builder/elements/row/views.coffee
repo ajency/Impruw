@@ -161,6 +161,8 @@ define ['app'], (App)->
                     resizer = $(template)
                     resizer.attr('data-position', (index + 1))
                     resizer.css 'left', left
+                    if not _.isUndefined $(column).closest('.element-wrapper').closest('.column')[0]
+                        resizer.css 'left', left+8
                     @$el.closest('.element-wrapper').children('.element-controls').append resizer
                     @makeResizer resizer
 

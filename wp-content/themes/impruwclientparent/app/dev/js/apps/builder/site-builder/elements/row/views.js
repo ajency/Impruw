@@ -236,6 +236,9 @@ define(['app'], function(App) {
             resizer = $(template);
             resizer.attr('data-position', index + 1);
             resizer.css('left', left);
+            if (!_.isUndefined($(column).closest('.element-wrapper').closest('.column')[0])) {
+              resizer.css('left', left + 8);
+            }
             _this.$el.closest('.element-wrapper').children('.element-controls').append(resizer);
             return _this.makeResizer(resizer);
           };
