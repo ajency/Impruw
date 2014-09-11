@@ -1,6 +1,6 @@
-var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat'], function(App, AutoSaveHelper) {
   return App.module('SiteBuilderApp.AutoSave', function(AutoSave, App, Backbone, Marionette, $, _) {
@@ -10,11 +10,38 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
       __extends(AutoSaveLocal, _super);
 
       function AutoSaveLocal() {
+        this.doAutoSave = __bind(this.doAutoSave, this);
+        this.run = __bind(this.run, this);
         return AutoSaveLocal.__super__.constructor.apply(this, arguments);
       }
 
       AutoSaveLocal.prototype.initialize = function() {
-        return this.hasSupport = this.checkLocalStorgeSupport();
+        this.suspended = false;
+        this.hasSupport = this.checkLocalStorgeSupport();
+        this.blogId = window.BLOGID;
+        if (this.hasSupport) {
+          this.createStorage();
+        }
+        return $document.ready(this.run);
+      };
+
+      AutoSaveLocal.prototype.run = function() {
+        return this.interval = window.setInterval(this.doAutoSave, 5 * 1000);
+      };
+
+      AutoSaveLocal.prototype.doAutoSave = function() {
+        var json, pageId;
+        if (this.suspended === true) {
+          return false;
+        }
+        json = AutoSaveHelper.getPageJson();
+        pageId = App.request("get:original:editable:page");
+        return this.saveLocal(json, pageId);
+      };
+
+      AutoSaveLocal.prototype.createStorage = function() {
+        this.key = "impruw-builder-" + this.blogId;
+        return window.sessionStorage.setItem(this.key, '');
       };
 
       AutoSaveLocal.prototype.checkLocalStorgeSupport = function() {
@@ -32,10 +59,16 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
       };
 
       AutoSaveLocal.prototype.getLastSaved = function(pageId) {
-        return 'lst-saved';
+        return window.sessionStorage.getItem(this.key);
       };
 
-      AutoSaveLocal.prototype.saveLocal = function(json) {};
+      AutoSaveLocal.prototype.saveLocal = function(json, pageId) {
+        if (this.hasSupport) {
+          window.sessionStorage.setItem(this.key, JSON.stringify(json));
+          return window.sessionStorage.getItem(this.key) !== null;
+        }
+        return false;
+      };
 
       return AutoSaveLocal;
 

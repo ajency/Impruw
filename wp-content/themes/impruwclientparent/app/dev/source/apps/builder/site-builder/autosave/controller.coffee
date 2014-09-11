@@ -7,7 +7,35 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 		class AutoSaveLocal extends Marionette.Controller
 
 			initialize : ->
+					
+				@suspended = false
+
 				@hasSupport = @checkLocalStorgeSupport()
+				@blogId = window.BLOGID
+
+
+				if @hasSupport
+					@createStorage()
+
+				$document.ready @run
+
+			run : =>
+				@interval = window.setInterval @doAutoSave, 5 * 1000
+
+			doAutoSave : =>
+				
+				if @suspended is true
+					return false
+
+				json = AutoSaveHelper.getPageJson()
+				pageId = App.request "get:original:editable:page"
+
+				@saveLocal json, pageId
+
+				
+			createStorage : ->
+				@key = "impruw-builder-#{@blogId}"
+				window.sessionStorage.setItem @key, ''
 
 			checkLocalStorgeSupport : ->
 				test = Math.random().toString()
@@ -22,9 +50,15 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				result
 
 			getLastSaved : (pageId)->
-				return 'lst-saved'
+				return window.sessionStorage.getItem @key
 
-			saveLocal : (json)->
+			saveLocal : (json, pageId)->
+				
+				if @hasSupport
+					window.sessionStorage.setItem @key, JSON.stringify json
+					return window.sessionStorage.getItem(@key) isnt null
+
+				return false
 
 
 

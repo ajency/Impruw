@@ -76,6 +76,7 @@
                                                         array('hide_empty' => 0))) ?>;
     var LANGUAGES = <?php echo json_encode(get_all_languages()); ?>;
     var ELEMENTS = <?php echo json_encode(get_elementbox_elements()); ?>;
+    var BLOGID = <?php echo get_current_blog_id(); ?>;
 
 
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
