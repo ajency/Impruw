@@ -4185,14 +4185,15 @@ function generate_seo_page_excerpt($metadesc){
     $wpseotitles = get_option('wpseo_titles');
 
     $metadescription_template = $wpseotitles[ 'metadesc-' . $post_type ];
+    $yoast_meta_description = get_post_meta($post->ID, '_yoast_wpseo_metadesc', true);
 
     if (($metadescription_template === "%%excerpt%%")||($metadescription_template === "%%excerpt_only%%")) {
         
-        if (($manual_excerpt==="")&&($post_type==='page')) {
+        if (($manual_excerpt==="")&&($post_type==='page')&&(!$yoast_meta_description)) {
             $page_excerpt =  get_page_excerpt_from_json($post->ID, ICL_LANGUAGE_CODE);
             $excerpt = prettify_content_piece_excerpt($page_excerpt); 
         }
-        else if (($manual_excerpt!=="")&&($post_type==='page')) {
+        else if (($manual_excerpt!=="")&&($post_type==='page')&&(!$yoast_meta_description)) {
             $excerpt = $manual_excerpt;
         }
         else {
