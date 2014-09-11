@@ -1848,9 +1848,6 @@ and open the template in the editor.
   max-width: 300px;
   margin: 0 0 0.5em;
 }
-.logo img {
-  max-height: 40px;
-}
 @media (max-width: 767px) {
   .logo {
     text-align: center;
@@ -1980,7 +1977,7 @@ and open the template in the editor.
 .address.small .info {
   color: #989898;
   font-size: 1em;
-  font-weight: 200;
+  font-weight: 300;
   margin-bottom: 10px;
   padding-left: 5px;
 }
