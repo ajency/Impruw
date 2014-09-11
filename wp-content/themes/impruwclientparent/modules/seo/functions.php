@@ -51,7 +51,8 @@ function update_page_seo( $seo_data ){
 
 //Function to get page excerpt
 function get_page_excerpt_from_json($page_id, $language){
-
+    //Always take english post id
+    $page_id = icl_object_id( $page_id, 'page', TRUE, 'en' );
     $data = get_page_json_for_site($page_id, true);
 
     $excerpt= array();
