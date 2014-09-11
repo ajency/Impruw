@@ -34,13 +34,20 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
             return _this.model.set("align", alignment);
           };
         })(this));
+        this.listenTo(view, "element:link:changed", (function(_this) {
+          return function(link) {
+            return _this.model.set("link", link);
+          };
+        })(this));
+        this.listenTo(view, "element:target:changed", (function(_this) {
+          return function(target) {
+            return _this.model.set("target", target);
+          };
+        })(this));
         return this.show(view);
       };
 
       Controller.prototype.onClose = function() {
-        if (!this.model.hasChanged()) {
-          return;
-        }
         return this.model.save(null, {
           wait: true
         });
