@@ -136,6 +136,7 @@ define(['app'], function(App) {
       };
 
       RowView.prototype.onShow = function() {
+        this.$el.closest('.element-wrapper').on('click', this._addFocusClass);
         this.$el.attr('id', _.uniqueId('row-'));
         _.delay((function(_this) {
           return function() {
@@ -163,6 +164,13 @@ define(['app'], function(App) {
             return _this.setColumnResizer();
           };
         })(this));
+      };
+
+      RowView.prototype._addFocusClass = function(e) {
+        e.stopPropagation();
+        $('.element-wrapper').removeClass('focus-class');
+        console.log('click');
+        return $(e.target).closest('.element-wrapper').addClass('focus-class');
       };
 
       RowView.prototype.onStyleChanged = function(newStyle, old) {
@@ -217,7 +225,8 @@ define(['app'], function(App) {
 
       RowView.prototype.onClose = function() {
         this.clearResizers();
-        return this.destroySortableColumns();
+        this.destroySortableColumns();
+        return this.$el.closest('.element-wrapper').off('click', this._addFocusClass);
       };
 
       RowView.prototype.setColumnResizer = function() {
