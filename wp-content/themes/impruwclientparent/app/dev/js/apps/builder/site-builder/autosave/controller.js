@@ -1,15 +1,21 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat'], function(App, AutoSaveHelper) {
   return App.module('SiteBuilderApp.AutoSave', function(AutoSave, App, Backbone, Marionette, $, _) {
     var $document, AutoSaveAPI, AutoSaveLocal, AutoSaveServer;
     $document = $(document);
-    AutoSaveLocal = (function() {
+    AutoSaveLocal = (function(_super) {
+      __extends(AutoSaveLocal, _super);
+
       function AutoSaveLocal() {
-        this.hasSupport = this.checkLocalStorgeSupport();
+        return AutoSaveLocal.__super__.constructor.apply(this, arguments);
       }
+
+      AutoSaveLocal.prototype.initialize = function() {
+        return this.hasSupport = this.checkLocalStorgeSupport();
+      };
 
       AutoSaveLocal.prototype.checkLocalStorgeSupport = function() {
         var error, result, test;
@@ -25,9 +31,15 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
         return result;
       };
 
+      AutoSaveLocal.prototype.getLastSaved = function(pageId) {
+        return 'lst-saved';
+      };
+
+      AutoSaveLocal.prototype.saveLocal = function(json) {};
+
       return AutoSaveLocal;
 
-    })();
+    })(Marionette.Controller);
     AutoSaveServer = (function(_super) {
       __extends(AutoSaveServer, _super);
 
@@ -35,6 +47,12 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
         this.handleTick = __bind(this.handleTick, this);
         this.hbAutoSavePageJSONTick = __bind(this.hbAutoSavePageJSONTick, this);
         this.hbAutoSavePageJSONSend = __bind(this.hbAutoSavePageJSONSend, this);
+        return AutoSaveServer.__super__.constructor.apply(this, arguments);
+      }
+
+      AutoSaveServer.prototype.initialize = function(options) {
+        this.local = options.local;
+        this._lastUpdated = 0;
         this.autoSaveData = false;
         this.nextRun = 0;
         $document.on('heartbeat-send.autosave-page-json', this.hbAutoSavePageJSONSend);
@@ -45,12 +63,12 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
             return _this.canAutosave = false;
           };
         })(this));
-        this.listenTo(App.vent, 'page:released', (function(_this) {
+        return this.listenTo(App.vent, 'page:released', (function(_this) {
           return function() {
             return _this.canAutosave = true;
           };
         })(this));
-      }
+      };
 
       AutoSaveServer.prototype.hbAutoSavePageJSONSend = function(evt, data) {
         this.autoSaveData = this.getAutoSaveData();
@@ -73,16 +91,24 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
         if ((new Date()).getTime() < this.nextRun) {
           return false;
         }
-        pageId = App.request("get:original:editable:page");
         json = AutoSaveHelper.getPageJson();
-        if (json === false) {
+        pageId = App.request("get:original:editable:page");
+        if (json === false || !this.isPageModified(json, pageId)) {
           return false;
         }
         this.disableButtons();
         data = _.defaults(json, {
           'page_id': pageId
         });
+        this.local.saveLocal(data);
         return data;
+      };
+
+      AutoSaveServer.prototype.isPageModified = function(json, pageId) {
+        var lastLocalSaved, stringifyJson;
+        lastLocalSaved = this.local.getLastSaved(pageId);
+        stringifyJson = JSON.stringify(json);
+        return lastLocalSaved !== stringifyJson;
       };
 
       AutoSaveServer.prototype.hbAutoSavePageJSONTick = function(event, data) {
@@ -95,7 +121,9 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
         this.schedule();
         this.enableButtons();
         if (data.success === false) {
-          App.vent.trigger("autosave:failed");
+          App.vent.trigger("autosave:failed", data);
+        } else {
+          this._lastUpdated = data._last_updated;
         }
         return this.autoSaveData = false;
       };
@@ -124,7 +152,9 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
     AutoSaveAPI = (function() {
       function AutoSaveAPI() {
         this.local = new AutoSaveLocal;
-        this.server = new AutoSaveServer;
+        this.server = new AutoSaveServer({
+          local: this.local
+        });
       }
 
       return AutoSaveAPI;

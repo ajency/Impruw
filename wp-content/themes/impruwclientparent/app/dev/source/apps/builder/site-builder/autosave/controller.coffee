@@ -4,9 +4,9 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
 		$document = $(document)
 
-		class AutoSaveLocal 
+		class AutoSaveLocal extends Marionette.Controller
 
-			constructor : ->
+			initialize : ->
 				@hasSupport = @checkLocalStorgeSupport()
 
 			checkLocalStorgeSupport : ->
@@ -21,10 +21,21 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
 				result
 
+			getLastSaved : (pageId)->
+				return 'lst-saved'
+
+			saveLocal : (json)->
+
+
 
 		class AutoSaveServer extends Marionette.Controller
 
-			constructor : ->
+			initialize : (options)->
+
+				{@local} = options
+
+				@_lastUpdated = 0
+
 				@autoSaveData = false
 				@nextRun = 0
 				$document.on 'heartbeat-send.autosave-page-json', @hbAutoSavePageJSONSend
@@ -36,7 +47,6 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
 				@listenTo App.vent, 'page:released', =>
 					@canAutosave = true
-
 
 			# provide data to heartbeat send
 			hbAutoSavePageJSONSend : ( evt,  data )=>
@@ -60,18 +70,26 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				if ( new Date() ).getTime() < @nextRun
 					return false
 
-				pageId = App.request "get:original:editable:page"
-
 				json = AutoSaveHelper.getPageJson()
 
-				if json is false 
+				pageId = App.request "get:original:editable:page"
+
+				if json is false or not @isPageModified json, pageId
 					return false
 
 				@disableButtons()
 
 				data = _.defaults json, 'page_id' : pageId
 
+				# update local copy
+				@local.saveLocal data
+
 				data
+
+			isPageModified : (json, pageId)->
+				lastLocalSaved = @local.getLastSaved pageId
+				stringifyJson = JSON.stringify json
+				lastLocalSaved isnt stringifyJson
 
 
 			hbAutoSavePageJSONTick : (event, data)=>
@@ -83,7 +101,10 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				@enableButtons()
 
 				if data.success is false
-					App.vent.trigger "autosave:failed"
+					App.vent.trigger "autosave:failed", data
+				else
+					@_lastUpdated = data._last_updated
+
 					
 				# reset autosave data
 				@autoSaveData = false
@@ -108,7 +129,7 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
 			constructor : ->
 				@local = new AutoSaveLocal
-				@server = new AutoSaveServer
+				@server = new AutoSaveServer local : @local 
 
 
 		App.commands.setHandler "autosave-api", ->
