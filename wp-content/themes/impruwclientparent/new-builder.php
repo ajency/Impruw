@@ -59,7 +59,26 @@
     <div id="header-region"></div>
     <div id="builder-region"></div>
     <div id="elements-box-region"></div>
+
+    <!-- Notifications -->
+    <div id="notifications-region">
+        <div class="notification-message">
+            <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <div class="message-text">
+                This is a Notification!
+            </div>
+        </div>
+        <div class="notification-message">
+            <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <div class="message-text">
+                This is another Notification! <a href="#">Click here if you want to live.</a>
+                <button class="btn btn-xs aj-imp-orange-btn">Self Destruct!</button>
+            </div>
+        </div>
+    </div>
+    <!-- Notifications -->
 </div>
+
 <div id="login-region"></div>
 <div id="settings-region"></div>
 <div id="dialog-region" class="modal "></div>

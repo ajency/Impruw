@@ -747,6 +747,36 @@ a.red-link.pull-right {
   margin: 0 10px;
   border-left: 1px solid #dddddd;
 }
+/****Notifications Styles****/
+#notifications-region {
+  width: 100%;
+  position: absolute;
+  z-index: 9999;
+  color: #aaaaaa;
+  top: 50px;
+}
+#notifications-region .notification-message {
+  background: #e1e8ec;
+  border: 1px solid #849fb0;
+  border-radius: 2px;
+  box-shadow: 0 0 1px 2px #f3f3f3;
+  padding: 0.5em 0.5em 0.8em;
+  max-width: 80%;
+  width: 50%;
+  text-align: center;
+  margin: 0 auto 0.5em;
+}
+#notifications-region .notification-message .message-text {
+  color: #29333f;
+  font-size: 1.2em;
+}
+#notifications-region .notification-message .message-text a {
+  color: #ff7e00;
+  font-weight: bold;
+}
+#notifications-region .notification-message .message-text a:hover {
+  color: #ff9833;
+}
 /****Builder Area Styles****/
 .aj-imp-builder-area {
   padding: 0.5em 3em 1em;

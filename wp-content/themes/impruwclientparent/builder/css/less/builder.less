@@ -789,6 +789,37 @@ a {
 	}
 }
 
+/****Notifications Styles****/
+#notifications-region {
+	width: 100%;
+	position: absolute;
+	z-index: 9999;
+	color: @dash-grey;
+	top: 50px;
+	.notification-message {
+		background: lighten(@blue-grey, 30%);
+		border: 1px solid @blue-grey;
+		border-radius: 2px;
+		box-shadow: 0 0 1px 2px @preview-grey;
+		padding: 0.5em 0.5em 0.8em;
+		max-width: 80%;
+		width: 50%;
+		text-align: center;
+		margin: 0 auto 0.5em;
+		.message-text {
+			color: @dark-blue;
+			font-size: 1.2em;
+			a {
+				color: @orange;
+				font-weight: bold;
+				&:hover {
+					color: lighten(@orange, 10%);
+				}
+			}
+		}
+	}
+}
+
 /****Builder Area Styles****/
 .aj-imp-builder-area {
 	padding: 0.5em 3em 1em;
