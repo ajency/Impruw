@@ -177,6 +177,12 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         this.listenTo(App.vent, 'page:released', function() {
           return layout.triggerMethod('page:released');
         });
+        this.listenTo(App.vent, 'autosave:page:json:enable:buttons', function() {
+          return layout.triggerMethod('autosave:page:json:enable:buttons');
+        });
+        this.listenTo(App.vent, 'autosave:page:json:disable:buttons', function() {
+          return layout.triggerMethod('autosave:page:json:disable:buttons');
+        });
         return this.show(layout, {
           loading: true
         });

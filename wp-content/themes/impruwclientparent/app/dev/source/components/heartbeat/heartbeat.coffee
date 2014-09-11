@@ -53,12 +53,10 @@ define ['app', 'marionette', 'jquery', 'heartbeat'], ( App, Marionette, $ )->
 						window.location.reload()
 
 				.on 'heartbeat-connection-lost', ->
-					console.log "lost"
-					App.execute 'connection-lost'
+					App.vent.trigger 'connection-lost'
 
 				.on 'heartbeat-connection-restored', ->
-					console.log "restored"
-					App.execute 'connection-restored'
+					App.vent.trigger 'connection-restored'
 
 		AppPageEditHb : ->	
 			

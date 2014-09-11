@@ -55,11 +55,9 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
           return window.location.reload();
         }
       }).on('heartbeat-connection-lost', function() {
-        console.log("lost");
-        return App.execute('connection-lost');
+        return App.vent.trigger('connection-lost');
       }).on('heartbeat-connection-restored', function() {
-        console.log("restored");
-        return App.execute('connection-restored');
+        return App.vent.trigger('connection-restored');
       });
     },
     AppPageEditHb: function() {

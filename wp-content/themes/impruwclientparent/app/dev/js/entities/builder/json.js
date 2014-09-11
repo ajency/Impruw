@@ -16,14 +16,31 @@ define(["app", 'backbone', 'jquery'], function(App, Backbone, $) {
       PageJson.prototype.name = 'page-json';
 
       PageJson.prototype.initialize = function() {
-        return this.lock = false;
+        this.lock = false;
+        this.fetchEntire = false;
+        return this.listenTo(App.vent, 'page:released', (function(_this) {
+          return function() {
+            return _this.fetchEntire = true;
+          };
+        })(this));
       };
 
       PageJson.prototype.url = function() {
-        var pageId, revisionId;
+        var onlyPage, pageId, revisionId;
         pageId = this.get('page_id');
         revisionId = this.get('revision_id');
-        return "" + AJAXURL + "?action=read-page-json&page_id=" + pageId + "&revision_id=" + revisionId;
+        onlyPage = '&only_page=no';
+        if (this.fetchOnlyPage()) {
+          onlyPage = '&only_page=yes';
+        }
+        return "" + AJAXURL + "?action=read-page-json&page_id=" + pageId + "&revision_id=" + revisionId + onlyPage;
+      };
+
+      PageJson.prototype.fetchOnlyPage = function() {
+        if (this.has('header') && this.has('footer') && !this.fetchEntire) {
+          return true;
+        }
+        return false;
       };
 
       PageJson.prototype.sync = function(method, model, options) {
@@ -43,6 +60,7 @@ define(["app", 'backbone', 'jquery'], function(App, Backbone, $) {
         var eventData;
         if (resp.lock !== true) {
           window.lockValue = resp.lock;
+          this.fetchEntire = true;
           if (this.locked === true) {
             eventData = {};
             eventData['wp-refresh-post-lock'] = {
@@ -66,7 +84,7 @@ define(["app", 'backbone', 'jquery'], function(App, Backbone, $) {
     })(Backbone.Model);
     json = new PageJson;
     API = {
-      getPageJSON: function(pageId, revisionId) {
+      getPageJSON: function(pageId, revisionId, onlyPage) {
         json.set({
           page_id: parseInt(pageId),
           revision_id: parseInt(revisionId)
@@ -75,8 +93,8 @@ define(["app", 'backbone', 'jquery'], function(App, Backbone, $) {
         return json;
       }
     };
-    return App.reqres.setHandler("get:page:json", function(pageId, revisionId) {
-      return API.getPageJSON(pageId, revisionId);
+    return App.reqres.setHandler("get:page:json", function(pageId, revisionId, onlyPage) {
+      return API.getPageJSON(pageId, revisionId, onlyPage);
     });
   });
 });

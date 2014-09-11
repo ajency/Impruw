@@ -646,7 +646,7 @@ function get_style_template( $element ) {
     return $mtemplate;
 }
 
-function get_page_json_for_site( $page_id, $autosave = FALSE ) {
+function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false ) {
 
     if ( $page_id == 0 )
         return FALSE;
@@ -656,16 +656,17 @@ function get_page_json_for_site( $page_id, $autosave = FALSE ) {
     if ( $autosave === TRUE )
         $key = '-autosave';
 
-    $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
+    if (!$onlyPage){
+        $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
 
-    if ( $key === '-autosave' && empty( $json [ 'header' ] ) )
-        $json [ 'header' ] = get_option( 'theme-header', array() );
+        if ( $key === '-autosave' && empty( $json [ 'header' ] ) )
+            $json [ 'header' ] = get_option( 'theme-header', array() );
 
-    $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
+        $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
 
-    if ( $key === '-autosave' && empty( $json [ 'footer' ] ) )
-        $json [ 'footer' ] = get_option( 'theme-footer', array() );
-
+        if ( $key === '-autosave' && empty( $json [ 'footer' ] ) )
+            $json [ 'footer' ] = get_option( 'theme-footer', array() );
+    }
 
     $json[ 'page' ] = get_page_content_json( $page_id, $autosave );
 
@@ -683,13 +684,8 @@ function get_page_json_for_site( $page_id, $autosave = FALSE ) {
                 $d [ $section ] [ ] = get_meta_values( $element );
         }
     }
-    $data = array(
-        'id' => $page_id,
-        'header' => $d [ 'header' ],
-        'page' => $d [ 'page' ],
-        'footer' => $d [ 'footer' ]
-    );
-
+    $data = wp_parse_args(array('id' => $page_id), $d);
+   
     return $data;
 }
 
@@ -711,8 +707,10 @@ function get_page_main_json( $page_id = 0 ) {
 function read_page_json() {
 
     $page_id = $_REQUEST [ 'page_id' ];
+    $only_page = $_REQUEST [ 'only_page' ] ;
     $page_id= icl_object_id( $page_id, 'page', TRUE, 'en' );
-    $data = get_page_json_for_site( $page_id, TRUE );
+
+    $data = get_page_json_for_site( $page_id, TRUE, $only_page === 'yes' );
     
     $lock = true;
     if( wp_check_post_lock( $page_id ) === false ){
