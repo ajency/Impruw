@@ -38,13 +38,16 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
       };
 
       AutoSaveLocal.prototype.doAutoSave = function() {
-        var json, pageId;
+        var data, json, pageId;
         if (this.suspended === true) {
           return false;
         }
         json = AutoSaveHelper.getPageJson();
         pageId = App.request("get:original:editable:page");
-        return this.saveLocal(json, pageId);
+        data = _.defaults(json, {
+          'page_id': pageId
+        });
+        return this.saveLocal(data);
       };
 
       AutoSaveLocal.prototype.createStorage = function() {
@@ -134,21 +137,21 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
         }
         json = AutoSaveHelper.getPageJson();
         pageId = App.request("get:original:editable:page");
-        if (json === false || !this.isPageModified(json, pageId)) {
-          return false;
-        }
-        this.disableButtons();
         data = _.defaults(json, {
           'page_id': pageId
         });
+        if (json === false || !this.isPageModified(data)) {
+          return false;
+        }
+        this.disableButtons();
         this.local.saveLocal(data);
         return data;
       };
 
-      AutoSaveServer.prototype.isPageModified = function(json, pageId) {
+      AutoSaveServer.prototype.isPageModified = function(data) {
         var lastLocalSaved, stringifyJson;
-        lastLocalSaved = this.local.getLastSaved(pageId);
-        stringifyJson = JSON.stringify(json);
+        lastLocalSaved = this.local.getLastSaved();
+        stringifyJson = JSON.stringify(data);
         return lastLocalSaved !== stringifyJson;
       };
 
@@ -201,10 +204,6 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
       return AutoSaveAPI;
 
     })();
-    return App.commands.setHandler("autosave-api", function() {
-      if (!App.autoSaveAPI) {
-        return App.autoSaveAPI = new AutoSaveAPI;
-      }
-    });
+    return App.autoSaveAPI = new AutoSaveAPI;
   });
 });

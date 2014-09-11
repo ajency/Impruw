@@ -22,7 +22,7 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				@suspended = true
 
 			resume : ->
-				@suspended =  false
+				@suspended = false
 
 			run : =>
 				@interval = window.setInterval @doAutoSave, 5 * 1000
@@ -35,7 +35,9 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				json = AutoSaveHelper.getPageJson()
 				pageId = App.request "get:original:editable:page"
 
-				@saveLocal json, pageId
+				data = _.defaults json, 'page_id' : pageId
+
+				@saveLocal data
 
 				
 			createStorage : ->
@@ -113,21 +115,22 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
 				pageId = App.request "get:original:editable:page"
 
-				if json is false or not @isPageModified json, pageId
+				data = _.defaults json, 'page_id' : pageId
+
+				if json is false or not @isPageModified data
 					return false
 
 				@disableButtons()
 
-				data = _.defaults json, 'page_id' : pageId
-
+			
 				# update local copy
 				@local.saveLocal data
 
 				data
 
-			isPageModified : (json, pageId)->
-				lastLocalSaved = @local.getLastSaved pageId
-				stringifyJson = JSON.stringify json
+			isPageModified : (data)->
+				lastLocalSaved = @local.getLastSaved()
+				stringifyJson = JSON.stringify data
 				lastLocalSaved isnt stringifyJson
 
 
@@ -171,9 +174,6 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				@server = new AutoSaveServer local : @local 
 
 
-		App.commands.setHandler "autosave-api", ->
-			if not App.autoSaveAPI
-				App.autoSaveAPI = new AutoSaveAPI
-				# resume autosave
+		App.autoSaveAPI = new AutoSaveAPI
 				
 

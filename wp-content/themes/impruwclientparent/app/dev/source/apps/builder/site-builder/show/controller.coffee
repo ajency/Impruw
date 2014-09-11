@@ -34,9 +34,9 @@ define [ 'app', 'controllers/base-controller'
                 App.execute "when:fetched", [elements] ,=>
                     _.delay =>
                         @startFillingElements()
-                        App.execute "autosave-api"
                         App.autoSaveAPI.local.createStorage()
                         App.autoSaveAPI.local.resume()
+                        App.autoSaveAPI.local.doAutoSave()
                     , 400
 
                 @show @view,
@@ -61,7 +61,6 @@ define [ 'app', 'controllers/base-controller'
                     if element.element is 'Row'
                         @addNestedElements container, element
                     else
-
                         App.request "add:new:element", container, element.element, element
 
                 section = @view.model.get( 'page' )
