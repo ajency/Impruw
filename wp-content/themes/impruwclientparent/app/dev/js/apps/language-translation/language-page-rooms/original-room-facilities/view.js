@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return OriginalRoomFacilitiesItemView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalRoomFacilitiesItemView.prototype.template = ' <div class="form-group"> <label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Facilities{{/polyglot}}</label> <div class="col-sm-9 col-sm-offset-3"> <p class="original title">{{name}} </p> </div> </div>';
+      OriginalRoomFacilitiesItemView.prototype.template = ' <div class="form-group"> <label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Facilities{{/polyglot}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original title">{{name}} </div> </div> </div>';
 
       return OriginalRoomFacilitiesItemView;
 

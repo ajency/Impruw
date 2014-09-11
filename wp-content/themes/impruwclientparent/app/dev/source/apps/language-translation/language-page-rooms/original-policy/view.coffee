@@ -11,7 +11,7 @@ define ['app'], (App)->
             template : '<div class="form-group">
                    <label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Additional Policy{{/polyglot}}</label>
                        <div class="col-sm-9 col-sm-offset-3">
-                          <p class="original title">{{additional_policy}}
-                              </p>
+                          <div class="original title">{{additional_policy}}
+                              </div>
                               </div>
                               </div>'
