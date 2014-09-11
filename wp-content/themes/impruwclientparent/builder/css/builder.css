@@ -751,7 +751,7 @@ a.red-link.pull-right {
 #notifications-region {
   width: 100%;
   position: absolute;
-  z-index: 9999;
+  z-index: 10000;
   color: #aaaaaa;
   top: 50px;
 }
@@ -776,6 +776,16 @@ a.red-link.pull-right {
 }
 #notifications-region .notification-message .message-text a:hover {
   color: #ff9833;
+}
+/****Connection Lost Overlay Style****/
+.conn-lost-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 9999;
 }
 /****Builder Area Styles****/
 .aj-imp-builder-area {

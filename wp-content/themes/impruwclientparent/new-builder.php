@@ -53,8 +53,12 @@
 <body <?php body_class(); ?>>
 <!-- Notifications -->
 <div id="notifications-region"></div>
+<!-- Notifications -->
 
-    <!-- Notifications -->
+<!-- Lost Connection -->
+<div class="conn-lost-overlay"></div>
+<!-- Lost Connection -->
+
 <div id="fb-root"></div>
 
 <div id="choose-theme-region"></div>
