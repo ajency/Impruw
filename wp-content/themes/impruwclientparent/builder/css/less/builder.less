@@ -3079,38 +3079,50 @@ a {
 }
 
 /**** Add Page Modal Styles ****/
-#choose-template-region {
-	h4 {
-		color: @blue-grey;
-		font-size: 1.2em;
-	}
-	.templates {
-		margin: 1em 0;
-		padding: 0;
-		li {
-			color: @dash-grey;
-			margin: 0 0 0.5em;
-			padding: 0.5em;
-			display: inline-block;
-			&:before {
+.add-page-container {
+	#choose-template-region {
+		h4 {
+			color: @blue-grey;
+			font-size: 1.2em;
+		}
+		.templates {
+			margin: 1em 0;
+			padding: 0;
+			li {
+				color: @dash-grey;
+				margin: 0 0 0.5em;
+				padding: 0.5em;
 				display: inline-block;
-				width: 1em;
-				height: 1em;
-				font-family: 'Glyphicons Halflings';
-				content: "\e157";
-				font-size: 0.78em;
-				margin-right: 0.5em;
-			}
-			&:hover {
-				cursor: pointer;
-			}
-			&.selected {
-				color: @orange;
 				&:before {
-					content: "\e067";
+					display: inline-block;
+					width: 1em;
+					height: 1em;
+					font-family: 'Glyphicons Halflings';
+					content: "\e157";
+					font-size: 0.78em;
+					margin-right: 0.5em;
+				}
+				&:hover {
+					cursor: pointer;
+				}
+				&.selected {
+					color: @orange;
+					&:before {
+						content: "\e067";
+					}
 				}
 			}
 		}
+	}
+	.checkbox {
+		padding-top: 0;
+		.icons {
+			margin-top: 0.3em;
+		}
+	}
+	.field-error {
+		color: @error-red;
+		padding: 0.5em 0;
 	}
 }
 
