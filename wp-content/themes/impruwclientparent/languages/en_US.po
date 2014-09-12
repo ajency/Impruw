@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: impruw\n"
-"POT-Creation-Date: 2014-09-04 15:17+0530\n"
-"PO-Revision-Date: 2014-09-04 15:17+0530\n"
+"POT-Creation-Date: 2014-09-12 14:26+0530\n"
+"PO-Revision-Date: 2014-09-12 14:27+0530\n"
 "Last-Translator: Nutan Kamat <nutan@ajency.in>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -69,187 +69,187 @@ msgstr "Facilities"
 msgid "New Size"
 msgstr "New Size"
 
-#: ../functions.php:1353
+#: ../functions.php:1355
 msgid "Error removing business logo"
 msgstr "Error removing business logo"
 
-#: ../functions.php:1358
+#: ../functions.php:1360
 msgid "Business logo removed successfully"
 msgstr "Business logo removed successfully"
 
-#: ../functions.php:1389
+#: ../functions.php:1391
 msgid "Could not save site profile"
 msgstr "Could not save site profile"
 
-#: ../functions.php:1489
+#: ../functions.php:1491
 msgid "User profile updated successfully"
 msgstr "User profile updated successfully"
 
-#: ../functions.php:1538
+#: ../functions.php:1540
 msgid "Password changed successfully"
 msgstr "Password changed successfully"
 
-#: ../functions.php:2160
+#: ../functions.php:2162
 msgid "Error updating Tariff plan"
 msgstr "Error updating Tariff plan"
 
-#: ../functions.php:2174
+#: ../functions.php:2176
 msgid "Tariff plan is successfully updated"
 msgstr "Tariff plan is successfully updated"
 
-#: ../functions.php:2181
+#: ../functions.php:2183
 msgid "Error updating tariff plan"
 msgstr "Error updating tariff plan"
 
-#: ../functions.php:2220
+#: ../functions.php:2222
 msgid "New facility is successfully added"
 msgstr "New facility is successfully added"
 
-#: ../functions.php:2257
+#: ../functions.php:2259
 msgid "The tax name already exists"
 msgstr "The tax name already exists"
 
-#: ../functions.php:2277
+#: ../functions.php:2279
 msgid "New tax added successfully"
 msgstr "New tax added successfully"
 
-#: ../functions.php:2283
+#: ../functions.php:2285
 msgid "Error adding the tax"
 msgstr "Error adding the tax"
 
-#: ../functions.php:2320
+#: ../functions.php:2322
 msgid "The addon type already exists"
 msgstr "The addon type already exists"
 
-#: ../functions.php:2340
+#: ../functions.php:2342
 msgid "New addon type added successfully"
 msgstr "New addon type added successfully"
 
-#: ../functions.php:2346
+#: ../functions.php:2348
 msgid "Error adding the addon type"
 msgstr "Error adding the addon type"
 
-#: ../functions.php:2413
+#: ../functions.php:2415
 msgid "Addon type updated successfully"
 msgstr "Addon type updated successfully"
 
-#: ../functions.php:2420
+#: ../functions.php:2422
 msgid "Error updating the addon type"
 msgstr "Error updating the addon type"
 
-#: ../functions.php:2470
+#: ../functions.php:2472
 msgid "Tax type updated successfully"
 msgstr "Tax type updated successfully"
 
-#: ../functions.php:2477
+#: ../functions.php:2479
 msgid "Error updating the tax type"
 msgstr "Error updating the tax type"
 
-#: ../functions.php:2501
+#: ../functions.php:2503
 msgid "Facility is successfully Deleted"
 msgstr "Facility is successfully Deleted"
 
-#: ../functions.php:2506
+#: ../functions.php:2508
 msgid "Error deleting facility"
 msgstr "Error deleting facility"
 
-#: ../functions.php:2538
+#: ../functions.php:2540
 msgid "Addon type is successfully Deleted"
 msgstr "Addon type is successfully Deleted"
 
-#: ../functions.php:2543
+#: ../functions.php:2545
 msgid "Error deleting addon type"
 msgstr "Error deleting addon type"
 
-#: ../functions.php:2577
+#: ../functions.php:2579
 msgid "Error deleting tax type"
 msgstr "Error deleting tax type"
 
-#: ../functions.php:2611
+#: ../functions.php:2613
 msgid "Facility updated successfully"
 msgstr "Facility updated successfully"
 
-#: ../functions.php:2632
+#: ../functions.php:2634
 msgid "Check-in time updated successfully"
 msgstr "Check-in time updated successfully"
 
-#: ../functions.php:2639
+#: ../functions.php:2641
 msgid "Error updating check-in time"
 msgstr "Error updating check-in time"
 
-#: ../functions.php:2677
+#: ../functions.php:2679
 msgid "Tax option updated successfully"
 msgstr "Tax option updated successfully"
 
-#: ../functions.php:2683
+#: ../functions.php:2685
 msgid "Error updating tax option"
 msgstr "Error updating tax option"
 
-#: ../functions.php:2698
+#: ../functions.php:2700
 msgid "Check-in format updated successfully"
 msgstr "Check-in format updated successfully"
 
-#: ../functions.php:2704
+#: ../functions.php:2706
 msgid "Error updating Check-in format"
 msgstr "Error updating Check-in format"
 
-#: ../functions.php:2749
+#: ../functions.php:2751
 msgid "Date range is successfully added"
 msgstr "Date range is successfully added"
 
-#: ../functions.php:2755
+#: ../functions.php:2757
 msgid "Error adding Date range"
 msgstr "Error adding Date range"
 
-#: ../functions.php:2787
+#: ../functions.php:2789
 msgid "Date range updated successfully"
 msgstr "Date range updated successfully"
 
-#: ../functions.php:2793
+#: ../functions.php:2795
 msgid "Error updating Date range"
 msgstr "Error updating Date range"
 
-#: ../functions.php:2854
+#: ../functions.php:2856
 msgid "Error adding Tariff plan"
 msgstr "Error adding Tariff plan"
 
-#: ../functions.php:2869
+#: ../functions.php:2871
 msgid "Tariff plan is successfully added"
 msgstr "Tariff plan is successfully added"
 
-#: ../functions.php:2876 ../functions.php:2912
+#: ../functions.php:2878 ../functions.php:2914
 msgid "Error adding plan"
 msgstr "Error adding plan"
 
-#: ../functions.php:2906
+#: ../functions.php:2908
 msgid "Plan is successfully added"
 msgstr "Plan is successfully added"
 
-#: ../functions.php:2997
+#: ../functions.php:2999
 msgid "Error updating plan"
 msgstr "Error updating plan"
 
-#: ../functions.php:3003
+#: ../functions.php:3005
 msgid "The plan updated successfully"
 msgstr "The plan updated successfully"
 
-#: ../functions.php:3204
+#: ../functions.php:3206
 msgid "Date range successfully deleted"
 msgstr "Date range successfully deleted"
 
-#: ../functions.php:3209
+#: ../functions.php:3211
 msgid "Error deleting date range"
 msgstr "Error deleting date range"
 
-#: ../functions.php:3298
+#: ../functions.php:3300
 msgid "New Room added successfully"
 msgstr "New Room added successfully"
 
-#: ../functions.php:3374
+#: ../functions.php:3376
 msgid "Room Details updated successfully"
 msgstr "Room Details updated successfully"
 
-#: ../functions.php:4079
+#: ../functions.php:4081
 msgid "Invalid Form Data"
 msgstr "Invalid Form Data"
 
@@ -313,6 +313,166 @@ msgstr "New Password"
 #: ../page-reset-password.php:76
 msgid "Submit"
 msgstr "Submit"
+
+#: ../elements/room/RoomBooking.php:55 ../elements/room/RoomBooking.php:161
+#: ../elements/room/RoomTitle.php:68
+msgid "Booking &amp; Availability"
+msgstr "Booking & Availability"
+
+#: ../elements/room/RoomBooking.php:65 ../elements/room/RoomBooking.php:171
+msgid "Monthly Calendar"
+msgstr "Monthly Calendar"
+
+#: ../elements/room/RoomBooking.php:65 ../elements/room/RoomBooking.php:171
+msgid "Choose the dates you want to check availability for."
+msgstr "Choose the dates you want to check availability for."
+
+#: ../elements/room/RoomBooking.php:194
+msgid "Plan 1"
+msgstr "Plan 1"
+
+#: ../elements/room/RoomBooking.php:195
+msgid ""
+"Add plans to the room by going to Rooms from Dashboard and add plans to your "
+"room there. You will be able to see the added plans on the live site."
+msgstr ""
+"Add plans to the room by going to Rooms from Dashboard and add plans to your "
+"room there. You will be able to see the added plans on the live site."
+
+#: ../elements/room/RoomBooking.php:198
+msgid "Max Adults:"
+msgstr "Max Adults:"
+
+#: ../elements/room/RoomBooking.php:202
+msgid "Max Children:"
+msgstr "Max Children:"
+
+#: ../elements/room/RoomBooking.php:207
+msgid "Additional Charge"
+msgstr "Additional Charge"
+
+#: ../elements/room/RoomBooking.php:209
+msgid "per extra Adult :"
+msgstr "per extra Adult :"
+
+#: ../elements/room/RoomBooking.php:213
+msgid "per extra Child :"
+msgstr "per extra Child :"
+
+#: ../elements/room/RoomBooking.php:218
+msgid "WEEKDAYS"
+msgstr "WEEKDAYS"
+
+#: ../elements/room/RoomDescription.php:73
+msgid "Description"
+msgstr "Description"
+
+#: ../elements/room/RoomDescription.php:83
+msgid "Room Description"
+msgstr "Room Description"
+
+#: ../elements/room/RoomFacilities.php:84
+msgid "Room Features"
+msgstr "Room Features"
+
+#: ../elements/room/RoomFacilities.php:85
+msgid "Standard Book"
+msgstr "Standard Book"
+
+#: ../elements/room/RoomGallery.php:72
+msgid "No Images Found in Gallery"
+msgstr "No Images Found in Gallery"
+
+#: ../elements/room/RoomGallery.php:82 ../elements/room/RoomGallery.php:132
+msgid "Gallery"
+msgstr "Gallery"
+
+#: ../elements/room/RoomSummary.php:68
+msgid "Room Summary"
+msgstr "Room Summary"
+
+#: ../elements/room/RoomSummary.php:72
+msgid "No. of Rooms"
+msgstr "No. of Rooms"
+
+#: ../elements/room/RoomSummary.php:76
+msgid "Check-in"
+msgstr "Check-in"
+
+#: ../elements/room/RoomSummary.php:80
+msgid "Check-out"
+msgstr "Check-out"
+
+#: ../elements/room/RoomSummary.php:84
+msgid "Additional policy"
+msgstr "Additional Charge"
+
+#: ../elements/room/RoomSummary.php:119 ../elements/room/RoomSummary.php:132
+msgid "Number of Rooms:"
+msgstr "Number of Rooms:"
+
+#: ../elements/room/RoomSummary.php:120 ../elements/room/RoomSummary.php:133
+#: ../elements/room/RoomSummary.php:152
+msgid "View Details"
+msgstr "View details"
+
+#: ../elements/room/RoomSummary.php:148
+msgid "Your Room Title"
+msgstr "Your Room Title"
+
+#: ../elements/room/RoomSummary.php:149
+msgid ""
+"Choose a room to display from settings. Your room description, image, number "
+"of rooms and link to the single room page will be displayed here. To make "
+"any changes to the room go to Room from your dashboard."
+msgstr ""
+"Choose a room to display from settings. Your room description, image, number "
+"of rooms and link to the single room page will be displayed here. To make "
+"any changes to the room go to Room from your dashboard."
+
+#: ../elements/room/RoomSummary.php:151
+msgid "Total:"
+msgstr "Total:"
+
+#: ../elements/room/RoomSummary.php:151
+msgid "0 rooms"
+msgstr "0 rooms"
+
+#: ../elements/room/RoomTariff.php:151
+msgid "Room Price"
+msgstr "Room Price"
+
+#: ../elements/room/RoomTariff.php:152
+msgid "View the prices for different dates here."
+msgstr "View the prices for different dates here."
+
+#: ../elements/room/RoomTariff.php:213
+msgid "From"
+msgstr "From"
+
+#: ../elements/room/RoomTariff.php:216
+msgid "To"
+msgstr "To"
+
+#: ../elements/room/RoomTariff.php:262
+msgid "Weekdays"
+msgstr "Weekdays"
+
+#: ../elements/room/RoomTariff.php:266
+msgid "Weekends"
+msgstr "Weekends"
+
+#: ../elements/room/RoomTariff.php:270
+msgid "Extra Adult"
+msgstr "Extra Adult"
+
+#: ../elements/room/RoomTariff.php:280
+msgid "Extra Child"
+msgstr "Extra Child"
+
+#: ../elements/room/RoomTariff.php:304
+msgid "No Data Available"
+msgstr "No Data Available"
 
 #: ../modules/site/theme_texts_for_translation.php:3
 msgid "home"
