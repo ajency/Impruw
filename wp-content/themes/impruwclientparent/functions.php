@@ -1047,8 +1047,8 @@ function get_theme_CSS() {
 
             <link class="theme-style" href="<?php echo get_theme_style_sheet_file_path(); ?>" type="text/css" rel="stylesheet"/>
         <?php } else { ?>
-            <style>
-                body {display:none;}
+           <style>
+                body {visibility:hidden;}
             </style>
             <link class="theme-style" href="" type="text/css" rel="stylesheet"/>
         <?php
