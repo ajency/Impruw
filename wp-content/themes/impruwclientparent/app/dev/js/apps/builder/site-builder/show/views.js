@@ -30,11 +30,16 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.templateHelpers = function(data) {
+        var pages;
         if (data == null) {
           data = {};
         }
         data.SITEURL = SITEURL + '/';
-        data.pages = this.collection.toJSON();
+        pages = this.collection.toJSON();
+        data.pages = _.reject(pages, function(page) {
+          var _ref;
+          return (_ref = page.post_name) === 'full-width-page';
+        });
         return data;
       };
 
@@ -72,10 +77,10 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.new_page_id = this.modelAddedToCollection.get('ID');
         _.each(this.collection.models, (function(_this) {
           return function(model, index) {
-            var modelId, originalPageId, page_name, select_html, selectpicker_html;
+            var modelId, originalPageId, page_name, select_html, selectpicker_html, _ref;
             modelId = model.get('ID');
             originalPageId = model.get('original_id');
-            if (modelId === _this.new_page_id) {
+            if (modelId === _this.new_page_id && ((_ref = model.get('post_name')) !== 'full-width-page')) {
               page_name = model.get('post_title');
               select_html = "<option value='" + modelId + "' data-originalid='" + originalPageId + ("'>" + page_name + "</option>");
               selectpicker_html = "<li rel='" + index + "'> <a tabindex='0' class='' style=''> <span class='text'>" + page_name + "</span> <i class='glyphicon glyphicon-ok icon-ok check-mark'></i> </a> </li>";

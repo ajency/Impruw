@@ -15,7 +15,9 @@ define [ 'app'
 
          templateHelpers : ( data = {} )->
             data.SITEURL = SITEURL + '/'
-            data.pages = @collection.toJSON()
+            pages = @collection.toJSON()
+            data.pages = _.reject pages, (page)->
+               page.post_name in ['full-width-page']
             data
 
          events :
@@ -49,7 +51,7 @@ define [ 'app'
             _.each @collection.models, ( model, index ) =>
                modelId = model.get 'ID'
                originalPageId = model.get 'original_id'
-               if modelId == @new_page_id
+               if modelId == @new_page_id and model.get('post_name') not in ['full-width-page']
                   page_name = model.get 'post_title'
                   select_html = "<option value='"+modelId+"' data-originalid='"+originalPageId+"'>#{page_name}</option>"
                   selectpicker_html = "<li rel='#{index}'>
