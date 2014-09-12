@@ -1236,6 +1236,24 @@ a {
 				}
 			}
 		}
+		&.focus-class {
+			border: 1px dotted @orange;
+			>.element-controls {
+				.aj-imp-drag-handle, .aj-imp-col-divider {
+					display: block;
+				}
+			}
+			>.element-markup {
+				>.row {
+					>.column {
+						border-right: 1px dotted lighten(@dash-grey, 10%);
+						&:last-child {
+							border-right: 0;
+						}
+					}
+				}
+			}
+		}
 		&.hover-class {
 			border: 1px solid @orange;
 			>.element-controls {
