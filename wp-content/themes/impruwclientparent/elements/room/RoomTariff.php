@@ -97,7 +97,7 @@ class RoomTariff extends Element {
 
     function get_plans() {
         global $wpdb;
-        $plan_array = "";
+        $plan_array = array();
 
         $table_name = $wpdb->prefix . 'plans';
 
