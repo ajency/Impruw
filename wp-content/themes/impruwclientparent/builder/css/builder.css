@@ -2927,21 +2927,21 @@ a.red-link.pull-right {
   background: #ffb266;
 }
 /**** Add Page Modal Styles ****/
-#choose-template-region h4 {
+.add-page-container #choose-template-region h4 {
   color: #849fb0;
   font-size: 1.2em;
 }
-#choose-template-region .templates {
+.add-page-container #choose-template-region .templates {
   margin: 1em 0;
   padding: 0;
 }
-#choose-template-region .templates li {
+.add-page-container #choose-template-region .templates li {
   color: #aaaaaa;
   margin: 0 0 0.5em;
   padding: 0.5em;
   display: inline-block;
 }
-#choose-template-region .templates li:before {
+.add-page-container #choose-template-region .templates li:before {
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -2950,14 +2950,24 @@ a.red-link.pull-right {
   font-size: 0.78em;
   margin-right: 0.5em;
 }
-#choose-template-region .templates li:hover {
+.add-page-container #choose-template-region .templates li:hover {
   cursor: pointer;
 }
-#choose-template-region .templates li.selected {
+.add-page-container #choose-template-region .templates li.selected {
   color: #ff7e00;
 }
-#choose-template-region .templates li.selected:before {
+.add-page-container #choose-template-region .templates li.selected:before {
   content: "\e067";
+}
+.add-page-container .checkbox {
+  padding-top: 0;
+}
+.add-page-container .checkbox .icons {
+  margin-top: 0.3em;
+}
+.add-page-container .field-error {
+  color: #ff3333;
+  padding: 0.5em 0;
 }
 /**** Cropping Tool Styles ****/
 #edit-image-view .loading {

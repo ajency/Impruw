@@ -657,3 +657,21 @@
 
       return $filtered_title;
     }
+
+    
+    /**
+     * Get current language based image folder path
+     *
+     */
+    function get_language_based_image_path(){
+
+      $current_language = ICL_LANGUAGE_CODE;
+      
+      if ($current_language == 'nb'){
+        return 'images-nb';
+      }
+      else{
+        return 'images';
+      }
+
+    }
