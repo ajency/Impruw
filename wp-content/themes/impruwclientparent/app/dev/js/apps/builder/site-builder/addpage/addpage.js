@@ -112,20 +112,25 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         chooseTemplateRegion: '#choose-template-region'
       };
 
-      AddPageView.prototype.template = '<div class="row"> <div class="form-group"> <label for="inputEmail3" class="col-sm-3 control-label">{{#polyglot}}Page Title{{/polyglot}}</label> <div class="col-sm-9"> <input type="text" required class="form-control" id="post_title" name="post_title" /> <div class="p-messages"></div> </div> </div> <input type="hidden" name="template_page_id" value="0"/> <div class="form-group"> <div class="col-sm-9 col-sm-offset-3"> <label class="control-label"> <input type="checkbox" value="1" checked="checked" name="add_to_menu"/> Add page to menu </label> <div id="choose-template-region"></div> <button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page"> {{#polyglot}}Add New Page{{/polyglot}}</button> </div> </div> </div>';
+      AddPageView.prototype.template = '<div class="row"> <div class="form-group"> <label for="inputEmail3" class="col-sm-3 control-label">{{#polyglot}}Page Title{{/polyglot}}</label> <div class="col-sm-9"> <input type="text" required class="form-control" id="post_title" name="post_title" /> <div class="p-messages"></div> </div> </div> <input type="hidden" name="template_page_id" value="0"/> <div class="form-group"> <div class="col-sm-9 col-sm-offset-3"> <label class="control-label"> <input type="checkbox" value="1" checked="checked" name="add_to_menu"/> Add page to menu </label> <div id="choose-template-region"></div> <div class="select-template-error hide">Please select a template first</div> <button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page"> {{#polyglot}}Add New Page{{/polyglot}}</button> </div> </div> </div>';
 
       AddPageView.prototype.onShowSuccessMessage = function() {
         return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("New Page added") + '</div>');
       };
 
       AddPageView.prototype.onUpdateTemplatePageId = function(id) {
-        return this.$el.find('input[name="template_page_id"]').val(id);
+        this.$el.find('input[name="template_page_id"]').val(id);
+        return this.$el.find('.select-template-error').removeClass('show').addClass('hide');
       };
 
       AddPageView.prototype.events = {
         'click .add-new-page': function() {
           if (this.$el.valid()) {
-            return this.trigger("add:new:page", Backbone.Syphon.serialize(this));
+            if (this.$el.find('input[name="template_page_id"]').val() !== '0') {
+              return this.trigger("add:new:page", Backbone.Syphon.serialize(this));
+            } else {
+              return this.$el.find('.select-template-error').removeClass('hide').addClass('show');
+            }
           }
         }
       };

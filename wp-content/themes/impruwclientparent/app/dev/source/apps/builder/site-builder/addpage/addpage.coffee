@@ -97,6 +97,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                                         Add page to menu
                                     </label>
                                 	<div id="choose-template-region"></div>
+                                    <div class="select-template-error hide">Please select a template first</div>
                 					<button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page">
                                     {{#polyglot}}Add New Page{{/polyglot}}</button>
                                 </div>
@@ -108,11 +109,15 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
             onUpdateTemplatePageId : ( id )->
                 @$el.find( 'input[name="template_page_id"]' ).val id
+                @$el.find('.select-template-error').removeClass('show').addClass('hide')
 
             events :
                 'click .add-new-page' : ->
-                    if @$el.valid()
-                        @trigger "add:new:page", Backbone.Syphon.serialize @
+                    if @$el.valid() 
+                        if @$el.find( 'input[name="template_page_id"]' ).val() isnt '0'
+                            @trigger "add:new:page", Backbone.Syphon.serialize @
+                        else
+                            @$el.find('.select-template-error').removeClass('hide').addClass('show')
 
 
         App.commands.setHandler "show:add:new:page", ( opt )->
