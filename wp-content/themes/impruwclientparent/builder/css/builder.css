@@ -1202,6 +1202,19 @@ a.red-link.pull-right {
   line-height: 18px;
   display: block;
 }
+.aj-imp-builder-layout-mode .element-wrapper.focus-class {
+  border: 1px dotted #ff7e00;
+}
+.aj-imp-builder-layout-mode .element-wrapper.focus-class > .element-controls .aj-imp-drag-handle,
+.aj-imp-builder-layout-mode .element-wrapper.focus-class > .element-controls .aj-imp-col-divider {
+  display: block;
+}
+.aj-imp-builder-layout-mode .element-wrapper.focus-class > .element-markup > .row > .column {
+  border-right: 1px dotted #c3c3c3;
+}
+.aj-imp-builder-layout-mode .element-wrapper.focus-class > .element-markup > .row > .column:last-child {
+  border-right: 0;
+}
 .aj-imp-builder-layout-mode .element-wrapper.hover-class {
   border: 1px solid #ff7e00;
 }
