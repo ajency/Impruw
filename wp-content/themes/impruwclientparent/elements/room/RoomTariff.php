@@ -97,6 +97,7 @@ class RoomTariff extends Element {
 
     function get_plans() {
         global $wpdb;
+        $plan_array = "";
 
         $table_name = $wpdb->prefix . 'plans';
 
@@ -147,8 +148,8 @@ class RoomTariff extends Element {
         $html = '<div id="room-tariff-region">
                     <div class="room-tariff-container">
                         <div class="room-tariff-title">
-                            <h4>Room Price</h4>
-                            <h5>View the prices for different dates here.</h5>
+                            <h4>'.__("Room Price","impruwclientparent").'</h4>
+                            <h5>'.__("View the prices for different dates here.","impruwclientparent").'</h5>
                         </div>
                         <div class="room-tariff-grid" id="room-tariff-grid">';
 
@@ -209,10 +210,10 @@ class RoomTariff extends Element {
             $html = '<div class="tariff clearfix">
                         <div class="date-range">
                             <div class="range-name">{{daterange_name}}</div>
-                            <div class ="from">From
+                            <div class ="from">'.__("From","impruwclientparent").'
                                 <span class="date">{{from_date}} </span>        
                             </div>
-                            <div class="to">To
+                            <div class="to">'.__("To","impruwclientparent").'
                                 <span class="date">{{to_date}} </span>
                             </div>
                         </div>
@@ -258,15 +259,15 @@ class RoomTariff extends Element {
                     </div>
                     <div class="block clearfix">
 
-                    <div class="weekday">Weekdays
+                    <div class="weekday">'.__("Weekdays","impruwclientparent").'
                     <span class="price">'.$currency.'&nbsp;{{wd_charge}}</span>
                     </div>
 
-                    <div class="weekend">Weekends
+                    <div class="weekend">'.__("Weekends","impruwclientparent").'
                     <span class="price">'.$currency.'&nbsp;{{we_charge}}</span>
                     </div>
 
-                    <div class="tariff-label clearfix">Extra Adult</div>
+                    <div class="tariff-label clearfix">'.__("Extra Adult","impruwclientparent").'</div>
 
                     <div class="weekday">
                     <span class="price">'.$currency.'&nbsp;{{wd_extra_adult}}</span>
@@ -276,7 +277,7 @@ class RoomTariff extends Element {
                     <span class="price">'.$currency.'&nbsp;{{we_extra_adult}}</span>
                     </div>
 
-                    <div class="tariff-label clearfix">Extra Child</div>
+                    <div class="tariff-label clearfix">'.__("Extra Child","impruwclientparent").'</div>
 
                     <div class="weekday">
                     <span class="price">'.$currency.'&nbsp;{{wd_extra_child}}</span>
@@ -300,7 +301,7 @@ class RoomTariff extends Element {
                         . '<span class="no-data">'
                         . '<span class="glyphicon glyphicon-exclamation-sign"></span>'
                         . '</span>'
-                        . '<div class="tariff-label clearfix">No Data Available</div>'
+                        . '<div class="tariff-label clearfix">'.__("No Data Available","impruwclientparent").'</div>'
                         . '</div>'
                         . '</div> ';
             }
