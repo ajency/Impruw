@@ -225,7 +225,7 @@
                     
                     setTimeout(function(){
                         $('.theme-style').first().remove();
-                        $('body').fadeIn();
+                        $('body').css({visibility:'visible'});
                     }, 300);
                 }
                 
