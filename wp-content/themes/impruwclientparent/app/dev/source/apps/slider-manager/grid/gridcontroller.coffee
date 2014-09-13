@@ -1,6 +1,6 @@
 define ['app'
-        'controllers/base-controller'
-        'text!apps/slider-manager/grid/templates/sliderview.html'], (App, AppController, sliderTpl)->
+        'controllers/base-controller'], (App, AppController)->
+            
     App.module 'SliderManager.GridView', (GridView, App, Backbone, Marionette, $, _)->
         class GridViewController extends AppController
 
@@ -32,7 +32,15 @@ define ['app'
 
         class SliderView extends Marionette.ItemView
 
-            template: sliderTpl
+            template: '<div class="thumbnail"><img src="{{thumb_url}}" style="height:200px;width:100%"/>
+                          <div class="caption">
+                            <h5>{{title}}<span class="badge">Slides: {{no_of_slides}}</span></h5>
+                          </div>
+                          <div class="actions">
+                            <button type="button" class="btn btn-default btn-xs edit-slider"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
+                            <button type="button" class="btn btn-danger btn-xs delete-slider"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button>
+                          </div>
+                        </div>'
 
             className: 'col-sm-2'
 

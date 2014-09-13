@@ -45,8 +45,8 @@
     <div class="row">
         <div class="col-md-3 logo">
             <a href="<?php echo site_url(); ?>"><img
-                    src="<?php echo get_template_directory_uri(); ?>/images/impruw-logo-blue.png" title="Impruw"
-                    alt="Impruw"/></a>
+                    src="<?php echo get_template_directory_uri(); ?>/images/impruw-logo-blue.png" title="<?php _e('Impruw','impruwmain'); ?>"
+                    alt="<?php _e('Impruw','impruwmain'); ?>"/></a>
         </div>
         <div class="col-md-9 lang-actions">
             <div class="lang-sele">

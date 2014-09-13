@@ -6,13 +6,20 @@ define ['app', 'controllers/base-controller'
         class Show.Controller extends AppController
 
             initialize: (opt = {})->
+                
                 @elements = App.request "get:elementbox:elements"
 
                 view = @getView @elements
 
-                @listenTo App.vent,"change:page:check:single:room",()->
-                    new Show.Controller
-                            region: App.elementsBoxRegion
+                # @listenTo App.vent,"change:page:check:single:room",()->
+                #     new Show.Controller
+                #             region: App.elementsBoxRegion
+
+                @listenTo App.vent, 'page:took:over', ->
+                    view.triggerMethod 'page:took:over'
+
+                @listenTo App.vent, 'page:released', ->
+                    view.triggerMethod 'page:released'
 
                 @show view,
                     loading: true

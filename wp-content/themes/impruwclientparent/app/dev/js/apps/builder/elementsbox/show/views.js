@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!apps/builder/elementsbox/show/templates/error.html'], function(App, mainviewTpl, singleEleTpl, errorTpl) {
+define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], function(App, mainviewTpl) {
   return App.module('ElementsBoxApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
     Views.SingleElement = (function(_super) {
       __extends(SingleElement, _super);
@@ -67,7 +67,6 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
         this._setDraggableElements();
         $('body').on('click', (function(_this) {
           return function() {
-            console.log('body clicked');
             return _this.$el.closest('#controls-drag').find('.element').removeClass('selected-element');
           };
         })(this));
@@ -122,6 +121,14 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
 
       MainView.prototype._getHelper = function() {
         return '<div class="element-helper"></div> ';
+      };
+
+      MainView.prototype.onPageTookOver = function() {
+        return this.$el.fadeOut();
+      };
+
+      MainView.prototype.onPageReleased = function() {
+        return this.$el.fadeIn();
       };
 
       return MainView;

@@ -52,7 +52,7 @@ class RoomBooking extends Element {
           <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment.min.js"></script>
               <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment-range.js"></script>
               
-            <h4 class="booking-title">Booking &amp; Availability</h4>
+            <h4 class="booking-title">'.__("Booking &amp; Availability","impruwclientparent").'</h4>
             <div class="room-booking front" id="room-booking-region">
 
                 <div class="row room-booking-container">
@@ -62,8 +62,7 @@ class RoomBooking extends Element {
                             <div class="room-booking-calender" id="calendar-region">
                                 <h4>
                                      <span class="glyphicon glyphicon-calendar"></span>
-                                     Monthly Calendar <span class="excerpt">Choose the dates 
-                                     you want to check availability for.</span>
+                                     '.__("Monthly Calendar","impruwclientparent").' <span class="excerpt">'.__("Choose the dates you want to check availability for.","impruwclientparent").'</span>
                                 </h4> 
                                 <div id="room-booking-calendar"></div>
                                 <br>
@@ -159,7 +158,7 @@ class RoomBooking extends Element {
           <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment.min.js"></script>
               <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment-range.js"></script>
 
-            <h4 class="booking-title">Booking &amp; Availability</h4>
+            <h4 class="booking-title">'.__("Booking &amp; Availability","impruwclientparent").'</h4>
             <div class="room-booking front" id="room-booking-region">
 
                 <div class="row room-booking-container">
@@ -169,8 +168,7 @@ class RoomBooking extends Element {
                             <div class="room-booking-calender" id="calendar-region">
                                 <h4>
                                      <span class="glyphicon glyphicon-calendar"></span>
-                                     Monthly Calendar <span class="excerpt">Choose the dates
-                                     you want to check availability for.</span>
+                                     '.__("Monthly Calendar","impruwclientparent").' <span class="excerpt">'.__("Choose the dates you want to check availability for.","impruwclientparent").'</span>
                                 </h4>
                                 <div id="room-booking-calendar"></div>
                                 <br>
@@ -193,31 +191,31 @@ class RoomBooking extends Element {
                             </div>
 
                             <div class="room-booking-plan">
-                                    <h5>Plan 1</h5>
-                                    <p>Add plans to the room by going to Rooms from Dashboard and add plans to your room there. You will be able to see the added plans on the live site.</p>
+                                    <h5>'.__("Plan 1","impruwclientparent").'</h5>
+                                    <p>'.__("Add plans to the room by going to Rooms from Dashboard and add plans to your room there. You will be able to see the added plans on the live site.","impruwclientparent").'</p>
 
                                     <div class="booking-detail">
-                                        Max Adults:
+                                        '.__("Max Adults:","impruwclientparent").'
                                             <span>02</span>
                                     </div>
                                     <div class="booking-detail">
-                                        Max Children:
+                                        '.__("Max Children:","impruwclientparent").'
                                         <span>02</span>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="plan-bg">
-                                    <h6>Additional Charge</h6>
+                                    <h6>'.__("Additional Charge","impruwclientparent").'</h6>
                                     <div class="booking-detail">
-                                        per extra Adult : '.$currency.'200
+                                        '.__("per extra Adult :","impruwclientparent").' '.$currency.'200
 
                                     </div>
                                     <div class="booking-detail">
-                                         per extra Child : '.$currency.'152
+                                         '.__("per extra Child :","impruwclientparent").' '.$currency.'152
 
                                     </div>
                                     <div class="clearfix"></div>
 
-                                    <div class="booking-price">WEEKDAYS <b>'.$currency.'300</b></div>
+                                    <div class="booking-price">'.__("WEEKDAYS","impruwclientparent").' <b>'.$currency.'300</b></div>
                                      </div>
                                 </div>
 

@@ -1,7 +1,6 @@
 define [ 'app'
-         'text!apps/builder/elementsbox/show/templates/main.html'
-         'text!apps/builder/elementsbox/show/templates/error.html' ],
-( App, mainviewTpl, singleEleTpl, errorTpl )->
+         'text!apps/builder/elementsbox/show/templates/main.html' ],( App, mainviewTpl )->
+            
    App.module 'ElementsBoxApp.Show.Views', ( Views, App, Backbone, Marionette, $, _ )->
 
       # Single element region
@@ -64,7 +63,6 @@ define [ 'app'
 
             # on click of body un highlight 
             $('body').on 'click',=>
-               console.log 'body clicked'
                @$el.closest('#controls-drag').find('.element').removeClass 'selected-element'
 
             # triggered when an element is clicked in the builder area
@@ -117,3 +115,9 @@ define [ 'app'
 
          _getHelper : ->
             '<div class="element-helper"></div> '
+
+         onPageTookOver : ->
+            @$el.fadeOut()
+
+         onPageReleased : ->
+            @$el.fadeIn()

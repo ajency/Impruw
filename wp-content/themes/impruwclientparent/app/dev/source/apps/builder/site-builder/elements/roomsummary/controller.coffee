@@ -13,6 +13,7 @@ define ['app'
                     element: 'RoomSummary'
                     room_id : 0
                     style: 'Room Summary Default'
+                    image_id : 0
 
 
                 super(options)
