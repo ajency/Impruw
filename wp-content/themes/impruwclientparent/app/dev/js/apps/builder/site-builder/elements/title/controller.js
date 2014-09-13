@@ -19,8 +19,10 @@ define(['app', 'apps/builder/site-builder/elements/title/views', 'apps/builder/s
         data['nb'] = '<h3>Klikk her for å skrive inn tittel</h3>';
         _.defaults(options.modelData, {
           element: 'Title',
-          content: data
+          content: data,
+          style: ''
         });
+        this.settingsModel = App.request("get:element:settings:options", 'Title');
         return Controller.__super__.initialize.call(this, options);
       };
 
@@ -36,7 +38,8 @@ define(['app', 'apps/builder/site-builder/elements/title/views', 'apps/builder/s
 
       Controller.prototype._getTitleView = function(model) {
         return new Title.Views.TitleView({
-          model: model
+          model: model,
+          settingsModel: this.settingsModel
         });
       };
 
@@ -59,6 +62,7 @@ define(['app', 'apps/builder/site-builder/elements/title/views', 'apps/builder/s
             return _this.layout.model.save();
           };
         })(this));
+        this.layout.model.save();
         return this.layout.elementRegion.show(view);
       };
 

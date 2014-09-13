@@ -28,10 +28,24 @@ define(['app'], function(App) {
       };
 
       TitleView.prototype.onShow = function() {
-        var content, _ref;
+        var content, settingsModel, _ref;
+        settingsModel = Marionette.getOption(this, 'settingsModel');
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
         CKEDITOR.on('instanceCreated', this.configureEditor);
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
+        this.editor.on('changedTitleStyle', (function(_this) {
+          return function(evt) {
+            return _this.model.set('style', evt.data.style);
+          };
+        })(this));
+        this.editor.on('titleStylesInitDone', (function(_this) {
+          return function() {
+            return _this.editor.fire('initStylesList', {
+              style: _this.model.get('style'),
+              styles: settingsModel.get('styles')
+            });
+          };
+        })(this));
         content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
         this.editor.setData(_.stripslashes(content != null ? content : ''));
         return this.editor.config.placeholder = 'Click here to enter Title';
@@ -47,7 +61,7 @@ define(['app'], function(App) {
         element = editor.element;
         if (element.getAttribute('id') === this.$el.attr('id')) {
           return editor.on('configLoaded', function() {
-            console.log(CURRENTTHEME);
+            editor.config.extraPlugins = 'titlestyles';
             return editor.config.stylesSet = "" + CURRENTTHEME + "_title_styles";
           });
         }

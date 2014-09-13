@@ -104,7 +104,7 @@ CKEDITOR.editorConfig = function( config ) {
 	{ name: 'links', items: [ 'Link', 'Unlink' ] },
 	{ name: 'insert', items: [  'SpecialChar'] },
 	'/',
-	{ name: 'styles', items: [ 'Styles',  'Font', 'FontSize' ] },
+	{ name: 'styles', items: [  'Titlestyles', 'Font', 'FontSize' ] },
 	{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
 	
 ];
@@ -123,4 +123,5 @@ config.stylesSet = 'imp_body_styles';
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
+    
 };

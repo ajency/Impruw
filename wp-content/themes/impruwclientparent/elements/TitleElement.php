@@ -74,8 +74,8 @@ class TitleElement extends Element {
         // if(empty($this->content))
         //     $html       .= $this->get_open_tag($attr);
 
-        // $html  .= "<h2 class='title {$this->style}'>{$this->content}</h2>";
-        $html .= $this->content;
+        $html  .= "<h2 class='title {$this->style}'>{$this->content}</h2>";
+        // $html .= $this->content;
         
         // if(empty($this->content))
         //     $html       .= $this->get_close_tag();

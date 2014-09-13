@@ -29,10 +29,22 @@ define ['app'], (App)->
             # hold the editor instance as the element property so that
             # we can destroy it on close of element
             onShow: ->
+                settingsModel = Marionette.getOption @,'settingsModel'
+
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
 
                 CKEDITOR.on 'instanceCreated', @configureEditor
                 @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
+
+                @editor.on 'changedTitleStyle',(evt)=>
+                    @model.set 'style', evt.data.style
+
+                @editor.on 'titleStylesInitDone',=>
+                    @editor.fire 'initStylesList',
+                        style : @model.get 'style'
+                        styles : settingsModel.get 'styles'
+
+                    # @editor.fire('titlestylesSet');
                 content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
                 @editor.setData _.stripslashes content ? ''
                 @editor.config.placeholder = 'Click here to enter Title'
@@ -54,7 +66,9 @@ define ['app'], (App)->
                 # configurations before the editor initialization takes place.
                 if element.getAttribute('id') is @$el.attr 'id'
                     editor.on 'configLoaded', ->
-                        console.log CURRENTTHEME
+
+                        editor.config.extraPlugins = 'titlestyles';
+
                         editor.config.stylesSet = "#{CURRENTTHEME}_title_styles"
                 
 

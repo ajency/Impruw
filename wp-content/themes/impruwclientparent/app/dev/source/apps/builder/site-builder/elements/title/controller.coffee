@@ -15,8 +15,13 @@ define [ 'app'
             _.defaults options.modelData,
                element : 'Title'
                content : data
+               style : ''
 
+            @settingsModel = App.request "get:element:settings:options", 'Title'            
+            
             super( options )
+
+            
 
          bindEvents : ->
             # start listening to model events
@@ -28,11 +33,13 @@ define [ 'app'
          _getTitleView : ( model )->
             new Title.Views.TitleView
                model : model
+               settingsModel : @settingsModel
 
 
          # setup templates for the element
          renderElement : ()=>
             @removeSpinner()
+
             view = @_getTitleView @layout.model
 
             # listen to "text:element:blur" event
@@ -54,5 +61,6 @@ define [ 'app'
 
                @layout.model.set 'content', data
                @layout.model.save()
+            @layout.model.save()
 
             @layout.elementRegion.show view
