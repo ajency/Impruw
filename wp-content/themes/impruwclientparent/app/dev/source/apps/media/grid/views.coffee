@@ -1,12 +1,20 @@
-define [ 'app'
-         'text!apps/media/grid/templates/media.html'
-], ( App, mediaTpl )->
+define [ 'app'], ( App, mediaTpl )->
+
    App.module 'Media.Grid.Views', ( Views, App )->
 
       # single media view
       class MediaView extends Marionette.ItemView
          
-         template : mediaTpl
+         template : '<a href="#" class="thumbnail">
+                        <div class="imgthumb"><img src="{{image_url}}" class="img-responsive"/></div>
+                        <div class="ticker"><span class="glyphicon glyphicon-ok"></span><span class="glyphicon glyphicon-minus"></span></div>
+                     </a>
+                     <div class="edit-image clearfix">
+                        <span class="glyphicon glyphicon-edit edit"></span> Edit
+                     </div>
+                     <div class="delete-media-img">
+                        <span class="glyphicon glyphicon-trash delete"></span> Delete
+                     </div>'
 
          className : 'col-sm-1 single-img'
 

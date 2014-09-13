@@ -14,6 +14,7 @@
     <?php echo generate_markup( 'footer' ); ?>
 </footer><!-- .site-footer -->
 </div><!-- .container -->
+
 <script type="text/javascript">
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var CHILDTHEMEURL = '<?php echo get_template_directory_uri(); ?>';
@@ -21,62 +22,66 @@
     var AJAXURL = '<?php echo admin_url('admin-ajax.php'); ?>';
     var HOTELADDRESS = '<?php echo get_hotel_address() ?>';
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
+    var PHRASES = <?php echo json_encode(load_language_phrases(FALSE));?>;
 </script>
-<?php if ( is_singular() ): ?>
+<?php if ( is_singular('impruw_room') ): ?>
     <script type="text/javascript">
-            function replaceAll(find, replace, str) {
-              return str.replace(new RegExp(find, 'g'), replace);
-            }
+        
         var PLANS = <?php echo json_encode(get_plans(FALSE)); ?>;
         var DATERANGE = <?php echo json_encode(get_date_range(FALSE)); ?>;
-        //var TARIFF =
-        <?php echo json_encode(get_tariff(2)); ?>;
         var TARIFF = <?php echo json_encode(get_tariff(get_the_ID())); ?>;
         var BOOKING = <?php echo json_encode(get_bookings()); ?>;
-        var PHRASES = <?php echo json_encode(load_language_phrases(FALSE));?>;
+        
     </script>
 <?php endif; ?>
 <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
 <?php get_theme_JS(); ?>
 
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.cookie.js"></script>
+
 <script>
     var map, geocoder;
-    function initialize() {
+    jQuery(document).ready(function(){
 
         if(jQuery('#map_canvas').length === 0)
             return;
 
-        geocoder = new google.maps.Geocoder();
+        
+        window.initializeMap = function(){
 
-        var mapOptions = {
-            zoom: 8,
-            center: new google.maps.LatLng(-34.397, 150.644)
-        };
+            geocoder = new google.maps.Geocoder();
 
-        geocoder.geocode({'address': HOTELADDRESS}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-                map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-            }
-            else{
-                jQuery('#map_canvas').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
-            }
-        });
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
+            var mapOptions = {
+                zoom: 8,
+                center: new google.maps.LatLng(-34.397, 150.644)
+            };
+
+            geocoder.geocode({'address': HOTELADDRESS}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                    if(jQuery('#map_canvas').height() === 0)
+                        jQuery('#map_canvas').height(300);
+                }
+                else{
+                    jQuery('#map_canvas').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+                }
+            });
+        }
+        jQuery.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap');
+
+    });
+
 </script>
 
 <!-- Site Preview Options -->
 <?php
     $theme_preview_ids = explode(',', THEME_ID);
     if (in_array(get_current_blog_id(), $theme_preview_ids)): ?>
-
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.cookie.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.tabSlideOut.v1.3.js"></script>
    
     <style type="text/css">
@@ -235,30 +240,15 @@
 
         });
 
+        function replaceAll(find, replace, str) {
+          return str.replace(new RegExp(find, 'g'), replace);
+        }
 
-    </script>
-    <script type="text/javascript">
-        
-        
-
-
+ 
     </script>
 <?php endif; ?>
 
 
 <?php wp_footer(); ?>
-<script>
-    function removejscssfile(filename, filetype){
-         var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none" //determine element type to create nodelist from
-         var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none" //determine corresponding attribute to test for
-         var allsuspects=document.getElementsByTagName(targetelement)
-         for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
-          if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1)
-           allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
-         }
-    }
-
-
-</script>
 </body>
 </html>

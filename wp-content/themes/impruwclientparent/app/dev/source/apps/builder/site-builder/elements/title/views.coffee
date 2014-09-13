@@ -22,6 +22,14 @@ define ['app'], (App)->
                 'blur': ->
                     @trigger "title:element:blur", @$el.html()
 
+            initialize:->
+                @$el.on 'focus', _.once @setUpCKEditor
+
+            setUpCKEditor : =>
+                @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
+                html = @$el.html()
+                @editor.setData html
+                @editor.config.placeholder = 'Click here to enter Title'
 
             # initialize the CKEditor for the text element on show
             # used setData instead of showing in template. this works well
@@ -30,19 +38,16 @@ define ['app'], (App)->
             # we can destroy it on close of element
             onShow: ->
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
-
-                # CKEDITOR.on 'instanceCreated', @configureEditor
-                @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
                 content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
-                @editor.setData _.stripslashes content ? ''
-                @editor.config.placeholder = 'Click here to enter Title'
-
+                @$el.html _.stripslashes content ? ''
+                
 
             # destroy the Ckeditor instance to avoiid memory leaks on close of element
             # this.editor will hold the reference to the editor instance
             # Ckeditor has a destroy method to remove a editor instance
             onClose: ->
-                @editor.destroy()
+                if @editor
+                    @editor.destroy()
 
             # set configuration for the Ckeditor
             configureEditor: (event) =>
@@ -53,14 +58,5 @@ define ['app'], (App)->
                 # execution. This makes it possible to change the
                 # configurations before the editor initialization takes place.
                 editor.on "configLoaded", ->
-
-                    # Rearrange the layout of the toolbar.
-                    # editor.config.toolbar = [
-                    #     ['Source','-','Cut','Copy','Paste','PasteText','PasteFromWord'],['Undo','Redo','Find','Replace','-','SelectAll','RemoveFormat'],
-                    #     '/',
-                    #     ['Bold','Italic','Underline','Strike','-','JustifyLeft','JustifyCenter','JustifyRight'],['Link','Unlink'],
-                    #     ['InsertImage']
-                    # ]
-
                     editor.config.extraPlugins = 'confighelper'
                     editor.config.extraPlugins = 'justify'

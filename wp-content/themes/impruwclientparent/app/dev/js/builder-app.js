@@ -65,5 +65,6 @@ define(['marionette'], function(Marionette) {
       };
     })(this));
   });
+  App.execute("heartbeat-api");
   return App;
 });

@@ -11,14 +11,21 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
       }
 
       Controller.prototype.initialize = function(opt) {
+        var layout;
         if (opt == null) {
           opt = {};
         }
-        this.layout = this.getLayout();
+        this.layout = layout = this.getLayout();
         this.listenTo(this.layout, "show:theme:color:clicked", function() {
           return App.execute("show:theme:color:set", {
             region: App.dialogRegion
           });
+        });
+        this.listenTo(App.vent, 'page:took:over', function(errorMessage) {
+          return layout.triggerMethod('page:took:over', errorMessage);
+        });
+        this.listenTo(App.vent, 'page:released', function() {
+          return layout.triggerMethod('page:released');
         });
         return this.show(this.layout, {
           loading: true

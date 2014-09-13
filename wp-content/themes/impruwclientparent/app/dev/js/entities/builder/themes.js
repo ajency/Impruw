@@ -54,7 +54,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     themesColorCollection = new Themes.ThemeColorCollection;
-    themesColorCollection.fetch();
+    themesColorCollection.add(THEMECOLORSETS);
     Themes.ThemeCollection = (function(_super) {
       __extends(ThemeCollection, _super);
 
@@ -81,7 +81,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     themesCollection = new Themes.ThemeCollection;
-    themesCollection.fetch();
+    themesCollection.add(THEMES);
     API = {
       getThemesCollection: function(param) {
         var themes;

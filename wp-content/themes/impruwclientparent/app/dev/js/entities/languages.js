@@ -35,7 +35,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     languages = new Languages.LanguagesCollection;
-    languages.fetch();
+    languages.add(window.LANGUAGES);
     API = {
       getLanguages: function() {
         return languages;
