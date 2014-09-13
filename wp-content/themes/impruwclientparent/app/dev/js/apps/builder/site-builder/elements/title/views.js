@@ -9,6 +9,7 @@ define(['app'], function(App) {
 
       function TitleView() {
         this.configureEditor = __bind(this.configureEditor, this);
+        this.setUpCKEditor = __bind(this.setUpCKEditor, this);
         return TitleView.__super__.constructor.apply(this, arguments);
       }
 
@@ -27,10 +28,12 @@ define(['app'], function(App) {
         }
       };
 
-      TitleView.prototype.onShow = function() {
-        var content, settingsModel, _ref;
-        settingsModel = Marionette.getOption(this, 'settingsModel');
-        this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
+      TitleView.prototype.initialize = function() {
+        return this.$el.on('focus', _.once(this.setUpCKEditor));
+      };
+
+      TitleView.prototype.setUpCKEditor = function() {
+        var html;
         CKEDITOR.on('instanceCreated', this.configureEditor);
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
         this.editor.on('changedTitleStyle', (function(_this) {
@@ -46,13 +49,23 @@ define(['app'], function(App) {
             });
           };
         })(this));
-        content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
-        this.editor.setData(_.stripslashes(content != null ? content : ''));
+        html = this.$el.html();
+        this.editor.setData(html);
         return this.editor.config.placeholder = 'Click here to enter Title';
       };
 
+      TitleView.prototype.onShow = function() {
+        var content, settingsModel, _ref;
+        settingsModel = Marionette.getOption(this, 'settingsModel');
+        this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
+        content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
+        return this.$el.html(_.stripslashes(content != null ? content : ''));
+      };
+
       TitleView.prototype.onClose = function() {
-        return this.editor.destroy();
+        if (this.editor) {
+          return this.editor.destroy();
+        }
       };
 
       TitleView.prototype.configureEditor = function(event) {

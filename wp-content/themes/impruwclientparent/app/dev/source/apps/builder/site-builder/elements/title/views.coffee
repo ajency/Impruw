@@ -22,6 +22,22 @@ define ['app'], (App)->
                 'blur': ->
                     @trigger "title:element:blur", @$el.html()
 
+            initialize:->
+                @$el.on 'focus', _.once @setUpCKEditor
+
+            setUpCKEditor : =>
+                CKEDITOR.on 'instanceCreated', @configureEditor
+                @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
+                @editor.on 'changedTitleStyle',(evt)=>
+                    @model.set 'style', evt.data.style
+
+                @editor.on 'titleStylesInitDone',=>
+                    @editor.fire 'initStylesList',
+                        style : @model.get 'style'
+                        styles : settingsModel.get 'styles'
+                html = @$el.html()
+                @editor.setData html
+                @editor.config.placeholder = 'Click here to enter Title'
 
             # initialize the CKEditor for the text element on show
             # used setData instead of showing in template. this works well
@@ -32,29 +48,16 @@ define ['app'], (App)->
                 settingsModel = Marionette.getOption @,'settingsModel'
 
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
-
-                CKEDITOR.on 'instanceCreated', @configureEditor
-                @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
-
-                @editor.on 'changedTitleStyle',(evt)=>
-                    @model.set 'style', evt.data.style
-
-                @editor.on 'titleStylesInitDone',=>
-                    @editor.fire 'initStylesList',
-                        style : @model.get 'style'
-                        styles : settingsModel.get 'styles'
-
-                    # @editor.fire('titlestylesSet');
                 content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
-                @editor.setData _.stripslashes content ? ''
-                @editor.config.placeholder = 'Click here to enter Title'
-
+                @$el.html _.stripslashes content ? ''
+                
 
             # destroy the Ckeditor instance to avoiid memory leaks on close of element
             # this.editor will hold the reference to the editor instance
             # Ckeditor has a destroy method to remove a editor instance
             onClose: ->
-                @editor.destroy()
+                if @editor
+                    @editor.destroy()
 
             # set configuration for the Ckeditor
             configureEditor: (event) =>
@@ -64,6 +67,7 @@ define ['app'], (App)->
                 # which is fired after the configuration file loading and
                 # execution. This makes it possible to change the
                 # configurations before the editor initialization takes place.
+
                 if element.getAttribute('id') is @$el.attr 'id'
                     editor.on 'configLoaded', ->
 
@@ -82,3 +86,4 @@ define ['app'], (App)->
 
                     # editor.config.extraPlugins = 'confighelper'
                     # editor.config.extraPlugins = 'justify'
+               

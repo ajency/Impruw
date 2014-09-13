@@ -30,6 +30,18 @@ function update_user_lang( $user_id, $language ) {
 }
 
 
+function get_user_model(){
+    $user_ID = get_current_user_id();
+
+    $data = (array)get_userdata( $user_ID );
+
+    $data[ 'new_feature_alert' ] = get_user_meta( $user_ID, 'new_feature_alert', TRUE );
+
+    $data[ 'user_lang' ] = get_user_meta( $user_ID, 'user_lang', TRUE );
+
+    return $data;
+}
+
 /**
  * Function to change the user password
  */

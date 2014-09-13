@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates/outer.html'], function(App, AppController, outerTpl) {
+define(['app', 'controllers/base-controller'], function(App, AppController) {
   return App.module('MediaManager', function(MediaManager, App, Backbone, Marionette, $, _) {
     var API, OuterLayout, ShowController;
     MediaManager.Router = (function(_super) {
@@ -83,7 +83,7 @@ define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates
         return OuterLayout.__super__.constructor.apply(this, arguments);
       }
 
-      OuterLayout.prototype.template = outerTpl;
+      OuterLayout.prototype.template = '<ul class="nav nav-tabs"> <li class="active all-media-tab"><a href="#all-media-region" data-toggle="tab">{{#polyglot}}Gallery{{/polyglot}}</a></li> <li class="upload-tab"><a href="#upload-region" data-toggle="tab">{{#polyglot}}Upload{{/polyglot}}</a></li> <!--li: a(href="#gallery-region" data-toggle="tab") Gallery--> </ul> <div class="tab-content clearfix"> <div id="all-media-region" class="tab-pane active"> <div id="grid-region" class="col-md-12"></div> <!--<div id="edit-media-region" class="col-md-3">--> <!--<div class="pick-image"><span class="glyphicon glyphicon-hand-left"></span>--> <!--<h4>{{#polyglot}}Select from library{{/polyglot}}</h4>--> <!--</div>--> <!--</div>--> </div> <div id="upload-region" class="tab-pane"></div> <div id="gallery-region" class="tab-pane"></div> </div> <div class="media-select"> <button class="btn media-manager-select"><span class="glyphicon glyphicon-ok"></span>&nbsp;{{#polyglot}}Select{{/polyglot}}</button> </div>';
 
       OuterLayout.prototype.regions = {
         uploadRegion: '#upload-region',

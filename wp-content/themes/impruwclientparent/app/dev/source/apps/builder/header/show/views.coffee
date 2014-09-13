@@ -23,7 +23,13 @@ define ['app'
 					events:
 
 						'click #aj-imp-color-sel' :->
-							@trigger "show:theme:color:clicked"							
+							@trigger "show:theme:color:clicked"		
+
+					onPageTookOver : ->
+			            @$el.find('.hide-on-lock').fadeOut()
+
+			         onPageReleased : ->
+			           @$el.find('.hide-on-lock').fadeIn()			
 
 
 

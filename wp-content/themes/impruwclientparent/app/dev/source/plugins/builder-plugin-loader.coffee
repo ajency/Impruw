@@ -16,6 +16,7 @@ define [
    'radio'
    'checkbox'
    'json2'
+   'heartbeat'
    'imageareaselect'
    'imageedit'
    'svgpainter'

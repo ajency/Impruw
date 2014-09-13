@@ -1,4 +1,5 @@
-define ['apps/builder/site-builder/elements/menu/controller'
+ define [
+ 		'apps/builder/site-builder/elements/menu/controller'
 		'apps/builder/site-builder/elements/row/controller'
 		'apps/builder/site-builder/elements/image/controller'
 		'apps/builder/site-builder/elements/languageswitcher/controller'

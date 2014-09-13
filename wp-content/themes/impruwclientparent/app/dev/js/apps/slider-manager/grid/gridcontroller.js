@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/templates/sliderview.html'], function(App, AppController, sliderTpl) {
+define(['app', 'controllers/base-controller'], function(App, AppController) {
   return App.module('SliderManager.GridView', function(GridView, App, Backbone, Marionette, $, _) {
     var GridViewController, SliderGridView, SliderView;
     GridViewController = (function(_super) {
@@ -45,7 +45,7 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
         return SliderView.__super__.constructor.apply(this, arguments);
       }
 
-      SliderView.prototype.template = sliderTpl;
+      SliderView.prototype.template = '<div class="thumbnail"><img src="{{thumb_url}}" style="height:200px;width:100%"/> <div class="caption"> <h5>{{title}}<span class="badge">Slides: {{no_of_slides}}</span></h5> </div> <div class="actions"> <button type="button" class="btn btn-default btn-xs edit-slider"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> <button type="button" class="btn btn-danger btn-xs delete-slider"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button> </div> </div>';
 
       SliderView.prototype.className = 'col-sm-2';
 

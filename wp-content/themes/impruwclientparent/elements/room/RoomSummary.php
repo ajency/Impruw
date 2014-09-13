@@ -65,23 +65,23 @@ class RoomSummary extends Element {
 
         $template   = '<div class="room-summary-container ' . $this->margins . ' ">
                         <div class="room-summary-title">
-                            <h4>Room Summary</h4>
+                            <h4>'.__("Room Summary","impruwclientparent").'</h4>
                         </div>
                         <div class="room-summary">
                             <div class="room-summary-item">
-                                <span class="key">No. of Rooms</span>
+                                <span class="key">'.__("No. of Rooms","impruwclientparent").'</span>
                                 <span class="value">{{no_of_rooms}}</span>
                             </div>
                             <div class="room-summary-item">
-                                <span class="key">Check-in</span>
+                                <span class="key">'.__("Check-in","impruwclientparent").'</span>
                                 <span class="value">{{check-in}}</span>
                             </div>
                             <div class="room-summary-item">
-                                <span class="key">Check-out</span>
+                                <span class="key">'.__("Check-out","impruwclientparent").'</span>
                                 <span class="value">{{check-out}}</span>
                             </div>
                            <div class="room-summary-item">
-                                <span class="key">Additional policy</span>
+                                <span class="key">'.__("Additional policy","impruwclientparent").'</span>
                                 <span class="value"> {{additional-policy}}</span>
                             </div>
                         </div>
@@ -116,8 +116,8 @@ class RoomSummary extends Element {
                             <div class="room-title"><a href="{{link}}">{{post_title}}</a></div>
                             <div class="room-excerpt">{{post_content}}</div>
                             <div class="room-actions">
-                                    <div class="price"><small>Number of Rooms:</small> {{no_of_rooms}}</div>
-                                    <a href="{{link}}" class="btn btn-room">View Details</a>
+                                    <div class="price"><small>'.__("Number of Rooms:","impruwclientparent").'</small> {{no_of_rooms}}</div>
+                                    <a href="{{link}}" class="btn btn-room">'.__("View Details","impruwclientparent").'</a>
                             </div>
                         </div>';
 
@@ -129,8 +129,8 @@ class RoomSummary extends Element {
                             <div class="room-title"><a href="{{link}}">{{post_title}}</a></div>
                             <div class="room-excerpt">{{post_content}}</div>
                             <div class="room-actions">
-                                    <div class="price"><small>Number of Rooms:</small> {{no_of_rooms}}</div>
-                                    <a href="{{link}}" class="btn btn-room">View Details</a>
+                                    <div class="price"><small>'.__("Number of Rooms:","impruwclientparent").'</small> {{no_of_rooms}}</div>
+                                    <a href="{{link}}" class="btn btn-room">'.__("View Details","impruwclientparent").'</a>
                             </div>
                         </div>';
         }
@@ -142,18 +142,14 @@ class RoomSummary extends Element {
 
     function generate_dummy_markup() {
 
-        $language_code = wpml_get_current_language();
-        $english_content = 'choose a room to display from settings. your room description, image, number of rooms and link to the single room page will be displayed here. to make any changes to the room go to room from your dashboard.';
-        $translated_content = impruw_wpml_get_string_translation($english_content, $language_code);
-
         $template = '<div class="roomsummary ' . $this->margins . ' "><div class="room-img">
                          <div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>
                     </div>
-                    <div class="room-title">Your Room Title</div>
-                    <div class="room-excerpt">' .$translated_content. '</div>
+                    <div class="room-title">'.__("Your Room Title","impruwclientparent").'</div>
+                    <div class="room-excerpt">'.__("Choose a room to display from settings. Your room description, image, number of rooms and link to the single room page will be displayed here. To make any changes to the room go to Room from your dashboard.","impruwclientparent").'</div>
                     <div class="room-actions">
-                            <div class="price"><small>Total:</small> 0 rooms</div>
-                            <a href="#" class="btn btn-room">View Details</a>
+                            <div class="price"><small>'.__("Total:","impruwclientparent").'</small>'.__("0 rooms","impruwclientparent").'</div>
+                            <a href="#" class="btn btn-room">'.__("View Details","impruwclientparent").'</a>
                     </div></div>';
         global $me;
 

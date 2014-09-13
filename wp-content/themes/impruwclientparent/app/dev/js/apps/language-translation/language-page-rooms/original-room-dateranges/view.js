@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return OriginalRoomDaterangesItemView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalRoomDaterangesItemView.prototype.template = ' <div class="form-group"> <label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Date Ranges{{/polyglot}}</label> <div class="col-sm-9 col-sm-offset-3"> <p class="original title">{{daterange_name}} </p> </div> </div>';
+      OriginalRoomDaterangesItemView.prototype.template = ' <div class="form-group"> <label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Date Ranges{{/polyglot}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original title">{{daterange_name}} </div> </div> </div>';
 
       return OriginalRoomDaterangesItemView;
 

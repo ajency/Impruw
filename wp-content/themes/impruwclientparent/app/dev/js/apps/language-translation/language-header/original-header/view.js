@@ -15,7 +15,7 @@ define(['app', 'text!apps//language-translation/language-header/original-header/
 
       OriginalHeaderItemView.prototype.className = 'form-group legend-group';
 
-      OriginalHeaderItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{element_in_language}}</label> <div class="col-sm-9 col-sm-offset-3"> <p class="original {{TypeOfElementClass}}" tabindex="1"> {{{originalContent}}} </p> </div> </div> </div>';
+      OriginalHeaderItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{element_in_language}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original {{TypeOfElementClass}}" tabindex="1"> {{{originalContent}}} </div> </div> </div> </div>';
 
       OriginalHeaderItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalHeaderItemView.__super__.mixinTemplateHelpers.call(this, data);

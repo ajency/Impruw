@@ -30,7 +30,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 
         rooms = new Rooms.RoomCollection
-        rooms.fetch()
+        rooms.add window.ROOMS
 
         # PUBLIC API FOR ENtity
         API =
