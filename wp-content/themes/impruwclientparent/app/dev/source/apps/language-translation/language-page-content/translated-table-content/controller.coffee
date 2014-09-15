@@ -32,7 +32,9 @@ define ['app', 'controllers/base-controller'
                 translatedContent =  model.get('content')
 
                 if _.isObject translatedContent
-                    data = translatedContent
+                    data = {}
+                    Object.getOwnPropertyNames(translatedContent).forEach (val, idx, array) ->
+                        data[val] = _.stripslashes translatedContent[val]
                 else
                     data = {}
                     data['en'] = _.stripslashes translatedContent

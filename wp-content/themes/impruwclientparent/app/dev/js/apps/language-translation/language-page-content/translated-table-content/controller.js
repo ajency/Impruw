@@ -34,7 +34,10 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         model = view.model;
         translatedContent = model.get('content');
         if (_.isObject(translatedContent)) {
-          data = translatedContent;
+          data = {};
+          Object.getOwnPropertyNames(translatedContent).forEach(function(val, idx, array) {
+            return data[val] = _.stripslashes(translatedContent[val]);
+          });
         } else {
           data = {};
           data['en'] = _.stripslashes(translatedContent);
