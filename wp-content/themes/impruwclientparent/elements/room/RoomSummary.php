@@ -62,6 +62,9 @@ class RoomSummary extends Element {
     function generate_single_room_summary() {
 
         $this->room = get_room( $this->room_id , FALSE);
+        
+        $original_policy = get_option('additional-policy','');
+        $this->room['additional-policy'] = impruw_wpml_get_string_translation($original_policy, ICL_LANGUAGE_CODE);
 
         $template   = '<div class="room-summary-container ' . $this->margins . ' ">
                         <div class="room-summary-title">
