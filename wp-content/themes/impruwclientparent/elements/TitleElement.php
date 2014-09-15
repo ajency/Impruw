@@ -56,6 +56,7 @@ class TitleElement extends Element {
         $this->content  = stripcslashes(trim( $content ));
 
         $this->style = sanitize_title($element['style']);
+        $this->justify = isset($element['justify']) && $element['justify']!= ''? $element['justify'] : false; 
         
         $this->markup  = $this->generate_markup();
         
@@ -70,11 +71,16 @@ class TitleElement extends Element {
         
         $attr = array();
         
-        $html = '';
+
+        $justify = '';
+        if($this->justify){
+            $justify .= "style='text-align: {$this->justify}'";
+        }
         // if(empty($this->content))
         //     $html       .= $this->get_open_tag($attr);
 
-        $html  .= "<h2 class='title {$this->style}'>{$this->content}</h2>";
+        $html  = "<h2 class='title {$this->style}' {$justify} >{$this->content}</h2>";
+        // $html .= $this->content;
         
         // if(empty($this->content))
         //     $html       .= $this->get_close_tag();
