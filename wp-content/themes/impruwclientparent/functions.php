@@ -4169,5 +4169,12 @@ function cancel_subscription() {
 }
 add_action( 'wp_cancel_subscription', 'cancel_subscription' );
 
+if(!function_exists('theme_color_sets')){
+
+    function theme_color_sets(){
+        return array();
+    }
+}
+
 
 
