@@ -40,7 +40,7 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
         this.view = this._getTableView();
         this.listenTo(this.view, "save:table", (function(_this) {
           return function(tableHolder) {
-            var data, html, original_data;
+            var data, html, newdata, original_data;
             html = $(tableHolder).clone();
             $(html).find('.rc-handle-container').remove();
             $(html).find('td div, th div').removeAllAttr();
@@ -52,9 +52,11 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
               data['en'] = original_data;
             }
             data[WPML_DEFAULT_LANG] = $(html).html();
-            data['en'] = _.stripslashes(data['en']);
-            data['nb'] = _.stripslashes(data['nb']);
-            _this.layout.model.set('content', data);
+            newdata = {};
+            Object.getOwnPropertyNames(data).forEach(function(val, idx, array) {
+              return newdata[val] = _.stripslashes(data[val]);
+            });
+            _this.layout.model.set('content', newdata);
             return _this.layout.model.save();
           };
         })(this));

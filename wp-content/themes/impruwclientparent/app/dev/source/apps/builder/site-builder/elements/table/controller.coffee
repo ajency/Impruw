@@ -59,10 +59,12 @@ define ['app'
 
 	                data[WPML_DEFAULT_LANG] = $(html).html()
 
-	                data['en'] = _.stripslashes data['en']
-	                data['nb'] = _.stripslashes data['nb']
+	                # stripslash each html content and save in json
+	                newdata = {}
+	                Object.getOwnPropertyNames(data).forEach (val, idx, array) ->
+	                	newdata[val] = _.stripslashes data[val]
 
-	                @layout.model.set 'content', data
+	                @layout.model.set 'content', newdata
 	                @layout.model.save()
 				
 				@layout.elementRegion.show @view
