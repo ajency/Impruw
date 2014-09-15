@@ -6,7 +6,7 @@ define ['app'], (App)->
         # Menu item view
         class Views.TitleView extends Marionette.ItemView
 
-            tagName: 'div'
+            tagName: 'h3'
 
             template: ''
 
@@ -22,6 +22,12 @@ define ['app'], (App)->
                 'blur': ->
                     @trigger "title:element:blur", @$el.html()
 
+            modelEvents : 
+                'change:justify' : (model,justify)->
+                    @$el.css 'text-align', justify
+                    @trigger "title:element:blur", @$el.html()
+
+
             initialize:->
                 @$el.on 'focus', _.once @setUpCKEditor
 
@@ -34,8 +40,19 @@ define ['app'], (App)->
                 @editor.on 'titleStylesInitDone',=>
                     @editor.fire 'initStylesList',
                         style : @model.get 'style'
-                        styles : settingsModel.get 'styles'
+                        styles : @settingsModel.get 'styles'
+
+                @editor.on 'titleJustifyInitDone',=>
+                    @editor.fire 'getCurrentJustify',
+                        justify : @model.get 'justify'
+
+                @editor.on 'setCurrentJustify',(evt)=>
+                    @model.set 'justify', evt.data.justify
+
+
+
                 html = @$el.html()
+
                 @editor.setData html
                 @editor.config.placeholder = 'Click here to enter Title'
 
@@ -45,11 +62,15 @@ define ['app'], (App)->
             # hold the editor instance as the element property so that
             # we can destroy it on close of element
             onShow: ->
-                settingsModel = Marionette.getOption @,'settingsModel'
+                @$el.css 'text-align', @model.get 'justify'
+                @settingsModel = Marionette.getOption @,'settingsModel'
 
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
                 content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
-                @$el.html _.stripslashes content ? ''
+                html = _.stripslashes content
+                # if not _.str.include(html, "<h3>")
+                #     html = '<h3>'+html+'</h3>'
+                @$el.html html ? ''
                 
 
             # destroy the Ckeditor instance to avoiid memory leaks on close of element
@@ -71,9 +92,12 @@ define ['app'], (App)->
                 if element.getAttribute('id') is @$el.attr 'id'
                     editor.on 'configLoaded', ->
 
-                        editor.config.extraPlugins = 'titlestyles';
+                        
+                        editor.config.extraPlugins = 'titlejustify,titlestyles'
 
-                        editor.config.stylesSet = "#{CURRENTTHEME}_title_styles"
+
+
+                        # editor.config.stylesSet = "#{CURRENTTHEME}_title_styles"
                 
 
                     # Rearrange the layout of the toolbar.

@@ -9,13 +9,14 @@ define [ 'app'
          # intializer
          initialize : ( options )->
             data = {}
-            data['en'] = '<h3>Click here to enter title</h3>'
-            data['nb'] = '<h3>Klikk her for å skrive inn tittel</h3>'
+            data['en'] = 'Click here to enter title'
+            data['nb'] = 'Klikk her for å skrive inn tittel'
 
             _.defaults options.modelData,
                element : 'Title'
                content : data
                style : ''
+               justify : ''
 
             @settingsModel = App.request "get:element:settings:options", 'Title'            
             

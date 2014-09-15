@@ -13,7 +13,7 @@ define(['app'], function(App) {
         return TitleView.__super__.constructor.apply(this, arguments);
       }
 
-      TitleView.prototype.tagName = 'div';
+      TitleView.prototype.tagName = 'h3';
 
       TitleView.prototype.template = '';
 
@@ -24,6 +24,13 @@ define(['app'], function(App) {
           return e.preventDefault();
         },
         'blur': function() {
+          return this.trigger("title:element:blur", this.$el.html());
+        }
+      };
+
+      TitleView.prototype.modelEvents = {
+        'change:justify': function(model, justify) {
+          this.$el.css('text-align', justify);
           return this.trigger("title:element:blur", this.$el.html());
         }
       };
@@ -45,8 +52,20 @@ define(['app'], function(App) {
           return function() {
             return _this.editor.fire('initStylesList', {
               style: _this.model.get('style'),
-              styles: settingsModel.get('styles')
+              styles: _this.settingsModel.get('styles')
             });
+          };
+        })(this));
+        this.editor.on('titleJustifyInitDone', (function(_this) {
+          return function() {
+            return _this.editor.fire('getCurrentJustify', {
+              justify: _this.model.get('justify')
+            });
+          };
+        })(this));
+        this.editor.on('setCurrentJustify', (function(_this) {
+          return function(evt) {
+            return _this.model.set('justify', evt.data.justify);
           };
         })(this));
         html = this.$el.html();
@@ -55,11 +74,13 @@ define(['app'], function(App) {
       };
 
       TitleView.prototype.onShow = function() {
-        var content, settingsModel, _ref;
-        settingsModel = Marionette.getOption(this, 'settingsModel');
+        var content, html, _ref;
+        this.$el.css('text-align', this.model.get('justify'));
+        this.settingsModel = Marionette.getOption(this, 'settingsModel');
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
         content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
-        return this.$el.html(_.stripslashes(content != null ? content : ''));
+        html = _.stripslashes(content);
+        return this.$el.html(html != null ? html : '');
       };
 
       TitleView.prototype.onClose = function() {
@@ -74,8 +95,7 @@ define(['app'], function(App) {
         element = editor.element;
         if (element.getAttribute('id') === this.$el.attr('id')) {
           return editor.on('configLoaded', function() {
-            editor.config.extraPlugins = 'titlestyles';
-            return editor.config.stylesSet = "" + CURRENTTHEME + "_title_styles";
+            return editor.config.extraPlugins = 'titlejustify,titlestyles';
           });
         }
       };
