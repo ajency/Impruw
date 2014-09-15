@@ -1,6 +1,17 @@
 <div class="aj-imp-browser-preview">
     <!-- browser header-->
     <div class="aj-imp-browser-header">
+        <div class="lock-message hidden">
+            <span class="bicon icon-uniF180"></span>
+            <div class="message-span">{{#polyglot}}Editing has been locked for this page.{{/polyglot}}</div>
+            <button id="take-over-button" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Take Over{{/polyglot}}</button>
+            <span class="option-or">{{#polyglot}}Or Edit Another Page:{{/polyglot}}</span>
+            <select id="builder-page-sel-lock" name="builder-page-sel">
+                {{#pages}}
+                <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
+                {{/pages}}
+            </select>
+        </div>
         <!--row first-->
         <div class="row">
             <div class="col-sm-2">
@@ -21,9 +32,6 @@
                             <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
                             {{/pages}}
                         </select>
-                        <a href="#" class="delete-page">
-                            {{#polyglot}}Delete this Page{{/polyglot}}
-                        </a>
                     </div>
                     <a href="#" class="add-new-page">
                         <span class="glyphicon glyphicon-plus-sign"></span>
@@ -83,7 +91,8 @@
     </div>
     <!-- browser body-->
     <div id="aj-imp-browser-body">
-        <div id="aj-imp-builder-drag-drop" class="site-style-container aj-imp-builder-layout-mode"></div>
+        <!-- TODO: remove inline style-->
+        <div id="aj-imp-builder-drag-drop" style="min-height:800px" class="site-style-container aj-imp-builder-layout-mode"></div>
     </div>
     <!--browser footer-->
     <div class="aj-imp-browser-footer"></div>

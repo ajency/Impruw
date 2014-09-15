@@ -11,7 +11,7 @@ define ['app'
             initialize: (options)->
                 _.defaults options.modelData,
                     element: 'Slider'
-                    height: 350
+                    height: 156
                     slider_id : 0
                     reset_transitions : 'fade'
 
@@ -25,7 +25,6 @@ define ['app'
             _getSliderView: (collection)->
                 new Slider.Views.SliderView
                     collection: collection
-                    sliderHeight : parseInt @layout.model.get 'height'
                     model : @layout.model
 
             _getSlidesCollection: ->

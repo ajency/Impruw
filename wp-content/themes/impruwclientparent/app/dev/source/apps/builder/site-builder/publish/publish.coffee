@@ -5,10 +5,6 @@ define ['app'], (App)->
         # Controller class for showing header resion
         class Publish.Controller extends Marionette.Controller
 
-            # initialize the controller. Get all required entities and show the view
-            initialize: (opt = {})->
-
-                # autoSave
             publish: ()->
                 return if window.SAVING is true
 
@@ -30,13 +26,15 @@ define ['app'], (App)->
 
                 options.data = _.defaults options.data, _sectionJson
                 window.SAVING = true
-                $.ajax(options).done (revisionData)->
-                    App.execute "page:published"
-                    App.execute "add:new:revision", _page_id, revisionData
-                    window.SAVING = false
-                .fail (resp)->
-                    window.SAVING = false
+                $.ajax(options).done (response)->
+                    if response.success is true
+                        App.vent.trigger "page:published"
+                    else    
+                        App.vent.trigger "publish:failed", response.reason
 
+                .always (resp)->
+                    window.SAVING = false
+                
             # get the json
             _getPageJson: ($site)->
                 _json = {}

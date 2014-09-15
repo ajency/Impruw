@@ -15,6 +15,9 @@
     //add async tasks
     require_once 'async-tasks/wpml-setup.php';
 
+    // Include WPML API
+    include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
+
     /* ============================================================= */
 
     require_once 'Communication_module/user_shortcodes.php'; //file containing all shortcodes to fetch user information
@@ -653,4 +656,22 @@
       $filtered_title .= ( 2 <= $paged || 2 <= $page ) ? ' | ' . sprintf( __( 'Page %s' ), max( $paged, $page ) ) : '';
 
       return $filtered_title;
+    }
+
+    
+    /**
+     * Get current language based image folder path
+     *
+     */
+    function get_language_based_image_path(){
+
+      $current_language = ICL_LANGUAGE_CODE;
+      
+      if ($current_language == 'nb'){
+        return 'images-nb';
+      }
+      else{
+        return 'images';
+      }
+
     }

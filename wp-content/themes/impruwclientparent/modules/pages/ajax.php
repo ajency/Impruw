@@ -85,33 +85,48 @@ add_action( 'wp_ajax_create-page', 'create_page_ajax' );
 function publish_page_ajax() {
 
     $page_id = $_REQUEST[ 'page_id' ];
+    
+    //check if page is locked
+    $user_id = wp_check_post_lock( $page_id );
 
-    $header_json = $_REQUEST[ 'header-json' ];
-    update_header_json( $header_json );
-    $header_json = convert_json_to_array( $header_json );
-    update_option( "theme-header-autosave", $header_json );
+    if ($user_id === false){
+        
 
-    $footer_json = $_REQUEST[ 'footer-json' ];
-    update_footer_json( $footer_json );
-    $footer_json = convert_json_to_array( $footer_json );
-    update_option( "theme-footer-autosave", $footer_json );
+        $header_json = $_REQUEST[ 'header-json' ];
+        update_header_json( $header_json );
+        $header_json = convert_json_to_array( $header_json );
+        update_option( "theme-header-autosave", $header_json );
 
-    remove_all_actions( 'post_updated' );
+        $footer_json = $_REQUEST[ 'footer-json' ];
+        update_footer_json( $footer_json );
+        $footer_json = convert_json_to_array( $footer_json );
+        update_option( "theme-footer-autosave", $footer_json );
 
-    //set page json
-    publish_page( $page_id );
+        remove_all_actions( 'post_updated' );
 
-    $page_json_string = $_REQUEST[ 'page-content-json' ];
-    $page_json = convert_json_to_array( $page_json_string );
-    add_page_json( $page_id, $page_json );
+        //set page json
+        publish_page( $page_id );
 
-    $revision_post_id = add_page_revision( $page_id, $page_json );
+        $page_json_string = $_REQUEST[ 'page-content-json' ];
+        $page_json = convert_json_to_array( $page_json_string );
+        add_page_json( $page_id, $page_json );
 
-    update_page_autosave( $page_id, $page_json );
+        $revision_post_id = add_page_revision( $page_id, $page_json );
 
-    $revision_data = get_post( $revision_post_id );
+        update_page_autosave( $page_id, $page_json );
 
-    wp_send_json( $revision_data );
+        $revision_data = get_post( $revision_post_id );
+
+        wp_send_json( array( 'success' => true, 'page_id' => $page_id));
+    }
+    else{
+        $user = get_userdata( $user_id );
+        $response = array(
+            'success' => false,
+            'reason' => __('Sorry!! ' . $user->display_name . ' is currently editing the page' )
+        );
+        wp_send_json($response);
+    }
 }
 
 add_action( 'wp_ajax_publish-page', 'publish_page_ajax' );
@@ -138,7 +153,7 @@ function auto_save() {
     wp_send_json_success( $autosave_id );
 }
 
-add_action( 'wp_ajax_auto-save', 'auto_save' );
+//add_action( 'wp_ajax_auto-save', 'auto_save' );
 
 /**
  * Function to read a single page data
@@ -170,4 +185,13 @@ function ajax_update_page() {
 }
 
 add_action( 'wp_ajax_update-page', 'ajax_update_page' );
+
+
+function take_over_page_editing(){
+
+    $page_id = $_REQUEST['page_id'];
+    wp_set_post_lock($page_id);
+    wp_send_json(1);
+}
+add_action('wp_ajax_take_over_page_editing', 'take_over_page_editing');
 

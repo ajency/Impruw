@@ -21,11 +21,16 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                 @listenTo view, "element:alignment:changed", (alignment)=>
                     @model.set "align", alignment
 
+                @listenTo view, "element:link:changed", (link)=>
+                    @model.set "link", link
+                @listenTo view, "element:target:changed", (target)=>
+                    @model.set "target", target
+
                 @show view
 
             # time to save model to server
             onClose: ->
-                return if not @model.hasChanged()
+                # return if not @model.hasChanged()
 
                 @model.save null,
                     wait: true

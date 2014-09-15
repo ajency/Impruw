@@ -1490,6 +1490,7 @@ form .aj-imp-submit:hover {
 .modal #selectable-images .single-img {
   position: relative;
   padding: 0 5px;
+  min-width: 120px;
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
@@ -3921,7 +3922,9 @@ form .aj-imp-submit:hover {
   right: -4em;
   opacity: 0;
 }
-.language .trans-field .translated-element-content {
+.language .trans-field .translated-element-content,
+.language .trans-field .translated-footer-content,
+.language .trans-field .translated-header-content {
   height: 100px;
   background: #fff;
   border-bottom: 1px solid #aaaaaa;
@@ -3929,16 +3932,22 @@ form .aj-imp-submit:hover {
   margin-bottom: 0;
   overflow: auto;
 }
-.language .trans-field .translated-element-content.title {
-  height: 34px;
+.language .trans-field .translated-element-content.title,
+.language .trans-field .translated-footer-content.title,
+.language .trans-field .translated-header-content.title {
+  height: 33px;
   overflow: hidden;
 }
-.language .trans-field .translated-element-content:focus {
+.language .trans-field .translated-element-content:focus,
+.language .trans-field .translated-footer-content:focus,
+.language .trans-field .translated-header-content:focus {
   border-bottom-color: #ff7e00;
   box-shadow: inset 0 0 3px #aaaaaa;
   outline: none;
 }
-.language .trans-field .translated-element-content:focus ~ .trans-action {
+.language .trans-field .translated-element-content:focus ~ .trans-action,
+.language .trans-field .translated-footer-content:focus ~ .trans-action,
+.language .trans-field .translated-header-content:focus ~ .trans-action {
   opacity: 1;
 }
 .language .trans-field .form-control:focus ~ .trans-action {

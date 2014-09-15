@@ -44,12 +44,13 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                     menumodel = App.request "create:new:menu:item"
 
                     menumodel.set 'menu_id', menuId
+                    menuCollection = App.request "get:menu:items:by:menuid", window.MENUID
 
                     data =
                         menu_item_title: page.get 'post_title'
                         page_id : page.get 'original_id'
                         menu_item_parent: 0
-                        order: 0
+                        order: menuCollection.length + 1
 
                     menumodel.save data,
                         wait: true
@@ -80,9 +81,9 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             regions:
                 chooseTemplateRegion: '#choose-template-region'
 
-            template:  '<div class="row">
+            template:  '<div class="row add-page-container">
         					<div class="form-group">
-        						<label for="inputEmail3" class="col-sm-3 control-label">{{#polyglot}}Page Title{{/polyglot}}</label>
+        						<label for="post_title" class="col-sm-3 control-label">{{#polyglot}}Page Title{{/polyglot}}</label>
         						<div class="col-sm-9">
         							<input type="text" required class="form-control" id="post_title" name="post_title" />
         							<div class="p-messages"></div>
@@ -92,26 +93,36 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                             <div class="form-group">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <label class="control-label">
-                                        <input type="checkbox" value="1" checked="checked" name="add_to_menu"/>
-                                        Add page to menu
+                                        <span class="checkbox">
+                                            <input type="checkbox" value="1" checked="checked" name="add_to_menu"/>
+                                            Add page to menu
+                                        </span>
                                     </label>
                                 	<div id="choose-template-region"></div>
+                                    <div class="select-template-error field-error hide">{{#polyglot}}Please select a template first{{/polyglot}}</div>
                 					<button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page">
                                     {{#polyglot}}Add New Page{{/polyglot}}</button>
                                 </div>
                             </div>
         				</div>'
 
+            onShow: ->
+                @$el.find('input[type="checkbox"]').checkbox()
+
             onShowSuccessMessage: ->
                 @$el.prepend '<div class="alert alert-success">'+ _.polyglot.t("New Page added")+'</div>'
 
             onUpdateTemplatePageId : ( id )->
                 @$el.find( 'input[name="template_page_id"]' ).val id
+                @$el.find('.select-template-error').removeClass('show').addClass('hide')
 
             events :
                 'click .add-new-page' : ->
-                    if @$el.valid()
-                        @trigger "add:new:page", Backbone.Syphon.serialize @
+                    if @$el.valid() 
+                        if @$el.find( 'input[name="template_page_id"]' ).val() isnt '0'
+                            @trigger "add:new:page", Backbone.Syphon.serialize @
+                        else
+                            @$el.find('.select-template-error').removeClass('hide').addClass('show')
 
 
         App.commands.setHandler "show:add:new:page", ( opt )->

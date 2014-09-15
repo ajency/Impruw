@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'plupload', 'text!apps/media/upload/templates/upload.html'], function(App, plupload, uploadTpl) {
+define(['app', 'plupload'], function(App, plupload, uploadTpl) {
   return App.module('Media.Upload.Views', function(Views, App) {
     return Views.UploadView = (function(_super) {
       __extends(UploadView, _super);
@@ -10,7 +10,7 @@ define(['app', 'plupload', 'text!apps/media/upload/templates/upload.html'], func
         return UploadView.__super__.constructor.apply(this, arguments);
       }
 
-      UploadView.prototype.template = uploadTpl;
+      UploadView.prototype.template = '<div class="aj-imp-upload-media"><span class="bicon icon-uniF10C"></span> <div id="choosefiles" class="aj-imp-upload-message"><span class="glyphicon glyphicon-cloud-upload"></span> {{#polyglot}}Upload Images{{/polyglot}} </div> <span class="small-text">{{#polyglot}}Upload Multiple Images{{/polyglot}}</span> <div class="clear"></div> <br/> <div id="progress" style="width: 30%; margin: 0px auto; display: none;" class="progress progress-striped active"> <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="progress-bar"></div> <span class="sr-only">{{#polyglot}}0% Complete{{/polyglot}} </span> </div> </div>';
 
       UploadView.prototype.onShow = function() {
         this.uploader = new plupload.Uploader({

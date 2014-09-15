@@ -386,7 +386,7 @@ function get_all_childsite_pages(){
         $impruw_page_template_name = get_post_meta( $page_id_based_on_lang, 'impruw_page_template', true );
 
         //TODO check language based slugs, right now check is made for english pages only
-        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang=='reset-password' || $page_slug_based_on_lang==null){
+        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'|| $page_slug_based_on_lang=='coming-soon-2'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang=='reset-password' || $page_slug_based_on_lang==null){
             $is_child_site_page = false;
         }
         else{
