@@ -61,6 +61,13 @@
 <div id="login-region" class="modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div id="initial-loader"></div>
 <script>
+    var USER = <?php echo json_encode(get_user_model()); ?>;
+    var ROOMS = <?php echo json_encode(get_roomss()); ?>;
+    var FACILITIES = <?php echo json_encode(get_terms( 'impruw_room_facility', 
+                                                        array('hide_empty' => 0))) ?>;
+    var LANGUAGES = <?php echo json_encode(get_all_languages()); ?>;
+    var BLOGID = <?php echo get_current_blog_id(); ?>;
+
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
