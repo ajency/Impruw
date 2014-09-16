@@ -1,5 +1,4 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
-/****Mixins****/
 .clearfix {
   *zoom: 1;
 }
@@ -81,19 +80,11 @@
   font-weight: normal;
   font-style: normal;
 }
-/****Google Fonts****/
-/****body styles****/
 .site-style-container {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   background: #e1e1e1;
   *zoom: 1;
-  /****Selection Color****/
-
-  /****Link Styles****/
-
-  /****Heading Styles****/
-
 }
 .site-style-container.aj-imp-builder-layout-mode {
   margin-top: 10px;
@@ -150,15 +141,6 @@
   font-weight: 300;
   margin: 0.5em 0;
 }
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 20 Feb, 2014, 7:45:35 PM
-    Author     : jarr-head
-*/
 .site-style-container .row.center-container {
   max-width: 1170px;
   margin: 0.5em auto;
@@ -175,7 +157,6 @@ and open the template in the editor.
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
-/**** Logo Styles ****/
 @media (max-width: 767px) {
   .logo {
     text-align: center;
@@ -184,7 +165,6 @@ and open the template in the editor.
     display: inline-block;
   }
 }
-/****Top Slim-menu Styles****/
 .nav.slimmenu {
   padding: 0;
   border: 1px solid #e6e6e6;
@@ -289,16 +269,15 @@ and open the template in the editor.
 .nav.footer-menu li:hover {
   background: #fff;
   text-shadow: none;
-  -webkit-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
-  -moz-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
-  -o-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
-  transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -webkit-transition: background-color .25s, color .25s, border-bottom-color .25s;
+  -moz-transition: background-color .25s, color .25s, border-bottom-color .25s;
+  -o-transition: background-color .25s, color .25s, border-bottom-color .25s;
+  transition: background-color .25s, color .25s, border-bottom-color .25s;
   -webkit-backface-visibility: hidden;
 }
 .nav.footer-menu li:hover a {
   color: #ed1c24;
 }
-/**** Slimmenu Responsive Styles ****/
 .menu-collapser {
   background: #ed1c24;
   color: #ffffff;
@@ -309,7 +288,6 @@ and open the template in the editor.
 .menu-collapser .collapse-button .icon-bar {
   background: #ed1c24;
 }
-/**** Title Styles****/
 .title {
   color: #ed1c24;
 }
@@ -347,7 +325,6 @@ and open the template in the editor.
 .imagewithtext p {
   color: #282827;
 }
-/****Image With Text Styles****/
 .image {
   margin: 0.5em 0;
   color: #282827;
@@ -368,11 +345,10 @@ and open the template in the editor.
 .image-placeholder .glyphicon {
   color: #282827;
   font-size: 2.7em;
-  text-shadow: 1px 1px 2px #000000;
+  text-shadow: 1px 1px 2px #000;
   display: block;
   margin: 0 0 0.5em;
 }
-/****Link Element Styles****/
 .link {
   display: inline-block;
   margin: 0 0.5em 0.5em 0;
@@ -396,7 +372,6 @@ and open the template in the editor.
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
-/****Address Element Styles****/
 .address {
   padding: 0.5em 0;
 }
@@ -420,7 +395,6 @@ and open the template in the editor.
     text-align: center;
   }
 }
-/****Social Element Styles****/
 .icon-dribbble:before,
 .icon-twitter:before,
 .icon-facebook:before,
@@ -519,7 +493,7 @@ and open the template in the editor.
 }
 .social li:hover {
   background: #ffffff;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
 }
 .social li:hover a {
   top: -50px;
@@ -538,15 +512,6 @@ and open the template in the editor.
     text-align: center;
   }
 }
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 3 Mar, 2014, 16:08:41 PM
-    Author     : jarr-head
-*/
 .contactform label {
   display: none;
 }
@@ -573,11 +538,6 @@ and open the template in the editor.
   margin: 0 0 1em;
   padding-left: 0.5em;
 }
-/* 
-    Created on : 10 March, 2014, 1:25:41 PM
-    Author     : jarr-head
-*/
-/****Room Tariff Styles****/
 .room-tariff-container {
   background: #ffffff;
   padding: 0.5em;
@@ -790,7 +750,6 @@ and open the template in the editor.
 .room-tariff-container:hover .room-tariff-actions {
   display: block;
 }
-/****Room Facilities Styles****/
 .room-facilities-container {
   background: #e6e6e6;
   padding: 0.5em;
@@ -837,7 +796,6 @@ and open the template in the editor.
 .room-facilities-container .facilities li:hover:before {
   color: #831618;
 }
-/****Room Summary Styles****/
 .room-summary-container .room-summary-title h4 {
   font-size: 1.5em;
   font-weight: 300;
@@ -879,7 +837,6 @@ and open the template in the editor.
 .room-summary-container .room-summary .room-summary-desc .btn-book:hover {
   background: #f14b52;
 }
-/****Room Title Styles****/
 .room-title-container {
   background: #ffffff;
   padding: 0.5em;
@@ -913,7 +870,6 @@ and open the template in the editor.
     position: static;
   }
 }
-/****Room description Styles****/
 .room-description-container {
   margin: 0 0 1em;
 }
@@ -926,7 +882,6 @@ and open the template in the editor.
   padding: 1em 0.5em 0.5em;
   color: #da2528;
 }
-/****Room List Summary Styles****/
 .roomsummary {
   *zoom: 1;
   margin: 0 0 1em;
@@ -940,6 +895,11 @@ and open the template in the editor.
 .roomsummary .room-img {
   max-height: 240px;
   overflow: hidden;
+}
+.roomsummary .room-img a {
+  display: block;
+  min-height: 200px;
+  background-size: cover !important;
 }
 .roomsummary .room-title {
   font-size: 1.6em;
@@ -964,9 +924,11 @@ and open the template in the editor.
   display: table;
 }
 .roomsummary .room-actions .price {
-  float: left;
   font-size: 2em;
   color: #570f10;
+  margin-right: 0.5em;
+  display: inline-block;
+  vertical-align: middle;
 }
 .roomsummary .room-actions .price small {
   font-size: 0.8em;
@@ -978,7 +940,6 @@ and open the template in the editor.
 .roomsummary .room-actions .btn-room:hover {
   background: #f47b7f;
 }
-/* Calender Booking */
 .booking-title {
   font-size: 2em;
   font-weight: 300 !important;
@@ -1030,7 +991,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #ffffff;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;
@@ -1040,11 +1001,11 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .date-range .status {
   font-size: 1.0em;
   text-transform: uppercase;
-  padding-top: 13px;
+  padding: 8px;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #ffffff;
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
+  border-bottom: 1px dashed rgba(0,0,0,0.5);
   padding-bottom: 5%;
   margin-bottom: 5%;
 }
@@ -1165,10 +1126,11 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-title {
   line-height: 74px;
+  font-weight: normal;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td {
-  border: 1px solid #EAEAEA!important;
-  height: 42px!important;
+  border: 1px solid #EAEAEA !important;
+  height: 42px !important;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td span {
@@ -1178,19 +1140,21 @@ and open the template in the editor.
   line-height: 49px;
   text-align: center;
   border: 0px;
+  font-weight: normal;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td span:hover {
   background: none;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td > span {
-  background: rgba(255, 255, 255, 0.6);
-  color: #ccc;
+  background: rgba(255,255,255,0.6);
+  color: #282827;
   cursor: not-allowed;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-state-disabled a:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-state-disabled span:hover {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255,255,255,0.6);
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red {
   background: #f97d61;
@@ -1239,33 +1203,17 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.unavailable a {
   text-decoration: line-through;
-  color: #000000 !important;
+  color: #000 !important;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.semi-available a {
-  background: rgba(0, 0, 0, 0);
-  /* Old browsers */
-
-  background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
-  /* FF3.6+ */
-
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, gba(0, 0, 0, 0)), color-stop(50%, gba(0, 0, 0, 0.2)));
-  /* Chrome,Safari4+ */
-
-  background: -webkit-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
-  /* Chrome10+,Safari5.1+ */
-
-  background: -o-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
-  /* Opera 11.10+ */
-
-  background: -ms-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
-  /* IE10+ */
-
-  background: linear-gradient(135deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
-  /* W3C */
-
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#47000000', GradientType=1);
-  /* IE6-9 fallback on horizontal gradient */
-
+  background: rgba(0,0,0,0);
+  background: -moz-linear-gradient(-45deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 50%);
+  background: -webkit-gradient(linear,left top,right bottom,color-stop(50%,gba(0,0,0,0)),color-stop(50%,gba(0,0,0,0.2)));
+  background: -webkit-linear-gradient(-45deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%);
+  background: -o-linear-gradient(-45deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%);
+  background: -ms-linear-gradient(-45deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%);
+  background: linear-gradient(135deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#47000000',GradientType=1);
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-active {
   background: transparent;
@@ -1274,65 +1222,31 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-highlight {
   border-color: #f47b7f;
 }
-/*status*/
 .ui-datepicker td.unavailable a {
   text-decoration: line-through;
-  color: #000000 !important;
+  color: #000 !important;
 }
 .ui-datepicker td.semi-available a {
-  background: rgba(0, 0, 0, 0);
-  /* Old browsers */
-
-  background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
-  /* FF3.6+ */
-
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, gba(0, 0, 0, 0)), color-stop(50%, gba(0, 0, 0, 0.2)));
-  /* Chrome,Safari4+ */
-
-  background: -webkit-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
-  /* Chrome10+,Safari5.1+ */
-
-  background: -o-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
-  /* Opera 11.10+ */
-
-  background: -ms-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
-  /* IE10+ */
-
-  background: linear-gradient(135deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
-  /* W3C */
-
-  ilter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#47000000', GradientType=1);
-  /* IE6-9 fallback on horizontal gradient */
-
+  background: rgba(0,0,0,0);
+  background: -moz-linear-gradient(-45deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 50%);
+  background: -webkit-gradient(linear,left top,right bottom,color-stop(50%,gba(0,0,0,0)),color-stop(50%,gba(0,0,0,0.2)));
+  background: -webkit-linear-gradient(-45deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%);
+  background: -o-linear-gradient(-45deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%);
+  background: -ms-linear-gradient(-45deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%);
+  background: linear-gradient(135deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%);
+  ilter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#47000000',GradientType=1);
 }
 .ui-datepicker td.semi-available a:hover,
 .ui-datepicker td.semi-available a.ui-state-active {
-  background: rgba(0, 0, 0, 0) !important;
-  /* Old browsers */
-
-  background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 50%) !important;
-  /* FF3.6+ */
-
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, gba(0, 0, 0, 0)), color-stop(50%, gba(0, 0, 0, 0.2))) !important;
-  /* Chrome,Safari4+ */
-
-  background: -webkit-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
-  /* Chrome10+,Safari5.1+ */
-
-  background: -o-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
-  /* Opera 11.10+ */
-
-  background: -ms-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
-  /* IE10+ */
-
-  background: linear-gradient(135deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
-  /* W3C */
-
-  ilter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#47000000', GradientType=1) !important;
-  /* IE6-9 fallback on horizontal gradient */
-
+  background: rgba(0,0,0,0) !important;
+  background: -moz-linear-gradient(-45deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 50%) !important;
+  background: -webkit-gradient(linear,left top,right bottom,color-stop(50%,gba(0,0,0,0)),color-stop(50%,gba(0,0,0,0.2))) !important;
+  background: -webkit-linear-gradient(-45deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%) !important;
+  background: -o-linear-gradient(-45deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%) !important;
+  background: -ms-linear-gradient(-45deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%) !important;
+  background: linear-gradient(135deg,gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%) !important;
+  ilter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#47000000',GradientType=1) !important;
 }
-/*Room tariff*/
 .room-tariff-container {
   background: #ffffff;
   padding: 0.5em;
@@ -1377,7 +1291,6 @@ and open the template in the editor.
   color: #919191;
   text-transform: none;
 }
-/**** Vertical Bootstrap Slider Styles ****/
 .vertical .carousel-inner {
   height: 100%;
 }
@@ -1429,7 +1342,6 @@ and open the template in the editor.
 .carousel.vertical .carousel-control:focus {
   text-decoration: none !important;
 }
-/**** Gallery Styles ****/
 .isotope {
   padding: 0;
   margin: 0 0 1em;
@@ -1447,7 +1359,6 @@ ul.gallery {
   margin: 0 0 0.5em;
   text-align: left;
 }
-/**** Empty View ****/
 .gallery-empty-view {
   text-align: center;
   font-size: 1.2em;
@@ -1462,7 +1373,6 @@ ul.gallery {
   font-size: 3em;
   color: #424240;
 }
-/**** Isotope Filtering ****/
 .isotope-item {
   z-index: 2;
   margin: 1%;
@@ -1483,7 +1393,6 @@ ul.gallery {
   pointer-events: none;
   z-index: 1;
 }
-/**** Isotope CSS3 transitions ****/
 .isotope,
 .isotope .isotope-item {
   -webkit-transition-duration: 0.8s;
@@ -1506,7 +1415,6 @@ ul.gallery {
   -o-transition-property: -o-transform, opacity;
   transition-property: transform, opacity;
 }
-/**** disabling Isotope CSS3 transitions ****/
 .isotope.no-transition,
 .isotope.no-transition .isotope-item,
 .isotope .isotope-item.no-transition {
@@ -1537,7 +1445,6 @@ ul.gallery {
 .map:hover {
   border: 1px solid #ed1c24;
 }
-/**** Login Form Styles ****/
 .aj-imp-login-form {
   width: 50%;
   margin: 3em auto;
@@ -1610,8 +1517,8 @@ ul.gallery {
   color: #282827;
 }
 .aj-imp-login-form .aj-imp-login form .checkbox .icons .first-icon,
-.aj-imp-login-form .aj-imp-forgot form .checkbox .icons .first-icon,
 .aj-imp-login-form .aj-imp-login form .checkbox .icons .second-icon,
+.aj-imp-login-form .aj-imp-forgot form .checkbox .icons .first-icon,
 .aj-imp-login-form .aj-imp-forgot form .checkbox .icons .second-icon {
   background: transparent;
 }
@@ -1648,7 +1555,6 @@ ul.gallery {
   background: #f14b52;
 }
 @media (max-width: 767px) {
-  /*Responive*/
   .aj-imp-login-form {
     width: 80%;
     padding: 1em;
@@ -1659,12 +1565,11 @@ ul.gallery {
   .aj-imp-login-form .aj-imp-login form label {
     padding: 0 0 1em;
   }
-  /*Responive*/
 }
-/**** Table Styles****/
 .table {
   background: #ffffff;
   color: #282827;
+  margin: 0;
 }
 .table > thead > tr {
   background: #757573;
@@ -1673,19 +1578,19 @@ ul.gallery {
   color: #ed1c24;
 }
 .table > thead > tr > th,
-.table > tbody > tr > th,
-.table > tfoot > tr > th,
 .table > thead > tr > td,
+.table > tbody > tr > th,
 .table > tbody > tr > td,
+.table > tfoot > tr > th,
 .table > tfoot > tr > td {
   border-width: 0;
   text-align: left;
 }
 .table > thead > tr > th p,
-.table > tbody > tr > th p,
-.table > tfoot > tr > th p,
 .table > thead > tr > td p,
+.table > tbody > tr > th p,
 .table > tbody > tr > td p,
+.table > tfoot > tr > th p,
 .table > tfoot > tr > td p {
   margin: 0;
   line-height: 1;
@@ -1696,8 +1601,8 @@ ul.gallery {
   border-bottom: 0;
 }
 .table.table-bordered > thead > tr td,
-.table.table-bordered > tbody > tr td,
 .table.table-bordered > thead > tr th,
+.table.table-bordered > tbody > tr td,
 .table.table-bordered > tbody > tr th {
   border: 1px solid #282827 !important;
 }
@@ -1720,8 +1625,8 @@ ul.gallery {
   color: #ffffff;
 }
 .table.style-1 > thead > tr td,
-.table.style-1 > tbody > tr td,
 .table.style-1 > thead > tr th,
+.table.style-1 > tbody > tr td,
 .table.style-1 > tbody > tr th {
   border-color: #ed1c24 !important;
 }
@@ -1735,10 +1640,26 @@ ul.gallery {
   color: #ed1c24;
 }
 .table.style-2 > thead > tr td,
-.table.style-2 > tbody > tr td,
 .table.style-2 > thead > tr th,
+.table.style-2 > tbody > tr td,
 .table.style-2 > tbody > tr th {
   border-color: #831618 !important;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 1em;
+}
+@media (max-width: 979px) {
+  .table-responsive {
+    margin: 1em 0;
+    border-color: #ffffff;
+  }
+  .table-responsive > .table {
+    background: #ffffff;
+  }
 }
 .lang-sel {
   text-align: right;
@@ -1761,10 +1682,21 @@ ul.gallery {
 .lang-sel > div {
   text-align: left;
 }
+.lang-sel > div ul,
+.lang-sel > div li {
+  min-width: 170px;
+}
+.lang-sel > div ul ul,
+.lang-sel > div li ul {
+  z-index: 1;
+}
 .lang-sel > div .iclflag {
   top: -1px !important;
 }
-/**** Responsive Embed Styles ****/
+.widget {
+  color: #282827;
+  margin: 1em 0;
+}
 .embed-responsive {
   position: relative;
   display: block;
@@ -1790,15 +1722,6 @@ ul.gallery {
 .embed-responsive.embed-responsive-4by3 {
   padding-bottom: 75%;
 }
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 20 Feb, 2014, 7:45:35 PM
-    Author     : jarr-head
-*/
 .row {
   background: transparent;
 }
@@ -1855,7 +1778,7 @@ and open the template in the editor.
   color: #ffffff;
 }
 .row.column-dividers .column {
-  border-color: rgba(0, 0, 0, 0.2) !important;
+  border-color: rgba(0,0,0,0.2) !important;
   padding: 0.5em 15px;
 }
 @media (max-width: 991px) {
@@ -1864,7 +1787,7 @@ and open the template in the editor.
   }
   .row.column-dividers .column {
     border-right: 0 !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
   }
   .row.column-dividers .column:last-child {
     border-bottom: 0;
@@ -1883,8 +1806,8 @@ and open the template in the editor.
   border-top: 0;
   margin: 0 auto !important;
 }
-.site-page .center-container > .column > .row,
-#site-page-content-region .center-container > .column > .row {
+.site-page .center-container >.column >.row,
+#site-page-content-region .center-container >.column >.row {
   margin: auto 0.5em;
 }
 .site-footer .center-container,
@@ -1906,7 +1829,6 @@ and open the template in the editor.
 #aj-imp-builder-drag-drop .center-container .menu-bar:before {
   left: 0;
 }
-/**** Logo Styles ****/
 .logo {
   max-width: 300px;
   margin: 1.5em auto;
@@ -1920,12 +1842,11 @@ and open the template in the editor.
     display: inline-block;
   }
 }
-/****Top Slim-menu Styles****/
 .nav.slimmenu {
+  padding: 0;
   border: none;
   border-bottom: 0;
   border-left: 0;
-  padding: 0;
   margin: 0 auto;
   border-bottom: none !important;
   background: transparent;
@@ -2043,8 +1964,8 @@ and open the template in the editor.
   color: #ed1c24;
 }
 .menu-collapser {
-  background: #282827;
-  color: #ed1c24;
+  background: transparent;
+  color: #ffffff;
   font-weight: 400;
   text-shadow: none;
 }
@@ -2052,7 +1973,6 @@ and open the template in the editor.
   background: #ffffff;
   border-radius: 0px;
 }
-/**** Title Styles****/
 .title.site-title {
   color: #ed1c24;
   font-weight: 300;
@@ -2073,14 +1993,13 @@ and open the template in the editor.
   font-size: 1.5em;
   margin-bottom: 1.5em;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0,0,0,0.2);
 }
 @media (max-width: 991px) {
   .title {
     text-align: center;
   }
 }
-/****Image With Text Styles****/
 .image .info {
   color: #831618;
   font-size: 1em;
@@ -2104,11 +2023,10 @@ and open the template in the editor.
 .image-placeholder .glyphicon {
   color: #282827;
   font-size: 2.7em;
-  text-shadow: 1px 1px 2px #000000;
+  text-shadow: 1px 1px 2px #000;
   display: block;
   margin: 0 0 0.5em;
 }
-/****Address Element Styles****/
 .address {
   padding: 0.5em 0;
   text-align: left;
@@ -2159,7 +2077,7 @@ and open the template in the editor.
   position: relative;
   z-index: 1;
   border: 2px solid #ffffff;
-  outline: 1px solid rgba(0, 0, 0, 0.2);
+  outline: 1px solid rgba(0,0,0,0.2);
 }
 .imagewithtext img.pull-left {
   margin-right: 0.5em;
@@ -2170,7 +2088,6 @@ and open the template in the editor.
 .imagewithtext p {
   color: #282827;
 }
-/****Link Element Styles****/
 .link {
   display: inline-block;
   margin: 0 0.5em 0.5em 0;
@@ -2209,18 +2126,13 @@ and open the template in the editor.
     text-align: center;
   }
 }
-/* 
-    Created on : 10 March, 2014, 1:25:41 PM
-    Author     : jarr-head
-*/
-/****Room Tariff Styles****/
 .room-tariff-container {
   background: transparent !important;
   padding: 0 !important;
   position: relative;
 }
 .room-tariff-container .room-tariff-title {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0,0,0,0.2);
   margin: 0 0 0.5em;
   text-align: left;
 }
@@ -2421,7 +2333,6 @@ and open the template in the editor.
 .room-tariff-container:hover .room-tariff-actions {
   display: block;
 }
-/****Room Facilities Styles****/
 .room-facilities-container {
   padding: 0.5em;
   text-align: left;
@@ -2466,12 +2377,11 @@ and open the template in the editor.
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #831618;
+  color: #ed1c24;
 }
 .room-facilities-container .facilities li:hover:before {
   color: #ed1c24;
 }
-/****Room Summary Styles****/
 .room-summary-container {
   margin: 0 0 1.5em;
   text-align: left;
@@ -2520,7 +2430,6 @@ and open the template in the editor.
 .room-summary-container .room-summary .room-summary-desc .btn-book:hover {
   background: #f14b52;
 }
-/****Room Title Styles****/
 .room-title-container {
   background: transparent !important;
   padding: 0 !important;
@@ -2558,7 +2467,6 @@ and open the template in the editor.
     position: static;
   }
 }
-/****Room description Styles****/
 .room-description-container {
   margin: 0 0 1.5em;
   text-align: left;
@@ -2566,7 +2474,7 @@ and open the template in the editor.
 .room-description-container h1 {
   font-size: 1.5em;
   font-weight: 300;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0,0,0,0.2);
   margin: 0 0 0.5em;
 }
 .room-description-container .room-description-desc {
@@ -2574,7 +2482,6 @@ and open the template in the editor.
   padding: 0;
   color: #282827;
 }
-/****Room List Summary Styles****/
 .roomsummary {
   *zoom: 1;
   margin: 0 0 1em;
@@ -2589,7 +2496,7 @@ and open the template in the editor.
   width: 100%;
   max-height: 200px;
   border: 2px solid #ffffff;
-  outline: 1px solid rgba(0, 0, 0, 0.2);
+  outline: 1px solid rgba(0,0,0,0.2);
 }
 .roomsummary .room-title {
   font-size: 1.6em;
@@ -2606,7 +2513,7 @@ and open the template in the editor.
   color: #282827;
   padding-bottom: 0.5em;
   margin-bottom: 1em;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0,0,0,0.2);
 }
 .roomsummary .room-actions {
   *zoom: 1;
@@ -2619,9 +2526,11 @@ and open the template in the editor.
   display: table;
 }
 .roomsummary .room-actions .price {
-  float: left;
   font-size: 1.6em;
   color: #282827;
+  display: inline-block;
+  margin-right: 0.5em;
+  vertical-align: middle;
 }
 .roomsummary .room-actions .price small {
   font-size: 0.88em;
@@ -2636,7 +2545,6 @@ and open the template in the editor.
   text-decoration: none;
   color: #831618;
 }
-/* Calender Booking */
 .booking-title {
   font-size: 2em;
   font-weight: 300 !important;
@@ -2832,7 +2740,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td {
   border: 0 !important;
-  height: 42px!important;
+  height: 42px !important;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td span {
@@ -2851,7 +2759,7 @@ and open the template in the editor.
   color: #c61017;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td > span {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255,255,255,0.6);
   color: #ccc;
   cursor: not-allowed;
 }
@@ -2917,33 +2825,18 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-highlight {
   border-color: #f47b7f;
 }
-/*status*/
 .ui-datepicker td.unavailable a {
   text-decoration: line-through;
   color: #000 !important;
 }
 .ui-datepicker td.semi-available a {
-  background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
-  /* FF3.6+ */
-
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(1%, rgba(0, 0, 0, 0)), color-stop(50%, rgba(0, 0, 0, 0)), color-stop(51%, rgba(0, 0, 0, 0.28)), color-stop(100%, rgba(0, 0, 0, 0.28)));
-  /* Chrome,Safari4+ */
-
-  background: -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
-  /* Chrome10+,Safari5.1+ */
-
-  background: -o-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
-  /* Opera 11.10+ */
-
-  background: -ms-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
-  /* IE10+ */
-
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
-  /* W3C */
-
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#47000000', GradientType=1);
-  /* IE6-9 fallback on horizontal gradient */
-
+  background: -moz-linear-gradient(-45deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.28) 51%,rgba(0,0,0,0.28) 100%);
+  background: -webkit-gradient(linear,left top,right bottom,color-stop(0%,rgba(0,0,0,0)),color-stop(1%,rgba(0,0,0,0)),color-stop(50%,rgba(0,0,0,0)),color-stop(51%,rgba(0,0,0,0.28)),color-stop(100%,rgba(0,0,0,0.28)));
+  background: -webkit-linear-gradient(-45deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.28) 51%,rgba(0,0,0,0.28) 100%);
+  background: -o-linear-gradient(-45deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.28) 51%,rgba(0,0,0,0.28) 100%);
+  background: -ms-linear-gradient(-45deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.28) 51%,rgba(0,0,0,0.28) 100%);
+  background: linear-gradient(135deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.28) 51%,rgba(0,0,0,0.28) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#47000000',GradientType=1);
 }
 .aj-imp-sub-head {
   font-weight: 700;
@@ -2958,7 +2851,6 @@ and open the template in the editor.
   color: #919191;
   text-transform: none;
 }
-/**** Vertical Bootstrap Slider Styles ****/
 .vertical .carousel-inner {
   height: 100%;
 }
@@ -3010,7 +2902,6 @@ and open the template in the editor.
 .carousel.vertical .carousel-control:focus {
   text-decoration: none !important;
 }
-/****Social Element Styles****/
 .icon-dribbble:before,
 .icon-twitter:before,
 .icon-facebook:before,
@@ -3162,15 +3053,6 @@ and open the template in the editor.
 .map:hover {
   border: 0;
 }
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 3 Mar, 2014, 16:08:41 PM
-    Author     : jarr-head
-*/
 .contactform {
   text-align: left;
 }
@@ -3184,7 +3066,7 @@ and open the template in the editor.
   border-radius: 0;
   margin-bottom: 0.8em;
   border-width: 1px;
-  border-color: rgba(0, 0, 0, 0.2);
+  border-color: rgba(0,0,0,0.2);
 }
 .contactform .flat:focus,
 .contactform .flat:active {
@@ -3211,11 +3093,11 @@ and open the template in the editor.
   background: transparent !important;
 }
 .rev_slider_wrapper .tp-bullets .bullet {
-  background: rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255,255,255,0.3) !important;
   margin: 0 0.5em !important;
 }
 .rev_slider_wrapper .tp-bullets .bullet:hover {
-  background: rgba(255, 255, 255, 0.7) !important;
+  background: rgba(255,255,255,0.7) !important;
 }
 .rev_slider_wrapper .tp-bullets .bullet.selected {
   background: #ed1c24 !important;
@@ -3225,7 +3107,6 @@ and open the template in the editor.
     margin-bottom: 1.5em !important;
   }
 }
-/**** Login Form Styles ****/
 .aj-imp-login-form {
   width: 100%;
   margin: auto;
@@ -3306,8 +3187,8 @@ and open the template in the editor.
   color: #282827;
 }
 .aj-imp-login-form .aj-imp-login form .checkbox .icons .first-icon,
-.aj-imp-login-form .aj-imp-forgot form .checkbox .icons .first-icon,
 .aj-imp-login-form .aj-imp-login form .checkbox .icons .second-icon,
+.aj-imp-login-form .aj-imp-forgot form .checkbox .icons .first-icon,
 .aj-imp-login-form .aj-imp-forgot form .checkbox .icons .second-icon {
   background: transparent;
 }
@@ -3344,7 +3225,6 @@ and open the template in the editor.
   background: #f14b52;
 }
 @media (max-width: 767px) {
-  /*Responive*/
   .aj-imp-login-form {
     width: 80%;
     padding: 1em;
@@ -3355,5 +3235,58 @@ and open the template in the editor.
   .aj-imp-login-form .aj-imp-login form label {
     padding: 0 0 1em;
   }
-  /*Responive*/
+}
+.lang-sel {
+  text-align: right;
+  margin: 0.5em;
+}
+.lang-sel.align-left {
+  text-align: left;
+}
+.lang-sel.align-right {
+  text-align: right;
+}
+.lang-sel.align-center {
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .lang-sel {
+    text-align: center !important;
+  }
+}
+.lang-sel > div {
+  text-align: left;
+}
+.lang-sel > div ul,
+.lang-sel > div li {
+  width: 170px;
+}
+.lang-sel > div ul ul,
+.lang-sel > div li ul {
+  z-index: 1;
+  border: 0 !important;
+}
+.lang-sel > div ul a,
+.lang-sel > div li a {
+  background-color: #e1e1e1 !important;
+  color: #282827 !important;
+  border: 0 !important;
+}
+.lang-sel > div ul a:hover,
+.lang-sel > div li a:hover {
+  color: #ffffff !important;
+  background-color: #831618 !important;
+}
+.lang-sel > div ul a.lang_sel_sel,
+.lang-sel > div li a.lang_sel_sel {
+  border: 0 !important;
+  background-position: 150px center !important;
+}
+.lang-sel > div ul a.lang_sel_sel:hover,
+.lang-sel > div li a.lang_sel_sel:hover {
+  color: #ffffff !important;
+  background-color: #ed1c24 !important;
+}
+.lang-sel > div .iclflag {
+  top: -1px !important;
 }

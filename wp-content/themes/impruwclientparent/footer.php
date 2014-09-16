@@ -100,7 +100,6 @@
             color: #fff;
             font-size: 1.5em;
             border-radius: 0 2px 2px 0;
-            right: -54px !important;
         }
         .options-div.open .handle {
             right: -42px !important;
