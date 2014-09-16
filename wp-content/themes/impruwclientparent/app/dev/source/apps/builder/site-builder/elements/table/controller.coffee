@@ -62,7 +62,7 @@ define ['app'
 	                # stripslash each html content and save in json
 	                newdata = {}
 	                Object.getOwnPropertyNames(data).forEach (val, idx, array) ->
-	                	newdata[val] = _.stripslashes data[val]
+	                	newdata[val] = _.stripslashes data[WPML_DEFAULT_LANG]
 
 	                @layout.model.set 'content', newdata
 	                @layout.model.save()

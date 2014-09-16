@@ -54,7 +54,7 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
             data[WPML_DEFAULT_LANG] = $(html).html();
             newdata = {};
             Object.getOwnPropertyNames(data).forEach(function(val, idx, array) {
-              return newdata[val] = _.stripslashes(data[val]);
+              return newdata[val] = _.stripslashes(data[WPML_DEFAULT_LANG]);
             });
             _this.layout.model.set('content', newdata);
             return _this.layout.model.save();
