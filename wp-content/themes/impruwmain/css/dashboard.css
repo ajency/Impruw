@@ -4033,3 +4033,88 @@ form .aj-imp-submit:hover {
 .aj-imp-block-list .load-more {
   text-align: center;
 }
+
+/****Pricing Plans Styles****/
+.aj-imp-pricing {
+  margin-top: 2em;
+}
+.aj-imp-pricing .price-plans .price {
+  font-size: 4em;
+}
+.aj-imp-pricing .price-plans .price .price-cents {
+  vertical-align: super;
+  font-size: 50%;
+}
+.aj-imp-pricing .price-plans .price .price-month {
+  font-size: 35%;
+  font-style: italic;
+}
+.aj-imp-pricing .price-plans .panel {
+  -webkit-transition-property: scale;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+}
+.aj-imp-pricing .price-plans .panel .panel-heading h3 {
+  color: #aaaaaa;
+}
+.aj-imp-pricing .price-plans .panel .panel-heading span,
+.aj-imp-pricing .price-plans .panel .panel-body span {
+  display: block;
+  margin-bottom: 0.2em;
+}
+.aj-imp-pricing .price-plans .panel .panel-heading span.active,
+.aj-imp-pricing .price-plans .panel .panel-body span.active {
+  color: #2ecc71;
+}
+.aj-imp-pricing .price-plans .panel .panel-heading span.pending,
+.aj-imp-pricing .price-plans .panel .panel-body span.pending {
+  color: #f54545;
+}
+.aj-imp-pricing .price-plans .panel.active {
+  border-color: #2ecc71;
+}
+.aj-imp-pricing .price-plans .panel.active .panel-heading h3 {
+  color: #2ecc71;
+}
+.aj-imp-pricing .price-plans .panel.active .ribbon {
+  background: #2ecc71;
+  display: block;
+  color: #fff;
+  padding: 13px 12px 14px;
+  margin: -10px -15px;
+  border-radius: 0 0 3px 3px;
+  font-size: 2em;
+}
+.aj-imp-pricing .price-plans .panel.active .ribbon .activate-link {
+  background: transparent;
+  color: #fff;
+}
+.aj-imp-pricing .price-plans .panel.active .ribbon .activate-link:hover,
+.aj-imp-pricing .price-plans .panel.active .ribbon .activate-link:focus {
+  background: transparent;
+  color: #fff;
+}
+.aj-imp-pricing .price-plans .panel:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  border-color: #cbe5f8;
+}
+.aj-imp-pricing .price-plans .panel:hover .panel-heading {
+  background: #cbe5f8;
+}
+.aj-imp-pricing .price-plans .panel:hover .panel-heading h3 {
+  color: #849fb0;
+}
+.aj-imp-pricing .price-plans .panel:hover .price {
+  color: #182944;
+}
+.aj-imp-pricing .price-plans .panel:hover .btn {
+  background: #ff7e00;
+}
+.aj-imp-pricing .price-plans .panel:hover .btn:hover {
+  background: #ff9833;
+}
