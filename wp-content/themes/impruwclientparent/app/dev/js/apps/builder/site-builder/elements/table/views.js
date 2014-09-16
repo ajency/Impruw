@@ -44,7 +44,9 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       TableView.prototype.onShow = function() {
-        this.$el.find('.table-holder').html(_.stripslashes(this.model.get('content')));
+        var tablecontent, _ref;
+        tablecontent = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
+        this.$el.find('.table-holder').html(_.stripslashes(tablecontent));
         return this.$el.find('table').resizableColumns();
       };
 
