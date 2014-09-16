@@ -3981,3 +3981,55 @@ form .aj-imp-submit:hover {
   font-size: 0.5em;
   color: #c3c3c3;
 }
+/****Block List Styles****/
+.aj-imp-themes {
+
+}
+.aj-imp-block-list ul {
+  margin: 1em 0;
+  list-style: none;
+  text-align: center;
+}
+.aj-imp-block-list ul .block {
+  width: 31%;
+  display: inline-block;
+  position: relative;
+  border: 1px solid #dddddd;
+  background: #fff;
+  box-shadow: 0 0 2px 3px #dddddd;
+  padding: 1%;
+  margin: 1%;
+  border-radius: 2px;
+}
+.aj-imp-block-list ul .block .img-responsive {
+  margin: auto;
+}
+.aj-imp-block-list ul .block .desc {
+  color: #849fb0;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1.5em;
+}
+.aj-imp-block-list ul .block .aj-imp-choose-btn {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  padding-top: 35%;
+}
+.aj-imp-block-list ul .block .aj-imp-choose-btn .btn {
+  background: #ff7e00;
+}
+.aj-imp-block-list ul .block .aj-imp-choose-btn .btn:hover {
+  background: #ffb266;
+}
+.aj-imp-block-list ul .block:hover .aj-imp-choose-btn {
+  display: block;
+}
+.aj-imp-block-list .load-more {
+  text-align: center;
+}
