@@ -3852,14 +3852,15 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-teampage .member .member-pic {
   text-align: center;
-  height: 260px;
+  height: 280px;
   position: relative;
   overflow: hidden;
 }
 .aj-imp-teampage .member .member-pic .img-circle {
   border: 5px solid #fff;
-  height: 250px;
-  width: 250px;
+  height: auto;
+  width: 70%;
+  max-width: 250px;
   box-shadow: 0 0 3px 3px #aaaaaa;
   position: absolute;
   bottom: -25%;
