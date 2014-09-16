@@ -896,6 +896,11 @@
   max-height: 240px;
   overflow: hidden;
 }
+.roomsummary .room-img a {
+  display: block;
+  min-height: 200px;
+  background-size: cover !important;
+}
 .roomsummary .room-title {
   font-size: 1.6em;
   color: #776251;
@@ -919,9 +924,11 @@
   display: table;
 }
 .roomsummary .room-actions .price {
-  float: left;
   font-size: 2em;
   color: #291f1b;
+  margin-right: 0.5em;
+  display: inline-block;
+  vertical-align: middle;
 }
 .roomsummary .room-actions .price small {
   font-size: 0.8em;
@@ -984,7 +991,7 @@
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #FFFFFF;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;
@@ -994,7 +1001,7 @@
 .room-booking .room-booking-container .room-booking-data .date-range .status {
   font-size: 1.0em;
   text-transform: uppercase;
-  padding-top: 13px;
+  padding: 8px;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #FFFFFF;
@@ -1119,6 +1126,7 @@
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-title {
   line-height: 74px;
+  font-weight: normal;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td {
   border: 1px solid #EAEAEA !important;
@@ -1132,6 +1140,7 @@
   line-height: 49px;
   text-align: center;
   border: 0px;
+  font-weight: normal;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td span:hover {
@@ -1139,8 +1148,9 @@
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td > span {
   background: rgba(255,255,255,0.6);
-  color: #ccc;
+  color: #282827;
   cursor: not-allowed;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-state-disabled a:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-state-disabled span:hover {
@@ -1559,6 +1569,7 @@ ul.gallery {
 .table {
   background: #FFFFFF;
   color: #282827;
+  margin: 0;
 }
 .table > thead > tr {
   background: #757573;
@@ -1634,6 +1645,22 @@ ul.gallery {
 .table.style-2 > tbody > tr th {
   border-color: #48372F !important;
 }
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 1em;
+}
+@media (max-width: 979px) {
+  .table-responsive {
+    margin: 1em 0;
+    border-color: #FFFFFF;
+  }
+  .table-responsive > .table {
+    background: #FFFFFF;
+  }
+}
 .lang-sel {
   text-align: right;
   margin: 0.2em 0;
@@ -1655,8 +1682,20 @@ ul.gallery {
 .lang-sel > div {
   text-align: left;
 }
+.lang-sel > div ul,
+.lang-sel > div li {
+  min-width: 170px;
+}
+.lang-sel > div ul ul,
+.lang-sel > div li ul {
+  z-index: 1;
+}
 .lang-sel > div .iclflag {
   top: -1px !important;
+}
+.widget {
+  color: #282827;
+  margin: 1em 0;
 }
 .embed-responsive {
   position: relative;
@@ -1925,8 +1964,8 @@ ul.gallery {
   color: #776251;
 }
 .menu-collapser {
-  background: #282827;
-  color: #776251;
+  background: transparent;
+  color: #FFFFFF;
   font-weight: 400;
   text-shadow: none;
 }
@@ -2338,7 +2377,7 @@ ul.gallery {
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #48372F;
+  color: #776251;
 }
 .room-facilities-container .facilities li:hover:before {
   color: #776251;
@@ -2487,9 +2526,11 @@ ul.gallery {
   display: table;
 }
 .roomsummary .room-actions .price {
-  float: left;
   font-size: 1.6em;
   color: #282827;
+  display: inline-block;
+  margin-right: 0.5em;
+  vertical-align: middle;
 }
 .roomsummary .room-actions .price small {
   font-size: 0.88em;
@@ -3194,4 +3235,58 @@ ul.gallery {
   .aj-imp-login-form .aj-imp-login form label {
     padding: 0 0 1em;
   }
+}
+.lang-sel {
+  text-align: right;
+  margin: 0.5em;
+}
+.lang-sel.align-left {
+  text-align: left;
+}
+.lang-sel.align-right {
+  text-align: right;
+}
+.lang-sel.align-center {
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .lang-sel {
+    text-align: center !important;
+  }
+}
+.lang-sel > div {
+  text-align: left;
+}
+.lang-sel > div ul,
+.lang-sel > div li {
+  width: 170px;
+}
+.lang-sel > div ul ul,
+.lang-sel > div li ul {
+  z-index: 1;
+  border: 0 !important;
+}
+.lang-sel > div ul a,
+.lang-sel > div li a {
+  background-color: #E1E1E1 !important;
+  color: #282827 !important;
+  border: 0 !important;
+}
+.lang-sel > div ul a:hover,
+.lang-sel > div li a:hover {
+  color: #FFFFFF !important;
+  background-color: #48372F !important;
+}
+.lang-sel > div ul a.lang_sel_sel,
+.lang-sel > div li a.lang_sel_sel {
+  border: 0 !important;
+  background-position: 150px center !important;
+}
+.lang-sel > div ul a.lang_sel_sel:hover,
+.lang-sel > div li a.lang_sel_sel:hover {
+  color: #FFFFFF !important;
+  background-color: #776251 !important;
+}
+.lang-sel > div .iclflag {
+  top: -1px !important;
 }
