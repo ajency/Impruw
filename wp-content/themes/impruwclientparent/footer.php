@@ -195,7 +195,8 @@
                 $.cookie('color_scheme', color_scheme_name, {path: '/' });
                 applyStyle(); 
                 $(this).closest('.option-colors').find('a').removeClass('active');
-                $(this).addClass('active');               
+                $(this).addClass('active');   
+                $('.handle').trigger('click');            
             });
             
             var stylesPromises = [];
