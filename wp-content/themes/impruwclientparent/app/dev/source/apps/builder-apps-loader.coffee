@@ -6,7 +6,7 @@ define [
 		'apps/builder/site-builder/addpage/addpage'
 		'apps/builder/site-builder/templates/pagetemplates'
 		'apps/builder/choosetheme/choosethemeapp'
-		# 'apps/builder/unused-elements/unusedelements'
+		'apps/builder/unused-elements/unusedelements'
 		'apps/builder/right-block/controller'
 		'apps/menu-manager/app'
 		'apps/media/app'

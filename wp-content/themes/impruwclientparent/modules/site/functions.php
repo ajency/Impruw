@@ -679,7 +679,7 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
         translate_site($theme_site_id, 'en');
 
         foreach ($current_active_languages as $language) {
-            if($language['code']!='en')
+            if($language['code'] != 'en')
                 translate_site($current_site_id, $language['code']);
         }
         
@@ -984,10 +984,14 @@ function translate_page( $theme_site_id, $language_code, $post_id){
     else{
         $clone_first_time = TRUE ;
     }
-
+    
+    if ($clone_first_time && $language_code === 'en') {
+        store_unused_elements( $post_id );
+    }
+    
     $data = set_json_to_site( $data, $language_code, $clone_first_time);
     
-    //store_unused_elements( $post_id );
+
     add_page_json( $post_id, $data );
 
     delete_all_revisions( $post_id );

@@ -160,6 +160,7 @@ define [ 'app'
 
             # trigger page change event to load the initial page
             _.delay =>
+
                pageId = $.cookie 'current-page-id'
                if isNaN parseInt pageId
                   pageId = @$el.find( 'select#builder-page-sel' ).selectpicker 'val'

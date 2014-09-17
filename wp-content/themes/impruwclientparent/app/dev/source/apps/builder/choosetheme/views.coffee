@@ -26,6 +26,7 @@ define ['app'], (App)->
 				'click a.choose-theme': (e)->
 					e.stopPropagation()
 					e.preventDefault()
+					@$el.find('a.choose-theme').attr 'disabled', true
 					@$el.find('.choose-theme').text _.polyglot.t('Applying...')
 					@trigger "choose:theme:clicked", @model
 
