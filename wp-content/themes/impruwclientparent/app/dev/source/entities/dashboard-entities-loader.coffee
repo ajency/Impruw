@@ -18,6 +18,7 @@ define [
     'entities/braintree-subscription'
     'entities/braintree-credit-card'
     'entities/braintree-transaction'
+    'entities/seo'
     'entities/header-elements'
     'entities/footer-elements'
     'entities/page-table-elements'

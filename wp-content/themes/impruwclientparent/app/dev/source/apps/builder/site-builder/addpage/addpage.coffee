@@ -17,7 +17,13 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
                 # listen to template selection region
                 @listenTo layout.chooseTemplateRegion, "template:selected", ( model )=>
-                    @layout.triggerMethod "update:template:page:id", model.get 'ID'
+                    is_theme_template = false
+                    console.log model
+                    console.log model.get 'is_theme_template'
+                    if model.get 'is_theme_template'
+                        console.log model.get 'is_theme_template'
+                        is_theme_template = true
+                    @layout.triggerMethod "update:template:page:id", model.get('ID'),is_theme_template
 
                 @show layout
 
@@ -89,6 +95,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
         							<div class="p-messages"></div>
         						</div>
         					</div>
+                            <input type="hidden" name="is_theme_template" value="false"/>
         					<input type="hidden" name="template_page_id" value="0"/>
                             <div class="form-group">
                                 <div class="col-sm-9 col-sm-offset-3">
@@ -112,7 +119,9 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             onShowSuccessMessage: ->
                 @$el.prepend '<div class="alert alert-success">'+ _.polyglot.t("New Page added")+'</div>'
 
-            onUpdateTemplatePageId : ( id )->
+            onUpdateTemplatePageId : ( id, is_theme_template = false )->
+                
+                @$el.find( 'input[name="is_theme_template"]' ).val is_theme_template
                 @$el.find( 'input[name="template_page_id"]' ).val id
                 @$el.find('.select-template-error').removeClass('show').addClass('hide')
 

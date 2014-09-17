@@ -1,6 +1,10 @@
 define [
     'app'
     'apps/seo/show/controller'
+    'apps/seo/seo-language/controller'
+    'apps/seo/seo-page-nav/controller'
+    'apps/seo/seo-page-content/controller'
+    'apps/seo/seo-rooms/show/controller'
 ], (App)->
     App.module 'SeoApp', (SeoApp, App, Backbone, Marionette, $, _)->
 

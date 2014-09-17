@@ -14,8 +14,14 @@ define(['app', 'text!apps/seo/templates/view.html'], function(App, formTpl) {
 
       SeoView.prototype.className = 'seo-container';
 
+      SeoView.prototype.regions = {
+        seoLanguageSelection: "#js-seo-language-selection",
+        seoPageNav: "#js-seo-page-nav",
+        seoPageContent: "#js-seo-page-tabs"
+      };
+
       return SeoView;
 
-    })(Marionette.ItemView);
+    })(Marionette.Layout);
   });
 });
