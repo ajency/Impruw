@@ -6,7 +6,7 @@ define ['app'], (App)->
         # Menu item view
         class Views.TextView extends Marionette.ItemView
 
-            tagName: 'div'
+            tagName: 'p'
 
             template: ''
 

@@ -3712,6 +3712,9 @@ function check_page_access() {
         die();
     }
 
+    if(get_current_user_id() === 1)
+        return;
+
     if ( is_current_user_impruw_manager() || is_super_admin() || is_network_admin() )
         return;
 

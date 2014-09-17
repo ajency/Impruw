@@ -34,6 +34,9 @@ define ['app'], (App)->
             setUpCKEditor : =>
                 CKEDITOR.on 'instanceCreated', @configureEditor
                 @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
+                html = @$el.html()
+                @editor.setData html
+
                 @editor.on 'changedTitleStyle',(evt)=>
                     @model.set 'style', evt.data.style
 
@@ -48,12 +51,7 @@ define ['app'], (App)->
 
                 @editor.on 'setCurrentJustify',(evt)=>
                     @model.set 'justify', evt.data.justify
-
-
-
-                html = @$el.html()
-
-                @editor.setData html
+                
                 @editor.config.placeholder = 'Click here to enter Title'
 
             # initialize the CKEditor for the text element on show
