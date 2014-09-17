@@ -125,6 +125,9 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				# update local copy
 				@local.saveLocal data
 
+				# attach instance Id
+				data['instance_id'] = App.instanceId
+
 				data
 
 			isPageModified : (data)->
@@ -141,6 +144,9 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 			handleTick : (data)=>
 				@schedule()
 				@enableButtons()
+
+				if data.success is false and data.new_instance
+					App.vent.trigger "new:instance:opened", data
 
 				if data.success is false
 					App.vent.trigger "autosave:failed", data
