@@ -3788,6 +3788,27 @@ form {
 					overflow: hidden;
 				}
 			}
+			.original-table-content {
+				.original {
+					height: auto;
+					max-height: initial;
+					padding: 0;
+					border: 0;
+					table {
+						td, th {
+							border: 1px solid @dash-grey
+						}
+						th {
+							border-bottom: 2px solid @dash-grey;
+						}
+						p {
+							margin: 0;
+							line-height: 1.231;
+							letter-spacing: 0 !important;
+						}
+					}
+				}
+			}
 		}
 	}
 	.form-horizontal {
@@ -3935,7 +3956,7 @@ form {
 			margin-bottom: 0;
 			overflow: auto;
 			&.title {
-				height: 33px;
+				height: 34px;
 				overflow: hidden;
 			}
 			&:focus {
@@ -3951,6 +3972,29 @@ form {
 			&:focus {
 				& ~ .trans-action {
 					opacity: 1;
+				}
+			}
+		}
+	}
+	.translated-table-content {
+		.trans-field {
+			.translated-element-content {
+				height: auto;
+				max-height: initial;
+				padding: 0;
+				border: 0;
+				table {
+					td, th {
+						border: 1px solid @dash-grey
+					}
+					th {
+						border-bottom: 2px solid @dash-grey;
+					}
+					p {
+						margin: 0;
+						line-height: 1.231;
+						letter-spacing: 0 !important;
+					}
 				}
 			}
 		}

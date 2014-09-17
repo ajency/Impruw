@@ -9,6 +9,7 @@ define(['app'], function(App) {
 
       function TitleView() {
         this.configureEditor = __bind(this.configureEditor, this);
+        this.setUpCKEditor = __bind(this.setUpCKEditor, this);
         return TitleView.__super__.constructor.apply(this, arguments);
       }
 
@@ -27,27 +28,76 @@ define(['app'], function(App) {
         }
       };
 
-      TitleView.prototype.onShow = function() {
-        var content, _ref;
-        this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
+      TitleView.prototype.modelEvents = {
+        'change:justify': function(model, justify) {
+          this.$el.css('text-align', justify);
+          return this.trigger("title:element:blur", this.$el.html());
+        }
+      };
+
+      TitleView.prototype.initialize = function() {
+        return this.$el.on('focus', _.once(this.setUpCKEditor));
+      };
+
+      TitleView.prototype.setUpCKEditor = function() {
+        var html;
+        CKEDITOR.on('instanceCreated', this.configureEditor);
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
-        content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
-        this.editor.setData(_.stripslashes(content != null ? content : ''));
+        this.editor.on('changedTitleStyle', (function(_this) {
+          return function(evt) {
+            return _this.model.set('style', evt.data.style);
+          };
+        })(this));
+        this.editor.on('titleStylesInitDone', (function(_this) {
+          return function() {
+            return _this.editor.fire('initStylesList', {
+              style: _this.model.get('style'),
+              styles: _this.settingsModel.get('styles')
+            });
+          };
+        })(this));
+        this.editor.on('titleJustifyInitDone', (function(_this) {
+          return function() {
+            return _this.editor.fire('getCurrentJustify', {
+              justify: _this.model.get('justify')
+            });
+          };
+        })(this));
+        this.editor.on('setCurrentJustify', (function(_this) {
+          return function(evt) {
+            return _this.model.set('justify', evt.data.justify);
+          };
+        })(this));
+        html = this.$el.html();
+        this.editor.setData(html);
         return this.editor.config.placeholder = 'Click here to enter Title';
       };
 
+      TitleView.prototype.onShow = function() {
+        var content, html, _ref;
+        this.$el.css('text-align', this.model.get('justify'));
+        this.settingsModel = Marionette.getOption(this, 'settingsModel');
+        this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
+        content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
+        html = _.stripslashes(content);
+        return this.$el.html(html != null ? html : '');
+      };
+
       TitleView.prototype.onClose = function() {
-        return this.editor.destroy();
+        if (this.editor) {
+          return this.editor.destroy();
+        }
       };
 
       TitleView.prototype.configureEditor = function(event) {
         var editor, element;
         editor = event.editor;
         element = editor.element;
-        return editor.on("configLoaded", function() {
-          editor.config.extraPlugins = 'confighelper';
-          return editor.config.extraPlugins = 'justify';
-        });
+        if (element.getAttribute('id') === this.$el.attr('id')) {
+          return editor.on('configLoaded', function() {
+            return editor.config.extraPlugins = 'titlejustify,titlestyles';
+          });
+        }
       };
 
       return TitleView;

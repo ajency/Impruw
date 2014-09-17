@@ -21,4 +21,5 @@ define [
     'entities/seo'
     'entities/header-elements'
     'entities/footer-elements'
+    'entities/page-table-elements'
 ], ->

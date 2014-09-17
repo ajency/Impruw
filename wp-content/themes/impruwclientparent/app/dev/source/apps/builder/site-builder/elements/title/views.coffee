@@ -22,6 +22,39 @@ define ['app'], (App)->
                 'blur': ->
                     @trigger "title:element:blur", @$el.html()
 
+            modelEvents : 
+                'change:justify' : (model,justify)->
+                    @$el.css 'text-align', justify
+                    @trigger "title:element:blur", @$el.html()
+
+
+            initialize:->
+                @$el.on 'focus', _.once @setUpCKEditor
+
+            setUpCKEditor : =>
+                CKEDITOR.on 'instanceCreated', @configureEditor
+                @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
+                @editor.on 'changedTitleStyle',(evt)=>
+                    @model.set 'style', evt.data.style
+
+                @editor.on 'titleStylesInitDone',=>
+                    @editor.fire 'initStylesList',
+                        style : @model.get 'style'
+                        styles : @settingsModel.get 'styles'
+
+                @editor.on 'titleJustifyInitDone',=>
+                    @editor.fire 'getCurrentJustify',
+                        justify : @model.get 'justify'
+
+                @editor.on 'setCurrentJustify',(evt)=>
+                    @model.set 'justify', evt.data.justify
+
+
+
+                html = @$el.html()
+
+                @editor.setData html
+                @editor.config.placeholder = 'Click here to enter Title'
 
             # initialize the CKEditor for the text element on show
             # used setData instead of showing in template. this works well
@@ -29,20 +62,23 @@ define ['app'], (App)->
             # hold the editor instance as the element property so that
             # we can destroy it on close of element
             onShow: ->
+                @$el.css 'text-align', @model.get 'justify'
+                @settingsModel = Marionette.getOption @,'settingsModel'
+
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
-
-                # CKEDITOR.on 'instanceCreated', @configureEditor
-                @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
                 content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
-                @editor.setData _.stripslashes content ? ''
-                @editor.config.placeholder = 'Click here to enter Title'
-
+                html = _.stripslashes content
+                # if not _.str.include(html, "<h3>")
+                #     html = '<h3>'+html+'</h3>'
+                @$el.html html ? ''
+                
 
             # destroy the Ckeditor instance to avoiid memory leaks on close of element
             # this.editor will hold the reference to the editor instance
             # Ckeditor has a destroy method to remove a editor instance
             onClose: ->
-                @editor.destroy()
+                if @editor
+                    @editor.destroy()
 
             # set configuration for the Ckeditor
             configureEditor: (event) =>
@@ -52,7 +88,17 @@ define ['app'], (App)->
                 # which is fired after the configuration file loading and
                 # execution. This makes it possible to change the
                 # configurations before the editor initialization takes place.
-                editor.on "configLoaded", ->
+
+                if element.getAttribute('id') is @$el.attr 'id'
+                    editor.on 'configLoaded', ->
+
+                        
+                        editor.config.extraPlugins = 'titlejustify,titlestyles'
+
+
+
+                        # editor.config.stylesSet = "#{CURRENTTHEME}_title_styles"
+                
 
                     # Rearrange the layout of the toolbar.
                     # editor.config.toolbar = [
@@ -62,5 +108,6 @@ define ['app'], (App)->
                     #     ['InsertImage']
                     # ]
 
-                    editor.config.extraPlugins = 'confighelper'
-                    editor.config.extraPlugins = 'justify'
+                    # editor.config.extraPlugins = 'confighelper'
+                    # editor.config.extraPlugins = 'justify'
+               

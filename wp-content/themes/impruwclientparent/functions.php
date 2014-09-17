@@ -20,6 +20,8 @@ $me = new Mustache_Engine ();
 
 //load framework
 require 'framework/autoload.php';
+require 'api/class-wp-json-rooms.php';
+
 
 new \framework\cron\ThemeExportCron();
 new \framework\cron\ThemeImportCron();
@@ -50,6 +52,7 @@ require_once 'modules/language/ajax.php';
 require_once 'modules/language/languagefunctions.php';
 require_once 'modules/billing/ajax.php';
 require_once 'modules/seo/ajax.php';
+require_once 'modules/heartbeat/heartbeat.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 
 /***
@@ -157,6 +160,7 @@ function check_site_status() {
 }
 
 // add_action ( 'template_redirect', 'check_site_status' );
+
 
 /*
  * -------------------------------------------------------------------------------------- impruw_register_room_init function to create a new post type called rooms -------------------------------------------------------------------------------------
@@ -1055,8 +1059,8 @@ function get_theme_CSS() {
 
             <link class="theme-style" href="<?php echo get_theme_style_sheet_file_path(); ?>" type="text/css" rel="stylesheet"/>
         <?php } else { ?>
-            <style>
-                body {display:none;}
+           <style>
+                body {visibility:hidden;}
             </style>
             <link class="theme-style" href="" type="text/css" rel="stylesheet"/>
         <?php
@@ -4207,6 +4211,13 @@ function generate_seo_page_excerpt($metadesc){
 }
 
 add_filter( 'wpseo_metadesc' ,'generate_seo_page_excerpt' ,10,1);
+
+if(!function_exists('theme_color_sets')){
+
+    function theme_color_sets(){
+        return array();
+    }
+}
 
 
 

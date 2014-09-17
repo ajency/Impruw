@@ -47,6 +47,7 @@ require.config({
     imageedit: '../../../../../wp-admin/js/image-edit',
     json2: '../../../../../wp-includes/js/json2',
     svgpainter: '../../../../../wp-admin/js/svg-painter',
+    heartbeat: '../../../../../wp-includes/js/heartbeat',
     jqueryuii18n: 'plugins/jquery-ui-i18n'
   },
   shim: {
@@ -80,6 +81,7 @@ require.config({
     minicolors: ['jquery'],
     revslider: ['themepunch'],
     imgLiquid: ['jquery'],
+    heartbeat: ['jquery'],
     plupload: {
       deps: ['jquery'],
       exports: 'plupload'

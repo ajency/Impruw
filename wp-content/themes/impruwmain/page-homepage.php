@@ -12,13 +12,13 @@ get_header();
         <?php if( !is_user_logged_in() ) { ?>
         	<a href="<?php echo site_url(); ?>/register/" class="btn btn-hg big-sign"><span class="icon icon-pen"></span> <?php _e('Sign up for a free trial','impruwmain')?></a>
         <?php } ?>
-        <img src="<?php echo get_template_directory_uri(); ?>/images/HOME_banner.png" title="Impruw Themes" alt="Impruw Themes" class="img-responsive" />
+        <img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/HOME_banner.png" title="<?php _e('Impruw Themes','impruwmain'); ?>" alt="<?php _e('Impruw Themes','impruwmain'); ?>" class="img-responsive" />
     </div>
 
     <div class="home-2">
     	<div class="row">
     		<div class="col-sm-4">
-    			<img src="<?php echo get_template_directory_uri(); ?>/images/video-2.jpg" title="Impruw Themes" alt="Impruw Themes" class="img-responsive" />
+    			<img src="<?php echo get_template_directory_uri(); ?>/images/video-2.jpg" title="<?php _e('Impruw Themes','impruwmain'); ?>" alt="<?php _e('Impruw Themes','impruwmain'); ?>" class="img-responsive" />
     		</div>
     		<div class="col-sm-8">
     			<h2><?php _e('Impruw is the low-cost online hosting solution for accommodation providers of any size.','impruwmain')?></h2>
@@ -49,7 +49,7 @@ get_header();
     <div class="home-3">
     	<h2><?php _e('Do it yourself - Really!','impruwmain')?></h2>
     	<p><?php _e('Our simple drag and drop interface makes building beautiful free websites quick and simple.','impruwmain')?></p>
-    	<img src="<?php echo get_template_directory_uri(); ?>/images/HOME_gif.png" title="Impruw Site Builder" alt="Impruw Site Builder" class="img-responsive" />
+    	<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/HOME_gif.png" title="<?php _e('Impruw Site Builder','impruwmain'); ?>" alt="<?php _e('Impruw Site Builder','impruwmain'); ?>" class="img-responsive" />
     </div>
 
     <div class="home-4">
@@ -98,7 +98,7 @@ get_header();
     <div class="home-5">
     	<h2><?php _e('Fully functional across mobile devices','impruwmain')?></h2>
     	<p><?php _e('Mobile web is here to stay. All websites created with Impruw are designed to be fully compatible with all new and future mobile and tablet devices, and adjust dynamically to screen sizes for the best possible user experience.','impruwmain')?></p>
-    	<img src="<?php echo get_template_directory_uri(); ?>/images/HOME_devices.png" title="Impruw Site Builder" alt="Impruw Site Builder" class="img-responsive" />
+    	<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/HOME_devices.png" title="<?php _e('Impruw Site Builder','impruwmain'); ?>" alt="<?php _e('Impruw Site Builder','impruwmain'); ?>" class="img-responsive" />
     </div>
     
     <?php if( !is_user_logged_in() ) { ?>
