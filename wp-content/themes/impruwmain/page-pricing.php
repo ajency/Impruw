@@ -17,7 +17,7 @@ if (have_posts()) : while (have_posts()) : the_post();
         // Get Post Content
         the_content();
         ?>
-        <a class="btn btn-hg register-link" href="http://impruw.com/register/"><?php echo __('Register Now!', 'impruwmain'); ?></a>
+        <a class="btn btn-hg register-link" href="<?php echo site_url(); ?>/register/"><?php echo __('Register Now!', 'impruwmain'); ?></a>
     </div>
 
     <div class="row price-plans">
