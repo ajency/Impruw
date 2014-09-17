@@ -12,7 +12,7 @@ define(['app'], function(App) {
         return TextView.__super__.constructor.apply(this, arguments);
       }
 
-      TextView.prototype.tagName = 'div';
+      TextView.prototype.tagName = 'p';
 
       TextView.prototype.template = '';
 

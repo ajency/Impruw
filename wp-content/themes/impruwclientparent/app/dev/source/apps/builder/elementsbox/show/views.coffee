@@ -22,6 +22,7 @@ define [ 'app'
             'click a' : (e)->
                e.preventDefault()
 
+
          serializeData : ->
             data = super()
             data.elementName = ->
@@ -49,6 +50,10 @@ define [ 'app'
          id : 'controls-drag'
 
          itemView : Views.SingleElement
+
+         initialize : (opts)->
+            @roomElements = 'li[data-element="RoomFacilities"],li[data-element="RoomTitle"],li[data-element="RoomDescription"],li[data-element="RoomTariff"],li[data-element="RoomBooking"]'
+            super opts
 
          # on show make the element draggable
          # secondly, make all the elements draggable
@@ -84,7 +89,7 @@ define [ 'app'
                else
                   @$el.find( '#content-elements ul' ).append view.$el
 
-            @_ifSingleRoom()
+            #@_ifSingleRoom()
             @_setDraggableElements()
 
          _ifSingleRoom : ->
@@ -121,3 +126,20 @@ define [ 'app'
 
          onPageReleased : ->
             @$el.fadeIn()
+
+         onRoomElementsVisibility : (visible)->
+            if visible is true
+               @$el.find(@roomElements).show()
+            else
+               @$el.find(@roomElements).hide()
+
+            @handleRoomSummary visible
+
+         handleRoomSummary : (visible)->
+            if visible
+               @$el.find('li[data-element="RoomSummary"] .aj-imp-builder-title')
+                  .text _.polyglot.t 'Room Summary'
+            else
+               @$el.find('li[data-element="RoomSummary"] .aj-imp-builder-title')
+                  .text _.polyglot.t 'Display Rooms'
+

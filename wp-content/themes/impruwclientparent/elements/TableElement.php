@@ -37,8 +37,18 @@ class TableElement extends Element {
         
         parent::__construct($element);
         
-        
-        $this->content          = stripcslashes(trim($element['content']));
+        $current_language = ICL_LANGUAGE_CODE;
+        $content = '';
+
+        if(is_array($element[ 'content' ])){
+            $content        = isset( $element[ 'content' ][ $current_language ] ) ? $element[ 'content' ][$current_language ] : $element[ 'content' ][wpml_get_default_language() ];
+        }
+        else{
+            $content = $element[ 'content' ];
+        }
+
+        echo "content ".$content;
+        $this->content          = stripcslashes(trim($content));
         
         $this->markup           = $this->generate_markup();
 

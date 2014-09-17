@@ -17,6 +17,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/elementsbox/show/vie
         }
         this.elements = App.request("get:elementbox:elements");
         view = this.getView(this.elements);
+        this.listenTo(App.vent, "change:page:check:single:room", (function(_this) {
+          return function() {
+            return view.triggerMethod('room:elements:visibility', _this.isSingleRoomPage());
+          };
+        })(this));
         this.listenTo(App.vent, 'page:took:over', function() {
           return view.triggerMethod('page:took:over');
         });
