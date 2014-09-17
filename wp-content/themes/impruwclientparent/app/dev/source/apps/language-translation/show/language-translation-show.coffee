@@ -10,6 +10,7 @@ define ['app', 'controllers/base-controller'
                 @show @languageLayout,
                     loading: true
 
+                App.vent.trigger "set:active:menu", 'language'
 
                 @listenTo @languageLayout, 'show', =>
                     App.execute 'show:language:selection:app',

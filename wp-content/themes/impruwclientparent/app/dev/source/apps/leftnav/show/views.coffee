@@ -81,8 +81,8 @@ define ['app'
                 link = '#/' + link
 
                 @$el.find "a[data-route='#{link}']"
-                .parent()
-                .addClass 'active'
+                    .parent()
+                    .addClass 'active'
 
                 jPM = $.jPanelMenu()
 
