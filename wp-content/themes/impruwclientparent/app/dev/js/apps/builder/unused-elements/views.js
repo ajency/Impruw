@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app'], function(App) {
+define(['app', 'bootbox'], function(App, bootbox) {
   return App.module('UnusedElement.Views', function(Views, App, Backbone, Marionette, $, _) {
     var EmptyUnsedElementView, SingleUnusedElement;
     SingleUnusedElement = (function(_super) {
@@ -60,9 +60,31 @@ define(['app'], function(App) {
 
       UnsedElementsViews.prototype.emtpyView = EmptyUnsedElementView;
 
-      UnsedElementsViews.prototype.template = '<div class="label trash-label clearfix"><span><span class="glyphicon glyphicon-trash"></span> {{#polyglot}}Unused Elements{{/polyglot}}</span></div> <div class="menu aj-imp-drag-menu"> <p class="desc"> {{#polyglot}}Unused deleted elements{{/polyglot}} </p> <a href="#" class="trash-elem-link"><span class="bicon icon-uniF16F"></span> {{#polyglot}}Clear Elements{{/polyglot}}</a> <ul class="trash-list"> </ul> </div> </div>';
+      UnsedElementsViews.prototype.template = '<div class="label trash-label clearfix"><span><span class="glyphicon glyphicon-trash"></span> {{#polyglot}}Unused Elements{{/polyglot}}</span></div> <div class="menu aj-imp-drag-menu"> <p class="desc"> {{#polyglot}}Unused deleted elements{{/polyglot}} </p> <a href="#" class="trash-elem-link clear-all-elements"><span class="bicon icon-uniF16F"></span> {{#polyglot}}Clear Elements{{/polyglot}}</a> <ul class="trash-list"> </ul> </div> </div>';
 
       UnsedElementsViews.prototype.itemViewContainer = 'ul.trash-list';
+
+      UnsedElementsViews.prototype.events = {
+        'click a.clear-all-elements': function(e) {
+          e.preventDefault();
+          return bootbox.confirm("<h4 class='delete-message'>" + (_.polyglot.t('Are you sure? All elements will be lost. Cannot undo this action.')) + "</h4>", (function(_this) {
+            return function(result) {
+              if (result === true) {
+                return _this.trigger('clear:all:elements');
+              }
+            };
+          })(this));
+        }
+      };
+
+      UnsedElementsViews.prototype.onElementsCleared = function() {
+        this.$el.find('a.clear-all-elements').hide();
+        return this.$el.fadeOut('fast', (function(_this) {
+          return function() {
+            return _this.close();
+          };
+        })(this));
+      };
 
       UnsedElementsViews.prototype.onShow = function() {
         var FloatMenu, closedMenuOpacity, flMenu, flMenuMenu, flMenuTriggers, floatEasing, floatSpeed, menuFadeSpeed, menuPosition;
@@ -107,6 +129,14 @@ define(['app'], function(App) {
           distance: 5,
           revert: 'invalid'
         });
+      };
+
+      UnsedElementsViews.prototype.onPageTookOver = function() {
+        return this.$el.fadeOut();
+      };
+
+      UnsedElementsViews.prototype.onPageReleased = function() {
+        return this.$el.fadeIn();
       };
 
       return UnsedElementsViews;
