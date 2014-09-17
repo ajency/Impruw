@@ -14,6 +14,7 @@ define [ 'app'
             "add" : "addPageDropDown"
 
          templateHelpers : ( data = {} )->
+            data.DASHBOARDURL = DASHBOARDURL
             data.SITEURL = SITEURL + '/'
             pages = @collection.toJSON()
             data.pages = _.reject pages, (page)->

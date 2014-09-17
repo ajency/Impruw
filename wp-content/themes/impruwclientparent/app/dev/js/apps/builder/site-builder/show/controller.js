@@ -233,8 +233,8 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           pageId: pageId,
           revisionId: revisionId
         });
-        return App.execute("show:unused:elements", {
-          region: App.unusedElementsRegion,
+        return App.execute("show:right:block", {
+          region: App.rightBlockRegion,
           revisionId: revisionId,
           pageId: pageId
         });

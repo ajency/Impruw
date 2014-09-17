@@ -63,19 +63,13 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
       };
 
       MainView.prototype.onShow = function() {
-        this.$el.css('position', 'fixed').draggable({
-          handle: "p.desc",
-          addClasses: false,
-          containment: 'document',
-          scroll: true
-        });
         this.$el.tabSlideOut({
           tabHandle: '.handle',
           tabLocation: 'left',
           speed: 300,
           action: 'click',
           topPos: '30px',
-          fixedPosition: false
+          fixedPosition: true
         });
         this._setDraggableElements();
         $('body').on('click', (function(_this) {

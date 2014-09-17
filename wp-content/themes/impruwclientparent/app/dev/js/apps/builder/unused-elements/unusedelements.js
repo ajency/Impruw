@@ -16,11 +16,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
         pageId = opts.pageId, revisionId = opts.revisionId;
         unusedElementCollection = App.request("get:unused:elements", pageId, revisionId);
         view = this.getUnsedElementView(unusedElementCollection);
-        this.listenTo(view, "show:theme:color:clicked", function() {
-          return App.execute("show:theme:color:set", {
-            region: App.dialogRegion
-          });
-        });
         return this.show(view, {
           loading: true
         });
