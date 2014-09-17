@@ -48,7 +48,7 @@ define(["backbone", "mustache"], function(Backbone, Mustache) {
           }
       }
       if (window.App.instanceId) {
-        params['instance_id'] = App.instanceId;
+        params.data['instance_id'] = window.App.instanceId;
       }
       xhr = options.xhr = Backbone.ajax(_.extend(params, options));
       model.trigger("request", model, xhr, options);
