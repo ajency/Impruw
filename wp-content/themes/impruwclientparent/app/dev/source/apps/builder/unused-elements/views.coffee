@@ -1,4 +1,4 @@
-define ['app'], (App)->
+define ['app','bootbox'], (App, bootbox)->
     
     App.module 'UnusedElement.Views', (Views, App, Backbone, Marionette, $, _)->
         
@@ -13,18 +13,31 @@ define ['app'], (App)->
 								<span class="bicon icon-uniF111"></span> {{element}}
 							</div>
 							<div class="trash-elem-content">
-								{{content}}
+								{{{content}}}
 							</div>
+                            <button class="btn btn-small remove-element">Remove</button>
 						</a>'
+
+            events : 
+                'click .remove-element' : (e)->
+                    bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure? This element will be lost. Cannot undo this action.'}</h4>",(result)=>
+                        if result is true
+                            @trigger 'clear:element', @model.get 'meta_id'
+
+            onShow:->
+                @$el.attr 'id', 'unused-element-' + @model.get 'meta_id'
+
 
             serializeData: ->
                 serializedData = super()
                 serializedData.element = _.str.capitalize serializedData.element
+                content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
+                serializedData.content = _.stripslashes content
                 serializedData
 
             onRender: ->
                 @$el.attr 'data-element', @model.get 'element'
-                .attr 'data-meta-id', @model.get 'meta_id'
+                    .attr 'data-meta-id', @model.get 'meta_id'
 
         class EmptyUnsedElementView extends Marionette.ItemView
 
@@ -42,17 +55,33 @@ define ['app'], (App)->
             emtpyView: EmptyUnsedElementView
 
             template: '<div class="label trash-label clearfix"><span><span class="glyphicon glyphicon-trash"></span> {{#polyglot}}Unused Elements{{/polyglot}}</span></div>
-            					        <div class="menu aj-imp-drag-menu">
-            					            <p class="desc">
-            					              {{#polyglot}}Unused deleted elements{{/polyglot}}
-            					            </p>
-            					            <a href="#" class="trash-elem-link"><span class="bicon icon-uniF16F"></span> {{#polyglot}}Clear Elements{{/polyglot}}</a>
-            					            <ul class="trash-list">
-            					            </ul>
-            					        </div>
-            					    </div>'
+				        <div class="menu aj-imp-drag-menu">
+				            <p class="desc">
+				              {{#polyglot}}Unused deleted elements{{/polyglot}}
+				            </p>
+				            <a href="#" class="trash-elem-link clear-all-elements"><span class="bicon icon-uniF16F"></span> {{#polyglot}}Clear Elements{{/polyglot}}</a>
+				            <ul class="trash-list">
+				            </ul>
+				        </div>
+				    </div>'
 
             itemViewContainer: 'ul.trash-list'
+
+            events: 
+                'click a.clear-all-elements' : (e)->
+                    e.preventDefault()
+                    bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure? All elements will be lost. Cannot undo this action.'}</h4>",(result)=>
+                        if result is true
+                            @trigger 'clear:all:elements'
+
+            onElementsCleared : ->
+                @$el.find('a.clear-all-elements').hide()
+                @$el.fadeOut 'fast', => @.close()
+
+            onElementCleared : (id)->
+                @$el.find('#unused-element-' + id).remove()
+                if @$el.find('ul.trash-list li').length is 0
+                    @$el.fadeOut 'fast', => @.close()
 
 
             # TODO: Move this code to plugins/ jquery config
@@ -102,3 +131,9 @@ define ['app'], (App)->
                                             addClasses: false
                                             distance: 5
                                             revert: 'invalid'
+
+            onPageTookOver : ->
+                @$el.fadeOut()
+
+            onPageReleased : ->
+                @$el.fadeIn()

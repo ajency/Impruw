@@ -67,10 +67,11 @@ define ["app", 'backbone'], (App, Backbone) ->
         # returns the model of the recovered element
             getUnusedElements: (pageId, revisionId = 0)->
                 recoveredElements.url = "#{AJAXURL}?action=get-unused-elements"
-                recoveredElements.fetch
-                    data:
-                        revision_id: revisionId
-                        page_id: pageId
+                xhr = recoveredElements.fetch
+                            data:
+                                revision_id: revisionId
+                                page_id: pageId
+                recoveredElements.xhr = xhr
                 recoveredElements
 
             getUnusedElementByMetaId: (metaId)->
