@@ -5,20 +5,45 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
             initialize: (opt = {}) ->
 
                 # get the page templates collection
-                @collection = collection = App.request "get:pages:collection"
-
+                @collection = App.request "get:pages:collection"
                 # fetch the data
-                @collection.fetch
+                @collection.fetch()
+
+                @templates = App.request "get:pages:collection"
+                @templates.fetch
                     data:
                         'meta_key': 'page_templates'
 
-                view = @_getPageTemplatesGrid @collection
+                @layout = @_getTemplateLayout()
 
-                @listenTo view, "itemview:template:clicked", (iv, model)=>
+                @listenTo @layout, 'show', @_showTemplateViews 
+
+                @show @layout,
+                    loading: true
+
+            _getTemplateLayout : ->
+                new TemplatesLayout
+                    collection : @collection
+                    templateCollection : @templates
+
+            _showTemplateViews: ->
+                @PageTemplateView = @_getPageTemplatesGrid @collection
+                @listenTo @PageTemplateView, "itemview:template:clicked", (iv, model)=>
                     # pass on this model with region trigger event
                     Marionette.triggerMethod.call @region, "template:selected", model
 
-                @show view, loading: true
+                @layout.pageTemplatesRegion.show @PageTemplateView
+
+                @ThemeTemplateView = @_getThemeTemplatesGrid @templates
+                @listenTo @ThemeTemplateView, "itemview:template:clicked", (iv, model)=>
+                    # pass on this model with region trigger event
+                    Marionette.triggerMethod.call @region, "template:selected", model
+
+                @layout.themeTemplatesRegion.show @ThemeTemplateView
+
+            _getThemeTemplatesGrid : (collection)->
+                new ThemeTemplatesGrid
+                    collection : collection
 
             _getPageTemplatesGrid: (collection)->
                 new PageTemplatesGrid
@@ -33,7 +58,8 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
             events:
                 'click': ->
-                    @$el.addClass('selected').siblings().removeClass "selected"
+                    @$el.closest('.template-layout').find('.templates li').removeClass 'selected'
+                    @$el.addClass('selected')
                     @trigger "template:clicked", @model
 
         class EmptyView extends Marionette.ItemView
@@ -56,6 +82,28 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
             onShow :->
                 lastPageModel =  @collection.last()
                 @$el.find('#menu-order' ).val lastPageModel.get 'menu_order'
+
+
+        class ThemeTemplatesGrid extends Marionette.CompositeView
+
+            template: '<h4>{{#polyglot}}Choose Theme Template{{/polyglot}}</h4>
+                       <ul class="templates"></ul>'
+
+            itemView: TemplateView
+
+            itemViewContainer : '.templates'
+
+            emptyView: EmptyView
+
+        class TemplatesLayout extends Marionette.Layout 
+            template : '<div class="page-templates"></div>
+                        <div class="theme-templates"></div>'
+
+            className : 'template-layout'
+
+            regions : 
+                pageTemplatesRegion : '.page-templates'
+                themeTemplatesRegion : '.theme-templates'
 
         App.commands.setHandler "show:templates:grid", (opt)->
             new PageTemplatesController opt
