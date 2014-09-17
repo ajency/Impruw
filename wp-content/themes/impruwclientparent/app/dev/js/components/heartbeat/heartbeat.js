@@ -13,12 +13,13 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
         };
       }).on("heartbeat-tick.check-instance", function(e, data) {
         var check;
+        if (!data["check-instance"]) {
+          return;
+        }
         check = data["check-instance"];
         if (check.success === false && check.new_instance) {
           return App.vent.trigger("new:instance:opened", check);
         }
-      }).ready(function() {
-        return schedule();
       });
     },
     AppNonceRefreshHb: function() {
