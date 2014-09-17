@@ -1,9 +1,9 @@
 define [ 'app'
          'text!apps/builder/site-builder/show/templates/maintemplate.html'
-         'text!apps/builder/site-builder/show/templates/builder.html'
-         'moment' ],
-( App, mainviewTpl, builderTpl, moment )->
+         'moment' ], ( App, mainviewTpl, moment )->
+
    App.module 'SiteBuilderApp.Show.View', ( View, App, Backbone, Marionette, $, _ )->
+
       class View.MainView extends Marionette.Layout
 
          template : mainviewTpl
@@ -15,7 +15,9 @@ define [ 'app'
 
          templateHelpers : ( data = {} )->
             data.SITEURL = SITEURL + '/'
-            data.pages = @collection.toJSON()
+            pages = @collection.toJSON()
+            data.pages = _.reject pages, (page)->
+               page.post_name in ['full-width-page']
             data
 
          events :
@@ -23,14 +25,24 @@ define [ 'app'
                evt.preventDefault()
                $( evt.currentTarget ).attr 'disabled', true
                @$el.find( '.publish-page ' ).text 'Publishing...'
-               App.execute "publish:page"
+               promise = App.request "publish:page"
+               promise.always @onPagePublished
 
             'change select#builder-page-sel' : ( evt )->
+               # suspend local autosaving
+               App.autoSaveAPI.local.suspend()
+               @releasePage()               
                @_addToPageSlug parseInt $( evt.target ).val()
                @trigger 'editable:page:changed', $( evt.target ).val()
+               @currentPageId = parseInt $( evt.target ).val()
                App.vent.trigger "change:page:check:single:room"
                @changePreviewLinkUrl()
                @displayPageNameForUpdate()
+               @$el.find('.aj-imp-builder-drag-drop').fadeOut 'fast', -> App.resetElementRegistry()
+               
+
+            'change select#builder-page-sel-lock' : (evt)->
+               @$el.find( 'select#builder-page-sel' ).selectpicker 'val', parseInt $( evt.target ).val()
 
             'click .add-new-page' : ->
                @trigger "add:new:page:clicked"
@@ -43,13 +55,54 @@ define [ 'app'
                   'ID' : currentPageId
                @trigger "update:page:name", data
 
+            'click #take-over-button' : 'takeOverPage'
+
+         onPageRendered : ->
+            @$el.find('.aj-imp-builder-drag-drop').fadeIn()
+
+         onPageRenderError : ->
+            @$el.empty()   
+            @$el.fadeIn()
+
+         handleWindowEvents : ->
+            
+            $(window).on 'unload.site-builder', @windowUnloadHandler
+            #$(window).on 'beforeunload.site-builder', @windowBeforeUnloadHandler
+
+         windowUnloadHandler : (evt)=>
+            currentPageId = @getCurrentPageId()
+            @releasePage currentPageId
+
+         windowBeforeUnloadHandler : =>
+            return "The changes you made will be lost if you navigate away from this page."
+
+         releasePage : (pageId = 0)->
+
+            if pageId is 0 and @currentPageId is 0
+               return false
+
+            if @currentPageId > 0
+               pageId = @currentPageId
+             
+            $.ajax
+               type: 'POST',
+               url: AJAXURL,
+               async: false,
+               data: 
+                  action: 'wp-remove-post-lock',
+                  _wpnonce: window._wpnonce,
+                  post_ID: pageId,
+                  active_post_lock: window.lockValue
+
+            return true
+            
          addPageDropDown : =>
             @modelAddedToCollection = @collection.last()
             @new_page_id = @modelAddedToCollection.get 'ID'
             _.each @collection.models, ( model, index ) =>
                modelId = model.get 'ID'
                originalPageId = model.get 'original_id'
-               if modelId == @new_page_id
+               if modelId == @new_page_id and model.get('post_name') not in ['full-width-page']
                   page_name = model.get 'post_title'
                   select_html = "<option value='"+modelId+"' data-originalid='"+originalPageId+"'>#{page_name}</option>"
                   selectpicker_html = "<li rel='#{index}'>
@@ -61,12 +114,15 @@ define [ 'app'
                   @$el.find( 'select#builder-page-sel' )
                      .parent().find('div .dropdown-menu ul' ).append( selectpicker_html )
                   @$el.find( 'select#builder-page-sel' ).append( select_html )
+
             @enableSelectPicker()
 
          initialize : ->
+            @currentPageId = 0
             App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
             App.reqres.setHandler "get:current:editable:page", @getCurrentPageId
             App.reqres.setHandler "get:original:editable:page", @getOriginalPageId
+            @handleWindowEvents()
 
          # return the name of the currently editable page
          getCurrentPageName : =>
@@ -86,11 +142,9 @@ define [ 'app'
 
          onPagePublished : =>
             @$el.find( '.publish-page ' ).text 'Publish'
-            _.delay =>
-               @$el.find( '.publish-page ' ).removeAttr 'disabled'
-               @$el.find( '.publish-page ' ).text 'Publish'
-            , 500
-
+            @$el.find( '.publish-page ' ).removeAttr 'disabled'
+            
+            
          changePreviewLinkUrl : ->
             currentPageId = App.request "get:current:editable:page"
             previewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}"
@@ -108,11 +162,11 @@ define [ 'app'
                pageId = $.cookie 'current-page-id'
                if isNaN parseInt pageId
                   pageId = @$el.find( 'select#builder-page-sel' ).selectpicker 'val'
-               else
-                  @$el.find( 'select#builder-page-sel' ).selectpicker 'val', pageId
+               
+               @$el.find( 'select#builder-page-sel-lock,select#builder-page-sel' ).selectpicker 'val', pageId
 
                @_addToPageSlug pageId
-               @trigger 'editable:page:changed', pageId
+               
                @changePreviewLinkUrl()
             , 250
 
@@ -121,6 +175,9 @@ define [ 'app'
 
             #update the page name links
             @displayPageNameForUpdate()
+
+            $('body').on 'click',@_removeAllFocusClass
+
             
 
          _addToPageSlug : (pageId)=>
@@ -134,7 +191,7 @@ define [ 'app'
 
          #set the selectpicker for the drop down
          enableSelectPicker : =>
-            @$el.find( 'select#builder-page-sel' ).selectpicker
+            @$el.find( 'select#builder-page-sel,select#builder-page-sel-lock' ).selectpicker
                style : 'btn-xs btn-default'
                menuStyle : 'dropdown'
 
@@ -200,6 +257,48 @@ define [ 'app'
             @$el.find( "select#builder-page-sel option[value='#{page_id}']" ).text( page_name )
             @enableSelectPicker()
 
+         onClose:->
+            $('body').on 'click',@_removeAllFocusClass
+
+         _removeAllFocusClass:(e)->
+            $('.element-wrapper').removeClass 'focus-class'
+
+         onPageTookOver : (errorMessage)->
+            @$el.find('div.lock-message')
+               .removeClass 'hidden'
+               .addClass 'show'
+               .find 'div.message-span'
+                  .text errorMessage
+
+         onPageReleased : ->
+            @$el.find('div.lock-message')
+               .removeClass 'show'
+               .addClass 'hidden'
+
+            @trigger 'editable:page:changed', @getCurrentPageId()
+
+         onAutosavePageJsonEnableButtons : ->
+            @$el.find('.publish-page').removeAttr 'disabled'
+
+         onAutosavePageJsonDisableButtons : ->
+            @$el.find('.publish-page').attr 'disabled', 'disabled'
+
+         takeOverPage : (evt)->
+            $(evt.currentTarget).text 'Please wait...'
+               .attr 'disabled', true
+
+            $.post AJAXURL, 
+                  (  
+                     action : 'take_over_page_editing'
+                     page_id : $.cookie('current-page-id')
+                  ),
+                  ((resp)->
+                     $(evt.currentTarget).text 'Take Over'
+                        .removeAttr 'disabled'
+
+                     wp.heartbeat.connectNow()
+                  ), 'json'
+
 
       class SingleRevision extends Marionette.ItemView
 
@@ -254,7 +353,9 @@ define [ 'app'
 
       class View.Builder extends Marionette.ItemView
 
-         template : builderTpl
+         template : '<header id="site-header-region" class="droppable-column"></header>
+                     <div id="site-page-content-region" class="droppable-column"></div>
+                     <footer id="site-footer-region" class="droppable-column"></footer>'
 
          onShow : ->
             @$el.find( '.droppable-column' ).sortable

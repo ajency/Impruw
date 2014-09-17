@@ -48,7 +48,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     rooms = new Rooms.RoomCollection;
-    rooms.fetch();
+    rooms.add(window.ROOMS);
     API = {
       getRooms: function(param) {
         if (param == null) {

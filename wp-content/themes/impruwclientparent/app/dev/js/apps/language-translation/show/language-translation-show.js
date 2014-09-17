@@ -22,6 +22,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
         this.show(this.languageLayout, {
           loading: true
         });
+        App.vent.trigger("set:active:menu", 'language');
         this.listenTo(this.languageLayout, 'show', (function(_this) {
           return function() {
             return App.execute('show:language:selection:app', {

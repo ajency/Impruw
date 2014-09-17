@@ -11,12 +11,6 @@ define(['app'], function(App) {
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
-      Controller.prototype.initialize = function(opt) {
-        if (opt == null) {
-          opt = {};
-        }
-      };
-
       Controller.prototype.publish = function() {
         var options, siteRegion, _page_id, _sectionJson;
         if (window.SAVING === true) {
@@ -38,10 +32,13 @@ define(['app'], function(App) {
         };
         options.data = _.defaults(options.data, _sectionJson);
         window.SAVING = true;
-        return $.ajax(options).always(function(revisionData) {
-          App.execute("page:published");
-          return window.SAVING = false;
-        }).fail(function(resp) {
+        return $.ajax(options).done(function(response) {
+          if (response.success === true) {
+            return App.vent.trigger("page:published");
+          } else {
+            return App.vent.trigger("publish:failed", response.reason);
+          }
+        }).always(function(resp) {
           return window.SAVING = false;
         });
       };

@@ -759,6 +759,46 @@ a.red-link.pull-right {
   margin: 0 10px;
   border-left: 1px solid #dddddd;
 }
+/****Notifications Styles****/
+#notifications-region {
+  width: 100%;
+  position: absolute;
+  z-index: 10000;
+  color: #aaaaaa;
+  top: 50px;
+}
+#notifications-region .notification-message {
+  background: #e1e8ec;
+  border: 1px solid #849fb0;
+  border-radius: 2px;
+  box-shadow: 0 0 1px 2px #f3f3f3;
+  padding: 0.5em 0.5em 0.8em;
+  max-width: 80%;
+  width: 50%;
+  text-align: center;
+  margin: 0 auto 0.5em;
+}
+#notifications-region .notification-message .message-text {
+  color: #29333f;
+  font-size: 1.2em;
+}
+#notifications-region .notification-message .message-text a {
+  color: #ff7e00;
+  font-weight: bold;
+}
+#notifications-region .notification-message .message-text a:hover {
+  color: #ff9833;
+}
+/****Connection Lost Overlay Style****/
+.conn-lost-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 9999;
+}
 /****Builder Area Styles****/
 .aj-imp-builder-area {
   padding: 0.5em 3em 1em;
@@ -775,6 +815,7 @@ a.red-link.pull-right {
   padding: 1em 1em 0;
   border-radius: 6px 6px 0 0;
   margin: 0;
+  position: relative;
   box-shadow: 0 4px 4px -4px #aaaaaa;
   background: #f6f6f6;
   /* Old browsers */
@@ -1125,6 +1166,59 @@ a.red-link.pull-right {
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name .page-name-content .btn-update-pg-name:focus {
   background: #fff;
 }
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px 6px 0 0;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  padding: 0.5em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bicon {
+  color: #333333;
+  font-size: 2em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .message-span {
+  margin: 0.5em 0 1em;
+  color: #849fb0;
+  font-size: 1.2em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .option-or {
+  display: inline-block;
+  margin: 0 0.5em;
+  color: #aaaaaa;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select {
+  margin-bottom: 0.25em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-toggle {
+  background: transparent;
+  color: #666666;
+  font-size: 1.2em;
+  padding: 0 0 0.25em;
+  border-radius: 0;
+  border-bottom: 1px solid #dddddd;
+  text-transform: uppercase;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-toggle .caret {
+  border-top-color: #c3c3c3;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-toggle:hover {
+  border-bottom-color: #aaaaaa;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-toggle:hover .caret {
+  border-top-color: #aaaaaa;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-menu {
+  text-align: left;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .bootstrap-select .dropdown-menu .selected a:focus {
+  background: #ff7e00;
+}
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body {
   background: no-repeat center -0.5em #ffffff;
   margin: 0 1em;
@@ -1213,6 +1307,19 @@ a.red-link.pull-right {
   font-size: 13px;
   line-height: 18px;
   display: block;
+}
+.aj-imp-builder-layout-mode .element-wrapper.focus-class {
+  border: 1px dotted #ff7e00;
+}
+.aj-imp-builder-layout-mode .element-wrapper.focus-class > .element-controls .aj-imp-drag-handle,
+.aj-imp-builder-layout-mode .element-wrapper.focus-class > .element-controls .aj-imp-col-divider {
+  display: block;
+}
+.aj-imp-builder-layout-mode .element-wrapper.focus-class > .element-markup > .row > .column {
+  border-right: 1px dotted #c3c3c3;
+}
+.aj-imp-builder-layout-mode .element-wrapper.focus-class > .element-markup > .row > .column:last-child {
+  border-right: 0;
 }
 .aj-imp-builder-layout-mode .element-wrapper.hover-class {
   border: 1px solid #ff7e00;
@@ -2939,21 +3046,21 @@ a.red-link.pull-right {
   background: #ffb266;
 }
 /**** Add Page Modal Styles ****/
-#choose-template-region h4 {
+.add-page-container #choose-template-region h4 {
   color: #849fb0;
   font-size: 1.2em;
 }
-#choose-template-region .templates {
+.add-page-container #choose-template-region .templates {
   margin: 1em 0;
   padding: 0;
 }
-#choose-template-region .templates li {
+.add-page-container #choose-template-region .templates li {
   color: #aaaaaa;
   margin: 0 0 0.5em;
   padding: 0.5em;
   display: inline-block;
 }
-#choose-template-region .templates li:before {
+.add-page-container #choose-template-region .templates li:before {
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -2962,14 +3069,24 @@ a.red-link.pull-right {
   font-size: 0.78em;
   margin-right: 0.5em;
 }
-#choose-template-region .templates li:hover {
+.add-page-container #choose-template-region .templates li:hover {
   cursor: pointer;
 }
-#choose-template-region .templates li.selected {
+.add-page-container #choose-template-region .templates li.selected {
   color: #ff7e00;
 }
-#choose-template-region .templates li.selected:before {
+.add-page-container #choose-template-region .templates li.selected:before {
   content: "\e067";
+}
+.add-page-container .checkbox {
+  padding-top: 0;
+}
+.add-page-container .checkbox .icons {
+  margin-top: 0.3em;
+}
+.add-page-container .field-error {
+  color: #ff3333;
+  padding: 0.5em 0;
 }
 /**** Cropping Tool Styles ****/
 #edit-image-view .loading {

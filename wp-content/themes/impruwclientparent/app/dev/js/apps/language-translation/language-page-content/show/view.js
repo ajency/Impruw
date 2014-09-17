@@ -16,7 +16,9 @@ define(['app', 'text!apps/language-translation/language-page-content/templates/l
 
       LanguagePageContentLayout.prototype.regions = {
         originalPageContent: ".original-page-content",
-        translatedPageContent: ".translated-page-content"
+        translatedPageContent: ".translated-page-content",
+        originalTableContent: ".original-table-content",
+        translatedTableContent: ".translated-table-content"
       };
 
       return LanguagePageContentLayout;

@@ -25,7 +25,7 @@ define ['app'
                     "#{AJAXURL}?action=facilities&ids=#{ids}"
 
         facilities = new Facilities.FacilityCollection
-        facilities.fetch()
+        facilities.add window.FACILITIES
         #Public API
         API =
             getFacilities: ()->

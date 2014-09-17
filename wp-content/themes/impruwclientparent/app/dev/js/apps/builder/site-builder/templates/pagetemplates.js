@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'controllers/base-controller'], function(App, AppController) {
   return App.module("PageTemplates", function(PageTemplates, App) {
-    var EmptyView, PageTemplatesController, PageTemplatesGrid, TemplateView;
+    var EmptyView, PageTemplatesController, PageTemplatesGrid, TemplateView, TemplatesLayout, ThemeTemplatesGrid;
     PageTemplatesController = (function(_super) {
       __extends(PageTemplatesController, _super);
 
@@ -12,24 +12,51 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       }
 
       PageTemplatesController.prototype.initialize = function(opt) {
-        var collection, view;
         if (opt == null) {
           opt = {};
         }
-        this.collection = collection = App.request("get:pages:collection");
-        this.collection.fetch({
+        this.collection = App.request("get:pages:collection");
+        this.collection.fetch();
+        this.templates = App.request("get:pages:collection");
+        this.templates.fetch({
           data: {
             'meta_key': 'page_templates'
           }
         });
-        view = this._getPageTemplatesGrid(this.collection);
-        this.listenTo(view, "itemview:template:clicked", (function(_this) {
+        this.layout = this._getTemplateLayout();
+        this.listenTo(this.layout, 'show', this._showTemplateViews);
+        return this.show(this.layout, {
+          loading: true
+        });
+      };
+
+      PageTemplatesController.prototype._getTemplateLayout = function() {
+        return new TemplatesLayout({
+          collection: this.collection,
+          templateCollection: this.templates
+        });
+      };
+
+      PageTemplatesController.prototype._showTemplateViews = function() {
+        this.PageTemplateView = this._getPageTemplatesGrid(this.collection);
+        this.listenTo(this.PageTemplateView, "itemview:template:clicked", (function(_this) {
           return function(iv, model) {
             return Marionette.triggerMethod.call(_this.region, "template:selected", model);
           };
         })(this));
-        return this.show(view, {
-          loading: true
+        this.layout.pageTemplatesRegion.show(this.PageTemplateView);
+        this.ThemeTemplateView = this._getThemeTemplatesGrid(this.templates);
+        this.listenTo(this.ThemeTemplateView, "itemview:template:clicked", (function(_this) {
+          return function(iv, model) {
+            return Marionette.triggerMethod.call(_this.region, "template:selected", model);
+          };
+        })(this));
+        return this.layout.themeTemplatesRegion.show(this.ThemeTemplateView);
+      };
+
+      PageTemplatesController.prototype._getThemeTemplatesGrid = function(collection) {
+        return new ThemeTemplatesGrid({
+          collection: collection
         });
       };
 
@@ -55,7 +82,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       TemplateView.prototype.events = {
         'click': function() {
-          this.$el.addClass('selected').siblings().removeClass("selected");
+          this.$el.closest('.template-layout').find('.templates li').removeClass('selected');
+          this.$el.addClass('selected');
           return this.trigger("template:clicked", this.model);
         }
       };
@@ -99,6 +127,43 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       return PageTemplatesGrid;
 
     })(Marionette.CompositeView);
+    ThemeTemplatesGrid = (function(_super) {
+      __extends(ThemeTemplatesGrid, _super);
+
+      function ThemeTemplatesGrid() {
+        return ThemeTemplatesGrid.__super__.constructor.apply(this, arguments);
+      }
+
+      ThemeTemplatesGrid.prototype.template = '<h4>{{#polyglot}}Choose Theme Template{{/polyglot}}</h4> <ul class="templates"></ul>';
+
+      ThemeTemplatesGrid.prototype.itemView = TemplateView;
+
+      ThemeTemplatesGrid.prototype.itemViewContainer = '.templates';
+
+      ThemeTemplatesGrid.prototype.emptyView = EmptyView;
+
+      return ThemeTemplatesGrid;
+
+    })(Marionette.CompositeView);
+    TemplatesLayout = (function(_super) {
+      __extends(TemplatesLayout, _super);
+
+      function TemplatesLayout() {
+        return TemplatesLayout.__super__.constructor.apply(this, arguments);
+      }
+
+      TemplatesLayout.prototype.template = '<div class="page-templates"></div> <div class="theme-templates"></div>';
+
+      TemplatesLayout.prototype.className = 'template-layout';
+
+      TemplatesLayout.prototype.regions = {
+        pageTemplatesRegion: '.page-templates',
+        themeTemplatesRegion: '.theme-templates'
+      };
+
+      return TemplatesLayout;
+
+    })(Marionette.Layout);
     return App.commands.setHandler("show:templates:grid", function(opt) {
       return new PageTemplatesController(opt);
     });

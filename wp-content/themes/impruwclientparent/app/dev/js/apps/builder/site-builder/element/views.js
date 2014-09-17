@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/builder/site-builder/element/templates/element.html'], function(App, elementTpl) {
+define(['app'], function(App, elementTpl) {
   return App.module('SiteBuilderApp.Element.Views', function(Views, App, Backbone, Marionette, $, _) {
     return Views.ElementView = (function(_super) {
       __extends(ElementView, _super);
@@ -13,7 +13,7 @@ define(['app', 'text!apps/builder/site-builder/element/templates/element.html'],
         return ElementView.__super__.constructor.apply(this, arguments);
       }
 
-      ElementView.prototype.template = elementTpl;
+      ElementView.prototype.template = '<form> <input type="hidden" name="meta_id"/> <input type="hidden" name="element"/> </form> <div class="element-controls"> <div class="aj-imp-drag-handle"> <p title="{{#polyglot}}Move{{/polyglot}}"><span class="bicon icon-uniF140"></span></p> </div> <div class="aj-imp-delete-btn"><span title="{{#polyglot}}Delete{{/polyglot}}">&times;</span></div> <div class="aj-imp-settings-btn"><span title="{{#polyglot}}Settings{{/polyglot}}" class="glyphicon glyphicon-cog"></span></div> </div> <div class="element-markup"><span></span></div>';
 
       ElementView.prototype.tagName = 'div';
 
@@ -41,9 +41,20 @@ define(['app', 'text!apps/builder/site-builder/element/templates/element.html'],
       };
 
       ElementView.prototype.initialize = function() {
-        return this.once('before:render:element', (function(_this) {
+        this.once('before:render:element', (function(_this) {
           return function() {
             return _this.trigger("bind:element:events");
+          };
+        })(this));
+        this.canEdit = true;
+        this.listenTo(App.vent, 'page:took:over', (function(_this) {
+          return function(errorMessage) {
+            return _this.canEdit = false;
+          };
+        })(this));
+        return this.listenTo(App.vent, 'page:released', (function(_this) {
+          return function() {
+            return _this.canEdit = true;
           };
         })(this));
       };
@@ -56,7 +67,7 @@ define(['app', 'text!apps/builder/site-builder/element/templates/element.html'],
         this.$el.mouseover((function(_this) {
           return function(evt) {
             evt.stopPropagation();
-            if (window.dragging) {
+            if (window.dragging || !_this.canEdit) {
               return;
             }
             return _this.$el.addClass('hover-class');
