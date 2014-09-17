@@ -92,6 +92,8 @@
 
   /****Heading Styles****/
 
+  /****Powered By Styles****/
+
 }
 .site-style-container .site-header,
 .site-style-container .site-footer,
@@ -137,6 +139,9 @@
   text-transform: uppercase;
   color: #727272;
   font-weight: 300;
+  margin: 0.5em 0;
+}
+.site-style-container .power-up {
   margin: 0.5em 0;
 }
 /*

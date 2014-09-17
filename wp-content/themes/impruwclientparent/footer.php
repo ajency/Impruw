@@ -15,6 +15,10 @@
 </footer><!-- .site-footer -->
 </div><!-- .container -->
 
+<div class="power-up hide">
+    <?php echo __('Powered By', 'impruw'); ?> <a href="http://impruw.com" target="_blank">Impruw</a>
+</div>
+
 <script type="text/javascript">
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var CHILDTHEMEURL = '<?php echo get_template_directory_uri(); ?>';
@@ -244,6 +248,11 @@
           return str.replace(new RegExp(find, 'g'), replace);
         }
 
+        jQuery(document).ready(function(){
+            var $powered = jQuery('.power-up').clone().removeClass('hide').addClass('text');
+            jQuery('.site-footer').find('[class^="col-"]:last').append($powered);
+            console.log('powered');
+        });
  
     </script>
 <?php endif; ?>
