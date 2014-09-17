@@ -25,13 +25,12 @@ define(['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
 
       UnusedElementController.prototype.showView = function() {
         var view;
-        console.log(this.unusedElementCollection);
         if (this.unusedElementCollection.length === 0) {
           return;
         }
         this.view = view = this.getUnsedElementView(this.unusedElementCollection);
         this.listenTo(view, 'clear:all:elements', this.clearAllElements);
-        this.listenTo(view, 'clear:element', this.clearElement);
+        this.listenTo(view, 'itemview:clear:element', this.clearElement);
         this.listenTo(App.vent, 'page:took:over', function() {
           return view.triggerMethod('page:took:over');
         });
@@ -61,7 +60,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
         })(this)), 'json');
       };
 
-      UnusedElementController.prototype.clearElement = function(id) {
+      UnusedElementController.prototype.clearElement = function(iv, id) {
         return $.post("" + AJAXURL + "?action=remove-unused-element", {
           page_id: this.pageId,
           element_meta_id: id

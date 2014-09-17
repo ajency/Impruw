@@ -22,7 +22,10 @@ define ['app','bootbox'], (App, bootbox)->
                 'click .remove-element' : (e)->
                     bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure? This element will be lost. Cannot undo this action.'}</h4>",(result)=>
                         if result is true
-                            @trigger 'clear:element'
+                            @trigger 'clear:element', @model.get 'meta_id'
+
+            onShow:->
+                @$el.attr 'id', 'unused-element-' + @model.get 'meta_id'
 
 
             serializeData: ->
@@ -74,6 +77,12 @@ define ['app','bootbox'], (App, bootbox)->
             onElementsCleared : ->
                 @$el.find('a.clear-all-elements').hide()
                 @$el.fadeOut 'fast', => @.close()
+
+            onElementCleared : (id)->
+                @$el.find('#unused-element-' + id).remove()
+                if @$el.find('ul.trash-list li').length is 0
+                    @$el.fadeOut 'fast', => @.close()
+
 
             # TODO: Move this code to plugins/ jquery config
             onShow: ->

@@ -15,14 +15,13 @@ define ['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
                 @unusedElementCollection.xhr.done @showView
 
             showView : =>
-                console.log @unusedElementCollection
                 if @unusedElementCollection.length is 0 
                     return
 
                 @view = view = @getUnsedElementView @unusedElementCollection
 
                 @listenTo view, 'clear:all:elements', @clearAllElements
-                @listenTo view, 'clear:element', @clearElement
+                @listenTo view, 'itemview:clear:element', @clearElement
 
                 @listenTo App.vent, 'page:took:over', ->
                     view.triggerMethod 'page:took:over'
@@ -49,7 +48,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
                         ),
                         'json')
 
-            clearElement : (id)=>
+            clearElement : (iv,id)=>
                 $.post("#{AJAXURL}?action=remove-unused-element",
                         {
                             page_id : @pageId

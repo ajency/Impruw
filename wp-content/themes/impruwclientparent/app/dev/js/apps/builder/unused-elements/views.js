@@ -22,11 +22,15 @@ define(['app', 'bootbox'], function(App, bootbox) {
           return bootbox.confirm("<h4 class='delete-message'>" + (_.polyglot.t('Are you sure? This element will be lost. Cannot undo this action.')) + "</h4>", (function(_this) {
             return function(result) {
               if (result === true) {
-                return _this.trigger('clear:element');
+                return _this.trigger('clear:element', _this.model.get('meta_id'));
               }
             };
           })(this));
         }
+      };
+
+      SingleUnusedElement.prototype.onShow = function() {
+        return this.$el.attr('id', 'unused-element-' + this.model.get('meta_id'));
       };
 
       SingleUnusedElement.prototype.serializeData = function() {
@@ -96,6 +100,17 @@ define(['app', 'bootbox'], function(App, bootbox) {
             return _this.close();
           };
         })(this));
+      };
+
+      UnsedElementsViews.prototype.onElementCleared = function(id) {
+        this.$el.find('#unused-element-' + id).remove();
+        if (this.$el.find('ul.trash-list li').length === 0) {
+          return this.$el.fadeOut('fast', (function(_this) {
+            return function() {
+              return _this.close();
+            };
+          })(this));
+        }
       };
 
       UnsedElementsViews.prototype.onShow = function() {
