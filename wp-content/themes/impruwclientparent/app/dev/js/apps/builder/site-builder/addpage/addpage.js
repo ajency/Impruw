@@ -32,7 +32,15 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         })(this));
         this.listenTo(layout.chooseTemplateRegion, "template:selected", (function(_this) {
           return function(model) {
-            return _this.layout.triggerMethod("update:template:page:id", model.get('ID'));
+            var is_theme_template;
+            is_theme_template = false;
+            console.log(model);
+            console.log(model.get('is_theme_template'));
+            if (model.get('is_theme_template')) {
+              console.log(model.get('is_theme_template'));
+              is_theme_template = true;
+            }
+            return _this.layout.triggerMethod("update:template:page:id", model.get('ID'), is_theme_template);
           };
         })(this));
         return this.show(layout);
@@ -112,7 +120,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         chooseTemplateRegion: '#choose-template-region'
       };
 
-      AddPageView.prototype.template = '<div class="row add-page-container"> <div class="form-group"> <label for="post_title" class="col-sm-3 control-label">{{#polyglot}}Page Title{{/polyglot}}</label> <div class="col-sm-9"> <input type="text" required class="form-control" id="post_title" name="post_title" /> <div class="p-messages"></div> </div> </div> <input type="hidden" name="template_page_id" value="0"/> <div class="form-group"> <div class="col-sm-9 col-sm-offset-3"> <label class="control-label"> <span class="checkbox"> <input type="checkbox" value="1" checked="checked" name="add_to_menu"/> Add page to menu </span> </label> <div id="choose-template-region"></div> <div class="select-template-error field-error hide">{{#polyglot}}Please select a template first{{/polyglot}}</div> <button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page"> {{#polyglot}}Add New Page{{/polyglot}}</button> </div> </div> </div>';
+      AddPageView.prototype.template = '<div class="row add-page-container"> <div class="form-group"> <label for="post_title" class="col-sm-3 control-label">{{#polyglot}}Page Title{{/polyglot}}</label> <div class="col-sm-9"> <input type="text" required class="form-control" id="post_title" name="post_title" /> <div class="p-messages"></div> </div> </div> <input type="hidden" name="is_theme_template" value="false"/> <input type="hidden" name="template_page_id" value="0"/> <div class="form-group"> <div class="col-sm-9 col-sm-offset-3"> <label class="control-label"> <span class="checkbox"> <input type="checkbox" value="1" checked="checked" name="add_to_menu"/> Add page to menu </span> </label> <div id="choose-template-region"></div> <div class="select-template-error field-error hide">{{#polyglot}}Please select a template first{{/polyglot}}</div> <button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page"> {{#polyglot}}Add New Page{{/polyglot}}</button> </div> </div> </div>';
 
       AddPageView.prototype.onShow = function() {
         return this.$el.find('input[type="checkbox"]').checkbox();
@@ -122,7 +130,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("New Page added") + '</div>');
       };
 
-      AddPageView.prototype.onUpdateTemplatePageId = function(id) {
+      AddPageView.prototype.onUpdateTemplatePageId = function(id, is_theme_template) {
+        if (is_theme_template == null) {
+          is_theme_template = false;
+        }
+        this.$el.find('input[name="is_theme_template"]').val(is_theme_template);
         this.$el.find('input[name="template_page_id"]').val(id);
         return this.$el.find('.select-template-error').removeClass('show').addClass('hide');
       };

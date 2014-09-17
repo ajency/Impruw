@@ -220,5 +220,21 @@ function send_password_reset_mail( $user_login, $user_id, $key ) {
     if ( $message && !wp_mail( $user_login, wp_specialchars_decode( $title ), $message ) )
         wp_die( __( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function.' ) );
 
+}
 
+/**
+ * [check_app_instace description]
+ * @param  [type] $instance_id [description]
+ * @return [type]              [description]
+ */
+function check_app_instace($instance_id){
+
+    if(!is_user_logged_in())
+        return false;
+
+    $user_id = get_current_user_id();
+
+    $user_instance = get_user_meta( $user_id, '_builder_instance', true );
+
+    return $instance_id === $user_instance;
 }

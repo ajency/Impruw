@@ -31,6 +31,15 @@ define(['underscore', 'underscorestring'], function(_) {
       });
       return newArray;
     },
+    makeid: function() {
+      var i, possible, text, _i;
+      text = "";
+      possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (i = _i = 0; _i < 8; i = ++_i) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      return text;
+    },
     stripslashes: function(str) {
       return (str + "").replace(/\\(.?)/g, function(s, n1) {
         switch (n1) {

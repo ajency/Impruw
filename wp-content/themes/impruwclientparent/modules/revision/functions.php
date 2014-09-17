@@ -178,6 +178,7 @@ function get_recovered_elements( $page_id ) {
     //
     //        $current_json = get_post_meta($revision_post->post_parent, 'page-json', TRUE);
     //        $current_json = is_array($current_json) ? $current_json : array();
+    $page_id = icl_object_id($page_id, 'page', true, 'en');
 
     $element_ids = get_post_meta( $page_id, "unused-elements", TRUE );
 

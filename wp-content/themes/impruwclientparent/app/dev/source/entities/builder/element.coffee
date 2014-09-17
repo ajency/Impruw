@@ -38,6 +38,15 @@ define ["app", 'backbone'], (App, Backbone) ->
 
                 destroy() unless options.wait
 
+            parse : (resp)->
+                # handle element case
+                if resp.success is false and resp.new_instance
+                    App.vent.trigger "new:instance:opened", resp
+                    return {}
+
+                return resp.data if resp.code is 'OK'
+                resp
+
 
         # element collection class
         class ElementsCollection extends Backbone.Collection
@@ -67,10 +76,11 @@ define ["app", 'backbone'], (App, Backbone) ->
         # returns the model of the recovered element
             getUnusedElements: (pageId, revisionId = 0)->
                 recoveredElements.url = "#{AJAXURL}?action=get-unused-elements"
-                recoveredElements.fetch
-                    data:
-                        revision_id: revisionId
-                        page_id: pageId
+                xhr = recoveredElements.fetch
+                            data:
+                                revision_id: revisionId
+                                page_id: pageId
+                recoveredElements.xhr = xhr
                 recoveredElements
 
             getUnusedElementByMetaId: (metaId)->

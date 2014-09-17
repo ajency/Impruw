@@ -2,7 +2,8 @@
 /*
  * File Name: functions.php Description: This file has a list of the following functions used in this theme
  */
-
+//Used for page excerpt generation
+require_once 'underscore.php';
 // Include WPML API
 include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
 
@@ -50,6 +51,7 @@ require_once 'modules/media/ajax.php';
 require_once 'modules/language/ajax.php';
 require_once 'modules/language/languagefunctions.php';
 require_once 'modules/billing/ajax.php';
+require_once 'modules/seo/ajax.php';
 require_once 'modules/heartbeat/heartbeat.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 
@@ -76,6 +78,12 @@ add_theme_support( 'post-thumbnails' );
 show_admin_bar( FALSE );
 //load_theme_textdomain( 'impruwclientparent' );
 load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
+
+function page_excerpt_support(){
+    add_post_type_support( 'page', 'excerpt' );
+    
+}
+add_action( 'after_setup_theme', 'page_excerpt_support' );
 
 /**
  * [send_contact_form_message description]
@@ -1849,6 +1857,11 @@ function query_attachments() {
     $query[ 'paged' ] = $_REQUEST[ 'paged' ];
 
     $media = get_site_media( $query );
+
+    if(!isset($media[ 'data' ])){
+        $media[ 'data' ] = array();
+        $media[ 'total' ] = 0;
+    }
 
     wp_send_json( array(
         'code' => 'OK',
@@ -4171,6 +4184,41 @@ function cancel_subscription() {
     }
 }
 add_action( 'wp_cancel_subscription', 'cancel_subscription' );
+
+function generate_seo_page_excerpt($metadesc){
+    if ( defined( 'DOING_AJAX' ) && DOING_AJAX) {
+        return;
+    }
+
+    global $post;
+    $post_type = $post->post_type;
+    $manual_excerpt = $post->post_excerpt;
+
+    $wpseotitles = get_option('wpseo_titles');
+
+    $metadescription_template = $wpseotitles[ 'metadesc-' . $post_type ];
+    $yoast_meta_description = get_post_meta($post->ID, '_yoast_wpseo_metadesc', true);
+
+    if (($metadescription_template === "%%excerpt%%")||($metadescription_template === "%%excerpt_only%%")) {
+        
+        if (($manual_excerpt==="")&&($post_type==='page')&&(!$yoast_meta_description)) {
+            $page_excerpt =  get_page_excerpt_from_json($post->ID, ICL_LANGUAGE_CODE);
+            $excerpt = prettify_content_piece_excerpt($page_excerpt); 
+        }
+        else if (($manual_excerpt!=="")&&($post_type==='page')&&(!$yoast_meta_description)) {
+            $excerpt = $manual_excerpt;
+        }
+        else {
+            $excerpt = $metadesc;
+        }
+
+        return $excerpt;
+    }
+    
+    return $metadesc;
+}
+
+add_filter( 'wpseo_metadesc' ,'generate_seo_page_excerpt' ,10,1);
 
 if(!function_exists('theme_color_sets')){
 
