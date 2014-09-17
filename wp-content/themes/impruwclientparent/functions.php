@@ -1858,6 +1858,11 @@ function query_attachments() {
 
     $media = get_site_media( $query );
 
+    if(!isset($media[ 'data' ])){
+        $media[ 'data' ] = array();
+        $media[ 'total' ] = 0;
+    }
+
     wp_send_json( array(
         'code' => 'OK',
         'data' => $media[ 'data' ],
