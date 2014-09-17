@@ -1,0 +1,43 @@
+<div class="form-group">
+			<label for="" class="col-sm-2 control-label">{{#polyglot}}SEO Title{{/polyglot}}</label>
+			<div class="col-sm-10 col-sm-offset-2">
+				<input class="form-control" id="room_seo_title" name="" placeholder="{{seo_title_default}}" required="true" type="text" value="{{seo_title}}">
+				<div class="p-messages"></div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-10 col-sm-offset-2">
+				<div class="help-block">
+					{{#polyglot}}The title element of a web page is meant to be an accurate and concise description of a page's content. Google typically displays the first 50-60 characters of a title tag, or as many characters as will fit into a 512-pixel display. If you keep your titles under 55 characters, you can expect at least 95% of your titles to display properly.{{/polyglot}}
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="" class="col-sm-2 control-label">{{#polyglot}}Meta Description{{/polyglot}}</label>
+			<div class="col-sm-10 col-sm-offset-2">
+				<textarea class="form-control" id="room_meta_description" name="" placeholder="{{#polyglot}}The meta description will be limited to 156 chars{{/polyglot}}" required="true" type="text" value="{{meta_description}}">{{meta_description}}</textarea>
+				<div class="p-messages"></div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-10 col-sm-offset-2">
+				<div class="help-block">
+					{{#polyglot}}The meta description tag serves the function of advertising copy. It draws readers to a website from the search engine results page and thus, is an extremely important part of search marketing. Crafting a readable, compelling description using important keywords can improve the click-through rate for a given webpage. To maximize click-through rates on search engine result pages, it's important to note that Google and other search engines bold keywords in the description when they match search queries.{{/polyglot}}
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="" class="col-sm-2 control-label">{{#polyglot}}Meta Keywords{{/polyglot}}</label>
+			<div class="col-sm-10 col-sm-offset-2">
+				<input class="form-control" id="room_meta_keywords" name="" placeholder="{{#polyglot}}Your keywords separated by a comma{{/polyglot}}" required="" type="text" value="{{meta_keywords}}">
+				<div class="p-messages"></div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-10 col-sm-offset-2">
+				<button class="btn btn-sm btn-wide aj-imp-orange-btn" id="btn-save-room-seo-details">{{#polyglot}}Save{{/polyglot}}</button>
+			</div>
+		</div>
