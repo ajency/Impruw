@@ -50,6 +50,17 @@ define(["app", 'backbone'], function(App, Backbone) {
         }
       };
 
+      ElementModel.prototype.parse = function(resp) {
+        if (resp.success === false && resp.new_instance) {
+          App.vent.trigger("new:instance:opened", resp);
+          return {};
+        }
+        if (resp.code === 'OK') {
+          return resp.data;
+        }
+        return resp;
+      };
+
       return ElementModel;
 
     })(Backbone.Model);

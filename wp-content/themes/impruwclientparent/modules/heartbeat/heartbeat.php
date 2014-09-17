@@ -51,3 +51,22 @@ function autosave_page_json( $response, $data, $screen_id ) {
 }
 
 add_filter( 'heartbeat_received', 'autosave_page_json', 10, 3 );
+
+
+
+function check_builder_instance( $response, $data, $screen_id ) {
+    if ( isset( $data['check-instance'] ) ) {
+
+        if(!check_app_instace($data['check-instance']['instance_id'])){
+            $response['check-instance'] = array(
+                'success' => false,
+                'new_instance' => true,
+                'reason' => __('New instance of site builder is open')
+            );
+            return $response;
+        }
+    }
+
+    return $response;
+}
+add_filter( 'heartbeat_received', 'check_builder_instance', 10, 3 );

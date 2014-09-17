@@ -6,6 +6,21 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
   hb = wp.heartbeat;
   $document = $(document);
   HeartbeatAPI = {
+    AppInstanceCheckHb: function() {
+      return $(document).on("heartbeat-send.check-instance", function(e, data) {
+        return data["check-instance"] = {
+          instance_id: App.instanceId
+        };
+      }).on("heartbeat-tick.check-instance", function(e, data) {
+        var check;
+        check = data["check-instance"];
+        if (check.success === false && check.new_instance) {
+          return App.vent.trigger("new:instance:opened", check);
+        }
+      }).ready(function() {
+        return schedule();
+      });
+    },
     AppNonceRefreshHb: function() {
       var check, schedule, timeout;
       schedule = function() {
@@ -104,6 +119,7 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
     HeartbeatAPI.AppAuthenticationHb();
     HeartbeatAPI.AppPageEditHb();
     HeartbeatAPI.AppNonceRefreshHb();
+    HeartbeatAPI.AppInstanceCheckHb();
     return hb.interval(15);
   });
 });

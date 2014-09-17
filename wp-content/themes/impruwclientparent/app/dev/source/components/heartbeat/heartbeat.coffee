@@ -9,6 +9,18 @@ define ['app', 'marionette', 'jquery', 'heartbeat'], ( App, Marionette, $ )->
 	# heartbeat API
 	HeartbeatAPI = 
 
+		AppInstanceCheckHb : ->
+			$(document).on("heartbeat-send.check-instance", (e, data) ->
+				data["check-instance"] = instance_id : App.instanceId
+
+			).on("heartbeat-tick.check-instance", (e, data) ->
+				check = data["check-instance"]
+				if check.success is false and check.new_instance
+                    App.vent.trigger "new:instance:opened", check
+
+			).ready ->
+				schedule()
+
 		AppNonceRefreshHb : ->
 			schedule = ->
 				check = false
@@ -105,5 +117,6 @@ define ['app', 'marionette', 'jquery', 'heartbeat'], ( App, Marionette, $ )->
 		HeartbeatAPI.AppAuthenticationHb()
 		HeartbeatAPI.AppPageEditHb()
 		HeartbeatAPI.AppNonceRefreshHb()
+		HeartbeatAPI.AppInstanceCheckHb()
 		# start heartbeat API
 		hb.interval 15

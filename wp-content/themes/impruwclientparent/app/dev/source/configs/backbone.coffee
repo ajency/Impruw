@@ -112,7 +112,8 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 			# params.processData = false  if params.type isnt "GET" and not options.emulateJSON	
 			
 			# attach instance id
-			params.data['instance_id'] = window.App.instanceId	if window.App.instanceId
+			if @name is 'element'
+				params.data['instance_id'] = window.App.instanceId	if window.App.instanceId
 			
 			# Make the request, allowing the user to override any Ajax options.
 			xhr = options.xhr = Backbone.ajax(_.extend(params, options))
@@ -128,6 +129,7 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 		
 		# model parse function
 		parse:(resp)->
+			
 			# change sizes to an array
 			if resp.code is 'OK'
 				return resp.data 
