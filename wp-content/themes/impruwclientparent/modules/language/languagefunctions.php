@@ -236,6 +236,24 @@ function get_page_translation_elements($page_id){
    return $elements;
 }
 
+//Function to get all page table elements
+function get_page_table_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+
+    $elements = array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_table_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('Table')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;    
+}
+
 //Function to get all page header elements of a site
 function get_header_translation_elements(){
 
@@ -282,6 +300,20 @@ function get_row_translation_elements( $row_element, &$elements ){
                 get_row_translation_elements( $element,$elements );
             } else {
                 if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
+                    $elements[] = $element;
+            }
+        }
+    }
+}
+
+function get_row_table_elements( $row_element, &$elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( $element[ 'element' ] === 'Row' ) {
+                get_row_table_elements( $element,$elements );
+            } else {
+                if(in_array($element[ 'element'] , array('Table')))
                     $elements[] = $element;
             }
         }
@@ -354,7 +386,7 @@ function get_all_childsite_pages(){
         $impruw_page_template_name = get_post_meta( $page_id_based_on_lang, 'impruw_page_template', true );
 
         //TODO check language based slugs, right now check is made for english pages only
-        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang=='reset-password' || $page_slug_based_on_lang==null){
+        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'|| $page_slug_based_on_lang=='coming-soon-2'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang=='reset-password' || $page_slug_based_on_lang==null){
             $is_child_site_page = false;
         }
         else{

@@ -14,7 +14,7 @@ define(['app'], function(App) {
 
       OriginalPolicyView.prototype.className = 'col-sm-7';
 
-      OriginalPolicyView.prototype.template = '<div class="form-group"> <label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Additional Policy{{/polyglot}}</label> <div class="col-sm-9 col-sm-offset-3"> <p class="original title">{{additional_policy}} </p> </div> </div>';
+      OriginalPolicyView.prototype.template = '<div class="form-group"> <label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Additional Policy{{/polyglot}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original title">{{additional_policy}} </div> </div> </div>';
 
       return OriginalPolicyView;
 

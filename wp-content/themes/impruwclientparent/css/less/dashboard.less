@@ -1518,6 +1518,7 @@ form {
 		.single-img {
 			position: relative;
 			padding: 0 5px;
+			min-width: 120px;
 			.thumbnail {
 				margin-bottom: 40px;
 				border: 1px solid @dash-grey;
@@ -3787,6 +3788,27 @@ form {
 					overflow: hidden;
 				}
 			}
+			.original-table-content {
+				.original {
+					height: auto;
+					max-height: initial;
+					padding: 0;
+					border: 0;
+					table {
+						td, th {
+							border: 1px solid @dash-grey
+						}
+						th {
+							border-bottom: 2px solid @dash-grey;
+						}
+						p {
+							margin: 0;
+							line-height: 1.231;
+							letter-spacing: 0 !important;
+						}
+					}
+				}
+			}
 		}
 	}
 	.form-horizontal {
@@ -3926,7 +3948,7 @@ form {
 			right: -4em;
 			opacity: 0;
 		}
-		.translated-element-content {
+		.translated-element-content, .translated-footer-content, .translated-header-content {
 			height: 100px;
 			background: #fff;
 			border-bottom: 1px solid @dash-grey;
@@ -3934,7 +3956,7 @@ form {
 			margin-bottom: 0;
 			overflow: auto;
 			&.title {
-				height: 33px;
+				height: 34px;
 				overflow: hidden;
 			}
 			&:focus {
@@ -3950,6 +3972,29 @@ form {
 			&:focus {
 				& ~ .trans-action {
 					opacity: 1;
+				}
+			}
+		}
+	}
+	.translated-table-content {
+		.trans-field {
+			.translated-element-content {
+				height: auto;
+				max-height: initial;
+				padding: 0;
+				border: 0;
+				table {
+					td, th {
+						border: 1px solid @dash-grey
+					}
+					th {
+						border-bottom: 2px solid @dash-grey;
+					}
+					p {
+						margin: 0;
+						line-height: 1.231;
+						letter-spacing: 0 !important;
+					}
 				}
 			}
 		}

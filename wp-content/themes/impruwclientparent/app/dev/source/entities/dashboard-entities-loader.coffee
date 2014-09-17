@@ -20,4 +20,5 @@ define [
     'entities/braintree-transaction'
     'entities/header-elements'
     'entities/footer-elements'
+    'entities/page-table-elements'
 ], ->

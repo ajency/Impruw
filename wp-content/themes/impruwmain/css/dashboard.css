@@ -3852,14 +3852,15 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-teampage .member .member-pic {
   text-align: center;
-  height: 260px;
+  height: 280px;
   position: relative;
   overflow: hidden;
 }
 .aj-imp-teampage .member .member-pic .img-circle {
   border: 5px solid #fff;
-  height: 250px;
-  width: 250px;
+  height: auto;
+  width: 70%;
+  max-width: 250px;
   box-shadow: 0 0 3px 3px #aaaaaa;
   position: absolute;
   bottom: -25%;
@@ -3979,4 +3980,183 @@ form .aj-imp-submit:hover {
 .aj-imp-faqpage .faqs .category-head a {
   font-size: 0.5em;
   color: #c3c3c3;
+}
+/****Block List Styles****/
+.aj-imp-themes .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-themes .pg-content {
+  text-align: center;
+  font-weight: 300;
+  color: #333333;
+  font-size: 1.3em;
+}
+.aj-imp-themes .pg-content .register-link {
+  background: #ff7e00;
+  border-radius: 2px;
+  margin-bottom: 1em;
+}
+.aj-imp-themes .pg-content .register-link:hover {
+  background: #ffb266;
+}
+.aj-imp-block-list ul {
+  margin: 1em 0;
+  list-style: none;
+  text-align: center;
+}
+.aj-imp-block-list ul .block {
+  width: 31%;
+  display: inline-block;
+  position: relative;
+  background: #fff;
+  padding: 1%;
+  margin: 1%;
+  border-radius: 2px;
+  -webkit-transition-property: scale;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+}
+.aj-imp-block-list ul .block:hover {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+}
+.aj-imp-block-list ul .block .img-responsive {
+  margin: auto;
+}
+.aj-imp-block-list ul .block .desc {
+  color: #849fb0;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 1.5em;
+}
+.aj-imp-block-list ul .block .aj-imp-choose-btn {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  padding-top: 35%;
+}
+.aj-imp-block-list ul .block .aj-imp-choose-btn .btn {
+  background: #ff7e00;
+}
+.aj-imp-block-list ul .block .aj-imp-choose-btn .btn:hover {
+  background: #ffb266;
+}
+.aj-imp-block-list ul .block:hover .aj-imp-choose-btn {
+  display: block;
+}
+.aj-imp-block-list .load-more {
+  text-align: center;
+}
+
+/****Pricing Plans Styles****/
+.aj-imp-pricing {
+  margin-top: 2em;
+}
+.aj-imp-pricing .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-pricing .pg-content {
+  text-align: center;
+  font-weight: 300;
+  color: #333333;
+  font-size: 1.3em;
+}
+.aj-imp-pricing .pg-content .register-link {
+  background: #ff7e00;
+  border-radius: 2px;
+  margin-bottom: 1em;
+}
+.aj-imp-pricing .pg-content .register-link:hover {
+  background: #ffb266;
+}
+.aj-imp-pricing .price-plans .price {
+  font-size: 4em;
+  color: #ff7e00;
+}
+.aj-imp-pricing .price-plans .price .price-cents {
+  vertical-align: super;
+  font-size: 50%;
+}
+.aj-imp-pricing .price-plans .price .price-month {
+  font-size: 35%;
+  font-style: italic;
+}
+.aj-imp-pricing .price-plans .panel {
+  -webkit-transition-property: scale;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+}
+.aj-imp-pricing .price-plans .panel .panel-heading h3 {
+  color: #aaaaaa;
+}
+.aj-imp-pricing .price-plans .panel .panel-heading span,
+.aj-imp-pricing .price-plans .panel .panel-body span {
+  display: block;
+  margin-bottom: 0.2em;
+}
+.aj-imp-pricing .price-plans .panel .panel-heading span.active,
+.aj-imp-pricing .price-plans .panel .panel-body span.active {
+  color: #2ecc71;
+}
+.aj-imp-pricing .price-plans .panel .panel-heading span.pending,
+.aj-imp-pricing .price-plans .panel .panel-body span.pending {
+  color: #f54545;
+}
+.aj-imp-pricing .price-plans .panel.active {
+  border-color: #2ecc71;
+}
+.aj-imp-pricing .price-plans .panel.active .panel-heading h3 {
+  color: #2ecc71;
+}
+.aj-imp-pricing .price-plans .panel.active .ribbon {
+  background: #2ecc71;
+  display: block;
+  color: #fff;
+  padding: 13px 12px 14px;
+  margin: -10px -15px;
+  border-radius: 0 0 3px 3px;
+  font-size: 2em;
+}
+.aj-imp-pricing .price-plans .panel.active .ribbon .activate-link {
+  background: transparent;
+  color: #fff;
+}
+.aj-imp-pricing .price-plans .panel.active .ribbon .activate-link:hover,
+.aj-imp-pricing .price-plans .panel.active .ribbon .activate-link:focus {
+  background: transparent;
+  color: #fff;
+}
+.aj-imp-pricing .price-plans .panel:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  border-color: #cbe5f8;
+}
+.aj-imp-pricing .price-plans .panel:hover .panel-heading {
+  background: #cbe5f8;
+}
+.aj-imp-pricing .price-plans .panel:hover .panel-heading h3 {
+  color: #849fb0;
+}
+.aj-imp-pricing .price-plans .panel:hover .price {
+  color: #182944;
+}
+.aj-imp-pricing .price-plans .panel:hover .btn {
+  background: #ff7e00;
+}
+.aj-imp-pricing .price-plans .panel:hover .btn:hover {
+  background: #ff9833;
 }

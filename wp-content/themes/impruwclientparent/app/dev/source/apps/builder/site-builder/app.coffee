@@ -14,15 +14,13 @@ define ['app'
 
         # add a new element to the builder region
             addNewElement: (container, type, modelData)->
+                
                 if SiteBuilderApp.Element[type]
                     new SiteBuilderApp.Element[type].Controller
                         container: container
                         modelData: modelData
-
-        # auto save function call
-            autoSave: ()->
-                autoSaveController = new SiteBuilderApp.AutoSave.Controller
-                autoSaveController.autoSave()
+                else
+                    return false
 
         # publish function call
             publish: ()->
@@ -34,10 +32,7 @@ define ['app'
         App.reqres.setHandler "add:new:element", (container, type, modelData = {})->
             API.addNewElement container, type, modelData
 
-        App.commands.setHandler "auto:save", ->
-            API.autoSave()
-
-        App.commands.setHandler "publish:page", ->
+        App.reqres.setHandler "publish:page", ->
             API.publish()
 
         # Show all region on start

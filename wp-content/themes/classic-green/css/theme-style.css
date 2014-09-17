@@ -953,9 +953,11 @@ and open the template in the editor.
   display: table;
 }
 .roomsummary .room-actions .price {
-  float: left;
   font-size: 2em;
   color: #4b4b4b;
+  margin-right: 0.5em;
+  display: inline-block;
+  vertical-align: middle;
 }
 .roomsummary .room-actions .price small {
   font-size: 0.8em;
@@ -1154,6 +1156,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-title {
   line-height: 74px;
+  font-weight: normal;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td {
   border: 1px solid #EAEAEA!important;
@@ -1167,6 +1170,7 @@ and open the template in the editor.
   line-height: 49px;
   text-align: center;
   border: 0px;
+  font-weight: normal;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td span:hover {
@@ -1174,12 +1178,16 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td > span {
   background: rgba(255, 255, 255, 0.6);
-  color: #ccc;
+  color: #7f7f7f;
   cursor: not-allowed;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-state-disabled a:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-state-disabled span:hover {
   background: rgba(255, 255, 255, 0.6);
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-today {
+  font-weight: 700;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red {
   background: #f97d61;
@@ -1845,9 +1853,6 @@ and open the template in the editor.
   max-width: 300px;
   margin: 0 0 0.5em;
 }
-.logo img {
-  max-height: 40px;
-}
 @media (max-width: 767px) {
   .logo {
     text-align: center;
@@ -1977,7 +1982,7 @@ and open the template in the editor.
 .address.small .info {
   color: #989898;
   font-size: 1em;
-  font-weight: 200;
+  font-weight: 300;
   margin-bottom: 10px;
   padding-left: 5px;
 }

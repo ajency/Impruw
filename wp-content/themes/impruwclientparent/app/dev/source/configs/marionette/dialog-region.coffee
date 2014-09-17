@@ -1,13 +1,24 @@
-define ['marionette', 'mustache', 'text!configs/marionette/templates/modal.html'], (Marionette, Mustache, modalTpl) ->
+define ['marionette', 'mustache'], (Marionette, Mustache) ->
     class Marionette.Region.Dialog extends Marionette.Region
 
-        template: modalTpl
+        template: '<div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                          <h4 class="modal-title">{{modal_title}}</h4>
+                        </div>
+                        <div class="modal-body"></div>
+                        <div class="modal-footer">
+                          
+                        </div>
+                      </div>
+                    </div>'
 
         # override open method
         open: (view)->
             options = if view.dialogOptions then view.dialogOptions else {}
             options = @_getOptions options
-            wrapper = Mustache.to_html modalTpl, options
+            wrapper = Mustache.to_html @template, options
             @$el.html(wrapper)
             @$el.find('.modal-body').append(view.el);
             @$el.addClass options.modal_size

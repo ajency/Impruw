@@ -10,7 +10,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 
         user = new Users.UserModel
-        user.fetch()
+        user.set USER
 
         #PUBLIC API
         API =

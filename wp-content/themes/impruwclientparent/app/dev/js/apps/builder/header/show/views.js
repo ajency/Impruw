@@ -28,6 +28,14 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
         }
       };
 
+      MainView.prototype.onPageTookOver = function() {
+        return this.$el.find('.hide-on-lock').fadeOut();
+      };
+
+      MainView.prototype.onPageReleased = function() {
+        return this.$el.find('.hide-on-lock').fadeIn();
+      };
+
       return MainView;
 
     })(Marionette.Layout);

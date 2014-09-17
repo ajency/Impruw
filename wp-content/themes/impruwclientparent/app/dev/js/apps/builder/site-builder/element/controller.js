@@ -71,13 +71,12 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
           App.execute("when:fetched", element, (function(_this) {
             return function() {
               _this.layout.triggerMethod("before:render:element");
-              _this.renderElement();
-              return _.delay(function() {
-                return App.execute("auto:save");
-              }, 300);
+              return _this.renderElement();
             };
           })(this));
         }
+        this._deferred = $.Deferred();
+        this._promise = this._deferred.promise();
         return this.add(this.layout, $(container));
       };
 
@@ -86,7 +85,12 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
         this.listenTo(this.layout.model, "change:top_margin", this.setMargin);
         this.listenTo(this.layout.model, "change:bottom_margin", this.setMargin);
         this.listenTo(this.layout.model, "change:left_margin", this.setMargin);
-        return this.listenTo(this.layout.model, "change:right_margin", this.setMargin);
+        this.listenTo(this.layout.model, "change:right_margin", this.setMargin);
+        return this.listenTo(this.layout.elementRegion, 'show', (function(_this) {
+          return function() {
+            return _this._deferred.resolve(true);
+          };
+        })(this));
       };
 
       Controller.prototype.setDraggable = function(model) {
@@ -123,10 +127,7 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
       };
 
       Controller.prototype.deleteElement = function(model) {
-        model.destroy();
-        return _.delay(function() {
-          return App.commands.execute("auto:save");
-        }, 700);
+        return model.destroy();
       };
 
       return Controller;

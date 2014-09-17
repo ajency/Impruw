@@ -15,7 +15,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                 AJAXURL + '?action=get-languages'
 
         languages = new Languages.LanguagesCollection
-        languages.fetch()
+        languages.add window.LANGUAGES
 
         #Public API
         API =

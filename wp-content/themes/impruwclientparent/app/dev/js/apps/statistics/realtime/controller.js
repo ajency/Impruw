@@ -18,7 +18,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         if (trackingStatus === 'false') {
           this.view = this.getDisabledTrackingView();
         } else {
-          this.view = this.getRealTimeView(sitemodel);
+          this.view = this.getRealTimeView(siteModel);
         }
         App.vent.trigger("set:active:menu", 'statistics');
         return this.show(this.view, {

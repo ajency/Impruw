@@ -1,91 +1,179 @@
-define ['app'], (App)->
-    App.module 'SiteBuilderApp.AutoSave', (AutoSave, App, Backbone, Marionette, $, _)->
-        window.SAVING = false
+define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat'], (App, AutoSaveHelper)->
 
-        # Controller class for showing header resion
-        class AutoSave.Controller extends Marionette.Controller
+	App.module 'SiteBuilderApp.AutoSave', (AutoSave, App, Backbone, Marionette, $, _)->
 
-            # initialize the controller. Get all required entities and show the view
-            initialize: (opt = {})->
+		$document = $(document)
 
-                # autoSave
-            autoSave: ()->
-                return if window.SAVING is true
+		class AutoSaveLocal extends Marionette.Controller
 
-                siteRegion = App.builderRegion.$el
+			initialize : ->
+					
+				@suspended = false
 
-                _sectionJson = @_getPageJson siteRegion
+				@hasSupport = @checkLocalStorgeSupport()
+				@blogId = window.BLOGID
 
-                if not _.isObject _sectionJson
-                    throw new Error "invalid json..."
+				if @hasSupport
+					@createStorage()
 
-                _page_id = App.request "get:current:editable:page"
+				$document.ready @run
 
-                options =
-                    type: 'POST'
-                    url: AJAXURL
-                    data:
-                        action: 'auto-save'
-                        page_id: _page_id
+			suspend : ->
+				@suspended = true
 
-                options.data = _.defaults options.data, _sectionJson
-                window.SAVING = true
-                $.ajax(options).done (response)->
-                    window.SAVING = false
-                .fail (resp)->
-                        window.SAVING = false
+			resume : ->
+				@suspended = false
 
-            # get the json
-            _getPageJson: ($site)->
-                _json = {}
+			run : =>
+				@interval = window.setInterval @doAutoSave, 5 * 1000
 
-                _.each ['header', 'page-content', 'footer'], (section, index)=>
-                    #if App.request "is:section:modified", section
-                    _json["#{section}-json"] = JSON.stringify @_getJson $site.find "#site-#{section}-region"
+			doAutoSave : =>
+				
+				if @suspended is true
+					return false
 
-                _json
+				json = AutoSaveHelper.getPageJson()
+				pageId = App.request "get:original:editable:page"
 
-            # generate the JSON for the layout
-            # loops through rows and nested columns and elements inside it
-            _getJson: ($element, arr = [])->
+				data = _.defaults json, 'page_id' : pageId
 
-                # find all elements inside $element container
-                elements = $element.children '.element-wrapper'
+				@saveLocal data
 
-                _.each elements, (element, index)=>
-                    ele =
-                        element: $(element).find('form input[name="element"]').val()
-                        meta_id: parseInt $(element).find('form input[name="meta_id"]').val()
+				
+			createStorage : ->
+				@key = "impruw-builder-#{@blogId}"
+				window.sessionStorage.setItem @key, ''
 
-                    if ele.element is 'Row'
-                        ele.draggable = $(element).children('form').find('input[name="draggable"]').val() is "true"
-                        ele.style = $(element).children('form').find('input[name="style"]').val()
-                        delete ele.meta_id
-                        ele.elements = []
-                        _.each $(element).children('.element-markup').children('.row').children('.column'), (column, index)=>
-                            className = $(column).attr 'data-class'
-                            col =
-                                position: index + 1
-                                element: 'Column'
-                                className: className
-                                elements: @_getJson $(column)
+			checkLocalStorgeSupport : ->
+				test = Math.random().toString()
+				result = false
 
-                            ele.elements.push col
-                            return
+				try 
+					window.sessionStorage.setItem( 'wp-test', test )
+					result = window.sessionStorage.getItem( 'wp-test' ) is test
+					window.sessionStorage.removeItem( 'wp-test' )
+				catch error 
 
-                    arr.push ele
+				result
 
-                arr
+			getLastSaved : (pageId)->
+				return window.sessionStorage.getItem @key
+
+			saveLocal : (json, pageId)->
+				
+				if @hasSupport
+					window.sessionStorage.setItem @key, JSON.stringify json
+					return window.sessionStorage.getItem(@key) isnt null
+
+				return false
 
 
-        App.commands.setHandler "unused:element:added", (metaId, _page_id)->
 
-            $.ajax
-                type: 'POST'
-                url: AJAXURL
-                data:
-                    action: 'remove-unused-element'
-                    page_id: _page_id
-                    element_meta_id : metaId
-                success:->
-                    console.log "element removed from unused list"
+		class AutoSaveServer extends Marionette.Controller
+
+			initialize : (options)->
+
+				{@local} = options
+
+				@_lastUpdated = 0
+
+				@autoSaveData = false
+				@nextRun = 0
+				$document.on 'heartbeat-send.autosave-page-json', @hbAutoSavePageJSONSend
+				$document.on 'heartbeat-tick.autosave-page-json', @hbAutoSavePageJSONTick
+
+				@canAutosave = true
+				@listenTo App.vent, 'page:took:over', (errorMessage)=>
+					@canAutosave = false
+
+				@listenTo App.vent, 'page:released', =>
+					@canAutosave = true
+
+			# provide data to heartbeat send
+			hbAutoSavePageJSONSend : ( evt,  data )=>
+
+				@autoSaveData = @getAutoSaveData()
+
+				if @autoSaveData isnt false
+					data['autosave-page-json'] = @autoSaveData
+
+				data
+
+			triggerSave : ->
+				@nextRun = 0
+				wp.heartbeat.connectNow()
+
+			getAutoSaveData : ->
+
+				if not @canAutosave
+					return false
+
+				if ( new Date() ).getTime() < @nextRun
+					return false
+
+				json = AutoSaveHelper.getPageJson()
+
+				pageId = App.request "get:original:editable:page"
+
+				data = _.defaults json, 'page_id' : pageId
+
+				if json is false or not @isPageModified data
+					return false
+
+				@disableButtons()
+
+				# update local copy
+				@local.saveLocal data
+
+				data
+
+			isPageModified : (data)->
+				lastLocalSaved = @local.getLastSaved()
+				stringifyJson = JSON.stringify data
+				modified = lastLocalSaved isnt stringifyJson
+				modified
+
+
+			hbAutoSavePageJSONTick : (event, data)=>
+				if data['autosave-page-json']
+					@handleTick data['autosave-page-json']
+
+			handleTick : (data)=>
+				@schedule()
+				@enableButtons()
+
+				if data.success is false
+					App.vent.trigger "autosave:failed", data
+				else
+					@_lastUpdated = data._last_updated
+
+					
+				# reset autosave data
+				@autoSaveData = false
+
+			enableButtons : ->
+				App.vent.trigger 'autosave:page:json:enable:buttons'
+
+			disableButtons : ->
+				App.vent.trigger 'autosave:page:json:disable:buttons'
+
+			schedule : ->
+				if typeof window.autosaveInterval != 'undefined'
+					autosaveInterval = window.autosaveInterval
+				else
+					autosaveInterval = 6
+
+				@nextRun = ( new Date() ).getTime() + ( autosaveInterval * 1000 ) || 60000
+
+
+
+		class AutoSaveAPI
+
+			constructor : ->
+				@local = new AutoSaveLocal
+				@server = new AutoSaveServer local : @local 
+
+
+		App.autoSaveAPI = new AutoSaveAPI
+				
+

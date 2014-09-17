@@ -70,7 +70,7 @@ class RoomDescription extends Element {
          */
         $template = '<div class="room-description-container clearfix">
                         <div class="room-description">
-                            <h1>Description</h1>
+                            <h1>'.__("Description","impruwclientparent").'</h1>
                             <div class="room-description-desc">{{post_content}}</div>
                         </div>
 			         </div>';
@@ -80,7 +80,7 @@ class RoomDescription extends Element {
 
         if ($this->room['post_content'] == '')
             
-            $data['post_content'] = 'Room Description';
+            $data['post_content'] = __("Room Description","impruwclientparent");
         
         else {
 

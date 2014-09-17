@@ -62,9 +62,12 @@ class ImageWithText extends Element {
         }
         $this->content  = stripcslashes(trim( $content ));
 
+        $this->link = isset($element['link']) && $element['link']!= '' ? $element['link'] : false;
+        $this->target = isset($element['target']) ? $element['target'] : '_self';  
+
         $this->style 	= sanitize_title($element['style']);
         $this->markup   = $this->generate_markup();
-        
+
     }
     
     /**
@@ -78,13 +81,19 @@ class ImageWithText extends Element {
     	
     	
     	
-    	$template = '{{#image}}
-						<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
-					{{/image}}
+    	$template = '{{#image}}';
+        if($this->link){
+            $template .= '<a href="{{link}}" target="{{target}}">';
+        }                      
+		$template .= '<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>';
+        if($this->link){
+            $template .= '</a>';
+        }                        
+		$template .= '{{/image}}
 					{{#placeholder}}
 						<div class="image-placeholder {{alignclass}}"><span class="glyphicon glyphicon-picture"></span>Image</div>
 					{{/placeholder}}
-					<p class="editor">{{{content}}}</p>
+					<div class="editor">{{{content}}}</div>
 					<div class="clearfix"></div>';
     	
     	$data = array();
@@ -94,7 +103,9 @@ class ImageWithText extends Element {
     		$image = wp_prepare_attachment_for_js($this->image_id);
     		
     		$data['imageurl'] = $image['sizes']['thumbnail']['url'];
-    		$data['title'] = $image['title'];	
+    		$data['title'] = $image['title'];
+            $data['link'] = $this->link;
+            $data['target']	= $this->target;
     	}
     	else{
     		$data['placeholder'] = true;

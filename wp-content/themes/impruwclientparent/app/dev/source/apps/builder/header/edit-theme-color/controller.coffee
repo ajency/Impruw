@@ -63,7 +63,18 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
             onShow:->
                 colorSetTpl = @displayEditColorSet()
                 @$el.find('.color-sets').append(colorSetTpl)
-                @$el.find('.theme_colour').minicolors()
+                self = @
+                @$el.find('.theme_colour').minicolors
+                    defaults: 
+                        inline: false
+
+                    hide : ->
+                        $(@).removeClass('show').addClass('hide')
+
+                    change : (hex,opacity)->
+                        id = $(@).attr 'name'
+                        self.$el.find("##{id}").css 'background-color', hex
+
 
             serializeData:->
                 data = super()
@@ -82,6 +93,17 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                     @$el.find('.applyCard').text('Applying..')
                     @trigger "create:custom:set:color" , formdata
 
+                'click .minicolor':(e)->
+                    id = $(e.target).attr('id')
+                    @$el.find("input[name='#{id}']").removeClass('hide').addClass('show')
+                    _.delay =>
+                        @$el.find("input[name='#{id}']").minicolors('show')
+                    ,100
+
+                'click input' : ->
+                    console.log 'clicked'
+
+
             displayEditColorSet :->
                 colorSetHtml = " "
                 _.each @model.attributes, (attributeValue, attributeName) =>
@@ -90,7 +112,8 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                         themeDescription = _.polyglot.t attributeValue.description
                         colorSetHtml += "<div class='color row'>
                                             <div class='col-sm-2'>
-                                                <input type='hidden' name='#{attributeName}' class='theme_colour' readonly value='#{attributeValue.color}'>
+                                                <div id='#{attributeName}' class=' minicolor' style='background-color:#{attributeValue.color};'  ></div>
+                                                <input type='text' name='#{attributeName}' class='theme_colour form-control hide'  value='#{attributeValue.color}'>
                                             </div>
                                             <div class='col-sm-10'>
                                                 <h6>#{themeTitle}</h6>

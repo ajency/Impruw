@@ -86,3 +86,15 @@ define ["app", 'backbone'], (App, Backbone) ->
 
         App.reqres.setHandler "get:unused:element:by:metaid", (metaId)->
             API.getUnusedElementByMetaId metaId
+
+        App.commands.setHandler "unused:element:added", (metaId, _page_id)->
+
+            $.ajax
+                type: 'POST'
+                url: AJAXURL
+                data:
+                    action: 'remove-unused-element'
+                    page_id: _page_id
+                    element_meta_id : metaId
+                success:->
+                    console.log "element removed from unused list"
