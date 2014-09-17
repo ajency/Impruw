@@ -1186,6 +1186,9 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-state-disabled span:hover {
   background: rgba(255, 255, 255, 0.6);
 }
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-today {
+  font-weight: 700;
+}
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red {
   background: #f97d61;
 }
