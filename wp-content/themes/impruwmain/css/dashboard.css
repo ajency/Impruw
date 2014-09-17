@@ -3982,8 +3982,24 @@ form .aj-imp-submit:hover {
   color: #c3c3c3;
 }
 /****Block List Styles****/
-.aj-imp-themes {
-
+.aj-imp-themes .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-themes .pg-content {
+  text-align: center;
+  font-weight: 300;
+  color: #333333;
+  font-size: 1.3em;
+}
+.aj-imp-themes .pg-content .register-link {
+  background: #ff7e00;
+  border-radius: 2px;
+  margin-bottom: 1em;
+}
+.aj-imp-themes .pg-content .register-link:hover {
+  background: #ffb266;
 }
 .aj-imp-block-list ul {
   margin: 1em 0;
@@ -3994,12 +4010,18 @@ form .aj-imp-submit:hover {
   width: 31%;
   display: inline-block;
   position: relative;
-  border: 1px solid #dddddd;
   background: #fff;
-  box-shadow: 0 0 2px 3px #dddddd;
   padding: 1%;
   margin: 1%;
   border-radius: 2px;
+  -webkit-transition-property: scale;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+}
+.aj-imp-block-list ul .block:hover {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
 }
 .aj-imp-block-list ul .block .img-responsive {
   margin: auto;
@@ -4007,7 +4029,7 @@ form .aj-imp-submit:hover {
 .aj-imp-block-list ul .block .desc {
   color: #849fb0;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 300;
   font-size: 1.5em;
 }
 .aj-imp-block-list ul .block .aj-imp-choose-btn {
@@ -4038,8 +4060,28 @@ form .aj-imp-submit:hover {
 .aj-imp-pricing {
   margin-top: 2em;
 }
+.aj-imp-pricing .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-pricing .pg-content {
+  text-align: center;
+  font-weight: 300;
+  color: #333333;
+  font-size: 1.3em;
+}
+.aj-imp-pricing .pg-content .register-link {
+  background: #ff7e00;
+  border-radius: 2px;
+  margin-bottom: 1em;
+}
+.aj-imp-pricing .pg-content .register-link:hover {
+  background: #ffb266;
+}
 .aj-imp-pricing .price-plans .price {
   font-size: 4em;
+  color: #ff7e00;
 }
 .aj-imp-pricing .price-plans .price .price-cents {
   vertical-align: super;
