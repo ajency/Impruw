@@ -145,6 +145,7 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
         }
         this.disableButtons();
         this.local.saveLocal(data);
+        data['instance_id'] = App.instanceId;
         return data;
       };
 

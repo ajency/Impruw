@@ -1,5 +1,5 @@
 ## The main dashboard App
-define ['marionette', 'underscorew'], (Marionette, _)->
+define ['marionette', 'underscore'], (Marionette, _)->
     
     window.App = new Marionette.Application
 
@@ -15,13 +15,15 @@ define ['marionette', 'underscorew'], (Marionette, _)->
         unusedElementsRegion: '#fl_menu'
 
     App.startNewInstance = ->
-        App.instanceId = _.makeid()
+        instanceId = _.makeid()
         $.ajax
             type: 'GET'
             url: "#{AJAXURL}?action=set-app-instance"
             async: false
             data : 
-                instanceId : App.instanceId
+                instance_id : instanceId
+            success : (resp)->
+                App.instanceId = resp.instance if resp.success is true
               
 
     # The default route for app

@@ -125,6 +125,9 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				# update local copy
 				@local.saveLocal data
 
+				# attach instance Id
+				data['instance_id'] = App.instanceId
+
 				data
 
 			isPageModified : (data)->

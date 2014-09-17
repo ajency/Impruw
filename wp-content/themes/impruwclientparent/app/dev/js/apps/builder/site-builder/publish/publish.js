@@ -27,7 +27,8 @@ define(['app'], function(App) {
           url: AJAXURL,
           data: {
             action: 'publish-page',
-            page_id: _page_id
+            page_id: _page_id,
+            instance_id: App.instanceId
           }
         };
         options.data = _.defaults(options.data, _sectionJson);

@@ -1,4 +1,4 @@
-define(['marionette', 'underscorew'], function(Marionette, _) {
+define(['marionette', 'underscore'], function(Marionette, _) {
   window.App = new Marionette.Application;
   App.addRegions({
     headerRegion: '#header-region',
@@ -17,13 +17,19 @@ define(['marionette', 'underscorew'], function(Marionette, _) {
     unusedElementsRegion: '#fl_menu'
   });
   App.startNewInstance = function() {
-    App.instanceId = _.makeid();
+    var instanceId;
+    instanceId = _.makeid();
     return $.ajax({
       type: 'GET',
       url: "" + AJAXURL + "?action=set-app-instance",
       async: false,
       data: {
-        instanceId: App.instanceId
+        instance_id: instanceId
+      },
+      success: function(resp) {
+        if (resp.success === true) {
+          return App.instanceId = resp.instance;
+        }
       }
     });
   };
