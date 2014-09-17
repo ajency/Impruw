@@ -1,5 +1,6 @@
 ## The main dashboard App
-define ['marionette'], (Marionette)->
+define ['marionette', 'underscorew'], (Marionette, _)->
+    
     window.App = new Marionette.Application
 
     # Main app regions
@@ -13,6 +14,15 @@ define ['marionette'], (Marionette)->
         chooseThemeRegion: '#choose-theme-region'
         unusedElementsRegion: '#fl_menu'
 
+    App.startNewInstance = ->
+        App.instanceId = _.makeid()
+        $.ajax
+            type: 'GET'
+            url: "#{AJAXURL}?action=set-app-instance"
+            async: false
+            data : 
+                instanceId : App.instanceId
+              
 
     # The default route for app
     App.rootRoute = ""
@@ -67,9 +77,10 @@ define ['marionette'], (Marionette)->
             App.startHistory()
             @rootRoute = if ISTHEMESELECTED is 1 then '' else 'choose-theme'
             App.navigate(@rootRoute, trigger: true)
+            
 
     # let the heart beat :P
     App.execute "heartbeat-api"
-
+    App.startNewInstance()
 
     App

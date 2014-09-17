@@ -1,4 +1,4 @@
-define(['marionette'], function(Marionette) {
+define(['marionette', 'underscorew'], function(Marionette, _) {
   window.App = new Marionette.Application;
   App.addRegions({
     headerRegion: '#header-region',
@@ -16,6 +16,17 @@ define(['marionette'], function(Marionette) {
     chooseThemeRegion: '#choose-theme-region',
     unusedElementsRegion: '#fl_menu'
   });
+  App.startNewInstance = function() {
+    App.instanceId = _.makeid();
+    return $.ajax({
+      type: 'GET',
+      url: "" + AJAXURL + "?action=set-app-instance",
+      async: false,
+      data: {
+        instanceId: App.instanceId
+      }
+    });
+  };
   App.rootRoute = "";
   App.loginRoute = "login";
   App.on('start', function() {
@@ -66,5 +77,6 @@ define(['marionette'], function(Marionette) {
     })(this));
   });
   App.execute("heartbeat-api");
+  App.startNewInstance();
   return App;
 });
