@@ -43,6 +43,8 @@ define(['app'], function(App) {
         var html;
         CKEDITOR.on('instanceCreated', this.configureEditor);
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
+        html = this.$el.html();
+        this.editor.setData(html);
         this.editor.on('changedTitleStyle', (function(_this) {
           return function(evt) {
             return _this.model.set('style', evt.data.style);
@@ -68,8 +70,6 @@ define(['app'], function(App) {
             return _this.model.set('justify', evt.data.justify);
           };
         })(this));
-        html = this.$el.html();
-        this.editor.setData(html);
         return this.editor.config.placeholder = 'Click here to enter Title';
       };
 
