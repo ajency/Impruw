@@ -15,7 +15,15 @@ define ['app','bootbox'], (App, bootbox)->
 							<div class="trash-elem-content">
 								{{{content}}}
 							</div>
+                            <button class="btn btn-small remove-element">Remove</button>
 						</a>'
+
+            events : 
+                'click .remove-element' : (e)->
+                    bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure? This element will be lost. Cannot undo this action.'}</h4>",(result)=>
+                        if result is true
+                            @trigger 'clear:element'
+
 
             serializeData: ->
                 serializedData = super()
@@ -26,7 +34,7 @@ define ['app','bootbox'], (App, bootbox)->
 
             onRender: ->
                 @$el.attr 'data-element', @model.get 'element'
-                .attr 'data-meta-id', @model.get 'meta_id'
+                    .attr 'data-meta-id', @model.get 'meta_id'
 
         class EmptyUnsedElementView extends Marionette.ItemView
 

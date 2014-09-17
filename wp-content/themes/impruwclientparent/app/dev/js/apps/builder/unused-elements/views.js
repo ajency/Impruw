@@ -15,7 +15,19 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       SingleUnusedElement.prototype.className = 'trash-elem';
 
-      SingleUnusedElement.prototype.template = '<a href="#"> <div class="trash-elem-header"> <span class="bicon icon-uniF111"></span> {{element}} </div> <div class="trash-elem-content"> {{{content}}} </div> </a>';
+      SingleUnusedElement.prototype.template = '<a href="#"> <div class="trash-elem-header"> <span class="bicon icon-uniF111"></span> {{element}} </div> <div class="trash-elem-content"> {{{content}}} </div> <button class="btn btn-small remove-element">Remove</button> </a>';
+
+      SingleUnusedElement.prototype.events = {
+        'click .remove-element': function(e) {
+          return bootbox.confirm("<h4 class='delete-message'>" + (_.polyglot.t('Are you sure? This element will be lost. Cannot undo this action.')) + "</h4>", (function(_this) {
+            return function(result) {
+              if (result === true) {
+                return _this.trigger('clear:element');
+              }
+            };
+          })(this));
+        }
+      };
 
       SingleUnusedElement.prototype.serializeData = function() {
         var content, serializedData, _ref;

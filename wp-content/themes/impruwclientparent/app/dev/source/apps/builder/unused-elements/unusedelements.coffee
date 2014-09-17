@@ -22,6 +22,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
                 @view = view = @getUnsedElementView @unusedElementCollection
 
                 @listenTo view, 'clear:all:elements', @clearAllElements
+                @listenTo view, 'clear:element', @clearElement
 
                 @listenTo App.vent, 'page:took:over', ->
                     view.triggerMethod 'page:took:over'
@@ -42,8 +43,21 @@ define ['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
                             page_id : @pageId
                         },
                         ((resp)=>
+                            if resp.success is true
+                                @view.triggerMethod 'elements:cleared'
+
+                        ),
+                        'json')
+
+            clearElement : (id)=>
+                $.post("#{AJAXURL}?action=remove-unused-element",
+                        {
+                            page_id : @pageId
+                            element_meta_id : id
+                        },
+                        ((resp)=>
                             # if resp.success is true
-                            @view.triggerMethod 'elements:cleared'
+                            @view.triggerMethod 'element:cleared', id
 
                         ),
                         'json')

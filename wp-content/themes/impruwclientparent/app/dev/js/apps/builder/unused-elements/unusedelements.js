@@ -9,6 +9,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
       __extends(UnusedElementController, _super);
 
       function UnusedElementController() {
+        this.clearElement = __bind(this.clearElement, this);
         this.clearAllElements = __bind(this.clearAllElements, this);
         this.showView = __bind(this.showView, this);
         return UnusedElementController.__super__.constructor.apply(this, arguments);
@@ -30,6 +31,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
         }
         this.view = view = this.getUnsedElementView(this.unusedElementCollection);
         this.listenTo(view, 'clear:all:elements', this.clearAllElements);
+        this.listenTo(view, 'clear:element', this.clearElement);
         this.listenTo(App.vent, 'page:took:over', function() {
           return view.triggerMethod('page:took:over');
         });
@@ -52,7 +54,20 @@ define(['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
           page_id: this.pageId
         }, ((function(_this) {
           return function(resp) {
-            return _this.view.triggerMethod('elements:cleared');
+            if (resp.success === true) {
+              return _this.view.triggerMethod('elements:cleared');
+            }
+          };
+        })(this)), 'json');
+      };
+
+      UnusedElementController.prototype.clearElement = function(id) {
+        return $.post("" + AJAXURL + "?action=remove-unused-element", {
+          page_id: this.pageId,
+          element_meta_id: id
+        }, ((function(_this) {
+          return function(resp) {
+            return _this.view.triggerMethod('element:cleared', id);
           };
         })(this)), 'json');
       };
