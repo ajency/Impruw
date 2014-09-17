@@ -2,6 +2,15 @@
 
 function autosave_page_json( $response, $data, $screen_id ) {
     if ( isset( $data['autosave-page-json'] ) ) {
+
+        if(!check_app_instace($data['autosave-page-json']['instance_id'])){
+            $response['autosave-page-json'] = array(
+                'success' => false,
+                'new_instance' => true,
+                'reason' => __('New instance of site builder is open')
+            );
+            return $response;
+        }
         
         $autosavedata = $data['autosave-page-json'];
 

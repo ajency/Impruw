@@ -36,6 +36,8 @@ define(['app'], function(App) {
         return $.ajax(options).done(function(response) {
           if (response.success === true) {
             return App.vent.trigger("page:published");
+          } else if (response.success === false && response.new_instance) {
+            return App.vent.trigger("new:instance:opened", response);
           } else {
             return App.vent.trigger("publish:failed", response.reason);
           }

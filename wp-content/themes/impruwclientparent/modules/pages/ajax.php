@@ -85,13 +85,22 @@ add_action( 'wp_ajax_create-page', 'create_page_ajax' );
 function publish_page_ajax() {
 
     $page_id = $_REQUEST[ 'page_id' ];
+
+    $instance_id = $_REQUEST['instance_id'];
+
+    if(!check_app_instace($instance_id)){
+        wp_send_json(array(
+            'success' => false,
+            'new_instance' => true,
+            'reason' => __('New instance of site builder is open')
+        ));
+    }
     
     //check if page is locked
     $user_id = wp_check_post_lock( $page_id );
 
     if ($user_id === false){
         
-
         $header_json = $_REQUEST[ 'header-json' ];
         update_header_json( $header_json );
         $header_json = convert_json_to_array( $header_json );

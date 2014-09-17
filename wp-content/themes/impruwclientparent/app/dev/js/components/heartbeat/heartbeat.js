@@ -49,7 +49,7 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
       });
     },
     AppAuthenticationHb: function() {
-      return $document.on('heartbeat-tick.wp-auth-check', function(evt, data) {
+      $document.on('heartbeat-tick.wp-auth-check', function(evt, data) {
         if (data['wp-auth-check'] === false) {
           alert('you are logged out');
           return window.location.reload();
@@ -58,6 +58,10 @@ define(['app', 'marionette', 'jquery', 'heartbeat'], function(App, Marionette, $
         return App.vent.trigger('connection-lost');
       }).on('heartbeat-connection-restored', function() {
         return App.vent.trigger('connection-restored');
+      });
+      return App.vent.on("new:instance:opened", function(data) {
+        alert(data.reason);
+        return window.location.href = window.location.href + '?expire=true';
       });
     },
     AppPageEditHb: function() {

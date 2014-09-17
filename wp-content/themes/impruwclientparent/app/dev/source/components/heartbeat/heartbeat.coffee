@@ -58,6 +58,10 @@ define ['app', 'marionette', 'jquery', 'heartbeat'], ( App, Marionette, $ )->
 				.on 'heartbeat-connection-restored', ->
 					App.vent.trigger 'connection-restored'
 
+			App.vent.on "new:instance:opened", (data)->
+				alert data.reason
+				window.location.href = window.location.href + '?expire=true'
+
 		AppPageEditHb : ->	
 			
 			locked = false

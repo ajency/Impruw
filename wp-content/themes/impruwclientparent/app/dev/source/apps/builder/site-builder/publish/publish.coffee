@@ -30,7 +30,9 @@ define ['app'], (App)->
                 $.ajax(options).done (response)->
                     if response.success is true
                         App.vent.trigger "page:published"
-                    else    
+                    else if response.success is false and response.new_instance
+                        App.vent.trigger "new:instance:opened", response
+                    else
                         App.vent.trigger "publish:failed", response.reason
 
                 .always (resp)->
