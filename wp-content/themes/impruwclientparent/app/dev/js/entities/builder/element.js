@@ -99,16 +99,18 @@ define(["app", 'backbone'], function(App, Backbone) {
         return element;
       },
       getUnusedElements: function(pageId, revisionId) {
+        var xhr;
         if (revisionId == null) {
           revisionId = 0;
         }
         recoveredElements.url = "" + AJAXURL + "?action=get-unused-elements";
-        recoveredElements.fetch({
+        xhr = recoveredElements.fetch({
           data: {
             revision_id: revisionId,
             page_id: pageId
           }
         });
+        recoveredElements.xhr = xhr;
         return recoveredElements;
       },
       getUnusedElementByMetaId: function(metaId) {
