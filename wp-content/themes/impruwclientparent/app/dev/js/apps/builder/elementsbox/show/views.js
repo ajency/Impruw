@@ -62,6 +62,19 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
         return MainView.__super__.initialize.call(this, opts);
       };
 
+      MainView.prototype.events = {
+        'click #builder-box-tabs a': function(e) {
+          var tab;
+          e.stopPropagation();
+          e.preventDefault();
+          tab = $(e.target).attr('href');
+          $(e.target).parent().siblings().removeClass('active');
+          $(e.target).parent().addClass('active');
+          $(tab).addClass('active');
+          return $(tab).siblings().removeClass('active');
+        }
+      };
+
       MainView.prototype.onShow = function() {
         this.$el.tabSlideOut({
           tabHandle: '.handle',

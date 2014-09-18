@@ -55,6 +55,16 @@ define [ 'app'
             @roomElements = 'li[data-element="RoomFacilities"],li[data-element="RoomTitle"],li[data-element="RoomDescription"],li[data-element="RoomTariff"],li[data-element="RoomBooking"]'
             super opts
 
+         events:
+            'click #builder-box-tabs a' : (e)->
+               e.stopPropagation()
+               e.preventDefault()
+               tab = $(e.target).attr 'href'
+               $(e.target).parent().siblings().removeClass 'active'
+               $(e.target).parent().addClass 'active'
+               $(tab).addClass('active')
+               $(tab).siblings().removeClass 'active'
+
          # on show make the element draggable
          # secondly, make all the elements draggable
          onShow : ->
@@ -63,6 +73,7 @@ define [ 'app'
             #    addClasses : false
             #    containment : 'document'
             #    scroll : true
+
                
             @$el.tabSlideOut
                 tabHandle: '.handle'                   
