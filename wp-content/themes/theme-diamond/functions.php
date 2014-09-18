@@ -286,3 +286,11 @@
                 )			
             )
     );
+    
+     /**
+     * Footer selector for the theme powered by Impruw message
+     **/
+    function impruw_footer_selector(){
+        return ">.row:last-child";
+    }
+    add_filter('impruw_footer_selector', 'impruw_footer_selector');

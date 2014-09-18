@@ -218,3 +218,11 @@
     }
 
     add_action('wp_footer', 'theme_specific_js');
+
+     /**
+     * Footer selector for the theme powered by Impruw message
+     **/
+    function impruw_footer_selector(){
+        return "[class^='col-']:last";
+    }
+    add_filter('impruw_footer_selector', 'impruw_footer_selector');
