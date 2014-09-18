@@ -15,6 +15,9 @@
     //add async tasks
     require_once 'async-tasks/wpml-setup.php';
 
+    // Include WPML API
+    include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
+
     /* ============================================================= */
 
     require_once 'Communication_module/user_shortcodes.php'; //file containing all shortcodes to fetch user information
@@ -364,8 +367,9 @@
         $result = '';
         $info = '';
         $form_data = array();
+        $form_subject = __('Contact Form', 'impruwmain');
         extract(shortcode_atts(array(// if you don't provide an e-mail address, the shortcode will pick the e-mail address of the admin:
-            "email"         => get_bloginfo('admin_email'), "subject" => "", "label_name" => "Your Name", "label_email" => "Your E-mail Address", "label_subject" => "Subject", "label_message" => "Your Message", "label_submit" => "Submit", // the error message when at least one of the required fields are empty:
+            "email"         => get_bloginfo('admin_email'), "subject" => "", "label_name" => __("Your Name", "impruwmain"), "label_email" => __("Your E-mail Address","impruwmain"), "label_subject" => __("Subject","impruwmain"), "label_message" => __("Your Message","impruwmain"), "label_submit" => __("Submit","impruwmain"), // the error message when at least one of the required fields are empty:
             "error_empty"   => "<div class='alert alert-error'>Please fill in all the required fields.</div>", // the error message when the e-mail address is not valid:
             "error_noemail" => "<div class='alert alert-error'>Please enter a valid e-mail address.</div>", // and the success message when the e-mail is sent:
             "success"       => "<div class='alert alert-success'>Thanks for your e-mail! We'll get back to you as soon as we can.</div>"), $atts));
@@ -437,25 +441,25 @@
         <div class="form-group">
             <label for="cf_name" class="col-sm-3 control-label">' . $label_name . '</label>
             <div class="col-sm-7 col-sm-offset-3">
-                <input type="text" name="your_name" id="cf_name" class="form-control" placeholder="Your Full Name" value="' . $form_data['your_name'] . '" />
+                <input type="text" name="your_name" id="cf_name" class="form-control" placeholder="'.__("Your Full Name","impruwmain").'" value="' . $form_data['your_name'] . '" />
             </div>
         </div>
         <div class="form-group">
             <label for="cf_email" class="col-sm-3 control-label">' . $label_email . '</label>
             <div class="col-sm-7 col-sm-offset-3">
-                <input type="text" name="email" id="cf_email" class="form-control" placeholder="Your Email Address" value="' . $form_data['email'] . '" />
+                <input type="text" name="email" id="cf_email" class="form-control" placeholder="'.__("Your Email Address","impruwmain").'" value="' . $form_data['email'] . '" />
             </div>
         </div>
         <div class="form-group">
             <label for="cf_subject" class="col-sm-3 control-label">' . $label_subject . '</label>
             <div class="col-sm-7 col-sm-offset-3">
-                <input type="text" name="subject" id="cf_subject" class="form-control" placeholder="The Subject of your enquiry" value="' . $subject . $form_data['subject'] . '" />
+                <input type="text" name="subject" id="cf_subject" class="form-control" placeholder="'.__("The Subject of your enquiry","impruwmain").'" value="' . $form_subject . $form_data['subject'] . '" />
             </div>
         </div>
         <div class="form-group">
             <label for="cf_message" class="col-sm-3 control-label">' . $label_message . '</label>
             <div class="col-sm-7 col-sm-offset-3">
-                <textarea name="message" id="cf_message" class="form-control" placeholder="Your Message" rows="3">' . $form_data['message'] . '</textarea>
+                <textarea name="message" id="cf_message" class="form-control" placeholder="'.__("Your Message","impruwmain").'" rows="3">' . $form_data['message'] . '</textarea>
             </div>
         </div>
         <div class="form-group">
@@ -653,4 +657,22 @@
       $filtered_title .= ( 2 <= $paged || 2 <= $page ) ? ' | ' . sprintf( __( 'Page %s' ), max( $paged, $page ) ) : '';
 
       return $filtered_title;
+    }
+
+    
+    /**
+     * Get current language based image folder path
+     *
+     */
+    function get_language_based_image_path(){
+
+      $current_language = ICL_LANGUAGE_CODE;
+      
+      if ($current_language == 'nb'){
+        return 'images-nb';
+      }
+      else{
+        return 'images';
+      }
+
     }

@@ -369,6 +369,11 @@
 	.room-img {
 		max-height: 240px;
 		overflow: hidden;
+		a {
+			display: block;
+			min-height: 200px;
+			background-size: cover !important;
+		}
 	}
 	.room-title {
 		font-size: 1.6em;
@@ -386,9 +391,11 @@
 		.clearfix;
 		text-align: right;
 		.price {
-			float: left;
 			font-size: 2em;
 			color: darken(@secondary1, 10%);
+			margin-right: 0.5em;
+			display: inline-block;
+			vertical-align: middle;
 			small {
 				font-size: 0.8em;
 			}
@@ -455,7 +462,7 @@
 			.date-range{
 				font-size:1.3em;
 				color:@white;
-				margin-bottom: 10%;
+				margin-bottom: 50px;
 				b {
 					font-size: 1.5em;
 					display: block;
@@ -464,7 +471,7 @@
 				.status{
 					font-size: 1.0em;
 					text-transform: uppercase;
-					padding-top: 13px;
+					padding: 8px;
 				}
 			}
 			.room-booking-plan {
@@ -587,6 +594,7 @@
 					}
 					.ui-datepicker-title{
 						line-height: 74px;
+						font-weight: normal;
 					}
 					
 						td {
@@ -599,14 +607,16 @@
 										line-height: 49px;
 										text-align: center;
 										border:0px;
+										font-weight: normal;
 										&:hover {
 											background: none;
 										}
 								}
 								> span {
 									background: rgba(255, 255, 255, 0.6);
-									color: #ccc;
+									color: @text-color;
 									cursor: not-allowed;
+									text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 								}
 								&.ui-state-disabled {
 									a, span {
@@ -615,7 +625,9 @@
 										}
 									}
 								}
-								
+								&.ui-datepicker-today {
+									font-weight: 700;
+								}
 							}
 								.booking-red{
 						background:#f97d61;

@@ -9,13 +9,13 @@ define ['app'], (App)->
             className: 'imagewithtext'
 
             template: '{{#image}}
-            							<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
-            						{{/image}}
-            						{{#placeholder}}
-            							<div class="image-placeholder {{alignclass}}"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div>
-            						{{/placeholder}}
-            						<div class="editor"></div>
-            						<div class="clearfix"></div>'
+							<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
+						{{/image}}
+						{{#placeholder}}
+							<div class="image-placeholder {{alignclass}}"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div>
+						{{/placeholder}}
+						<div class="editor"></div>
+						<div class="clearfix"></div>'
 
             # override serializeData to set holder property for the view
             mixinTemplateHelpers: (data)->
@@ -45,9 +45,16 @@ define ['app'], (App)->
                 'blur .editor': (e)->
                     @trigger "text:element:blur", @$el.children('.editor').html()
 
+            
+            setUpCKEditor : =>
+                @editor = CKEDITOR.inline document.getElementById @$el.children('.editor').attr 'id'
+                html = @$el.children('.editor').html()
+                @editor.setData html
+                @editor.config.placeholder = 'Click here to enter your text...'
+
             onStyleUpadted: (newStyle, prevStyle)->
                 @$el.removeClass prevStyle
-                .addClass newStyle
+                    .addClass newStyle
 
             onRender: ->
                 style = Marionette.getOption this, 'style'
@@ -61,10 +68,14 @@ define ['app'], (App)->
             # reloading placeholder image again
             onShow: ->
                 #run ckeditor
-                @$el.children('.editor').attr('contenteditable', 'true').attr 'id', _.uniqueId 'text-'
-                @editor = CKEDITOR.inline document.getElementById @$el.children('.editor').attr 'id'
+                @$el.children('.editor').attr('contenteditable', 'true').attr 'id', _.uniqueId 'imgwithtext-'
                 content = Marionette.getOption(this, 'templateHelpers').content[WPML_DEFAULT_LANG]
                 
                 content = Marionette.getOption(this, 'templateHelpers').content[WPML_DEFAULT_LANG] ? Marionette.getOption(this, 'templateHelpers').content
-                @editor.setData _.stripslashes content ? ''
-                @editor.config.placeholder = 'Click here to enter your text...'
+                @$el.children('.editor').html _.stripslashes content ? ''
+
+                @$el.children('.editor').on 'focus', _.once @setUpCKEditor
+
+            onClose : ->
+                if @editor
+                    @editor.destroy()

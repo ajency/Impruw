@@ -150,6 +150,15 @@ function get_page_elements_ajax(){
 }
 add_action( 'wp_ajax_get-page-elements', 'get_page_elements_ajax' );
 
+function get_page_tables_ajax(){
+    $page_id = $_REQUEST['pageId'];
+
+    $data =  get_page_table_elements($page_id);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_get-page-tables', 'get_page_tables_ajax' );
+
 
 
 function get_header_elements_ajax(){
@@ -189,6 +198,7 @@ function update_translated_page_title(){
 add_action( 'wp_ajax_update-translated-page-title', 'update_translated_page_title' );
 
 add_action( 'wp_ajax_create-pageElements', 'update_element_model' );
+add_action( 'wp_ajax_create-pageTableElements', 'update_element_model' );
 add_action( 'wp_ajax_create-headerElements', 'update_element_model' );
 add_action( 'wp_ajax_create-footerElements', 'update_element_model' );
 

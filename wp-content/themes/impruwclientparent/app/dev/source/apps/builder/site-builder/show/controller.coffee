@@ -15,7 +15,7 @@ define [ 'app', 'controllers/base-controller'
 
                 # builder view
                 @view = new Show.View.Builder
-                    model : elements
+                                    model : elements
 
                 # listen to element dropped event for next action
                 @listenTo @view, "add:new:element", ( container, type, metaId = 0 )->
@@ -31,9 +31,26 @@ define [ 'app', 'controllers/base-controller'
                 # triggered when all models are fetched for the page
                 # usign this event to start filling up the builder
                 # with elements
-                @listenTo @view, "dependencies:fetched", =>
+                App.execute "when:fetched", [elements] ,=>
+                    
                     _.delay =>
+
+                        @deferreds = []
                         @startFillingElements()
+                        
+                        $.when(@deferreds...).done (elements...)=> 
+                                App.autoSaveAPI.local.resume()
+                                App.autoSaveAPI.local.doAutoSave()
+                                App.vent.trigger "page:rendered"
+                                @view.triggerMethod "page:rendered"
+                                # release memory
+                                @deferreds = []
+                            .fail ->
+                                App.autoSaveAPI.local.suspend()
+                            .always ->
+
+                                App.autoSaveAPI.local.createStorage()
+
                     , 400
 
                 @show @view,
@@ -51,53 +68,30 @@ define [ 'app', 'controllers/base-controller'
 
             # start filling elements
             startFillingElements : ()->
-                section = @view.model.get( 'header' )
-                container = @_getContainer 'header'
-                _.each section, ( element, i )=>
-                    if element.element is 'Row'
-                        @addNestedElements container, element
-                    else
-                        App.request "add:new:element", container, element.element, element
-
-                section = @view.model.get( 'page' )
-                container = @_getContainer 'page'
-                _.each section, ( element, i )=>
-                    return if not _.isObject element
-                    if element.element is 'Row'
-                        @addNestedElements container, element
-                    else
-                        App.request "add:new:element", container, element.element, element
-
-                section = @view.model.get( 'footer' )
-                container = @_getContainer 'footer'
-                _.each section, ( element, i )=>
-                    if element.element is 'Row'
-                        @addNestedElements container, element
-                    else
-                        App.request "add:new:element", container, element.element, element
-
-                _.delay @startAutoSave, 5000
-
-            # start the save revision interval.
-            # uses: siteInterval(fn, interval)
-            startAutoSave : =>
-                clearInterval( window.autoSaveInterval ) if window.autoSaveInterval
-
-                window.autoSaveInterval = setInterval ->
-                    App.execute "auto:save"
-                , AUTOSAVEINTERVAL
+                
+                _.each ['header', 'page' , 'footer'], (key, index)=>
+                    section = @view.model.get key
+                    container = @_getContainer key
+                    _.each section, ( element, i )=>
+                        if element.element is 'Row'
+                            @addNestedElements container, element
+                        else
+                            eleController = App.request "add:new:element", container, element.element, element
+                            @deferreds.push eleController._promise
 
 
             addNestedElements : ( container, element )->
-                controller = App.request "add:new:element", container, element.element, element
+                eleController = App.request "add:new:element", container, element.element, element
+                @deferreds.push eleController._promise
                 _.each element.elements, ( column, index )=>
                     return if column.elements.length is 0
-                    container = controller.layout.elementRegion.currentView.$el.children().eq( index )
+                    container = eleController.layout.elementRegion.currentView.$el.children().eq( index )
                     _.each column.elements, ( ele, i )=>
                         if element.element is 'Row'
                             @addNestedElements $( container ), ele
                         else
-                            App.request "add:new:element", container, ele.element, ele
+                            eleController = App.request "add:new:element", container, ele.element, ele
+                            @deferreds.push eleController._promise
 
 
         # Controller class for showing header resion
@@ -141,6 +135,20 @@ define [ 'app', 'controllers/base-controller'
 
                 @listenTo layout, "update:page:name", @updatePageName
 
+                # heartbeat API
+                @listenTo App.vent, 'page:took:over', (errorMessage)->
+                    layout.triggerMethod 'page:took:over', errorMessage
+
+                @listenTo App.vent, 'page:released', ->
+                    layout.triggerMethod 'page:released'
+
+                @listenTo App.vent, 'autosave:page:json:enable:buttons', ->
+                    layout.triggerMethod 'autosave:page:json:enable:buttons'                    
+
+                @listenTo App.vent, 'autosave:page:json:disable:buttons', ->
+                    layout.triggerMethod 'autosave:page:json:disable:buttons'                    
+
+
                 @show layout,
                     loading : true
 
@@ -175,13 +183,13 @@ define [ 'app', 'controllers/base-controller'
                 @layout.triggerMethod "page:name:updated", updatedPageModel
 
         App.commands.setHandler "editable:page:changed", ( pageId, revisionId = 0 )=>
-            App.resetElementRegistry()
+            
             siteBuilderController.close() if siteBuilderController isnt null
             siteBuilderController = new Show.BuilderController
                 pageId : pageId
                 revisionId : revisionId
 
-            App.execute "show:unused:elements",
-                region : App.unusedElementsRegion
+            App.execute "show:right:block",
+                region : App.rightBlockRegion
                 revisionId : revisionId
                 pageId : pageId

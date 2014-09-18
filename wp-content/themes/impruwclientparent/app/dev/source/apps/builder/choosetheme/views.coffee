@@ -18,7 +18,7 @@ define ['app'], (App)->
 
 			serializeData:->
 				data = super()
-				data.currentTheme = CURRENTTHEME is data.post_name
+				data.currentTheme = CURRENTTHEME is _.slugify data.post_title
 				data.post_title = _.polyglot.t(data.post_title)
 				data
 
@@ -26,6 +26,7 @@ define ['app'], (App)->
 				'click a.choose-theme': (e)->
 					e.stopPropagation()
 					e.preventDefault()
+					@$el.find('a.choose-theme').attr 'disabled', true
 					@$el.find('.choose-theme').text _.polyglot.t('Applying...')
 					@trigger "choose:theme:clicked", @model
 

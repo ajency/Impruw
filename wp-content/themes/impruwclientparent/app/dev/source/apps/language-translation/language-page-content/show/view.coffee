@@ -13,3 +13,5 @@ define ['app'
                     regions:
                         originalPageContent: ".original-page-content",
                         translatedPageContent: ".translated-page-content"
+                        originalTableContent: ".original-table-content"
+                        translatedTableContent: ".translated-table-content"

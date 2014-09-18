@@ -37,7 +37,7 @@ class LogoElement extends ImageElement {
      * Empty string by default
      * @var String 
      */
-    var $class_name  = '';
+    var $class_name  = 'logo';
     
     
     

@@ -36,7 +36,7 @@ class RoomTitle extends Element {
         if ($this->post_id === 0 && get_the_ID() > 0)
             $this->post_id = get_the_ID();
 
-        $this->room = get_room($this->post_id);
+        $this->room = get_room($this->post_id, FALSE);
 
         $this->markup = $this->generate_markup();
     }
@@ -65,7 +65,7 @@ class RoomTitle extends Element {
                                     <div class="room-title-desc">{{post_excerpt}}</div>
                             </div>
                             <div class="room-title-actions">
-                                   <a href="#room-booking-region" class="btn btn-sm btn-book">Booking &amp; Availability</a>
+                                   <a href="#room-booking-region" class="btn btn-sm btn-book">'.__("Booking &amp; Availability","impruwclientparent").'</a>
                             </div>
                     </div>';
 

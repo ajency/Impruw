@@ -15,7 +15,7 @@ define ['app', 'controllers/base-controller'
 
                 @languagePageNavView = @_getPageNavView @collection
 
-                @listenTo @languagePageNavView, "itemview:page:room:content", @loadLanguagePageRoomContent
+                @listenTo @languagePageNavView, "page:room:content", @loadLanguagePageRoomContent
                 @listenTo @languagePageNavView, "itemview:page:content", @loadLanguagePageContent
                 @listenTo @languagePageNavView, "site:translate:content", @loadSiteContent
                 @listenTo @languagePageNavView, "header:translate:content", @loadHeaderContent

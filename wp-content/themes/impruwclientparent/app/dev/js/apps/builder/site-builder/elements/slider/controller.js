@@ -15,7 +15,7 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Slider',
-          height: 350,
+          height: 156,
           slider_id: 0,
           reset_transitions: 'fade'
         });
@@ -30,7 +30,6 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
       Controller.prototype._getSliderView = function(collection) {
         return new Slider.Views.SliderView({
           collection: collection,
-          sliderHeight: parseInt(this.layout.model.get('height')),
           model: this.layout.model
         });
       };

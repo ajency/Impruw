@@ -13,9 +13,9 @@ define ['app'
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="">{{element_in_language}}</label>
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <p class="original {{TypeOfElementClass}}" tabindex="1">
+                                    <div class="original {{TypeOfElementClass}}" tabindex="1">
                                         {{{originalContent}}}
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>'
@@ -29,12 +29,14 @@ define ['app'
                         return "text"
 
                 data.originalContent = ->
+                    originalContent = ''
                     if (data.element is "Link")
                         originalContent = data.text[WPML_DEFAULT_LANG]
-                        return originalContent
                     else
                         originalContent = data.content[WPML_DEFAULT_LANG]
-                        return originalContent
+                        
+                    _.stripslashes originalContent
+
                 data.element_in_language = ->
                     element_in_language = _.polyglot.t(data.element)
                     return element_in_language

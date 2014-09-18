@@ -12,7 +12,7 @@ define(['app'], function(App) {
 
       ImageView.prototype.className = 'image';
 
-      ImageView.prototype.template = '{{#image}} <a href="{{hyperlink}}" target="{{linkTarget}}"> <img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/> </a> <div class="clearfix"></div> {{/image}} {{#placeholder}} <div class="image-placeholder" style="height:100%;"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div> {{/placeholder}}';
+      ImageView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/> <div class="clearfix"></div> {{/image}} {{#placeholder}} <div class="image-placeholder" style="height:100%;"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div> {{/placeholder}}';
 
       ImageView.prototype.mixinTemplateHelpers = function(data) {
         data = ImageView.__super__.mixinTemplateHelpers.call(this, data);
@@ -38,17 +38,13 @@ define(['app'], function(App) {
       };
 
       ImageView.prototype.events = {
-        'click': 'imageClick',
-        'click a': function(e) {
-          return e.preventDefault();
-        }
+        'click': 'imageClick'
       };
 
       ImageView.prototype.initialize = function(options) {
         this.imageHeightRatio = Marionette.getOption(this, 'imageHeightRatio');
         this.positionTopRatio = Marionette.getOption(this, 'positionTopRatio');
-        this.eleModel = Marionette.getOption(this, 'eleModel');
-        return console.log(this.eleModel);
+        return this.eleModel = Marionette.getOption(this, 'eleModel');
       };
 
       ImageView.prototype._getImageRatio = function() {

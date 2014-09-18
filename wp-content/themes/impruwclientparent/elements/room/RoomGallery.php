@@ -69,7 +69,7 @@ class RoomGallery extends SliderElement {
 
       return '<div class="gallery-empty-view">
                 <span class="glyphicon glyphicon-picture"></span>
-                No Images Found in Gallery
+                '.__("No Images Found in Gallery","impruwclientparent").'
               </div>';  
 
     }
@@ -79,7 +79,7 @@ class RoomGallery extends SliderElement {
         $html = '';
         
         if(is_singular('impruw_room'))
-          $html = '<h3 class="gallery-title">Gallery</h3>';
+          $html = '<h3 class="gallery-title">'.__("Gallery","impruwclientparent").'</h3>';
            
 
         $html .= '<ul class="gallery">';
@@ -129,7 +129,7 @@ class RoomGallery extends SliderElement {
         $html = '';
         
         if(is_singular('impruw_room'))
-        	$html = '<h3 class="gallery-title">Gallery</h3>';
+        	$html = '<h3 class="gallery-title">'.__("Gallery","impruwclientparent").'</h3>';
         	 
 
         $html .= '<ul class="gallery">';

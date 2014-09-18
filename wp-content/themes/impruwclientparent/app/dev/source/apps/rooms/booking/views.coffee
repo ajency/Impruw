@@ -32,7 +32,7 @@ define ['app'
 
             onShow: ->
                 @$el.find '#room-booking-calendar'
-                .datepicker
+                    .datepicker
                         inline: true
                         numberOfMonths: 3
                         dateFormat: 'yy-mm-dd'
@@ -116,7 +116,13 @@ define ['app'
 
             onBookingUpdated: =>
                 $('#booking-slider').slider 'enable'
-
+                dateTime = @$el.find('#room-booking-calendar').datepicker 'getDate'
+                status  = App.request "get:avaliability:status", dateTime
+                @$el.find('td.ui-datepicker-current-day').removeClass 'semi-available'
+                @$el.find('td.ui-datepicker-current-day').removeClass 'unavailable'
+                @$el.find('td.ui-datepicker-current-day').removeClass 'available'
+                @$el.find('td.ui-datepicker-current-day').addClass status
+                
             # get availability markup
             getAvailabilityMarkup: (date)->
                 #date = new Date date
@@ -129,7 +135,7 @@ define ['app'
                         <div class='booking-slider-pop'>
                             <div id='booking-slider' data-value='#{value}'></div>
                             <div class='row'>
-                                <div class='col-md-4 available'><span>#{_.polyglot.t('available')}</span></div>
+                                <div class='col-md-4 available'><span>#{_.polyglot.t('Available')}</span></div>
                                 <div class='col-md-4 semi-available'><span>#{_.polyglot.t('Filling Fast')}</span></div>
                                 <div class='col-md-4 unavailable'><span>#{_.polyglot.t('Sold Out')}</span></div>
 

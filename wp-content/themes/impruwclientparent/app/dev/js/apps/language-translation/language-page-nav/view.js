@@ -13,15 +13,10 @@ define(['app'], function(App) {
 
       LanguagePageNavItemView.prototype.tagName = "li";
 
-      LanguagePageNavItemView.prototype.template = '{{#isChildSitePage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href="#page"{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} {{^isRoomPage}}id="page"{{/isRoomPage}} data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isChildSitePage}}';
+      LanguagePageNavItemView.prototype.template = '{{#isChildSitePage}}<a href="#page" id="page" data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isChildSitePage}}';
 
       LanguagePageNavItemView.prototype.events = {
-        'click a#rooms': 'loadRoomContent',
         'click a#page': 'loadPageContent'
-      };
-
-      LanguagePageNavItemView.prototype.loadRoomContent = function(e) {
-        return this.trigger("page:room:content");
       };
 
       LanguagePageNavItemView.prototype.loadPageContent = function(e) {
@@ -40,7 +35,7 @@ define(['app'], function(App) {
         return LanguagePageNavView.__super__.constructor.apply(this, arguments);
       }
 
-      LanguagePageNavView.prototype.template = '<ul class="nav nav-pills" id="js-page-nav-bar"> <li> <a href="#site" id="site" data-toggle="tab"> {{#polyglot}}Site Profile{{/polyglot}} </a> </li> <li> <a href="#page-header" id="page-header" data-toggle="tab"> {{#polyglot}}Page Header{{/polyglot}} </a> </li> <li> <a href="#page-footer" id="page-footer" data-toggle="tab"> {{#polyglot}}Page Footer{{/polyglot}} </a> </li> </ul>';
+      LanguagePageNavView.prototype.template = '<ul class="nav nav-pills" id="js-page-nav-bar"> <li> <a href="#site" id="site" data-toggle="tab"> {{#polyglot}}Site Profile{{/polyglot}} </a> </li> <li> <a href="#page-header" id="page-header" data-toggle="tab"> {{#polyglot}}Page Header{{/polyglot}} </a> </li> <li> <a href="#page-footer" id="page-footer" data-toggle="tab"> {{#polyglot}}Page Footer{{/polyglot}} </a> </li> <li> <a href="#rooms" id="rooms" data-toggle="tab"> {{#polyglot}}All Rooms{{/polyglot}} </a> </li> </ul>';
 
       LanguagePageNavView.prototype.itemView = LanguagePageNavItemView;
 
@@ -49,7 +44,8 @@ define(['app'], function(App) {
       LanguagePageNavView.prototype.events = {
         'click a#site': 'loadSiteContent',
         'click a#page-header': 'loadHeaderContent',
-        'click a#page-footer': 'loadFooterContent'
+        'click a#page-footer': 'loadFooterContent',
+        'click a#rooms': 'loadRoomContent'
       };
 
       LanguagePageNavView.prototype.loadSiteContent = function(e) {
@@ -62,6 +58,10 @@ define(['app'], function(App) {
 
       LanguagePageNavView.prototype.loadFooterContent = function(e) {
         return this.trigger("footer:translate:content");
+      };
+
+      LanguagePageNavView.prototype.loadRoomContent = function(e) {
+        return this.trigger("page:room:content");
       };
 
       return LanguagePageNavView;

@@ -37,7 +37,7 @@ class RoomFacilities extends Element {
         if($this->post_id === 0 && get_the_ID() > 0)
             $this->post_id = get_the_ID();
         
-        $this->room= get_room($this->post_id);
+        $this->room= get_room($this->post_id,FALSE);
         
         $this->markup  = $this->generate_markup();
     }
@@ -81,8 +81,8 @@ class RoomFacilities extends Element {
             */
         $template = "<div class='room-facilities-container'>
                         <div class='room-facilities-title'>
-                                <h5>Room Features</h5>
-                                <h4>Standard Book</h5>
+                                <h5>".__('Room Features','impruwclientparent')."</h5>
+                                <h4>".__('Standard Book','impruwclientparent')."</h5>
                         </div>
                         <ul class='facilities clearfix'>
                                 <li class='roomfacilities'>{{facilities}}</li>";

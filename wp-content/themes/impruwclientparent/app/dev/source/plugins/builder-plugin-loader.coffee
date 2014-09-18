@@ -16,6 +16,7 @@ define [
    'radio'
    'checkbox'
    'json2'
+   'heartbeat'
    'imageareaselect'
    'imageedit'
    'svgpainter'
@@ -35,5 +36,6 @@ define [
    'drilldown'
    'resizablecolumns'
    'jqueryuii18n'
-   #'flippant'
+   'tabslideout'
+   # 'flippant'
 ], ->

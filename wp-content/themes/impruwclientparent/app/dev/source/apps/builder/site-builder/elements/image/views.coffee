@@ -10,9 +10,7 @@ define ['app'], (App)->
 
             template : '
                         {{#image}}
-                        <a href="{{hyperlink}}" target="{{linkTarget}}">
                           <img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/>
-                        </a>
                           <div class="clearfix"></div>
                         {{/image}}
                         {{#placeholder}}
@@ -44,13 +42,13 @@ define ['app'], (App)->
 
             events :
                 'click' : 'imageClick'
-                'click a' : (e)-> e.preventDefault()
+                # 'click a' : (e)-> e.preventDefault()
 
             initialize :(options)->
                 @imageHeightRatio = Marionette.getOption @,'imageHeightRatio'
                 @positionTopRatio = Marionette.getOption @, 'positionTopRatio' 
                 @eleModel = Marionette.getOption @, 'eleModel'
-                console.log @eleModel 
+                
 
 
             _getImageRatio : ->

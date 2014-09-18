@@ -51,7 +51,9 @@
         imageedit: '../../../../../../wp-admin/js/image-edit',
         json2: '../../../../../../wp-includes/js/json2',
         svgpainter: '../../../../../../wp-admin/js/svg-painter',
+        heartbeat : '../../../../../../wp-includes/js/heartbeat',
         jqueryuii18n : 'plugins/jquery-ui-i18n',
+        tabslideout : 'plugins/jquery.tabSlideOut.v1.3',
         app : 'builder-app'
     },
     shim : {
@@ -87,6 +89,7 @@
         imgLiquid : ['jquery'],
         jqueryspin : ['spin'],
         bootstrap : ['jquery'],
+        heartbeat : ['jquery'],
         themepunch : ['jquery'],
         isotope : ['jquery'],
         minicolors : ['jquery'],
@@ -104,6 +107,7 @@
             deps : ['bootstrap'],
             exports : 'bootbox'
         },
+        tabslideout : ['jquery'],
         app : ['pluginloader', 'configloader']
     }
 })

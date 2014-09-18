@@ -1,10 +1,44 @@
-define [ 'app'
-         'text!apps/menu-manager/list/templates/menuitem.html' ], ( App, menuItemTpl )->
+define [ 'app'], ( App )->
+
    App.module 'MenuManager.List.Views', ( Views, App )->
       class MenuItemView extends Marionette.ItemView
 
 
-         template : menuItemTpl
+         template : '<div class="row menu-item">
+                       <div class="col-sm-1 menu-dragger"><span class="bicon icon-uniF160"></span></div>
+                       <div class="col-sm-8 menu-name">{{menu_item_title}}</div>
+                       <div class="col-sm-3 menu-edit">
+                         <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}">
+                           <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}View{{/polyglot}}
+                         </a>
+                       </div>
+                     </div>
+                     <div id="menu-item-{{menu_id}}-{{ID}}" class="collapse menu-item-edit">
+                       <form class="form-horizontal">
+                         <div class="form-group">
+                           <label class="col-sm-4 control-label">{{#polyglot}}Menu Link Label{{/polyglot}}</label>
+                           <div class="col-sm-8">
+                             <input value="{{menu_item_title}}" parsley-required="true" type="text" name="menu_item_title"
+                              class="form-control menuname" readonly="readonly"/>
+                           </div>
+                         </div>
+                         <div class="form-group">
+                           <label class="col-sm-4 control-label">{{#polyglot}}Menu Link{{/polyglot}}</label>
+                           <div class="col-sm-8">
+                             <input value="{{menu_item_url}}" parsley-type="url" parsley-required="true" type="text"
+                                name="menu_item_url" class="form-control menutitle" readonly="readonly"/>
+                           </div>
+                         </div>
+                         <div class="form-group form-actions">
+                           <div class="col-sm-offset-4 col-sm-8">
+                             <!--<input type="hidden" value="{{menu_id}}" name="menu_id"/> -->
+                             <!--<button type="button" class="update-menu-item btn btn-info"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button>-->
+                             <button type="button" class="btn cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></button>
+                             <button type="button" class="btn btn-danger delete-menu-item"><span class="glyphicon glyphicon-trash"></span></button>
+                           </div>
+                         </div>
+                       </form>
+                     </div>'
 
          tagName : 'li'
 

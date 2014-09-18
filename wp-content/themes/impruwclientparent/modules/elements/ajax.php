@@ -33,3 +33,14 @@ function ajax_remove_unused_element() {
 }
 
 add_action( 'wp_ajax_remove-unused-element', 'ajax_remove_unused_element' );
+
+function clear_all_unused_elements(){
+    $page_id = $_REQUEST[ 'page_id' ];
+
+    $page_id = icl_object_id($page_id, 'page', true, 'en');
+
+    update_post_meta( $page_id, "unused-elements", array() );
+
+    wp_send_json(array('success' => true));
+}
+add_action('wp_ajax_clear-all-elements', 'clear_all_unused_elements');

@@ -31,6 +31,7 @@ define(['app', 'text!apps/builder/site-builder/elements/table/settings/templates
         },
         'click .spinner .btn:first-of-type': 'increaseCount',
         'click .spinner .btn:last-of-type': 'decreaseCount',
+        'blur .spinner input': 'changeCount',
         'change #checkbox-bordered': 'changeBordered',
         'change #checkbox-striped': 'changeStriped',
         'change #table-style': 'changeStyle'
@@ -61,25 +62,46 @@ define(['app', 'text!apps/builder/site-builder/elements/table/settings/templates
         return this.$el.find('#table-style').val(this.eleModel.get('style'));
       };
 
+      SettingsView.prototype.changeCount = function(evt) {
+        var count;
+        count = parseInt($(evt.target).closest('.spinner').find('input').val());
+        if (_.isNumber(count) && count > 0) {
+          if ($(evt.target).closest('.spinner').hasClass('column-spinner')) {
+            this.eleModel.set('column', count);
+          }
+          if ($(evt.target).closest('.spinner').hasClass('row-spinner')) {
+            return this.eleModel.set('row', count);
+          }
+        }
+      };
+
       SettingsView.prototype.increaseCount = function(evt) {
+        var count;
         evt.stopPropagation();
-        $(evt.target).closest('.spinner').find('input').val(parseInt($(evt.target).closest('.spinner').find('input').val(), 10) + 1);
+        count = parseInt($(evt.target).closest('.spinner').find('input').val(), 10);
+        count++;
+        $(evt.target).closest('.spinner').find('input').val(count);
         if ($(evt.target).closest('.spinner').hasClass('column-spinner')) {
-          this.eleModel.set('column', parseInt($(evt.target).closest('.spinner').find('input').val()));
+          this.eleModel.set('column', count);
         }
         if ($(evt.target).closest('.spinner').hasClass('row-spinner')) {
-          return this.eleModel.set('row', parseInt($(evt.target).closest('.spinner').find('input').val()));
+          return this.eleModel.set('row', count);
         }
       };
 
       SettingsView.prototype.decreaseCount = function(evt) {
+        var count;
         evt.stopPropagation();
-        $(evt.target).closest('.spinner').find('input').val(parseInt($(evt.target).closest('.spinner').find('input').val(), 10) - 1);
-        if ($(evt.target).closest('.spinner').hasClass('column-spinner')) {
-          this.eleModel.set('column', parseInt($(evt.target).closest('.spinner').find('input').val()));
-        }
-        if ($(evt.target).closest('.spinner').hasClass('row-spinner')) {
-          return this.eleModel.set('row', parseInt($(evt.target).closest('.spinner').find('input').val()));
+        count = parseInt($(evt.target).closest('.spinner').find('input').val(), 10);
+        count--;
+        if (count > 0) {
+          $(evt.target).closest('.spinner').find('input').val(count);
+          if ($(evt.target).closest('.spinner').hasClass('column-spinner')) {
+            this.eleModel.set('column', count);
+          }
+          if ($(evt.target).closest('.spinner').hasClass('row-spinner')) {
+            return this.eleModel.set('row', count);
+          }
         }
       };
 

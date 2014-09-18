@@ -286,15 +286,27 @@ function create_new_page( $data ) {
     return $page_id;
 }
 
-function assign_page_template($template_page_id, $page_id){
+function assign_page_template($template_page_id, $page_id, $is_theme_template = false){
 
     // if 0 no template is chosen. ignore pulling json from page
     // return post id if template id is 0
     if ( $template_page_id === 0 )
         return $page_id;
 
+    $blog_id = 0;
+
+    //switch to theme blog
+    if ($is_theme_template) {
+        $blog_id = get_current_blog_id();
+        switch_to_theme_blog();
+    }
     // get the template json
     $template_json = get_json_to_clone( 'page-json', $template_page_id ); 
+    
+    if($is_theme_template){
+        switch_to_blog($blog_id);
+    }
+
     $template_json = set_json_to_site( $template_json, 'en', true);
     add_page_json( $page_id, $template_json );
     update_page_autosave( $page_id, $template_json );
@@ -374,7 +386,7 @@ function get_meta_values( $element, $create = FALSE ) {
     $ele[ 'meta_id' ] = $create ? create_new_record( $ele ) : $element[ 'meta_id' ];
     validate_element( $ele );
 
-    if($ele['element'] === 'RoomSummary' && $create === false){
+    if($ele['element'] === 'RoomSummary' && $create === false && isset($ele['room_id'])){
         $img_id = get_post_meta( $ele['room_id'], '_thumbnail_id', true );
         $ele['image_id'] = (int) $img_id;
     }
@@ -648,4 +660,53 @@ function translate_link_element(&$element, $language_code){
 
 }
 
+function switch_to_theme_blog(){
+     global $wpdb;
 
+    $theme = wp_get_theme();
+    $theme_name = $theme->name;
+
+
+    switch_to_blog( 1 );
+
+    $query = $wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type='theme' AND 
+        post_title=%s", $theme_name);
+    $theme_post = $wpdb->get_row($query);
+
+
+    $theme_post_id = (int)$theme_post->ID;
+
+    $theme_blog_id = get_post_meta( $theme_post_id, 'linked_theme', TRUE );
+
+    switch_to_blog( (int)$theme_blog_id );
+}
+
+function get_theme_templates() {
+   
+    switch_to_theme_blog();
+
+    $pages = get_all_theme_pages();
+    
+    restore_current_blog();
+    return $pages;
+}
+
+
+
+function get_all_theme_pages(){
+     global $sitepress;
+
+    $args =  array( 'post_type' => 'page' ,'meta_value' => 'template');
+
+    // $original_language = wpml_get_default_language();
+    // $sitepress->switch_lang('en');
+    // $pages = new WP_Query( $args );
+    // $sitepress->switch_lang($original_language);
+    $pages = get_posts( $args);
+
+    foreach ($pages as $page) {
+        $page->is_theme_template = true ;
+    }
+
+    return $pages;
+}

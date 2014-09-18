@@ -88,16 +88,18 @@ define(["app", 'backbone'], function(App, Backbone) {
         return element;
       },
       getUnusedElements: function(pageId, revisionId) {
+        var xhr;
         if (revisionId == null) {
           revisionId = 0;
         }
         recoveredElements.url = "" + AJAXURL + "?action=get-unused-elements";
-        recoveredElements.fetch({
+        xhr = recoveredElements.fetch({
           data: {
             revision_id: revisionId,
             page_id: pageId
           }
         });
+        recoveredElements.xhr = xhr;
         return recoveredElements;
       },
       getUnusedElementByMetaId: function(metaId) {
@@ -112,8 +114,22 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("get:unused:elements", function(pageId, revisionId) {
       return API.getUnusedElements(pageId, revisionId);
     });
-    return App.reqres.setHandler("get:unused:element:by:metaid", function(metaId) {
+    App.reqres.setHandler("get:unused:element:by:metaid", function(metaId) {
       return API.getUnusedElementByMetaId(metaId);
+    });
+    return App.commands.setHandler("unused:element:added", function(metaId, _page_id) {
+      return $.ajax({
+        type: 'POST',
+        url: AJAXURL,
+        data: {
+          action: 'remove-unused-element',
+          page_id: _page_id,
+          element_meta_id: metaId
+        },
+        success: function() {
+          return console.log("element removed from unused list");
+        }
+      });
     });
   });
 });

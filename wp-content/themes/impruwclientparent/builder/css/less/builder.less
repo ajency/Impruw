@@ -129,6 +129,18 @@ a {
 	padding: 0.5em;
 	background: @dark-blue;
 	z-index: 10;
+	border-radius: 0 0 2px 0;
+	.handle {
+		background: @dark-blue;
+        padding: 0.6em 0.5em 0.5em;
+        color: @dash-grey;
+        font-size: 1.5em;
+        border-radius: 0 2px 2px 0;
+        cursor: pointer;
+        &:hover {
+        	color: @orange;
+        }
+	}
 	.desc {
 		font-size: 0.88em;
 		line-height: 1.3em;
@@ -789,6 +801,48 @@ a {
 	}
 }
 
+/****Notifications Styles****/
+#notifications-region {
+	width: 100%;
+	position: absolute;
+	z-index: 10000;
+	color: @dash-grey;
+	top: 50px;
+	.notification-message {
+		background: lighten(@blue-grey, 30%);
+		border: 1px solid @blue-grey;
+		border-radius: 2px;
+		box-shadow: 0 0 1px 2px @preview-grey;
+		padding: 0.5em 0.5em 0.8em;
+		max-width: 80%;
+		width: 50%;
+		text-align: center;
+		margin: 0 auto 0.5em;
+		.message-text {
+			color: @dark-blue;
+			font-size: 1.2em;
+			a {
+				color: @orange;
+				font-weight: bold;
+				&:hover {
+					color: lighten(@orange, 10%);
+				}
+			}
+		}
+	}
+}
+
+/****Connection Lost Overlay Style****/
+.conn-lost-overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(255, 255, 255, 0.6);
+	z-index: 9999;
+}
+
 /****Builder Area Styles****/
 .aj-imp-builder-area {
 	padding: 0.5em 3em 1em;
@@ -803,6 +857,7 @@ a {
 			padding: 1em 1em 0;
 			border-radius: 6px 6px 0 0;
 			margin: 0;
+			position: relative;
 			box-shadow: 0 4px 4px -4px @dash-grey;
 			background: lighten(@preview-grey, 1%); /* Old browsers */
 			background: -moz-linear-gradient(top,  #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%); /* FF3.6+ */
@@ -996,7 +1051,7 @@ a {
 					cursor: default;
 					border-radius: 3px;
 					display: inline-block;
-					width: 58%;
+					width: 56%;
 					.page-slug-edit {
 						width: 80%;
 						display: inline-block;
@@ -1109,7 +1164,7 @@ a {
 			}
 			.page-name {
 				display: inline-block;
-				width: 40%;
+				width: 41%;
 				padding: 0.3em;
 				border-right: 1px solid darken(@preview-grey, 10%);
 				color: @3-grey;
@@ -1144,6 +1199,61 @@ a {
 						opacity: 0;
 						&:hover, &:focus {
 							background: #fff;
+						}
+					}
+				}
+			}
+			.lock-message {
+				position: absolute;
+				background: rgba(255, 255, 255, 0.8);
+				border-radius: 6px 6px 0 0;
+				z-index: 100;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				text-align: center;
+				padding: 0.5em;
+				.bicon {
+					color: @3-grey;
+					font-size: 2em;
+				}
+				.message-span {
+					margin: 0.5em 0 1em;
+					color: @blue-grey;
+					font-size: 1.2em;
+				}
+				.option-or {
+					display: inline-block;
+					margin: 0 0.5em;
+					color: @dash-grey;
+				}
+				.bootstrap-select {
+					margin-bottom: 0.25em;
+					.dropdown-toggle {
+						background: transparent;
+						color: lighten(@3-grey, 20%);
+						font-size: 1.2em;
+						padding: 0 0 0.25em;
+						border-radius: 0;
+						border-bottom: 1px solid lighten(@dash-grey, 20%);
+						text-transform: uppercase;
+						.caret {
+							border-top-color: lighten(@dash-grey, 10%);
+						}
+						&:hover {
+							border-bottom-color: @dash-grey;
+							.caret {
+								border-top-color: @dash-grey;
+							}
+						}
+					}
+					.dropdown-menu {
+						text-align: left;
+						.selected {
+							a:focus {
+								background: @orange;
+							}
 						}
 					}
 				}
@@ -1196,7 +1306,7 @@ a {
 					margin: auto;
 					color: @orange;
 					font-size: 20px;
-					line-height: 20px;
+					line-height: 16px;
 					background: #fff;
 					border: 1px solid @orange;
 					border-radius: 3px;
@@ -1233,6 +1343,24 @@ a {
 					font-size: 13px;
 					line-height: 18px;
 					display: block;
+				}
+			}
+		}
+		&.focus-class {
+			border: 1px dotted @orange;
+			>.element-controls {
+				.aj-imp-drag-handle, .aj-imp-col-divider {
+					display: block;
+				}
+			}
+			>.element-markup {
+				>.row {
+					>.column {
+						border-right: 1px dotted lighten(@dash-grey, 10%);
+						&:last-child {
+							border-right: 0;
+						}
+					}
 				}
 			}
 		}
@@ -1931,6 +2059,7 @@ a {
 		.single-img {
 			position: relative;
 			padding: 0 5px;
+			min-width: 120px;
 			.thumbnail {
 				margin-bottom: 40px;
 				border: 1px solid @dash-grey;
@@ -3024,8 +3153,7 @@ a {
 			padding: 1em;
 			margin: 0 0 1em;
 			box-shadow: 1px 1px 2px 1px @preview-grey;
-			.minicolors {
-				display: block;
+			.minicolor {
 				width: 100%;
 				border: 1px solid @dash-grey;
 				color: #fff;
@@ -3033,17 +3161,29 @@ a {
 				line-height: 4em;
 				text-align: center;
 				cursor: pointer;
-				.minicolors-swatch-color {
-					&:before {
-						content: "Click to Edit";
-					}
+				&:before {
+					content: "Click to Edit";
+				}
+			}
+			.minicolors {
+				display: block;
+				.minicolors-swatch {
+					display: none;
+				}
+				.minicolors-input {
+					height: auto;
+					padding-left: 12px;
+					width: 100%;
+					border-radius: 0;
+					border: 1px solid @dash-grey;
+					color: @3-grey;
+					background: @preview-grey;
 					&:focus {
-						color: transparent;
+						border-color: @orange;
+						background: #fff;
 					}
 				}
-				
 			}
-
 			h6 {
 				color: @blue-grey;
 			}
@@ -3067,38 +3207,50 @@ a {
 }
 
 /**** Add Page Modal Styles ****/
-#choose-template-region {
-	h4 {
-		color: @blue-grey;
-		font-size: 1.2em;
-	}
-	.templates {
-		margin: 1em 0;
-		padding: 0;
-		li {
-			color: @dash-grey;
-			margin: 0 0 0.5em;
-			padding: 0.5em;
-			display: inline-block;
-			&:before {
+.add-page-container {
+	#choose-template-region {
+		h4 {
+			color: @blue-grey;
+			font-size: 1.2em;
+		}
+		.templates {
+			margin: 1em 0;
+			padding: 0;
+			li {
+				color: @dash-grey;
+				margin: 0 0 0.5em;
+				padding: 0.5em;
 				display: inline-block;
-				width: 1em;
-				height: 1em;
-				font-family: 'Glyphicons Halflings';
-				content: "\e157";
-				font-size: 0.78em;
-				margin-right: 0.5em;
-			}
-			&:hover {
-				cursor: pointer;
-			}
-			&.selected {
-				color: @orange;
 				&:before {
-					content: "\e067";
+					display: inline-block;
+					width: 1em;
+					height: 1em;
+					font-family: 'Glyphicons Halflings';
+					content: "\e157";
+					font-size: 0.78em;
+					margin-right: 0.5em;
+				}
+				&:hover {
+					cursor: pointer;
+				}
+				&.selected {
+					color: @orange;
+					&:before {
+						content: "\e067";
+					}
 				}
 			}
 		}
+	}
+	.checkbox {
+		padding-top: 0;
+		.icons {
+			margin-top: 0.3em;
+		}
+	}
+	.field-error {
+		color: @error-red;
+		padding: 0.5em 0;
 	}
 }
 
@@ -3297,5 +3449,47 @@ a {
 	}
 	.edit-text-layer {
 		display: block;
+/**** Right Toolbox Styles ****/
+.right-toolbox {
+	background: @dark-blue;
+	padding: 1em;
+	border-radius: 0 0 0 2px;
+	text-align: right;
+	.handle-right {
+		background: @dark-blue;
+        padding: 0.6em 0.5em 0.5em;
+        color: @dash-grey;
+        font-size: 1.5em;
+        border-radius: 2px 0 0 2px;
+        cursor: pointer;
+        &:hover {
+        	color: @orange;
+        }
+	}
+	.choose-theme {
+		position: relative;
+		padding: 8px 13px 9px 28px;
+		margin: 0.5em 0;
+		.bicon {
+			font-size: 1.6em;
+			position: absolute;
+			left: 9px;
+			top: 6px;
+		}
+		&:hover {
+			background: @blue-grey;
+		}
+	}
+	#aj-imp-color-sel {
+		margin: 0.5em 0;
+		.btn {
+			width: auto;
+			background: transparent;
+			color: @dash-grey;
+			.caret {
+				margin-left: 1.2em;
+				border-top-color: lighten(@dash-grey, 10%);
+			}
+		}
 	}
 }

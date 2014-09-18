@@ -7,14 +7,10 @@ define ['app'], (App)->
 
                     tagName: "li"
 
-                    template : '{{#isChildSitePage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href="#page"{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} {{^isRoomPage}}id="page"{{/isRoomPage}} data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isChildSitePage}}'
+                    template : '{{#isChildSitePage}}<a href="#page" id="page" data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isChildSitePage}}'
 
                     events:
-                    	'click a#rooms' : 'loadRoomContent'
                     	'click a#page' : 'loadPageContent'
-
-                    loadRoomContent: (e) ->
-                        @trigger "page:room:content"
 
                     loadPageContent: (e) ->
                         pageId = $(e.currentTarget).attr('data-pageid')
@@ -38,6 +34,11 @@ define ['app'], (App)->
                                         <a href="#page-footer" id="page-footer" data-toggle="tab">
                                         {{#polyglot}}Page Footer{{/polyglot}}
                                         </a>
+                                    </li>
+                                    <li>
+                                        <a href="#rooms" id="rooms" data-toggle="tab">
+                                        {{#polyglot}}All Rooms{{/polyglot}}
+                                        </a>
                                     </li>                                    
 
                                 </ul>'
@@ -50,6 +51,7 @@ define ['app'], (App)->
                         'click a#site' : 'loadSiteContent'
                         'click a#page-header' : 'loadHeaderContent'
                         'click a#page-footer' : 'loadFooterContent'
+                        'click a#rooms' : 'loadRoomContent'
 
                     loadSiteContent: (e) ->
                         @trigger "site:translate:content"
@@ -59,4 +61,7 @@ define ['app'], (App)->
 
                     loadFooterContent: (e) ->
                         @trigger "footer:translate:content"
+
+                    loadRoomContent: (e) ->
+                        @trigger "page:room:content"
 

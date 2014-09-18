@@ -92,43 +92,6 @@ function get_menu_items() {
 
 add_action( 'wp_ajax_get-menu-items', 'get_menu_items' );
 
-/**
- * [get_rooms description]
- *
- * @return [type] [description]
- */
-function get_rooms_list() {
-
-    wp_send_json( array(
-        array(
-            'name' => 'Room one1',
-            'attachments' => array(
-                array(
-                    'id' => 23
-                ),
-                array(
-                    'id' => 2
-                )
-            )
-        )
-    ) );
-}
-
-add_action( 'wp_ajax_get-rooms', 'get_rooms_list' );
-
-/**
- * [get_rooms description]
- *
- * @return [type] [description]
- */
-function get_site_profile() {
-
-    wp_send_json( array(
-        'name' => 'My Site Profile Data'
-    ) );
-}
-
-add_action( 'wp_ajax_get-site-profile', 'get_site_profile' );
 
 function get_media() {
 
@@ -310,24 +273,18 @@ function get_elementbox_elements() {
         
     );
 
-    if ( !current_user_can( 'edit_impruw_theme' ) ) {
-        $filtered = array();
-        $unset_elements = array( 'Menu', 'LanguageSwitcher' );
-        foreach ( $elements as $element ) {
-            if ( !in_array( $element[ 'element' ], $unset_elements ) )
-                $filtered[ ] = $element;
-        }
+    return $elements;
+}
 
-        $elements = $filtered;
-    }
-
+function ajax_get_elementbox_elements(){
+    $elements = get_elementbox_elements();
     wp_send_json( array(
         'code' => 'OK',
         'data' => $elements ) );
 }
 
-add_action( 'wp_ajax_get-elementbox-elements', 'get_elementbox_elements' );
-add_action( 'wp_ajax_nopriv_get-elementbox-elements', 'get_elementbox_elements' );
+add_action( 'wp_ajax_get-elementbox-elements', 'ajax_get_elementbox_elements' );
+add_action( 'wp_ajax_nopriv_get-elementbox-elements', 'ajax_get_elementbox_elements' );
 
 function fetch_facilities() {
 
@@ -689,7 +646,7 @@ function get_style_template( $element ) {
     return $mtemplate;
 }
 
-function get_page_json_for_site( $page_id, $autosave = FALSE ) {
+function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false ) {
 
     if ( $page_id == 0 )
         return FALSE;
@@ -699,16 +656,17 @@ function get_page_json_for_site( $page_id, $autosave = FALSE ) {
     if ( $autosave === TRUE )
         $key = '-autosave';
 
-    $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
+    if (!$onlyPage){
+        $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
 
-    if ( $key === '-autosave' && empty( $json [ 'header' ] ) )
-        $json [ 'header' ] = get_option( 'theme-header', array() );
+        if ( $key === '-autosave' && empty( $json [ 'header' ] ) )
+            $json [ 'header' ] = get_option( 'theme-header', array() );
 
-    $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
+        $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
 
-    if ( $key === '-autosave' && empty( $json [ 'footer' ] ) )
-        $json [ 'footer' ] = get_option( 'theme-footer', array() );
-
+        if ( $key === '-autosave' && empty( $json [ 'footer' ] ) )
+            $json [ 'footer' ] = get_option( 'theme-footer', array() );
+    }
 
     $json[ 'page' ] = get_page_content_json( $page_id, $autosave );
 
@@ -726,13 +684,8 @@ function get_page_json_for_site( $page_id, $autosave = FALSE ) {
                 $d [ $section ] [ ] = get_meta_values( $element );
         }
     }
-    $data = array(
-        'id' => $page_id,
-        'header' => $d [ 'header' ],
-        'page' => $d [ 'page' ],
-        'footer' => $d [ 'footer' ]
-    );
-
+    $data = wp_parse_args(array('id' => $page_id), $d);
+   
     return $data;
 }
 
@@ -754,11 +707,22 @@ function get_page_main_json( $page_id = 0 ) {
 function read_page_json() {
 
     $page_id = $_REQUEST [ 'page_id' ];
+    $only_page = $_REQUEST [ 'only_page' ] ;
     $page_id= icl_object_id( $page_id, 'page', TRUE, 'en' );
-    $data = get_page_json_for_site( $page_id, TRUE );
+
+    $data = get_page_json_for_site( $page_id, TRUE, $only_page === 'yes' );
+    
+    $lock = true;
+    if( wp_check_post_lock( $page_id ) === false ){
+        $new_lock = wp_set_post_lock( $page_id );
+        $lock = implode( ':', $new_lock );
+    }
+    
     wp_send_json( array(
         'code' => 'OK',
-        'data' => $data
+        'data' => $data,
+        'lock' => $lock,
+        '_wpnonce' => wp_create_nonce( 'update-post_' . $page_id )
     ) );
 }
 

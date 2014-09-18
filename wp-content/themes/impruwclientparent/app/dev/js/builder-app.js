@@ -14,7 +14,7 @@ define(['marionette'], function(Marionette) {
       el: '#dialog-region'
     }),
     chooseThemeRegion: '#choose-theme-region',
-    unusedElementsRegion: '#fl_menu'
+    rightBlockRegion: '#fl_menu'
   });
   App.rootRoute = "";
   App.loginRoute = "login";
@@ -65,5 +65,6 @@ define(['marionette'], function(Marionette) {
       };
     })(this));
   });
+  App.execute("heartbeat-api");
   return App;
 });

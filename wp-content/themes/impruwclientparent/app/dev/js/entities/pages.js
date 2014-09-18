@@ -35,13 +35,16 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     pages = new Pages.PageCollection;
+    pages.add(window.PAGES);
     API = {
       getPages: function(language) {
-        pages.fetch({
-          data: {
-            language: language
-          }
-        });
+        if (pages.length === 0) {
+          pages.fetch({
+            data: {
+              language: language
+            }
+          });
+        }
         return pages;
       },
       getPageByLanguage: function(pageId, pageLang) {

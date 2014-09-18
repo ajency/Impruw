@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'text!apps/builder/site-builder/show/templates/builder.html', 'moment'], function(App, mainviewTpl, builderTpl, moment) {
+define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'moment'], function(App, mainviewTpl, moment) {
   return App.module('SiteBuilderApp.Show.View', function(View, App, Backbone, Marionette, $, _) {
     var NoRevisionView, RevisionView, SingleRevision;
     View.MainView = (function(_super) {
@@ -18,6 +18,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.getCurrentPageId = __bind(this.getCurrentPageId, this);
         this.getCurrentPageName = __bind(this.getCurrentPageName, this);
         this.addPageDropDown = __bind(this.addPageDropDown, this);
+        this.windowBeforeUnloadHandler = __bind(this.windowBeforeUnloadHandler, this);
+        this.windowUnloadHandler = __bind(this.windowUnloadHandler, this);
         return MainView.__super__.constructor.apply(this, arguments);
       }
 
@@ -30,27 +32,44 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.templateHelpers = function(data) {
+        var pages;
         if (data == null) {
           data = {};
         }
+        data.DASHBOARDURL = DASHBOARDURL;
         data.SITEURL = SITEURL + '/';
-        data.pages = this.collection.toJSON();
+        pages = this.collection.toJSON();
+        data.pages = _.reject(pages, function(page) {
+          var _ref;
+          return (_ref = page.post_name) === 'full-width-page';
+        });
         return data;
       };
 
       MainView.prototype.events = {
         'click .publish-page': function(evt) {
+          var promise;
           evt.preventDefault();
           $(evt.currentTarget).attr('disabled', true);
           this.$el.find('.publish-page ').text('Publishing...');
-          return App.execute("publish:page");
+          promise = App.request("publish:page");
+          return promise.always(this.onPagePublished);
         },
         'change select#builder-page-sel': function(evt) {
+          App.autoSaveAPI.local.suspend();
+          this.releasePage();
           this._addToPageSlug(parseInt($(evt.target).val()));
           this.trigger('editable:page:changed', $(evt.target).val());
+          this.currentPageId = parseInt($(evt.target).val());
           App.vent.trigger("change:page:check:single:room");
           this.changePreviewLinkUrl();
-          return this.displayPageNameForUpdate();
+          this.displayPageNameForUpdate();
+          return this.$el.find('.aj-imp-builder-drag-drop').fadeOut('fast', function() {
+            return App.resetElementRegistry();
+          });
+        },
+        'change select#builder-page-sel-lock': function(evt) {
+          return this.$el.find('select#builder-page-sel').selectpicker('val', parseInt($(evt.target).val()));
         },
         'click .add-new-page': function() {
           return this.trigger("add:new:page:clicked");
@@ -64,7 +83,55 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             'ID': currentPageId
           };
           return this.trigger("update:page:name", data);
+        },
+        'click #take-over-button': 'takeOverPage'
+      };
+
+      MainView.prototype.onPageRendered = function() {
+        return this.$el.find('.aj-imp-builder-drag-drop').fadeIn();
+      };
+
+      MainView.prototype.onPageRenderError = function() {
+        this.$el.empty();
+        return this.$el.fadeIn();
+      };
+
+      MainView.prototype.handleWindowEvents = function() {
+        return $(window).on('unload.site-builder', this.windowUnloadHandler);
+      };
+
+      MainView.prototype.windowUnloadHandler = function(evt) {
+        var currentPageId;
+        currentPageId = this.getCurrentPageId();
+        return this.releasePage(currentPageId);
+      };
+
+      MainView.prototype.windowBeforeUnloadHandler = function() {
+        return "The changes you made will be lost if you navigate away from this page.";
+      };
+
+      MainView.prototype.releasePage = function(pageId) {
+        if (pageId == null) {
+          pageId = 0;
         }
+        if (pageId === 0 && this.currentPageId === 0) {
+          return false;
+        }
+        if (this.currentPageId > 0) {
+          pageId = this.currentPageId;
+        }
+        $.ajax({
+          type: 'POST',
+          url: AJAXURL,
+          async: false,
+          data: {
+            action: 'wp-remove-post-lock',
+            _wpnonce: window._wpnonce,
+            post_ID: pageId,
+            active_post_lock: window.lockValue
+          }
+        });
+        return true;
       };
 
       MainView.prototype.addPageDropDown = function() {
@@ -72,10 +139,10 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.new_page_id = this.modelAddedToCollection.get('ID');
         _.each(this.collection.models, (function(_this) {
           return function(model, index) {
-            var modelId, originalPageId, page_name, select_html, selectpicker_html;
+            var modelId, originalPageId, page_name, select_html, selectpicker_html, _ref;
             modelId = model.get('ID');
             originalPageId = model.get('original_id');
-            if (modelId === _this.new_page_id) {
+            if (modelId === _this.new_page_id && ((_ref = model.get('post_name')) !== 'full-width-page')) {
               page_name = model.get('post_title');
               select_html = "<option value='" + modelId + "' data-originalid='" + originalPageId + ("'>" + page_name + "</option>");
               selectpicker_html = "<li rel='" + index + "'> <a tabindex='0' class='' style=''> <span class='text'>" + page_name + "</span> <i class='glyphicon glyphicon-ok icon-ok check-mark'></i> </a> </li>";
@@ -88,9 +155,11 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.initialize = function() {
+        this.currentPageId = 0;
         App.reqres.setHandler("get:current:editable:page:name", this.getCurrentPageName);
         App.reqres.setHandler("get:current:editable:page", this.getCurrentPageId);
-        return App.reqres.setHandler("get:original:editable:page", this.getOriginalPageId);
+        App.reqres.setHandler("get:original:editable:page", this.getOriginalPageId);
+        return this.handleWindowEvents();
       };
 
       MainView.prototype.getCurrentPageName = function() {
@@ -114,12 +183,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       MainView.prototype.onPagePublished = function() {
         this.$el.find('.publish-page ').text('Publish');
-        return _.delay((function(_this) {
-          return function() {
-            _this.$el.find('.publish-page ').removeAttr('disabled');
-            return _this.$el.find('.publish-page ').text('Publish');
-          };
-        })(this), 500);
+        return this.$el.find('.publish-page ').removeAttr('disabled');
       };
 
       MainView.prototype.changePreviewLinkUrl = function() {
@@ -137,16 +201,15 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             pageId = $.cookie('current-page-id');
             if (isNaN(parseInt(pageId))) {
               pageId = _this.$el.find('select#builder-page-sel').selectpicker('val');
-            } else {
-              _this.$el.find('select#builder-page-sel').selectpicker('val', pageId);
             }
+            _this.$el.find('select#builder-page-sel-lock,select#builder-page-sel').selectpicker('val', pageId);
             _this._addToPageSlug(pageId);
-            _this.trigger('editable:page:changed', pageId);
             return _this.changePreviewLinkUrl();
           };
         })(this), 250);
         this.$el.find('#aj-imp-revision-sel').on('show.bs.dropdown', this.addPageRevisions);
-        return this.displayPageNameForUpdate();
+        this.displayPageNameForUpdate();
+        return $('body').on('click', this._removeAllFocusClass);
       };
 
       MainView.prototype._addToPageSlug = function(pageId) {
@@ -160,7 +223,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.enableSelectPicker = function() {
-        return this.$el.find('select#builder-page-sel').selectpicker({
+        return this.$el.find('select#builder-page-sel,select#builder-page-sel-lock').selectpicker({
           style: 'btn-xs btn-default',
           menuStyle: 'dropdown'
         });
@@ -230,6 +293,42 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.$el.find('div .btn-group .filter-option').text(page_name);
         this.$el.find("select#builder-page-sel option[value='" + page_id + "']").text(page_name);
         return this.enableSelectPicker();
+      };
+
+      MainView.prototype.onClose = function() {
+        return $('body').on('click', this._removeAllFocusClass);
+      };
+
+      MainView.prototype._removeAllFocusClass = function(e) {
+        return $('.element-wrapper').removeClass('focus-class');
+      };
+
+      MainView.prototype.onPageTookOver = function(errorMessage) {
+        return this.$el.find('div.lock-message').removeClass('hidden').addClass('show').find('div.message-span').text(errorMessage);
+      };
+
+      MainView.prototype.onPageReleased = function() {
+        this.$el.find('div.lock-message').removeClass('show').addClass('hidden');
+        return this.trigger('editable:page:changed', this.getCurrentPageId());
+      };
+
+      MainView.prototype.onAutosavePageJsonEnableButtons = function() {
+        return this.$el.find('.publish-page').removeAttr('disabled');
+      };
+
+      MainView.prototype.onAutosavePageJsonDisableButtons = function() {
+        return this.$el.find('.publish-page').attr('disabled', 'disabled');
+      };
+
+      MainView.prototype.takeOverPage = function(evt) {
+        $(evt.currentTarget).text('Please wait...').attr('disabled', true);
+        return $.post(AJAXURL, {
+          action: 'take_over_page_editing',
+          page_id: $.cookie('current-page-id')
+        }, (function(resp) {
+          $(evt.currentTarget).text('Take Over').removeAttr('disabled');
+          return wp.heartbeat.connectNow();
+        }), 'json');
       };
 
       return MainView;
@@ -317,7 +416,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         return Builder.__super__.constructor.apply(this, arguments);
       }
 
-      Builder.prototype.template = builderTpl;
+      Builder.prototype.template = '<header id="site-header-region" class="droppable-column"></header> <div id="site-page-content-region" class="droppable-column"></div> <footer id="site-footer-region" class="droppable-column"></footer>';
 
       Builder.prototype.onShow = function() {
         return this.$el.find('.droppable-column').sortable({

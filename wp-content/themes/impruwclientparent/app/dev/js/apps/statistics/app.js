@@ -29,7 +29,7 @@ define(['app', 'apps/statistics/show/controller', 'apps/statistics/realtime/cont
       },
       show: function() {
         var sitemodel;
-        sitemodel = this.getSiteModel();
+        sitemodel = App.request("get:site:model");
         return App.execute("when:fetched", sitemodel, (function(_this) {
           return function() {
             return new StatisticsApp.Show.Controller({
@@ -41,7 +41,7 @@ define(['app', 'apps/statistics/show/controller', 'apps/statistics/realtime/cont
       },
       realtime: function() {
         var sitemodel;
-        sitemodel = this.getSiteModel();
+        sitemodel = App.request("get:site:model");
         return App.execute("when:fetched", sitemodel, (function(_this) {
           return function() {
             return App.execute("show:realtime:view", {
@@ -53,7 +53,7 @@ define(['app', 'apps/statistics/show/controller', 'apps/statistics/realtime/cont
       },
       visits: function() {
         var sitemodel;
-        sitemodel = this.getSiteModel();
+        sitemodel = App.request("get:site:model");
         return App.execute("when:fetched", sitemodel, (function(_this) {
           return function() {
             return App.execute("show:visits:view", {
@@ -65,7 +65,7 @@ define(['app', 'apps/statistics/show/controller', 'apps/statistics/realtime/cont
       },
       traffic: function() {
         var sitemodel;
-        sitemodel = this.getSiteModel();
+        sitemodel = App.request("get:site:model");
         return App.execute("when:fetched", sitemodel, (function(_this) {
           return function() {
             return App.execute("show:traffic:view", {

@@ -1,6 +1,7 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __slice = [].slice,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/views'], function(App, AppController) {
   return App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
@@ -10,7 +11,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
       __extends(BuilderController, _super);
 
       function BuilderController() {
-        this.startAutoSave = __bind(this.startAutoSave, this);
         return BuilderController.__super__.constructor.apply(this, arguments);
       }
 
@@ -39,10 +39,24 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           }
           return App.request("add:new:element", container, type, modelData);
         });
-        this.listenTo(this.view, "dependencies:fetched", (function(_this) {
+        App.execute("when:fetched", [elements], (function(_this) {
           return function() {
             return _.delay(function() {
-              return _this.startFillingElements();
+              _this.deferreds = [];
+              _this.startFillingElements();
+              return $.when.apply($, _this.deferreds).done(function() {
+                var elements;
+                elements = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+                App.autoSaveAPI.local.resume();
+                App.autoSaveAPI.local.doAutoSave();
+                App.vent.trigger("page:rendered");
+                _this.view.triggerMethod("page:rendered");
+                return _this.deferreds = [];
+              }).fail(function() {
+                return App.autoSaveAPI.local.suspend();
+              }).always(function() {
+                return App.autoSaveAPI.local.createStorage();
+              });
             }, 400);
           };
         })(this));
@@ -63,69 +77,40 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
       };
 
       BuilderController.prototype.startFillingElements = function() {
-        var container, section;
-        section = this.view.model.get('header');
-        container = this._getContainer('header');
-        _.each(section, (function(_this) {
-          return function(element, i) {
-            if (element.element === 'Row') {
-              return _this.addNestedElements(container, element);
-            } else {
-              return App.request("add:new:element", container, element.element, element);
-            }
+        return _.each(['header', 'page', 'footer'], (function(_this) {
+          return function(key, index) {
+            var container, section;
+            section = _this.view.model.get(key);
+            container = _this._getContainer(key);
+            return _.each(section, function(element, i) {
+              var eleController;
+              if (element.element === 'Row') {
+                return _this.addNestedElements(container, element);
+              } else {
+                eleController = App.request("add:new:element", container, element.element, element);
+                return _this.deferreds.push(eleController._promise);
+              }
+            });
           };
         })(this));
-        section = this.view.model.get('page');
-        container = this._getContainer('page');
-        _.each(section, (function(_this) {
-          return function(element, i) {
-            if (!_.isObject(element)) {
-              return;
-            }
-            if (element.element === 'Row') {
-              return _this.addNestedElements(container, element);
-            } else {
-              return App.request("add:new:element", container, element.element, element);
-            }
-          };
-        })(this));
-        section = this.view.model.get('footer');
-        container = this._getContainer('footer');
-        _.each(section, (function(_this) {
-          return function(element, i) {
-            if (element.element === 'Row') {
-              return _this.addNestedElements(container, element);
-            } else {
-              return App.request("add:new:element", container, element.element, element);
-            }
-          };
-        })(this));
-        return _.delay(this.startAutoSave, 5000);
-      };
-
-      BuilderController.prototype.startAutoSave = function() {
-        if (window.autoSaveInterval) {
-          clearInterval(window.autoSaveInterval);
-        }
-        return window.autoSaveInterval = setInterval(function() {
-          return App.execute("auto:save");
-        }, AUTOSAVEINTERVAL);
       };
 
       BuilderController.prototype.addNestedElements = function(container, element) {
-        var controller;
-        controller = App.request("add:new:element", container, element.element, element);
+        var eleController;
+        eleController = App.request("add:new:element", container, element.element, element);
+        this.deferreds.push(eleController._promise);
         return _.each(element.elements, (function(_this) {
           return function(column, index) {
             if (column.elements.length === 0) {
               return;
             }
-            container = controller.layout.elementRegion.currentView.$el.children().eq(index);
+            container = eleController.layout.elementRegion.currentView.$el.children().eq(index);
             return _.each(column.elements, function(ele, i) {
               if (element.element === 'Row') {
                 return _this.addNestedElements($(container), ele);
               } else {
-                return App.request("add:new:element", container, ele.element, ele);
+                eleController = App.request("add:new:element", container, ele.element, ele);
+                return _this.deferreds.push(eleController._promise);
               }
             });
           };
@@ -181,6 +166,18 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           };
         })(this));
         this.listenTo(layout, "update:page:name", this.updatePageName);
+        this.listenTo(App.vent, 'page:took:over', function(errorMessage) {
+          return layout.triggerMethod('page:took:over', errorMessage);
+        });
+        this.listenTo(App.vent, 'page:released', function() {
+          return layout.triggerMethod('page:released');
+        });
+        this.listenTo(App.vent, 'autosave:page:json:enable:buttons', function() {
+          return layout.triggerMethod('autosave:page:json:enable:buttons');
+        });
+        this.listenTo(App.vent, 'autosave:page:json:disable:buttons', function() {
+          return layout.triggerMethod('autosave:page:json:disable:buttons');
+        });
         return this.show(layout, {
           loading: true
         });
@@ -229,7 +226,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         if (revisionId == null) {
           revisionId = 0;
         }
-        App.resetElementRegistry();
         if (siteBuilderController !== null) {
           siteBuilderController.close();
         }
@@ -237,8 +233,8 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           pageId: pageId,
           revisionId: revisionId
         });
-        return App.execute("show:unused:elements", {
-          region: App.unusedElementsRegion,
+        return App.execute("show:right:block", {
+          region: App.rightBlockRegion,
           revisionId: revisionId,
           pageId: pageId
         });

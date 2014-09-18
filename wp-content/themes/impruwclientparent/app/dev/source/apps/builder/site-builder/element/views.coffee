@@ -1,6 +1,4 @@
-define [ 'app'
-         'text!apps/builder/site-builder/element/templates/element.html' ],
-( App, elementTpl )->
+define [ 'app' ],( App, elementTpl )->
 
    # Headerapp views
    App.module 'SiteBuilderApp.Element.Views', ( Views, App, Backbone, Marionette, $, _ )->
@@ -9,7 +7,18 @@ define [ 'app'
       class Views.ElementView extends Marionette.Layout
 
          # basic template
-         template : elementTpl
+         template : '<form>
+                       <input type="hidden" name="meta_id"/>
+                       <input type="hidden" name="element"/>
+                     </form>
+                     <div class="element-controls">
+                       <div class="aj-imp-drag-handle">
+                         <p title="{{#polyglot}}Move{{/polyglot}}"><span class="bicon icon-uniF140"></span></p>
+                       </div>
+                       <div class="aj-imp-delete-btn"><span title="{{#polyglot}}Delete{{/polyglot}}">&times;</span></div>
+                       <div class="aj-imp-settings-btn"><span title="{{#polyglot}}Settings{{/polyglot}}" class="glyphicon glyphicon-cog"></span></div>
+                     </div>
+                     <div class="element-markup"><span></span></div>'
 
          tagName : 'div'
 
@@ -40,6 +49,13 @@ define [ 'app'
             @once 'before:render:element', =>
                @trigger "bind:element:events"
 
+            @canEdit = true
+            @listenTo App.vent, 'page:took:over', (errorMessage)=>
+               @canEdit = false
+
+            @listenTo App.vent, 'page:released', =>
+                @canEdit = true
+
          # set the data-element attribute for element
          onRender : ->
             @$el.find( '.element-markup > span' ).spin @_getOptions()
@@ -48,18 +64,26 @@ define [ 'app'
          onShow : ()=>
             @$el.mouseover ( evt )=>
                evt.stopPropagation()
-               return if window.dragging
+               return if window.dragging || not @canEdit
                @$el.addClass 'hover-class'
             .mouseout ()=>
                   @$el.removeClass 'hover-class'
 
-            @_disableOptions()
+            # @_disableOptions()
 
-         _disableOptions : ()->
-            elements = [ 'RoomSummary', 'Row', 'Link' ]
-            if ISTHEMEEDITOR isnt 'yes'
-               if elements.indexOf( @model.get 'element' ) is -1
-                  @$el.children('.element-controls').children('.aj-imp-settings-btn' ).remove()
+            @_noOptions()
+
+         # _disableOptions : ()->
+         #    elements = [ 'RoomSummary', 'Row', 'Link', 'Image', 'Table', 'Widget' ]
+         #    if ISTHEMEEDITOR isnt 'yes'
+         #       if elements.indexOf( @model.get 'element' ) is -1
+         #          @$el.children('.element-controls').children('.aj-imp-settings-btn' ).remove()
+
+         # remove settings button by default
+         _noOptions : ()->
+            nosettings = [ 'Logo', 'Text', 'Title', 'Gallery' ]
+            if nosettings.indexOf( @model.get 'element' ) isnt -1
+               @$el.children('.element-controls').children('.aj-imp-settings-btn' ).remove()
 
          # set the hidden fields before rendering the element
          onBeforeRenderElement : ->

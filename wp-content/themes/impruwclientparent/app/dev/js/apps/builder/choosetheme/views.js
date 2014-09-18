@@ -20,7 +20,7 @@ define(['app'], function(App) {
       ThemeView.prototype.serializeData = function() {
         var data;
         data = ThemeView.__super__.serializeData.call(this);
-        data.currentTheme = CURRENTTHEME === data.post_name;
+        data.currentTheme = CURRENTTHEME === _.slugify(data.post_title);
         data.post_title = _.polyglot.t(data.post_title);
         return data;
       };
@@ -29,6 +29,7 @@ define(['app'], function(App) {
         'click a.choose-theme': function(e) {
           e.stopPropagation();
           e.preventDefault();
+          this.$el.find('a.choose-theme').attr('disabled', true);
           this.$el.find('.choose-theme').text(_.polyglot.t('Applying...'));
           return this.trigger("choose:theme:clicked", this.model);
         }

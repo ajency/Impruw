@@ -11,7 +11,7 @@ define ['marionette'], (Marionette)->
         loginRegion: Marionette.Region.Dialog.extend el: '#login-region'
         dialogRegion: Marionette.Region.Dialog.extend el: '#dialog-region'
         chooseThemeRegion: '#choose-theme-region'
-        unusedElementsRegion: '#fl_menu'
+        rightBlockRegion: '#fl_menu'
 
 
     # The default route for app
@@ -67,6 +67,9 @@ define ['marionette'], (Marionette)->
             App.startHistory()
             @rootRoute = if ISTHEMESELECTED is 1 then '' else 'choose-theme'
             App.navigate(@rootRoute, trigger: true)
+
+    # let the heart beat :P
+    App.execute "heartbeat-api"
 
 
     App

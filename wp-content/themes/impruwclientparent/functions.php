@@ -2,7 +2,8 @@
 /*
  * File Name: functions.php Description: This file has a list of the following functions used in this theme
  */
-
+//Used for page excerpt generation
+require_once 'underscore.php';
 // Include WPML API
 include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
 
@@ -19,6 +20,8 @@ $me = new Mustache_Engine ();
 
 //load framework
 require 'framework/autoload.php';
+require 'api/class-wp-json-rooms.php';
+
 
 new \framework\cron\ThemeExportCron();
 new \framework\cron\ThemeImportCron();
@@ -48,6 +51,8 @@ require_once 'modules/media/ajax.php';
 require_once 'modules/language/ajax.php';
 require_once 'modules/language/languagefunctions.php';
 require_once 'modules/billing/ajax.php';
+require_once 'modules/seo/ajax.php';
+require_once 'modules/heartbeat/heartbeat.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 
 /***
@@ -73,6 +78,12 @@ add_theme_support( 'post-thumbnails' );
 show_admin_bar( FALSE );
 //load_theme_textdomain( 'impruwclientparent' );
 load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
+
+function page_excerpt_support(){
+    add_post_type_support( 'page', 'excerpt' );
+    
+}
+add_action( 'after_setup_theme', 'page_excerpt_support' );
 
 /**
  * [send_contact_form_message description]
@@ -137,7 +148,7 @@ function check_site_status() {
     $status = get_option( 'site_status', 'coming_soon' );
 
     // return if dashboard/site builder page
-    if ( is_page( 'dashboard' ) || is_page( 'site-builder' ) )
+    if ( is_page( 'dashboard' ) || is_page( 'site-builder' ) || is_page('sign-in') )
         return;
 
     if ( $status === 'coming_soon' && !is_page( 'coming-soon' ) ) {
@@ -148,7 +159,8 @@ function check_site_status() {
     }
 }
 
-//add_action ( 'template_redirect', 'check_site_status' );
+// add_action ( 'template_redirect', 'check_site_status' );
+
 
 /*
  * -------------------------------------------------------------------------------------- impruw_register_room_init function to create a new post type called rooms -------------------------------------------------------------------------------------
@@ -262,6 +274,10 @@ function generate_markup( $section ) {
     global $post, $markup_JSON;
 
     $id = !is_null( $post ) ? $post->ID : 0;
+
+    //fallback if $id is 0
+    if($id === 0 && (is_home() && is_front_page()))
+        $id = get_option( 'page_on_front', 0);
 
     //Generate page markup based on language
     ////if ( wpml_get_current_language() != wpml_get_default_language() ) {
@@ -945,6 +961,9 @@ function get_theme_JS() {
                     // options
                     itemSelector: '.isotope-element'
                 });
+                setTimeout(function () {
+                    jQuery(window).resize();
+                }, 500);
             });
         });
     </script>
@@ -1035,18 +1054,17 @@ function get_theme_CSS() {
     <?php 
         // if the theme preview color changing is enabled and cookie is set 
         $theme_preview_ids = explode(',', THEME_ID);
-        if( isset($_COOKIE['color_scheme']) && in_array(get_current_blog_id(), $theme_preview_ids)){
-            $color_scheme = strtolower($_COOKIE['color_scheme']);
-            $color_scheme = str_replace(' ', '-', $color_scheme);
-            $file = "theme-style-".$color_scheme.".css";
-            echo "<link rel='stylesheet' href='" . get_template_directory_uri() . "/color_scheme_css/$file' type='text/css'/>";
-        }
 
-        else { ?>
-            <link
-                href="<?php echo get_theme_style_sheet_file_path(); ?>"
-                type="text/css" rel="stylesheet"/>
-        <?php }
+        if( !in_array(get_current_blog_id(), $theme_preview_ids)){ ?>
+
+            <link class="theme-style" href="<?php echo get_theme_style_sheet_file_path(); ?>" type="text/css" rel="stylesheet"/>
+        <?php } else { ?>
+           <style>
+                body {visibility:hidden;}
+            </style>
+            <link class="theme-style" href="" type="text/css" rel="stylesheet"/>
+        <?php
+        }
 }
 
 /**
@@ -3702,6 +3720,9 @@ function check_page_access() {
         die();
     }
 
+    if(get_current_user_id() === 1)
+        return;
+
     if ( is_current_user_impruw_manager() || is_super_admin() || is_network_admin() )
         return;
 
@@ -4002,11 +4023,11 @@ $base_element_templates = array(
     'Address' => array(
         array(
             'name' => 'Default Style',
-            'template' => '<ul><li><span class="fui-home"></span> {{street}}, {{city}}, {{postal_code}}, {{country}}</li><li><span class="glyphicon glyphicon-earphone"></span> {{phone_no}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
+            'template' => '<ul><li><span class="fui-home"></span> {{street}}, {{postal_code}}, {{city}}, {{country}}</li><li><span class="glyphicon glyphicon-earphone"></span> {{phone_no}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
         ),
         array(
             'name' => 'Small Address',
-            'template' => '<div><div class="info"> {{street}}, {{city}}, {{postal_code}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
+            'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
         )
     ),
     'Social' => array(
@@ -4158,6 +4179,48 @@ function cancel_subscription() {
     }
 }
 add_action( 'wp_cancel_subscription', 'cancel_subscription' );
+
+function generate_seo_page_excerpt($metadesc){
+    if ( defined( 'DOING_AJAX' ) && DOING_AJAX) {
+        return;
+    }
+
+    global $post;
+    $post_type = $post->post_type;
+    $manual_excerpt = $post->post_excerpt;
+
+    $wpseotitles = get_option('wpseo_titles');
+
+    $metadescription_template = $wpseotitles[ 'metadesc-' . $post_type ];
+    $yoast_meta_description = get_post_meta($post->ID, '_yoast_wpseo_metadesc', true);
+
+    if (($metadescription_template === "%%excerpt%%")||($metadescription_template === "%%excerpt_only%%")) {
+        
+        if (($manual_excerpt==="")&&($post_type==='page')&&(!$yoast_meta_description)) {
+            $page_excerpt =  get_page_excerpt_from_json($post->ID, ICL_LANGUAGE_CODE);
+            $excerpt = prettify_content_piece_excerpt($page_excerpt); 
+        }
+        else if (($manual_excerpt!=="")&&($post_type==='page')&&(!$yoast_meta_description)) {
+            $excerpt = $manual_excerpt;
+        }
+        else {
+            $excerpt = $metadesc;
+        }
+
+        return $excerpt;
+    }
+    
+    return $metadesc;
+}
+
+add_filter( 'wpseo_metadesc' ,'generate_seo_page_excerpt' ,10,1);
+
+if(!function_exists('theme_color_sets')){
+
+    function theme_color_sets(){
+        return array();
+    }
+}
 
 
 

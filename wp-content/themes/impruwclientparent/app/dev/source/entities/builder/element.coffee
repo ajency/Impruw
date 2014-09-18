@@ -67,10 +67,11 @@ define ["app", 'backbone'], (App, Backbone) ->
         # returns the model of the recovered element
             getUnusedElements: (pageId, revisionId = 0)->
                 recoveredElements.url = "#{AJAXURL}?action=get-unused-elements"
-                recoveredElements.fetch
-                    data:
-                        revision_id: revisionId
-                        page_id: pageId
+                xhr = recoveredElements.fetch
+                            data:
+                                revision_id: revisionId
+                                page_id: pageId
+                recoveredElements.xhr = xhr
                 recoveredElements
 
             getUnusedElementByMetaId: (metaId)->
@@ -86,3 +87,15 @@ define ["app", 'backbone'], (App, Backbone) ->
 
         App.reqres.setHandler "get:unused:element:by:metaid", (metaId)->
             API.getUnusedElementByMetaId metaId
+
+        App.commands.setHandler "unused:element:added", (metaId, _page_id)->
+
+            $.ajax
+                type: 'POST'
+                url: AJAXURL
+                data:
+                    action: 'remove-unused-element'
+                    page_id: _page_id
+                    element_meta_id : metaId
+                success:->
+                    console.log "element removed from unused list"

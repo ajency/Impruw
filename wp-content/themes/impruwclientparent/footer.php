@@ -14,63 +14,74 @@
     <?php echo generate_markup( 'footer' ); ?>
 </footer><!-- .site-footer -->
 </div><!-- .container -->
+
 <script type="text/javascript">
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
+    var CHILDTHEMEURL = '<?php echo get_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
     var AJAXURL = '<?php echo admin_url('admin-ajax.php'); ?>';
     var HOTELADDRESS = '<?php echo get_hotel_address() ?>';
+    var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
+    var PHRASES = <?php echo json_encode(load_language_phrases(FALSE));?>;
 </script>
-<?php if ( is_singular() ): ?>
+<?php if ( is_singular('impruw_room') ): ?>
     <script type="text/javascript">
+        
         var PLANS = <?php echo json_encode(get_plans(FALSE)); ?>;
         var DATERANGE = <?php echo json_encode(get_date_range(FALSE)); ?>;
-        //var TARIFF =
-        <?php echo json_encode(get_tariff(2)); ?>;
         var TARIFF = <?php echo json_encode(get_tariff(get_the_ID())); ?>;
         var BOOKING = <?php echo json_encode(get_bookings()); ?>;
-        var PHRASES = <?php echo json_encode(load_language_phrases(FALSE));?>;
+        
     </script>
 <?php endif; ?>
 <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
 <?php get_theme_JS(); ?>
 
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
 <script>
     var map, geocoder;
-    function initialize() {
+    jQuery(document).ready(function(){
 
         if(jQuery('#map_canvas').length === 0)
             return;
 
-        geocoder = new google.maps.Geocoder();
+        
+        window.initializeMap = function(){
 
-        var mapOptions = {
-            zoom: 8,
-            center: new google.maps.LatLng(-34.397, 150.644)
-        };
+            geocoder = new google.maps.Geocoder();
 
-        geocoder.geocode({'address': HOTELADDRESS}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-                map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-            }
-            else{
-                jQuery('#map_canvas').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
-            }
-        });
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
+            var mapOptions = {
+                zoom: 8,
+                center: new google.maps.LatLng(-34.397, 150.644)
+            };
+
+            geocoder.geocode({'address': HOTELADDRESS}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                    if(jQuery('#map_canvas').height() === 0)
+                        jQuery('#map_canvas').height(300);
+                }
+                else{
+                    jQuery('#map_canvas').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+                }
+            });
+        }
+        jQuery.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap');
+
+    });
+
 </script>
 
 <!-- Site Preview Options -->
 <?php
     $theme_preview_ids = explode(',', THEME_ID);
     if (in_array(get_current_blog_id(), $theme_preview_ids)): ?>
-
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.cookie.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.tabSlideOut.v1.3.js"></script>
    
     <style type="text/css">
@@ -81,6 +92,7 @@
             color: #fff;
             z-index: 9999;
             border-radius: 0 0 2px 0;
+            height: auto !important;
         }
         .options-div .handle {
             background: #333;
@@ -88,6 +100,9 @@
             color: #fff;
             font-size: 1.5em;
             border-radius: 0 2px 2px 0;
+        }
+        .options-div.open .handle {
+            right: -42px !important;
         }
         .options-div .handle:hover {
             color: #FF7E00
@@ -160,29 +175,76 @@
     </div>
     <script type="text/javascript">
      
-        jQuery(document).ready(function(){
+        jQuery(document).ready(function($){
+            
+
+
             jQuery('.options-div').tabSlideOut({
                 tabHandle: '.handle',                     //class of the element that will become your tab
                 tabLocation: 'left',                      //side of screen where tab lives, top, right, bottom, or left
-                speed: 300,                               //speed of animation
+                speed: 100,                               //speed of animation
                 action: 'click',                          //options: 'click' or 'hover', action to trigger animation
                 topPos: '150px',                          //position from the top/ use if tabLocation is left or right
                 fixedPosition: true                       //options: true makes it stick(fixed position) on scroll
             });
-        });
-    </script>
-    <script type="text/javascript">
-        
-        jQuery('a[data-color]').click(function(e){
-            console.log(jQuery(this).attr('data-color'));
-            color_scheme_name = jQuery(this).attr('data-color');
-            
-            document.cookie = "color_scheme="+color_scheme_name+"; path=/";
             
 
-            window.location.reload(true);
+            jQuery('a[data-color]').click(function(e){
+                e.preventDefault();
+                color_scheme_name = jQuery(this).attr('data-color');
+                $.cookie('color_scheme', color_scheme_name, {path: '/' });
+                applyStyle(); 
+                $(this).closest('.option-colors').find('a').removeClass('active');
+                $(this).addClass('active');   
+                $('.handle').trigger('click');            
+            });
             
+            var stylesPromises = [];
+
+            
+
+            function applyStyle(){
+                var styleURL = CHILDTHEMEURL + '/css/theme-style.css';
+                var scheme = '';
+                scheme = $.cookie('color_scheme')
+                if( scheme !== undefined){
+                    scheme = '-' + replaceAll(" ", "-", scheme).toLowerCase();
+                    styleURL = CHILDTHEMEURL +'/color_scheme_css/theme-style' + scheme + '.css';
+                }
+                
+                if(!stylesPromises[styleURL]){
+                    stylesPromises[styleURL] = $.ajax({
+                        url : styleURL, 
+                        success : function(data, textStatus, jqxhr){
+                            setHref(styleURL);
+                        }
+                    });
+                }
+                else{
+                    setHref(styleURL);
+                }
+
+                function setHref(href){
+                    var linkTag = '<link class="theme-style" href="'+href+'" type="text/css" rel="stylesheet"/>';
+                    $('.theme-style').first().after(linkTag);
+                    
+                    setTimeout(function(){
+                        $('.theme-style').first().remove();
+                        $('body').css({visibility:'visible'});
+                    }, 300);
+                }
+                
+            }
+
+            applyStyle();
+
         });
+
+        function replaceAll(find, replace, str) {
+          return str.replace(new RegExp(find, 'g'), replace);
+        }
+
+ 
     </script>
 <?php endif; ?>
 

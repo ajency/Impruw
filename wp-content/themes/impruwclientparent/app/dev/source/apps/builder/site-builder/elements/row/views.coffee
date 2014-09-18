@@ -84,6 +84,9 @@ define ['app'], (App)->
                         @collection.add col
 
             onShow: ()->
+                @$el.closest('.element-wrapper').on 'click',@_addFocusClass
+                   
+
                 @$el.attr 'id', _.uniqueId 'row-'
                 _.delay =>
                     @setColumnResizer()
@@ -103,6 +106,12 @@ define ['app'], (App)->
                     e.stopPropagation()
                     console.log 'column resizer set'
                     @setColumnResizer()
+
+            _addFocusClass : (e)->
+                e.stopPropagation()
+                $('.element-wrapper').removeClass('focus-class')
+                console.log 'click'
+                $(e.target).closest('.element-wrapper').addClass('focus-class')
 
             # set new classes on style change
             onStyleChanged: (newStyle, old)->
@@ -138,6 +147,7 @@ define ['app'], (App)->
             onClose: ->
                 @clearResizers()
                 @destroySortableColumns()
+                @$el.closest('.element-wrapper').off 'click',@_addFocusClass
 
             # set column resizer
             setColumnResizer: ()->
@@ -161,6 +171,8 @@ define ['app'], (App)->
                     resizer = $(template)
                     resizer.attr('data-position', (index + 1))
                     resizer.css 'left', left
+                    if not _.isUndefined $(column).closest('.element-wrapper').closest('.column')[0]
+                        resizer.css 'left', left+8
                     @$el.closest('.element-wrapper').children('.element-controls').append resizer
                     @makeResizer resizer
 

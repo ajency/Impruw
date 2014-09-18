@@ -20,33 +20,57 @@ define ['app'], (App)->
                                   </div>
             					    </div>'
 
-            singleRoomTemplate: '<div class="room-summary-container">
-                                      <div class="room-summary-title">
-                                          <h4>Room Summary</h4>
-                                      </div>
-                                      <div class="room-summary">
-                                          <div class="room-summary-item">
-                                              <span class="key">No. of Rooms</span>
-                                              <span class="value">3</span>
-                                          </div>
-                                          <div class="room-summary-item">
-                                              <span class="key">Guests</span>
-                                              <span class="value">2</span>
-                                          </div>
-                                          <div class="room-summary-item">
-                                              <span class="key">Room Type</span>
-                                              <span class="value">Deluxe Room</span>
-                                          </div>
-                                          <div class="room-summary-item">
-                                              <span class="key">Check-in</span>
-                                              <span class="value">10.00 AM</span>
-                                          </div>
-                                          <div class="room-summary-item">
-                                              <span class="key">Check-out</span>
-                                              <span class="value">1.00 PM</span>
-                                          </div>
-                                      </div>
-                                  </div>'
+            singleRoomTemplate: '<div class="room-summary-container ">
+                                    <div class="room-summary-title">
+                                        <h4>Room Summary</h4>
+                                    </div>
+                                    <div class="room-summary">
+                                        <div class="room-summary-item">
+                                            <span class="key">No. of Rooms</span>
+                                            <span class="value">Visible on live</span>
+                                        </div>
+                                        <div class="room-summary-item">
+                                            <span class="key">Check-in</span>
+                                            <span class="value">Visible on live</span>
+                                        </div>
+                                        <div class="room-summary-item">
+                                            <span class="key">Check-out</span>
+                                            <span class="value">Visible on live</span>
+                                        </div>
+                                       <div class="room-summary-item">
+                                            <span class="key">Additional policy</span>
+                                            <span class="value">Visible on live</span>
+                                        </div>
+                                    </div>
+                                </div>'
+
+              # '<div class="room-summary-container">
+              #                         <div class="room-summary-title">
+              #                             <h4>Room Summary</h4>
+              #                         </div>
+              #                         <div class="room-summary">
+              #                             <div class="room-summary-item">
+              #                                 <span class="key">No. of Rooms</span>
+              #                                 <span class="value">3</span>
+              #                             </div>
+              #                             <div class="room-summary-item">
+              #                                 <span class="key">Guests</span>
+              #                                 <span class="value">2</span>
+              #                             </div>
+              #                             <div class="room-summary-item">
+              #                                 <span class="key">Room Type</span>
+              #                                 <span class="value">Deluxe Room</span>
+              #                             </div>
+              #                             <div class="room-summary-item">
+              #                                 <span class="key">Check-in</span>
+              #                                 <span class="value">10.00 AM</span>
+              #                             </div>
+              #                             <div class="room-summary-item">
+              #                                 <span class="key">Check-out</span>
+              #                                 <span class="value">1.00 PM</span>
+              #                             </div>
+              #                         </div>
+              #                     </div>'
 
             events :
                'click .room-img > img' : 'showMediaManager'
@@ -67,8 +91,8 @@ define ['app'], (App)->
                data
 
             _getImageRatio : ->
-               width = @$el.find('.room-img > img').width()
-               height = @$el.find('.room-img > img').height()
+               width = @$el.find('.room-img').width()
+               height = @$el.find('.room-img').height()
                "#{parseInt width}:#{parseInt height}"
 
 

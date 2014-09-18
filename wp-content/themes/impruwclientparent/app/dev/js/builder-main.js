@@ -43,10 +43,12 @@ require.config({
     minicolors: 'plugins/jquery.minicolors.min',
     drilldown: 'plugins/jquery.drilldown.min',
     resizablecolumns: 'plugins/jquery.resizableColumns.min',
+    tabslideout: 'plugins/jquery.tabSlideOut.v1.3',
     imageareaselect: '../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min',
     imageedit: '../../../../../wp-admin/js/image-edit',
     json2: '../../../../../wp-includes/js/json2',
     svgpainter: '../../../../../wp-admin/js/svg-painter',
+    heartbeat: '../../../../../wp-includes/js/heartbeat',
     jqueryuii18n: 'plugins/jquery-ui-i18n'
   },
   shim: {
@@ -80,6 +82,7 @@ require.config({
     minicolors: ['jquery'],
     revslider: ['themepunch'],
     imgLiquid: ['jquery'],
+    heartbeat: ['jquery'],
     plupload: {
       deps: ['jquery'],
       exports: 'plupload'
@@ -93,6 +96,7 @@ require.config({
       deps: ['bootstrap'],
       exports: 'bootbox'
     },
+    tabslideout: ['jquery'],
     resizablecolumns: ['jquery'],
     jqueryuii18n: ['jquery', 'jqueryui'],
     app: ['pluginloader', 'configloader']

@@ -10,12 +10,18 @@ define ['app', 'controllers/base-controller'
 					# initialize the controller. Get all required entities and show the view
 					initialize:(opt = {})->
 
-						@layout = @getLayout()
+						@layout = layout = @getLayout()
 						
 						#change theme color click
 						@listenTo @layout ,"show:theme:color:clicked",->
-
 							App.execute "show:theme:color:set", region : App.dialogRegion
+
+						# heartbeat API
+						@listenTo App.vent, 'page:took:over', (errorMessage)->
+							layout.triggerMethod 'page:took:over', errorMessage
+
+						@listenTo App.vent, 'page:released', ->
+							layout.triggerMethod 'page:released'
 
 						@show  @layout,
 								loading:true
