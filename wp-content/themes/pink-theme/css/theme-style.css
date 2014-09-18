@@ -96,6 +96,8 @@
 
   /****Responsive Logo Styles****/
 
+  /****Powered By Styles****/
+
 }
 .site-style-container ::selection {
   background: #ff5f5f;
@@ -181,6 +183,10 @@
   .site-style-container #left-bar-open {
     display: block;
   }
+}
+.site-style-container .power-up {
+  margin: 0.5em 0;
+  text-align: left;
 }
 /*
 To change this license header, choose License Headers in Project Properties.

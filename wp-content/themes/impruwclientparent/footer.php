@@ -27,6 +27,7 @@
     var HOTELADDRESS = '<?php echo get_hotel_address() ?>';
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var PHRASES = <?php echo json_encode(load_language_phrases(FALSE));?>;
+    var FOOTER = "<?php echo apply_filters('impruw_footer_selector', '');?>";
 </script>
 <?php if ( is_singular('impruw_room') ): ?>
     <script type="text/javascript">
@@ -77,6 +78,12 @@
         }
         jQuery.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap');
 
+    });
+
+    jQuery(document).ready(function(){
+        var $powered = jQuery('.power-up').clone().removeClass('hide').addClass('text');
+        jQuery('.site-footer').find(FOOTER).append($powered);
+        console.log('powered');
     });
 
 </script>
@@ -247,12 +254,6 @@
         function replaceAll(find, replace, str) {
           return str.replace(new RegExp(find, 'g'), replace);
         }
-
-        jQuery(document).ready(function(){
-            var $powered = jQuery('.power-up').clone().removeClass('hide').addClass('text');
-            jQuery('.site-footer').find('[class^="col-"]:last').append($powered);
-            console.log('powered');
-        });
  
     </script>
 <?php endif; ?>
