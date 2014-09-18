@@ -59,24 +59,26 @@ define ['app'
                   @$el.find('.translated-element-content').attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
                 else
                   @$el.find('.translated-element-content').attr('contenteditable', 'true').attr 'id', _.uniqueId 'text-'
+                  
+                if (@model.get('element') isnt 'Link')
+                    @editor = CKEDITOR.inline document.getElementById @$el.find('.translated-element-content').attr 'id'
 
-                @editor = CKEDITOR.inline document.getElementById @$el.find('.translated-element-content').attr 'id'
+                    if (@model.get('element') is 'Link')
+                        content_text = 'text'
+                    else
+                        content_text = 'content'
 
-                if (@model.get('element') is 'Link')
-                    content_text = 'text'
-                else
-                    content_text = 'content'
-
-                if @model.get(content_text)[editingLanguage] is undefined
-                  @editor.setData ""
-                else
-                  @editor.setData _.stripslashes @model.get(content_text)[editingLanguage]
+                    if @model.get(content_text)[editingLanguage] is undefined
+                      @editor.setData ""
+                    else
+                      @editor.setData _.stripslashes @model.get(content_text)[editingLanguage]
 
             # destroy the Ckeditor instance to avoiid memory leaks on close of element
             # this.editor will hold the reference to the editor instance
             # Ckeditor has a destroy method to remove a editor instance
             onClose: ->
-                @editor.destroy(true)
+                if (@model.get('element') isnt 'Link')
+                    @editor.destroy(true)
 
 
         class Views.TranslatedPageView extends Marionette.CompositeView
