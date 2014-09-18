@@ -6,7 +6,8 @@ define ['app'], (App)->
         # Menu item view
         class Views.TextView extends Marionette.ItemView
 
-            tagName: 'p'
+            # div tag required for ckeditor justify to work
+            tagName: 'div'
 
             template: ''
 
