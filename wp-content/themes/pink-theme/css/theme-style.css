@@ -96,6 +96,8 @@
 
   /****Responsive Logo Styles****/
 
+  /****Powered By Styles****/
+
 }
 .site-style-container ::selection {
   background: #ff5f5f;
@@ -181,6 +183,10 @@
   .site-style-container #left-bar-open {
     display: block;
   }
+}
+.site-style-container .power-up {
+  margin: 0.5em 0;
+  text-align: left;
 }
 /*
 To change this license header, choose License Headers in Project Properties.
@@ -735,6 +741,11 @@ and open the template in the editor.
   font-weight: 700;
   font-size: 1.4em;
   display: block;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday .price small,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekend .price small {
+  font-size: 0.66em;
+  line-height: 1.4em;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty {
   height: 139px;

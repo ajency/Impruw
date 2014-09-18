@@ -116,6 +116,18 @@ a.red-link.pull-right {
   padding: 0.5em;
   background: #29333f;
   z-index: 10;
+  border-radius: 0 0 2px 0;
+}
+.aj-imp-drag-menu .handle {
+  background: #29333f;
+  padding: 0.6em 0.5em 0.5em;
+  color: #aaaaaa;
+  font-size: 1.5em;
+  border-radius: 0 2px 2px 0;
+  cursor: pointer;
+}
+.aj-imp-drag-menu .handle:hover {
+  color: #ff7e00;
 }
 .aj-imp-drag-menu .desc {
   font-size: 0.88em;
@@ -3245,4 +3257,48 @@ a.red-link.pull-right {
 }
 .ui-resizable:hover .ui-resizable-handle:before {
   display: block;
+}
+/**** Right Toolbox Styles ****/
+.right-toolbox {
+  background: #29333f;
+  padding: 1em;
+  border-radius: 0 0 0 2px;
+  text-align: right;
+}
+.right-toolbox .handle-right {
+  background: #29333f;
+  padding: 0.6em 0.5em 0.5em;
+  color: #aaaaaa;
+  font-size: 1.5em;
+  border-radius: 2px 0 0 2px;
+  cursor: pointer;
+}
+.right-toolbox .handle-right:hover {
+  color: #ff7e00;
+}
+.right-toolbox .choose-theme {
+  position: relative;
+  padding: 8px 13px 9px 28px;
+  margin: 0.5em 0;
+}
+.right-toolbox .choose-theme .bicon {
+  font-size: 1.6em;
+  position: absolute;
+  left: 9px;
+  top: 6px;
+}
+.right-toolbox .choose-theme:hover {
+  background: #849fb0;
+}
+.right-toolbox #aj-imp-color-sel {
+  margin: 0.5em 0;
+}
+.right-toolbox #aj-imp-color-sel .btn {
+  width: auto;
+  background: transparent;
+  color: #aaaaaa;
+}
+.right-toolbox #aj-imp-color-sel .btn .caret {
+  margin-left: 1.2em;
+  border-top-color: #c3c3c3;
 }

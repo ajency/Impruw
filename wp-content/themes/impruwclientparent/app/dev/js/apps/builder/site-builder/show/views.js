@@ -36,6 +36,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         if (data == null) {
           data = {};
         }
+        data.DASHBOARDURL = DASHBOARDURL;
         data.SITEURL = SITEURL + '/';
         pages = this.collection.toJSON();
         data.pages = _.reject(pages, function(page) {

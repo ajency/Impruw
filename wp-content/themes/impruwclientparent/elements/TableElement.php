@@ -47,7 +47,6 @@ class TableElement extends Element {
             $content = $element[ 'content' ];
         }
 
-        echo "content ".$content;
         $this->content          = stripcslashes(trim($content));
         
         $this->markup           = $this->generate_markup();

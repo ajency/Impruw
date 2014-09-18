@@ -51,6 +51,7 @@ require.config
       minicolors : 'plugins/jquery.minicolors.min'
       drilldown : 'plugins/jquery.drilldown.min'
       resizablecolumns : 'plugins/jquery.resizableColumns.min'
+      tabslideout : 'plugins/jquery.tabSlideOut.v1.3'
       #flippant: 'plugins/flippant.min'
 
       # wordpress cropping js
@@ -101,6 +102,7 @@ require.config
       bootbox :
          deps : ['bootstrap']
          exports : 'bootbox'
+      tabslideout : ['jquery']
       resizablecolumns : ['jquery']
       jqueryuii18n : ['jquery' , 'jqueryui']
       app : ['pluginloader', 'configloader']

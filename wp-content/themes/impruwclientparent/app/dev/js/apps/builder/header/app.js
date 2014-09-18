@@ -9,8 +9,6 @@ define(['app', 'apps/builder/header/show/controller', 'apps/builder/header/chang
         });
       }
     };
-    return HeaderApp.on('start', function() {
-      return API.show();
-    });
+    return HeaderApp.on('start', function() {});
   });
 });

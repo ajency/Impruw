@@ -62,12 +62,27 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
         return MainView.__super__.initialize.call(this, opts);
       };
 
+      MainView.prototype.events = {
+        'click #builder-box-tabs a': function(e) {
+          var tab;
+          e.stopPropagation();
+          e.preventDefault();
+          tab = $(e.target).attr('href');
+          $(e.target).parent().siblings().removeClass('active');
+          $(e.target).parent().addClass('active');
+          $(tab).addClass('active');
+          return $(tab).siblings().removeClass('active');
+        }
+      };
+
       MainView.prototype.onShow = function() {
-        this.$el.css('position', 'fixed').draggable({
-          handle: "p.desc",
-          addClasses: false,
-          containment: 'document',
-          scroll: true
+        this.$el.tabSlideOut({
+          tabHandle: '.handle',
+          tabLocation: 'left',
+          speed: 300,
+          action: 'click',
+          topPos: '30px',
+          fixedPosition: true
         });
         this._setDraggableElements();
         $('body').on('click', (function(_this) {

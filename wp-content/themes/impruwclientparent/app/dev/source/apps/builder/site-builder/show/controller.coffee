@@ -189,7 +189,7 @@ define [ 'app', 'controllers/base-controller'
                 pageId : pageId
                 revisionId : revisionId
 
-            App.execute "show:unused:elements",
-                region : App.unusedElementsRegion
+            App.execute "show:right:block",
+                region : App.rightBlockRegion
                 revisionId : revisionId
                 pageId : pageId
