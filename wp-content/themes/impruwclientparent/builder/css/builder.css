@@ -3113,3 +3113,16 @@ a.red-link.pull-right {
 .ui-resizable:hover .ui-resizable-handle:before {
   display: block;
 }
+/**** Revolution SLider Builder Styles ****/
+.text-layer-view .view-text-layer {
+  display: block;
+}
+.text-layer-view .edit-text-layer {
+  display: none;
+}
+.text-layer-edit .view-text-layer {
+  display: none;
+}
+.text-layer-edit .edit-text-layer {
+  display: block;
+}
