@@ -260,31 +260,31 @@ class RoomTariff extends Element {
                     <div class="block clearfix">
 
                     <div class="weekday">'.__("Weekdays","impruwclientparent").'
-                    <span class="price">'.$currency.'&nbsp;{{wd_charge}}</span>
+                    <span class="price"><small>'.$currency.'</small>&nbsp;{{wd_charge}}</span>
                     </div>
 
                     <div class="weekend">'.__("Weekends","impruwclientparent").'
-                    <span class="price">'.$currency.'&nbsp;{{we_charge}}</span>
+                    <span class="price"><small>'.$currency.'</small>&nbsp;{{we_charge}}</span>
                     </div>
 
                     <div class="tariff-label clearfix">'.__("Extra Adult","impruwclientparent").'</div>
 
                     <div class="weekday">
-                    <span class="price">'.$currency.'&nbsp;{{wd_extra_adult}}</span>
+                    <span class="price"><small>'.$currency.'</small>&nbsp;{{wd_extra_adult}}</span>
                     </div>
 
                     <div class="weekend">
-                    <span class="price">'.$currency.'&nbsp;{{we_extra_adult}}</span>
+                    <span class="price"><small>'.$currency.'</small>&nbsp;{{we_extra_adult}}</span>
                     </div>
 
                     <div class="tariff-label clearfix">'.__("Extra Child","impruwclientparent").'</div>
 
                     <div class="weekday">
-                    <span class="price">'.$currency.'&nbsp;{{wd_extra_child}}</span>
+                    <span class="price"><small>'.$currency.'</small>&nbsp;{{wd_extra_child}}</span>
                     </div>
 
                     <div class="weekend">
-                    <span class="price">'.$currency.'&nbsp;{{we_extra_child}}</span>
+                    <span class="price"><small>'.$currency.'</small>&nbsp;{{we_extra_child}}</span>
                     </div>
 
                     </div>
