@@ -76,6 +76,12 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
       };
 
       MainView.prototype.onShow = function() {
+        this.$el.css('position', 'fixed').draggable({
+          handle: "p.desc",
+          addClasses: false,
+          containment: 'document',
+          scroll: true
+        });
         this.$el.tabSlideOut({
           tabHandle: '.handle',
           tabLocation: 'left',
