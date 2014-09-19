@@ -837,9 +837,6 @@ and open the template in the editor.
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #ed1c24;
-}
-.room-facilities-container .facilities li:hover:before {
   color: #831618;
 }
 /****Room Summary Styles****/
@@ -2514,9 +2511,6 @@ and open the template in the editor.
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #ed1c24;
-}
-.room-facilities-container .facilities li:hover:before {
   color: #ed1c24;
 }
 /****Room Summary Styles****/
