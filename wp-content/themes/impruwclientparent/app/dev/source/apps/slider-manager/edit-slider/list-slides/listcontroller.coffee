@@ -110,11 +110,11 @@ define ['app'
 								<div class="imgthumb col-sm-4">
 									<img src="{{thumb_url}}" class="img-responsive">
 								</div>
-								<div class="imgname col-sm-5"></div>
-								<div class="imgactions col-sm-3">
-                                    <a href="#" class="blue-link add-text" > <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Add Caption{{/polyglot}} </a>
-									<a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;
-                                    <a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
+								<div class="imgname col-sm-4"></div>
+								<div class="imgactions col-sm-4">
+                                    <a href="#" class="blue-link add-text" > <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Add Caption{{/polyglot}} </a>&nbsp;
+									<a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;<br><br>
+                                    <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
 								</div>
 							</div>
 						  </a>
@@ -157,10 +157,10 @@ define ['app'
     							<div class="col-sm-4">
     								&nbsp;
     							</div>
-    							<div class="col-sm-5">
+    							<div class="col-sm-4">
     								{{#polyglot}}File Name{{/polyglot}}
     							</div>
-    							<div class="col-sm-3">
+    							<div class="col-sm-4">
     								{{#polyglot}}Actions{{/polyglot}}
     							</div>
     						</div>
