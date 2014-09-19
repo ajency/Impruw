@@ -35,6 +35,7 @@ define ['app', 'bootbox'], (App, bootbox)->
 								className: "btn-default"
 								callback: =>
 									@trigger "cancel:theme:switch"
+									App.navigate ''
 									$('body').removeClass 'choose-theme-page'
 							switch:
 								label: _.polyglot.t( 'Yes, switch my theme' )
