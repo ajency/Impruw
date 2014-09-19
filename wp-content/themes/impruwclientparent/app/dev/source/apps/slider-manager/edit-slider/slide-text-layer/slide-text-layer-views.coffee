@@ -104,6 +104,7 @@ define ['app'
 
 			onShow :->
 				Backbone.Syphon.deserialize @, @model.get('layers')[0]
+				@$el.find('select').selectpicker()
 
 
 			# mixinTemplateHelpers : (data)->

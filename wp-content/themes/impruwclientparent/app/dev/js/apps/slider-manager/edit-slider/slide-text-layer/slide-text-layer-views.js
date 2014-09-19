@@ -37,7 +37,8 @@ define(['app'], function(App) {
       };
 
       TextLayerView.prototype.onShow = function() {
-        return Backbone.Syphon.deserialize(this, this.model.get('layers')[0]);
+        Backbone.Syphon.deserialize(this, this.model.get('layers')[0]);
+        return this.$el.find('select').selectpicker();
       };
 
       return TextLayerView;

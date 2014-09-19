@@ -1,5 +1,7 @@
-define ['app', 'apps/builder/site-builder/elements/logo/views',
-        'apps/builder/site-builder/elements/logo/settings/controller'],
+define ['app',
+        'apps/builder/site-builder/elements/logo/views'
+        'apps/builder/site-builder/elements/logo/settings/controller'
+        'apps/builder/site-builder/elements/image/controller'],
 (App)->
     App.module 'SiteBuilderApp.Element.Logo', (Logo, App, Backbone, Marionette, $, _)->
 
