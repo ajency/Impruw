@@ -430,7 +430,7 @@ function update_element_model() {
 
     $element = $_POST;
 
-    if(!check_app_instace($element['instance_id'])){
+    if((isset($_POST['source'])&&($_POST['source']!=='dashboard'))&&(!check_app_instace($element['instance_id']))){
         $response = array(
             'success' => false,
             'new_instance' => true,

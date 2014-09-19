@@ -45,6 +45,7 @@ define ['app', 'controllers/base-controller'
                 data[editLang] = newElemContent
                 # console.log data
                 model.set 'content', data
+                model.set 'source', 'dashboard'
                 model.save null,
                     wait: true
                     success: @contentUpdated
