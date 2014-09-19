@@ -104,3 +104,20 @@ function ajax_change_password() {
 add_action( 'wp_ajax_nopriv_change-password', 'ajax_change_password' );
 
 
+function set_app_instance(){
+
+    //get user id
+    $user_id = get_current_user_id();
+
+    $instance_id = $_REQUEST['instance_id'];
+
+    $now = time();
+    $instance = "$now:$instance_id";
+
+    update_user_meta( $user_id, '_builder_instance', $instance );
+
+    wp_send_json(array('success' => true, 'instance' => $instance));
+}
+add_action('wp_ajax_set-app-instance', 'set_app_instance');
+
+

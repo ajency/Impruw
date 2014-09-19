@@ -1,4 +1,4 @@
-define ['app'], (App)->
+define ['app', 'bootbox'], (App, bootbox)->
 	App.module "ChooseTheme.Views", (Views, App)->
 
 		# single theme template
@@ -26,9 +26,38 @@ define ['app'], (App)->
 				'click a.choose-theme': (e)->
 					e.stopPropagation()
 					e.preventDefault()
-					@$el.find('a.choose-theme').attr 'disabled', true
-					@$el.find('.choose-theme').text _.polyglot.t('Applying...')
-					@trigger "choose:theme:clicked", @model
+					bootbox.dialog 
+						title: "<h4 class='delete-message'>" + _.polyglot.t( 'Are you sure?' ) + "</h4>",
+						message: _.polyglot.t( 'You will lose your layout if you switch themes, you saved content can be retrieved from unused elements box. Your uploaded images are saved in the image gallery, so you will need to add them again.' ),
+						buttons: 
+							cancelswitch: 
+								label: _.polyglot.t( 'No, I don\'t want to switch themes' )
+								className: "btn-default"
+								callback: =>
+									@trigger "cancel:theme:switch"
+									$('body').removeClass 'choose-theme-page'
+							switch:
+								label: _.polyglot.t( 'Yes, switch my theme' )
+								className: "btn-primary"
+								callback: =>
+									#@$el.find('a.choose-theme').attr 'disabled', true
+									#@$el.find('.choose-theme').text _.polyglot.t('Applying...')
+									bootbox.hideAll()
+									@$el.find('.aj-imp-choose-btn').html('<span class="glyphicon glyphicon-tasks pulse"></span><div class="msg-1">' +  _.polyglot.t( "Creating pages with demo content." ) + ' </div><div class="msg-2">' + _.polyglot.t( "Applying the theme colors." ) + ' </div><div class="msg-3">' + _.polyglot.t( "Prepping up the elements." ) + ' </div><div class="msg-4">' + _.polyglot.t( "Hang on, we are almost done..." ) + ' </div>').show()
+									_.delay =>
+					                    @$el.find('.msg-1').show().addClass('slideRight')
+					                , 500
+					                _.delay =>
+					                    @$el.find('.msg-2').show().addClass('slideRight')
+					                , 1000
+					                _.delay =>
+					                    @$el.find('.msg-3').show().addClass('slideRight')
+					                , 1500
+					                _.delay =>
+					                    @$el.find('.msg-4').show().addClass('slideRight')
+					                , 2000
+									
+									@trigger "choose:theme:clicked", @model			
 
 
 

@@ -32,6 +32,15 @@ define ['underscore', 'underscorestring'], (_) ->
 
             newArray
 
+        makeid: ()->
+            text = ""
+            possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            for i in [0...8]
+                text += possible.charAt(Math.floor(Math.random() * possible.length))
+
+            return text
+
         stripslashes: (str) ->
             (str + "").replace /\\(.?)/g, (s, n1) ->
                 switch n1

@@ -52,6 +52,10 @@
           media="screen">
 </head>
 <body <?php body_class(); ?>>
+
+<?php if(isset($_GET['expire'])): ?>
+    <h2>New Instance is opened</h2>
+<?php else: ?>
 <!-- Notifications -->
 <div id="notifications-region"></div>
 <!-- Notifications -->
@@ -136,6 +140,7 @@
 
     <script data-main="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/builder-main"
             src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
+<?php endif; ?>
 <?php endif; ?>
 
 </body>

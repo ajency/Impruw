@@ -2499,6 +2499,17 @@ a.red-link.pull-right {
 .aj-imp-block-list ul .block .aj-imp-choose-btn .btn:hover {
   background: #ffb266;
 }
+.aj-imp-block-list ul .block .aj-imp-choose-btn .pulse {
+  color: #ff7e00;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+.aj-imp-block-list ul .block .aj-imp-choose-btn [class^="msg-"] {
+  color: #333333;
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+  display: none;
+}
 .aj-imp-block-list ul .block:hover .aj-imp-choose-btn {
   display: block;
 }
@@ -3313,4 +3324,90 @@ a.red-link.pull-right {
 .right-toolbox #aj-imp-color-sel .btn .caret {
   margin-left: 1.2em;
   border-top-color: #c3c3c3;
+}
+/**** Animations Styles ****/
+.slideRight {
+  animation-name: slideRight;
+  -webkit-animation-name: slideRight;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+  visibility: visible !important;
+}
+@keyframes slideRight {
+  0% {
+    transform: translateX(-150%);
+  }
+  50% {
+    transform: translateX(8%);
+  }
+  65% {
+    transform: translateX(-4%);
+  }
+  80% {
+    transform: translateX(4%);
+  }
+  95% {
+    transform: translateX(-2%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+@-webkit-keyframes slideRight {
+  0% {
+    -webkit-transform: translateX(-150%);
+  }
+  50% {
+    -webkit-transform: translateX(8%);
+  }
+  65% {
+    -webkit-transform: translateX(-4%);
+  }
+  80% {
+    -webkit-transform: translateX(4%);
+  }
+  95% {
+    -webkit-transform: translateX(-2%);
+  }
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
+.pulse {
+  animation-name: pulse;
+  -webkit-animation-name: pulse;
+  animation-duration: 1.5s;
+  -webkit-animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+}
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(0.95);
+    opacity: 0.7;
+  }
+  50% {
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0.95);
+    opacity: 0.7;
+  }
 }

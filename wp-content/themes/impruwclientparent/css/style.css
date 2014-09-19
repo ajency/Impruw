@@ -92,6 +92,8 @@
 
   /****Heading Styles****/
 
+  /****Powered By Styles****/
+
 }
 .site-style-container .site-header,
 .site-style-container .site-footer,
@@ -138,6 +140,10 @@
   color: #727272;
   font-weight: 300;
   margin: 0.5em 0;
+}
+.site-style-container .power-up {
+  margin: 0.5em 0;
+  text-align: center;
 }
 /*
 To change this license header, choose License Headers in Project Properties.
@@ -693,6 +699,11 @@ and open the template in the editor.
   font-size: 1.4em;
   display: block;
 }
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday .price small,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekend .price small {
+  font-size: 0.66em;
+  line-height: 1.4em;
+}
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty {
   height: 139px;
 }
@@ -821,9 +832,6 @@ and open the template in the editor.
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #ff7e00;
-}
-.room-facilities-container .facilities li:hover:before {
   color: #29333f;
 }
 /****Room Summary Styles****/

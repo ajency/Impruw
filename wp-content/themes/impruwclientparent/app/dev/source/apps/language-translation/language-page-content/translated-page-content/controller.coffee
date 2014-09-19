@@ -60,6 +60,7 @@ define ['app', 'controllers/base-controller'
                 editLang = @editLang
                 translatedContent[editLang] = newElemContent
                 model.set content_text, translatedContent
+                model.set 'source', 'dashboard'
                 model.save null,
                     wait: true
                     success: @contentUpdated

@@ -38,6 +38,15 @@ define ["app", 'backbone'], (App, Backbone) ->
 
                 destroy() unless options.wait
 
+            parse : (resp)->
+                # handle element case
+                if resp.success is false and resp.new_instance
+                    App.vent.trigger "new:instance:opened", resp
+                    return {}
+
+                return resp.data if resp.code is 'OK'
+                resp
+
 
         # element collection class
         class ElementsCollection extends Backbone.Collection

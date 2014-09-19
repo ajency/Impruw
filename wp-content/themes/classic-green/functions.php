@@ -170,3 +170,11 @@
     global $element_templates;
 
     $element_templates = array('Title' => array(array('name' => 'Box Title'), array('name' => 'White Title'), array('name' => 'Center Title'), array('name' => 'Small Grey Title')), 'Row' => array(array('name' => 'Green Background'), array('name' => 'Shaded Background')), 'Link' => array(array('name' => 'Default Style'), array('name' => 'Button'), array('name' => 'Header Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));
+
+     /**
+     * Footer selector for the theme powered by Impruw message
+     **/
+    function impruw_footer_selector(){
+        return ">.row:last-child";
+    }
+    add_filter('impruw_footer_selector', 'impruw_footer_selector');

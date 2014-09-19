@@ -329,6 +329,15 @@ function create_element_model() {
 
     $element = $_POST;
 
+    if(!check_app_instace($element['instance_id'])){
+        $response = array(
+            'success' => false,
+            'new_instance' => true,
+            'reason' => __('New instance of site builder is open')
+        );
+        wp_send_json($response);
+    }
+
     unset( $element [ 'action' ] );
     $model = get_element_model( $element [ 'element' ] );
 
@@ -420,6 +429,16 @@ function get_element_model( $element ) {
 function update_element_model() {
 
     $element = $_POST;
+
+    if((isset($_POST['source'])&&($_POST['source']!=='dashboard'))&&(!check_app_instace($element['instance_id']))){
+        $response = array(
+            'success' => false,
+            'new_instance' => true,
+            'reason' => __('New instance of site builder is open')
+        );
+        wp_send_json($response);
+    }
+
     unset( $element [ 'action' ] );
     $meta_id = $element [ 'meta_id' ];
     set_element_data( $element );
@@ -441,6 +460,16 @@ add_action( 'wp_ajax_update-element', 'update_element_model' );
 function delete_element_model() {
 
     $element = $_POST;
+
+    if(!check_app_instace($element['instance_id'])){
+        $response = array(
+            'success' => false,
+            'new_instance' => true,
+            'reason' => __('New instance of site builder is open')
+        );
+        wp_send_json($response);
+    }
+
     $meta_id = $element [ 'meta_id' ];
     global $wpdb;
     $wpdb->delete( $wpdb->postmeta, array(

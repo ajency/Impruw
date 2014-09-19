@@ -60,6 +60,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         editLang = this.editLang;
         translatedContent[editLang] = newElemContent;
         model.set(content_text, translatedContent);
+        model.set('source', 'dashboard');
         return model.save(null, {
           wait: true,
           success: this.contentUpdated
