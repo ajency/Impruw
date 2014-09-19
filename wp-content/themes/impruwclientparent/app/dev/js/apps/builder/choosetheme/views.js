@@ -39,6 +39,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
                 callback: (function(_this) {
                   return function() {
                     _this.trigger("cancel:theme:switch");
+                    App.navigate('');
                     return $('body').removeClass('choose-theme-page');
                   };
                 })(this)
