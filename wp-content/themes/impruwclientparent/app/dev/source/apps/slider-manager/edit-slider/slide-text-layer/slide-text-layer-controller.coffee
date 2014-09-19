@@ -10,26 +10,33 @@ define ['app'
 			initialize : (options)->
 				{@model} = options
 
-				@collection = new Backbone.Collection @model.get('layers')
-				console.log @collection
+				# @collection = new Backbone.Collection @model.get('layers')
+				blankLayerAdded = false
+
+				if not @model.get('layers').length
+					blankLayerAdded = true
+					@model.set 'layers', [@layerDefault()]
 
 				@view = @_getTextLayerView()
 
 				@listenTo @view,'add:text:layer',->
-					layerModel = new Backbone.Model @layerDefault()
-					console.log layerModel
-					@collection.add layerModel
+					# layerModel = new Backbone.Model @layerDefault()
+					# console.log layerModel
+					# @collection.add layerModel
 
 				@listenTo @view,'itemview:remove:text:layer',(itemview)->
-					@collection.remove itemview.model	
+					# @collection.remove itemview.model	
 
-				@collection.on 'add remove',=>
-					@collection.each (model,index)->
-						model.set 'serial',index
+				
 
-				@listenTo @view,'save:layers',->
-					@model.set 'layers', @collection.toJSON()
+				@listenTo @view,'save:text:layer',=>
 					@model.save()
+					@model.trigger 'model:changed'
+					Marionette.triggerMethod.call @region, "slide:layers:saved"
+
+				@listenTo @view, 'cancel:text:layer',=>
+					if blankLayerAdded
+						@model.set 'layers', []
 					Marionette.triggerMethod.call @region, "slide:layers:saved"
 
 
@@ -41,8 +48,8 @@ define ['app'
 			
 
 			_getTextLayerView : ->
-				new SlideTextLayer.Views.TextlayerListView
-					collection : @collection
+				new SlideTextLayer.Views.TextLayerView
+					# collection : @collection
 					model : @model
 
 			layerDefault : ->
@@ -67,7 +74,7 @@ define ['app'
 				endtime: ""
 				height: -1
 				hiddenunder: false
-				left: 100
+				left: 'center'
 				link: ""
 				link_open_in: "same"
 				link_slide: "nothing"
@@ -84,10 +91,10 @@ define ['app'
 				split: "none"
 				splitdelay: "10"
 				style: "black"
-				text: "Caption Text1"
+				text: "Caption Text"
 				time: 500
 				timeLast: 8500
-				top: 100
+				top: 'center'
 				type: "text"
 				whitespace: "nowrap"
 				width: -1

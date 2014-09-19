@@ -11,31 +11,31 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
       }
 
       Controller.prototype.initialize = function(options) {
+        var blankLayerAdded;
         this.model = options.model;
-        this.collection = new Backbone.Collection(this.model.get('layers'));
-        console.log(this.collection);
+        blankLayerAdded = false;
+        if (!this.model.get('layers').length) {
+          blankLayerAdded = true;
+          this.model.set('layers', [this.layerDefault()]);
+        }
         this.view = this._getTextLayerView();
-        this.listenTo(this.view, 'add:text:layer', function() {
-          var layerModel;
-          layerModel = new Backbone.Model(this.layerDefault());
-          console.log(layerModel);
-          return this.collection.add(layerModel);
-        });
-        this.listenTo(this.view, 'itemview:remove:text:layer', function(itemview) {
-          return this.collection.remove(itemview.model);
-        });
-        this.collection.on('add remove', (function(_this) {
+        this.listenTo(this.view, 'add:text:layer', function() {});
+        this.listenTo(this.view, 'itemview:remove:text:layer', function(itemview) {});
+        this.listenTo(this.view, 'save:text:layer', (function(_this) {
           return function() {
-            return _this.collection.each(function(model, index) {
-              return model.set('serial', index);
-            });
+            _this.model.save();
+            _this.model.trigger('model:changed');
+            return Marionette.triggerMethod.call(_this.region, "slide:layers:saved");
           };
         })(this));
-        this.listenTo(this.view, 'save:layers', function() {
-          this.model.set('layers', this.collection.toJSON());
-          this.model.save();
-          return Marionette.triggerMethod.call(this.region, "slide:layers:saved");
-        });
+        this.listenTo(this.view, 'cancel:text:layer', (function(_this) {
+          return function() {
+            if (blankLayerAdded) {
+              _this.model.set('layers', []);
+            }
+            return Marionette.triggerMethod.call(_this.region, "slide:layers:saved");
+          };
+        })(this));
         return this.show(this.view);
       };
 
@@ -44,8 +44,7 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
       };
 
       Controller.prototype._getTextLayerView = function() {
-        return new SlideTextLayer.Views.TextlayerListView({
-          collection: this.collection,
+        return new SlideTextLayer.Views.TextLayerView({
           model: this.model
         });
       };
@@ -73,7 +72,7 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
           endtime: "",
           height: -1,
           hiddenunder: false,
-          left: 100,
+          left: 'center',
           link: "",
           link_open_in: "same",
           link_slide: "nothing",
@@ -90,10 +89,10 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
           split: "none",
           splitdelay: "10",
           style: "black",
-          text: "Caption Text1",
+          text: "Caption Text",
           time: 500,
           timeLast: 8500,
-          top: 100,
+          top: 'center',
           type: "text",
           whitespace: "nowrap",
           width: -1

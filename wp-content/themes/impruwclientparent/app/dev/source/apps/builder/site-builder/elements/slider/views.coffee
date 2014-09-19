@@ -5,7 +5,16 @@ define ['app'], (App)->
 
         class SliderItem extends Marionette.ItemView
 
-            template: '<img src="{{full_url}}" alt="Slide" data-bgfit="contain" data-bgposition="center center" data-bgrepeat="no-repeat"/>'
+            template: '<img src="{{full_url}}" alt="Slide" data-bgfit="contain" data-bgposition="center center" data-bgrepeat="no-repeat"/>
+                    {{#layers}}<div class="tp-caption {{style}} {{animation}}"
+                data-x="{{left}}"
+                data-y="{{top}}"
+                data-speed="{{speed}}"
+                data-start="{{time}}"
+                data-easing="{{easing}}"
+                data-endspeed="{{endspeed}}"
+                style="z-index: 6">{{text}}
+            </div>{{/layers}}'
 
             tagName: 'li'
 
@@ -13,11 +22,14 @@ define ['app'], (App)->
                 @$el.attr 'data-slotamount', '0'
                     .attr 'data-masterspeed', '500'
                     .attr 'data-transition', Marionette.getOption @,'slide_transition'
-                    
+
 
             modelEvents : 
                 'change:thumb_url change:full_url' : (model)->
                     model.collection.trigger 'slide:image:url:updated'
+
+                'model:changed' :->
+                        @trigger 'render:slider'
 
 
 
@@ -91,6 +103,7 @@ define ['app'], (App)->
 
                 options =
                     startheight:  @model.get 'height'
+                    startwidth : @$el.width()
 
                 options = _.defaults options, defaults
 
@@ -103,8 +116,11 @@ define ['app'], (App)->
                     stop : (evt, ui)=>
                         # @assignImagePath @$el.height()
                         console.log @$el.height() 
-                        options.startheight = @$el.height() 
                         @$el.width('auto') 
+                        options =
+                            startheight : @$el.height() 
+                            startwidth : @$el.width()
+                        
                         @revapi = @$el.find(".fullwidthbanner").revolution options
                         @_saveSliderHeightWidth()
 

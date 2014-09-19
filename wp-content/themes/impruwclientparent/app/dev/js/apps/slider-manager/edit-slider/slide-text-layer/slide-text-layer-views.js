@@ -3,105 +3,45 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('SliderManager.SlideTextLayer.Views', function(Views, App) {
-    var NoTextLayerView, TextLayerView;
-    NoTextLayerView = (function(_super) {
-      __extends(NoTextLayerView, _super);
-
-      function NoTextLayerView() {
-        return NoTextLayerView.__super__.constructor.apply(this, arguments);
-      }
-
-      NoTextLayerView.prototype.template = '<div>There are no layers for this slide. Click on the add button to add a Text Layer</div>';
-
-      return NoTextLayerView;
-
-    })(Marionette.ItemView);
-    TextLayerView = (function(_super) {
+    return Views.TextLayerView = (function(_super) {
       __extends(TextLayerView, _super);
 
       function TextLayerView() {
         return TextLayerView.__super__.constructor.apply(this, arguments);
       }
 
-      TextLayerView.prototype.className = 'text-layer-view';
+      TextLayerView.prototype.className = 'row';
 
-      TextLayerView.prototype.template = '<div class="edit-text-layer"><input type="text" value="{{text}}" /></div> <div class="view-text-layer">{{text}}</div><div class="pull-right"><button class="remove-layer"> remove </button></div>';
+      TextLayerView.prototype.template = '<div id="text-not-entered" class="alert alert-error hide">{{#polyglot}}Please enter text before saving{{/polyglot}}</div> <div class="col-sm-12 "> <form action="" method="POST" role="form" class="form-horizontal" validate> <div class="form-group "> <label for="" class="col-sm-4 control-label">{{#polyglot}}Enter Caption Text{{/polyglot}}</label> <div class="col-sm-8"> <input type="text" name="text" class=" form-control" placeholder="Enter caption text"/> </div> </div> <div class="form-group "> <label for="" class="col-sm-4 control-label">{{#polyglot}}Caption Style{{/polyglot}}</label> <div class="col-sm-8"> <select name="style"> <option value="black">Black</option> <option value="large_bold_white">Large Bold White</option> <option value="large_bold_black">Large Bold Black</option> <option value="excerpt">Excerpt</option> <option value="very_big_white">Very Big White</option> <option value="very_big_black">Very Big Black</option> </select> </div> </div> <!--	    <div class="form-group "> <label for="" class="col-sm-4 control-label">{{#polyglot}}Text Animation{{/polyglot}}</label> <div class="col-sm-8"> <select name="animation"> <option value="tp-fade">Fade</option> <option value="sft">Short from Top</option> <option value="sfl">Short from Left</option> <option value="lft">Long from Top</option> <option value="lfl">Long from Left</option> </select> </div> </div> --> <div class="form-group "> <label for="" class="col-sm-4 control-label">{{#polyglot}}Horizontal Position{{/polyglot}}</label> <div class="col-sm-8"> <select name="left"> <option value="left">{{#polyglot}}Left{{/polyglot}}</option> <option value="center">{{#polyglot}}Center{{/polyglot}}</option> <option value="right">{{#polyglot}}Right{{/polyglot}}</option> </select> </div> </div> <div class="form-group "> <label for="" class="col-sm-4 control-label">{{#polyglot}}Vertical Position{{/polyglot}}</label> <div class="col-sm-8"> <select name="top"> <option value="top">{{#polyglot}}Top{{/polyglot}}</option> <option value="center">{{#polyglot}}Center{{/polyglot}}</option> <option value="bottom">{{#polyglot}}Bottom{{/polyglot}}</option> </select> </div> </div> <div class="form-group "> <button type="button"  class="btn btn-sm aj-imp-submit" id="save-slide-layer"> Save </button> <button type="button" class="btn btn-sm aj-imp-submit" id="cancel-slide-layer"> Cancel </button> <button type="button" class="btn btn-sm aj-imp-submit" id="delete-slide-layer"> Delete </button> </div> </form>';
 
       TextLayerView.prototype.events = {
-        'blur input': function(e) {
-          this.model.set('text', $(e.target).val());
-          return this.$el.closest('#text-layers').siblings('.slide-display').find("#" + this.textId).html($(e.target).val());
+        'click #save-slide-layer': function(e) {
+          var data, layer;
+          data = Backbone.Syphon.serialize(this);
+          if (data.text === '') {
+            return this.$el.find('#text-not-entered').removeClass('hide');
+          } else {
+            layer = this.model.get('layers')[0];
+            _.extend(layer, data);
+            this.model.set('layers', [layer]);
+            return this.trigger('save:text:layer');
+          }
         },
-        'click .view-text-layer': function() {
-          this.$el.siblings().removeClass('text-layer-edit').addClass('text-layer-view');
-          return this.$el.removeClass('text-layer-view').addClass('text-layer-edit');
+        'click #delete-slide-layer': function(e) {
+          this.model.set('layers', []);
+          return this.trigger('save:text:layer');
         },
-        'click .remove-layer': function() {
-          return this.trigger('remove:text:layer');
+        'click #cancel-slide-layer': function(e) {
+          return this.trigger('cancel:text:layer');
         }
       };
 
       TextLayerView.prototype.onShow = function() {
-        this.textId = _.uniqueId('text-');
-        this.$el.closest('#text-layers').siblings('.slide-display').prepend("<div class='movable' id='" + this.textId + "' style='position : absolute; top : " + (this.model.get('top')) + "px; left:" + (this.model.get('left')) + "px; z-index:1000'>" + (this.model.get('text')) + "</div>");
-        return this.$el.closest('#text-layers').siblings('.slide-display').find("#" + this.textId).draggable({
-          stop: (function(_this) {
-            return function(evt, ui) {
-              _this.model.set('top', ui.position.top);
-              return _this.model.set('left', ui.position.left);
-            };
-          })(this)
-        });
-      };
-
-      TextLayerView.prototype.onClose = function() {
-        return this.$el.closest('#text-layers').siblings('.slide-display').find("#" + this.textId).remove();
+        return Backbone.Syphon.deserialize(this, this.model.get('layers')[0]);
       };
 
       return TextLayerView;
 
     })(Marionette.ItemView);
-    return Views.TextlayerListView = (function(_super) {
-      __extends(TextlayerListView, _super);
-
-      function TextlayerListView() {
-        return TextlayerListView.__super__.constructor.apply(this, arguments);
-      }
-
-      TextlayerListView.prototype.template = '<div class="slide-display" style="text-align:center;"><img style=" height:100%; position : relative" src="{{full_url}}"></div> <div id="text-layers"></div> <button id="add-text-layer">Add Layer</button> <button id="save-layers"> Save Slide </button>';
-
-      TextlayerListView.prototype.itemView = TextLayerView;
-
-      TextlayerListView.prototype.emptyView = NoTextLayerView;
-
-      TextlayerListView.prototype.itemViewContainer = '#text-layers';
-
-      TextlayerListView.prototype.events = {
-        'click #add-text-layer': '_addTextLayer',
-        'click #save-layers': '_saveLayers'
-      };
-
-      TextlayerListView.prototype.initialize = function() {};
-
-      TextlayerListView.prototype.onShow = function() {
-        var height, ratio, width;
-        ratio = App.currentImageRatio.split(':');
-        width = this.$el.find('.slide-display').width();
-        height = width * ratio[1] / ratio[0];
-        this.$el.find('.slide-display').width(width);
-        return this.$el.find('.slide-display').height(height);
-      };
-
-      TextlayerListView.prototype._addTextLayer = function() {
-        return this.trigger('add:text:layer');
-      };
-
-      TextlayerListView.prototype._saveLayers = function() {
-        return this.trigger('save:layers');
-      };
-
-      return TextlayerListView;
-
-    })(Marionette.CompositeView);
   });
 });
