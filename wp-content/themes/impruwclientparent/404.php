@@ -24,6 +24,9 @@ get_header();
         </div>
     </div>
     <style type="text/css">
+        .error404 .site-style-container {
+            height: 100vh;
+        }
     	.btn-home {
     		text-align: center;
     	}
