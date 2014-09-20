@@ -184,6 +184,9 @@ and open the template in the editor.
     display: inline-block;
   }
 }
+.logo img {
+  display: block !important;
+}
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
   padding: 0;
