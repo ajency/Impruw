@@ -319,22 +319,6 @@ a {
 	border-bottom: 1px solid #B2C0C3;
 	border-radius: 0;
 	margin: 0;
-	.aj-imp-builder-back {
-		margin-top: 3px;
-		a {
-			color: lighten(@3-grey, 20%);
-			font-weight: 700;
-			font-size: 0.8em;
-			.bicon {
-				font-size: 1.3em;
-				position: relative;
-				top: 0.26em;
-			}
-			&:hover {
-				color: @orange;
-			}
-		}
-	}
 	.aj-imp-page-layout {
 		margin: 15px 0;
 		border-left: 1px solid lighten(@dash-grey, 10%);
@@ -867,6 +851,23 @@ a {
 			background: -ms-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* IE10+ */
 			background: linear-gradient(to bottom,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#fcfcfc',GradientType=0 ); /* IE6-9 */
+			.builder-back {
+				clear: left;
+				margin: 0.25em 0;
+				a {
+					color: lighten(@3-grey, 30%);
+					font-weight: 700;
+					font-size: 0.88em;
+					.bicon {
+						font-size: 1.3em;
+						position: relative;
+						top: 0.26em;
+					}
+					&:hover {
+						color: @orange;
+					}
+				}
+			}
 			.aj-imp-browser-dots {
 				list-style: none;
 				margin: 0;

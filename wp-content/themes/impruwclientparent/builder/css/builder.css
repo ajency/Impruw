@@ -306,22 +306,6 @@ a.red-link.pull-right {
   border-radius: 0;
   margin: 0;
 }
-.aj-imp-builder-top-nav .aj-imp-builder-back {
-  margin-top: 3px;
-}
-.aj-imp-builder-top-nav .aj-imp-builder-back a {
-  color: #666666;
-  font-weight: 700;
-  font-size: 0.8em;
-}
-.aj-imp-builder-top-nav .aj-imp-builder-back a .bicon {
-  font-size: 1.3em;
-  position: relative;
-  top: 0.26em;
-}
-.aj-imp-builder-top-nav .aj-imp-builder-back a:hover {
-  color: #ff7e00;
-}
 .aj-imp-builder-top-nav .aj-imp-page-layout {
   margin: 15px 0;
   border-left: 1px solid #c3c3c3;
@@ -841,6 +825,23 @@ a.red-link.pull-right {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#fcfcfc', GradientType=0);
   /* IE6-9 */
 
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back {
+  clear: left;
+  margin: 0.25em 0;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back a {
+  color: #808080;
+  font-weight: 700;
+  font-size: 0.88em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back a .bicon {
+  font-size: 1.3em;
+  position: relative;
+  top: 0.26em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back a:hover {
+  color: #ff7e00;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-dots {
   list-style: none;
