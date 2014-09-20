@@ -2443,28 +2443,26 @@ a {
 }
 
 /**** Unused Elements Styles ****/
-.aj-imp-trash-elements {
-	position: absolute;
-	right: 1%;
-	top: 25%;
-	width: 180px;
-	height: 50px;
+#unused-elements {
+	border-top: 1px solid @dash-grey;
+	padding-top: 0.5em;
 	.trash-label {
 		display: block;
 		border-radius: 0;
-		padding: 1px 0 0;
+		text-align: right;
+		margin-bottom: 0.5em;
 		> span {
 			background: @dark-blue;
 			font-size: 1.5em;
 			color: #fff;
-			padding: 0.5em;
-			float: right;
+			padding: 0.5em 0 0.5em 0.5em;
 			cursor: pointer;
-			display: inline-block;
 		}
 	}
 	.aj-imp-drag-menu {
 		display: none;
+		padding: 0;
+		width: auto;
 		.desc {
 			cursor: default;
 		}
@@ -2502,6 +2500,7 @@ a {
 			    box-shadow: 0 0 1px #000 inset;
 			    display: block;
 			    margin: 0.5em 0;
+			    text-align: left;
 			    a {
 			    	background: none repeat scroll 0 0 #000;
 				    color: @dash-grey;
@@ -2525,10 +2524,16 @@ a {
 				    		border-radius: 1px;
 				    	}
 				    }
+				    .remove-element {
+				    	padding: 0.2em 0.2em 0.2em;
+				    	background: @error-red;
+				    	margin-top: 0.4em;
+				    }
 				    .trash-elem-content {
 				    	font-size: 0.8em;
 				    	max-height: 41px;
 				    	overflow: hidden;
+				    	line-height: 1.2em;
 				    }
 			    }
 			    &:hover, &:focus {
@@ -3451,6 +3456,11 @@ a {
 	padding: 1em;
 	border-radius: 0 0 0 2px;
 	text-align: right;
+	width: 180px;
+	&.open {
+		height: auto !important;
+		right: 0 !important;
+	}
 	.handle-right {
 		background: @dark-blue;
         padding: 0.6em 0.5em 0.5em;
@@ -3463,28 +3473,38 @@ a {
         }
 	}
 	.choose-theme {
-		position: relative;
-		padding: 8px 13px 9px 28px;
-		margin: 0.5em 0;
+		margin-bottom: 0.5em;
+	}
+	.btn {
+		display: block;
+		color: #fff;
+		padding: 0.75em;
+		box-shadow: inset 0 0 1px #000;
+		background: rgba(0, 0, 0, 0.5);
+		border-radius: 2px;
 		.bicon {
-			font-size: 1.6em;
-			position: absolute;
-			left: 9px;
-			top: 6px;
+			margin-right: 10px;
+			font-size: 1.5em;
+			vertical-align: bottom;
 		}
-		&:hover {
-			background: @blue-grey;
+		&:hover, &:focus {
+			background: @orange;
+			transition-duration: 0.6s;
+			.bicon {
+				color: #fff;
+			}
 		}
 	}
 	#aj-imp-color-sel {
 		margin: 0.5em 0;
-		.btn {
-			width: auto;
-			background: transparent;
+	}
+	.aj-imp-builder-options {
+		margin: 0.5em 0;
+		.builder-help {
 			color: @dash-grey;
-			.caret {
-				margin-left: 1.2em;
-				border-top-color: lighten(@dash-grey, 10%);
+			font-size: 0.8em;
+			&:hover {
+				color: #fff;
 			}
 		}
 	}

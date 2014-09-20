@@ -15,7 +15,7 @@ define ['app','bootbox'], (App, bootbox)->
 							<div class="trash-elem-content">
 								{{{content}}}
 							</div>
-                            <button class="btn btn-small remove-element">Remove</button>
+                            <button class="btn btn-xs remove-element">{{#polyglot}}Delete{{/polyglot}}</button>
 						</a>'
 
             events : 
