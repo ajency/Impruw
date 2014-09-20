@@ -50,19 +50,19 @@ define(['app', 'bootbox'], function(App, bootbox) {
                 callback: (function(_this) {
                   return function() {
                     bootbox.hideAll();
-                    _this.$el.find('.aj-imp-choose-btn').html('<span class="glyphicon glyphicon-tasks pulse"></span><div class="msg-1">' + _.polyglot.t("Creating pages with demo content.") + ' </div><div class="msg-2">' + _.polyglot.t("Applying the theme colors.") + ' </div><div class="msg-3">' + _.polyglot.t("Prepping up the elements.") + ' </div><div class="msg-4">' + _.polyglot.t("Hang on, we are almost done...") + ' </div>').show();
+                    _this.$el.find('.aj-imp-choose-btn').html('<span class="glyphicon glyphicon-info-sign pulse"></span><div class="msg-1">' + _.polyglot.t("Creating pages with demo content.") + ' </div><div class="msg-2">' + _.polyglot.t("Applying the theme colors.") + ' </div><div class="msg-3">' + _.polyglot.t("Prepping up the elements.") + ' </div><div class="msg-4">' + _.polyglot.t("Hang on, we are almost done...") + ' </div>').show();
                     _.delay(function() {
                       return _this.$el.find('.msg-1').show().addClass('slideRight');
-                    }, 500);
-                    _.delay(function() {
-                      return _this.$el.find('.msg-2').show().addClass('slideRight');
                     }, 1000);
                     _.delay(function() {
+                      return _this.$el.find('.msg-2').show().addClass('slideRight');
+                    }, 2000);
+                    _.delay(function() {
                       return _this.$el.find('.msg-3').show().addClass('slideRight');
-                    }, 1500);
+                    }, 3000);
                     _.delay(function() {
                       return _this.$el.find('.msg-4').show().addClass('slideRight');
-                    }, 2000);
+                    }, 4000);
                     return _this.trigger("choose:theme:clicked", _this.model);
                   };
                 })(this)
