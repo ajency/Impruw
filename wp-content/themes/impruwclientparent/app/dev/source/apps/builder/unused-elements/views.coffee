@@ -99,7 +99,7 @@ define ['app','bootbox'], (App, bootbox)->
 
                 flMenuMenu = $ "#fl_menu .menu"
 
-                flMenuTriggers = $ "#fl_menu .label span, #fl_menu .menu"
+                flMenuTriggers = $ "#fl_menu .trash-label, #fl_menu .menu"
 
                 FloatMenu = ()->
                     scrollAmount = $(document).scrollTop()

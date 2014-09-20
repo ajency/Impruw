@@ -121,7 +121,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         closedMenuOpacity = 0.75;
         flMenu = $("#fl_menu");
         flMenuMenu = $("#fl_menu .menu");
-        flMenuTriggers = $("#fl_menu .label span, #fl_menu .menu");
+        flMenuTriggers = $("#fl_menu .trash-label, #fl_menu .menu");
         FloatMenu = function() {
           var newPosition, scrollAmount;
           scrollAmount = $(document).scrollTop();
