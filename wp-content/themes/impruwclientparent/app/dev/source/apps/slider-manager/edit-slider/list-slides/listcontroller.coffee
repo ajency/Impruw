@@ -107,11 +107,13 @@ define ['app'
             template: '<div class="panel-heading">
 						  <a class="accordion-toggle">
 							<div class="aj-imp-image-item row">
-								<div class="imgthumb col-sm-4">
+								<div class="imgthumb col-sm-3">
 									<img src="{{thumb_url}}" class="img-responsive">
 								</div>
-								<div class="imgname col-sm-4"></div>
-								<div class="imgactions col-sm-4">
+								<div class="imgname col-sm-6">
+                                    
+                                </div>
+								<div class="imgactions col-sm-3">
                                     <a href="#" class="blue-link add-text" > <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Add Caption{{/polyglot}} </a>&nbsp;
 									<a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;<br><br>
                                     <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
@@ -154,13 +156,13 @@ define ['app'
 
             template: ' <div class="slides-list">
                             <div class="aj-imp-image-header row">
-    							<div class="col-sm-4">
+    							<div class="col-sm-3">
     								&nbsp;
     							</div>
-    							<div class="col-sm-4">
-    								{{#polyglot}}File Name{{/polyglot}}
+    							<div class="col-sm-6">
+    								{{#polyglot}}Slide Caption{{/polyglot}}
     							</div>
-    							<div class="col-sm-4">
+    							<div class="col-sm-3">
     								{{#polyglot}}Actions{{/polyglot}}
     							</div>
     						</div>

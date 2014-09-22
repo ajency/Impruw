@@ -143,7 +143,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.className = 'panel panel-default moveable';
 
-      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-4"></div> <div class="imgactions col-sm-4"> <a href="#" class="blue-link add-text" > <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Add Caption{{/polyglot}} </a>&nbsp; <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;<br><br> <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> </a> </div>';
+      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-3"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-6"> </div> <div class="imgactions col-sm-3"> <a href="#" class="blue-link add-text" > <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Add Caption{{/polyglot}} </a>&nbsp; <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;<br><br> <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> </a> </div>';
 
       SlideView.prototype.modelEvents = {
         'change:thumb_url change:full_url': 'render'
@@ -199,7 +199,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return SlidesListView.__super__.constructor.apply(this, arguments);
       }
 
-      SlidesListView.prototype.template = ' <div class="slides-list"> <div class="aj-imp-image-header row"> <div class="col-sm-4"> &nbsp; </div> <div class="col-sm-4"> {{#polyglot}}File Name{{/polyglot}} </div> <div class="col-sm-4"> {{#polyglot}}Actions{{/polyglot}} </div> </div> <div class="panel-group" id="slides-accordion"></div> </div> <div id="edit-image-view" class="edit-image-view"></div>';
+      SlidesListView.prototype.template = ' <div class="slides-list"> <div class="aj-imp-image-header row"> <div class="col-sm-3"> &nbsp; </div> <div class="col-sm-6"> {{#polyglot}}Slide Caption{{/polyglot}} </div> <div class="col-sm-3"> {{#polyglot}}Actions{{/polyglot}} </div> </div> <div class="panel-group" id="slides-accordion"></div> </div> <div id="edit-image-view" class="edit-image-view"></div>';
 
       SlidesListView.prototype.itemView = SlideView;
 
