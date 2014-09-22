@@ -109,6 +109,11 @@
     padding: 1.5em;
   }
 }
+@media (max-width: 767px) {
+  .site-style-container {
+    padding: 0.5em 0;
+  }
+}
 .site-style-container ::selection {
   background: #ed1c24;
   color: #fff;
@@ -250,15 +255,14 @@ and open the template in the editor.
 .nav.slimmenu > li.gallery {
   margin-bottom: 0;
 }
-.nav.slimmenu > li.active {
+.nav.slimmenu > li.current-menu-item {
   background: #ed1c24;
 }
-.nav.slimmenu > li.active a {
-  color: #ffffff;
-  border-color: #ed1c24;
+.nav.slimmenu > li.current-menu-item a {
+  color: #831618;
 }
-.nav.slimmenu > li.active a span {
-  color: #ffffff;
+.nav.slimmenu > li.current-menu-item a span {
+  color: #f47b7f;
 }
 .nav .menu-collapser {
   background: #ffffff;
@@ -1795,10 +1799,12 @@ ul.gallery {
 }
 .lang-sel > div {
   text-align: left;
+  z-index: 3;
 }
 .lang-sel > div ul,
 .lang-sel > div li {
   min-width: 170px;
+  height: 25px;
 }
 .lang-sel > div ul ul,
 .lang-sel > div li ul {
@@ -2035,14 +2041,14 @@ and open the template in the editor.
   background: #e6e6e6;
   color: #ed1c24;
 }
-.nav.slimmenu > li.active {
+.nav.slimmenu > li.current-menu-item {
   background: #ed1c24;
 }
-.nav.slimmenu > li.active a {
-  color: #ffffff;
-  border-color: #ed1c24;
+.nav.slimmenu > li.current-menu-item a {
+  color: #831618;
+  outline: none;
 }
-.nav.slimmenu > li.active a span {
+.nav.slimmenu > li.current-menu-item a span {
   color: #ffffff;
 }
 .nav.slimmenu > li:last-child a {

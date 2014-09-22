@@ -234,15 +234,14 @@ and open the template in the editor.
 .nav.slimmenu > li.gallery {
   margin-bottom: 0;
 }
-.nav.slimmenu > li.active {
+.nav.slimmenu > li.current-menu-item {
   background: #07669e;
 }
-.nav.slimmenu > li.active a {
-  color: #f2fafe;
-  border-color: #07669e;
+.nav.slimmenu > li.current-menu-item a {
+  color: #555555;
 }
-.nav.slimmenu > li.active a span {
-  color: #a9ddfb;
+.nav.slimmenu > li.current-menu-item a span {
+  color: #16a2f5;
 }
 .nav .menu-collapser {
   background: #ffffff;
@@ -1779,10 +1778,12 @@ ul.gallery {
 }
 .lang-sel > div {
   text-align: left;
+  z-index: 3;
 }
 .lang-sel > div ul,
 .lang-sel > div li {
   min-width: 170px;
+  height: 25px;
 }
 .lang-sel > div ul ul,
 .lang-sel > div li ul {
@@ -1927,15 +1928,15 @@ and open the template in the editor.
   background: #d9d9d9;
   color: #07669e;
 }
-.nav.slimmenu > li.active {
+.nav.slimmenu > li.current-menu-item {
   background: #07669e;
 }
-.nav.slimmenu > li.active a {
-  color: #f2fafe;
-  border-color: #07669e;
+.nav.slimmenu > li.current-menu-item a {
+  background: transparent;
+  color: #555555;
 }
-.nav.slimmenu > li.active a span {
-  color: #a9ddfb;
+.nav.slimmenu > li.current-menu-item a span {
+  color: #16a2f5;
 }
 .nav.slimmenu > li:last-child a {
   border-right: 0;

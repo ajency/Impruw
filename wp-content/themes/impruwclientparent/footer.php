@@ -148,6 +148,11 @@
             border: 1px solid #fff;
             margin: 0 0.2em 0.3em 0;
         }
+        @media(max-width:767px){
+            .options-div {
+                position: absolute !important;
+            }
+        }
     </style>
 
     <div class="options-div">
