@@ -236,15 +236,14 @@ and open the template in the editor.
 .nav.slimmenu > li.gallery {
   margin-bottom: 0;
 }
-.nav.slimmenu > li.active {
+.nav.slimmenu > li.current-menu-item {
   background: #dc6868;
 }
-.nav.slimmenu > li.active a {
-  color: #ffffff;
-  border-color: #dc6868;
+.nav.slimmenu > li.current-menu-item a {
+  color: #483535;
 }
-.nav.slimmenu > li.active a span {
-  color: #ffffff;
+.nav.slimmenu > li.current-menu-item a span {
+  color: #efbbbb;
 }
 .nav .menu-collapser {
   background: #f9f8f4;
@@ -2029,14 +2028,14 @@ and open the template in the editor.
   background: #c1bbad;
   color: #dc6868;
 }
-.nav.slimmenu > li.active {
+.nav.slimmenu > li.current-menu-item {
   background: #dc6868;
 }
-.nav.slimmenu > li.active a {
+.nav.slimmenu > li.current-menu-item a {
   color: #ffffff;
   border-color: #dc6868;
 }
-.nav.slimmenu > li.active a span {
+.nav.slimmenu > li.current-menu-item a span {
   color: #ffffff;
 }
 .nav.slimmenu > li:last-child a {
