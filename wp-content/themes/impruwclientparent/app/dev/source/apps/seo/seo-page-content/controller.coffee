@@ -26,11 +26,12 @@ define ['app', 'controllers/base-controller'
                 new SeoPageContent.Views.SeoPageContentView
                 	model: model
             
-            pageSeoSave:(newSeoTitle ,newSeoDesc, newSeoKeywords)->
+            pageSeoSave:(newSeoTitle ,newSeoDesc, newSeoKeywords, include_sitemap)->
                 data= []
                 data['seo_title'] = newSeoTitle
                 data['meta_description'] = newSeoDesc
                 data['meta_keywords'] = newSeoKeywords
+                data['sitemap_include'] = include_sitemap
                 @seomodel.set data
                 @seomodel.save null,
                     wait : true
