@@ -153,8 +153,7 @@ define(['app'], function(App) {
             };
           })(this)
         });
-        $('.aj-imp-publish').on('click', this._saveSliderHeightWidth);
-        return this._saveSliderHeightWidth();
+        return $('.aj-imp-publish').on('click', this._saveSliderHeightWidth);
       };
 
       SliderView.prototype.sliderClick = function(e) {
@@ -170,22 +169,6 @@ define(['app'], function(App) {
 
       SliderView.prototype._saveSliderHeightWidth = function() {
         return this.trigger("set:slider:height:width", this.$el.height(), this.$el.width());
-      };
-
-      SliderView.prototype.getTallestColumnHeight = function() {
-        var column, height, row;
-        column = this.$el.closest('.column');
-        if (column.length === 0) {
-          return 350;
-        }
-        row = column.closest('.row');
-        height = 350;
-        $(row).children('.column').each(function(index, col) {
-          if ($(col).height() >= height) {
-            return height = $(col).height();
-          }
-        });
-        return height;
       };
 
       SliderView.prototype._getDefaults = function() {
