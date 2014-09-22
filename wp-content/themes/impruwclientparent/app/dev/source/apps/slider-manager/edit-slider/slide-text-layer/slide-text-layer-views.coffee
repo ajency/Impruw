@@ -78,9 +78,11 @@ define ['app'
 						        </div>
 						    </div>
 						    <div class="form-group ">
-						    	<button type="button"  class="btn btn-sm aj-imp-submit" id="save-slide-layer"> Save </button>
-						    	<button type="button" class="btn btn-sm aj-imp-submit" id="cancel-slide-layer"> Cancel </button>
-						    	<button type="button" class="btn btn-sm aj-imp-submit" id="delete-slide-layer"> Delete </button>
+						    	<div class="col-sm-8 col-sm-offset-4">
+							    	<button type="button"  class="btn btn-sm aj-imp-orange-btn" id="save-slide-layer">{{#polyglot}}Save{{/polyglot}}</button>
+							    	<button type="button" class="btn btn-sm aj-imp-submit" id="cancel-slide-layer">{{#polyglot}}Cancel{{/polyglot}}</button>
+							    	<a class="red-link" id="delete-slide-layer"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a>
+						    	</div>
 						    </div>
 					  	</form>'
 

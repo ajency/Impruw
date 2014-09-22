@@ -18,6 +18,7 @@ Version:        0.1.0
 /**** Link Styles Basic ****/
 a {
   color: #ff7e00;
+  cursor: pointer;
 }
 a:hover,
 a:focus {
