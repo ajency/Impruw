@@ -109,6 +109,11 @@
     padding: 1.5em;
   }
 }
+@media (max-width: 767px) {
+  .site-style-container {
+    padding: 0.5em 0;
+  }
+}
 .site-style-container ::selection {
   background: #ed1c24;
   color: #fff;
