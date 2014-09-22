@@ -13,7 +13,13 @@ define ['app'
                         newSeoTitle = $("#room_seo_title").val()
                         newSeoDesc = $("#room_meta_description").val()
                         newSeoKeywords = $("#room_meta_keywords").val()
-                        @trigger "room:seo:save", newSeoTitle , newSeoDesc, newSeoKeywords
+                        includeSiteMapCheckbox = @$el.find("input[type='checkbox']")
+
+                        if includeSiteMapCheckbox.is(":checked")
+                            includeSiteMap = true
+                        else
+                            includeSiteMap = false
+                        @trigger "room:seo:save", newSeoTitle , newSeoDesc, newSeoKeywords, includeSiteMap
 
                     onRoomSeoUpdated :() ->
                       @$el.find('.alert').remove()

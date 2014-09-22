@@ -75,7 +75,11 @@ function update_page_seo( $seo_data ){
             update_post_meta($post_id, '_yoast_wpseo_sitemap-include', 'never');
         }
         else if ($yoast_sitemap_include==='true') {
-            delete_post_meta($post_id, '_yoast_wpseo_sitemap-include', 'never');
+            $yoast_meta_sitemap_include = get_post_meta($post_id, '_yoast_wpseo_sitemap-include', true);
+            if ($yoast_meta_sitemap_include!='') {
+                delete_post_meta($post_id, '_yoast_wpseo_sitemap-include', $yoast_meta_sitemap_include);
+            }
+            
         }
          
     }

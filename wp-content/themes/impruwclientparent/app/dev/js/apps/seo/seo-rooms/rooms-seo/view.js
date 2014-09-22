@@ -14,12 +14,18 @@ define(['app', 'text!apps/seo/templates/seo-room-content.html'], function(App, s
 
       RoomContentItemView.prototype.events = {
         "click #btn-save-room-seo-details": function(e) {
-          var newSeoDesc, newSeoKeywords, newSeoTitle;
+          var includeSiteMap, includeSiteMapCheckbox, newSeoDesc, newSeoKeywords, newSeoTitle;
           e.preventDefault();
           newSeoTitle = $("#room_seo_title").val();
           newSeoDesc = $("#room_meta_description").val();
           newSeoKeywords = $("#room_meta_keywords").val();
-          return this.trigger("room:seo:save", newSeoTitle, newSeoDesc, newSeoKeywords);
+          includeSiteMapCheckbox = this.$el.find("input[type='checkbox']");
+          if (includeSiteMapCheckbox.is(":checked")) {
+            includeSiteMap = true;
+          } else {
+            includeSiteMap = false;
+          }
+          return this.trigger("room:seo:save", newSeoTitle, newSeoDesc, newSeoKeywords, includeSiteMap);
         }
       };
 
