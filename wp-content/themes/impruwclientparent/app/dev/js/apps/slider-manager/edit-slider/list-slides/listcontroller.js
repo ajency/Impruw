@@ -143,18 +143,13 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.className = 'panel panel-default moveable';
 
-      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-3"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-6"> </div> <div class="imgactions col-sm-3"> <a href="#" class="blue-link add-text" > <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Add Caption{{/polyglot}} </a>&nbsp; <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;<br><br> <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> </a> </div>';
+      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-3"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-6 "> <div class="col-sm-12 "> <form action="" method="POST" role="form" class="form-horizontal" validate> <div class="form-group "> <label for="" class="col-sm-4 control-label">{{#polyglot}}Enter Caption Text{{/polyglot}}</label> <div class="col-sm-8"> <input  type="text" name="text" class="caption-text form-control" placeholder="Enter caption text"/> </div> </div> <div class="form-group caption-exist"> <label for="" class="col-sm-4 control-label">{{#polyglot}}Caption Style{{/polyglot}}</label> <div class="col-sm-8"> <select name="style" class="caption-style"> <option value="black">Black</option> <option value="large_bold_white">Large Bold White</option> <option value="large_bold_black">Large Bold Black</option> <option value="excerpt">Excerpt</option> <option value="very_big_white">Very Big White</option> <option value="very_big_black">Very Big Black</option> </select> </div> </div> <!--     <div class="form-group caption-exist"> <label for="" class="col-sm-4 control-label">{{#polyglot}}Text Animation{{/polyglot}}</label> <div class="col-sm-8"> <select name="animation"> <option value="tp-fade">Fade</option> <option value="sft">Short from Top</option> <option value="sfl">Short from Left</option> <option value="lft">Long from Top</option> <option value="lfl">Long from Left</option> </select> </div> </div> --> <div class="form-group caption-exist"> <input type="radio" name="position" value="left,top"> <input type="radio" name="position" value="center,top"> <input type="radio" name="position" value="right,top"> <input type="radio" name="position" value="left,center"> <input type="radio" name="position" value="center,center"> <input type="radio" name="position" value="right,center"> <input type="radio" name="position" value="left,bottom"> <input type="radio" name="position" value="center,bottom"> <input type="radio" name="position" value="right,bottom"> </div> <div class="form-group caption-exist"> <div class="col-sm-8 col-sm-offset-4"> <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button> <button type="button" class="btn btn-sm aj-imp-submit" id="cancel-slide-layer">{{#polyglot}}Cancel{{/polyglot}}</button> <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a> </div> </div> </form> </div> </div> <div class="imgactions col-sm-3"> <a href="#" class="blue-link add-text" > <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Add Caption{{/polyglot}} </a>&nbsp; <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;<br><br> <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> </a> </div>';
 
       SlideView.prototype.modelEvents = {
         'change:thumb_url change:full_url': 'render'
       };
 
       SlideView.prototype.events = {
-        'click .update-slide': function() {
-          var data;
-          data = Backbone.Syphon.serialize(this);
-          return this.trigger("slide:updated:with:data", data);
-        },
         'click .remove-slide': function(e) {
           e.preventDefault();
           e.stopPropagation();
@@ -166,14 +161,113 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           e.preventDefault();
           return this.trigger("edit:image");
         },
-        'click .add-text': function(e) {
-          e.preventDefault();
-          return this.trigger("add:text");
+        'change .caption-text ': function(e) {
+          if ($(e.target).val() !== '') {
+            return this.$el.find('.caption-exist').show();
+          } else {
+            this.$el.find('.caption-exist').hide();
+            this.model.set('layers', []);
+            this.model.save();
+            return this.model.trigger('model:changed');
+          }
+        },
+        'click .save-slide-layer': function(e) {
+          var data, position;
+          data = {};
+          if (this.model.get('layers').length) {
+            data = this.model.get('layers')[0];
+          } else {
+            data = this.layerDefault();
+          }
+          data.text = this.$el.find('.caption-text').val();
+          data.style = this.$el.find('.caption-style').val();
+          position = this.$el.find('input[name="position"]:checked').val();
+          position = position.split(',');
+          data.left = position[0];
+          data.top = position[1];
+          this.model.set('layers', [data]);
+          this.model.save();
+          return this.model.trigger('model:changed');
+        },
+        'click .delete-slide-layer': function(e) {
+          this.model.set('layers', []);
+          this.model.save();
+          this.model.trigger('model:changed');
+          return this.setCaptionDefaults();
         }
       };
 
       SlideView.prototype.onRender = function() {
         return this.$el.attr('data-slide-id', this.model.get('id'));
+      };
+
+      SlideView.prototype.onShow = function() {
+        this.$el.find('select').selectpicker();
+        return this.setCaptionDefaults();
+      };
+
+      SlideView.prototype.setCaptionDefaults = function() {
+        if (this.model.get('layers').length && this.model.get('layers')[0].text !== '') {
+          this.$el.find('.caption-exist').show();
+          this.$el.find('.caption-text').val(this.model.get('layers')[0].text);
+          this.$el.find('.caption-style').selectpicker('val', this.model.get('layers')[0].style);
+          return this.$el.find("input[name='position'][value='" + (this.model.get('layers')[0].left) + "," + (this.model.get('layers')[0].top) + "']").prop('checked', true);
+        } else {
+          this.$el.find('.caption-exist').hide();
+          this.$el.find('.caption-text').val('');
+          this.$el.find('.caption-style').selectpicker('val', this.layerDefault().style);
+          return this.$el.find("input[name='position'][value='" + (this.layerDefault().left) + "," + (this.layerDefault().top) + "']").prop('checked', true);
+        }
+      };
+
+      SlideView.prototype.layerDefault = function() {
+        return {
+          align_hor: "left",
+          align_vert: "top",
+          alt: "",
+          animation: "tp-fade",
+          attrClasses: "",
+          attrID: "",
+          attrRel: "",
+          attrTitle: "",
+          corner_left: "nothing",
+          corner_right: "nothing",
+          easing: "Power3.easeInOut",
+          endSpeedFinal: 300,
+          endTimeFinal: 8700,
+          endanimation: "auto",
+          endeasing: "nothing",
+          endspeed: 300,
+          endsplit: "none",
+          endsplitdelay: "10",
+          endtime: "",
+          height: -1,
+          hiddenunder: false,
+          left: 'center',
+          link: "",
+          link_open_in: "same",
+          link_slide: "nothing",
+          max_height: "auto",
+          max_width: "auto",
+          realEndTime: 9000,
+          resizeme: true,
+          scaleProportional: false,
+          scaleX: "",
+          scaleY: "",
+          scrollunder_offset: "",
+          serial: 0,
+          speed: 300,
+          split: "none",
+          splitdelay: "10",
+          style: "very_big_black",
+          text: "Caption Text",
+          time: 500,
+          timeLast: 8500,
+          top: 'center',
+          type: "text",
+          whitespace: "nowrap",
+          width: -1
+        };
       };
 
       return SlideView;
