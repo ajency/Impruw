@@ -1789,6 +1789,7 @@ ul.gallery {
 }
 .lang-sel > div {
   text-align: left;
+  z-index: 3;
 }
 .lang-sel > div ul,
 .lang-sel > div li {
