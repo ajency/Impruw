@@ -111,14 +111,11 @@ define ['app'], (App)->
                     start : (evt,ui)=>
                         $(@).addClass('noclick')
 
-                    
-                    
-
                 # @trigger "set:slider:height", options.startheight
 
                 $('.aj-imp-publish').on 'click',@_saveSliderHeightWidth
 
-                @_saveSliderHeightWidth()
+                # @_saveSliderHeightWidth()
 
 
             sliderClick : (e)->
@@ -137,21 +134,21 @@ define ['app'], (App)->
                 @trigger "set:slider:height:width", @$el.height(), @$el.width()
 
 
-            getTallestColumnHeight: ->
-                column = @$el.closest('.column')
-                if column.length is 0
-                    return 350
+            # getTallestColumnHeight: ->
+            #     column = @$el.closest('.column')
+            #     if column.length is 0
+            #         return 350
 
-                row = column.closest '.row'
+            #     row = column.closest '.row'
 
 
-                height = 350
-                # loop through all columns and get tallest column
-                $(row).children('.column').each (index, col)->
-                    if $(col).height() >= height
-                        height = $(col).height()
+            #     height = 350
+            #     # loop through all columns and get tallest column
+            #     $(row).children('.column').each (index, col)->
+            #         if $(col).height() >= height
+            #             height = $(col).height()
 
-                height
+            #     height
 
             _getDefaults: ->
                 delay: 9000
