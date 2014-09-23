@@ -12,7 +12,7 @@ define(['app'], function(App) {
         return SliderItem.__super__.constructor.apply(this, arguments);
       }
 
-      SliderItem.prototype.template = '<img src="{{full_url}}" alt="Slide" data-bgfit="contain" data-bgposition="center center" data-bgrepeat="no-repeat"/> {{#layers}}<div class="tp-caption {{style}} {{animation}}" data-x="{{left}}" data-y="{{top}}" data-speed="{{speed}}" data-start="{{time}}" data-easing="{{easing}}" data-endspeed="{{endspeed}}" style="z-index: 6">{{text}} </div>{{/layers}}';
+      SliderItem.prototype.template = '<img src="{{full_url}}" alt="Slide" data-bgfit="contain" data-bgposition="center center" data-bgrepeat="no-repeat"/> {{#layers}}<div class="tp-caption {{style}} {{animation}}" data-x="{{left}}" data-y="{{top}}" data-speed="{{speed}}" data-start="{{time}}" data-easing="{{easing}}" data-endspeed="{{endspeed}}" style="z-index: 6">{{{text}}} </div>{{/layers}}';
 
       SliderItem.prototype.tagName = 'li';
 

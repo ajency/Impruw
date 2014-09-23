@@ -8,12 +8,16 @@ define ['app'
 
                 {collection} = opt
 
+                @settingsModel = App.request "get:element:settings:options", 'Title'    
+
                 # if slider id is not present
                 if collection.length > 0
                     @sliderId = collection.at(0).get 'slider_id'
                 else
                     collection.once "add", (model)=>
                         @sliderId = parseInt model.get 'slider_id'
+
+
 
                 @layout = layout = @_getSlidesListLayout()
 
@@ -86,6 +90,7 @@ define ['app'
             _getSlidesListView: (collection)->
                 new SlidesListView
                         collection: collection
+                        settingsModel : @settingsModel
 
             _getSlidesListLayout: ->
                 new SlidesListLayout
@@ -114,12 +119,28 @@ define ['app'
                                     <div class="col-sm-12 ">
                                         <form action="" method="POST" role="form" class="form-horizontal" validate>
                                             <div class="form-group ">
-                                                <label for="" class="control-label">{{#polyglot}}Caption Text{{/polyglot}}</label>
-                                                <input  type="text" name="text" class="caption-text form-control" placeholder="{{#polyglot}}Caption Text{{/polyglot}}"/>
+                                                <label for="" class="control-label">{{#polyglot}}Caption Title{{/polyglot}}</label>
+                                                <input  type="text" name="text" class="caption-title form-control" placeholder="{{#polyglot}}Caption Title{{/polyglot}}"/>
+                                            </div>
+                                            <div class="form-group caption-exist">
+                                                <label for="" class="control-label">{{#polyglot}}Caption Description{{/polyglot}}</label>
+                                                <input  type="text" name="text" class="caption-description form-control" placeholder="{{#polyglot}}Caption Description{{/polyglot}}"/>
+                                            </div>
+                                            <div class="form-group caption-exist">
+                                                <label for="" class="control-label">{{#polyglot}}Caption Link{{/polyglot}}</label>
+                                                <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/>
                                             </div>
                                             <div class="form-group caption-exist">
                                                 <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label>
                                                 <select name="style" class="form-control caption-style">
+                                                    {{#captionStyles}}
+                                                    <option value="{{value}}">{{name}}</option>
+                                                    {{/captionStyles}}
+                                                </select>
+                                            </div>
+                                            <div class="form-group caption-exist">
+                                                <label for="" class="control-label">{{#polyglot}}Caption Background{{/polyglot}}</label>
+                                                <select name="background" class="form-control caption-background">
                                                     <option value="black">Black</option>
                                                     <option value="large_bold_white">Large Bold White</option>
                                                     <option value="large_bold_black">Large Bold Black</option>
@@ -181,6 +202,16 @@ define ['app'
 						  </a>
 						</div>'
 
+            mixinTemplateHelpers : (data)->
+                data = super data
+                captionStyles = Marionette.getOption @,'settingsModel'
+                data.captionStyles = []
+                _.each captionStyles.get('styles'),(style)->
+                    data.captionStyles.push 
+                        name : style.name
+                        value : _.slugify style.name
+                data
+
             modelEvents : 
                 'change:thumb_url change:full_url' : 'render'
 
@@ -204,7 +235,7 @@ define ['app'
                 #     @$el.find('.imgname').removeClass 'hide'
                     # @trigger "add:text"
 
-                'change .caption-text ' :(e)->
+                'change .caption-title ' :(e)->
                     if $(e.target).val() isnt ''
                         @$el.find('.caption-exist').slideDown('fast')
                     else
@@ -215,26 +246,7 @@ define ['app'
                         # @setCaptionDefaults()
                         
 
-                'click .save-slide-layer' : (e)->
-                    
-                    data = {}
-                    if @model.get('layers').length
-                        data = @model.get('layers')[0]
-   
-                    else
-                        data = @layerDefault()
-
-                    data.text = @$el.find('.caption-text').val()
-                    data.style = @$el.find('.caption-style').val()
-
-                    position = @$el.find('input[name="position"]:checked').val()
-                    position = position.split ','
-                    data.left = position[0]
-                    data.top = position[1]
-                    
-                    @model.set 'layers',[data]
-                    @model.save()
-                    @model.trigger 'model:changed'
+                'click .save-slide-layer' : 'saveSlideLayer'
 
                 'click .delete-slide-layer' : (e)->
                     @model.set 'layers',[]
@@ -253,15 +265,47 @@ define ['app'
 
             setCaptionDefaults:->
                 if @model.get('layers').length and @model.get('layers')[0].text isnt ''
+                    caption = @model.get('layers')[0]
                     @$el.find('.caption-exist').show()
-                    @$el.find('.caption-text').val @model.get('layers')[0].text
-                    @$el.find('.caption-style').selectpicker 'val',@model.get('layers')[0].style
-                    @$el.find("input[name='position'][value='#{@model.get('layers')[0].left},#{@model.get('layers')[0].top}']").prop 'checked',true
+                    captionHtml = $.parseHTML caption.text
+
+                    @$el.find('.caption-title').val $(captionHtml).first().find('a').first().html()
+                    @$el.find('.caption-description').val $(captionHtml).last().html()
+                    @$el.find('.caption-link').val $(captionHtml).first().find('a').first().attr 'href'
+                    @$el.find('.caption-style').selectpicker 'val',$(captionHtml).first().attr 'class'
+                    @$el.find('.caption-background').selectpicker 'val',caption.style
+                    @$el.find("input[name='position'][value='#{caption.left},#{caption.top}']").prop 'checked',true
                 else
                     @$el.find('.caption-exist').hide()
-                    @$el.find('.caption-text').val ''
-                    @$el.find('.caption-style').selectpicker 'val',@layerDefault().style
+                    @$el.find('.caption-title').val ''
+                    @$el.find('.caption-description').val ''
+                    @$el.find('.caption-link').val ''
+                    # @$el.find('.caption-style').selectpicker 'val',@layerDefault().style
                     @$el.find("input[name='position'][value='#{@layerDefault().left},#{@layerDefault().top}']").prop 'checked',true
+
+            saveSlideLayer :(e)->
+                    data = {}
+                    if @model.get('layers').length
+                        data = @model.get('layers')[0]
+   
+                    else
+                        data = @layerDefault()
+
+                    data.text = "<h3 class=#{@$el.find('.caption-style').val()}>
+                                <a href=#{@$el.find('.caption-link').val()}>
+                                    #{@$el.find('.caption-title').val()}
+                                </a></h3>
+                                <div>#{@$el.find('.caption-description').val()}</div>"
+                    data.style = @$el.find('.caption-background').val()
+
+                    position = @$el.find('input[name="position"]:checked').val()
+                    position = position.split ','
+                    data.left = position[0]
+                    data.top = position[1]
+                    
+                    @model.set 'layers',[data]
+                    @model.save()
+                    @model.trigger 'model:changed'
 
             layerDefault : ->
                 align_hor: "left"
@@ -340,6 +384,9 @@ define ['app'
             emptyView: NoSlidesView
 
             itemViewContainer: '#slides-accordion'
+
+            itemViewOptions : ->
+                settingsModel : Marionette.getOption @,'settingsModel'
 
             onBeforeRender: ->
                 @collection.sort()

@@ -18,6 +18,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       SlidesListController.prototype.initialize = function(opt) {
         var collection, layout, listView;
         collection = opt.collection;
+        this.settingsModel = App.request("get:element:settings:options", 'Title');
         if (collection.length > 0) {
           this.sliderId = collection.at(0).get('slider_id');
         } else {
@@ -115,7 +116,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlidesListController.prototype._getSlidesListView = function(collection) {
         return new SlidesListView({
-          collection: collection
+          collection: collection,
+          settingsModel: this.settingsModel
         });
       };
 
@@ -143,7 +145,21 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.className = 'panel panel-default moveable';
 
-      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-3"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-7"> <div class="col-sm-12 "> <form action="" method="POST" role="form" class="form-horizontal" validate> <div class="form-group "> <label for="" class="control-label">{{#polyglot}}Caption Text{{/polyglot}}</label> <input  type="text" name="text" class="caption-text form-control" placeholder="{{#polyglot}}Caption Text{{/polyglot}}"/> </div> <div class="form-group caption-exist"> <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label> <select name="style" class="form-control caption-style"> <option value="black">Black</option> <option value="large_bold_white">Large Bold White</option> <option value="large_bold_black">Large Bold Black</option> <option value="excerpt">Excerpt</option> <option value="very_big_white">Very Big White</option> <option value="very_big_black">Very Big Black</option> </select> </div> <!--     <div class="form-group caption-exist"> <label for="" class="col-sm-4 control-label">{{#polyglot}}Text Animation{{/polyglot}}</label> <div class="col-sm-8"> <select name="animation"> <option value="tp-fade">Fade</option> <option value="sft">Short from Top</option> <option value="sfl">Short from Left</option> <option value="lft">Long from Top</option> <option value="lfl">Long from Left</option> </select> </div> </div> --> <div class="form-group caption-exist"> <label for="" class="control-label">{{#polyglot}}Position{{/polyglot}}</label> <div class="caption-position"> <input type="radio" name="position" value="left,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,top"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,center"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,bottom"> <label><span><span></span></span></label> </div> </div> <div class="form-group"> <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button> <button type="button" class="btn btn-sm aj-imp-submit" id="cancel-slide-layer">{{#polyglot}}Cancel{{/polyglot}}</button> <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a> </div> </form> </div> </div> <div class="imgactions col-sm-2"> <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a> <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> </a> </div>';
+      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-3"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-7"> <div class="col-sm-12 "> <form action="" method="POST" role="form" class="form-horizontal" validate> <div class="form-group "> <label for="" class="control-label">{{#polyglot}}Caption Title{{/polyglot}}</label> <input  type="text" name="text" class="caption-title form-control" placeholder="{{#polyglot}}Caption Title{{/polyglot}}"/> </div> <div class="form-group caption-exist"> <label for="" class="control-label">{{#polyglot}}Caption Description{{/polyglot}}</label> <input  type="text" name="text" class="caption-description form-control" placeholder="{{#polyglot}}Caption Description{{/polyglot}}"/> </div> <div class="form-group caption-exist"> <label for="" class="control-label">{{#polyglot}}Caption Link{{/polyglot}}</label> <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/> </div> <div class="form-group caption-exist"> <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label> <select name="style" class="form-control caption-style"> {{#captionStyles}} <option value="{{value}}">{{name}}</option> {{/captionStyles}} </select> </div> <div class="form-group caption-exist"> <label for="" class="control-label">{{#polyglot}}Caption Background{{/polyglot}}</label> <select name="background" class="form-control caption-background"> <option value="black">Black</option> <option value="large_bold_white">Large Bold White</option> <option value="large_bold_black">Large Bold Black</option> <option value="excerpt">Excerpt</option> <option value="very_big_white">Very Big White</option> <option value="very_big_black">Very Big Black</option> </select> </div> <!--     <div class="form-group caption-exist"> <label for="" class="col-sm-4 control-label">{{#polyglot}}Text Animation{{/polyglot}}</label> <div class="col-sm-8"> <select name="animation"> <option value="tp-fade">Fade</option> <option value="sft">Short from Top</option> <option value="sfl">Short from Left</option> <option value="lft">Long from Top</option> <option value="lfl">Long from Left</option> </select> </div> </div> --> <div class="form-group caption-exist"> <label for="" class="control-label">{{#polyglot}}Position{{/polyglot}}</label> <div class="caption-position"> <input type="radio" name="position" value="left,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,top"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,center"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,bottom"> <label><span><span></span></span></label> </div> </div> <div class="form-group"> <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button> <button type="button" class="btn btn-sm aj-imp-submit" id="cancel-slide-layer">{{#polyglot}}Cancel{{/polyglot}}</button> <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a> </div> </form> </div> </div> <div class="imgactions col-sm-2"> <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a> <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> </a> </div>';
+
+      SlideView.prototype.mixinTemplateHelpers = function(data) {
+        var captionStyles;
+        data = SlideView.__super__.mixinTemplateHelpers.call(this, data);
+        captionStyles = Marionette.getOption(this, 'settingsModel');
+        data.captionStyles = [];
+        _.each(captionStyles.get('styles'), function(style) {
+          return data.captionStyles.push({
+            name: style.name,
+            value: _.slugify(style.name)
+          });
+        });
+        return data;
+      };
 
       SlideView.prototype.modelEvents = {
         'change:thumb_url change:full_url': 'render'
@@ -161,7 +177,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           e.preventDefault();
           return this.trigger("edit:image");
         },
-        'change .caption-text ': function(e) {
+        'change .caption-title ': function(e) {
           if ($(e.target).val() !== '') {
             return this.$el.find('.caption-exist').slideDown('fast');
           } else {
@@ -171,24 +187,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             return this.model.trigger('model:changed');
           }
         },
-        'click .save-slide-layer': function(e) {
-          var data, position;
-          data = {};
-          if (this.model.get('layers').length) {
-            data = this.model.get('layers')[0];
-          } else {
-            data = this.layerDefault();
-          }
-          data.text = this.$el.find('.caption-text').val();
-          data.style = this.$el.find('.caption-style').val();
-          position = this.$el.find('input[name="position"]:checked').val();
-          position = position.split(',');
-          data.left = position[0];
-          data.top = position[1];
-          this.model.set('layers', [data]);
-          this.model.save();
-          return this.model.trigger('model:changed');
-        },
+        'click .save-slide-layer': 'saveSlideLayer',
         'click .delete-slide-layer': function(e) {
           this.model.set('layers', []);
           this.model.save();
@@ -207,17 +206,43 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       SlideView.prototype.setCaptionDefaults = function() {
+        var caption, captionHtml;
         if (this.model.get('layers').length && this.model.get('layers')[0].text !== '') {
+          caption = this.model.get('layers')[0];
           this.$el.find('.caption-exist').show();
-          this.$el.find('.caption-text').val(this.model.get('layers')[0].text);
-          this.$el.find('.caption-style').selectpicker('val', this.model.get('layers')[0].style);
-          return this.$el.find("input[name='position'][value='" + (this.model.get('layers')[0].left) + "," + (this.model.get('layers')[0].top) + "']").prop('checked', true);
+          captionHtml = $.parseHTML(caption.text);
+          this.$el.find('.caption-title').val($(captionHtml).first().find('a').first().html());
+          this.$el.find('.caption-description').val($(captionHtml).last().html());
+          this.$el.find('.caption-link').val($(captionHtml).first().find('a').first().attr('href'));
+          this.$el.find('.caption-style').selectpicker('val', $(captionHtml).first().attr('class'));
+          this.$el.find('.caption-background').selectpicker('val', caption.style);
+          return this.$el.find("input[name='position'][value='" + caption.left + "," + caption.top + "']").prop('checked', true);
         } else {
           this.$el.find('.caption-exist').hide();
-          this.$el.find('.caption-text').val('');
-          this.$el.find('.caption-style').selectpicker('val', this.layerDefault().style);
+          this.$el.find('.caption-title').val('');
+          this.$el.find('.caption-description').val('');
+          this.$el.find('.caption-link').val('');
           return this.$el.find("input[name='position'][value='" + (this.layerDefault().left) + "," + (this.layerDefault().top) + "']").prop('checked', true);
         }
+      };
+
+      SlideView.prototype.saveSlideLayer = function(e) {
+        var data, position;
+        data = {};
+        if (this.model.get('layers').length) {
+          data = this.model.get('layers')[0];
+        } else {
+          data = this.layerDefault();
+        }
+        data.text = "<h3 class=" + (this.$el.find('.caption-style').val()) + "> <a href=" + (this.$el.find('.caption-link').val()) + "> " + (this.$el.find('.caption-title').val()) + " </a></h3> <div>" + (this.$el.find('.caption-description').val()) + "</div>";
+        data.style = this.$el.find('.caption-background').val();
+        position = this.$el.find('input[name="position"]:checked').val();
+        position = position.split(',');
+        data.left = position[0];
+        data.top = position[1];
+        this.model.set('layers', [data]);
+        this.model.save();
+        return this.model.trigger('model:changed');
       };
 
       SlideView.prototype.layerDefault = function() {
@@ -300,6 +325,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       SlidesListView.prototype.emptyView = NoSlidesView;
 
       SlidesListView.prototype.itemViewContainer = '#slides-accordion';
+
+      SlidesListView.prototype.itemViewOptions = function() {
+        return {
+          settingsModel: Marionette.getOption(this, 'settingsModel')
+        };
+      };
 
       SlidesListView.prototype.onBeforeRender = function() {
         return this.collection.sort();

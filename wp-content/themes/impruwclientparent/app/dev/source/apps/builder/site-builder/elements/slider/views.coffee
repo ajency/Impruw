@@ -13,7 +13,7 @@ define ['app'], (App)->
                 data-start="{{time}}"
                 data-easing="{{easing}}"
                 data-endspeed="{{endspeed}}"
-                style="z-index: 6">{{text}}
+                style="z-index: 6">{{{text}}}
             </div>{{/layers}}'
 
             tagName: 'li'
