@@ -11,12 +11,21 @@ define ['app'
                     className : 'tab-content'
 
                     events:
-                    	"click #btn-save-seo-details": (e) ->
-                    		e.preventDefault()
-                    		newSeoTitle = $("#seo_title").val()
-                    		newSeoDesc = $("#seo_meta_description").val()
-                    		newSeoKeywords = $("#seo_meta_keywords").val()
-                    		@trigger "page:seo:save", newSeoTitle , newSeoDesc, newSeoKeywords
+                        "click #btn-save-seo-details" : 'saveSeoPageDetails'
+
+                    saveSeoPageDetails: (e) ->
+                        e.preventDefault()
+                        newSeoTitle = $("#seo_title").val()
+                        newSeoDesc = $("#seo_meta_description").val()
+                        newSeoKeywords = $("#seo_meta_keywords").val()
+                        includeSiteMapCheckbox = @$el.find("input[type='checkbox']")
+
+                        if includeSiteMapCheckbox.is(":checked")
+                            includeSiteMap = true
+                        else
+                            includeSiteMap = false
+
+                        @trigger "page:seo:save", newSeoTitle , newSeoDesc, newSeoKeywords, includeSiteMap
 
                     onPageSeoUpdated :->
                         @$el.find('.alert').remove()

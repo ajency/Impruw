@@ -53,7 +53,13 @@
 <body <?php body_class(); ?>>
 
 <?php if(isset($_GET['expire'])): ?>
-    <h2>New Instance is opened</h2>
+    <div class="new-instance-message">
+        <img class="img-responsive" src="<?php echo get_parent_template_directory_uri(); ?>/images/impruw-logo.png">
+        <h2>A New Instance is Open!</h2>
+        <p class="desc">
+            This site is being edited elsewhere. You can no longer edit it here.
+        </div>
+    </div>
 <?php else: ?>
 <!-- Notifications -->
 <div id="notifications-region"></div>

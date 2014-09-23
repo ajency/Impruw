@@ -14,12 +14,15 @@ define ['app', 'marionette', 'jquery', 'heartbeat'], ( App, Marionette, $ )->
 				data["check-instance"] = instance_id : App.instanceId
 
 			).on("heartbeat-tick.check-instance", (e, data) ->
+					
+				if not data["check-instance"]
+					return
+
 				check = data["check-instance"]
 				if check.success is false and check.new_instance
                     App.vent.trigger "new:instance:opened", check
 
-			).ready ->
-				schedule()
+			)
 
 		AppNonceRefreshHb : ->
 			schedule = ->

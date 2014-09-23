@@ -15,7 +15,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       SingleUnusedElement.prototype.className = 'trash-elem';
 
-      SingleUnusedElement.prototype.template = '<a href="#"> <div class="trash-elem-header"> <span class="bicon icon-uniF111"></span> {{element}} </div> <div class="trash-elem-content"> {{{content}}} </div> <button class="btn btn-small remove-element">Remove</button> </a>';
+      SingleUnusedElement.prototype.template = '<a href="#"> <div class="trash-elem-header"> <span class="bicon icon-uniF111"></span> {{element}} </div> <div class="trash-elem-content"> {{{content}}} </div> <button class="btn btn-xs remove-element">{{#polyglot}}Delete{{/polyglot}}</button> </a>';
 
       SingleUnusedElement.prototype.events = {
         'click .remove-element': function(e) {
@@ -121,7 +121,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         closedMenuOpacity = 0.75;
         flMenu = $("#fl_menu");
         flMenuMenu = $("#fl_menu .menu");
-        flMenuTriggers = $("#fl_menu .label span, #fl_menu .menu");
+        flMenuTriggers = $("#fl_menu .trash-label, #fl_menu .menu");
         FloatMenu = function() {
           var newPosition, scrollAmount;
           scrollAmount = $(document).scrollTop();

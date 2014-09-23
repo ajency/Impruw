@@ -48,7 +48,6 @@ define [ 'app', 'controllers/base-controller'
                             .fail ->
                                 App.autoSaveAPI.local.suspend()
                             .always ->
-
                                 App.autoSaveAPI.local.createStorage()
 
                     , 400

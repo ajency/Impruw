@@ -8,7 +8,8 @@ function get_page_seo( $post_id ){
 	
 	$yoast_meta_title = get_post_meta($post_id, '_yoast_wpseo_title', true); 
 	$yoast_meta_description = get_post_meta($post_id, '_yoast_wpseo_metadesc', true);
-	$yoast_meta_keywords = get_post_meta($post_id, '_yoast_wpseo_metakeywords', true);
+    $yoast_meta_keywords = get_post_meta($post_id, '_yoast_wpseo_metakeywords', true);
+	$yoast_meta_sitemap_include = get_post_meta($post_id, '_yoast_wpseo_sitemap-include', true);
 
 	if ($yoast_meta_title) { 
 		$seodata['seo_title'] = $yoast_meta_title;
@@ -27,9 +28,24 @@ function get_page_seo( $post_id ){
     if ($yoast_meta_keywords) { 
         $seodata['meta_keywords'] = $yoast_meta_keywords;
     }
+    if ($yoast_meta_sitemap_include) {
 
+        $seodata['sitemap_include'] = TRUE;
 
-	
+        if ($yoast_meta_sitemap_include==='always') {
+            $seodata['sitemap_include'] = TRUE;
+        }
+        else if ($yoast_meta_sitemap_include==='never') {
+            $seodata['sitemap_include'] = FALSE;
+        }
+        else{
+            $seodata['sitemap_include'] = TRUE;
+        }
+        
+    }
+    else{
+        $seodata['sitemap_include'] = TRUE;
+    }
 
 	return $seodata;
 
@@ -51,6 +67,21 @@ function update_page_seo( $seo_data ){
     if(isset($seo_data['changes']['meta_keywords'])){
         $yoast_meta_keywords = $seo_data['changes']['meta_keywords'];
         update_post_meta($post_id, '_yoast_wpseo_metakeywords', $yoast_meta_keywords); 
+    }
+    if(isset($seo_data['changes']['sitemap_include'])){
+        $yoast_sitemap_include = $seo_data['changes']['sitemap_include'];
+
+        if ($yoast_sitemap_include==='false') {
+            update_post_meta($post_id, '_yoast_wpseo_sitemap-include', 'never');
+        }
+        else if ($yoast_sitemap_include==='true') {
+            $yoast_meta_sitemap_include = get_post_meta($post_id, '_yoast_wpseo_sitemap-include', true);
+            if ($yoast_meta_sitemap_include!='') {
+                delete_post_meta($post_id, '_yoast_wpseo_sitemap-include', $yoast_meta_sitemap_include);
+            }
+            
+        }
+         
     }
 
 	return $post_id;

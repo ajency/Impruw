@@ -30,12 +30,13 @@ define(['app', 'controllers/base-controller', 'apps/seo/seo-page-content/view'],
         });
       };
 
-      Controller.prototype.pageSeoSave = function(newSeoTitle, newSeoDesc, newSeoKeywords) {
+      Controller.prototype.pageSeoSave = function(newSeoTitle, newSeoDesc, newSeoKeywords, include_sitemap) {
         var data;
         data = [];
         data['seo_title'] = newSeoTitle;
         data['meta_description'] = newSeoDesc;
         data['meta_keywords'] = newSeoKeywords;
+        data['sitemap_include'] = include_sitemap;
         this.seomodel.set(data);
         return this.seomodel.save(null, {
           wait: true,

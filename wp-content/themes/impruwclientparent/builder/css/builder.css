@@ -306,22 +306,6 @@ a.red-link.pull-right {
   border-radius: 0;
   margin: 0;
 }
-.aj-imp-builder-top-nav .aj-imp-builder-back {
-  margin-top: 3px;
-}
-.aj-imp-builder-top-nav .aj-imp-builder-back a {
-  color: #666666;
-  font-weight: 700;
-  font-size: 0.8em;
-}
-.aj-imp-builder-top-nav .aj-imp-builder-back a .bicon {
-  font-size: 1.3em;
-  position: relative;
-  top: 0.26em;
-}
-.aj-imp-builder-top-nav .aj-imp-builder-back a:hover {
-  color: #ff7e00;
-}
 .aj-imp-builder-top-nav .aj-imp-page-layout {
   margin: 15px 0;
   border-left: 1px solid #c3c3c3;
@@ -841,6 +825,23 @@ a.red-link.pull-right {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#fcfcfc', GradientType=0);
   /* IE6-9 */
 
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back {
+  clear: left;
+  margin: 0.25em 0;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back a {
+  color: #808080;
+  font-weight: 700;
+  font-size: 0.88em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back a .bicon {
+  font-size: 1.3em;
+  position: relative;
+  top: 0.26em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back a:hover {
+  color: #ff7e00;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-dots {
   list-style: none;
@@ -2350,34 +2351,32 @@ a.red-link.pull-right {
   color: #fff;
 }
 /**** Unused Elements Styles ****/
-.aj-imp-trash-elements {
-  position: absolute;
-  right: 1%;
-  top: 25%;
-  width: 180px;
-  height: 50px;
+#unused-elements {
+  border-top: 1px solid #aaaaaa;
+  padding-top: 0.5em;
 }
-.aj-imp-trash-elements .trash-label {
+#unused-elements .trash-label {
   display: block;
   border-radius: 0;
-  padding: 1px 0 0;
+  text-align: right;
+  margin-bottom: 0.5em;
 }
-.aj-imp-trash-elements .trash-label > span {
+#unused-elements .trash-label > span {
   background: #29333f;
   font-size: 1.5em;
   color: #fff;
-  padding: 0.5em;
-  float: right;
+  padding: 0.5em 0 0.5em 0.5em;
   cursor: pointer;
-  display: inline-block;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu {
+#unused-elements .aj-imp-drag-menu {
   display: none;
+  padding: 0;
+  width: auto;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .desc {
+#unused-elements .aj-imp-drag-menu .desc {
   cursor: default;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-elem-link {
+#unused-elements .aj-imp-drag-menu .trash-elem-link {
   display: block;
   margin: 0.4em auto;
   font-size: 1.1em;
@@ -2386,48 +2385,49 @@ a.red-link.pull-right {
   position: relative;
   color: #aaaaaa;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-elem-link .bicon {
+#unused-elements .aj-imp-drag-menu .trash-elem-link .bicon {
   font-size: 1.6em;
   left: 7px;
   position: absolute;
   top: -3px;
   color: #c0c0c0;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-elem-link:hover {
+#unused-elements .aj-imp-drag-menu .trash-elem-link:hover {
   color: #ff7e00;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-elem-link:hover .bicon {
+#unused-elements .aj-imp-drag-menu .trash-elem-link:hover .bicon {
   color: #ff7e00;
   top: -5px;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list {
+#unused-elements .aj-imp-drag-menu .trash-list {
   list-style: none;
   margin: 0;
   padding: 0;
   max-height: 400px;
   overflow-y: auto;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem {
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem {
   border-radius: 2px;
   box-shadow: 0 0 1px #000 inset;
   display: block;
   margin: 0.5em 0;
+  text-align: left;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem a {
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem a {
   background: none repeat scroll 0 0 #000;
   color: #aaaaaa;
   cursor: move;
   display: block;
   padding: 0.3em;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-header {
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-header {
   font-size: 1.2em;
   border-bottom: 1px dotted #f3f3f3;
   color: #f3f3f3;
   margin: 0 0 0.3em;
   padding: 0 0 0.2em;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-header .bicon {
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-header .bicon {
   background: #fff;
   color: #aaaaaa;
   min-width: 18px;
@@ -2437,30 +2437,36 @@ a.red-link.pull-right {
   display: inline-block;
   border-radius: 1px;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-content {
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem a .remove-element {
+  padding: 0.2em 0.2em 0.2em;
+  background: #ff3333;
+  margin-top: 0.4em;
+}
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-content {
   font-size: 0.8em;
   max-height: 41px;
   overflow: hidden;
+  line-height: 1.2em;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem:hover,
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem:focus {
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem:hover,
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem:focus {
   background: #ff7e00;
   transition-duration: 0.6s;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem:hover a,
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem:focus a {
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem:hover a,
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem:focus a {
   color: #fff;
   background: rgba(0, 0, 0, 0);
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem:hover a .trash-elem-header .bicon,
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem:focus a .trash-elem-header .bicon {
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem:hover a .trash-elem-header .bicon,
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem:focus a .trash-elem-header .bicon {
   color: #ff7e00;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem.ui-draggable-dragging {
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem.ui-draggable-dragging {
   background: transparent;
   box-shadow: none;
 }
-.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem.ui-draggable-dragging a {
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem.ui-draggable-dragging a {
   background: rgba(0, 0, 0, 0.8);
 }
 /****Block List Styles****/
@@ -2498,6 +2504,17 @@ a.red-link.pull-right {
 }
 .aj-imp-block-list ul .block .aj-imp-choose-btn .btn:hover {
   background: #ffb266;
+}
+.aj-imp-block-list ul .block .aj-imp-choose-btn .pulse {
+  color: #ff7e00;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+.aj-imp-block-list ul .block .aj-imp-choose-btn [class^="msg-"] {
+  color: #333333;
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+  display: none;
 }
 .aj-imp-block-list ul .block:hover .aj-imp-choose-btn {
   display: block;
@@ -3264,6 +3281,11 @@ a.red-link.pull-right {
   padding: 1em;
   border-radius: 0 0 0 2px;
   text-align: right;
+  width: 180px;
+}
+.right-toolbox.open {
+  height: auto !important;
+  right: 0 !important;
 }
 .right-toolbox .handle-right {
   background: #29333f;
@@ -3277,28 +3299,148 @@ a.red-link.pull-right {
   color: #ff7e00;
 }
 .right-toolbox .choose-theme {
-  position: relative;
-  padding: 8px 13px 9px 28px;
-  margin: 0.5em 0;
+  margin-bottom: 0.5em;
 }
-.right-toolbox .choose-theme .bicon {
-  font-size: 1.6em;
-  position: absolute;
-  left: 9px;
-  top: 6px;
+.right-toolbox .btn {
+  display: block;
+  color: #fff;
+  padding: 0.75em;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
 }
-.right-toolbox .choose-theme:hover {
-  background: #849fb0;
+.right-toolbox .btn .bicon {
+  margin-right: 10px;
+  font-size: 1.5em;
+  vertical-align: bottom;
+}
+.right-toolbox .btn:hover,
+.right-toolbox .btn:focus {
+  background: #ff7e00;
+  transition-duration: 0.6s;
+}
+.right-toolbox .btn:hover .bicon,
+.right-toolbox .btn:focus .bicon {
+  color: #fff;
 }
 .right-toolbox #aj-imp-color-sel {
   margin: 0.5em 0;
 }
-.right-toolbox #aj-imp-color-sel .btn {
-  width: auto;
-  background: transparent;
-  color: #aaaaaa;
+.right-toolbox .aj-imp-builder-options {
+  margin: 0.5em 0;
 }
-.right-toolbox #aj-imp-color-sel .btn .caret {
-  margin-left: 1.2em;
-  border-top-color: #c3c3c3;
+.right-toolbox .aj-imp-builder-options .builder-help {
+  color: #aaaaaa;
+  font-size: 0.8em;
+}
+.right-toolbox .aj-imp-builder-options .builder-help:hover {
+  color: #fff;
+}
+/**** Animations Styles ****/
+.slideRight {
+  animation-name: slideRight;
+  -webkit-animation-name: slideRight;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+  visibility: visible !important;
+}
+@keyframes slideRight {
+  0% {
+    transform: translateX(-150%);
+  }
+  50% {
+    transform: translateX(8%);
+  }
+  65% {
+    transform: translateX(-4%);
+  }
+  80% {
+    transform: translateX(4%);
+  }
+  95% {
+    transform: translateX(-2%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+@-webkit-keyframes slideRight {
+  0% {
+    -webkit-transform: translateX(-150%);
+  }
+  50% {
+    -webkit-transform: translateX(8%);
+  }
+  65% {
+    -webkit-transform: translateX(-4%);
+  }
+  80% {
+    -webkit-transform: translateX(4%);
+  }
+  95% {
+    -webkit-transform: translateX(-2%);
+  }
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
+.pulse {
+  animation-name: pulse;
+  -webkit-animation-name: pulse;
+  animation-duration: 1.5s;
+  -webkit-animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+}
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(0.95);
+    opacity: 0.7;
+  }
+  50% {
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0.95);
+    opacity: 0.7;
+  }
+}
+/**** New Instance Message Styles ****/
+.new-instance-message {
+  max-width: 50%;
+  text-align: center;
+  padding: 2em;
+  margin: 10vh auto;
+  background: #182944;
+  border-radius: 2px;
+}
+.new-instance-message .img-responsive {
+  max-height: 200px;
+  margin: auto;
+}
+.new-instance-message h2 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-size: 2em;
+  color: #f3f3f3;
+}
+.new-instance-message .desc {
+  color: #aaaaaa;
 }

@@ -28,11 +28,12 @@ define ['app', 'controllers/base-controller'
                 new Rooms.Views.RoomContentItemView
                     model:model
 
-            roomSeoSave:(newSeoTitle ,newSeoDesc, newSeoKeywords)->
+            roomSeoSave:(newSeoTitle ,newSeoDesc, newSeoKeywords, include_sitemap)->
                 data= []
                 data['seo_title'] = newSeoTitle
                 data['meta_description'] = newSeoDesc
                 data['meta_keywords'] = newSeoKeywords
+                data['sitemap_include'] = include_sitemap
                 @roomSeoModel.set data
                 @roomSeoModel.save null,
                     wait : true

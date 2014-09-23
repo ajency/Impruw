@@ -36,12 +36,13 @@ define(['app', 'controllers/base-controller', 'apps/seo/seo-rooms/rooms-seo/view
         });
       };
 
-      Controller.prototype.roomSeoSave = function(newSeoTitle, newSeoDesc, newSeoKeywords) {
+      Controller.prototype.roomSeoSave = function(newSeoTitle, newSeoDesc, newSeoKeywords, include_sitemap) {
         var data;
         data = [];
         data['seo_title'] = newSeoTitle;
         data['meta_description'] = newSeoDesc;
         data['meta_keywords'] = newSeoKeywords;
+        data['sitemap_include'] = include_sitemap;
         this.roomSeoModel.set(data);
         return this.roomSeoModel.save(null, {
           wait: true,

@@ -68,11 +68,11 @@ define [ 'app'
          # on show make the element draggable
          # secondly, make all the elements draggable
          onShow : ->
-            # @$el.css('position','fixed').draggable
-            #    handle : "p.desc"
-            #    addClasses : false
-            #    containment : 'document'
-            #    scroll : true
+            @$el.css('position','fixed').draggable
+               handle : "p.desc"
+               addClasses : false
+               containment : 'document'
+               scroll : true
 
                
             @$el.tabSlideOut

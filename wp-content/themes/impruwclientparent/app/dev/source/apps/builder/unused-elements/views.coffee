@@ -15,7 +15,7 @@ define ['app','bootbox'], (App, bootbox)->
 							<div class="trash-elem-content">
 								{{{content}}}
 							</div>
-                            <button class="btn btn-small remove-element">Remove</button>
+                            <button class="btn btn-xs remove-element">{{#polyglot}}Delete{{/polyglot}}</button>
 						</a>'
 
             events : 
@@ -99,7 +99,7 @@ define ['app','bootbox'], (App, bootbox)->
 
                 flMenuMenu = $ "#fl_menu .menu"
 
-                flMenuTriggers = $ "#fl_menu .label span, #fl_menu .menu"
+                flMenuTriggers = $ "#fl_menu .trash-label, #fl_menu .menu"
 
                 FloatMenu = ()->
                     scrollAmount = $(document).scrollTop()

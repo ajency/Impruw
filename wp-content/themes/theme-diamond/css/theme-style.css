@@ -170,6 +170,9 @@ and open the template in the editor.
     display: inline-block;
   }
 }
+.logo img {
+  display: block !important;
+}
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
   padding: 0;
@@ -233,15 +236,14 @@ and open the template in the editor.
 .nav.slimmenu > li.gallery {
   margin-bottom: 0;
 }
-.nav.slimmenu > li.active {
+.nav.slimmenu > li.current-menu-item {
   background: #dc6868;
 }
-.nav.slimmenu > li.active a {
-  color: #ffffff;
-  border-color: #dc6868;
+.nav.slimmenu > li.current-menu-item a {
+  color: #483535;
 }
-.nav.slimmenu > li.active a span {
-  color: #ffffff;
+.nav.slimmenu > li.current-menu-item a span {
+  color: #efbbbb;
 }
 .nav .menu-collapser {
   background: #f9f8f4;
@@ -823,9 +825,6 @@ and open the template in the editor.
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #dc6868;
-}
-.room-facilities-container .facilities li:hover:before {
   color: #483535;
 }
 /****Room Summary Styles****/
@@ -1781,10 +1780,12 @@ ul.gallery {
 }
 .lang-sel > div {
   text-align: left;
+  z-index: 3;
 }
 .lang-sel > div ul,
 .lang-sel > div li {
   min-width: 170px;
+  height: 25px;
 }
 .lang-sel > div ul ul,
 .lang-sel > div li ul {
@@ -2028,14 +2029,14 @@ and open the template in the editor.
   background: #c1bbad;
   color: #dc6868;
 }
-.nav.slimmenu > li.active {
+.nav.slimmenu > li.current-menu-item {
   background: #dc6868;
 }
-.nav.slimmenu > li.active a {
+.nav.slimmenu > li.current-menu-item a {
   color: #ffffff;
   border-color: #dc6868;
 }
-.nav.slimmenu > li.active a span {
+.nav.slimmenu > li.current-menu-item a span {
   color: #ffffff;
 }
 .nav.slimmenu > li:last-child a {
@@ -2566,9 +2567,6 @@ and open the template in the editor.
   line-height: 0.33em;
   top: 3px;
   color: #dc6868;
-}
-.room-facilities-container .facilities li:hover:before {
-  color: #483535;
 }
 /****Room Summary Styles****/
 .room-summary-container {
