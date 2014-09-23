@@ -2742,6 +2742,9 @@ a.red-link.pull-right {
   border: 1px solid #c3c3c3;
   border-radius: 4px;
 }
+#slides-list-region .panel {
+  overflow: visible;
+}
 #slides-list-region .move {
   position: relative;
   height: 100px;
@@ -2763,11 +2766,56 @@ a.red-link.pull-right {
   max-width: 100%;
   height: auto;
 }
-#slides-list-region .imgname {
-  color: #333333;
+#slides-list-region .imgname .form-horizontal {
+  margin: 0;
 }
-#slides-list-region .imgname:hover {
-  color: #333333;
+#slides-list-region .imgname .form-horizontal .form-group {
+  margin-bottom: 0.5em;
+}
+#slides-list-region .imgname .form-horizontal .form-group .control-label {
+  color: #aaaaaa;
+  font-size: 1em;
+  line-height: 1em;
+  padding: 0 0 0.5em;
+}
+#slides-list-region .imgname .caption-position input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+  opacity: 0;
+}
+#slides-list-region .imgname .caption-position input[type="radio"] + label {
+  display: inline-block;
+  margin-left: -26px;
+  line-height: 25px;
+}
+#slides-list-region .imgname .caption-position input[type="radio"] + label > span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 0.25em 0.5em 0.25em 0.25em;
+  border: 0;
+  border-radius: 2px;
+  background: #aaaaaa;
+  vertical-align: bottom;
+}
+#slides-list-region .imgname .caption-position input[type="radio"]:checked + label > span {
+  background: #ff7e00;
+}
+#slides-list-region .imgname .caption-position input[type="radio"]:checked + label > span > span {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 2px;
+  border: 0;
+  border-radius: 1px;
+  background: #ffffff;
+}
+#slides-list-region .imgactions a {
+  margin: 0 -10px 0.5em;
+  display: block;
 }
 #slides-list-region .remove-slide {
   color: #ff3333;
@@ -3457,8 +3505,4 @@ a.red-link.pull-right {
 }
 .new-instance-message .desc {
   color: #aaaaaa;
-}
-
-.caption-exist{
-  display: none;
 }

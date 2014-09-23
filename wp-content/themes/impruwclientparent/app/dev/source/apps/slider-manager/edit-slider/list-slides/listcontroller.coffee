@@ -110,27 +110,23 @@ define ['app'
 								<div class="imgthumb col-sm-3">
 									<img src="{{thumb_url}}" class="img-responsive">
 								</div>
-								<div class="imgname col-sm-6 ">
+								<div class="imgname col-sm-7">
                                     <div class="col-sm-12 ">
                                         <form action="" method="POST" role="form" class="form-horizontal" validate>
                                             <div class="form-group ">
-                                                <label for="" class="col-sm-4 control-label">{{#polyglot}}Enter Caption Text{{/polyglot}}</label>
-                                                <div class="col-sm-8">
-                                                    <input  type="text" name="text" class="caption-text form-control" placeholder="Enter caption text"/>
-                                                </div>
+                                                <label for="" class="control-label">{{#polyglot}}Caption Text{{/polyglot}}</label>
+                                                <input  type="text" name="text" class="caption-text form-control" placeholder="{{#polyglot}}Caption Text{{/polyglot}}"/>
                                             </div>
                                             <div class="form-group caption-exist">
-                                                <label for="" class="col-sm-4 control-label">{{#polyglot}}Caption Style{{/polyglot}}</label>
-                                                <div class="col-sm-8">
-                                                    <select name="style" class="caption-style">
-                                                        <option value="black">Black</option>
-                                                        <option value="large_bold_white">Large Bold White</option>
-                                                        <option value="large_bold_black">Large Bold Black</option>
-                                                        <option value="excerpt">Excerpt</option>
-                                                        <option value="very_big_white">Very Big White</option>
-                                                        <option value="very_big_black">Very Big Black</option>
-                                                    </select>
-                                                </div>
+                                                <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label>
+                                                <select name="style" class="form-control caption-style">
+                                                    <option value="black">Black</option>
+                                                    <option value="large_bold_white">Large Bold White</option>
+                                                    <option value="large_bold_black">Large Bold Black</option>
+                                                    <option value="excerpt">Excerpt</option>
+                                                    <option value="very_big_white">Very Big White</option>
+                                                    <option value="very_big_black">Very Big Black</option>
+                                                </select>
                                             </div>
                                             <!--     <div class="form-group caption-exist">
                                                 <label for="" class="col-sm-4 control-label">{{#polyglot}}Text Animation{{/polyglot}}</label>
@@ -145,29 +141,40 @@ define ['app'
                                                 </div>
                                             </div> -->
                                             <div class="form-group caption-exist">
-                                                <input type="radio" name="position" value="left,top">
-                                                <input type="radio" name="position" value="center,top">
-                                                <input type="radio" name="position" value="right,top">
-                                                <input type="radio" name="position" value="left,center">
-                                                <input type="radio" name="position" value="center,center">
-                                                <input type="radio" name="position" value="right,center">
-                                                <input type="radio" name="position" value="left,bottom">
-                                                <input type="radio" name="position" value="center,bottom">
-                                                <input type="radio" name="position" value="right,bottom">
-                                            </div>
-                                            <div class="form-group caption-exist">
-                                                <div class="col-sm-8 col-sm-offset-4">
-                                                    <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button>
-                                                    <button type="button" class="btn btn-sm aj-imp-submit" id="cancel-slide-layer">{{#polyglot}}Cancel{{/polyglot}}</button>
-                                                    <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a>
+                                                <label for="" class="control-label">{{#polyglot}}Position{{/polyglot}}</label>
+                                                <div class="caption-position">
+                                                    <input type="radio" name="position" value="left,top">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="center,top">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="right,top">
+                                                    <label><span><span></span></span></label>
+                                                    <br>
+                                                    <input type="radio" name="position" value="left,center">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="center,center">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="right,center">
+                                                    <label><span><span></span></span></label>
+                                                    <br>
+                                                    <input type="radio" name="position" value="left,bottom">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="center,bottom">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="right,bottom">
+                                                    <label><span><span></span></span></label>
                                                 </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button>
+                                                <button type="button" class="btn btn-sm aj-imp-submit" id="cancel-slide-layer">{{#polyglot}}Cancel{{/polyglot}}</button>
+                                                <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-								<div class="imgactions col-sm-3">
-                                    <a href="#" class="blue-link add-text" > <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Add Caption{{/polyglot}} </a>&nbsp;
-									<a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;<br><br>
+								<div class="imgactions col-sm-2">
+									<a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
                                     <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
 								</div>
 							</div>
@@ -199,7 +206,7 @@ define ['app'
 
                 'change .caption-text ' :(e)->
                     if $(e.target).val() isnt ''
-                        @$el.find('.caption-exist').show()
+                        @$el.find('.caption-exist').slideDown('fast')
                     else
                         @$el.find('.caption-exist').hide()
                         @model.set 'layers',[]
@@ -316,10 +323,10 @@ define ['app'
     							<div class="col-sm-3">
     								&nbsp;
     							</div>
-    							<div class="col-sm-6">
+    							<div class="col-sm-7">
     								{{#polyglot}}Slide Caption{{/polyglot}}
     							</div>
-    							<div class="col-sm-3">
+    							<div class="col-sm-2">
     								{{#polyglot}}Actions{{/polyglot}}
     							</div>
     						</div>
