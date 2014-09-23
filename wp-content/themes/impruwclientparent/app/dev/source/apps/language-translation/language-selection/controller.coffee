@@ -15,6 +15,7 @@ define ['app', 'controllers/base-controller'
 
                 @listenTo @languageSelectionView, "itemview:language:updated", @updateLanguageModel
                 @listenTo @languageSelectionView, "update:enabled:languages", @updateEnabledLanguages
+                @listenTo @languageSelectionView, "update:hidden:languages", @updateHiddenLanguages
                 @listenTo @languageSelectionView, "load:language:page:nav", @loadLanguagePageNav
 
 
@@ -53,6 +54,20 @@ define ['app', 'controllers/base-controller'
 
                 # update enabled languages
                 $.post "#{AJAXURL}?action=update-enabled-languages", data, responseFn, 'json'
+
+            updateHiddenLanguages: (languageCode, hiddenValue)->
+                data = 
+                    languageCode: languageCode
+                    isHidden : hiddenValue
+                
+
+                responseFn = (response)=>
+                    console.log "Success"
+                    #trigger method on view with this collection so that view can be populated
+                    # @languageSelectionView.triggerMethod "selected:languages:enabled", selectedLanguagesCollection 
+
+                # update enabled languages
+                $.post "#{AJAXURL}?action=update-hidden-languages", data, responseFn, 'json'
 
             loadLanguagePageNav: (selectedEditingLanguage)->
                 # @region.triggerMethod 'load:page:nav:bar', selectedEditingLanguage

@@ -95,6 +95,40 @@ function ajax_update_enabled_languages(){
 add_action( 'wp_ajax_update-enabled-languages', 'ajax_update_enabled_languages' );
 
 
+function ajax_update_hidden_languages(){
+    global $sitepress;
+
+    $language_code = $_POST['languageCode'];
+    $is_hidden = $_POST['isHidden'];
+
+    $sitepress_settings = $sitepress->get_settings();
+    $old_hidden_languages = $sitepress_settings['hidden_languages'];
+    $new_hidden_languages = array($language_code);
+    $final_array = array();
+
+
+    $hidden_languages_diff = array_values(array_diff($old_hidden_languages, $new_hidden_languages));
+
+
+    if ($is_hidden) {
+        $final_array = array_values(array_merge($hidden_languages_diff,$new_hidden_languages));
+     } 
+     else{
+        $final_array = $hidden_languages_diff;
+     }
+
+    $iclsettings = get_option('icl_sitepress_settings');
+
+    $iclsettings['hidden_languages'] = $final_array;
+    
+    update_option('icl_sitepress_settings', $iclsettings);
+    wp_send_json( array( 'code' => 'OK', 'data' => json_encode($iclsettings)) );
+
+
+}
+add_action( 'wp_ajax_update-hidden-languages', 'ajax_update_hidden_languages' );
+
+
 function fetch_language_facility_ajax(){
 
     $editingLang = $_REQUEST['editlanguage'];
