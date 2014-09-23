@@ -202,4 +202,15 @@ add_action( 'wp_ajax_create-pageTableElements', 'update_element_model' );
 add_action( 'wp_ajax_create-headerElements', 'update_element_model' );
 add_action( 'wp_ajax_create-footerElements', 'update_element_model' );
 
+ // remove language selector if only one language is enabled
+add_action('wp_head', 'wpml_hide_langs');
+function wpml_hide_langs() {
+    $languages = icl_get_languages('skip_missing=1');
+     
+    //if it is equal to one, hiding the flags.
+    if(count($languages) == 1 ) {
+        echo '<style type="text/css" media="screen">#lang_sel { display: none; }</style>';
+    }
+}
+
 
