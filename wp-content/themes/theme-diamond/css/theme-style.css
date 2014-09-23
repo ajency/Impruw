@@ -302,7 +302,7 @@ and open the template in the editor.
   color: #dc6868;
 }
 .text {
-  color: #989898;
+  color: #333333;
 }
 .imagewithtext {
   *zoom: 1;
@@ -333,12 +333,12 @@ and open the template in the editor.
   margin-left: 0.5em;
 }
 .imagewithtext p {
-  color: #989898;
+  color: #333333;
 }
 /****Image With Text Styles****/
 .image {
   margin: 0.5em 0;
-  color: #989898;
+  color: #333333;
   overflow: hidden;
 }
 .image .info {
@@ -348,13 +348,13 @@ and open the template in the editor.
 .image-placeholder {
   margin: 0.5em 0;
   padding: 0.5em 0.5em 1em;
-  border: 1px dashed #989898;
+  border: 1px dashed #333333;
   text-align: center;
-  color: #989898;
+  color: #333333;
   font-size: 1.2em;
 }
 .image-placeholder .glyphicon {
-  color: #989898;
+  color: #333333;
   font-size: 2.7em;
   text-shadow: 1px 1px 2px #000000;
   display: block;
@@ -1184,7 +1184,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td > span {
   background: rgba(255, 255, 255, 0.6);
-  color: #989898;
+  color: #333333;
   cursor: not-allowed;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
@@ -1446,7 +1446,7 @@ ul.gallery {
 .gallery-title {
   font-size: 1.5em;
   font-weight: 300 !important;
-  border-bottom: 1px solid #989898;
+  border-bottom: 1px solid #333333;
   margin: 0 0 0.5em;
   text-align: left;
 }
@@ -1454,16 +1454,16 @@ ul.gallery {
 .gallery-empty-view {
   text-align: center;
   font-size: 1.2em;
-  color: #989898;
+  color: #333333;
   padding: 3em 0.3em;
   height: 100%;
-  border: 1px dashed #989898;
+  border: 1px dashed #333333;
 }
 .gallery-empty-view .glyphicon {
   display: block;
   margin: 0.2em 0 0.5em;
   font-size: 3em;
-  color: #b2b2b2;
+  color: #4d4d4d;
 }
 /**** Isotope Filtering ****/
 .isotope-item {
@@ -1527,7 +1527,7 @@ ul.gallery {
 .map .empty-view {
   text-align: center;
   font-size: 1.2em;
-  color: #989898;
+  color: #333333;
   padding: 3em 0.3em;
   height: 100%;
 }
@@ -1535,7 +1535,7 @@ ul.gallery {
   display: block;
   margin: 0.2em 0 0.5em;
   font-size: 3em;
-  color: #b2b2b2;
+  color: #4d4d4d;
 }
 .map:hover {
   border: 1px solid #dc6868;
@@ -1545,10 +1545,10 @@ ul.gallery {
   width: 50%;
   margin: 3em auto;
   padding: 1em;
-  color: #989898;
+  color: #333333;
 }
 .aj-imp-login-form .aj-imp-login-header {
-  border-bottom: 1px solid #989898;
+  border-bottom: 1px solid #333333;
   text-align: center;
 }
 .aj-imp-login-form .aj-imp-login-header h1 {
@@ -1560,7 +1560,7 @@ ul.gallery {
 }
 .aj-imp-login-form .aj-imp-login-header .desc {
   font-size: 1.1em;
-  color: #989898;
+  color: #333333;
 }
 .aj-imp-login-form .aj-imp-login,
 .aj-imp-login-form .aj-imp-forgot {
@@ -1610,7 +1610,7 @@ ul.gallery {
 }
 .aj-imp-login-form .aj-imp-login form .checkbox .icons,
 .aj-imp-login-form .aj-imp-forgot form .checkbox .icons {
-  color: #989898;
+  color: #333333;
 }
 .aj-imp-login-form .aj-imp-login form .checkbox .icons .first-icon,
 .aj-imp-login-form .aj-imp-forgot form .checkbox .icons .first-icon,
@@ -1667,11 +1667,11 @@ ul.gallery {
 /**** Table Styles****/
 .table {
   background: #d7d3ca;
-  color: #989898;
+  color: #333333;
   margin: 0;
 }
 .table > thead > tr {
-  background: #e4e4e4;
+  background: #808080;
 }
 .table > thead > tr th {
   color: #dc6868;
@@ -1703,7 +1703,7 @@ ul.gallery {
 .table.table-bordered > tbody > tr td,
 .table.table-bordered > thead > tr th,
 .table.table-bordered > tbody > tr th {
-  border: 1px solid #989898 !important;
+  border: 1px solid #333333 !important;
 }
 .table.table-striped > tbody > tr:nth-child(2n) > td,
 .table.table-striped > tbody tr.selected-row > td {
@@ -1796,7 +1796,7 @@ ul.gallery {
 }
 /**** Widget Styles ****/
 .widget {
-  color: #989898;
+  color: #333333;
   margin: 1em 0;
 }
 /**** Responsive Embed Styles ****/
@@ -2054,7 +2054,7 @@ and open the template in the editor.
   font-size: 0.78em;
 }
 .nav.footer-menu li a {
-  color: #989898;
+  color: #333333;
   font-weight: 300;
   text-transform: capitalize;
   display: inline-block;
@@ -2086,7 +2086,7 @@ and open the template in the editor.
   background: transparent;
 }
 .nav.footer-menu li:hover a {
-  color: #656565;
+  color: #000000;
 }
 .nav.footer-menu li:hover:before {
   height: 6px;
@@ -2183,7 +2183,7 @@ and open the template in the editor.
   font-size: 1em;
 }
 .address.small-address .info {
-  color: #989898;
+  color: #333333;
   font-size: 1em;
   font-weight: 300;
   margin-bottom: 10px;
@@ -2220,7 +2220,7 @@ and open the template in the editor.
   }
 }
 .text {
-  color: #989898;
+  color: #333333;
 }
 .imagewithtext {
   text-align: left;
@@ -2254,7 +2254,7 @@ and open the template in the editor.
   margin-left: 0.5em;
 }
 .imagewithtext p {
-  color: #989898;
+  color: #333333;
 }
 /****Link Element Styles****/
 .link {
@@ -2337,7 +2337,7 @@ and open the template in the editor.
 .room-tariff-container .room-tariff-title h5 {
   font-size: 1em;
   font-weight: 300;
-  color: #989898;
+  color: #333333;
 }
 .room-tariff-container .room-tariff-actions {
   position: absolute;
@@ -2633,7 +2633,7 @@ and open the template in the editor.
 }
 .room-title-container .room-title .room-title-desc {
   font-size: 1em;
-  color: #989898;
+  color: #333333;
 }
 .room-title-container .room-title-actions {
   position: absolute;
@@ -2667,7 +2667,7 @@ and open the template in the editor.
 .room-description-container .room-description-desc {
   background: transparent !important;
   padding: 0;
-  color: #989898;
+  color: #333333;
 }
 /****Room List Summary Styles****/
 .roomsummary {
@@ -2692,7 +2692,7 @@ and open the template in the editor.
   font-family: 'Satisfy', cursive;
 }
 .roomsummary .room-excerpt {
-  color: #989898;
+  color: #333333;
   padding-bottom: 0.5em;
   margin-bottom: 0.5em;
   border-bottom: 1px solid #bebebe;
@@ -2710,7 +2710,7 @@ and open the template in the editor.
 .roomsummary .room-actions .price {
   float: left;
   font-size: 2em;
-  color: #989898;
+  color: #333333;
 }
 .roomsummary .room-actions .price small {
   font-size: 0.88em;
@@ -3333,10 +3333,10 @@ and open the template in the editor.
   width: 50%;
   margin: 3em auto;
   padding: 1em;
-  color: #989898;
+  color: #333333;
 }
 .aj-imp-login-form .aj-imp-login-header {
-  border-bottom: 1px solid #989898;
+  border-bottom: 1px solid #333333;
   text-align: center;
 }
 .aj-imp-login-form .aj-imp-login-header h1 {
@@ -3348,7 +3348,7 @@ and open the template in the editor.
 }
 .aj-imp-login-form .aj-imp-login-header .desc {
   font-size: 1.1em;
-  color: #989898;
+  color: #333333;
 }
 .aj-imp-login-form .aj-imp-login,
 .aj-imp-login-form .aj-imp-forgot {
@@ -3402,7 +3402,7 @@ and open the template in the editor.
 }
 .aj-imp-login-form .aj-imp-login form .checkbox .icons,
 .aj-imp-login-form .aj-imp-forgot form .checkbox .icons {
-  color: #989898;
+  color: #333333;
 }
 .aj-imp-login-form .aj-imp-login form .checkbox .icons .first-icon,
 .aj-imp-login-form .aj-imp-forgot form .checkbox .icons .first-icon,
