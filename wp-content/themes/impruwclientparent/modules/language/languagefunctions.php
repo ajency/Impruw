@@ -93,7 +93,7 @@ function get_all_languages(){
 
     $wpml_options = get_option( 'icl_sitepress_settings' );
     $default_language_code = $wpml_options['default_language'];
-    $hidden_languages = $wpml_options['hidden_languages'];
+    $hidden_languages = (isset($wpml_options['hidden_languages'])) ? $wpml_options['hidden_languages'] : array() ;
     $is_hidden = false;
 
     foreach((array)$languages as $lang){

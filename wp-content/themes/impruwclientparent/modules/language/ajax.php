@@ -102,7 +102,7 @@ function ajax_update_hidden_languages(){
     $is_hidden = $_POST['isHidden'];
 
     $sitepress_settings = $sitepress->get_settings();
-    $old_hidden_languages = $sitepress_settings['hidden_languages'];
+    $old_hidden_languages = $retVal = (empty($sitepress_settings['hidden_languages'])) ? array() : $sitepress_settings['hidden_languages'] ;
     $new_hidden_languages = array($language_code);
     $final_array = array();
 
