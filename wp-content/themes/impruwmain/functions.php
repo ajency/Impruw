@@ -32,6 +32,7 @@
     require_once 'modules/pages/ajax.php';
     require_once 'modules/user/ajax.php';
     require_once 'modules/site/ajax.php';
+    require_once 'modules/api/main.php';
 
 
     /* --------------------------------------------------------------------------------------
