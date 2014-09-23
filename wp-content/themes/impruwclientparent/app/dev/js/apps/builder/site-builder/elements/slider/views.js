@@ -114,6 +114,7 @@ define(['app'], function(App) {
         var defaults, options;
         if (this.collection.length === 0) {
           this.model.set('height', this.$el.height());
+          this.model.set('width', this.$el.width());
           this.$el.resizable({
             helper: "ui-image-resizable-helper",
             handles: "s",

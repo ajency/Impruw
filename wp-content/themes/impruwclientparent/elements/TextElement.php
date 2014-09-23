@@ -47,7 +47,8 @@ class TextElement extends Element {
         else{
             $content = $element[ 'content' ];
         }
-        $this->content  = stripcslashes(trim( $content ));
+        //$this->content  = stripcslashes(trim( $content ));
+        $this->content  = str_replace("\\", "", trim( $content ));
 
         $this->markup = $this->generate_markup();
 

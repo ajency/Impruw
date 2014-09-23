@@ -43,6 +43,7 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
             var data, html, newdata, original_data;
             html = $(tableHolder).clone();
             $(html).find('.rc-handle-container').remove();
+            $(html).find('.ui-resizable-handle').remove();
             $(html).find('td div, th div').removeAllAttr();
             original_data = _this.layout.model.get('content');
             if (_.isObject(original_data)) {

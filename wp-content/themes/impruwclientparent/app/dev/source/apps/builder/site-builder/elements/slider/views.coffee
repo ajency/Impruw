@@ -92,6 +92,7 @@ define ['app'], (App)->
                 
                 if @collection.length is 0
                     @model.set 'height',@$el.height()
+                    @model.set 'width',@$el.width()
                     @$el.resizable
                         helper : "ui-image-resizable-helper"
                         handles: "s"

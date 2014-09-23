@@ -46,6 +46,9 @@ define ['app'
 
             events:
                 'click #btn_update-enabled-languages': 'setEnabledLanguages'
+                'click .cancel-more-langs': (e)->
+                    e.preventDefault()
+
                 "click div.js-enabled-languages ul.selectpicker li": "loadLanguagePageNav"
 
 

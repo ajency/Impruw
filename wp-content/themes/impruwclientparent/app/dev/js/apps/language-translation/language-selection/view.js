@@ -62,6 +62,9 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
 
       LanguageSelectionView.prototype.events = {
         'click #btn_update-enabled-languages': 'setEnabledLanguages',
+        'click .cancel-more-langs': function(e) {
+          return e.preventDefault();
+        },
         "click div.js-enabled-languages ul.selectpicker li": "loadLanguagePageNav"
       };
 

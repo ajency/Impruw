@@ -66,7 +66,7 @@
                     'description' => 'Used in Slider'
                 ),
                 'text-color' => array(
-                    'color' => '#989898',
+                    'color' => '#333333',
                     'title' => 'Text Colour',
                     'tooltip' => 'Text Elements',
                     'description' => 'Used for the text colour across the site'
@@ -111,7 +111,7 @@
                     'description' => 'Used in Slider'
                 ),
                 'text-color' => array(
-                    'color' => '#666666',
+                    'color' => '#333333',
                     'title' => 'Text Colour',
                     'tooltip' => 'Text Elements',
                     'description' => 'Used for the text colour across the site'
@@ -156,7 +156,7 @@
                     'description' => 'Used in Slider'
                 ),
                 'text-color' => array(
-                    'color' => '#666666',
+                    'color' => '#333333',
                     'title' => 'Text Colour',
                     'tooltip' => 'Text Elements',
                     'description' => 'Used for the text colour across the site'
