@@ -1834,3 +1834,9 @@ ul.gallery {
 .embed-responsive.embed-responsive-4by3 {
   padding-bottom: 75%;
 }
+.tp_caption.transparent-black {
+  background: rgba(0, 0, 0, 0.6);
+}
+.tp_caption.transparent-white {
+  background: rgba(255, 255, 255, 0.6);
+}
