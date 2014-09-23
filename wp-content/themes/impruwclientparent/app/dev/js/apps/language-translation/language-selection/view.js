@@ -66,6 +66,9 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
           return e.preventDefault();
         },
         "click div.js-enabled-languages ul.selectpicker li": "loadLanguagePageNav",
+        "mouseover div.single-language": function() {
+          return this.$el.find("div.single-language span").css('cursor', 'pointer');
+        },
         "click div.single-language": "hideLanguages"
       };
 
@@ -119,7 +122,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
           if (languageCode !== WPML_DEFAULT_LANG) {
             $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>");
           }
-          htmlString += '<div class="single-language" id="language-' + languageCode + '"> <span class="icon icon-checkmark"></span> ' + languageName + ' </div>';
+          htmlString += '<div class="single-language" id="language-' + languageCode + '" data-language-code="' + languageCode + '"> <span class="icon icon-checkmark"></span> ' + languageName + ' </div>';
         });
         this.$el.find(".selected-languages").html(htmlString);
         this.$el.find('select').selectpicker('refresh');
@@ -146,17 +149,29 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         language_code = $(e.currentTarget).attr("data-language-code");
         single_language_element = '#language-' + language_code + ' span';
         console.log(single_language_element);
-        if (this.$el.find(single_language_element).hasClass('icon-checkmark')) {
-          this.$el.find(single_language_element).removeClass('icon-checkmark');
-          showHideClass = 'icon-cancel';
-          hideLanguageValue = 1;
-        } else if (this.$el.find(single_language_element).hasClass('icon-cancel')) {
-          this.$el.find(single_language_element).removeClass('icon-cancel');
-          showHideClass = 'icon-checkmark';
-          hideLanguageValue = 0;
+        if (language_code === WPML_DEFAULT_LANG) {
+          this.$el.find('.error-msg span').remove();
+          this.$el.find('.error-msg').append('<span class="help-block alert alert-error">' + _.polyglot.t("Cannot hide default language") + '</span>');
+          return this.$el.find('.error-msg span').fadeOut(5000);
+        } else {
+          if (this.$el.find(single_language_element).hasClass('icon-checkmark')) {
+            this.$el.find(single_language_element).removeClass('icon-checkmark');
+            showHideClass = 'icon-cancel';
+            hideLanguageValue = 1;
+          } else if (this.$el.find(single_language_element).hasClass('icon-cancel')) {
+            this.$el.find(single_language_element).removeClass('icon-cancel');
+            showHideClass = 'icon-checkmark';
+            hideLanguageValue = 0;
+          }
+          this.trigger('update:hidden:languages', language_code, hideLanguageValue);
+          return this.$el.find(single_language_element).addClass(showHideClass);
         }
-        this.trigger('update:hidden:languages', language_code, hideLanguageValue);
-        return this.$el.find(single_language_element).addClass(showHideClass);
+      };
+
+      LanguageSelectionView.prototype.onHiddenLanguages = function(msg) {
+        this.$el.find('.error-msg span').remove();
+        this.$el.find('.error-msg').append('<span class="help-block alert alert-success">' + msg + '</span>');
+        return this.$el.find('.error-msg span').fadeOut(5000);
       };
 
       LanguageSelectionView.prototype.loadLanguageDropdown = function() {

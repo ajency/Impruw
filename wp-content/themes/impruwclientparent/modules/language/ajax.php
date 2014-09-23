@@ -122,7 +122,26 @@ function ajax_update_hidden_languages(){
     $iclsettings['hidden_languages'] = $final_array;
     
     update_option('icl_sitepress_settings', $iclsettings);
-    wp_send_json( array( 'code' => 'OK', 'data' => json_encode($iclsettings)) );
+
+    $active_languages = $sitepress->get_active_languages();
+    if(!empty($iclsettings['hidden_languages'])){
+       if(1 == count($iclsettings['hidden_languages'])){
+           $out = sprintf(__('%s is currently hidden to visitors.', 'sitepress'),
+            $active_languages[$iclsettings['hidden_languages'][0]]['display_name']);
+       }else{
+           foreach($iclsettings['hidden_languages'] as $l){
+               $_hlngs[] = $active_languages[$l]['display_name'];
+           }
+           $hlangs = join(', ', $_hlngs);
+           $out = sprintf(__('%s are currently hidden to visitors on live site.', 'sitepress'), $hlangs);
+       }
+       // $out .= ' ' . sprintf(__('You can enable its/their display for yourself, in your <a href="%s">profile page</a>.', 'sitepress'),
+       //  'profile.php#wpml');
+   } 
+   else {
+        $out = __('All languages are currently displayed in the live site', 'sitepress');
+    }
+    wp_send_json( array( 'code' => 'OK', 'data' => json_encode($iclsettings), 'msg' => $out) );
 
 
 }

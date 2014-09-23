@@ -66,13 +66,14 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
       Controller.prototype.updateHiddenLanguages = function(languageCode, hiddenValue) {
         var data, responseFn;
+        console.log(this.collection);
         data = {
           languageCode: languageCode,
           isHidden: hiddenValue
         };
         responseFn = (function(_this) {
           return function(response) {
-            return console.log("Success");
+            return _this.languageSelectionView.triggerMethod("hidden:languages", response.msg);
           };
         })(this);
         return $.post("" + AJAXURL + "?action=update-hidden-languages", data, responseFn, 'json');

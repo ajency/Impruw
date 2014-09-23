@@ -56,15 +56,15 @@ define ['app', 'controllers/base-controller'
                 $.post "#{AJAXURL}?action=update-enabled-languages", data, responseFn, 'json'
 
             updateHiddenLanguages: (languageCode, hiddenValue)->
+                console.log @collection
                 data = 
                     languageCode: languageCode
                     isHidden : hiddenValue
                 
 
                 responseFn = (response)=>
-                    console.log "Success"
                     #trigger method on view with this collection so that view can be populated
-                    # @languageSelectionView.triggerMethod "selected:languages:enabled", selectedLanguagesCollection 
+                    @languageSelectionView.triggerMethod "hidden:languages", response.msg 
 
                 # update enabled languages
                 $.post "#{AJAXURL}?action=update-hidden-languages", data, responseFn, 'json'
