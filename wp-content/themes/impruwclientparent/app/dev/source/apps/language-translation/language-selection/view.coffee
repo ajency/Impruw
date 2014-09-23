@@ -144,7 +144,12 @@ define ['app'
 
                 if language_code is WPML_DEFAULT_LANG and @$el.find(single_language_element).hasClass('icon-checkmark')
                     @$el.find('.error-msg span').remove()
-                    @$el.find('.error-msg').append('<span class="help-block alert alert-error">'+_.polyglot.t("Cannot hide default language")+'</span>')
+                    @$el.find('.error-msg').append('<span class="help-block alert alert-error">'+_.polyglot.t("Cannot hide default language from live site")+'</span>')
+                    @$el.find('.error-msg span').fadeOut 5000
+
+                else if language_code is 'en' and @$el.find(single_language_element).hasClass('icon-checkmark')
+                    @$el.find('.error-msg span').remove()
+                    @$el.find('.error-msg').append('<span class="help-block alert alert-error">'+_.polyglot.t("Cannot hide English language from live site")+'</span>')
                     @$el.find('.error-msg span').fadeOut 5000
                 
                 else        

@@ -162,7 +162,11 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         single_language_element = '#language-' + language_code + ' span';
         if (language_code === WPML_DEFAULT_LANG && this.$el.find(single_language_element).hasClass('icon-checkmark')) {
           this.$el.find('.error-msg span').remove();
-          this.$el.find('.error-msg').append('<span class="help-block alert alert-error">' + _.polyglot.t("Cannot hide default language") + '</span>');
+          this.$el.find('.error-msg').append('<span class="help-block alert alert-error">' + _.polyglot.t("Cannot hide default language from live site") + '</span>');
+          return this.$el.find('.error-msg span').fadeOut(5000);
+        } else if (language_code === 'en' && this.$el.find(single_language_element).hasClass('icon-checkmark')) {
+          this.$el.find('.error-msg span').remove();
+          this.$el.find('.error-msg').append('<span class="help-block alert alert-error">' + _.polyglot.t("Cannot hide English language from live site") + '</span>');
           return this.$el.find('.error-msg span').fadeOut(5000);
         } else {
           if (this.$el.find(single_language_element).hasClass('icon-checkmark')) {
