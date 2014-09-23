@@ -53,7 +53,9 @@ class TitleElement extends Element {
         else{
             $content = $element[ 'content' ];
         }
-        $this->content  = stripcslashes(trim( $content ));
+        
+        //$this->content  = stripcslashes(trim( $content ));
+        $this->content  = str_replace("\\", "", trim( $content ));
 
         $this->style = sanitize_title($element['style']);
         $this->justify = isset($element['justify']) && $element['justify']!= ''? $element['justify'] : false; 
