@@ -47,7 +47,31 @@ define(['app', 'bootbox'], function(App, bootbox) {
         var tablecontent, _ref;
         tablecontent = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
         this.$el.find('.table-holder').html(_.stripslashes(tablecontent));
-        return this.$el.find('table').resizableColumns();
+        this.$el.find('table').resizableColumns();
+        this.$el.parent().css('padding-bottom', '7px');
+        this.$el.find('.table-holder').height(this.$el.find('.table-responsive').height() + 15);
+        return this.setResizable();
+      };
+
+      TableView.prototype.setResizable = function() {
+        return this.$el.find('.table-holder').resizable({
+          handles: 's',
+          resize: (function(_this) {
+            return function(event, ui) {
+              return _this.$el.find('.table-responsive').height(ui.size.height - 15);
+            };
+          })(this),
+          start: (function(_this) {
+            return function(event, ui) {
+              return _this.$el.find('.table-holder').resizable("option", "maxHeight", _this.$el.find('table').height() + 17);
+            };
+          })(this),
+          stop: (function(_this) {
+            return function(event, ui) {
+              return _this.saveTableMarkup();
+            };
+          })(this)
+        });
       };
 
       TableView.prototype.rowChanged = function(model, rows) {
@@ -77,6 +101,10 @@ define(['app', 'bootbox'], function(App, bootbox) {
                 while (currentRows !== rows) {
                   _this.$el.find('tbody tr:last-of-type').remove();
                   _this.saveTableMarkup();
+                  if (_this.$el.find('table').height() < _this.$el.find('.table-responsive').height()) {
+                    _this.$el.find('.table-responsive').height(_this.$el.find('table').height() + 2);
+                    _this.$el.find('.table-holder').height(_this.$el.find('.table-responsive').height() + 15);
+                  }
                   _results1.push(currentRows--);
                 }
                 return _results1;

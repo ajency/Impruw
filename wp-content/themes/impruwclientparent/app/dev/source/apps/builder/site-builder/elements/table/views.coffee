@@ -46,11 +46,27 @@ define ['app','bootbox'], (App,bootbox)->
 				# @$el.find('#checkbox-striped').prop 'checked', true if @$el.find('table').hasClass 'table-striped'
 				# @$el.find('#table-style').val @model.get 'style' 
 				@$el.find('table').resizableColumns()
+				@$el.parent().css 'padding-bottom', '7px'
+				@$el.find('.table-holder').height( @$el.find('.table-responsive').height() + 15 )
+				@setResizable()
 				# @$el.find('select').selectpicker()
 				# @$el.find('[data-toggle="checkbox"]').checkbox() 
 
 
-	
+			setResizable : ->
+				@$el.find('.table-holder').resizable
+					handles : 's'
+					# create : (event,ui)=>
+					# 	console.log ui
+						# ui.size.height = @$el.find('.table-responsive').height() + 15
+					resize : (event,ui)=>
+						@$el.find('.table-responsive').height(ui.size.height - 15)
+
+					start : (event,ui)=>
+						@$el.find('.table-holder').resizable "option", "maxHeight", @$el.find('table').height()+17
+
+					stop : (event,ui)=>
+						@saveTableMarkup()	
 
 			rowChanged:(model,rows)->
 				currentRows = @$el.find('tbody tr').length 
@@ -74,6 +90,9 @@ define ['app','bootbox'], (App,bootbox)->
 							while currentRows isnt rows
 								@$el.find('tbody tr:last-of-type').remove()
 								@saveTableMarkup()
+								if @$el.find('table').height() <  @$el.find('.table-responsive').height()
+									@$el.find('.table-responsive').height @$el.find('table').height()+2
+									@$el.find('.table-holder').height @$el.find('.table-responsive').height()+15
 								currentRows--
 						else 
 							model.set 'row', currentRows 

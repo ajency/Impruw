@@ -47,6 +47,7 @@ define ['app'
 				@listenTo @view, "save:table", (tableHolder) =>
 					html = $(tableHolder).clone()
 					$(html).find('.rc-handle-container').remove()
+					$(html).find('.ui-resizable-handle').remove()
 					$(html).find('td div, th div').removeAllAttr()
 
 					original_data =  @layout.model.get('content')
