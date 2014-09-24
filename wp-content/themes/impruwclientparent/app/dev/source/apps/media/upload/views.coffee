@@ -11,8 +11,9 @@ define [ 'app'
 
                       <div class="clear"></div>
                       <br/>
-
+                      
                       <div id="progress" style="width: 30%; margin: 0px auto; display: none;" class="progress progress-striped active">
+                          <div class="progress-text"></div>
                           <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="progress-bar"></div>
                           <span class="sr-only">{{#polyglot}}0% Complete{{/polyglot}} </span>
                       </div>
@@ -23,6 +24,8 @@ define [ 'app'
          # this plupload configuration is copied over from wordpress core
          # Note: do not change these settings
          onShow : ->
+            @uploaded = 0
+
             #bind plupload script
             @uploader = new plupload.Uploader
                runtimes : "gears,html5,flash,silverlight,browserplus"
@@ -51,12 +54,21 @@ define [ 'app'
                @$el.find( "#progress" ).show()
 
             @uploader.bind "UploadProgress", ( up, file )=>
-               @$el.find( ".progress-bar" ).css "width", file.percent + "%"
+                # console.log file.percent
+                total = up.total.uploaded + up.total.queued - @uploaded
+                current = up.total.uploaded + 1 - @uploaded
+                @$el.find( ".progress-text" ).text "uploading #{current} of #{total}"
+                @$el.find( ".progress-bar" ).css "width", file.percent + "%"
+
+            @uploader.bind 'UploadFile',(up,file)=>
+                console.log file.percent
+                @$el.find( ".progress-bar" ).css "width", file.percent + "%"
 
             @uploader.bind "Error", ( up, err )=>
                up.refresh() # Reposition Flash/Silverlight
 
             @uploader.bind "FileUploaded", ( up, file, response )=>
+                
                 response = JSON.parse( response.response )
                 if up.total.queued is 0
                     App.execute "new:media:added", response.data, true
@@ -64,6 +76,8 @@ define [ 'app'
                     App.execute "new:media:added", response.data 
 
             @uploader.bind "UploadComplete", ( up, file )=>
+                @uploaded = up.total.uploaded
+                @$el.find( ".progress-text" ).text ''
                 @$el.find( "#progress" ).hide()
                 @trigger "upload:complete"
 
