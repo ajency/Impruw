@@ -48,13 +48,14 @@ define(['app', 'plupload'], function(App, plupload, uploadTpl) {
             var current, total;
             total = up.total.uploaded + up.total.queued - _this.uploaded;
             current = up.total.uploaded + 1 - _this.uploaded;
+            _this.$el.find(".progress-bar").css('transition-duration', '0.6s');
             _this.$el.find(".progress-text").text("uploading " + current + " of " + total);
             return _this.$el.find(".progress-bar").css("width", file.percent + "%");
           };
         })(this));
         this.uploader.bind('UploadFile', (function(_this) {
           return function(up, file) {
-            console.log(file.percent);
+            _this.$el.find(".progress-bar").css('transition-duration', '0.01s');
             return _this.$el.find(".progress-bar").css("width", file.percent + "%");
           };
         })(this));

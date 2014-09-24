@@ -57,11 +57,12 @@ define [ 'app'
                 # console.log file.percent
                 total = up.total.uploaded + up.total.queued - @uploaded
                 current = up.total.uploaded + 1 - @uploaded
+                @$el.find( ".progress-bar" ).css 'transition-duration', '0.6s'
                 @$el.find( ".progress-text" ).text "uploading #{current} of #{total}"
                 @$el.find( ".progress-bar" ).css "width", file.percent + "%"
 
             @uploader.bind 'UploadFile',(up,file)=>
-                console.log file.percent
+                @$el.find( ".progress-bar" ).css 'transition-duration', '0.01s'
                 @$el.find( ".progress-bar" ).css "width", file.percent + "%"
 
             @uploader.bind "Error", ( up, err )=>
