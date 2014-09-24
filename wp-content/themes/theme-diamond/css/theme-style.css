@@ -2033,11 +2033,14 @@ and open the template in the editor.
   background: #dc6868;
 }
 .nav.slimmenu > li.current-menu-item a {
-  color: #ffffff;
+  color: #dc6868;
   border-color: #dc6868;
 }
 .nav.slimmenu > li.current-menu-item a span {
-  color: #ffffff;
+  color: #e69191;
+}
+.nav.slimmenu > li.current-menu-item a:after {
+  display: block;
 }
 .nav.slimmenu > li:last-child a {
   border-right: 0;

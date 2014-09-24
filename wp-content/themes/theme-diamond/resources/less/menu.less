@@ -76,10 +76,13 @@
 			&.current-menu-item {
 				background: @primary1;
 				a {
-					color: lighten(@primary1, 65%);
+					color: @primary1;
 					border-color: @primary1;
 					span {
-						color: lighten(@primary1, 50%);
+						color: lighten(@primary1, 10%);
+					}
+					&:after {
+						display: block;
 					}
 				}
 			}
