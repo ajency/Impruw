@@ -134,7 +134,7 @@ define ['app'
                                                 <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label>
                                                 <select name="style" class="form-control caption-style">
                                                     {{#captionStyles}}
-                                                    <option value="{{value}}">{{name}}</option>
+                                                    <option value="title {{value}}">{{name}}</option>
                                                     {{/captionStyles}}
                                                 </select>
                                             </div>
@@ -263,15 +263,20 @@ define ['app'
                 if @model.get('layers').length and @model.get('layers')[0].text isnt ''
                     caption = @model.get('layers')[0]
                     @$el.find('.caption-exist').show()
-                    captionHtml = $.parseHTML caption.text
+                    captionHtml = $.parseHTML _.stripslashes caption.text
 
                     # console.log caption.text
                     # console.log captionHtml
                     # console.log "abc_#{$(captionHtml).first().find('a').first().html()}"
 
-                    @$el.find('.caption-title').val $(captionHtml).first().find('a').first().html()
+                    if $(captionHtml).first().find('a').length
+                        @$el.find('.caption-title').val $(captionHtml).first().find('a').first().html()
+                        @$el.find('.caption-link').val $(captionHtml).first().find('a').first().attr 'href'
+                    else 
+                        @$el.find('.caption-title').val $(captionHtml).first().html()
+                        @$el.find('.caption-link').val ''
+
                     @$el.find('.caption-description').val $(captionHtml).last().html()
-                    @$el.find('.caption-link').val $(captionHtml).first().find('a').first().attr 'href'
                     @$el.find('.caption-style').selectpicker 'val',$(captionHtml).first().attr 'class'
                     @$el.find('.caption-background').selectpicker 'val',caption.style
                     @$el.find("input[name='position'][value='#{caption.left},#{caption.top}']").prop 'checked',true
@@ -291,11 +296,11 @@ define ['app'
                     else
                         data = @layerDefault()
 
-                    data.text = "<h3 class=#{@$el.find('.caption-style').val()}>
-                                <a href=#{@$el.find('.caption-link').val()}>
-                                    #{@$el.find('.caption-title').val()}
-                                </a></h3>
-                                <div>#{@$el.find('.caption-description').val()}</div>"
+                    data.text = "<h3 class='#{@$el.find('.caption-style').val()}'>"
+                    data.text += "<a href='#{@$el.find('.caption-link').val()}'>" if @$el.find('.caption-link').val() isnt ''
+                    data.text += @$el.find('.caption-title').val()
+                    data.text += "</a>" if @$el.find('.caption-link').val() isnt ''
+                    data.text += "</h3><div>#{@$el.find('.caption-description').val()}</div>"
                     data.style = @$el.find('.caption-background').val()
 
                     position = @$el.find('input[name="position"]:checked').val()
