@@ -90,10 +90,6 @@ class AddressElement extends Element {
 
         $contact_at  = wp_parse_args($contact_at , $defaults);
 
-        $address = get_site_details();
-        
-        $contact_at['email'] = $address['site_email'];
-
         $themes = explode(',', THEME_ID);
 
         if(in_array(get_current_blog_id(), $themes)){

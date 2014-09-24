@@ -101,8 +101,7 @@
             $address['city']        = get_option('city', 'City');
             $address['country']     = get_option('country', 'Country');
 
-            $emails           = get_option('other_emails', array());
-            $address['email'] = !empty($emails) ? $emails[0] : get_option('admin_email');
+            $address['email'] = get_option( 'site_email', get_bloginfo( 'admin_email' ) );//!empty($emails) ? $emails[0] : get_option('admin_email');
 
             $phoneno             = get_option('other_phone_no', array());
             $address['phone_no'] = !empty($phoneno) ? $phoneno[0] : 'Not Specified';
