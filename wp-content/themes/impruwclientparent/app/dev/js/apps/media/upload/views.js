@@ -56,6 +56,8 @@ define(['app', 'plupload'], function(App, plupload, uploadTpl) {
           return function(up, file, response) {
             response = JSON.parse(response.response);
             if (up.total.queued === 0) {
+              return App.execute("new:media:added", response.data, true);
+            } else {
               return App.execute("new:media:added", response.data);
             }
           };

@@ -61,6 +61,15 @@ define [ 'app'], ( App, mediaTpl )->
          
          itemViewContainer : '#selectable-images'
 
+         collectionEvents : 
+            'show:grid' : ->
+               #show the grid view on image added
+               @$el.closest( '.tab-content' ).siblings( '.nav-tabs' )
+               .find( '.all-media-tab' ).find( 'a' ).trigger 'click'
+    
+                  
+
+
          onCollectionRendered : ->
             if @multiSelect
                @$el.find( '#selectable-images' ).bind "mousedown", ( e )->
@@ -86,13 +95,12 @@ define [ 'app'], ( App, mediaTpl )->
 
          onShow : ->
             @on 'after:item:added', ( imageView )=>
-
-               #show the grid view on image added
-               @$el.closest( '.tab-content' ).siblings( '.nav-tabs' )
-               .find( '.all-media-tab' ).find( 'a' ).trigger 'click'
-               #trigger the selectable to point to the newly added image
                imageView.$el.find( 'img' ).trigger 'click'
                @$el.find( '#selectable-images' ).selectSelectableElements imageView.$el
+               
+
+         
+             
 
          onShowEditImage : ( editView )->
             @$el.find( '#selectable-images, .load-more' ).hide()

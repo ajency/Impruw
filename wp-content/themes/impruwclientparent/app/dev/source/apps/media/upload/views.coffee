@@ -57,9 +57,11 @@ define [ 'app'
                up.refresh() # Reposition Flash/Silverlight
 
             @uploader.bind "FileUploaded", ( up, file, response )=>
-               response = JSON.parse( response.response )
-               if up.total.queued is 0
-                  App.execute "new:media:added", response.data
+                response = JSON.parse( response.response )
+                if up.total.queued is 0
+                    App.execute "new:media:added", response.data, true
+                else 
+                    App.execute "new:media:added", response.data 
 
             @uploader.bind "UploadComplete", ( up, file )=>
                 @$el.find( "#progress" ).hide()
