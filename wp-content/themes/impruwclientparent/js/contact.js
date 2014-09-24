@@ -80,6 +80,7 @@ jQuery(document).ready(function ($) {
     });
 
     //$('.ui-datepicker-current-day').click();
+    showData(new Date());
     displayCarouselNav();
     getDateRangeColour();
 
