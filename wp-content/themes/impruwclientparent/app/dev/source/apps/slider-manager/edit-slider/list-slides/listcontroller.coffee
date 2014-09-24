@@ -141,12 +141,8 @@ define ['app'
                                             <div class="form-group caption-exist">
                                                 <label for="" class="control-label">{{#polyglot}}Caption Background{{/polyglot}}</label>
                                                 <select name="background" class="form-control caption-background">
-                                                    <option value="black">Black</option>
-                                                    <option value="large_bold_white">Large Bold White</option>
-                                                    <option value="large_bold_black">Large Bold Black</option>
-                                                    <option value="excerpt">Excerpt</option>
-                                                    <option value="very_big_white">Very Big White</option>
-                                                    <option value="very_big_black">Very Big Black</option>
+                                                    <option value="transparent-black">Transparent Black</option>
+                                                    <option value="transparent-white">Transparent White</option>
                                                 </select>
                                             </div>
                                             <!--     <div class="form-group caption-exist">
@@ -269,6 +265,10 @@ define ['app'
                     @$el.find('.caption-exist').show()
                     captionHtml = $.parseHTML caption.text
 
+                    # console.log caption.text
+                    # console.log captionHtml
+                    # console.log "abc_#{$(captionHtml).first().find('a').first().html()}"
+
                     @$el.find('.caption-title').val $(captionHtml).first().find('a').first().html()
                     @$el.find('.caption-description').val $(captionHtml).last().html()
                     @$el.find('.caption-link').val $(captionHtml).first().find('a').first().attr 'href'
@@ -345,7 +345,7 @@ define ['app'
                 speed: 300
                 split: "none"
                 splitdelay: "10"
-                style: "very_big_black"
+                style: "transparent-black"
                 text: "Caption Text"
                 time: 500
                 timeLast: 8500
