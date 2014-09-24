@@ -49,20 +49,6 @@ function create_new_site( $site_name, $user_id ) {
     //wpml_setup($site_id,$user_id);
     do_action('imp_setup_wpml', $site_id, $user_id);
 
-    // add pages to site
-    $pages = array(
-        array( 'post_title' => 'Dashboard', 'template' => 'new-dashboard.php' ),
-        array( 'post_title' => 'Site Builder', 'template' => 'new-builder.php' ),
-        array( 'post_title' => 'Coming Soon', 'template' => 'coming-soon.php' ),
-        array( 'post_title' => 'Sign In', 'template' => 'page-login.php' ),
-        array( 'post_title' => 'Reset Password', 'template' => 'page-reset-password.php' ),
-        array( 'post_title' => 'Support' ) );
-
-    add_pages_to_site( $site_id, $user_id, $pages );
-
-    // set comming soon as default page for the site
-    set_front_page_of_site( 'Coming Soon', $site_id );
-
     return $site_id;
 }
 
@@ -152,6 +138,11 @@ function add_pages_to_site( $site_id, $user_id, $pages ) {
                 update_post_meta( $page_id, '_wp_page_template', $page [ 'template' ] );
         }
     }
+
+    //Set default language to user set language
+    global $sitepress;
+    $user_language = get_user_meta($user_id,'user_lang',true);
+    $sitepress->set_default_language($user_language);
 
     restore_current_blog();
 
@@ -290,7 +281,7 @@ function wpml_setup($site_id, $user_id){
 
     switch_to_blog( $site_id );
 
-    wpml_setup_step_one($user_language);
+    wpml_setup_step_one('en');
 
     $enabled_languages = array('en','nb');
     wpml_setup_step_two($enabled_languages);

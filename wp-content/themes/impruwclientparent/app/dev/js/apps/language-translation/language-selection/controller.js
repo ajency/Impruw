@@ -17,6 +17,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.languageSelectionView = this._getLanguageView(this.collection, this.siteModel);
         this.listenTo(this.languageSelectionView, "itemview:language:updated", this.updateLanguageModel);
         this.listenTo(this.languageSelectionView, "update:enabled:languages", this.updateEnabledLanguages);
+        this.listenTo(this.languageSelectionView, "update:hidden:languages", this.updateHiddenLanguages);
         this.listenTo(this.languageSelectionView, "load:language:page:nav", this.loadLanguagePageNav);
         return this.show(this.languageSelectionView, {
           loading: true
@@ -61,6 +62,21 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
           };
         })(this);
         return $.post("" + AJAXURL + "?action=update-enabled-languages", data, responseFn, 'json');
+      };
+
+      Controller.prototype.updateHiddenLanguages = function(languageCode, hiddenValue) {
+        var data, responseFn;
+        console.log(this.collection);
+        data = {
+          languageCode: languageCode,
+          isHidden: hiddenValue
+        };
+        responseFn = (function(_this) {
+          return function(response) {
+            return _this.languageSelectionView.triggerMethod("hidden:languages", response.msg);
+          };
+        })(this);
+        return $.post("" + AJAXURL + "?action=update-hidden-languages", data, responseFn, 'json');
       };
 
       Controller.prototype.loadLanguagePageNav = function(selectedEditingLanguage) {

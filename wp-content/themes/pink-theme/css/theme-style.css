@@ -1971,6 +1971,7 @@ and open the template in the editor.
   font-size: 0.8em;
 }
 .nav.slimmenu > li.current-menu-item a {
+  color: #ff5f5f;
   font-weight: 400;
 }
 .nav.slimmenu > li.current-menu-item a:hover {
@@ -2071,6 +2072,10 @@ and open the template in the editor.
   font-weight: 300;
 }
 .nav.left-menu li a:hover {
+  background: #ff2c2c;
+  color: #e9e9e9;
+}
+.nav.left-menu li.current-menu-item a {
   background: #ff2c2c;
   color: #e9e9e9;
 }

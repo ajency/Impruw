@@ -80,6 +80,12 @@ define(['app'], function(App, mediaTpl) {
 
       GridView.prototype.itemViewContainer = '#selectable-images';
 
+      GridView.prototype.collectionEvents = {
+        'show:grid': function() {
+          return this.$el.closest('.tab-content').siblings('.nav-tabs').find('.all-media-tab').find('a').trigger('click');
+        }
+      };
+
       GridView.prototype.onCollectionRendered = function() {
         if (this.multiSelect) {
           this.$el.find('#selectable-images').bind("mousedown", function(e) {
@@ -115,7 +121,6 @@ define(['app'], function(App, mediaTpl) {
       GridView.prototype.onShow = function() {
         return this.on('after:item:added', (function(_this) {
           return function(imageView) {
-            _this.$el.closest('.tab-content').siblings('.nav-tabs').find('.all-media-tab').find('a').trigger('click');
             imageView.$el.find('img').trigger('click');
             return _this.$el.find('#selectable-images').selectSelectableElements(imageView.$el);
           };

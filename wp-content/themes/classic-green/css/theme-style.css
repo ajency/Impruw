@@ -1920,6 +1920,7 @@ and open the template in the editor.
   border-bottom: 0;
 }
 .nav.slimmenu li.current-menu-item a {
+  background: #ffffff;
   color: #5ca9a1;
 }
 .nav.slimmenu li.open {
