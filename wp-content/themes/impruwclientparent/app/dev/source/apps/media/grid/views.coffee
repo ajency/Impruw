@@ -63,11 +63,9 @@ define [ 'app'], ( App, mediaTpl )->
 
          collectionEvents : 
             'show:grid' : ->
-               #show the grid view on image added
+               #show the grid when last image gets uploaded
                @$el.closest( '.tab-content' ).siblings( '.nav-tabs' )
                .find( '.all-media-tab' ).find( 'a' ).trigger 'click'
-    
-                  
 
 
          onCollectionRendered : ->
@@ -94,6 +92,7 @@ define [ 'app'], ( App, mediaTpl )->
                               @$el.find('#selectable-images').parent().find('.load-more').click @loadMoreClicked
 
          onShow : ->
+            # when each image is added 
             @on 'after:item:added', ( imageView )=>
                imageView.$el.find( 'img' ).trigger 'click'
                @$el.find( '#selectable-images' ).selectSelectableElements imageView.$el
