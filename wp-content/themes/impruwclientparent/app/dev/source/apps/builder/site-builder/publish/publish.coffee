@@ -37,11 +37,20 @@ define ['app'], (App)->
                 
             # get the json
             _getPageJson: ($site)->
+
+                error = false
+
                 _json = {}
 
                 _.each ['header', 'page-content', 'footer'], (section, index)=>
                     #if App.request "is:section:modified", section
                     _json["#{section}-json"] = JSON.stringify @_getJson $site.find "#site-#{section}-region"
+                
+                    if _.isEmpty JSON.parse _json["#{section}-json"]
+                        error = true
+
+                if error
+                    return false
 
                 _json
 
