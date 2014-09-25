@@ -94,6 +94,7 @@ function get_all_languages(){
     $wpml_options = get_option( 'icl_sitepress_settings' );
     $default_language_code = $wpml_options['default_language'];
     $hidden_languages = (isset($wpml_options['hidden_languages'])) ? $wpml_options['hidden_languages'] : array() ;
+    $active_languages = wpml_get_active_languages();
     $is_hidden = false;
 
     foreach((array)$languages as $lang){
@@ -122,6 +123,7 @@ function get_all_languages(){
                 'languageName' => $lang['display_name'],
                 'selectStatus' => $active,
                 'isDefaultLanguage' => $is_default_language,
+                'active_lang_count' => count($active_languages),
                 'isHidden' => $is_hidden
             );
 

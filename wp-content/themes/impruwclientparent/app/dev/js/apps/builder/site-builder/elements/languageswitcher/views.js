@@ -11,13 +11,22 @@ define(['app'], function(App) {
         return LanguageSwitcherItemView.__super__.constructor.apply(this, arguments);
       }
 
-      LanguageSwitcherItemView.prototype.template = '{{^isDefaultLanguage}} <li class="icl-{{code}}"> <a href="#"> <img class="iclflag" src="{{pluginUri}}/sitepress-multilingual-cms/res/flags/{{code}}.png" alt="{{code}}" title="{{languageName}}"> &nbsp;{{languageName}} </a> </li> {{/isDefaultLanguage}}';
+      LanguageSwitcherItemView.prototype.template = '{{^isDefaultLanguage}} <li class="icl-{{code}} {{hideClass}}"> <a href="#"> <img class="iclflag" src="{{pluginUri}}/sitepress-multilingual-cms/res/flags/{{code}}.png" alt="{{code}}" title="{{languageName}}"> &nbsp;{{languageName}} </a> </li> {{/isDefaultLanguage}}';
 
       LanguageSwitcherItemView.prototype.mixinTemplateHelpers = function(data) {
         data.pluginUri = function() {
           var pluginUri;
           pluginUri = PLUGIN_URI;
           return pluginUri;
+        };
+        data.hideClass = function() {
+          var hideClass;
+          if (data.isHidden) {
+            hideClass = 'hide';
+          } else {
+            hideClass = '';
+          }
+          return hideClass;
         };
         return data;
       };
@@ -45,6 +54,14 @@ define(['app'], function(App) {
         style = Marionette.getOption(this, 'style');
         className = _.slugify(style);
         return this.$el.addClass(className);
+      };
+
+      LanguageSwitcherView.prototype.onShow = function() {
+        if (ACTIVE_LANGUAGE_COUNT === 1) {
+          return this.$el.find('div#lang_sel').addClass('hide');
+        } else {
+          return this.$el.find('div#lang_sel').removeClass('hide');
+        }
       };
 
       LanguageSwitcherView.prototype.mixinTemplateHelpers = function(data) {

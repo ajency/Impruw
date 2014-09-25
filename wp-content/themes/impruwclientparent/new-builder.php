@@ -93,6 +93,7 @@
     var FACILITIES = <?php echo json_encode(get_terms( 'impruw_room_facility', 
                                                         array('hide_empty' => 0))) ?>;
     var LANGUAGES = <?php echo json_encode(get_all_languages()); ?>;
+    var ACTIVE_LANGUAGE_COUNT = <?php echo count(wpml_get_active_languages()); ?>;
     var ELEMENTS = <?php echo json_encode(get_elementbox_elements()); ?>;
     var BLOGID = <?php echo get_current_blog_id(); ?>;
 
