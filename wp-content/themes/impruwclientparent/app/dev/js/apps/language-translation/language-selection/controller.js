@@ -17,7 +17,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.languageSelectionView = this._getLanguageView(this.collection, this.siteModel);
         this.listenTo(this.languageSelectionView, "itemview:language:updated", this.updateLanguageModel);
         this.listenTo(this.languageSelectionView, "update:enabled:languages", this.updateEnabledLanguages);
-        this.listenTo(this.languageSelectionView, "update:hidden:languages", this.updateHiddenLanguages);
+        this.listenTo(this.languageSelectionView, "update:hidden:language", this.updateHiddenLanguage);
         this.listenTo(this.languageSelectionView, "load:language:page:nav", this.loadLanguagePageNav);
         return this.show(this.languageSelectionView, {
           loading: true
@@ -64,16 +64,14 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         return $.post("" + AJAXURL + "?action=update-enabled-languages", data, responseFn, 'json');
       };
 
-      Controller.prototype.updateHiddenLanguages = function(languageCode, hiddenValue) {
+      Controller.prototype.updateHiddenLanguage = function(hiddenlanguages) {
         var data, responseFn;
-        console.log(this.collection);
         data = {
-          languageCode: languageCode,
-          isHidden: hiddenValue
+          hiddenlanguages: hiddenlanguages
         };
         responseFn = (function(_this) {
           return function(response) {
-            return _this.languageSelectionView.triggerMethod("hidden:languages", response.msg);
+            return _this.languageSelectionView.triggerMethod("hidden:languages", response.msg, response.data.hidden_langs);
           };
         })(this);
         return $.post("" + AJAXURL + "?action=update-hidden-languages", data, responseFn, 'json');
