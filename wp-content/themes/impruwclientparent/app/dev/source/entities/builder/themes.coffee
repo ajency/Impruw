@@ -27,7 +27,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                 "#{AJAXURL}?action=get-default-theme-color-set"
 
         themesColorCollection = new Themes.ThemeColorCollection
-        themesColorCollection.fetch()
+        themesColorCollection.add THEMECOLORSETS
 
         # Theme collection
         class Themes.ThemeCollection extends Backbone.Collection
@@ -45,7 +45,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 
         themesCollection = new Themes.ThemeCollection
-        themesCollection.fetch()
+        themesCollection.add THEMES
 
         # PUBLIC API FOR ENitity
         API =

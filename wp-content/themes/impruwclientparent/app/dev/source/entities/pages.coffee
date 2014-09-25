@@ -16,15 +16,16 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 
         pages = new Pages.PageCollection 
-        # pages.fetch()      
+        pages.add window.PAGES     
 
         #Public API
         API =
 
             getPages: (language)->
-                pages.fetch
-                    data:
-                        language : language
+                if pages.length is 0
+                    pages.fetch
+                        data:
+                            language : language
                 pages
 
             getPageByLanguage : (pageId, pageLang) ->

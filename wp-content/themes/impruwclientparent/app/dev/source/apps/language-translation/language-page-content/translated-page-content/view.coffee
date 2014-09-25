@@ -12,7 +12,7 @@ define ['app'
             template : '<div class="col-sm-12">
                             <div class="form-group trans-field">
                                 <div class="col-sm-10">
-                                    <p class="form-control translated-element-content {{TypeOfElementClass}}">{{contentText}}</p>
+                                    <div class="form-control translated-element-content {{TypeOfElementClass}}">{{contentText}}</div>
                                     <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-element">
                                         {{#polyglot}}Save{{/polyglot}}
                                     </button>
@@ -45,7 +45,6 @@ define ['app'
             updatePageElement:(e) ->
                 e.preventDefault()
                 newElementContent = @$el.find('.translated-element-content').html()
-                console.log newElementContent
                 @trigger "page:element:updated", newElementContent
 
             # initialize the CKEditor for the text element on show

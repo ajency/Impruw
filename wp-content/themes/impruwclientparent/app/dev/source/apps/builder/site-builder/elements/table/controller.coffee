@@ -2,17 +2,18 @@ define ['app'
 		'text!apps/builder/site-builder/elements/table/templates/table.html'
 		'apps/builder/site-builder/elements/table/views'		
 		'apps/builder/site-builder/elements/table/settings/controller'
-],(App,tableTemplate)->
+],(App,tableTemplate, tableTemplateNb)->
 	App.module 'SiteBuilderApp.Element.Table', (Table, App, Backbone, Marionette, $, _)->
 
 		# menu controller
 		class Table.Controller extends App.SiteBuilderApp.Element.Controller
 
-
 			initialize : (options)->
 				_.defaults options.modelData,
 					element: 'Table'
-					content	: tableTemplate
+					content	: 
+						'en' : tableTemplate
+						'nb' : tableTemplate
 					row : 3
 					column : 3
 
@@ -47,8 +48,24 @@ define ['app'
 					html = $(tableHolder).clone()
 					$(html).find('.rc-handle-container').remove()
 					$(html).find('td div, th div').removeAllAttr()
-					@layout.model.set 'content', "#{$(html).html()}"
-					@layout.model.save() if @layout.model.hasChanged()
+
+					original_data =  @layout.model.get('content')
+
+					if _.isObject original_data
+	                  	data = original_data
+	               	else
+	                  	data = {}
+	                  	data['en'] = original_data
+
+	                data[WPML_DEFAULT_LANG] = $(html).html()
+
+	                # stripslash each html content and save in json
+	                newdata = {}
+	                Object.getOwnPropertyNames(data).forEach (val, idx, array) ->
+	                	newdata[val] = _.stripslashes data[WPML_DEFAULT_LANG]
+
+	                @layout.model.set 'content', newdata
+	                @layout.model.save()
 				
 				@layout.elementRegion.show @view
 

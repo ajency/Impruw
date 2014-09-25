@@ -391,9 +391,11 @@
 		.clearfix;
 		text-align: right;
 		.price {
-			float: left;
 			font-size: 2em;
 			color: darken(@secondary1, 10%);
+			margin-right: 0.5em;
+			display: inline-block;
+			vertical-align: middle;
 			small {
 				font-size: 0.8em;
 			}
@@ -623,7 +625,9 @@
 										}
 									}
 								}
-								
+								&.ui-datepicker-today {
+									font-weight: 700;
+								}
 							}
 								.booking-red{
 						background:#f97d61;

@@ -61,6 +61,13 @@
 <div id="login-region" class="modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div id="initial-loader"></div>
 <script>
+    var USER = <?php echo json_encode(get_user_model()); ?>;
+    var ROOMS = <?php echo json_encode(get_roomss()); ?>;
+    var FACILITIES = <?php echo json_encode(get_terms( 'impruw_room_facility', 
+                                                        array('hide_empty' => 0))) ?>;
+    var LANGUAGES = <?php echo json_encode(get_all_languages()); ?>;
+    var BLOGID = <?php echo get_current_blog_id(); ?>;
+
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
@@ -84,12 +91,12 @@ echo json_encode($impruwUserModel->get_user_basic_info());
 </script>
 <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
 <?php if ( ENV === 'production' ): ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo
     JSVERSION ?>"></script>
 <?php else: ?>
     <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
     <script data-main="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/dashboard-main"
             src="<?php echo get_parent_template_directory_uri(); ?>/dashboard/require.js"></script>
 <?php endif; ?>
