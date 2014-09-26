@@ -635,7 +635,11 @@ function translations_for_sign_in($site_id){
                      'reset_pswd_expired_key' => array('utløpt Key'),
                      'reset_pswd_invalid_key' => array('Ugyldig nøkkel'),
                      'new_password_label' => array('New Password','nytt passord'),
-                     'submit_btn_label' => array('Submit','Send inn')
+                     'submit_btn_label' => array('Submit','Send inn'),
+                     'already_logged_in_msg' => array('User already logged in','Bruker allerede logget inn'),
+                     'incorrect_login_details_msg' => array('The email or password does not seem right. Check if your caps is on and try again.','E-post eller passord virker ikke riktig . Sjekk om dine caps er på og prøv igjen .'),
+                     'invalid_form_data_msg' => array('Invalid Form Data','Ugyldig skjemadata'),
+                     'dashboard_redirection_msg' => array('You will be redirected to your dashboard shortly.','Du blir omdirigert til dashbordet kort tid.'),
                     );
 
     foreach ($strings as $key => $value) {

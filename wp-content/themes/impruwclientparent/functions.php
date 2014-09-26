@@ -4082,7 +4082,7 @@ function user_login() {
 
         $blog = get_active_blog_for_user( get_current_user_id() );
         $blogUrl = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
-        $response = array( "code" => "OK", 'blog_url' => $blogUrl, 'msg' => 'User already logged in' );
+        $response = array( "code" => "OK", 'blog_url' => $blogUrl, 'msg' => icl_t('theme impruwmain', 'already_logged_in_msg', 'User already logged in'));
         wp_send_json( $response );
     }
 
@@ -4098,7 +4098,7 @@ function user_login() {
 
     if ( !check_ajax_referer( 'frm_login', 'ajax_nonce' ) ) {
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'ERROR', 'msg' => _( "Invalid Form Data" ) ) );
+        echo json_encode( array( 'code' => 'ERROR', 'msg' => icl_t('theme impruwmain', 'invalid_form_data_msg', 'Invalid Form Data')) );
         die();
     }
 
@@ -4108,17 +4108,17 @@ function user_login() {
         $user = wp_signon( $credentials );
 
         if ( is_wp_error( $user ) ) {
-            $msg = "The email / password doesn't seem right. Check if your caps is on and try again.";
+            $msg = icl_t('theme impruwmain', 'incorrect_login_details_msg', 'The email or password does not seem right. Check if your caps is on and try again.');
             $response = array( 'code' => "FAILED", 'user' => $user_->user_login . $pd_pass, 'msg' => $msg );
             wp_send_json( $response );
         } else {
             $blog = get_active_blog_for_user( $user->ID );
             $blog_url = $blog->siteurl;
-            $response = array( "code" => "OK", 'blog_url' => $blog_url, 'msg' => 'You will be redirected to your dashboard shortly.' );
+            $response = array( "code" => "OK", 'blog_url' => $blog_url, 'msg' => icl_t('theme impruwmain', 'dashboard_redirection_msg', 'You will be redirected to your dashboard shortly.') );
             wp_send_json( $response );
         }
     } else {
-        $msg = "The email / password doesn't seem right. Check if your caps is on and try again.";
+        $msg = icl_t('theme impruwmain', 'incorrect_login_details_msg', 'The email or password does not seem right. Check if your caps is on and try again.');
         $response = array( 'code' => "FAILED", 'msg' => $msg );
         wp_send_json( $response );
     }
