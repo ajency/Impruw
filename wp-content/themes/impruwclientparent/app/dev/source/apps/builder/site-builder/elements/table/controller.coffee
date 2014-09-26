@@ -30,10 +30,10 @@ define ['app'
 					# collection : @rowCollection
 
 			tableOnStyleChange:(originalMarkup,referenceMarkup) ->
-				console.log 'table style has changed'
+				# console.log 'table style has changed'
 				# Check if original markup stil not set, if empty set it to reference markup
 				if $.trim(originalMarkup).length is 0
-					console.log 'Original Markup empty'
+					# console.log 'Original Markup empty'
 					originalMarkup = referenceMarkup
 
 				html_table = '<div>'+originalMarkup+'</div>'
@@ -43,31 +43,31 @@ define ['app'
 				modified_language_table_html
 
 				if($(referenceMarkup).find('table').hasClass('style-1'))
-					console.log 'Applied style-1'
+					# console.log 'Applied style-1'
 					$content.find('table').addClass 'style-1'
 				else
-					console.log 'Removed style-1'
+					# console.log 'Removed style-1'
 					$content.find('table').removeClass 'style-1'
 
 				if($(referenceMarkup).find('table').hasClass('style-2'))
-					console.log 'Applied style-2'
+					# console.log 'Applied style-2'
 					$content.find('table').addClass 'style-2'
 				else
-					console.log 'Removed style-2'
+					# console.log 'Removed style-2'
 					$content.find('table').removeClass 'style-2'
 
 				if($(referenceMarkup).find('table').hasClass('table-striped'))
-					console.log 'Applied table-striped'
+					# console.log 'Applied table-striped'
 					$content.find('table').addClass 'table-striped'
 				else
-					console.log 'Removed table-striped'
+					# console.log 'Removed table-striped'
 					$content.find('table').removeClass 'table-striped'	
 
 				if($(referenceMarkup).find('table').hasClass('table-bordered'))
-					console.log 'Applied table-bordered'
+					# console.log 'Applied table-bordered'
 					$content.find('table').addClass 'table-bordered'
 				else
-					console.log 'Removed table-bordered'
+					# console.log 'Removed table-bordered'
 					$content.find('table').removeClass 'table-bordered'
 
 				modified_language_table_html = $content.html()
@@ -77,18 +77,18 @@ define ['app'
 				
 
 			tableOnColumnChange:(originalMarkup,referenceMarkup)->
-				console.log 'table column changed'
+				# console.log 'table column changed'
 				# Check if original markup stil not set, if empty set it to reference markup
 				if $.trim(originalMarkup).length is 0
-					console.log 'Original Markup empty'
+					# console.log 'Original Markup empty'
 					originalMarkup = referenceMarkup
 
 				referenceColumnCount = $(referenceMarkup).find('thead th').length
-				console.log referenceColumnCount
+				# console.log referenceColumnCount
 				currentColumnCount = $(originalMarkup).find('thead th').length
-				console.log currentColumnCount
+				# console.log currentColumnCount
 				currentRowCount = $(originalMarkup).find('tbody tr').length
-				console.log currentRowCount
+				# console.log currentRowCount
 
 				html_table = '<div>'+originalMarkup+'</div>'
 
@@ -97,10 +97,10 @@ define ['app'
 				modified_language_table_html = ''
 
 				if currentColumnCount is referenceColumnCount
-					console.log  'No change in column count for both tables'
+					# console.log  'No change in column count for both tables'
 					modified_language_table_html = originalMarkup
 				else if currentColumnCount < referenceColumnCount
-                	console.log  'Current table has less columns'
+                	# console.log  'Current table has less columns'
                 	while currentColumnCount < referenceColumnCount
                 		$content.find('thead tr').append '<th><div>demo</div></th>'
                 		tableRows = $content.find('tbody tr')
@@ -125,7 +125,7 @@ define ['app'
                 		# console.log modified_language_table_html
                 		currentColumnCount++
                 else
-                	console.log  'Current table has more columns'
+                	# console.log  'Current table has more columns'
                 	while currentColumnCount > referenceColumnCount
                 		$content.find('thead tr th:last-of-type').remove()
                 		tableRows = $content.find('tbody tr td:last-of-type').remove()
@@ -153,20 +153,20 @@ define ['app'
 
 
 			tableOnRowChange: (originalMarkup,referenceMarkup)->
-				console.log 'table row changed'
+				# console.log 'table row changed'
 
 				# Check if original markup stil not set, if empty set it to reference markup
 				if $.trim(originalMarkup).length is 0
-					console.log 'Original Markup empty'
+					# console.log 'Original Markup empty'
 					originalMarkup = referenceMarkup
 				
 
 				referenceRowCount = $(referenceMarkup).find('tbody tr').length
-				console.log referenceRowCount
+				# console.log referenceRowCount
 				currentRowCount = $(originalMarkup).find('tbody tr').length
-				console.log currentRowCount
+				# console.log currentRowCount
 				currentColumnCount = $(originalMarkup).find('thead th').length
-				console.log currentColumnCount
+				# console.log currentColumnCount
 
 				html_table = '<div>'+originalMarkup+'</div>'
 
@@ -176,10 +176,10 @@ define ['app'
 
 				# Add reference rows for current columns
 				if currentRowCount is referenceRowCount
-					console.log  'No change in row count for both tables'
+					# console.log  'No change in row count for both tables'
 					modified_language_table_html = originalMarkup
 				else if currentRowCount < referenceRowCount
-                	console.log  'Current table has less rows'
+                	# console.log  'Current table has less rows'
                 	# Add additonal rows to current table
                 	while currentRowCount < referenceRowCount
                 		html = '<tr>'
@@ -196,7 +196,7 @@ define ['app'
                         # console.log modified_language_table_html
                 		currentRowCount++
                 else
-                	console.log  'Current table has more rows'
+                	# console.log  'Current table has more rows'
                 	while currentRowCount > referenceRowCount
                 		$content.find('tbody tr:last-of-type').remove()
                 		modified_language_table_html =  $content.html()
@@ -208,27 +208,27 @@ define ['app'
 
 
 			_getTranslatedHtml:(originalMarkup, referenceMarkup)->
-				console.log 'Get translated markup for table'
+				# console.log 'Get translated markup for table'
 				originalMarkup = _.stripslashes originalMarkup
 				referenceMarkup = _.stripslashes referenceMarkup
 
 				# Check if number of rows has changed
 				modifiedTranslatedMarkup = @tableOnRowChange(originalMarkup,referenceMarkup)
 
-				console.log 'Aftr checking row chngs'
-				console.log modifiedTranslatedMarkup
+				# console.log 'Aftr checking row chngs'
+				# console.log modifiedTranslatedMarkup
 				
 				# Check if number of columns has changed
 				modifiedTranslatedMarkup = @tableOnColumnChange(modifiedTranslatedMarkup,referenceMarkup)
 
-				console.log 'Aftr checking column chngs'
-				console.log modifiedTranslatedMarkup
+				# console.log 'Aftr checking column chngs'
+				# console.log modifiedTranslatedMarkup
 				
 				# Check if style has changed
 				modifiedTranslatedMarkup = @tableOnStyleChange(modifiedTranslatedMarkup,referenceMarkup)
 
-				console.log 'Aftr checking styles'
-				console.log modifiedTranslatedMarkup
+				# console.log 'Aftr checking styles'
+				# console.log modifiedTranslatedMarkup
 
 				finalTranslatedMarkup = modifiedTranslatedMarkup
 				finalTranslatedMarkup
