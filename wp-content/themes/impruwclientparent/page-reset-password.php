@@ -25,11 +25,11 @@ get_header();
                 if ( $user->get_error_code() === 'expired_key' )
                     echo '<div class="alert alert-error">
                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    Expired Key</div>';
+                    '.__( 'Expired Key', 'impruwmain' ).'</div>';
                 else
                     echo '<div class="alert alert-error">
                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    Invalid Key</div>';
+                    '.__( 'Invalid Key', 'impruwmain' ).'</div>';
                 exit;
             }
 
@@ -49,7 +49,7 @@ get_header();
                                class="col-sm-3 control-label"><?php echo __( 'New Password', 'impruwmain' ); ?></label>
                         <div class="col-sm-6 col-sm-offset-3">
                             <input type="password" class="form-control  parsley-validated parsley-error" id="newPassword"
-                                   name="newPassword" placeholder="Password" parsley-required="true"
+                                   name="newPassword" placeholder="<?php echo __( 'New Password', 'impruwmain' ); ?>" parsley-required="true"
                                    parsley-trigger="blur" parsley-validation-minlength="0"
                                    parsley-required-message="<?php echo __( 'You need to enter a password', 'impruwmain' ); ?>"/>
 

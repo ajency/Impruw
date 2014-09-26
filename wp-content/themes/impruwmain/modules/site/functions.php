@@ -130,7 +130,9 @@ function add_pages_to_site( $site_id, $user_id, $pages ) {
         if ( isset( $page [ 'template' ] ) )
             update_post_meta( $post_id, '_wp_page_template', $page [ 'template' ] );
 
-        if ($page[ 'post_title' ]==='Coming Soon') {
+        if ($page[ 'post_title' ]==='Coming Soon'||$page[ 'post_title' ]==='Sign In'||$page[ 'post_title' ]==='Reset Password') {
+
+            //Create pages in norwegian as well
             $page_id = create_page_in_other_language($post_id,$page_arr,'nb');
 
             // assign the template if passed
@@ -608,4 +610,45 @@ function sitename_exists( $blog_name, $mainblog_id ) {
 
         return $site_exists;
     }
+}
+
+/**
+ * Function to register strings for translation, present in sign_in , reset password page
+ */
+
+function translations_for_sign_in($site_id){
+    switch_to_blog( $site_id );
+    $strings = array('sign_in' => array('Sign in','Logg in på' ),
+                     'impruw' => array('Impruw','Impruw'),
+                     'sign_in_description' => array('To access your website first Sign in to Impruw','Logg inn på Impruw først for å få tilgang til nettsiden din.'),
+                     'email_label' => array('Email','E-post'),
+                     'email_placeholder' => array('Email ID you signed up with','E-postadressen du registrerte deg med'),
+                     'email_validation_msg' => array('A valid email address is required to sign in','En gyldig e-postadresse kreves for å logge på'),
+                     'password_label' => array('Password','Passord'),
+                     'password_validation' => array('You need to enter a password','Du må skrive inn et passord'),
+                     'forgot_pswd_link_text' => array('Forgot your password?','Glemt passord?'),
+                     'keep_loggedin_checkbox' => array('Keep me logged in.','Hold meg innlogget.'),
+                     'no_account_text' => array('Dont have an account?','Har du ingen brukerkonto?'),
+                     'sign_up_link_text' => array('Sign Up!','Registrer deg!'),
+                     'reset_pswd_button' => array('Reset Password','Resett passord'),
+                     'sign_in_back_link_text' => array('&laquo; Sign In','&laquo; Logg inn'),
+                     'reset_pswd_expired_key' => array('utløpt Key'),
+                     'reset_pswd_invalid_key' => array('Ugyldig nøkkel'),
+                     'new_password_label' => array('New Password','nytt passord'),
+                     'submit_btn_label' => array('Submit','Send inn')
+                    );
+
+    foreach ($strings as $key => $value) {
+        echo "String translations";
+        //Register english strings
+        icl_register_string('theme impruwmain', $key, $value[0]);
+
+        //Add norwegian string translation
+        $original_string_id = icl_get_string_id($value[0], 'theme impruwmain');
+
+        $string_id = icl_add_string_translation( $original_string_id, 'nb', $value[1], ICL_STRING_TRANSLATION_COMPLETE );
+    }
+
+    restore_current_blog();
+    
 }
