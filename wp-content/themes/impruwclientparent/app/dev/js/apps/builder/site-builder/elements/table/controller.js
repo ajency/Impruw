@@ -38,26 +38,39 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
       Controller.prototype.tableOnStyleChange = function(originalMarkup, referenceMarkup) {
         var $content, html_table, modified_language_table_html;
         console.log('table style has changed');
+        if ($.trim(originalMarkup).length === 0) {
+          console.log('Original Markup empty');
+          originalMarkup = referenceMarkup;
+        }
         html_table = '<div>' + originalMarkup + '</div>';
         $content = $(html_table);
-        if ($(referenceMarkup).hasClass('style-1')) {
+        modified_language_table_html;
+        if ($(referenceMarkup).find('table').hasClass('style-1')) {
+          console.log('Applied style-1');
           $content.find('table').addClass('style-1');
         } else {
+          console.log('Removed style-1');
           $content.find('table').removeClass('style-1');
         }
-        if ($(referenceMarkup).hasClass('style-2')) {
+        if ($(referenceMarkup).find('table').hasClass('style-2')) {
+          console.log('Applied style-2');
           $content.find('table').addClass('style-2');
         } else {
+          console.log('Removed style-2');
           $content.find('table').removeClass('style-2');
         }
-        if ($(referenceMarkup).hasClass('table-striped')) {
+        if ($(referenceMarkup).find('table').hasClass('table-striped')) {
+          console.log('Applied table-striped');
           $content.find('table').addClass('table-striped');
         } else {
+          console.log('Removed table-striped');
           $content.find('table').removeClass('table-striped');
         }
-        if ($(referenceMarkup).hasClass('table-bordered')) {
+        if ($(referenceMarkup).find('table').hasClass('table-bordered')) {
+          console.log('Applied table-bordered');
           $content.find('table').addClass('table-bordered');
         } else {
+          console.log('Removed table-bordered');
           $content.find('table').removeClass('table-bordered');
         }
         modified_language_table_html = $content.html();
@@ -67,6 +80,10 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
       Controller.prototype.tableOnColumnChange = function(originalMarkup, referenceMarkup) {
         var $content, currentColumnCount, currentRowCount, html_table, modified_language_table_html, referenceColumnCount, referenceTableHead, tableHeadColumns, tableRows, thWidthArray;
         console.log('table column changed');
+        if ($.trim(originalMarkup).length === 0) {
+          console.log('Original Markup empty');
+          originalMarkup = referenceMarkup;
+        }
         referenceColumnCount = $(referenceMarkup).find('thead th').length;
         console.log(referenceColumnCount);
         currentColumnCount = $(originalMarkup).find('thead th').length;
@@ -127,6 +144,10 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
       Controller.prototype.tableOnRowChange = function(originalMarkup, referenceMarkup) {
         var $content, $rowHtml, currentColumnCount, currentRowCount, html, html_table, index, modified_language_table_html, referenceRowCount, _i;
         console.log('table row changed');
+        if ($.trim(originalMarkup).length === 0) {
+          console.log('Original Markup empty');
+          originalMarkup = referenceMarkup;
+        }
         referenceRowCount = $(referenceMarkup).find('tbody tr').length;
         console.log(referenceRowCount);
         currentRowCount = $(originalMarkup).find('tbody tr').length;
@@ -137,14 +158,14 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
         $content = $(html_table);
         modified_language_table_html = '';
         if (currentRowCount === referenceRowCount) {
-          console.log('No change is row count for both tables');
+          console.log('No change in row count for both tables');
           modified_language_table_html = originalMarkup;
         } else if (currentRowCount < referenceRowCount) {
           console.log('Current table has less rows');
           while (currentRowCount < referenceRowCount) {
             html = '<tr>';
             for (index = _i = 1; 1 <= currentColumnCount ? _i <= currentColumnCount : _i >= currentColumnCount; index = 1 <= currentColumnCount ? ++_i : --_i) {
-              html += '<td><div>DEMO</div></td>';
+              html += '<td><div>demo</div></td>';
             }
             html += '</tr>';
             $rowHtml = $(html);
@@ -177,7 +198,8 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
         modifiedTranslatedMarkup = this.tableOnStyleChange(modifiedTranslatedMarkup, referenceMarkup);
         console.log('Aftr checking styles');
         console.log(modifiedTranslatedMarkup);
-        return finalTranslatedMarkup = referenceMarkup;
+        finalTranslatedMarkup = modifiedTranslatedMarkup;
+        return finalTranslatedMarkup;
       };
 
       Controller.prototype.renderElement = function() {
@@ -200,11 +222,15 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
             data[WPML_DEFAULT_LANG] = $(html).html();
             languageLen = LANGUAGES.length;
             i = 0;
-            while (i < 1) {
+            while (i < languageLen) {
               allLanguages = LANGUAGES[i];
               languageCode = allLanguages.code;
-              languageCode = 'en';
-              translatedTableHtml = _this._getTranslatedHtml(data[languageCode], data[WPML_DEFAULT_LANG]);
+              if (data.hasOwnProperty(languageCode)) {
+                translatedTableHtml = _this._getTranslatedHtml(data[languageCode], data[WPML_DEFAULT_LANG]);
+              } else {
+                translatedTableHtml = data[WPML_DEFAULT_LANG];
+              }
+              data[languageCode] = _.stripslashes(translatedTableHtml);
               i++;
             }
             newdata = {};

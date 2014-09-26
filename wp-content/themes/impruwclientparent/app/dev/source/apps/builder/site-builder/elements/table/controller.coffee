@@ -31,29 +31,43 @@ define ['app'
 
 			tableOnStyleChange:(originalMarkup,referenceMarkup) ->
 				console.log 'table style has changed'
+				# Check if original markup stil not set, if empty set it to reference markup
+				if $.trim(originalMarkup).length is 0
+					console.log 'Original Markup empty'
+					originalMarkup = referenceMarkup
 
 				html_table = '<div>'+originalMarkup+'</div>'
 
 				$content = $(html_table)
 
-				if($(referenceMarkup).hasClass('style-1'))
+				modified_language_table_html
+
+				if($(referenceMarkup).find('table').hasClass('style-1'))
+					console.log 'Applied style-1'
 					$content.find('table').addClass 'style-1'
 				else
+					console.log 'Removed style-1'
 					$content.find('table').removeClass 'style-1'
 
-				if($(referenceMarkup).hasClass('style-2'))
+				if($(referenceMarkup).find('table').hasClass('style-2'))
+					console.log 'Applied style-2'
 					$content.find('table').addClass 'style-2'
 				else
+					console.log 'Removed style-2'
 					$content.find('table').removeClass 'style-2'
 
-				if($(referenceMarkup).hasClass('table-striped'))
+				if($(referenceMarkup).find('table').hasClass('table-striped'))
+					console.log 'Applied table-striped'
 					$content.find('table').addClass 'table-striped'
 				else
+					console.log 'Removed table-striped'
 					$content.find('table').removeClass 'table-striped'	
 
-				if($(referenceMarkup).hasClass('table-bordered'))
+				if($(referenceMarkup).find('table').hasClass('table-bordered'))
+					console.log 'Applied table-bordered'
 					$content.find('table').addClass 'table-bordered'
 				else
+					console.log 'Removed table-bordered'
 					$content.find('table').removeClass 'table-bordered'
 
 				modified_language_table_html = $content.html()
@@ -64,6 +78,11 @@ define ['app'
 
 			tableOnColumnChange:(originalMarkup,referenceMarkup)->
 				console.log 'table column changed'
+				# Check if original markup stil not set, if empty set it to reference markup
+				if $.trim(originalMarkup).length is 0
+					console.log 'Original Markup empty'
+					originalMarkup = referenceMarkup
+
 				referenceColumnCount = $(referenceMarkup).find('thead th').length
 				console.log referenceColumnCount
 				currentColumnCount = $(originalMarkup).find('thead th').length
@@ -135,6 +154,13 @@ define ['app'
 
 			tableOnRowChange: (originalMarkup,referenceMarkup)->
 				console.log 'table row changed'
+
+				# Check if original markup stil not set, if empty set it to reference markup
+				if $.trim(originalMarkup).length is 0
+					console.log 'Original Markup empty'
+					originalMarkup = referenceMarkup
+				
+
 				referenceRowCount = $(referenceMarkup).find('tbody tr').length
 				console.log referenceRowCount
 				currentRowCount = $(originalMarkup).find('tbody tr').length
@@ -150,7 +176,7 @@ define ['app'
 
 				# Add reference rows for current columns
 				if currentRowCount is referenceRowCount
-					console.log  'No change is row count for both tables'
+					console.log  'No change in row count for both tables'
 					modified_language_table_html = originalMarkup
 				else if currentRowCount < referenceRowCount
                 	console.log  'Current table has less rows'
@@ -158,7 +184,7 @@ define ['app'
                 	while currentRowCount < referenceRowCount
                 		html = '<tr>'
                 		for index in [1..currentColumnCount]
-                        	html += '<td><div>DEMO</div></td>'
+                        	html += '<td><div>demo</div></td>'
                         html += '</tr>'
                         # console.log 'index-'+currentRowCount
                         # console.log html
@@ -204,7 +230,8 @@ define ['app'
 				console.log 'Aftr checking styles'
 				console.log modifiedTranslatedMarkup
 
-				finalTranslatedMarkup = referenceMarkup
+				finalTranslatedMarkup = modifiedTranslatedMarkup
+				finalTranslatedMarkup
 
 			# setup templates for the element
 			renderElement: ()=>
@@ -240,11 +267,14 @@ define ['app'
 	                languageLen = LANGUAGES.length
 
 	                i=0
-	                while i < 1
+	                while i < languageLen
 	                	allLanguages = LANGUAGES[i]
 	                	languageCode = allLanguages.code
-	                	languageCode = 'en'
-	                	translatedTableHtml = @_getTranslatedHtml(data[languageCode],data[WPML_DEFAULT_LANG])
+	                	if data.hasOwnProperty(languageCode)
+	                		translatedTableHtml = @_getTranslatedHtml(data[languageCode],data[WPML_DEFAULT_LANG])
+	                	else 
+	                		translatedTableHtml = data[WPML_DEFAULT_LANG]
+	                	data[languageCode] = _.stripslashes translatedTableHtml
 	                	i++
 
 	                # stripslash each html content and save in json
