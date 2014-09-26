@@ -148,7 +148,7 @@ define [ 'app'
             
          changePreviewLinkUrl : ->
             currentPageId = App.request "get:current:editable:page"
-            previewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}"
+            previewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}&sim=true"
             @$el.find( 'a.preview-current-page' )
                .attr 'href', previewUrl
                .attr 'target', '_newtab' + Math.floor(Math.random()*999999)
