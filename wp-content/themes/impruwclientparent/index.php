@@ -19,7 +19,9 @@ if ( isset( $_GET[ 'sim' ] ) && $_GET[ 'sim' ] == 'true' ) {
 
 	$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	// print_r($actual_link);
-	$url =  substr($actual_link, 0,-9);
+	// $url =  substr($actual_link, 0,-9);
+	$url = str_replace("&sim=true", "", $actual_link);
+	$url = str_replace("?sim=true", "", $url);
 	// print_r($url);
 	?>
 	<!DOCTYPE html>
