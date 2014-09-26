@@ -35,12 +35,157 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
         });
       };
 
+      Controller.prototype.tableOnStyleChange = function(originalMarkup, referenceMarkup) {
+        var $content, html_table, modified_language_table_html;
+        console.log('table style has changed');
+        html_table = '<div>' + originalMarkup + '</div>';
+        $content = $(html_table);
+        if ($(referenceMarkup).hasClass('style-1')) {
+          $content.find('table').addClass('style-1');
+        } else {
+          $content.find('table').removeClass('style-1');
+        }
+        if ($(referenceMarkup).hasClass('style-2')) {
+          $content.find('table').addClass('style-2');
+        } else {
+          $content.find('table').removeClass('style-2');
+        }
+        if ($(referenceMarkup).hasClass('table-striped')) {
+          $content.find('table').addClass('table-striped');
+        } else {
+          $content.find('table').removeClass('table-striped');
+        }
+        if ($(referenceMarkup).hasClass('table-bordered')) {
+          $content.find('table').addClass('table-bordered');
+        } else {
+          $content.find('table').removeClass('table-bordered');
+        }
+        modified_language_table_html = $content.html();
+        return modified_language_table_html;
+      };
+
+      Controller.prototype.tableOnColumnChange = function(originalMarkup, referenceMarkup) {
+        var $content, currentColumnCount, currentRowCount, html_table, modified_language_table_html, referenceColumnCount, referenceTableHead, tableHeadColumns, tableRows, thWidthArray;
+        console.log('table column changed');
+        referenceColumnCount = $(referenceMarkup).find('thead th').length;
+        console.log(referenceColumnCount);
+        currentColumnCount = $(originalMarkup).find('thead th').length;
+        console.log(currentColumnCount);
+        currentRowCount = $(originalMarkup).find('tbody tr').length;
+        console.log(currentRowCount);
+        html_table = '<div>' + originalMarkup + '</div>';
+        $content = $(html_table);
+        modified_language_table_html = '';
+        if (currentColumnCount === referenceColumnCount) {
+          console.log('No change in column count for both tables');
+          modified_language_table_html = originalMarkup;
+        } else if (currentColumnCount < referenceColumnCount) {
+          console.log('Current table has less columns');
+          while (currentColumnCount < referenceColumnCount) {
+            $content.find('thead tr').append('<th><div>demo</div></th>');
+            tableRows = $content.find('tbody tr');
+            _.each(tableRows, function(row, index) {
+              return $(row).append('<td><div>demo</div></td>');
+            });
+            referenceTableHead = $(referenceMarkup).find('thead th');
+            thWidthArray = new Array();
+            _.each(referenceTableHead, function(column, index) {
+              var thwidth;
+              thwidth = $(column).css('width');
+              return thWidthArray.push(thwidth);
+            });
+            tableHeadColumns = $content.find('thead th');
+            _.each(tableHeadColumns, function(column, index) {
+              return $(column).css('width', thWidthArray[index]);
+            });
+            modified_language_table_html = $content.html();
+            currentColumnCount++;
+          }
+        } else {
+          console.log('Current table has more columns');
+          while (currentColumnCount > referenceColumnCount) {
+            $content.find('thead tr th:last-of-type').remove();
+            tableRows = $content.find('tbody tr td:last-of-type').remove();
+            referenceTableHead = $(referenceMarkup).find('thead th');
+            thWidthArray = new Array();
+            _.each(referenceTableHead, function(column, index) {
+              var thwidth;
+              thwidth = $(column).css('width');
+              return thWidthArray.push(thwidth);
+            });
+            tableHeadColumns = $content.find('thead th');
+            _.each(tableHeadColumns, function(column, index) {
+              return $(column).css('width', thWidthArray[index]);
+            });
+            modified_language_table_html = $content.html();
+            currentColumnCount--;
+          }
+        }
+        return modified_language_table_html;
+      };
+
+      Controller.prototype.tableOnRowChange = function(originalMarkup, referenceMarkup) {
+        var $content, $rowHtml, currentColumnCount, currentRowCount, html, html_table, index, modified_language_table_html, referenceRowCount, _i;
+        console.log('table row changed');
+        referenceRowCount = $(referenceMarkup).find('tbody tr').length;
+        console.log(referenceRowCount);
+        currentRowCount = $(originalMarkup).find('tbody tr').length;
+        console.log(currentRowCount);
+        currentColumnCount = $(originalMarkup).find('thead th').length;
+        console.log(currentColumnCount);
+        html_table = '<div>' + originalMarkup + '</div>';
+        $content = $(html_table);
+        modified_language_table_html = '';
+        if (currentRowCount === referenceRowCount) {
+          console.log('No change is row count for both tables');
+          modified_language_table_html = originalMarkup;
+        } else if (currentRowCount < referenceRowCount) {
+          console.log('Current table has less rows');
+          while (currentRowCount < referenceRowCount) {
+            html = '<tr>';
+            for (index = _i = 1; 1 <= currentColumnCount ? _i <= currentColumnCount : _i >= currentColumnCount; index = 1 <= currentColumnCount ? ++_i : --_i) {
+              html += '<td><div>DEMO</div></td>';
+            }
+            html += '</tr>';
+            $rowHtml = $(html);
+            $content.find("tbody").append($rowHtml);
+            modified_language_table_html = $content.html();
+            currentRowCount++;
+          }
+        } else {
+          console.log('Current table has more rows');
+          while (currentRowCount > referenceRowCount) {
+            $content.find('tbody tr:last-of-type').remove();
+            modified_language_table_html = $content.html();
+            currentRowCount--;
+          }
+        }
+        return modified_language_table_html;
+      };
+
+      Controller.prototype._getTranslatedHtml = function(originalMarkup, referenceMarkup) {
+        var finalTranslatedMarkup, modifiedTranslatedMarkup;
+        console.log('Get translated markup for table');
+        originalMarkup = _.stripslashes(originalMarkup);
+        referenceMarkup = _.stripslashes(referenceMarkup);
+        modifiedTranslatedMarkup = this.tableOnRowChange(originalMarkup, referenceMarkup);
+        console.log('Aftr checking row chngs');
+        console.log(modifiedTranslatedMarkup);
+        modifiedTranslatedMarkup = this.tableOnColumnChange(modifiedTranslatedMarkup, referenceMarkup);
+        console.log('Aftr checking column chngs');
+        console.log(modifiedTranslatedMarkup);
+        modifiedTranslatedMarkup = this.tableOnStyleChange(modifiedTranslatedMarkup, referenceMarkup);
+        console.log('Aftr checking styles');
+        console.log(modifiedTranslatedMarkup);
+        return finalTranslatedMarkup = referenceMarkup;
+      };
+
       Controller.prototype.renderElement = function() {
         this.removeSpinner();
         this.view = this._getTableView();
         this.listenTo(this.view, "save:table", (function(_this) {
           return function(tableHolder) {
-            var data, html, newdata, original_data;
+            var allLanguages, data, html, i, languageCode, languageLen, newdata, original_data, translatedTableHtml;
             html = $(tableHolder).clone();
             $(html).find('.rc-handle-container').remove();
             $(html).find('.ui-resizable-handle').remove();
@@ -53,9 +198,18 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
               data['en'] = original_data;
             }
             data[WPML_DEFAULT_LANG] = $(html).html();
+            languageLen = LANGUAGES.length;
+            i = 0;
+            while (i < 1) {
+              allLanguages = LANGUAGES[i];
+              languageCode = allLanguages.code;
+              languageCode = 'en';
+              translatedTableHtml = _this._getTranslatedHtml(data[languageCode], data[WPML_DEFAULT_LANG]);
+              i++;
+            }
             newdata = {};
             Object.getOwnPropertyNames(data).forEach(function(val, idx, array) {
-              return newdata[val] = _.stripslashes(data[WPML_DEFAULT_LANG]);
+              return newdata[val] = _.stripslashes(data[val]);
             });
             _this.layout.model.set('content', newdata);
             return _this.layout.model.save();
