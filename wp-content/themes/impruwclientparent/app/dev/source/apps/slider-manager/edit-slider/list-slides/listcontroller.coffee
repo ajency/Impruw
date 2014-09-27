@@ -114,23 +114,34 @@ define ['app'
 							<div class="aj-imp-image-item row">
 								<div class="imgthumb col-sm-3">
 									<img src="{{thumb_url}}" class="img-responsive">
+                                    <div class="imgactions">
+                                        <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
+                                        <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
+                                    </div>
 								</div>
-								<div class="imgname col-sm-7">
-                                    <div class="col-sm-12 ">
-                                        <form action="" method="POST" role="form" class="form-horizontal" validate>
-                                            <div class="form-group ">
-                                                <label for="" class="control-label">{{#polyglot}}Caption Title{{/polyglot}}</label>
+								<div class="imgname col-sm-9">
+                                    <form action="" method="POST" role="form" class="form-horizontal" validate>
+                                        <div class="form-group ">
+                                            <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Title{{/polyglot}}</label>
+                                            <div class="col-sm-9">
                                                 <input  type="text" name="text" class="caption-title form-control" placeholder="{{#polyglot}}Caption Title{{/polyglot}}"/>
                                             </div>
-                                            <div class="form-group caption-exist">
-                                                <label for="" class="control-label">{{#polyglot}}Caption Description{{/polyglot}}</label>
-                                                <input  type="text" name="text" class="caption-description form-control" placeholder="{{#polyglot}}Caption Description{{/polyglot}}"/>
+                                        </div>
+                                        <div class="form-group caption-exist">
+                                            <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Description{{/polyglot}}</label>
+                                            <div class="col-sm-9">
+                                                <textarea  type="text" name="text" class="caption-description form-control" placeholder="{{#polyglot}}Caption Description{{/polyglot}}">
+                                                </textarea>
                                             </div>
-                                            <div class="form-group caption-exist">
-                                                <label for="" class="control-label">{{#polyglot}}Caption Link{{/polyglot}}</label>
+                                        </div>
+                                        <div class="form-group caption-exist">
+                                            <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Link{{/polyglot}}</label>
+                                            <div class="col-sm-9">
                                                 <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/>
                                             </div>
-                                            <div class="form-group caption-exist">
+                                        </div>
+                                        <div class="form-group layout-opts caption-exist">
+                                            <div class="col-sm-4">
                                                 <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label>
                                                 <select name="style" class="form-control caption-style">
                                                     {{#captionStyles}}
@@ -138,26 +149,14 @@ define ['app'
                                                     {{/captionStyles}}
                                                 </select>
                                             </div>
-                                            <div class="form-group caption-exist">
+                                            <div class="col-sm-4">
                                                 <label for="" class="control-label">{{#polyglot}}Caption Background{{/polyglot}}</label>
                                                 <select name="background" class="form-control caption-background">
                                                     <option value="transparent-black">Transparent Black</option>
                                                     <option value="transparent-white">Transparent White</option>
                                                 </select>
                                             </div>
-                                            <!--     <div class="form-group caption-exist">
-                                                <label for="" class="col-sm-4 control-label">{{#polyglot}}Text Animation{{/polyglot}}</label>
-                                                <div class="col-sm-8">
-                                                    <select name="animation">
-                                                        <option value="tp-fade">Fade</option>
-                                                        <option value="sft">Short from Top</option>
-                                                        <option value="sfl">Short from Left</option>
-                                                        <option value="lft">Long from Top</option>
-                                                        <option value="lfl">Long from Left</option>
-                                                    </select>
-                                                </div>
-                                            </div> -->
-                                            <div class="form-group caption-exist">
+                                            <div class="col-sm-4">
                                                 <label for="" class="control-label">{{#polyglot}}Position{{/polyglot}}</label>
                                                 <div class="caption-position">
                                                     <input type="radio" name="position" value="left,top">
@@ -182,18 +181,14 @@ define ['app'
                                                     <label><span><span></span></span></label>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button>
-                                                <button type="button" class="btn btn-sm aj-imp-submit" id="cancel-slide-layer">{{#polyglot}}Cancel{{/polyglot}}</button>
-                                                <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="form-group t-a-r">
+                                            <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button>
+                                            <button type="button" class="btn btn-sm aj-imp-submit" id="cancel-slide-layer">{{#polyglot}}Cancel{{/polyglot}}</button>
+                                            <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a>
+                                        </div>
+                                    </form>
                                 </div>
-								<div class="imgactions col-sm-2">
-									<a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
-                                    <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
-								</div>
 							</div>
 						  </a>
 						</div>'
@@ -365,13 +360,10 @@ define ['app'
             template: ' <div class="slides-list">
                             <div class="aj-imp-image-header row">
     							<div class="col-sm-3">
-    								&nbsp;
+    								{{#polyglot}}Slide Image{{/polyglot}}
     							</div>
-    							<div class="col-sm-7">
+    							<div class="col-sm-9">
     								{{#polyglot}}Slide Caption{{/polyglot}}
-    							</div>
-    							<div class="col-sm-2">
-    								{{#polyglot}}Actions{{/polyglot}}
     							</div>
     						</div>
     						<div class="panel-group" id="slides-accordion"></div>
