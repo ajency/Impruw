@@ -13,10 +13,15 @@ define ['app'], (App)->
                 data-start="{{time}}"
                 data-easing="{{easing}}"
                 data-endspeed="{{endspeed}}"
-                style="z-index: 6">{{{text}}}
+                style="z-index: 6">{{{txt}}}
             </div>{{/layers}}'
 
             tagName: 'li'
+
+            mixinTemplateHelpers : (data)->
+                data = super data
+                data.txt = _.stripslashes data.layers[0].text if data.layers.length
+                data
 
             onRender: ->
                 @$el.attr 'data-slotamount', '0'
