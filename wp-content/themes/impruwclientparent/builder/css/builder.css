@@ -2824,7 +2824,8 @@ a.red-link.pull-right {
   background: #ffffff;
 }
 #slides-list-region .imgactions a {
-  margin: 0 0.5em 0.5em;
+  display: block;
+  margin: 0.5em 0;
 }
 #slides-list-region .remove-slide {
   color: #ff3333;
