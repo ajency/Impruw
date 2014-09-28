@@ -3,6 +3,8 @@
  * Template Name: Login
  */
 get_header();
+
+//Add string translations for old sites
 add_string_translations();
 ?>
     <div class="aj-imp-login-form">
