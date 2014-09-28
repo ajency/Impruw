@@ -618,29 +618,30 @@ function sitename_exists( $blog_name, $mainblog_id ) {
 
 function translations_for_sign_in($site_id){
     switch_to_blog( $site_id );
-    $strings = array('sign_in' => array('Sign in','Logg in på' ),
-                     'impruw' => array('Impruw','Impruw'),
-                     'sign_in_description' => array('To access your website first Sign in to Impruw','Logg inn på Impruw først for å få tilgang til nettsiden din.'),
-                     'email_label' => array('Email','E-post'),
-                     'email_placeholder' => array('Email ID you signed up with','E-postadressen du registrerte deg med'),
-                     'email_validation_msg' => array('A valid email address is required to sign in','En gyldig e-postadresse kreves for å logge på'),
-                     'password_label' => array('Password','Passord'),
-                     'password_validation' => array('You need to enter a password','Du må skrive inn et passord'),
-                     'forgot_pswd_link_text' => array('Forgot your password?','Glemt passord?'),
-                     'keep_loggedin_checkbox' => array('Keep me logged in.','Hold meg innlogget.'),
-                     'no_account_text' => array('Dont have an account?','Har du ingen brukerkonto?'),
-                     'sign_up_link_text' => array('Sign Up!','Registrer deg!'),
-                     'reset_pswd_button' => array('Reset Password','Resett passord'),
-                     'sign_in_back_link_text' => array('&laquo; Sign In','&laquo; Logg inn'),
-                     'reset_pswd_expired_key' => array('utløpt Key'),
-                     'reset_pswd_invalid_key' => array('Ugyldig nøkkel'),
-                     'new_password_label' => array('New Password','nytt passord'),
-                     'submit_btn_label' => array('Submit','Send inn'),
-                     'already_logged_in_msg' => array('User already logged in','Bruker allerede logget inn'),
-                     'incorrect_login_details_msg' => array('The email or password does not seem right. Check if your caps is on and try again.','E-post eller passord virker ikke riktig . Sjekk om dine caps er på og prøv igjen .'),
-                     'invalid_form_data_msg' => array('Invalid Form Data','Ugyldig skjemadata'),
-                     'dashboard_redirection_msg' => array('You will be redirected to your dashboard shortly.','Du blir omdirigert til dashbordet kort tid.'),
-                    );
+       $strings = array(
+        'sign_in' => array('Sign in','Logg in på' ),
+        'impruw' => array('Impruw','Impruw'),
+        'sign_in_description' => array('To access your website first Sign in to Impruw','Logg inn på Impruw først for å få tilgang til nettsiden din.'),
+        'email_label' => array('Email','E-post'),
+        'email_placeholder' => array('Email ID you signed up with','E-postadressen du registrerte deg med'),
+        'email_validation_msg' => array('A valid email address is required to sign in','En gyldig e-postadresse kreves for å logge på'),
+        'password_label' => array('Password','Passord'),
+        'password_validation' => array('You need to enter a password','Du må skrive inn et passord'),
+        'forgot_pswd_link_text' => array('Forgot your password?','Glemt passord?'),
+        'keep_loggedin_checkbox' => array('Keep me logged in.','Hold meg innlogget.'),
+        'no_account_text' => array('Dont have an account?','Har du ingen brukerkonto?'),
+        'sign_up_link_text' => array('Sign Up!','Registrer deg!'),
+        'reset_pswd_button' => array('Reset Password','Resett passord'),
+        'sign_in_back_link_text' => array('&laquo; Sign In','&laquo; Logg inn'),
+        'reset_pswd_expired_key' => array('Expired Key','utløpt Key'),
+        'reset_pswd_invalid_key' => array('Invalid Key','Ugyldig nøkkel'),
+        'new_password_label' => array('New Password','nytt passord'),
+        'submit_btn_label' => array('Submit','Send inn'),
+        'already_logged_in_msg' => array('User already logged in','Bruker allerede logget inn'),
+        'incorrect_login_details_msg' => array('The email or password does not seem right. Check if your caps is on and try again.','E-post eller passord virker ikke riktig . Sjekk om dine caps er på og prøv igjen .'),
+        'invalid_form_data_msg' => array('Invalid Form Data','Ugyldig skjemadata'),
+        'dashboard_redirection_msg' => array('You will be redirected to your dashboard shortly.','Du blir omdirigert til dashbordet kort tid.'),
+       );
 
     foreach ($strings as $key => $value) {
         echo "String translations";
@@ -648,7 +649,7 @@ function translations_for_sign_in($site_id){
         icl_register_string('theme impruwmain', $key, $value[0]);
 
         //Add norwegian string translation
-        $original_string_id = icl_get_string_id($value[0], 'theme impruwmain');
+        $original_string_id = icl_get_string_id($value[0], 'theme impruwlogin');
 
         $string_id = icl_add_string_translation( $original_string_id, 'nb', $value[1], ICL_STRING_TRANSLATION_COMPLETE );
     }

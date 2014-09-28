@@ -4069,6 +4069,49 @@ $base_element_templates = array(
     )
 );
 
+/**
+ * Function to register strings for translation present in sign_in , reset password page
+ */
+
+function add_string_translations()
+{
+    $strings = array(
+        'sign_in' => array('Sign in','Logg in på' ),
+        'impruw' => array('Impruw','Impruw'),
+        'sign_in_description' => array('To access your website first Sign in to Impruw','Logg inn på Impruw først for å få tilgang til nettsiden din.'),
+        'email_label' => array('Email','E-post'),
+        'email_placeholder' => array('Email ID you signed up with','E-postadressen du registrerte deg med'),
+        'email_validation_msg' => array('A valid email address is required to sign in','En gyldig e-postadresse kreves for å logge på'),
+        'password_label' => array('Password','Passord'),
+        'password_validation' => array('You need to enter a password','Du må skrive inn et passord'),
+        'forgot_pswd_link_text' => array('Forgot your password?','Glemt passord?'),
+        'keep_loggedin_checkbox' => array('Keep me logged in.','Hold meg innlogget.'),
+        'no_account_text' => array('Dont have an account?','Har du ingen brukerkonto?'),
+        'sign_up_link_text' => array('Sign Up!','Registrer deg!'),
+        'reset_pswd_button' => array('Reset Password','Resett passord'),
+        'sign_in_back_link_text' => array('&laquo; Sign In','&laquo; Logg inn'),
+        'reset_pswd_expired_key' => array('Expired Key','utløpt Key'),
+        'reset_pswd_invalid_key' => array('Invalid Key','Ugyldig nøkkel'),
+        'new_password_label' => array('New Password','nytt passord'),
+        'submit_btn_label' => array('Submit','Send inn'),
+        'already_logged_in_msg' => array('User already logged in','Bruker allerede logget inn'),
+        'incorrect_login_details_msg' => array('The email or password does not seem right. Check if your caps is on and try again.','E-post eller passord virker ikke riktig . Sjekk om dine caps er på og prøv igjen .'),
+        'invalid_form_data_msg' => array('Invalid Form Data','Ugyldig skjemadata'),
+        'dashboard_redirection_msg' => array('You will be redirected to your dashboard shortly.','Du blir omdirigert til dashbordet kort tid.'),
+       );
+
+    foreach ($strings as $key => $value) {
+        
+        //Register english strings
+        icl_register_string('theme impruwlogin', $key, $value[0]);
+
+        //Add norwegian string translation
+        $original_string_id = icl_get_string_id($value[0], 'theme impruwlogin');
+        
+        $string_id = icl_add_string_translation( $original_string_id, 'nb', $value[1], ICL_STRING_TRANSLATION_COMPLETE );
+    }
+}
+
 
 /***
  *
@@ -4076,13 +4119,12 @@ $base_element_templates = array(
  * */
 function user_login() {
 
-
     if ( is_user_logged_in() ) {
         global $user;
 
         $blog = get_active_blog_for_user( get_current_user_id() );
         $blogUrl = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
-        $response = array( "code" => "OK", 'blog_url' => $blogUrl, 'msg' => icl_t('theme impruwmain', 'already_logged_in_msg', 'User already logged in'));
+        $response = array( "code" => "OK", 'blog_url' => $blogUrl, 'msg' => icl_t('theme impruwlogin', 'already_logged_in_msg', 'User already logged in'));
         wp_send_json( $response );
     }
 
@@ -4098,7 +4140,7 @@ function user_login() {
 
     if ( !check_ajax_referer( 'frm_login', 'ajax_nonce' ) ) {
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'ERROR', 'msg' => icl_t('theme impruwmain', 'invalid_form_data_msg', 'Invalid Form Data')) );
+        echo json_encode( array( 'code' => 'ERROR', 'msg' => icl_t('theme impruwlogin', 'invalid_form_data_msg', 'Invalid Form Data')) );
         die();
     }
 
@@ -4108,17 +4150,17 @@ function user_login() {
         $user = wp_signon( $credentials );
 
         if ( is_wp_error( $user ) ) {
-            $msg = icl_t('theme impruwmain', 'incorrect_login_details_msg', 'The email or password does not seem right. Check if your caps is on and try again.');
+            $msg = icl_t('theme impruwlogin', 'incorrect_login_details_msg', 'The email or password does not seem right. Check if your caps is on and try again.');
             $response = array( 'code' => "FAILED", 'user' => $user_->user_login . $pd_pass, 'msg' => $msg );
             wp_send_json( $response );
         } else {
             $blog = get_active_blog_for_user( $user->ID );
             $blog_url = $blog->siteurl;
-            $response = array( "code" => "OK", 'blog_url' => $blog_url, 'msg' => icl_t('theme impruwmain', 'dashboard_redirection_msg', 'You will be redirected to your dashboard shortly.') );
+            $response = array( "code" => "OK", 'blog_url' => $blog_url, 'msg' => icl_t('theme impruwlogin', 'dashboard_redirection_msg', 'You will be redirected to your dashboard shortly.') );
             wp_send_json( $response );
         }
     } else {
-        $msg = icl_t('theme impruwmain', 'incorrect_login_details_msg', 'The email or password does not seem right. Check if your caps is on and try again.');
+        $msg = icl_t('theme impruwlogin', 'incorrect_login_details_msg', 'The email or password does not seem right. Check if your caps is on and try again.');
         $response = array( 'code' => "FAILED", 'msg' => $msg );
         wp_send_json( $response );
     }
