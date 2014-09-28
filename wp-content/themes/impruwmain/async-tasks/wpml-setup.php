@@ -51,9 +51,8 @@ function async_imp_setup_wpml($site_id, $user_id){
 
     add_pages_to_site( $site_id, $user_id, $pages );
     
-    //Register strings present in Sign In , Reset Password Page and also add their translations
     translations_for_sign_in($site_id);
-    
+
     // set comming soon as default page for the site
     set_front_page_of_site( 'Coming Soon', $site_id );
 
