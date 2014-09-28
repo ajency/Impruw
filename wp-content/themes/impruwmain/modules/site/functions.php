@@ -168,6 +168,16 @@ function create_page_in_other_language($page_id, $page_arr,$language){
 
     $element_type = "post_page";
 
+    if ($page_arr['post_title']==='Coming Soon') {
+        $page_arr['post_title'] = 'Kommer Snart';
+    }
+    else if ($page_arr['post_title']==='Sign In') {
+        $page_arr['post_title'] = 'Logg Inn';
+    }
+    else if ($page_arr['post_title']==='Reset Password') {
+        $page_arr['post_title'] = 'Resett passord';
+    }
+
     // Insert translated post
     $page_translated_id = wp_insert_post($page_arr);
 
@@ -641,10 +651,12 @@ function translations_for_sign_in($site_id){
         'incorrect_login_details_msg' => array('The email or password does not seem right. Check if your caps is on and try again.','E-post eller passord virker ikke riktig . Sjekk om dine caps er på og prøv igjen .'),
         'invalid_form_data_msg' => array('Invalid Form Data','Ugyldig skjemadata'),
         'dashboard_redirection_msg' => array('You will be redirected to your dashboard shortly.','Du blir omdirigert til dashbordet kort tid.'),
+        'invalid_url_msg' => array('Invalid Url','Ugyldig nettadresse'),
+        'email_non_existent_msg' => array('Email Id does not exists','E-post Id eksisterer ikke'),
+        'chk_email_for_pswd_msg' => array('Kindly check your email for resetting your password','Vennligst sjekk e-posten for å tilbakestille passordet ditt'),
        );
 
     foreach ($strings as $key => $value) {
-        echo "String translations";
         //Register english strings
         icl_register_string('theme impruwmain', $key, $value[0]);
 
