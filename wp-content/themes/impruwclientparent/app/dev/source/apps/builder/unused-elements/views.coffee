@@ -20,7 +20,7 @@ define ['app','bootbox'], (App, bootbox)->
 
             events :
                 'click .remove-element' : (e)->
-                    bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure? This element will be lost. Cannot undo this action.'}</h4>",(result)=>
+                    bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure?'}</h4><p>#{ _.polyglot.t 'You will lose this content permanently.'}</p>",(result)=>
                         if result is true
                             @trigger 'clear:element', @model.get 'meta_id'
 
@@ -75,7 +75,7 @@ define ['app','bootbox'], (App, bootbox)->
             events:
                 'click a.clear-all-elements' : (e)->
                     e.preventDefault()
-                    bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure? All elements will be lost. Cannot undo this action.'}</h4>",(result)=>
+                    bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure?'}</h4><p>#{ _.polyglot.t 'All elements will be lost. You cannot undo this action.'}</p>",(result)=>
                         if result is true
                             @trigger 'clear:all:elements'
 
