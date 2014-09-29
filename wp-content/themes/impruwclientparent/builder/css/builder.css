@@ -1828,6 +1828,15 @@ a.red-link.pull-right {
   font-size: 0.9em;
   color: #aaaaaa;
 }
+.modal .aj-imp-upload-media .progress-text {
+  color: #aaaaaa;
+  margin: 0.5em 0;
+  font-size: 1.1em;
+}
+.modal .aj-imp-upload-media .progress-text span {
+  font-weight: 700;
+  color: #849fb0;
+}
 .modal .aj-imp-image-header {
   padding: 10px 15px;
   margin: 0 0 1em;
