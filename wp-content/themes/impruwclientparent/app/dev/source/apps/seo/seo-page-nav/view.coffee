@@ -7,7 +7,7 @@ define ['app'], (App)->
 
                     tagName: "li"
 
-                    template : '{{#isChildSitePage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href="#page"{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} {{^isRoomPage}}id="page"{{/isRoomPage}} data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isChildSitePage}}'
+                    template : '{{#isSeoPage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href="#page"{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} {{^isRoomPage}}id="page"{{/isRoomPage}} data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isSeoPage}}'
 
                     events:
                     	# 'click a#rooms' : 'loadRoomContent'
@@ -15,6 +15,20 @@ define ['app'], (App)->
 
                     # loadRoomContent: (e) ->
                     #     @trigger "page:room:content"
+
+                    mixinTemplateHelpers: (data)->
+                        data = super data
+                        data.isSeoPage =->
+                            skipPages = new Array()
+                            skipPages = ['single-room','habitacion-individual','einzelzimmer','chambre-simple','enkeltrom','dashboard','site-builder','sample-page','sign-in','support','reset-password','coming-soon','logg-in','kommer-snart','resett-passord']
+                            foundPage = $.inArray data.pageHref, skipPages
+                            if foundPage isnt -1
+                                isSeoPage = false
+                            else
+                                isSeoPage = true
+                            isSeoPage
+                            
+                        data
 
                     loadPageContent: (e) ->
                         pageId = $(e.currentTarget).attr('data-pageid')

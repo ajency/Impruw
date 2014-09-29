@@ -1,7 +1,5 @@
 @import url(builder-icon-fonts.css);
-
 @import url(toggle-switch.css);
-
 @import url(../../../../plugins/revslider/rs-plugin/css/settings.css);
 /*
 Theme Name:     Impruw Builder Styles
@@ -11,7 +9,8 @@ Author:         Jarryd for Ajency.in
 Author URI:     http://ajency.in/
 Template:       impruw
 Version:        0.1.0
-*//****Builder Icon Font****/
+*/
+/****Builder Icon Font****/
 /****Builder Toggle Switch****/
 /****REVSlider Stylesheet****/
 /****Colors****/
@@ -803,28 +802,20 @@ a.red-link.pull-right {
   box-shadow: 0 4px 4px -4px #aaaaaa;
   background: #f6f6f6;
   /* Old browsers */
-
   background: -moz-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ededed), color-stop(35%, #f6f6f6), color-stop(68%, #ffffff), color-stop(100%, #fcfcfc));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
   /* IE10+ */
-
   background: linear-gradient(to bottom, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#fcfcfc', GradientType=0);
   /* IE6-9 */
-
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back {
   clear: left;
@@ -833,7 +824,7 @@ a.red-link.pull-right {
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back a {
   color: #808080;
   font-weight: 700;
-  font-size: 0.88em;
+  font-size: 1em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back a .bicon {
   font-size: 1.3em;
@@ -940,6 +931,9 @@ a.red-link.pull-right {
   position: relative;
   top: 0.5em;
 }
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page .glyphicon {
+  vertical-align: top;
+}
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page:hover {
   background: transparent;
   color: #ff7e00;
@@ -1022,6 +1016,7 @@ a.red-link.pull-right {
   border-radius: 3px;
   display: inline-block;
   width: 56%;
+  vertical-align: top;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .page-slug-edit {
   width: 80%;
@@ -1633,7 +1628,6 @@ a.red-link.pull-right {
 .aj-imp-builder-content-mode .aj-element-setting-tooltip .tooltip-inner {
   width: auto;
   /*min-width: 250px;*/
-
   max-width: 300px;
   background: #29333F;
 }
@@ -1833,6 +1827,15 @@ a.red-link.pull-right {
 .modal .aj-imp-upload-media .small-text {
   font-size: 0.9em;
   color: #aaaaaa;
+}
+.modal .aj-imp-upload-media .progress-text {
+  color: #aaaaaa;
+  margin: 0.5em 0;
+  font-size: 1.1em;
+}
+.modal .aj-imp-upload-media .progress-text span {
+  font-weight: 700;
+  color: #849fb0;
 }
 .modal .aj-imp-image-header {
   padding: 10px 15px;
@@ -2403,7 +2406,7 @@ a.red-link.pull-right {
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 400px;
+  height: 32vh;
   overflow-y: auto;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem {
@@ -2414,21 +2417,21 @@ a.red-link.pull-right {
   text-align: left;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem a {
-  background: none repeat scroll 0 0 #000;
+  background: none repeat scroll 0 0 #fff;
   color: #aaaaaa;
   cursor: move;
   display: block;
   padding: 0.3em;
+  border-radius: 2px;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-header {
-  font-size: 1.2em;
+  font-size: 1em;
   border-bottom: 1px dotted #f3f3f3;
-  color: #f3f3f3;
+  color: #849fb0;
   margin: 0 0 0.3em;
   padding: 0 0 0.2em;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-header .bicon {
-  background: #fff;
   color: #aaaaaa;
   min-width: 18px;
   min-height: 18px;
@@ -2443,10 +2446,11 @@ a.red-link.pull-right {
   margin-top: 0.4em;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-content {
-  font-size: 0.8em;
-  max-height: 41px;
+  font-size: 0.7em;
+  max-height: 50px;
   overflow: hidden;
-  line-height: 1.2em;
+  line-height: 1em;
+  text-transform: capitalize;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem:hover,
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem:focus {
@@ -2458,9 +2462,13 @@ a.red-link.pull-right {
   color: #fff;
   background: rgba(0, 0, 0, 0);
 }
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem:hover a .trash-elem-header,
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem:focus a .trash-elem-header {
+  color: #fff;
+}
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem:hover a .trash-elem-header .bicon,
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem:focus a .trash-elem-header .bicon {
-  color: #ff7e00;
+  color: #fff;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem.ui-draggable-dragging {
   background: transparent;

@@ -49,7 +49,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype.updatePageElementContent = function(view, newElemContent) {
-        var content_text, editLang, model, translatedContent;
+        var content_text, data, editLang, model, translatedContent;
         model = view.model;
         if (model.get('element') === 'Link') {
           content_text = 'text';
@@ -57,9 +57,19 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
           content_text = 'content';
         }
         translatedContent = model.get(content_text);
+        if (_.isObject(translatedContent)) {
+          data = {};
+          Object.getOwnPropertyNames(translatedContent).forEach(function(val, idx, array) {
+            return data[val] = _.stripslashes(translatedContent[val]);
+          });
+        } else {
+          data = {};
+          data['en'] = _.stripslashes(translatedContent);
+          data['nb'] = _.stripslashes(translatedContent);
+        }
         editLang = this.editLang;
-        translatedContent[editLang] = newElemContent;
-        model.set(content_text, translatedContent);
+        data[editLang] = newElemContent;
+        model.set(content_text, data);
         model.set('source', 'dashboard');
         return model.save(null, {
           wait: true,

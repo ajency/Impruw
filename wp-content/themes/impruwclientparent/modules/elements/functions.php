@@ -41,8 +41,11 @@ function get_element_by_id( $meta_id ) {
 
     $meta_value = maybe_unserialize( $meta_value );
 
-    if ( $meta_value['element'] !== 'Title' && $meta_value['element'] !== 'Text' && $meta_value['element'] !==
-        'ImageWithText')
+    if ( $meta_value['element'] !== 'Title' &&
+         $meta_value['element'] !== 'Text' &&
+         $meta_value['element'] !== 'ImageWithText' &&
+         $meta_value['element'] !== 'Table'
+        )
         return false;
 
     $meta_value = is_array( $meta_value ) ? $meta_value : array();

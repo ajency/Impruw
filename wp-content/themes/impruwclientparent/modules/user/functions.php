@@ -152,7 +152,7 @@ function reset_user_password( $user_email ) {
     //get the hashed user activation key
     $key = generate_hashed_user_activation_key( $user_login );
 
-    $msg = 'Kindly check your email for resetting your password';
+    $msg = icl_t('theme impruwlogin', 'chk_email_for_pswd_msg', 'Kindly check your email for resetting your password');
 
     send_password_reset_mail( $user_login, $user_id, $key );
 

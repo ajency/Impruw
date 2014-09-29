@@ -39,9 +39,9 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           }
           return App.request("add:new:element", container, type, modelData);
         });
-        App.execute("when:fetched", [elements], (function(_this) {
+        return App.execute("when:fetched", [elements], (function(_this) {
           return function() {
-            return _.delay(function() {
+            _.delay(function() {
               _this.deferreds = [];
               _this.startFillingElements();
               return $.when.apply($, _this.deferreds).done(function() {
@@ -58,11 +58,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
                 return App.autoSaveAPI.local.createStorage();
               });
             }, 400);
+            return _this.show(_this.view, {
+              loading: true
+            });
           };
         })(this));
-        return this.show(this.view, {
-          loading: true
-        });
       };
 
       BuilderController.prototype._getContainer = function(section) {
