@@ -15,7 +15,8 @@ define(['app', 'apps/builder/site-builder/elements/map/views', 'apps/builder/sit
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Map',
-          height: 250
+          height: 250,
+          heightRatio: 0.3
         });
         return Controller.__super__.initialize.call(this, options);
       };

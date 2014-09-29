@@ -12,6 +12,7 @@ define ['app'
                 _.defaults options.modelData,
                                         element: 'Map'
                                         height : 250
+                                        heightRatio : 0.3
                 super(options)
 
             bindEvents: ->

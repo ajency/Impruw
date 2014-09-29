@@ -125,7 +125,7 @@
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;
 </script>
-<!-- <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
 <!-- Unused Elements Box -->
 <div id="fl_menu" class="aj-imp-trash-elements"></div>

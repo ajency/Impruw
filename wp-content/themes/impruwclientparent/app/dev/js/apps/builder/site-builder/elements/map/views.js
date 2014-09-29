@@ -1,4 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app'], function(App) {
@@ -7,6 +8,8 @@ define(['app'], function(App) {
       __extends(MapView, _super);
 
       function MapView() {
+        this.adjustMapPosition = __bind(this.adjustMapPosition, this);
+        this.mapMoved = __bind(this.mapMoved, this);
         return MapView.__super__.constructor.apply(this, arguments);
       }
 
@@ -18,12 +21,8 @@ define(['app'], function(App) {
 
       MapView.prototype.onShow = function() {
         this.className += " " + Marionette.getOption(this, 'className');
-        this.$el.parent().height(this.model.get('height'));
+        this.adjustMapPosition();
         this.$el.height('100%');
-        this.trigger('set:image:height', {
-          height: this.$el.parent().height(),
-          width: this.$el.parent().width()
-        });
         this.$el.parent().resizable({
           handles: "s",
           stop: (function(_this) {
@@ -38,10 +37,39 @@ define(['app'], function(App) {
           })(this)
         });
         if (window.ADDRESS.trim() === '') {
-          return this.$el.html("<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Address not specified. Please<a href='" + SITEURL + "/dashboard/#site-profile'> click here to add.</a></div>");
+          this.$el.html("<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Address not specified. Please<a href='" + SITEURL + "/dashboard/#site-profile'> click here to add.</a></div>");
         } else {
-          return this.geoCodeAddress();
+          this.geoCodeAddress();
         }
+        this.parentColumns = this.$el.parents('.column');
+        return this.parentColumns.each((function(_this) {
+          return function(index, parentColumn) {
+            console.log(parentColumn);
+            $(parentColumn).on('class:changed', _this.adjustMapPosition);
+            return $(parentColumn).on('element:moved', _this.mapMoved);
+          };
+        })(this));
+      };
+
+      MapView.prototype.mapMoved = function() {
+        this.parentColumns.each((function(_this) {
+          return function(index, parentColumn) {
+            $(parentColumn).off('element:moved', _this.mapMoved);
+            return $(parentColumn).off('class:changed', _this.adjustMapPosition);
+          };
+        })(this));
+        this.parentColumns = this.$el.parents('.column');
+        this.parentColumns.each((function(_this) {
+          return function(index, parentColumn) {
+            $(parentColumn).on('element:moved', _this.mapMoved);
+            return $(parentColumn).on('class:changed', _this.adjustMapPosition);
+          };
+        })(this));
+        return this.adjustMapPosition();
+      };
+
+      MapView.prototype.adjustMapPosition = function() {
+        return this.$el.parent().height(parseFloat(this.model.get('heightRatio')) * this.$el.parent().width());
       };
 
       MapView.prototype.geoCodeAddress = function() {
