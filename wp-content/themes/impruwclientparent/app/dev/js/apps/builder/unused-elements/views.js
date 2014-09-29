@@ -34,10 +34,15 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       SingleUnusedElement.prototype.serializeData = function() {
-        var content, serializedData, _ref;
+        var content, ele, serializedData, _ref;
         serializedData = SingleUnusedElement.__super__.serializeData.call(this);
         serializedData.element = _.str.capitalize(serializedData.element);
-        content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
+        ele = serializedData.element;
+        if (ele === 'Title' || ele === 'Text' || ele === 'ImageWithText') {
+          content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
+        } else {
+          content = '';
+        }
         serializedData.content = _.stripslashes(content);
         return serializedData;
       };

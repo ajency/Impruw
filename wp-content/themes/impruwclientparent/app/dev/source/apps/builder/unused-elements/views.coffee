@@ -1,7 +1,7 @@
 define ['app','bootbox'], (App, bootbox)->
-    
+
     App.module 'UnusedElement.Views', (Views, App, Backbone, Marionette, $, _)->
-        
+
         class SingleUnusedElement extends Marionette.ItemView
 
             tagName: 'li'
@@ -18,7 +18,7 @@ define ['app','bootbox'], (App, bootbox)->
                             <button class="btn btn-xs remove-element">{{#polyglot}}Delete{{/polyglot}}</button>
 						</a>'
 
-            events : 
+            events :
                 'click .remove-element' : (e)->
                     bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure? This element will be lost. Cannot undo this action.'}</h4>",(result)=>
                         if result is true
@@ -31,7 +31,12 @@ define ['app','bootbox'], (App, bootbox)->
             serializeData: ->
                 serializedData = super()
                 serializedData.element = _.str.capitalize serializedData.element
-                content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
+                ele = serializedData.element
+                if ele is 'Title' or ele is 'Text' or ele is 'ImageWithText'
+                    content = @model.get('content')[WPML_DEFAULT_LANG] ? @model.get('content')
+                else
+                    content = ''
+
                 serializedData.content = _.stripslashes content
                 serializedData
 
@@ -67,7 +72,7 @@ define ['app','bootbox'], (App, bootbox)->
 
             itemViewContainer: 'ul.trash-list'
 
-            events: 
+            events:
                 'click a.clear-all-elements' : (e)->
                     e.preventDefault()
                     bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure? All elements will be lost. Cannot undo this action.'}</h4>",(result)=>
