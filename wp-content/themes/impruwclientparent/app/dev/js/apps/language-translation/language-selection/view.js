@@ -62,14 +62,23 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
 
       LanguageSelectionView.prototype.events = {
         'click #btn_update-enabled-languages': 'setEnabledLanguages',
-        "click div.js-enabled-languages ul.selectpicker li": "loadLanguagePageNav"
+        'click .cancel-more-langs': function(e) {
+          return e.preventDefault();
+        },
+        'click .cancel-hide-more-langs': function(e) {
+          return e.preventDefault();
+        },
+        "click div.js-enabled-languages ul.selectpicker li": "loadLanguagePageNav",
+        "click #btn_update-hidden-languages": "hideLanguage"
       };
 
       LanguageSelectionView.prototype.onShow = function() {
         var selectedLang;
         this.selectedLang = selectedLang = App.request("get:selected:languages");
         this.loadLanguageDropdown();
-        return this.viewEnabledLanguages();
+        this.viewEnabledLanguages();
+        this.viewHiddenLanguageList();
+        return this.$el.find('input[type="checkbox"]').checkbox();
       };
 
       LanguageSelectionView.prototype.serializeData = function() {
@@ -77,6 +86,86 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         data = LanguageSelectionView.__super__.serializeData.call(this);
         data.default_language = _.polyglot.t(data.default_language);
         return data;
+      };
+
+      LanguageSelectionView.prototype.viewHiddenLanguageList = function() {
+        var html;
+        html = '';
+        this.selectedLang.each(function(m) {
+          var checkedStatus, disabledStatus, hideClass, isLanguageDefault, isLanguageHidden, languageCode, languageName;
+          languageCode = m.get("code");
+          languageName = _.polyglot.t(m.get("languageName"));
+          isLanguageDefault = m.get("isDefaultLanguage");
+          isLanguageHidden = m.get("isHidden");
+          if (isLanguageHidden) {
+            checkedStatus = 'checked';
+          } else {
+            checkedStatus = '';
+          }
+          if ((languageCode === WPML_DEFAULT_LANG) || (languageCode === 'en')) {
+            disabledStatus = 'disabled';
+            hideClass = 'hide';
+          } else {
+            disabledStatus = '';
+            hideClass = '';
+          }
+          return html += '<div class="form-group ' + hideClass + '"> <label for="checkbox2" class="checkbox"> <input type="checkbox" data-toggle="checkbox" value="' + languageCode + '" ' + checkedStatus + ' ' + disabledStatus + '>' + languageName + '</label> </div>';
+        });
+        return this.$el.find("#hide-langs").html(html);
+      };
+
+      LanguageSelectionView.prototype.hideLanguage = function(e) {
+        var arr, hiddenlanguages;
+        e.preventDefault();
+        arr = this.$el.find("div#hide-langs input[type='checkbox']");
+        hiddenlanguages = new Array();
+        jQuery.each(arr, function() {
+          if (this.checked) {
+            hiddenlanguages.push(this.value);
+          }
+        });
+        return this.trigger('update:hidden:language', hiddenlanguages);
+      };
+
+      LanguageSelectionView.prototype.onHiddenLanguages = function(msg, hiddenlanguages) {
+        var currenLang, currentlanguages, i, isLangHidden, len, single_language_element;
+        len = hiddenlanguages.length;
+        currentlanguages = new Array();
+        $("div.single-language").each(function() {
+          var divLangCode;
+          divLangCode = $(this).attr("data-language-code");
+          return currentlanguages.push(divLangCode);
+        });
+        if (len === 0) {
+          $("div.single-language").each(function() {
+            var divLangCode, single_language_element;
+            divLangCode = $(this).attr("data-language-code");
+            single_language_element = '#language-' + divLangCode + ' span';
+            $(single_language_element).removeClass();
+            $(single_language_element).addClass('icon');
+            return $(single_language_element).addClass('icon-checkmark');
+          });
+        } else {
+          i = 0;
+          while (i < currentlanguages.length) {
+            currenLang = currentlanguages[i];
+            single_language_element = '#language-' + currenLang + ' span';
+            isLangHidden = $.inArray(currenLang, hiddenlanguages);
+            if (isLangHidden !== -1) {
+              $(single_language_element).removeClass();
+              $(single_language_element).addClass('icon');
+              $(single_language_element).addClass('icon-cancel');
+            } else {
+              $(single_language_element).removeClass();
+              $(single_language_element).addClass('icon');
+              $(single_language_element).addClass('icon-checkmark');
+            }
+            i++;
+          }
+        }
+        this.$el.find('.error-msg span').remove();
+        this.$el.find('.error-msg').append('<span class="help-block alert alert-success">' + msg + '</span>');
+        return this.$el.find('.error-msg span').fadeOut(5000);
       };
 
       LanguageSelectionView.prototype.setEnabledLanguages = function(e) {
@@ -104,33 +193,60 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
       };
 
       LanguageSelectionView.prototype.onSelectedLanguagesEnabled = function(collection) {
-        var htmlString;
+        var htmlString, htmlforHiddenLangView;
         htmlString = "";
+        htmlforHiddenLangView = "";
         $('select.js-enabled-languages').empty();
         $("select.js-enabled-languages").append("<option value = ''>" + _.polyglot.t('Select a Language') + "</option>");
         collection.each(function(m) {
-          var languageCode, languageName;
+          var checkedStatus, disabledStatus, hideClass, isLanguageDefault, islanguageHidden, languageCode, languageName, spanClass;
           languageCode = m.get("code");
+          islanguageHidden = m.get("isHidden");
           languageName = _.polyglot.t(m.get("languageName"));
+          isLanguageDefault = m.get("isDefaultLanguage");
           if (languageCode !== WPML_DEFAULT_LANG) {
             $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>");
           }
-          htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> ' + languageName + ' </div>';
+          if (islanguageHidden) {
+            spanClass = 'icon-cancel';
+            checkedStatus = 'checked';
+          } else {
+            spanClass = 'icon-checkmark';
+            checkedStatus = '';
+          }
+          if ((languageCode === WPML_DEFAULT_LANG) || (languageCode === 'en')) {
+            disabledStatus = 'disabled';
+            hideClass = 'hide';
+          } else {
+            disabledStatus = '';
+            hideClass = '';
+          }
+          htmlforHiddenLangView += '<div class="form-group ' + hideClass + '"> <label for="checkbox2" class="checkbox"> <input type="checkbox" data-toggle="checkbox" value="' + languageCode + '" ' + checkedStatus + ' ' + disabledStatus + '>' + languageName + '</label> </div>';
+          htmlString += '<div class="single-language" id="language-' + languageCode + '" data-language-code="' + languageCode + '"> <span class="icon ' + spanClass + '"></span> ' + languageName + ' </div>';
         });
         this.$el.find(".selected-languages").html(htmlString);
         this.$el.find('select').selectpicker('refresh');
+        this.$el.find("#hide-langs").html(htmlforHiddenLangView);
+        this.$el.find('input[type="checkbox"]').checkbox();
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("Available languages updated") + '</div>');
+        this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("Available languages updated") + '</div>');
+        return this.$el.find('.alert').fadeOut(5000);
       };
 
       LanguageSelectionView.prototype.viewEnabledLanguages = function() {
         var htmlString;
         htmlString = "";
         this.selectedLang.each(function(m) {
-          var languageCode, languageName;
+          var islanguageHidden, languageCode, languageName, spanClass;
           languageCode = m.get("code");
+          islanguageHidden = m.get("isHidden");
           languageName = _.polyglot.t(m.get("languageName"));
-          return htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> ' + languageName + ' </div>';
+          if (islanguageHidden) {
+            spanClass = 'icon-cancel';
+          } else {
+            spanClass = 'icon-checkmark';
+          }
+          return htmlString += '<div class="single-language" id="language-' + languageCode + '" data-language-code="' + languageCode + '"> <span class="icon ' + spanClass + '"></span>' + languageName + ' </div>';
         });
         return this.$el.find(".selected-languages").html(htmlString);
       };

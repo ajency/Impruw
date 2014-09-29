@@ -92,6 +92,8 @@
 
   /****Heading Styles****/
 
+  /****Powered By Styles****/
+
 }
 .site-style-container .site-header,
 .site-style-container .site-footer,
@@ -139,6 +141,10 @@
   font-weight: 300;
   margin: 0.5em 0;
 }
+.site-style-container .power-up {
+  margin: 0.5em 0;
+  text-align: center;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -172,6 +178,9 @@ and open the template in the editor.
   .logo a {
     display: inline-block;
   }
+}
+.logo img {
+  display: block !important;
 }
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
@@ -236,15 +245,14 @@ and open the template in the editor.
 .nav.slimmenu > li.gallery {
   margin-bottom: 0;
 }
-.nav.slimmenu > li.active {
+.nav.slimmenu > li.current-menu-item {
   background: #ff7e00;
 }
-.nav.slimmenu > li.active a {
-  color: #ffffff;
-  border-color: #ff7e00;
+.nav.slimmenu > li.current-menu-item a {
+  color: #29333f;
 }
-.nav.slimmenu > li.active a span {
-  color: #ffffff;
+.nav.slimmenu > li.current-menu-item a span {
+  color: #ffb266;
 }
 .nav .menu-collapser {
   background: #ffffff;
@@ -693,6 +701,11 @@ and open the template in the editor.
   font-size: 1.4em;
   display: block;
 }
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday .price small,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekend .price small {
+  font-size: 0.66em;
+  line-height: 1.4em;
+}
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty {
   height: 139px;
 }
@@ -821,9 +834,6 @@ and open the template in the editor.
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #ff7e00;
-}
-.room-facilities-container .facilities li:hover:before {
   color: #29333f;
 }
 /****Room Summary Styles****/
@@ -1779,10 +1789,12 @@ ul.gallery {
 }
 .lang-sel > div {
   text-align: left;
+  z-index: 3;
 }
 .lang-sel > div ul,
 .lang-sel > div li {
   min-width: 170px;
+  height: 25px;
 }
 .lang-sel > div ul ul,
 .lang-sel > div li ul {

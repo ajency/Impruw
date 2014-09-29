@@ -679,7 +679,7 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
         translate_site($theme_site_id, 'en');
 
         foreach ($current_active_languages as $language) {
-            if($language['code']!='en')
+            if($language['code'] != 'en')
                 translate_site($current_site_id, $language['code']);
         }
         
@@ -840,6 +840,11 @@ function create_original_page($pages){
         // Create the page
         $created_page_id = wp_insert_post($page_arr);
 
+        // Exclude Single-roompage from sitemap
+        if ($page['post_title'] === 'Single Room') {
+            update_post_meta($created_page_id, '_yoast_wpseo_sitemap-include', 'never');
+        }
+
         //echo "<br/>Created original English page with id <br/>".$created_page_id;
 
         if ($page['post_title'] === 'Home')
@@ -888,7 +893,12 @@ function create_translated_page($page, $language_code){
     $page_translated_id = wp_insert_post($page_arr);
     $sitepress->switch_lang(wpml_get_default_language());
 
-    if ($page->post_title === 'Home')
+    // Exclude Single-roompage from sitemap
+    if (($post_title === 'Enkeltrom')||($post_title === 'Einzelzimmer')||($post_title === 'Habitación Individual')||($post_title === 'Chambre Simple')){
+        update_post_meta($page_translated_id, '_yoast_wpseo_sitemap-include', 'never');
+    }
+
+    if ($post_title === 'Hjem')
         set_home_page($page_translated_id);
 
     // assign the template to each page
@@ -984,10 +994,14 @@ function translate_page( $theme_site_id, $language_code, $post_id){
     else{
         $clone_first_time = TRUE ;
     }
-
+    
+    if ($clone_first_time && $language_code === 'en') {
+        store_unused_elements( $post_id );
+    }
+    
     $data = set_json_to_site( $data, $language_code, $clone_first_time);
     
-    //store_unused_elements( $post_id );
+
     add_page_json( $post_id, $data );
 
     delete_all_revisions( $post_id );

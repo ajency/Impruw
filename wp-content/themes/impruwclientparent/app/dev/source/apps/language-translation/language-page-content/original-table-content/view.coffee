@@ -19,6 +19,10 @@ define ['app'], (App)->
                             </div>
                         </div>'
 
+            events:
+                'click a': (e)->
+                    e.preventDefault()
+
             mixinTemplateHelpers: (data)->
                 data = super data
                 data.element_name = ->

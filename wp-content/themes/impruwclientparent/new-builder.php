@@ -51,6 +51,16 @@
           media="screen">
 </head>
 <body <?php body_class(); ?>>
+
+<?php if(isset($_GET['expire'])): ?>
+    <div class="new-instance-message">
+        <img class="img-responsive" src="<?php echo get_parent_template_directory_uri(); ?>/images/impruw-logo.png">
+        <h2>A New Instance is Open!</h2>
+        <p class="desc">
+            This site is being edited elsewhere. You can no longer edit it here.
+        </div>
+    </div>
+<?php else: ?>
 <!-- Notifications -->
 <div id="notifications-region"></div>
 <!-- Notifications -->
@@ -83,6 +93,7 @@
     var FACILITIES = <?php echo json_encode(get_terms( 'impruw_room_facility', 
                                                         array('hide_empty' => 0))) ?>;
     var LANGUAGES = <?php echo json_encode(get_all_languages()); ?>;
+    var ACTIVE_LANGUAGE_COUNT = <?php echo count(wpml_get_active_languages()); ?>;
     var ELEMENTS = <?php echo json_encode(get_elementbox_elements()); ?>;
     var BLOGID = <?php echo get_current_blog_id(); ?>;
 
@@ -135,6 +146,7 @@
 
     <script data-main="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/builder-main"
             src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
+<?php endif; ?>
 <?php endif; ?>
 
 </body>

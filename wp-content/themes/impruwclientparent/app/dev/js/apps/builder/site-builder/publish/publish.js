@@ -27,7 +27,8 @@ define(['app'], function(App) {
           url: AJAXURL,
           data: {
             action: 'publish-page',
-            page_id: _page_id
+            page_id: _page_id,
+            instance_id: App.instanceId
           }
         };
         options.data = _.defaults(options.data, _sectionJson);
@@ -35,6 +36,8 @@ define(['app'], function(App) {
         return $.ajax(options).done(function(response) {
           if (response.success === true) {
             return App.vent.trigger("page:published");
+          } else if (response.success === false && response.new_instance) {
+            return App.vent.trigger("new:instance:opened", response);
           } else {
             return App.vent.trigger("publish:failed", response.reason);
           }
@@ -44,13 +47,20 @@ define(['app'], function(App) {
       };
 
       Controller.prototype._getPageJson = function($site) {
-        var _json;
+        var error, _json;
+        error = false;
         _json = {};
         _.each(['header', 'page-content', 'footer'], (function(_this) {
           return function(section, index) {
-            return _json["" + section + "-json"] = JSON.stringify(_this._getJson($site.find("#site-" + section + "-region")));
+            _json["" + section + "-json"] = JSON.stringify(_this._getJson($site.find("#site-" + section + "-region")));
+            if (_.isEmpty(JSON.parse(_json["" + section + "-json"]))) {
+              return error = true;
+            }
           };
         })(this));
+        if (error) {
+          return false;
+        }
         return _json;
       };
 

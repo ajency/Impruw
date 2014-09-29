@@ -60,21 +60,25 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
         } else {
           this.$el.find('.translated-element-content').attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
         }
-        this.editor = CKEDITOR.inline(document.getElementById(this.$el.find('.translated-element-content').attr('id')));
-        if (this.model.get('element') === 'Link') {
-          content_text = 'text';
-        } else {
-          content_text = 'content';
-        }
-        if (this.model.get(content_text)[editingLanguage] === void 0) {
-          return this.editor.setData("");
-        } else {
-          return this.editor.setData(_.stripslashes(this.model.get(content_text)[editingLanguage]));
+        if (this.model.get('element') !== 'Link') {
+          this.editor = CKEDITOR.inline(document.getElementById(this.$el.find('.translated-element-content').attr('id')));
+          if (this.model.get('element') === 'Link') {
+            content_text = 'text';
+          } else {
+            content_text = 'content';
+          }
+          if (this.model.get(content_text)[editingLanguage] === void 0) {
+            return this.editor.setData("");
+          } else {
+            return this.editor.setData(_.stripslashes(this.model.get(content_text)[editingLanguage]));
+          }
         }
       };
 
       TranslatedPageItemView.prototype.onClose = function() {
-        return this.editor.destroy(true);
+        if (this.model.get('element') !== 'Link') {
+          return this.editor.destroy(true);
+        }
       };
 
       return TranslatedPageItemView;

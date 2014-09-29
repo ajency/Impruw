@@ -15,7 +15,7 @@ function get_pages1() {
     if ( !$templates )
         $pages = get_all_menu_pages();
     else
-        $pages = get_all_menu_pages();
+        $pages = get_theme_templates();
 
     wp_send_json( array( 'code' => 'OK', 'data' => $pages ) );
 }
@@ -31,6 +31,10 @@ function create_page_ajax() {
     $data = $_POST;
     //unset action param
     unset( $data[ 'action' ] );
+
+    $is_theme_template = $data['is_theme_template'] == 'true'? true : false;
+   
+
 
     //pass remaining data to create a new page
     $id_or_error = create_new_page( $data );
@@ -63,11 +67,16 @@ function create_page_ajax() {
         // check what is the template id needed to create the page
         $template_page_id = (int)$data[ 'template_page_id' ];
         
-        //get english page template id
-        $english_template_id = icl_object_id($template_page_id, 'page', true,'en');
+        if (!$is_theme_template){
+            //get english page template id
+            $english_template_id = icl_object_id($template_page_id, 'page', true,'en');
+        }
+        else{
+            $english_template_id = $template_page_id;
+        }
 
         //Assign english page's template json to english version of the page
-        $json_page_id = assign_page_template($english_template_id, $english_page_id);
+        $json_page_id = assign_page_template($english_template_id, $english_page_id, $is_theme_template);
 
         //Pass the id of the english version of the page as $page_data['original_id']
         $page_data = get_post( $original_page_id, ARRAY_A );
@@ -85,13 +94,22 @@ add_action( 'wp_ajax_create-page', 'create_page_ajax' );
 function publish_page_ajax() {
 
     $page_id = $_REQUEST[ 'page_id' ];
+
+    $instance_id = $_REQUEST['instance_id'];
+
+    if(!check_app_instace($instance_id)){
+        wp_send_json(array(
+            'success' => false,
+            'new_instance' => true,
+            'reason' => __('New instance of site builder is open')
+        ));
+    }
     
     //check if page is locked
     $user_id = wp_check_post_lock( $page_id );
 
     if ($user_id === false){
         
-
         $header_json = $_REQUEST[ 'header-json' ];
         update_header_json( $header_json );
         $header_json = convert_json_to_array( $header_json );

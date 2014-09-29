@@ -25,6 +25,9 @@ define(['app'], function(App) {
         "click table th": "showEditor",
         'click .cke_editable': function(e) {
           return e.stopPropagation();
+        },
+        'click a': function(e) {
+          return e.preventDefault();
         }
       };
 

@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app'], function(App) {
+define(['app', 'bootbox'], function(App, bootbox) {
   return App.module("ChooseTheme.Views", function(Views, App) {
     var ThemeView;
     ThemeView = (function(_super) {
@@ -27,10 +27,77 @@ define(['app'], function(App) {
 
       ThemeView.prototype.events = {
         'click a.choose-theme': function(e) {
-          e.stopPropagation();
-          e.preventDefault();
-          this.$el.find('.choose-theme').text(_.polyglot.t('Applying...'));
-          return this.trigger("choose:theme:clicked", this.model);
+          if (ISTHEMESELECTED === 1) {
+            e.stopPropagation();
+            e.preventDefault();
+            return bootbox.dialog({
+              title: "<h4 class='delete-message'>" + _.polyglot.t('Are you sure?') + "</h4>",
+              message: _.polyglot.t('You will lose your layout if you switch themes, you saved content can be retrieved from unused elements box. Your uploaded images are saved in the image gallery, so you will need to add them again.'),
+              buttons: {
+                cancelswitch: {
+                  label: _.polyglot.t('No, I don\'t want to switch themes'),
+                  className: "btn-default",
+                  callback: (function(_this) {
+                    return function() {
+                      _this.trigger("cancel:theme:switch");
+                      App.navigate('');
+                      return $('body').removeClass('choose-theme-page');
+                    };
+                  })(this)
+                },
+                "switch": {
+                  label: _.polyglot.t('Yes, switch my theme'),
+                  className: "btn-primary",
+                  callback: (function(_this) {
+                    return function() {
+                      bootbox.hideAll();
+                      _this.$el.find('.aj-imp-choose-btn').html('<span class="glyphicon glyphicon-info-sign pulse"></span><div class="msg-1">' + _.polyglot.t("Creating pages with demo content.") + ' </div><div class="msg-2">' + _.polyglot.t("Applying the theme colors.") + ' </div><div class="msg-3">' + _.polyglot.t("Prepping up the elements.") + ' </div><div class="msg-4">' + _.polyglot.t("Hang on, we are almost done...") + ' </div>').show();
+                      _.delay(function() {
+                        return _this.$el.find('.msg-1').show().addClass('slideRight');
+                      }, 1000);
+                      _.delay(function() {
+                        return _this.$el.find('.msg-2').show().addClass('slideRight');
+                      }, 2000);
+                      _.delay(function() {
+                        return _this.$el.find('.msg-3').show().addClass('slideRight');
+                      }, 3000);
+                      _.delay(function() {
+                        return _this.$el.find('.msg-4').show().addClass('slideRight');
+                      }, 4000);
+                      return _this.trigger("choose:theme:clicked", _this.model);
+                    };
+                  })(this)
+                }
+              }
+            });
+          } else {
+            e.stopPropagation();
+            e.preventDefault();
+            this.$el.find('.aj-imp-choose-btn').html('<span class="glyphicon glyphicon-info-sign pulse"></span><div class="msg-1">' + _.polyglot.t("Creating pages with demo content.") + ' </div><div class="msg-2">' + _.polyglot.t("Applying the theme colors.") + ' </div><div class="msg-3">' + _.polyglot.t("Prepping up the elements.") + ' </div><div class="msg-4">' + _.polyglot.t("Hang on, we are almost done...") + ' </div>').css({
+              'display': 'block'
+            });
+            _.delay((function(_this) {
+              return function() {
+                return _this.$el.find('.msg-1').show().addClass('slideRight');
+              };
+            })(this), 1000);
+            _.delay((function(_this) {
+              return function() {
+                return _this.$el.find('.msg-2').show().addClass('slideRight');
+              };
+            })(this), 2000);
+            _.delay((function(_this) {
+              return function() {
+                return _this.$el.find('.msg-3').show().addClass('slideRight');
+              };
+            })(this), 3000);
+            _.delay((function(_this) {
+              return function() {
+                return _this.$el.find('.msg-4').show().addClass('slideRight');
+              };
+            })(this), 4000);
+            return this.trigger("choose:theme:clicked", this.model);
+          }
         }
       };
 

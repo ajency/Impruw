@@ -68,7 +68,8 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                             @stopListening App.vent, "media:manager:choosed:media"
                             @layout.model.save()
                             @imageModel = media
-                            window.LOGOID = media.get 'id'
+                            if @layout.model.get('element') is 'Logo'
+                                window.LOGOID = media.get 'id'
                             @renderElement()
                             
 

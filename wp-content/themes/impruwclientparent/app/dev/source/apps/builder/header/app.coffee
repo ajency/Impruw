@@ -15,6 +15,6 @@ define ['app',
 
         # show the region on start
         HeaderApp.on 'start', ->
-            API.show()
+            # API.show()
 
 		

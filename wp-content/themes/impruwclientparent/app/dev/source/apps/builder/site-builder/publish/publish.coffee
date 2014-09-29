@@ -23,13 +23,16 @@ define ['app'], (App)->
                     data:
                         action: 'publish-page'
                         page_id: _page_id
+                        instance_id : App.instanceId
 
                 options.data = _.defaults options.data, _sectionJson
                 window.SAVING = true
                 $.ajax(options).done (response)->
                     if response.success is true
                         App.vent.trigger "page:published"
-                    else    
+                    else if response.success is false and response.new_instance
+                        App.vent.trigger "new:instance:opened", response
+                    else
                         App.vent.trigger "publish:failed", response.reason
 
                 .always (resp)->
@@ -37,11 +40,20 @@ define ['app'], (App)->
                 
             # get the json
             _getPageJson: ($site)->
+
+                error = false
+
                 _json = {}
 
                 _.each ['header', 'page-content', 'footer'], (section, index)=>
                     #if App.request "is:section:modified", section
                     _json["#{section}-json"] = JSON.stringify @_getJson $site.find "#site-#{section}-region"
+                
+                    if _.isEmpty JSON.parse _json["#{section}-json"]
+                        error = true
+
+                if error
+                    return false
 
                 _json
 

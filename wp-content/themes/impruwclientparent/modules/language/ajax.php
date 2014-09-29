@@ -95,6 +95,91 @@ function ajax_update_enabled_languages(){
 add_action( 'wp_ajax_update-enabled-languages', 'ajax_update_enabled_languages' );
 
 
+// function ajax_update_hidden_languages(){
+//     global $sitepress;
+
+//     $language_code = $_POST['languageCode'];
+//     $is_hidden = $_POST['isHidden'];
+
+//     $sitepress_settings = $sitepress->get_settings();
+//     $old_hidden_languages = $retVal = (empty($sitepress_settings['hidden_languages'])) ? array() : $sitepress_settings['hidden_languages'] ;
+//     $new_hidden_languages = array($language_code);
+//     $final_array = array();
+
+
+//     $hidden_languages_diff = array_values(array_diff($old_hidden_languages, $new_hidden_languages));
+
+
+//     if ($is_hidden) {
+//         $final_array = array_values(array_merge($hidden_languages_diff,$new_hidden_languages));
+//      } 
+//      else{
+//         $final_array = $hidden_languages_diff;
+//      }
+
+//     $iclsettings = get_option('icl_sitepress_settings');
+
+//     $iclsettings['hidden_languages'] = $final_array;
+    
+//     update_option('icl_sitepress_settings', $iclsettings);
+
+//     $active_languages = $sitepress->get_active_languages();
+//     if(!empty($iclsettings['hidden_languages'])){
+//        if(1 == count($iclsettings['hidden_languages'])){
+//            $out = sprintf(__('%s is currently hidden to visitors on the live site.', 'sitepress'),
+//             $active_languages[$iclsettings['hidden_languages'][0]]['display_name']);
+//        }else{
+//            foreach($iclsettings['hidden_languages'] as $l){
+//                 if(isset($active_languages[$l]))
+//                     $_hlngs[] = $active_languages[$l]['display_name'];
+//            }
+//            $hlangs = join(', ', $_hlngs);
+//            $out = sprintf(__('%s are currently hidden to visitors on the live site.', 'sitepress'), $hlangs);
+//        }
+//        // $out .= ' ' . sprintf(__('You can enable its/their display for yourself, in your <a href="%s">profile page</a>.', 'sitepress'),
+//        //  'profile.php#wpml');
+//    } 
+//    else {
+//         $out = __('All languages are currently displayed in the live site', 'sitepress');
+//     }
+//     wp_send_json( array( 'code' => 'OK', 'data' => json_encode($iclsettings), 'msg' => $out) );
+
+
+// }
+function ajax_update_hidden_languages(){
+    global $sitepress;
+    $new_hidden_languages = array();
+    $new_hidden_languages = empty($_POST['hiddenlanguages']) ? array() : $_POST['hiddenlanguages'];
+
+    $iclsettings = get_option('icl_sitepress_settings');
+    $iclsettings['hidden_languages'] = $new_hidden_languages;
+    update_option('icl_sitepress_settings', $iclsettings);
+
+    $active_languages = $sitepress->get_active_languages();
+    if(!empty($iclsettings['hidden_languages'])){
+       if(1 == count($iclsettings['hidden_languages'])){
+           $out = sprintf(__('%s is currently hidden to visitors on the live site.', 'sitepress'),
+            $active_languages[$iclsettings['hidden_languages'][0]]['display_name']);
+       }else{
+           foreach($iclsettings['hidden_languages'] as $l){
+            if(isset($active_languages[$l]))
+                $_hlngs[] = $active_languages[$l]['display_name'];
+        }
+        $hlangs = join(', ', $_hlngs);
+        $out = sprintf(__('%s are currently hidden to visitors on the live site.', 'sitepress'), $hlangs);
+    }
+       // $out .= ' ' . sprintf(__('You can enable its/their display for yourself, in your <a href="%s">profile page</a>.', 'sitepress'),
+       //  'profile.php#wpml');
+    } 
+    else {
+        $out = __('All languages are currently displayed in the live site', 'sitepress');
+    }
+
+    wp_send_json( array( 'code' => 'OK', 'data' => array('icl_settings' => json_encode($iclsettings) , 'hidden_langs' =>$new_hidden_languages), 'msg' => $out) );
+    }
+    add_action( 'wp_ajax_update-hidden-languages', 'ajax_update_hidden_languages' );
+
+
 function fetch_language_facility_ajax(){
 
     $editingLang = $_REQUEST['editlanguage'];
@@ -201,5 +286,16 @@ add_action( 'wp_ajax_create-pageElements', 'update_element_model' );
 add_action( 'wp_ajax_create-pageTableElements', 'update_element_model' );
 add_action( 'wp_ajax_create-headerElements', 'update_element_model' );
 add_action( 'wp_ajax_create-footerElements', 'update_element_model' );
+
+ // remove language selector if only one language is enabled
+add_action('wp_head', 'wpml_hide_langs');
+function wpml_hide_langs() {
+    $languages = icl_get_languages('skip_missing=1');
+     
+    //if it is equal to one, hiding the flags.
+    if(count($languages) == 1 ) {
+        echo '<style type="text/css" media="screen">#lang_sel { display: none; }</style>';
+    }
+}
 
 

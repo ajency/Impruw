@@ -14,6 +14,7 @@ define [ 'app'
             "add" : "addPageDropDown"
 
          templateHelpers : ( data = {} )->
+            data.DASHBOARDURL = DASHBOARDURL
             data.SITEURL = SITEURL + '/'
             pages = @collection.toJSON()
             data.pages = _.reject pages, (page)->
@@ -159,6 +160,7 @@ define [ 'app'
 
             # trigger page change event to load the initial page
             _.delay =>
+
                pageId = $.cookie 'current-page-id'
                if isNaN parseInt pageId
                   pageId = @$el.find( 'select#builder-page-sel' ).selectpicker 'val'
