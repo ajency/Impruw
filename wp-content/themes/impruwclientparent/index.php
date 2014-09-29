@@ -39,13 +39,16 @@ if ( isset( $_GET[ 'sim' ] ) && $_GET[ 'sim' ] == 'true' ) {
 	    <meta name="viewport" content="width=device-width">
 	    <script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/jquery.js?ver=1.11.0"></script>
 	    <script type="text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/preview-init.js"></script>
-
+	    <style type="text/css">
+	    li{
+	    	display: inline;
+	    }
+	    </style>
 
 	</head>
 	<body style="height:97%; margin:0px">
 		<div id="tools" style="display:flex">
-		    <h1>Responsive Preview</h1>
-		    <p>Select a size range to preview your page at.</p>
+		    
 		    <ul class="nav size" id="nav">
 		        <li class="active"><a href="#" id="size-full" >Full</a></li>
 		        <li><a href="#" id="size-tab">Tablet</a></li>

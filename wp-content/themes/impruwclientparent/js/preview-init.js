@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 (function(w){
 		sw = document.body.clientWidth;
-		sh = document.body.clientHeight-86;
+		sh = document.body.clientHeight-50;
 		
 		$sizeFull = $('#size-full'),
 		$sizeTab = $('#size-tab'),
@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
 	
 	$(window).resize(function(){ //Update dimensions on resize
 		sw = document.body.clientWidth;
-		sh = document.body.clientHeight-86;
+		sh = document.body.clientHeight-50;
 		if($sizeFull.closest('li').hasClass('active')){
 			sizeiframe(sw,sh);
 		}
