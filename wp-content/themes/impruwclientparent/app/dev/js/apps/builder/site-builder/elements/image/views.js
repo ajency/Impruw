@@ -1,4 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app'], function(App) {
@@ -7,6 +8,8 @@ define(['app'], function(App) {
       __extends(ImageView, _super);
 
       function ImageView() {
+        this.adjustImage = __bind(this.adjustImage, this);
+        this.imageMoved = __bind(this.imageMoved, this);
         return ImageView.__super__.constructor.apply(this, arguments);
       }
 
@@ -68,12 +71,7 @@ define(['app'], function(App) {
           return;
         }
         this.$el.css('overflow', 'hidden');
-        if (this.imageHeightRatio !== 'auto') {
-          this.$el.height(parseFloat(this.imageHeightRatio) * this.$el.width());
-        }
-        if (this.positionTopRatio) {
-          this.$el.find('img').css('top', "" + (this.positionTopRatio * this.$el.width()) + "px");
-        }
+        this.adjustImage();
         this.$el.resizable({
           helper: "ui-image-resizable-helper",
           handles: "s",
@@ -111,19 +109,33 @@ define(['app'], function(App) {
             };
           })(this)
         });
-        this.$el.closest('.column').on('class:changed', (function(_this) {
-          return function() {
-            _this.assignImagePath();
-            if (_this.$el.height() > _this.$el.find('img').height()) {
-              _this.$el.height('auto');
-              _this.trigger('set:image:height', 'auto');
-            } else {
-              _this.trigger('set:image:height', _this.$el.height(), _this.$el.width());
-            }
-            return _this.adjustImagePosition();
+        this.parentColumns = this.$el.parents('.column');
+        this.parentColumns.each((function(_this) {
+          return function(index, parentColumn) {
+            console.log(parentColumn);
+            $(parentColumn).on('class:changed', _this.adjustImage);
+            return $(parentColumn).on('element:moved', _this.imageMoved);
           };
         })(this));
         return this.assignImagePath();
+      };
+
+      ImageView.prototype.imageMoved = function(i) {
+        this.assignImagePath();
+        this.parentColumns.each((function(_this) {
+          return function(index, parentColumn) {
+            $(parentColumn).off('element:moved', _this.imageMoved);
+            return $(parentColumn).off('class:changed', _this.adjustImage);
+          };
+        })(this));
+        this.parentColumns = this.$el.parents('.column');
+        this.parentColumns.each((function(_this) {
+          return function(index, parentColumn) {
+            $(parentColumn).on('element:moved', _this.imageMoved);
+            return $(parentColumn).on('class:changed', _this.adjustImage);
+          };
+        })(this));
+        return this.adjustImage();
       };
 
       ImageView.prototype.imageClick = function(e) {
@@ -145,6 +157,16 @@ define(['app'], function(App) {
         return this.trigger("image:size:selected", image.size);
       };
 
+      ImageView.prototype.adjustImage = function() {
+        if (this.eleModel.get('heightRatio') !== 'auto') {
+          this.$el.height(parseFloat(this.eleModel.get('heightRatio')) * this.$el.width());
+        }
+        if (this.eleModel.get('topRatio')) {
+          this.$el.find('img').css('top', "" + (this.eleModel.get('topRatio') * this.$el.width()) + "px");
+        }
+        return this.assignImagePath();
+      };
+
       ImageView.prototype.adjustImagePosition = function() {
         var top;
         top = parseInt(_(this.$el.find('img').css('top')).rtrim('px'));
@@ -152,6 +174,15 @@ define(['app'], function(App) {
           this.$el.find('img').css('top', '0px');
         }
         return this.trigger('set:image:top:position', this.$el.width(), parseInt(this.$el.find('img').css('top')));
+      };
+
+      ImageView.prototype.onClose = function() {
+        return this.parentColumns.each((function(_this) {
+          return function(index, parentColumn) {
+            $(parentColumn).off('element:moved', _this.imageMoved);
+            return $(parentColumn).off('class:changed', _this.adjustImage);
+          };
+        })(this));
       };
 
       return ImageView;

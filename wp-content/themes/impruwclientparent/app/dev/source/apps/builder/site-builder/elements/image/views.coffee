@@ -74,11 +74,7 @@ define ['app'], (App)->
                 # to be done in css
                 @$el.css 'overflow','hidden'
 
-                if @imageHeightRatio isnt 'auto'
-                    @$el.height parseFloat(@imageHeightRatio)*@$el.width()
-
-                if @positionTopRatio 
-                    @$el.find('img').css 'top',"#{@positionTopRatio*@$el.width()}px"
+                @adjustImage()
 
                 @$el.resizable
                     helper : "ui-image-resizable-helper"
@@ -90,19 +86,13 @@ define ['app'], (App)->
                         @trigger 'set:image:height',@$el.height(),@$el.width()
                         @adjustImagePosition()
                         
-
                     start:(evt,ui)=>
                         $(@).addClass('noclick')
                         #@$el.resizable( "option", "maxHeight", @$el.find('img').height() )
 
-
-
-                    
-
                 @$el.find('img').draggable
                     axis: "y" 
                     cursor: "move"
-
                     drag : (evt,ui)=>
                         topmarginpx = ui.position.top
                         if topmarginpx > 0
@@ -114,23 +104,26 @@ define ['app'], (App)->
                     stop:(evt,ui)=>
                         @trigger 'set:image:top:position',@$el.width(),parseInt @$el.find('img').css 'top'
 
-                # @assignImagePath()
-                
-
-                @$el.closest('.column').on 'class:changed',=>
-                    @assignImagePath()
-                    if @$el.height() > @$el.find('img').height()
-                        @$el.height( 'auto' )
-                        @trigger 'set:image:height','auto'
-
-                    else
-                        @trigger 'set:image:height',@$el.height(),@$el.width()
-
-                    @adjustImagePosition()
+                @parentColumns = @$el.parents('.column')
+                @parentColumns.each (index,parentColumn)=>
+                    console.log parentColumn
+                    $(parentColumn).on 'class:changed',@adjustImage
+                    $(parentColumn).on 'element:moved',@imageMoved
 
                 @assignImagePath()
 
-                
+
+            imageMoved : (i)=>
+                @assignImagePath()
+                @parentColumns.each (index,parentColumn)=>
+                    $(parentColumn).off 'element:moved',@imageMoved
+                    $(parentColumn).off 'class:changed',@adjustImage
+                @parentColumns = @$el.parents('.column')
+                @parentColumns.each (index,parentColumn)=>
+                    $(parentColumn).on 'element:moved',@imageMoved
+                    $(parentColumn).on 'class:changed',@adjustImage
+                @adjustImage()
+
 
             imageClick : (e)->
                 e.stopPropagation()
@@ -142,11 +135,7 @@ define ['app'], (App)->
                     ratio = @_getImageRatio()
                     @trigger "show:media:manager", ratio
 
-
-
-            assignImagePath :->
-
-                
+            assignImagePath :->                
                 width = @$el.width()
                 image = @model.getBestFit width
                 @$el.find('img').attr 'src', image.url
@@ -156,6 +145,16 @@ define ['app'], (App)->
                 
                 # @$el.css 'height', if height is 0 then @$el.height() else height
                 # @$el.imgLiquid()
+
+            adjustImage:=>
+                
+                if @eleModel.get('heightRatio') isnt 'auto'
+                        @$el.height parseFloat(@eleModel.get('heightRatio'))*@$el.width()
+
+                if @eleModel.get('topRatio') 
+                    @$el.find('img').css 'top',"#{@eleModel.get('topRatio')*@$el.width()}px"
+
+                @assignImagePath()
 
             adjustImagePosition:->
                 top = parseInt _(@$el.find('img').css('top')).rtrim('px')
@@ -167,5 +166,9 @@ define ['app'], (App)->
                 @trigger 'set:image:top:position',@$el.width(),parseInt @$el.find('img').css 'top'
 
                
+            onClose:->
+                @parentColumns.each (index,parentColumn)=>
+                    $(parentColumn).off 'element:moved',@imageMoved
+                    $(parentColumn).off 'class:changed',@adjustImage
 
 

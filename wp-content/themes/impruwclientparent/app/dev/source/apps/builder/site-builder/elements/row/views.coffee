@@ -36,11 +36,11 @@ define ['app'], (App)->
                         window.dragging = true
                         return
                     remove: (evt, ui)=>
-                        @trigger "element:moved", $(evt.target)
+                        @$el.trigger "element:moved", $(evt.target)
                         if $(evt.target).children().length is 0
                             $(evt.target).addClass 'empty-column'
                     update: (e, ui)=>
-                        @trigger "element:moved", $(e.target)
+                        # @$el.trigger "element:moved", $(e.target)
                         if ui.item.find('form').find('input[name="element"]').val() is 'Row'
                             ui.item.children('.element-markup').children().trigger 'row:is:moved',
                                 ui.item.children('.element-markup').children().prop 'id'

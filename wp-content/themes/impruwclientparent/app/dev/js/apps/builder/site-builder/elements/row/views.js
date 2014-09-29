@@ -52,7 +52,7 @@ define(['app'], function(App) {
           })(this),
           remove: (function(_this) {
             return function(evt, ui) {
-              _this.trigger("element:moved", $(evt.target));
+              _this.$el.trigger("element:moved", $(evt.target));
               if ($(evt.target).children().length === 0) {
                 return $(evt.target).addClass('empty-column');
               }
@@ -60,7 +60,6 @@ define(['app'], function(App) {
           })(this),
           update: (function(_this) {
             return function(e, ui) {
-              _this.trigger("element:moved", $(e.target));
               if (ui.item.find('form').find('input[name="element"]').val() === 'Row') {
                 ui.item.children('.element-markup').children().trigger('row:is:moved', ui.item.children('.element-markup').children().prop('id'));
               }
