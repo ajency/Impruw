@@ -73,6 +73,7 @@ define [ 'app'
                addClasses : false
                containment : 'document'
                scroll : true
+               axis : 'x'
 
                
             @$el.tabSlideOut

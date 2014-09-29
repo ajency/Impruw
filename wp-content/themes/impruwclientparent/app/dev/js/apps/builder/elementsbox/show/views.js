@@ -80,7 +80,8 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
           handle: "p.desc",
           addClasses: false,
           containment: 'document',
-          scroll: true
+          scroll: true,
+          axis: 'x'
         });
         this.$el.tabSlideOut({
           tabHandle: '.handle',
