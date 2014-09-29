@@ -4241,6 +4241,23 @@ function generate_seo_page_excerpt($metadesc){
 
     $wpseotitles = get_option('wpseo_titles');
 
+    if (!isset($wpseotitles[ 'metadesc-' . $post_type ])) {
+        $wpseotitles[ 'metadesc-' . $post_type ] = '%%excerpt%%';
+        update_option('wpseo_titles',$wpseotitles);
+    }
+
+    //include metakeywords if not already set
+    if(!$wpseotitles['usemetakeywords']){
+        $wpseotitles['usemetakeywords'] = true;
+        update_option('wpseo_titles',$wpseotitles);
+    }
+
+    $wpseo_xml = get_option('wpseo_xml');
+    if (!$wpseo_xml['taxonomies-impruw_room_facility-not_in_sitemap']) {
+        $wpseo_xml['taxonomies-impruw_room_facility-not_in_sitemap'] = true;
+        update_option('wpseo_xml',$wpseo_xml);
+    }
+
     $metadescription_template = $wpseotitles[ 'metadesc-' . $post_type ];
     $yoast_meta_description = get_post_meta($post->ID, '_yoast_wpseo_metadesc', true);
 

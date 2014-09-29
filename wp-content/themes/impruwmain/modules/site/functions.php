@@ -126,6 +126,9 @@ function add_pages_to_site( $site_id, $user_id, $pages ) {
         // Insert the post into the database
         $post_id = wp_insert_post( $page_arr );
 
+        // Exclude page from sitemap
+        update_post_meta($post_id, '_yoast_wpseo_sitemap-include', 'never');
+
         // assign the template if passed
         if ( isset( $page [ 'template' ] ) )
             update_post_meta( $post_id, '_wp_page_template', $page [ 'template' ] );
@@ -180,6 +183,9 @@ function create_page_in_other_language($page_id, $page_arr,$language){
 
     // Insert translated post
     $page_translated_id = wp_insert_post($page_arr);
+
+    // Exclude page from sitemap
+    update_post_meta($page_translated_id, '_yoast_wpseo_sitemap-include', 'never');
 
     // Get trid of original post
     $trid = wpml_get_content_trid( 'post_page', $page_id );
