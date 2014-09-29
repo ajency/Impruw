@@ -1394,6 +1394,15 @@ form .aj-imp-submit:hover {
   font-size: 0.9em;
   color: #aaaaaa;
 }
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .progress-text {
+  color: #aaaaaa;
+  margin: 0.5em 0;
+  font-size: 1.1em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .progress-text span {
+  font-weight: 700;
+  color: #849fb0;
+}
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button {
   margin: 1em 0;
 }
@@ -3935,7 +3944,7 @@ form .aj-imp-submit:hover {
 .language .trans-field .translated-element-content.title,
 .language .trans-field .translated-footer-content.title,
 .language .trans-field .translated-header-content.title {
-  height: 33px;
+  height: 34px;
   overflow: hidden;
 }
 .language .trans-field .translated-element-content:focus,
