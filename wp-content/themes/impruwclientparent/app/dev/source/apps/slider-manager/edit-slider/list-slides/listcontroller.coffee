@@ -135,6 +135,15 @@ define ['app'
                                             </div>
                                         </div>
                                         <div class="form-group caption-exist">
+                                            <label for="" class="col-sm-3 control-label">{{#polyglot}}Open in new window{{/polyglot}}</label>
+                                            <div class="col-sm-9">
+                                                <span class="checkbox">
+                                                    <input type="checkbox" class="link-check" name="target"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group caption-exist">
                                             <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Link{{/polyglot}}</label>
                                             <div class="col-sm-9">
                                                 <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/>
@@ -252,6 +261,7 @@ define ['app'
 
             onShow :->
                 @$el.find('select').selectpicker()
+                @$el.find('input[type="checkbox"]').checkbox()
                 @setCaptionDefaults()
 
             setCaptionDefaults:->
@@ -267,6 +277,7 @@ define ['app'
                     if $(captionHtml).first().find('a').length
                         @$el.find('.caption-title').val $(captionHtml).first().find('a').first().html()
                         @$el.find('.caption-link').val $(captionHtml).first().find('a').first().attr 'href'
+                        @$el.find('input.link-check').checkbox('check')
                     else 
                         @$el.find('.caption-title').val $(captionHtml).first().html()
                         @$el.find('.caption-link').val ''
@@ -292,9 +303,9 @@ define ['app'
                         data = @layerDefault()
 
                     data.text = "<h3 class='#{@$el.find('.caption-style').val()}'>"
-                    data.text += "<a href='#{@$el.find('.caption-link').val()}'>" if @$el.find('.caption-link').val() isnt ''
+                    data.text += "<a href='#{@$el.find('.caption-link').val()}'>" if @$el.find('input.link-check').is(':checked')
                     data.text += @$el.find('.caption-title').val()
-                    data.text += "</a>" if @$el.find('.caption-link').val() isnt ''
+                    data.text += "</a>" if @$el.find('input.link-check').is(':checked')
                     data.text += "</h3><div>#{@$el.find('.caption-description').val()}</div>"
                     data.style = @$el.find('.caption-background').val()
 
