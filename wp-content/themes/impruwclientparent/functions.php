@@ -4213,12 +4213,6 @@ function generate_seo_page_excerpt($metadesc){
         update_option('wpseo_xml',$wpseo_xml);
     }
 
-    if (!$wpseo_xml['post_types-impruw_room-not_in_sitemap']) {
-        $wpseo_xml['post_types-impruw_room-not_in_sitemap'] = true;
-        update_option('wpseo_xml',$wpseo_xml);
-    }
-
-
     $metadescription_template = $wpseotitles[ 'metadesc-' . $post_type ];
     $yoast_meta_description = get_post_meta($post->ID, '_yoast_wpseo_metadesc', true);
 
