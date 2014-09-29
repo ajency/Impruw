@@ -212,7 +212,10 @@ function get_all_menu_pages() {
             'Support',
             'Coming Soon',
             'Reset Password',
-            'Sample Page' );
+            'Sample Page',
+            'Kommer Snart', 
+            'Logg Inn',
+            'Resett passord' );
 
         foreach ( $pages->posts as $page ) {
             //Also send original page id to the page object

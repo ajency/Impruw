@@ -15,8 +15,8 @@ define(['app', 'apps/builder/site-builder/elements/text/views', 'apps/builder/si
       Controller.prototype.initialize = function(options) {
         var data;
         data = {};
-        data['en'] = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s';
-        data['nb'] = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s';
+        data['en'] = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";
+        data['nb'] = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";
         _.defaults(options.modelData, {
           element: 'Text',
           content: data
@@ -43,10 +43,13 @@ define(['app', 'apps/builder/site-builder/elements/text/views', 'apps/builder/si
             var data, original_data;
             original_data = _this.layout.model.get('content');
             if (_.isObject(original_data)) {
-              data = original_data;
+              data = {};
+              Object.getOwnPropertyNames(original_data).forEach(function(val, idx, array) {
+                return data[val] = _.stripslashes(original_data[val]);
+              });
             } else {
               data = {};
-              data['en'] = original_data;
+              data['en'] = _.stripslashes(original_data);
             }
             data[WPML_DEFAULT_LANG] = html;
             _this.layout.model.set('content', data);
