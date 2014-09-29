@@ -52,8 +52,8 @@ define [ 'app', 'controllers/base-controller'
 
                     , 400
 
-                @show @view,
-                    loading : true
+                    @show @view,
+                        loading : true
 
             _getContainer : ( section )->
                 switch section
