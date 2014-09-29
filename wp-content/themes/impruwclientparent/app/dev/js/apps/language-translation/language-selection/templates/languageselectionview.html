@@ -24,7 +24,25 @@
 					</div>
 				</form>
 
+				<div>
+				<button class="btn btn-xs add-more-langs aj-imp-orange-btn" data-toggle="collapse" data-target="#hidden-languages"><span class="glyphicon glyphicon-minus"></span>&nbsp;{{#polyglot}}Hide Languages from Live site{{/polyglot}}</button>
+
+				<form id="hidden-languages" class="form-horizontal collapse">
+					<div class="js-hide-languages">
+						<div id="hide-langs">
+							
+						</div>
+						
+						<button class="btn btn-xs aj-imp-orange-btn" name="btn_update-hidden-languages"
+						id="btn_update-hidden-languages" data-target="#hidden-languages" data-toggle="collapse"> {{#polyglot}}Update{{/polyglot}} </button>
+
+						<button class="btn btn-xs cancel-hide-more-langs" data-toggle="collapse" data-target="#hidden-languages">{{#polyglot}}Cancel{{/polyglot}}</button>
+					</div>
+				</div>
+				</form>
+
 			<hr>
+
 
 			<h5 class="aj-imp-sub-head-thin">
 				{{#polyglot}}Editing Language{{/polyglot}} &nbsp;

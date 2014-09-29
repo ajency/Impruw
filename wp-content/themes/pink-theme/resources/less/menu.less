@@ -30,6 +30,7 @@
 			}
 			&.current-menu-item {
 				a {
+					color: @primary1;
 					font-weight: 400;
 					&:hover {
 						color: lighten(@tertiary1, 60%);
@@ -126,6 +127,12 @@
 				font-size: 0.96em;
 				font-weight: 300;
 				&:hover {
+					background: darken(@primary1, 10%);
+					color: @secondary1;
+				}
+			}
+			&.current-menu-item {
+				a {
 					background: darken(@primary1, 10%);
 					color: @secondary1;
 				}

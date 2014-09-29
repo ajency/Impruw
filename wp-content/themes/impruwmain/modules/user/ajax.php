@@ -59,7 +59,18 @@ function new_user_registration() {
     if ( is_wp_error( $site_id ) )
         wp_send_json_error( 'Failed to create site' );
 
-    $redirect_url = get_site_url($site_id, 'sign-in');
+    $user_selected_language = get_user_meta($user_id,'user_lang',true);
+
+    //Based on user selected language, the url would be sign-in or logg-inn
+    $sign_in_path = 'sign-in';
+    if ($user_selected_language === 'nb') {
+        $sign_in_path = 'logg-inn';
+    }
+    else{
+        $sign_in_path = 'sign-in';
+    }
+
+    $redirect_url = get_site_url($site_id, $sign_in_path);
 
     wp_send_json_success($redirect_url);
 }

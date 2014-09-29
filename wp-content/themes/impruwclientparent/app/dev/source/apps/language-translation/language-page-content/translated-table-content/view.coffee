@@ -28,6 +28,8 @@ define ['app'], (App)->
                 "click table th" : "showEditor"
                 'click .cke_editable' : (e)->
                     e.stopPropagation()
+                'click a': (e)->
+                    e.preventDefault()
 
             mixinTemplateHelpers: (data)->
                 data = super data

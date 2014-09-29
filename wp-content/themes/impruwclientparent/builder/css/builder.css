@@ -1,7 +1,5 @@
 @import url(builder-icon-fonts.css);
-
 @import url(toggle-switch.css);
-
 @import url(../../../../plugins/revslider/rs-plugin/css/settings.css);
 /*
 Theme Name:     Impruw Builder Styles
@@ -11,7 +9,8 @@ Author:         Jarryd for Ajency.in
 Author URI:     http://ajency.in/
 Template:       impruw
 Version:        0.1.0
-*//****Builder Icon Font****/
+*/
+/****Builder Icon Font****/
 /****Builder Toggle Switch****/
 /****REVSlider Stylesheet****/
 /****Colors****/
@@ -803,28 +802,20 @@ a.red-link.pull-right {
   box-shadow: 0 4px 4px -4px #aaaaaa;
   background: #f6f6f6;
   /* Old browsers */
-
   background: -moz-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ededed), color-stop(35%, #f6f6f6), color-stop(68%, #ffffff), color-stop(100%, #fcfcfc));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
   /* IE10+ */
-
   background: linear-gradient(to bottom, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#fcfcfc', GradientType=0);
   /* IE6-9 */
-
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back {
   clear: left;
@@ -833,7 +824,7 @@ a.red-link.pull-right {
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back a {
   color: #808080;
   font-weight: 700;
-  font-size: 0.88em;
+  font-size: 1em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .builder-back a .bicon {
   font-size: 1.3em;
@@ -940,6 +931,9 @@ a.red-link.pull-right {
   position: relative;
   top: 0.5em;
 }
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page .glyphicon {
+  vertical-align: top;
+}
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page:hover {
   background: transparent;
   color: #ff7e00;
@@ -1022,6 +1016,7 @@ a.red-link.pull-right {
   border-radius: 3px;
   display: inline-block;
   width: 56%;
+  vertical-align: top;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .page-slug-edit {
   width: 80%;
@@ -1633,7 +1628,6 @@ a.red-link.pull-right {
 .aj-imp-builder-content-mode .aj-element-setting-tooltip .tooltip-inner {
   width: auto;
   /*min-width: 250px;*/
-
   max-width: 300px;
   background: #29333F;
 }
