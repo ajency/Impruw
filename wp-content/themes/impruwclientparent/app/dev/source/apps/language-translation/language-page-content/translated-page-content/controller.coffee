@@ -57,9 +57,20 @@ define ['app', 'controllers/base-controller'
                     content_text = 'content'
 
                 translatedContent = model.get content_text
+
+                if _.isObject translatedContent
+                    data = {}
+                    Object.getOwnPropertyNames(translatedContent).forEach (val, idx, array) ->
+                        data[val] = _.stripslashes translatedContent[val]
+                else
+                    data = {}
+                    data['en'] = _.stripslashes translatedContent
+                    data['nb'] = _.stripslashes translatedContent
+
                 editLang = @editLang
-                translatedContent[editLang] = newElemContent
-                model.set content_text, translatedContent
+                data[editLang] = newElemContent
+                
+                model.set content_text, data
                 model.set 'source', 'dashboard'
                 model.save null,
                     wait: true
