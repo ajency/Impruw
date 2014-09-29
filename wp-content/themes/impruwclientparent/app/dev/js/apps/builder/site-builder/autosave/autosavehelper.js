@@ -2,17 +2,24 @@ define(['app', 'jquery'], function(App, $) {
   var AutoSaveHelper;
   AutoSaveHelper = {
     getPageJson: function() {
-      var $site, _json;
+      var $site, error, _json;
       if (!App.builderRegion || !App.builderRegion.$el) {
         return false;
       }
+      error = false;
       $site = App.builderRegion.$el;
       _json = {};
       _.each(['header', 'page-content', 'footer'], (function(_this) {
         return function(section, index) {
-          return _json["" + section + "-json"] = JSON.stringify(AutoSaveHelper.getJson($site.find("#site-" + section + "-region")));
+          _json["" + section + "-json"] = JSON.stringify(AutoSaveHelper.getJson($site.find("#site-" + section + "-region")));
+          if (_.isEmpty(JSON.parse(_json["" + section + "-json"]))) {
+            return error = true;
+          }
         };
       })(this));
+      if (error) {
+        return false;
+      }
       return _json;
     },
     getJson: function($element, arr) {

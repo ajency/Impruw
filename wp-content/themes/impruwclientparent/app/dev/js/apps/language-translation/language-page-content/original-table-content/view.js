@@ -17,6 +17,12 @@ define(['app'], function(App) {
 
       OriginalTableItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group table-elements"> <label class="col-sm-3 control-label" for="">{{element_name}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original {{element}}" tabindex="1"> {{{contentText}}} </div> </div> </div> </div>';
 
+      OriginalTableItemView.prototype.events = {
+        'click a': function(e) {
+          return e.preventDefault();
+        }
+      };
+
       OriginalTableItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalTableItemView.__super__.mixinTemplateHelpers.call(this, data);
         data.element_name = function() {

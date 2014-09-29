@@ -13,10 +13,27 @@ define(['app'], function(App) {
 
       SeoPageNavItemView.prototype.tagName = "li";
 
-      SeoPageNavItemView.prototype.template = '{{#isChildSitePage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href="#page"{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} {{^isRoomPage}}id="page"{{/isRoomPage}} data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isChildSitePage}}';
+      SeoPageNavItemView.prototype.template = '{{#isSeoPage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href="#page"{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} {{^isRoomPage}}id="page"{{/isRoomPage}} data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isSeoPage}}';
 
       SeoPageNavItemView.prototype.events = {
         'click a#page': 'loadPageContent'
+      };
+
+      SeoPageNavItemView.prototype.mixinTemplateHelpers = function(data) {
+        data = SeoPageNavItemView.__super__.mixinTemplateHelpers.call(this, data);
+        data.isSeoPage = function() {
+          var foundPage, isSeoPage, skipPages;
+          skipPages = new Array();
+          skipPages = ['single-room', 'habitacion-individual', 'einzelzimmer', 'chambre-simple', 'enkeltrom', 'dashboard', 'site-builder', 'sample-page', 'sign-in', 'support', 'reset-password', 'coming-soon', 'logg-in', 'kommer-snart', 'resett-passord'];
+          foundPage = $.inArray(data.pageHref, skipPages);
+          if (foundPage !== -1) {
+            isSeoPage = false;
+          } else {
+            isSeoPage = true;
+          }
+          return isSeoPage;
+        };
+        return data;
       };
 
       SeoPageNavItemView.prototype.loadPageContent = function(e) {
