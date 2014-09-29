@@ -49,8 +49,14 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
           };
         })(this));
         App.commands.setHandler("new:media:added", (function(_this) {
-          return function(media) {
-            return _this.mediaCollection.add(media);
+          return function(media, showGrid) {
+            if (showGrid == null) {
+              showGrid = false;
+            }
+            _this.mediaCollection.add(media);
+            if (showGrid) {
+              return _this.mediaCollection.trigger('show:grid');
+            }
           };
         })(this));
         return this.show(view, {

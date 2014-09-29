@@ -46,20 +46,113 @@ define ['app'
 
             events:
                 'click #btn_update-enabled-languages': 'setEnabledLanguages'
+                'click .cancel-more-langs': (e)->
+                    e.preventDefault()
+
+                'click .cancel-hide-more-langs': (e)->
+                    e.preventDefault()
+
                 "click div.js-enabled-languages ul.selectpicker li": "loadLanguagePageNav"
+                "click #btn_update-hidden-languages": "hideLanguage"
 
 
             onShow: ->
+                
                 @selectedLang = selectedLang = App.request "get:selected:languages"
 
                 @loadLanguageDropdown()
 
                 @viewEnabledLanguages()
 
+                @viewHiddenLanguageList()
+
+                @$el.find('input[type="checkbox"]').checkbox()
+
             serializeData: ->
                 data = super()
                 data.default_language = _.polyglot.t data.default_language
                 data
+
+            viewHiddenLanguageList:->
+                html =''
+
+                @selectedLang.each (m) ->
+                    languageCode = m.get("code")
+                    languageName = _.polyglot.t(m.get("languageName"))
+                    isLanguageDefault = m.get("isDefaultLanguage")
+                    isLanguageHidden =  m.get("isHidden")
+
+
+                    if isLanguageHidden
+                        checkedStatus = 'checked'
+                    else
+                        checkedStatus = ''
+
+                    if (languageCode is WPML_DEFAULT_LANG) or (languageCode is 'en')
+                        disabledStatus = 'disabled'
+                        hideClass = 'hide'
+                    else
+                       disabledStatus = '' 
+                       hideClass = ''
+
+                    html += '<div class="form-group '+hideClass+'">
+                            <label for="checkbox2" class="checkbox">
+                                <input type="checkbox" data-toggle="checkbox" value="'+languageCode+'" '+checkedStatus+' '+disabledStatus+'>'+languageName+'
+                            </label>
+                        </div>'
+
+                @$el.find("#hide-langs").html(html)
+
+            hideLanguage:(e) ->
+                e.preventDefault()
+
+                arr = @$el.find("div#hide-langs input[type='checkbox']")
+                hiddenlanguages = new Array()
+                jQuery.each arr, ->
+                    hiddenlanguages.push @value  if @checked
+                    return
+                @trigger 'update:hidden:language', hiddenlanguages
+
+            onHiddenLanguages: (msg, hiddenlanguages)->
+                len = hiddenlanguages.length
+                currentlanguages = new Array()
+                $("div.single-language").each ->
+                        divLangCode = $(this).attr("data-language-code")
+                        currentlanguages.push divLangCode
+                # console.log currentlanguages
+
+                if len is 0
+                    $("div.single-language").each ->
+                        divLangCode = $(this).attr("data-language-code")
+                        single_language_element = '#language-'+divLangCode+' span'
+                        $(single_language_element).removeClass()
+                        $(single_language_element).addClass('icon')
+                        $(single_language_element).addClass('icon-checkmark')
+
+                else
+                    i = 0
+                    while i < currentlanguages.length
+                        currenLang = currentlanguages[i]
+                        single_language_element = '#language-'+currenLang+' span' 
+                        isLangHidden = $.inArray currenLang, hiddenlanguages
+                        # console.log isLangHidden
+                        if isLangHidden isnt -1
+                            # console.log 'found in hidden so show'
+                            $(single_language_element).removeClass()
+                            $(single_language_element).addClass('icon')
+                            $(single_language_element).addClass('icon-cancel')
+                        else
+                            # console.log 'not found so hidden'
+                            $(single_language_element).removeClass()
+                            $(single_language_element).addClass('icon')
+                            $(single_language_element).addClass('icon-checkmark')
+
+                        i++
+
+                @$el.find('.error-msg span').remove()
+                @$el.find('.error-msg').append('<span class="help-block alert alert-success">'+(msg)+'</span>')
+                @$el.find('.error-msg span').fadeOut 5000
+
 
             setEnabledLanguages: (e)->
                 e.preventDefault()
@@ -90,34 +183,70 @@ define ['app'
 
             onSelectedLanguagesEnabled: (collection)->
                 htmlString = ""
+                htmlforHiddenLangView = ""
 
                 $('select.js-enabled-languages').empty()
                 $("select.js-enabled-languages").append("<option value = ''>" + _.polyglot.t('Select a Language') + "</option>")
                 collection.each (m) ->
                     languageCode = m.get("code")
+                    islanguageHidden = m.get("isHidden")
                     languageName = _.polyglot.t(m.get("languageName"))
+                    isLanguageDefault = m.get("isDefaultLanguage")
 
                     unless languageCode is WPML_DEFAULT_LANG
                         $("select.js-enabled-languages").append("<option value = " + languageCode + ">" + languageName + "</option>")
+
+                    if islanguageHidden
+                        # console.log "ishidden"
+                        spanClass = 'icon-cancel'
+                        checkedStatus = 'checked'
+                    else    
+                        spanClass = 'icon-checkmark'
+                        checkedStatus = ''
+
+                    if (languageCode is WPML_DEFAULT_LANG) or (languageCode is 'en')
+                        disabledStatus = 'disabled'
+                        hideClass = 'hide'
+                    else
+                        disabledStatus = ''
+                        hideClass = '' 
+
+                    htmlforHiddenLangView += '<div class="form-group '+hideClass+'">
+                            <label for="checkbox2" class="checkbox">
+                                <input type="checkbox" data-toggle="checkbox" value="'+languageCode+'" '+checkedStatus+' '+disabledStatus+'>'+languageName+'
+                            </label>
+                        </div>'
                     
-                    htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> ' + languageName + ' </div>'
+                    htmlString += '<div class="single-language" id="language-'+languageCode+'" data-language-code="'+languageCode+'"> <span class="icon '+spanClass+'"></span> ' + languageName + ' </div>'
                     return
+
                 @$el.find(".selected-languages").html(htmlString)
                 @$el.find('select').selectpicker('refresh')
+
+                @$el.find("#hide-langs").html(htmlforHiddenLangView)
+                @$el.find('input[type="checkbox"]').checkbox()
 
 
                 @$el.find('.alert').remove()
                 @$el.prepend('<div class="alert alert-success">' + _.polyglot.t("Available languages updated") + '</div>')
-            # @$el.find('.alert').fadeOut 5000
+                @$el.find('.alert').fadeOut 5000
 
             viewEnabledLanguages: ->
                 htmlString = ""
                 @selectedLang.each (m) ->
                     languageCode = m.get("code")
+                    islanguageHidden = m.get("isHidden")
                     languageName = _.polyglot.t(m.get("languageName"))
-                    htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> ' + languageName + ' </div>'
+
+                    if islanguageHidden
+                        spanClass = 'icon-cancel'
+                    else    
+                        spanClass = 'icon-checkmark'
+                         
+                    htmlString += '<div class="single-language" id="language-'+languageCode+'" data-language-code="'+languageCode+'"> <span class="icon '+spanClass+'"></span>' + languageName + ' </div>'
                 @$el.find(".selected-languages").html(htmlString)
 
+            
             loadLanguageDropdown: ->
                 $("select.js-enabled-languages").append("<option value = ''>" + _.polyglot.t('Select a Language') + "</option>")
                 @selectedLang.each (m) ->

@@ -103,8 +103,8 @@ define ['app'
 								</div>
 								<div class="imgname col-sm-5"></div>
 								<div class="imgactions col-sm-3">
-									<a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;
-                                    <a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
+									<a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
+                                    <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
 								</div>
 							</div>
 						  </a>

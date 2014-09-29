@@ -44,8 +44,10 @@ define [ 'app', 'controllers/base-controller', 'apps/media/grid/views' ], ( App,
 						_.delay ->
 							Marionette.triggerMethod.call( _region,"media:element:selected",model)
 
-				App.commands.setHandler "new:media:added",(media)=>
+				App.commands.setHandler "new:media:added",(media,showGrid = false)=>
                     @mediaCollection.add media
+                    if showGrid
+                    	@mediaCollection.trigger 'show:grid'
 
 				@show view, loading : true
 
