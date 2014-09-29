@@ -82,7 +82,7 @@ jQuery(document).ready(function ($) {
             '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
             msg + '</div>';
 
-        $('#display-msg').append(html);
+        $('#display-msg').html(html);
 
     }
 
