@@ -10,9 +10,9 @@ define ['app', 'apps/builder/site-builder/elements/imagewithtext/views',
             initialize: (options)->
                 data = {}
 
-                data['en'] = '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>'
+                data['en'] = "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>"
 
-                data['nb'] = '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>'
+                data['nb'] = "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>"
 
                 _.defaults options.modelData,
                     element: 'ImageWithText'
@@ -80,10 +80,12 @@ define ['app', 'apps/builder/site-builder/elements/imagewithtext/views',
                         original_data =  @layout.model.get('content')
 
                         if _.isObject original_data
-                          data = original_data
+                            data = {}
+                            Object.getOwnPropertyNames(original_data).forEach (val, idx, array) ->
+                                data[val] = _.stripslashes original_data[val]
                         else
-                          data = {}
-                          data['en'] = original_data
+                            data = {}
+                            data['en'] = original_data
 
                         data[WPML_DEFAULT_LANG] = html
 

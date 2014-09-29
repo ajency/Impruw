@@ -53,7 +53,9 @@ define [ 'app'
                original_data =  @layout.model.get('content')
 
                if _.isObject original_data
-                  data = original_data
+                  data = {}
+                  Object.getOwnPropertyNames(original_data).forEach (val, idx, array) ->
+                     data[val] = _.stripslashes original_data[val]
                else
                   data = {}
                   data['en'] = original_data
