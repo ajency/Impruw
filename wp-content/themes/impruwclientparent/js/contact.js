@@ -437,20 +437,28 @@ jQuery(document).ready(function ($) {
 
 });
 
-    jQuery(window).load(function(){
-        jQuery('img[data-height]').hide()
-        setTimeout(function(){
-            jQuery('img[data-height]').each(function(){
-                $ = jQuery
+    // jQuery(window).load(function(){
+    //     jQuery('img[data-height]').hide()
+    //     setTimeout(function(){
+    //         jQuery('img[data-height]').each(function(){
+    //             $ = jQuery
                 
-                if($(this).attr('data-height') != 'auto'){       
-                    $(this).parent().height($(this).parent().width()*parseFloat($(this).attr('data-height')));
-                }
-                $(this).css('top',$(this).parent().width()*parseFloat($(this).attr('data-top'))+'px');
-                $(this).fadeIn()
-            });
-        }, 500);
-    });
+    //             if($(this).attr('data-height') != 'auto'){       
+    //                 $(this).parent().height($(this).parent().width()*parseFloat($(this).attr('data-height')));
+    //             }
+    //             $(this).css('top',$(this).parent().width()*parseFloat($(this).attr('data-top'))+'px');
+    //             $(this).fadeIn()
+    //         });
+    //     }, 500);
+    // });
+
+function imageLoaded(ele){
+    $ = jQuery;
+    if($(ele).attr('data-height') != 'auto'){       
+        $(ele).parent().height($(ele).parent().width()*parseFloat($(ele).attr('data-height')));
+    }
+    $(ele).css('top',$(ele).parent().width()*parseFloat($(ele).attr('data-top'))+'px');
+}
 
  // jQuery(window).load( function (){
  //        $ = jQuery
