@@ -15,13 +15,19 @@
  */
 define( 'SITE_VIEW', TRUE );
 
-if ( isset( $_GET[ 'sim' ] ) && $_GET[ 'sim' ] == 'true' ) {
+if ( isset( $_GET[ 'sim' ] ) ) {
 
 	$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	// print_r($actual_link);
+	$sim = $_GET['sim'];
 	// $url =  substr($actual_link, 0,-9);
-	$url = str_replace("&sim=true", "", $actual_link);
-	$url = str_replace("?sim=true", "", $url);
+	$url = str_replace("&sim=full", "", $actual_link);
+	$url = str_replace("?sim=full", "", $url);
+	$url = str_replace("&sim=tab", "", $url);
+	$url = str_replace("?sim=tab", "", $url);
+	$url = str_replace("&sim=mob", "", $url);
+	$url = str_replace("?sim=mob", "", $url);
+
 	// print_r($url);
 	?>
 	<!DOCTYPE html>
@@ -38,24 +44,70 @@ if ( isset( $_GET[ 'sim' ] ) && $_GET[ 'sim' ] == 'true' ) {
 	    <meta charset="<?php bloginfo( 'charset' ); ?>">
 	    <meta name="viewport" content="width=device-width">
 	    <script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/jquery.js?ver=1.11.0"></script>
+	    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.tabSlideOut.v1.3.js"></script>
+	   
 	    <script type="text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/preview-init.js"></script>
+	   
 	    <style type="text/css">
-	    li{
-	    	display: inline;
-	    }
+		    li{
+		    	display: inline;
+		    }
+		    .options-div {
+
+	            background: #333;
+	            width: 200px;
+	            padding: 0.5em;
+	            color: #fff;
+	            z-index: 9999;
+	            border-radius: 0 0 2px 0;
+	            height: auto !important;
+	        }
+	        .options-div .handle {
+	            background: #333;
+	            padding: 0.4em 0.5em 0.5em;
+	            color: #fff;
+	            font-size: 1.5em;
+	            border-radius: 0 2px 2px 0;
+	            /*right: 95px*/
+	        }
+	        .options-div.open .handle {
+	            right: -42px !important;
+	        }
+	        .options-div .handle:hover {
+	            color: #FF7E00
+	        }
+	        .options-div h5 {
+	            font-size: 1.2em;
+	            text-transform: uppercase;
+	        }
 	    </style>
 
 	</head>
 	<body style="height:97%; margin:0px">
-		<div id="tools" style="display:flex">
-		    
+
+		<div class="options-div">
+        	<a class="handle" href="#"><span class="glyphicon glyphicon-cog"></span></a>
 		    <ul class="nav size" id="nav">
-		        <li class="active"><a href="#" id="size-full" >Full</a></li>
-		        <li><a href="#" id="size-tab">Tablet</a></li>
-		        <li><a href="#" id="size-mobile">Mobile</a></li>
+		    	
+		        <li <?php if($sim == 'full') echo "class='active'"; ?> >
+		        	<a href="<?php echo $url ?>&sim=full" id="size-full" >Full</a>
+		        </li>
+		        <li <?php if($sim == 'tab') echo "class='active'"; ?> >
+		        	<a href="<?php echo $url ?>&sim=tab" id="size-tab">Tablet</a>
+		        </li>
+		        <li <?php if($sim == 'mob') echo "class='active'"; ?> >
+		        	<a href="<?php echo $url ?>&sim=mob" id="size-mobile">Mobile</a>
+		        </li>
 		    </ul>
 		</div>
-		<div id="viewport" style="margin-left:auto; margin-right:auto;">
+		<?php
+		if($sim == 'full')
+			echo '<div id="viewport" style="margin-left:auto; margin-right:auto; height:100%; width:100%; "> ';
+		elseif ($sim == 'tab')
+			echo '<div id="viewport" style="margin-left:auto; margin-right:auto; height:1024px; width:768px;">';
+		elseif ($sim == 'mob')
+			echo '<div id="viewport" style="margin-left:auto; margin-right:auto; height:480px; width:320px;">';		
+		?>
 			<iframe  src="<?php echo $url; ?>" style="height:100%; width:100%"></iframe>
 		</div>
 	</body>
