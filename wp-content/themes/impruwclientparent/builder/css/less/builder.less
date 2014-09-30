@@ -1209,19 +1209,20 @@ a {
 				}
 			}
 			.lock-message {
-				position: absolute;
-				background: rgba(255, 255, 255, 0.8);
-				border-radius: 6px 6px 0 0;
-				z-index: 100;
+				position: fixed;
+				background: rgba(255, 255, 255, 0.9);
+				/*border-radius: 6px 6px 0 0;*/
+				z-index: 10000;
 				top: 0;
 				left: 0;
 				right: 0;
 				bottom: 0;
 				text-align: center;
 				padding: 0.5em;
+				padding-top: 3em;
 				.bicon {
-					color: @3-grey;
-					font-size: 2em;
+					color: @dash-grey;
+					font-size: 3em;
 				}
 				.message-span {
 					margin: 0.5em 0 1em;
