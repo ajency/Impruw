@@ -938,7 +938,9 @@ function get_theme_JS() {
     ?>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.slimmenu.min.js"></script>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
+    <!-- 
+    <script src="<?php //echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
+     -->
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/user_management.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/polyglot.js"></script>
     <?php
