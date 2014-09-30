@@ -8,7 +8,7 @@ define(['app'], function(App) {
       __extends(MapView, _super);
 
       function MapView() {
-        this.adjustMapPosition = __bind(this.adjustMapPosition, this);
+        this.adjustMapHeight = __bind(this.adjustMapHeight, this);
         this.mapMoved = __bind(this.mapMoved, this);
         return MapView.__super__.constructor.apply(this, arguments);
       }
@@ -21,14 +21,13 @@ define(['app'], function(App) {
 
       MapView.prototype.onShow = function() {
         this.className += " " + Marionette.getOption(this, 'className');
-        this.adjustMapPosition();
+        this.adjustMapHeight();
         this.$el.height('100%');
         this.$el.parent().resizable({
           handles: "s",
           stop: (function(_this) {
             return function(evt, ui) {
               _this.$el.parent().css('width', 'auto');
-              _this.model.set('height', _this.$el.parent().height());
               return _this.trigger('set:image:height', {
                 height: _this.$el.parent().height(),
                 width: _this.$el.parent().width()
@@ -45,7 +44,7 @@ define(['app'], function(App) {
         return this.parentColumns.each((function(_this) {
           return function(index, parentColumn) {
             console.log(parentColumn);
-            $(parentColumn).on('class:changed', _this.adjustMapPosition);
+            $(parentColumn).on('class:changed', _this.adjustMapHeight);
             return $(parentColumn).on('element:moved', _this.mapMoved);
           };
         })(this));
@@ -55,20 +54,20 @@ define(['app'], function(App) {
         this.parentColumns.each((function(_this) {
           return function(index, parentColumn) {
             $(parentColumn).off('element:moved', _this.mapMoved);
-            return $(parentColumn).off('class:changed', _this.adjustMapPosition);
+            return $(parentColumn).off('class:changed', _this.adjustMapHeight);
           };
         })(this));
         this.parentColumns = this.$el.parents('.column');
         this.parentColumns.each((function(_this) {
           return function(index, parentColumn) {
             $(parentColumn).on('element:moved', _this.mapMoved);
-            return $(parentColumn).on('class:changed', _this.adjustMapPosition);
+            return $(parentColumn).on('class:changed', _this.adjustMapHeight);
           };
         })(this));
-        return this.adjustMapPosition();
+        return this.adjustMapHeight();
       };
 
-      MapView.prototype.adjustMapPosition = function() {
+      MapView.prototype.adjustMapHeight = function() {
         return this.$el.parent().height(parseFloat(this.model.get('heightRatio')) * this.$el.parent().width());
       };
 
