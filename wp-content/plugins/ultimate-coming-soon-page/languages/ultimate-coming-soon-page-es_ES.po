@@ -3,18 +3,15 @@ msgstr ""
 "Project-Id-Version: Ultimate Coming Soon Page\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-12-12 12:02-0500\n"
-"PO-Revision-Date: 2013-08-14 12:10+0200\n"
-"Last-Translator: Rait Huusmann <rait@huusmann.eu>\n"
-"Language-Team: raitulja <rait@huusmann.eu>\n"
+"PO-Revision-Date: 2014-08-21 11:11+0100\n"
+"Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
+"Language-Team:  <john@seedprod.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-Basepath: ../\n"
-"X-Generator: Poedit 1.5.7\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: et\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: ultimate-coming-soon-page.php:38
@@ -22,45 +19,47 @@ msgid ""
 "WordPress 3.0 and higher required. The plugin has now disabled itself. On a "
 "side note why are you running an old version :( Upgrade!"
 msgstr ""
-"Vajalik on Wordpressi versioon 3.0 või kõrgem. Plugin lülitas end välja. "
-"Muuseas - miks Sa vana versiooni kasutad :( Uuenda!"
+"Se requiere WordPress 3.0 y superior. El plug-in se ha deshabilitado. En una "
+"nota aparte, ¿por qué está ejecutando una versión antigua? :( ¡Actualice!"
 
 #: framework/framework.php:289
 msgid "Media Image Library"
-msgstr "Meediateek"
+msgstr "Biblioteca de imágenes"
 
 #: framework/framework.php:403
 #, php-format
 msgid "Settings saved.  <a href='%s/?cs_preview=true'>Preview &raquo;</a>"
-msgstr "Seaded salvestatud. <a href='%s/?cs_preview=true'>Eelvaade &raquo;</a>"
+msgstr ""
+"Configuración guardada <a href='%s/?cs_preview=true'> Vista Previa &raquo;</"
+"a>"
 
 #: framework/framework.php:514
 msgid "Save Changes"
-msgstr "Salvesta muudatused"
+msgstr "Guardar cambios"
 
 #: inc/config.php:49
 msgid "Coming Soon Mode Active"
-msgstr "Peagi Valmis reziim aktiveeritud"
+msgstr "Próximamente modo Activo"
 
 #: inc/config.php:78
 msgid "Enter Your Email"
-msgstr "Sisesta oma E-posti aadress"
+msgstr "Ingrese Su Email"
 
 #: inc/config.php:79
 msgid "Error :( Please try again."
-msgstr "Viga :( Palun proovi uuesti"
+msgstr "Error :( Por favor, inténtelo de nuevo."
 
 #: inc/config.php:80
 msgid "Please enter a valid email."
-msgstr "Palun sisesta kehtiv e-posti aadress"
+msgstr "Por favor introduzca una dirección de correo electrónico válida."
 
 #: inc/config.php:81
 msgid "You'll be notified soon!"
-msgstr "Sulle antakse peagi teada!"
+msgstr "¡Se le notificará pronto!"
 
 #: inc/config.php:138
 msgid "Unable to load lists, check your API Key!"
-msgstr "Ei saa nimekirju laadida, kontrolli oma API võtit!"
+msgstr "No se pueden cargar listas, ¡compruebe su clave API!"
 
 #: inc/config.php:259
 msgid ""
@@ -71,27 +70,28 @@ msgid ""
 "email.\n"
 "        \t"
 msgstr ""
-"Paku oma külastajatele stiimuleid, nagu flaieri koodid, tasuta e-raamat, "
-"tasuta tarkvara jms, kui nad jagavad Sinuga oma e-posti aadressi.\n"
-"        \tLihtsalt täida üks või mõlemad allolevad väljad ja info kuvatakse "
-"peale e-posti aadressi saamist.\n"
-"        \t"
+"Ofrecer incentivos a sus visitantes, tales como códigos de cupones, libro "
+"electrónico gratuito, software libre, etc., en intercambio por su correo "
+"electrónico. \n"
+" \tsólo llene uno o ambos de los campos siguientes y la información se "
+"mostrará después de haber capturado con éxito su correo electrónico. \n"
+" \t"
 
 #: inc/config.php:307
 msgid "Are you sure you want to DELETE all emails?"
-msgstr "Oled kindel, et tahad kõik e-kirjad KUSTUTADA?"
+msgstr "¿Seguro que quiere BORRAR todos los mensajes de correo electrónico?"
 
 #: inc/config.php:351 inc/config.php:353 inc/config.php:354
 msgid "Coming Soon"
-msgstr "Peagi Valmis"
+msgstr "Próximamente"
 
 #: inc/config.php:376
 msgid "Settings"
-msgstr "Seaded"
+msgstr "Ajustes"
 
 #: inc/config.php:388
 msgid "Enable"
-msgstr "Lülita sisse"
+msgstr "Activar"
 
 #: inc/config.php:389
 #, php-format
@@ -100,48 +100,49 @@ msgid ""
 "logged in will not see the coming soon page, this means you.  <a href='%s/?"
 "cs_preview=true'>Preview</a>"
 msgstr ""
-"Kui tahad külastajatele näidata vaid Peagi Valmis lehte, siis lülita see "
-"sisse. Sisselogitud kasutajad, ehk siis Sina, ei näe Peagi Valmis lehte. <a "
-"href='%s/?cs_preview=true'>Eelvaade</a>"
+"Activar si desea mostrar una página de muy pronto a los visitantes. Los "
+"usuarios que han iniciado sesión no verán la página de próximamente, esto le "
+"significa. <a href='%s/?cs_preview=true'> Vista Previa </a>"
 
 #: inc/config.php:390 inc/config.php:466
 msgid "Yes"
-msgstr "Jah"
+msgstr "Si"
 
 #: inc/config.php:396
 msgid "Image"
-msgstr "Pilt"
+msgstr "Imagen"
 
 #: inc/config.php:397
 msgid "Upload a logo or teaser image (or) enter the url to your image."
-msgstr "Lae üles logo või pilt (või) sisesta oma pildi url."
+msgstr ""
+"Suba un logotipo o imagen de reclamo (o) introduzca la url de su imagen."
 
 #: inc/config.php:403
 msgid "Headline"
-msgstr "Pealkiri"
+msgstr "Encabezado"
 
 #: inc/config.php:404
 msgid ""
 "Write a headline for your coming soon page. Tip: Avoid using 'Coming Soon'."
 msgstr ""
-"Pane oma peagi valmis lehele pealkiri. Vihje: Väldi \"Peagi Valmis/Coming "
-"soon\" kasutamist."
+"Escriba un encabezado para su página de próximamente  Sugerencia: Evite el "
+"uso de 'Próximamente'."
 
 #: inc/config.php:410
 msgid "Description"
-msgstr "Kirjeldus"
+msgstr "Descripción"
 
 #: inc/config.php:411
 msgid "Tell the visitor what to expect from your site."
-msgstr "Räägi oma külastajale mida Sinu lehelt on oodata."
+msgstr "Diga al visitante qué esperar de su sitio"
 
 #: inc/config.php:419
 msgid "Mailing List"
-msgstr "E-postiloend"
+msgstr "Lista de correo"
 
 #: inc/config.php:427
 msgid "FeedBurn Address"
-msgstr "FeedBurn'i aadress"
+msgstr "Dirección FeedBurn"
 
 #: inc/config.php:428
 msgid ""
@@ -149,69 +150,72 @@ msgid ""
 "org/extend/plugins/ultimate-coming-soon-page/faq/'' target='_blanks'> Learn "
 "how</a> to use FeedBurner to collect emails."
 msgstr ""
-"Sisesta osa peale http://feeds2.feedburner.com/ <a href='http://wordpress."
-"org/extend/plugins/ultimate-coming-soon-page/faq/'' target='_blanks'> Õpi "
-"kuidas</a> kasutada FeedBurnerit e-posti aadresside korjamiseks."
+"Introduzca la pieza después http://feeds2.feedburner.com/ <a href='http://"
+"wordpress.org/extend/plugins/ultimate-viene-pronto-page/faq/'' "
+"target='_blanks'> Aprenda cómo </a> utilizar FeedBurner para recoger "
+"mensajes de correo electrónico."
 
 #: inc/config.php:435
 msgid "Custom HTML"
-msgstr "Kohandatud HTML"
+msgstr "HTML personalizada"
 
 #: inc/config.php:436
 msgid ""
 "Enter any custom html or javascript that you want outputted. You can also "
 "enter you Google Analytics code."
 msgstr ""
-"Sisesta kohandatud HTML või javascript, mida soovid näidata. Võid sisestada "
-"ka Google Analyticsi koodi."
+"Ingrese HTML o javascript que desea que se emitan. También puede introducir "
+"su código Google Analytics."
 
 #: inc/config.php:444
 msgid "Style"
-msgstr "Kujundus"
+msgstr "Estilo"
 
 #: inc/config.php:449
 msgid "Background Color"
-msgstr "Taustavärv"
+msgstr "Color de fondo"
 
 #: inc/config.php:457
 msgid "Background Image"
-msgstr "Taustapilt"
+msgstr "Imagen de Fondo"
 
 #: inc/config.php:460
 msgid ""
 "Upload an optional background image (or) enter the url to your image. This "
 "will override the color above if set."
 msgstr ""
-"Valikuline - lae üles oma taustapilt (või) isesta selle url. See tühistab "
-"ülaltehtud värvivaliku."
+"Suba una imagen de fondo opcional (o) introduzca la url de su imagen. Esto "
+"anulará el color por encima de si está establecido."
 
 #: inc/config.php:464
 msgid "Stretch Background Image"
-msgstr "Venita tasutapilti"
+msgstr "Estirar la imagen de fondo"
 
 #: inc/config.php:465
 msgid "This will stretch your background image to match any browser size."
-msgstr "See venitab taustapildi brauseri akna suuruseks."
+msgstr ""
+"Esto estirará su imagen de fondo para adaptarse a cualquier tamaño del "
+"navegador."
 
 #: inc/config.php:473
 msgid "Font Color"
-msgstr "Teksti värv"
+msgstr "Color de Fuente"
 
 #: inc/config.php:474
 msgid "Black"
-msgstr "Must"
+msgstr "Negro"
 
 #: inc/config.php:474
 msgid "Gray"
-msgstr "Hall"
+msgstr "Gris"
 
 #: inc/config.php:474
 msgid "White"
-msgstr "Valge"
+msgstr "Blanco"
 
 #: inc/config.php:483
 msgid "Headline Font"
-msgstr "Pealkirja font"
+msgstr "Fuente Encabezado"
 
 #: inc/config.php:487 inc/config.php:496
 msgid ""
@@ -219,39 +223,38 @@ msgid ""
 "\">System Fonts</a> - View <a href=\"http://www.google.com/webfonts\">Google "
 "Fonts</a>"
 msgstr ""
-"Vaata <a href=\"http://www.ampsoft.net/webdesign-l/WindowsMacFonts.html"
-"\">Süsteemi fondid</a> - Vaata <a href=\"http://www.google.com/webfonts"
-"\">Google'i fondid</a>"
+"Ver <a href=\"http://www.ampsoft.net/webdesign- l / WindowsMacFonts.html \"> "
+"Sistema de Fuentes </a> - Ver <a href=\"http://www.google.com/webfonts\"> "
+"Fuentes Google </a>"
 
 #: inc/config.php:491
 msgid "Body Font"
-msgstr "Sisu font"
+msgstr "Fuente del Cuerpo"
 
 #: inc/config.php:501
 msgid "Custom CSS"
-msgstr "Kohandatud CSS"
+msgstr "CSS Personalizado"
 
 #: inc/config.php:506
 msgid "Need to tweaks the styles? Add your custom CSS here."
-msgstr "Soovid kujundust muuda? Lisa oma kohandatud CSS siia."
+msgstr "¿Necesita afinar los estilos? Añada su CSS personalizado aquí."
 
-# Tõlkimata, kuna "footer credit" on just selle sõnastusega. Untranslated since "footer credit" looks like this and is therefore understandable imo.
 #: inc/config.php:511
 msgid "Powered By SeedProd"
-msgstr ""
+msgstr "Impulsado Por SeedProd"
 
 #: inc/config.php:512
 msgid "Nope - Got No Love"
-msgstr "Eip - ei hooli väga"
+msgstr "No.  No Obtuvo Amor"
 
 #: inc/config.php:512
 msgid "Yep - I Love You Man"
-msgstr "Jahh - olete tegijad"
+msgstr "Sí - Te Quiero hombre"
 
 #: inc/config.php:513
 msgid ""
 "Can we show a <strong>cool stylish</strong> footer credit at the bottom the "
 "page."
 msgstr ""
-"Kas me võime lehe allosas näidata oma <strong>lahedalt stiilset</strong> "
-"viitepilti."
+"¿Podemos mostrar un crédito de pie de página <strong> con estilo fresco </"
+"strong> en la parte inferior de la página?"
