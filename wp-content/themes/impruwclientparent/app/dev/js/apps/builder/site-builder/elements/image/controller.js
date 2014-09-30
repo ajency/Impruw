@@ -44,8 +44,6 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
       Controller.prototype._getImageView = function(imageModel) {
         return new Image.Views.ImageView({
           model: imageModel,
-          imageHeightRatio: this.layout.model.get('heightRatio'),
-          positionTopRatio: this.layout.model.get('topRatio'),
           eleModel: this.layout.model,
           templateHelpers: this._getTemplateHelpers()
         });
@@ -94,7 +92,6 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
               }
             });
             _this.listenTo(view, 'set:image:height', function(height, width) {
-              _this.layout.model.set('height', height);
               if (height === 'auto') {
                 _this.layout.model.set('heightRatio', 'auto');
               } else {

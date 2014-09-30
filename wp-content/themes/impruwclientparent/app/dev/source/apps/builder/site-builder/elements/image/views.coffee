@@ -45,8 +45,8 @@ define ['app'], (App)->
                 # 'click a' : (e)-> e.preventDefault()
 
             initialize :(options)->
-                @imageHeightRatio = Marionette.getOption @,'imageHeightRatio'
-                @positionTopRatio = Marionette.getOption @, 'positionTopRatio' 
+                # @imageHeightRatio = Marionette.getOption @,'imageHeightRatio'
+                # @positionTopRatio = Marionette.getOption @, 'positionTopRatio' 
                 @eleModel = Marionette.getOption @, 'eleModel'
                 
 
@@ -152,7 +152,7 @@ define ['app'], (App)->
                         @$el.height parseFloat(@eleModel.get('heightRatio'))*@$el.width()
 
                 if @eleModel.get('topRatio') 
-                    @$el.find('img').css 'top',"#{@eleModel.get('topRatio')*@$el.width()}px"
+                    @$el.find('img').css 'top',"#{parseFloat(@eleModel.get('topRatio'))*@$el.width()}px"
 
                 @assignImagePath()
 

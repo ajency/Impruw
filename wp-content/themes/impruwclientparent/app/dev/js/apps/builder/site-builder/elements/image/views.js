@@ -45,8 +45,6 @@ define(['app'], function(App) {
       };
 
       ImageView.prototype.initialize = function(options) {
-        this.imageHeightRatio = Marionette.getOption(this, 'imageHeightRatio');
-        this.positionTopRatio = Marionette.getOption(this, 'positionTopRatio');
         return this.eleModel = Marionette.getOption(this, 'eleModel');
       };
 
@@ -162,7 +160,7 @@ define(['app'], function(App) {
           this.$el.height(parseFloat(this.eleModel.get('heightRatio')) * this.$el.width());
         }
         if (this.eleModel.get('topRatio')) {
-          this.$el.find('img').css('top', "" + (this.eleModel.get('topRatio') * this.$el.width()) + "px");
+          this.$el.find('img').css('top', "" + (parseFloat(this.eleModel.get('topRatio')) * this.$el.width()) + "px");
         }
         return this.assignImagePath();
       };
