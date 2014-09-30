@@ -135,11 +135,11 @@ define ['app'
                                             </div>
                                         </div>
                                         <div class="form-group caption-exist">
-                                            <label for="" class="col-sm-3 control-label">{{#polyglot}}Open in new window{{/polyglot}}</label>
-                                            <div class="col-sm-9">
-                                                <span class="checkbox">
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <label for="" class="control-label checkbox">
                                                     <input type="checkbox" class="link-check" name="target"/>
-                                                </span>
+                                                    {{#polyglot}}Add Link to Caption{{/polyglot}}
+                                                </label>
                                             </div>
                                         </div>
                                         
@@ -192,9 +192,10 @@ define ['app'
                                             </div>
                                         </div>
                                         <div class="form-group t-a-r">
-                                            <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button>
-                                            <button type="button" class="btn btn-sm aj-imp-submit" id="cancel-slide-layer">{{#polyglot}}Cancel{{/polyglot}}</button>
-                                            <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a>
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button>
+                                                <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
