@@ -18,6 +18,9 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                 @listenTo view, "element:draggable:changed", (draggable)=>
                     @model.set "draggable", draggable
 
+                @listenTo view, "element:linkcheck:changed", (link_check)=>
+                    @model.set "link_check", link_check
+
                 @listenTo view, "element:alignment:changed", (alignment)=>
                     @model.set "align", alignment
 

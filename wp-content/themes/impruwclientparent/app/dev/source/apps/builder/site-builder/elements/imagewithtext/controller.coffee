@@ -23,15 +23,16 @@ define ['app', 'apps/builder/site-builder/elements/imagewithtext/views',
                     content: data
                     link : '#'
                     target : '_self'
+                    link_check : false
 
                 super(options)
 
             bindEvents: ->
                 # start listening to model events
-                @listenTo @layout.model, "change:image_id", @renderElement
+                @listenTo @layout.model, "change:image_id change:size change:align" , @renderElement
                 @listenTo @layout.model, "change:style", @changeElementStyle
-                @listenTo @layout.model, "change:size", @renderElement
-                @listenTo @layout.model, "change:align", @renderElement
+                @listenTo @layout.model, "change:link change:target change:link_check", ->
+                    @layout.model.save()
                 super()
 
             # private etmplate helper function

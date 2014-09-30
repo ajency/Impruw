@@ -25,16 +25,18 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
           style: '',
           content: data,
           link: '#',
-          target: '_self'
+          target: '_self',
+          link_check: false
         });
         return Controller.__super__.initialize.call(this, options);
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:image_id", this.renderElement);
+        this.listenTo(this.layout.model, "change:image_id change:size change:align", this.renderElement);
         this.listenTo(this.layout.model, "change:style", this.changeElementStyle);
-        this.listenTo(this.layout.model, "change:size", this.renderElement);
-        this.listenTo(this.layout.model, "change:align", this.renderElement);
+        this.listenTo(this.layout.model, "change:link change:target change:link_check", function() {
+          return this.layout.model.save();
+        });
         return Controller.__super__.bindEvents.call(this);
       };
 
