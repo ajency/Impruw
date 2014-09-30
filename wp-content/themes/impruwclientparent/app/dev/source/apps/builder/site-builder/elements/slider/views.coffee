@@ -91,7 +91,7 @@ define ['app'], (App)->
                 defaults = @_getDefaults()
 
                 options =
-                    startheight:  @model.get 'height'
+                    startheight:  parseInt @model.get 'height'
 
                 options = _.defaults options, defaults
 
