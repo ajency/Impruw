@@ -2507,7 +2507,7 @@ a {
 			list-style: none;
 			margin: 0;
 			padding: 0;
-			max-height: 400px;
+			height: 32vh;
 			overflow-y: auto;
 			.trash-elem {
 				border-radius: 2px;
@@ -2516,19 +2516,19 @@ a {
 			    margin: 0.5em 0;
 			    text-align: left;
 			    a {
-			    	background: none repeat scroll 0 0 #000;
+			    	background: none repeat scroll 0 0 #fff;
 				    color: @dash-grey;
 				    cursor: move;
 				    display: block;
 				    padding: 0.3em;
+				    border-radius: 2px;
 				    .trash-elem-header {
-				    	font-size: 1.2em;
+				    	font-size: 1em;
 				    	border-bottom: 1px dotted @preview-grey;
-				    	color: @preview-grey;
+				    	color: @blue-grey;
 				    	margin: 0 0 0.3em;
 				    	padding: 0 0 0.2em;
 				    	.bicon {
-				    		background: #fff;
 				    		color: @dash-grey;
 				    		min-width: 18px;
 				    		min-height: 18px;
@@ -2544,10 +2544,11 @@ a {
 				    	margin-top: 0.4em;
 				    }
 				    .trash-elem-content {
-				    	font-size: 0.8em;
-				    	max-height: 41px;
+				    	font-size: 0.7em;
+				    	max-height: 50px;
 				    	overflow: hidden;
-				    	line-height: 1.2em;
+				    	line-height: 1em;
+				    	text-transform: capitalize;
 				    }
 			    }
 			    &:hover, &:focus {
@@ -2557,8 +2558,9 @@ a {
 						color: #fff;
 						background: rgba(0, 0, 0, 0);
 						.trash-elem-header {
+							color: #fff;
 							.bicon {
-								color: @orange;
+								color: #fff;
 							}
 						}
 					}

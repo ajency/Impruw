@@ -2416,7 +2416,7 @@ a.red-link.pull-right {
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 400px;
+  height: 32vh;
   overflow-y: auto;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem {
@@ -2427,21 +2427,21 @@ a.red-link.pull-right {
   text-align: left;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem a {
-  background: none repeat scroll 0 0 #000;
+  background: none repeat scroll 0 0 #fff;
   color: #aaaaaa;
   cursor: move;
   display: block;
   padding: 0.3em;
+  border-radius: 2px;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-header {
-  font-size: 1.2em;
+  font-size: 1em;
   border-bottom: 1px dotted #f3f3f3;
-  color: #f3f3f3;
+  color: #849fb0;
   margin: 0 0 0.3em;
   padding: 0 0 0.2em;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-header .bicon {
-  background: #fff;
   color: #aaaaaa;
   min-width: 18px;
   min-height: 18px;
@@ -2456,10 +2456,11 @@ a.red-link.pull-right {
   margin-top: 0.4em;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-content {
-  font-size: 0.8em;
-  max-height: 41px;
+  font-size: 0.7em;
+  max-height: 50px;
   overflow: hidden;
-  line-height: 1.2em;
+  line-height: 1em;
+  text-transform: capitalize;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem:hover,
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem:focus {
@@ -2471,9 +2472,13 @@ a.red-link.pull-right {
   color: #fff;
   background: rgba(0, 0, 0, 0);
 }
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem:hover a .trash-elem-header,
+#unused-elements .aj-imp-drag-menu .trash-list .trash-elem:focus a .trash-elem-header {
+  color: #fff;
+}
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem:hover a .trash-elem-header .bicon,
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem:focus a .trash-elem-header .bicon {
-  color: #ff7e00;
+  color: #fff;
 }
 #unused-elements .aj-imp-drag-menu .trash-list .trash-elem.ui-draggable-dragging {
   background: transparent;
