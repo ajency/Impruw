@@ -41,6 +41,7 @@ define(['underscore', 'underscorestring'], function(_) {
       return text;
     },
     stripslashes: function(str) {
+      return str.replace(/\\/g, '');
       return (str + "").replace(/\\(.?)/g, function(s, n1) {
         switch (n1) {
           case "\\":
