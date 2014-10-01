@@ -129,7 +129,7 @@ define(['app'], function(App) {
         };
         options = _.defaults(options, defaults);
         this.revapi = this.$el.find(".fullwidthbanner").revolution(options);
-        this.$el.resizable({
+        return this.$el.resizable({
           helper: "ui-image-resizable-helper",
           handles: "s",
           stop: (function(_this) {
@@ -147,7 +147,6 @@ define(['app'], function(App) {
             };
           })(this)
         });
-        return $('.aj-imp-publish').on('click', this._saveSliderHeightWidth);
       };
 
       SliderView.prototype.sliderClick = function(e) {
@@ -209,10 +208,6 @@ define(['app'], function(App) {
           startWithSlide: 0,
           fullScreenOffsetContainer: ""
         };
-      };
-
-      SliderView.prototype.onBeforeClose = function() {
-        return $('.aj-imp-publish').off('click', this._saveSliderHeightWidth);
       };
 
       return SliderView;
