@@ -153,7 +153,7 @@ define [ 'app'
                .attr 'href', previewUrl
                .attr 'target', '_newtab' + Math.floor(Math.random()*999999)
 
-            mobilePreviewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}&sim=mob"
+            mobilePreviewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}&sim=mobp"
             @$el.find( 'a.mobile-preview-current-page' )
                .attr 'href', mobilePreviewUrl
                .attr 'target', '_newtab' + Math.floor(Math.random()*999999)

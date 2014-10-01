@@ -191,7 +191,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         currentPageId = App.request("get:current:editable:page");
         previewUrl = "" + SITEURL + "?preview=true&p=" + currentPageId + "&sim=full";
         this.$el.find('a.preview-current-page').attr('href', previewUrl).attr('target', '_newtab' + Math.floor(Math.random() * 999999));
-        mobilePreviewUrl = "" + SITEURL + "?preview=true&p=" + currentPageId + "&sim=mob";
+        mobilePreviewUrl = "" + SITEURL + "?preview=true&p=" + currentPageId + "&sim=mobp";
         return this.$el.find('a.mobile-preview-current-page').attr('href', mobilePreviewUrl).attr('target', '_newtab' + Math.floor(Math.random() * 999999));
       };
 
