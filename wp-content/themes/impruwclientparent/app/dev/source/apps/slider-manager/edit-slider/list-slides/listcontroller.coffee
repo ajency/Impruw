@@ -143,10 +143,18 @@ define ['app'
                                             </div>
                                         </div>
                                         
-                                        <div class="form-group caption-exist">
+                                        <div class="form-group caption-exist link-hide">
                                             <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Link{{/polyglot}}</label>
                                             <div class="col-sm-9">
                                                 <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group caption-exist link-hide">
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <label for="" class="control-label checkbox">
+                                                    <input type="checkbox" class="link-target" name="target"/>
+                                                    {{#polyglot}}Open in new Tab{{/polyglot}}
+                                                </label>
                                             </div>
                                         </div>
                                         <div class="form-group layout-opts caption-exist">
@@ -239,11 +247,11 @@ define ['app'
                 'change .caption-title ' :(e)->
                     if $(e.target).val() isnt ''
                         @$el.find('.caption-exist').slideDown('fast')
-                    else
-                        @$el.find('.caption-exist').hide()
-                        @model.set 'layers',[]
-                        @model.save()
-                        @model.trigger 'model:changed'
+                    # else
+                    #     @$el.find('.caption-exist').hide()
+                    #     @model.set 'layers',[]
+                    #     @model.save()
+                    #     @model.trigger 'model:changed'
                         # @setCaptionDefaults()
                         
 
@@ -254,6 +262,12 @@ define ['app'
                     @model.save()
                     @model.trigger 'model:changed'
                     @setCaptionDefaults()
+
+                'change input.link-check' :(e)->
+                    if $(e.target).is(':checked')
+                        @$el.find('.form-group.link-hide').removeClass 'hide'
+                    else
+                        @$el.find('.form-group.link-hide').addClass 'hide'
 
 
 
@@ -279,7 +293,9 @@ define ['app'
                         @$el.find('.caption-title').val $(captionHtml).first().find('a').first().html()
                         @$el.find('.caption-link').val $(captionHtml).first().find('a').first().attr 'href'
                         @$el.find('input.link-check').checkbox('check')
+                        @$el.find('input.link-target').checkbox('check') if $(captionHtml).first().find('a').first().attr('target') is '_blank'
                     else 
+                        @$el.find('.form-group.link-hide').addClass('hide')
                         @$el.find('.caption-title').val $(captionHtml).first().html()
                         @$el.find('.caption-link').val ''
 
@@ -289,6 +305,7 @@ define ['app'
                     @$el.find("input[name='position'][value='#{caption.left},#{caption.top}']").prop 'checked',true
                 else
                     @$el.find('.caption-exist').hide()
+                    @$el.find('.form-group.link-hide').addClass('hide')
                     @$el.find('.caption-title').val ''
                     @$el.find('.caption-description').val ''
                     @$el.find('.caption-link').val ''
@@ -304,7 +321,9 @@ define ['app'
                         data = @layerDefault()
 
                     data.text = "<h3 class='#{@$el.find('.caption-style').val()}'>"
-                    data.text += "<a href='#{@$el.find('.caption-link').val()}'>" if @$el.find('input.link-check').is(':checked')
+                    if @$el.find('input.link-check').is(':checked')
+                        data.text += "<a href='#{@$el.find('.caption-link').val()}'" 
+                        data.text += if @$el.find('input.link-target').is(':checked') then "target='_blank'>" else "target='_self'>"
                     data.text += @$el.find('.caption-title').val()
                     data.text += "</a>" if @$el.find('input.link-check').is(':checked')
                     data.text += "</h3><div>#{@$el.find('.caption-description').val()}</div>"
@@ -315,7 +334,10 @@ define ['app'
                     data.left = position[0]
                     data.top = position[1]
                     
-                    @model.set 'layers',[data]
+                    if @$el.find('.caption-title').val() isnt '' or @$el.find('.caption-description').val() isnt '' 
+                        @model.set 'layers',[data]
+                    else
+                        @model.set 'layers',[]
                     @model.save()
                     @model.trigger 'model:changed'
 

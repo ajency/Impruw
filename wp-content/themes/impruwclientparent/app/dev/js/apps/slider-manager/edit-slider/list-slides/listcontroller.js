@@ -145,7 +145,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.className = 'panel panel-default moveable';
 
-      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-3"> <img src="{{thumb_url}}" class="img-responsive"> <div class="imgactions"> <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a> <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> <div class="imgname col-sm-9"> <form action="" method="POST" role="form" class="form-horizontal" validate> <div class="form-group "> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Title{{/polyglot}}</label> <div class="col-sm-9"> <input  type="text" name="text" class="caption-title form-control" placeholder="{{#polyglot}}Caption Title{{/polyglot}}"/> </div> </div> <div class="form-group caption-exist"> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Description{{/polyglot}}</label> <div class="col-sm-9"> <textarea  type="text" name="text" class="caption-description form-control" placeholder="{{#polyglot}}Caption Description{{/polyglot}}"> </textarea> </div> </div> <div class="form-group caption-exist"> <div class="col-sm-9 col-sm-offset-3"> <label for="" class="control-label checkbox"> <input type="checkbox" class="link-check" name="target"/> {{#polyglot}}Add Link to Caption{{/polyglot}} </label> </div> </div> <div class="form-group caption-exist"> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Link{{/polyglot}}</label> <div class="col-sm-9"> <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/> </div> </div> <div class="form-group layout-opts caption-exist"> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label> <select name="style" class="form-control caption-style"> {{#captionStyles}} <option value="title {{value}}">{{name}}</option> {{/captionStyles}} </select> </div> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Caption Background{{/polyglot}}</label> <select name="background" class="form-control caption-background"> <option value="transparent-black">Transparent Black</option> <option value="transparent-white">Transparent White</option> </select> </div> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Position{{/polyglot}}</label> <div class="caption-position"> <input type="radio" name="position" value="left,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,top"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,center"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,bottom"> <label><span><span></span></span></label> </div> </div> </div> <div class="form-group t-a-r"> <div class="col-sm-9 col-sm-offset-3"> <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button> <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a> </div> </div> </form> </div> </div> </a> </div>';
+      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-3"> <img src="{{thumb_url}}" class="img-responsive"> <div class="imgactions"> <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a> <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> <div class="imgname col-sm-9"> <form action="" method="POST" role="form" class="form-horizontal" validate> <div class="form-group "> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Title{{/polyglot}}</label> <div class="col-sm-9"> <input  type="text" name="text" class="caption-title form-control" placeholder="{{#polyglot}}Caption Title{{/polyglot}}"/> </div> </div> <div class="form-group caption-exist"> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Description{{/polyglot}}</label> <div class="col-sm-9"> <textarea  type="text" name="text" class="caption-description form-control" placeholder="{{#polyglot}}Caption Description{{/polyglot}}"> </textarea> </div> </div> <div class="form-group caption-exist"> <div class="col-sm-9 col-sm-offset-3"> <label for="" class="control-label checkbox"> <input type="checkbox" class="link-check" name="target"/> {{#polyglot}}Add Link to Caption{{/polyglot}} </label> </div> </div> <div class="form-group caption-exist link-hide"> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Link{{/polyglot}}</label> <div class="col-sm-9"> <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/> </div> </div> <div class="form-group caption-exist link-hide"> <div class="col-sm-9 col-sm-offset-3"> <label for="" class="control-label checkbox"> <input type="checkbox" class="link-target" name="target"/> {{#polyglot}}Open in new Tab{{/polyglot}} </label> </div> </div> <div class="form-group layout-opts caption-exist"> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label> <select name="style" class="form-control caption-style"> {{#captionStyles}} <option value="title {{value}}">{{name}}</option> {{/captionStyles}} </select> </div> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Caption Background{{/polyglot}}</label> <select name="background" class="form-control caption-background"> <option value="transparent-black">Transparent Black</option> <option value="transparent-white">Transparent White</option> </select> </div> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Position{{/polyglot}}</label> <div class="caption-position"> <input type="radio" name="position" value="left,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,top"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,center"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,bottom"> <label><span><span></span></span></label> </div> </div> </div> <div class="form-group t-a-r"> <div class="col-sm-9 col-sm-offset-3"> <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button> <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a> </div> </div> </form> </div> </div> </a> </div>';
 
       SlideView.prototype.mixinTemplateHelpers = function(data) {
         var captionStyles;
@@ -180,11 +180,6 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         'change .caption-title ': function(e) {
           if ($(e.target).val() !== '') {
             return this.$el.find('.caption-exist').slideDown('fast');
-          } else {
-            this.$el.find('.caption-exist').hide();
-            this.model.set('layers', []);
-            this.model.save();
-            return this.model.trigger('model:changed');
           }
         },
         'click .save-slide-layer': 'saveSlideLayer',
@@ -193,6 +188,13 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           this.model.save();
           this.model.trigger('model:changed');
           return this.setCaptionDefaults();
+        },
+        'change input.link-check': function(e) {
+          if ($(e.target).is(':checked')) {
+            return this.$el.find('.form-group.link-hide').removeClass('hide');
+          } else {
+            return this.$el.find('.form-group.link-hide').addClass('hide');
+          }
         }
       };
 
@@ -216,7 +218,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             this.$el.find('.caption-title').val($(captionHtml).first().find('a').first().html());
             this.$el.find('.caption-link').val($(captionHtml).first().find('a').first().attr('href'));
             this.$el.find('input.link-check').checkbox('check');
+            if ($(captionHtml).first().find('a').first().attr('target') === '_blank') {
+              this.$el.find('input.link-target').checkbox('check');
+            }
           } else {
+            this.$el.find('.form-group.link-hide').addClass('hide');
             this.$el.find('.caption-title').val($(captionHtml).first().html());
             this.$el.find('.caption-link').val('');
           }
@@ -226,6 +232,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           return this.$el.find("input[name='position'][value='" + caption.left + "," + caption.top + "']").prop('checked', true);
         } else {
           this.$el.find('.caption-exist').hide();
+          this.$el.find('.form-group.link-hide').addClass('hide');
           this.$el.find('.caption-title').val('');
           this.$el.find('.caption-description').val('');
           this.$el.find('.caption-link').val('');
@@ -243,7 +250,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         }
         data.text = "<h3 class='" + (this.$el.find('.caption-style').val()) + "'>";
         if (this.$el.find('input.link-check').is(':checked')) {
-          data.text += "<a href='" + (this.$el.find('.caption-link').val()) + "'>";
+          data.text += "<a href='" + (this.$el.find('.caption-link').val()) + "'";
+          data.text += this.$el.find('input.link-target').is(':checked') ? "target='_blank'>" : "target='_self'>";
         }
         data.text += this.$el.find('.caption-title').val();
         if (this.$el.find('input.link-check').is(':checked')) {
@@ -255,7 +263,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         position = position.split(',');
         data.left = position[0];
         data.top = position[1];
-        this.model.set('layers', [data]);
+        if (this.$el.find('.caption-title').val() !== '' || this.$el.find('.caption-description').val() !== '') {
+          this.model.set('layers', [data]);
+        } else {
+          this.model.set('layers', []);
+        }
         this.model.save();
         return this.model.trigger('model:changed');
       };
