@@ -404,6 +404,8 @@ define(['app'], function(App) {
           }
           if (this.columnCount() - requestedColumns > emptyColsLen) {
             alert("Unable to perform this action");
+            this.model.set('columncount', this.columnCount());
+            this.model.trigger('column:count:setting:change', this.columnCount());
             return;
           }
           colsToRemove = 0;

@@ -320,6 +320,8 @@ define ['app'], (App)->
                     #check if current columns - requested columns > empty columns
                     if @columnCount() - requestedColumns > emptyColsLen
                         alert "Unable to perform this action"
+                        @model.set 'columncount',@columnCount()
+                        @model.trigger 'column:count:setting:change',@columnCount()
                         return
 
                     colsToRemove = 0
