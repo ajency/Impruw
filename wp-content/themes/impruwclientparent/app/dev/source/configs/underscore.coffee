@@ -42,6 +42,7 @@ define ['underscore', 'underscorestring'], (_) ->
             return text
 
         stripslashes: (str) ->
+            return str.replace(/\\/g, '')
             (str + "").replace /\\(.?)/g, (s, n1) ->
                 switch n1
                     when "\\"
