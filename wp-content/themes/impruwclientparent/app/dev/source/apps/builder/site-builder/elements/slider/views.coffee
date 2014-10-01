@@ -114,7 +114,7 @@ define ['app'], (App)->
 
                 # @trigger "set:slider:height", options.startheight
 
-                $('.aj-imp-publish').on 'click',@_saveSliderHeightWidth
+                # $('.aj-imp-publish').on 'click',@_saveSliderHeightWidth
 
                 # @_saveSliderHeightWidth()
 
@@ -196,5 +196,5 @@ define ['app'], (App)->
                 # reset_transitions : 'papercut'
 
 
-            onBeforeClose :->
-                $('.aj-imp-publish').off 'click',@_saveSliderHeightWidth
+            # onBeforeClose :->
+            #     $('.aj-imp-publish').off 'click',@_saveSliderHeightWidth
