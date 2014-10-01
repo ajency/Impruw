@@ -20,6 +20,7 @@ define [ 'app', 'controllers/base-controller'
                 @listenTo @seoLayoutView.seoLanguageSelection, "load:seo:page:nav:bar", @_loadNavBar 
                 @listenTo @seoLayoutView.seoPageNav, "load:seo:page:content", @_loadSeoPageContent 
                 @listenTo @seoLayoutView.seoPageNav, "load:seo:room:content", @_loadSeoRoomContent
+                App.vent.trigger "set:active:menu", 'seo'
 
             getMainView : ->
                 new Show.View.SeoView

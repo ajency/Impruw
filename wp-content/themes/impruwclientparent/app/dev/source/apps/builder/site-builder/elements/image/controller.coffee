@@ -17,6 +17,7 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                     topRatio : 0
                     link : '#'
                     target : '_self'
+                    link_check : false
 
                 if options.modelData.element is 'Logo'
                     options.modelData.image_id = window.LOGOID
@@ -25,7 +26,11 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
 
             bindEvents: ->
                 # start listening to model events
-                @listenTo @layout.model, "change:image_id change:align change:link change:target", @renderElement
+                @listenTo @layout.model, "change:image_id change:align ", @renderElement
+
+                @listenTo @layout.model, 'change:link change:target change:link_check',=>
+                    @layout.model.save()
+
                 super()
 
             # private etmplate helper function
