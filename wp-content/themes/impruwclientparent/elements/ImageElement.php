@@ -51,11 +51,14 @@ class ImageElement extends Element {
         $this->size = $element['size'];
         $this->height = isset($element['heightRatio']) ? $element['heightRatio'] : 'auto';
         $this->position_top = isset($element['topRatio']) ? $element['topRatio'] : 0;
+
         
         if($element['element'] === 'Logo'){
             $this->link = site_url();
+            $this->link_check = true;
         }else{
             $this->link = isset($element['link']) ? $element['link'] : false;
+            $this->link_check = isset($element['link_check']) && ($element['link_check'] == 'true' || $element['link_check'] == true) ? true : false;
         }
 
 
@@ -123,7 +126,7 @@ class ImageElement extends Element {
 
         $markup = '';
 
-        if ($this->link !== false){
+        if ($this->link_check){
             $markup .= "<a href='".$this->link."' target='".$this->target."' >";
         }
 
@@ -135,7 +138,7 @@ class ImageElement extends Element {
             $markup .= "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";
         }
 
-        if ($this->link !== false)
+        if ($this->link_check )
             $markup .= "</a>";
 
         return $markup;

@@ -313,11 +313,15 @@ define ['app'], (App)->
                     #first check
                     if emptyColsLen is 0
                         alert "None of the columns are empty. Please delete elements inside columns to remove"
+                        @model.set 'columncount',@columnCount()
+                        @model.trigger 'column:count:setting:change',@columnCount()
                         return
 
                     #check if current columns - requested columns > empty columns
                     if @columnCount() - requestedColumns > emptyColsLen
                         alert "Unable to perform this action"
+                        @model.set 'columncount',@columnCount()
+                        @model.trigger 'column:count:setting:change',@columnCount()
                         return
 
                     colsToRemove = 0

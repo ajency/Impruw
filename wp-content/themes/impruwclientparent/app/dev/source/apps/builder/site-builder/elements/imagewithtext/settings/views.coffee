@@ -22,6 +22,8 @@ define ['app', 'text!apps/builder/site-builder/elements/imagewithtext/settings/t
             setFields: ->
                 if @eleModel.get('draggable') is true
                     @$el.find('input[name="draggable"]').checkbox('check')
+                if @eleModel.get('link_check') is true
+                    @$el.find('input[name="link_check"]').checkbox('check')
                 if @eleModel.get('target') is '_BLANK'
                     @$el.find('input[name="target"]').checkbox 'check'
                 
@@ -42,6 +44,8 @@ define ['app', 'text!apps/builder/site-builder/elements/imagewithtext/settings/t
                     @trigger "element:style:changed", $(evt.target).val()
                 'change input[name="draggable"]': (evt)->
                     @trigger "element:draggable:changed", $(evt.target).is(':checked')
+                'change input[name="link_check"]': (evt)->
+                    @trigger "element:linkcheck:changed", $(evt.target).is(':checked')
                 'change select[name="align"]': (evt)->
                     @trigger "element:alignment:changed", $(evt.target).val()
                 'change input[name="target"]': (evt)->
