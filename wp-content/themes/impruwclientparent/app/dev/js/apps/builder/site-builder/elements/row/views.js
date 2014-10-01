@@ -398,6 +398,8 @@ define(['app'], function(App) {
           emptyColsLen = emptyColumns.length;
           if (emptyColsLen === 0) {
             alert("None of the columns are empty. Please delete elements inside columns to remove");
+            this.model.set('columncount', this.columnCount());
+            this.model.trigger('column:count:setting:change', this.columnCount());
             return;
           }
           if (this.columnCount() - requestedColumns > emptyColsLen) {
