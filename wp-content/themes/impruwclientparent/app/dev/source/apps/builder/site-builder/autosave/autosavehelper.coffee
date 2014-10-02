@@ -6,7 +6,7 @@ define ['app','jquery'], (App, $) ->
 			if not App.builderRegion || not App.builderRegion.$el
 				return false
 
-			error = false
+			# error = false
 
 			$site = App.builderRegion.$el
 
@@ -18,11 +18,11 @@ define ['app','jquery'], (App, $) ->
 				#if App.request "is:section:modified", section
 				_json["#{section}-json"] = JSON.stringify AutoSaveHelper.getJson $site.find "#site-#{section}-region"
 				
-				if _.isEmpty JSON.parse _json["#{section}-json"]
-					error = true
+			# 	if _.isEmpty JSON.parse _json["#{section}-json"]
+			# 		error = true
 
-			if error
-				return false
+			# if error
+			# 	return false
 
 			_json
 
