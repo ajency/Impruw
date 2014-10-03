@@ -184,6 +184,9 @@ define [ 'app', 'controllers/base-controller'
         App.commands.setHandler "editable:page:changed", ( pageId, revisionId = 0 )=>
             
             siteBuilderController.close() if siteBuilderController isnt null
+            _.each App.elements , (element)->
+                element.close()
+            App.elements = []
             siteBuilderController = new Show.BuilderController
                 pageId : pageId
                 revisionId : revisionId
