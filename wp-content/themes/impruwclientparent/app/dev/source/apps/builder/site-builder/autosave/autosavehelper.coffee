@@ -18,8 +18,8 @@ define ['app','jquery'], (App, $) ->
 				#if App.request "is:section:modified", section
 				_json["#{section}-json"] = JSON.stringify AutoSaveHelper.getJson $site.find "#site-#{section}-region"
 				
-			# 	if _.isEmpty JSON.parse _json["#{section}-json"]
-			# 		error = true
+				# if _.isEmpty JSON.parse _json["#{section}-json"]
+				# 	error = true
 
 			# if error
 			# 	return false
