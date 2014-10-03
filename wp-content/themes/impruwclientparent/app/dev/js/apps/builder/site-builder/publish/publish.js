@@ -47,20 +47,13 @@ define(['app'], function(App) {
       };
 
       Controller.prototype._getPageJson = function($site) {
-        var error, _json;
-        error = false;
+        var _json;
         _json = {};
         _.each(['header', 'page-content', 'footer'], (function(_this) {
           return function(section, index) {
-            _json["" + section + "-json"] = JSON.stringify(_this._getJson($site.find("#site-" + section + "-region")));
-            if (_.isEmpty(JSON.parse(_json["" + section + "-json"]))) {
-              return error = true;
-            }
+            return _json["" + section + "-json"] = JSON.stringify(_this._getJson($site.find("#site-" + section + "-region")));
           };
         })(this));
-        if (error) {
-          return false;
-        }
         return _json;
       };
 
