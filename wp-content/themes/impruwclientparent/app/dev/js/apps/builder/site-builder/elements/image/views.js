@@ -175,12 +175,14 @@ define(['app'], function(App) {
       };
 
       ImageView.prototype.onClose = function() {
-        return this.parentColumns.each((function(_this) {
-          return function(index, parentColumn) {
-            $(parentColumn).off('element:moved', _this.imageMoved);
-            return $(parentColumn).off('class:changed', _this.adjustImage);
-          };
-        })(this));
+        if (this.parentColumns) {
+          return this.parentColumns.each((function(_this) {
+            return function(index, parentColumn) {
+              $(parentColumn).off('element:moved', _this.imageMoved);
+              return $(parentColumn).off('class:changed', _this.adjustImage);
+            };
+          })(this));
+        }
       };
 
       return ImageView;

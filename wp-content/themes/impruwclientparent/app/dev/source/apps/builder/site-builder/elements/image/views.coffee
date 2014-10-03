@@ -167,8 +167,9 @@ define ['app'], (App)->
 
                
             onClose:->
-                @parentColumns.each (index,parentColumn)=>
-                    $(parentColumn).off 'element:moved',@imageMoved
-                    $(parentColumn).off 'class:changed',@adjustImage
+                if @parentColumns
+                    @parentColumns.each (index,parentColumn)=>
+                        $(parentColumn).off 'element:moved',@imageMoved
+                        $(parentColumn).off 'class:changed',@adjustImage
 
 
