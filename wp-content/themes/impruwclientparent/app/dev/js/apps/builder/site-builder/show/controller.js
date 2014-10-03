@@ -229,6 +229,10 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         if (siteBuilderController !== null) {
           siteBuilderController.close();
         }
+        _.each(App.elements, function(element) {
+          return element.close();
+        });
+        App.elements = [];
         siteBuilderController = new Show.BuilderController({
           pageId: pageId,
           revisionId: revisionId

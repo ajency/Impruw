@@ -19,6 +19,7 @@ define(["marionette", "app"], function(Marionette, App) {
     AppController.prototype.close = function() {
       var args;
       args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      this.layout.close();
       delete this.layout;
       delete this.options;
       App.commands.execute("unregister:builder:instance", this, this._instance_id);

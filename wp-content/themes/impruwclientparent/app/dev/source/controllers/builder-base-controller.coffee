@@ -11,6 +11,8 @@ define ["marionette"
         # close the controller.
         # unregister the controller instance from application object
         close: (args...) ->
+            # close the layout first
+            @layout.close()
             delete @layout
             delete @options
             App.commands.execute "unregister:builder:instance", @, @_instance_id
