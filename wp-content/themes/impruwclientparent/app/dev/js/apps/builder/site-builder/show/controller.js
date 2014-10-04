@@ -71,7 +71,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
               return alert("Sorry, but this page didn't load properly. Please refresh the page");
             }
           };
-        })(this), 10000);
+        })(this), 15000);
       };
 
       BuilderController.prototype._getContainer = function(section) {
