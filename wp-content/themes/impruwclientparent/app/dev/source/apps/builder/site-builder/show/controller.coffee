@@ -13,6 +13,8 @@ define [ 'app', 'controllers/base-controller'
                 #element json
                 elements = App.request "get:page:json", pageId, revisionId
 
+                elementLoaded = false
+
                 # builder view
                 @view = new Show.View.Builder
                                     model : elements
@@ -33,6 +35,7 @@ define [ 'app', 'controllers/base-controller'
                 # with elements
                 App.execute "when:fetched", [elements] ,=>
                     
+                    elementLoaded = true
                     _.delay =>
 
                         @deferreds = []
@@ -54,6 +57,11 @@ define [ 'app', 'controllers/base-controller'
 
                     @show @view,
                         loading : true
+
+                _.delay =>
+                    if not elementLoaded
+                        alert "Sorry, but this page didn't load properly. Please refresh the page"
+                ,10000
 
             _getContainer : ( section )->
                 switch section
