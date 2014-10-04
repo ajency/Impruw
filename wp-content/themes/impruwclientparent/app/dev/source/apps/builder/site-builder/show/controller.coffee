@@ -61,7 +61,7 @@ define [ 'app', 'controllers/base-controller'
                 _.delay =>
                     if not elementLoaded
                         alert "Sorry, but this page didn't load properly. Please refresh the page"
-                ,10000
+                ,15000
 
             _getContainer : ( section )->
                 switch section
