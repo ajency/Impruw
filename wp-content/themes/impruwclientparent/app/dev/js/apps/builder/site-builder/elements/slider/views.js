@@ -136,7 +136,8 @@ define(['app'], function(App) {
         }
         defaults = this._getDefaults();
         options = {
-          startheight: parseInt(this.model.get('height'))
+          startheight: parseInt(this.model.get('height')),
+          startwidth: this.$el.width()
         };
         options = _.defaults(options, defaults);
         this.revapi = this.$el.find(".fullwidthbanner").revolution(options);
