@@ -58,8 +58,9 @@ class ImageElement extends Element {
             $this->link_check = true;
         }else{
             $this->link = isset($element['link']) ? $element['link'] : false;
-            $this->link_check = isset($element['link_check']) && ($element['link_check'] == 'true' || $element['link_check'] == true) ? true : false;
+            $this->link_check = isset($element['link_check']) && ($element['link_check'] == 'true' ) ? true : false;
         }
+       
 
 
         $this->target = isset($element['target']) ? $element['target'] : '_self';
