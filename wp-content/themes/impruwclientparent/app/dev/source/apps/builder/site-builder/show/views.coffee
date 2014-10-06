@@ -148,9 +148,14 @@ define [ 'app'
             
          changePreviewLinkUrl : ->
             currentPageId = App.request "get:current:editable:page"
-            previewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}"
+            previewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}&sim=full"
             @$el.find( 'a.preview-current-page' )
                .attr 'href', previewUrl
+               .attr 'target', '_newtab' + Math.floor(Math.random()*999999)
+
+            mobilePreviewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}&sim=mobp"
+            @$el.find( 'a.mobile-preview-current-page' )
+               .attr 'href', mobilePreviewUrl
                .attr 'target', '_newtab' + Math.floor(Math.random()*999999)
 
          # trigger the editable page changed event on show
