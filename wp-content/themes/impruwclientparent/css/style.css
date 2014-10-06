@@ -187,6 +187,9 @@ and open the template in the editor.
   display: block !important;
 }
 /****Top Slim-menu Styles****/
+.nav {
+  color: #bfbfbf;
+}
 .nav.slimmenu {
   padding: 0;
   border: 1px solid #d9d9d9;
