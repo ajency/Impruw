@@ -45,8 +45,8 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                 
                 new Image.Views.ImageView
                     model: imageModel
-                    imageHeightRatio : @layout.model.get 'heightRatio'
-                    positionTopRatio : @layout.model.get 'topRatio'
+                    # imageHeightRatio : @layout.model.get 'heightRatio'
+                    # positionTopRatio : @layout.model.get 'topRatio'
                     eleModel : @layout.model
                     templateHelpers: @_getTemplateHelpers()
 
@@ -88,7 +88,7 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                             @layout.model.save()
 
                     @listenTo view, 'set:image:height',(height,width)=>
-                        @layout.model.set 'height', height
+                        # @layout.model.set 'height', height
                         if height is 'auto'
                             @layout.model.set 'heightRatio','auto'
                         else

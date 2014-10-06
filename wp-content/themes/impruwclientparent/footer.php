@@ -82,7 +82,7 @@
 
     jQuery(document).ready(function(){
         var $powered = jQuery('.power-up').clone().removeClass('hide').addClass('text');
-        jQuery('.site-footer').find(FOOTER).append($powered);
+        jQuery('.site-footer').append($powered);
         console.log('powered');
     });
 

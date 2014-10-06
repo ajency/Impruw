@@ -15,13 +15,14 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
       }
 
       BuilderController.prototype.initialize = function(opt) {
-        var elements, pageId, revisionId;
+        var elementLoaded, elements, pageId, revisionId;
         if (opt == null) {
           opt = {};
         }
         this.region = App.getRegion('builderRegion');
         pageId = opt.pageId, revisionId = opt.revisionId;
         elements = App.request("get:page:json", pageId, revisionId);
+        elementLoaded = false;
         this.view = new Show.View.Builder({
           model: elements
         });
@@ -39,8 +40,9 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           }
           return App.request("add:new:element", container, type, modelData);
         });
-        return App.execute("when:fetched", [elements], (function(_this) {
+        App.execute("when:fetched", [elements], (function(_this) {
           return function() {
+            elementLoaded = true;
             _.delay(function() {
               _this.deferreds = [];
               _this.startFillingElements();
@@ -63,6 +65,13 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
             });
           };
         })(this));
+        return _.delay((function(_this) {
+          return function() {
+            if (!elementLoaded) {
+              return alert("Sorry, but this page didn't load properly. Please refresh the page");
+            }
+          };
+        })(this), 15000);
       };
 
       BuilderController.prototype._getContainer = function(section) {
@@ -229,6 +238,10 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         if (siteBuilderController !== null) {
           siteBuilderController.close();
         }
+        _.each(App.elements, function(element) {
+          return element.close();
+        });
+        App.elements = [];
         siteBuilderController = new Show.BuilderController({
           pageId: pageId,
           revisionId: revisionId

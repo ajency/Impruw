@@ -64,7 +64,7 @@ class ImageWithText extends Element {
 
         $this->link = isset($element['link']) && $element['link']!= '' ? $element['link'] : false;
         $this->target = isset($element['target']) ? $element['target'] : '_self'; 
-        $this->link_check = isset($element['link_check']) && ($element['link_check'] == 'true' || $element['link_check'] == true) ? true : false; 
+        $this->link_check = isset($element['link_check']) && ($element['link_check'] == 'true') ? true : false; 
 
         $this->style 	= sanitize_title($element['style']);
         $this->markup   = $this->generate_markup();

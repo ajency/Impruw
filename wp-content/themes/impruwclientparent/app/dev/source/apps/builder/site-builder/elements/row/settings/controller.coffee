@@ -21,6 +21,9 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                 @listenTo view, "element:column:count:changed", (newCount)=>
                     @model.set "columncount", newCount
 
+                @listenTo @model, 'column:count:setting:change',(count)=>
+                    view.triggerMethod 'column:count:changed', count
+
                 @show view
 
 

@@ -24,6 +24,7 @@ define ['app', 'apps/builder/site-builder/elements/logo/views',
                     imageHeightRatio : @layout.model.get 'heightRatio'
                     positionTopRatio : @layout.model.get 'topRatio'
                     templateHelpers: @_getTemplateHelpers()
+                    eleModel : @layout.model
 
             # bindEvents: ->
             #     # start listening to model events

@@ -40,3 +40,8 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
                     @trigger "element:style:changed", $(evt.target).val()
                 'change input[name="draggable"]': (evt)->
                     @trigger "element:draggable:changed", $(evt.target).is(':checked')
+
+            onColumnCountChanged: (count)=>
+                if count isnt parseInt @$el.find('.set-column-count a.btn.selected').text()
+                    @$el.find('.set-column-count a.btn').removeClass('selected')
+                    @$el.find(".set-column-count a.btn.#{count}-col").addClass 'selected'
