@@ -2806,6 +2806,7 @@ a.red-link.pull-right {
   padding: 0;
   font-size: 1em;
   opacity: 0;
+  cursor: pointer;
 }
 #slides-list-region .imgname .caption-position input[type="radio"] + label {
   display: inline-block;
@@ -2849,14 +2850,14 @@ a.red-link.pull-right {
 #slides-info {
   background: #f3f3f3;
   padding: 1em;
-  margin-right: 0.5em;
+  margin: 0 0.4em 0.5em;
   font-size: 1.3em;
   color: #919191;
   border: 2px solid #dddddd;
   border-radius: 4px;
 }
 .crop-help {
-  margin-right: 0.5em;
+  margin: 0 0.5em 0.5em;
   display: none;
 }
 .moveable {
@@ -2924,9 +2925,6 @@ a.red-link.pull-right {
 .aj-imp-block-button.add-new-slide {
   margin-left: 0.5em;
   margin-right: 0.5em;
-}
-.aj-imp-block-button.add-new-slide {
-  margin-left: 0;
 }
 .gallery-title {
   font-size: 1.5em;
@@ -3241,6 +3239,7 @@ a.red-link.pull-right {
 }
 #edit-image-view .imgedit-wrap .imgedit-panel-content {
   margin: 1em 0;
+  padding-left: 10px;
 }
 #edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-menu {
   *zoom: 1;
