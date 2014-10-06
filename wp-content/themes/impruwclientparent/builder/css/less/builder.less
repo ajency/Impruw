@@ -1949,14 +1949,6 @@ a {
 					display: block;
 					outline: 0;
 					color: @orange;
-					.imgthumb {
-						img {
-							height: 100%;
-							width: auto;
-							max-height: 60px;
-							margin: auto;
-						}
-					}
 					.imgname, .imgdate {
 						font-weight: bold;
 						padding: 0.5em 15px;
@@ -1972,6 +1964,20 @@ a {
 					}
 					&.collapsed {
 						color: @dash-grey;
+					}
+				}
+				.imgthumb {
+					img {
+						height: 100%;
+						width: auto;
+						max-height: 120px;
+					}
+					&.full-w {
+						.imgactions, .accordion-toggle {
+							display: inline-block;
+							vertical-align: top;
+							margin-right: 0.5em;
+							min-width: 316px;						}
 					}
 				}
 				&:hover {

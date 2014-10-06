@@ -1876,12 +1876,6 @@ a.red-link.pull-right {
   outline: 0;
   color: #ff7e00;
 }
-.modal .panel-group .panel .panel-heading > a .imgthumb img {
-  height: 100%;
-  width: auto;
-  max-height: 60px;
-  margin: auto;
-}
 .modal .panel-group .panel .panel-heading > a .imgname,
 .modal .panel-group .panel .panel-heading > a .imgdate {
   font-weight: bold;
@@ -1896,6 +1890,18 @@ a.red-link.pull-right {
 }
 .modal .panel-group .panel .panel-heading > a.collapsed {
   color: #aaaaaa;
+}
+.modal .panel-group .panel .panel-heading .imgthumb img {
+  height: 100%;
+  width: auto;
+  max-height: 120px;
+}
+.modal .panel-group .panel .panel-heading .imgthumb.full-w .imgactions,
+.modal .panel-group .panel .panel-heading .imgthumb.full-w .accordion-toggle {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 0.5em;
+  min-width: 316px;
 }
 .modal .panel-group .panel .panel-heading:hover {
   background: #f3f3f3;

@@ -113,14 +113,23 @@ define ['app'
             template: '<div class="panel-heading">
 						  <a class="accordion-toggle">
 							<div class="aj-imp-image-item row">
-								<div class="imgthumb col-sm-2">
-									<img src="{{thumb_url}}" class="img-responsive">
+                                {{^isSlider}}
+								<div class="imgthumb full-w col-sm-12">
+									<img src="{{full_url}}" class="img-responsive">
                                     <div class="imgactions">
                                         <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
                                         <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
                                     </div>
 								</div>
+                                {{/isSlider}}
                                 {{#isSlider}}
+                                <div class="imgthumb col-sm-2">
+                                    <img src="{{thumb_url}}" class="img-responsive">
+                                    <div class="imgactions">
+                                        <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
+                                        <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
+                                    </div>
+                                </div>
                                 <form action="" method="POST" role="form" validate>
 								<div class="imgname col-sm-5">
                                     <div class="form-horizontal">
