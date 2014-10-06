@@ -112,15 +112,16 @@ define ['app'
             template: '<div class="panel-heading">
 						  <a class="accordion-toggle">
 							<div class="aj-imp-image-item row">
-								<div class="imgthumb col-sm-3">
+								<div class="imgthumb col-sm-2">
 									<img src="{{thumb_url}}" class="img-responsive">
                                     <div class="imgactions">
                                         <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
                                         <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
                                     </div>
 								</div>
-								<div class="imgname col-sm-9">
-                                    <form action="" method="POST" role="form" class="form-horizontal" validate>
+                                <form action="" method="POST" role="form" validate>
+								<div class="imgname col-sm-5">
+                                    <div class="form-horizontal">
                                         <div class="form-group ">
                                             <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Title{{/polyglot}}</label>
                                             <div class="col-sm-9">
@@ -157,6 +158,10 @@ define ['app'
                                                 </label>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="imgname col-sm-5">
+                                    <div class="form-horizontal">
                                         <div class="form-group layout-opts caption-exist">
                                             <div class="col-sm-4">
                                                 <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label>
@@ -199,14 +204,15 @@ define ['app'
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group t-a-r">
-                                            <div class="col-sm-9 col-sm-offset-3">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
                                                 <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button>
                                                 <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
+                                </form>
 							</div>
 						  </a>
 						</div>'
@@ -326,7 +332,7 @@ define ['app'
                         data.text += if @$el.find('input.link-target').is(':checked') then "target='_blank'>" else "target='_self'>"
                     data.text += @$el.find('.caption-title').val()
                     data.text += "</a>" if @$el.find('input.link-check').is(':checked')
-                    data.text += "</h3><div>#{@$el.find('.caption-description').val()}</div>"
+                    data.text += "</h3><div class='text'>#{@$el.find('.caption-description').val()}</div>"
                     data.style = @$el.find('.caption-background').val()
 
                     position = @$el.find('input[name="position"]:checked').val()
@@ -398,12 +404,15 @@ define ['app'
 
             template: ' <div class="slides-list">
                             <div class="aj-imp-image-header row">
-    							<div class="col-sm-3">
+    							<div class="col-sm-2">
     								{{#polyglot}}Slide Image{{/polyglot}}
     							</div>
-    							<div class="col-sm-9">
+    							<div class="col-sm-5">
     								{{#polyglot}}Slide Caption{{/polyglot}}
     							</div>
+                                <div class="col-sm-5">
+                                    {{#polyglot}}Slide Caption Styles{{/polyglot}}
+                                </div>
     						</div>
     						<div class="panel-group" id="slides-accordion"></div>
                         </div>
@@ -458,31 +467,32 @@ define ['app'
         class SlidesListLayout extends Marionette.Layout
 
             template: '<div class="row">
-                        <div class="col-sm-8">
-                            <div id="slides-list-region"></div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="alert alert-info crop-help">
-                                <p><b>{{#polyglot}}Steps to fit your image edge to edge inside the slider{{/polyglot}}</b></p>
-                                <ul>
-                                    <li>{{#polyglot}}Select the area to be cropped.{{/polyglot}}</li>
-                                    <li>{{#polyglot}}Notice how initially the crop button is disabled. Crop is enabled once you have selected the image close to the aspect ratio of the slider.{{/polyglot}}</li>
-                                    <li>{{#polyglot}}Your image dimensions are displayed in scale image area and the required dimensions are displayed under image crop area.{{/polyglot}}</li>
-                                    <li>{{#polyglot}}As you increase the decrease your selection, the selection area height and width will also change.{{/polyglot}}</li>
-                                    <li>{{#polyglot}}Once it reaches the maximum point for expected image width or height, you will not be able to increase the selection area anymore. If you want a larger image, we suggest you increase the width of the slider from sitebuilder for best results.{{/polyglot}}</li>
-                                    <li>{{#polyglot}}When you are happy with your selection area to be cropped, click the crop button from the tool bar above.{{/polyglot}}</li>
-                                </ul>
+                            <div class="col-sm-12">
+                                <div class="alert alert-info crop-help">
+                                    <p><b>{{#polyglot}}Steps to fit your image edge to edge inside the slider{{/polyglot}}</b></p>
+                                    <ul>
+                                        <li>{{#polyglot}}Select the area to be cropped.{{/polyglot}}</li>
+                                        <li>{{#polyglot}}Notice how initially the crop button is disabled. Crop is enabled once you have selected the image close to the aspect ratio of the slider.{{/polyglot}}</li>
+                                        <li>{{#polyglot}}Your image dimensions are displayed in scale image area and the required dimensions are displayed under image crop area.{{/polyglot}}</li>
+                                        <li>{{#polyglot}}As you increase the decrease your selection, the selection area height and width will also change.{{/polyglot}}</li>
+                                        <li>{{#polyglot}}Once it reaches the maximum point for expected image width or height, you will not be able to increase the selection area anymore. If you want a larger image, we suggest you increase the width of the slider from sitebuilder for best results.{{/polyglot}}</li>
+                                        <li>{{#polyglot}}When you are happy with your selection area to be cropped, click the crop button from the tool bar above.{{/polyglot}}</li>
+                                    </ul>
+                                </div>
+                                <div id="slides-info">
+                                    {{#polyglot}}Click the button to select images to add to your slider. You can change the order of the images by dragging them up or down in the list to the left.{{/polyglot}}
+                                </div>
+                                <div class="aj-imp-block-button add-new-slide">
+                                    <button class="btn btn-default btn-hg"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button>
+                                </div>
+
+                                <div id="add-slide-region"></div>
+                                
                             </div>
-                            <div id="slides-info">
-                                {{#polyglot}}Click the button to select images to add to your slider. You can change the order of the images by dragging them up or down in the list to the left.{{/polyglot}}
+                            <div class="col-sm-12">
+                                <div id="slides-list-region"></div>
                             </div>
-                            <div class="aj-imp-block-button add-new-slide">
-                                <button class="btn btn-default btn-hg"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button>
-                            </div>
-                        </div>
-                        </div>
-    					
-    					<div id="add-slide-region"></div>'
+                        </div>'
 
             events:
                 'click .add-new-slide': ->

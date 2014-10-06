@@ -2950,6 +2950,7 @@ a {
 				padding: 0;
 				font-size: 1em;
 				opacity: 0;
+				cursor: pointer;
 				+ label {
 					display: inline-block;
 					margin-left: -32px;
@@ -3002,7 +3003,7 @@ a {
 #slides-info {
 	background: @preview-grey;
 	padding: 1em;
-	margin-right: 0.5em;
+	margin: 0 0.4em 0.5em;
 	font-size: 1.3em;
 	color: darken(@dash-grey, 10%);
 	border: 2px solid lighten(@dash-grey, 20%);
@@ -3010,7 +3011,7 @@ a {
 }
 
 .crop-help {
-	margin-right: 0.5em;
+	margin: 0 0.5em 0.5em;
 	display: none;
 }
 
@@ -3086,9 +3087,6 @@ a {
 #slides-list-region, #add-slide-region, .aj-imp-block-button.add-new-slide {
 	margin-left: 0.5em;
 	margin-right: 0.5em;
-}
-.aj-imp-block-button.add-new-slide {
-	margin-left: 0;
 }
 
 .gallery-title {
@@ -3430,6 +3428,7 @@ a {
         }
         .imgedit-panel-content {
             margin: 1em 0;
+            padding-left: 10px;
             .imgedit-menu {
                 .clearfix;
                 border-bottom: 1px solid @dash-grey;
