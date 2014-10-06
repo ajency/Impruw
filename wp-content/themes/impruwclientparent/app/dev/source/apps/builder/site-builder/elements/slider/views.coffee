@@ -109,6 +109,7 @@ define ['app'], (App)->
 
                 options =
                     startheight:  parseInt @model.get 'height'
+                    startwidth : @$el.width()
 
                 options = _.defaults options, defaults
 
