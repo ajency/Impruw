@@ -125,6 +125,9 @@
   font-weight: 300;
   margin: 0.5em 0;
 }
+.site-style-container {
+  min-height: 100vh;
+}
 .site-style-container .row.center-container {
   max-width: 1170px;
   margin: 0.5em auto;
@@ -141,13 +144,17 @@
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .logo {
     text-align: center;
+    margin: auto;
   }
   .logo a {
     display: inline-block;
   }
+}
+.logo img {
+  display: block !important;
 }
 .nav.slimmenu {
   padding: 0;
@@ -211,15 +218,14 @@
 .nav.slimmenu > li.gallery {
   margin-bottom: 0;
 }
-.nav.slimmenu > li.active {
+.nav.slimmenu > li.current-menu-item {
   background: #8A0651;
 }
-.nav.slimmenu > li.active a {
-  color: #fedef0;
-  border-color: #8A0651;
+.nav.slimmenu > li.current-menu-item a {
+  color: #424242;
 }
-.nav.slimmenu > li.active a span {
-  color: #fa95ce;
+.nav.slimmenu > li.current-menu-item a span {
+  color: #ec0a8a;
 }
 .nav .menu-collapser {
   background: #FFFFFF;
@@ -374,7 +380,7 @@
   margin-bottom: 10px;
   padding-left: 5px;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .address {
     text-align: center;
   }
@@ -491,9 +497,9 @@
 .social.social-center {
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .social {
-    text-align: center;
+    text-align: center !important;
   }
 }
 .contactform label {
@@ -648,6 +654,11 @@
   font-size: 1.4em;
   display: block;
 }
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday .price small,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekend .price small {
+  font-size: 0.66em;
+  line-height: 1.4em;
+}
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty {
   height: 139px;
 }
@@ -775,9 +786,6 @@
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #8A0651;
-}
-.room-facilities-container .facilities li:hover:before {
   color: #424242;
 }
 .room-summary-container .room-summary-title h4 {
@@ -880,6 +888,11 @@
   max-height: 240px;
   overflow: hidden;
 }
+.roomsummary .room-img a {
+  display: block;
+  min-height: 200px;
+  background-size: cover !important;
+}
 .roomsummary .room-title {
   font-size: 1.6em;
   color: #8A0651;
@@ -903,9 +916,11 @@
   display: table;
 }
 .roomsummary .room-actions .price {
-  float: left;
   font-size: 2em;
   color: #292929;
+  margin-right: 0.5em;
+  display: inline-block;
+  vertical-align: middle;
 }
 .roomsummary .room-actions .price small {
   font-size: 0.8em;
@@ -968,7 +983,7 @@
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #FFFFFF;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;
@@ -978,7 +993,7 @@
 .room-booking .room-booking-container .room-booking-data .date-range .status {
   font-size: 1.0em;
   text-transform: uppercase;
-  padding-top: 13px;
+  padding: 8px;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #FFFFFF;
@@ -1103,6 +1118,7 @@
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-title {
   line-height: 74px;
+  font-weight: normal;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td {
   border: 1px solid #EAEAEA !important;
@@ -1116,6 +1132,7 @@
   line-height: 49px;
   text-align: center;
   border: 0px;
+  font-weight: normal;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td span:hover {
@@ -1123,12 +1140,24 @@
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td > span {
   background: rgba(255,255,255,0.6);
-  color: #ccc;
+  color: #7F7F7F;
   cursor: not-allowed;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-state-disabled a:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-state-disabled span:hover {
   background: rgba(255,255,255,0.6);
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-today {
+  font-weight: 700;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day {
+  font-weight: 700;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day a,
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day span {
+  background: #8A0651;
+  color: #7F7F7F;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red {
   background: #f97d61;
@@ -1655,10 +1684,12 @@ ul.gallery {
 }
 .lang-sel > div {
   text-align: left;
+  z-index: 3;
 }
 .lang-sel > div ul,
 .lang-sel > div li {
   min-width: 170px;
+  height: 25px;
 }
 .lang-sel > div ul ul,
 .lang-sel > div li ul {
@@ -1669,6 +1700,7 @@ ul.gallery {
 }
 .widget {
   color: #7F7F7F;
+  margin: 1em 0;
 }
 .embed-responsive {
   position: relative;
@@ -1721,9 +1753,6 @@ ul.gallery {
   max-width: 300px;
   margin: 0 0 0.5em;
 }
-.logo img {
-  max-height: 40px;
-}
 @media (max-width: 767px) {
   .logo {
     text-align: center;
@@ -1762,13 +1791,14 @@ ul.gallery {
   padding: 0;
   margin-right: -1px;
 }
-.nav.slimmenu li.active {
+.nav.slimmenu li.current-menu-item {
   background-color: #FFFFFF;
   border-left: 1px solid #FFFFFF;
   border-right: 1px solid #FFFFFF;
   border-bottom: 0;
 }
-.nav.slimmenu li.active a {
+.nav.slimmenu li.current-menu-item a {
+  background: #FFFFFF;
   color: #8A0651;
 }
 .nav.slimmenu li.open {
@@ -1841,7 +1871,7 @@ ul.gallery {
 .address.small .info {
   color: #757575;
   font-size: 1em;
-  font-weight: 200;
+  font-weight: 300;
   margin-bottom: 10px;
   padding-left: 5px;
 }
@@ -2244,9 +2274,6 @@ ul.social li:hover a {
   top: 3px;
   color: #8A0651;
 }
-.room-facilities-container .facilities li:hover:before {
-  color: #424242;
-}
 .room-summary-container {
   margin: 0 0 1.5em;
 }
@@ -2440,7 +2467,7 @@ ul.social li:hover a {
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #fff;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;
