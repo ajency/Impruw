@@ -69,7 +69,7 @@ define(['app', 'apps/builder/site-builder/elements/gallery/views', 'apps/builder
             view = _this._getGalleryView(slidesCollection);
             if (!_this.isSingleRoomPage()) {
               _this.listenTo(view, "show:slides:manager", function() {
-                return App.execute("show:slides:manager", slidesCollection);
+                return App.execute("show:slides:manager", slidesCollection, _this.layout.model.get('element'));
               });
             }
             _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {

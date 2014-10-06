@@ -16,8 +16,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       }
 
       SlidesListController.prototype.initialize = function(opt) {
-        var collection, layout, listView;
-        collection = opt.collection;
+        var collection, element, layout, listView;
+        collection = opt.collection, element = opt.element;
         this.settingsModel = App.request("get:element:settings:options", 'Title');
         if (collection.length > 0) {
           this.sliderId = collection.at(0).get('slider_id');
@@ -29,7 +29,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           })(this));
         }
         this.layout = layout = this._getSlidesListLayout();
-        this.listView = listView = this._getSlidesListView(collection);
+        this.listView = listView = this._getSlidesListView(collection, element);
         this.listenTo(listView, "itemview:slide:updated:with:data", function(iv, data) {
           var slide;
           slide = iv.model;
@@ -114,10 +114,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         });
       };
 
-      SlidesListController.prototype._getSlidesListView = function(collection) {
+      SlidesListController.prototype._getSlidesListView = function(collection, element) {
         return new SlidesListView({
           collection: collection,
-          settingsModel: this.settingsModel
+          settingsModel: this.settingsModel,
+          element: element
         });
       };
 
@@ -145,12 +146,13 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.className = 'panel panel-default moveable';
 
-      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-2"> <img src="{{thumb_url}}" class="img-responsive"> <div class="imgactions"> <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a> <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> <form action="" method="POST" role="form" validate> <div class="imgname col-sm-5"> <div class="form-horizontal"> <div class="form-group "> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Title{{/polyglot}}</label> <div class="col-sm-9"> <input  type="text" name="text" class="caption-title form-control" placeholder="{{#polyglot}}Caption Title{{/polyglot}}"/> </div> </div> <div class="form-group caption-exist"> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Description{{/polyglot}}</label> <div class="col-sm-9"> <textarea  type="text" name="text" class="caption-description form-control" placeholder="{{#polyglot}}Caption Description{{/polyglot}}"> </textarea> </div> </div> <div class="form-group caption-exist"> <div class="col-sm-9 col-sm-offset-3"> <label for="" class="control-label checkbox"> <input type="checkbox" class="link-check" name="target"/> {{#polyglot}}Add Link to Caption{{/polyglot}} </label> </div> </div> <div class="form-group caption-exist link-hide"> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Link{{/polyglot}}</label> <div class="col-sm-9"> <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/> </div> </div> <div class="form-group caption-exist link-hide"> <div class="col-sm-9 col-sm-offset-3"> <label for="" class="control-label checkbox"> <input type="checkbox" class="link-target" name="target"/> {{#polyglot}}Open in new Tab{{/polyglot}} </label> </div> </div> </div> </div> <div class="imgname col-sm-5"> <div class="form-horizontal"> <div class="form-group layout-opts caption-exist"> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label> <select name="style" class="form-control caption-style"> {{#captionStyles}} <option value="title {{value}}">{{name}}</option> {{/captionStyles}} </select> </div> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Caption Background{{/polyglot}}</label> <select name="background" class="form-control caption-background"> <option value="transparent-black">Transparent Black</option> <option value="transparent-white">Transparent White</option> </select> </div> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Position{{/polyglot}}</label> <div class="caption-position"> <input type="radio" name="position" value="left,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,top"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,center"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,bottom"> <label><span><span></span></span></label> </div> </div> </div> <div class="form-group"> <div class="col-sm-12"> <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button> <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a> </div> </div> </div> </div> </form> </div> </a> </div>';
+      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-2"> <img src="{{thumb_url}}" class="img-responsive"> <div class="imgactions"> <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a> <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> {{#isSlider}} <form action="" method="POST" role="form" validate> <div class="imgname col-sm-5"> <div class="form-horizontal"> <div class="form-group "> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Title{{/polyglot}}</label> <div class="col-sm-9"> <input  type="text" name="text" class="caption-title form-control" placeholder="{{#polyglot}}Caption Title{{/polyglot}}"/> </div> </div> <div class="form-group caption-exist"> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Description{{/polyglot}}</label> <div class="col-sm-9"> <textarea  type="text" name="text" class="caption-description form-control" placeholder="{{#polyglot}}Caption Description{{/polyglot}}"> </textarea> </div> </div> <div class="form-group caption-exist"> <div class="col-sm-9 col-sm-offset-3"> <label for="" class="control-label checkbox"> <input type="checkbox" class="link-check" name="target"/> {{#polyglot}}Add Link to Caption{{/polyglot}} </label> </div> </div> <div class="form-group caption-exist link-hide"> <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Link{{/polyglot}}</label> <div class="col-sm-9"> <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/> </div> </div> <div class="form-group caption-exist link-hide"> <div class="col-sm-9 col-sm-offset-3"> <label for="" class="control-label checkbox"> <input type="checkbox" class="link-target" name="target"/> {{#polyglot}}Open in new Tab{{/polyglot}} </label> </div> </div> </div> </div> <div class="imgname col-sm-5"> <div class="form-horizontal"> <div class="form-group layout-opts caption-exist"> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label> <select name="style" class="form-control caption-style"> {{#captionStyles}} <option value="title {{value}}">{{name}}</option> {{/captionStyles}} </select> </div> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Caption Background{{/polyglot}}</label> <select name="background" class="form-control caption-background"> <option value="transparent-black">Transparent Black</option> <option value="transparent-white">Transparent White</option> </select> </div> <div class="col-sm-4"> <label for="" class="control-label">{{#polyglot}}Position{{/polyglot}}</label> <div class="caption-position"> <input type="radio" name="position" value="left,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,top"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,top"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,center"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,center"> <label><span><span></span></span></label> <br> <input type="radio" name="position" value="left,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="center,bottom"> <label><span><span></span></span></label> <input type="radio" name="position" value="right,bottom"> <label><span><span></span></span></label> </div> </div> </div> <div class="form-group"> <div class="col-sm-12"> <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button> <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a> </div> </div> </div> </div> </form> {{/isSlider}} </div> </a> </div>';
 
       SlideView.prototype.mixinTemplateHelpers = function(data) {
         var captionStyles;
         data = SlideView.__super__.mixinTemplateHelpers.call(this, data);
         captionStyles = Marionette.getOption(this, 'settingsModel');
+        data.isSlider = Marionette.getOption(this, 'element') === 'Slider' ? true : false;
         data.captionStyles = [];
         _.each(captionStyles.get('styles'), function(style) {
           return data.captionStyles.push({
@@ -205,7 +207,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       SlideView.prototype.onShow = function() {
         this.$el.find('select').selectpicker();
         this.$el.find('input[type="checkbox"]').checkbox();
-        return this.setCaptionDefaults();
+        if (Marionette.getOption(this, 'element') === 'Slider') {
+          return this.setCaptionDefaults();
+        }
       };
 
       SlideView.prototype.setCaptionDefaults = function() {
@@ -345,7 +349,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return SlidesListView.__super__.constructor.apply(this, arguments);
       }
 
-      SlidesListView.prototype.template = ' <div class="slides-list"> <div class="aj-imp-image-header row"> <div class="col-sm-2"> {{#polyglot}}Slide Image{{/polyglot}} </div> <div class="col-sm-5"> {{#polyglot}}Slide Caption{{/polyglot}} </div> <div class="col-sm-5"> {{#polyglot}}Slide Caption Styles{{/polyglot}} </div> </div> <div class="panel-group" id="slides-accordion"></div> </div> <div id="edit-image-view" class="edit-image-view"></div>';
+      SlidesListView.prototype.template = ' <div class="slides-list"> <div class="aj-imp-image-header row"> <div class="col-sm-2"> {{#polyglot}}Slide Image{{/polyglot}} </div> {{#isSlider}} <div class="col-sm-5"> {{#polyglot}}Slide Caption{{/polyglot}} </div> <div class="col-sm-5"> {{#polyglot}}Slide Caption Styles{{/polyglot}} </div> {{/isSlider}} </div> <div class="panel-group" id="slides-accordion"></div> </div> <div id="edit-image-view" class="edit-image-view"></div>';
 
       SlidesListView.prototype.itemView = SlideView;
 
@@ -353,9 +357,16 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlidesListView.prototype.itemViewContainer = '#slides-accordion';
 
+      SlidesListView.prototype.mixinTemplateHelpers = function(data) {
+        data = SlidesListView.__super__.mixinTemplateHelpers.call(this, data);
+        data.isSlider = Marionette.getOption(this, 'element') === 'Slider' ? true : false;
+        return data;
+      };
+
       SlidesListView.prototype.itemViewOptions = function() {
         return {
-          settingsModel: Marionette.getOption(this, 'settingsModel')
+          settingsModel: Marionette.getOption(this, 'settingsModel'),
+          element: Marionette.getOption(this, 'element')
         };
       };
 
@@ -451,10 +462,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       }
       return new SlidesListController(opts);
     });
-    return App.commands.setHandler("show:slides:manager", function(slidesCollection) {
+    return App.commands.setHandler("show:slides:manager", function(slidesCollection, element) {
       return new SlidesListController({
         region: App.dialogRegion,
-        collection: slidesCollection
+        collection: slidesCollection,
+        element: element
       });
     });
   });

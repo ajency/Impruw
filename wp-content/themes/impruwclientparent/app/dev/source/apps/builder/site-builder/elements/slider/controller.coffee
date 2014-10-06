@@ -51,7 +51,7 @@ define ['app'
                     view = @_getSliderView slidesCollection
 
                     @listenTo view, "show:slides:manager", (ratio)=>
-                        App.execute "show:slides:manager", slidesCollection
+                        App.execute "show:slides:manager", slidesCollection , @layout.model.get 'element'
                         App.currentImageRatio = ratio
 
                     @listenTo view, "set:slider:height:width", (height,width)=>

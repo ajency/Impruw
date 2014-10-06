@@ -6,7 +6,7 @@ define ['app'
 
             initialize: (opt)->
 
-                {collection} = opt
+                {collection, element} = opt
 
                 @settingsModel = App.request "get:element:settings:options", 'Title'    
 
@@ -21,7 +21,7 @@ define ['app'
 
                 @layout = layout = @_getSlidesListLayout()
 
-                @listView = listView = @_getSlidesListView collection
+                @listView = listView = @_getSlidesListView collection, element
 
                 @listenTo listView, "itemview:slide:updated:with:data", (iv, data)->
                     slide = iv.model
@@ -87,10 +87,11 @@ define ['app'
                             full_url : fullSize.url
 
             # edit layout
-            _getSlidesListView: (collection)->
+            _getSlidesListView: (collection,element)->
                 new SlidesListView
                         collection: collection
                         settingsModel : @settingsModel
+                        element : element
 
             _getSlidesListLayout: ->
                 new SlidesListLayout
@@ -119,6 +120,7 @@ define ['app'
                                         <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
                                     </div>
 								</div>
+                                {{#isSlider}}
                                 <form action="" method="POST" role="form" validate>
 								<div class="imgname col-sm-5">
                                     <div class="form-horizontal">
@@ -213,6 +215,7 @@ define ['app'
                                     </div>
                                 </div>
                                 </form>
+                                {{/isSlider}}
 							</div>
 						  </a>
 						</div>'
@@ -220,6 +223,7 @@ define ['app'
             mixinTemplateHelpers : (data)->
                 data = super data
                 captionStyles = Marionette.getOption @,'settingsModel'
+                data.isSlider = if Marionette.getOption(@,'element') is 'Slider' then true else false
                 data.captionStyles = []
                 _.each captionStyles.get('styles'),(style)->
                     data.captionStyles.push 
@@ -283,7 +287,8 @@ define ['app'
             onShow :->
                 @$el.find('select').selectpicker()
                 @$el.find('input[type="checkbox"]').checkbox()
-                @setCaptionDefaults()
+                if Marionette.getOption(@,'element') is 'Slider'
+                    @setCaptionDefaults()
 
             setCaptionDefaults:->
                 if @model.get('layers').length and @model.get('layers')[0].text isnt ''
@@ -407,12 +412,14 @@ define ['app'
     							<div class="col-sm-2">
     								{{#polyglot}}Slide Image{{/polyglot}}
     							</div>
+                                {{#isSlider}}
     							<div class="col-sm-5">
     								{{#polyglot}}Slide Caption{{/polyglot}}
     							</div>
                                 <div class="col-sm-5">
                                     {{#polyglot}}Slide Caption Styles{{/polyglot}}
                                 </div>
+                                {{/isSlider}}
     						</div>
     						<div class="panel-group" id="slides-accordion"></div>
                         </div>
@@ -425,8 +432,14 @@ define ['app'
 
             itemViewContainer: '#slides-accordion'
 
+            mixinTemplateHelpers :(data)->
+                data = super data
+                data.isSlider = if Marionette.getOption(@,'element') is 'Slider' then true else false 
+                data
+
             itemViewOptions : ->
                 settingsModel : Marionette.getOption @,'settingsModel'
+                element : Marionette.getOption @, 'element'
 
             onBeforeRender: ->
                 @collection.sort()
@@ -522,7 +535,8 @@ define ['app'
         App.commands.setHandler 'show:slides:list', (opts = {})->
             new SlidesListController opts
 
-        App.commands.setHandler "show:slides:manager", (slidesCollection)->
+        App.commands.setHandler "show:slides:manager", (slidesCollection, element)->
             new SlidesListController
                 region: App.dialogRegion
                 collection: slidesCollection
+                element : element
