@@ -246,6 +246,7 @@ a.red-link.pull-right {
 }
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element {
   position: relative;
+  overflow: hidden;
 }
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li.selected-element .element-help {
   background: #29333f;
@@ -287,6 +288,9 @@ a.red-link.pull-right {
 }
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li.ui-draggable-dragging a {
   background: rgba(0, 0, 0, 0.8);
+}
+.aj-imp-drag-menu.open .selected-element {
+  overflow: visible !important;
 }
 .element-helper {
   max-width: 220px;

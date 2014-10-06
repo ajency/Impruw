@@ -252,6 +252,7 @@ a {
 				}
 				&.selected-element {
 					position: relative;
+					overflow: hidden;
 					.element-help {
 						background: @dark-blue;
 						color: @dash-grey;
@@ -295,6 +296,11 @@ a {
 					}
 				}
 			}
+		}
+	}
+	&.open {
+		.selected-element {
+			overflow: visible !important;
 		}
 	}
 }
