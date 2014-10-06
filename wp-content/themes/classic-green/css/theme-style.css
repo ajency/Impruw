@@ -1874,7 +1874,7 @@ and open the template in the editor.
   color: #fff;
 }
 .row.shaded-background {
-  background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAIAAABLMMCEAAAAM0lEQVQImWXMsQkAMAwDwY9A+0/pKdykcUiIVB7iV1UBgG3OlNTdSgKUdAsv2VbSfD8CNi76FMy/HZ/YAAAAAElFTkSuQmCC) repeat scroll 0 0 rgba(0, 0, 0, 0);
   margin-bottom: 1em;
   margin-top: 1em;
 }
@@ -1972,6 +1972,39 @@ and open the template in the editor.
   width: 100%;
   background: #7ecbc3;
 }
+.nav.footer-menu {
+  padding-left: 0;
+  text-align: center;
+}
+.nav.footer-menu li {
+  list-style: none;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background: #5ca9a1;
+  cursor: pointer;
+}
+.nav.footer-menu li a {
+  font-size: 1.333em;
+  color: #ffffff;
+  font-weight: 300;
+  padding: 10px 45px;
+  display: block;
+}
+.nav.footer-menu li:hover,
+.nav.footer-menu li:focus {
+  background: #ffffff;
+  text-shadow: none;
+  -webkit-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -moz-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -o-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -webkit-backface-visibility: hidden;
+}
+.nav.footer-menu li:hover a,
+.nav.footer-menu li:focus a {
+  color: #656565;
+}
 /**** Title Styles****/
 .title.box-title {
   color: #656565;
@@ -2010,7 +2043,7 @@ and open the template in the editor.
   margin-bottom: 30px;
   padding-left: 20px;
 }
-.address.small .info {
+.address.small-address .info {
   color: #989898;
   font-size: 1em;
   font-weight: 300;
@@ -2579,7 +2612,7 @@ ul.social li:hover a {
 .daterange-legends {
   text-transform: uppercase;
   font-size: 0.9em;
-  color: #ffffff;
+  color: #7f7f7f;
 }
 .daterange-legends li span {
   width: 13px;
@@ -2655,7 +2688,7 @@ ul.social li:hover a {
   float: left;
   font-size: 0.9em;
   font-weight: 300;
-  color: #e5e5e5;
+  color: #7f7f7f;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-detail span {
   font-weight: 800;
@@ -2691,6 +2724,7 @@ ul.social li:hover a {
   text-transform: uppercase;
   margin-bottom: 30px;
   margin-top: 30px;
+  text-shadow: 1px 1px 3px #7f7f7f;
 }
 .room-booking .room-booking-container .room-booking-calender h4 .glyphicon {
   font-size: 1.5em;
