@@ -6,7 +6,9 @@ define ['app'
 
             initialize: (opt)->
 
-                {collection} = opt
+                {collection, element} = opt
+
+                @settingsModel = App.request "get:element:settings:options", 'Title'    
 
                 # if slider id is not present
                 if collection.length > 0
@@ -15,9 +17,11 @@ define ['app'
                     collection.once "add", (model)=>
                         @sliderId = parseInt model.get 'slider_id'
 
+
+
                 @layout = layout = @_getSlidesListLayout()
 
-                @listView = listView = @_getSlidesListView collection
+                @listView = listView = @_getSlidesListView collection, element
 
                 @listenTo listView, "itemview:slide:updated:with:data", (iv, data)->
                     slide = iv.model
@@ -41,6 +45,15 @@ define ['app'
                     listView.triggerMethod "show:edit:image", editView
                     listView.listenTo editView, "image:editing:cancelled", ->
                         listView.triggerMethod "image:editing:cancelled"
+
+                @listenTo listView, "itemview:add:text",(iv, imageId)->
+                    App.execute 'show:slide:text:layer',
+                        region : layout.slidesListRegion
+                        model : iv.model
+
+                @listenTo layout.slidesListRegion, 'slide:layers:saved',->
+                    layout.slidesListRegion.show listView
+
 
                 @listenTo layout, "show:add:new:slide", =>
                     App.execute "show:add:new:slide",
@@ -74,9 +87,11 @@ define ['app'
                             full_url : fullSize.url
 
             # edit layout
-            _getSlidesListView: (collection)->
+            _getSlidesListView: (collection,element)->
                 new SlidesListView
                         collection: collection
+                        settingsModel : @settingsModel
+                        element : element
 
             _getSlidesListLayout: ->
                 new SlidesListLayout
@@ -98,25 +113,140 @@ define ['app'
             template: '<div class="panel-heading">
 						  <a class="accordion-toggle">
 							<div class="aj-imp-image-item row">
-								<div class="imgthumb col-sm-4">
-									<img src="{{thumb_url}}" class="img-responsive">
+                                {{^isSlider}}
+								<div class="imgthumb full-w col-sm-12">
+									<img src="{{full_url}}" class="img-responsive">
+                                    <div class="imgactions">
+                                        <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
+                                        <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
+                                    </div>
 								</div>
-								<div class="imgname col-sm-5"></div>
-								<div class="imgactions col-sm-3">
-									<a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
-                                    <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
-								</div>
+                                {{/isSlider}}
+                                {{#isSlider}}
+                                <div class="imgthumb col-sm-2">
+                                    <img src="{{thumb_url}}" class="img-responsive">
+                                    <div class="imgactions">
+                                        <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
+                                        <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
+                                    </div>
+                                </div>
+                                <form action="" method="POST" role="form" validate>
+								<div class="imgname col-sm-5">
+                                    <div class="form-horizontal">
+                                        <div class="form-group ">
+                                            <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Title{{/polyglot}}</label>
+                                            <div class="col-sm-9">
+                                                <input  type="text" name="text" class="caption-title form-control" placeholder="{{#polyglot}}Caption Title{{/polyglot}}"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group caption-exist">
+                                            <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Description{{/polyglot}}</label>
+                                            <div class="col-sm-9">
+                                                <textarea  type="text" name="text" class="caption-description form-control" placeholder="{{#polyglot}}Caption Description{{/polyglot}}">
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group caption-exist">
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <label for="" class="control-label checkbox">
+                                                    <input type="checkbox" class="link-check" name="target"/>
+                                                    {{#polyglot}}Add Link to Caption{{/polyglot}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group caption-exist link-hide">
+                                            <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Link{{/polyglot}}</label>
+                                            <div class="col-sm-9">
+                                                <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group caption-exist link-hide">
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <label for="" class="control-label checkbox">
+                                                    <input type="checkbox" class="link-target" name="target"/>
+                                                    {{#polyglot}}Open in new Tab{{/polyglot}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="imgname col-sm-5">
+                                    <div class="form-horizontal">
+                                        <div class="form-group layout-opts caption-exist">
+                                            <div class="col-sm-4">
+                                                <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label>
+                                                <select name="style" class="form-control caption-style">
+                                                    {{#captionStyles}}
+                                                    <option value="title {{value}}">{{name}}</option>
+                                                    {{/captionStyles}}
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label for="" class="control-label">{{#polyglot}}Caption Background{{/polyglot}}</label>
+                                                <select name="background" class="form-control caption-background">
+                                                    <option value="transparent-black">Transparent Black</option>
+                                                    <option value="transparent-white">Transparent White</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label for="" class="control-label">{{#polyglot}}Position{{/polyglot}}</label>
+                                                <div class="caption-position">
+                                                    <input type="radio" name="position" value="left,top">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="center,top">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="right,top">
+                                                    <label><span><span></span></span></label>
+                                                    <br>
+                                                    <input type="radio" name="position" value="left,center">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="center,center">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="right,center">
+                                                    <label><span><span></span></span></label>
+                                                    <br>
+                                                    <input type="radio" name="position" value="left,bottom">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="center,bottom">
+                                                    <label><span><span></span></span></label>
+                                                    <input type="radio" name="position" value="right,bottom">
+                                                    <label><span><span></span></span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button>
+                                                <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
+                                {{/isSlider}}
 							</div>
 						  </a>
 						</div>'
+
+            mixinTemplateHelpers : (data)->
+                data = super data
+                captionStyles = Marionette.getOption @,'settingsModel'
+                data.isSlider = if Marionette.getOption(@,'element') is 'Slider' then true else false
+                data.captionStyles = []
+                _.each captionStyles.get('styles'),(style)->
+                    data.captionStyles.push 
+                        name : style.name
+                        value : _.slugify style.name
+                data
 
             modelEvents : 
                 'change:thumb_url change:full_url' : 'render'
 
             events:
-                'click .update-slide': ->
-                    data = Backbone.Syphon.serialize @
-                    @trigger "slide:updated:with:data", data
+                # 'click .update-slide': ->
+                #     data = Backbone.Syphon.serialize @
+                #     @trigger "slide:updated:with:data", data
 
                 'click .remove-slide': (e)->
                     e.preventDefault()
@@ -128,8 +258,156 @@ define ['app'
                     e.preventDefault()
                     @trigger "edit:image"
 
+                # 'click .add-text' :(e)->
+                #     e.preventDefault()
+                #     @$el.find('.imgname').removeClass 'hide'
+                    # @trigger "add:text"
+
+                'change .caption-title ' :(e)->
+                    if $(e.target).val() isnt ''
+                        @$el.find('.caption-exist').slideDown('fast')
+                    # else
+                    #     @$el.find('.caption-exist').hide()
+                    #     @model.set 'layers',[]
+                    #     @model.save()
+                    #     @model.trigger 'model:changed'
+                        # @setCaptionDefaults()
+                        
+
+                'click .save-slide-layer' : 'saveSlideLayer'
+
+                'click .delete-slide-layer' : (e)->
+                    @model.set 'layers',[]
+                    @model.save()
+                    @model.trigger 'model:changed'
+                    @setCaptionDefaults()
+
+                'change input.link-check' :(e)->
+                    if $(e.target).is(':checked')
+                        @$el.find('.form-group.link-hide').removeClass 'hide'
+                    else
+                        @$el.find('.form-group.link-hide').addClass 'hide'
+
+
+
             onRender: ->
                 @$el.attr 'data-slide-id', @model.get 'id'
+
+            onShow :->
+                @$el.find('select').selectpicker()
+                @$el.find('input[type="checkbox"]').checkbox()
+                if Marionette.getOption(@,'element') is 'Slider'
+                    @setCaptionDefaults()
+
+            setCaptionDefaults:->
+                if @model.get('layers').length and @model.get('layers')[0].text isnt ''
+                    caption = @model.get('layers')[0]
+                    @$el.find('.caption-exist').show()
+                    captionHtml = $.parseHTML _.stripslashes caption.text
+
+                    # console.log caption.text
+                    # console.log captionHtml
+                    # console.log "abc_#{$(captionHtml).first().find('a').first().html()}"
+
+                    if $(captionHtml).first().find('a').length
+                        @$el.find('.caption-title').val $(captionHtml).first().find('a').first().html()
+                        @$el.find('.caption-link').val $(captionHtml).first().find('a').first().attr 'href'
+                        @$el.find('input.link-check').checkbox('check')
+                        @$el.find('input.link-target').checkbox('check') if $(captionHtml).first().find('a').first().attr('target') is '_blank'
+                    else 
+                        @$el.find('.form-group.link-hide').addClass('hide')
+                        @$el.find('.caption-title').val $(captionHtml).first().html()
+                        @$el.find('.caption-link').val ''
+
+                    @$el.find('.caption-description').val $(captionHtml).last().html()
+                    @$el.find('.caption-style').selectpicker 'val',$(captionHtml).first().attr 'class'
+                    @$el.find('.caption-background').selectpicker 'val',caption.style
+                    @$el.find("input[name='position'][value='#{caption.left},#{caption.top}']").prop 'checked',true
+                else
+                    @$el.find('.caption-exist').hide()
+                    @$el.find('.form-group.link-hide').addClass('hide')
+                    @$el.find('.caption-title').val ''
+                    @$el.find('.caption-description').val ''
+                    @$el.find('.caption-link').val ''
+                    # @$el.find('.caption-style').selectpicker 'val',@layerDefault().style
+                    @$el.find("input[name='position'][value='#{@layerDefault().left},#{@layerDefault().top}']").prop 'checked',true
+
+            saveSlideLayer :(e)->
+                    data = {}
+                    if @model.get('layers').length
+                        data = @model.get('layers')[0]
+   
+                    else
+                        data = @layerDefault()
+
+                    data.text = "<h3 class='#{@$el.find('.caption-style').val()}'>"
+                    if @$el.find('input.link-check').is(':checked')
+                        data.text += "<a href='#{@$el.find('.caption-link').val()}'" 
+                        data.text += if @$el.find('input.link-target').is(':checked') then "target='_blank'>" else "target='_self'>"
+                    data.text += @$el.find('.caption-title').val()
+                    data.text += "</a>" if @$el.find('input.link-check').is(':checked')
+                    data.text += "</h3><div class='text'>#{@$el.find('.caption-description').val()}</div>"
+                    data.style = @$el.find('.caption-background').val()
+
+                    position = @$el.find('input[name="position"]:checked').val()
+                    position = position.split ','
+                    data.left = position[0]
+                    data.top = position[1]
+                    
+                    if @$el.find('.caption-title').val() isnt '' or @$el.find('.caption-description').val() isnt '' 
+                        @model.set 'layers',[data]
+                    else
+                        @model.set 'layers',[]
+                    @model.save()
+                    @model.trigger 'model:changed'
+
+            layerDefault : ->
+                align_hor: "left"
+                align_vert: "top"
+                alt: ""
+                animation: "tp-fade"
+                attrClasses: ""
+                attrID: ""
+                attrRel: ""
+                attrTitle: ""
+                corner_left: "nothing"
+                corner_right: "nothing"
+                easing: "Power3.easeInOut"
+                endSpeedFinal: 300
+                endTimeFinal: 8700
+                endanimation: "auto"
+                endeasing: "nothing"
+                endspeed: 300
+                endsplit: "none"
+                endsplitdelay: "10"
+                endtime: ""
+                height: -1
+                hiddenunder: false
+                left: 'center'
+                link: ""
+                link_open_in: "same"
+                link_slide: "nothing"
+                max_height: "auto"
+                max_width: "auto"
+                realEndTime: 9000
+                resizeme: true
+                scaleProportional: false
+                scaleX: ""
+                scaleY: ""
+                scrollunder_offset: ""
+                serial: 0
+                speed: 300
+                split: "none"
+                splitdelay: "10"
+                style: "transparent-black"
+                text: "Caption Text"
+                time: 500
+                timeLast: 8500
+                top: 'center'
+                type: "text"
+                whitespace: "nowrap"
+                width: -1
+
 
         class NoSlidesView extends Marionette.ItemView
 
@@ -140,15 +418,17 @@ define ['app'
 
             template: ' <div class="slides-list">
                             <div class="aj-imp-image-header row">
-    							<div class="col-sm-4">
-    								&nbsp;
+    							<div class="col-sm-2">
+    								{{#polyglot}}Slide Image{{/polyglot}}
     							</div>
+                                {{#isSlider}}
     							<div class="col-sm-5">
-    								{{#polyglot}}File Name{{/polyglot}}
+    								{{#polyglot}}Slide Caption{{/polyglot}}
     							</div>
-    							<div class="col-sm-3">
-    								{{#polyglot}}Actions{{/polyglot}}
-    							</div>
+                                <div class="col-sm-5">
+                                    {{#polyglot}}Slide Caption Styles{{/polyglot}}
+                                </div>
+                                {{/isSlider}}
     						</div>
     						<div class="panel-group" id="slides-accordion"></div>
                         </div>
@@ -160,6 +440,15 @@ define ['app'
             emptyView: NoSlidesView
 
             itemViewContainer: '#slides-accordion'
+
+            mixinTemplateHelpers :(data)->
+                data = super data
+                data.isSlider = if Marionette.getOption(@,'element') is 'Slider' then true else false 
+                data
+
+            itemViewOptions : ->
+                settingsModel : Marionette.getOption @,'settingsModel'
+                element : Marionette.getOption @, 'element'
 
             onBeforeRender: ->
                 @collection.sort()
@@ -200,31 +489,32 @@ define ['app'
         class SlidesListLayout extends Marionette.Layout
 
             template: '<div class="row">
-                        <div class="col-sm-8">
-                            <div id="slides-list-region"></div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="alert alert-info crop-help">
-                                <p><b>{{#polyglot}}Steps to fit your image edge to edge inside the slider{{/polyglot}}</b></p>
-                                <ul>
-                                    <li>{{#polyglot}}Select the area to be cropped.{{/polyglot}}</li>
-                                    <li>{{#polyglot}}Notice how initially the crop button is disabled. Crop is enabled once you have selected the image close to the aspect ratio of the slider.{{/polyglot}}</li>
-                                    <li>{{#polyglot}}Your image dimensions are displayed in scale image area and the required dimensions are displayed under image crop area.{{/polyglot}}</li>
-                                    <li>{{#polyglot}}As you increase the decrease your selection, the selection area height and width will also change.{{/polyglot}}</li>
-                                    <li>{{#polyglot}}Once it reaches the maximum point for expected image width or height, you will not be able to increase the selection area anymore. If you want a larger image, we suggest you increase the width of the slider from sitebuilder for best results.{{/polyglot}}</li>
-                                    <li>{{#polyglot}}When you are happy with your selection area to be cropped, click the crop button from the tool bar above.{{/polyglot}}</li>
-                                </ul>
+                            <div class="col-sm-12">
+                                <div class="alert alert-info crop-help">
+                                    <p><b>{{#polyglot}}Steps to fit your image edge to edge inside the slider{{/polyglot}}</b></p>
+                                    <ul>
+                                        <li>{{#polyglot}}Select the area to be cropped.{{/polyglot}}</li>
+                                        <li>{{#polyglot}}Notice how initially the crop button is disabled. Crop is enabled once you have selected the image close to the aspect ratio of the slider.{{/polyglot}}</li>
+                                        <li>{{#polyglot}}Your image dimensions are displayed in scale image area and the required dimensions are displayed under image crop area.{{/polyglot}}</li>
+                                        <li>{{#polyglot}}As you increase the decrease your selection, the selection area height and width will also change.{{/polyglot}}</li>
+                                        <li>{{#polyglot}}Once it reaches the maximum point for expected image width or height, you will not be able to increase the selection area anymore. If you want a larger image, we suggest you increase the width of the slider from sitebuilder for best results.{{/polyglot}}</li>
+                                        <li>{{#polyglot}}When you are happy with your selection area to be cropped, click the crop button from the tool bar above.{{/polyglot}}</li>
+                                    </ul>
+                                </div>
+                                <div id="slides-info">
+                                    {{#polyglot}}Click the button to select images to add to your slider. You can change the order of the images by dragging them up or down in the list to the left.{{/polyglot}}
+                                </div>
+                                <div class="aj-imp-block-button add-new-slide">
+                                    <button class="btn btn-default btn-hg"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button>
+                                </div>
+
+                                <div id="add-slide-region"></div>
+                                
                             </div>
-                            <div id="slides-info">
-                                {{#polyglot}}Click the button to select images to add to your slider. You can change the order of the images by dragging them up or down in the list to the left.{{/polyglot}}
+                            <div class="col-sm-12">
+                                <div id="slides-list-region"></div>
                             </div>
-                            <div class="aj-imp-block-button add-new-slide">
-                                <button class="btn btn-default btn-hg"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button>
-                            </div>
-                        </div>
-                        </div>
-    					
-    					<div id="add-slide-region"></div>'
+                        </div>'
 
             events:
                 'click .add-new-slide': ->
@@ -254,7 +544,8 @@ define ['app'
         App.commands.setHandler 'show:slides:list', (opts = {})->
             new SlidesListController opts
 
-        App.commands.setHandler "show:slides:manager", (slidesCollection)->
+        App.commands.setHandler "show:slides:manager", (slidesCollection, element)->
             new SlidesListController
                 region: App.dialogRegion
                 collection: slidesCollection
+                element : element

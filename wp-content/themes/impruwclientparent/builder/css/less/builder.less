@@ -30,6 +30,7 @@ Version:        0.1.0
 /**** Link Styles Basic ****/
 a {
 	color: @orange;
+	cursor: pointer;
 	&:hover, &:focus {
 		outline: none;
 		color: lighten(@orange, 10%);
@@ -1948,14 +1949,6 @@ a {
 					display: block;
 					outline: 0;
 					color: @orange;
-					.imgthumb {
-						img {
-							height: 100%;
-							width: auto;
-							max-height: 60px;
-							margin: auto;
-						}
-					}
 					.imgname, .imgdate {
 						font-weight: bold;
 						padding: 0.5em 15px;
@@ -1971,6 +1964,20 @@ a {
 					}
 					&.collapsed {
 						color: @dash-grey;
+					}
+				}
+				.imgthumb {
+					img {
+						height: 100%;
+						width: auto;
+						max-height: 120px;
+					}
+					&.full-w {
+						.imgactions, .accordion-toggle {
+							display: inline-block;
+							vertical-align: top;
+							margin-right: 0.5em;
+							min-width: 316px;						}
 					}
 				}
 				&:hover {
@@ -2887,6 +2894,9 @@ a {
 #slides-list-region {
 	border: 1px solid lighten(@dash-grey, 10%);
 	border-radius: 4px;
+	.panel {
+		overflow: visible;
+	}
 	.move {
 		position: relative;
 		height: 100px;
@@ -2911,9 +2921,93 @@ a {
 		}
 	}
 	.imgname {
-		color: @3-grey;
-		&:hover {
-			color: @3-grey;
+		.form-horizontal {
+			margin: 0;
+			.form-group {
+				margin-bottom: 0.5em;
+				.control-label {
+					color: @dash-grey;
+					font-size: 1em;
+					line-height: 1em;
+					padding-right: 0;
+					&.checkbox {
+						padding-top: 3px;
+						margin: 0.3em 0;
+						text-align: left;
+					}
+				}
+				.form-control {
+					padding: 2px 6px;
+					font-size: 1em;
+					border-width: 1px;
+					line-height: 1em;
+					height: 32px;
+					&.bootstrap-select {
+						padding: 0;
+						height: auto;
+					}
+				}
+				textarea.form-control {
+					height: 48px;
+				}
+				&.layout-opts {
+					border: 1px solid @dash-grey;
+					border-radius: 2px;
+					margin: 0 0 0.5em;
+					.control-label {
+						margin-bottom: 0.2em;
+					}
+				}
+			}
+		}
+		.caption-position {
+			input[type="radio"] {
+				width: 20px;
+				height: 20px;
+				margin: 0 5px 0 0;
+				padding: 0;
+				font-size: 1em;
+				opacity: 0;
+				cursor: pointer;
+				+ label {
+					display: inline-block;
+					margin-left: -32px;
+					margin-top: -4px;
+					line-height: 25px;
+					> span {
+						display: inline-block;
+						width: 20px;
+						height: 20px;
+						margin: 0.25em 0.5em 0.25em 0.25em;
+						border: 0;
+						border-radius: 2px;
+						background: @dash-grey;
+						vertical-align: bottom;
+					}
+				}
+				&:checked {
+					+label {
+						> span {
+							background: @orange;
+							> span {
+								display: block;
+								width: 16px;
+								height: 16px;
+								margin: 2px;
+								border: 0;
+								border-radius: 1px;
+								background: #ffffff;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.imgactions {
+		a {
+			display: block;
+			margin: 0.5em 0;
 		}
 	}
 	.remove-slide {
@@ -2927,7 +3021,7 @@ a {
 #slides-info {
 	background: @preview-grey;
 	padding: 1em;
-	margin-right: 0.5em;
+	margin: 0 0.4em 0.5em;
 	font-size: 1.3em;
 	color: darken(@dash-grey, 10%);
 	border: 2px solid lighten(@dash-grey, 20%);
@@ -2935,7 +3029,7 @@ a {
 }
 
 .crop-help {
-	margin-right: 0.5em;
+	margin: 0 0.5em 0.5em;
 	display: none;
 }
 
@@ -3011,9 +3105,6 @@ a {
 #slides-list-region, #add-slide-region, .aj-imp-block-button.add-new-slide {
 	margin-left: 0.5em;
 	margin-right: 0.5em;
-}
-.aj-imp-block-button.add-new-slide {
-	margin-left: 0;
 }
 
 .gallery-title {
@@ -3355,6 +3446,7 @@ a {
         }
         .imgedit-panel-content {
             margin: 1em 0;
+            padding-left: 10px;
             .imgedit-menu {
                 .clearfix;
                 border-bottom: 1px solid @dash-grey;
@@ -3464,6 +3556,24 @@ a {
 				display: block;
 			}
 		}
+	}
+}
+
+/**** Revolution SLider Builder Styles ****/
+.text-layer-view {
+	.view-text-layer {
+	    display :block;
+	}
+	.edit-text-layer {
+		display: none;
+	}
+}
+.text-layer-edit {
+	.view-text-layer {
+		display: none;
+	}
+	.edit-text-layer {
+		display: block;
 	}
 }
 

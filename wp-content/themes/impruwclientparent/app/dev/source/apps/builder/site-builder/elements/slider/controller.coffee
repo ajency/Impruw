@@ -51,7 +51,7 @@ define ['app'
                     view = @_getSliderView slidesCollection
 
                     @listenTo view, "show:slides:manager", (ratio)=>
-                        App.execute "show:slides:manager", slidesCollection
+                        App.execute "show:slides:manager", slidesCollection , @layout.model.get 'element'
                         App.currentImageRatio = ratio
 
                     @listenTo view, "set:slider:height:width", (height,width)=>
@@ -62,7 +62,7 @@ define ['app'
                     @listenTo slidesCollection, "remove add slides:order:updated", =>
                         @renderElement()
 
-                    @listenTo view ,"render:slider",=>
+                    @listenTo view ,"render:slider itemview:render:slider",=>
                         @layout.model.save()
                         @layout.elementRegion.show view
 

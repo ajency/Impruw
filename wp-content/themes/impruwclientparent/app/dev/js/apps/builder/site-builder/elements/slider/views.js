@@ -12,9 +12,17 @@ define(['app'], function(App) {
         return SliderItem.__super__.constructor.apply(this, arguments);
       }
 
-      SliderItem.prototype.template = '<img src="{{full_url}}" alt="Slide" data-bgfit="contain" data-bgposition="center center" data-bgrepeat="no-repeat"/>';
+      SliderItem.prototype.template = '<img src="{{full_url}}" alt="Slide" data-bgfit="contain" data-bgposition="center center" data-bgrepeat="no-repeat"/> {{#layers}}<div class="tp-caption {{style}} {{animation}}" data-x="{{left}}" data-y="{{top}}" data-speed="{{speed}}" data-start="{{time}}" data-easing="{{easing}}" data-endspeed="{{endspeed}}" style="z-index: 6">{{{txt}}} </div>{{/layers}}';
 
       SliderItem.prototype.tagName = 'li';
+
+      SliderItem.prototype.mixinTemplateHelpers = function(data) {
+        data = SliderItem.__super__.mixinTemplateHelpers.call(this, data);
+        if (data.layers.length) {
+          data.txt = _.stripslashes(data.layers[0].text);
+        }
+        return data;
+      };
 
       SliderItem.prototype.onRender = function() {
         return this.$el.attr('data-slotamount', '0').attr('data-masterspeed', '500').attr('data-transition', Marionette.getOption(this, 'slide_transition'));
@@ -23,6 +31,9 @@ define(['app'], function(App) {
       SliderItem.prototype.modelEvents = {
         'change:thumb_url change:full_url': function(model) {
           return model.collection.trigger('slide:image:url:updated');
+        },
+        'model:changed': function() {
+          return this.trigger('render:slider');
         }
       };
 
@@ -125,7 +136,8 @@ define(['app'], function(App) {
         }
         defaults = this._getDefaults();
         options = {
-          startheight: parseInt(this.model.get('height'))
+          startheight: parseInt(this.model.get('height')),
+          startwidth: this.$el.width()
         };
         options = _.defaults(options, defaults);
         this.revapi = this.$el.find(".fullwidthbanner").revolution(options);
@@ -135,8 +147,11 @@ define(['app'], function(App) {
           stop: (function(_this) {
             return function(evt, ui) {
               console.log(_this.$el.height());
-              options.startheight = _this.$el.height();
               _this.$el.width('auto');
+              options = {
+                startheight: _this.$el.height(),
+                startwidth: _this.$el.width()
+              };
               _this.revapi = _this.$el.find(".fullwidthbanner").revolution(options);
               return _this._saveSliderHeightWidth();
             };
