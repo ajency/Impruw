@@ -4,6 +4,17 @@
 include_once 'functions.php';
 
 /**
+ * enable forced revision
+ * @param  [type] $revision_count [description]
+ * @return [type]                 [description]
+ */
+function impruw_wp_revisions_to_keep($revision_count, $post){
+    return 5;
+}
+
+add_filter('wp_revisions_to_keep', 'impruw_wp_revisions_to_keep', 100, 2);
+
+/**
  * [get_pages description]
  * @return [type] [description]
  */

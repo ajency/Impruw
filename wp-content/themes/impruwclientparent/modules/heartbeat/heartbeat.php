@@ -36,6 +36,7 @@ function autosave_page_json( $response, $data, $screen_id ) {
             // echo $data['wp_post_lock']['foo']; //prints 'bar';
             $response['autosave-page-json'] = array(
                 'success' => true,
+                'autosave_id' => $autosave_id,
                 '_last_updated' => current_time('mysql')
             );
         }
