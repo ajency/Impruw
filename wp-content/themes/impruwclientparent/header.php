@@ -34,6 +34,7 @@
     <link rel="shortcut icon" href="wp-content/themes/impruwclientparent/images/favicon.png" type="image/x-icon" />
 
     <?php wp_head(); ?>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
 </head>
 
 <body <?php body_class(); ?>>

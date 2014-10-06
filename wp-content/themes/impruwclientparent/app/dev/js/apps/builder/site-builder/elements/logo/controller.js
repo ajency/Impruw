@@ -27,7 +27,8 @@ define(['app', 'apps/builder/site-builder/elements/logo/views', 'apps/builder/si
           model: imageModel,
           imageHeightRatio: this.layout.model.get('heightRatio'),
           positionTopRatio: this.layout.model.get('topRatio'),
-          templateHelpers: this._getTemplateHelpers()
+          templateHelpers: this._getTemplateHelpers(),
+          eleModel: this.layout.model
         });
       };
 

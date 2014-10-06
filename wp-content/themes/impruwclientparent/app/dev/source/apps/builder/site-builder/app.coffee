@@ -6,6 +6,7 @@ define ['app'
         'apps/builder/site-builder/elements-loader'], (App)->
     App.module 'SiteBuilderApp', (SiteBuilderApp, App, Backbone, Marionette, $, _)->
 
+        App.elements = []
         #PUBLIC API
         API =
         # show the site builder
@@ -16,9 +17,11 @@ define ['app'
             addNewElement: (container, type, modelData)->
                 
                 if SiteBuilderApp.Element[type]
-                    new SiteBuilderApp.Element[type].Controller
+                    ele = new SiteBuilderApp.Element[type].Controller
                         container: container
                         modelData: modelData
+                    App.elements.push ele
+                    ele
                 else
                     return false
 

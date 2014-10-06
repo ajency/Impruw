@@ -108,8 +108,7 @@ define ['app'], (App)->
                 defaults = @_getDefaults()
 
                 options =
-                    startheight:  @model.get 'height'
-                    startwidth : @$el.width()
+                    startheight:  parseInt @model.get 'height'
 
                 options = _.defaults options, defaults
 
@@ -135,7 +134,7 @@ define ['app'], (App)->
 
                 # @trigger "set:slider:height", options.startheight
 
-                $('.aj-imp-publish').on 'click',@_saveSliderHeightWidth
+                # $('.aj-imp-publish').on 'click',@_saveSliderHeightWidth
 
                 # @_saveSliderHeightWidth()
 
@@ -217,5 +216,5 @@ define ['app'], (App)->
                 # reset_transitions : 'papercut'
 
 
-            onBeforeClose :->
-                $('.aj-imp-publish').off 'click',@_saveSliderHeightWidth
+            # onBeforeClose :->
+            #     $('.aj-imp-publish').off 'click',@_saveSliderHeightWidth

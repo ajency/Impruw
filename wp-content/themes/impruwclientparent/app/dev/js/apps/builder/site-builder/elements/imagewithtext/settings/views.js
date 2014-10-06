@@ -32,6 +32,9 @@ define(['app', 'text!apps/builder/site-builder/elements/imagewithtext/settings/t
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').checkbox('check');
         }
+        if (this.eleModel.get('link_check') === true) {
+          this.$el.find('input[name="link_check"]').checkbox('check');
+        }
         if (this.eleModel.get('target') === '_BLANK') {
           this.$el.find('input[name="target"]').checkbox('check');
         }
@@ -52,6 +55,9 @@ define(['app', 'text!apps/builder/site-builder/elements/imagewithtext/settings/t
         },
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));
+        },
+        'change input[name="link_check"]': function(evt) {
+          return this.trigger("element:linkcheck:changed", $(evt.target).is(':checked'));
         },
         'change select[name="align"]': function(evt) {
           return this.trigger("element:alignment:changed", $(evt.target).val());

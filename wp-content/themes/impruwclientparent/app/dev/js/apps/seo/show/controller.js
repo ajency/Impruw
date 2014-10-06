@@ -28,7 +28,8 @@ define(['app', 'controllers/base-controller', 'apps/seo/show/view'], function(Ap
         })(this));
         this.listenTo(this.seoLayoutView.seoLanguageSelection, "load:seo:page:nav:bar", this._loadNavBar);
         this.listenTo(this.seoLayoutView.seoPageNav, "load:seo:page:content", this._loadSeoPageContent);
-        return this.listenTo(this.seoLayoutView.seoPageNav, "load:seo:room:content", this._loadSeoRoomContent);
+        this.listenTo(this.seoLayoutView.seoPageNav, "load:seo:room:content", this._loadSeoRoomContent);
+        return App.vent.trigger("set:active:menu", 'seo');
       };
 
       Controller.prototype.getMainView = function() {

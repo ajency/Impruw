@@ -4003,6 +4003,7 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-block-list ul {
   margin: 1em 0;
+  padding: 0;
   list-style: none;
   text-align: center;
 }
@@ -4012,8 +4013,10 @@ form .aj-imp-submit:hover {
   position: relative;
   background: #fff;
   padding: 1%;
+  padding-top: 3em;
   margin: 1%;
   border-radius: 2px;
+  border: 1px solid #666;
   -webkit-transition-property: scale;
   -webkit-transition-duration: 0.2s;
   -webkit-transition-timing-function: ease-in-out;
@@ -4027,10 +4030,15 @@ form .aj-imp-submit:hover {
   margin: auto;
 }
 .aj-imp-block-list ul .block .desc {
-  color: #849fb0;
+  color: #fff;
   text-transform: uppercase;
   font-weight: 300;
   font-size: 1.5em;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.2em 0.3em;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .aj-imp-block-list ul .block .aj-imp-choose-btn {
   position: absolute;
@@ -4054,6 +4062,12 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-block-list .load-more {
   text-align: center;
+}
+
+@media (max-width: 850px) {
+  .aj-imp-block-list ul .block {
+    width: 100%;
+  }
 }
 
 /****Pricing Plans Styles****/

@@ -123,6 +123,7 @@ function get_elementbox_elements() {
         array(
             'element' => 'Menu',
             'icon' => 'bicon icon-uniF14E',
+            'helpText' => 'Click on the menu item to add and remove pages from the menu.',
             'styles' => get_styles( 'Menu' ),
             'site_menus' => array(
                 array(
@@ -143,6 +144,7 @@ function get_elementbox_elements() {
         array(
             'element' => 'Logo',
             'icon' => 'bicon icon-uniF124',
+            'helpText' => 'Upload your logo once and you are done! Simply drag and drop your logo element where you want the logo to be displayed.',
             'styles' => array(),
             'size' => '', //get_logo_size(),
             'category' => 'hotel'
@@ -151,103 +153,121 @@ function get_elementbox_elements() {
             'element' => 'LanguageSwitcher',
             'title' => 'Language Switcher',
             'icon' => 'bicon icon-uniF10B',
+            'helpText' => 'Manage multiple languages for your website. Add translations from language section on the dashboard.',
             'styles' => get_styles( 'LanguageSwitcher' ),
             'size' => ''
         ),
         array(
             'element' => 'Text',
             'icon' => 'bicon icon-uniF111',
+            'helpText' => 'Exactly what it sounds like - an element for writing text. Click inside the element to start writing.',
             'styles' => array()
         ),
         array(
             'element' => 'Title',
             'icon' => 'bicon icon-uniF11C',
+            'helpText' => 'Used for adding titles / headers to a page. Play with various styles from the editor.',
             'styles' => get_styles( 'Title' )
         ),
         array(
             'element' => 'Image',
             'icon' => 'bicon icon-uniF10E',
+            'helpText' => 'Adding pictures to your site works in much the same way as adding text: by dragging an image element to a page.',
             'styles' => array()
         ),
         array(
             'element' => 'ImageWithText',
             'title' => 'Image With Text',
             'icon' => 'bicon icon-uniF112',
+            'helpText' => 'A text element with a place for both text and an image built in.',
             'styles' => get_styles( 'ImageWithText' )
         ),
         array(
             'element' => 'Table',
             'title' => 'Table',
+            'helpText' => 'A simple and precise way to express the classified contents within a less space in various styles.',
             'icon' => 'bicon icon-uniF166'
         ),
         array(
             'element' => 'Address',
             'icon' => 'bicon icon-uniF183',
+            'helpText' => 'Update your address from site profile on your dashboard.',
             'styles' => get_styles( 'Address' ),
             'category' => 'hotel'
         ),
         array(
             'element' => 'Social',
             'icon' => 'bicon icon-uniF11A',
+            'helpText' => 'Update your facebook and twitter pages from site profile on the dashboard. Each theme includes social media buttons that are designed specifically for that theme.',
             'styles' => get_styles( 'Social' ),
             'category' => 'hotel'
         ),
         array(
             'element' => 'Link',
             'icon' => 'bicon icon-uniF149',
+            'helpText' => 'Add a text link or turn it into a button. Connect people to other pages on your site, pages on other sites, email addresses and files that they may want to download.',
             'styles' => get_styles( 'Link' )
         ),
         array(
             'element' => 'ContactForm',
             'title' => 'Contact Form',
             'icon' => 'bicon icon-uniF11B',
+            'helpText' => 'Forms are an easy way for your site visitors to send information to you.',
             'styles' => get_styles( 'ContactForm' ),
             'category' => 'hotel'
         ),
         array(
             'element' => 'Map',
             'icon' => 'bicon icon-uniF110',
+            'helpText' => 'We have a built-in Google Maps element that helps you display your address updated from your site profile.',
             'styles' => get_styles( 'Map' ),
             'category' => 'hotel'
         ),
          array(
             'element' => 'Widget',
             'icon' => 'bicon icon-uniF162',
+            'helpText' => 'Just because we don\'t have an element for something, doesn\'t mean you can\'t add it to your site. Widget allows you to add pretty much any embeddable content to your site.',
             // 'styles' => get_styles( 'Wid' ),
             'category' => 'hotel'
         ),
         array(
             'element' => 'Slider',
             'icon' => 'bicon icon-uniF119',
+            'helpText' => 'Turn your static banner images into active slideshows with options of various transition styles.',
             'sliders' => get_theme_sliders()
         ),
         array(
             'element' => 'Gallery',
             'icon' => 'bicon icon-uniF10C',
+            'helpText' => 'The gallery element enables you to upload photos in bulk, which are arranged in a click-to-see-a-larger-version grid format.',
             'galleries' => get_theme_sliders()
         ),
         array(
             'element' => 'Gallery',
             'title' => 'Room Gallery',
             'icon' => 'bicon icon-uniF10C',
+            'helpText' => 'The room gallery element displays all the photos added to your room in the dashboard, which are arranged in a click-to-see-a-larger-version grid format.',
             'category' => 'room'
         ),
         array(
             'element' => 'RoomFacilities',
             'title' => 'Room Facilities',
             'icon' => 'bicon icon-uniF17E',
+            'helpText' => 'Display facilities for your individual room. Edit the room to update facilities.',
             'category' => 'room'
         ),
         array(
             'element' => 'RoomTitle',
             'title' => 'Room Title',
             'icon' => 'bicon icon-uniF12D',
+            'helpText' => 'The room name added by you at the time of creating the room.',
             'category' => 'room'
         ),
         array(
             'element' => 'RoomDescription',
             'title' => 'Room Description',
             'icon' => 'bicon icon-uniF142',
+            'helpText' => 'The description added to the room at the time of room creation.',
             'category' => 'room'
         ),
         array(
@@ -256,18 +276,21 @@ function get_elementbox_elements() {
             'styles' => get_styles( 'RoomSummary' ),
             'rooms' => get_all_rooms(),
             'icon' => 'bicon icon-uniF15B',
+            'helpText' => 'The additional policies, check in and check out time from the room summary.',
             'category' => 'room'
         ),
         array(
             'element' => 'RoomTariff',
             'title' => 'Room Tariff',
             'icon' => 'bicon icon-uniF12B',
+            'helpText' => 'The tariff for the room for various plans and date ranges.',
             'category' => 'room'
         ),
         array(
             'element' => 'RoomBooking',
             'title' => 'Room Booking',
             'icon' => 'bicon icon-uniF101',
+            'helpText' => 'Showcase your plans, tariff and availability for particular dates using the booking calendar.',
             'category' => 'room'
         )
         
