@@ -48,37 +48,14 @@ if ( isset( $_GET[ 'sim' ] ) ) {
 	    <meta charset="<?php bloginfo( 'charset' ); ?>">
 	    <meta name="viewport" content="width=device-width">
 	    <script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/jquery.js?ver=1.11.0"></script>	   
+	    <link rel="stylesheet" type="text/css" href="<?php echo network_site_url(); ?>wp-content/themes/impruwclientparent/builder/css/builder.css" />
 	  <!-- 
 	    <script type="text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/preview-init.js"></script>
 	   --> 
-	    <style type="text/css">
-		    li{
-		    	display: inline;
-		    }
-		    body{
-		    	overflow: hidden;
-		    	margin: 0px;
-		    }
-		    #viewport{
-		    	margin-left:auto;
-		    	margin-right:auto;
-		    }
-		    ul{
-		    	margin-top: 0px;
-		    	margin-bottom: 0px
-		    }
-		    .options-div{
-		    	margin-top: 10px
-		    }
-		    iframe{
-		    	border: 0px;
-		    }
-		    
-	    </style>
 	    <script type="text/javascript">
 	    	jQuery(document).ready(function($) {
 	    		function setHeight(){
-	    			jQuery('#viewport').height( jQuery(window).height() - jQuery('.options-div').height() - 14);
+	    			jQuery('#viewport').height( jQuery('.preview-body').height() - jQuery('.preview-selector').height() - 16);
 	    		}
 
 	    		jQuery(window).resize(function(){
@@ -91,26 +68,24 @@ if ( isset( $_GET[ 'sim' ] ) ) {
 	    </script>
 
 	</head>
-	<body >
+	<body class="preview-body">
 
-		<div class="options-div">
-        	<a class="handle" href="#"><span class="glyphicon glyphicon-cog"></span></a>
+		<div class="preview-selector">
 		    <ul class="nav size" id="nav">
-		    	
 		        <li <?php if($sim == 'full') echo "class='active'"; ?> >
-		        	<a href="<?php echo $url ?>&sim=full" id="size-full" >Full</a>
+		        	<a href="<?php echo $url ?>&sim=full" id="size-full" ><span class="bicon icon-uniF121"></span></a>
 		        </li>
 		        <li <?php if($sim == 'tabl') echo "class='active'"; ?> >
-		        	<a href="<?php echo $url ?>&sim=tabl" id="size-tabl">Tablet-l</a>
+		        	<a class="landscape" href="<?php echo $url ?>&sim=tabl" id="size-tabl"><span class="bicon icon-uniF120"></span></a>
 		        </li>
 		        <li <?php if($sim == 'tabp') echo "class='active'"; ?> >
-		        	<a href="<?php echo $url ?>&sim=tabp" id="size-tabp">Tablet-p</a>
+		        	<a href="<?php echo $url ?>&sim=tabp" id="size-tabp"><span class="bicon icon-uniF120"></span></a>
 		        </li>
 		        <li <?php if($sim == 'mobl') echo "class='active'"; ?> >
-		        	<a href="<?php echo $url ?>&sim=mobl" id="size-mobilel">Mobile-l</a>
+		        	<a class="landscape" href="<?php echo $url ?>&sim=mobl" id="size-mobilel"><span class="bicon icon-uniF156"></span></a>
 		        </li>
 		        <li <?php if($sim == 'mobp') echo "class='active'"; ?> >
-		        	<a href="<?php echo $url ?>&sim=mobp" id="size-mobilep">Mobile-p</a>
+		        	<a href="<?php echo $url ?>&sim=mobp" id="size-mobilep"><span class="bicon icon-uniF156"></span></a>
 		        </li>
 		    </ul>
 		</div>

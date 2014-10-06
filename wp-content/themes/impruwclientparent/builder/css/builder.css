@@ -3453,3 +3453,47 @@ a.red-link.pull-right {
 .new-instance-message .desc {
   color: #aaaaaa;
 }
+/**** Preview Styles ****/
+.preview-body {
+  margin: 0;
+  height: 100vh;
+  background: #333333;
+  overflow: hidden;
+}
+.preview-body .preview-selector {
+  padding: 0.5em;
+  background: #262626;
+  border-bottom: 1px solid #aaaaaa;
+  text-align: center;
+}
+.preview-body .preview-selector ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.preview-body .preview-selector ul li {
+  display: inline-block;
+}
+.preview-body .preview-selector ul li a {
+  padding: 0.2em 0.5em;
+  display: block;
+  text-decoration: none;
+  font-size: 1.5em;
+  color: #aaaaaa;
+}
+.preview-body .preview-selector ul li a.landscape {
+  transform: translateY(-3px) translateX(3px) rotate(-90deg);
+}
+.preview-body .preview-selector ul li a:hover {
+  color: #f3f3f3;
+}
+.preview-body .preview-selector ul li.active a {
+  color: #ff7e00;
+}
+.preview-body #viewport {
+  margin-left: auto;
+  margin-right: auto;
+}
+.preview-body iframe {
+  border: 0px;
+}

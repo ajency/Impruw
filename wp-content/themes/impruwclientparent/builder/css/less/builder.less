@@ -3641,3 +3641,51 @@ a {
 		color: @dash-grey;
 	}
 }
+
+/**** Preview Styles ****/
+.preview-body {
+	margin: 0;
+	height: 100vh;
+	background: @3-grey;
+	overflow: hidden;
+	.preview-selector {
+		padding: 0.5em;
+		background: darken(@3-grey, 5%);
+		border-bottom: 1px solid @dash-grey;
+		text-align: center;
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			li {
+				display: inline-block;
+				a {
+					padding: 0.2em 0.5em;
+					display: block;
+					text-decoration: none;
+					font-size: 1.5em;
+					color: @dash-grey;
+					&.landscape {
+						
+						transform: translateY(-3px) translateX(3px) rotate(-90deg);
+					}
+					&:hover {
+						color: @preview-grey;
+					}
+				}
+				&.active {
+					a {
+						color: @orange;
+					}
+				}
+			}
+		}
+	}
+	#viewport{
+		margin-left:auto;
+		margin-right:auto;
+	}
+	iframe{
+		border: 0px;
+	}
+}
