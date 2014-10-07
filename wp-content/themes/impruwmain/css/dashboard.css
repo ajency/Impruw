@@ -4012,11 +4012,9 @@ form .aj-imp-submit:hover {
   display: inline-block;
   position: relative;
   background: #fff;
-  padding: 1%;
-  padding-top: 3em;
   margin: 1%;
   border-radius: 2px;
-  border: 1px solid #666;
+  border: 1px solid #aaaaaa;
   -webkit-transition-property: scale;
   -webkit-transition-duration: 0.2s;
   -webkit-transition-timing-function: ease-in-out;
@@ -4034,11 +4032,9 @@ form .aj-imp-submit:hover {
   text-transform: uppercase;
   font-weight: 300;
   font-size: 1.5em;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 0.2em 0.3em;
-  position: absolute;
-  left: 0;
-  top: 0;
+  background: #aaa;
+  padding: 0.5em;
+  margin: 0;
 }
 .aj-imp-block-list ul .block .aj-imp-choose-btn {
   position: absolute;
