@@ -1004,6 +1004,19 @@ a {
 						&.selected {
 							color: @3-grey;
 						}
+						&.preview-btn {
+							padding: 7px 13px 11px;
+							border: 1px solid transparent;
+							border-radius: 2px;
+							.bicon {
+								font-size: 1.5em;
+								vertical-align: middle;
+							}
+							&:hover {
+								border: 1px solid @preview-grey; 
+								box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.15) inset;
+							}
+						}
 						&:hover, &:focus {
 							color: @orange;
 							.caret {

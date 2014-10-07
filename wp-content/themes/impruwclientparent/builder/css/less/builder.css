@@ -970,6 +970,19 @@ a.red-link.pull-right {
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a.selected {
   color: #333333;
 }
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a.preview-btn {
+  padding: 7px 13px 11px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a.preview-btn .bicon {
+  font-size: 1.5em;
+  vertical-align: middle;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a.preview-btn:hover {
+  border: 1px solid #f3f3f3;
+  box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.15) inset;
+}
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a:hover,
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a:focus {
   color: #ff7e00;
