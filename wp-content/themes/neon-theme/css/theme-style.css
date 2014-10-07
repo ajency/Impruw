@@ -2456,11 +2456,11 @@ and open the template in the editor.
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .package-desc {
   font-size: 0.88em;
-  color: #e850b4;
+  color: #ba1883;
   display: none;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .tariff-label {
-  color: #e850b4;
+  color: #ba1883;
   margin: 0.5em 0 0.2em;
   font-size: 0.88em;
 }
@@ -2783,7 +2783,7 @@ and open the template in the editor.
 .daterange-legends {
   text-transform: uppercase;
   font-size: 0.9em;
-  color: #ffffff;
+  color: #39435c;
 }
 .daterange-legends li span {
   width: 13px;
@@ -2822,7 +2822,7 @@ and open the template in the editor.
   background: #48df95;
 }
 .room-booking .room-booking-container .room-booking-data {
-  background: #545d73;
+  background: #3e4556;
   padding-top: 1em;
   min-height: 590px;
 }
@@ -2853,7 +2853,7 @@ and open the template in the editor.
   color: #e223a1;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .plan-bg {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.2);
   padding: 1px 4px;
   margin-top: 2%;
 }
@@ -2895,14 +2895,14 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender h4 {
   font-weight: 600;
   font-size: 1.5em;
-  color: #ffffff;
+  color: #39435c;
   text-transform: uppercase;
   margin-bottom: 30px;
   margin-top: 30px;
 }
 .room-booking .room-booking-container .room-booking-calender h4 .glyphicon {
   font-size: 1.5em;
-  color: #39435c;
+  color: #60719b;
   float: left;
   margin-right: 1%;
 }
@@ -3486,6 +3486,102 @@ and open the template in the editor.
     padding: 0 0 1em;
   }
   /*Responive*/
+}
+/**** Table Styles****/
+.table {
+  background: #39435c;
+  color: #ffffff;
+  margin: 0;
+}
+.table > thead > tr {
+  background: #ffffff;
+}
+.table > thead > tr th {
+  color: #24d07c;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-width: 0;
+  text-align: left;
+}
+.table > thead > tr > th p,
+.table > tbody > tr > th p,
+.table > tfoot > tr > th p,
+.table > thead > tr > td p,
+.table > tbody > tr > td p,
+.table > tfoot > tr > td p {
+  margin: 0;
+  line-height: 1;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th {
+  border-bottom: 0;
+}
+.table.table-bordered > thead > tr td,
+.table.table-bordered > tbody > tr td,
+.table.table-bordered > thead > tr th,
+.table.table-bordered > tbody > tr th {
+  border: 1px solid #ffffff !important;
+}
+.table.table-striped > tbody > tr:nth-child(2n) > td,
+.table.table-striped > tbody tr.selected-row > td {
+  background: #252c3d;
+}
+.table.table-hover > tbody > tr:hover > td,
+.table.table-hover > tbody > tr:hover > th {
+  background: #252c3d;
+}
+.table.style-1 {
+  border-color: #24d07c;
+  border-width: 1px;
+}
+.table.style-1 > thead > tr {
+  background: #24d07c;
+}
+.table.style-1 > thead > tr th {
+  color: #e223a1;
+}
+.table.style-1 > thead > tr td,
+.table.style-1 > tbody > tr td,
+.table.style-1 > thead > tr th,
+.table.style-1 > tbody > tr th {
+  border-color: #24d07c !important;
+}
+.table.style-2 {
+  border-color: #e223a1;
+}
+.table.style-2 > thead > tr {
+  background: #e223a1;
+}
+.table.style-2 > thead > tr th {
+  color: #24d07c;
+}
+.table.style-2 > thead > tr td,
+.table.style-2 > tbody > tr td,
+.table.style-2 > thead > tr th,
+.table.style-2 > tbody > tr th {
+  border-color: #e223a1 !important;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 1em;
+}
+@media (max-width: 979px) {
+  .table-responsive {
+    margin: 1em 0;
+    border-color: #39435c;
+  }
+  .table-responsive > .table {
+    background: #39435c;
+  }
 }
 .lang-sel {
   text-align: right;
