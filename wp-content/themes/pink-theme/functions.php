@@ -208,7 +208,7 @@
                 var jPM = jQuery.jPanelMenu({
                     menu: ".left-menu",
                     trigger: ".left-menu-trigger",
-                    excludedPanelContent : "script, style",
+                    excludedPanelContent : "script, style, .options-div",
                     keyboardShortcuts: false
                 });
 
