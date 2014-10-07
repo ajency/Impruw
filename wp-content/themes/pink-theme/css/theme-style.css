@@ -1901,6 +1901,11 @@ ul.gallery {
 .tp-caption.transparent-white {
   background: rgba(255, 255, 255, 0.7);
 }
+@media (max-width: 480px) {
+  .tp-bullets {
+    display: none;
+  }
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates

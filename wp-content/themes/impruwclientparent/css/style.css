@@ -1858,3 +1858,8 @@ ul.gallery {
 .tp-caption.transparent-white {
   background: rgba(255, 255, 255, 0.7);
 }
+@media (max-width: 480px) {
+  .tp-bullets {
+    display: none;
+  }
+}
