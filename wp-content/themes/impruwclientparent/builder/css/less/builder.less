@@ -3782,10 +3782,11 @@ a {
 		background: darken(@3-grey, 5%);
 		border-bottom: 1px solid @dash-grey;
 		text-align: center;
-		ul {
+		.size {
 			margin: 0;
 			padding: 0;
 			list-style: none;
+			display: inline-block;
 			li {
 				display: inline-block;
 				a {
@@ -3795,7 +3796,6 @@ a {
 					font-size: 1.5em;
 					color: @dash-grey;
 					&.landscape {
-						
 						transform: translateY(-3px) translateX(3px) rotate(-90deg);
 					}
 					&:hover {
@@ -3806,6 +3806,39 @@ a {
 					a {
 						color: @orange;
 					}
+				}
+			}
+			.tooltip {
+				.tooltip-inner {
+					border-radius: 2px;
+					padding: 0.5em 0.8em;
+					background: rgba(0, 0, 0, 0.8);
+				}
+				.tooltip-arrow {
+					border-bottom-color: rgba(0, 0, 0, 0.8);
+				}
+			}
+		}
+		.preview-header {
+			display: inline-block;
+			margin: 0 2em;
+			vertical-align: super;
+			h1 {
+				color: @preview-grey;
+				font-size: 1.3em;
+				font-weight: 300;
+				margin: 0;
+			}
+		}
+		.preview-close {
+			float: right;
+			margin-top: 0.7em;
+			font-size: 0.88em;
+			a {
+				color: @dash-grey;
+				&:hover {
+					text-decoration: none;
+					color: @orange;
 				}
 			}
 		}
