@@ -76,6 +76,11 @@ function get_menu_items() {
             )
         ),
         array(
+            'url' => '#/emails',
+            'title' => 'Emails',
+            'icon' => 'magnifier',
+        ),
+        array(
             'url' => '#/seo',
             'title' => 'SEO',
             'icon' => 'magnifier',
