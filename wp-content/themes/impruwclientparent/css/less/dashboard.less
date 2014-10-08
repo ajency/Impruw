@@ -1694,18 +1694,11 @@ form {
 					display: block;
 					outline: 0;
 					color: @orange;
-					.imgthumb {
-						img {
-							height: 100%;
-							width: auto;
-						}
-					}
 					.imgname, .imgdate {
 						font-weight: bold;
 						padding: 0.5em 15px;
 					}
 					.imgactions {
-						text-align: center;
 						.btn {
 							padding: 5px 8px 6px;
 							margin-right: 1em;
@@ -1718,13 +1711,85 @@ form {
 						color: @dash-grey;
 					}
 				}
+				.imgthumb {
+					position: relative;
+					padding-left: 30px;
+					.arrange-slides {
+						width: 20px;
+						text-align: center;
+						background: lighten(@dash-grey, 20%);
+						left: 5px;
+						top: 0;
+						bottom: 0;
+						position: absolute;
+						cursor: move;
+						overflow: hidden;
+						.arrow {
+							position: relative;
+							left: -5px;
+							top: 40%;
+							.bicon {
+								display: block;
+								font-size: 2em;
+								color: @preview-grey;
+								transform: rotate(90deg);
+							}
+						}
+					}
+					img {
+						height: 100%;
+						width: auto;
+						max-height: 120px;
+					}
+					&.full-w {
+						.imgactions, .accordion-toggle {
+							display: inline-block;
+							vertical-align: top;
+							margin-right: 0.5em;
+							min-width: 316px;						
+						}
+						.arrange-slides {
+							.arrow {
+								left: 0;
+							}
+						}
+					}
+				}
 				&:hover {
 					background: @preview-grey;
+					.arrange-slides {
+						background: @blue-grey;
+					}
 				}
 			}
 			.panel-body {
 				border: 0;
 				padding: 1em 0;
+				.aj-imp-edit-image {
+					border-radius: 0;
+					.aj-imp-crop-link {
+						position: relative;
+						img {
+							padding: 1px;
+							border: 1px solid @dash-grey;
+						}
+						.aj-imp-crop-link-overlay {
+							position: absolute;
+							top: 1px;
+							bottom: 1px;
+							left: 15px;
+							right: 15px;
+							background: rgba(0, 0, 0, 0.4);
+							a {
+								position: relative;
+								top: 50%;
+								color: #fff;
+								display: block;
+								text-align: center;
+							}
+						}
+					}
+				}
 			}
 		}
 		&#settings-accordion, &#map-settings-accordion {
@@ -2907,6 +2972,9 @@ form {
 #slides-list-region {
 	border: 1px solid lighten(@dash-grey, 10%);
 	border-radius: 4px;
+	.panel {
+		overflow: visible;
+	}
 	.move {
 		position: relative;
 		height: 100px;
@@ -2931,9 +2999,94 @@ form {
 		}
 	}
 	.imgname {
-		color: @3-grey;
-		&:hover {
-			color: @3-grey;
+		.form-horizontal {
+			margin: 0;
+			.form-group {
+				margin-bottom: 0.5em;
+				.control-label {
+					color: @dash-grey;
+					font-size: 1em;
+					line-height: 1em;
+					padding-right: 0;
+					&.checkbox {
+						padding-top: 3px;
+						margin: 0.3em 0;
+						text-align: left;
+					}
+				}
+				.form-control {
+					padding: 2px 6px;
+					font-size: 1em;
+					border-width: 1px;
+					line-height: 1em;
+					height: 32px;
+					border-radius: 3px;
+					&.bootstrap-select {
+						padding: 0;
+						height: auto;
+					}
+				}
+				textarea.form-control {
+					min-height: 48px;
+					height: auto;
+					resize: vertical;
+				}
+				&.layout-opts {
+					margin: 0 0 0.5em;
+					.dropdown-toggle {
+						padding: 7px 12px;
+					}
+				}
+			}
+		}
+		.caption-position {
+			input[type="radio"] {
+				width: 20px;
+				height: 20px;
+				margin: 0 5px 0 0;
+				padding: 0;
+				font-size: 1em;
+				opacity: 0;
+				cursor: pointer;
+				+ label {
+					display: inline-block;
+					margin-left: -32px;
+					margin-top: -4px;
+					line-height: 25px;
+					> span {
+						display: inline-block;
+						width: 20px;
+						height: 20px;
+						margin: 0.25em 0.5em 0.25em 0.25em;
+						border: 0;
+						border-radius: 1px;
+						background: @dash-grey;
+						vertical-align: bottom;
+					}
+				}
+				&:checked {
+					+label {
+						> span {
+							background: @orange;
+							> span {
+								display: block;
+								width: 16px;
+								height: 16px;
+								margin: 2px;
+								border: 0;
+								border-radius: 1px;
+								background: #ffffff;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.imgactions {
+		a {
+			display: block;
+			margin: 0.5em 0;
 		}
 	}
 	.remove-slide {
@@ -2947,12 +3100,15 @@ form {
 
 #slides-info {
 	background: @preview-grey;
-	padding: 1em;
-	margin-right: 0.5em;
-	font-size: 1.3em;
+	padding: 0.5em;
+	margin: 0 0.4em 0.5em;
+	font-size: 1.1em;
 	color: darken(@dash-grey, 10%);
 	border: 2px solid lighten(@dash-grey, 20%);
-	border-radius: 4px;
+	border-radius: 2px;
+	.add-new-slide {
+		margin-bottom: 0;
+	}
 }
 
 .crop-help {
