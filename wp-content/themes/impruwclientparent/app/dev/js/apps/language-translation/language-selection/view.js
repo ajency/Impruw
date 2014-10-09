@@ -109,7 +109,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
             disabledStatus = '';
             hideClass = '';
           }
-          return html += '<div class="form-group ' + hideClass + '"> <label for="checkbox2" class="checkbox"> <input type="checkbox" data-toggle="checkbox" value="' + languageCode + '" ' + checkedStatus + ' ' + disabledStatus + '>' + languageName + '</label> </div>';
+          return html += '<li><div class="form-group ' + hideClass + '"> <label for="checkbox2" class="checkbox"> <input type="checkbox" data-toggle="checkbox" value="' + languageCode + '" ' + checkedStatus + ' ' + disabledStatus + '>' + languageName + '</label> </div></li>';
         });
         return this.$el.find("#hide-langs").html(html);
       };
@@ -221,7 +221,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
             disabledStatus = '';
             hideClass = '';
           }
-          htmlforHiddenLangView += '<div class="form-group ' + hideClass + '"> <label for="checkbox2" class="checkbox"> <input type="checkbox" data-toggle="checkbox" value="' + languageCode + '" ' + checkedStatus + ' ' + disabledStatus + '>' + languageName + '</label> </div>';
+          htmlforHiddenLangView += '<li><div class="form-group ' + hideClass + '"> <label for="checkbox2" class="checkbox"> <input type="checkbox" data-toggle="checkbox" value="' + languageCode + '" ' + checkedStatus + ' ' + disabledStatus + '>' + languageName + '</label> </div></li>';
           htmlString += '<div class="single-language" id="language-' + languageCode + '" data-language-code="' + languageCode + '"> <span class="icon ' + spanClass + '"></span> ' + languageName + ' </div>';
         });
         this.$el.find(".selected-languages").html(htmlString);
