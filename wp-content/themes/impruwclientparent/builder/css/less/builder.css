@@ -2879,6 +2879,9 @@ a.red-link.pull-right {
   height: auto;
   resize: vertical;
 }
+#slides-list-region .imgname .form-horizontal .form-group .save-slide-layer.disabled {
+  background: #849fb0;
+}
 #slides-list-region .imgname .form-horizontal .form-group.layout-opts {
   margin: 0 0 0.5em;
 }

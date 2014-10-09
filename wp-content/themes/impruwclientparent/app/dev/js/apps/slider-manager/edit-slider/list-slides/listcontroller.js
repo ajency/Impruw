@@ -275,9 +275,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         this.model.save({
           success: (function(_this) {
             return function() {
-              _this.$el.find('.save-slide-layer').html('Saved');
+              _this.$el.find('.save-slide-layer').addClass('disabled').html('<span class="glyphicon glyphicon-ok"></span>&nbsp;' + _.polyglot.t('Saved'));
               return _.delay(function() {
-                return _this.$el.find('.save-slide-layer').html('Save Caption');
+                return _this.$el.find('.save-slide-layer').removeClass('disabled').html(_.polyglot.t('Save Caption'));
               }, 5000);
             };
           })(this)
