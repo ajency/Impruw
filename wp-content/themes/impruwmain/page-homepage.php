@@ -18,7 +18,7 @@ get_header();
     <div class="home-2">
     	<div class="row">
     		<div class="col-sm-4">
-    			<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/video-2.jpg" title="<?php _e('Impruw Themes','impruwmain'); ?>" alt="<?php _e('Impruw Themes','impruwmain'); ?>" class="img-responsive" />
+    			<img src="<?php echo get_template_directory_uri(); ?>/images/video-2.jpg" title="<?php _e('Impruw Themes','impruwmain'); ?>" alt="<?php _e('Impruw Themes','impruwmain'); ?>" class="img-responsive" />
     		</div>
     		<div class="col-sm-8">
     			<h2><?php _e('Impruw is the low-cost online hosting solution for accommodation providers of any size.','impruwmain')?></h2>
@@ -49,7 +49,7 @@ get_header();
     <div class="home-3">
     	<h2><?php _e('Do it yourself - Really!','impruwmain')?></h2>
     	<p><?php _e('Our simple drag and drop interface makes building beautiful free websites quick and simple.','impruwmain')?></p>
-    	<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/HOME_gif.gif" title="<?php _e('Impruw Site Builder','impruwmain'); ?>" alt="<?php _e('Impruw Site Builder','impruwmain'); ?>" class="img-responsive" style="margin: auto;" />
+    	<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/HOME_gif.gif" title="<?php _e('Impruw Site Builder','impruwmain'); ?>" alt="<?php _e('Impruw Site Builder','impruwmain'); ?>" class="img-responsive" style="margin:auto;" />
     </div>
 
     <div class="home-4">

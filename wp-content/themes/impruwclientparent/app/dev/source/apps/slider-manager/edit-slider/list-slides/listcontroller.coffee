@@ -383,9 +383,9 @@ define ['app'
                         @model.set 'layers',[]
                     @model.save
                         success : =>
-                            @$el.find('.save-slide-layer').html 'Saved'
+                            @$el.find('.save-slide-layer').addClass('disabled').html '<span class="glyphicon glyphicon-ok"></span>&nbsp;' + _.polyglot.t ('Saved')
                             _.delay =>
-                                @$el.find('.save-slide-layer').html 'Save Caption'
+                                @$el.find('.save-slide-layer').removeClass('disabled').html _.polyglot.t ('Save Caption')
                             ,5000
                     @model.trigger 'model:changed'
 
