@@ -61,6 +61,7 @@ define [ 'app', 'controllers/base-controller'
                         App.execute "show:slides:list",
                             region : App.dialogRegion
                             collection : @slidesCollection
+                            element : 'Room'
 
                     @listenTo @layout, "save:edit:room", ( data )=>
                         @_saveNewRoom data

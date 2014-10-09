@@ -154,12 +154,14 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         captionStyles = Marionette.getOption(this, 'settingsModel');
         data.isSlider = Marionette.getOption(this, 'element') === 'Slider' ? true : false;
         data.captionStyles = [];
-        _.each(captionStyles.get('styles'), function(style) {
-          return data.captionStyles.push({
-            name: style.name,
-            value: _.slugify(style.name)
+        if (data.isSlider) {
+          _.each(captionStyles.get('styles'), function(style) {
+            return data.captionStyles.push({
+              name: style.name,
+              value: _.slugify(style.name)
+            });
           });
-        });
+        }
         return data;
       };
 
