@@ -54,7 +54,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           this.updateImageThumb(iv.model, editView.model);
           listView.triggerMethod("show:edit:image", editView);
           return listView.listenTo(editView, "image:editing:cancelled", function() {
-            return listView.triggerMethod("image:editing:cancelled");
+            return layout.slidesListRegion.show(listView);
           });
         });
         this.listenTo(listView, "itemview:add:text", function(iv, imageId) {

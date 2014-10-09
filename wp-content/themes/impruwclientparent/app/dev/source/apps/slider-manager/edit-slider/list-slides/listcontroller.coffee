@@ -44,7 +44,8 @@ define ['app'
                     @updateImageThumb iv.model, editView.model                     
                     listView.triggerMethod "show:edit:image", editView
                     listView.listenTo editView, "image:editing:cancelled", ->
-                        listView.triggerMethod "image:editing:cancelled"
+                        # listView.triggerMethod "image:editing:cancelled"
+                        layout.slidesListRegion.show listView
 
                 @listenTo listView, "itemview:add:text",(iv, imageId)->
                     App.execute 'show:slide:text:layer',
