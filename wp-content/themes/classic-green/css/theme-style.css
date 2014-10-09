@@ -162,6 +162,11 @@ and open the template in the editor.
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
+@media (max-width: 969px) {
+  .site-style-container .row.column-dividers .column {
+    border-right: 0;
+  }
+}
 /**** Logo Styles ****/
 @media (max-width: 971px) {
   .logo {
@@ -1996,6 +2001,11 @@ and open the template in the editor.
   margin-bottom: 10px;
   background: #5ca9a1;
   cursor: pointer;
+}
+@media (max-width: 480px) {
+  .nav.footer-menu li {
+    display: block;
+  }
 }
 .nav.footer-menu li a {
   font-size: 1.333em;
