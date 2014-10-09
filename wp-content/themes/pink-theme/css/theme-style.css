@@ -141,6 +141,7 @@
   margin: 0.5em 0;
 }
 .site-style-container .logo {
+  margin-top: 0;
   padding: 1em;
 }
 .site-style-container .logo img {
