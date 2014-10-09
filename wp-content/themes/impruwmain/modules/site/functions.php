@@ -664,7 +664,7 @@ function translations_for_sign_in($site_id){
 
     foreach ($strings as $key => $value) {
         //Register english strings
-        icl_register_string('theme impruwmain', $key, $value[0]);
+        icl_register_string('theme impruwlogin', $key, $value[0]);
 
         //Add norwegian string translation
         $original_string_id = icl_get_string_id($value[0], 'theme impruwlogin');
