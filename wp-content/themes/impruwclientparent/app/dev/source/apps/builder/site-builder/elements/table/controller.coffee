@@ -29,6 +29,35 @@ define ['app'
 					model: @layout.model
 					# collection : @rowCollection
 
+			tableOnColumnWidthChange:(originalMarkup,referenceMarkup)->
+				# console.log 'table column width has changed'
+				# Check if original markup stil not set, if empty set it to reference markup
+				if $.trim(originalMarkup).length is 0
+					# console.log 'Original Markup empty'
+					originalMarkup = referenceMarkup
+
+				html_table = '<div>'+originalMarkup+'</div>'
+
+				$content = $(html_table)
+
+				# Get widths from reference table and assign them to the theads of translated tables
+				referenceTableHead = $(referenceMarkup).find('thead th')
+				thWidthArray = new Array()
+
+				_.each referenceTableHead,(column,index)->
+					thwidth = $(column).css('width')
+					thWidthArray.push thwidth
+
+				# console.log thWidthArray
+
+				tableHeadColumns = $content.find('thead th')
+				_.each tableHeadColumns,(column,index)->
+					$(column).css('width', thWidthArray[index])
+
+				modified_language_table_html = $content.html()
+				# console.log modified_language_table_html
+				modified_language_table_html
+
 			tableOnStyleChange:(originalMarkup,referenceMarkup) ->
 				# console.log 'table style has changed'
 				# Check if original markup stil not set, if empty set it to reference markup
@@ -222,6 +251,13 @@ define ['app'
 				modifiedTranslatedMarkup = @tableOnColumnChange(modifiedTranslatedMarkup,referenceMarkup)
 
 				# console.log 'Aftr checking column chngs'
+				# console.log modifiedTranslatedMarkup
+
+
+				# Check if column width has changed
+				modifiedTranslatedMarkup = @tableOnColumnWidthChange(modifiedTranslatedMarkup,referenceMarkup)
+
+				# console.log 'Aftr checking column width chngs'
 				# console.log modifiedTranslatedMarkup
 				
 				# Check if style has changed

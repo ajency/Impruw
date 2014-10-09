@@ -298,4 +298,19 @@ function wpml_hide_langs() {
     }
 }
 
+// Using WPML, when taxonomies are spelled exactly the same in 2 languages (i.e. "documents"), WPML appends @language to the taxonomy name.
+// This filter strips it from the displayed name.
+if ( !(defined( 'DOING_AJAX' ) && DOING_AJAX) ){
+        add_filter( 'wp_get_object_terms', 'taxonomies_filter_fix' );
+}
+
+function taxonomies_filter_fix($terms){
+    foreach ( $terms as $order => $term ) {
+        if (strpos($term->name,'@'.ICL_LANGUAGE_CODE) !== false)
+             $terms[$order]->name = str_replace('@'.ICL_LANGUAGE_CODE, '', $term->name);
+    }
+    return $terms;
+}
+
+
 
