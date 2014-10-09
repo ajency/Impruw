@@ -25,7 +25,7 @@ define ['app', 'controllers/base-controller'
 
             isSingleRoomPage: ->
                 pageName = App.request "get:current:editable:page:name"
-                pageName is 'Single Room'
+                pageName is SINGLE_ROOM_PAGE 
 
             getView :(elements)->
                 #check if page is single room
