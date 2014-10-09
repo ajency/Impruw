@@ -49,7 +49,7 @@ if ( isset( $_GET[ 'sim' ] ) ) {
 	    <meta name="viewport" content="width=device-width">
 	    <script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/jquery.js?ver=1.11.0"></script>
 	    <script type="text/javascript" src="<?php echo network_site_url(); ?>wp-content/themes/impruwclientparent/js/bootstrap.min.js"></script>
-	    <link rel="stylesheet" type="text/css" href="<?php echo network_site_url(); ?>wp-content/themes/impruwclientparent/css/bootstrap.min.css" />   
+	    <link rel="stylesheet" type="text/css" href="<?php echo network_site_url(); ?>wp-content/themes/impruwclientparent/css/bootstrap.min.css" /> <link rel="stylesheet" type="text/css" href="<?php echo network_site_url(); ?>wp-content/themes/impruwclientparent/dashboard/css/icon-fonts.css" /> 
 	    <link rel="stylesheet" type="text/css" href="<?php echo network_site_url(); ?>wp-content/themes/impruwclientparent/builder/css/builder.css" />
 	  <!-- 
 	    <script type="text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/preview-init.js"></script>
@@ -78,19 +78,19 @@ if ( isset( $_GET[ 'sim' ] ) ) {
 		<div class="preview-selector">
 		    <ul class="size" id="nav">
 		        <li <?php if($sim == 'full') echo "class='active'"; ?> data-toggle="tooltip" title="Full Width" data-placement="bottom">
-		        	<a href="<?php echo $url ?>&sim=full" id="size-full" ><span class="bicon icon-uniF121"></span></a>
+		        	<a href="<?php echo $url ?>&sim=full" id="size-full" ><span class="icon icon-monitor"></span></a>
 		        </li>
 		        <li <?php if($sim == 'tabl') echo "class='active'"; ?> data-toggle="tooltip" title="Landscape Tab - 1024px" data-placement="bottom">
-		        	<a class="landscape" href="<?php echo $url ?>&sim=tabl" id="size-tabl"><span class="bicon icon-uniF120"></span></a>
+		        	<a class="landscape" href="<?php echo $url ?>&sim=tabl" id="size-tabl"><span class="icon icon-tablet"></span></a>
 		        </li>
 		        <li <?php if($sim == 'tabp') echo "class='active'"; ?> data-toggle="tooltip" title="Portrait Tab - 768px" data-placement="bottom">
-		        	<a href="<?php echo $url ?>&sim=tabp" id="size-tabp"><span class="bicon icon-uniF120"></span></a>
+		        	<a href="<?php echo $url ?>&sim=tabp" id="size-tabp"><span class="icon icon-tablet"></span></a>
 		        </li>
 		        <li <?php if($sim == 'mobl') echo "class='active'"; ?> data-toggle="tooltip" title="Landscape Mobile - 480px" data-placement="bottom">
-		        	<a class="landscape" href="<?php echo $url ?>&sim=mobl" id="size-mobilel"><span class="bicon icon-uniF156"></span></a>
+		        	<a class="landscape" href="<?php echo $url ?>&sim=mobl" id="size-mobilel"><span class="icon icon-phone"></span></a>
 		        </li>
 		        <li <?php if($sim == 'mobp') echo "class='active'"; ?> data-toggle="tooltip" title="Portrait Phone - 320px" data-placement="bottom">
-		        	<a href="<?php echo $url ?>&sim=mobp" id="size-mobilep"><span class="bicon icon-uniF156"></span></a>
+		        	<a href="<?php echo $url ?>&sim=mobp" id="size-mobilep"><span class="icon icon-phone"></span></a>
 		        </li>
 		    </ul>
 
@@ -98,7 +98,7 @@ if ( isset( $_GET[ 'sim' ] ) ) {
 		    	<h1>You are currently viewing preview version</h1>
 		    </div>
 		    <div class="preview-close">
-		    	<a href="<?php echo site_url(); ?>">Close Preview</a>
+		    	<a href="<?php echo site_url(); ?>"><span class="icon icon-cancel3"></span>&nbsp;Close Preview</a>
 		    </div>
 		</div>
 		<?php

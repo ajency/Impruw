@@ -377,7 +377,12 @@ define ['app'
                         @model.set 'layers',[data]
                     else
                         @model.set 'layers',[]
-                    @model.save()
+                    @model.save
+                        success : =>
+                            @$el.find('.save-slide-layer').html 'Saved'
+                            _.delay =>
+                                @$el.find('.save-slide-layer').html 'Save Caption'
+                            ,5000
                     @model.trigger 'model:changed'
 
             layerDefault : ->
