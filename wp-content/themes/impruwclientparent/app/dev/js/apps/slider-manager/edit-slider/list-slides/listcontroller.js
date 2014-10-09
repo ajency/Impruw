@@ -272,7 +272,16 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         } else {
           this.model.set('layers', []);
         }
-        this.model.save();
+        this.model.save({
+          success: (function(_this) {
+            return function() {
+              _this.$el.find('.save-slide-layer').html('Saved');
+              return _.delay(function() {
+                return _this.$el.find('.save-slide-layer').html('Save Caption');
+              }, 5000);
+            };
+          })(this)
+        });
         return this.model.trigger('model:changed');
       };
 
