@@ -4022,6 +4022,29 @@ form .aj-imp-submit:hover {
 .language .pick-language-container .pick-languages .selected-languages .single-language .icon.icon-cancel {
   color: #f21515;
 }
+.language .pick-language-container .pick-languages .lang-legend {
+  font-size: 0.88em;
+  font-style: italic;
+  margin: 0.5em 0  1em;
+}
+.language .pick-language-container .pick-languages .lang-legend .legend-item {
+  display: inline-block;
+  margin-right: 1em;
+}
+.language .pick-language-container .pick-languages .lang-legend .legend-item .icon {
+  font-size: 1.1em;
+  position: relative;
+  top: 0.11em;
+}
+.language .pick-language-container .pick-languages .lang-legend .legend-item .icon.icon-checkmark {
+  color: #2ecc71;
+}
+.language .pick-language-container .pick-languages .lang-legend .legend-item .icon.icon-notice {
+  color: #ffb266;
+}
+.language .pick-language-container .pick-languages .lang-legend .legend-item .icon.icon-cancel {
+  color: #f21515;
+}
 .language .pick-language-container .pick-languages .add-more-langs {
   background: transparent;
   color: #849fb0;
@@ -4032,22 +4055,26 @@ form .aj-imp-submit:hover {
 .language .pick-language-container .pick-languages .add-more-langs:focus {
   color: #65879c;
 }
-.language .pick-language-container .pick-languages #all-languages {
+.language .pick-language-container .pick-languages #all-languages,
+.language .pick-language-container .pick-languages #hidden-languages {
   padding: 0.5em;
   margin: 0.5em 0;
   border: 1px solid #f3f3f3;
 }
-.language .pick-language-container .pick-languages .languages {
+.language .pick-language-container .pick-languages .languages,
+.language .pick-language-container .pick-languages #hide-langs {
   list-style: none;
   padding: 0;
 }
-.language .pick-language-container .pick-languages .languages li {
-  padding: 0.5em;
+.language .pick-language-container .pick-languages .languages li,
+.language .pick-language-container .pick-languages #hide-langs li {
   width: 28%;
   float: left;
 }
-.language .pick-language-container .pick-languages .languages li .form-group {
+.language .pick-language-container .pick-languages .languages li .form-group,
+.language .pick-language-container .pick-languages #hide-langs li .form-group {
   margin: 0;
+  padding: 0.5em;
 }
 .language .pick-room .form-horizontal {
   font-size: 1.2em;

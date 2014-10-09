@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app'], function(App) {
+define(['app', 'bootbox'], function(App, bootbox) {
   return App.module('SiteBuilderApp.Element.Row.Views', function(Views, App, Backbone, Marionette, $, _) {
     var ColumnView;
     ColumnView = (function(_super) {
@@ -396,13 +396,13 @@ define(['app'], function(App) {
           });
           emptyColsLen = emptyColumns.length;
           if (emptyColsLen === 0) {
-            alert("None of the columns are empty. Please delete elements inside columns to remove");
+            bootbox.alert("None of the columns are empty. Please delete elements inside columns to remove");
             this.model.set('columncount', this.columnCount());
             this.model.trigger('column:count:setting:change', this.columnCount());
             return;
           }
           if (this.columnCount() - requestedColumns > emptyColsLen) {
-            alert("Unable to perform this action");
+            bootbox.alert("Unable to perform this action");
             this.model.set('columncount', this.columnCount());
             this.model.trigger('column:count:setting:change', this.columnCount());
             return;

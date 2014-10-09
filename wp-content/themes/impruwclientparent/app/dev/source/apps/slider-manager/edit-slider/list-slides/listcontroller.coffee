@@ -254,10 +254,11 @@ define ['app'
                 captionStyles = Marionette.getOption @,'settingsModel'
                 data.isSlider = if Marionette.getOption(@,'element') is 'Slider' then true else false
                 data.captionStyles = []
-                _.each captionStyles.get('styles'),(style)->
-                    data.captionStyles.push 
-                        name : style.name
-                        value : _.slugify style.name
+                if data.isSlider
+                    _.each captionStyles.get('styles'),(style)->
+                        data.captionStyles.push 
+                            name : style.name
+                            value : _.slugify style.name
                 data
 
             modelEvents : 
