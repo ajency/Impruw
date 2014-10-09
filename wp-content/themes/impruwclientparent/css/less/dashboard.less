@@ -4054,6 +4054,29 @@ form {
 					}
 				}
 			}
+			.lang-legend {
+				font-size: 0.88em;
+				font-style: italic;
+				margin: 0.5em 0  1em;
+				.legend-item {
+					display: inline-block;
+					margin-right: 1em;
+					.icon {
+						font-size: 1.1em;
+						position: relative;
+						top: 0.11em;
+						&.icon-checkmark {
+							color: @success-green;
+						}
+						&.icon-notice {
+							color: lighten(@orange, 20%);
+						}
+						&.icon-cancel {
+							color: @red;
+						}
+					}
+				}
+			}
 			.add-more-langs {
 				background: transparent;
 				color: @blue-grey;
@@ -4063,20 +4086,20 @@ form {
 					color: darken(@blue-grey, 10%);
 				}
 			}
-			#all-languages {
+			#all-languages, #hidden-languages {
 				padding: 0.5em;
 				margin: 0.5em 0;
 				border: 1px solid @preview-grey;
 			}
-			.languages {
+			.languages, #hide-langs {
 				list-style: none;
 				padding: 0;
 				li {
-					padding: 0.5em;
 					width: 28%;
 					float: left;
 					.form-group {
 						margin: 0;
+						padding: 0.5em;
 					}
 				}
 			}
