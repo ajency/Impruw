@@ -3012,6 +3012,11 @@ a {
 					height: auto;
 					resize: vertical;
 				}
+				.save-slide-layer {
+					&.disabled {
+						background: @blue-grey;
+					}
+				}
 				&.layout-opts {
 					margin: 0 0 0.5em;
 					.dropdown-toggle {
@@ -3838,7 +3843,7 @@ a {
 					padding: 0.2em 0.5em;
 					display: block;
 					text-decoration: none;
-					font-size: 1.5em;
+					font-size: 2em;
 					color: @dash-grey;
 					&.landscape {
 						transform: translateY(-3px) translateX(3px) rotate(-90deg);
@@ -3877,10 +3882,14 @@ a {
 		}
 		.preview-close {
 			float: right;
-			margin-top: 0.7em;
+			margin-top: 1.2em;
 			font-size: 0.88em;
 			a {
 				color: @dash-grey;
+				.icon {
+					font-size: 1.1em;
+					vertical-align: text-bottom;
+				}
 				&:hover {
 					text-decoration: none;
 					color: @orange;

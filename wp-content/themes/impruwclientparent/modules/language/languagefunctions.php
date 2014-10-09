@@ -450,6 +450,39 @@ function get_native_language_name($language_code){
     return $native_language_name;
 }
 
+function get_single_room_page_title(){
+    $language_code = wpml_get_default_language();
+    $single_room_title = 'Single Room';
+
+    switch ($language_code) {
+        case 'en':
+            $single_room_title = 'Single Room';
+            break;
+
+        case 'nb':
+            $single_room_title = 'Enkeltrom';
+            break;
+
+        case 'es':
+            $single_room_title = 'Einzelzimmer';
+            break;
+
+        case 'fr':
+            $single_room_title = 'Habitación Individual';
+            break;
+
+        case 'de':
+            $single_room_title = 'Chambre Simple';
+            break;
+        
+        default:
+            $single_room_title = 'Single Room';
+            break;
+    }
+
+    return $single_room_title;
+}
+
 
 
 

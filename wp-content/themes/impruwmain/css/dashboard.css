@@ -4014,7 +4014,7 @@ form .aj-imp-submit:hover {
   background: #fff;
   margin: 1%;
   border-radius: 2px;
-  border: 1px solid #aaaaaa;
+  border: 3px solid #bdbdbd;
   -webkit-transition-property: scale;
   -webkit-transition-duration: 0.2s;
   -webkit-transition-timing-function: ease-in-out;
@@ -4032,9 +4032,11 @@ form .aj-imp-submit:hover {
   text-transform: uppercase;
   font-weight: 300;
   font-size: 1.5em;
-  background: #aaa;
-  padding: 0.5em;
+  background: #bdbdbd;
+  padding: 0.2em 0.5em;
   margin: 0;
+  position: relative;
+  z-index: 2;
 }
 .aj-imp-block-list ul .block .aj-imp-choose-btn {
   position: absolute;
@@ -4044,8 +4046,14 @@ form .aj-imp-submit:hover {
   bottom: 0;
   right: 0;
   text-align: center;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   padding-top: 35%;
+  z-index: 1;
+}
+.aj-imp-block-list ul .block .aj-imp-choose-btn .info {
+  color: #333333;
+  font-weight: 300;
+  padding: 0 0.5em;
 }
 .aj-imp-block-list ul .block .aj-imp-choose-btn .btn {
   background: #ff7e00;

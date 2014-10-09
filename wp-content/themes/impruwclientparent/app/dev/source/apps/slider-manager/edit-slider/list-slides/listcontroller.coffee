@@ -44,7 +44,8 @@ define ['app'
                     @updateImageThumb iv.model, editView.model                     
                     listView.triggerMethod "show:edit:image", editView
                     listView.listenTo editView, "image:editing:cancelled", ->
-                        listView.triggerMethod "image:editing:cancelled"
+                        # listView.triggerMethod "image:editing:cancelled"
+                        layout.slidesListRegion.show listView
 
                 @listenTo listView, "itemview:add:text",(iv, imageId)->
                     App.execute 'show:slide:text:layer',
@@ -291,6 +292,10 @@ define ['app'
                     #     @model.save()
                     #     @model.trigger 'model:changed'
                         # @setCaptionDefaults()
+
+                'blur .caption-link':(evt)->
+                    if $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 2) isnt "//"
+                        $(evt.target).val "http://" + $(evt.target).val()
                         
 
                 'click .save-slide-layer' : 'saveSlideLayer'
@@ -377,7 +382,12 @@ define ['app'
                         @model.set 'layers',[data]
                     else
                         @model.set 'layers',[]
-                    @model.save()
+                    @model.save
+                        success : =>
+                            @$el.find('.save-slide-layer').addClass('disabled').html '<span class="glyphicon glyphicon-ok"></span>&nbsp;' + _.polyglot.t ('Saved')
+                            _.delay =>
+                                @$el.find('.save-slide-layer').removeClass('disabled').html _.polyglot.t ('Save Caption')
+                            ,5000
                     @model.trigger 'model:changed'
 
             layerDefault : ->

@@ -18,6 +18,10 @@ define ['app'], (App)->
 
             tagName: 'li'
 
+            events :
+                'click a':(e)->
+                    e.preventDefault()
+
             mixinTemplateHelpers : (data)->
                 data = super data
                 data.txt = _.stripslashes data.layers[0].text if data.layers.length

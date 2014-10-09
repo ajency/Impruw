@@ -54,7 +54,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           this.updateImageThumb(iv.model, editView.model);
           listView.triggerMethod("show:edit:image", editView);
           return listView.listenTo(editView, "image:editing:cancelled", function() {
-            return listView.triggerMethod("image:editing:cancelled");
+            return layout.slidesListRegion.show(listView);
           });
         });
         this.listenTo(listView, "itemview:add:text", function(iv, imageId) {
@@ -184,6 +184,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             return this.$el.find('.caption-exist').slideDown('fast');
           }
         },
+        'blur .caption-link': function(evt) {
+          if ($(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 2) !== "//") {
+            return $(evt.target).val("http://" + $(evt.target).val());
+          }
+        },
         'click .save-slide-layer': 'saveSlideLayer',
         'click .delete-slide-layer': function(e) {
           this.model.set('layers', []);
@@ -272,7 +277,16 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         } else {
           this.model.set('layers', []);
         }
-        this.model.save();
+        this.model.save({
+          success: (function(_this) {
+            return function() {
+              _this.$el.find('.save-slide-layer').addClass('disabled').html('<span class="glyphicon glyphicon-ok"></span>&nbsp;' + _.polyglot.t('Saved'));
+              return _.delay(function() {
+                return _this.$el.find('.save-slide-layer').removeClass('disabled').html(_.polyglot.t('Save Caption'));
+              }, 5000);
+            };
+          })(this)
+        });
         return this.model.trigger('model:changed');
       };
 
