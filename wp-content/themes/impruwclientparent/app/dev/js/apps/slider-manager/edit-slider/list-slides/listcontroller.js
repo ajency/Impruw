@@ -184,6 +184,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             return this.$el.find('.caption-exist').slideDown('fast');
           }
         },
+        'blur .caption-link': function(evt) {
+          if ($(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 2) !== "//") {
+            return $(evt.target).val("http://" + $(evt.target).val());
+          }
+        },
         'click .save-slide-layer': 'saveSlideLayer',
         'click .delete-slide-layer': function(e) {
           this.model.set('layers', []);

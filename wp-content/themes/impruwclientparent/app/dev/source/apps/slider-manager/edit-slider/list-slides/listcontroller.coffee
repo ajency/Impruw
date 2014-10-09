@@ -291,6 +291,10 @@ define ['app'
                     #     @model.save()
                     #     @model.trigger 'model:changed'
                         # @setCaptionDefaults()
+
+                'blur .caption-link':(evt)->
+                    if $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 2) isnt "//"
+                        $(evt.target).val "http://" + $(evt.target).val()
                         
 
                 'click .save-slide-layer' : 'saveSlideLayer'
