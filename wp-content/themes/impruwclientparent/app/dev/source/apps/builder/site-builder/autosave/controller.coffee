@@ -41,6 +41,7 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
 				
 			createStorage : ->
+				console.log 'clear'
 				@key = "impruw-builder-#{@blogId}"
 				window.sessionStorage.setItem @key, ''
 
@@ -66,6 +67,10 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 					return window.sessionStorage.getItem(@key) isnt null
 
 				return false
+
+			reset : ->
+				
+				window.sessionStorage.setItem @key, ''
 
 
 

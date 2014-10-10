@@ -413,6 +413,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       __extends(Builder, _super);
 
       function Builder() {
+        this.showRenderError = __bind(this.showRenderError, this);
         this.elementDropped = __bind(this.elementDropped, this);
         this._getHelper = __bind(this._getHelper, this);
         return Builder.__super__.constructor.apply(this, arguments);
@@ -464,6 +465,15 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           metaId = metaId !== void 0 ? parseInt(metaId) : 0;
           return this.trigger("add:new:element", $(evt.target), type, metaId);
         }
+      };
+
+      Builder.prototype.onPageRenderFailed = function() {
+        return this.showRenderError();
+      };
+
+      Builder.prototype.showRenderError = function() {
+        this.$el.addClass('dsdsds');
+        return this.$el.html('<h3>Failed to render view</h3>');
       };
 
       return Builder;

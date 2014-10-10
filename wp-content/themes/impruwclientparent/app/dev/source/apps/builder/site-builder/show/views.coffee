@@ -65,6 +65,7 @@ define [ 'app'
             @$el.empty()   
             @$el.fadeIn()
 
+
          handleWindowEvents : ->
             
             $(window).on 'unload.site-builder', @windowUnloadHandler
@@ -365,6 +366,7 @@ define [ 'app'
                      <footer id="site-footer-region" class="droppable-column"></footer>'
 
          onShow : ->
+
             @$el.find( '.droppable-column' ).sortable
                revert : 'invalid'
                items : '> .element-wrapper'
@@ -408,3 +410,11 @@ define [ 'app'
                metaId = ui.item.attr 'data-meta-id'
                metaId = if metaId isnt undefined then parseInt( metaId ) else 0
                @trigger "add:new:element", $( evt.target ), type, metaId
+
+         onPageRenderFailed : ->
+            @showRenderError()
+
+         showRenderError : =>
+            @$el.addClass  'dsdsds'
+            @$el.html '<h3>Failed to render view</h3>'
+           
