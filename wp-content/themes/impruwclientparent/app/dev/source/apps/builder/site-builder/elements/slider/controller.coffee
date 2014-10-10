@@ -60,7 +60,9 @@ define ['app'
                         @layout.model.save()
 
                     @listenTo slidesCollection, "remove add slides:order:updated", =>
-                        @renderElement()
+                        # console.log 'slider updated'
+                        @layout.elementRegion.show view
+                        # @renderElement()
 
                     @listenTo view ,"render:slider itemview:render:slider",=>
                         @layout.model.save()

@@ -69,7 +69,7 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
               return _this.layout.model.save();
             });
             _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {
-              return _this.renderElement();
+              return _this.layout.elementRegion.show(view);
             });
             _this.listenTo(view, "render:slider itemview:render:slider", function() {
               _this.layout.model.save();
