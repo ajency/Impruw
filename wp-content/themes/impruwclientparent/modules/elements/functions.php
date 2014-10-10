@@ -84,3 +84,63 @@ function remove_element_from_unused_list( $page_id, $meta_id ) {
 
     return TRUE;
 }
+
+
+function create_page_element_array($page_json){
+    global $wpdb;
+
+    // $page_id = (int) icl_object_id($ln_page_id, 'page', true,'en');
+    // $layout = get_post_meta($page_id,'page-json',true);
+    // if($layout == null)
+    //     return false;
+    $element_ids = pluck_meta_ids_from_json($page_json);
+    
+    $elements = array();
+    foreach ($element_ids as $element_id) {
+        # code...
+        $meta = get_metadata_by_mid( 'post', $element_id );
+        $element = maybe_unserialize($meta->meta_value);
+        // print_r($element);
+        $elements[] = $element;
+    }
+    return $elements;
+}
+
+function update_page_elements($page_id, $page_elements){
+    update_post_meta($page_id,'page-elements',$page_elements);
+}
+
+function set_page_elements_global($page_id){
+    global $impruw_page_elements;
+    $impruw_page_elements = get_post_meta($page_id,'page-elements',true);
+    $impruw_page_elements= is_array($impruw_page_elements) ? $impruw_page_elements : array();
+
+    if (empty($impruw_page_elements)){
+        $page_json = get_post_meta($page_id,'page-json',true);
+        $page_elements = create_page_element_array($page_json);
+        // update post meta page-elements
+        update_page_elements($page_id,$page_elements);
+        $impruw_page_elements = $page_elements;
+    }
+}
+
+function get_element_from_global_page_elements($meta_id){
+    global $impruw_page_elements;
+    // print_r($impruw_page_elements);
+    $ele = false;
+
+    if(!is_array($impruw_page_elements))
+        return false;
+
+    foreach ($impruw_page_elements as $element) {
+        # code...
+        if ($element['meta_id'] == $meta_id){
+            $ele = $element;
+            break;
+        }
+    }
+   
+
+    return $ele;
+}
+

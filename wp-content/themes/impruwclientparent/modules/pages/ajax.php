@@ -140,11 +140,16 @@ function publish_page_ajax() {
         $page_json = convert_json_to_array( $page_json_string );
         add_page_json( $page_id, $page_json );
 
-        $revision_post_id = add_page_revision( $page_id, $page_json );
+        //get all the elements array using layout
+        $page_elements = create_page_element_array($page_json);
+        // update post meta page-elements
+        update_page_elements($page_id,$page_elements);
+
+        //$revision_post_id = add_page_revision( $page_id, $page_json );
 
         update_page_autosave( $page_id, $page_json );
 
-        $revision_data = get_post( $revision_post_id );
+        //$revision_data = get_post( $revision_post_id );
 
         wp_send_json( array( 'success' => true, 'page_id' => $page_id));
     }

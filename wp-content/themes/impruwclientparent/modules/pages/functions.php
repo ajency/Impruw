@@ -380,12 +380,18 @@ function get_row_elements( $element ) {
 
 function get_meta_values( $element, $create = FALSE ) {
 
-    $meta = get_metadata_by_mid( 'post', $element[ 'meta_id' ] );
+    $ele = get_element_from_global_page_elements( $element[ 'meta_id' ] );
 
-    if ( !$meta )
-        return FALSE;
+  
+    if(!$ele ){
+       
+        $meta = get_metadata_by_mid( 'post', $element[ 'meta_id' ] );
 
-    $ele = maybe_unserialize( $meta->meta_value );
+        if ( !$meta )
+            return FALSE;
+
+        $ele = maybe_unserialize( $meta->meta_value );
+    }
     $ele[ 'meta_id' ] = $create ? create_new_record( $ele ) : $element[ 'meta_id' ];
     validate_element( $ele );
 

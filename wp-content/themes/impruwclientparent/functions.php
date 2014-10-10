@@ -291,6 +291,13 @@ function generate_markup( $section ) {
         //$id = $_GET[ 'preview' ];
     }
 
+    if(!$autosave){
+    //     print_r('prev');
+       set_page_elements_global($id);
+    }
+    // get_element_from_page_elements('a');
+   
+
     $markup_JSON = get_page_json_for_site( $id, $autosave );
 
     if ( !isset( $markup_JSON [ $section ] ) )
