@@ -677,3 +677,68 @@
       }
 
     }
+
+/*
+ * Configuring the communication module
+ */
+
+//Registering communication components
+function impruw_add_communication_components($defined_comm_components){
+
+    $comm_arr = array(
+        'registration_email'
+    );
+
+    $ajcm_components['impruw_user'] = $comm_arr;
+
+    return $ajcm_components;
+
+}
+add_filter('add_commponents_filter','impruw_add_communication_components',10,1);
+
+
+//Invoking the communication plugin
+function register_email_notification(){
+
+    echo 'test...........';
+
+    global $aj_comm;
+
+    $all_users = get_users();
+    //$specific_users = array();
+
+    foreach($all_users as $user){
+
+        if($user->has_cap('admin')){
+
+            $user_id = $user->ID;
+
+            $user_info  = get_userdata($user_id);
+            $username   = $user_info->user_login;
+            $role       = implode(', ', $user_info->roles);
+
+
+            $meta_data = array(
+                'username' => $username,
+                'role' => $role,
+                'date' =>  $user->user_registered
+            );
+
+            $comm_data = array(
+                'component' => 'impruw_user',
+                'communication_type' => 'registration_email'
+            );
+
+            $recipients_email = array(
+
+                'type' => 'email',
+                'value'=> $user->user_email
+            );
+
+            //$specific_users[] = $user;
+
+            $aj_comm->create_communication($meta_data,$comm_data,$recipients_email);
+        }
+    }
+}
+add_action('wpmu_create_blog','registered_email_notification');
