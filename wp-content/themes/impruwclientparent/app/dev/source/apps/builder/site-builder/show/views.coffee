@@ -365,6 +365,9 @@ define [ 'app'
                      <div id="site-page-content-region" class="droppable-column"></div>
                      <footer id="site-footer-region" class="droppable-column"></footer>'
 
+         onRetryEditPageClicked : =>
+            App.commands.execute 'editable:page:changed', @model.get 'page_id'
+
          onShow : ->
 
             @$el.find( '.droppable-column' ).sortable
@@ -416,5 +419,7 @@ define [ 'app'
 
          showRenderError : =>
             @$el.addClass  'dsdsds'
-            @$el.html '<h3>Failed to render view</h3>'
+            @$el.prepend '<h3>Failed to render view</h3>
+                        <button class="retry-edit-page">Retry</button>'
+            @$el.find('.retry-edit-page').on 'click', @onRetryEditPageClicked
            

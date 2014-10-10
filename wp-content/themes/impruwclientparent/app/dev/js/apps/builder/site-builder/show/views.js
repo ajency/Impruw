@@ -416,10 +416,15 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.showRenderError = __bind(this.showRenderError, this);
         this.elementDropped = __bind(this.elementDropped, this);
         this._getHelper = __bind(this._getHelper, this);
+        this.onRetryEditPageClicked = __bind(this.onRetryEditPageClicked, this);
         return Builder.__super__.constructor.apply(this, arguments);
       }
 
       Builder.prototype.template = '<header id="site-header-region" class="droppable-column"></header> <div id="site-page-content-region" class="droppable-column"></div> <footer id="site-footer-region" class="droppable-column"></footer>';
+
+      Builder.prototype.onRetryEditPageClicked = function() {
+        return App.commands.execute('editable:page:changed', this.model.get('page_id'));
+      };
 
       Builder.prototype.onShow = function() {
         return this.$el.find('.droppable-column').sortable({
@@ -473,7 +478,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       Builder.prototype.showRenderError = function() {
         this.$el.addClass('dsdsds');
-        return this.$el.html('<h3>Failed to render view</h3>');
+        this.$el.prepend('<h3>Failed to render view</h3> <button class="retry-edit-page">Retry</button>');
+        return this.$el.find('.retry-edit-page').on('click', this.onRetryEditPageClicked);
       };
 
       return Builder;

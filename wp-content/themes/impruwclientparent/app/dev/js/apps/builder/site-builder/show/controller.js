@@ -46,6 +46,8 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
           return function() {
             elementLoaded = true;
             return _.delay(function() {
+              _this.view.triggerMethod("page:render:failed");
+              return;
               _this.deferreds = [];
               _this.startFillingElements();
               return $.when.apply($, _this.deferreds).done(function() {
