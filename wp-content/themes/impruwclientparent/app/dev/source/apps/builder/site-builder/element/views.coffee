@@ -145,3 +145,10 @@ define [ 'app' ],( App, elementTpl )->
             zIndex : 2e9
             top : '0px'
             left : '40px'
+
+
+      class Views.ErrorView extends Marionette.ItemView
+
+         template : '<div style="width:100%; height:150px; margin:auto">
+                     conponent of type {{element}} did not load properly
+                     </div>'

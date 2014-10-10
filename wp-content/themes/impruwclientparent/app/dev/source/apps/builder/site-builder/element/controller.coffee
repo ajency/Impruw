@@ -56,7 +56,10 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
             if element.isNew()
                App.execute "when:fetched", element, =>
                   @layout.triggerMethod "before:render:element"
-                  @renderElement()
+                  try
+                     @renderElement()
+                  catch e
+                     @layout.elementRegion.show @_getErrorView()
                   
 
             # register a deferred
@@ -92,6 +95,10 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
          _getView : ( elementModel )->
             new Element.Views.ElementView
                            model : elementModel
+
+         _getErrorView :->
+            new Element.Views.ErrorView
+               model : @layout.model
 
          _getElementTemplate : ( eleModel )->
             model = App.request "get:element:settings:options", eleModel.get 'element'
