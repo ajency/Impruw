@@ -17,6 +17,7 @@ define ['app'], (App)->
 
                 data.textContent = ->
                     textContent = data.text[WPML_DEFAULT_LANG]
+                    textContent = _.stripslashes textContent
                     return textContent
                 data
 

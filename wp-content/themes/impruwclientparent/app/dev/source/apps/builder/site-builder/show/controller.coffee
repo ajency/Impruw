@@ -40,8 +40,6 @@ define [ 'app'
                     
                         elementLoaded = true
                         _.delay =>
-                            @view.triggerMethod "page:render:failed"
-                            return
                             @deferreds = []
                             @startFillingElements()
                             

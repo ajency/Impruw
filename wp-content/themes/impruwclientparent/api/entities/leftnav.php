@@ -815,7 +815,7 @@ function impruw_error_encountered(){
     ob_start();
     print_r($error);
     $html = ob_get_clean();
-    wp_mail('suraj@ajency.in', 'Impruw Error On Live', $html);
+    wp_mail('impruw@ajency.in', 'Impruw Error On Live', $html);
     wp_die();
 }
 add_action( 'wp_ajax_impruw_error_encountered', 'impruw_error_encountered' );

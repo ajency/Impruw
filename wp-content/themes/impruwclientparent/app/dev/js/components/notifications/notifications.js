@@ -69,7 +69,7 @@ define(['app', 'jquery', 'mustache', 'underscore', 'heartbeat'], function(App, $
     }
     return $('.conn-lost-overlay').addClass('hidden');
   });
-  return App.vent.on('error:encountered', function(error) {
+  return App.reqres.setHandler('error:encountered', function(error) {
     return $.post(AJAXURL, {
       action: 'impruw_error_encountered',
       error: error

@@ -414,6 +414,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       function Builder() {
         this.onLetUsKnowClicked = __bind(this.onLetUsKnowClicked, this);
+        this.errorNotified = __bind(this.errorNotified, this);
         this.showRenderError = __bind(this.showRenderError, this);
         this.elementDropped = __bind(this.elementDropped, this);
         this._getHelper = __bind(this._getHelper, this);
@@ -484,8 +485,12 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         return this.$el.find('.let-us-know').on('click', this.onLetUsKnowClicked);
       };
 
+      Builder.prototype.errorNotified = function() {
+        return this.$el.find('.let-us-know').after('Error reported successfully');
+      };
+
       Builder.prototype.onLetUsKnowClicked = function() {
-        var error;
+        var deferred, error;
         error = {
           type: 'page_load_failed',
           user_id: window.USER.ID,
@@ -495,7 +500,12 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             message: 'Page load failed in builder'
           }
         };
-        return App.vent.trigger('error:encountered', error);
+        deferred = App.request('error:encountered', error);
+        return deferred.always((function(_this) {
+          return function() {
+            return _this.errorNotified();
+          };
+        })(this));
       };
 
       return Builder;

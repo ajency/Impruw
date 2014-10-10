@@ -425,6 +425,9 @@ define [ 'app'
             @$el.find('.retry-edit-page').on 'click', @onRetryEditPageClicked
             @$el.find('.let-us-know').on 'click', @onLetUsKnowClicked
            
+         errorNotified : =>
+            @$el.find('.let-us-know').after 'Error reported successfully'
+
          onLetUsKnowClicked : =>
             error = 
                type : 'page_load_failed'
@@ -434,4 +437,6 @@ define [ 'app'
                   blog_id : window.BLOGID
                   message : 'Page load failed in builder'
 
-            App.vent.trigger 'error:encountered', error
+            deferred = App.request 'error:encountered', error
+            deferred.always =>
+               @errorNotified()
