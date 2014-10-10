@@ -170,6 +170,11 @@ define(['app'], function(App) {
         });
       };
 
+      SliderView.prototype.onSetWidth = function() {
+        this.model.set('width', this.$el.width());
+        return this.model.save();
+      };
+
       SliderView.prototype.sliderClick = function(e) {
         var ratio;
         e.stopPropagation();

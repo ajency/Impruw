@@ -112,7 +112,7 @@ function publish_page_ajax() {
         wp_send_json(array(
             'success' => false,
             'new_instance' => true,
-            'reason' => __('New instance of site builder is open')
+            'reason' => __('Looks like the sitebuilder for sitename is opened some other place. Close this page to continue working.')
         ));
     }
     

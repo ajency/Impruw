@@ -2034,6 +2034,11 @@ and open the template in the editor.
   text-align: center;
   text-transform: uppercase;
 }
+@media (max-width: 767px) {
+  .title.box-title {
+    font-size: 2em;
+  }
+}
 .title.white-title {
   color: #fff;
   font-size: 1.3em;
@@ -2540,6 +2545,11 @@ ul.social li:hover a {
   text-transform: uppercase;
   color: #656565;
   font-weight: 300;
+}
+@media (max-width: 767px) {
+  .room-title-container .room-title h1 {
+    font-size: 2em;
+  }
 }
 .room-title-container .room-title .room-title-desc {
   font-size: 1em;

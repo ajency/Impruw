@@ -41,4 +41,9 @@ define ['app'
                     @layout.model.save()
 
 
+                # try
                 @layout.elementRegion.show view
+                # catch e
+                #     @layout.elementRegion.show @_getErrorView()
+                
+                

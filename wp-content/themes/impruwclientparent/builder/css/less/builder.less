@@ -1247,19 +1247,40 @@ a {
 				text-align: center;
 				padding: 0.5em;
 				padding-top: 3em;
+				.lockgo {
+					background: url('../images/impruw-logo.png') no-repeat;
+					background-size: contain;
+					width: 400px;
+					height: 186px;
+					margin: 0 auto;
+				}
 				.bicon {
 					color: @dash-grey;
-					font-size: 3em;
+					font-size: 4em;
 				}
 				.message-span {
 					margin: 0.5em 0 1em;
 					color: @blue-grey;
+					font-size: 1.5em;
+					text-transform: capitalize;
+				}
+				.option-msg {
+					color: @dash-grey;
+					margin: 0 0 1em;
 					font-size: 1.2em;
 				}
 				.option-or {
-					display: inline-block;
-					margin: 0 0.5em;
-					color: @dash-grey;
+					display: block;
+					margin: 1em 0 0.5em;
+					color: lighten(@3-grey, 20%);
+				}
+				.lock-help {
+					font-size: 0.88em;
+					margin: 1.5em 0 0;
+					color: lighten(@3-grey, 20%);
+					a {
+						color: @orange;
+					}
 				}
 				.bootstrap-select {
 					margin-bottom: 0.25em;

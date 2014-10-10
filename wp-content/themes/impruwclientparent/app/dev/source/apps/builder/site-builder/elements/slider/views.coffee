@@ -143,6 +143,10 @@ define ['app'], (App)->
 
                 # @_saveSliderHeightWidth()
 
+            onSetWidth :->
+                @model.set 'width', @$el.width()
+                @model.save()
+
 
             sliderClick : (e)->
                 e.stopPropagation()

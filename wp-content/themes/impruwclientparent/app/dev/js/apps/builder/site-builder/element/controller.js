@@ -70,8 +70,14 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
         if (element.isNew()) {
           App.execute("when:fetched", element, (function(_this) {
             return function() {
+              var e;
               _this.layout.triggerMethod("before:render:element");
-              return _this.renderElement();
+              try {
+                return _this.renderElement();
+              } catch (_error) {
+                e = _error;
+                return _this.layout.elementRegion.show(_this._getErrorView());
+              }
             };
           })(this));
         }
@@ -107,6 +113,12 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
       Controller.prototype._getView = function(elementModel) {
         return new Element.Views.ElementView({
           model: elementModel
+        });
+      };
+
+      Controller.prototype._getErrorView = function() {
+        return new Element.Views.ErrorView({
+          model: this.layout.model
         });
       };
 
