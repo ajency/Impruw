@@ -35,6 +35,7 @@
         var PLANS = <?php echo json_encode(get_plans(FALSE)); ?>;
         var DATERANGE = <?php echo json_encode(get_date_range(FALSE)); ?>;
         var TARIFF = <?php echo json_encode(get_tariff(get_the_ID())); ?>;
+        var CURRENCY = '<?php echo  get_option( 'currency', 'NOK' ); ?>';
         var BOOKING = <?php echo json_encode(get_bookings()); ?>;
         
     </script>

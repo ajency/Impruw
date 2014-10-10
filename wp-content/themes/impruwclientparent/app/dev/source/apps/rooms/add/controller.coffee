@@ -39,6 +39,7 @@ define [ 'app', 'controllers/base-controller'
                         App.execute "show:slides:list",
                             region : App.dialogRegion
                             collection : @slidesCollection
+                            element : 'Room'
 
                     # listen to add event of collection. when a new model is added to
                     # collection pick the slider id and hold it for future slides

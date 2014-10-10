@@ -59,6 +59,11 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
           return function() {
             var view;
             view = _this._getSliderView(slidesCollection);
+            _this.listenTo(view, 'show', function() {
+              if (!_this.layout.model.get('width')) {
+                return view.triggerMethod("set:width");
+              }
+            });
             _this.listenTo(view, "show:slides:manager", function(ratio) {
               App.execute("show:slides:manager", slidesCollection, _this.layout.model.get('element'));
               return App.currentImageRatio = ratio;
@@ -69,7 +74,7 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
               return _this.layout.model.save();
             });
             _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {
-              return _this.renderElement();
+              return _this.layout.elementRegion.show(view);
             });
             _this.listenTo(view, "render:slider itemview:render:slider", function() {
               _this.layout.model.save();

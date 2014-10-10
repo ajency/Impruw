@@ -16,6 +16,12 @@ define(['app'], function(App) {
 
       SliderItem.prototype.tagName = 'li';
 
+      SliderItem.prototype.events = {
+        'click a': function(e) {
+          return e.preventDefault();
+        }
+      };
+
       SliderItem.prototype.mixinTemplateHelpers = function(data) {
         data = SliderItem.__super__.mixinTemplateHelpers.call(this, data);
         if (data.layers.length) {
@@ -162,6 +168,11 @@ define(['app'], function(App) {
             };
           })(this)
         });
+      };
+
+      SliderView.prototype.onSetWidth = function() {
+        this.model.set('width', this.$el.width());
+        return this.model.save();
       };
 
       SliderView.prototype.sliderClick = function(e) {

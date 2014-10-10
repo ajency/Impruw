@@ -50,6 +50,10 @@ define ['app'
                 App.execute "when:fetched", slidesCollection, =>
                     view = @_getSliderView slidesCollection
 
+                    @listenTo view, 'show',=>
+                        if not @layout.model.get 'width'
+                            view.triggerMethod "set:width"
+
                     @listenTo view, "show:slides:manager", (ratio)=>
                         App.execute "show:slides:manager", slidesCollection , @layout.model.get 'element'
                         App.currentImageRatio = ratio
@@ -60,7 +64,9 @@ define ['app'
                         @layout.model.save()
 
                     @listenTo slidesCollection, "remove add slides:order:updated", =>
-                        @renderElement()
+                        # console.log 'slider updated'
+                        @layout.elementRegion.show view
+                        # @renderElement()
 
                     @listenTo view ,"render:slider itemview:render:slider",=>
                         @layout.model.save()

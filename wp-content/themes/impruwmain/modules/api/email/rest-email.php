@@ -181,9 +181,14 @@ function update_email($args){
     if ($account) {
         // updating password
         $was_updated = $account->update_password($args['password']);
+        $response = 'email updated';
+    }
+    else{
+        $response = 'in-valid email id';
     }
 
-    $response = array('updated' => $was_updated== 1? true:false);
+    //$response = array('updated' => $was_updated== 1? true:false);
+    $response = $response;
 
     wp_send_json($response);
 
@@ -213,12 +218,20 @@ function disable_user_email($args){
 
     $was_disabled = false;
     if($account){
-
         //Disabling account
         $was_disabled = $account->disable();
+        if($was_disabled == true){
+            $response = 'email id disabled';
+        }
+        else{
+            $response = 'unable to disable';
+        }
+    }
+    else{
+        $response = 'in-valid email id';
     }
 
-    $response = array('disabled' => $was_disabled);
+    $response = array('disabled' => $response);
 
     wp_send_json($response);
 

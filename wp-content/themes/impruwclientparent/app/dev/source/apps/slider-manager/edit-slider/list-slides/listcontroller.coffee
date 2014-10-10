@@ -44,7 +44,8 @@ define ['app'
                     @updateImageThumb iv.model, editView.model                     
                     listView.triggerMethod "show:edit:image", editView
                     listView.listenTo editView, "image:editing:cancelled", ->
-                        listView.triggerMethod "image:editing:cancelled"
+                        # listView.triggerMethod "image:editing:cancelled"
+                        layout.slidesListRegion.show listView
 
                 @listenTo listView, "itemview:add:text",(iv, imageId)->
                     App.execute 'show:slide:text:layer',
@@ -111,10 +112,14 @@ define ['app'
             className: 'panel panel-default moveable'
 
             template: '<div class="panel-heading">
-						  <a class="accordion-toggle">
 							<div class="aj-imp-image-item row">
                                 {{^isSlider}}
 								<div class="imgthumb full-w col-sm-12">
+                                    <div class="arrange-slides">
+                                        <div class="arrow">
+                                            <span class="bicon icon-uniF140"></span>
+                                        </div>
+                                    </div>
 									<img src="{{full_url}}" class="img-responsive">
                                     <div class="imgactions">
                                         <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
@@ -124,109 +129,124 @@ define ['app'
                                 {{/isSlider}}
                                 {{#isSlider}}
                                 <div class="imgthumb col-sm-2">
+                                    <div class="arrange-slides">
+                                        <div class="arrange-slides">
+                                        <div class="arrow">
+                                            <span class="bicon icon-uniF140"></span>
+                                        </div>
+                                    </div>
+                                    </div>
                                     <img src="{{thumb_url}}" class="img-responsive">
                                     <div class="imgactions">
                                         <a href="#/edit-image" class="blue-link edit-image"> <span class="glyphicon glyphicon-edit"></span>{{#polyglot}}Edit Image{{/polyglot}}</a>
                                         <a class="red-link remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
                                     </div>
                                 </div>
-                                <form action="" method="POST" role="form" validate>
-								<div class="imgname col-sm-5">
-                                    <div class="form-horizontal">
-                                        <div class="form-group ">
-                                            <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Title{{/polyglot}}</label>
-                                            <div class="col-sm-9">
-                                                <input  type="text" name="text" class="caption-title form-control" placeholder="{{#polyglot}}Caption Title{{/polyglot}}"/>
+                                
+								<div class="imgname col-sm-10">
+                                    <form action="" method="POST" class="form-horizontal" role="form" validate>
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <div class="form-group ">
+                                                    <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Title{{/polyglot}}</label>
+                                                    <div class="col-sm-9">
+                                                        <input  type="text" name="text" class="caption-title form-control" placeholder="{{#polyglot}}Caption Title{{/polyglot}}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group caption-exist">
+                                                    <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Description{{/polyglot}}</label>
+                                                    <div class="col-sm-9">
+                                                        <textarea  type="text" name="text" class="caption-description form-control" placeholder="{{#polyglot}}Caption Description{{/polyglot}}">
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group caption-exist">
+                                                    <div class="col-sm-9 col-sm-offset-3">
+                                                        <label for="" class="control-label checkbox">
+                                                            <input type="checkbox" class="link-check" name="target"/>
+                                                            {{#polyglot}}Add Link to Caption{{/polyglot}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group caption-exist link-hide">
+                                                    <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Link{{/polyglot}}</label>
+                                                    <div class="col-sm-9">
+                                                        <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group caption-exist link-hide">
+                                                    <div class="col-sm-9 col-sm-offset-3">
+                                                        <label for="" class="control-label checkbox">
+                                                            <input type="checkbox" class="link-target" name="target"/>
+                                                            {{#polyglot}}Open in new Tab{{/polyglot}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-9 col-sm-offset-3">
+                                                        <button type="button" class="btn btn-xs aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save Caption{{/polyglot}}</button>
+                                                        <a class="red-link delete-slide-layer caption-exist"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group caption-exist">
-                                            <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Description{{/polyglot}}</label>
-                                            <div class="col-sm-9">
-                                                <textarea  type="text" name="text" class="caption-description form-control" placeholder="{{#polyglot}}Caption Description{{/polyglot}}">
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group caption-exist">
-                                            <div class="col-sm-9 col-sm-offset-3">
-                                                <label for="" class="control-label checkbox">
-                                                    <input type="checkbox" class="link-check" name="target"/>
-                                                    {{#polyglot}}Add Link to Caption{{/polyglot}}
-                                                </label>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-group caption-exist link-hide">
-                                            <label for="" class="control-label col-sm-3">{{#polyglot}}Caption Link{{/polyglot}}</label>
-                                            <div class="col-sm-9">
-                                                <input  type="text" name="text" class="caption-link form-control" placeholder="{{#polyglot}}Caption Link{{/polyglot}}"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group caption-exist link-hide">
-                                            <div class="col-sm-9 col-sm-offset-3">
-                                                <label for="" class="control-label checkbox">
-                                                    <input type="checkbox" class="link-target" name="target"/>
-                                                    {{#polyglot}}Open in new Tab{{/polyglot}}
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="imgname col-sm-5">
-                                    <div class="form-horizontal">
-                                        <div class="form-group layout-opts caption-exist">
-                                            <div class="col-sm-4">
-                                                <label for="" class="control-label">{{#polyglot}}Caption Style{{/polyglot}}</label>
-                                                <select name="style" class="form-control caption-style">
-                                                    {{#captionStyles}}
-                                                    <option value="title {{value}}">{{name}}</option>
-                                                    {{/captionStyles}}
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <label for="" class="control-label">{{#polyglot}}Caption Background{{/polyglot}}</label>
-                                                <select name="background" class="form-control caption-background">
-                                                    <option value="transparent-black">Transparent Black</option>
-                                                    <option value="transparent-white">Transparent White</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <label for="" class="control-label">{{#polyglot}}Position{{/polyglot}}</label>
-                                                <div class="caption-position">
-                                                    <input type="radio" name="position" value="left,top">
-                                                    <label><span><span></span></span></label>
-                                                    <input type="radio" name="position" value="center,top">
-                                                    <label><span><span></span></span></label>
-                                                    <input type="radio" name="position" value="right,top">
-                                                    <label><span><span></span></span></label>
-                                                    <br>
-                                                    <input type="radio" name="position" value="left,center">
-                                                    <label><span><span></span></span></label>
-                                                    <input type="radio" name="position" value="center,center">
-                                                    <label><span><span></span></span></label>
-                                                    <input type="radio" name="position" value="right,center">
-                                                    <label><span><span></span></span></label>
-                                                    <br>
-                                                    <input type="radio" name="position" value="left,bottom">
-                                                    <label><span><span></span></span></label>
-                                                    <input type="radio" name="position" value="center,bottom">
-                                                    <label><span><span></span></span></label>
-                                                    <input type="radio" name="position" value="right,bottom">
-                                                    <label><span><span></span></span></label>
+                                            <div class="col-sm-7">
+                                                <div class="form-group layout-opts caption-exist">
+                                                    <div class="col-sm-7">
+                                                        <div class="form-group">
+                                                            <label for="" class="control-label col-sm-4">{{#polyglot}}Caption Style{{/polyglot}}</label>
+                                                            <div class="col-sm-8">
+                                                                <select name="style" class="form-control caption-style">
+                                                                    {{#captionStyles}}
+                                                                    <option value="title {{value}}">{{name}}</option>
+                                                                    {{/captionStyles}}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="" class="control-label col-sm-4">{{#polyglot}}Caption Background{{/polyglot}}</label>
+                                                            <div class="col-sm-8">
+                                                                <select name="background" class="form-control caption-background">
+                                                                    <option value="transparent-black">Transparent Black</option>
+                                                                    <option value="transparent-white">Transparent White</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <div class="form-group">
+                                                            <label for="" class="control-label col-sm-4">{{#polyglot}}Caption Position{{/polyglot}}</label>
+                                                            <div class="caption-position col-sm-8">
+                                                                <input type="radio" name="position" value="left,top">
+                                                                <label><span><span></span></span></label>
+                                                                <input type="radio" name="position" value="center,top">
+                                                                <label><span><span></span></span></label>
+                                                                <input type="radio" name="position" value="right,top">
+                                                                <label><span><span></span></span></label>
+                                                                <br>
+                                                                <input type="radio" name="position" value="left,center">
+                                                                <label><span><span></span></span></label>
+                                                                <input type="radio" name="position" value="center,center">
+                                                                <label><span><span></span></span></label>
+                                                                <input type="radio" name="position" value="right,center">
+                                                                <label><span><span></span></span></label>
+                                                                <br>
+                                                                <input type="radio" name="position" value="left,bottom">
+                                                                <label><span><span></span></span></label>
+                                                                <input type="radio" name="position" value="center,bottom">
+                                                                <label><span><span></span></span></label>
+                                                                <input type="radio" name="position" value="right,bottom">
+                                                                <label><span><span></span></span></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <button type="button"  class="btn btn-sm aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save{{/polyglot}}</button>
-                                                <a class="red-link delete-slide-layer" ><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Caption{{/polyglot}}</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
-                                </form>
                                 {{/isSlider}}
 							</div>
-						  </a>
 						</div>'
 
             mixinTemplateHelpers : (data)->
@@ -234,10 +254,11 @@ define ['app'
                 captionStyles = Marionette.getOption @,'settingsModel'
                 data.isSlider = if Marionette.getOption(@,'element') is 'Slider' then true else false
                 data.captionStyles = []
-                _.each captionStyles.get('styles'),(style)->
-                    data.captionStyles.push 
-                        name : style.name
-                        value : _.slugify style.name
+                if data.isSlider
+                    _.each captionStyles.get('styles'),(style)->
+                        data.captionStyles.push 
+                            name : style.name
+                            value : _.slugify style.name
                 data
 
             modelEvents : 
@@ -272,6 +293,10 @@ define ['app'
                     #     @model.save()
                     #     @model.trigger 'model:changed'
                         # @setCaptionDefaults()
+
+                'blur .caption-link':(evt)->
+                    if $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 2) isnt "//"
+                        $(evt.target).val "http://" + $(evt.target).val()
                         
 
                 'click .save-slide-layer' : 'saveSlideLayer'
@@ -358,7 +383,12 @@ define ['app'
                         @model.set 'layers',[data]
                     else
                         @model.set 'layers',[]
-                    @model.save()
+                    @model.save
+                        success : =>
+                            @$el.find('.save-slide-layer').addClass('disabled').html '<span class="glyphicon glyphicon-ok"></span>&nbsp;' + _.polyglot.t ('Saved')
+                            _.delay =>
+                                @$el.find('.save-slide-layer').removeClass('disabled').html _.polyglot.t ('Save Caption')
+                            ,5000
                     @model.trigger 'model:changed'
 
             layerDefault : ->
@@ -417,19 +447,6 @@ define ['app'
         class SlidesListView extends Marionette.CompositeView
 
             template: ' <div class="slides-list">
-                            <div class="aj-imp-image-header row">
-    							<div class="col-sm-2">
-    								{{#polyglot}}Slide Image{{/polyglot}}
-    							</div>
-                                {{#isSlider}}
-    							<div class="col-sm-5">
-    								{{#polyglot}}Slide Caption{{/polyglot}}
-    							</div>
-                                <div class="col-sm-5">
-                                    {{#polyglot}}Slide Caption Styles{{/polyglot}}
-                                </div>
-                                {{/isSlider}}
-    						</div>
     						<div class="panel-group" id="slides-accordion"></div>
                         </div>
                         <div id="edit-image-view" class="edit-image-view"></div>'
@@ -503,11 +520,10 @@ define ['app'
                                 </div>
                                 <div id="slides-info">
                                     {{#polyglot}}Click the button to select images to add to your slider. You can change the order of the images by dragging them up or down in the list to the left.{{/polyglot}}
+                                    <div class="aj-imp-block-button add-new-slide">
+                                        <button class="btn btn-default btn-hg"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button>
+                                    </div>
                                 </div>
-                                <div class="aj-imp-block-button add-new-slide">
-                                    <button class="btn btn-default btn-hg"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button>
-                                </div>
-
                                 <div id="add-slide-region"></div>
                                 
                             </div>

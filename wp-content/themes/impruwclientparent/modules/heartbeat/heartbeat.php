@@ -7,7 +7,7 @@ function autosave_page_json( $response, $data, $screen_id ) {
             $response['autosave-page-json'] = array(
                 'success' => false,
                 'new_instance' => true,
-                'reason' => __('New instance of site builder is open')
+                'reason' => __('Looks like the sitebuilder for sitename is opened some other place. Close this page to continue working.')
             );
             return $response;
         }
@@ -62,7 +62,7 @@ function check_builder_instance( $response, $data, $screen_id ) {
             $response['check-instance'] = array(
                 'success' => false,
                 'new_instance' => true,
-                'reason' => __('New instance of site builder is open')
+                'reason' => __('Looks like the sitebuilder for sitename is opened some other place. Close this page to continue working.')
             );
             return $response;
         }

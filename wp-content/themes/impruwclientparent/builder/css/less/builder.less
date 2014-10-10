@@ -124,6 +124,13 @@ a {
 	}
 }
 
+/**** Select Styles ****/
+.bootstrap-select {
+	.dropdown-toggle {
+		border-radius: 2px !important;
+	}
+}
+
 /****Builder Drag and Drop Menu****/
 .aj-imp-drag-menu {
 	width: 180px;
@@ -1240,19 +1247,40 @@ a {
 				text-align: center;
 				padding: 0.5em;
 				padding-top: 3em;
+				.lockgo {
+					background: url('../images/impruw-logo.png') no-repeat;
+					background-size: contain;
+					width: 400px;
+					height: 186px;
+					margin: 0 auto;
+				}
 				.bicon {
 					color: @dash-grey;
-					font-size: 3em;
+					font-size: 4em;
 				}
 				.message-span {
 					margin: 0.5em 0 1em;
 					color: @blue-grey;
+					font-size: 1.5em;
+					text-transform: capitalize;
+				}
+				.option-msg {
+					color: @dash-grey;
+					margin: 0 0 1em;
 					font-size: 1.2em;
 				}
 				.option-or {
-					display: inline-block;
-					margin: 0 0.5em;
-					color: @dash-grey;
+					display: block;
+					margin: 1em 0 0.5em;
+					color: lighten(@3-grey, 20%);
+				}
+				.lock-help {
+					font-size: 0.88em;
+					margin: 1.5em 0 0;
+					color: lighten(@3-grey, 20%);
+					a {
+						color: @orange;
+					}
 				}
 				.bootstrap-select {
 					margin-bottom: 0.25em;
@@ -1986,6 +2014,30 @@ a {
 					}
 				}
 				.imgthumb {
+					position: relative;
+					padding-left: 30px;
+					.arrange-slides {
+						width: 20px;
+						text-align: center;
+						background: lighten(@dash-grey, 20%);
+						left: 5px;
+						top: 0;
+						bottom: 0;
+						position: absolute;
+						cursor: move;
+						overflow: hidden;
+						.arrow {
+							position: relative;
+							left: -5px;
+							top: 40%;
+							.bicon {
+								display: block;
+								font-size: 2em;
+								color: @preview-grey;
+								transform: rotate(90deg);
+							}
+						}
+					}
 					img {
 						height: 100%;
 						width: auto;
@@ -1996,11 +2048,20 @@ a {
 							display: inline-block;
 							vertical-align: top;
 							margin-right: 0.5em;
-							min-width: 316px;						}
+							min-width: 316px;						
+						}
+						.arrange-slides {
+							.arrow {
+								left: 0;
+							}
+						}
 					}
 				}
 				&:hover {
 					background: @preview-grey;
+					.arrange-slides {
+						background: @blue-grey;
+					}
 				}
 			}
 			.panel-body {
@@ -2961,20 +3022,26 @@ a {
 					border-width: 1px;
 					line-height: 1em;
 					height: 32px;
+					border-radius: 3px;
 					&.bootstrap-select {
 						padding: 0;
 						height: auto;
 					}
 				}
 				textarea.form-control {
-					height: 48px;
+					min-height: 48px;
+					height: auto;
+					resize: vertical;
+				}
+				.save-slide-layer {
+					&.disabled {
+						background: @blue-grey;
+					}
 				}
 				&.layout-opts {
-					border: 1px solid @dash-grey;
-					border-radius: 2px;
 					margin: 0 0 0.5em;
-					.control-label {
-						margin-bottom: 0.2em;
+					.dropdown-toggle {
+						padding: 7px 12px;
 					}
 				}
 			}
@@ -2999,7 +3066,7 @@ a {
 						height: 20px;
 						margin: 0.25em 0.5em 0.25em 0.25em;
 						border: 0;
-						border-radius: 2px;
+						border-radius: 1px;
 						background: @dash-grey;
 						vertical-align: bottom;
 					}
@@ -3037,14 +3104,18 @@ a {
 		}
 	}
 }
+
 #slides-info {
 	background: @preview-grey;
-	padding: 1em;
+	padding: 0.5em;
 	margin: 0 0.4em 0.5em;
-	font-size: 1.3em;
+	font-size: 1.1em;
 	color: darken(@dash-grey, 10%);
 	border: 2px solid lighten(@dash-grey, 20%);
-	border-radius: 4px;
+	border-radius: 2px;
+	.add-new-slide {
+		margin-bottom: 0;
+	}
 }
 
 .crop-help {
@@ -3121,7 +3192,7 @@ a {
 	list-style: none;
 }
 
-#slides-list-region, #add-slide-region, .aj-imp-block-button.add-new-slide {
+#slides-list-region, #add-slide-region {
 	margin-left: 0.5em;
 	margin-right: 0.5em;
 }
@@ -3793,7 +3864,7 @@ a {
 					padding: 0.2em 0.5em;
 					display: block;
 					text-decoration: none;
-					font-size: 1.5em;
+					font-size: 2em;
 					color: @dash-grey;
 					&.landscape {
 						transform: translateY(-3px) translateX(3px) rotate(-90deg);
@@ -3832,10 +3903,14 @@ a {
 		}
 		.preview-close {
 			float: right;
-			margin-top: 0.7em;
+			margin-top: 1.2em;
 			font-size: 0.88em;
 			a {
 				color: @dash-grey;
+				.icon {
+					font-size: 1.1em;
+					vertical-align: text-bottom;
+				}
 				&:hover {
 					text-decoration: none;
 					color: @orange;

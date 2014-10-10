@@ -183,6 +183,11 @@ and open the template in the editor.
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
+@media (max-width: 969px) {
+  .site-style-container .row.column-dividers .column {
+    border-right: 0;
+  }
+}
 /**** Logo Styles ****/
 @media (max-width: 971px) {
   .logo {

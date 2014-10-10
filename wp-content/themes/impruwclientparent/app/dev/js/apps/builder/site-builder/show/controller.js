@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __slice = [].slice,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/views'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-builder/show/views'], function(App, AppController, bootbox) {
   return App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
     var siteBuilderController;
     siteBuilderController = null;
@@ -68,7 +68,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         return _.delay((function(_this) {
           return function() {
             if (!elementLoaded) {
-              return alert("Sorry, but this page didn't load properly. Please refresh the page");
+              return bootbox.alert("Sorry, but this page didn't load properly. Please refresh the page");
             }
           };
         })(this), 15000);

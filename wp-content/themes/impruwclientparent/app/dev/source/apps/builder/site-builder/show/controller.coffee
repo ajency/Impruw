@@ -1,5 +1,8 @@
-define [ 'app', 'controllers/base-controller'
-         'apps/builder/site-builder/show/views' ], ( App, AppController )->
+define [ 'app'
+         'controllers/base-controller' 
+         'bootbox'
+         'apps/builder/site-builder/show/views' 
+], ( App, AppController, bootbox )->
     App.module 'SiteBuilderApp.Show', ( Show, App, Backbone, Marionette, $, _ )->
         siteBuilderController = null
 
@@ -60,7 +63,7 @@ define [ 'app', 'controllers/base-controller'
 
                 _.delay =>
                     if not elementLoaded
-                        alert "Sorry, but this page didn't load properly. Please refresh the page"
+                        bootbox.alert "Sorry, but this page didn't load properly. Please refresh the page"
                 ,15000
 
             _getContainer : ( section )->

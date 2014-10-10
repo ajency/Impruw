@@ -29,7 +29,7 @@ define(["marionette", "app"], function(Marionette, App) {
     };
 
     AppController.prototype.add = function(layout, section) {
-      var type;
+      var e, type;
       this.listenTo(layout, 'close', this.close);
       type = layout.model.get("element");
       if (section.find("li[data-element='" + type + "']").length === 1) {
@@ -45,7 +45,12 @@ define(["marionette", "app"], function(Marionette, App) {
       }
       if (!layout.model.isNew() || layout.model.get('element') === 'Row') {
         layout.triggerMethod("before:render:element");
-        return this.renderElement();
+        try {
+          return this.renderElement();
+        } catch (_error) {
+          e = _error;
+          return this.layout.elementRegion.show(this._getErrorView());
+        }
       }
     };
 

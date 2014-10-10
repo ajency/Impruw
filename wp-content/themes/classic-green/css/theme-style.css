@@ -162,6 +162,11 @@ and open the template in the editor.
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
+@media (max-width: 969px) {
+  .site-style-container .row.column-dividers .column {
+    border-right: 0;
+  }
+}
 /**** Logo Styles ****/
 @media (max-width: 971px) {
   .logo {
@@ -1878,6 +1883,14 @@ and open the template in the editor.
 .row.grey-background .text {
   color: #fff;
 }
+@media (max-width: 767px) {
+  .row.grey-background .text {
+    text-align: center;
+  }
+  .row.grey-background .text p {
+    text-align: center !important;
+  }
+}
 .row.shaded-background {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAIAAABLMMCEAAAAM0lEQVQImWXMsQkAMAwDwY9A+0/pKdykcUiIVB7iV1UBgG3OlNTdSgKUdAsv2VbSfD8CNi76FMy/HZ/YAAAAAElFTkSuQmCC) repeat scroll 0 0 rgba(0, 0, 0, 0);
   margin-bottom: 1em;
@@ -1989,6 +2002,11 @@ and open the template in the editor.
   background: #5ca9a1;
   cursor: pointer;
 }
+@media (max-width: 480px) {
+  .nav.footer-menu li {
+    display: block;
+  }
+}
 .nav.footer-menu li a {
   font-size: 1.333em;
   color: #ffffff;
@@ -2015,6 +2033,11 @@ and open the template in the editor.
   color: #656565;
   text-align: center;
   text-transform: uppercase;
+}
+@media (max-width: 767px) {
+  .title.box-title {
+    font-size: 2em;
+  }
 }
 .title.white-title {
   color: #fff;
@@ -2522,6 +2545,11 @@ ul.social li:hover a {
   text-transform: uppercase;
   color: #656565;
   font-weight: 300;
+}
+@media (max-width: 767px) {
+  .room-title-container .room-title h1 {
+    font-size: 2em;
+  }
 }
 .room-title-container .room-title .room-title-desc {
   font-size: 1em;

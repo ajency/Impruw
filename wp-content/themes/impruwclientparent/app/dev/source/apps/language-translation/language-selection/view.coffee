@@ -95,11 +95,11 @@ define ['app'
                        disabledStatus = '' 
                        hideClass = ''
 
-                    html += '<div class="form-group '+hideClass+'">
+                    html += '<li><div class="form-group '+hideClass+'">
                             <label for="checkbox2" class="checkbox">
                                 <input type="checkbox" data-toggle="checkbox" value="'+languageCode+'" '+checkedStatus+' '+disabledStatus+'>'+languageName+'
                             </label>
-                        </div>'
+                        </div></li>'
 
                 @$el.find("#hide-langs").html(html)
 
@@ -211,11 +211,11 @@ define ['app'
                         disabledStatus = ''
                         hideClass = '' 
 
-                    htmlforHiddenLangView += '<div class="form-group '+hideClass+'">
+                    htmlforHiddenLangView += '<li><div class="form-group '+hideClass+'">
                             <label for="checkbox2" class="checkbox">
                                 <input type="checkbox" data-toggle="checkbox" value="'+languageCode+'" '+checkedStatus+' '+disabledStatus+'>'+languageName+'
                             </label>
-                        </div>'
+                        </div></li>'
                     
                     htmlString += '<div class="single-language" id="language-'+languageCode+'" data-language-code="'+languageCode+'"> <span class="icon '+spanClass+'"></span> ' + languageName + ' </div>'
                     return
