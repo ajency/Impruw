@@ -3204,3 +3204,99 @@ and open the template in the editor.
   }
   /*Responive*/
 }
+/**** Table Styles****/
+.table {
+  background: #2a3b66;
+  color: #989898;
+  margin: 0;
+}
+.table > thead > tr {
+  background: #e4e4e4;
+}
+.table > thead > tr th {
+  color: #ff5f5f;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-width: 0;
+  text-align: left;
+}
+.table > thead > tr > th p,
+.table > tbody > tr > th p,
+.table > tfoot > tr > th p,
+.table > thead > tr > td p,
+.table > tbody > tr > td p,
+.table > tfoot > tr > td p {
+  margin: 0;
+  line-height: 1;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th {
+  border-bottom: 0;
+}
+.table.table-bordered > thead > tr td,
+.table.table-bordered > tbody > tr td,
+.table.table-bordered > thead > tr th,
+.table.table-bordered > tbody > tr th {
+  border: 1px solid #989898 !important;
+}
+.table.table-striped > tbody > tr:nth-child(2n) > td,
+.table.table-striped > tbody tr.selected-row > td {
+  background: #39508a;
+}
+.table.table-hover > tbody > tr:hover > td,
+.table.table-hover > tbody > tr:hover > th {
+  background: #2a3b66;
+}
+.table.style-1 {
+  border-color: #ff5f5f;
+  border-width: 1px;
+}
+.table.style-1 > thead > tr {
+  background: #ff5f5f;
+}
+.table.style-1 > thead > tr th {
+  color: #ffffff;
+}
+.table.style-1 > thead > tr td,
+.table.style-1 > tbody > tr td,
+.table.style-1 > thead > tr th,
+.table.style-1 > tbody > tr th {
+  border-color: #ff5f5f !important;
+}
+.table.style-2 {
+  border-color: #e9e9e9;
+}
+.table.style-2 > thead > tr {
+  background: #e9e9e9;
+}
+.table.style-2 > thead > tr th {
+  color: #ff5f5f;
+}
+.table.style-2 > thead > tr td,
+.table.style-2 > tbody > tr td,
+.table.style-2 > thead > tr th,
+.table.style-2 > tbody > tr th {
+  border-color: #e9e9e9 !important;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 1em;
+}
+@media (max-width: 979px) {
+  .table-responsive {
+    margin: 1em 0;
+    border-color: #2a3b66;
+  }
+  .table-responsive > .table {
+    background: #2a3b66;
+  }
+}
