@@ -356,7 +356,7 @@ function create_element_model() {
         $response = array(
             'success' => false,
             'new_instance' => true,
-            'reason' => __('New instance of site builder is open')
+            'reason' => __('Looks like the sitebuilder for sitename is opened some other place. Close this page to continue working.')
         );
         wp_send_json($response);
     }
@@ -457,7 +457,7 @@ function update_element_model() {
         $response = array(
             'success' => false,
             'new_instance' => true,
-            'reason' => __('New instance of site builder is open')
+            'reason' => __('Looks like the sitebuilder for sitename is opened some other place. Close this page to continue working.')
         );
         wp_send_json($response);
     }
@@ -488,7 +488,7 @@ function delete_element_model() {
         $response = array(
             'success' => false,
             'new_instance' => true,
-            'reason' => __('New instance of site builder is open')
+            'reason' => __('Looks like the sitebuilder for sitename is opened some other place. Close this page to continue working.')
         );
         wp_send_json($response);
     }
