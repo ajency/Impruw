@@ -32,6 +32,7 @@
     <link href="<?php echo site_url(); ?>//wp-includes/css/dashicons.min.css" rel="stylesheet" media="screen">
     <link href="<?php echo site_url(); ?>/wp-includes/js/imgareaselect/imgareaselect.css" rel="stylesheet"
           media="screen">
+    <link href="<?php echo site_url(); ?>/wp-content/plugins/revslider/rs-plugin/css/dynamic-captions.css" rel="stylesheet"
     <link href="<?php echo site_url(); ?>/wp-admin/css/media-rtl.css" rel="stylesheet" media="screen">
     <link href="<?php echo site_url(); ?>/wp-admin/css/media.css" rel="stylesheet" media="screen">
 
@@ -115,6 +116,7 @@
     var THEMECOLORSET = '<?php echo get_option('current_color_set','default'); ?>';
     var AUTOSAVEINTERVAL = 6000 * 10 * 2 ;
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
+    var SINGLE_ROOM_PAGE = '<?php echo get_single_room_page_title();?>';
     var ADDRESS = '<?php echo get_hotel_address() ?>';
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
@@ -125,7 +127,7 @@
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;
 </script>
-<!-- <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
 <!-- Unused Elements Box -->
 <div id="fl_menu" class="aj-imp-trash-elements"></div>
@@ -140,10 +142,11 @@
     <script
         src="<?php echo get_parent_template_directory_uri(); ?>/app/production/builder-main.js?ver=<?php echo JSVERSION ?>"></script>
 <?php else: ?>
-    <!--  <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+   <!-- 
+      <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> 
 
-    <script src="<?php  get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>-->
-
+    <script src="<?php  get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
+ -->
     <script data-main="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/builder-main"
             src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
 <?php endif; ?>

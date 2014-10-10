@@ -1,5 +1,7 @@
-define ['app', 'apps/builder/site-builder/elements/logo/views',
-        'apps/builder/site-builder/elements/logo/settings/controller'],
+define ['app',
+        'apps/builder/site-builder/elements/logo/views'
+        'apps/builder/site-builder/elements/logo/settings/controller'
+        'apps/builder/site-builder/elements/image/controller'],
 (App)->
     App.module 'SiteBuilderApp.Element.Logo', (Logo, App, Backbone, Marionette, $, _)->
 
@@ -24,6 +26,7 @@ define ['app', 'apps/builder/site-builder/elements/logo/views',
                     imageHeightRatio : @layout.model.get 'heightRatio'
                     positionTopRatio : @layout.model.get 'topRatio'
                     templateHelpers: @_getTemplateHelpers()
+                    eleModel : @layout.model
 
             # bindEvents: ->
             #     # start listening to model events

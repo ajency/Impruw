@@ -29,6 +29,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
             return _this.model.set("draggable", draggable);
           };
         })(this));
+        this.listenTo(view, "element:linkcheck:changed", (function(_this) {
+          return function(link_check) {
+            return _this.model.set("link_check", link_check);
+          };
+        })(this));
         this.listenTo(view, "element:alignment:changed", (function(_this) {
           return function(alignment) {
             return _this.model.set("align", alignment);

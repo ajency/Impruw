@@ -145,6 +145,9 @@ and open the template in the editor.
     Created on : 20 Feb, 2014, 7:45:35 PM
     Author     : jarr-head
 */
+.site-style-container {
+  min-height: 100vh;
+}
 .site-style-container .row.center-container {
   max-width: 1170px;
   margin: 0.5em auto;
@@ -161,10 +164,16 @@ and open the template in the editor.
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
+@media (max-width: 969px) {
+  .site-style-container .row.column-dividers .column {
+    border-right: 0;
+  }
+}
 /**** Logo Styles ****/
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .logo {
     text-align: center;
+    margin: auto;
   }
   .logo a {
     display: inline-block;
@@ -174,6 +183,9 @@ and open the template in the editor.
   display: block !important;
 }
 /****Top Slim-menu Styles****/
+.nav {
+  color: #333333;
+}
 .nav.slimmenu {
   padding: 0;
   border: 1px solid #c1bbad;
@@ -403,7 +415,7 @@ and open the template in the editor.
   margin-bottom: 10px;
   padding-left: 5px;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .address {
     text-align: center;
   }
@@ -521,9 +533,9 @@ and open the template in the editor.
 .social.social-center {
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .social {
-    text-align: center;
+    text-align: center !important;
   }
 }
 /*
@@ -1195,6 +1207,14 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-today {
   font-weight: 700;
 }
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day {
+  font-weight: 700;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day a,
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day span {
+  background: #dc6868;
+  color: #333333;
+}
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red {
   background: #f97d61;
 }
@@ -1824,6 +1844,20 @@ ul.gallery {
 }
 .embed-responsive.embed-responsive-4by3 {
   padding-bottom: 75%;
+}
+.tp-caption {
+  padding: 1em;
+}
+.tp-caption.transparent-black {
+  background: rgba(0, 0, 0, 0.7);
+}
+.tp-caption.transparent-white {
+  background: rgba(255, 255, 255, 0.7);
+}
+@media (max-width: 480px) {
+  .tp-bullets {
+    display: none;
+  }
 }
 /*
 To change this license header, choose License Headers in Project Properties.
@@ -2784,7 +2818,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #fff;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;

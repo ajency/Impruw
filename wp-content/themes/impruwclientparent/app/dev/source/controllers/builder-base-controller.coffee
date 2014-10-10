@@ -11,6 +11,9 @@ define ["marionette"
         # close the controller.
         # unregister the controller instance from application object
         close: (args...) ->
+            # close the layout first
+            if @layout
+                @layout.close()
             delete @layout
             delete @options
             App.commands.execute "unregister:builder:instance", @, @_instance_id
@@ -37,4 +40,7 @@ define ["marionette"
             #check if element need save
             if not layout.model.isNew() or layout.model.get('element') is 'Row'
                 layout.triggerMethod "before:render:element"
-                @renderElement()
+                try
+                    @renderElement()
+                catch e
+                    @layout.elementRegion.show @_getErrorView()

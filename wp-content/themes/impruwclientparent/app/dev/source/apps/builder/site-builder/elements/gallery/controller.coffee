@@ -59,7 +59,7 @@ define ['app'
 
                     if not @isSingleRoomPage()
                         @listenTo view, "show:slides:manager", =>
-                            App.execute "show:slides:manager", slidesCollection
+                            App.execute "show:slides:manager", slidesCollection , @layout.model.get 'element'
 
                     @listenTo slidesCollection, "remove add slides:order:updated", =>
                         @renderElement()

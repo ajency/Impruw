@@ -51,12 +51,16 @@ class ImageElement extends Element {
         $this->size = $element['size'];
         $this->height = isset($element['heightRatio']) ? $element['heightRatio'] : 'auto';
         $this->position_top = isset($element['topRatio']) ? $element['topRatio'] : 0;
+
         
         if($element['element'] === 'Logo'){
             $this->link = site_url();
+            $this->link_check = true;
         }else{
             $this->link = isset($element['link']) ? $element['link'] : false;
+            $this->link_check = isset($element['link_check']) && ($element['link_check'] == 'true' ) ? true : false;
         }
+       
 
 
         $this->target = isset($element['target']) ? $element['target'] : '_self';
@@ -123,19 +127,19 @@ class ImageElement extends Element {
 
         $markup = '';
 
-        if ($this->link !== false){
+        if ($this->link_check){
             $markup .= "<a href='".$this->link."' target='".$this->target."' >";
         }
 
         if($path !== false) {
-            $markup .= "<div class='{$this->class_name}' style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive  {$this->margins}' width='100%' style=' position: relative;'/></div>";
+            $markup .= "<div class='image {$this->class_name}' style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive  {$this->margins}' width='100%' style=' position: relative;' onload='imageLoaded(this)'/></div>";
             
         }
         else{
             $markup .= "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";
         }
 
-        if ($this->link !== false)
+        if ($this->link_check )
             $markup .= "</a>";
 
         return $markup;

@@ -110,9 +110,14 @@ function get_language_based_facilities($language){
             $new_term_name = $room_facility['name']."-".$language;
             $translated_term = save_term_translation_wpml($language, $original_term_id, $new_term_name,$taxonomy_name);
 
+            //Fix for identical term names
+            $translated_term_name = $translated_term['name'];
+            if (strpos($translated_term['name'],'@'.$language) !== false)
+                $translated_term_name = str_replace('@'.$language, '', $translated_term['name']);
+
             $facilities_term_array[] = array(
                 'original_term_id'=>$original_term_id,
-                'name'=> $translated_term['name'],
+                'name'=> $translated_term_name,
                 'term_id' => $translated_term['term_id'],
                 'term_error' => isset($translated_term['term_error']) ? urldecode($translated_term['term_error']) : 'No
                 errors'
@@ -123,9 +128,14 @@ function get_language_based_facilities($language){
             remove_all_filters( 'get_term' );
             $translated_term = get_term($translated_term_id, $taxonomy_name);
 
+            //Fix for identical term names
+            $translated_term_name = $translated_term->name;
+            if (strpos($translated_term->name,'@'.$language) !== false)
+                $translated_term_name = str_replace('@'.$language, '', $translated_term->name);
+
             $facilities_term_array[] = array(
                 'original_term_id'=>$original_term_id,
-                'name'=> $translated_term->name,
+                'name'=> $translated_term_name,
                 'term_id' => $translated_term->term_id,
                 'term_error' => isset($translated_term->term_error) ? urldecode($translated_term->term_error) : 'No errors'
             );

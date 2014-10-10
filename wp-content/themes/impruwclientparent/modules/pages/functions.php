@@ -212,7 +212,10 @@ function get_all_menu_pages() {
             'Support',
             'Coming Soon',
             'Reset Password',
-            'Sample Page' );
+            'Sample Page',
+            'Kommer Snart', 
+            'Logg Inn',
+            'Resett passord' );
 
         foreach ( $pages->posts as $page ) {
             //Also send original page id to the page object
@@ -615,7 +618,14 @@ function translate_element(&$element, $language_code){
     //     $translated_content = __($english_content,'impruwclientparent');
     // $sitepress->switch_lang(wpml_get_default_language());
 
-    $translated_content=impruw_wpml_get_string_translation($english_content, $language_code);
+    $translated_content = "" ;
+    if (isset($element['content'][$language_code])) {
+        $translated_content = $element['content'][$language_code];
+    }
+    else{
+
+        $translated_content=impruw_wpml_get_string_translation($english_content, $language_code);
+    }
 
     if( ($translated_content===$english_content) && $language_code!='en'){
         $translated_content.= '(not translated)';
@@ -645,7 +655,14 @@ function translate_link_element(&$element, $language_code){
         $element['text'] = array();
     }
 
-    $translated_content=impruw_wpml_get_string_translation($english_content, $language_code);
+    $translated_content = "" ;
+    if (isset($element['text'][$language_code])) {
+        $translated_content = $element['text'][$language_code];
+    }
+    else{
+
+        $translated_content=impruw_wpml_get_string_translation($english_content, $language_code);
+    }
 
     if( ($translated_content===$english_content) && $language_code!='en'){
         $translated_content.= '(not translated)';

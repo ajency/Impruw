@@ -143,6 +143,9 @@ and open the template in the editor.
     Created on : 20 Feb, 2014, 7:45:35 PM
     Author     : jarr-head
 */
+.site-style-container {
+  min-height: 100vh;
+}
 .site-style-container .row.center-container {
   max-width: 1170px;
   margin: 0.5em auto;
@@ -159,10 +162,16 @@ and open the template in the editor.
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
+@media (max-width: 969px) {
+  .site-style-container .row.column-dividers .column {
+    border-right: 0;
+  }
+}
 /**** Logo Styles ****/
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .logo {
     text-align: center;
+    margin: auto;
   }
   .logo a {
     display: inline-block;
@@ -172,6 +181,9 @@ and open the template in the editor.
   display: block !important;
 }
 /****Top Slim-menu Styles****/
+.nav {
+  color: #7f7f7f;
+}
 .nav.slimmenu {
   padding: 0;
   border: 1px solid #c8c8c8;
@@ -401,7 +413,7 @@ and open the template in the editor.
   margin-bottom: 10px;
   padding-left: 5px;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .address {
     text-align: center;
   }
@@ -519,9 +531,9 @@ and open the template in the editor.
 .social.social-center {
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .social {
-    text-align: center;
+    text-align: center !important;
   }
 }
 /*
@@ -1193,6 +1205,14 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-today {
   font-weight: 700;
 }
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day {
+  font-weight: 700;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day a,
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day span {
+  background: #5ca9a1;
+  color: #7f7f7f;
+}
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red {
   background: #f97d61;
 }
@@ -1823,6 +1843,20 @@ ul.gallery {
 .embed-responsive.embed-responsive-4by3 {
   padding-bottom: 75%;
 }
+.tp-caption {
+  padding: 1em;
+}
+.tp-caption.transparent-black {
+  background: rgba(0, 0, 0, 0.7);
+}
+.tp-caption.transparent-white {
+  background: rgba(255, 255, 255, 0.7);
+}
+@media (max-width: 480px) {
+  .tp-bullets {
+    display: none;
+  }
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -1849,8 +1883,16 @@ and open the template in the editor.
 .row.grey-background .text {
   color: #fff;
 }
+@media (max-width: 767px) {
+  .row.grey-background .text {
+    text-align: center;
+  }
+  .row.grey-background .text p {
+    text-align: center !important;
+  }
+}
 .row.shaded-background {
-  background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAIAAABLMMCEAAAAM0lEQVQImWXMsQkAMAwDwY9A+0/pKdykcUiIVB7iV1UBgG3OlNTdSgKUdAsv2VbSfD8CNi76FMy/HZ/YAAAAAElFTkSuQmCC) repeat scroll 0 0 rgba(0, 0, 0, 0);
   margin-bottom: 1em;
   margin-top: 1em;
 }
@@ -1948,6 +1990,44 @@ and open the template in the editor.
   width: 100%;
   background: #7ecbc3;
 }
+.nav.footer-menu {
+  padding-left: 0;
+  text-align: center;
+}
+.nav.footer-menu li {
+  list-style: none;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background: #5ca9a1;
+  cursor: pointer;
+}
+@media (max-width: 480px) {
+  .nav.footer-menu li {
+    display: block;
+  }
+}
+.nav.footer-menu li a {
+  font-size: 1.333em;
+  color: #ffffff;
+  font-weight: 300;
+  padding: 10px 45px;
+  display: block;
+}
+.nav.footer-menu li:hover,
+.nav.footer-menu li:focus {
+  background: #ffffff;
+  text-shadow: none;
+  -webkit-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -moz-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -o-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -webkit-backface-visibility: hidden;
+}
+.nav.footer-menu li:hover a,
+.nav.footer-menu li:focus a {
+  color: #656565;
+}
 /**** Title Styles****/
 .title.box-title {
   color: #656565;
@@ -1986,7 +2066,7 @@ and open the template in the editor.
   margin-bottom: 30px;
   padding-left: 20px;
 }
-.address.small .info {
+.address.small-address .info {
   color: #989898;
   font-size: 1em;
   font-weight: 300;
@@ -2555,7 +2635,7 @@ ul.social li:hover a {
 .daterange-legends {
   text-transform: uppercase;
   font-size: 0.9em;
-  color: #ffffff;
+  color: #7f7f7f;
 }
 .daterange-legends li span {
   width: 13px;
@@ -2598,7 +2678,7 @@ ul.social li:hover a {
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #fff;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;
@@ -2631,7 +2711,7 @@ ul.social li:hover a {
   float: left;
   font-size: 0.9em;
   font-weight: 300;
-  color: #e5e5e5;
+  color: #7f7f7f;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-detail span {
   font-weight: 800;
@@ -2667,6 +2747,7 @@ ul.social li:hover a {
   text-transform: uppercase;
   margin-bottom: 30px;
   margin-top: 30px;
+  text-shadow: 1px 1px 3px #7f7f7f;
 }
 .room-booking .room-booking-container .room-booking-calender h4 .glyphicon {
   font-size: 1.5em;

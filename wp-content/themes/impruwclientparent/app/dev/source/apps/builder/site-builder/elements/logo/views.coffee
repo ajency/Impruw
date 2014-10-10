@@ -1,4 +1,6 @@
-define [ 'app' ], ( App )->
+define [ 'app' 
+		'apps/builder/site-builder/elements/image/views'
+], ( App )->
 
 	# Row views
 	App.module 'SiteBuilderApp.Element.Logo.Views', ( Views, App, Backbone, Marionette, $, _ )->

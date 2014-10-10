@@ -1,4 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'text!apps/builder/site-builder/elements/row/settings/templates/settings.html'], function(App, settingsTpl) {
@@ -7,6 +8,7 @@ define(['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
       __extends(SettingsView, _super);
 
       function SettingsView() {
+        this.onColumnCountChanged = __bind(this.onColumnCountChanged, this);
         return SettingsView.__super__.constructor.apply(this, arguments);
       }
 
@@ -52,6 +54,13 @@ define(['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
         },
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));
+        }
+      };
+
+      SettingsView.prototype.onColumnCountChanged = function(count) {
+        if (count !== parseInt(this.$el.find('.set-column-count a.btn.selected').text())) {
+          this.$el.find('.set-column-count a.btn').removeClass('selected');
+          return this.$el.find(".set-column-count a.btn." + count + "-col").addClass('selected');
         }
       };
 

@@ -302,6 +302,7 @@ jQuery(document).ready(function ($) {
     function checkTariffForPlanId(daterange_id) {
         var html = '';
         var temp = 0;
+        var defaultCurrency = CURRENCY;
 
         if (TARIFF.length === 0)
             return ' <div class="room-booking-plan"><h5>'+polyglot.t("No tariff/plans exsists for selected date")+'</h5></div>';
@@ -340,15 +341,15 @@ jQuery(document).ready(function ($) {
                     html += '<div class="plan-bg">'
 
                     html += '<h6>'+polyglot.t("Additional Charge Weekdays")+'</h6>' +
-                        '<div class="booking-detail">'+polyglot.t("per extra Adult:")+'$'
+                        '<div class="booking-detail">'+polyglot.t("per extra Adult:")+''+defaultCurrency+''
                         + weekday.extra_adult + '</div>';
 
-                    html += '<div class="booking-detail">'+polyglot.t("per extra Child:")+'$'
+                    html += '<div class="booking-detail">'+polyglot.t("per extra Child:")+''+defaultCurrency+''
                         + weekday.extra_child + '</div>';
 
                     html += '<div class="clearfix"></div>';
 
-                    html += '<div class="booking-price">'+polyglot.t("WEEKDAYS")+' <b>$' + weekday.charge + '</b></div>';
+                    html += '<div class="booking-price">'+polyglot.t("WEEKDAYS")+' <b>'+defaultCurrency+'' + weekday.charge + '</b></div>';
 
                     html += '</div>';
 
@@ -363,15 +364,15 @@ jQuery(document).ready(function ($) {
                     html += '<div class="plan-bg">';
 
                     html += '<h6>'+polyglot.t("Additional Charge Weekend")+'</h6>' +
-                        '<div class="booking-detail">'+polyglot.t("per extra Adult:")+'$'
+                        '<div class="booking-detail">'+polyglot.t("per extra Adult:")+''+defaultCurrency+''
                         + weekend.extra_adult + '</div>';
 
-                    html += '<div class="booking-detail">'+polyglot.t("per extra Child:")+'$'
+                    html += '<div class="booking-detail">'+polyglot.t("per extra Child:")+''+defaultCurrency+''
                         + weekend.extra_child + '</div>';
 
                     html += '<div class="clearfix"></div>';
 
-                    html += '<div class="booking-price">'+polyglot.t("WEEKEND")+' <b>$' + weekend.charge + '</b></div>';
+                    html += '<div class="booking-price">'+polyglot.t("WEEKEND")+' <b>'+defaultCurrency+'' + weekend.charge + '</b></div>';
 
                     html += '</div></div></div>';
 
@@ -437,20 +438,28 @@ jQuery(document).ready(function ($) {
 
 });
 
-    jQuery(window).load(function(){
-        jQuery('img[data-height]').hide()
-        setTimeout(function(){
-            jQuery('img[data-height]').each(function(){
-                $ = jQuery
+    // jQuery(window).load(function(){
+    //     jQuery('img[data-height]').hide()
+    //     setTimeout(function(){
+    //         jQuery('img[data-height]').each(function(){
+    //             $ = jQuery
                 
-                if($(this).attr('data-height') != 'auto'){       
-                    $(this).parent().height($(this).parent().width()*parseFloat($(this).attr('data-height')));
-                }
-                $(this).css('top',$(this).parent().width()*parseFloat($(this).attr('data-top'))+'px');
-                $(this).fadeIn()
-            });
-        }, 500);
-    });
+    //             if($(this).attr('data-height') != 'auto'){       
+    //                 $(this).parent().height($(this).parent().width()*parseFloat($(this).attr('data-height')));
+    //             }
+    //             $(this).css('top',$(this).parent().width()*parseFloat($(this).attr('data-top'))+'px');
+    //             $(this).fadeIn()
+    //         });
+    //     }, 500);
+    // });
+
+function imageLoaded(ele){
+    $ = jQuery;
+    if($(ele).attr('data-height') != 'auto'){       
+        $(ele).parent().height($(ele).parent().width()*parseFloat($(ele).attr('data-height')));
+    }
+    $(ele).css('top',$(ele).parent().width()*parseFloat($(ele).attr('data-top'))+'px');
+}
 
  // jQuery(window).load( function (){
  //        $ = jQuery

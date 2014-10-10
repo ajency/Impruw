@@ -19,7 +19,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       SingleUnusedElement.prototype.events = {
         'click .remove-element': function(e) {
-          return bootbox.confirm("<h4 class='delete-message'>" + (_.polyglot.t('Are you sure? This element will be lost. Cannot undo this action.')) + "</h4>", (function(_this) {
+          return bootbox.confirm("<h4 class='delete-message'>" + (_.polyglot.t('Are you sure?')) + "</h4><p>" + (_.polyglot.t('You will lose this content permanently.')) + "</p>", (function(_this) {
             return function(result) {
               if (result === true) {
                 return _this.trigger('clear:element', _this.model.get('meta_id'));
@@ -34,10 +34,15 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       SingleUnusedElement.prototype.serializeData = function() {
-        var content, serializedData, _ref;
+        var content, ele, serializedData, _ref;
         serializedData = SingleUnusedElement.__super__.serializeData.call(this);
         serializedData.element = _.str.capitalize(serializedData.element);
-        content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
+        ele = serializedData.element;
+        if (ele === 'Title' || ele === 'Text' || ele === 'ImageWithText') {
+          content = (_ref = this.model.get('content')[WPML_DEFAULT_LANG]) != null ? _ref : this.model.get('content');
+        } else {
+          content = '';
+        }
         serializedData.content = _.stripslashes(content);
         return serializedData;
       };
@@ -83,7 +88,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       UnsedElementsViews.prototype.events = {
         'click a.clear-all-elements': function(e) {
           e.preventDefault();
-          return bootbox.confirm("<h4 class='delete-message'>" + (_.polyglot.t('Are you sure? All elements will be lost. Cannot undo this action.')) + "</h4>", (function(_this) {
+          return bootbox.confirm("<h4 class='delete-message'>" + (_.polyglot.t('Are you sure?')) + "</h4><p>" + (_.polyglot.t('All elements will be lost. You cannot undo this action.')) + "</p>", (function(_this) {
             return function(result) {
               if (result === true) {
                 return _this.trigger('clear:all:elements');

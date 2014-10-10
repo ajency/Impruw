@@ -15,11 +15,6 @@
         <!--row first-->
         <div class="row">
             <div class="col-sm-2">
-                <ul class="aj-imp-browser-dots clearfix">
-                    <li class="red"><span>&nbsp;</span></li>
-                    <li class="yellow"><span>&nbsp;</span></li>
-                    <li class="green"><span>&nbsp;</span></li>
-                </ul>
                 <div class="builder-back">
                     <a href="{{DASHBOARDURL}}">
                         <span class="bicon icon-uniF151"></span>&nbsp;{{#polyglot}}Back to Dashboard{{/polyglot}}</a>
@@ -67,22 +62,10 @@
             </div>
             <div class="aj-imp-save-action col-sm-3">
                 <div class="aj-imp-page-publish">
-                    <div id="aj-imp-preview-sel" class="dropdown">
-                        <a data-toggle="dropdown" href="#">{{#polyglot}}Preview{{/polyglot}} <span
-                                class="caret"></span></a>
-                        <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation">
-                                <div class="aj-imp-preview-box">
-                                    <h6>{{#polyglot}}Choose Device{{/polyglot}}</h6>
-                                    <ul class="clearfix">
-                                        <li><a href="#"
-                                               class="selected preview-current-page"
-                                               target="_newtab"><span class="bicon icon-uniF121"></span></a></li>
-                                        <li><a href="#"><span class="bicon icon-uniF120"></span></a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
+                    <div id="aj-imp-preview-sel">
+                        <a href="#" class="preview-btn preview-current-page" target="_newtab">
+                            <span class="bicon icon-uniF16D"></span>&nbsp;{{#polyglot}}Preview{{/polyglot}} 
+                        </a>
                     </div>
                     <div class="aj-imp-publish">
                         <a href="#" class="publish-page btn btn-primary btn-sm btn-embossed"><span

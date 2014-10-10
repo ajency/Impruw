@@ -4,7 +4,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
 define(['app'], function(App, elementTpl) {
   return App.module('SiteBuilderApp.Element.Views', function(Views, App, Backbone, Marionette, $, _) {
-    return Views.ElementView = (function(_super) {
+    Views.ElementView = (function(_super) {
       __extends(ElementView, _super);
 
       function ElementView() {
@@ -172,5 +172,17 @@ define(['app'], function(App, elementTpl) {
       return ElementView;
 
     })(Marionette.Layout);
+    return Views.ErrorView = (function(_super) {
+      __extends(ErrorView, _super);
+
+      function ErrorView() {
+        return ErrorView.__super__.constructor.apply(this, arguments);
+      }
+
+      ErrorView.prototype.template = '<div style="width:100%; height:150px; margin:auto"> conponent of type {{element}} did not load properly </div>';
+
+      return ErrorView;
+
+    })(Marionette.ItemView);
   });
 });

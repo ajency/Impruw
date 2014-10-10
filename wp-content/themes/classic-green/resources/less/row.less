@@ -23,11 +23,17 @@ and open the template in the editor.
 	    color: #fff;
 	    .text {
 	    	color: #fff;
+	    	@media (max-width: 767px) { 
+		    	text-align: center;
+		    	p {
+		    		text-align: center !important;
+		    	}
+			}
 	    }
 	}
 
 	&.shaded-background{
-		background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAIAAABLMMCEAAAAM0lEQVQImWXMsQkAMAwDwY9A+0/pKdykcUiIVB7iV1UBgG3OlNTdSgKUdAsv2VbSfD8CNi76FMy/HZ/YAAAAAElFTkSuQmCC) repeat scroll 0 0 rgba(0, 0, 0, 0);
 		margin-bottom: @medium;
 		margin-top: @medium;
 	}

@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __slice = [].slice,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/views'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-builder/show/views'], function(App, AppController, bootbox) {
   return App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
     var siteBuilderController;
     siteBuilderController = null;
@@ -15,13 +15,14 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
       }
 
       BuilderController.prototype.initialize = function(opt) {
-        var elements, pageId, revisionId;
+        var elementLoaded, elements, pageId, revisionId;
         if (opt == null) {
           opt = {};
         }
         this.region = App.getRegion('builderRegion');
         pageId = opt.pageId, revisionId = opt.revisionId;
         elements = App.request("get:page:json", pageId, revisionId);
+        elementLoaded = false;
         this.view = new Show.View.Builder({
           model: elements
         });
@@ -41,7 +42,8 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         });
         App.execute("when:fetched", [elements], (function(_this) {
           return function() {
-            return _.delay(function() {
+            elementLoaded = true;
+            _.delay(function() {
               _this.deferreds = [];
               _this.startFillingElements();
               return $.when.apply($, _this.deferreds).done(function() {
@@ -58,11 +60,18 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
                 return App.autoSaveAPI.local.createStorage();
               });
             }, 400);
+            return _this.show(_this.view, {
+              loading: true
+            });
           };
         })(this));
-        return this.show(this.view, {
-          loading: true
-        });
+        return _.delay((function(_this) {
+          return function() {
+            if (!elementLoaded) {
+              return bootbox.alert("Sorry, but this page didn't load properly. Please refresh the page");
+            }
+          };
+        })(this), 15000);
       };
 
       BuilderController.prototype._getContainer = function(section) {
@@ -229,6 +238,10 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         if (siteBuilderController !== null) {
           siteBuilderController.close();
         }
+        _.each(App.elements, function(element) {
+          return element.close();
+        });
+        App.elements = [];
         siteBuilderController = new Show.BuilderController({
           pageId: pageId,
           revisionId: revisionId

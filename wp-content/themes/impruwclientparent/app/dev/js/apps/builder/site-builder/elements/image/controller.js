@@ -21,7 +21,8 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
           heightRatio: 'auto',
           topRatio: 0,
           link: '#',
-          target: '_self'
+          target: '_self',
+          link_check: false
         });
         if (options.modelData.element === 'Logo') {
           options.modelData.image_id = window.LOGOID;
@@ -30,7 +31,12 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:image_id change:align change:link change:target", this.renderElement);
+        this.listenTo(this.layout.model, "change:image_id change:align ", this.renderElement);
+        this.listenTo(this.layout.model, 'change:link change:target change:link_check', (function(_this) {
+          return function() {
+            return _this.layout.model.save();
+          };
+        })(this));
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -44,8 +50,6 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
       Controller.prototype._getImageView = function(imageModel) {
         return new Image.Views.ImageView({
           model: imageModel,
-          imageHeightRatio: this.layout.model.get('heightRatio'),
-          positionTopRatio: this.layout.model.get('topRatio'),
           eleModel: this.layout.model,
           templateHelpers: this._getTemplateHelpers()
         });
@@ -94,7 +98,6 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
               }
             });
             _this.listenTo(view, 'set:image:height', function(height, width) {
-              _this.layout.model.set('height', height);
               if (height === 'auto') {
                 _this.layout.model.set('heightRatio', 'auto');
               } else {

@@ -1,4 +1,4 @@
-define ['app'], (App)->
+define ['app','bootbox'], (App,bootbox)->
 
     # Row views
     App.module 'SiteBuilderApp.Element.Row.Views', (Views, App, Backbone, Marionette, $, _)->
@@ -36,11 +36,11 @@ define ['app'], (App)->
                         window.dragging = true
                         return
                     remove: (evt, ui)=>
-                        @trigger "element:moved", $(evt.target)
+                        @$el.trigger "element:moved", $(evt.target)
                         if $(evt.target).children().length is 0
                             $(evt.target).addClass 'empty-column'
                     update: (e, ui)=>
-                        @trigger "element:moved", $(e.target)
+                        # @$el.trigger "element:moved", $(e.target)
                         if ui.item.find('form').find('input[name="element"]').val() is 'Row'
                             ui.item.children('.element-markup').children().trigger 'row:is:moved',
                                 ui.item.children('.element-markup').children().prop 'id'
@@ -312,12 +312,16 @@ define ['app'], (App)->
 
                     #first check
                     if emptyColsLen is 0
-                        alert "None of the columns are empty. Please delete elements inside columns to remove"
+                        bootbox.alert "None of the columns are empty. Please delete elements inside columns to remove"
+                        @model.set 'columncount',@columnCount()
+                        @model.trigger 'column:count:setting:change',@columnCount()
                         return
 
                     #check if current columns - requested columns > empty columns
                     if @columnCount() - requestedColumns > emptyColsLen
-                        alert "Unable to perform this action"
+                        bootbox.alert "Unable to perform this action"
+                        @model.set 'columncount',@columnCount()
+                        @model.trigger 'column:count:setting:change',@columnCount()
                         return
 
                     colsToRemove = 0

@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'apps/builder/site-builder/elements/logo/views', 'apps/builder/site-builder/elements/logo/settings/controller'], function(App) {
+define(['app', 'apps/builder/site-builder/elements/logo/views', 'apps/builder/site-builder/elements/logo/settings/controller', 'apps/builder/site-builder/elements/image/controller'], function(App) {
   return App.module('SiteBuilderApp.Element.Logo', function(Logo, App, Backbone, Marionette, $, _) {
     return Logo.Controller = (function(_super) {
       __extends(Controller, _super);
@@ -27,7 +27,8 @@ define(['app', 'apps/builder/site-builder/elements/logo/views', 'apps/builder/si
           model: imageModel,
           imageHeightRatio: this.layout.model.get('heightRatio'),
           positionTopRatio: this.layout.model.get('topRatio'),
-          templateHelpers: this._getTemplateHelpers()
+          templateHelpers: this._getTemplateHelpers(),
+          eleModel: this.layout.model
         });
       };
 

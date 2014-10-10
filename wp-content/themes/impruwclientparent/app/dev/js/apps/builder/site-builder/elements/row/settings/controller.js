@@ -34,6 +34,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
             return _this.model.set("columncount", newCount);
           };
         })(this));
+        this.listenTo(this.model, 'column:count:setting:change', (function(_this) {
+          return function(count) {
+            return view.triggerMethod('column:count:changed', count);
+          };
+        })(this));
         return this.show(view);
       };
 

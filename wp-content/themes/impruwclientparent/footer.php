@@ -35,6 +35,7 @@
         var PLANS = <?php echo json_encode(get_plans(FALSE)); ?>;
         var DATERANGE = <?php echo json_encode(get_date_range(FALSE)); ?>;
         var TARIFF = <?php echo json_encode(get_tariff(get_the_ID())); ?>;
+        var CURRENCY = '<?php echo  get_option( 'currency', 'NOK' ); ?>';
         var BOOKING = <?php echo json_encode(get_bookings()); ?>;
         
     </script>
@@ -82,7 +83,7 @@
 
     jQuery(document).ready(function(){
         var $powered = jQuery('.power-up').clone().removeClass('hide').addClass('text');
-        jQuery('.site-footer').find(FOOTER).append($powered);
+        jQuery('.site-footer').append($powered);
         console.log('powered');
     });
 

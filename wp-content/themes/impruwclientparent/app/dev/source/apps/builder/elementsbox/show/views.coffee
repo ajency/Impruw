@@ -15,7 +15,7 @@ define [ 'app'
 								<div class="aj-imp-builder-title">{{elementName}}</div>
 							</a>
                      <div class="element-help hide">
-                        Hi! I am help text to help you understand this element!
+                        {{helpText}}
                      </div>'
 
          events : 
@@ -73,6 +73,7 @@ define [ 'app'
                addClasses : false
                containment : 'document'
                scroll : true
+               axis : 'x'
 
                
             @$el.tabSlideOut

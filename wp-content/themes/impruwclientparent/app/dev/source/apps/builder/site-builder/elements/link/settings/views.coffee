@@ -45,6 +45,8 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                     @trigger "element:style:changed", $(evt.target).val()
                 'blur input.linktext': (evt)->
                     name = $(evt.target).attr 'name'
+                    if name is 'link' and $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 2) isnt "//"
+                        $(evt.target).val "http://" + $(evt.target).val()
                     @trigger "element:#{name}:changed", $(evt.target).val()
                 'change input[name="target"]': (evt)->
                     @trigger "element:target:changed", if $(evt.target).is(':checked') then '_BLANK' else '_self'
