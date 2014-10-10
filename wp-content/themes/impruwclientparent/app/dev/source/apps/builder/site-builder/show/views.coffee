@@ -420,6 +420,18 @@ define [ 'app'
          showRenderError : =>
             @$el.addClass  'dsdsds'
             @$el.prepend '<h3>Failed to render view</h3>
-                        <button class="retry-edit-page">Retry</button>'
+                        <button class="retry-edit-page">Retry</button>
+                        <button class="let-us-know">Let us know about this</button>'
             @$el.find('.retry-edit-page').on 'click', @onRetryEditPageClicked
+            @$el.find('.let-us-know').on 'click', @onLetUsKnowClicked
            
+         onLetUsKnowClicked : =>
+            error = 
+               type : 'page_load_failed'
+               user_id : window.USER.ID
+               details : 
+                  page_id : @model.get 'page_id'
+                  blog_id : window.BLOGID
+                  message : 'Page load failed in builder'
+
+            App.vent.trigger 'error:encountered', error

@@ -413,6 +413,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       __extends(Builder, _super);
 
       function Builder() {
+        this.onLetUsKnowClicked = __bind(this.onLetUsKnowClicked, this);
         this.showRenderError = __bind(this.showRenderError, this);
         this.elementDropped = __bind(this.elementDropped, this);
         this._getHelper = __bind(this._getHelper, this);
@@ -478,8 +479,23 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       Builder.prototype.showRenderError = function() {
         this.$el.addClass('dsdsds');
-        this.$el.prepend('<h3>Failed to render view</h3> <button class="retry-edit-page">Retry</button>');
-        return this.$el.find('.retry-edit-page').on('click', this.onRetryEditPageClicked);
+        this.$el.prepend('<h3>Failed to render view</h3> <button class="retry-edit-page">Retry</button> <button class="let-us-know">Let us know about this</button>');
+        this.$el.find('.retry-edit-page').on('click', this.onRetryEditPageClicked);
+        return this.$el.find('.let-us-know').on('click', this.onLetUsKnowClicked);
+      };
+
+      Builder.prototype.onLetUsKnowClicked = function() {
+        var error;
+        error = {
+          type: 'page_load_failed',
+          user_id: window.USER.ID,
+          details: {
+            page_id: this.model.get('page_id'),
+            blog_id: window.BLOGID,
+            message: 'Page load failed in builder'
+          }
+        };
+        return App.vent.trigger('error:encountered', error);
       };
 
       return Builder;

@@ -55,3 +55,10 @@ define ['app', 'jquery', 'mustache', 'underscore', 'heartbeat' ], (App, $, Musta
 		if connectionNotification isnt null
 			connectionNotification.fadeOut 'fast', -> connectionNotification.remove()
 		$('.conn-lost-overlay').addClass 'hidden'
+
+	App.vent.on 'error:encountered', (error)->
+		$.post AJAXURL,
+			(
+				action : 'impruw_error_encountered'
+				error : error
+			)
