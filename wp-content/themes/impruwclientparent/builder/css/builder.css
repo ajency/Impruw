@@ -1526,6 +1526,28 @@ a.red-link.pull-right {
   font-size: 0.88em;
   cursor: default;
 }
+#aj-imp-builder-drag-drop #site-header-region.edit-lock,
+#aj-imp-builder-drag-drop #site-footer-region.edit-lock,
+#aj-imp-builder-drag-drop #site-page-content-region.edit-lock {
+  opacity: 0.4;
+  pointer-events: none;
+}
+#aj-imp-builder-drag-drop #site-header-region.edit-lock .edit-unlock,
+#aj-imp-builder-drag-drop #site-footer-region.edit-lock .edit-unlock,
+#aj-imp-builder-drag-drop #site-page-content-region.edit-lock .edit-unlock {
+  position: absolute;
+  top: 40%;
+  text-align: center;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+#aj-imp-builder-drag-drop #site-header-region.edit-lock .edit-unlock .btn,
+#aj-imp-builder-drag-drop #site-footer-region.edit-lock .edit-unlock .btn,
+#aj-imp-builder-drag-drop #site-page-content-region.edit-lock .edit-unlock .btn {
+  opacity: 1;
+  pointer-events: auto;
+}
 #aj-imp-builder-drag-drop #site-header-region:after {
   content: 'Site Header';
 }

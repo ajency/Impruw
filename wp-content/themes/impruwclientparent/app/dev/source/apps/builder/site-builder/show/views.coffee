@@ -360,7 +360,7 @@ define [ 'app'
 
       class View.Builder extends Marionette.ItemView
 
-         template : '<header id="site-header-region" class="droppable-column"></header>
+         template : '<header id="site-header-region" class="droppable-column edit-lock"></header>
                      <div id="site-page-content-region" class="droppable-column"></div>
                      <footer id="site-footer-region" class="droppable-column"></footer>'
 
@@ -390,6 +390,8 @@ define [ 'app'
                tolerance : 'pointer'
                receive : @elementDropped
                placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
+
+            @$el.find('.edit-lock').append('<div class="edit-unlock"><button class="btn btn-sm aj-imp-orange-btn">Click To Edit Header</button></div>')
 
 
          _getHelper : (evt,original)=>

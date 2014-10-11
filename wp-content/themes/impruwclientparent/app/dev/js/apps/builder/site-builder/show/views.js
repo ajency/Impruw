@@ -418,10 +418,10 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         return Builder.__super__.constructor.apply(this, arguments);
       }
 
-      Builder.prototype.template = '<header id="site-header-region" class="droppable-column"></header> <div id="site-page-content-region" class="droppable-column"></div> <footer id="site-footer-region" class="droppable-column"></footer>';
+      Builder.prototype.template = '<header id="site-header-region" class="droppable-column edit-lock"></header> <div id="site-page-content-region" class="droppable-column"></div> <footer id="site-footer-region" class="droppable-column"></footer>';
 
       Builder.prototype.onShow = function() {
-        return this.$el.find('.droppable-column').sortable({
+        this.$el.find('.droppable-column').sortable({
           revert: 'invalid',
           items: '> .element-wrapper',
           connectWith: '.droppable-column,.column',
@@ -444,6 +444,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           receive: this.elementDropped,
           placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
         });
+        return this.$el.find('.edit-lock').append('<div class="edit-unlock"><button class="btn btn-sm aj-imp-orange-btn">Click To Edit Header</button></div>');
       };
 
       Builder.prototype._getHelper = function(evt, original) {

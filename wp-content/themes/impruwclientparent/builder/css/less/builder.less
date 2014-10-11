@@ -1588,6 +1588,22 @@ a {
 			font-size: 0.88em;
 			cursor: default;
 		}
+		&.edit-lock {
+			opacity: 0.4;
+			pointer-events: none;
+			.edit-unlock {
+				position: absolute;
+				top: 40%;
+				text-align: center;
+				left: 0;
+				right: 0;
+				z-index: 10;
+				.btn {
+					opacity: 1;
+					pointer-events: auto;
+				}
+			}
+		}
 	}
 	#site-header-region {
 		&:after {
