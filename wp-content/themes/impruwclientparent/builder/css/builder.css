@@ -1553,11 +1553,12 @@ a.red-link.pull-right {
   font-size: 1.1em;
   color: #aaaaaa;
   display: inline-block;
-  padding: 0.5em 1em;
+  padding: 0.5em 2em;
   border-radius: 2px;
   box-shadow: 1px 1px 2px 3px rgba(0, 0, 0, 0.1);
   background: rgba(255, 255, 255, 0.8);
   margin: auto;
+  visibility: hidden;
 }
 #aj-imp-builder-drag-drop #site-header-region.edit-lock .edit-unlock .unlock-message .bicon,
 #aj-imp-builder-drag-drop #site-footer-region.edit-lock .edit-unlock .unlock-message .bicon,
@@ -1566,11 +1567,17 @@ a.red-link.pull-right {
   font-size: 2.2em;
   margin: 0 auto 0.2em;
 }
-#aj-imp-builder-drag-drop #site-header-region.edit-lock .edit-unlock .unlock-message .aj-imp-orange-btn,
-#aj-imp-builder-drag-drop #site-footer-region.edit-lock .edit-unlock .unlock-message .aj-imp-orange-btn,
-#aj-imp-builder-drag-drop #site-page-content-region.edit-lock .edit-unlock .unlock-message .aj-imp-orange-btn {
-  display: block;
+#aj-imp-builder-drag-drop #site-header-region.edit-lock .edit-unlock .unlock-message .headit,
+#aj-imp-builder-drag-drop #site-footer-region.edit-lock .edit-unlock .unlock-message .headit,
+#aj-imp-builder-drag-drop #site-page-content-region.edit-lock .edit-unlock .unlock-message .headit {
+  color: #ff7e00;
+  font-size: 1.1em;
   margin: 1em auto 0.5em;
+}
+#aj-imp-builder-drag-drop #site-header-region.edit-lock .edit-unlock:hover .unlock-message,
+#aj-imp-builder-drag-drop #site-footer-region.edit-lock .edit-unlock:hover .unlock-message,
+#aj-imp-builder-drag-drop #site-page-content-region.edit-lock .edit-unlock:hover .unlock-message {
+  visibility: visible;
 }
 #aj-imp-builder-drag-drop #site-header-region:after {
   content: 'Site Header';
