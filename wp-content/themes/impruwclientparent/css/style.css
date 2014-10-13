@@ -145,6 +145,11 @@
   margin: 0.5em 0;
   text-align: center;
 }
+.site-style-container .power-up img {
+  max-height: 20px;
+  display: inline-block;
+  margin-right: 0.3em;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -1450,6 +1455,8 @@ and open the template in the editor.
   transform: rotate(90deg);
   line-height: 29px;
   color: #ffffff;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled = false)" !important;
+  filter: none !important;
 }
 .carousel.vertical .carousel-control.right {
   -ms-transform: rotate(90deg);
