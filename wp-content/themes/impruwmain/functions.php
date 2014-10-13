@@ -698,47 +698,39 @@ add_filter('add_commponents_filter','impruw_add_communication_components',10,1);
 
 
 //Invoking the communication plugin
-function register_email_notification(){
-
-    echo 'test...........';
+function registered_email_notification($blog_id,$user_id,$domain,$path,$site_id,$meta){
 
     global $aj_comm;
 
-    $all_users = get_users();
-    //$specific_users = array();
+    //$user_id = $user->ID;
+
+    $user_info  = get_userdata($user_id);
+    $username   = $user_info->user_login;
+    $role       = implode(', ', $user_info->roles);
+    $reg_date =  date("l jS \of F Y h:i:s A", strtotime(get_userdata($user_id)->user_registered));
+
+     $meta_data = array(
+        'username' => $username,
+        'role' => $role,
+        'date' =>  $reg_date
+    );
+
+    $comm_data = array(
+        'component' => 'impruw_user',
+        'communication_type' => 'registration_email'
+    );
+
+    $all_users = get_users('role=impruw_manager');
 
     foreach($all_users as $user){
 
-        if($user->has_cap('admin')){
-
-            $user_id = $user->ID;
-
-            $user_info  = get_userdata($user_id);
-            $username   = $user_info->user_login;
-            $role       = implode(', ', $user_info->roles);
-
-
-            $meta_data = array(
-                'username' => $username,
-                'role' => $role,
-                'date' =>  $user->user_registered
-            );
-
-            $comm_data = array(
-                'component' => 'impruw_user',
-                'communication_type' => 'registration_email'
-            );
-
-            $recipients_email = array(
-
+        $recipients_email[] = array(
+                'user_id' => $user->ID,
                 'type' => 'email',
-                'value'=> $user->user_email
+                'value' => $user->user_email,
+                'status' => 'linedup'
             );
-
-            //$specific_users[] = $user;
-
-            $aj_comm->create_communication($meta_data,$comm_data,$recipients_email);
-        }
     }
+    $aj_comm->create_communication($comm_data,$meta_data,$recipients_email);
 }
-add_action('wpmu_create_blog','registered_email_notification');
+add_action('wpmu_new_blog','registered_email_notification',10,6);
