@@ -1244,7 +1244,7 @@ a {
 				right: 0;
 				bottom: 0;
 				text-align: center;
-				padding: 0.5em 20%;
+				padding: 1em 20%;
 				padding-top: 3em;
 				.lock-container {
 					background: lighten(@dash-grey, 10%);
@@ -1263,7 +1263,7 @@ a {
 					}
 					.message-span {
 						margin: 0.5em 0 1em;
-						color: #fff;
+						color: @logo-blue;
 						font-size: 1.5em;
 						text-transform: capitalize;
 					}
@@ -1288,7 +1288,7 @@ a {
 					}
 					.lock-help {
 						font-size: 0.88em;
-						margin: 1.5em 0 0;
+						margin: 1.5em 0 1em;
 						color: lighten(@3-grey, 20%);
 						a {
 							color: @orange;
@@ -1589,18 +1589,36 @@ a {
 			cursor: default;
 		}
 		&.edit-lock {
-			opacity: 0.4;
-			pointer-events: none;
+			> .element-wrapper {
+				opacity: 0.5;
+				pointer-events: none;
+			}
 			.edit-unlock {
 				position: absolute;
-				top: 40%;
 				text-align: center;
+				top: 0;
+				bottom: 0;
 				left: 0;
 				right: 0;
 				z-index: 10;
-				.btn {
-					opacity: 1;
-					pointer-events: auto;
+				padding: 1em;
+				.unlock-message {
+					font-size: 1.1em;
+					color: @dash-grey;
+					display: inline-block;
+					padding: 0.5em 1em;
+					border-radius: 2px;
+					box-shadow: 1px 1px 2px 3px rgba(0, 0, 0, 0.1);
+					background: rgba(255, 255, 255, 0.8);
+					.bicon {
+						display: block;
+						font-size: 2.2em;
+						margin: 0 auto 0.2em;
+					}
+					.aj-imp-orange-btn {
+						display: block;
+						margin: 1em auto 0.5em;
+					}
 				}
 			}
 		}

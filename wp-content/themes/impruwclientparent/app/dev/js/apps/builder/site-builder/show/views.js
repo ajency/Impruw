@@ -444,7 +444,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           receive: this.elementDropped,
           placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
         });
-        return this.$el.find('.edit-lock').append('<div class="edit-unlock"><button class="btn btn-sm aj-imp-orange-btn">Click To Edit Header</button></div>');
+        return this.$el.find('.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<button class="btn btn-sm aj-imp-orange-btn"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Click To Edit Header</button></div></div>');
       };
 
       Builder.prototype._getHelper = function(evt, original) {

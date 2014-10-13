@@ -391,7 +391,7 @@ define [ 'app'
                receive : @elementDropped
                placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
 
-            @$el.find('.edit-lock').append('<div class="edit-unlock"><button class="btn btn-sm aj-imp-orange-btn">Click To Edit Header</button></div>')
+            @$el.find('.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<button class="btn btn-sm aj-imp-orange-btn"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Click To Edit Header</button></div></div>')
 
 
          _getHelper : (evt,original)=>
