@@ -1243,13 +1243,15 @@ a {
 				left: 0;
 				right: 0;
 				bottom: 0;
-				text-align: center;
-				padding: 0.5em 20%;
-				padding-top: 3em;
+				padding: 3em 1em 1em;
 				.lock-container {
 					background: lighten(@dash-grey, 10%);
 					padding: 1em;
 					border-radius: 2px;
+					width: 50%;
+					min-width: 600px;
+					margin: auto;
+					text-align: center;
 					.lockgo {
 						background: url('../images/impruw-logo.png') no-repeat;
 						background-size: contain;
@@ -1263,7 +1265,7 @@ a {
 					}
 					.message-span {
 						margin: 0.5em 0 1em;
-						color: #fff;
+						color: @logo-blue;
 						font-size: 1.5em;
 						text-transform: capitalize;
 					}
@@ -1288,7 +1290,7 @@ a {
 					}
 					.lock-help {
 						font-size: 0.88em;
-						margin: 1.5em 0 0;
+						margin: 1.5em 0 1em;
 						color: lighten(@3-grey, 20%);
 						a {
 							color: @orange;
