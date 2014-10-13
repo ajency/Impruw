@@ -1186,71 +1186,74 @@ a.red-link.pull-right {
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message {
   position: fixed;
   background: rgba(255, 255, 255, 0.9);
-  /*border-radius: 6px 6px 0 0;*/
   z-index: 10000;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 3em 1em 1em;
+  padding: 1em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container {
+  display: flex;
+  height: 100%;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker {
   background: #c3c3c3;
   padding: 1em;
   border-radius: 2px;
   width: 50%;
   min-width: 600px;
-  margin: auto;
   text-align: center;
+  margin: auto;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .lockgo {
-  background: url('../images/impruw-logo.png') no-repeat;
-  background-size: contain;
-  width: 400px;
-  height: 186px;
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .lockgo {
+  background: url('../images/impruw-logo.png') no-repeat center center;
+  background-size: cover;
+  width: 300px;
+  height: 116px;
   margin: 0 auto;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .bicon {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .bicon {
   color: #f3f3f3;
   font-size: 4em;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .message-span {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .message-span {
   margin: 0.5em 0 1em;
   color: #182944;
   font-size: 1.5em;
   text-transform: capitalize;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .option-msg {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .option-msg {
   color: #666666;
   margin: 0 0 1em;
   font-size: 1.2em;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .or-text {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .or-text {
   font-size: 2.5em;
   display: inline-block;
   color: #f3f3f3;
   margin: 0 1em;
   vertical-align: middle;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .option-or {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .option-or {
   display: inline-block;
   color: #4d4d4d;
   font-size: 1.3em;
   padding: 0.5em;
   vertical-align: middle;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .lock-help {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .lock-help {
   font-size: 0.88em;
   margin: 1.5em 0 1em;
   color: #666666;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .lock-help a {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .lock-help a {
   color: #ff7e00;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .bootstrap-select {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .bootstrap-select {
   margin-bottom: 0.25em;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .bootstrap-select .dropdown-toggle {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .bootstrap-select .dropdown-toggle {
   background: transparent;
   color: #666666;
   font-size: 1.2em;
@@ -1259,19 +1262,19 @@ a.red-link.pull-right {
   border-bottom: 1px solid #dddddd;
   text-transform: uppercase;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .bootstrap-select .dropdown-toggle .caret {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .bootstrap-select .dropdown-toggle .caret {
   border-top-color: #c3c3c3;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .bootstrap-select .dropdown-toggle:hover {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .bootstrap-select .dropdown-toggle:hover {
   border-bottom-color: #aaaaaa;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .bootstrap-select .dropdown-toggle:hover .caret {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .bootstrap-select .dropdown-toggle:hover .caret {
   border-top-color: #aaaaaa;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .bootstrap-select .dropdown-menu {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .bootstrap-select .dropdown-menu {
   text-align: left;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .bootstrap-select .dropdown-menu .selected a:focus {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .bootstrap-select .dropdown-menu .selected a:focus {
   background: #ff7e00;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body {
