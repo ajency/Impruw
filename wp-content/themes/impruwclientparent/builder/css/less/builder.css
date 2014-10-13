@@ -795,10 +795,9 @@ a.red-link.pull-right {
 /****Builder Area Styles****/
 .aj-imp-builder-area {
   padding: 0.5em 3em 1em;
-  width: 80%;
+  width: 95%;
   margin: auto;
   min-width: 960px;
-  max-width: 1366px;
 }
 .aj-imp-builder-area .aj-imp-browser-preview {
   border-radius: 6px;
@@ -1230,9 +1229,13 @@ a.red-link.pull-right {
   font-size: 1.2em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .option-or {
-  display: block;
+  display: inline-block;
   margin: 1em 0 0.5em;
-  color: #666666;
+  color: #4d4d4d;
+  border-left: 1px solid #c3c3c3;
+  font-size: 1.3em;
+  padding: 1em;
+  margin-left: 1em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-help {
   font-size: 0.88em;

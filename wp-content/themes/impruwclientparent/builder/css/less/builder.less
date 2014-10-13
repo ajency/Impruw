@@ -844,10 +844,9 @@ a {
 /****Builder Area Styles****/
 .aj-imp-builder-area {
 	padding: 0.5em 3em 1em;
-	width: 80%;
+	width: 95%;
 	margin: auto;
 	min-width: 960px;
-	max-width: 1366px;
 	.aj-imp-browser-preview {
 		border-radius: 6px;
 		border: 1px solid darken(@preview-grey, 10%);
@@ -1245,68 +1244,82 @@ a {
 				right: 0;
 				bottom: 0;
 				text-align: center;
-				padding: 0.5em;
+				padding: 0.5em 20%;
 				padding-top: 3em;
-				.lockgo {
-					background: url('../images/impruw-logo.png') no-repeat;
-					background-size: contain;
-					width: 400px;
-					height: 186px;
-					margin: 0 auto;
-				}
-				.bicon {
-					color: @dash-grey;
-					font-size: 4em;
-				}
-				.message-span {
-					margin: 0.5em 0 1em;
-					color: @blue-grey;
-					font-size: 1.5em;
-					text-transform: capitalize;
-				}
-				.option-msg {
-					color: @dash-grey;
-					margin: 0 0 1em;
-					font-size: 1.2em;
-				}
-				.option-or {
-					display: block;
-					margin: 1em 0 0.5em;
-					color: lighten(@3-grey, 20%);
-				}
-				.lock-help {
-					font-size: 0.88em;
-					margin: 1.5em 0 0;
-					color: lighten(@3-grey, 20%);
-					a {
-						color: @orange;
+				.lock-container {
+					background: lighten(@dash-grey, 10%);
+					padding: 1em;
+					border-radius: 2px;
+					.lockgo {
+						background: url('../images/impruw-logo.png') no-repeat;
+						background-size: contain;
+						width: 400px;
+						height: 186px;
+						margin: 0 auto;
 					}
-				}
-				.bootstrap-select {
-					margin-bottom: 0.25em;
-					.dropdown-toggle {
-						background: transparent;
+					.bicon {
+						color: @preview-grey;
+						font-size: 4em;
+					}
+					.message-span {
+						margin: 0.5em 0 1em;
+						color: #fff;
+						font-size: 1.5em;
+						text-transform: capitalize;
+					}
+					.option-msg {
 						color: lighten(@3-grey, 20%);
+						margin: 0 0 1em;
 						font-size: 1.2em;
-						padding: 0 0 0.25em;
-						border-radius: 0;
-						border-bottom: 1px solid lighten(@dash-grey, 20%);
-						text-transform: uppercase;
-						.caret {
-							border-top-color: lighten(@dash-grey, 10%);
+					}
+					.or-text {
+						font-size: 2.5em;
+						display: inline-block;
+						color: @preview-grey;
+						margin: 0 1em;
+						vertical-align: middle;
+					}
+					.option-or {
+						display: inline-block;
+						color: lighten(@3-grey, 10%);
+						font-size: 1.3em;
+						padding: 0.5em;
+						vertical-align: middle;
+					}
+					.lock-help {
+						font-size: 0.88em;
+						margin: 1.5em 0 0;
+						color: lighten(@3-grey, 20%);
+						a {
+							color: @orange;
 						}
-						&:hover {
-							border-bottom-color: @dash-grey;
+					}
+					.bootstrap-select {
+						margin-bottom: 0.25em;
+						.dropdown-toggle {
+							background: transparent;
+							color: lighten(@3-grey, 20%);
+							font-size: 1.2em;
+							padding: 0 0 0.25em;
+							border-radius: 0;
+							border-bottom: 1px solid lighten(@dash-grey, 20%);
+							text-transform: uppercase;
 							.caret {
-								border-top-color: @dash-grey;
+								border-top-color: lighten(@dash-grey, 10%);
+							}
+							&:hover {
+								border-bottom-color: @dash-grey;
+								.caret {
+									border-top-color: @dash-grey;
+								}
 							}
 						}
-					}
-					.dropdown-menu {
-						text-align: left;
-						.selected {
-							a:focus {
-								background: @orange;
+						.dropdown-menu {
+							text-align: left;
+							.selected {
+								a:focus {
+									background: @orange;
+								}
 							}
 						}
 					}
