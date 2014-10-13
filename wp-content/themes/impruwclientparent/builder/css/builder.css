@@ -1192,14 +1192,16 @@ a.red-link.pull-right {
   left: 0;
   right: 0;
   bottom: 0;
-  text-align: center;
-  padding: 1em 20%;
-  padding-top: 3em;
+  padding: 3em 1em 1em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container {
   background: #c3c3c3;
   padding: 1em;
   border-radius: 2px;
+  width: 50%;
+  min-width: 600px;
+  margin: auto;
+  text-align: center;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .lockgo {
   background: url('../images/impruw-logo.png') no-repeat;
@@ -1543,6 +1545,7 @@ a.red-link.pull-right {
   right: 0;
   z-index: 10;
   padding: 1em;
+  display: flex;
 }
 #aj-imp-builder-drag-drop #site-header-region.edit-lock .edit-unlock .unlock-message,
 #aj-imp-builder-drag-drop #site-footer-region.edit-lock .edit-unlock .unlock-message,
@@ -1554,6 +1557,7 @@ a.red-link.pull-right {
   border-radius: 2px;
   box-shadow: 1px 1px 2px 3px rgba(0, 0, 0, 0.1);
   background: rgba(255, 255, 255, 0.8);
+  margin: auto;
 }
 #aj-imp-builder-drag-drop #site-header-region.edit-lock .edit-unlock .unlock-message .bicon,
 #aj-imp-builder-drag-drop #site-footer-region.edit-lock .edit-unlock .unlock-message .bicon,
