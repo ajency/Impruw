@@ -64,6 +64,6 @@ define [ 'app'
 
                @layout.model.set 'content', data
                @layout.model.save()
-            @layout.model.save()
+            #@layout.model.save()
 
             @layout.elementRegion.show view
