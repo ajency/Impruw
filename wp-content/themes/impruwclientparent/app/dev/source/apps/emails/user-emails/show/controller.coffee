@@ -1,5 +1,5 @@
 define ['app', 'controllers/base-controller'
-        'apps/emails/user-emails/view'], (App, AppController)->
+        'apps/emails/user-emails/show/view'], (App, AppController)->
     App.module 'EmailsApp.UserEmails', (UserEmails, App, Backbone, Marionette, $, _)->
         class UserEmails.Controller extends AppController
 
@@ -7,7 +7,7 @@ define ['app', 'controllers/base-controller'
             initialize: (opts)->
                 @userEmailView = @_getuserEmailView()
 
-                # @listenTo @userEmailView, "user:email:list", @loadEmailList
+                @listenTo @userEmailView, "add:new:user:email", @addNewUserEmail
                
                 #function to load view
                 @show @userEmailView,
@@ -16,8 +16,8 @@ define ['app', 'controllers/base-controller'
             _getuserEmailView :->
                 new UserEmails.Views.UserEmailView
 
-            loadEmailList : ->
-                Marionette.triggerMethod.call @region, "load:user:email:list"
+            addNewUserEmail : ->
+                Marionette.triggerMethod.call @region, "show:add:user:email"
 
-        App.commands.setHandler "show:emails:nav:app", (opts) ->
+        App.commands.setHandler "show:user:emails:app", (opts) ->
             new UserEmails.Controller opts

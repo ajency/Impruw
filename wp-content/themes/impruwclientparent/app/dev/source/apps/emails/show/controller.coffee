@@ -1,5 +1,6 @@
 define ['app', 'controllers/base-controller'
-        'apps/emails/show/view'], (App, AppController)->
+        'apps/emails/show/view'
+        'apps/emails/user-emails/add-user-email/controller'], (App, AppController)->
     
         App.module 'EmailsApp.Show', (Show, App, Backbone, Marionette, $, _)->
             
@@ -19,6 +20,7 @@ define ['app', 'controllers/base-controller'
                             region: @emailLayout.emailsNav
 
                     @listenTo @emailLayout.emailsNav, "load:user:email:list", @_loadUserEmails
+                    @listenTo @emailLayout.emailsDisplay, "show:add:user:email", @_showAddUserEmail
 
                 _getEmailLayout :->
                     new Show.Views.EmailView
@@ -26,6 +28,11 @@ define ['app', 'controllers/base-controller'
                 _loadUserEmails:=>
                     App.execute "show:user:emails:app",
                         region: @emailLayout.emailsDisplay
+
+                _showAddUserEmail:=>
+                    console.log "Add user"
+                    App.execute "show:add:user:email",
+                        region : App.dialogRegion
 
 
 

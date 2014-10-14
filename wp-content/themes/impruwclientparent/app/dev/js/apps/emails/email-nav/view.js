@@ -10,10 +10,10 @@ define(['app'], function(App) {
         return EmailNavView.__super__.constructor.apply(this, arguments);
       }
 
-      EmailNavView.prototype.template = '<ul class="nav nav-pills"> <li class="active"> <a data-toggle="tab" href="#users">{{#polyglot}}Users{{/polyglot}}</a> </li> </ul>';
+      EmailNavView.prototype.template = '<ul class="nav nav-pills"> <li class="active"> <a data-toggle="tab" href="#users" id="users-emails">{{#polyglot}}Users{{/polyglot}}</a> </li> </ul>';
 
       EmailNavView.prototype.events = {
-        'click a#users': 'loadUserEmails'
+        'click a#users-emails': 'loadUserEmails'
       };
 
       EmailNavView.prototype.loadUserEmails = function(e) {
