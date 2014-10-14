@@ -4,7 +4,7 @@ define ["app", 'backbone'], (App, Backbone) ->
     App.module "Entities.UserEmails", (UserEmails, App, Backbone, Marionette, $, _)->
 
         # plan model
-        class UserEmail extends Backbone.Model
+        class window.UserEmail extends Backbone.Model
 
             name: 'user-email'
             idAttribute: 'user-email-id'
@@ -12,6 +12,12 @@ define ["app", 'backbone'], (App, Backbone) ->
             defaults: ->
                 firstName: 'N/A'
                 lastName: 'N/A'
+
+            sync: (method, entity, options = {})->
+                window._bsync method, entity, options
+
+            url: ->
+                return SITEURL+'/api/email'
 
 
         # package collection

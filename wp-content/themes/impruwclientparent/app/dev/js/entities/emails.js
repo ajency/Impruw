@@ -3,8 +3,8 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.UserEmails", function(UserEmails, App, Backbone, Marionette, $, _) {
-    var API, EmailCollection, UserEmail;
-    UserEmail = (function(_super) {
+    var API, EmailCollection;
+    window.UserEmail = (function(_super) {
       __extends(UserEmail, _super);
 
       function UserEmail() {
@@ -20,6 +20,17 @@ define(["app", 'backbone'], function(App, Backbone) {
           firstName: 'N/A',
           lastName: 'N/A'
         };
+      };
+
+      UserEmail.prototype.sync = function(method, entity, options) {
+        if (options == null) {
+          options = {};
+        }
+        return window._bsync(method, entity, options);
+      };
+
+      UserEmail.prototype.url = function() {
+        return SITEURL + '/api/email';
       };
 
       return UserEmail;
