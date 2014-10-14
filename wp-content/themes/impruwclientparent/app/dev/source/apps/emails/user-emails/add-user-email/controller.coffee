@@ -7,7 +7,7 @@ define ['app', 'controllers/base-controller'
             initialize: (opts)->
                 @addUserEmailView = @_getaddUserEmailView()
                 
-                # @listenTo @userEmailView, "user:email:list", @loadEmailList
+                @listenTo @addUserEmailView, "add:user:email", @addNewUserEmail
                
                 #function to load view
                 @show @addUserEmailView,
@@ -15,6 +15,18 @@ define ['app', 'controllers/base-controller'
 
             _getaddUserEmailView :->
                 new AddUserEmail.Views.AddUserEmailView
+
+            addNewUserEmail :(data)->
+                console.log "Adding new user email"
+                userEmail = App.request "create:user:email:model", data
+                userEmail.save null,
+                    wait: true
+                    success: @userEmailSaved
+
+            # userEmailSaved: (userEmail)=>
+            #     userEmailCollection = App.request "get:user:email:collection"
+            #     userEmailCollection.add userEmail
+            #     @planView.triggerMethod "saved:user:email"
 
         App.commands.setHandler "show:add:user:email", (opts) ->
             new AddUserEmail.Controller opts

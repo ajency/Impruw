@@ -12,6 +12,7 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/add-user-
 
       Controller.prototype.initialize = function(opts) {
         this.addUserEmailView = this._getaddUserEmailView();
+        this.listenTo(this.addUserEmailView, "add:user:email", this.addNewUserEmail);
         return this.show(this.addUserEmailView, {
           loading: true
         });
@@ -19,6 +20,16 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/add-user-
 
       Controller.prototype._getaddUserEmailView = function() {
         return new AddUserEmail.Views.AddUserEmailView;
+      };
+
+      Controller.prototype.addNewUserEmail = function(data) {
+        var userEmail;
+        console.log("Adding new user email");
+        userEmail = App.request("create:user:email:model", data);
+        return userEmail.save(null, {
+          wait: true,
+          success: this.userEmailSaved
+        });
       };
 
       return Controller;

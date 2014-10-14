@@ -52,6 +52,7 @@ require_once 'modules/language/ajax.php';
 require_once 'modules/language/languagefunctions.php';
 require_once 'modules/billing/ajax.php';
 require_once 'modules/seo/ajax.php';
+require_once 'modules/emails/ajax.php';
 require_once 'modules/heartbeat/heartbeat.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 

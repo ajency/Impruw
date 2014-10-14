@@ -6,17 +6,17 @@ define ['app'], (App)->
 
                   tagName : 'form'
 
-                  template : '<div class="control-group">
+                  template : '<div class="control-group"> 
+                                <div class="control-group">
+                                  <label for="email-emailid" class="control-label">Email Id:*</label>
+                                  <input id="email-emailid" name="emailId" type="text" value="{{emailId}}"/>
+                                </div>
                                   <label for="email-firstName" class="control-label">First name:</label>
                                   <input id="email-firstName" name="firstName" type="text" value="{{firstName}}"/>
                                 </div>
                                 <div class="control-group">
                                   <label for="email-lastName" class="control-label">Last name:</label>
                                   <input id="email-lastName" name="lastName" type="text" value="{{lastName}}"/>
-                                </div>
-                                <div class="control-group">
-                                  <label for="email-emailid" class="control-label">Email Id:</label>
-                                  <input id="email-emailid" name="emailId" type="text" value="{{emailId}}"/>
                                 </div>
                                 <div class="control-group">
                                   <label for="email-password" class="control-label">Password:</label>
@@ -33,5 +33,6 @@ define ['app'], (App)->
                         e.preventDefault()
                         if @$el.valid()
                            data = Backbone.Syphon.serialize @
+                           console.log data
                            @trigger "add:user:email", data
 
