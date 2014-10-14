@@ -115,7 +115,7 @@
                     'description' => 'Used in Buttons, Room Elements, Footer Background, Social Links, Titles, Selection Background'
                 ),
                 'tertiary1' => array(
-                    'color' => '#E1E1E1',
+                    'color' => '#AAAAAA',
                     'title' => 'Third Colour',
                     'tooltip' => 'Room Elements, Headings',
                     'description' => 'Used in Room Elements, Headings'

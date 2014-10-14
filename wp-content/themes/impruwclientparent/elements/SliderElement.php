@@ -70,6 +70,7 @@ class SliderElement extends Element {
         ob_start();
         echo do_shortcode("[rev_slider {$slider->getID()}]");
         $html = ob_get_clean();
+        $html = stripcslashes($html);
         return $html;
     }
     

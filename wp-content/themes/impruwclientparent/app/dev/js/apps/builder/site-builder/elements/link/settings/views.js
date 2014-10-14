@@ -62,6 +62,9 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
         'blur input.linktext': function(evt) {
           var name;
           name = $(evt.target).attr('name');
+          if (name === 'link' && $(evt.target).val().substring(0, 8) !== "https://" && $(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 2) !== "//") {
+            $(evt.target).val("http://" + $(evt.target).val());
+          }
           return this.trigger("element:" + name + ":changed", $(evt.target).val());
         },
         'change input[name="target"]': function(evt) {

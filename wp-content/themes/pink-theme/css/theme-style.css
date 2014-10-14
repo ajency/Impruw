@@ -141,6 +141,7 @@
   margin: 0.5em 0;
 }
 .site-style-container .logo {
+  margin-top: 0;
   padding: 1em;
 }
 .site-style-container .logo img {
@@ -197,6 +198,9 @@ and open the template in the editor.
     Created on : 20 Feb, 2014, 7:45:35 PM
     Author     : jarr-head
 */
+.site-style-container {
+  min-height: 100vh;
+}
 .site-style-container .row.center-container {
   max-width: 1170px;
   margin: 0.5em auto;
@@ -213,10 +217,16 @@ and open the template in the editor.
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
+@media (max-width: 969px) {
+  .site-style-container .row.column-dividers .column {
+    border-right: 0;
+  }
+}
 /**** Logo Styles ****/
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .logo {
     text-align: center;
+    margin: auto;
   }
   .logo a {
     display: inline-block;
@@ -226,6 +236,9 @@ and open the template in the editor.
   display: block !important;
 }
 /****Top Slim-menu Styles****/
+.nav {
+  color: #989898;
+}
 .nav.slimmenu {
   padding: 0;
   border: 1px solid #1b2642;
@@ -455,7 +468,7 @@ and open the template in the editor.
   margin-bottom: 10px;
   padding-left: 5px;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .address {
     text-align: center;
   }
@@ -573,9 +586,9 @@ and open the template in the editor.
 .social.social-center {
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .social {
-    text-align: center;
+    text-align: center !important;
   }
 }
 /*
@@ -1247,6 +1260,14 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-today {
   font-weight: 700;
 }
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day {
+  font-weight: 700;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day a,
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day span {
+  background: #ff5f5f;
+  color: #989898;
+}
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red {
   background: #f97d61;
 }
@@ -1473,6 +1494,8 @@ and open the template in the editor.
   transform: rotate(90deg);
   line-height: 29px;
   color: #ffffff;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled = false)" !important;
+  filter: none !important;
 }
 .carousel.vertical .carousel-control.right {
   -ms-transform: rotate(90deg);
@@ -1876,6 +1899,20 @@ ul.gallery {
 }
 .embed-responsive.embed-responsive-4by3 {
   padding-bottom: 75%;
+}
+.tp-caption {
+  padding: 1em;
+}
+.tp-caption.transparent-black {
+  background: rgba(0, 0, 0, 0.7);
+}
+.tp-caption.transparent-white {
+  background: rgba(255, 255, 255, 0.7);
+}
+@media (max-width: 480px) {
+  .tp-bullets {
+    display: none;
+  }
 }
 /*
 To change this license header, choose License Headers in Project Properties.
@@ -2735,7 +2772,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #ffffff;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;
@@ -3168,4 +3205,100 @@ and open the template in the editor.
     padding: 0 0 1em;
   }
   /*Responive*/
+}
+/**** Table Styles****/
+.table {
+  background: #2a3b66;
+  color: #989898;
+  margin: 0;
+}
+.table > thead > tr {
+  background: #e4e4e4;
+}
+.table > thead > tr th {
+  color: #ff5f5f;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-width: 0;
+  text-align: left;
+}
+.table > thead > tr > th p,
+.table > tbody > tr > th p,
+.table > tfoot > tr > th p,
+.table > thead > tr > td p,
+.table > tbody > tr > td p,
+.table > tfoot > tr > td p {
+  margin: 0;
+  line-height: 1;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th {
+  border-bottom: 0;
+}
+.table.table-bordered > thead > tr td,
+.table.table-bordered > tbody > tr td,
+.table.table-bordered > thead > tr th,
+.table.table-bordered > tbody > tr th {
+  border: 1px solid #989898 !important;
+}
+.table.table-striped > tbody > tr:nth-child(2n) > td,
+.table.table-striped > tbody tr.selected-row > td {
+  background: #39508a;
+}
+.table.table-hover > tbody > tr:hover > td,
+.table.table-hover > tbody > tr:hover > th {
+  background: #2a3b66;
+}
+.table.style-1 {
+  border-color: #ff5f5f;
+  border-width: 1px;
+}
+.table.style-1 > thead > tr {
+  background: #ff5f5f;
+}
+.table.style-1 > thead > tr th {
+  color: #ffffff;
+}
+.table.style-1 > thead > tr td,
+.table.style-1 > tbody > tr td,
+.table.style-1 > thead > tr th,
+.table.style-1 > tbody > tr th {
+  border-color: #ff5f5f !important;
+}
+.table.style-2 {
+  border-color: #e9e9e9;
+}
+.table.style-2 > thead > tr {
+  background: #e9e9e9;
+}
+.table.style-2 > thead > tr th {
+  color: #ff5f5f;
+}
+.table.style-2 > thead > tr td,
+.table.style-2 > tbody > tr td,
+.table.style-2 > thead > tr th,
+.table.style-2 > tbody > tr th {
+  border-color: #e9e9e9 !important;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 1em;
+}
+@media (max-width: 979px) {
+  .table-responsive {
+    margin: 1em 0;
+    border-color: #2a3b66;
+  }
+  .table-responsive > .table {
+    background: #2a3b66;
+  }
 }

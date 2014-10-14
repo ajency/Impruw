@@ -53,7 +53,10 @@ define(['app', 'apps/builder/site-builder/elements/title/views', 'apps/builder/s
             var data, original_data;
             original_data = _this.layout.model.get('content');
             if (_.isObject(original_data)) {
-              data = original_data;
+              data = {};
+              Object.getOwnPropertyNames(original_data).forEach(function(val, idx, array) {
+                return data[val] = _.stripslashes(original_data[val]);
+              });
             } else {
               data = {};
               data['en'] = original_data;
@@ -63,7 +66,6 @@ define(['app', 'apps/builder/site-builder/elements/title/views', 'apps/builder/s
             return _this.layout.model.save();
           };
         })(this));
-        this.layout.model.save();
         return this.layout.elementRegion.show(view);
       };
 

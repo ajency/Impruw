@@ -64,7 +64,8 @@ define(['app', 'controllers/base-controller', 'apps/rooms/edit/views', 'apps/roo
             _this.listenTo(_this.layout, "show:edit:slider", function() {
               return App.execute("show:slides:list", {
                 region: App.dialogRegion,
-                collection: _this.slidesCollection
+                collection: _this.slidesCollection,
+                element: 'Room'
               });
             });
             _this.listenTo(_this.layout, "save:edit:room", function(data) {

@@ -11,7 +11,8 @@ define ['app'
             initialize: (options)->
                 _.defaults options.modelData,
                                         element: 'Map'
-                                        height : 250
+                                        # height : 250
+                                        heightRatio : 0.3
                 super(options)
 
             bindEvents: ->
@@ -40,4 +41,9 @@ define ['app'
                     @layout.model.save()
 
 
+                # try
                 @layout.elementRegion.show view
+                # catch e
+                #     @layout.elementRegion.show @_getErrorView()
+                
+                

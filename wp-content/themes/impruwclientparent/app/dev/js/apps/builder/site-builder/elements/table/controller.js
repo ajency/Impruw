@@ -35,6 +35,28 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
         });
       };
 
+      Controller.prototype.tableOnColumnWidthChange = function(originalMarkup, referenceMarkup) {
+        var $content, html_table, modified_language_table_html, referenceTableHead, tableHeadColumns, thWidthArray;
+        if ($.trim(originalMarkup).length === 0) {
+          originalMarkup = referenceMarkup;
+        }
+        html_table = '<div>' + originalMarkup + '</div>';
+        $content = $(html_table);
+        referenceTableHead = $(referenceMarkup).find('thead th');
+        thWidthArray = new Array();
+        _.each(referenceTableHead, function(column, index) {
+          var thwidth;
+          thwidth = $(column).css('width');
+          return thWidthArray.push(thwidth);
+        });
+        tableHeadColumns = $content.find('thead th');
+        _.each(tableHeadColumns, function(column, index) {
+          return $(column).css('width', thWidthArray[index]);
+        });
+        modified_language_table_html = $content.html();
+        return modified_language_table_html;
+      };
+
       Controller.prototype.tableOnStyleChange = function(originalMarkup, referenceMarkup) {
         var $content, html_table, modified_language_table_html;
         if ($.trim(originalMarkup).length === 0) {
@@ -164,6 +186,7 @@ define(['app', 'text!apps/builder/site-builder/elements/table/templates/table.ht
         referenceMarkup = _.stripslashes(referenceMarkup);
         modifiedTranslatedMarkup = this.tableOnRowChange(originalMarkup, referenceMarkup);
         modifiedTranslatedMarkup = this.tableOnColumnChange(modifiedTranslatedMarkup, referenceMarkup);
+        modifiedTranslatedMarkup = this.tableOnColumnWidthChange(modifiedTranslatedMarkup, referenceMarkup);
         modifiedTranslatedMarkup = this.tableOnStyleChange(modifiedTranslatedMarkup, referenceMarkup);
         finalTranslatedMarkup = modifiedTranslatedMarkup;
         return finalTranslatedMarkup;

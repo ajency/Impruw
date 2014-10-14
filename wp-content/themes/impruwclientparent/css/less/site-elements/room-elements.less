@@ -627,6 +627,13 @@
 								&.ui-datepicker-today {
 									font-weight: 700;
 								}
+								&.ui-datepicker-current-day {
+									font-weight: 700;
+									a, span {
+										background: @primary1;
+										color: @text-color;
+									}
+								}
 							}
 								.booking-red{
 						background:#f97d61;
@@ -837,6 +844,8 @@
 		transform: rotate(90deg);
 		line-height: 29px;
 		color: @white;
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled = false)" !important;
+		filter: none !important;
 		&.right {
 			-ms-transform: rotate(90deg);
 			-webkit-transform: rotate(90deg);

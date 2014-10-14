@@ -32,6 +32,7 @@
     <link href="<?php echo site_url(); ?>//wp-includes/css/dashicons.min.css" rel="stylesheet" media="screen">
     <link href="<?php echo site_url(); ?>/wp-includes/js/imgareaselect/imgareaselect.css" rel="stylesheet"
           media="screen">
+    <link href="<?php echo site_url(); ?>/wp-content/plugins/revslider/rs-plugin/css/dynamic-captions.css" rel="stylesheet"
     <link href="<?php echo site_url(); ?>/wp-admin/css/media-rtl.css" rel="stylesheet" media="screen">
     <link href="<?php echo site_url(); ?>/wp-admin/css/media.css" rel="stylesheet" media="screen">
 
@@ -55,9 +56,9 @@
 <?php if(isset($_GET['expire'])): ?>
     <div class="new-instance-message">
         <img class="img-responsive" src="<?php echo get_parent_template_directory_uri(); ?>/images/impruw-logo.png">
-        <h2>A New Instance is Open!</h2>
+        <h2><?php _e('This site-builder has been opened somewhere else!','sitebuilder')?></h2>
         <p class="desc">
-            This site is being edited elsewhere. You can no longer edit it here.
+            <?php _e('Your website is just as unique as you are, and it could get a wee bit complicated if you are editing your site in more than one place.','sitebuilder')?>
         </div>
     </div>
 <?php else: ?>
@@ -115,6 +116,7 @@
     var THEMECOLORSET = '<?php echo get_option('current_color_set','default'); ?>';
     var AUTOSAVEINTERVAL = 6000 * 10 * 2 ;
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
+    var SINGLE_ROOM_PAGE = '<?php echo get_single_room_page_title();?>';
     var ADDRESS = '<?php echo get_hotel_address() ?>';
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';

@@ -17,6 +17,7 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                     topRatio : 0
                     link : '#'
                     target : '_self'
+                    link_check : false
 
                 if options.modelData.element is 'Logo'
                     options.modelData.image_id = window.LOGOID
@@ -25,7 +26,11 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
 
             bindEvents: ->
                 # start listening to model events
-                @listenTo @layout.model, "change:image_id change:align change:link change:target", @renderElement
+                @listenTo @layout.model, "change:image_id change:align ", @renderElement
+
+                @listenTo @layout.model, 'change:link change:target change:link_check',=>
+                    @layout.model.save()
+
                 super()
 
             # private etmplate helper function
@@ -40,8 +45,8 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                 
                 new Image.Views.ImageView
                     model: imageModel
-                    imageHeightRatio : @layout.model.get 'heightRatio'
-                    positionTopRatio : @layout.model.get 'topRatio'
+                    # imageHeightRatio : @layout.model.get 'heightRatio'
+                    # positionTopRatio : @layout.model.get 'topRatio'
                     eleModel : @layout.model
                     templateHelpers: @_getTemplateHelpers()
 
@@ -83,7 +88,7 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                             @layout.model.save()
 
                     @listenTo view, 'set:image:height',(height,width)=>
-                        @layout.model.set 'height', height
+                        # @layout.model.set 'height', height
                         if height is 'auto'
                             @layout.model.set 'heightRatio','auto'
                         else

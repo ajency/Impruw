@@ -15,8 +15,8 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
       Controller.prototype.initialize = function(options) {
         var data;
         data = {};
-        data['en'] = '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>';
-        data['nb'] = '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>';
+        data['en'] = "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>";
+        data['nb'] = "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>";
         _.defaults(options.modelData, {
           element: 'ImageWithText',
           image_id: 0,
@@ -25,16 +25,18 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
           style: '',
           content: data,
           link: '#',
-          target: '_self'
+          target: '_self',
+          link_check: false
         });
         return Controller.__super__.initialize.call(this, options);
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:image_id", this.renderElement);
+        this.listenTo(this.layout.model, "change:image_id change:size change:align", this.renderElement);
         this.listenTo(this.layout.model, "change:style", this.changeElementStyle);
-        this.listenTo(this.layout.model, "change:size", this.renderElement);
-        this.listenTo(this.layout.model, "change:align", this.renderElement);
+        this.listenTo(this.layout.model, "change:link change:target change:link_check", function() {
+          return this.layout.model.save();
+        });
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -87,7 +89,10 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
               var data, original_data;
               original_data = _this.layout.model.get('content');
               if (_.isObject(original_data)) {
-                data = original_data;
+                data = {};
+                Object.getOwnPropertyNames(original_data).forEach(function(val, idx, array) {
+                  return data[val] = _.stripslashes(original_data[val]);
+                });
               } else {
                 data = {};
                 data['en'] = original_data;

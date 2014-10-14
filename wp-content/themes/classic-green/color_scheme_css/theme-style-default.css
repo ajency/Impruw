@@ -125,12 +125,15 @@
   font-weight: 300;
   margin: 0.5em 0;
 }
+.site-style-container {
+  min-height: 100vh;
+}
 .site-style-container .row.center-container {
   max-width: 1170px;
   margin: 0.5em auto;
 }
 .site-style-container .row.grey-background {
-  background: #e1e1e1;
+  background: #E1E1E1;
 }
 .site-style-container .row.footer-container {
   background: #656565;
@@ -141,13 +144,20 @@
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .logo {
     text-align: center;
+    margin: auto;
   }
   .logo a {
     display: inline-block;
   }
+}
+.logo img {
+  display: block !important;
+}
+.nav {
+  color: #7F7F7F;
 }
 .nav.slimmenu {
   padding: 0;
@@ -211,15 +221,14 @@
 .nav.slimmenu > li.gallery {
   margin-bottom: 0;
 }
-.nav.slimmenu > li.active {
+.nav.slimmenu > li.current-menu-item {
   background: #5ca9a1;
 }
-.nav.slimmenu > li.active a {
-  color: #ffffff;
-  border-color: #5ca9a1;
+.nav.slimmenu > li.current-menu-item a {
+  color: #656565;
 }
-.nav.slimmenu > li.active a span {
-  color: #ffffff;
+.nav.slimmenu > li.current-menu-item a span {
+  color: #9fccc8;
 }
 .nav .menu-collapser {
   background: #FFFFFF;
@@ -276,7 +285,7 @@
   color: #5ca9a1;
 }
 .text {
-  color: #7f7f7f;
+  color: #7F7F7F;
 }
 .imagewithtext {
   *zoom: 1;
@@ -307,11 +316,11 @@
   margin-left: 0.5em;
 }
 .imagewithtext p {
-  color: #7f7f7f;
+  color: #7F7F7F;
 }
 .image {
   margin: 0.5em 0;
-  color: #7f7f7f;
+  color: #7F7F7F;
   overflow: hidden;
 }
 .image .info {
@@ -321,13 +330,13 @@
 .image-placeholder {
   margin: 0.5em 0;
   padding: 0.5em 0.5em 1em;
-  border: 1px dashed #7f7f7f;
+  border: 1px dashed #7F7F7F;
   text-align: center;
-  color: #7f7f7f;
+  color: #7F7F7F;
   font-size: 1.2em;
 }
 .image-placeholder .glyphicon {
-  color: #7f7f7f;
+  color: #7F7F7F;
   font-size: 2.7em;
   text-shadow: 1px 1px 2px #000;
   display: block;
@@ -374,7 +383,7 @@
   margin-bottom: 10px;
   padding-left: 5px;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .address {
     text-align: center;
   }
@@ -476,7 +485,7 @@
   text-decoration: none !important;
 }
 .social li:hover {
-  background: #e1e1e1;
+  background: #E1E1E1;
   box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
 }
 .social li:hover a {
@@ -491,9 +500,9 @@
 .social.social-center {
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 971px) {
   .social {
-    text-align: center;
+    text-align: center !important;
   }
 }
 .contactform label {
@@ -648,6 +657,11 @@
   font-size: 1.4em;
   display: block;
 }
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday .price small,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekend .price small {
+  font-size: 0.66em;
+  line-height: 1.4em;
+}
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty {
   height: 139px;
 }
@@ -775,9 +789,6 @@
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #5ca9a1;
-}
-.room-facilities-container .facilities li:hover:before {
   color: #656565;
 }
 .room-summary-container .room-summary-title h4 {
@@ -880,6 +891,11 @@
   max-height: 240px;
   overflow: hidden;
 }
+.roomsummary .room-img a {
+  display: block;
+  min-height: 200px;
+  background-size: cover !important;
+}
 .roomsummary .room-title {
   font-size: 1.6em;
   color: #5ca9a1;
@@ -903,9 +919,11 @@
   display: table;
 }
 .roomsummary .room-actions .price {
-  float: left;
   font-size: 2em;
   color: #4c4c4c;
+  margin-right: 0.5em;
+  display: inline-block;
+  vertical-align: middle;
 }
 .roomsummary .room-actions .price small {
   font-size: 0.8em;
@@ -968,7 +986,7 @@
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #FFFFFF;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;
@@ -978,7 +996,7 @@
 .room-booking .room-booking-container .room-booking-data .date-range .status {
   font-size: 1.0em;
   text-transform: uppercase;
-  padding-top: 13px;
+  padding: 8px;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #FFFFFF;
@@ -1103,6 +1121,7 @@
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-title {
   line-height: 74px;
+  font-weight: normal;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td {
   border: 1px solid #EAEAEA !important;
@@ -1116,6 +1135,7 @@
   line-height: 49px;
   text-align: center;
   border: 0px;
+  font-weight: normal;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td span:hover {
@@ -1123,12 +1143,24 @@
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td > span {
   background: rgba(255,255,255,0.6);
-  color: #ccc;
+  color: #7F7F7F;
   cursor: not-allowed;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-state-disabled a:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-state-disabled span:hover {
   background: rgba(255,255,255,0.6);
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-today {
+  font-weight: 700;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day {
+  font-weight: 700;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day a,
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td.ui-datepicker-current-day span {
+  background: #5ca9a1;
+  color: #7F7F7F;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red {
   background: #f97d61;
@@ -1329,17 +1361,17 @@ ul.gallery {
 .gallery-title {
   font-size: 1.5em;
   font-weight: 300 !important;
-  border-bottom: 1px solid #7f7f7f;
+  border-bottom: 1px solid #7F7F7F;
   margin: 0 0 0.5em;
   text-align: left;
 }
 .gallery-empty-view {
   text-align: center;
   font-size: 1.2em;
-  color: #7f7f7f;
+  color: #7F7F7F;
   padding: 3em 0.3em;
   height: 100%;
-  border: 1px dashed #7f7f7f;
+  border: 1px dashed #7F7F7F;
 }
 .gallery-empty-view .glyphicon {
   display: block;
@@ -1406,7 +1438,7 @@ ul.gallery {
 .map .empty-view {
   text-align: center;
   font-size: 1.2em;
-  color: #7f7f7f;
+  color: #7F7F7F;
   padding: 3em 0.3em;
   height: 100%;
 }
@@ -1423,10 +1455,10 @@ ul.gallery {
   width: 50%;
   margin: 3em auto;
   padding: 1em;
-  color: #7f7f7f;
+  color: #7F7F7F;
 }
 .aj-imp-login-form .aj-imp-login-header {
-  border-bottom: 1px solid #7f7f7f;
+  border-bottom: 1px solid #7F7F7F;
   text-align: center;
 }
 .aj-imp-login-form .aj-imp-login-header h1 {
@@ -1438,7 +1470,7 @@ ul.gallery {
 }
 .aj-imp-login-form .aj-imp-login-header .desc {
   font-size: 1.1em;
-  color: #7f7f7f;
+  color: #7F7F7F;
 }
 .aj-imp-login-form .aj-imp-login,
 .aj-imp-login-form .aj-imp-forgot {
@@ -1488,7 +1520,7 @@ ul.gallery {
 }
 .aj-imp-login-form .aj-imp-login form .checkbox .icons,
 .aj-imp-login-form .aj-imp-forgot form .checkbox .icons {
-  color: #7f7f7f;
+  color: #7F7F7F;
 }
 .aj-imp-login-form .aj-imp-login form .checkbox .icons .first-icon,
 .aj-imp-login-form .aj-imp-login form .checkbox .icons .second-icon,
@@ -1541,8 +1573,8 @@ ul.gallery {
   }
 }
 .table {
-  background: #e1e1e1;
-  color: #7f7f7f;
+  background: #E1E1E1;
+  color: #7F7F7F;
   margin: 0;
 }
 .table > thead > tr {
@@ -1578,7 +1610,7 @@ ul.gallery {
 .table.table-bordered > thead > tr th,
 .table.table-bordered > tbody > tr td,
 .table.table-bordered > tbody > tr th {
-  border: 1px solid #7f7f7f !important;
+  border: 1px solid #7F7F7F !important;
 }
 .table.table-striped > tbody > tr:nth-child(2n) > td,
 .table.table-striped > tbody tr.selected-row > td {
@@ -1629,10 +1661,10 @@ ul.gallery {
 @media (max-width: 979px) {
   .table-responsive {
     margin: 1em 0;
-    border-color: #e1e1e1;
+    border-color: #E1E1E1;
   }
   .table-responsive > .table {
-    background: #e1e1e1;
+    background: #E1E1E1;
   }
 }
 .lang-sel {
@@ -1655,10 +1687,12 @@ ul.gallery {
 }
 .lang-sel > div {
   text-align: left;
+  z-index: 3;
 }
 .lang-sel > div ul,
 .lang-sel > div li {
   min-width: 170px;
+  height: 25px;
 }
 .lang-sel > div ul ul,
 .lang-sel > div li ul {
@@ -1668,7 +1702,8 @@ ul.gallery {
   top: -1px !important;
 }
 .widget {
-  color: #7f7f7f;
+  color: #7F7F7F;
+  margin: 1em 0;
 }
 .embed-responsive {
   position: relative;
@@ -1695,6 +1730,15 @@ ul.gallery {
 .embed-responsive.embed-responsive-4by3 {
   padding-bottom: 75%;
 }
+.tp-caption {
+  padding: 1em;
+}
+.tp-caption.transparent-black {
+  background: rgba(0,0,0,0.7);
+}
+.tp-caption.transparent-white {
+  background: rgba(255,255,255,0.7);
+}
 .row.green-background {
   background: #5ca9a1;
   padding-top: 2em;
@@ -1713,16 +1757,13 @@ ul.gallery {
   color: #fff;
 }
 .row.shaded-background {
-  background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0,0,0,0);
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAIAAABLMMCEAAAAM0lEQVQImWXMsQkAMAwDwY9A+0/pKdykcUiIVB7iV1UBgG3OlNTdSgKUdAsv2VbSfD8CNi76FMy/HZ/YAAAAAElFTkSuQmCC) repeat scroll 0 0 rgba(0,0,0,0);
   margin-bottom: 1em;
   margin-top: 1em;
 }
 .logo {
   max-width: 300px;
   margin: 0 0 0.5em;
-}
-.logo img {
-  max-height: 40px;
 }
 @media (max-width: 767px) {
   .logo {
@@ -1762,13 +1803,14 @@ ul.gallery {
   padding: 0;
   margin-right: -1px;
 }
-.nav.slimmenu li.active {
+.nav.slimmenu li.current-menu-item {
   background-color: #FFFFFF;
   border-left: 1px solid #FFFFFF;
   border-right: 1px solid #FFFFFF;
   border-bottom: 0;
 }
-.nav.slimmenu li.active a {
+.nav.slimmenu li.current-menu-item a {
+  background: #FFFFFF;
   color: #5ca9a1;
 }
 .nav.slimmenu li.open {
@@ -1801,6 +1843,39 @@ ul.gallery {
 .nav.slimmenu li .dropDrown li {
   width: 100%;
   background: #7ecbc3;
+}
+.nav.footer-menu {
+  padding-left: 0;
+  text-align: center;
+}
+.nav.footer-menu li {
+  list-style: none;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background: #5ca9a1;
+  cursor: pointer;
+}
+.nav.footer-menu li a {
+  font-size: 1.333em;
+  color: #FFFFFF;
+  font-weight: 300;
+  padding: 10px 45px;
+  display: block;
+}
+.nav.footer-menu li:hover,
+.nav.footer-menu li:focus {
+  background: #FFFFFF;
+  text-shadow: none;
+  -webkit-transition: background-color .25s, color .25s, border-bottom-color .25s;
+  -moz-transition: background-color .25s, color .25s, border-bottom-color .25s;
+  -o-transition: background-color .25s, color .25s, border-bottom-color .25s;
+  transition: background-color .25s, color .25s, border-bottom-color .25s;
+  -webkit-backface-visibility: hidden;
+}
+.nav.footer-menu li:hover a,
+.nav.footer-menu li:focus a {
+  color: #656565;
 }
 .title.box-title {
   color: #656565;
@@ -1838,10 +1913,10 @@ ul.gallery {
   margin-bottom: 30px;
   padding-left: 20px;
 }
-.address.small .info {
+.address.small-address .info {
   color: #989898;
   font-size: 1em;
-  font-weight: 200;
+  font-weight: 300;
   margin-bottom: 10px;
   padding-left: 5px;
 }
@@ -2244,9 +2319,6 @@ ul.social li:hover a {
   top: 3px;
   color: #5ca9a1;
 }
-.room-facilities-container .facilities li:hover:before {
-  color: #656565;
-}
 .room-summary-container {
   margin: 0 0 1.5em;
 }
@@ -2397,7 +2469,7 @@ ul.social li:hover a {
 .daterange-legends {
   text-transform: uppercase;
   font-size: 0.9em;
-  color: #FFFFFF;
+  color: #7F7F7F;
 }
 .daterange-legends li span {
   width: 13px;
@@ -2440,7 +2512,7 @@ ul.social li:hover a {
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
   color: #fff;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
   font-size: 1.5em;
@@ -2473,7 +2545,7 @@ ul.social li:hover a {
   float: left;
   font-size: 0.9em;
   font-weight: 300;
-  color: #e5e5e5;
+  color: #7F7F7F;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-detail span {
   font-weight: 800;
@@ -2509,6 +2581,7 @@ ul.social li:hover a {
   text-transform: uppercase;
   margin-bottom: 30px;
   margin-top: 30px;
+  text-shadow: 1px 1px 3px #7F7F7F;
 }
 .room-booking .room-booking-container .room-booking-calender h4 .glyphicon {
   font-size: 1.5em;
@@ -2734,10 +2807,10 @@ ul.social li:hover a {
   width: 50%;
   margin: 3em auto;
   padding: 1em;
-  color: #7f7f7f;
+  color: #7F7F7F;
 }
 .aj-imp-login-form .aj-imp-login-header {
-  border-bottom: 1px solid #7f7f7f;
+  border-bottom: 1px solid #7F7F7F;
   text-align: center;
 }
 .aj-imp-login-form .aj-imp-login-header h1 {
@@ -2749,7 +2822,7 @@ ul.social li:hover a {
 }
 .aj-imp-login-form .aj-imp-login-header .desc {
   font-size: 1.1em;
-  color: #7f7f7f;
+  color: #7F7F7F;
 }
 .aj-imp-login-form .aj-imp-login,
 .aj-imp-login-form .aj-imp-forgot {
@@ -2803,7 +2876,7 @@ ul.social li:hover a {
 }
 .aj-imp-login-form .aj-imp-login form .checkbox .icons,
 .aj-imp-login-form .aj-imp-forgot form .checkbox .icons {
-  color: #7f7f7f;
+  color: #7F7F7F;
 }
 .aj-imp-login-form .aj-imp-login form .checkbox .icons .first-icon,
 .aj-imp-login-form .aj-imp-login form .checkbox .icons .second-icon,

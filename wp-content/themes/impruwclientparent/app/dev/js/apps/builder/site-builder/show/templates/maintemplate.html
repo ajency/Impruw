@@ -2,15 +2,37 @@
     <!-- browser header-->
     <div class="aj-imp-browser-header">
         <div class="lock-message hidden">
-            <span class="bicon icon-uniF180"></span>
-            <div class="message-span">{{#polyglot}}Editing has been locked for this page.{{/polyglot}}</div>
-            <button id="take-over-button" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Take Over{{/polyglot}}</button>
-            <span class="option-or">{{#polyglot}}Or Edit Another Page:{{/polyglot}}</span>
-            <select id="builder-page-sel-lock" name="builder-page-sel">
-                {{#pages}}
-                <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
-                {{/pages}}
-            </select>
+            <div class="lock-container">
+                <div class="locker">
+                    <div class="lockgo">
+                        &nbsp;
+                    </div>
+                    <span class="bicon icon-uniF180 pulse"></span>
+                    <div class="message-span">{{#polyglot}}Editing has been locked for this page.{{/polyglot}}</div>
+                    <div class="option-msg">
+                        {{#polyglot}}You could choose to either take over this page or edit some other page.{{/polyglot}}
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5 t-a-r">
+                            <button id="take-over-button" class="btn btn-lg aj-imp-orange-btn">{{#polyglot}}Take Over{{/polyglot}}</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <span class="or-text">{{#polyglot}}OR{{/polyglot}}</span>
+                        </div>
+                        <div class="col-sm-5 option-or">
+                            {{#polyglot}}Edit:{{/polyglot}}
+                            <select id="builder-page-sel-lock" name="builder-page-sel">
+                                {{#pages}}
+                                <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
+                                {{/pages}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lock-help">
+                        {{#polyglot}}If this is an unauthorized user, take over and contact us at{{/polyglot}} <a href="mailto:support@impruw.com">{{#polyglot}}support@impruw.com{{/polyglot}}</a>.
+                    </div>
+                </div>
+            </div>
         </div>
         <!--row first-->
         <div class="row">
@@ -62,22 +84,10 @@
             </div>
             <div class="aj-imp-save-action col-sm-3">
                 <div class="aj-imp-page-publish">
-                    <div id="aj-imp-preview-sel" class="dropdown">
-                        <a data-toggle="dropdown" href="#">{{#polyglot}}Preview{{/polyglot}} <span
-                                class="caret"></span></a>
-                        <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation">
-                                <div class="aj-imp-preview-box">
-                                    <h6>{{#polyglot}}Choose Device{{/polyglot}}</h6>
-                                    <ul class="clearfix">
-                                        <li><a href="#"
-                                               class="selected preview-current-page"
-                                               target="_newtab"><span class="bicon icon-uniF121"></span></a></li>
-                                        <li><a href="#"><span class="bicon icon-uniF120"></span></a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
+                    <div id="aj-imp-preview-sel">
+                        <a href="#" class="preview-btn preview-current-page" target="_newtab">
+                            <span class="bicon icon-uniF16D"></span>&nbsp;{{#polyglot}}Preview{{/polyglot}} 
+                        </a>
                     </div>
                     <div class="aj-imp-publish">
                         <a href="#" class="publish-page btn btn-primary btn-sm btn-embossed"><span

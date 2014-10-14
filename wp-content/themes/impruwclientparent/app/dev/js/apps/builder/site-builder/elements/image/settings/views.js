@@ -32,6 +32,9 @@ define(['app', 'text!apps/builder/site-builder/elements/image/settings/templates
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').checkbox('check');
         }
+        if (this.eleModel.get('link_check') === true) {
+          this.$el.find('input[name="link_check"]').checkbox('check');
+        }
         if (this.eleModel.get('target') === '_BLANK') {
           this.$el.find('input[name="target"]').checkbox('check');
         }
@@ -51,6 +54,9 @@ define(['app', 'text!apps/builder/site-builder/elements/image/settings/templates
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));
         },
+        'change input[name="link_check"]': function(evt) {
+          return this.trigger("element:linkcheck:changed", $(evt.target).is(':checked'));
+        },
         'change select[name="align"]': function(evt) {
           return this.trigger("element:alignment:changed", $(evt.target).val());
         },
@@ -61,6 +67,9 @@ define(['app', 'text!apps/builder/site-builder/elements/image/settings/templates
           return this.trigger("element:target:changed", $(evt.target).is(':checked') ? '_BLANK' : '_self');
         },
         'blur input.linktext': function(evt) {
+          if ($(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 8) !== "https://" && $(evt.target).val().substring(0, 2) !== "//") {
+            $(evt.target).val("http://" + $(evt.target).val());
+          }
           return this.trigger("element:link:changed", $(evt.target).val());
         }
       };

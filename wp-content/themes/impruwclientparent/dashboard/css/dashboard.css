@@ -1,7 +1,5 @@
 @import url(icon-fonts.css);
-
 @import url(../../builder/css/builder-icon-fonts.css);
-
 @import url(lightbox.css);
 /*
 Theme Name:     Impruw Dashboard
@@ -111,10 +109,8 @@ p {
   transform: scale(0.8, 0.8);
   -ms-transform: scale(0.8, 0.8);
   /* IE 9 */
-
   -webkit-transform: scale(0.8, 0.8);
   /* Safari and Chrome */
-
   transition-duration: 1s;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu {
@@ -163,7 +159,6 @@ p {
   display: block;
   position: absolute;
   /*background: url('../images/dash-nav-sprite.png') no-repeat;*/
-
   top: 20px;
   left: 30px;
   font-size: 2em;
@@ -279,28 +274,20 @@ p {
   padding: 0.5em 1em;
   background: #ffffff;
   /* Old browsers */
-
   background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #f4f4f4));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* IE10+ */
-
   background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f4f4f4', GradientType=0);
   /* IE6-9 */
-
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .aj-imp-widget-container .aj-imp-widget-head {
   background: #dddddd;
@@ -522,7 +509,6 @@ form .form-group .control-label {
   /*&.dd-label {
 				bottom: 10px;
 			}*/
-
 }
 form .form-group .control-label small {
   display: block;
@@ -1394,6 +1380,15 @@ form .aj-imp-submit:hover {
   font-size: 0.9em;
   color: #aaaaaa;
 }
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .progress-text {
+  color: #aaaaaa;
+  margin: 0.5em 0;
+  font-size: 1.1em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .progress-text span {
+  font-weight: 700;
+  color: #849fb0;
+}
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button {
   margin: 1em 0;
 }
@@ -1688,17 +1683,10 @@ form .aj-imp-submit:hover {
   outline: 0;
   color: #ff7e00;
 }
-.modal .panel-group .panel .panel-heading > a .imgthumb img {
-  height: 100%;
-  width: auto;
-}
 .modal .panel-group .panel .panel-heading > a .imgname,
 .modal .panel-group .panel .panel-heading > a .imgdate {
   font-weight: bold;
   padding: 0.5em 15px;
-}
-.modal .panel-group .panel .panel-heading > a .imgactions {
-  text-align: center;
 }
 .modal .panel-group .panel .panel-heading > a .imgactions .btn {
   padding: 5px 8px 6px;
@@ -1710,12 +1698,81 @@ form .aj-imp-submit:hover {
 .modal .panel-group .panel .panel-heading > a.collapsed {
   color: #aaaaaa;
 }
+.modal .panel-group .panel .panel-heading .imgthumb {
+  position: relative;
+  padding-left: 30px;
+}
+.modal .panel-group .panel .panel-heading .imgthumb .arrange-slides {
+  width: 20px;
+  text-align: center;
+  background: #dddddd;
+  left: 5px;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  cursor: move;
+  overflow: hidden;
+}
+.modal .panel-group .panel .panel-heading .imgthumb .arrange-slides .arrow {
+  position: relative;
+  left: -5px;
+  top: 40%;
+}
+.modal .panel-group .panel .panel-heading .imgthumb .arrange-slides .arrow .bicon {
+  display: block;
+  font-size: 2em;
+  color: #f3f3f3;
+  transform: rotate(90deg);
+}
+.modal .panel-group .panel .panel-heading .imgthumb img {
+  height: 100%;
+  width: auto;
+  max-height: 120px;
+}
+.modal .panel-group .panel .panel-heading .imgthumb.full-w .imgactions,
+.modal .panel-group .panel .panel-heading .imgthumb.full-w .accordion-toggle {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 0.5em;
+  min-width: 316px;
+}
+.modal .panel-group .panel .panel-heading .imgthumb.full-w .arrange-slides .arrow {
+  left: 0;
+}
 .modal .panel-group .panel .panel-heading:hover {
   background: #f3f3f3;
+}
+.modal .panel-group .panel .panel-heading:hover .arrange-slides {
+  background: #849fb0;
 }
 .modal .panel-group .panel .panel-body {
   border: 0;
   padding: 1em 0;
+}
+.modal .panel-group .panel .panel-body .aj-imp-edit-image {
+  border-radius: 0;
+}
+.modal .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link {
+  position: relative;
+}
+.modal .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link img {
+  padding: 1px;
+  border: 1px solid #aaaaaa;
+}
+.modal .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.4);
+}
+.modal .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay a {
+  position: relative;
+  top: 50%;
+  color: #fff;
+  display: block;
+  text-align: center;
 }
 .modal .panel-group#settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"],
 .modal .panel-group#map-settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"] {
@@ -1947,25 +2004,18 @@ form .aj-imp-submit:hover {
   right: 1em;
   background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(25%, #ffffff), color-stop(100%, #ffffff));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* IE10+ */
-
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
   /* IE6-9 */
-
   font-size: 0.8em;
   display: none;
 }
@@ -2875,6 +2925,9 @@ form .aj-imp-submit:hover {
   border: 1px solid #c3c3c3;
   border-radius: 4px;
 }
+#slides-list-region .panel {
+  overflow: visible;
+}
 #slides-list-region .move {
   position: relative;
   height: 100px;
@@ -2896,11 +2949,86 @@ form .aj-imp-submit:hover {
   max-width: 100%;
   height: auto;
 }
-#slides-list-region .imgname {
-  color: #333333;
+#slides-list-region .imgname .form-horizontal {
+  margin: 0;
 }
-#slides-list-region .imgname:hover {
-  color: #333333;
+#slides-list-region .imgname .form-horizontal .form-group {
+  margin-bottom: 0.5em;
+}
+#slides-list-region .imgname .form-horizontal .form-group .control-label {
+  color: #aaaaaa;
+  font-size: 1em;
+  line-height: 1em;
+  padding-right: 0;
+}
+#slides-list-region .imgname .form-horizontal .form-group .control-label.checkbox {
+  padding-top: 3px;
+  margin: 0.3em 0;
+  text-align: left;
+}
+#slides-list-region .imgname .form-horizontal .form-group .form-control {
+  padding: 2px 6px;
+  font-size: 1em;
+  border-width: 1px;
+  line-height: 1em;
+  height: 32px;
+  border-radius: 3px;
+}
+#slides-list-region .imgname .form-horizontal .form-group .form-control.bootstrap-select {
+  padding: 0;
+  height: auto;
+}
+#slides-list-region .imgname .form-horizontal .form-group textarea.form-control {
+  min-height: 48px;
+  height: auto;
+  resize: vertical;
+}
+#slides-list-region .imgname .form-horizontal .form-group.layout-opts {
+  margin: 0 0 0.5em;
+}
+#slides-list-region .imgname .form-horizontal .form-group.layout-opts .dropdown-toggle {
+  padding: 7px 12px;
+}
+#slides-list-region .imgname .caption-position input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px 0 0;
+  padding: 0;
+  font-size: 1em;
+  opacity: 0;
+  cursor: pointer;
+}
+#slides-list-region .imgname .caption-position input[type="radio"] + label {
+  display: inline-block;
+  margin-left: -32px;
+  margin-top: -4px;
+  line-height: 25px;
+}
+#slides-list-region .imgname .caption-position input[type="radio"] + label > span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 0.25em 0.5em 0.25em 0.25em;
+  border: 0;
+  border-radius: 1px;
+  background: #aaaaaa;
+  vertical-align: bottom;
+}
+#slides-list-region .imgname .caption-position input[type="radio"]:checked + label > span {
+  background: #ff7e00;
+}
+#slides-list-region .imgname .caption-position input[type="radio"]:checked + label > span > span {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 2px;
+  border: 0;
+  border-radius: 1px;
+  background: #ffffff;
+}
+#slides-list-region .imgactions a {
+  display: block;
+  margin: 0.5em 0;
 }
 #slides-list-region .remove-slide {
   color: #f21515;
@@ -2911,12 +3039,15 @@ form .aj-imp-submit:hover {
 }
 #slides-info {
   background: #f3f3f3;
-  padding: 1em;
-  margin-right: 0.5em;
-  font-size: 1.3em;
+  padding: 0.5em;
+  margin: 0 0.4em 0.5em;
+  font-size: 1.1em;
   color: #919191;
   border: 2px solid #dddddd;
-  border-radius: 4px;
+  border-radius: 2px;
+}
+#slides-info .add-new-slide {
+  margin-bottom: 0;
 }
 .crop-help {
   margin-right: 0.5em;
@@ -3356,28 +3487,20 @@ form .aj-imp-submit:hover {
 .booking-slider-pop .semi-available span {
   background: #ff7e00;
   /* Old browsers */
-
   background: -moz-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #ff7e00), color-stop(50%, #ff7e00), color-stop(50%, #b25900), color-stop(100%, #b25900));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
   /* IE10+ */
-
   background: linear-gradient(135deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff7e00', endColorstr='#b25900', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
-
   color: #fff;
 }
 .booking-slider-pop .unavailable span {
@@ -3430,7 +3553,6 @@ form .aj-imp-submit:hover {
 .room-chart {
   background: #f6f6f6;
   /* padding: 40px; */
-
   margin-left: 0px;
   width: 100%;
 }
@@ -3558,7 +3680,6 @@ form .aj-imp-submit:hover {
   }
   #traffic-chart-region .row .traffic-list td {
     /* Behave  like a "row" */
-  
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
@@ -3573,10 +3694,8 @@ form .aj-imp-submit:hover {
   }
   #traffic-chart-region .row .traffic-list td:before {
     /* Now like a table header */
-  
     position: absolute;
     /* Top/left values mimic padding */
-  
     top: 6px;
     left: 6px;
     width: 45%;
@@ -3635,55 +3754,39 @@ form .aj-imp-submit:hover {
 .ui-datepicker td.semi-available a {
   background: rgba(0, 0, 0, 0);
   /* Old browsers */
-
   background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, gba(0, 0, 0, 0)), color-stop(50%, gba(0, 0, 0, 0.2)));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
   /* IE10+ */
-
   background: linear-gradient(135deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
   /* W3C */
-
   ilter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#47000000', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
-
 }
 .ui-datepicker td.semi-available a:hover,
 .ui-datepicker td.semi-available a.ui-state-active {
   background: rgba(0, 0, 0, 0) !important;
   /* Old browsers */
-
   background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 50%) !important;
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, gba(0, 0, 0, 0)), color-stop(50%, gba(0, 0, 0, 0.2))) !important;
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
   /* IE10+ */
-
   background: linear-gradient(135deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
   /* W3C */
-
   ilter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#47000000', GradientType=1) !important;
   /* IE6-9 fallback on horizontal gradient */
-
 }
 .daterange-legends {
   text-transform: uppercase;
@@ -3765,6 +3868,15 @@ form .aj-imp-submit:hover {
   height: 100px;
   max-height: 100px;
   overflow: auto;
+}
+.language .aj-imp-widget-content .tab-content .original p,
+.billing-container .aj-imp-widget-content .tab-content .original p {
+  margin: 0;
+  line-height: 1.6 !important;
+  font-size: 0.96em !important;
+  color: #aaaaaa !important;
+  word-spacing: 0 !important;
+  letter-spacing: 0 !important;
 }
 .language .aj-imp-widget-content .tab-content .original.title,
 .billing-container .aj-imp-widget-content .tab-content .original.title {
@@ -3861,6 +3973,29 @@ form .aj-imp-submit:hover {
 .language .pick-language-container .pick-languages .selected-languages .single-language .icon.icon-cancel {
   color: #f21515;
 }
+.language .pick-language-container .pick-languages .lang-legend {
+  font-size: 0.88em;
+  font-style: italic;
+  margin: 0.5em 0  1em;
+}
+.language .pick-language-container .pick-languages .lang-legend .legend-item {
+  display: inline-block;
+  margin-right: 1em;
+}
+.language .pick-language-container .pick-languages .lang-legend .legend-item .icon {
+  font-size: 1.1em;
+  position: relative;
+  top: 0.11em;
+}
+.language .pick-language-container .pick-languages .lang-legend .legend-item .icon.icon-checkmark {
+  color: #2ecc71;
+}
+.language .pick-language-container .pick-languages .lang-legend .legend-item .icon.icon-notice {
+  color: #ffb266;
+}
+.language .pick-language-container .pick-languages .lang-legend .legend-item .icon.icon-cancel {
+  color: #f21515;
+}
 .language .pick-language-container .pick-languages .add-more-langs {
   background: transparent;
   color: #849fb0;
@@ -3871,22 +4006,26 @@ form .aj-imp-submit:hover {
 .language .pick-language-container .pick-languages .add-more-langs:focus {
   color: #65879c;
 }
-.language .pick-language-container .pick-languages #all-languages {
+.language .pick-language-container .pick-languages #all-languages,
+.language .pick-language-container .pick-languages #hidden-languages {
   padding: 0.5em;
   margin: 0.5em 0;
   border: 1px solid #f3f3f3;
 }
-.language .pick-language-container .pick-languages .languages {
+.language .pick-language-container .pick-languages .languages,
+.language .pick-language-container .pick-languages #hide-langs {
   list-style: none;
   padding: 0;
 }
-.language .pick-language-container .pick-languages .languages li {
-  padding: 0.5em;
+.language .pick-language-container .pick-languages .languages li,
+.language .pick-language-container .pick-languages #hide-langs li {
   width: 28%;
   float: left;
 }
-.language .pick-language-container .pick-languages .languages li .form-group {
+.language .pick-language-container .pick-languages .languages li .form-group,
+.language .pick-language-container .pick-languages #hide-langs li .form-group {
   margin: 0;
+  padding: 0.5em;
 }
 .language .pick-room .form-horizontal {
   font-size: 1.2em;
@@ -3931,11 +4070,23 @@ form .aj-imp-submit:hover {
   padding: 8px 12px 3px;
   margin-bottom: 0;
   overflow: auto;
+  color: #aaaaaa;
+  font-size: 1em;
+}
+.language .trans-field .translated-element-content p,
+.language .trans-field .translated-footer-content p,
+.language .trans-field .translated-header-content p {
+  margin: 0;
+  line-height: 1.6 !important;
+  font-size: 0.96em !important;
+  color: #aaaaaa !important;
+  word-spacing: 0 !important;
+  letter-spacing: 0 !important;
 }
 .language .trans-field .translated-element-content.title,
 .language .trans-field .translated-footer-content.title,
 .language .trans-field .translated-header-content.title {
-  height: 33px;
+  height: 34px;
   overflow: hidden;
 }
 .language .trans-field .translated-element-content:focus,

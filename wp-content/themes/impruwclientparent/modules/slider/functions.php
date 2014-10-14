@@ -22,7 +22,8 @@ function get_slides( $sliderID ) {
             'full_url'    => $slide->getImageUrl(),
             'file_name'   => $slide->getImageFilename(),
             'order'       => $slide->getOrder(),
-            'slider_id'   => $slide->getSliderId()
+            'slider_id'   => $slide->getSliderId(),
+            'layers'      => $slide->getLayers()
         );
     }
 
@@ -314,7 +315,8 @@ function slide_details_array( $slide_id ) {
         'full_url'    => $slide->getImageUrl(),
         'file_name'   => $slide->getImageFilename(),
         'order'       => $slide->getOrder(),
-        'slider_id'   => $slide->getSliderId()
+        'slider_id'   => $slide->getSliderId(),
+        'layers'      => $slide->getLayers()
     );
 
     return $slide_arr;
@@ -372,17 +374,24 @@ function update_slide( $data, $slide_id ) {
     global $wpdb;
     //$slide_id= 21;
     $arrData = array();
+
+    $arrData[ "layers" ] = json_encode( $data['layers'] );
+    unset($data['layers']);
+
     $params  = wp_parse_args( $data, slide_defaults() );
 
     //change params to json
     $params2             = json_encode( $params );
     $arrData[ "params" ] = $params2;
 
+
     $tab = GlobalsRevSlider::$table_slides;
 
     $slide_id_ret = $wpdb->update( $tab, $arrData, array( "id" => $slide_id ) );
 
     if ( $slide_id_ret != 0 ) {
+
+        // $slide_arr = slide_details_array( $slide_id_ret );
 
         return $slide_id;
     } else {

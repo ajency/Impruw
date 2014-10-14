@@ -16,7 +16,7 @@
 </div><!-- .container -->
 
 <div class="power-up hide">
-    <?php echo __('Powered By', 'impruw'); ?> <a href="http://impruw.com" target="_blank">Impruw</a>
+    <?php echo __('Powered By', 'impruw'); ?> <a href="http://impruw.com" target="_blank" title="<?php echo __('Impruw is a Drag and Drop Website Builder', 'impruw'); ?>"><img src="<?php echo get_parent_template_directory_uri(); ?>/images/impruw-hand.png"> <?php echo __('Impruw.com', 'impruw'); ?></a>
 </div>
 
 <script type="text/javascript">
@@ -35,6 +35,7 @@
         var PLANS = <?php echo json_encode(get_plans(FALSE)); ?>;
         var DATERANGE = <?php echo json_encode(get_date_range(FALSE)); ?>;
         var TARIFF = <?php echo json_encode(get_tariff(get_the_ID())); ?>;
+        var CURRENCY = '<?php echo  get_option( 'currency', 'NOK' ); ?>';
         var BOOKING = <?php echo json_encode(get_bookings()); ?>;
         
     </script>

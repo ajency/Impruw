@@ -17,11 +17,11 @@ define ['app'], (App)->
                 @className += " " + Marionette.getOption this, 'className'
 
                 # set height 
-                @$el.parent().height @model.get 'height'
+                @adjustMapHeight()
                 @$el.height '100%'
-                @trigger 'set:image:height',
-                            height : @$el.parent().height()
-                            width : @$el.parent().width()
+                # @trigger 'set:image:height',
+                #             height : @$el.parent().height()
+                #             width : @$el.parent().width()
 
                 @$el.parent().resizable
                     # helper : "ui-image-resizable-helper"
@@ -29,7 +29,7 @@ define ['app'], (App)->
 
                     stop : (evt, ui)=>
                         @$el.parent().css 'width','auto'
-                        @model.set 'height',@$el.parent().height()
+                        # @model.set 'height',@$el.parent().height()
                         @trigger 'set:image:height' ,
                             height : @$el.parent().height()
                             width : @$el.parent().width()
@@ -39,6 +39,25 @@ define ['app'], (App)->
                     @$el.html "<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Address not specified. Please<a href='#{SITEURL}/dashboard/#site-profile'> click here to add.</a></div>"
                 else
                     @geoCodeAddress()
+
+                @parentColumns = @$el.parents('.column')
+                @parentColumns.each (index,parentColumn)=>
+                    console.log parentColumn
+                    $(parentColumn).on 'class:changed',@adjustMapHeight
+                    $(parentColumn).on 'element:moved',@mapMoved
+
+            mapMoved : =>
+                @parentColumns.each (index,parentColumn)=>
+                    $(parentColumn).off 'element:moved',@mapMoved
+                    $(parentColumn).off 'class:changed',@adjustMapHeight
+                @parentColumns = @$el.parents('.column')
+                @parentColumns.each (index,parentColumn)=>
+                    $(parentColumn).on 'element:moved',@mapMoved
+                    $(parentColumn).on 'class:changed',@adjustMapHeight
+                @adjustMapHeight()
+
+            adjustMapHeight:=>
+                @$el.parent().height parseFloat(@model.get('heightRatio'))*@$el.parent().width()
 
 
 

@@ -11,9 +11,8 @@ define [ 'app'
 
                       <div class="clear"></div>
                       <br/>
-                      
+                      <div class="progress-text"></div>
                       <div id="progress" style="width: 30%; margin: 0px auto; display: none;" class="progress progress-striped active">
-                          <div class="progress-text"></div>
                           <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="progress-bar"></div>
                           <span class="sr-only">{{#polyglot}}0% Complete{{/polyglot}} </span>
                       </div>
@@ -58,7 +57,7 @@ define [ 'app'
                 total = up.total.uploaded + up.total.queued - @uploaded
                 current = up.total.uploaded + 1 - @uploaded
                 @$el.find( ".progress-bar" ).css 'transition-duration', '0.6s'
-                @$el.find( ".progress-text" ).text "uploading #{current} of #{total}"
+                @$el.find( ".progress-text" ).html "Uploading <span>#{current}</span> of <span>#{total}</span>"
                 @$el.find( ".progress-bar" ).css "width", file.percent + "%"
 
             @uploader.bind 'UploadFile',(up,file)=>
