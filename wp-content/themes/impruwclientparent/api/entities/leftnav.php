@@ -704,7 +704,7 @@ function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false 
         return FALSE;
 
     $json = array();
-    $key = '';
+    $key = '-published';
     if ( $autosave === TRUE )
         $key = '-autosave';
 
@@ -712,12 +712,12 @@ function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false 
         $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
 
         if ( $key === '-autosave' && empty( $json [ 'header' ] ) )
-            $json [ 'header' ] = get_option( 'theme-header', array() );
+            $json [ 'header' ] = get_option( THEME_HEADER_KEY, array() );
 
         $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
 
         if ( $key === '-autosave' && empty( $json [ 'footer' ] ) )
-            $json [ 'footer' ] = get_option( 'theme-footer', array() );
+            $json [ 'footer' ] = get_option( THEME_FOOTER_KEY, array() );
     }
 
     $json[ 'page' ] = get_page_content_json( $page_id, $autosave );
@@ -728,6 +728,10 @@ function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false 
         $d [ $section ] = array();
         if ( !is_array( $elements ) )
             continue;
+        if (!$autosave && in_array($section,array('header','footer'))){
+            $d [ $section ] = $json [ $section ];
+            continue;
+        }
         foreach ( $elements as $element ) {
             if ( $element [ 'element' ] === "Row" ) {
                 $element [ 'columncount' ] = count( $element [ 'elements' ] );

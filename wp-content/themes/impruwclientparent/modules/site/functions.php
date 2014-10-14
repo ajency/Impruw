@@ -363,17 +363,17 @@ function clone_header_footer( $theme_site_id, $language_code) {
     $clone_blog = $theme_site_id; //server
 
     switch_to_blog( $clone_blog );
-    $header = get_json_to_clone( 'theme-header' );
-    $footer = get_json_to_clone( 'theme-footer' );
+    $header = get_json_to_clone( THEME_HEADER_KEY );
+    $footer = get_json_to_clone( THEME_FOOTER_KEY );
     restore_current_blog();
 
     $data = set_json_to_site( $header,$language_code, $clone_first_time);
     update_option( 'theme-header-autosave', $data );
-    update_option( 'theme-header', $data );
+    update_option( THEME_HEADER_KEY, $data );
 
     $data = set_json_to_site( $footer,$language_code, $clone_first_time);
     update_option( 'theme-footer-autosave', $data );
-    update_option( 'theme-footer', $data );
+    update_option( THEME_FOOTER_KEY, $data );
 }
 
 /**

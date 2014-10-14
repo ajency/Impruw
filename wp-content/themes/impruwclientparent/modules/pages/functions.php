@@ -167,9 +167,9 @@ function update_header_json( $header_json, $autosave = FALSE ) {
 
     $header_json = convert_json_to_array( $header_json );
 
-    $key = "theme-header";
+    $key = THEME_HEADER_KEY;
     if ( $autosave === TRUE )
-        $key .= "-autosave";
+        $key = "theme-header-autosave";
 
     update_option( $key, $header_json );
 
@@ -179,9 +179,9 @@ function update_footer_json( $footer_json, $autosave = FALSE ) {
 
     $footer_json = convert_json_to_array( $footer_json );
 
-    $key = "theme-footer";
+    $key = THEME_FOOTER_KEY;
     if ( $autosave === TRUE )
-        $key .= "-autosave";
+        $key = "theme-footer-autosave";
 
     update_option( $key, $footer_json );
 }
@@ -732,4 +732,14 @@ function get_all_theme_pages(){
     }
 
     return $pages;
+}
+
+
+function impruw_is_front_page($page_id){
+    $front_page_id = icl_object_id( get_option('page_on_front'), 'page', true, 'en' );
+
+    if(icl_object_id( $page_id , 'page', true, 'en' ) == $front_page_id)
+        return true;
+    else
+        return false;
 }

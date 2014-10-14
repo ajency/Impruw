@@ -18,7 +18,7 @@ class HeaderFooterElementsCollection extends AbstractElementsCollection {
      */
     function __construct( $section ) {
 
-        if ( !in_array( $section, array( 'theme-header', 'theme-footer' ) ) )
+        if ( !in_array( $section, array( THEME_HEADER_KEY, THEME_FOOTER_KEY ) ) )
             throw new \ErrorException( 'Invalid section passed' );
 
         $this->section = $section;

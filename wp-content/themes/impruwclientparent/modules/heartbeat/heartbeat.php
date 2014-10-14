@@ -20,11 +20,14 @@ function autosave_page_json( $response, $data, $screen_id ) {
         $user_id = wp_check_post_lock( $page_id );
         if( $user_id === false){
 
-    	    $header_json = $autosavedata[ 'header-json' ];
-    	    update_header_json( $header_json, true );
+            if (impruw_is_front_page( $page_id )){ 
 
-    	    $footer_json = $autosavedata[ 'footer-json' ];
-    	    update_footer_json( $footer_json, true );
+        	    $header_json = $autosavedata[ 'header-json' ];
+        	    update_header_json( $header_json, true );
+
+        	    $footer_json = $autosavedata[ 'footer-json' ];
+        	    update_footer_json( $footer_json, true );
+            }
 
     	    $page_json_string = $autosavedata[ 'page-content-json' ];
     	    $page_json = convert_json_to_array( $page_json_string );

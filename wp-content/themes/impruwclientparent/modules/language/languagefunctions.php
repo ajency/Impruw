@@ -267,7 +267,7 @@ function get_page_table_elements($page_id){
 //Function to get all page header elements of a site
 function get_header_translation_elements(){
 
-    $data = get_json_to_clone('theme-header');
+    $data = get_json_to_clone(THEME_HEADER_KEY);
 
     $elements = array();
 
@@ -286,7 +286,7 @@ function get_header_translation_elements(){
 //Function to get all page footer elements of a site
 function get_footer_translation_elements(){
 
-    $data = get_json_to_clone('theme-footer');
+    $data = get_json_to_clone( THEME_FOOTER_KEY );
 
     $elements = array();
 

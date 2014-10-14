@@ -70,7 +70,7 @@ class ThemeExporter extends AbstractThemeExporter {
      */
     private function export_header() {
 
-        $export_data = $this->get_header_footer_export_data( 'theme-header' );
+        $export_data = $this->get_header_footer_export_data( THEME_HEADER_KEY );
         $this->exporter->export( $export_data );
     }
 
@@ -78,7 +78,7 @@ class ThemeExporter extends AbstractThemeExporter {
      * @return mixed
      */
     private function export_footer() {
-        $export_data = $this->get_header_footer_export_data( 'theme-footer' );
+        $export_data = $this->get_header_footer_export_data( THEME_FOOTER_KEY );
         $this->exporter->export( $export_data );
     }
 

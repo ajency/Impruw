@@ -120,16 +120,24 @@ function publish_page_ajax() {
     $user_id = wp_check_post_lock( $page_id );
 
     if ($user_id === false){
-        
-        $header_json = $_REQUEST[ 'header-json' ];
-        update_header_json( $header_json );
-        $header_json = convert_json_to_array( $header_json );
-        update_option( "theme-header-autosave", $header_json );
 
-        $footer_json = $_REQUEST[ 'footer-json' ];
-        update_footer_json( $footer_json );
-        $footer_json = convert_json_to_array( $footer_json );
-        update_option( "theme-footer-autosave", $footer_json );
+        if (impruw_is_front_page( $page_id )){
+        
+            $header_json = $_REQUEST[ 'header-json' ];
+            update_header_json( $header_json , true); //autosave
+            
+            $header_json = get_json_to_clone('theme-header-autosave');
+            // print_r($header_json);
+            update_option( THEME_HEADER_KEY, $header_json );
+            
+            // $header_json = convert_json_to_array( $header_json );
+            // update_option( "theme-header-autosave", $header_json );
+
+            $footer_json = $_REQUEST[ 'footer-json' ];
+            update_footer_json( $footer_json, true ); // autosave
+            $footer_json = get_json_to_clone( "theme-footer-autosave" );
+            update_option( THEME_FOOTER_KEY , $footer_json );
+        }
 
         remove_all_actions( 'post_updated' );
 
@@ -174,11 +182,14 @@ function auto_save() {
 
     $page_id = $_REQUEST[ 'page_id' ];
 
-    $header_json = $_REQUEST[ 'header-json' ];
-    update_header_json( $header_json, true );
+    if (impruw_is_front_page( $page_id )){
+        
+        $header_json = $_REQUEST[ 'header-json' ];
+        update_header_json( $header_json, true );
 
-    $footer_json = $_REQUEST[ 'footer-json' ];
-    update_footer_json( $footer_json, true );
+        $footer_json = $_REQUEST[ 'footer-json' ];
+        update_footer_json( $footer_json, true );
+    }
 
     $page_json_string = $_REQUEST[ 'page-content-json' ];
     $page_json = convert_json_to_array( $page_json_string );

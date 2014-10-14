@@ -50,9 +50,9 @@ class ThemeImporter extends AbstractThemeImporter {
      */
     protected function import_footer() {
 
-        $header_footer_getter = new HeaderFooterJsonGetter( 'theme-footer', $this->site_id );
+        $header_footer_getter = new HeaderFooterJsonGetter( THEME_FOOTER_KEY, $this->site_id );
         $page_json            = $header_footer_getter->get_json();
-        $this->importer->import( 'theme-footer', $page_json );
+        $this->importer->import( THEME_FOOTER_KEY, $page_json );
     }
 
     /**
@@ -60,9 +60,9 @@ class ThemeImporter extends AbstractThemeImporter {
      */
     protected function import_header() {
 
-        $header_footer_getter = new HeaderFooterJsonGetter( 'theme-header', $this->site_id );
+        $header_footer_getter = new HeaderFooterJsonGetter( THEME_HEADER_KEY, $this->site_id );
         $page_json            = $header_footer_getter->get_json();
-        $this->importer->import( 'theme-header', $page_json );
+        $this->importer->import( THEME_HEADER_KEY, $page_json );
     }
 
     private function get_page_import_data( $page ) {
