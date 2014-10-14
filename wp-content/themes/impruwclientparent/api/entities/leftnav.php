@@ -767,6 +767,8 @@ function read_page_json() {
     $page_id= icl_object_id( $page_id, 'page', TRUE, 'en' );
 
     $data = get_page_json_for_site( $page_id, TRUE, $only_page === 'yes' );
+
+    $data['is_home_page'] = impruw_is_front_page($page_id);
     
     $lock = true;
     if( wp_check_post_lock( $page_id ) === false ){

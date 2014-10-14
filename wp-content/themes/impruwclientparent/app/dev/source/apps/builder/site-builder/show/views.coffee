@@ -362,7 +362,7 @@ define [ 'app'
 
          template : '<header id="site-header-region" class="droppable-column edit-lock"></header>
                      <div id="site-page-content-region" class="droppable-column"></div>
-                     <footer id="site-footer-region" class="droppable-column"></footer>'
+                     <footer id="site-footer-region" class="droppable-column edit-lock"></footer>'
 
          onShow : ->
             @$el.find( '.droppable-column' ).sortable
@@ -391,7 +391,12 @@ define [ 'app'
                receive : @elementDropped
                placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
 
-            @$el.find('.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div></div></div>')
+            if @model.get 'is_home_page'
+               @$el.find('#site-header-region, #site-footer-region').removeClass 'edit-lock'
+            
+
+            @$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div></div></div>')
+            @$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div></div></div>')
 
 
          _getHelper : (evt,original)=>
