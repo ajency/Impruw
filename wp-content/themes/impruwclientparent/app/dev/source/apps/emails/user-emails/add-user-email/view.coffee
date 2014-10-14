@@ -11,7 +11,7 @@ define ['app'], (App)->
                   template : '<div class="form-group">
                                   <label for="email-emailid" class="col-sm-3 control-label">{{#polyglot}}Email Address:{{/polyglot}}</label>
                                   <div class="col-sm-9 col-sm-offset-3">
-                                    <input id="email-emailid" name="emailId" type="text" value="{{emailId}}" class="form-control">
+                                    <input id="email_id" name="email_id" type="text" value="{{emailId}}" class="form-control">
                                   </div>
                                 </div>
                                 <div class="form-group">
