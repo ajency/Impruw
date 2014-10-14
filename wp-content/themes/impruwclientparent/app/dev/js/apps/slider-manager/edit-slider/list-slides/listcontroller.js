@@ -187,7 +187,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           }
         },
         'blur .caption-link': function(evt) {
-          if ($(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 2) !== "//") {
+          if ($(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 8) !== "https://" && $(evt.target).val().substring(0, 2) !== "//") {
             return $(evt.target).val("http://" + $(evt.target).val());
           }
         },
