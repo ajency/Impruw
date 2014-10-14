@@ -31,6 +31,7 @@
     require_once 'modules/user/ajax.php';
     require_once 'modules/site/ajax.php';
     require_once 'modules/api/main.php';
+    require_once 'modules/communications/functions.php';
 
 
     /* --------------------------------------------------------------------------------------
@@ -676,59 +677,3 @@
 
     }
 
-/*
- * Configuring the communication module
- */
-
-//Registering communication components
-function impruw_add_communication_components($defined_comm_components){
-
-    $comm_arr = array(
-        'registration_email'
-    );
-
-    $ajcm_components['impruw_user'] = $comm_arr;
-
-    return $ajcm_components;
-
-}
-add_filter('add_commponents_filter','impruw_add_communication_components',10,1);
-
-
-//Invoking the communication plugin
-function registered_email_notification($blog_id,$user_id,$domain,$path,$site_id,$meta){
-
-    global $aj_comm;
-
-    //$user_id = $user->ID;
-
-    $user_info  = get_userdata($user_id);
-    $username   = $user_info->user_login;
-    $role       = implode(', ', $user_info->roles);
-    $reg_date =  date("l jS \of F Y h:i:s A", strtotime(get_userdata($user_id)->user_registered));
-
-     $meta_data = array(
-        'username' => $username,
-        'role' => $role,
-        'date' =>  $reg_date
-    );
-
-    $comm_data = array(
-        'component' => 'impruw_user',
-        'communication_type' => 'registration_email'
-    );
-
-    $all_users = get_users('role=impruw_manager');
-
-    foreach($all_users as $user){
-
-        $recipients_email[] = array(
-                'user_id' => $user->ID,
-                'type' => 'email',
-                'value' => $user->user_email,
-                'status' => 'linedup'
-            );
-    }
-    $aj_comm->create_communication($comm_data,$meta_data,$recipients_email);
-}
-add_action('wpmu_new_blog','registered_email_notification',10,6);
