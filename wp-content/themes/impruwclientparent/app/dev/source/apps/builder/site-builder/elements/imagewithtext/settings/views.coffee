@@ -51,7 +51,7 @@ define ['app', 'text!apps/builder/site-builder/elements/imagewithtext/settings/t
                 'change input[name="target"]': (evt)->
                     @trigger "element:target:changed", if $(evt.target).is(':checked') then '_BLANK' else '_self'
                 'blur input.linktext': (evt)->
-                    if $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 2) isnt "//"
+                    if $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 8) isnt "https://"  and $(evt.target).val().substring(0, 2) isnt "//"
                         $(evt.target).val "http://" + $(evt.target).val()
                     @trigger "element:link:changed", $(evt.target).val()
 
