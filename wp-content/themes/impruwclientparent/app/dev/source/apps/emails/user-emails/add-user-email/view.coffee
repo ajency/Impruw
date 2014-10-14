@@ -8,24 +8,24 @@ define ['app'], (App)->
 
                   template : '<div class="control-group"> 
                                 <div class="control-group">
-                                  <label for="email-emailid" class="control-label">Email Id:*</label>
+                                  <label for="email-emailid" class="control-label">{{#polyglot}}Email Address:{{/polyglot}}*</label>
                                   <input id="email-emailid" name="emailId" type="text" value="{{emailId}}"/>
                                 </div>
-                                  <label for="email-firstName" class="control-label">First name:</label>
+                                  <label for="email-firstName" class="control-label">{{#polyglot}}First name:{{/polyglot}}</label>
                                   <input id="email-firstName" name="firstName" type="text" value="{{firstName}}"/>
                                 </div>
                                 <div class="control-group">
-                                  <label for="email-lastName" class="control-label">Last name:</label>
+                                  <label for="email-lastName" class="control-label">{{#polyglot}}Last name:{{/polyglot}}</label>
                                   <input id="email-lastName" name="lastName" type="text" value="{{lastName}}"/>
                                 </div>
                                 <div class="control-group">
-                                  <label for="email-password" class="control-label">Password:</label>
+                                  <label for="email-password" class="control-label">{{#polyglot}}Password:{{/polyglot}}</label>
                                   <input id="email-password" name="password" type="password" value="{{password}}"/>
                                 </div>
-                                <button class="btn js-add-user-submit">Save</button>'
+                                <button class="btn js-add-user-submit">{{#polyglot}}Add User{{/polyglot}}</button>'
 
                   dialogOptions :
-                     modal_title : _.polyglot.t 'Add User'
+                     modal_title : _.polyglot.t 'Add a User'
                      modal_size : 'medium-modal'
 
                   events :
