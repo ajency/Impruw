@@ -61,6 +61,11 @@ require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
  */
 require_once 'modules/braintree/main-config.php';
 
+/***
+ * Load braintree PHP library
+ */
+require_once 'modules/emailAPI/main.php';
+
 global $page_id;
 $page_id = 0;
 
