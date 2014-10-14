@@ -66,7 +66,7 @@ define(['app', 'text!apps/builder/site-builder/elements/imagewithtext/settings/t
           return this.trigger("element:target:changed", $(evt.target).is(':checked') ? '_BLANK' : '_self');
         },
         'blur input.linktext': function(evt) {
-          if ($(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 2) !== "//") {
+          if ($(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 8) !== "https://" && $(evt.target).val().substring(0, 2) !== "//") {
             $(evt.target).val("http://" + $(evt.target).val());
           }
           return this.trigger("element:link:changed", $(evt.target).val());
