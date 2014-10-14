@@ -1441,6 +1441,8 @@ and open the template in the editor.
   transform: rotate(90deg);
   line-height: 29px;
   color: #f9f8f4;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled = false)" !important;
+  filter: none !important;
 }
 .carousel.vertical .carousel-control.right {
   -ms-transform: rotate(90deg);
