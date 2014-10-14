@@ -1411,6 +1411,18 @@ form .aj-imp-submit:hover {
 .modal.medium-modal .modal-dialog .modal-content .modal-body {
   padding: 0.5em;
 }
+.modal.small-modal {
+  padding: 2em;
+}
+.modal.small-modal .modal-dialog {
+  width: 50%;
+}
+.modal.small-modal .modal-dialog .modal-content {
+  width: 100%;
+}
+.modal.small-modal .modal-dialog .modal-content .modal-body {
+  padding: 0.5em;
+}
 .modal .aj-imp-edit-image {
   border-radius: 0;
 }
