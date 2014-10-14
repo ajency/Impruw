@@ -7,15 +7,31 @@ define ['app', 'controllers/base-controller'
     
                 initialize: (options)->
 
-                    @emailView = @_getEmailView()
+                    @emailLayout = @_getEmailLayout()
 
                     App.vent.trigger "set:active:menu", 'emails'
 
-                    @show @emailView,
+                    @show @emailLayout,
                         loading : true
 
-                _getEmailView :->
+                    @listenTo @emailLayout, 'show', =>
+                        App.execute 'show:emails:nav:app',
+                            region: @emailLayout.emailsNav
+
+                    @listenTo @emailLayout.emailsNav, "load:user:email:list", @_loadUserEmails
+
+                _getEmailLayout :->
                     new Show.Views.EmailView
+
+                _loadUserEmails:=>
+                    App.execute "show:user:emails:app",
+                        region: @emailLayout.emailsDisplay
+
+
+
+
+
+
 
     
     

@@ -12,8 +12,13 @@ define(['app', 'text!apps/emails/show/templates/emailsview.html'], function(App,
 
       EmailView.prototype.template = emailsviewTpl;
 
+      EmailView.prototype.regions = {
+        emailsNav: "#js-email-nav",
+        emailsDisplay: "#js-email-display"
+      };
+
       return EmailView;
 
-    })(Marionette.ItemView);
+    })(Marionette.Layout);
   });
 });

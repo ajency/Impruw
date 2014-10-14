@@ -1,5 +1,6 @@
 define ['app', 
-        'apps/emails/show/controller'], (App)->
+        'apps/emails/show/controller'
+        'apps/emails/email-nav/controller'], (App)->
 
     App.module 'EmailsApp', (EmailsApp, App, Backbone, Marionette, $, _)->
 
