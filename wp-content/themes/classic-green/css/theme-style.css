@@ -1439,6 +1439,8 @@ and open the template in the editor.
   transform: rotate(90deg);
   line-height: 29px;
   color: #ffffff;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled = false)" !important;
+  filter: none !important;
 }
 .carousel.vertical .carousel-control.right {
   -ms-transform: rotate(90deg);
@@ -2034,6 +2036,11 @@ and open the template in the editor.
   text-align: center;
   text-transform: uppercase;
 }
+@media (max-width: 767px) {
+  .title.box-title {
+    font-size: 2em;
+  }
+}
 .title.white-title {
   color: #fff;
   font-size: 1.3em;
@@ -2329,7 +2336,7 @@ ul.social li:hover a {
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .package-desc {
   font-size: 0.88em;
-  color: #b2b2b2;
+  color: #7f7f7f;
   display: none;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .tariff-label {
@@ -2541,6 +2548,11 @@ ul.social li:hover a {
   color: #656565;
   font-weight: 300;
 }
+@media (max-width: 767px) {
+  .room-title-container .room-title h1 {
+    font-size: 2em;
+  }
+}
 .room-title-container .room-title .room-title-desc {
   font-size: 1em;
   color: #989898;
@@ -2668,10 +2680,10 @@ ul.social li:hover a {
   margin: 0 15px;
 }
 .room-booking .room-booking-container {
-  background: #9fccc8;
+  background: #e1e1e1;
 }
 .room-booking .room-booking-container .room-booking-data {
-  background: #5ca9a1;
+  background: #aeaeae;
   padding-top: 1em;
   min-height: 590px;
 }
@@ -2702,7 +2714,7 @@ ul.social li:hover a {
   color: #e2efee;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .plan-bg {
-  background: #7dbbb4;
+  background: #fbfbfb;
   padding: 1px 4px;
   margin-top: 2%;
 }
@@ -2711,7 +2723,7 @@ ul.social li:hover a {
   float: left;
   font-size: 0.9em;
   font-weight: 300;
-  color: #7f7f7f;
+  color: #656565;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-detail span {
   font-weight: 800;
@@ -2722,12 +2734,13 @@ ul.social li:hover a {
   font-weight: 600;
   font-size: 1.0em;
   text-transform: uppercase;
-  color: #fff;
+  color: #7f7f7f;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-price {
   font-size: 0.8em;
   font-weight: 100;
   margin-top: 3%;
+  color: #656565;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-price b {
   font-size: 2.0em;
@@ -2743,7 +2756,7 @@ ul.social li:hover a {
 .room-booking .room-booking-container .room-booking-calender h4 {
   font-weight: 600;
   font-size: 1.5em;
-  color: #ffffff;
+  color: #5ca9a1;
   text-transform: uppercase;
   margin-bottom: 30px;
   margin-top: 30px;

@@ -89,7 +89,7 @@
 							}
 							.package-desc {
 								font-size: 0.88em;
-								color: lighten(@secondary1, 30%);
+								color: lighten(@secondary1, 10%);
 								display: none;
 							}
 							.tariff-label {
@@ -308,6 +308,9 @@
 			text-transform: uppercase;
 			color: @secondary1;
 			font-weight: 300;
+			@media (max-width: 767px) {
+				font-size: 2em;
+			}
 		}
 		.room-title-desc {
 			font-size: 1em;
@@ -429,9 +432,9 @@
 		margin: 0 15px;
 	}
 	.room-booking-container{
-		background: lighten(@primary1, 20%);
+		background: @tertiary1;
 		.room-booking-data{
-			background: @primary1;
+			background: darken(@tertiary1, 20%);
 			padding-top:@medium;
 			min-height: 590px;
 			.date-range{
@@ -460,7 +463,7 @@
 					color:lighten(@primary1, 40%);
 				}
 				.plan-bg{
-					background:lighten(@primary1, 10%);
+					background:lighten(@tertiary1, 10%);
 					padding:1px 4px;
 					margin-top: 2%;
 				}
@@ -469,7 +472,7 @@
 					float:left;
 					font-size:0.9em;
 					font-weight:300;
-					color:@text-color;
+					color:@secondary1;
 					span{
 						font-weight:800;
 						font-size:1.8em;
@@ -480,13 +483,14 @@
 					font-weight:600;
 					font-size:1.0em;
 					text-transform:uppercase;
-					color:#fff;
+					color:@text-color;
 					
 				}
 				.booking-price{
 					font-size:0.8em;
 					font-weight:100;
 					margin-top:3%;
+					color: @secondary1;
 					b{
 						font-size:2.0em;
 					}
@@ -502,7 +506,7 @@
 			h4{
 				font-weight: 600;
 				font-size: 1.5em;
-				color: @white;
+				color: @primary1;
 				text-transform: uppercase;
 				margin-bottom: 30px;
 				margin-top: 30px;
