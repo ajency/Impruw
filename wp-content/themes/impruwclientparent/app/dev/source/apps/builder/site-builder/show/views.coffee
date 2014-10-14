@@ -364,6 +364,10 @@ define [ 'app'
                      <div id="site-page-content-region" class="droppable-column"></div>
                      <footer id="site-footer-region" class="droppable-column edit-lock"></footer>'
 
+         events : 
+            'click .headit' :->
+               $( 'select#builder-page-sel' ).selectpicker 'val', parseInt @model.get 'front_page'
+
          onShow : ->
             @$el.find( '.droppable-column' ).sortable
                revert : 'invalid'

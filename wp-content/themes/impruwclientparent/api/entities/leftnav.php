@@ -761,6 +761,7 @@ function get_page_main_json( $page_id = 0 ) {
 
 
 function read_page_json() {
+    // global $sitepress;
 
     $page_id = $_REQUEST [ 'page_id' ];
     $only_page = $_REQUEST [ 'only_page' ] ;
@@ -769,6 +770,7 @@ function read_page_json() {
     $data = get_page_json_for_site( $page_id, TRUE, $only_page === 'yes' );
 
     $data['is_home_page'] = impruw_is_front_page($page_id);
+    $data['front_page'] = icl_object_id( get_option('page_on_front'), 'page', true , 'en');
     
     $lock = true;
     if( wp_check_post_lock( $page_id ) === false ){

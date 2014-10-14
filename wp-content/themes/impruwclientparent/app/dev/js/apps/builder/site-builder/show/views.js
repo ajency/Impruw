@@ -420,6 +420,12 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       Builder.prototype.template = '<header id="site-header-region" class="droppable-column edit-lock"></header> <div id="site-page-content-region" class="droppable-column"></div> <footer id="site-footer-region" class="droppable-column edit-lock"></footer>';
 
+      Builder.prototype.events = {
+        'click .headit': function() {
+          return $('select#builder-page-sel').selectpicker('val', parseInt(this.model.get('front_page')));
+        }
+      };
+
       Builder.prototype.onShow = function() {
         this.$el.find('.droppable-column').sortable({
           revert: 'invalid',
