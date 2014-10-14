@@ -16,7 +16,7 @@
 </div><!-- .container -->
 
 <div class="power-up hide">
-    <?php echo __('Powered By', 'impruw'); ?> <a href="http://impruw.com" target="_blank">Impruw</a>
+    <?php echo __('Powered By', 'impruw'); ?> <a href="http://impruw.com" target="_blank" title="<?php echo __('Impruw is a Drag and Drop Website Builder', 'impruw'); ?>"><img src="<?php echo get_parent_template_directory_uri(); ?>/images/impruw-hand.png"> <?php echo __('Impruw.com', 'impruw'); ?></a>
 </div>
 
 <script type="text/javascript">
@@ -83,8 +83,14 @@
 
     jQuery(document).ready(function(){
         var $powered = jQuery('.power-up').clone().removeClass('hide').addClass('text');
-        jQuery('.site-footer').append($powered);
-        console.log('powered');
+        jQuery(FOOTER).append($powered);
+        // Min Height for Content
+        var $winHeight = jQuery(window).height();
+        var $contentHeight =  $winHeight - (jQuery('.site-header').height() + jQuery('.site-footer').height());
+        if ($winHeight > jQuery('.site-style-container').height()) {
+            jQuery('.site-page, .site-page > div:first-child').css('min-height', $contentHeight);
+        }
+        
     });
 
 </script>

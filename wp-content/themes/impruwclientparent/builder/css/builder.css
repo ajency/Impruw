@@ -1201,7 +1201,7 @@ a.red-link.pull-right {
   background: #c3c3c3;
   padding: 1em;
   border-radius: 2px;
-  width: 50%;
+  width: 70%;
   min-width: 600px;
   text-align: center;
   margin: auto;
@@ -1241,6 +1241,7 @@ a.red-link.pull-right {
   font-size: 1.3em;
   padding: 0.5em;
   vertical-align: middle;
+  text-align: left;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .lock-message .lock-container .locker .lock-help {
   font-size: 0.88em;
