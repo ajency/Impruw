@@ -1237,90 +1237,95 @@ a {
 			.lock-message {
 				position: fixed;
 				background: rgba(255, 255, 255, 0.9);
-				/*border-radius: 6px 6px 0 0;*/
 				z-index: 10000;
 				top: 0;
 				left: 0;
 				right: 0;
 				bottom: 0;
-				padding: 3em 1em 1em;
+				padding: 1em;
 				.lock-container {
-					background: lighten(@dash-grey, 10%);
-					padding: 1em;
-					border-radius: 2px;
-					width: 50%;
-					min-width: 600px;
-					margin: auto;
-					text-align: center;
-					.lockgo {
-						background: url('../images/impruw-logo.png') no-repeat;
-						background-size: contain;
-						width: 400px;
-						height: 186px;
-						margin: 0 auto;
-					}
-					.bicon {
-						color: @preview-grey;
-						font-size: 4em;
-					}
-					.message-span {
-						margin: 0.5em 0 1em;
-						color: @logo-blue;
-						font-size: 1.5em;
-						text-transform: capitalize;
-					}
-					.option-msg {
-						color: lighten(@3-grey, 20%);
-						margin: 0 0 1em;
-						font-size: 1.2em;
-					}
-					.or-text {
-						font-size: 2.5em;
-						display: inline-block;
-						color: @preview-grey;
-						margin: 0 1em;
-						vertical-align: middle;
-					}
-					.option-or {
-						display: inline-block;
-						color: lighten(@3-grey, 10%);
-						font-size: 1.3em;
-						padding: 0.5em;
-						vertical-align: middle;
-					}
-					.lock-help {
-						font-size: 0.88em;
-						margin: 1.5em 0 1em;
-						color: lighten(@3-grey, 20%);
-						a {
-							color: @orange;
+					display: flex;
+					height: 100%;
+					.locker {
+						background: lighten(@dash-grey, 10%);
+						padding: 1em;
+						border-radius: 2px;
+						width: 70%;
+						min-width: 600px;
+						margin: auto;
+						text-align: center;
+						margin: auto;
+						.lockgo {
+							background: url('../images/impruw-logo.png') no-repeat center center;
+							background-size: cover;
+							width: 300px;
+							height: 116px;
+							margin: 0 auto;
 						}
-					}
-					.bootstrap-select {
-						margin-bottom: 0.25em;
-						.dropdown-toggle {
-							background: transparent;
+						.bicon {
+							color: @preview-grey;
+							font-size: 4em;
+						}
+						.message-span {
+							margin: 0.5em 0 1em;
+							color: @logo-blue;
+							font-size: 1.5em;
+							text-transform: capitalize;
+						}
+						.option-msg {
 							color: lighten(@3-grey, 20%);
+							margin: 0 0 1em;
 							font-size: 1.2em;
-							padding: 0 0 0.25em;
-							border-radius: 0;
-							border-bottom: 1px solid lighten(@dash-grey, 20%);
-							text-transform: uppercase;
-							.caret {
-								border-top-color: lighten(@dash-grey, 10%);
+						}
+						.or-text {
+							font-size: 2.5em;
+							display: inline-block;
+							color: @preview-grey;
+							margin: 0 1em;
+							vertical-align: middle;
+						}
+						.option-or {
+							display: inline-block;
+							color: lighten(@3-grey, 10%);
+							font-size: 1.3em;
+							padding: 0.5em;
+							vertical-align: middle;
+							text-align: left;
+						}
+						.lock-help {
+							font-size: 0.88em;
+							margin: 1.5em 0 1em;
+							color: lighten(@3-grey, 20%);
+							a {
+								color: @orange;
 							}
-							&:hover {
-								border-bottom-color: @dash-grey;
+						}
+						.bootstrap-select {
+							margin-bottom: 0.25em;
+							.dropdown-toggle {
+								background: transparent;
+								color: lighten(@3-grey, 20%);
+								font-size: 1.2em;
+								padding: 0 0 0.25em;
+								border-radius: 0;
+								border-bottom: 1px solid lighten(@dash-grey, 20%);
+								text-transform: uppercase;
 								.caret {
-									border-top-color: @dash-grey;
+									border-top-color: lighten(@dash-grey, 10%);
+								}
+								&:hover {
+									border-bottom-color: @dash-grey;
+									.caret {
+										border-top-color: @dash-grey;
+									}
 								}
 							}
-						}
-						.dropdown-menu {
-							text-align: left;
-							.selected {
-								a:focus {
-									background: @orange;
+							.dropdown-menu {
+								text-align: left;
+								.selected {
+									a:focus {
+										background: @orange;
+									}
 								}
 							}
 						}
@@ -1589,49 +1594,6 @@ a {
 			border-radius: 0 3px 3px 0;
 			font-size: 0.88em;
 			cursor: default;
-		}
-		&.edit-lock {
-			> .element-wrapper {
-				opacity: 0.5;
-				pointer-events: none;
-			}
-			.edit-unlock {
-				position: absolute;
-				text-align: center;
-				top: 0;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				z-index: 10;
-				padding: 1em;
-				display: flex;
-				.unlock-message {
-					font-size: 1.1em;
-					color: @dash-grey;
-					display: inline-block;
-					padding: 0.5em 2em;
-					border-radius: 2px;
-					box-shadow: 1px 1px 2px 3px rgba(0, 0, 0, 0.1);
-					background: rgba(255, 255, 255, 0.8);
-					margin: auto;
-					visibility: hidden;
-					.bicon {
-						display: block;
-						font-size: 2.2em;
-						margin: 0 auto 0.2em;
-					}
-					.headit {
-						color: @orange;
-						font-size: 1.1em;
-						margin: 1em auto 0.5em;
-					}
-				}
-				&:hover {
-					.unlock-message {
-						visibility: visible;
-					}
-				}
-			}
 		}
 	}
 	#site-header-region {

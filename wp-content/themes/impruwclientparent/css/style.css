@@ -144,6 +144,19 @@
 .site-style-container .power-up {
   margin: 0.5em 0;
   text-align: center;
+  font-size: 0.88em;
+}
+.site-style-container .power-up a img {
+  max-height: 20px;
+  display: inline-block;
+  margin-right: 0.3em;
+  opacity: 0.7;
+}
+.site-style-container .power-up a:hover {
+  text-decoration: none;
+}
+.site-style-container .power-up a:hover img {
+  opacity: 1;
 }
 /*
 To change this license header, choose License Headers in Project Properties.
@@ -154,9 +167,6 @@ and open the template in the editor.
     Created on : 20 Feb, 2014, 7:45:35 PM
     Author     : jarr-head
 */
-.site-style-container {
-  min-height: 100vh;
-}
 .site-style-container .row.center-container {
   max-width: 1170px;
   margin: 0.5em auto;
@@ -1450,6 +1460,8 @@ and open the template in the editor.
   transform: rotate(90deg);
   line-height: 29px;
   color: #ffffff;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled = false)" !important;
+  filter: none !important;
 }
 .carousel.vertical .carousel-control.right {
   -ms-transform: rotate(90deg);
