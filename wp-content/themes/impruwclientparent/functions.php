@@ -17,9 +17,6 @@ Mustache_Autoloader::register();
 global $me;
 $me = new Mustache_Engine ();
 
-/**
- * Module Loader
- */
 //external modules
 include_once( dirname( __FILE__ ) . '/modules/lessc.inc.php' );
 
