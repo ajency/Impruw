@@ -770,8 +770,9 @@ function read_page_json() {
     $data = get_page_json_for_site( $page_id, TRUE, $only_page === 'yes' );
 
     $data['is_home_page'] = impruw_is_front_page($page_id);
-    $data['front_page'] = icl_object_id( get_option('page_on_front'), 'page', true , 'en');
-    
+    $data['front_page'] = icl_object_id( get_option('page_on_front'), 'page', true , wpml_get_default_language());
+   
+
     $lock = true;
     if( wp_check_post_lock( $page_id ) === false ){
         $new_lock = wp_set_post_lock( $page_id );
