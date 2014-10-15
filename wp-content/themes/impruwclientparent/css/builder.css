@@ -10,6 +10,9 @@ Version:        0.1.0
 */
 /****Builder Icon Font****/
 /****Colors****/
+body {
+  font-size: 14px;
+}
 /**** Link Styles Basic ****/
 a {
   color: #ff7e00;
