@@ -13,6 +13,10 @@ define ['app'], (App)->
                     events:
                         'click a#users-emails' : 'loadUserEmails'
 
+                    onShow:->
+                        @trigger "user:email:list"
+
                     loadUserEmails: (e) ->
                         @trigger "user:email:list"
+
 

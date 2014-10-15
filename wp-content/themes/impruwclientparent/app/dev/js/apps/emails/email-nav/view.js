@@ -16,6 +16,10 @@ define(['app'], function(App) {
         'click a#users-emails': 'loadUserEmails'
       };
 
+      EmailNavView.prototype.onShow = function() {
+        return this.trigger("user:email:list");
+      };
+
       EmailNavView.prototype.loadUserEmails = function(e) {
         return this.trigger("user:email:list");
       };
