@@ -1112,3 +1112,10 @@ function delete_domain_mapping() {
 
     update_option( 'domain-name',  get_option( 'blogname' ) . '.impruw.com' );
 }
+
+function get_site_domain_name(){
+
+    $domain_name = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
+
+    return $domain_name;
+}

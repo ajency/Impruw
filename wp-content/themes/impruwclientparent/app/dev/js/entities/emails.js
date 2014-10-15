@@ -13,7 +13,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       UserEmail.prototype.name = 'user-email';
 
-      UserEmail.prototype.idAttribute = 'user-email-id';
+      UserEmail.prototype.idAttribute = 'email';
 
       UserEmail.prototype.defaults = function() {
         return {
@@ -46,7 +46,7 @@ define(["app", 'backbone'], function(App, Backbone) {
       EmailCollection.prototype.model = UserEmail;
 
       EmailCollection.prototype.url = function() {
-        return "" + AJAXURL + "?action=fetch-user-emails";
+        return SITEURL + "/api/email/domain/" + DOMAIN_NAME;
       };
 
       return EmailCollection;
@@ -56,6 +56,7 @@ define(["app", 'backbone'], function(App, Backbone) {
       getUserEmailCollection: function() {
         var userEmailCollection;
         userEmailCollection = new EmailCollection;
+        userEmailCollection.fetch();
         return userEmailCollection;
       },
       createUserEmailModel: function(data) {

@@ -7,11 +7,12 @@ define ["app", 'backbone'], (App, Backbone) ->
         class window.UserEmail extends Backbone.Model
 
             name: 'user-email'
-            idAttribute: 'user-email-id'
+            idAttribute: 'email'
 
             defaults: ->
                 firstName: 'N/A'
                 lastName: 'N/A'
+                # dateOfCreation: 'N/A'
 
             sync: (method, entity, options = {})->
                 window._bsync method, entity, options
@@ -26,12 +27,13 @@ define ["app", 'backbone'], (App, Backbone) ->
             model: UserEmail
 
             url: ->
-                "#{AJAXURL}?action=fetch-user-emails"
+                SITEURL+"/api/email/domain/"+DOMAIN_NAME
 
 
         API =
             getUserEmailCollection: ->
                 userEmailCollection = new EmailCollection
+                userEmailCollection.fetch()
                 userEmailCollection
 
             createUserEmailModel: (data = {})->
