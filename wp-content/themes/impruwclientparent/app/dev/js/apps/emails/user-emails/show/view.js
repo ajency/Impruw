@@ -3,7 +3,23 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('EmailsApp.UserEmails.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var UserEmailItemView;
+    var EmptyView, UserEmailItemView;
+    EmptyView = (function(_super) {
+      __extends(EmptyView, _super);
+
+      function EmptyView() {
+        return EmptyView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyView.prototype.className = 'empty-info';
+
+      EmptyView.prototype.tagName = 'tr';
+
+      EmptyView.prototype.template = '<td colspan="5">{{#polyglot}}No Email accounts found{{/polyglot}}</td>';
+
+      return EmptyView;
+
+    })(Marionette.ItemView);
     UserEmailItemView = (function(_super) {
       __extends(UserEmailItemView, _super);
 
@@ -13,19 +29,23 @@ define(['app'], function(App) {
 
       UserEmailItemView.prototype.tagName = 'tr';
 
-      UserEmailItemView.prototype.template = '<td>{{email}}</td> <td>{{firstName}}</td> <td>{{firstName}}</td> <td>{{dateOfCreation}}</td> <td class="action-links"> <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;Edit</a> <a class="orange-link suspenduseremail_link" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;Suspend</a> <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;Delete</a> </td>';
+      UserEmailItemView.prototype.template = '<td>{{email}}</td> <td>{{firstName}}</td> <td>{{firstName}}</td> <td>{{dateOfCreation}}</td> <td class="action-links"> <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;Edit</a> <a class="orange-link suspenduseremail_link {{hideSuspend}}" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;Suspend</a> <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;Delete</a> </td>';
 
       UserEmailItemView.prototype.events = {
         'click .deleteuseremail_link': function(e) {
+          var email_id;
           e.preventDefault();
+          email_id = this.model.get('email');
           if (confirm(_.polyglot.t("Delete this user email id?"))) {
-            return this.model.destroy();
+            return this.trigger("delete:user:email", email_id);
           }
         },
         'click .suspenduseremail_link': function(e) {
+          var email_id;
           e.preventDefault();
+          email_id = this.model.get('email');
           if (confirm(_.polyglot.t("Suspend this user email id?"))) {
-            return this.model.destroy();
+            return this.trigger("disable:user:email", email_id);
           }
         },
         'click .edit-useremail-link': function(e) {
@@ -34,6 +54,18 @@ define(['app'], function(App) {
             model: this.model
           });
         }
+      };
+
+      UserEmailItemView.prototype.mixinTemplateHelpers = function(data) {
+        data = UserEmailItemView.__super__.mixinTemplateHelpers.call(this, data);
+        data.hideSuspend = function() {
+          if (data.has_password === "0") {
+            return "hide";
+          } else {
+            return "";
+          }
+        };
+        return data;
       };
 
       return UserEmailItemView;
@@ -50,6 +82,8 @@ define(['app'], function(App) {
 
       UserEmailView.prototype.itemView = UserEmailItemView;
 
+      UserEmailView.prototype.emptyView = EmptyView;
+
       UserEmailView.prototype.itemViewContainer = 'tbody';
 
       UserEmailView.prototype.events = {
@@ -59,6 +93,10 @@ define(['app'], function(App) {
       UserEmailView.prototype.addNewUserEmail = function(e) {
         e.preventDefault();
         return this.trigger("add:new:user:email");
+      };
+
+      UserEmailView.prototype.onSuspendEmail = function() {
+        return console.log("Email suspended composite");
       };
 
       return UserEmailView;
