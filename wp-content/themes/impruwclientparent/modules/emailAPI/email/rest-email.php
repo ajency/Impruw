@@ -69,11 +69,11 @@ class Impruw_API_Email {
     /*
      * Registering user email
      */
-    public function impruw_register_email($new_email){
+    public function impruw_register_email($data){
 
-         if(isset($_POST["email_id"])){
+        if(isset($data["email_id"])){
 
-            $new_email = $_POST["email_id"];
+            $new_email = $data["email_id"];
 
             $args = array(
 
@@ -81,7 +81,9 @@ class Impruw_API_Email {
 
             );
 
-            register_email($args);
+            $response = register_email($args);
+
+            return $response;
         }
     }
 
@@ -141,9 +143,9 @@ function register_email($args){
 
     //$response = array('status'=>$status,'response' => $new_account);
 
-    wp_send_json($response);
+    return $response;
 
-    exit;
+    
 }
 
 
