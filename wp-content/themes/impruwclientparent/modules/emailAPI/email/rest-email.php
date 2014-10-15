@@ -160,7 +160,7 @@ function get_domain_accounts($args){
         $accounts = $domain->get_accounts();
     }
     else{
-        $accounts = 'no accounts';
+        $accounts = "";
     }
 
     $response = json_encode( $accounts );
