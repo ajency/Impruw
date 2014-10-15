@@ -71,13 +71,16 @@ class Impruw_API_Email {
      */
     public function impruw_register_email($data){
 
-        if(isset($data["email_id"])){
+        if(isset($data["email_id"])&&isset($data["password"])){
 
             $new_email = $data["email_id"];
+            $new_password = $data["password"];
+
 
             $args = array(
 
-                'email_id'       	=> $new_email
+                'email_id'       	=> $new_email,
+                'password'          => $new_password
 
             );
 
@@ -132,13 +135,14 @@ function register_email($args){
     if(is_null($account)){
 
         //Generating a random password
-        $new_pass = wp_generate_password();
+        $new_pass = $args['password'];
 
         // creating account with given email and password
-        $response = impruw_email_accounts::create_account($args['email_id'], $new_pass);
+        $data = impruw_email_accounts::create_account($args['email_id'], $new_pass);
+        $response = array('code'=> 'OK', 'data'=>$data);
     }
     else{
-        $response = 'user exists';
+        $response = array('code'=> 'ERROR', 'msg'=>'User email already exists');
     }
 
     //$response = array('status'=>$status,'response' => $new_account);
