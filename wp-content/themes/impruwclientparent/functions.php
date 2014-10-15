@@ -4,6 +4,7 @@
  */
 //Used for page excerpt generation
 require_once 'underscore.php';
+
 // Include WPML API
 include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
 
