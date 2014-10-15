@@ -119,6 +119,12 @@ function impruw_wp_enqueue_builder_styles(){
     wp_enqueue_style( 'jquery-ui', 
         get_parent_template_directory_uri() . '/bower_components/jquery-ui/themes/base/all.css', 
         array('bootstrap'), JSVERSION );
+    wp_enqueue_style( 'pace', 
+        get_parent_template_directory_uri() . '/bower_components/pace/themes/orange/pace-theme-loading-bar.css', 
+        array('bootstrap'), JSVERSION );
+    wp_enqueue_style( 'minicolors', 
+        get_parent_template_directory_uri() . '/bower_components/jquery-minicolors/jquery.minicolors.css', 
+        array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'slimmenu', 
         get_parent_template_directory_uri() . '/css/slimmenu.css', 
         array('flat-ui'), JSVERSION );

@@ -80,6 +80,9 @@
   font-weight: normal;
   font-style: normal;
 }
+body {
+  font-size: 14px;
+}
 /****body styles****/
 .site-style-container {
   font-family: 'Helvetica', sans-serif;

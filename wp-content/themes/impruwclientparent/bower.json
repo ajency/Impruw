@@ -20,6 +20,8 @@
     "bootstrap": "~3.2.0",
     "jquery-ui": "~1.11.1",
     "flat-ui": "~2.2.1",
-    "lightbox2": "~2.7.1"
+    "lightbox2": "~2.7.1",
+    "pace": "~1.0.1",
+    "jquery-minicolors": "~2.1.7"
   }
 }
