@@ -83,8 +83,14 @@
 
     jQuery(document).ready(function(){
         var $powered = jQuery('.power-up').clone().removeClass('hide').addClass('text');
-        jQuery('.site-footer').append($powered);
-        console.log('powered');
+        jQuery(FOOTER).append($powered);
+        // Min Height for Content
+        var $winHeight = jQuery(window).height();
+        var $contentHeight =  $winHeight - (jQuery('.site-header').height() + jQuery('.site-footer').height());
+        if ($winHeight > jQuery('.site-style-container').height()) {
+            jQuery('.site-page, .site-page > div:first-child').css('min-height', $contentHeight);
+        }
+        
     });
 
 </script>

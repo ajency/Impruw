@@ -66,7 +66,6 @@ define(['app', 'apps/builder/site-builder/elements/title/views', 'apps/builder/s
             return _this.layout.model.save();
           };
         })(this));
-        this.layout.model.save();
         return this.layout.elementRegion.show(view);
       };
 
