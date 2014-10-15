@@ -750,5 +750,7 @@
     "Add Youtube embed code in the settings" : "Add Youtube embed code in the settings_N",
     "Enter Widget Code" : "Enter Widget Code_N",
     "Choose Widget Type" : "Choose Widget Type_N",
-    "All Rooms" : "alle rom"
+    "All Rooms" : "alle rom",
+    "History" : "History_N",
+    "View Full History" : "View Full History_N"
 }

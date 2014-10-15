@@ -2454,6 +2454,45 @@ a.red-link.pull-right {
 .aj-imp-revisions ul li.active .time {
   color: #fff;
 }
+.revision-history {
+  margin: 1em 0;
+}
+.revision-history h6 {
+  color: #f3f3f3;
+  font-size: 1.1em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  margin: 0 0 0.5em;
+  padding: 0 0 0.3em;
+}
+.revision-history ol {
+  margin: 0;
+  padding: 0 0 0 1em;
+}
+.revision-history ol li {
+  font-size: 0.8em;
+  color: #aaaaaa;
+  text-align: left;
+  margin: 0 0 0.5em;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  padding: 0.5em 0.75em;
+  box-shadow: inset 0 0 1px #000;
+}
+.revision-history ol li .revision {
+  color: #fff;
+  font-size: 1.1em;
+}
+.revision-history ol li .revision .time-link {
+  display: block;
+  font-size: 0.8em;
+}
+.revision-history .view-history-link {
+  font-size: 0.78em;
+  color: #f3f3f3;
+}
+.revision-history .view-history-link:hover {
+  color: #ff7e00;
+}
 /**** Unused Elements Styles ****/
 #unused-elements {
   border-top: 1px solid #aaaaaa;
