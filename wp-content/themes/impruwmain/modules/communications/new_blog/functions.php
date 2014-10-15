@@ -24,19 +24,22 @@ function registered_email_notification($blog_id,$user_id,$domain,$path,$site_id,
     $reg_date       =  date("l jS \of F Y h:i:s A", strtotime($user_info->user_registered));
 
     $meta_data = array(
-        'username' => $username,
-        'site_name' => $site_name,
-        'date' =>  $reg_date
+
     );
 
     $comm_data_admin = array(
         'component' => 'impruw_user',
-        'communication_type' => 'registration_email_admin'
+        'communication_type' => 'registration_email_admin',
+        'user_id' => $user_id,
+        'blog_id' =>$blog_id
     );
 
     $comm_data_new = array(
         'component' => 'impruw_user',
-        'communication_type' => 'registration_email_user'
+        'communication_type' => 'registration_email_user',
+        'user_id' => $user_id,
+        'blog_id' =>$blog_id
+
     );
 
     $all_users = get_users('role=impruw_manager');
