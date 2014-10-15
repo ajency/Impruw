@@ -69,7 +69,7 @@
 <div id="fb-root"></div>
 
 <div id="choose-theme-region"></div>
-<div class="aj-imp-builder container">
+<div class="aj-imp-builder container-fluid">
     <div id="header-region"></div>
     <div id="builder-region"></div>
     <div id="elements-box-region"></div>
