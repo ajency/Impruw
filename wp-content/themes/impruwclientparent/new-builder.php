@@ -17,35 +17,13 @@
     <meta name="viewport" content="width=device-width">
     <title><?php wp_title( '|', TRUE, 'right' ); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="shortcut icon" href="<?php echo get_parent_template_directory_uri(); ?>/images/favicon.png" type="image/x-icon" />
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <!--[if lt IE 9]>
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
     <?php wp_head(); ?>
-    <!-- <link href="<?php echo get_parent_template_directory_uri(); ?>/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
-          media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/bower_components/flat-ui/dist/css/flat-ui.min.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.resizableColumns.css" rel="stylesheet" media="screen"/>
-
-    <link href="<?php echo site_url(); ?>//wp-includes/css/dashicons.min.css" rel="stylesheet" media="screen">
-    <link href="<?php echo site_url(); ?>/wp-includes/js/imgareaselect/imgareaselect.css" rel="stylesheet"
-          media="screen">
-    <link href="<?php echo site_url(); ?>/wp-content/plugins/revslider/rs-plugin/css/dynamic-captions.css" rel="stylesheet"
-    <link href="<?php echo site_url(); ?>/wp-admin/css/media-rtl.css" rel="stylesheet" media="screen">
-    <link href="<?php echo site_url(); ?>/wp-admin/css/media.css" rel="stylesheet" media="screen">
-
-
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/main.css" rel="stylesheet"
-          media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/builder.css" rel="stylesheet"
-          media="screen"/>
-    <link rel="shortcut icon" href="wp-content/themes/impruwclientparent/images/favicon.png" type="image/x-icon" />
-
-    <link href="<?php echo get_template_directory_uri(); ?>/css/slimmenu.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_theme_style_sheet_file_path(); ?> " rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/pace.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.minicolors.css" rel="stylesheet"
-          media="screen"> -->
+    
 </head>
 <body <?php body_class(); ?>>
 
