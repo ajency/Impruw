@@ -51,9 +51,9 @@ define ['app'], (App)->
                            @trigger "add:user:email", data
 
                   onSavedUserEmail: ->
-                    console.log @$el
-                    # @$el.parent().find('.alert').remove()
-                    # @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("New tarriff created") + "</div>"
-                    # @$el.find('input').val ''
+                    console.log @$el.parent()
+                    @$el.parent().find('.alert').remove()
+                    @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("New user email created") + "</div>"
+                    @$el.find('input').val ''
                     # @$el.find('textarea').val ''
 

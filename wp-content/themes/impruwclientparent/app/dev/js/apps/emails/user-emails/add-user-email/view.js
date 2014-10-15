@@ -34,7 +34,10 @@ define(['app'], function(App) {
       };
 
       AddUserEmailView.prototype.onSavedUserEmail = function() {
-        return console.log(this.$el);
+        console.log(this.$el.parent());
+        this.$el.parent().find('.alert').remove();
+        this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("New user email created") + "</div>");
+        return this.$el.find('input').val('');
       };
 
       return AddUserEmailView;
