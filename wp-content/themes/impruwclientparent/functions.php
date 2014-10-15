@@ -11,16 +11,11 @@ include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
 define( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
 
 // include mustache
-require PARENTTHEMEPATH . '/lib/Mustache/Autoloader.php';
+include_once( dirname( __FILE__ ) . '/lib/Mustache/Autoloader.php');
 Mustache_Autoloader::register();
 
 global $me;
 $me = new Mustache_Engine ();
-
-/**
- * Include the less php compiler
- */
-
 
 /**
  * Module Loader
@@ -49,17 +44,12 @@ include_once( dirname( __FILE__ ) . '/modules/billing/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/seo/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/heartbeat/heartbeat.php' );
 include_once( dirname( __FILE__ ) . '/api/entities/leftnav.php' );
-
-/***
- * Load braintree PHP library
- */
-include_once( dirname( __FILE__ ) .  '/modules/braintree/main-config.php' );
-
-include_once( dirname( __FILE__ ) .  '/elements/Element.php' );
-include_once( dirname( __FILE__ ) .  '/includes/SiteModel.php' );
-include_once( dirname( __FILE__ ) .  '/includes/UserModel.php' );
-include_once( dirname( __FILE__ ) .  '/includes/RoomModel.php' );
-include_once( dirname( __FILE__ ) .  '/includes/Media.php' );
+include_once( dirname( __FILE__ ) . '/modules/braintree/main-config.php' );
+include_once( dirname( __FILE__ ) . '/elements/Element.php' );
+include_once( dirname( __FILE__ ) . '/includes/SiteModel.php' );
+include_once( dirname( __FILE__ ) . '/includes/UserModel.php' );
+include_once( dirname( __FILE__ ) . '/includes/RoomModel.php' );
+include_once( dirname( __FILE__ ) . '/includes/Media.php' );
 
 
 /**
@@ -415,7 +405,7 @@ function add_element_markup( $element ) {
  */
 function get_builder_row_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/BuilderRow.php';
+    include_once( dirname( __FILE__ ) . '/elements/BuilderRow.php');
 
     $row = new BuilderRow( $element );
 
@@ -441,7 +431,7 @@ function get_builder_row_markup( $element ) {
  */
 function get_builder_row_column_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/BuilderRowColumn.php';
+    include_once( dirname( __FILE__ ) . '/elements/BuilderRowColumn.php');
 
     $column = new BuilderRowColumn( $element );
 
@@ -467,7 +457,7 @@ function get_builder_row_column_markup( $element ) {
  */
 function get_room_description_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomDescription.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomDescription.php');
 
     global $page_id;
 
@@ -485,7 +475,7 @@ function get_room_description_markup( $element ) {
  */
 function get_room_title_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomTitle.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomTitle.php');
 
     $room = new RoomTitle( $element );
 
@@ -501,7 +491,7 @@ function get_room_title_markup( $element ) {
  */
 function get_room_gallery_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomGallery.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomGallery.php');
 
     $room = new RoomGallery( $element );
 
@@ -517,7 +507,7 @@ function get_room_gallery_markup( $element ) {
  */
 function get_room_list_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomList.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomList.php');
 
     $room = new RoomList( $element );
 
@@ -533,7 +523,7 @@ function get_room_list_markup( $element ) {
  */
 function get_room_summary_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomSummary.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomSummary.php');
 
     $room = new RoomSummary( $element );
 
@@ -549,7 +539,7 @@ function get_room_summary_markup( $element ) {
  */
 function get_room_tariff_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomTariff.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomTariff.php');
 
     $room = new RoomTariff( $element );
 
@@ -565,7 +555,7 @@ function get_room_tariff_markup( $element ) {
  */
 function get_room_facilities_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomFacilities.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomFacilities.php');
 
     $room = new RoomFacilities( $element );
 
@@ -581,7 +571,7 @@ function get_room_facilities_markup( $element ) {
  */
 function get_room_booking_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomBooking.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomBooking.php');
 
     $room = new RoomBooking( $element );
 
@@ -597,7 +587,7 @@ function get_room_booking_markup( $element ) {
  */
 function get_image_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ImageElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/ImageElement.php');
 
     $image = new ImageElement( $element );
 
@@ -613,7 +603,7 @@ function get_image_element_markup( $element ) {
  */
 function get_image_with_text_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ImageWithText.php';
+    include_once( dirname( __FILE__ ) . '/elements/ImageWithText.php');
 
     $image = new ImageWithText( $element );
 
@@ -629,7 +619,7 @@ function get_image_with_text_element_markup( $element ) {
  */
 function get_contact_form_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ContactFormElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/ContactFormElement.php');
 
     $contact = new ContactFormElement( $element );
 
@@ -645,7 +635,7 @@ function get_contact_form_element_markup( $element ) {
  */
 function get_map_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/MapElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/MapElement.php');
 
     $map = new MapElement( $element );
 
@@ -661,7 +651,7 @@ function get_map_element_markup( $element ) {
  */
 function get_logo_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/LogoElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/LogoElement.php');
 
     $logo = new LogoElement( $element );
 
@@ -676,7 +666,7 @@ function get_logo_element_markup( $element ) {
  * @param type $element
  */
 function get_language_switcher_element_markup( $element ){
-    require_once PARENTTHEMEPATH . 'elements/LanguageSwitcher.php';
+    include_once( dirname( __FILE__ ) . '/elements/LanguageSwitcher.php');
 
     $languageSwitcher = new LanguageSwitcher( $element );
 
@@ -694,7 +684,7 @@ function get_language_switcher_element_markup( $element ){
  */
 function get_address_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/AddressElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/AddressElement.php');
 
     $address = new AddressElement( $element );
 
@@ -710,7 +700,7 @@ function get_address_element_markup( $element ) {
  */
 function get_social_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/SocialElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/SocialElement.php');
 
     $social = new SocialElement( $element );
 
@@ -726,7 +716,7 @@ function get_social_element_markup( $element ) {
  */
 function get_title_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/TitleElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/TitleElement.php');
 
     $title = new TitleElement( $element );
 
@@ -742,7 +732,7 @@ function get_title_element_markup( $element ) {
  */
 function get_link_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/LinkElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/LinkElement.php');
 
     $link = new LinkElement( $element );
 
@@ -758,7 +748,7 @@ function get_link_element_markup( $element ) {
  */
 function get_text_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/TextElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/TextElement.php');
 
     $text = new TextElement( $element );
 
@@ -773,7 +763,7 @@ function get_text_element_markup( $element ) {
  * @param type $element
  */
 function get_table_element_markup( $element ){
-    require_once PARENTTHEMEPATH . 'elements/TableElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/TableElement.php');
 
     $table = new TableElement( $element );
 
@@ -784,7 +774,7 @@ function get_table_element_markup( $element ){
 }
 
 function get_widget_element_markup( $element ){
-    require_once PARENTTHEMEPATH . 'elements/WidgetElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/WidgetElement.php');
 
     $widget = new WidgetElement( $element );
 
@@ -801,7 +791,7 @@ function get_widget_element_markup( $element ){
  */
 function get_slider_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/SliderElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/SliderElement.php');
 
     $slider = new SliderElement( $element );
 
@@ -817,7 +807,7 @@ function get_slider_element_markup( $element ) {
  */
 function get_menu_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/MenuElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/MenuElement.php');
 
     $menu = new MenuElement( $element );
 
@@ -833,7 +823,7 @@ function get_menu_element_markup( $element ) {
  */
 function get_container_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ContainerElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/ContainerElement.php');
 
     $row = new ContainerElement( $element );
 
@@ -1368,7 +1358,7 @@ add_action( 'wp_ajax_remove_menu_item', 'remove_menu_item' );
 
 function query_attachments() {
 
-    require_once PARENTTHEMEPATH . 'includes/Media.php';
+    include_once( dirname( __FILE__ ) . 'includes/Media.php');
 
     $query = array();
     $query[ 'order' ] = $_REQUEST[ 'order' ];
@@ -3423,14 +3413,6 @@ function get_compiled_stylesheet_directory_uri() {
     return $file_uri;
 
 }
-
-/*
-  function enqueue_contact_page_script(){
-  wp_enqueue_script ('contact-us', get_template_directory_uri () . 'js/contact.js',array('jquery'));
-  wp_enqueue_script ('maps', get_template_directory_uri () . 'js/contact.js');
-  wp_enqueue_script ('maps', get_template_directory_uri () . 'js/contact.js');
-  } */
-
 
 /**
  * Common Element Templates & Classes for Child Themes
