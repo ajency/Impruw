@@ -5,6 +5,12 @@ define ['app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize: (opts)->
+
+
+                #get site model
+                @siteModel =  App.request "get:site:model"
+                console.log @siteModel
+
                 @addUserEmailView = @_getaddUserEmailView()
                 
                 @listenTo @addUserEmailView, "add:user:email", @addNewUserEmail
@@ -15,6 +21,7 @@ define ['app', 'controllers/base-controller'
 
             _getaddUserEmailView :->
                 new AddUserEmail.Views.AddUserEmailView
+                    model: @siteModel
 
             addNewUserEmail :(data)->
                 console.log "Adding new user email"
@@ -23,10 +30,10 @@ define ['app', 'controllers/base-controller'
                     wait: true
                     success: @userEmailSaved
 
-            # userEmailSaved: (userEmail)=>
-            #     userEmailCollection = App.request "get:user:email:collection"
-            #     userEmailCollection.add userEmail
-            #     @planView.triggerMethod "saved:user:email"
+            userEmailSaved: (userEmail)=>
+                @userEmailCollection = App.request "get:user:email:collection"
+                @userEmailCollection.add userEmail
+                @addUserEmailView.triggerMethod "saved:user:email"
 
         App.commands.setHandler "show:add:user:email", (opts) ->
             new AddUserEmail.Controller opts

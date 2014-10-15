@@ -1,8 +1,8 @@
 define ['app'], (App)->
 
-            App.module 'EmailsApp.UserEmails.AddUserEmail.Views', (Views, App, Backbone, Marionette, $, _)->
+            App.module 'EmailsApp.UserEmails.EditUserEmail.Views', (Views, App, Backbone, Marionette, $, _)->
 
-                class Views.AddUserEmailView extends Marionette.ItemView
+                class Views.EditUserEmailView extends Marionette.ItemView
 
                   tagName : 'form'
 
@@ -11,7 +11,7 @@ define ['app'], (App)->
                   template : '<div class="form-group">
                                   <label for="email-emailid" class="col-sm-3 control-label">{{#polyglot}}Email Address:{{/polyglot}}</label>
                                   <div class="col-sm-9 col-sm-offset-3">
-                                    <input id="email_id" name="email_id" type="text" value="{{emailId}}" class="form-control" required placeholder="username@{{domain_name}}">
+                                    <input id="email_id" name="email_id" type="text" value="{{email}}" class="form-control" required placeholder="username@{{domain_name}}">
                                   </div>
                                 </div>
                                 <div class="form-group">
@@ -34,26 +34,26 @@ define ['app'], (App)->
                                 </div>
                                 <div class="form-group">
                                   <div class="col-sm-9 col-sm-offset-3">
-                                    <button class="btn btn-sm aj-imp-orange-btn js-add-user-submit">{{#polyglot}}Add User{{/polyglot}}</button>
+                                    <button class="btn btn-sm aj-imp-orange-btn js-add-user-submit">{{#polyglot}}Edit User{{/polyglot}}</button>
                                   </div>
                                 </div>'
 
                   dialogOptions :
-                     modal_title : _.polyglot.t 'Add a User'
+                     modal_title : _.polyglot.t 'Edit a User'
                      modal_size : 'small-modal'
 
-                  events :
-                     'click .js-add-user-submit' :(e) ->
-                        e.preventDefault()
-                        if @$el.valid()
-                           data = Backbone.Syphon.serialize @
-                           console.log data
-                           @trigger "add:user:email", data
+                  # events :
+                  #    'click .js-add-user-submit' :(e) ->
+                  #       e.preventDefault()
+                  #       if @$el.valid()
+                  #          data = Backbone.Syphon.serialize @
+                  #          console.log data
+                  #          @trigger "add:user:email", data
 
-                  onSavedUserEmail: ->
-                    console.log @$el
-                    # @$el.parent().find('.alert').remove()
-                    # @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("New tarriff created") + "</div>"
-                    # @$el.find('input').val ''
-                    # @$el.find('textarea').val ''
+                  # onSavedUserEmail: ->
+                  #   console.log @$el
+                  #   # @$el.parent().find('.alert').remove()
+                  #   # @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("New tarriff created") + "</div>"
+                  #   # @$el.find('input').val ''
+                  #   # @$el.find('textarea').val ''
 

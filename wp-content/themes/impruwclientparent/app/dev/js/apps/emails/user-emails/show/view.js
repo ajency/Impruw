@@ -13,7 +13,28 @@ define(['app'], function(App) {
 
       UserEmailItemView.prototype.tagName = 'tr';
 
-      UserEmailItemView.prototype.template = '<td>johndoe@mycompany.com</td> <td>John</td> <td>Doe</td> <td>24/9/2014</td> <td class="action-links"> <a class="blue-link" href="#"><span class="icon icon-edit"></span>&nbsp;Edit</a> <a class="orange-link" href="#"><span class="icon icon-blocked"></span>&nbsp;Suspend</a> <a class="red-link" href="#"><span class="icon icon-trashcan"></span>&nbsp;Delete</a> </td>';
+      UserEmailItemView.prototype.template = '<td>{{email}}</td> <td>{{firstName}}</td> <td>{{firstName}}</td> <td>{{dateOfCreation}}</td> <td class="action-links"> <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;Edit</a> <a class="orange-link suspenduseremail_link" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;Suspend</a> <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;Delete</a> </td>';
+
+      UserEmailItemView.prototype.events = {
+        'click .deleteuseremail_link': function(e) {
+          e.preventDefault();
+          if (confirm(_.polyglot.t("Delete this user email id?"))) {
+            return this.model.destroy();
+          }
+        },
+        'click .suspenduseremail_link': function(e) {
+          e.preventDefault();
+          if (confirm(_.polyglot.t("Suspend this user email id?"))) {
+            return this.model.destroy();
+          }
+        },
+        'click .edit-useremail-link': function(e) {
+          e.preventDefault();
+          return App.execute("show:edit:user:email", {
+            model: this.model
+          });
+        }
+      };
 
       return UserEmailItemView;
 

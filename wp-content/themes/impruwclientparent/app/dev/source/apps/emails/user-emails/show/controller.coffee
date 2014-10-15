@@ -5,6 +5,12 @@ define ['app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize: (opts)->
+
+                #get email collection
+                @userEmailCollection = App.request "get:user:email:collection" 
+
+                console.log @userEmailCollection
+
                 @userEmailView = @_getuserEmailView()
 
                 @listenTo @userEmailView, "add:new:user:email", @addNewUserEmail
@@ -15,6 +21,7 @@ define ['app', 'controllers/base-controller'
 
             _getuserEmailView :->
                 new UserEmails.Views.UserEmailView
+                    collection: @userEmailCollection
 
             addNewUserEmail : ->
                 Marionette.triggerMethod.call @region, "show:add:user:email"

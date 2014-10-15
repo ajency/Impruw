@@ -11,6 +11,8 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/show/view
       }
 
       Controller.prototype.initialize = function(opts) {
+        this.userEmailCollection = App.request("get:user:email:collection");
+        console.log(this.userEmailCollection);
         this.userEmailView = this._getuserEmailView();
         this.listenTo(this.userEmailView, "add:new:user:email", this.addNewUserEmail);
         return this.show(this.userEmailView, {
@@ -19,7 +21,9 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/show/view
       };
 
       Controller.prototype._getuserEmailView = function() {
-        return new UserEmails.Views.UserEmailView;
+        return new UserEmails.Views.UserEmailView({
+          collection: this.userEmailCollection
+        });
       };
 
       Controller.prototype.addNewUserEmail = function() {
