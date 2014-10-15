@@ -21,14 +21,12 @@
     <!--[if lt IE 9]>
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jqueryui.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet"
+    <?php wp_head(); ?>
+    <!-- <link href="<?php echo get_parent_template_directory_uri(); ?>/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
           media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" rel="stylesheet" media="screen"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/bower_components/flat-ui/dist/css/flat-ui.min.css" rel="stylesheet" media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.resizableColumns.css" rel="stylesheet" media="screen"/>
 
-
-    <!-- Wordpress image editor -->
     <link href="<?php echo site_url(); ?>//wp-includes/css/dashicons.min.css" rel="stylesheet" media="screen">
     <link href="<?php echo site_url(); ?>/wp-includes/js/imgareaselect/imgareaselect.css" rel="stylesheet"
           media="screen">
@@ -37,19 +35,17 @@
     <link href="<?php echo site_url(); ?>/wp-admin/css/media.css" rel="stylesheet" media="screen">
 
 
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/main.css" rel="stylesheet"
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/main.css" rel="stylesheet"
           media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/builder.css" rel="stylesheet"
-          media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/custom.css" rel="stylesheet"
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/builder.css" rel="stylesheet"
           media="screen"/>
     <link rel="shortcut icon" href="wp-content/themes/impruwclientparent/images/favicon.png" type="image/x-icon" />
 
-    <link href="<?php echo get_template_directory_uri(); ?>/css/slimmenu.min.css" rel="stylesheet" media="screen"/>
+    <link href="<?php echo get_template_directory_uri(); ?>/css/slimmenu.css" rel="stylesheet" media="screen"/>
     <link href="<?php echo get_theme_style_sheet_file_path(); ?> " rel="stylesheet" media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/pace.css" rel="stylesheet" media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.minicolors.css" rel="stylesheet"
-          media="screen">
+          media="screen"> -->
 </head>
 <body <?php body_class(); ?>>
 
@@ -127,7 +123,7 @@
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
 <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
 <!-- Unused Elements Box -->
 <div id="fl_menu" class="aj-imp-trash-elements"></div>
