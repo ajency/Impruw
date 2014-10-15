@@ -29,10 +29,11 @@ define ["app", 'backbone'], (App, Backbone) ->
             url: ->
                 SITEURL+"/api/email/domain/"+DOMAIN_NAME
 
-
+        
+        userEmailCollection = new EmailCollection
         API =
             getUserEmailCollection: ->
-                userEmailCollection = new EmailCollection
+                
                 userEmailCollection.fetch()
                 userEmailCollection
 

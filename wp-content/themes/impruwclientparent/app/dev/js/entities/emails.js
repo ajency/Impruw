@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.UserEmails", function(UserEmails, App, Backbone, Marionette, $, _) {
-    var API, EmailCollection;
+    var API, EmailCollection, userEmailCollection;
     window.UserEmail = (function(_super) {
       __extends(UserEmail, _super);
 
@@ -52,10 +52,9 @@ define(["app", 'backbone'], function(App, Backbone) {
       return EmailCollection;
 
     })(Backbone.Collection);
+    userEmailCollection = new EmailCollection;
     API = {
       getUserEmailCollection: function() {
-        var userEmailCollection;
-        userEmailCollection = new EmailCollection;
         userEmailCollection.fetch();
         return userEmailCollection;
       },
@@ -68,7 +67,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         return userEmail;
       },
       getUserEmailById: function(emailId) {
-        var userEmail, userEmailCollection;
+        var userEmail;
         userEmailCollection = new EmailCollection;
         userEmail = userEmailCollection.get(emailId);
         return userEmail;
