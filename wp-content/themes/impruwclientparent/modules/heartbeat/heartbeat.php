@@ -16,6 +16,8 @@ function autosave_page_json( $response, $data, $screen_id ) {
 
         $page_id = $autosavedata[ 'page_id' ];
 
+        $page_id= icl_object_id( $page_id, 'page', TRUE, 'en' );
+        
         // check if the page is loacked by the time the autosave happens
         $user_id = wp_check_post_lock( $page_id );
         if( $user_id === false){
