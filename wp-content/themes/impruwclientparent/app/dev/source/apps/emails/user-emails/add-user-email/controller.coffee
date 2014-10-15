@@ -30,10 +30,12 @@ define ['app', 'controllers/base-controller'
                     wait: true
                     success: @userEmailSaved
 
-            userEmailSaved: (userEmail)=>
+            userEmailSaved: (userEmail, response)=>
+                console.log "user email added"
+                console.log response
                 @userEmailCollection = App.request "get:user:email:collection"
                 @userEmailCollection.add userEmail
-                @addUserEmailView.triggerMethod "saved:user:email"
+                @addUserEmailView.triggerMethod "saved:user:email", response
 
         App.commands.setHandler "show:add:user:email", (opts) ->
             new AddUserEmail.Controller opts

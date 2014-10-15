@@ -11,8 +11,9 @@ define ['app'], (App)->
                   template : '<div class="form-group">
                                   <label for="email-emailid" class="col-sm-3 control-label">{{#polyglot}}Email Address:{{/polyglot}}</label>
                                   <div class="col-sm-9 col-sm-offset-3">
-                                    <input id="email_id" name="email_id" type="text" value="{{emailId}}" class="form-control" required placeholder="username@{{domain_name}}">
+                                    <input id="email_username" name="email_username" type="text" value="" class="form-control" required placeholder="username" maxlength="20" minlength="3">@{{domain_name}}
                                   </div>
+                                  <input id="email_domain" name="email_domain" type="hidden" value="{{domain_name}}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                   <label for="email-firstName" class="col-sm-3 control-label">{{#polyglot}}First name:{{/polyglot}}</label>
@@ -29,7 +30,13 @@ define ['app'], (App)->
                                 <div class="form-group">
                                   <label for="email-password" class="col-sm-3 control-label">{{#polyglot}}Password:{{/polyglot}}</label>
                                   <div class="col-sm-9 col-sm-offset-3">
-                                    <input id="email-password" name="password" type="password" value="{{password}}" class="form-control">
+                                    <input id="email-password" name="password" type="password" value="{{password}}" class="form-control" required>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="email-confirm-password" class="col-sm-3 control-label">{{#polyglot}}Confirm Password:{{/polyglot}}</label>
+                                  <div class="col-sm-9 col-sm-offset-3">
+                                    <input id="email-confirm-password" name="email-confirm-password" type="password" value="{{password}}" class="form-control" required equalTo= "#email-password">
                                   </div>
                                 </div>
                                 <div class="form-group">
@@ -46,14 +53,33 @@ define ['app'], (App)->
                      'click .js-add-user-submit' :(e) ->
                         e.preventDefault()
                         if @$el.valid()
-                           data = Backbone.Syphon.serialize @
-                           console.log data
-                           @trigger "add:user:email", data
+                            data = Backbone.Syphon.serialize @
+                            data.email_id = data.email_username+'@'+@model.get('domain_name')
+                            console.log data.email_id
+                            if @validateEmail(data.email_id)
+                              @$el.parent().find('.alert').remove()
+                              @trigger "add:user:email", data
+                            else
+                              @$el.parent().find('.alert').remove()
+                              @$el.parent().prepend "<div class=\"alert alert-error\">" + _.polyglot.t("Email address is not in correct format") + "</div>"
+                              @$el.find('input').val ''
+                            
 
-                  onSavedUserEmail: ->
+                  onSavedUserEmail:(response) ->
+                    if response.code is 'OK'
+                      msg = _.polyglot.t("New user email created")
+                    else if response.code is 'ERROR'
+                      msg = _.polyglot.t response.msg
+                    
                     console.log @$el.parent()
                     @$el.parent().find('.alert').remove()
-                    @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("New user email created") + "</div>"
+                    @$el.parent().prepend "<div class=\"alert alert-success\">" + msg + "</div>"
                     @$el.find('input').val ''
-                    # @$el.find('textarea').val ''
 
+                  validateEmail :(email) ->
+                    emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i)
+                    valid = emailReg.test(email)
+                    unless valid
+                      false
+                    else
+                      true

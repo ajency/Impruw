@@ -38,10 +38,12 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/add-user-
         });
       };
 
-      Controller.prototype.userEmailSaved = function(userEmail) {
+      Controller.prototype.userEmailSaved = function(userEmail, response) {
+        console.log("user email added");
+        console.log(response);
         this.userEmailCollection = App.request("get:user:email:collection");
         this.userEmailCollection.add(userEmail);
-        return this.addUserEmailView.triggerMethod("saved:user:email");
+        return this.addUserEmailView.triggerMethod("saved:user:email", response);
       };
 
       return Controller;
