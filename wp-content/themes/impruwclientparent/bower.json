@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "requirejs": "~2.1.15",
-    "bootstrap": "~3.2.0"
+    "bootstrap": "~3.2.0",
+    "jquery-ui": "~1.11.1"
   }
 }
