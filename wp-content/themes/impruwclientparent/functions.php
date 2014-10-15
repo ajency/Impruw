@@ -86,7 +86,7 @@ function impruw_wp_enqueue_styles(){
         get_parent_template_directory_uri() . '/bower_components/bootstrap/dist/css/bootstrap.min.css', 
         array(), JSVERSION );
     wp_enqueue_style( 'flat-ui', 
-        get_parent_template_directory_uri() . '/bower_components/flat-ui/dist/css/flat-ui-pro.min.css', 
+        get_parent_template_directory_uri() . '/bower_components/flat-ui/dist/css/flat-ui.min.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'slimmenu', 
         get_parent_template_directory_uri() . '/css/slimmenu.css', 
@@ -114,13 +114,16 @@ function impruw_wp_enqueue_builder_styles(){
         get_parent_template_directory_uri() . '/bower_components/bootstrap/dist/css/bootstrap.min.css', 
         array(), JSVERSION );
     wp_enqueue_style( 'flat-ui', 
-        get_parent_template_directory_uri() . '/bower_components/flat-ui/dist/css/flat-ui-pro.min.css', 
+        get_parent_template_directory_uri() . '/bower_components/flat-ui/dist/css/flat-ui.min.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'jquery-ui', 
         get_parent_template_directory_uri() . '/bower_components/jquery-ui/themes/base/all.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'slimmenu', 
         get_parent_template_directory_uri() . '/css/slimmenu.css', 
+        array('flat-ui'), JSVERSION );
+    wp_enqueue_style( 'switch', 
+        get_parent_template_directory_uri() . '/css/toggle-switch.css', 
         array('flat-ui'), JSVERSION );
     wp_enqueue_style( 'parentstyle', 
         get_parent_template_directory_uri() . '/css/style.css', 
@@ -1449,7 +1452,7 @@ add_action( 'wp_ajax_remove_menu_item', 'remove_menu_item' );
 
 function query_attachments() {
 
-    include_once( dirname( __FILE__ ) . 'includes/Media.php');
+    include_once( dirname( __FILE__ ) . '/includes/Media.php');
 
     $query = array();
     $query[ 'order' ] = $_REQUEST[ 'order' ];
