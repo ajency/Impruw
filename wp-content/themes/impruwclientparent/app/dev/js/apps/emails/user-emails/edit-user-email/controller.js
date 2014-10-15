@@ -13,6 +13,7 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/edit-user
       Controller.prototype.initialize = function(opts) {
         this.userEmailModel = opts.model;
         this.editUserEmailView = this._geteditUserEmailView();
+        this.listenTo(this.editUserEmailView, "edit:user:email", this.editUserEmail);
         return this.show(this.editUserEmailView, {
           loading: true
         });
@@ -22,6 +23,31 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/edit-user
         return new EditUserEmail.Views.EditUserEmailView({
           model: this.userEmailModel
         });
+      };
+
+      Controller.prototype.editUserEmail = function(data) {
+        var email_id, new_password, options, postURL;
+        console.log("Editing new user email");
+        this.userEmailModel.set(data);
+        email_id = data.email_id;
+        new_password = data.password;
+        console.log(data.email_id);
+        postURL = SITEURL + '/api/email/' + email_id;
+        console.log(postURL);
+        options = {
+          method: 'POST',
+          url: postURL,
+          data: {
+            'password': new_password
+          }
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            console.log("Edit email success");
+            console.log(_this.userEmailView);
+            return _this.editUserEmailView.triggerMethod("saved:user:email");
+          };
+        })(this));
       };
 
       return Controller;

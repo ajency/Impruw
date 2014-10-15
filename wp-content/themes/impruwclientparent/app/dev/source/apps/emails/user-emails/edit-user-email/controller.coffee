@@ -11,7 +11,7 @@ define ['app', 'controllers/base-controller'
 
                 @editUserEmailView = @_geteditUserEmailView()
                 
-                # @listenTo @addUserEmailView, "add:user:email", @addNewUserEmail
+                @listenTo @editUserEmailView, "edit:user:email", @editUserEmail
                
                 #function to load view
                 @show @editUserEmailView,
@@ -21,17 +21,29 @@ define ['app', 'controllers/base-controller'
                 new EditUserEmail.Views.EditUserEmailView
                     model: @userEmailModel
 
-            # addNewUserEmail :(data)->
-            #     console.log "Adding new user email"
-            #     userEmail = App.request "create:user:email:model", data
-            #     userEmail.save null,
-            #         wait: true
-            #         success: @userEmailSaved
+            editUserEmail :(data)->
+                console.log "Editing new user email"
+                @userEmailModel.set data
 
-            # userEmailSaved: (userEmail)=>
-            #     userEmailCollection = App.request "get:user:email:collection"
-            #     userEmailCollection.add userEmail
-            #     @addUserEmailView.triggerMethod "saved:user:email"
+                email_id = data.email_id
+                new_password = data.password
+                
+                console.log data.email_id
+                
+                postURL = SITEURL+'/api/email/'+email_id
+
+                console.log postURL
+
+                options =
+                    method : 'POST'
+                    url : postURL
+                    data :
+                        'password' : new_password
+
+                $.ajax( options ).done ( response )=>
+                    console.log "Edit email success"
+                    console.log @userEmailView
+                    @editUserEmailView.triggerMethod "saved:user:email"
 
         App.commands.setHandler "show:edit:user:email", (opts) ->
             opts =
