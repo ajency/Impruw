@@ -14,17 +14,7 @@
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
     <?php wp_head(); ?>
-    <!--<link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.timepicker.css" rel="stylesheet"
-          media="screen">
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/dashboard/css/dashboard.css" rel="stylesheet"
-          media="screen">
-    <link rel="shortcut icon" href="wp-content/themes/impruwclientparent/images/favicon.png" type="image/x-icon" /> -->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="../../assets/js/html5shiv.js"></script>
-    <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
+    <link rel="shortcut icon" href="wp-content/themes/impruwclientparent/images/favicon.png" type="image/x-icon" />
 </head>
 <body>
 <div class="aj-imp-container container-fluid">
