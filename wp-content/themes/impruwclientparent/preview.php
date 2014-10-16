@@ -1,9 +1,5 @@
 <?php
 
-define( 'SITE_VIEW', TRUE );
-
-if ( isset( $_GET[ 'sim' ] ) ) {
-
 	$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	// print_r($actual_link);
 	$sim = $_GET['sim'];
@@ -18,8 +14,6 @@ if ( isset( $_GET[ 'sim' ] ) ) {
 	$url = str_replace("?sim=mobl", "", $url);
 	$url = str_replace("&sim=mobp", "", $url);
 	$url = str_replace("?sim=mobp", "", $url);
-
-	// print_r($url);
 	?>
 	<!DOCTYPE html>
 	<!--[if IE 7]>
@@ -34,14 +28,19 @@ if ( isset( $_GET[ 'sim' ] ) ) {
 	<head>
 	    <meta charset="<?php bloginfo( 'charset' ); ?>">
 	    <meta name="viewport" content="width=device-width">
-	    <script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/jquery.js?ver=1.11.0"></script>
-	    <script type="text/javascript" src="<?php echo network_site_url(); ?>wp-content/themes/impruwclientparent/js/bootstrap.min.js"></script>
-	    <link rel="stylesheet" type="text/css" href="<?php echo network_site_url(); ?>wp-content/themes/impruwclientparent/css/bootstrap.min.css" /> <link rel="stylesheet" type="text/css" href="<?php echo network_site_url(); ?>wp-content/themes/impruwclientparent/dashboard/css/icon-fonts.css" /> 
-	    <link rel="stylesheet" type="text/css" href="<?php echo network_site_url(); ?>wp-content/themes/impruwclientparent/builder/css/builder.css" />
-	  <!-- 
-	    <script type="text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/preview-init.js"></script>
-	   --> 
-	    <script type="text/javascript">
+	    
+	    <link rel="stylesheet" type="text/css" 
+	    	href="<?php echo get_parent_template_directory_uri() ?>/bower_components/bootstrap/dist/css/bootstrap.min.css" /> 
+	    <link rel="stylesheet" type="text/css" 
+	    	href="<?php echo get_parent_template_directory_uri(); ?>/css/dashboard-icon-fonts.css" /> 
+	    <link rel="stylesheet" type="text/css" 
+	    	href="<?php echo get_parent_template_directory_uri(); ?>/css/builder.css" />
+
+	    <script type="text/javascript" 
+	    	src="<?php echo get_parent_template_directory_uri() . '/bower_components/jquery/dist/jquery.min.js'; ?>"></script>
+	    <script type="text/javascript" 
+	    	src="<?php echo get_parent_template_directory_uri() . '/bower_components/bootstrap/dist/js/bootstrap.min.js'; ?>"></script>
+	  	<script type="text/javascript">
 	    	jQuery(document).ready(function($) {
 	    		//init tooltips
 	    		jQuery('.size li').tooltip();

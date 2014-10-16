@@ -14,10 +14,18 @@
  * @since      Impruw Site 1.0
  */
 
+define( 'SITE_VIEW', TRUE );
+
+if ( isset( $_GET[ 'sim' ] ) ) {
+	include_once( dirname( __FILE__ ) . '/preview.php' );
+}
+else{
 get_header(); ?>
 
     <div class="site-page">
         <?php echo generate_markup( 'page' ); ?>
     </div><!-- .site-page -->
 
-<?php get_footer();
+<?php 
+	get_footer();
+}
