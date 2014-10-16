@@ -20,6 +20,7 @@ define(['app', 'text!apps/room-summary/checkin/templates/checkinView.html'], fun
 
       CheckinForm.prototype.onShow = function() {
         var radioHtml, timeFormat;
+        this.$el.find('input[type="radio"]').radiocheck();
         timeFormat = this.model.get('time_format');
         radioHtml = this.$el.find('input:radio[name="time_format"]').filter("[value='" + timeFormat + "']");
         radioHtml.attr('checked', 'checked');

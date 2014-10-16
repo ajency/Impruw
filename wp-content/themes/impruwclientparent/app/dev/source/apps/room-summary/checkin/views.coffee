@@ -12,7 +12,7 @@ define ['app'
             className: 'form-horizontal clearfix'
 
             onShow: ->
-
+                @$el.find('input[type="radio"]').radiocheck()
                 timeFormat = @model.get 'time_format'
                 radioHtml = @$el.find('input:radio[name="time_format"]').filter("[value='#{timeFormat}']")
                 radioHtml.attr('checked', 'checked')
