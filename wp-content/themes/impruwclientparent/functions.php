@@ -13,7 +13,7 @@ define( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
 // include mustache
 include_once( dirname( __FILE__ ) . '/lib/Mustache/Autoloader.php');
 Mustache_Autoloader::register();
-
+ 
 global $me;
 $me = new Mustache_Engine ();
 
