@@ -162,6 +162,11 @@ function impruw_wp_enqueue_scripts(){
     wp_enqueue_script( 'isotope', 
         get_parent_template_directory_uri() . '/bower_components/isotope/dist/isotope.pkgd.min.js', 
         array('imp-jquery'), JSVERSION, true);
+
+    //custom script
+    wp_enqueue_script( 'script', 
+        get_parent_template_directory_uri() . '/js/script.js', 
+        array('imp-jquery'), JSVERSION, true);
     
 }
 add_action('wp_enqueue_scripts' , 'impruw_wp_enqueue_scripts', 1000 );

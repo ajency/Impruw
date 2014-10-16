@@ -52,11 +52,12 @@
     var SITEURL = '<?php echo site_url(); ?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var USERDATA = <?php $impruwUserModel = new ImpruwUser(get_current_user_id());
-echo json_encode($impruwUserModel->get_user_basic_info());
-?>;
+                        echo json_encode($impruwUserModel->get_user_basic_info());
+                    ?>;
     var SITEID = {'id':<?php echo get_current_blog_id(); ?>}
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
     var _WPNONCE = '<?php echo wp_create_nonce('media-form'); ?>';
+    var _RVNONCE = '<?php echo wp_create_nonce("revslider_actions"); ?>';
     var APPSTATE = <?php echo impruw_app_model() ?>;
     var STATISTICS = '<?php echo get_option('statistics_enabled', 'false'); ?>';
 
@@ -70,13 +71,11 @@ echo json_encode($impruwUserModel->get_user_basic_info());
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
 </script>
 <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
+<script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
 <?php if ( ENV === 'production' ): ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo
-    JSVERSION ?>"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo JSVERSION ?>"></script>
 <?php else: ?>
-    <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
+   <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
     <script data-main="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/dashboard-main"
             src="<?php echo get_parent_template_directory_uri(); ?>/bower_components/requirejs/require.js"></script>
 <?php endif; ?>

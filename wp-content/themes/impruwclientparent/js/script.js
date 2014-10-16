@@ -4,13 +4,15 @@
  * @return {[type]}   [description]
  */
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
 
-    var polyglot = new Polyglot({phrases: PHRASES});
+    // var polyglot = new Polyglot({
+    //     phrases: PHRASES
+    // });
 
     //Function to send mail from the Contact Form
 
-    $('#contact-form-save').click(function () {
+    $('#contact-form-save').click(function() {
 
         if (!$(this).closest('form').valid())
             return;
@@ -21,7 +23,7 @@ jQuery(document).ready(function ($) {
 
         $.post(AJAXURL,
             data,
-            function (response) {
+            function(response) {
 
                 $('#contact-form-save').closest('form').parent().find('.alert').remove();
 
@@ -29,20 +31,19 @@ jQuery(document).ready(function ($) {
 
                     $('#contact-form-reset').click();
                     var html = '<div class="alert alert-success alert-dismissable">\
-									  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
-									  <strong>Success!</strong> Message sent successfully\
-									</div>';
+                                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
+                                      <strong>Success!</strong> Message sent successfully\
+                                    </div>';
 
                     $('#contact-form-save').closest('form').before(html);
                     $('#contact-form-save').closest('form').find('input[type="reset"]').click()
-                }
-                else if (response.code === 'ERROR') {
+                } else if (response.code === 'ERROR') {
 
                     $('#contact-form-reset').click();
                     var html = '<div class="alert alert-danger alert-dismissable">\
-									  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
-									  <strong>Error!</strong>' + response.message + '\
-									</div>';
+                                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
+                                      <strong>Error!</strong>' + response.message + '\
+                                    </div>';
                     $('#contact-form-save').closest('form').before(html);
                 }
 
@@ -50,13 +51,13 @@ jQuery(document).ready(function ($) {
     });
 
     // Function tp get all formdata from the contact form
-    var getFormData = function (form) {
+    var getFormData = function(form) {
 
         var serializedData = $(form).serializeArray();
 
         var data = {};
 
-        $.each(serializedData, function (key, ele) {
+        $.each(serializedData, function(key, ele) {
             data[ele.name] = ele.value;
         });
 
@@ -64,6 +65,11 @@ jQuery(document).ready(function ($) {
 
     }
 
+});
+
+
+/*************** booking.js ******************/
+$(document).ready(function(){
     // generate the datepicker  for the room booking
     if ($('#room-booking-calendar').length === 0)
         return;
@@ -170,8 +176,8 @@ jQuery(document).ready(function ($) {
         var $slug = '';
         var trimmed = $.trim(str);
         $slug = trimmed.replace(/[^a-z0-9-]/gi, '-').
-            replace(/-+/g, '-').
-            replace(/^-|-$/g, '');
+        replace(/-+/g, '-').
+        replace(/^-|-$/g, '');
         return $slug.toLowerCase();
     }
 
@@ -212,7 +218,9 @@ jQuery(document).ready(function ($) {
 
             var slug_name = slugify(date_range_name);
 
-            $("." + slug_name).css({'background-color': DATERANGE[i].daterange_colour});
+            $("." + slug_name).css({
+                'background-color': DATERANGE[i].daterange_colour
+            });
         }
     }
 
@@ -225,7 +233,7 @@ jQuery(document).ready(function ($) {
      */
     function displayColorMonthChange(year, month, inst) {
 
-        setTimeout(function () {
+        setTimeout(function() {
             getDateRangeColour();
         }, 10);
     }
@@ -248,7 +256,7 @@ jQuery(document).ready(function ($) {
 
         displayCarouselNav();
 
-        setTimeout(function () {
+        setTimeout(function() {
             getDateRangeColour();
             showCarousel();
         }, 10);
@@ -282,7 +290,7 @@ jQuery(document).ready(function ($) {
      * Display all the plans for the selected date
      */
     function showPlans(date) {
-        var html = '<div class="item active"><div class="room-booking-plan"><h5>'+polyglot.t("Selected date does not exsists in any of the available dateranges")+'</h5></div></div>';
+        var html = '<div class="item active"><div class="room-booking-plan"><h5>' + polyglot.t("Selected date does not exsists in any of the available dateranges") + '</h5></div></div>';
 
         var range = DateInRange(date);
 
@@ -305,7 +313,7 @@ jQuery(document).ready(function ($) {
         var defaultCurrency = CURRENCY;
 
         if (TARIFF.length === 0)
-            return ' <div class="room-booking-plan"><h5>'+polyglot.t("No tariff/plans exsists for selected date")+'</h5></div>';
+            return ' <div class="room-booking-plan"><h5>' + polyglot.t("No tariff/plans exsists for selected date") + '</h5></div>';
 
         for (var i = 0; i < TARIFF.length; i++) {
 
@@ -323,63 +331,57 @@ jQuery(document).ready(function ($) {
 
                         html += '<div class=" active item">';
                         temp = 1;
-                    }
-                    else {
+                    } else {
                         html += '<div class="item">';
                     }
 
                     html += '<div class="room-booking-plan">' + plans;
 
-                    html += '<div class="booking-detail">'+polyglot.t("Max Adults Weekdays:")+'<span>' +
+                    html += '<div class="booking-detail">' + polyglot.t("Max Adults Weekdays:") + '<span>' +
                         weekday.max_adults + '</span></div>';
 
-                    html += '<div class="booking-detail">'+polyglot.t("Max Children Weekdays:")+'<span>' +
+                    html += '<div class="booking-detail">' + polyglot.t("Max Children Weekdays:") + '<span>' +
                         weekday.max_children + '</span></div>';
 
                     html += '<div class="clearfix"></div>';
 
                     html += '<div class="plan-bg">'
 
-                    html += '<h6>'+polyglot.t("Additional Charge Weekdays")+'</h6>' +
-                        '<div class="booking-detail">'+polyglot.t("per extra Adult:")+''+defaultCurrency+''
-                        + weekday.extra_adult + '</div>';
+                    html += '<h6>' + polyglot.t("Additional Charge Weekdays") + '</h6>' +
+                        '<div class="booking-detail">' + polyglot.t("per extra Adult:") + '' + defaultCurrency + '' + weekday.extra_adult + '</div>';
 
-                    html += '<div class="booking-detail">'+polyglot.t("per extra Child:")+''+defaultCurrency+''
-                        + weekday.extra_child + '</div>';
+                    html += '<div class="booking-detail">' + polyglot.t("per extra Child:") + '' + defaultCurrency + '' + weekday.extra_child + '</div>';
 
                     html += '<div class="clearfix"></div>';
 
-                    html += '<div class="booking-price">'+polyglot.t("WEEKDAYS")+' <b>'+defaultCurrency+'' + weekday.charge + '</b></div>';
+                    html += '<div class="booking-price">' + polyglot.t("WEEKDAYS") + ' <b>' + defaultCurrency + '' + weekday.charge + '</b></div>';
 
                     html += '</div>';
 
-                    html += '<div class="booking-detail">'+polyglot.t("Max Adults Weekend:")+'<span>' +
+                    html += '<div class="booking-detail">' + polyglot.t("Max Adults Weekend:") + '<span>' +
                         weekend.max_adults + '</span></div>';
 
-                    html += '<div class="booking-detail">'+polyglot.t("Max Children Weekend:")+'<span>' +
+                    html += '<div class="booking-detail">' + polyglot.t("Max Children Weekend:") + '<span>' +
                         weekend.max_children + '</span></div>';
 
                     html += '<div class="clearfix"></div>';
 
                     html += '<div class="plan-bg">';
 
-                    html += '<h6>'+polyglot.t("Additional Charge Weekend")+'</h6>' +
-                        '<div class="booking-detail">'+polyglot.t("per extra Adult:")+''+defaultCurrency+''
-                        + weekend.extra_adult + '</div>';
+                    html += '<h6>' + polyglot.t("Additional Charge Weekend") + '</h6>' +
+                        '<div class="booking-detail">' + polyglot.t("per extra Adult:") + '' + defaultCurrency + '' + weekend.extra_adult + '</div>';
 
-                    html += '<div class="booking-detail">'+polyglot.t("per extra Child:")+''+defaultCurrency+''
-                        + weekend.extra_child + '</div>';
+                    html += '<div class="booking-detail">' + polyglot.t("per extra Child:") + '' + defaultCurrency + '' + weekend.extra_child + '</div>';
 
                     html += '<div class="clearfix"></div>';
 
-                    html += '<div class="booking-price">'+polyglot.t("WEEKEND")+' <b>'+defaultCurrency+'' + weekend.charge + '</b></div>';
+                    html += '<div class="booking-price">' + polyglot.t("WEEKEND") + ' <b>' + defaultCurrency + '' + weekend.charge + '</b></div>';
 
                     html += '</div></div></div>';
 
                 }
 
-            }
-            else {
+            } else {
                 /* var plans_name = getPlans(TARIFF[i].plan_id);
                  html += '<div class="item">\n\
                  <div class="room-booking-plan">' + plans_name +
@@ -431,44 +433,84 @@ jQuery(document).ready(function ($) {
 
         return html;
     }
+});
 
+// jQuery(window).load(function(){
+//     jQuery('img[data-height]').hide()
+//     setTimeout(function(){
+//         jQuery('img[data-height]').each(function(){
+//             $ = jQuery
 
+//             if($(this).attr('data-height') != 'auto'){       
+//                 $(this).parent().height($(this).parent().width()*parseFloat($(this).attr('data-height')));
+//             }
+//             $(this).css('top',$(this).parent().width()*parseFloat($(this).attr('data-top'))+'px');
+//             $(this).fadeIn()
+//         });
+//     }, 500);
+// });
 
+function imageLoaded(ele) {
+    $ = jQuery;
+    if ($(ele).attr('data-height') != 'auto') {
+        $(ele).parent().height($(ele).parent().width() * parseFloat($(ele).attr('data-height')));
+    }
+    $(ele).css('top', $(ele).parent().width() * parseFloat($(ele).attr('data-top')) + 'px');
+}
+
+/************ map.js *******************/
+
+jQuery(document).ready(function() {
+
+    if (jQuery('#map_canvas').length === 0)
+        return;
+
+    var map, geocoder;
     
+    window.initializeMap = function() {
+
+        geocoder = new google.maps.Geocoder();
+
+        var mapOptions = {
+            zoom: 8,
+            center: new google.maps.LatLng(-34.397, 150.644)
+        };
+
+        geocoder.geocode({
+            'address': HOTELADDRESS
+        }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+                if (jQuery('#map_canvas').height() === 0)
+                    jQuery('#map_canvas').height(300);
+            } else {
+                jQuery('#map_canvas').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+            }
+        });
+    }
+    jQuery.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap');
 
 });
 
-    // jQuery(window).load(function(){
-    //     jQuery('img[data-height]').hide()
-    //     setTimeout(function(){
-    //         jQuery('img[data-height]').each(function(){
-    //             $ = jQuery
-                
-    //             if($(this).attr('data-height') != 'auto'){       
-    //                 $(this).parent().height($(this).parent().width()*parseFloat($(this).attr('data-height')));
-    //             }
-    //             $(this).css('top',$(this).parent().width()*parseFloat($(this).attr('data-top'))+'px');
-    //             $(this).fadeIn()
-    //         });
-    //     }, 500);
-    // });
+jQuery(document).ready(function() {
+    var $powered = jQuery('.power-up').clone().removeClass('hide').addClass('text');
+    jQuery('.site-footer').append($powered);
+    console.log('powered');
+});
 
-function imageLoaded(ele){
-    $ = jQuery;
-    if($(ele).attr('data-height') != 'auto'){       
-        $(ele).parent().height($(ele).parent().width()*parseFloat($(ele).attr('data-height')));
-    }
-    $(ele).css('top',$(ele).parent().width()*parseFloat($(ele).attr('data-top'))+'px');
-}
+// jQuery(window).load( function (){
+//        $ = jQuery
 
- // jQuery(window).load( function (){
- //        $ = jQuery
+//        $('img[data-height]').each(function(index,image){
+//            if($(image).attr('data-height') != 'auto'){       
+//                $(image).parent().height($(image).parent().width()*parseFloat($(image).attr('data-height')));
+//            }
+//            $(image).css('top',$(image).parent().width()*parseFloat($(image).attr('data-top'))+'px');
+//        });
 
- //        $('img[data-height]').each(function(index,image){
- //            if($(image).attr('data-height') != 'auto'){       
- //                $(image).parent().height($(image).parent().width()*parseFloat($(image).attr('data-height')));
- //            }
- //            $(image).css('top',$(image).parent().width()*parseFloat($(image).attr('data-top'))+'px');
- //        });
-
- //    });
+//    });
