@@ -11,7 +11,10 @@ define ['app'], (App)->
                   template : '<div class="form-group">
                                   <label for="email-emailid" class="col-sm-3 control-label">{{#polyglot}}Email Address:{{/polyglot}}</label>
                                   <div class="col-sm-9 col-sm-offset-3">
-                                    <input id="email_username" name="email_username" type="text" value="" class="form-control" required placeholder="username" maxlength="20" minlength="3">@{{domain_name}}
+                                      <div class="input-group">
+                                        <input id="email_username" name="email_username" type="text" value="" class="form-control" required placeholder="username" maxlength="20" minlength="3">
+                                          <span class="input-group-addon">@{{domain_name}}</span>
+                                      </div> 
                                   </div>
                                   <input id="email_domain" name="email_domain" type="hidden" value="{{domain_name}}" class="form-control">
                                 </div>
@@ -31,12 +34,6 @@ define ['app'], (App)->
                                   <label for="email-password" class="col-sm-3 control-label">{{#polyglot}}Password:{{/polyglot}}</label>
                                   <div class="col-sm-9 col-sm-offset-3">
                                     <input id="email-password" name="password" type="password" value="{{password}}" class="form-control" required>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="email-confirm-password" class="col-sm-3 control-label">{{#polyglot}}Confirm Password:{{/polyglot}}</label>
-                                  <div class="col-sm-9 col-sm-offset-3">
-                                    <input id="email-confirm-password" name="email-confirm-password" type="password" value="{{password}}" class="form-control" required equalTo= "#email-password">
                                   </div>
                                 </div>
                                 <div class="form-group">
