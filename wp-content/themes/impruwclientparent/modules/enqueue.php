@@ -48,7 +48,7 @@ function impruw_wp_enqueue_builder_styles(){
         get_parent_template_directory_uri() . '/bower_components/flat-ui/dist/css/flat-ui.min.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'im-jquery-ui', 
-        get_parent_template_directory_uri() . '/js/jquery-ui-css/jquery-ui.min.css', 
+        get_parent_template_directory_uri() . '/js/jquery-ui/jquery-ui.min.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'pace', 
         get_parent_template_directory_uri() . '/bower_components/pace/themes/orange/pace-theme-minimal.css', 
