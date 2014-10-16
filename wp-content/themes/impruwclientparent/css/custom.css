@@ -1,4 +1,9 @@
 /*custom.css*/
+
+btn{
+    color : #fff !important;
+}
+
 .builder-sortable-helper{
     width: 100px;
     top:100px;
@@ -16,7 +21,6 @@
     visibility: visible!Important;
     border-radius: 4px;
     background: transparent!Important;
-
 }
 
 #aj-imp-builder-drag-drop > div.row{

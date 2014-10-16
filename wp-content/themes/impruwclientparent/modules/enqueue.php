@@ -214,7 +214,7 @@ add_action('wp_enqueue_scripts' , 'impruw_wp_enqueue_scripts', 1000 );
 
 function theme_style_link_tag(){
     
-    if(!is_impruw_demo_site())
+    if(!is_impruw_demo_site() || is_page('site-builder') || is_page('dashboard'))
         return;
 
     echo '<style>
