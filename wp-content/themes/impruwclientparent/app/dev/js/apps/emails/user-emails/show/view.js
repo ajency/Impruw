@@ -29,7 +29,7 @@ define(['app'], function(App) {
 
       UserEmailItemView.prototype.tagName = 'tr';
 
-      UserEmailItemView.prototype.template = '<td>{{email}}</td> <td>{{firstName}}</td> <td>{{firstName}}</td> <td>{{dateOfCreation}}</td> <td class="action-links"> <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;Edit</a> <a class="orange-link suspenduseremail_link {{hideSuspend}}" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;Suspend</a> <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;Delete</a> </td>';
+      UserEmailItemView.prototype.template = '<td>{{email}}</td> <td>{{name}}</td> <td class="action-links"> <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;Edit</a> <a class="orange-link suspenduseremail_link {{hideSuspend}}" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;Suspend</a> <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;Delete</a> </td>';
 
       UserEmailItemView.prototype.events = {
         'click .deleteuseremail_link': function(e) {
@@ -78,7 +78,7 @@ define(['app'], function(App) {
         return UserEmailView.__super__.constructor.apply(this, arguments);
       }
 
-      UserEmailView.prototype.template = '<div class="tab-content"> <div id="users" class="tab-pane active"> <h6 class="aj-imp-sub-head">{{#polyglot}}Create upto 10 company email accounts{{/polyglot}}</h6> <div class="table-responsive"> <table class="table table-striped table-bordered table-hover"> <thead> <tr> <th>{{#polyglot}}Email Address{{/polyglot}}</th> <th>{{#polyglot}}First Name{{/polyglot}}</th> <th>{{#polyglot}}Last Name{{/polyglot}}</th> <th>{{#polyglot}}Date Created{{/polyglot}}</th> <th>{{#polyglot}}Actions{{/polyglot}}</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="actions"> <button class="btn btn-sm aj-imp-orange-btn" id="add-new-user-email-btn"> <span class="glyphicon glyphicon-user"></span>&nbsp;{{#polyglot}}Add User{{/polyglot}} </button> </div> </div> </div> ';
+      UserEmailView.prototype.template = '<div class="tab-content"> <div id="users" class="tab-pane active"> <h6 class="aj-imp-sub-head">{{#polyglot}}Create upto 10 company email accounts{{/polyglot}}</h6> <div class="table-responsive"> <table class="table table-striped table-bordered table-hover"> <thead> <tr> <th>{{#polyglot}}Email Address{{/polyglot}}</th> <th>{{#polyglot}}Name{{/polyglot}}</th> <th>{{#polyglot}}Actions{{/polyglot}}</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="actions"> <button class="btn btn-sm aj-imp-orange-btn" id="add-new-user-email-btn"> <span class="glyphicon glyphicon-user"></span>&nbsp;{{#polyglot}}Add User{{/polyglot}} </button> </div> </div> </div> ';
 
       UserEmailView.prototype.itemView = UserEmailItemView;
 
@@ -95,8 +95,12 @@ define(['app'], function(App) {
         return this.trigger("add:new:user:email");
       };
 
-      UserEmailView.prototype.onSuspendEmail = function() {
-        return console.log("Email suspended composite");
+      UserEmailView.prototype.onSuspendEmail = function(msg) {
+        return console.log(msg);
+      };
+
+      UserEmailView.prototype.onDeleteEmail = function(msg) {
+        return console.log(msg);
       };
 
       return UserEmailView;

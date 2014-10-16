@@ -28,7 +28,6 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/edit-user
       Controller.prototype.editUserEmail = function(data) {
         var email_id, new_password, options, postURL;
         console.log("Editing new user email");
-        this.userEmailModel.set(data);
         email_id = data.email_id;
         new_password = data.password;
         console.log(data.email_id);
@@ -38,13 +37,18 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/edit-user
           method: 'POST',
           url: postURL,
           data: {
-            'password': new_password
+            'password': new_password,
+            'firstName': data.firstName,
+            'lastName': data.lastName
           }
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
             console.log("Edit email success");
-            console.log(_this.userEmailView);
+            console.log(response.data.name);
+            _this.userEmailModel.set({
+              'name': response.data.name
+            });
             return _this.editUserEmailView.triggerMethod("saved:user:email");
           };
         })(this));

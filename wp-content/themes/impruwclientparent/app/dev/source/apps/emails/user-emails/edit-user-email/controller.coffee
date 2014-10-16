@@ -23,7 +23,6 @@ define ['app', 'controllers/base-controller'
 
             editUserEmail :(data)->
                 console.log "Editing new user email"
-                @userEmailModel.set data
 
                 email_id = data.email_id
                 new_password = data.password
@@ -39,10 +38,13 @@ define ['app', 'controllers/base-controller'
                     url : postURL
                     data :
                         'password' : new_password
+                        'firstName' : data.firstName
+                        'lastName' : data.lastName
 
                 $.ajax( options ).done ( response )=>
                     console.log "Edit email success"
-                    console.log @userEmailView
+                    console.log response.data.name
+                    @userEmailModel.set 'name': response.data.name
                     @editUserEmailView.triggerMethod "saved:user:email"
 
         App.commands.setHandler "show:edit:user:email", (opts) ->

@@ -21,13 +21,13 @@ define ['app'], (App)->
                                 <div class="form-group">
                                   <label for="email-firstName" class="col-sm-3 control-label">{{#polyglot}}First name:{{/polyglot}}</label>
                                   <div class="col-sm-9 col-sm-offset-3">
-                                    <input id="email-firstName" name="firstName" type="text" value="{{firstName}}" class="form-control" >
+                                    <input id="email-firstName" name="firstName" type="text" value="{{firstName}}" class="form-control" required>
                                   </div>
                                 </div>
                                 <div class="form-group">
                                   <label for="email-lastName" class="col-sm-3 control-label">{{#polyglot}}Last name:{{/polyglot}}</label>
                                   <div class="col-sm-9 col-sm-offset-3">
-                                    <input id="email-lastName" name="lastName" type="text" value="{{lastName}}" class="form-control" >
+                                    <input id="email-lastName" name="lastName" type="text" value="{{lastName}}" class="form-control" required>
                                   </div>
                                 </div>
                                 <div class="form-group">

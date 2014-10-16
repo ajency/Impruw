@@ -287,11 +287,12 @@ function disable_user_email($args){
     if($account){
         //Disabling account
         $data = $account->disable();
+        $account = impruw_email_accounts::get_account($args['email_id']);
         if($data == true){
-            $response = array('code' => 'OK', 'msg' =>$data );
+            $response = array('code' => 'OK', 'msg' =>$data, 'data'=>$account );
         }
         else{
-            $response = array('code' => 'ERROR', 'msg' =>$data );
+            $response = array('code' => 'ERROR', 'msg' =>'Email account could not be suspended' );
         }
     }
     else{
@@ -311,28 +312,30 @@ function delete_user_email($args){
 
     $account =  impruw_email_accounts::get_account($args['email_id']);
 
-    $was_disabled = false;
     if($account){
-        //Disabling account
+        //Deleting account
         $data = $account->delete();
-        if($data == true){
-            $response = array('code' => 'OK', 'msg' =>$data );
+        $data = impruw_email_accounts::get_account($args['email_id']);
+        if ($data->is_deleted ) {
+            $response = array('code' => 'OK', 'data' => $data );
         }
         else{
-            $response = array('code' => 'ERROR', 'msg' =>$data );
+            $response = array('code' => 'ERROR', 'msg' => 'Email id could not be deleted' );
         }
+
+        
     }
+
     else{
         $response = array('code' => 'ERROR', 'msg' =>'In-valid email id' );
     }
 
-    $response = array('disabled' => $response);
-
     wp_send_json($response);
 
     exit;
-    //return $response;
+    
 }
+
 
 
 

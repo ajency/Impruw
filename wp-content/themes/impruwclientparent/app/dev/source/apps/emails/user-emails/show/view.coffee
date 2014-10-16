@@ -17,9 +17,7 @@ define ['app'], (App)->
                     tagName : 'tr'
 
                     template : '<td>{{email}}</td>
-                                <td>{{firstName}}</td>
-                                <td>{{firstName}}</td>
-                                <td>{{dateOfCreation}}</td>
+                                <td>{{name}}</td>
                                 <td class="action-links">
                                     <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;Edit</a>
                                     <a class="orange-link suspenduseremail_link {{hideSuspend}}" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;Suspend</a>
@@ -64,9 +62,7 @@ define ['app'], (App)->
                                             <thead>
                                                 <tr>
                                                     <th>{{#polyglot}}Email Address{{/polyglot}}</th>
-                                                    <th>{{#polyglot}}First Name{{/polyglot}}</th>
-                                                    <th>{{#polyglot}}Last Name{{/polyglot}}</th>
-                                                    <th>{{#polyglot}}Date Created{{/polyglot}}</th>
+                                                    <th>{{#polyglot}}Name{{/polyglot}}</th>
                                                     <th>{{#polyglot}}Actions{{/polyglot}}</th>
                                                 </tr>
                                             </thead>
@@ -102,5 +98,8 @@ define ['app'], (App)->
                         e.preventDefault()
                         @trigger "add:new:user:email"
 
-                    onSuspendEmail:->
-                        console.log "Email suspended composite"
+                    onSuspendEmail:(msg)->
+                        console.log msg
+
+                    onDeleteEmail:(msg)->
+                        console.log msg

@@ -32,7 +32,6 @@ define ['app', 'controllers/base-controller'
 
             disableUserEmail :(view,email_id) ->
                 console.log email_id
-                
                 postURL = SITEURL+'/api/email/'+email_id
 
                 console.log postURL
@@ -42,12 +41,26 @@ define ['app', 'controllers/base-controller'
                     url : postURL
 
                 $.ajax( options ).done ( response )=>
-                    console.log "Suspend email success"
-                    console.log @userEmailView
-                    @userEmailView.triggerMethod "suspend:email"
+                    if response.code is 'OK'
+                        @userEmailCollection.remove view.model
+                    else
+                        @userEmailView.triggerMethod "suspend:email", response.msg
 
             deleteUserEmail :(view,email_id) ->
-                @userEmailCollection.remove view.model
+                console.log email_id
+                postURL = SITEURL+'/api/email/'+email_id
+
+                console.log postURL
+
+                options =
+                    method : 'DELETE'
+                    url : postURL
+
+                $.ajax( options ).done ( response )=>
+                    if response.code is 'OK'
+                        @userEmailCollection.remove view.model
+                    else
+                        @userEmailView.triggerMethod "delete:email", response.msg
 
         App.commands.setHandler "show:user:emails:app", (opts) ->
             new UserEmails.Controller opts

@@ -44,15 +44,33 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/show/view
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            console.log("Suspend email success");
-            console.log(_this.userEmailView);
-            return _this.userEmailView.triggerMethod("suspend:email");
+            if (response.code === 'OK') {
+              return _this.userEmailCollection.remove(view.model);
+            } else {
+              return _this.userEmailView.triggerMethod("suspend:email", response.msg);
+            }
           };
         })(this));
       };
 
       Controller.prototype.deleteUserEmail = function(view, email_id) {
-        return this.userEmailCollection.remove(view.model);
+        var options, postURL;
+        console.log(email_id);
+        postURL = SITEURL + '/api/email/' + email_id;
+        console.log(postURL);
+        options = {
+          method: 'DELETE',
+          url: postURL
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            if (response.code === 'OK') {
+              return _this.userEmailCollection.remove(view.model);
+            } else {
+              return _this.userEmailView.triggerMethod("delete:email", response.msg);
+            }
+          };
+        })(this));
       };
 
       return Controller;
