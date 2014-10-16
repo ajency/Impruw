@@ -24,13 +24,14 @@ define ['app'
                     'step': 5
 
                 #check for time format selection
-                @$el.find('.radio').click =>
+                @$el.find('.radio').click (evt)=>
+                    eleId = $(evt.currentTarget).attr 'id'
                     _.delay =>
-                        @checkTimeFormatSelection()
+                        @checkTimeFormatSelection eleId
                     , 10
 
-            checkTimeFormatSelection: =>
-                if @$el.find('#tweleve-hour').hasClass 'checked'
+            checkTimeFormatSelection: (eleId)=>
+                if eleId is 'tweleve-hour'
                     @$el.find('.check-time').timepicker 'remove'
                     @$el.find('.check-time').timepicker
                         'timeFormat': 'g:ia'
