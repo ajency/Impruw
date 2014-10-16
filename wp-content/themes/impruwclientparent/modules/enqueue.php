@@ -2,10 +2,6 @@
 
 function impruw_wp_enqueue_styles(){
 
-    //dequeue styles
-    // wp_dequeue_style( 'rs-plugin-settings' );
-    //wp_dequeue_style( 'rs-captions' );
-
     if(is_page('site-builder') || is_page('dashboard'))
         return;
 
