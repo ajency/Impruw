@@ -28,7 +28,7 @@ define(['app'], function(App) {
         this.$el.attr({
           'id': "facility-" + (this.model.get('term_id'))
         });
-        return this.$el.find('input[type="checkbox"]').checkbox();
+        return this.$el.find('input[type="checkbox"]').radiocheck();
       };
 
       FacilityItem.prototype.events = {

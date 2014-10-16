@@ -37,7 +37,7 @@ define ['app'], (App)->
 
             onShow: ->
                 @$el.attr 'id': "facility-#{@model.get 'term_id'}"
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
 
 
             events:

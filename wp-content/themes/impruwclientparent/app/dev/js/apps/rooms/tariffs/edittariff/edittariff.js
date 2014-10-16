@@ -109,7 +109,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
       };
 
       EditTariffView.prototype.onShow = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         this.$el.find('.currency').text(Marionette.getOption(this, 'currency'));
         return this.$el.validate();
       };

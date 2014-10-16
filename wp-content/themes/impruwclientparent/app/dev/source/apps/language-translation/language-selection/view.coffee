@@ -30,7 +30,7 @@ define ['app'
 
 
             onShow: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
 
 
             saveLanguage: (evt)->
@@ -66,7 +66,7 @@ define ['app'
 
                 @viewHiddenLanguageList()
 
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
 
             serializeData: ->
                 data = super()
@@ -224,7 +224,7 @@ define ['app'
                 @$el.find('select').selectpicker('refresh')
 
                 @$el.find("#hide-langs").html(htmlforHiddenLangView)
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
 
 
                 @$el.find('.alert').remove()
