@@ -445,7 +445,9 @@ jQuery(document).ready(function(){
         }
         $(ele).css('top', $(ele).parent().width() * parseFloat($(ele).attr('data-top')) + 'px');
     }
-    jQuery('img').load(imageLoaded)
+    $('img').each(function(){
+        imageLoaded(this);
+    });
 });
 
 /************ slimenu.js ***************/
