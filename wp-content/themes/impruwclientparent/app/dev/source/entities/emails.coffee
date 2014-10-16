@@ -10,8 +10,8 @@ define ["app", 'backbone'], (App, Backbone) ->
             idAttribute: 'email'
 
             defaults: ->
-                firstName: 'N/A'
-                lastName: 'N/A'
+                firstName: ''
+                lastName: ''
                 # dateOfCreation: 'N/A'
 
             sync: (method, entity, options = {})->

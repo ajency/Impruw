@@ -11,9 +11,7 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/show/view
       }
 
       Controller.prototype.initialize = function(opts) {
-        console.log("Initialize view");
         this.userEmailCollection = App.request("get:user:email:collection");
-        console.log(this.userEmailCollection);
         this.userEmailView = this._getuserEmailView();
         this.listenTo(this.userEmailView, "add:new:user:email", this.addNewUserEmail);
         this.listenTo(this.userEmailView, "itemview:disable:user:email", this.disableUserEmail);
@@ -35,9 +33,7 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/show/view
 
       Controller.prototype.disableUserEmail = function(view, email_id) {
         var options, postURL;
-        console.log(email_id);
         postURL = SITEURL + '/api/email/' + email_id;
-        console.log(postURL);
         options = {
           method: 'PUT',
           url: postURL
@@ -55,9 +51,7 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/show/view
 
       Controller.prototype.deleteUserEmail = function(view, email_id) {
         var options, postURL;
-        console.log(email_id);
         postURL = SITEURL + '/api/email/' + email_id;
-        console.log(postURL);
         options = {
           method: 'DELETE',
           url: postURL

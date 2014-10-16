@@ -27,7 +27,6 @@ define(['app'], function(App) {
           e.preventDefault();
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
-            console.log(data);
             return this.trigger("edit:user:email", data);
           }
         }
@@ -36,9 +35,7 @@ define(['app'], function(App) {
       EditUserEmailView.prototype.mixinTemplateHelpers = function(data) {
         var str;
         data = EditUserEmailView.__super__.mixinTemplateHelpers.call(this, data);
-        console.log(data);
         str = data.name;
-        console.log(str);
         data.firstName = function() {
           var firstname;
           if (str === null) {

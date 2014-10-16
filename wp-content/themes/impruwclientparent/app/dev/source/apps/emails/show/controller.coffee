@@ -32,7 +32,7 @@ define ['app', 'controllers/base-controller'
                         region: @emailLayout.emailsDisplay
 
                 _showAddUserEmail:=>
-                    console.log "Add user"
+                    # console.log "Add user"
                     App.execute "show:add:user:email",
                         region : App.dialogRegion
 

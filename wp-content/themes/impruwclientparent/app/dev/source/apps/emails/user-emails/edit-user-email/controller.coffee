@@ -5,9 +5,9 @@ define ['app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize: (opts)->
+                {model} = opts
 
-
-                @userEmailModel =  opts.model
+                @userEmailModel =  model
 
                 @editUserEmailView = @_geteditUserEmailView()
                 
@@ -22,16 +22,21 @@ define ['app', 'controllers/base-controller'
                     model: @userEmailModel
 
             editUserEmail :(data)->
-                console.log "Editing new user email"
+                # console.log "Editing new user email"
 
                 email_id = data.email_id
                 new_password = data.password
+                name = data.firstName+' '+data.lastName
+                # console.log name
+                @userEmailModel.set 'firstName', data.firstName
+                @userEmailModel.set 'lastName', data.firstName
+                @userEmailModel.set 'name', name
                 
-                console.log data.email_id
+                # console.log data.email_id
                 
                 postURL = SITEURL+'/api/email/'+email_id
 
-                console.log postURL
+                # console.log postURL
 
                 options =
                     method : 'POST'
@@ -42,8 +47,8 @@ define ['app', 'controllers/base-controller'
                         'lastName' : data.lastName
 
                 $.ajax( options ).done ( response )=>
-                    console.log "Edit email success"
-                    console.log response.data.name
+                    # console.log "Edit email success"
+                    # console.log response.data.name
                     @userEmailModel.set 'name': response.data.name
                     @editUserEmailView.triggerMethod "saved:user:email"
 

@@ -11,7 +11,9 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/edit-user
       }
 
       Controller.prototype.initialize = function(opts) {
-        this.userEmailModel = opts.model;
+        var model;
+        model = opts.model;
+        this.userEmailModel = model;
         this.editUserEmailView = this._geteditUserEmailView();
         this.listenTo(this.editUserEmailView, "edit:user:email", this.editUserEmail);
         return this.show(this.editUserEmailView, {
@@ -26,13 +28,14 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/edit-user
       };
 
       Controller.prototype.editUserEmail = function(data) {
-        var email_id, new_password, options, postURL;
-        console.log("Editing new user email");
+        var email_id, name, new_password, options, postURL;
         email_id = data.email_id;
         new_password = data.password;
-        console.log(data.email_id);
+        name = data.firstName + ' ' + data.lastName;
+        this.userEmailModel.set('firstName', data.firstName);
+        this.userEmailModel.set('lastName', data.firstName);
+        this.userEmailModel.set('name', name);
         postURL = SITEURL + '/api/email/' + email_id;
-        console.log(postURL);
         options = {
           method: 'POST',
           url: postURL,
@@ -44,8 +47,6 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/edit-user
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            console.log("Edit email success");
-            console.log(response.data.name);
             _this.userEmailModel.set({
               'name': response.data.name
             });

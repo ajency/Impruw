@@ -28,7 +28,6 @@ define(['app'], function(App) {
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
             data.email_id = data.email_username + '@' + this.model.get('domain_name');
-            console.log(data.email_id);
             if (this.validateEmail(data.email_id)) {
               this.$el.parent().find('.alert').remove();
               return this.trigger("add:user:email", data);
@@ -48,7 +47,6 @@ define(['app'], function(App) {
         } else if (response.code === 'ERROR') {
           msg = _.polyglot.t(response.msg);
         }
-        console.log(this.$el.parent());
         this.$el.parent().find('.alert').remove();
         this.$el.parent().prepend("<div class=\"alert alert-success\">" + msg + "</div>");
         return this.$el.find('input').val('');

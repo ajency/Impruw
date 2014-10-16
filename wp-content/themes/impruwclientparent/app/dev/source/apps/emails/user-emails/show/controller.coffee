@@ -5,13 +5,8 @@ define ['app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize: (opts)->
-                console.log "Initialize view"
-
                 #get email collection
                 @userEmailCollection = App.request "get:user:email:collection" 
-
-                console.log @userEmailCollection
-
 
                 @userEmailView = @_getuserEmailView()
 
@@ -31,10 +26,7 @@ define ['app', 'controllers/base-controller'
                 Marionette.triggerMethod.call @region, "show:add:user:email"
 
             disableUserEmail :(view,email_id) ->
-                console.log email_id
                 postURL = SITEURL+'/api/email/'+email_id
-
-                console.log postURL
 
                 options =
                     method : 'PUT'
@@ -47,10 +39,7 @@ define ['app', 'controllers/base-controller'
                         @userEmailView.triggerMethod "suspend:email", response.msg
 
             deleteUserEmail :(view,email_id) ->
-                console.log email_id
                 postURL = SITEURL+'/api/email/'+email_id
-
-                console.log postURL
 
                 options =
                     method : 'DELETE'

@@ -41,7 +41,6 @@ define(['app', 'controllers/base-controller', 'apps/emails/show/view', 'apps/ema
       };
 
       Controller.prototype._showAddUserEmail = function() {
-        console.log("Add user");
         return App.execute("show:add:user:email", {
           region: App.dialogRegion
         });

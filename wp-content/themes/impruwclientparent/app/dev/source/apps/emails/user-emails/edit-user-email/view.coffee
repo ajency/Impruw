@@ -48,15 +48,13 @@ define ['app'], (App)->
                         e.preventDefault()
                         if @$el.valid()
                            data = Backbone.Syphon.serialize @
-                           console.log data
                            @trigger "edit:user:email", data
 
                   mixinTemplateHelpers: (data)->
                         data = super data
-                        console.log data
 
                         str = data.name
-                        console.log str
+                        
                         data.firstName = ->
                           if str is null
                             firstname = ""

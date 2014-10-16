@@ -6,10 +6,9 @@ define ['app', 'controllers/base-controller'
             # initiliaze controller
             initialize: (opts)->
 
-
                 #get site model
                 @siteModel =  App.request "get:site:model"
-                console.log @siteModel
+                # console.log @siteModel
 
                 @addUserEmailView = @_getaddUserEmailView()
                 
@@ -24,15 +23,15 @@ define ['app', 'controllers/base-controller'
                     model: @siteModel
 
             addNewUserEmail :(data)->
-                console.log "Adding new user email"
+                # console.log "Adding new user email"
                 userEmail = App.request "create:user:email:model", data
                 userEmail.save null,
                     wait: true
                     success: @userEmailSaved
 
             userEmailSaved: (userEmail, response)=>
-                console.log "user email added"
-                console.log response
+                # console.log "user email added"
+                # console.log response
                 @userEmailCollection = App.request "get:user:email:collection"
                 @userEmailCollection.add userEmail
                 @addUserEmailView.triggerMethod "saved:user:email", response

@@ -52,7 +52,7 @@ define ['app'], (App)->
                         if @$el.valid()
                             data = Backbone.Syphon.serialize @
                             data.email_id = data.email_username+'@'+@model.get('domain_name')
-                            console.log data.email_id
+                            # console.log data.email_id
                             if @validateEmail(data.email_id)
                               @$el.parent().find('.alert').remove()
                               @trigger "add:user:email", data
@@ -68,7 +68,7 @@ define ['app'], (App)->
                     else if response.code is 'ERROR'
                       msg = _.polyglot.t response.msg
                     
-                    console.log @$el.parent()
+                    # console.log @$el.parent()
                     @$el.parent().find('.alert').remove()
                     @$el.parent().prepend "<div class=\"alert alert-success\">" + msg + "</div>"
                     @$el.find('input').val ''

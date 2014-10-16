@@ -14,7 +14,6 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/add-user-
 
       Controller.prototype.initialize = function(opts) {
         this.siteModel = App.request("get:site:model");
-        console.log(this.siteModel);
         this.addUserEmailView = this._getaddUserEmailView();
         this.listenTo(this.addUserEmailView, "add:user:email", this.addNewUserEmail);
         return this.show(this.addUserEmailView, {
@@ -30,7 +29,6 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/add-user-
 
       Controller.prototype.addNewUserEmail = function(data) {
         var userEmail;
-        console.log("Adding new user email");
         userEmail = App.request("create:user:email:model", data);
         return userEmail.save(null, {
           wait: true,
@@ -39,8 +37,6 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/add-user-
       };
 
       Controller.prototype.userEmailSaved = function(userEmail, response) {
-        console.log("user email added");
-        console.log(response);
         this.userEmailCollection = App.request("get:user:email:collection");
         this.userEmailCollection.add(userEmail);
         return this.addUserEmailView.triggerMethod("saved:user:email", response);

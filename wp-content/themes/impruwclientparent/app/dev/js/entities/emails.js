@@ -17,8 +17,8 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       UserEmail.prototype.defaults = function() {
         return {
-          firstName: 'N/A',
-          lastName: 'N/A'
+          firstName: '',
+          lastName: ''
         };
       };
 

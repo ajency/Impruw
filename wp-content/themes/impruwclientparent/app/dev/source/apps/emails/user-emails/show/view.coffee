@@ -24,6 +24,9 @@ define ['app'], (App)->
                                     <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;Delete</a>
                                 </td>'
 
+                    modelEvents:
+                        'change': 'render'
+
                     events :
                         'click .deleteuseremail_link' : ( e )->
                            e.preventDefault()
