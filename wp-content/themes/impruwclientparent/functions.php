@@ -2,7 +2,7 @@
 /*
  * File Name: functions.php Description: This file has a list of the following functions used in this theme
  */
-//Used for page excerpt generation
+//Used for page exc erpt generation
 require_once 'underscore.php';
 
 // Include WPML API

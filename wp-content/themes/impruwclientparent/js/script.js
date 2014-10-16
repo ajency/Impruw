@@ -4,11 +4,14 @@
  * @return {[type]}   [description]
  */
 
+var $ = jQuery.noConflict();
+
+/*********** contact-form.js ***************/
 jQuery(document).ready(function($) {
 
-    // var polyglot = new Polyglot({
-    //     phrases: PHRASES
-    // });
+    var polyglot = new Polyglot({
+        phrases: PHRASES
+    });
 
     //Function to send mail from the Contact Form
 
@@ -64,12 +67,10 @@ jQuery(document).ready(function($) {
         return data;
 
     }
-
 });
 
-
 /*************** booking.js ******************/
-$(document).ready(function(){
+jQuery(document).ready(function(){
     // generate the datepicker  for the room booking
     if ($('#room-booking-calendar').length === 0)
         return;
@@ -435,38 +436,57 @@ $(document).ready(function(){
     }
 });
 
-// jQuery(window).load(function(){
-//     jQuery('img[data-height]').hide()
-//     setTimeout(function(){
-//         jQuery('img[data-height]').each(function(){
-//             $ = jQuery
-
-//             if($(this).attr('data-height') != 'auto'){       
-//                 $(this).parent().height($(this).parent().width()*parseFloat($(this).attr('data-height')));
-//             }
-//             $(this).css('top',$(this).parent().width()*parseFloat($(this).attr('data-top'))+'px');
-//             $(this).fadeIn()
-//         });
-//     }, 500);
-// });
-
-function imageLoaded(ele) {
-    $ = jQuery;
-    if ($(ele).attr('data-height') != 'auto') {
-        $(ele).parent().height($(ele).parent().width() * parseFloat($(ele).attr('data-height')));
+/*********** image.js *********************/
+jQuery(document).ready(function(){
+    var imageLoaded = function(ele) {
+        $ = jQuery;
+        if ($(ele).attr('data-height') != 'auto') {
+            $(ele).parent().height($(ele).parent().width() * parseFloat($(ele).attr('data-height')));
+        }
+        $(ele).css('top', $(ele).parent().width() * parseFloat($(ele).attr('data-top')) + 'px');
     }
-    $(ele).css('top', $(ele).parent().width() * parseFloat($(ele).attr('data-top')) + 'px');
-}
+    jQuery('img').load(imageLoaded)
+});
+
+/************ slimenu.js ***************/
+jQuery(document).ready(function () {
+    
+    if(jQuery('.slimmenu').length === 0)
+        return;
+    
+    jQuery('.slimmenu').slimmenu({
+        resizeWidth: '767',
+        collapserTitle: 'Menu',
+        animSpeed: 'medium',
+        indentChildren: false,
+        childrenIndenter: '&nbsp;'
+    });
+});
+
+/************ isotope.js *******************/
+jQuery(document).ready(function () {
+    if (jQuery('ul.gallery li').length === 0)
+        return;
+
+    var $container = jQuery('ul.gallery').imagesLoaded(function () {
+        $container.isotope({
+            // options
+            itemSelector: '.isotope-element'
+        });
+        setTimeout(function () {
+            jQuery(window).resize();
+        }, 200);
+    });
+});
 
 /************ map.js *******************/
-
 jQuery(document).ready(function() {
 
     if (jQuery('#map_canvas').length === 0)
         return;
 
     var map, geocoder;
-    
+
     window.initializeMap = function() {
 
         geocoder = new google.maps.Geocoder();
@@ -494,23 +514,137 @@ jQuery(document).ready(function() {
         });
     }
     jQuery.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap');
-
 });
 
+/**************** poweredby.js ***********************/
 jQuery(document).ready(function() {
     var $powered = jQuery('.power-up').clone().removeClass('hide').addClass('text');
     jQuery('.site-footer').append($powered);
     console.log('powered');
 });
 
-// jQuery(window).load( function (){
-//        $ = jQuery
+/**************** login/forgotpassword/reset.js ************/
+jQuery(document).ready(function($) {
 
-//        $('img[data-height]').each(function(index,image){
-//            if($(image).attr('data-height') != 'auto'){       
-//                $(image).parent().height($(image).parent().width()*parseFloat($(image).attr('data-height')));
-//            }
-//            $(image).css('top',$(image).parent().width()*parseFloat($(image).attr('data-top'))+'px');
-//        });
+    $("#inputPass,#inputEmail").keypress(function(e) {
+        if (e.which == 13) {
+            $("#login_btn").click();
+        }
+    });
 
-//    });
+    $("#login_btn").click(function() {
+
+        if (!$('#frm_login').parsley('validate'))
+            return;
+
+        $(".login_loader").show();
+
+        var data = {
+            action: 'user_login',
+            pdemail: $("#inputEmail").val(),
+            pdpass: $("#inputPass").val(),
+            ajax_nonce: ajax_nonce
+        };
+
+
+        // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+        $.post(AJAXURL, data, function(response) {
+
+            if (response.code == 'OK') {
+
+                $(".login_loader").hide();
+                $("#login_success").show();
+                $("#login_status").html('<div class="alert alert-success t-a-c">' +
+                    '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
+                    response.msg + '</div>')
+
+                window.location.href = response.blog_url + '/dashboard';
+                return true;
+            } else if ((response.code == 'ERROR') || (response.code == 'FAILED')) {
+
+                $(".login_loader").hide();
+                $("#login_status_div").show()
+                $("#login_status").html('<div class="alert alert-error t-a-c">' +
+                    '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
+                    response.msg + '</div>')
+
+                return false;
+            }
+        });
+
+    });
+
+    /**
+     *   Forgot password action
+     */
+    $('#forgot_password_btn').click(function() {
+        $('#display-msg').empty();
+
+        $(".login_loader").show();
+
+        $.post(AJAXURL, {
+                action: 'reset-password',
+                email: $('#forgotPasswordEmail').val()
+            },
+            function(response) {
+
+                if (response.code == "ERROR") {
+                    displayMsg(response.msg);
+                    return false;
+                } else if (response.code == "OK") {
+                    displayMsg(response.msg);
+                    return true;
+                }
+
+            }, 'json')
+
+    });
+
+    function displayMsg(msg) {
+        $(".login_loader").hide();
+
+        var html = '<div class="alert alert-error">' +
+            '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
+            msg + '</div>';
+
+        $('#display-msg').html(html);
+
+    }
+
+    /**
+     *   Forgot password action
+     */
+    $('#reset-pass').click(function() {
+        $('#display-msg').empty();
+
+        $(".login_loader").show();
+
+        $.post(AJAXURL, {
+                action: 'change-password',
+                newPassword: $('#newPassword').val(),
+                confirmPassword: $('#confirmPassword').val(),
+                userEmail: $('#email').val()
+            },
+            function(response) {
+
+                if (response.code == "ERROR") {
+                    displayMsg(response.msg);
+                    return false;
+                } else if (response.code == "OK") {
+                    $(".login_loader").hide();
+                    var link = response.url + '/sign-in?email=' + response.email
+                    var html = '<div class="alert alert-error">' +
+                        '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
+                        response.msg + '<a href=" ' + link + ' ">Login</a></div>';
+
+                    $('#display-msg').append(html);
+
+                    $('#reset-form').click();
+
+                    return true;
+                }
+
+            }, 'json')
+
+    });
+});
