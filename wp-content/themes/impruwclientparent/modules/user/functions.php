@@ -238,3 +238,38 @@ function check_app_instace($instance_id){
 
     return $instance_id === $user_instance;
 }
+
+/*function forgot_password_email($email_id){
+
+    global $aj_comm;
+
+    //$user_id = $user->ID;
+
+    $user = get_user_by( 'email', $email_id );
+    $user_id = $user->ID;
+    //$user_info  = get_userdata($user_id);
+    //$user_email = $user_info->user_email;
+
+    $meta_data = array(
+    );
+
+    $comm_data = array(
+        'component' => 'impruw_user',
+        'communication_type' => 'forgot_password',
+        'user_id' => $user_id
+    );
+
+
+    $recipients_email[]=array(
+
+        'user_id' => $user_id,
+        'type' => 'email',
+        'value' => $email_id,
+        'status' => 'linedup'
+    );
+
+    //print_r($recipients_email);
+
+    $aj_comm->create_communication($comm_data,$meta_data,$recipients_email);
+
+}*/

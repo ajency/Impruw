@@ -54,6 +54,7 @@ require_once 'modules/billing/ajax.php';
 require_once 'modules/seo/ajax.php';
 require_once 'modules/heartbeat/heartbeat.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
+require_once get_theme_root().'/impruwmain/modules/communications/functions.php';
 
 /***
  * Load braintree PHP library

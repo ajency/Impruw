@@ -4,6 +4,8 @@
  *
  */
 require "functions.php";
+//require "forgot_password/functions.php";
+
 function ajax_read_user() {
 
     if ( is_user_logged_in() ) {
@@ -77,7 +79,10 @@ function ajax_reset_password() {
 
     if ( $email_exists ) {
 
+        forgot_password_email($user_email);
+
         reset_user_password( $user_email );
+
     } else {
         wp_send_json( array( 'code' => 'ERROR', 'msg' => icl_t('theme impruwlogin','email_non_existent_msg','Email Id does not exists') ) );
     }
