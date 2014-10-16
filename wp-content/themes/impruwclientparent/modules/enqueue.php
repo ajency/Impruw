@@ -153,11 +153,23 @@ function impruw_wp_enqueue_scripts(){
     wp_enqueue_script( 'imp-jquery', 
         get_parent_template_directory_uri() . '/bower_components/jquery/dist/jquery.min.js', 
         array(), JSVERSION, false);
+    wp_enqueue_script( 'bootstrap', 
+        get_parent_template_directory_uri() . '/bower_components/bootstrap/dist/js/bootstrap.min.js', 
+        array('imp-jquery'), JSVERSION, true);
     wp_enqueue_script( 'lightbox', 
         get_parent_template_directory_uri() . '/bower_components/lightbox2/js/lightbox.min.js', 
         array('imp-jquery'), JSVERSION, true);
     wp_enqueue_script( 'im-jquery-ui', 
         get_parent_template_directory_uri() . '/js/jquery-ui/jquery-ui.min.js', 
+        array('imp-jquery'), JSVERSION, true);
+    wp_enqueue_script( 'moment-js', 
+        get_parent_template_directory_uri() . '/js/moment/moment.min.js', 
+        array('imp-jquery'), JSVERSION, true);
+    wp_enqueue_script( 'moment-range-js', 
+        get_parent_template_directory_uri() . '/js/moment/moment.range.min.js', 
+        array('imp-jquery'), JSVERSION, true);
+    wp_enqueue_script( 'polyglot', 
+        get_parent_template_directory_uri() . '/js/polyglot/polyglot.min.js', 
         array('imp-jquery'), JSVERSION, true);
     wp_enqueue_script( 'slimmenu', 
         get_parent_template_directory_uri() . '/bower_components/slimmenu/jquery.slimmenu.min.js', 

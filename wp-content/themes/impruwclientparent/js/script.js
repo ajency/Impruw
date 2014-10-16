@@ -5,13 +5,10 @@
  */
 
 var $ = jQuery.noConflict();
-
+var polyglot;
 /*********** contact-form.js ***************/
 jQuery(document).ready(function($) {
 
-    var polyglot = new Polyglot({
-        phrases: PHRASES
-    });
 
     //Function to send mail from the Contact Form
 
@@ -71,9 +68,14 @@ jQuery(document).ready(function($) {
 
 /*************** booking.js ******************/
 jQuery(document).ready(function(){
+    
     // generate the datepicker  for the room booking
     if ($('#room-booking-calendar').length === 0)
         return;
+    
+    var polyglot = new Polyglot({
+        phrases: PHRASES
+    });
 
     $('#room-booking-calendar').datepicker({
         inline: true,
