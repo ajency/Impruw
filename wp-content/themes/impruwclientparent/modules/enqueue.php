@@ -16,6 +16,9 @@ function impruw_wp_enqueue_styles(){
     wp_enqueue_style( 'flat-ui', 
         get_parent_template_directory_uri() . '/bower_components/flat-ui/dist/css/flat-ui.min.css', 
         array('bootstrap'), JSVERSION );
+    wp_enqueue_style( 'im-jquery-ui', 
+        get_parent_template_directory_uri() . '/js/jquery-ui/jquery-ui.min.css', 
+        array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'slimmenu', 
         get_parent_template_directory_uri() . '/css/slimmenu.min.css', 
         array('flat-ui'), JSVERSION );
@@ -44,9 +47,9 @@ function impruw_wp_enqueue_builder_styles(){
     wp_enqueue_style( 'flat-ui', 
         get_parent_template_directory_uri() . '/bower_components/flat-ui/dist/css/flat-ui.min.css', 
         array('bootstrap'), JSVERSION );
-    // wp_enqueue_style( 'jquery-ui', 
-    //     'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css', 
-    //     array('bootstrap'), JSVERSION );
+    wp_enqueue_style( 'im-jquery-ui', 
+        get_parent_template_directory_uri() . '/js/jquery-ui-css/jquery-ui.min.css', 
+        array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'pace', 
         get_parent_template_directory_uri() . '/bower_components/pace/themes/orange/pace-theme-minimal.css', 
         array('bootstrap'), JSVERSION );
@@ -101,9 +104,9 @@ function impruw_wp_enqueue_dashboard_styles(){
     wp_enqueue_style( 'flat-ui', 
         get_parent_template_directory_uri() . '/bower_components/flat-ui/dist/css/flat-ui.min.css', 
         array('bootstrap'), JSVERSION );
-    // wp_enqueue_style( 'jquery-ui', 
-    //     'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css', 
-    //     array('bootstrap'), JSVERSION );
+    wp_enqueue_style( 'im-jquery-ui-css', 
+        get_parent_template_directory_uri() . '/js/jquery-ui/jquery-ui.min.css', 
+        array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'pace', 
         get_parent_template_directory_uri() . '/bower_components/pace/themes/orange/pace-theme-minimal.css', 
         array('bootstrap'), JSVERSION );
@@ -152,6 +155,9 @@ function impruw_wp_enqueue_scripts(){
         array(), JSVERSION, false);
     wp_enqueue_script( 'lightbox', 
         get_parent_template_directory_uri() . '/bower_components/lightbox2/js/lightbox.min.js', 
+        array('imp-jquery'), JSVERSION, true);
+    wp_enqueue_script( 'im-jquery-ui', 
+        get_parent_template_directory_uri() . '/js/jquery-ui/jquery-ui.min.js', 
         array('imp-jquery'), JSVERSION, true);
     wp_enqueue_script( 'slimmenu', 
         get_parent_template_directory_uri() . '/bower_components/slimmenu/jquery.slimmenu.min.js', 
