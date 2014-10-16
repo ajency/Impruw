@@ -21,6 +21,9 @@ define(['app'], function(App) {
       RightBlockLayout.prototype.events = {
         'click #aj-imp-color-sel': function() {
           return this.trigger("show:theme:color:clicked");
+        },
+        'click .view-history-link': function() {
+          return $('#revision-region').show();
         }
       };
 
