@@ -2,7 +2,7 @@
 function getvars_registration_email_admin($recipients_email,$comm_data){
     global $aj_comm;
 
-    $template_data['name'] = 'registration-notification'; // [slug] name or slug of a template that exists in the user's mandrill account
+    $template_data['name'] = 'registration-notification-1'; // [slug] name or slug of a template that exists in the user's mandrill account
 	$template_data['subject'] = 'Impruw Notification: A website has been registered.';
 	$template_data['from_email'] = 'no-reply@impruw.in';
 	$template_data['from_name'] = 'Impruw';
@@ -51,7 +51,7 @@ function getvars_registration_email_user($recipients_email,$comm_data){
 
     global $aj_comm;
 
-    $template_data['name'] = 'user-registered-notification'; // [slug] name or slug of a template that exists in the user's mandrill account
+    $template_data['name'] = 'user-registration'; // [slug] name or slug of a template that exists in the user's mandrill account
     $template_data['subject'] = 'Impruw Notification: Your website has been registered successfully..';
     $template_data['from_email'] = 'no-reply@impruw.in';
     $template_data['from_name'] = 'Impruw';
