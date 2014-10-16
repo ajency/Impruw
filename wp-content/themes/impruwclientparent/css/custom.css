@@ -461,3 +461,62 @@ div.element-drop-loader > p{
     margin-bottom: 0;
 }
 
+/********* color change options.css *****************/
+.options-div {
+    background: #333;
+    width: 200px;
+    padding: 0.5em;
+    color: #fff;
+    z-index: 9999;
+    border-radius: 0 0 2px 0;
+    height: auto !important;
+}
+.options-div .handle {
+    background: #333;
+    padding: 0.4em 0.5em 0.5em;
+    color: #fff;
+    font-size: 1.5em;
+    border-radius: 0 2px 2px 0;
+}
+.options-div.open .handle {
+    right: -42px !important;
+}
+.options-div .handle:hover {
+    color: #FF7E00
+}
+.options-div h5 {
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+.options-div .option-colors {
+    list-style: none;
+    padding: 0;
+}
+.options-div .option-colors li a {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #ccc;
+    padding: 0.5em;
+    border-radius: 2px;
+}
+.options-div .option-colors li a:hover, .options-div .option-colors li a.active {
+    background: #222;
+    color: #fff;
+}
+.options-div .option-colors li a h6 {
+    font-weight: 300;
+    font-size: 0.8em;
+}
+.options-div .option-colors li a .color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #fff;
+    margin: 0 0.2em 0.3em 0;
+}
+@media(max-width:767px){
+    .options-div {
+        position: absolute !important;
+    }
+}
+

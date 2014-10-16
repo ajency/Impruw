@@ -22,7 +22,11 @@
         <img src="<?php echo get_parent_template_directory_uri(); ?>/images/impruw-hand.png"> 
         <?php echo __('Impruw.com', 'impruw'); ?>
     </a>
-</div>
+</div> 
+
+<?php  if(is_impruw_demo_site()) : 
+        include_once( dirname( __FILE__ ) . '/demosite.php' );
+    endif; ?>
 
 <div id="fb-root"></div>
 <script type="text/javascript">

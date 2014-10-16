@@ -652,3 +652,72 @@ jQuery(document).ready(function($) {
 
     });
 });
+
+/**************** color-change.js *********************/
+jQuery(document).ready(function($) {
+
+    if(jQuery('.options-div').length === 0)
+        return;
+
+    jQuery('.options-div').tabSlideOut({
+        tabHandle: '.handle', //class of the element that will become your tab
+        tabLocation: 'left', //side of screen where tab lives, top, right, bottom, or left
+        speed: 100, //speed of animation
+        action: 'click', //options: 'click' or 'hover', action to trigger animation
+        topPos: '150px', //position from the top/ use if tabLocation is left or right
+        fixedPosition: true //options: true makes it stick(fixed position) on scroll
+    });
+
+    jQuery('a[data-color]').click(function(e) {
+        e.preventDefault();
+        color_scheme_name = jQuery(this).attr('data-color');
+        $.cookie('color_scheme', color_scheme_name, {
+            path: '/'
+        });
+        applyStyle();
+        $(this).closest('.option-colors').find('a').removeClass('active');
+        $(this).addClass('active');
+        $('.handle').trigger('click');
+    });
+
+    var stylesPromises = [];
+
+    function applyStyle() {
+        var styleURL = CHILDTHEMEURL + '/css/theme-style.css';
+        var scheme = '';
+        scheme = $.cookie('color_scheme')
+        if (scheme !== undefined) {
+            scheme = '-' + replaceAll(" ", "-", scheme).toLowerCase();
+            styleURL = CHILDTHEMEURL + '/color_scheme_css/theme-style' + scheme + '.css';
+        }
+
+        if (!stylesPromises[styleURL]) {
+            stylesPromises[styleURL] = $.ajax({
+                url: styleURL,
+                success: function(data, textStatus, jqxhr) {
+                    setHref(styleURL);
+                }
+            });
+        } else {
+            setHref(styleURL);
+        }
+
+        function setHref(href) {
+            var linkTag = '<link class="theme-style" href="' + href + '" type="text/css" rel="stylesheet"/>';
+            $('.theme-style').first().after(linkTag);
+
+            setTimeout(function() {
+                $('.theme-style').first().remove();
+                $('body').css({
+                    visibility: 'visible'
+                });
+            }, 300);
+        }
+
+    }
+    applyStyle();
+});
+
+function replaceAll(find, replace, str) {
+    return str.replace(new RegExp(find, 'g'), replace);
+}
