@@ -17,10 +17,10 @@ function impruw_wp_enqueue_styles(){
         get_parent_template_directory_uri() . '/bower_components/flat-ui/dist/css/flat-ui.min.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'slimmenu', 
-        get_parent_template_directory_uri() . '/css/slimmenu.css', 
+        get_parent_template_directory_uri() . '/css/slimmenu.min.css', 
         array('flat-ui'), JSVERSION );
     wp_enqueue_style( 'lightbox', 
-        get_parent_template_directory_uri() . '/bower_components/lightbox2/css/lightbox.css', 
+        get_parent_template_directory_uri() . '/bower_components/lightbox2/css/lightbox.min.css', 
         array('slimmenu'), JSVERSION );
     wp_enqueue_style( 'parentstyle', 
         get_parent_template_directory_uri() . '/css/style.css', 
@@ -45,7 +45,7 @@ function impruw_wp_enqueue_builder_styles(){
         get_parent_template_directory_uri() . '/bower_components/flat-ui/dist/css/flat-ui.min.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'jquery-ui', 
-        get_parent_template_directory_uri() . '/bower_components/jquery-ui/themes/base/all.css', 
+        'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'pace', 
         get_parent_template_directory_uri() . '/bower_components/pace/themes/orange/pace-theme-minimal.css', 
@@ -102,7 +102,7 @@ function impruw_wp_enqueue_dashboard_styles(){
         get_parent_template_directory_uri() . '/bower_components/flat-ui/dist/css/flat-ui.min.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'jquery-ui', 
-        get_parent_template_directory_uri() . '/bower_components/jquery-ui/themes/base/all.css', 
+        'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'pace', 
         get_parent_template_directory_uri() . '/bower_components/pace/themes/orange/pace-theme-minimal.css', 

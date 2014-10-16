@@ -70,12 +70,11 @@
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
 </script>
-<script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
+<script src="<?php echo get_parent_template_directory_uri() ?>/bower_components/pace/pace.js"></script>
 <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
 <?php if ( ENV === 'production' ): ?>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo JSVERSION ?>"></script>
 <?php else: ?>
-   <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
     <script data-main="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/dashboard-main"
             src="<?php echo get_parent_template_directory_uri(); ?>/bower_components/requirejs/require.js"></script>
 <?php endif; ?>
