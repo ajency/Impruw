@@ -533,6 +533,8 @@ form {
 			position: absolute;
 			bottom: 0;
 			left: 0;
+			padding: 0;
+			line-height: 1.6;
 			small {
 				display: block;
 				font-weight: 300;
@@ -565,6 +567,7 @@ form {
 			.fileinput {
 				.thumbnail {
 					border-radius: 2px;
+					border: 1px solid @dash-grey;
 				}
 				.btn {
 					color: @blue-grey;
@@ -1348,9 +1351,11 @@ form {
 	.modal-dialog {
 		.modal-content {
 			box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.25);
+			border-radius: 2px;
 			.modal-header {
 				background: @preview-grey;
 				padding: 0.5em 1em;
+				border-radius: 2px 2px 0 0;
 				.modal-title {
 					color: @dash-grey;
 					text-align: center;
@@ -1361,6 +1366,7 @@ form {
 				padding: 0.5em 1em;
 				background: @preview-grey;
 				min-height: 2em;
+				border-radius: 0 0 2px 2px;
 				.aj-imp-modal-save {
 					background: @orange;
 					&:hover {
