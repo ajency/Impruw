@@ -11,6 +11,8 @@ function impruw_wp_enqueue_styles(){
         wp_enqueue_style('production', 
             get_parent_template_directory_uri() . '/production/css/front-styles.min.css', 
             array(), JSVERSION );
+        $custom_css = RevOperations::getStaticCss();
+        wp_add_inline_style( 'production', $custom_css );
     }
     else{
         wp_enqueue_style('bootstrap', 
@@ -54,6 +56,8 @@ function impruw_wp_enqueue_builder_styles(){
         wp_enqueue_style('production', 
             get_parent_template_directory_uri() . '/production/css/builder-styles.min.css', 
             array(), JSVERSION );
+        $custom_css = RevOperations::getStaticCss();
+        wp_add_inline_style( 'production', $custom_css );
     }
     else{
         wp_enqueue_style('bootstrap', 
