@@ -709,15 +709,23 @@ function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false 
         $key = '-autosave';
 
     if (!$onlyPage){
-        $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
+        if ( $autosave === TRUE )
+            $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
+        else
+            $json [ 'header' ] = get_header_footer_layout_published( THEME_HEADER_KEY );
 
         if ( $key === '-autosave' && empty( $json [ 'header' ] ) )
-            $json [ 'header' ] = get_option( THEME_HEADER_KEY, array() );
+            $json [ 'header' ] = get_header_footer_layout_published( THEME_HEADER_KEY );
+            //get_option( THEME_HEADER_KEY, array() );
 
-        $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
+        if ( $autosave === TRUE )
+            $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
+        else
+            $json [ 'footer' ] = get_header_footer_layout_published( THEME_FOOTER_KEY );
 
         if ( $key === '-autosave' && empty( $json [ 'footer' ] ) )
-            $json [ 'footer' ] = get_option( THEME_FOOTER_KEY, array() );
+            $json [ 'footer' ] = get_header_footer_layout_published( THEME_FOOTER_KEY );
+            //get_option( THEME_FOOTER_KEY, array() );
     }
 
     $json[ 'page' ] = get_page_content_json( $page_id, $autosave );
@@ -728,10 +736,10 @@ function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false 
         $d [ $section ] = array();
         if ( !is_array( $elements ) )
             continue;
-        if (!$autosave && in_array($section,array('header','footer'))){
-            $d [ $section ] = $json [ $section ];
-            continue;
-        }
+        // if (!$autosave && in_array($section,array('header','footer'))){
+        //     $d [ $section ] = $json [ $section ];
+        //     continue;
+        // }
         foreach ( $elements as $element ) {
             if ( $element [ 'element' ] === "Row" ) {
                 $element [ 'columncount' ] = count( $element [ 'elements' ] );

@@ -9,7 +9,7 @@ include_once 'functions.php';
  * @return [type]                 [description]
  */
 function impruw_wp_revisions_to_keep($revision_count, $post){
-    return 5;
+    return 40;
 }
 
 add_filter('wp_revisions_to_keep', 'impruw_wp_revisions_to_keep', 100, 2);
@@ -126,17 +126,19 @@ function publish_page_ajax() {
             $header_json = $_REQUEST[ 'header-json' ];
             update_header_json( $header_json , true); //autosave
             
-            $header_json = get_json_to_clone('theme-header-autosave');
+            // $header_json = get_json_to_clone('theme-header-autosave');
             // print_r($header_json);
-            update_option( THEME_HEADER_KEY, $header_json );
+            // update_option( THEME_HEADER_KEY, $header_json );
+            publish_footer_header_json( 'header', $header_json );
             
             // $header_json = convert_json_to_array( $header_json );
             // update_option( "theme-header-autosave", $header_json );
 
             $footer_json = $_REQUEST[ 'footer-json' ];
             update_footer_json( $footer_json, true ); // autosave
-            $footer_json = get_json_to_clone( "theme-footer-autosave" );
-            update_option( THEME_FOOTER_KEY , $footer_json );
+            // $footer_json = get_json_to_clone( "theme-footer-autosave" );
+            // update_option( THEME_FOOTER_KEY , $footer_json );
+            publish_footer_header_json( 'footer', $footer_json);
         }
 
         remove_all_actions( 'post_updated' );
@@ -153,7 +155,7 @@ function publish_page_ajax() {
         // update post meta page-elements
         update_page_elements($page_id,$page_elements);
 
-        //$revision_post_id = add_page_revision( $page_id, $page_json );
+        $revision_post_id = add_page_revision( $page_id, $page_json );
 
         update_page_autosave( $page_id, $page_json );
 

@@ -31,7 +31,7 @@ function add_page_revision( $page_id, $page_json ) {
 
     $revision_post_id = wp_save_post_revision( $page_id );
 
-    update_autosave_page_json( $revision_post_id, $page_json );
+    // update_autosave_page_json( $revision_post_id, $page_json );
 
     return $revision_post_id;
 }
@@ -338,8 +338,13 @@ function assign_page_template($template_page_id, $page_id, $is_theme_template = 
 function get_json_to_clone( $section, $page_id = 0 ) {
 
     $elements = array();
-    if ( $page_id == 0 )
-        $elements = get_option( $section ); else
+    if ( $page_id == 0 ){
+        if (in_array($section, array(THEME_HEADER_KEY,THEME_FOOTER_KEY)))
+            $elements = get_header_footer_layout_published( $section ); 
+        else
+            $elements = get_option( $section ); 
+    }
+    else
         $elements = get_post_meta( $page_id, 'page-json', TRUE );
 
     $d = array();
@@ -742,4 +747,99 @@ function impruw_is_front_page($page_id){
         return true;
     else
         return false;
+}
+
+
+
+
+// HEADER FOOTER FUNCTIONS
+
+function publish_footer_header_json( $section, $page_json_string ){
+    global $wpdb;
+
+    if ( is_string($page_json_string) )
+        $page_json = convert_json_to_array($page_json_string);
+    else
+        $page_json = $page_json_string;
+
+    $page_elements = create_page_element_array($page_json);
+    
+    if ( is_array($page_json) )
+        $page_json = maybe_serialize($page_json);
+    if ( is_array( $page_elements ) )
+        $page_elements = maybe_serialize( $page_elements );
+    
+    $key = 'theme-'.$section.'-published';
+
+    $id = get_header_footer_published_id( $key );
+
+    if ( $id == null ){
+        $wpdb->insert( $wpdb->prefix.'header_footer_backup',
+            array(
+                'type' => $key,
+                'layout' => $page_json,
+                'elements' => $page_elements ));
+
+
+    } else {
+        $wpdb->update( $wpdb->prefix.'header_footer_backup',
+            array(
+                'type' => $key,
+                'layout' => $page_json,
+                'elements' => $page_elements),
+            array( 'id' => $id ));
+    }
+}
+
+function get_header_footer_published_id( $key ){
+    global $wpdb;
+
+    $id = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ));
+
+    return $id;
+}
+
+function get_header_footer_layout_published( $key ){
+    global $wpdb;
+
+    $layout = $wpdb->get_var($wpdb->prepare("SELECT layout FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ));
+
+    if ( $layout != null )
+        $layout = maybe_unserialize( $layout );
+    else
+        $layout = array();
+
+    return $layout;
+}
+
+function get_header_footer_elements_published( $key ){
+    global $wpdb;
+
+    $elements = $wpdb->get_var($wpdb->prepare("SELECT elements FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ));
+
+    if ( $elements != null )
+        $elements = maybe_unserialize( $elements );
+    else
+        $elements = array();
+
+    return $elements;
+}
+function get_header_footer_published( $key ){
+    global $wpdb;
+
+    $result = $wpdb->get_row($wpdb->prepare("SELECT layout, elements FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ),ARRAY_A);
+
+    if ( $result == null )
+        $result = array();
+
+    return $result;
+}
+
+function delete_header_footer_published( $key ){
+    global $wpdb;
+
+    $result = $wpdb->delete($wpdb->prefix.'header_footer_backup',
+        array( 'type' => $key));
+
+    return $result;
 }

@@ -93,12 +93,18 @@ function create_page_element_array($page_json){
     // $layout = get_post_meta($page_id,'page-json',true);
     // if($layout == null)
     //     return false;
-    $element_ids = pluck_meta_ids_from_json($page_json);
+    if ($page_json != '')
+        $element_ids = pluck_meta_ids_from_json($page_json);
+    else
+        return array();
     
     $elements = array();
     foreach ($element_ids as $element_id) {
         # code...
         $meta = get_metadata_by_mid( 'post', $element_id );
+        if (!array_key_exists('meta_id',$meta->meta_value))
+            $meta->meta_value['meta_id'] = $meta->meta_id;
+        
         $element = maybe_unserialize($meta->meta_value);
         // print_r($element);
         $elements[] = $element;
@@ -122,6 +128,12 @@ function set_page_elements_global($page_id){
         update_page_elements($page_id,$page_elements);
         $impruw_page_elements = $page_elements;
     }
+
+    $header_elements = get_header_footer_elements_published(THEME_HEADER_KEY);
+    $footer_elements = get_header_footer_elements_published(THEME_FOOTER_KEY);
+
+    $impruw_page_elements = array_merge( $impruw_page_elements, $header_elements, $footer_elements );
+    
 }
 
 function get_element_from_global_page_elements($meta_id){

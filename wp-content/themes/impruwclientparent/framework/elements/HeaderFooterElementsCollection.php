@@ -31,7 +31,7 @@ class HeaderFooterElementsCollection extends AbstractElementsCollection {
      */
     protected function get_elements() {
 
-        $skeleton_json = get_option( $this->section );
+        $skeleton_json = get_header_footer_layout_published( $this->section );
         $this->generate_elements_tree( $skeleton_json );
     }
 
