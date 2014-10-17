@@ -63,7 +63,11 @@ function forgot_password_email($email_id){
         $wpdb->update($wpdb->users, array('user_activation_key' => $key), array('user_login' => $user_login));
     }
 
-    $activation_key = network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login');
+    //$activation_key = network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login');
+    //$activation_key = site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login');
+    
+    $activation_key =  wp_lostpassword_url( site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') );
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $meta_data = array(
