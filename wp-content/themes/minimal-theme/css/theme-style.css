@@ -1912,20 +1912,22 @@ and open the template in the editor.
   margin: 0 -10px;
   margin-bottom: 1.5em;
 }
-.row.menu-bar:before,
-.row.menu-bar:after {
+.row.menu-bar > .column:first-child:before {
   content: '';
   position: absolute;
   border-style: solid;
   border-color: transparent;
   bottom: -10px;
-}
-.row.menu-bar:before {
   border-width: 0 9px 10px 0;
   border-right-color: #831618;
   left: -10px;
 }
-.row.menu-bar:after {
+.row.menu-bar > .column:last-child:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-color: transparent;
+  bottom: -10px;
   border-width: 0 0 10px 9px;
   border-left-color: #831618;
   right: -10px;
