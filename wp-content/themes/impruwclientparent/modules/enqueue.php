@@ -113,6 +113,14 @@ function impruw_wp_enqueue_dashboard_styles(){
     if(!is_page('dashboard'))
         return;
 
+    if(ENV === 'production'){
+        wp_dequeue_style('rs-plugin-settings' );
+        wp_dequeue_style('rs-captions' );
+        wp_enqueue_style('production', 
+            get_parent_template_directory_uri() . '/production/css/dashboard-styles.min.css', 
+            array(), JSVERSION );
+        return;
+    }
     // styles from parent
     wp_enqueue_style('bootstrap', 
         get_parent_template_directory_uri() . '/bower_components/bootstrap/dist/css/bootstrap.min.css', 

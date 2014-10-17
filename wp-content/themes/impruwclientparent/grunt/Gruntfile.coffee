@@ -38,6 +38,7 @@ module.exports = (grunt) ->
 			'../../../../wp-admin/css/media.css'
 			'../css/main.css'
 			'../css/custom.css'
+			'../css/builder-icon-fonts.css'
 			'../css/builder.css'
 			'../css/style.css'
 		]
@@ -47,7 +48,7 @@ module.exports = (grunt) ->
 			'../js/jquery-ui/jquery-ui.min.css'
 			'../bower_components/pace/themes/orange/pace-theme-minimal.css'
 			'../bower_components/jquery-minicolors/jquery.minicolors.css'
-			'../../plugins/sitepress-multilingual-cms/res/css/language-selector.css'
+			'../../../plugins/sitepress-multilingual-cms/res/css/language-selector.css'
 			'../css/toggle-switch.css'
 			'../css/slimmenu.min.css'
 			'../../../../wp-includes/css/dashicons.min.css'
@@ -56,7 +57,8 @@ module.exports = (grunt) ->
 			'../../../../wp-admin/css/media.css'
 			'../css/main.css'
 			'../css/custom.css'
-			'../css/dashbaord.css'
+			'../css/dashboard-icon-fonts.css'
+			'../css/dashboard.css'
 		]
 
 
