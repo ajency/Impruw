@@ -84,6 +84,13 @@ define(['app'], function(App) {
 
       UserEmailView.prototype.template = '<div class="tab-content"> <div id="users" class="tab-pane active"> <h6 class="aj-imp-sub-head">{{#polyglot}}Create upto 10 company email accounts{{/polyglot}}</h6> <div class="table-responsive"> <table class="table table-striped table-bordered table-hover"> <thead> <tr> <th>{{#polyglot}}Email Address{{/polyglot}}</th> <th>{{#polyglot}}Name{{/polyglot}}</th> <th>{{#polyglot}}Actions{{/polyglot}}</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="actions"> <button class="btn btn-sm aj-imp-orange-btn" id="add-new-user-email-btn"> <span class="glyphicon glyphicon-user"></span>&nbsp;{{#polyglot}}Add User{{/polyglot}} </button> </div> </div> </div> ';
 
+      UserEmailView.prototype.addChildView = function() {};
+
+      UserEmailView.prototype.collectionEvents = {
+        "remove": "render",
+        "add": "render"
+      };
+
       UserEmailView.prototype.itemView = UserEmailItemView;
 
       UserEmailView.prototype.emptyView = EmptyView;
@@ -94,7 +101,7 @@ define(['app'], function(App) {
         'click #add-new-user-email-btn': 'addNewUserEmail'
       };
 
-      UserEmailView.prototype.onShow = function() {
+      UserEmailView.prototype.onRender = function() {
         if (this.collection.length >= 10) {
           return this.$el.find('#add-new-user-email-btn').prop('disabled', true);
         }
