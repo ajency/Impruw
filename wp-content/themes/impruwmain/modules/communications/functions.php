@@ -20,7 +20,8 @@ function impruw_add_communication_components($defined_comm_components){
     $comm_arr = array(
         'registration_email_admin',
         'registration_email_user',
-        'forgot_password'
+        'forgot_password',
+        'contact_us'
     );
 
     $ajcm_components['impruw_user'] = $comm_arr;

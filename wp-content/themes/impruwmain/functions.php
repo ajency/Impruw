@@ -32,6 +32,7 @@
     require_once 'modules/site/ajax.php';
     require_once 'modules/api/main.php';
     require_once 'modules/communications/functions.php';
+    require_once 'modules/communications/contact_us/functions.php';
 
 
     /* --------------------------------------------------------------------------------------
@@ -404,17 +405,23 @@
             }
 
             if ($error == FALSE) {
+
+                $email = $form_data['email'];
+                $name  = $form_data['your_name'];
                 $email_subject = "[" . get_bloginfo('name') . "] " . $form_data['subject'];
-                $email_message = $form_data['message'] . "\n\nIP: " . impruwcontact_get_the_ip();
-                $headers       = "From: " . $form_data['name'] . " <" . $form_data['email'] . ">\n";
+                //$email_message = $form_data['message'] . "\n\nIP: " . impruwcontact_get_the_ip();
+                $email_message = $form_data['message'];
+
+                $headers       = "From: " . $form_data['your_name'] . " <" . $form_data['email'] . ">\n";
                 $headers .= "Content-Type: text/plain; charset=UTF-8\n";
                 $headers .= "Content-Transfer-Encoding: 8bit\n";
-                wp_mail($email, $email_subject, $email_message, $headers);
+                //wp_mail($email, $email_subject, $email_message, $headers);
+                contact_us_email($name,$email,$email_subject,$email_message);
                 $result = $success;
                 $sent   = TRUE;
             }
             // but if $error is still FALSE, put together the POSTed variables and send the e-mail!
-            if ($error == FALSE) {
+           /* if ($error == FALSE) {
                 // get the website's name and puts it in front of the subject
                 $email_subject = "[" . get_bloginfo('name') . "] " . $form_data['subject'];
                 // get the message from the form and add the IP address of the user below it
@@ -429,7 +436,7 @@
                 $result = $success;
                 // ...and switch the $sent variable to TRUE
                 $sent = TRUE;
-            }
+            }*/
         }
 
         // if there's no $result text (meaning there's no error or success, meaning the user just opened the page and did nothing) there's no need to show the $info variable
