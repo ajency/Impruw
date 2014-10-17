@@ -91,10 +91,10 @@ define ['app'], (App)->
                     events:
                         'click #add-new-user-email-btn' : 'addNewUserEmail'
 
-                    # onShow:->
-                    #     # disable add user button if emails are more than or equal to 10
-                    #     if @collection.length >= 10
-                    #         @$el.find('#add-new-user-email-btn').prop('disabled', true)
+                    onShow:->
+                        # disable add user button if emails are more than or equal to 10
+                        if @collection.length >= 10
+                            @$el.find('#add-new-user-email-btn').prop('disabled', true)
 
 
                     addNewUserEmail: (e) ->

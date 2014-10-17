@@ -94,6 +94,12 @@ define(['app'], function(App) {
         'click #add-new-user-email-btn': 'addNewUserEmail'
       };
 
+      UserEmailView.prototype.onShow = function() {
+        if (this.collection.length >= 10) {
+          return this.$el.find('#add-new-user-email-btn').prop('disabled', true);
+        }
+      };
+
       UserEmailView.prototype.addNewUserEmail = function(e) {
         e.preventDefault();
         return this.trigger("add:new:user:email");
