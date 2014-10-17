@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('EmailsApp.EmailNav.Views', function(Views, App, Backbone, Marionette, $, _) {
-    return Views.EmailNavView = (function(_super) {
+    Views.EmailNavView = (function(_super) {
       __extends(EmailNavView, _super);
 
       function EmailNavView() {
@@ -25,6 +25,18 @@ define(['app'], function(App) {
       };
 
       return EmailNavView;
+
+    })(Marionette.ItemView);
+    return Views.EmailDisabledView = (function(_super) {
+      __extends(EmailDisabledView, _super);
+
+      function EmailDisabledView() {
+        return EmailDisabledView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmailDisabledView.prototype.template = '<div class="empty-info">You cannot use the emails feature since your domain name is not updated. Update your domain name by going to Site Profile on the Dashboard. Once you have changed your domain name, you can come back here to add email accounts for that domain.</div>';
+
+      return EmailDisabledView;
 
     })(Marionette.ItemView);
   });

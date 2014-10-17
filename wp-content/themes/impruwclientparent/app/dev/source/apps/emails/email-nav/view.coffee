@@ -19,4 +19,9 @@ define ['app'], (App)->
                     loadUserEmails: (e) ->
                         @trigger "user:email:list"
 
+                class Views.EmailDisabledView extends Marionette.ItemView
+
+                    template : '<div class="empty-info">You cannot use the emails feature since your domain name is not updated. Update your domain name by going to Site Profile on the Dashboard. Once you have changed your domain name, you can come back here to add email accounts for that domain.</div>'
+
+
 

@@ -11,6 +11,7 @@ define(['app', 'controllers/base-controller', 'apps/emails/email-nav/view'], fun
       }
 
       Controller.prototype.initialize = function(opts) {
+        this.registered_domain_name = DOMAIN_NAME.search('impruw.com');
         this.emailNavView = this._getEmailNavView();
         this.listenTo(this.emailNavView, "user:email:list", this.loadEmailList);
         return this.show(this.emailNavView, {
@@ -19,7 +20,11 @@ define(['app', 'controllers/base-controller', 'apps/emails/email-nav/view'], fun
       };
 
       Controller.prototype._getEmailNavView = function() {
-        return new EmailNav.Views.EmailNavView;
+        if (this.registered_domain_name === -1) {
+          return new EmailNav.Views.EmailNavView;
+        } else {
+          return new EmailNav.Views.EmailDisabledView;
+        }
       };
 
       Controller.prototype.loadEmailList = function() {

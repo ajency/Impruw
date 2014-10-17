@@ -5,6 +5,8 @@ define ['app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize: (opts)->
+                @registered_domain_name = DOMAIN_NAME.search( 'impruw.com' )
+
                 @emailNavView = @_getEmailNavView()
 
                 @listenTo @emailNavView, "user:email:list", @loadEmailList
@@ -14,7 +16,10 @@ define ['app', 'controllers/base-controller'
                     loading: true
 
             _getEmailNavView :->
-                new EmailNav.Views.EmailNavView
+                if @registered_domain_name is -1
+                    new EmailNav.Views.EmailNavView
+                else
+                    new EmailNav.Views.EmailDisabledView
 
             loadEmailList : ->
                 Marionette.triggerMethod.call @region, "load:user:email:list"
