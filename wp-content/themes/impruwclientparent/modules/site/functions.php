@@ -1,6 +1,20 @@
 <?php
 
 /**
+ * Check if current site is impruw demo site
+ * @return boolean [description]
+ */
+function is_impruw_demo_site(){
+    
+    if(!defined('THEME_ID'))
+        return false;
+
+    $theme_preview_ids = explode(',', THEME_ID);
+
+    return in_array(get_current_blog_id(), $theme_preview_ids);
+}
+
+/**
  * Gets the site Details
  *
  * @param type $site_id

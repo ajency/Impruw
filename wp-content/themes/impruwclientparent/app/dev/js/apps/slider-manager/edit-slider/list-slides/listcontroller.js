@@ -213,7 +213,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.onShow = function() {
         this.$el.find('select').selectpicker();
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         if (Marionette.getOption(this, 'element') === 'Slider') {
           return this.setCaptionDefaults();
         }
@@ -228,9 +228,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           if ($(captionHtml).first().find('a').length) {
             this.$el.find('.caption-title').val($(captionHtml).first().find('a').first().html());
             this.$el.find('.caption-link').val($(captionHtml).first().find('a').first().attr('href'));
-            this.$el.find('input.link-check').checkbox('check');
+            this.$el.find('input.link-check').radiocheck('check');
             if ($(captionHtml).first().find('a').first().attr('target') === '_blank') {
-              this.$el.find('input.link-target').checkbox('check');
+              this.$el.find('input.link-target').radiocheck('check');
             }
           } else {
             this.$el.find('.form-group.link-hide').addClass('hide');

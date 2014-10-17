@@ -20,7 +20,7 @@ define ['app', 'text!apps/builder/site-builder/elements/slider/settings/template
                 super opt
 
             onRender: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
                 @setFields()
                 @$el.find('select').selectpicker()
                 
@@ -28,7 +28,7 @@ define ['app', 'text!apps/builder/site-builder/elements/slider/settings/template
             # set fields for the form
             setFields: ->
                 if @eleModel.get('draggable') is true
-                    @$el.find('input[name="draggable"]').checkbox('check')
+                    @$el.find('input[name="draggable"]').radiocheck('check')
                 # @$el.find('select[name="slide_transition"]').selectpicker 'val', @eleModel.get 'reset_transitions'
                 # @$el.find('select[name="align"]').selectpicker 'val', @eleModel.get 'align'
                 # @$el.find('select[name="top_margin"]').selectpicker 'val', @eleModel.get 'top_margin'

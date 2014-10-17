@@ -1,19 +1,17 @@
+@import url(dashboard-icon-fonts.css);
 /*
-Theme Name:     Impruw Dashboard
+Theme Name:     Impruw Builder Styles
 Theme URI:      http://ajency.in/
-Description:    Layout for Main Dashboard
+Description:    Style Classes for the Site Builder
 Author:         Jarryd for Ajency.in
 Author URI:     http://ajency.in/
 Template:       impruw
 Version:        0.1.0
 */
+body{
+  font-size:14px;
+}
 
-/****Icon Font****/
-@import url(icon-fonts.css);
-@import url(../../builder/css/builder-icon-fonts.css);
-
-/****Lightbox CSS****/
-@import url(lightbox.css);
 
 /****Colors****/
 @logo-blue: #182944;
@@ -1447,18 +1445,6 @@ form {
 		padding: 2em;
 		.modal-dialog {
 			width: 70%;
-			.modal-content {
-				width: 100%;
-				.modal-body {
-					padding: 0.5em;
-				}
-			}
-		}
-	}
-	&.small-modal {
-		padding: 2em;
-		.modal-dialog {
-			width: 50%;
 			.modal-content {
 				width: 100%;
 				.modal-body {
@@ -5043,6 +5029,19 @@ form {
 			}
 			.icon {
 				vertical-align: text-top;
+			}
+		}
+	}
+}
+
+&.small-modal {
+	padding: 2em;
+	.modal-dialog {
+		width: 50%;
+		.modal-content {
+			width: 100%;
+			.modal-body {
+			padding: 0.5em;
 			}
 		}
 	}
