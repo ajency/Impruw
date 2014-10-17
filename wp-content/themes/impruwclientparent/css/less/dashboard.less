@@ -3966,6 +3966,7 @@ form {
 					padding: 0;
 					border: 0;
 					table {
+						margin-bottom: 0;
 						td, th {
 							border: 1px solid @dash-grey
 						}
@@ -3977,6 +3978,16 @@ form {
 							line-height: 1.231;
 							letter-spacing: 0 !important;
 						}
+					}
+				}
+			}
+			.original-slider-content {
+				.legend-group {
+					.text {
+						margin-bottom: 0.5em;
+					}
+					&:nth-child(2n+1) {
+						border-bottom: 1px dotted @dash-grey;
 					}
 				}
 			}
@@ -4200,6 +4211,19 @@ form {
 						letter-spacing: 0 !important;
 					}
 				}
+			}
+		}
+	}
+	.translated-slider-content {
+		.legend-group {
+			.text {
+				margin-bottom: 0.425em;
+			}
+			.trans-action {
+				bottom: 0.425em;
+			}
+			&:nth-child(2n+1) {
+				border-bottom: 1px dotted @dash-grey;
 			}
 		}
 	}
