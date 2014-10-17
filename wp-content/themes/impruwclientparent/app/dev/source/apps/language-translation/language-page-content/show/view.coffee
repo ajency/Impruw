@@ -15,3 +15,5 @@ define ['app'
                         translatedPageContent: ".translated-page-content"
                         originalTableContent: ".original-table-content"
                         translatedTableContent: ".translated-table-content"
+                        originalSliderContent: ".original-slider-content"
+                        translatedSliderContent: ".translated-slider-content"
