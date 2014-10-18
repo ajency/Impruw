@@ -209,11 +209,11 @@ function get_domain_accounts($args){
 
     if(!is_null($domain)){
         // return an array of imp_email objects
-        $data = $domain->get_accounts();
+        $data = $domain->get_accounts(false);
         $response = array('code'=> 'OK', 'data'=>$data);
     }
     else{
-        $response = array('code'=> 'ERROR', 'msg'=>'Invalid domain name');
+        $response = "";
     }
 
     wp_send_json($response);

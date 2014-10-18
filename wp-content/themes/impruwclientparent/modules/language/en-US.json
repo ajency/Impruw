@@ -819,5 +819,6 @@
       "Edit" : "Edit",   
       "Suspend" : "Suspend",   
       "Delete" : "Delete",    
-      "Email id could not be deleted" : "Email id could not be deleted"  
+      "Email id could not be deleted" : "Email id could not be deleted",
+      "no_user_email_accounts": "No Email accounts associated to <b>%{domain_name}</b> domain found. Add an email account by clicking on <b>Add User</b> below." 
 }

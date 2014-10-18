@@ -9,7 +9,7 @@ define ['app'], (App)->
 
                     tagName: 'tr'
 
-                    template: '<td colspan="5">{{#polyglot}}No Email accounts found{{/polyglot}}</td>'
+                    template: '<td colspan="5">'+_.polyglot.t("no_user_email_accounts", {domain_name: DOMAIN_NAME})+'</td>'
 
 
                 class UserEmailItemView extends Marionette.ItemView

@@ -15,7 +15,9 @@ define(['app'], function(App) {
 
       EmptyView.prototype.tagName = 'tr';
 
-      EmptyView.prototype.template = '<td colspan="5">{{#polyglot}}No Email accounts found{{/polyglot}}</td>';
+      EmptyView.prototype.template = '<td colspan="5">' + _.polyglot.t("no_user_email_accounts", {
+        domain_name: DOMAIN_NAME
+      }) + '</td>';
 
       return EmptyView;
 
