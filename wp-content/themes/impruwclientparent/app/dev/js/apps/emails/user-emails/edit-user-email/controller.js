@@ -47,10 +47,16 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/edit-user
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            _this.userEmailModel.set({
-              'name': response.data.name
-            });
-            return _this.editUserEmailView.triggerMethod("saved:user:email");
+            var successMsg;
+            if (response.code === 'OK') {
+              _this.userEmailModel.set({
+                'name': response.data.name
+              });
+              successMsg = "Email account details updated";
+              return _this.editUserEmailView.triggerMethod("saved:user:email", successMsg);
+            } else {
+              return _this.editUserEmailView.triggerMethod("saved:user:email", response.msg);
+            }
           };
         })(this));
       };

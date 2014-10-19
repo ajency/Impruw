@@ -47,10 +47,12 @@ define ['app', 'controllers/base-controller'
                         'lastName' : data.lastName
 
                 $.ajax( options ).done ( response )=>
-                    # console.log "Edit email success"
-                    # console.log response.data.name
-                    @userEmailModel.set 'name': response.data.name
-                    @editUserEmailView.triggerMethod "saved:user:email"
+                    if response.code is 'OK'
+                        @userEmailModel.set 'name': response.data.name
+                        successMsg = "Email account details updated"
+                        @editUserEmailView.triggerMethod "saved:user:email",successMsg
+                    else
+                        @editUserEmailView.triggerMethod "saved:user:email",response.msg
 
         App.commands.setHandler "show:edit:user:email", (opts) ->
             opts =

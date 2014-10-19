@@ -27,6 +27,7 @@ define ['app', 'controllers/base-controller'
 
             disableUserEmail :(view,email_id) ->
                 postURL = SITEURL+'/api/email/'+email_id
+                userModel = view.model
 
                 options =
                     method : 'PUT'
@@ -34,7 +35,7 @@ define ['app', 'controllers/base-controller'
 
                 $.ajax( options ).done ( response )=>
                     if response.code is 'OK'
-                        @userEmailCollection.remove view.model
+                        userModel.set 'has_password': response.data.has_password
                     else
                         @userEmailView.triggerMethod "suspend:email", response.msg
 

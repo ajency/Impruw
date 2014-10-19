@@ -57,9 +57,9 @@ define(['app'], function(App) {
         return data;
       };
 
-      EditUserEmailView.prototype.onSavedUserEmail = function() {
+      EditUserEmailView.prototype.onSavedUserEmail = function(msg) {
         this.$el.parent().find('.alert').remove();
-        return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Email account details updated") + "</div>");
+        return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t(msg) + "</div>");
       };
 
       return EditUserEmailView;

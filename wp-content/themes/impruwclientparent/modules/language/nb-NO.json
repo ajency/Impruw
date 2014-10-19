@@ -817,9 +817,15 @@
       "Emails" : "E-post",   
       "Users" : "brukere",   
       "Edit" : "Rediger",   
-      "Suspend" : "suspen",   
+      "Suspend" : "suspen",    
+      "Enable" : "aktiver",   
+      "Disable" : "Deaktiver",   
       "Delete" : "Slett",   
       "Email id could not be deleted" : "E-id kunne ikke slettes",
+      "Reset Password to enable email account":"Tilbakestill passord for å aktivere e-postkonto",
+      "Re-enable user email account?":"Aktiver bruker e-postkonto ?",
+      "Name:":"navn:",
+      "Email account successfully re-enabled" : "E-postkonto vellykket aktivert",      
       "no_user_email_accounts": "Ingen E-postkontoer knyttet til <b>%{domain_name}</b> domene funnet. Legge til en e-postkonto ved å klikke på <b>Legg til bruker</b> nedenfor."
    
   }

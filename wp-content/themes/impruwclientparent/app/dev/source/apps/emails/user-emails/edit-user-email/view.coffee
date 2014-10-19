@@ -71,8 +71,8 @@ define ['app'], (App)->
                             
                         data
 
-                  onSavedUserEmail: ->
+                  onSavedUserEmail:(msg) ->
                       @$el.parent().find('.alert').remove()
-                      @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("Email account details updated") + "</div>"
+                      @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t(msg) + "</div>"
                       # App.execute "show:user:emails:app"
 

@@ -31,7 +31,7 @@ define(['app'], function(App) {
 
       UserEmailItemView.prototype.tagName = 'tr';
 
-      UserEmailItemView.prototype.template = '<td>{{email}}</td> <td>{{name}}</td> <td class="action-links"> <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</a> <a class="orange-link suspenduseremail_link {{hideSuspend}}" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;{{#polyglot}}Suspend{{/polyglot}}</a> <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a> </td>';
+      UserEmailItemView.prototype.template = '<td>{{email}}</td> <td>{{name}}</td> <td class="action-links"> <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</a> {{#enabled}}<a class="orange-link suspenduseremail_link" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;{{#polyglot}}Disable{{/polyglot}}</a>{{/enabled}} {{^enabled}}<a class="orange-link enableuseremail_link" href="#/emails/enable/{{email}}"><span class="icon icon-checked"></span>&nbsp;{{#polyglot}}Enable{{/polyglot}}</a>{{/enabled}} <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a> </td>';
 
       UserEmailItemView.prototype.modelEvents = {
         'change': 'render'
@@ -44,6 +44,17 @@ define(['app'], function(App) {
           email_id = this.model.get('email');
           if (confirm(_.polyglot.t("Delete this user email id?"))) {
             return this.trigger("delete:user:email", email_id);
+          }
+        },
+        'click .enableuseremail_link': function(e) {
+          var email_id;
+          e.preventDefault();
+          email_id = this.model.get('email');
+          if (confirm(_.polyglot.t("Re-enable user email account?"))) {
+            console.log("Re-enable");
+            return App.execute("show:enable:user:email", {
+              model: this.model
+            });
           }
         },
         'click .suspenduseremail_link': function(e) {
@@ -64,11 +75,11 @@ define(['app'], function(App) {
 
       UserEmailItemView.prototype.mixinTemplateHelpers = function(data) {
         data = UserEmailItemView.__super__.mixinTemplateHelpers.call(this, data);
-        data.hideSuspend = function() {
+        data.enabled = function() {
           if (data.has_password === "0") {
-            return "hide";
+            return false;
           } else {
-            return "";
+            return true;
           }
         };
         return data;

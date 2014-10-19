@@ -2,6 +2,7 @@ define ['app', 'controllers/base-controller'
         'apps/emails/show/view'
         'apps/emails/user-emails/add-user-email/controller'
         'apps/emails/user-emails/edit-user-email/controller'
+        'apps/emails/user-emails/enable-user-email/controller'
         ], (App, AppController)->
     
         App.module 'EmailsApp.Show', (Show, App, Backbone, Marionette, $, _)->

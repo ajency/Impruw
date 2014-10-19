@@ -32,8 +32,9 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/show/view
       };
 
       Controller.prototype.disableUserEmail = function(view, email_id) {
-        var options, postURL;
+        var options, postURL, userModel;
         postURL = SITEURL + '/api/email/' + email_id;
+        userModel = view.model;
         options = {
           method: 'PUT',
           url: postURL
@@ -41,7 +42,9 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/show/view
         return $.ajax(options).done((function(_this) {
           return function(response) {
             if (response.code === 'OK') {
-              return _this.userEmailCollection.remove(view.model);
+              return userModel.set({
+                'has_password': response.data.has_password
+              });
             } else {
               return _this.userEmailView.triggerMethod("suspend:email", response.msg);
             }

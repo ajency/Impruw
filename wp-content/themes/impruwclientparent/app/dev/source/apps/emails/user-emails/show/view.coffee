@@ -20,7 +20,8 @@ define ['app'], (App)->
                                 <td>{{name}}</td>
                                 <td class="action-links">
                                     <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</a>
-                                    <a class="orange-link suspenduseremail_link {{hideSuspend}}" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;{{#polyglot}}Suspend{{/polyglot}}</a>
+                                    {{#enabled}}<a class="orange-link suspenduseremail_link" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;{{#polyglot}}Disable{{/polyglot}}</a>{{/enabled}}
+                                    {{^enabled}}<a class="orange-link enableuseremail_link" href="#/emails/enable/{{email}}"><span class="icon icon-checked"></span>&nbsp;{{#polyglot}}Enable{{/polyglot}}</a>{{/enabled}}
                                     <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a>
                                 </td>'
 
@@ -33,6 +34,13 @@ define ['app'], (App)->
                            email_id = @model.get 'email'
                            if confirm _.polyglot.t "Delete this user email id?"
                                 @trigger "delete:user:email", email_id
+
+                        'click .enableuseremail_link' : ( e )->
+                           e.preventDefault()
+                           email_id = @model.get 'email'
+                           if confirm _.polyglot.t "Re-enable user email account?"
+                                console.log "Re-enable"
+                                App.execute "show:enable:user:email", model: @model
                               
 
                         'click .suspenduseremail_link' : ( e )->
@@ -48,11 +56,11 @@ define ['app'], (App)->
                     mixinTemplateHelpers: (data)->
                         data = super data
 
-                        data.hideSuspend = ->
+                        data.enabled = ->
                             if data.has_password is "0"
-                                return "hide"
+                                return false
                             else
-                                return ""
+                                return true
                         data
 
                 class Views.UserEmailView extends Marionette.CompositeView 
