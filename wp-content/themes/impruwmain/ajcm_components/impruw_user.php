@@ -91,7 +91,13 @@ function getvars_forgot_password($recipients_email,$comm_data){
     $template_data['from_email'] = 'no-reply@impruw.in';
     $template_data['from_name'] = 'Impruw';
 
-    $activation_url    = $aj_comm->get_communication_meta($comm_data['id'],'activation_url');
+    $user = get_userdata($comm_data['user_id'] );
+    $user_email = $user->user_email;
+
+    $activation_url    = $aj_comm->get_communication_meta($comm_data['id'],'activation_key');
+    //$site_url    = $aj_comm->get_communication_meta($comm_data['id'],'site_url');
+
+   // $activation_url = site_url("reset-password?action=rp&key=".$activation_key."&login=".rawurlencode($user_email));
 
     foreach($recipients_email as $user_value){
         $useremail = $user_value->value;

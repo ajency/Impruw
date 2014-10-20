@@ -81,7 +81,7 @@ function ajax_reset_password() {
 
         forgot_password_email($user_email);
 
-        reset_user_password( $user_email );
+        //reset_user_password( $user_email );
 
     } else {
         wp_send_json( array( 'code' => 'ERROR', 'msg' => icl_t('theme impruwlogin','email_non_existent_msg','Email Id does not exists') ) );

@@ -45,7 +45,6 @@ function forgot_password_email($email_id){
     $user_email = $user_data->user_email;
 
     do_action('retreive_password', $user_login);  // Misspelled and deprecated
-    do_action('retrieve_password', $user_login);
 
     $allow = apply_filters('allow_password_reset', true, $user_data->ID);
 
@@ -54,24 +53,31 @@ function forgot_password_email($email_id){
     else if ( is_wp_error($allow) )
         return false;
 
+    //get the hashed user activation key
+    //$key = generate_hashed_user_activation_key( $user_login );
+
     $key = $wpdb->get_var($wpdb->prepare("SELECT user_activation_key FROM $wpdb->users WHERE user_login = %s", $user_login));
-    if ( empty($key) ) {
+        //echo $key;
+   // exit;
+    /*if ( empty($key) ) {
         // Generate something random for a key...
         $key = wp_generate_password(20, false);
         do_action('retrieve_password_key', $user_login, $key);
         // Now insert the new md5 key into the db
         $wpdb->update($wpdb->users, array('user_activation_key' => $key), array('user_login' => $user_login));
-    }
+    }*/
 
     //$activation_key = network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login');
-    //$activation_key = site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login');
+    $activation_key = site_url("reset-password?action=rp&key=".$key."&login=".rawurlencode($user_login));
+    //$link =$blog_url."/reset-password?action=rp&key=".$key."&login=".rawurlencode( $user_login );
 
-    $activation_key =  wp_lostpassword_url( site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') );
+    //$activation_key =  wp_lostpassword_url( site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') );
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $meta_data = array(
-        'activation_url' => $activation_key
+        'activation_key' => $activation_key
+        //'site_url' => $site_url
     );
 
     $comm_data = array(
