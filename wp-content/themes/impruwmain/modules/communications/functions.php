@@ -8,6 +8,7 @@
 
 require_once 'new_blog/functions.php';
 require_once 'forgot_password/functions.php';
+require_once 'contact_us/functions.php';
 
 
 /*

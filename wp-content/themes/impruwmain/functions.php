@@ -32,7 +32,6 @@
     require_once 'modules/site/ajax.php';
     require_once 'modules/api/main.php';
     require_once 'modules/communications/functions.php';
-    require_once 'modules/communications/contact_us/functions.php';
 
 
     /* --------------------------------------------------------------------------------------

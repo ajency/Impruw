@@ -65,7 +65,7 @@ function forgot_password_email($email_id){
 
     //$activation_key = network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login');
     //$activation_key = site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login');
-    
+
     $activation_key =  wp_lostpassword_url( site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') );
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
