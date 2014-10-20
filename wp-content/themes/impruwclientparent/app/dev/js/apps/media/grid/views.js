@@ -99,7 +99,7 @@ define(['app'], function(App, mediaTpl) {
           });
         }
         if (this.collection.length < this.collection.totalMedia) {
-          this.$el.find('#selectable-images').after('<button type="button" class="btn btn-xs load-more"><span class="glyphicon glyphicon-repeat"></span> Load More</button>');
+          this.$el.find('#selectable-images').after('<button type="button" class="btn btn-default btn-xs load-more"><span class="glyphicon glyphicon-repeat"></span> Load More</button>');
           return this.$el.find('#selectable-images').parent().find('.load-more').click(this.loadMoreClicked);
         }
       };
