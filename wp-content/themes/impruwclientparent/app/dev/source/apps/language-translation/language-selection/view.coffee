@@ -106,7 +106,7 @@ define ['app'
             hideLanguage:(e) ->
                 e.preventDefault()
 
-                arr = @$el.find("div#hide-langs input[type='checkbox']")
+                arr = @$el.find("ul#hide-langs input[type='checkbox']")
                 hiddenlanguages = new Array()
                 jQuery.each arr, ->
                     hiddenlanguages.push @value  if @checked

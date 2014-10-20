@@ -34,22 +34,31 @@ and open the template in the editor.
 		background: @primary1;
 		margin: 0 -10px;
 		margin-bottom: @large;
-		&:before, &:after {
-		    content: '';
-		    position: absolute;
-		    border-style: solid;
-		    border-color: transparent;
-		    bottom: -10px;
-		}
-		&:before {
-			border-width: 0 9px 10px 0;
-		    border-right-color: @secondary1;
-		    left: -10px;
-		}
-		&:after {
-			border-width: 0 0 10px 9px;
-		    border-left-color: @secondary1;
-		    right: -10px;
+		> .column {
+			&:first-child {
+				&:before {
+					content: '';
+				    position: absolute;
+				    border-style: solid;
+				    border-color: transparent;
+				    bottom: -17px;
+					border-width: 0 9px 10px 0;
+				    border-right-color: @secondary1;
+				    left: 0px;
+				}
+			}
+			&:last-child {
+				&:after {
+					content: '';
+				    position: absolute;
+				    border-style: solid;
+				    border-color: transparent;
+				    bottom: -17px;
+					border-width: 0 0 10px 9px;
+				    border-left-color: @secondary1;
+				    right: 0px;
+				}
+			}
 		}
 	}
 	&.footer-bar {

@@ -117,7 +117,7 @@ define ['app'
 								<div class="imgthumb full-w col-sm-12">
                                     <div class="arrange-slides">
                                         <div class="arrow">
-                                            <span class="bicon icon-uniF140"></span>
+                                            <span class="glyphicon glyphicon-resize-vertical"></span>
                                         </div>
                                     </div>
 									<img src="{{full_url}}" class="img-responsive">
