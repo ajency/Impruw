@@ -117,7 +117,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
       LanguageSelectionView.prototype.hideLanguage = function(e) {
         var arr, hiddenlanguages;
         e.preventDefault();
-        arr = this.$el.find("div#hide-langs input[type='checkbox']");
+        arr = this.$el.find("ul#hide-langs input[type='checkbox']");
         hiddenlanguages = new Array();
         jQuery.each(arr, function() {
           if (this.checked) {

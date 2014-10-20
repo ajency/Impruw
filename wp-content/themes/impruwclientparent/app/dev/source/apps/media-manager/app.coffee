@@ -77,7 +77,7 @@ define ['app'
                         <div class="tab-content clearfix">
                           
                           <div id="all-media-region" class="tab-pane active">
-                            <div id="grid-region" class="col-md-12"></div>
+                            <div id="grid-region"></div>
                             <!--<div id="edit-media-region" class="col-md-3">-->
                               <!--<div class="pick-image"><span class="glyphicon glyphicon-hand-left"></span>-->
                                 <!--<h4>{{#polyglot}}Select from library{{/polyglot}}</h4>-->
@@ -88,7 +88,7 @@ define ['app'
                           <div id="gallery-region" class="tab-pane"></div>
                         </div>
                         <div class="media-select">
-                          <button class="btn media-manager-select"><span class="glyphicon glyphicon-ok"></span>&nbsp;{{#polyglot}}Select{{/polyglot}}</button>
+                          <button class="btn btn-default media-manager-select"><span class="glyphicon glyphicon-ok"></span>&nbsp;{{#polyglot}}Select{{/polyglot}}</button>
                         </div>'
 
             regions:
