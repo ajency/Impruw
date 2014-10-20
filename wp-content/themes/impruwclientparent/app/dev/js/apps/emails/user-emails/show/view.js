@@ -50,9 +50,9 @@ define(['app'], function(App) {
           var email_id;
           e.preventDefault();
           email_id = this.model.get('email');
-          if (confirm(_.polyglot.t("Re-enable user email account?"))) {
+          if (confirm(_.polyglot.t("To re-enable email account please, reset the password"))) {
             console.log("Re-enable");
-            return App.execute("show:enable:user:email", {
+            return App.execute("show:edit:user:email", {
               model: this.model
             });
           }

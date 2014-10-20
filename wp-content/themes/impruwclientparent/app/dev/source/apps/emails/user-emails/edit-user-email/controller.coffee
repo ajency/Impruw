@@ -49,6 +49,7 @@ define ['app', 'controllers/base-controller'
                 $.ajax( options ).done ( response )=>
                     if response.code is 'OK'
                         @userEmailModel.set 'name': response.data.name
+                        @userEmailModel.set 'has_password': response.data.has_password
                         successMsg = "Email account details updated"
                         @editUserEmailView.triggerMethod "saved:user:email",successMsg
                     else

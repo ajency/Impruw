@@ -38,9 +38,9 @@ define ['app'], (App)->
                         'click .enableuseremail_link' : ( e )->
                            e.preventDefault()
                            email_id = @model.get 'email'
-                           if confirm _.polyglot.t "Re-enable user email account?"
+                           if confirm _.polyglot.t "To re-enable email account please, reset the password"
                                 console.log "Re-enable"
-                                App.execute "show:enable:user:email", model: @model
+                                App.execute "show:edit:user:email", model: @model
                               
 
                         'click .suspenduseremail_link' : ( e )->

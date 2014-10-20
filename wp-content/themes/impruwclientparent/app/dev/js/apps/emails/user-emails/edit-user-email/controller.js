@@ -52,6 +52,9 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/edit-user
               _this.userEmailModel.set({
                 'name': response.data.name
               });
+              _this.userEmailModel.set({
+                'has_password': response.data.has_password
+              });
               successMsg = "Email account details updated";
               return _this.editUserEmailView.triggerMethod("saved:user:email", successMsg);
             } else {
