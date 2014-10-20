@@ -200,7 +200,7 @@ function slider_defaults() {
         'delay'                        => '9000',
         'shuffle'                      => 'off',
         'lazy_load'                    => 'off',
-        'use_wpml'                     => 'off',
+        'use_wpml'                     => 'on',
         'stop_slider'                  => 'off',
         'stop_after_loops'             => 0,
         'stop_at_slide'                => 2,
@@ -408,4 +408,23 @@ function delete_slide_ajax( $data ) {
     $slide = new RevSlide();
 
     $slide->deleteSlideFromData( $data );
+}
+
+/**
+ * Created translated slides for a given slider
+ */
+function create_translated_slide($slider_id,$parent_slide_id,$language,$operation){
+
+    $data = array(
+                'sliderid' => $slider_id, 
+                'slideid' => $parent_slide_id, 
+                'lang' => $language, 
+                'operation' => $operation
+                );
+    $slide = new RevSlide();
+
+    $slide_id_ret = $slide->doSlideLangOperation($data);
+
+    return $slide_id_ret;
+
 }

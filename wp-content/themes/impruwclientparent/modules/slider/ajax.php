@@ -119,7 +119,21 @@ function create_slide() {
     // returns the new slide ID
     $d = create_new_slide( $data, $slider_id );
 
-    wp_send_json( array( 'code' => 'OK', 'data' => $d ) );
+    /**LANGUAGE related modification while creating slides begins**/
+    $parent_slide_id = $d['id'];
+
+    //Get all enabled languages
+    $enabled_languages = get_enabled_languages();
+    $translated_slides = array();
+
+    //For each enabled language, Create translated version of the slide
+    foreach ($enabled_languages as $enabled_language) {
+        $translated_slide_id = create_translated_slide($slider_id,$parent_slide_id,$enabled_language,'add') ;
+        array_push($translated_slides , $translated_slide_id); 
+    }
+    /**LANGUAGE related modification while creating slides ends**/
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $d, 'translated_slides'=>$translated_slides ) );
 }
 
 add_action( 'wp_ajax_create-slide', 'create_slide' );
