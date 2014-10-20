@@ -483,7 +483,15 @@ function get_single_room_page_title(){
     return $single_room_title;
 }
 
+/**
+ * Get an array of enabled languages
+ */
+function get_enabled_languages(){
+    $active_languages = wpml_get_active_languages();
+    $enabled_languages = array();
+    foreach ($active_languages as $language) {
+        array_push($enabled_languages, $language['code']);
+    }
 
-
-
-
+    return $enabled_languages;
+}
