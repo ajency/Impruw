@@ -124,7 +124,7 @@ function create_slide() {
 
     //Get all enabled languages
     $enabled_languages = get_enabled_languages();
-    $translated_slides = array();
+    $translated_slides = array($parent_slide_id);
 
     //For each enabled language, Create translated version of the slide
     foreach ($enabled_languages as $enabled_language) {

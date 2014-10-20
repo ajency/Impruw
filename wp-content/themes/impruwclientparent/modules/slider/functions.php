@@ -423,8 +423,32 @@ function create_translated_slide($slider_id,$parent_slide_id,$language,$operatio
                 );
     $slide = new RevSlide();
 
-    $slide_id_ret = $slide->doSlideLangOperation($data);
+    $slide_response = $slide->doSlideLangOperation($data);
+
+    $slide_id_ret = get_translated_slide_id($slide_response);
 
     return $slide_id_ret;
+
+}
+
+/**
+ * Function to get newly translated slide id from the response of revslider's doSlideLangOperation($data) function
+ */
+function get_translated_slide_id($translated_resp){
+
+    $lang_html = $translated_resp['html'];
+
+    $d = new DOMDocument();
+    $d->loadHTML($lang_html);
+    $searchNode = $d->getElementsByTagName( "img" ); 
+
+
+    foreach( $searchNode as $searchNode ) 
+    { 
+        $data_slideid = $searchNode->getAttribute('data-slideid');
+
+    }
+
+    return $data_slideid;
 
 }
