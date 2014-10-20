@@ -365,11 +365,12 @@ function slide_defaults() {
     );
 }
 
+
 /**
  * Update the slides based on the slide ID
  *
  */
-function update_slide( $data, $slide_id ) {
+function update_slide( $data, $slide_id, $language='all', $parent_slide=0) {
 
     global $wpdb;
     //$slide_id= 21;
@@ -378,8 +379,14 @@ function update_slide( $data, $slide_id ) {
     $arrData[ "layers" ] = json_encode( $data['layers'] );
     unset($data['layers']);
 
-    $params  = wp_parse_args( $data, slide_defaults() );
+    $data['lang'] = $language;
 
+    if ($parent_slide!=0) {
+        $data['parentid'] = $parent_slide;
+    }
+
+    $params  = wp_parse_args( $data, slide_defaults() );
+    
     //change params to json
     $params2             = json_encode( $params );
     $arrData[ "params" ] = $params2;
@@ -451,4 +458,51 @@ function get_translated_slide_id($translated_resp){
 
     return $data_slideid;
 
+}
+
+/**
+ * Get translated child slides for a parent slide by slider id
+ */
+
+function get_language_child_slides($slider_id, $return_parent_slide=TRUE){
+    $slider = new RevSlider();
+
+    $slides = $slider->initByID( $slider_id );
+    $slides     = $slider->getSlides( FALSE );
+    $childslides = array();
+
+    foreach ( $slides as $slide ) {
+
+        $parentSlide = $slide->getParentSlide();
+        $childslides[] = $parentSlide->getArrChildrenLangs($return_parent_slide);
+
+    }
+
+    return $childslides;
+
+
+}
+
+function update_translated_slides($data, $slider_id,$parent_id){
+    //Update slide for other enabled languages as well
+    //For default language caption should be same
+    //For other languages captions should be same as previous or blank
+
+    //Get default language
+    
+    //Get array of translated slide ids
+    $child_slide_id_ret = array();
+   
+    $translated_slides = get_language_child_slides($slider_id, FALSE);
+
+    //for each translated slide
+    foreach ($translated_slides as $translated_slide) {
+        //for each language child slide of translated slide
+        foreach ($translated_slide as $language_child_slide) {
+            $translated_child_slide_id = $language_child_slide['slideid'];
+            $translated_child_slide_lang = $language_child_slide['lang'];
+            $child_slide_id_ret[] = update_slide( $data, $translated_child_slide_id, $translated_child_slide_lang,$parent_id );
+        }
+    }
+    return $child_slide_id_ret;
 }

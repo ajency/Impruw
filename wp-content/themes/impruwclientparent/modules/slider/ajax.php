@@ -37,7 +37,7 @@ add_action( 'wp_ajax_create-slider', 'create_slider' );
 function update_slider_ajax() {
 
     $data = $_POST;
-    print_r($_POST);
+    // print_r($_POST);
 
     $slider_id = $_POST[ 'id' ];
 
@@ -150,9 +150,19 @@ function update_slide_ajax() {
 
     unset( $data[ 'action' ] );
 
-    $slide_id_ret = update_slide( $data, $slide_id );
+    $parent_id = $slide_id_ret = update_slide( $data, $slide_id );
 
-    wp_send_json( array( 'code' => 'OK', 'data' => array( 'id' => $slide_id_ret ) ) );
+    /***********UPDATE MULTILINGUAL SLIDES***************/
+    //Update translated child slides as well
+    $slider_id = $_POST[ 'slider_id' ];
+    $childslide_ids = array();
+
+    //update translated slides for that slider id
+    $childslide_ids = update_translated_slides($data, $slider_id,$parent_id);
+    
+    /***********UPDATE MULTILINGUAL SLIDES***************/
+
+    wp_send_json( array( 'code' => 'OK', 'data' => array( 'id' => $slide_id_ret, 'translated_slides'=>$childslide_ids ) ) );
 }
 
 // function update_slide_ajax() {
