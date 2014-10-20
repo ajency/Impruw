@@ -7,9 +7,7 @@ function impruw_create_page_backup( $revision_id , $backup_type = 'page', $site_
 	$revision = get_post( $revision_id );
 
 	if ( strpos($revision->post_name, 'revision') == false )
-	{	print_r($page->post_name);
 		return new WP_Error( 'error', __("This is not a revision") );
-}
 
 	$page_id = $revision->post_parent;
 
@@ -73,6 +71,96 @@ function impruw_create_site_restore_point(){
 }
 
 add_action('impruw_before_theme_switch', 'impruw_create_site_restore_point');
+
+
+
+
+function impruw_restore_page($revision_id){
+	global $wpdb;
+
+	$revision = get_post( $revision_id );
+	if ( $revision_id == null )
+		return false;
+	if ( strpos($revision->post_name, 'revision') == false )
+		return new WP_Error( 'error', __("This is not a revision") );
+	
+	$page_id = $revision->post_parent;
+	$page = get_post( $page_id );
+	// check if post is a page
+	if ( $page->post_type != 'page' )
+		return new WP_Error( 'error', __("Revision is not for a page") );
+	$page_id = icl_object_id( $page_id, 'page', true, 'en' );
+	
+	$rev = wp_save_post_revision( $page_id );
+
+	// get page-json and page elements
+	$layout = get_post_meta($revision_id,'page-json',true);
+	$page_elements = get_post_meta($revision_id, 'page-elements',true);
+
+	// update published version
+	update_post_meta($page_id,'page-json',$layout);
+	update_post_meta($page_id, 'page-elements', $page_elements);
+
+	// update autosave version
+	$autosave_page = wp_get_post_autosave($page_id);
+	$autosave_id = $autosave_page->ID;
+
+	update_revision_meta( $autosave_id, 'page-json', $layout );
+
+	impruw_restore_elements($page_elements);
+
+
+
+	// if home page
+	if ( impruw_is_front_page($page_id) ){ 
+
+		// update published header-footer
+		$header_backup_id = get_post_meta( $revision_id, 'header-backup-id', true );
+		$footer_backup_id = get_post_meta( $revision_id, 'footer-backup-id', true );
+
+		$header_backup_data = $wpdb->get_row($wpdb->prepare("SELECT layout, elements FROM 
+			{$wpdb->prefix}header_footer_backup WHERE id = %d and type = 'theme-header'
+			",$header_backup_id), ARRAY_A );
+
+		$footer_backup_data = $wpdb->get_row($wpdb->prepare("SELECT layout, elements FROM 
+			{$wpdb->prefix}header_footer_backup WHERE id = %d and type = 'theme-footer'
+			",$footer_backup_id), ARRAY_A );
+
+		$wpdb->update( $wpdb->prefix.'header_footer_backup', $header_backup_data, 
+			array( 'type' => 'theme-header-published'));
+
+		$wpdb->update( $wpdb->prefix.'header_footer_backup', $footer_backup_data, 
+			array( 'type' => 'theme-footer-published'));
+
+		// update autosave header-footer
+		
+		$header_layout = maybe_unserialize( $header_backup_data['layout'] );
+		update_option( 'theme-header-autosave',  $header_layout );
+
+		$header_elements = maybe_unserialize( $header_backup_data['elements'] );
+		impruw_restore_elements($header_elements);
+
+		$footer_layout = maybe_unserialize( $footer_backup_data['layout'] );
+		update_option( 'theme-footer-autosave', $footer_layout );
+		$footer_elements = maybe_unserialize( $footer_backup_data['elements'] );
+
+		impruw_restore_elements($footer_elements);
+
+	}
+
+
+}
+
+function imp_restore_page(){
+	// switch_to_blog(42);
+	$backup_id = impruw_restore_page( (int)$_GET['revision_id'] );
+	// restore_current_blog();
+	wp_send_json( array( 'code' => 'OK', 'data' => $backup_id));
+}
+
+add_action('wp_ajax_restore-page','imp_restore_page');
+
+
 
 // HEADER-FOOTER BACKUP
 function impruw_header_footer_backup( $section ){
@@ -146,5 +234,16 @@ function get_last_header_footer_id($key){
 	}
 
 	return $id->id;
+}
+
+function impruw_restore_elements($page_elements){
+	global $wpdb;
+
+	foreach ($page_elements as $page_element) {
+		$wpdb->update($wpdb->postmeta,
+			array( 'meta_key' => $page_element['element'],
+				   'meta_value' => maybe_serialize($page_element)),
+			array( 'meta_id' => $page_element['meta_id']));
+	}
 }
 
