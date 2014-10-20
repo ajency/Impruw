@@ -516,10 +516,14 @@ form {
 		font-size: 1.1em;
 		&.checkbox, &.radio {
 			padding-top: 0 !important;
-			&.checked {
-				color: @dash-grey;
-				.second-icon {
-					color: @orange;
+			.custom-checkbox, .custom-radio {
+				&:checked {
+					& + .icons {
+						color: @dash-grey;
+						.icon-checked {
+							color: @orange !important;
+						}
+					}
 				}
 			}
 		}
@@ -1677,6 +1681,12 @@ form {
 			color: @dash-grey;
 		}
 	}
+	#grid-region, #grid-media-region {
+		padding: 0 30px;
+	}
+	#grid-media-region {
+		margin: 0 -0.5em;
+	}
 	.aj-imp-block-button {
 		margin: 1em 0;
 		a {
@@ -1740,11 +1750,10 @@ form {
 							position: relative;
 							left: -5px;
 							top: 40%;
-							.bicon {
+							.glyphicon {
 								display: block;
 								font-size: 2em;
 								color: @preview-grey;
-								transform: rotate(90deg);
 							}
 						}
 					}
@@ -1759,11 +1768,6 @@ form {
 							vertical-align: top;
 							margin-right: 0.5em;
 							min-width: 316px;						
-						}
-						.arrange-slides {
-							.arrow {
-								left: 0;
-							}
 						}
 					}
 				}
@@ -2085,6 +2089,7 @@ form {
 			border-radius: 0;
 			color: #fff;
 			line-height: 15px;
+			padding: 8px 12px;
 			cursor: pointer;
 		}
 		&:hover {
@@ -2984,6 +2989,9 @@ form {
 #slides-list-region {
 	border: 1px solid lighten(@dash-grey, 10%);
 	border-radius: 4px;
+	#slides-accordion {
+		margin-bottom: 0;
+	}
 	.panel {
 		overflow: visible;
 	}
