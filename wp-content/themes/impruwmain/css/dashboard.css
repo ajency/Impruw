@@ -3537,6 +3537,15 @@ form .aj-imp-submit:hover {
 .aj-imp-homepage .home-1 .big-sign:hover {
   background: #25406a;
 }
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-1 {
+    padding: 0.5em;
+  }
+  .aj-imp-homepage .home-1 .big-sign {
+    font-size: 1.2em;
+    white-space: normal;
+  }
+}
 .aj-imp-homepage .home-1 .img-responsive {
   margin: 0 auto;
   padding-bottom: 2em;
@@ -3738,6 +3747,8 @@ form .aj-imp-submit:hover {
 @media (max-width: 767px) {
   .aj-imp-homepage .home-6 .big-sign {
     margin: 1em auto;
+    font-size: 1.2em;
+    white-space: normal;
   }
 }
 @media (max-width: 767px) {
