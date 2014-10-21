@@ -24,7 +24,7 @@ function publish_page( $page_id ) {
  *
  * @return mixed
  */
-function add_page_revision( $page_id, $page_json ) {
+function add_page_revision( $page_id, $page_json = null ) {
 
     // !imp
     update_random_content( $page_id );

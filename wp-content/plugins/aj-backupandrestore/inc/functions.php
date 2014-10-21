@@ -61,7 +61,9 @@ function impruw_create_site_restore_point(){
 	$all_pages = get_all_menu_pages();
 	foreach ($all_pages as $page) {
 		$page_id = icl_object_id( $page->ID, 'page', true , 'en');
-		$revision_id = wp_save_post_revision( $page_id ); 
+
+		$revision_id = add_page_revision( $page_id ); 
+		// print_r($revision_id);
 		// impruw_create_page_backup( $revision_id , 'site', $site_backup_id );
 		update_revision_meta( $revision_id, 'backup-type', 'site' );
 		update_revision_meta( $revision_id, 'site-backup-id', $site_backup_id );
@@ -75,7 +77,7 @@ add_action('impruw_before_theme_switch', 'impruw_create_site_restore_point');
 
 
 
-function impruw_restore_page($revision_id){
+function impruw_restore_page($revision_id,$backup = true){
 	global $wpdb;
 
 	$revision = get_post( $revision_id );
@@ -91,7 +93,8 @@ function impruw_restore_page($revision_id){
 		return new WP_Error( 'error', __("Revision is not for a page") );
 	$page_id = icl_object_id( $page_id, 'page', true, 'en' );
 	
-	$rev = wp_save_post_revision( $page_id );
+	if ($backup == true)
+		$rev = add_page_revision( $page_id );
 
 	// get page-json and page elements
 	$layout = get_post_meta($revision_id,'page-json',true);
@@ -159,6 +162,59 @@ function imp_restore_page(){
 }
 
 add_action('wp_ajax_restore-page','imp_restore_page');
+
+
+function impruw_restore_site($site_backup_id){
+	global $wpdb,$sitepress;
+	
+	// get the theme at the site backup
+	$revision_id = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key
+	 	= 'site-backup-id' AND meta_value = %s",$site_backup_id));
+	
+	$theme_name = $wpdb->get_var($wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND 
+		meta_key = 'page-theme' ",$revision_id));
+
+	// check if the theme is same as current theme
+	$current_theme = wp_get_theme(); 
+	// if not then switch the theme -- this creates a backup of the site
+	if ($current_theme->name != $theme_name){
+		$site_current_language = wpml_get_current_language();
+	    $site_default_language = wpml_get_default_language();
+
+	    //Change site's default language to English
+	    $sitepress->set_default_language('en');
+	    $sitepress->switch_lang('en');
+
+	    $new_theme_id = get_theme_post_id_from_name($theme_name);
+
+	    assign_theme_to_site( $new_theme_id, false );
+
+	    //Restore default language back to original
+	    $sitepress->switch_lang($site_current_language);
+	    $sitepress->set_default_language($site_default_language);
+	}
+	else 
+		// if theme is same do action impruw_before_theme_switch -- this backs up the site
+		do_action('impruw_before_theme_switch');
+
+	// run restore page on all menu pages (pass an attribute so it doesnt take a backup) 
+	$revision_ids = $revision_id = $wpdb->get_col($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key
+	 	= 'site-backup-id' AND meta_value = %s",$site_backup_id));
+	// print_r($revision_ids);
+
+	foreach ($revision_ids as $revision_id) {
+		impruw_restore_page($revision_id,false);
+	}
+
+
+}
+
+function imp_restore_site(){
+	$site_backup_id = $_GET['site-backup-id'];
+	impruw_restore_site( $site_backup_id );
+	
+}
+add_action('wp_ajax_restore-site','imp_restore_site');
 
 
 
@@ -239,6 +295,9 @@ function get_last_header_footer_id($key){
 function impruw_restore_elements($page_elements){
 	global $wpdb;
 
+	if (empty($page_elements))
+		return false;
+
 	foreach ($page_elements as $page_element) {
 		$wpdb->update($wpdb->postmeta,
 			array( 'meta_key' => $page_element['element'],
@@ -247,3 +306,20 @@ function impruw_restore_elements($page_elements){
 	}
 }
 
+function get_theme_post_id_from_name($theme_name){
+	global $wpdb;
+	switch_to_blog( 1 );
+	// print_r($theme_name);
+
+    $query = $wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type='theme' AND 
+        post_title=%s", $theme_name);
+    $theme_post = $wpdb->get_row($query);
+
+    restore_current_blog();
+    // print_r($theme_post);
+
+    $theme_id = $theme_post->ID;
+
+    return (int) $theme_id;
+
+}
