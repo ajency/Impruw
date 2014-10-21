@@ -426,6 +426,7 @@
 			display: inline-block;
 			background: #ccc;
 			margin-right: 5px;
+			vertical-align: text-top;
 		}
 		@media(max-width:767px){
 			padding:5px;
@@ -544,33 +545,34 @@
 				}
 			}
 			#room-booking-calendar {
-			.ui-datepicker-inline{
-								width:auto !important;
-								border: 0;
-								background:none;
-								.ui-datepicker-group {
-									width: 48%;
-									margin-right: 12px;
-										.ui-datepicker-calendar{
-											background:@white;
-											width:100%;
-											th{
-												background:lighten(@primary1, 40%);
-												text-transform:uppercase;
-												color:@white;
-												font-weight: 300;
-												font-size: 12px;
-											}
-										}
-										@media(max-width:767px){
-											width: 100%;
-										}
-									}
+				.ui-datepicker-inline{
+					width:auto !important;
+					border: 0;
+					background:none;
+					.ui-datepicker-group {
+						width: 48%;
+						margin-right: 12px;
+						.ui-datepicker-calendar{
+							background:@white;
+							width:100%;
+							th{
+								background:lighten(@primary1, 40%);
+								text-transform:uppercase;
+								color:@white;
+								font-weight: 300;
+								font-size: 12px;
 							}
+						}
+						@media(max-width:767px){
+							width: 100%;
+						}
+					}
+				}
 				.ui-datepicker {
 					width: 100% !important;
 					border: none;
 					box-shadow: none;
+					border-radius: 2px;
 					
 					&:before {
 						border-bottom-color: lighten(@primary1, 20%);
@@ -583,59 +585,112 @@
 						height: 67px;
 						line-height: 86px;
 						margin:0px;
-						.ui-datepicker-prev, .ui-datepicker-next {
-							border: 0px;
+						.ui-datepicker-prev,
+						.ui-datepicker-next {
+							position: absolute;
+							top: 0;
+							width: 52px;
 							height: 67px;
+							color: @secondary1;
+							text-align: center;
+							cursor: pointer;
+
 							&:hover {
-								background: lighten(@primary1, 10%);
+								background-color: darken(@primary1, 10%);
+							}
+							&:active {
+								background-color: darken(@primary1, 10%);
+							}
+							&.ui-state-disabled {
+								background-color: transparent;
+								color: fade(@secondary1, 75%);
+								cursor: default;
+								opacity: 0.7;
+							}
+						}
+						.ui-datepicker-prev {
+							left: 0;
+							border-right: 1px solid lighten(@primary1, 5%);
+							border-radius: 2px 0 0 0;
+						}
+						.ui-datepicker-next {
+							right: 0;
+							border-left: 1px solid lighten(@primary1, 5%);
+							border-radius: 0 2px 0 0;
+						}
+					}
+
+					.ui-datepicker-title{
+						margin: 0 52px;
+					    line-height: 60px;
+					    text-align: center;
+					    font-size: 1.2em;
+					    color: @tertiary1;
+					}
+					.ui-datepicker-prev span,
+					.ui-datepicker-next span {
+						display: block;
+						position: absolute;
+						left: 50%;
+						margin-left: -5px;
+						top: 50%;
+						margin-top: -6px;
+						text-indent: -9999px;
+						width: 0;
+						height: 0;
+						content: "";
+					}
+					.ui-icon-circle-triangle-w {
+						border: inset transparent;
+						border-width: 7px 12px 7px 0;
+						border-right-color: @primary1;
+					}
+					.ui-icon-circle-triangle-e {
+						border: outset transparent;
+						border-width: 7px 0 7px 12px;
+						border-left-color: @primary1;
+					}
+					
+					td {
+						border: 1px solid #EAEAEA!important;
+						height:42px!important;
+						a, span {
+								display: block;
+								border-radius:0px;
+								height: 51px;
+								line-height: 49px;
+								text-align: center;
+								border:0px;
+								font-weight: normal;
+								&:hover {
+									background: none;
+								}
+						}
+						> span {
+							background: rgba(255, 255, 255, 0.6);
+							color: @text-color;
+							cursor: not-allowed;
+							text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+						}
+						&.ui-state-disabled {
+							a, span {
+								&:hover {
+									background: rgba(255, 255, 255, 0.6);
+								}
+							}
+						}
+						&.ui-datepicker-today {
+							font-weight: 700;
+						}
+						&.ui-datepicker-current-day {
+							font-weight: 700;
+							a, span {
+								background: @primary1;
+								color: @text-color;
 							}
 						}
 					}
-					.ui-datepicker-title{
-						line-height: 74px;
-						font-weight: normal;
-					}
-					
-						td {
-								border: 1px solid #EAEAEA!important;
-								height:42px!important;
-								a, span {
-										display: block;
-										border-radius:0px;
-										height: 51px;
-										line-height: 49px;
-										text-align: center;
-										border:0px;
-										font-weight: normal;
-										&:hover {
-											background: none;
-										}
-								}
-								> span {
-									background: rgba(255, 255, 255, 0.6);
-									color: @text-color;
-									cursor: not-allowed;
-									text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-								}
-								&.ui-state-disabled {
-									a, span {
-										&:hover {
-											background: rgba(255, 255, 255, 0.6);
-										}
-									}
-								}
-								&.ui-datepicker-today {
-									font-weight: 700;
-								}
-								&.ui-datepicker-current-day {
-									font-weight: 700;
-									a, span {
-										background: @primary1;
-										color: @text-color;
-									}
-								}
-							}
-								.booking-red{
+					.booking-red{
 						background:#f97d61;
 						a{
 							color:@white;
@@ -646,7 +701,7 @@
 						
 					}
 					.booking-orange{
-					background:#ffd200;
+						background:#ffd200;
 						a{
 							color:@white;
 							&:hover{
@@ -655,8 +710,8 @@
 						}
 						
 					}
-						.booking-blue{
-					background:#5fd7fe;
+					.booking-blue{
+						background:#5fd7fe;
 						a{
 							color:@white;
 							&:hover{
@@ -665,8 +720,8 @@
 						}
 						
 					}
-						.booking-green{
-					background:#84e72f;
+					.booking-green{
+						background:#84e72f;
 						a{
 							color:@white;
 							&:hover{
@@ -675,8 +730,8 @@
 						}
 						
 					}
-						.booking-pink{
-					background:#fea5a5;
+					.booking-pink{
+						background:#fea5a5;
 						a{
 							color:@white;
 							&:hover{
@@ -687,23 +742,23 @@
 					}
 					
 					.ui-datepicker td.unavailable {
-										a{
-											text-decoration:line-through;
-											color:@black !important;
-										}
-									}
-									.ui-datepicker td.semi-available {
-										a{
-											background: rgba(0,0,0,0); /* Old browsers */
-											background: -moz-linear-gradient(-45deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 50%); /* FF3.6+ */
-											background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,gba(0,0,0,0)), color-stop(50%,gba(0,0,0,0.2))); /* Chrome,Safari4+ */
-											background: -webkit-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* Chrome10+,Safari5.1+ */
-											background: -o-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* Opera 11.10+ */
-											background: -ms-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* IE10+ */
-											background: linear-gradient(135deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* W3C */
-											filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#47000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-										}
-									}
+						a {
+							text-decoration:line-through;
+							color:@black !important;
+						}
+					}
+					.ui-datepicker td.semi-available {
+						a {
+							background: rgba(0,0,0,0); /* Old browsers */
+							background: -moz-linear-gradient(-45deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 50%); /* FF3.6+ */
+							background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,gba(0,0,0,0)), color-stop(50%,gba(0,0,0,0.2))); /* Chrome,Safari4+ */
+							background: -webkit-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* Chrome10+,Safari5.1+ */
+							background: -o-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* Opera 11.10+ */
+							background: -ms-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* IE10+ */
+							background: linear-gradient(135deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* W3C */
+							filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#47000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+						}
+					}
 					.ui-state-active {
 						background: transparent;
 						color: #34495E;
@@ -837,13 +892,18 @@
 
 .carousel.vertical {
 	.carousel-control {
-		top: -15px;
+		top: -35px !important;
 		left: 35%;
+		width: 40px;
+		height: 40px;
+		border: 3px solid @white;
+		border-radius: 40px;
 		-ms-transform: rotate(90deg);
 		-webkit-transform: rotate(90deg);
 		transform: rotate(90deg);
 		line-height: 29px;
 		color: @white;
+		background: darken(@primary1, 10%);
 		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled = false)" !important;
 		filter: none !important;
 		&.right {
