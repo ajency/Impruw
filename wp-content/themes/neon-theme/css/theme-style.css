@@ -1781,6 +1781,24 @@ ul.gallery {
 .table.style-2 > tbody > tr th {
   border-color: #e223a1 !important;
 }
+.imp-table .rc-handle-container {
+  position: relative;
+}
+.imp-table .rc-handle {
+  position: absolute;
+  width: 7px;
+  cursor: ew-resize;
+  margin-left: -3px;
+  z-index: 2;
+}
+.imp-table table.rc-table-resizing {
+  cursor: ew-resize;
+}
+.imp-table table.rc-table-resizing thead,
+.imp-table table.rc-table-resizing thead > th,
+.imp-table table.rc-table-resizing thead > th > a {
+  cursor: ew-resize;
+}
 .table-responsive {
   width: 100%;
   overflow-x: auto;

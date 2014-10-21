@@ -92,6 +92,28 @@
 	}
 }
 
+.imp-table {
+	.rc-handle-container {
+	  position: relative;
+	}
+
+	.rc-handle {
+	  position: absolute;
+	  width: 7px;
+	  cursor: ew-resize;
+	  margin-left: -3px;
+	  z-index: 2;
+	}
+
+	table.rc-table-resizing {
+	  cursor: ew-resize;
+
+	  thead, thead > th, thead > th > a {
+	    cursor: ew-resize;
+	  }
+	}
+}
+
 .table-responsive {
 	width: 100%; 
 	overflow-x: auto; 
