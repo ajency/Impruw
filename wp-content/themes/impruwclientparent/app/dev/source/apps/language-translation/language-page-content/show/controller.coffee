@@ -3,7 +3,10 @@ define ['app', 'controllers/base-controller'
         'apps/language-translation/language-page-content/original-page-content/controller'
         'apps/language-translation/language-page-content/translated-page-content/controller'
         'apps/language-translation/language-page-content/original-table-content/controller'
-        'apps/language-translation/language-page-content/translated-table-content/controller'], (App, AppController)->
+        'apps/language-translation/language-page-content/translated-table-content/controller'
+        'apps/language-translation/language-page-content/original-slider-content/controller'
+        'apps/language-translation/language-page-content/translated-slider-content/controller'
+        ], (App, AppController)->
     App.module 'LanguageApp.LanguagePageContent', (LanguagePageContent, App, Backbone, Marionette, $, _)->
         class LanguagePageContent.Controller extends AppController
 
@@ -47,6 +50,11 @@ define ['app', 'controllers/base-controller'
                         editLang : @editLang
                         pageId :  @pageId
                         originalId : @originalId
+
+                    App.execute "original:slider:content:app",
+                        region: @languagePageContentLayout.originalSliderContent,
+                        editLang : @editLang
+                        pageId :  @originalId
 
             _getPageContentLayout : ->
                 new LanguagePageContent.Views.LanguagePageContentLayout

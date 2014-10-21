@@ -1,0 +1,77 @@
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+define(['app'], function(App) {
+  return App.module('LanguageApp.LanguagePageContent.OriginalSlider.Views', function(Views, App, Backbone, Marionette, $, _) {
+    var OriginalSlideItemView, OriginalSlideView;
+    OriginalSlideItemView = (function(_super) {
+      __extends(OriginalSlideItemView, _super);
+
+      function OriginalSlideItemView() {
+        return OriginalSlideItemView.__super__.constructor.apply(this, arguments);
+      }
+
+      OriginalSlideItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Caption</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{{captionTitle}}} </div> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Description</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original text"> {{captionDesc}} </div> </div> </div> </div> </div>';
+
+      OriginalSlideItemView.prototype.mixinTemplateHelpers = function(data) {
+        data = OriginalSlideItemView.__super__.mixinTemplateHelpers.call(this, data);
+        data.captionTitle = function() {
+          var captionHtml, captionTitle;
+          captionHtml = data['layers']['0']['text'];
+          captionHtml = '<div>' + captionHtml + '</div>';
+          captionTitle = $(captionHtml).find('.title').html();
+          return captionTitle;
+        };
+        data.captionDesc = function() {
+          var captionDesc, captionHtml;
+          captionHtml = data['layers']['0']['text'];
+          captionHtml = '<div>' + captionHtml + '</div>';
+          captionDesc = $(captionHtml).find('.text').html();
+          return captionDesc;
+        };
+        return data;
+      };
+
+      return OriginalSlideItemView;
+
+    })(Marionette.ItemView);
+    OriginalSlideView = (function(_super) {
+      __extends(OriginalSlideView, _super);
+
+      function OriginalSlideView() {
+        return OriginalSlideView.__super__.constructor.apply(this, arguments);
+      }
+
+      OriginalSlideView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{element}}</small></h6> <div id="original-page-slide"> </div>';
+
+      OriginalSlideView.prototype.itemView = OriginalSlideItemView;
+
+      OriginalSlideView.prototype.itemViewContainer = '#original-page-slide';
+
+      OriginalSlideView.prototype.initialize = function() {
+        var collection;
+        collection = new Backbone.Collection(this.model.get('slides'));
+        return this.collection = collection;
+      };
+
+      return OriginalSlideView;
+
+    })(Marionette.CompositeView);
+    return Views.OriginalSliderView = (function(_super) {
+      __extends(OriginalSliderView, _super);
+
+      function OriginalSliderView() {
+        return OriginalSliderView.__super__.constructor.apply(this, arguments);
+      }
+
+      OriginalSliderView.prototype.template = '<div id="original-page-slider"> </div>';
+
+      OriginalSliderView.prototype.itemView = OriginalSlideView;
+
+      OriginalSliderView.prototype.itemViewContainer = '#original-page-slider';
+
+      return OriginalSliderView;
+
+    })(Marionette.CompositeView);
+  });
+});
