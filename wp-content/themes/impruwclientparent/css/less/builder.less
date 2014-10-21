@@ -1885,9 +1885,11 @@ a {
 	.modal-dialog {
 		.modal-content {
 			box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.25);
+			border-radius: 2px;
 			.modal-header {
 				background: @preview-grey;
 				padding: 0.5em 1em;
+				border-radius: 2px 2px 0 0;
 				.modal-title {
 					color: @dash-grey;
 					text-align: center;
@@ -1898,6 +1900,7 @@ a {
 				padding: 0.5em 1em;
 				background: @preview-grey;
 				min-height: 2em;
+				border-radius: 0 0 2px 2px;
 				.aj-imp-modal-save {
 					background: @orange;
 					&:hover {
@@ -3306,11 +3309,14 @@ a {
 	text-align: center;
 	li {
 		max-width: 22%;
+		min-width: 170px;
 		width: 20%;
 		margin: 0.5em 1%;
 		display: inline-block;
 		.thumbnail {
 			position: relative;
+			border: 1px solid @preview-grey;
+			border-radius: 2px;
 			.indicator {
 				position: absolute;
 				top: -6px;
@@ -3319,12 +3325,17 @@ a {
 				height: 20px;
 				background: #000;
 				color: #fff;
-				border-radius: 3px;
+				border-radius: 2px;
 				display: none;
+				.glyphicon {
+					line-height: 10px;
+					font-size: 0.88em;
+					vertical-align: text-top;
+				}
 			}
 			.colors {
 				text-align: center;
-				margin: 0.5em 0;
+				margin: 0.75em 0;
 				span {
 					width: 30px;
 					height: 30px;
@@ -3337,11 +3348,12 @@ a {
 				}
 			}
 			.caption {
+				padding: 0;
 				h3 {
 					color: @dash-grey;
 					font-size: 1.4em;
 					font-weight: 400;
-					margin-bottom: 1em;
+					margin: 0 0 1em;
 				}
 				.btn-primary {
 					background: @orange;
