@@ -786,5 +786,7 @@
     "If this is an unauthorized user, take over and contact us at":"If this is an unauthorized user, take over and contact us at",
     "support@impruw.com":"support@impruw.com",
     "You can add, remove and edit the pages on your site from here." :"You can add, remove and edit the pages on your site from here.",
-    "Update address " : "Update address "   
+    "Update address " : "Update address " ,
+    "History" : "History_N",
+    "View Full History" : "View Full History_N"
   }

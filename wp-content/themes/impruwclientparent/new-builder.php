@@ -79,6 +79,33 @@
     <div id="elements-box-region"></div>
 </div>
 
+<div id="revision-region">
+    <div class="revision-container">
+        <h2 class="page-title"><?php _e('View Your Site History','sitebuilder')?></h2>
+        <p class="rev-desc"><?php _e('View the saved points in your site, and restore your page or entire site to that point from here.','sitebuilder')?></p>
+        <div class="revision-timeline">
+            <div id="slider" class="ui-slider"></div>
+            <a class="slider-button prev"><span class="bicon icon-uniF19C"></span></a>
+            <a class="slider-button next"><span class="bicon icon-uniF19B"></span></a>
+        </div>
+        <div class="row timeline-actions">
+            <div class="col-sm-6 revision-info">
+                Version by Admin, 5 minutes ago 
+                <span class="time">15th Oct 2014 @ 13:41:21</span>
+            </div>
+            <div class="col-sm-6 revision-actions">
+                <button class="btn btn-sm cancel-view-history"><?php _e('Cancel','sitebuilder')?></button>
+                <button class="btn btn-sm aj-imp-orange-btn"><?php _e('Restore to this Version','sitebuilder')?></button>
+            </div>
+        </div>
+        <div class="revision-view row">
+            <div class="col-sm-12">
+                View Changes Here!
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="login-region"></div>
 <div id="settings-region"></div>
 <div id="dialog-region" class="modal "></div>
