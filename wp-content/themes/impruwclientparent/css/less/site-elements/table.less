@@ -37,9 +37,14 @@
 	}
 	&.table-striped {
 		> tbody {
-			> tr:nth-child(2n), tr.selected-row {
+			> tr {
 				> td {
-					background: darken(@tertiary1, 10%);
+					background: @tertiary1;
+				}
+				&:nth-child(2n), &.selected-row {
+					> td {
+						background: darken(@tertiary1, 10%);
+					}
 				}
 			}
 		}

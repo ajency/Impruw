@@ -1801,8 +1801,11 @@ ul.gallery {
 .table.table-bordered > tbody > tr th {
   border: 1px solid #ffffff !important;
 }
+.table.table-striped > tbody > tr > td {
+  background: #39435c;
+}
 .table.table-striped > tbody > tr:nth-child(2n) > td,
-.table.table-striped > tbody tr.selected-row > td {
+.table.table-striped > tbody > tr.selected-row > td {
   background: #252c3d;
 }
 .table.table-hover > tbody > tr:hover > td,
