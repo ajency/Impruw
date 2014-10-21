@@ -3928,6 +3928,7 @@ form .aj-imp-submit:hover {
   font-weight: 300;
   color: #333333;
   font-size: 1.3em;
+  padding: 0 0.5em;
 }
 .aj-imp-faqpage .faq-container {
   margin: 0 4em;
@@ -3996,6 +3997,18 @@ form .aj-imp-submit:hover {
 .aj-imp-faqpage .faqs .category-head a {
   font-size: 0.5em;
   color: #c3c3c3;
+}
+
+@media (max-width: 767px) {
+  .aj-imp-faqpage .main-title {
+    font-size: 1.5em;
+  }
+  .aj-imp-faqpage .desc {
+    font-size: 1em;
+  }
+  .aj-imp-faqpage .faq-container {
+    margin: 0 0.5em;
+  }
 }
 /****Block List Styles****/
 .aj-imp-themes .main-title {
