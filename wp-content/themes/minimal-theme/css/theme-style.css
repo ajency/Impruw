@@ -185,6 +185,9 @@ and open the template in the editor.
     border-right: 0;
   }
 }
+.site-style-container footer {
+  background: transparent;
+}
 /**** Logo Styles ****/
 @media (max-width: 971px) {
   .logo {
@@ -1917,20 +1920,20 @@ and open the template in the editor.
   position: absolute;
   border-style: solid;
   border-color: transparent;
-  bottom: -10px;
+  bottom: -17px;
   border-width: 0 9px 10px 0;
   border-right-color: #831618;
-  left: -10px;
+  left: 0px;
 }
 .row.menu-bar > .column:last-child:after {
   content: '';
   position: absolute;
   border-style: solid;
   border-color: transparent;
-  bottom: -10px;
+  bottom: -17px;
   border-width: 0 0 10px 9px;
   border-left-color: #831618;
-  right: -10px;
+  right: 0px;
 }
 .row.footer-bar {
   margin: 1.5em 0 0;

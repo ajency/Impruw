@@ -50,6 +50,7 @@
 
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
+    var DOMAIN_NAME = '<?php echo get_site_domain_name(); ?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var USERDATA = <?php $impruwUserModel = new ImpruwUser(get_current_user_id());
                         echo json_encode($impruwUserModel->get_user_basic_info());

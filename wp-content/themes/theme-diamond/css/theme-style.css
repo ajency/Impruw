@@ -166,6 +166,9 @@ and open the template in the editor.
     border-right: 0;
   }
 }
+.site-style-container footer {
+  background: transparent;
+}
 /**** Logo Styles ****/
 @media (max-width: 971px) {
   .logo {

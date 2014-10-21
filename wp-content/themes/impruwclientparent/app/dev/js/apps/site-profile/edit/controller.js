@@ -72,6 +72,7 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
         return $.ajax(options).done((function(_this) {
           return function(response) {
             if (response.code === "OK") {
+              window.DOMAIN_NAME = domainName;
               return _this.view.triggerMethod("domain:update", "Domain added succesfully");
             } else {
               return _this.view.triggerMethod("domain:update", response.msg);
