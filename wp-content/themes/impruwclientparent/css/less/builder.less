@@ -2152,6 +2152,12 @@ a {
 	}
 	#add-slide-region {
 		margin: 0.5em;
+		#grid-region, #grid-media-region {
+			padding: 0 30px;
+		}
+		#grid-media-region {
+			margin: 0 -0.5em;
+		}
 		#add-slide-form-region {
 			padding-top: 0.5em;
 			.add-image-to-slide {
@@ -2891,10 +2897,15 @@ a {
 		}
 	}
 	.checkbox, .radio {
-		&.checked {
-			color: @orange;
-			.second-icon {
-				color: @orange;
+		padding-top: 0 !important;
+		.custom-checkbox, .custom-radio {
+			&:checked {
+				& + .icons {
+					color: @dash-grey;
+					.icon-checked {
+						color: @orange !important;
+					}
+				}
 			}
 		}
 	}
@@ -3705,6 +3716,7 @@ a {
 	border-radius: 0 0 0 2px;
 	text-align: right;
 	width: 180px;
+	z-index: 1040;
 	&.open {
 		height: auto !important;
 		right: 0 !important;
