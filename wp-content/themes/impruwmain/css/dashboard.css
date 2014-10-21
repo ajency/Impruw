@@ -3807,9 +3807,16 @@ form .aj-imp-submit:hover {
   float: right;
 }
 @media (max-width: 767px) {
+  .aj-imp-contactpage .main-title {
+    font-size: 2em;
+  }
   .aj-imp-contactpage .contact {
     width: 96%;
     float: none;
+  }
+  .aj-imp-contactpage .contact h2 {
+    font-size: 2.2em;
+    display: block;
   }
 }
 .aj-imp-contactpage .contact-form-container {
@@ -3824,6 +3831,15 @@ form .aj-imp-submit:hover {
   text-align: center;
   text-transform: uppercase;
   padding: 1em 0;
+}
+@media (max-width: 767px) {
+  .aj-imp-contactpage .contact-form-container {
+    margin: 0.5em;
+    padding: 1em;
+  }
+  .aj-imp-contactpage .contact-form-container h3 {
+    font-size: 1.5em;
+  }
 }
 /**** Team Page Styles ****/
 .aj-imp-teampage {
