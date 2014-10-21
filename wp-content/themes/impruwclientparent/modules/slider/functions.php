@@ -376,6 +376,31 @@ function update_slide( $data, $slide_id, $language='all', $parent_slide=0) {
     //$slide_id= 21;
     $arrData = array();
 
+    
+    //Get previous caption
+    $old_slider_caption = get_slide_captionhtml($slide_id);
+    $old_caption_details = get_slide_caption_details($old_slider_caption);
+    $old_caption_title = $old_caption_details['caption_title'];
+    $old_caption_desc = $old_caption_details['caption_description'];
+
+    //New caption details
+    $new_caption_details = get_slide_caption_details($data['layers'][0]['text']);
+    $new_caption_title = $new_caption_details['caption_title'];
+    $new_caption_title_class = $new_caption_details['caption_title_class'];
+    $new_caption_desc = $new_caption_details['caption_description'];
+    
+    $default_language = wpml_get_default_language();
+
+    //Modify caption only for default language, for other languages keep the previous caption
+    if (($language==='all')||($language===$default_language)) {
+        $new_caption =  "<h3 class='".$new_caption_title_class."' data-title='".$new_caption_title."'>".$new_caption_title."</h3><div class='text' data-capdesc='".$new_caption_desc."'>".$new_caption_desc."</div>";
+    }
+    else{
+        $new_caption =  "<h3 class='".$new_caption_title_class."' data-title='".$old_caption_title."'>".$old_caption_title."</h3><div class='text' data-capdesc='".$old_caption_desc."'>".$old_caption_desc."</div>";
+    }
+
+    $data['layers'][0]['text'] = $new_caption;
+
     $arrData[ "layers" ] = json_encode( $data['layers'] );
     unset($data['layers']);
 
@@ -505,4 +530,42 @@ function update_translated_slides($data, $slider_id,$parent_id){
         }
     }
     return $child_slide_id_ret;
+}
+
+function get_slide_captionhtml($slide_id){
+    $slide_data = slide_details_array($slide_id);
+    return $slide_data['layers'][0]['text'];
+}
+
+
+function get_slide_caption_details($slide_caption_html){
+    $dom = new DOMDocument();
+    $dom->loadHTML(stripslashes($slide_caption_html));
+
+    $caption_details = array();
+
+    $searchNode = $dom->getElementsByTagName( "h3" ); 
+
+
+    foreach( $searchNode as $searchNode ) 
+    { 
+        $title = $searchNode->getAttribute('data-title');
+        $title_class = $searchNode->getAttribute('class');
+
+    }
+
+    $caption_details['caption_title'] = $title;  
+    $caption_details['caption_title_class'] = $title_class;
+
+    $searchNode = $dom->getElementsByTagName( "div" ); 
+
+
+    foreach( $searchNode as $searchNode ) 
+    { 
+        $description = $searchNode->getAttribute('data-capdesc');
+
+    }
+    $caption_details['caption_description'] = $retVal = isset($description) ? $description : '' ;
+
+    return $caption_details;
 }
