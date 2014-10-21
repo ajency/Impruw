@@ -4100,6 +4100,19 @@ form .aj-imp-submit:hover {
 @media (max-width: 850px) {
   .aj-imp-block-list ul .block {
     width: 100%;
+    margin: 0 auto 2em;
+  }
+}
+
+@media (max-width: 767px) {
+  .aj-imp-themes.aj-imp-register-form {
+    width: 100%;
+  }
+  .aj-imp-themes .main-title {
+    font-size: 2.5em;
+  }
+  .aj-imp-themes .pg-content {
+    font-size: 1em !important;
   }
 }
 
