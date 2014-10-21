@@ -3910,6 +3910,35 @@ form .aj-imp-submit:hover {
 .aj-imp-teampage .member:hover p {
   color: #333333;
 }
+
+@media (max-width: 767px) {
+  .aj-imp-teampage .main-title {
+    font-size: 2em;
+  }
+  .aj-imp-teampage .member {
+    margin: 2em 15px;
+    text-align: center;
+  }
+  .aj-imp-teampage .member .member-pic {
+    height: auto;
+    overflow: visible;
+  }
+  .aj-imp-teampage .member .member-pic .img-circle {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin: auto;
+  }
+  .aj-imp-teampage .member:hover .member-pic .img-circle {
+    bottom: auto;
+  }
+  .aj-imp-teampage .member h4 {
+    color: #ee4423;
+  }
+  .aj-imp-teampage .member p {
+    color: #333333;
+  }
+}
 /**** FAQ Page Styles ****/
 .aj-imp-faqpage {
   margin: 0 -15px;
