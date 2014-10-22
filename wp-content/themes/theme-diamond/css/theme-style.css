@@ -585,6 +585,7 @@ and open the template in the editor.
   background: #f9f8f4;
   padding: 0.5em;
   position: relative;
+  text-align: left;
 }
 .room-tariff-container .room-tariff-title h4 {
   font-size: 1.5em;
