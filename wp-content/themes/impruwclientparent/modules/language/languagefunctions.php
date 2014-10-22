@@ -538,3 +538,38 @@ function get_enabled_languages(){
 
     return $enabled_languages;
 }
+
+/**
+ * Get language child slides for a given parent slide 
+ */
+
+function get_language_slides_by_slideid($slider_id,$slide_id){
+    $slider = new RevSlider();
+
+    $slides = $slider->initByID( $slider_id );
+    $slides     = $slider->getSlides( FALSE );
+    $childslides = array();
+    $lang_slides = array();
+
+    foreach ( $slides as $slide ) {
+
+        $parentSlide = $slide->getParentSlide();
+        $parent_slide_id = $parentSlide->getID();
+
+        //Fetch language child slides of given slide id only
+        if ($parent_slide_id == $slide_id) {
+            $childslides = $parentSlide->getArrChildrenLangs(TRUE);
+        }
+
+    }
+
+    if (!empty($childslides)) {
+        foreach ($childslides as $slide) {
+            $lang_slides[$slide['lang']] = $slide['slideid'];
+        } 
+    }
+   
+
+    return $lang_slides;
+
+}
