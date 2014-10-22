@@ -45,14 +45,14 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
         # PUBLIC API FOR ENitity
         API =
             getPageRevisions: (pageId)->
-                revisionsCollection = revisionsArray[pageId] || false
+                # revisionsCollection = revisionsArray[pageId] || false
 
-                if not revisionsCollection
-                    revisionsCollection = new RevisionCollection
-                    revisionsCollection.fetch
-                        data:
-                            page_id: pageId
-                    revisionsArray[pageId] = revisionsCollection
+                # if not revisionsCollection
+                revisionsCollection = new RevisionCollection
+                revisionsCollection.fetch
+                    data:
+                        page_id: pageId
+                    # revisionsArray[pageId] = revisionsCollection
 
                 revisionsCollection
 

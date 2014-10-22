@@ -203,7 +203,7 @@ define [ 'app'
            @each ->
              segmentGap = 100 / (amount - 1) + "%"
              segment = "<div class='ui-slider-segment' style='margin-left: " + segmentGap + ";' data-toggle='tooltip' data-placement='top' title='Admin - 15th Oct 2014 @ 13:41:21'></div>"
-             $(this).prepend segment.repeat(amount - 2)
+             $(this).prepend _.repeat segment, (amount - 2)
              return
 
          _addToPageSlug : (pageId)=>

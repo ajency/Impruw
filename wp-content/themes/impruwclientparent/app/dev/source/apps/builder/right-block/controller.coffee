@@ -1,6 +1,7 @@
 define ['app'
 		'controllers/base-controller'
 		'apps/builder/right-block/views'
+		'apps/builder/right-block/revision-history/controller'
 ],(App,AppController)->
 	App.module "RightBlock",(RightBlock,App)->
 
@@ -19,6 +20,10 @@ define ['app'
 		                region : @layout.unusedElementsRegion
 		                revisionId : revisionId
 		                pageId : pageId
+
+		            App.execute "show:revision:history",
+		            	region : @layout.revisionHistoryRegion
+		            	pageId : pageId
 
 		        @listenTo @layout ,"show:theme:color:clicked",->
                     App.execute "show:theme:color:set", region : App.dialogRegion

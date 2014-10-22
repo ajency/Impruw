@@ -60,16 +60,12 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
     API = {
       getPageRevisions: function(pageId) {
         var revisionsCollection;
-        revisionsCollection = revisionsArray[pageId] || false;
-        if (!revisionsCollection) {
-          revisionsCollection = new RevisionCollection;
-          revisionsCollection.fetch({
-            data: {
-              page_id: pageId
-            }
-          });
-          revisionsArray[pageId] = revisionsCollection;
-        }
+        revisionsCollection = new RevisionCollection;
+        revisionsCollection.fetch({
+          data: {
+            page_id: pageId
+          }
+        });
         return revisionsCollection;
       },
       addNewRevision: function(pageId, revisionData) {
