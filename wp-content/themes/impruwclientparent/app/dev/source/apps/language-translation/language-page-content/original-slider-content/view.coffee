@@ -43,7 +43,8 @@ define ['app'], (App)->
 
             template : '<h6 class="aj-imp-sub-head-thin"><small>{{element}}</small></h6>
                         <div id="original-page-slide">
-                        </div>'
+                        </div>
+                        <hr>'
 
             itemView : OriginalSlideItemView
 
@@ -59,7 +60,8 @@ define ['app'], (App)->
         class Views.OriginalSliderView extends Marionette.CompositeView
 
             template : '<div id="original-page-slider">
-                        </div>'
+                        </div>
+                        '
 
             itemView : OriginalSlideView
 

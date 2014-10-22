@@ -56,6 +56,11 @@ define ['app', 'controllers/base-controller'
                         editLang : @editLang
                         pageId :  @originalId
 
+                    App.execute "translated:slider:content:app",
+                        region: @languagePageContentLayout.translatedSliderContent,
+                        editLang : @editLang
+                        pageId :  @originalId
+
             _getPageContentLayout : ->
                 new LanguagePageContent.Views.LanguagePageContentLayout
 

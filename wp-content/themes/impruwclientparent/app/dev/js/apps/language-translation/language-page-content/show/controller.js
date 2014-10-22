@@ -43,8 +43,13 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
               pageId: _this.pageId,
               originalId: _this.originalId
             });
-            return App.execute("original:slider:content:app", {
+            App.execute("original:slider:content:app", {
               region: _this.languagePageContentLayout.originalSliderContent,
+              editLang: _this.editLang,
+              pageId: _this.originalId
+            });
+            return App.execute("translated:slider:content:app", {
+              region: _this.languagePageContentLayout.translatedSliderContent,
               editLang: _this.editLang,
               pageId: _this.originalId
             });

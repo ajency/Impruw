@@ -42,7 +42,7 @@ define(['app'], function(App) {
         return OriginalSlideView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalSlideView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{element}}</small></h6> <div id="original-page-slide"> </div>';
+      OriginalSlideView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{element}}</small></h6> <div id="original-page-slide"> </div> <hr>';
 
       OriginalSlideView.prototype.itemView = OriginalSlideItemView;
 

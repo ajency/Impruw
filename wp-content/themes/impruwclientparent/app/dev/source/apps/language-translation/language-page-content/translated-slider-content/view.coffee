@@ -1,100 +1,71 @@
 define ['app'], (App)->
 
-    App.module 'LanguageApp.LanguagePageContent.TranslatedTable.Views', (Views, App, Backbone, Marionette, $, _)->
+    App.module 'LanguageApp.LanguagePageContent.TranslatedSlider.Views', (Views, App, Backbone, Marionette, $, _)->
 
-        class TranslatedTableItemView extends Marionette.ItemView
+        class TranslatedSlideItemView extends Marionette.ItemView
 
-            tagName : 'div'
-
-            className : 'form-group legend-group'
-
-            template : '<div class="col-sm-12">
-                            <div class="form-group trans-field" id="translated-table-elements">
-                                <div class="col-sm-10">
-                                    <div class="form-control translated-element-content {{element}}" tabindex="1" id="translated-table-content">
-                                        {{{contentText}}}
-                                    </div>
-                                    <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-table">
-                                        {{#polyglot}}Save{{/polyglot}}
-                                    </button>
+            template : '
+                <div class="form-group legend-group">
+                    <div class="col-sm-12"> 
+                        <div class="form-group trans-field"> 
+                            <div class="col-sm-10"> 
+                                <div class="form-control translated-element-content title">
+                                    <p>{{captionTitle}}</p>
                                 </div>
-                             
-                            </div>
-                         </div>'
-
-            events:
-                "click #btn-save-translated-table" : "updatePageTable"
-                "click table td" : "showEditor"
-                "click table th" : "showEditor"
-                'click .cke_editable' : (e)->
-                    e.stopPropagation()
-                'click a': (e)->
-                    e.preventDefault()
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+                <div class="form-group legend-group">
+                    <div class="col-sm-12"> 
+                        <div class="form-group trans-field"> 
+                            <div class="col-sm-10"> 
+                                <div class="form-control translated-element-content text">
+                                    <p>{{captionDesc}}</p>
+                                </div> 
+                                <button id="btn-save-slider-translation-element" class="btn btn-xs trans-action aj-imp-orange-btn"> Save </button> 
+                            </div> 
+                        </div> 
+                    </div>
+                </div>'
 
             mixinTemplateHelpers: (data)->
                 data = super data
-                editingLanguage = Marionette.getOption @, 'editingLanguage'
-                data.contentText = ->
-                    if _.isObject(data.content)
-                      if data.content[editingLanguage] is undefined
-                        translated_text = data.content[WPML_DEFAULT_LANG]
-                      else
-                        translated_text = data.content[editingLanguage]
-                    else
-                      translated_text = data.content
-                    # console.log translated_text
-                    translated_text = _.stripslashes translated_text
-                    translated_text
+                data.captionTitle = ->
+                    captionHtml = data['layers']['0']['text']
+                    captionHtml = '<div>'+captionHtml+'</div>'
+                    captionTitle = $(captionHtml).find('.title').html()
+                    captionTitle
+                data.captionDesc = ->
+                    captionHtml = data['layers']['0']['text']
+                    captionHtml = '<div>'+captionHtml+'</div>'
+                    captionDesc = $(captionHtml).find('.text').html()
+                    captionDesc
                 data
 
-            updatePageTable:(e) ->
-                e.preventDefault()
-                newHtmlContent  = $('#translated-table-content').clone()
-                $(newHtmlContent).find('td div, th div').removeAllAttr()
-                newElementContent =  "#{$(newHtmlContent).html()}"
-                # console.log newElementContent
-                @trigger "page:table:updated", newElementContent
+        class TranslatedSlideView extends Marionette.CompositeView
 
-            showEditor :(evt)->
-                evt.stopPropagation()
-                if @editor
-                    @editor.destroy()
-                    @$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr 'id'
-                
-                # console.log 'showEditor'
-                id = _.uniqueId 'text-'
-                $(evt.target).closest('td,th').find('div').attr('contenteditable', 'true').attr 'id', id
-                CKEDITOR.on 'instanceCreated', @configureEditor
-                @editor = CKEDITOR.inline document.getElementById id
-                @editor.config.placeholder = 'Click to enter text.'
+            template : '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6>
+                        <div id="translated-page-slide">
+                        </div>
+                        <hr>'
 
-            configureEditor : (event) =>
-                editor = event.editor
-                element = editor.element
+            itemView : TranslatedSlideItemView
 
-                if element.getAttribute('id') is @$el.attr 'id'
-                    editor.on 'configLoaded', ->
-                        editor.config.placeholder = 'Enter Data'
+            itemViewContainer : '#translated-page-slide'
 
-            destroyEditor :->
-                if @editor
-                    @editor.destroy()
-                    @editor = null
-                    # console.log 'editor destroyed'
-                    @$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr 'id'
-                    @$el.find('table').resizableColumns('destroy')
-                    @$el.find('table').resizableColumns()
 
-        
-        class Views.TranslatedTableView extends Marionette.CompositeView
+            initialize :->
+                collection = new Backbone.Collection @model.get('slides')
+                @collection = collection
 
-            template : '<div id="translatable-page-table"></div>'
 
-            itemView : TranslatedTableItemView
 
-            itemViewContainer : '#translatable-page-table'
+        class Views.TranslatedSliderView extends Marionette.CompositeView
 
-            itemViewOptions : ->
-                language = Marionette.getOption @, 'language'
-                editingLanguage : language
+            template : '<div id="translated-page-slider">
+                        </div>'
 
+            itemView : TranslatedSlideView
+
+            itemViewContainer : '#translated-page-slider'
