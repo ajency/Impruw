@@ -576,6 +576,9 @@ and open the template in the editor.
 .contactform label {
   display: none;
 }
+.contactform textarea {
+  resize: vertical;
+}
 .contactform .flat {
   border-radius: 0;
   margin-bottom: 0.8em;
