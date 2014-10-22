@@ -17,16 +17,24 @@ define(['app'], function(App) {
         data = TranslatedSlideItemView.__super__.mixinTemplateHelpers.call(this, data);
         data.captionTitle = function() {
           var captionHtml, captionTitle;
-          captionHtml = data['layers']['0']['text'];
-          captionHtml = '<div>' + captionHtml + '</div>';
-          captionTitle = $(captionHtml).find('.title').html();
+          if (data['layers']['0'] !== void 0) {
+            captionHtml = data['layers']['0']['text'];
+            captionHtml = '<div>' + captionHtml + '</div>';
+            captionTitle = $(captionHtml).find('.title').html();
+          } else {
+            captionTitle = "";
+          }
           return captionTitle;
         };
         data.captionDesc = function() {
           var captionDesc, captionHtml;
-          captionHtml = data['layers']['0']['text'];
-          captionHtml = '<div>' + captionHtml + '</div>';
-          captionDesc = $(captionHtml).find('.text').html();
+          if (data['layers']['0'] !== void 0) {
+            captionHtml = data['layers']['0']['text'];
+            captionHtml = '<div>' + captionHtml + '</div>';
+            captionDesc = $(captionHtml).find('.text').html();
+          } else {
+            captionDesc = "";
+          }
           return captionDesc;
         };
         return data;

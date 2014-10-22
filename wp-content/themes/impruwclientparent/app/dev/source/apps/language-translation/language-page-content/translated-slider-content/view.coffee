@@ -32,14 +32,22 @@ define ['app'], (App)->
             mixinTemplateHelpers: (data)->
                 data = super data
                 data.captionTitle = ->
-                    captionHtml = data['layers']['0']['text']
-                    captionHtml = '<div>'+captionHtml+'</div>'
-                    captionTitle = $(captionHtml).find('.title').html()
+                    if data['layers']['0'] isnt undefined
+                        captionHtml = data['layers']['0']['text']
+                        captionHtml = '<div>'+captionHtml+'</div>'
+                        captionTitle = $(captionHtml).find('.title').html()
+                    else
+                        captionTitle = ""
                     captionTitle
+                    
+                    
                 data.captionDesc = ->
-                    captionHtml = data['layers']['0']['text']
-                    captionHtml = '<div>'+captionHtml+'</div>'
-                    captionDesc = $(captionHtml).find('.text').html()
+                    if data['layers']['0'] isnt undefined
+                        captionHtml = data['layers']['0']['text']
+                        captionHtml = '<div>'+captionHtml+'</div>'
+                        captionDesc = $(captionHtml).find('.text').html()
+                    else
+                        captionDesc = ""
                     captionDesc
                 data
 
