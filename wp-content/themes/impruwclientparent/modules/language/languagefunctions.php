@@ -268,7 +268,7 @@ function get_page_slider_collection($page_id){
     $sliders =  get_page_slider_elements($page_id);
     
     foreach ($sliders as $key => $slider) {
-        $slides_arr = get_slides( $slider['slider_id'] );
+        $slides_arr = get_multilingual_slides( $slider['slider_id'] );
         $sliders[$key]['slides'] = $slides_arr;
     }
 

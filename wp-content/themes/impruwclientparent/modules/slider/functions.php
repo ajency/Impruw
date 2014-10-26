@@ -569,3 +569,47 @@ function get_slide_caption_details($slide_caption_html){
 
     return $caption_details;
 }
+
+
+function get_multilingual_slides($sliderID){
+
+    if ( !slider_exists( $sliderID ) )
+        return array();
+
+    $slider = new RevSlider();
+    $slider->initByID( $sliderID );
+
+
+    $slides     = $slider->getSlides( FALSE );
+    $slides_arr = array();
+    foreach ( $slides as $order => $slide ) {
+
+        $all_array = array('id'          => $slide->getID(),
+                        'link'        => '',
+                        'slide_title' => '',
+                        'thumb_url'   => $slide->getThumbUrl(),
+                        'image_id'    => $slide->getImageID(),
+                        'full_url'    => $slide->getImageUrl(),
+                        'file_name'   => $slide->getImageFilename(),
+                        'order'       => $slide->getOrder(),
+                        'slider_id'   => $slide->getSliderId(),
+                        'layers'      => $slide->getLayers()
+                        );
+
+
+        $parentSlide = $slide->getParentSlide();
+        $childslides_arr=$parentSlide->getArrChildrenLangs(FALSE);
+
+        $lang_slide_array = array();
+
+        foreach ($childslides_arr as $childslide) {
+            $slide_lang = $childslide['lang'];
+            $slide_id = $childslide['slideid'];
+            $lang_slide_array[$slide_lang] = slide_details_array( $slide_id );
+        }
+
+        $lang_slide_array['all'] = $all_array;
+        $slides_arr[ ] = $lang_slide_array;
+    }
+    return $slides_arr;
+}
