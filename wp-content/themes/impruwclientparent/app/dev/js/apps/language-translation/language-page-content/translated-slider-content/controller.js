@@ -22,7 +22,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
       Controller.prototype._getLanguageView = function() {
         return new TranslatedSlider.Views.TranslatedSliderView({
-          collection: this.pageSliderCollection
+          collection: this.pageSliderCollection,
+          language: this.editLang
         });
       };
 

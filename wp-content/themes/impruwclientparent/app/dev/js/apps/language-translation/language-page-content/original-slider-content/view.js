@@ -15,10 +15,11 @@ define(['app'], function(App) {
 
       OriginalSlideItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalSlideItemView.__super__.mixinTemplateHelpers.call(this, data);
+        console.log(data);
         data.captionTitle = function() {
           var captionHtml, captionTitle;
-          if (data['layers']['0'] !== void 0) {
-            captionHtml = data['layers']['0']['text'];
+          if (data[WPML_DEFAULT_LANG]['layers']['0'] !== void 0) {
+            captionHtml = data[WPML_DEFAULT_LANG]['layers']['0']['text'];
             captionHtml = '<div>' + captionHtml + '</div>';
             captionTitle = $(captionHtml).find('.title').html();
           } else {
@@ -28,8 +29,8 @@ define(['app'], function(App) {
         };
         data.captionDesc = function() {
           var captionDesc, captionHtml;
-          if (data['layers']['0'] !== void 0) {
-            captionHtml = data['layers']['0']['text'];
+          if (data[WPML_DEFAULT_LANG]['layers']['0'] !== void 0) {
+            captionHtml = data[WPML_DEFAULT_LANG]['layers']['0']['text'];
             captionHtml = '<div>' + captionHtml + '</div>';
             captionDesc = $(captionHtml).find('.text').html();
           } else {
@@ -59,6 +60,7 @@ define(['app'], function(App) {
       OriginalSlideView.prototype.initialize = function() {
         var collection;
         collection = new Backbone.Collection(this.model.get('slides'));
+        console.log(collection);
         return this.collection = collection;
       };
 

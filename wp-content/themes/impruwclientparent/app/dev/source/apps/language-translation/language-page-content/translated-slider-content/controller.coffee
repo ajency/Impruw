@@ -21,6 +21,7 @@ define ['app', 'controllers/base-controller'
             _getLanguageView :->
                 new TranslatedSlider.Views.TranslatedSliderView
                     collection: @pageSliderCollection
+                    language: @editLang
 
         App.commands.setHandler "translated:slider:content:app", (opts) ->
             new TranslatedSlider.Controller opts

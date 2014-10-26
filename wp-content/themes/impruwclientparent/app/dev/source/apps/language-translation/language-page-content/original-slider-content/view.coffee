@@ -27,9 +27,10 @@ define ['app'], (App)->
 
             mixinTemplateHelpers: (data)->
                 data = super data
+                console.log data
                 data.captionTitle = ->
-                    if data['layers']['0'] isnt undefined
-                        captionHtml = data['layers']['0']['text']
+                    if data[WPML_DEFAULT_LANG]['layers']['0'] isnt undefined
+                        captionHtml = data[WPML_DEFAULT_LANG]['layers']['0']['text']
                         captionHtml = '<div>'+captionHtml+'</div>'
                         captionTitle = $(captionHtml).find('.title').html()
                     else
@@ -38,8 +39,8 @@ define ['app'], (App)->
                     
                     
                 data.captionDesc = ->
-                    if data['layers']['0'] isnt undefined
-                        captionHtml = data['layers']['0']['text']
+                    if data[WPML_DEFAULT_LANG]['layers']['0'] isnt undefined
+                        captionHtml = data[WPML_DEFAULT_LANG]['layers']['0']['text']
                         captionHtml = '<div>'+captionHtml+'</div>'
                         captionDesc = $(captionHtml).find('.text').html()
                     else
@@ -61,6 +62,7 @@ define ['app'], (App)->
 
             initialize :->
                 collection = new Backbone.Collection @model.get('slides')
+                console.log collection
                 @collection = collection
 
 

@@ -9,9 +9,8 @@ define ['app'], (App)->
                     <div class="col-sm-12"> 
                         <div class="form-group trans-field"> 
                             <div class="col-sm-10"> 
-                                <div class="form-control translated-element-content title">
-                                    <p>{{captionTitle}}</p>
-                                </div>
+                                    <input type="text" class="form-control translated-element-content title" id="translated-slidercaption-title" value="{{captionTitle}}">
+                               
                             </div> 
                         </div> 
                     </div>
@@ -19,11 +18,8 @@ define ['app'], (App)->
                 <div class="form-group legend-group">
                     <div class="col-sm-12"> 
                         <div class="form-group trans-field"> 
-                            <div class="col-sm-10"> 
-                                <div class="form-control translated-element-content text">
-                                    <p>{{captionDesc}}</p>
-                                </div> 
-                                <button id="btn-save-slider-translation-element" class="btn btn-xs trans-action aj-imp-orange-btn"> Save </button> 
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control translated-element-content text" id="translated-slidercaption-desc" value="{{captionDesc}}"><button id="btn-save-slider-translation-element" class="btn btn-xs trans-action aj-imp-orange-btn"> Save </button> 
                             </div> 
                         </div> 
                     </div>
@@ -31,21 +27,33 @@ define ['app'], (App)->
 
             mixinTemplateHelpers: (data)->
                 data = super data
+
+                editingLanguage = Marionette.getOption @, 'editingLanguage'
+
+                console.log editingLanguage+" is the editing language"
+
                 data.captionTitle = ->
-                    if data['layers']['0'] isnt undefined
-                        captionHtml = data['layers']['0']['text']
-                        captionHtml = '<div>'+captionHtml+'</div>'
-                        captionTitle = $(captionHtml).find('.title').html()
+                    if data[editingLanguage] isnt undefined
+                        if data[editingLanguage]['layers']['0'] isnt undefined
+                            captionHtml = data[editingLanguage]['layers']['0']['text']
+                            captionHtml = '<div>'+captionHtml+'</div>'
+                            captionTitle = $(captionHtml).find('.title').html()
+                        else
+                            captionTitle = "No caption title added"
                     else
                         captionTitle = ""
+
                     captionTitle
                     
                     
                 data.captionDesc = ->
-                    if data['layers']['0'] isnt undefined
-                        captionHtml = data['layers']['0']['text']
-                        captionHtml = '<div>'+captionHtml+'</div>'
-                        captionDesc = $(captionHtml).find('.text').html()
+                    if data[editingLanguage] isnt undefined
+                        if data[editingLanguage]['layers']['0'] isnt undefined
+                            captionHtml = data[editingLanguage]['layers']['0']['text']
+                            captionHtml = '<div>'+captionHtml+'</div>'
+                            captionDesc = $(captionHtml).find('.text').html()
+                        else
+                            captionDesc = "No caption description added"
                     else
                         captionDesc = ""
                     captionDesc
@@ -67,6 +75,10 @@ define ['app'], (App)->
                 collection = new Backbone.Collection @model.get('slides')
                 @collection = collection
 
+            itemViewOptions : ->
+                editingLanguage = Marionette.getOption @, 'editingLanguage'
+                editingLanguage : editingLanguage
+
 
 
         class Views.TranslatedSliderView extends Marionette.CompositeView
@@ -77,3 +89,7 @@ define ['app'], (App)->
             itemView : TranslatedSlideView
 
             itemViewContainer : '#translated-page-slider'
+
+            itemViewOptions : ->
+                language = Marionette.getOption @, 'language'
+                editingLanguage : language
