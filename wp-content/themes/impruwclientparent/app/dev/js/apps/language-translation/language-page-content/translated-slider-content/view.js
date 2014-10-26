@@ -11,7 +11,11 @@ define(['app'], function(App) {
         return TranslatedSlideItemView.__super__.constructor.apply(this, arguments);
       }
 
-      TranslatedSlideItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content title" id="translated-slidercaption-title" value="{{captionTitle}}"> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content text" id="translated-slidercaption-desc" value="{{captionDesc}}"><button id="btn-save-slider-translation-element" class="btn btn-xs trans-action aj-imp-orange-btn"> Save </button> </div> </div> </div> </div>';
+      TranslatedSlideItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content title" id="translated-slidercaption-title" value="{{captionTitle}}"> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content text" id="translated-slidercaption-desc" value="{{captionDesc}}"> <input type="hidden" id="translated-slideparent-id" value="{{slideParentId}}"> <input type="hidden" id="translated-slider-id" value="{{sliderId}}"> <button id="btn-save-slider-translation-element" class="btn btn-xs trans-action aj-imp-orange-btn"> Save </button> </div> </div> </div> </div>';
+
+      TranslatedSlideItemView.prototype.events = {
+        "click #btn-save-slider-translation-element": "updatePageSlide"
+      };
 
       TranslatedSlideItemView.prototype.mixinTemplateHelpers = function(data) {
         var editingLanguage;
@@ -48,7 +52,31 @@ define(['app'], function(App) {
           }
           return captionDesc;
         };
+        data.slideParentId = function() {
+          var parentId;
+          parentId = data['all']['id'];
+          return parentId;
+        };
+        data.sliderId = function() {
+          var sliderId;
+          sliderId = data['all']['slider_id'];
+          return sliderId;
+        };
         return data;
+      };
+
+      TranslatedSlideItemView.prototype.updatePageSlide = function(e) {
+        var newCaptionDesc, newCaptionTitle, slideParentId, sliderId;
+        e.preventDefault();
+        console.log("update page slide");
+        newCaptionTitle = this.$el.find('#translated-slidercaption-title').val();
+        newCaptionDesc = this.$el.find('#translated-slidercaption-desc').val();
+        slideParentId = this.$el.find('#translated-slideparent-id').val();
+        sliderId = this.$el.find('#translated-slider-id').val();
+        console.log(newCaptionTitle);
+        console.log(newCaptionDesc);
+        console.log(slideParentId);
+        return this.trigger("page:slide:updated", newCaptionTitle, newCaptionDesc, slideParentId, sliderId);
       };
 
       return TranslatedSlideItemView;

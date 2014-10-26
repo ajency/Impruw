@@ -12,16 +12,36 @@ define ['app', 'controllers/base-controller'
                 # get page slider collection
                 @pageSliderCollection = App.request "get:page:slider:elements" , @pageId , @editLang
 
-                @tanslatedContentView = @_getLanguageView()
+                @translatedContentView = @_getLanguageView()
+
+                @listenTo @translatedContentView, "itemview:itemview:page:slide:updated", @updatePageSlideContent
 
                 #function to load view
-                @show @tanslatedContentView,
+                @show @translatedContentView,
                     loading: true
 
             _getLanguageView :->
                 new TranslatedSlider.Views.TranslatedSliderView
                     collection: @pageSliderCollection
                     language: @editLang
+
+            updatePageSlideContent :(outerview,innerview, newCaptionTitle,newCaptionDesc,slideParentId,sliderId)->
+
+                model = innerview.model
+                console.log model
+                data =
+                    newCaptionTitle: newCaptionTitle
+                    newCaptionDesc: newCaptionDesc
+                    language: @editLang
+                    slideParentId: slideParentId
+                    sliderId: sliderId
+
+                console.log data
+
+                responseFn = (response)=>
+                    console.log "Success"
+
+                $.post "#{AJAXURL}?action=update-translated-page-slide", data, responseFn, 'json'
 
         App.commands.setHandler "translated:slider:content:app", (opts) ->
             new TranslatedSlider.Controller opts

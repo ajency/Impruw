@@ -19,11 +19,17 @@ define ['app'], (App)->
                     <div class="col-sm-12"> 
                         <div class="form-group trans-field"> 
                             <div class="col-sm-10">
-                                <input type="text" class="form-control translated-element-content text" id="translated-slidercaption-desc" value="{{captionDesc}}"><button id="btn-save-slider-translation-element" class="btn btn-xs trans-action aj-imp-orange-btn"> Save </button> 
+                                <input type="text" class="form-control translated-element-content text" id="translated-slidercaption-desc" value="{{captionDesc}}">
+                                    <input type="hidden" id="translated-slideparent-id" value="{{slideParentId}}">
+                                    <input type="hidden" id="translated-slider-id" value="{{sliderId}}">
+                                    <button id="btn-save-slider-translation-element" class="btn btn-xs trans-action aj-imp-orange-btn"> Save </button> 
                             </div> 
                         </div> 
                     </div>
                 </div>'
+
+            events:
+                "click #btn-save-slider-translation-element" : "updatePageSlide"
 
             mixinTemplateHelpers: (data)->
                 data = super data
@@ -57,7 +63,29 @@ define ['app'], (App)->
                     else
                         captionDesc = ""
                     captionDesc
+
+                data.slideParentId = ->
+                    parentId = data['all']['id']
+                    parentId
+
+                data.sliderId = ->
+                    sliderId = data['all']['slider_id']
+                    sliderId
                 data
+
+            updatePageSlide:(e) ->
+                e.preventDefault()
+                console.log "update page slide"
+                newCaptionTitle  = @$el.find('#translated-slidercaption-title').val()
+                newCaptionDesc = @$el.find('#translated-slidercaption-desc').val()
+                slideParentId = @$el.find('#translated-slideparent-id').val()
+                sliderId = @$el.find('#translated-slider-id').val()
+
+                console.log newCaptionTitle
+                console.log newCaptionDesc
+                console.log slideParentId
+                
+                @trigger "page:slide:updated", newCaptionTitle, newCaptionDesc, slideParentId,sliderId
 
         class TranslatedSlideView extends Marionette.CompositeView
 

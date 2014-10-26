@@ -184,6 +184,28 @@ function update_slide_ajax() {
 
 add_action( 'wp_ajax_update-slide', 'update_slide_ajax' );
 
+
+function update_translated_page_slide_ajax(){
+
+    $parent_slide_id = $_POST[ 'slideParentId' ];
+    $slider_id = $_POST[ 'sliderId' ];
+    $new_caption_title = $_POST[ 'newCaptionTitle' ];
+    $new_caption_desc = $_POST[ 'newCaptionDesc' ];
+    $slide_language = $_POST[ 'language' ];
+
+    //Check if translated slide exists -> get slide id
+
+    //If not then create a translated slide -> get slide id
+
+    //Using translated slide id -> get slide $data
+
+    //modify $data['layers'][0]['text'] to reflect $new_caption_title and $new_caption_desc
+
+    //Using slide data -> update_slide( $data, $slide_id, $slide_language, $parent_slide_id)
+
+}
+add_action( 'wp_ajax_update-translated-page-slide', 'update_translated_page_slide_ajax' );
+
 function delete_slide() {
 
     $slider_id = $_POST[ 'slider_id' ];

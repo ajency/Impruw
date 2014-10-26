@@ -613,3 +613,25 @@ function get_multilingual_slides($sliderID){
     }
     return $slides_arr;
 }
+
+
+//function to get the languages in which a slide is available
+function get_languages_of_slide($slide_id){
+    $slide = new RevSlide();
+
+    $slide->initByID( $slide_id );
+    $available_slide_lang = $slide->getArrChildLangCodes();
+
+    return $available_slide_lang;
+}
+
+//check if slide exists in given language
+function slide_exists_in_lang($slide_id, $language){
+    $slide_language_array = get_languages_of_slide($slide_id);
+    if (in_array($language, $slide_language_array)) {
+        return true;
+    }
+    else{
+        return false;
+    }
+}

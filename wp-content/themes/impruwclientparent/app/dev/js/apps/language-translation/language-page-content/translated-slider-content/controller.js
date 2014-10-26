@@ -14,8 +14,9 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.pageId = opts.pageId;
         this.editLang = opts.editLang;
         this.pageSliderCollection = App.request("get:page:slider:elements", this.pageId, this.editLang);
-        this.tanslatedContentView = this._getLanguageView();
-        return this.show(this.tanslatedContentView, {
+        this.translatedContentView = this._getLanguageView();
+        this.listenTo(this.translatedContentView, "itemview:itemview:page:slide:updated", this.updatePageSlideContent);
+        return this.show(this.translatedContentView, {
           loading: true
         });
       };
@@ -25,6 +26,26 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
           collection: this.pageSliderCollection,
           language: this.editLang
         });
+      };
+
+      Controller.prototype.updatePageSlideContent = function(outerview, innerview, newCaptionTitle, newCaptionDesc, slideParentId, sliderId) {
+        var data, model, responseFn;
+        model = innerview.model;
+        console.log(model);
+        data = {
+          newCaptionTitle: newCaptionTitle,
+          newCaptionDesc: newCaptionDesc,
+          language: this.editLang,
+          slideParentId: slideParentId,
+          sliderId: sliderId
+        };
+        console.log(data);
+        responseFn = (function(_this) {
+          return function(response) {
+            return console.log("Success");
+          };
+        })(this);
+        return $.post("" + AJAXURL + "?action=update-translated-page-slide", data, responseFn, 'json');
       };
 
       return Controller;
