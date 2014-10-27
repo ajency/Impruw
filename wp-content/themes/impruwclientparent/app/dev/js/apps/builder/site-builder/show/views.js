@@ -413,12 +413,20 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       __extends(Builder, _super);
 
       function Builder() {
+        this.onLetUsKnowClicked = __bind(this.onLetUsKnowClicked, this);
+        this.errorNotified = __bind(this.errorNotified, this);
+        this.showRenderError = __bind(this.showRenderError, this);
         this.elementDropped = __bind(this.elementDropped, this);
         this._getHelper = __bind(this._getHelper, this);
+        this.onRetryEditPageClicked = __bind(this.onRetryEditPageClicked, this);
         return Builder.__super__.constructor.apply(this, arguments);
       }
 
       Builder.prototype.template = '<header id="site-header-region" class="droppable-column"></header> <div id="site-page-content-region" class="droppable-column"></div> <footer id="site-footer-region" class="droppable-column"></footer>';
+
+      Builder.prototype.onRetryEditPageClicked = function() {
+        return App.commands.execute('editable:page:changed', this.model.get('page_id'));
+      };
 
       Builder.prototype.onShow = function() {
         return this.$el.find('.droppable-column').sortable({
@@ -464,6 +472,40 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           metaId = metaId !== void 0 ? parseInt(metaId) : 0;
           return this.trigger("add:new:element", $(evt.target), type, metaId);
         }
+      };
+
+      Builder.prototype.onPageRenderFailed = function() {
+        return this.showRenderError();
+      };
+
+      Builder.prototype.showRenderError = function() {
+        this.$el.addClass('dsdsds');
+        this.$el.prepend('<h3>Failed to render view</h3> <button class="retry-edit-page">Retry</button> <button class="let-us-know">Let us know about this</button>');
+        this.$el.find('.retry-edit-page').on('click', this.onRetryEditPageClicked);
+        return this.$el.find('.let-us-know').on('click', this.onLetUsKnowClicked);
+      };
+
+      Builder.prototype.errorNotified = function() {
+        return this.$el.find('.let-us-know').after('Error reported successfully');
+      };
+
+      Builder.prototype.onLetUsKnowClicked = function() {
+        var deferred, error;
+        error = {
+          type: 'page_load_failed',
+          user_id: window.USER.ID,
+          details: {
+            page_id: this.model.get('page_id'),
+            blog_id: window.BLOGID,
+            message: 'Page load failed in builder'
+          }
+        };
+        deferred = App.request('error:encountered', error);
+        return deferred.always((function(_this) {
+          return function() {
+            return _this.errorNotified();
+          };
+        })(this));
       };
 
       return Builder;

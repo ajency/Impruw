@@ -65,6 +65,7 @@ define [ 'app'
             @$el.empty()   
             @$el.fadeIn()
 
+
          handleWindowEvents : ->
             
             $(window).on 'unload.site-builder', @windowUnloadHandler
@@ -364,7 +365,11 @@ define [ 'app'
                      <div id="site-page-content-region" class="droppable-column"></div>
                      <footer id="site-footer-region" class="droppable-column"></footer>'
 
+         onRetryEditPageClicked : =>
+            App.commands.execute 'editable:page:changed', @model.get 'page_id'
+
          onShow : ->
+
             @$el.find( '.droppable-column' ).sortable
                revert : 'invalid'
                items : '> .element-wrapper'
@@ -408,3 +413,30 @@ define [ 'app'
                metaId = ui.item.attr 'data-meta-id'
                metaId = if metaId isnt undefined then parseInt( metaId ) else 0
                @trigger "add:new:element", $( evt.target ), type, metaId
+
+         onPageRenderFailed : ->
+            @showRenderError()
+
+         showRenderError : =>
+            @$el.addClass  'dsdsds'
+            @$el.prepend '<h3>Failed to render view</h3>
+                        <button class="retry-edit-page">Retry</button>
+                        <button class="let-us-know">Let us know about this</button>'
+            @$el.find('.retry-edit-page').on 'click', @onRetryEditPageClicked
+            @$el.find('.let-us-know').on 'click', @onLetUsKnowClicked
+           
+         errorNotified : =>
+            @$el.find('.let-us-know').after 'Error reported successfully'
+
+         onLetUsKnowClicked : =>
+            error = 
+               type : 'page_load_failed'
+               user_id : window.USER.ID
+               details : 
+                  page_id : @model.get 'page_id'
+                  blog_id : window.BLOGID
+                  message : 'Page load failed in builder'
+
+            deferred = App.request 'error:encountered', error
+            deferred.always =>
+               @errorNotified()
