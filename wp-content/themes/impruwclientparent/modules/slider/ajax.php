@@ -216,15 +216,34 @@ function update_translated_page_slide_ajax(){
     $reference_slide_caption =  get_slide_captionhtml($parent_slide_id);
     //newcaption = reference caption with new title and desc
     if ($reference_slide_caption=="") {
-        $reference_slide_caption_title = "";
-        $reference_slide_caption_desc = "";
+        $reference_slide_caption_title_class = "";
     }
     else{
         $reference_slide_caption_details = get_slide_caption_details($reference_slide_caption);
         $reference_slide_caption_title_class = $reference_slide_caption_details['caption_title_class'];
+
+        if ($reference_slide_caption_details['caption_title_link']!="") {
+            $reference_slide_title_link =$reference_slide_caption_details['caption_title_link'];
+        }
+        if ($reference_slide_caption_details['caption_title_link_target']!="") {
+            $reference_slide_title_link_target = $reference_slide_caption_details['caption_title_link_target'];
+        }
     }
 
-    $new_caption =  "<h3 class='".$reference_slide_caption_title_class."' data-title='".$new_caption_title."'>".$new_caption_title."</h3><div class='text' data-capdesc='".$new_caption_desc."'>".$new_caption_desc."</div>";
+    // $new_caption =  "<h3 class='".$reference_slide_caption_title_class."' data-title='".$new_caption_title."'>".$new_caption_title."</h3><div class='text' data-capdesc='".$new_caption_desc."'>".$new_caption_desc."</div>";
+
+    $new_caption = "<h3 class='".$reference_slide_caption_title_class."' data-title='".$new_caption_title."'>";
+
+    if(isset($reference_slide_title_link)){
+        $new_caption .=  "<a href='".$reference_slide_title_link."' target='".$reference_slide_title_link_target."'>";
+    }
+    
+    $new_caption .=  $new_caption_title;
+
+    if(isset($reference_slide_title_link)){
+        $new_caption .=  "</a>" ;
+    }
+    $new_caption .=  "</h3><div class='text' data-capdesc='".$new_caption_desc."'>".$new_caption_desc."</div>";
 
     $data['layers'][0]['text'] = $new_caption;
     

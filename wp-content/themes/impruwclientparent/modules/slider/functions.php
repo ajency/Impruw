@@ -395,15 +395,48 @@ function update_slide( $data, $slide_id, $language='all', $parent_slide=0) {
     $new_caption_title = $new_caption_details['caption_title'];
     $new_caption_title_class = $new_caption_details['caption_title_class'];
     $new_caption_desc = $new_caption_details['caption_description'];
+
+    if ($new_caption_details['caption_title_link']!="") {
+        $new_caption_title_link =$new_caption_details['caption_title_link'];
+    }
+    if ($new_caption_details['caption_title_link_target']!="") {
+        $new_caption_title_link_target = $new_caption_details['caption_title_link_target'];
+    }
     
     $default_language = wpml_get_default_language();
 
     //Modify caption only for default language, for other languages keep the previous caption
     if (($language==='all')||($language===$default_language)) {
-        $new_caption =  "<h3 class='".$new_caption_title_class."' data-title='".$new_caption_title."'>".$new_caption_title."</h3><div class='text' data-capdesc='".$new_caption_desc."'>".$new_caption_desc."</div>";
+        // $new_caption =  "<h3 class='".$new_caption_title_class."' data-title='".$new_caption_title."'>".$new_caption_title."</h3><div class='text' data-capdesc='".$new_caption_desc."'>".$new_caption_desc."</div>";
+
+        $new_caption = "<h3 class='".$new_caption_title_class."' data-title='".$new_caption_title."'>";
+        if(isset($new_caption_title_link)){
+            $new_caption .=  "<a href='".$new_caption_title_link."' target='".$new_caption_title_link_target."'>";
+        }
+            
+            
+        $new_caption .=  $new_caption_title;
+
+        if(isset($new_caption_title_link)){
+            $new_caption .=  "</a>" ;
+        }
+        $new_caption .=  "</h3><div class='text' data-capdesc='".$new_caption_desc."'>".$new_caption_desc."</div>";
+
     }
     else{
-        $new_caption =  "<h3 class='".$new_caption_title_class."' data-title='".$old_caption_title."'>".$old_caption_title."</h3><div class='text' data-capdesc='".$old_caption_desc."'>".$old_caption_desc."</div>";
+        // $new_caption =  "<h3 class='".$new_caption_title_class."' data-title='".$old_caption_title."'>".$old_caption_title."</h3><div class='text' data-capdesc='".$old_caption_desc."'>".$old_caption_desc."</div>";
+        $new_caption = "<h3 class='".$new_caption_title_class."' data-title='".$old_caption_title."'>";
+        if(isset($new_caption_title_link)){
+            $new_caption .=  "<a href='".$new_caption_title_link."' target='".$new_caption_title_link_target."'>";
+        }
+            
+            
+        $new_caption .=  $old_caption_title;
+
+        if(isset($new_caption_title_link)){
+            $new_caption .=  "</a>" ;
+        }
+        $new_caption .=  "</h3><div class='text' data-capdesc='".$old_caption_desc."'>".$old_caption_desc."</div>";
     }
 
     $data['layers'][0]['text'] = $new_caption;
@@ -546,6 +579,8 @@ function get_slide_captionhtml($slide_id){
 
 function get_slide_caption_details($slide_caption_html){
     $dom = new DOMDocument();
+    // $slide_caption_html ='<h3 class="title sub-title" data-title="fr title">fr title</h3><div class="text" data-capdesc="dis is descccc">dis is descccc</div>';
+
     $dom->loadHTML(stripslashes($slide_caption_html));
 
     $caption_details = array();
@@ -557,11 +592,23 @@ function get_slide_caption_details($slide_caption_html){
     { 
         $title = $searchNode->getAttribute('data-title');
         $title_class = $searchNode->getAttribute('class');
+        $title_href = $searchNode->getAttribute('href');
 
     }
 
     $caption_details['caption_title'] = $title;  
     $caption_details['caption_title_class'] = $title_class;
+
+
+    $searchNode = $dom->getElementsByTagName( "a" ); 
+    foreach( $searchNode as $searchNode ) 
+    { 
+        $title_href = $searchNode->getAttribute('href');
+        $title_href_target = $searchNode->getAttribute('target');
+
+    }
+    $caption_details['caption_title_link'] =  isset($title_href) ? $title_href : '' ;
+    $caption_details['caption_title_link_target'] =  isset($title_href_target) ? $title_href_target : '' ;
 
     $searchNode = $dom->getElementsByTagName( "div" ); 
 
@@ -571,7 +618,7 @@ function get_slide_caption_details($slide_caption_html){
         $description = $searchNode->getAttribute('data-capdesc');
 
     }
-    $caption_details['caption_description'] = $retVal = isset($description) ? $description : '' ;
+    $caption_details['caption_description'] = isset($description) ? $description : '' ;
 
     return $caption_details;
 }
