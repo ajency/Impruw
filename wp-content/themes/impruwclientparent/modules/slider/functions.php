@@ -539,7 +539,7 @@ function update_translated_slides($data, $slider_id,$parent_id){
 function get_slide_captionhtml($slide_id){
     $slide_data = slide_details_array($slide_id);
 
-    $caption_html = isset($slide_data['layers']) ? $slide_data['layers'][0]['text'] : "" ;
+    $caption_html = isset($slide_data['layers'][0]) ? $slide_data['layers'][0]['text'] : "" ;
     return $caption_html;
 }
 
