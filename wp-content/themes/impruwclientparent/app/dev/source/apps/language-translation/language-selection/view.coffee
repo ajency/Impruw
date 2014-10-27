@@ -30,7 +30,7 @@ define ['app'
 
 
             onShow: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
 
 
             saveLanguage: (evt)->
@@ -66,7 +66,7 @@ define ['app'
 
                 @viewHiddenLanguageList()
 
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
 
             serializeData: ->
                 data = super()
@@ -106,7 +106,7 @@ define ['app'
             hideLanguage:(e) ->
                 e.preventDefault()
 
-                arr = @$el.find("div#hide-langs input[type='checkbox']")
+                arr = @$el.find("ul#hide-langs input[type='checkbox']")
                 hiddenlanguages = new Array()
                 jQuery.each arr, ->
                     hiddenlanguages.push @value  if @checked
@@ -224,7 +224,7 @@ define ['app'
                 @$el.find('select').selectpicker('refresh')
 
                 @$el.find("#hide-langs").html(htmlforHiddenLangView)
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
 
 
                 @$el.find('.alert').remove()

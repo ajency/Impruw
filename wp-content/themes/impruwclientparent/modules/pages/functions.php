@@ -412,6 +412,7 @@ function validate_element( &$element ) {
 
     $numkeys = array( 'id', 'meta_id', 'menu_id', 'ID', 'image_id' );
     $boolkey = array( 'draggable', 'justified' );
+    $textkey = array( 'content', 'text' );
 
     if ( !is_array( $element ) && !is_object( $element ) )
         return $element;
@@ -421,10 +422,31 @@ function validate_element( &$element ) {
             $element[ $key ] = (int)$val;
         if ( in_array( $key, $boolkey ) )
             $element[ $key ] = $val === "true";
+        if ( in_array( $key, $textkey ) )
+            $element[ $key ] = strip_backslashes_from_text($element[ $key ]);
     }
 
     return $element;
 }
+
+/**
+ * Strips all backslashes from the text
+ * @param  [type] $text_array [description]
+ * @return [type]             [description]
+ */
+function strip_backslashes_from_text($text_array){
+
+    if(!is_array($text_array)){
+        return $text_array;
+    }
+
+    foreach($text_array as $lang => $text){
+        $text_array[$lang] = preg_replace('/\\\\/', '', $text);
+    }
+
+    return $text_array;
+}
+
 
 /**
  * this function will set the fetched json data from on site to another

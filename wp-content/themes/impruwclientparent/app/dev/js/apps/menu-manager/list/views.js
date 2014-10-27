@@ -75,7 +75,7 @@ define(['app'], function(App) {
         return MenuCollectionView.__super__.constructor.apply(this, arguments);
       }
 
-      MenuCollectionView.prototype.template = '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">{{menu_name}}</h3> </div> <ol class="list-group sortable-menu-items ui-sortable"></ol> </div>';
+      MenuCollectionView.prototype.template = '<div class="panel panel-default"> <ol class="list-group sortable-menu-items ui-sortable"></ol> </div>';
 
       MenuCollectionView.prototype.itemView = MenuItemView;
 

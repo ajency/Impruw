@@ -76,6 +76,11 @@ function get_menu_items() {
             )
         ),
         array(
+            'url' => '#/emails',
+            'title' => 'Emails',
+            'icon' => 'envelope',
+        ),
+        array(
             'url' => '#/seo',
             'title' => 'SEO',
             'icon' => 'magnifier',
@@ -825,3 +830,15 @@ function get_site_socials() {
 }
 
 add_action( 'wp_ajax_get-site-socials', 'get_site_socials' );
+
+function impruw_error_encountered(){
+
+    $error = $_REQUEST['error'];
+    ob_start();
+    print_r($error);
+    $html = ob_get_clean();
+    wp_mail('impruw@ajency.in', 'Impruw Error On Live', $html);
+    wp_die();
+}
+add_action( 'wp_ajax_impruw_error_encountered', 'impruw_error_encountered' );
+add_action( 'wp_ajax_nopriv_impruw_error_encountered', 'impruw_error_encountered' );

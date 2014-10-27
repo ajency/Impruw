@@ -10,7 +10,7 @@ define(['app', 'plupload'], function(App, plupload, uploadTpl) {
         return UploadView.__super__.constructor.apply(this, arguments);
       }
 
-      UploadView.prototype.template = '<div class="aj-imp-upload-media"><span class="bicon icon-uniF10C"></span> <div id="choosefiles" class="aj-imp-upload-message"><span class="glyphicon glyphicon-cloud-upload"></span> {{#polyglot}}Upload Images{{/polyglot}} </div> <span class="small-text">{{#polyglot}}Upload Multiple Images{{/polyglot}}</span> <div class="clear"></div> <br/> <div class="progress-text"></div> <div id="progress" style="width: 30%; margin: 0px auto; display: none;" class="progress progress-striped active"> <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="progress-bar"></div> <span class="sr-only">{{#polyglot}}0% Complete{{/polyglot}} </span> </div> </div>';
+      UploadView.prototype.template = '<div class="aj-imp-upload-media"><span class="bicon icon-uniF10C"></span> <div id="choosefiles" class="aj-imp-upload-message"><span class="glyphicon glyphicon-cloud-upload"></span> {{#polyglot}}Upload Images{{/polyglot}} </div> <span class="small-text">{{#polyglot}}Upload Multiple Images{{/polyglot}}</span> <div class="clear"></div> <br/> <div class="progress-text"></div> <div id="progress" style="width: 30%; margin: 0px auto; display: none;" class="progress progress-striped active"> <div role="progressbar" class="progress-bar  progress-bar-info"></div> <span class="sr-only">{{#polyglot}}0% Complete{{/polyglot}} </span> </div> </div>';
 
       UploadView.prototype.onShow = function() {
         this.uploaded = 0;

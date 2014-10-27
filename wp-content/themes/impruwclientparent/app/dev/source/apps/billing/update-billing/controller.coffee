@@ -36,7 +36,7 @@ define [ 'app', 'controllers/base-controller'
             template: viewTpl
 
             onShow: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
 
             regions:
                 cardRegion : '#card-region'

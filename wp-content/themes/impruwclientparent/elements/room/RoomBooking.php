@@ -48,11 +48,7 @@ class RoomBooking extends Element {
      */
     function generate_markup() {
         $html = '
-         <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/jquery.ui.min.js"></script>
-          <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment.min.js"></script>
-              <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment-range.js"></script>
-              
-            <h4 class="booking-title">'.__("Booking &amp; Availability","impruwclientparent").'</h4>
+         <h4 class="booking-title">'.__("Booking &amp; Availability","impruwclientparent").'</h4>
             <div class="room-booking front" id="room-booking-region">
 
                 <div class="row room-booking-container">
@@ -154,11 +150,7 @@ class RoomBooking extends Element {
         $currency = get_option( 'currency', 'NOK' );
 
         $html = '
-         <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/jquery.ui.min.js"></script>
-          <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment.min.js"></script>
-              <script src="' . site_url() . '/wp-content/themes/impruwclientparent/dashboard/lib/moment-range.js"></script>
-
-            <h4 class="booking-title">'.__("Booking &amp; Availability","impruwclientparent").'</h4>
+         <h4 class="booking-title">'.__("Booking &amp; Availability","impruwclientparent").'</h4>
             <div class="room-booking front" id="room-booking-region">
 
                 <div class="row room-booking-container">

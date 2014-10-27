@@ -79,9 +79,6 @@ define [ 'app'], ( App )->
 
 
          template : '<div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{{menu_name}}</h3>
-                        </div>
                         <ol class="list-group sortable-menu-items ui-sortable"></ol>
                     </div>'
 
