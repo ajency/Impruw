@@ -27,7 +27,7 @@
         <div id="aj-imp-right" class="aj-imp-right col-md-9 col-sm-8"></div>
         <!-- /aj-imp-right -->
     </div>
-    <div class="row" id="footer-section">
+    <div class="row hidden" id="footer-section">
         <div class="aj-imp-foot-left col-md-3 col-sm-4">
             &nbsp;
         </div>

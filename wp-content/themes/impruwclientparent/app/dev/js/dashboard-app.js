@@ -39,7 +39,8 @@ define(['marionette'], function(Marionette) {
       };
       $('body').addClass('pace-min-theme');
       return $('#initial-loader').fadeOut('fast', function() {
-        return $('#initial-loader').remove();
+        $('#initial-loader').remove();
+        return $('#footer-section').removeClass('hidden');
       });
     });
     App.startHistory();

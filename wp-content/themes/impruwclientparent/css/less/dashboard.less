@@ -14,6 +14,7 @@ Version:        0.1.0
 /****Reset Body Font Size****/
 body{
   font-size:14px;
+  line-height: 1.2;
 }
 
 /****Colors****/
@@ -350,6 +351,7 @@ p {
 								font-size: 0.8em;
 								text-transform: capitalize;
 								font-weight: 300;
+								color: @blue-grey;
 							}
 						}
 						p {
@@ -517,6 +519,8 @@ form {
 		&.checkbox, &.radio {
 			padding-top: 0 !important;
 			.custom-checkbox, .custom-radio {
+				z-index: 1;
+				cursor: pointer;
 				&:checked {
 					& + .icons {
 						color: @dash-grey;
@@ -539,6 +543,7 @@ form {
 			left: 0;
 			padding: 0;
 			line-height: 1.6;
+			font-weight: 300;
 			small {
 				display: block;
 				font-weight: 300;
@@ -1383,6 +1388,12 @@ form {
 					&:hover {
 						background: lighten(@orange, 20%);
 					}
+				}
+			}
+			.modal-body {
+				margin-bottom: 0.5em;
+				.modal-footer {
+					margin: 0 -0.5em -2.5em;
 				}
 			}
 		}
@@ -3985,6 +3996,7 @@ form {
 					margin-bottom: 0;
 					.aj-imp-widget-title {
 						border-bottom: 1px dotted @dash-grey;
+
 					}
 				}
 			}
@@ -4017,7 +4029,6 @@ form {
 					padding: 0;
 					border: 0;
 					table {
-						margin-bottom: 0;
 						td, th {
 							border: 1px solid @dash-grey
 						}
@@ -4029,16 +4040,6 @@ form {
 							line-height: 1.231;
 							letter-spacing: 0 !important;
 						}
-					}
-				}
-			}
-			.original-slider-content {
-				.legend-group {
-					.text {
-						margin-bottom: 0.5em;
-					}
-					&:nth-child(2n+1) {
-						border-bottom: 1px dotted @dash-grey;
 					}
 				}
 			}
@@ -4265,19 +4266,6 @@ form {
 			}
 		}
 	}
-	.translated-slider-content {
-		.legend-group {
-			.text {
-				margin-bottom: 0.425em;
-			}
-			.trans-action {
-				bottom: 0.425em;
-			}
-			&:nth-child(2n+1) {
-				border-bottom: 1px dotted @dash-grey;
-			}
-		}
-	}
 	.room-element-head {
 		.col-sm-7 {
 			> div {
@@ -4434,6 +4422,7 @@ form {
 			border-radius: 3px;
 			background: #fff;
 			position: relative;
+			cursor: pointer;
 			.ticker {
 				position: absolute;
 				top: -7px;
@@ -4445,6 +4434,7 @@ form {
 				background: @orange;
 				display: none;
 				box-shadow: 0 0 2px @dash-grey;
+				line-height: 1.2;
 				&:hover {
 					cursor: pointer;
 				}
@@ -4457,6 +4447,7 @@ form {
 					color: @dash-grey;
 					padding-top: 0;
 					bottom: auto;
+					line-height: 1.2
 				}
 				.form-control {
 					border: 0;
@@ -4464,17 +4455,30 @@ form {
 					font-weight: 700;
 					padding: 0;
 					background: #fff;
+					line-height: 1.2;
+					height: auto;
 				}
 			}
 			&:hover {
-				box-shadow: 0 0 2px 2px @preview-grey;
+				box-shadow: 0 0 2px 2px darken(@preview-grey, 10%);
+				border-color: @blue-grey;
+				.ticker {
+					display: block;
+					background: @blue-grey;
+				}
 			}
 			&.selected {
 				border-color: @orange;
 				.ticker {
 					display: block;
+					background: @orange;
 				}
 			}
+		}
+	}
+	#add-new-card {
+		.bootstrap-select {
+			width: 120px;
 		}
 	}
 }
@@ -5303,4 +5307,11 @@ form {
   clear: both;
   width: 100%;
   font-size: 0;
+}
+
+/**** Remove Specific Form Borders ****/
+.edit-room-container {
+	form {
+		border-bottom: 0;
+	}
 }

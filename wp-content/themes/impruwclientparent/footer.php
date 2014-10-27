@@ -16,12 +16,13 @@
 </div><!-- .container -->
 
 <div class="power-up hide">
-    <?php echo __('Powered By', 'impruw'); ?> 
-    <a  href="http://impruw.com" target="_blank" 
-        title="<?php echo __('Impruw is a Drag and Drop Website Builder', 'impruw'); ?>">
-        <img src="<?php echo get_parent_template_directory_uri(); ?>/images/impruw-hand.png"> 
-        <?php echo __('Impruw.com', 'impruw'); ?>
-    </a>
+    <span title="<?php echo __('Impruw is a Drag and Drop Website Builder', 'impruw'); ?>">
+        <?php echo __('Powered By', 'impruw'); ?> 
+        <a  href="http://impruw.com" target="_blank">
+            <img src="<?php echo get_parent_template_directory_uri(); ?>/images/impruw-hand.png"> 
+            <?php echo __('Impruw.com', 'impruw'); ?>
+        </a>
+    </span>
 </div> 
 
 <?php  if(is_impruw_demo_site()) : 

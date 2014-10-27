@@ -793,7 +793,7 @@
       "You cannot use the emails feature since your domain name is not updated. Update your domain name by going to Site Profile on the Dashboard. Once you have changed your domain name, you can come back here to add email accounts for that domain." : "You cannot use the emails feature since your domain name is not updated. Update your domain name by going to Site Profile on the Dashboard. Once you have changed your domain name, you can come back here to add email accounts for that domain." ,   
       "Email Address:" : "Email Address:" ,   
       "Last name:" : "Last name:" ,   
-      "First name:" : "Last name:" ,   
+      "First name:" : "First name:" ,   
       "Password:" : "Password:" ,   
       "Add User" : "Add User" ,   
       "Add a User" : "Add a User" ,   
@@ -826,5 +826,6 @@
       "Re-enable user email account?":"Re-enable user email account?",
       "Name:":"Name:",
       "Email account successfully re-enabled" : "Email account successfully re-enabled",
-      "no_user_email_accounts": "No Email accounts associated to <b>%{domain_name}</b> domain found. Add an email account by clicking on <b>Add User</b> below." 
+      "no_user_email_accounts": "No Email accounts associated to <b>%{domain_name}</b> domain found. Add an email account by clicking on <b>Add User</b> below.",
+      "This feature allows you to  completely hide content in specific languages from visitors on the live site." : "This feature allows you to  completely hide content in specific languages from visitors on the live site." 
 }

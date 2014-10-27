@@ -49,6 +49,7 @@ define ['marionette'], (Marionette)->
             $('body').addClass 'pace-min-theme'
             $('#initial-loader').fadeOut 'fast', ->
                 $('#initial-loader').remove()
+                $('#footer-section').removeClass('hidden') 
 
         App.startHistory()
 
