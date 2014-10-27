@@ -9,7 +9,7 @@ get_header();
 <div class="aj-imp-register-form">
     <div class="row">
         <div class="col-sm-12 aj-imp-register-header">
-            <h1><?php echo __('Sign Up', 'impruwmain'); ?> <span><?php echo __('Impruw', 'impruwmain'); ?></span></h1>
+            <h1><?php echo __('Sign Up on', 'impruwmain'); ?> <span><?php echo __('Impruw', 'impruwmain'); ?></span></h1>
             <p class="desc">
                 <?php echo __('Sign up in 30 seconds. No credit card required. If you already have an Impruw account sign in.', 'impruwmain');
                 ?>  
