@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return RevisionSingleView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionSingleView.prototype.template = '<div class="ui-slider-segment {{backup_type}}-backup" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" data-placement="top" title="{{author}} - {{post_modified}}"></div>';
+      RevisionSingleView.prototype.template = '<div class="ui-slider-segment {{backup_type}}-backup" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" data-container=".revision-container" data-placement="top" title="{{author}} - {{post_modified}}"></div>';
 
       RevisionSingleView.prototype.mixinTemplateHelpers = function(data) {
         data = RevisionSingleView.__super__.mixinTemplateHelpers.call(this, data);
@@ -36,7 +36,7 @@ define(['app'], function(App) {
         return RevisionView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"> </div> <a class="slider-button prev"><span class="bicon icon-uniF19C"></span></a> <a class="slider-button next"><span class="bicon icon-uniF19B"></span></a> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> Version by Admin, 5 minutes ago <span class="time">15th Oct 2014 @ 13:41:21</span> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-sm cancel-view-history">Cancel</button> <button class="btn btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view row"> <div class="col-sm-12"> <iframe src="{{SITEURL}}" style="width : 100%; height: 400px;"></iframe> </div> </div> </div>';
+      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"> </div> <a class="slider-button prev"><span class="bicon icon-uniF19C"></span></a> <a class="slider-button next"><span class="bicon icon-uniF19B"></span></a> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> Version by Admin, 5 minutes ago <span class="time">15th Oct 2014 @ 13:41:21</span> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <iframe src="{{SITEURL}}" style="width : 100%; height: 400px;"></iframe> </div> </div>';
 
       RevisionView.prototype.itemViewContainer = '#slider';
 
@@ -61,7 +61,8 @@ define(['app'], function(App) {
 
       RevisionView.prototype.events = {
         'click .cancel-view-history': function() {
-          return this.trigger("close:revision");
+          this.trigger("close:revision");
+          return $('body').removeClass('no-scroll');
         },
         'click .restore-revision-btn': function() {
           if (this.currentRevisionId) {
@@ -80,6 +81,7 @@ define(['app'], function(App) {
         var $slider, lastRevision;
         this.$el.attr('id', 'revision-region');
         this.$el.show();
+        $('body').addClass('no-scroll');
         $slider = this.$el.find('#slider');
         if ($slider.length > 0) {
           $slider.slider({

@@ -4,7 +4,7 @@ define ['app'],(App)->
 
 		class RevisionSingleView extends Marionette.ItemView
 			template  : '<div class="ui-slider-segment {{backup_type}}-backup" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip"
-				 data-placement="top" title="{{author}} - {{post_modified}}"></div>'
+				data-container=".revision-container" data-placement="top" title="{{author}} - {{post_modified}}"></div>'
 
 			mixinTemplateHelpers : (data)->
 				data = super data
@@ -38,14 +38,12 @@ define ['app'],(App)->
 									<span class="time">15th Oct 2014 @ 13:41:21</span>
 								</div>
 								<div class="col-sm-6 revision-actions">
-									<button class="btn btn-sm cancel-view-history">Cancel</button>
-									<button class="btn btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button>
+									<button class="btn btn-default btn-sm cancel-view-history">Cancel</button>
+									<button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button>
 								</div>
 							</div>
-							<div class="revision-view row">
-								<div class="col-sm-12">
-									<iframe src="{{SITEURL}}" style="width : 100%; height: 400px;"></iframe>
-								</div>
+							<div class="revision-view">
+								<iframe src="{{SITEURL}}" style="width : 100%; height: 400px;"></iframe>
 							</div>
 						</div>' 
 
@@ -68,6 +66,7 @@ define ['app'],(App)->
 			events : 
 				'click .cancel-view-history': ->
 					@trigger "close:revision"
+					$('body').removeClass('no-scroll')
 				'click .restore-revision-btn': ->
 					if @currentRevisionId
 						@trigger 'restore:revision', @currentRevisionId
@@ -80,6 +79,7 @@ define ['app'],(App)->
 			onShow : ->
 				@$el.attr 'id', 'revision-region'
 				@$el.show()
+				$('body').addClass('no-scroll')
 				 # Range Slider for Revisions
 				$slider = @$el.find('#slider')
 				# console.log $slider.slider("option")
