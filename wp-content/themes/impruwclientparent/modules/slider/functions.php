@@ -379,9 +379,16 @@ function update_slide( $data, $slide_id, $language='all', $parent_slide=0) {
     
     //Get previous caption
     $old_slider_caption = get_slide_captionhtml($slide_id);
-    $old_caption_details = get_slide_caption_details($old_slider_caption);
-    $old_caption_title = $old_caption_details['caption_title'];
-    $old_caption_desc = $old_caption_details['caption_description'];
+
+    if ($old_slider_caption==="") {
+        $old_caption_title = "";
+        $old_caption_desc = "";
+    }
+    else{
+        $old_caption_details = get_slide_caption_details($old_slider_caption);
+        $old_caption_title = $old_caption_details['caption_title'];
+        $old_caption_desc = $old_caption_details['caption_description'];   
+    }
 
     //New caption details
     $new_caption_details = get_slide_caption_details($data['layers'][0]['text']);
@@ -518,23 +525,22 @@ function update_translated_slides($data, $slider_id,$parent_id){
     //Get array of translated slide ids
     $child_slide_id_ret = array();
    
-    $translated_slides = get_language_child_slides($slider_id, FALSE);
+    $translated_slides = get_childslides_of_slide($parent_id);
 
-    //for each translated slide
-    foreach ($translated_slides as $translated_slide) {
-        //for each language child slide of translated slide
-        foreach ($translated_slide as $language_child_slide) {
-            $translated_child_slide_id = $language_child_slide['slideid'];
-            $translated_child_slide_lang = $language_child_slide['lang'];
-            $child_slide_id_ret[] = update_slide( $data, $translated_child_slide_id, $translated_child_slide_lang,$parent_id );
-        }
+    foreach ($translated_slides as $language_child_slide) {
+        $translated_child_slide_id = $language_child_slide['slideid'];
+        $translated_child_slide_lang = $language_child_slide['lang'];
+        $child_slide_id_ret[] = update_slide( $data, $translated_child_slide_id, $translated_child_slide_lang,$parent_id );
     }
+
     return $child_slide_id_ret;
 }
 
 function get_slide_captionhtml($slide_id){
     $slide_data = slide_details_array($slide_id);
-    return $slide_data['layers'][0]['text'];
+
+    $caption_html = isset($slide_data['layers']) ? $slide_data['layers'][0]['text'] : "" ;
+    return $caption_html;
 }
 
 
@@ -623,6 +629,16 @@ function get_languages_of_slide($slide_id){
     $available_slide_lang = $slide->getArrChildLangCodes();
 
     return $available_slide_lang;
+}
+
+//function to get the languages in which a slide is available
+function get_childslides_of_slide($slide_id, $return_parent_slide=FALSE){
+    $slide = new RevSlide();
+
+    $slide->initByID( $slide_id );
+    $child_slides = $slide->getArrChildrenLangs($return_parent_slide);
+
+    return $child_slides;
 }
 
 //check if slide exists in given language
