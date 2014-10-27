@@ -116,9 +116,12 @@ function update_page_elements($page_id, $page_elements){
     update_post_meta($page_id,'page-elements',$page_elements);
 }
 
-function set_page_elements_global($page_id){
+function set_page_elements_global($page_id,$revision_id = FALSE){
     global $impruw_page_elements;
-    $impruw_page_elements = get_post_meta($page_id,'page-elements',true);
+    if(!$revision_id)
+        $impruw_page_elements = get_post_meta($page_id,'page-elements',true);
+    else
+        $impruw_page_elements = get_post_meta($revision_id,'page-elements',true);
     $impruw_page_elements= is_array($impruw_page_elements) ? $impruw_page_elements : array();
 
     if (empty($impruw_page_elements)){
@@ -129,10 +132,12 @@ function set_page_elements_global($page_id){
         $impruw_page_elements = $page_elements;
     }
 
-    $header_elements = get_header_footer_elements_published(THEME_HEADER_KEY);
-    $footer_elements = get_header_footer_elements_published(THEME_FOOTER_KEY);
+    $header_elements = get_header_footer_elements_published(THEME_HEADER_KEY,$revision_id);
+    $footer_elements = get_header_footer_elements_published(THEME_FOOTER_KEY,$revision_id);
 
     $impruw_page_elements = array_merge( $impruw_page_elements, $header_elements, $footer_elements );
+
+   
     
 }
 

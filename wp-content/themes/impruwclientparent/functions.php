@@ -303,15 +303,18 @@ function generate_markup( $section ) {
         $autosave = TRUE;
         //$id = $_GET[ 'preview' ];
     }
+    $revision_id = FALSE;
+    if( isset( $_GET['revision'] )  )
+        $revision_id = (int) $_GET['revision'];
 
     if(!$autosave){
     //     print_r('prev');
-       set_page_elements_global($id);
+       set_page_elements_global($id,$revision_id);
     }
     // get_element_from_page_elements('a');
    
 
-    $markup_JSON = get_page_json_for_site( $id, $autosave );
+    $markup_JSON = get_page_json_for_site( $id, $autosave ,false , $revision_id);
 
     if ( !isset( $markup_JSON [ $section ] ) )
         return;

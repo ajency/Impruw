@@ -184,27 +184,7 @@ define [ 'app'
             @displayPageNameForUpdate()
 
             $('body').on 'click',@_removeAllFocusClass
-
-            # Range Slider for Revisions
-            $slider = $('#slider')
-            if $slider.length > 0
-              $slider.slider(
-                min: 1
-                max: 50
-                value: 43
-                orientation: 'horizontal'
-                range: false
-              ).addSliderSegments $slider.slider("option").max
-
-            $('.ui-slider-segment').tooltip()
-
-         # Add Segments Function for Revision Slider  
-         $.fn.addSliderSegments = (amount) ->
-           @each ->
-             segmentGap = 100 / (amount - 1) + "%"
-             segment = "<div class='ui-slider-segment' style='margin-left: " + segmentGap + ";' data-toggle='tooltip' data-placement='top' title='Admin - 15th Oct 2014 @ 13:41:21'></div>"
-             $(this).prepend _.repeat segment, (amount - 2)
-             return
+   
 
          _addToPageSlug : (pageId)=>
             page = App.request "get:fetched:page", pageId

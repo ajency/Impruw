@@ -78,6 +78,18 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
         }
         return revisionsCollection.add(revision);
       },
+      restoreRevision: function(revisionId) {
+        console.log(revisionId);
+        return $.ajax({
+          type: 'GET',
+          url: "" + AJAXURL + "?action=restore-page",
+          async: false,
+          data: {
+            revision_id: revisionId
+          },
+          success: function(resp) {}
+        });
+      },
       getPages: function(param) {
         if (param == null) {
           param = {};
@@ -96,8 +108,11 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
     App.reqres.setHandler("get:page:revisions", function(pageId) {
       return API.getPageRevisions(pageId);
     });
-    return App.commands.setHandler("add:new:revision", function(pageId, revisionData) {
+    App.commands.setHandler("add:new:revision", function(pageId, revisionData) {
       return API.addNewRevision(pageId, revisionData);
+    });
+    return App.commands.setHandler('restore:revision', function(revisionId) {
+      return API.restoreRevision(revisionId);
     });
   });
 });

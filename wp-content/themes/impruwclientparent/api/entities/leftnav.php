@@ -698,7 +698,7 @@ function get_style_template( $element ) {
     return $mtemplate;
 }
 
-function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false ) {
+function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false ,$revision_id = FALSE) {
 
     if ( $page_id == 0 )
         return FALSE;
@@ -712,23 +712,23 @@ function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false 
         if ( $autosave === TRUE )
             $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
         else
-            $json [ 'header' ] = get_header_footer_layout_published( THEME_HEADER_KEY );
+            $json [ 'header' ] = get_header_footer_layout_published( THEME_HEADER_KEY ,$revision_id);
 
         if ( $key === '-autosave' && empty( $json [ 'header' ] ) )
-            $json [ 'header' ] = get_header_footer_layout_published( THEME_HEADER_KEY );
+            $json [ 'header' ] = get_header_footer_layout_published( THEME_HEADER_KEY ,$revision_id);
             //get_option( THEME_HEADER_KEY, array() );
 
         if ( $autosave === TRUE )
             $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
         else
-            $json [ 'footer' ] = get_header_footer_layout_published( THEME_FOOTER_KEY );
+            $json [ 'footer' ] = get_header_footer_layout_published( THEME_FOOTER_KEY ,$revision_id);
 
         if ( $key === '-autosave' && empty( $json [ 'footer' ] ) )
-            $json [ 'footer' ] = get_header_footer_layout_published( THEME_FOOTER_KEY );
+            $json [ 'footer' ] = get_header_footer_layout_published( THEME_FOOTER_KEY ,$revision_id);
             //get_option( THEME_FOOTER_KEY, array() );
     }
 
-    $json[ 'page' ] = get_page_content_json( $page_id, $autosave );
+    $json[ 'page' ] = get_page_content_json( $page_id, $autosave ,$revision_id);
 
     $d = array();
 

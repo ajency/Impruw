@@ -25,8 +25,7 @@ define ['app'],(App)->
 			events : 
                 'click #aj-imp-color-sel' :-> @trigger "show:theme:color:clicked" 
 
-                'click .view-history-link' :-> 
-                	$('#revision-region').show()
+               
 
 			onShow :->
 				@$el.tabSlideOut

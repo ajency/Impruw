@@ -8,13 +8,18 @@ define ['app'
 
 			initialize :(options)->
 				pageId = options.pageId
-				@revisions = App.request "get:page:revisions", pageId				
+				@revisionCollection = App.request "get:page:revisions", pageId				
 
-				App.execute "when:fetched", [@revisions] ,=>
-					lastThreeRevisions = _.first @revisions.toArray() , 3
+				App.execute "when:fetched", [@revisionCollection] ,=>
+					lastThreeRevisions = _.first @revisionCollection.toArray() , 3
 
 					@latestRevision = new Backbone.Collection lastThreeRevisions
 					@view = @_showHistoryView()
+
+					@listenTo @view, "show:revision:restore",=>
+						App.execute "show:revision:restore",
+							region : App.revisionRestoreRegion
+							revisionCollection : @revisionCollection
 
 					@show @view
 

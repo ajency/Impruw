@@ -46,9 +46,15 @@ define ['app'
 			
 			itemViewContainer : 'ol'
 
+			events : 
+				'click .view-history-link' :(e)-> 
+                	e.preventDefault()
+                	@trigger "show:revision:restore"
+                	
 			onShow:->
-				console.log 'df'
+				# console.log 'df'
 
+			 
 			
 
 

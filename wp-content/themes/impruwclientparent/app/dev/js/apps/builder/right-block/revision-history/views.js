@@ -55,9 +55,14 @@ define(['app'], function(App) {
 
       RevisionHitoryList.prototype.itemViewContainer = 'ol';
 
-      RevisionHitoryList.prototype.onShow = function() {
-        return console.log('df');
+      RevisionHitoryList.prototype.events = {
+        'click .view-history-link': function(e) {
+          e.preventDefault();
+          return this.trigger("show:revision:restore");
+        }
       };
+
+      RevisionHitoryList.prototype.onShow = function() {};
 
       return RevisionHitoryList;
 

@@ -13,13 +13,19 @@ define(['app', 'controllers/base-controller', 'apps/builder/right-block/revision
       Controller.prototype.initialize = function(options) {
         var pageId;
         pageId = options.pageId;
-        this.revisions = App.request("get:page:revisions", pageId);
-        return App.execute("when:fetched", [this.revisions], (function(_this) {
+        this.revisionCollection = App.request("get:page:revisions", pageId);
+        return App.execute("when:fetched", [this.revisionCollection], (function(_this) {
           return function() {
             var lastThreeRevisions;
-            lastThreeRevisions = _.first(_this.revisions.toArray(), 3);
+            lastThreeRevisions = _.first(_this.revisionCollection.toArray(), 3);
             _this.latestRevision = new Backbone.Collection(lastThreeRevisions);
             _this.view = _this._showHistoryView();
+            _this.listenTo(_this.view, "show:revision:restore", function() {
+              return App.execute("show:revision:restore", {
+                region: App.revisionRestoreRegion,
+                revisionCollection: _this.revisionCollection
+              });
+            });
             return _this.show(_this.view);
           };
         })(this));

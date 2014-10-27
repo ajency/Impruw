@@ -196,7 +196,6 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.onShow = function() {
-        var $slider;
         this.enableSelectPicker();
         _.delay((function(_this) {
           return function() {
@@ -212,27 +211,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         })(this), 250);
         this.$el.find('#aj-imp-revision-sel').on('show.bs.dropdown', this.addPageRevisions);
         this.displayPageNameForUpdate();
-        $('body').on('click', this._removeAllFocusClass);
-        $slider = $('#slider');
-        if ($slider.length > 0) {
-          $slider.slider({
-            min: 1,
-            max: 50,
-            value: 43,
-            orientation: 'horizontal',
-            range: false
-          }).addSliderSegments($slider.slider("option").max);
-        }
-        return $('.ui-slider-segment').tooltip();
-      };
-
-      $.fn.addSliderSegments = function(amount) {
-        return this.each(function() {
-          var segment, segmentGap;
-          segmentGap = 100 / (amount - 1) + "%";
-          segment = "<div class='ui-slider-segment' style='margin-left: " + segmentGap + ";' data-toggle='tooltip' data-placement='top' title='Admin - 15th Oct 2014 @ 13:41:21'></div>";
-          $(this).prepend(_.repeat(segment, amount - 2));
-        });
+        return $('body').on('click', this._removeAllFocusClass);
       };
 
       MainView.prototype._addToPageSlug = function(pageId) {

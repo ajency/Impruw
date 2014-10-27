@@ -70,6 +70,17 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
                 revisionsCollection.add revision
 
+            restoreRevision : (revisionId)->
+                console.log revisionId
+                $.ajax
+                    type: 'GET'
+                    url: "#{AJAXURL}?action=restore-page"
+                    async: false
+                    data : 
+                        revision_id : revisionId
+                    success : (resp)->
+                        # App.instanceId = resp.instance if resp.success is true
+
 
             getPages: (param = {})->
                 pages
@@ -84,5 +95,8 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
         App.commands.setHandler "add:new:revision", (pageId, revisionData)->
             API.addNewRevision pageId, revisionData
+
+        App.commands.setHandler 'restore:revision', (revisionId)->
+            API.restoreRevision revisionId
 
 		

@@ -535,7 +535,7 @@ function get_primary_menu_id() {
     return $menu_id;
 }
 
-function get_page_content_json( $page_id, $autosave = FALSE ) {
+function get_page_content_json( $page_id, $autosave = FALSE , $revision_id = FALSE ) {
 
     $json = array();
 
@@ -547,6 +547,12 @@ function get_page_content_json( $page_id, $autosave = FALSE ) {
     if ( $autosave === TRUE ){
         $json = get_autosave_post_json( $page_id );
         
+        if(empty($json))
+            $json = get_post_meta( $page_id, "page-json", TRUE );
+    }
+    elseif( $revision_id ){
+        $json = get_post_meta( $revision_id, 'page-json', TRUE );
+
         if(empty($json))
             $json = get_post_meta( $page_id, "page-json", TRUE );
     }
@@ -799,10 +805,23 @@ function get_header_footer_published_id( $key ){
     return $id;
 }
 
-function get_header_footer_layout_published( $key ){
+function get_header_footer_layout_published( $key, $revision_id = FALSE ){
     global $wpdb;
+    if (!$revision_id )
+        $layout = $wpdb->get_var($wpdb->prepare("SELECT layout FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ));
+    else{
+        if ($key == THEME_HEADER_KEY){
+            $header_backup_id = get_post_meta($revision_id,'header-backup-id',true);
+            $layout = $wpdb->get_var($wpdb->prepare("SELECT layout FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $header_backup_id ));
+        }
+        elseif ($key == THEME_FOOTER_KEY) {
+            $footer_backup_id = get_post_meta($revision_id,'footer-backup-id',true);
+            $layout = $wpdb->get_var($wpdb->prepare("SELECT layout FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $footer_backup_id ));
+        }
+        if (empty( $layout ))
+            $layout = $wpdb->get_var($wpdb->prepare("SELECT layout FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ));
+    }
 
-    $layout = $wpdb->get_var($wpdb->prepare("SELECT layout FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ));
 
     if ( $layout != null )
         $layout = maybe_unserialize( $layout );
@@ -812,10 +831,22 @@ function get_header_footer_layout_published( $key ){
     return $layout;
 }
 
-function get_header_footer_elements_published( $key ){
+function get_header_footer_elements_published( $key ,$revision_id = FALSE ){
     global $wpdb;
-
-    $elements = $wpdb->get_var($wpdb->prepare("SELECT elements FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ));
+    if (!$revision_id )
+        $elements = $wpdb->get_var($wpdb->prepare("SELECT elements FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ));
+    else{
+        if ($key == THEME_HEADER_KEY){
+            $header_backup_id = get_post_meta($revision_id,'header-backup-id',true);
+            $elements = $wpdb->get_var($wpdb->prepare("SELECT elements FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $header_backup_id ));
+        }
+        elseif ($key == THEME_FOOTER_KEY) {
+            $footer_backup_id = get_post_meta($revision_id,'footer-backup-id',true);
+            $elements = $wpdb->get_var($wpdb->prepare("SELECT elements FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $footer_backup_id ));
+        }
+        if (empty( $elements ))
+            $elements = $wpdb->get_var($wpdb->prepare("SELECT elements FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ));
+    }
 
     if ( $elements != null )
         $elements = maybe_unserialize( $elements );
