@@ -43,11 +43,12 @@ function impruw_create_page_backup( $revision_id , $backup_type = 'page', $site_
 	if ( impruw_is_front_page($page_id) ){
 		$header_backup_id = impruw_header_footer_backup(THEME_HEADER_KEY);
 		$footer_backup_id = impruw_header_footer_backup(THEME_FOOTER_KEY);
+		update_revision_meta( $revision_id, 'header-backup-id', get_last_header_footer_id('theme-header') );
+		update_revision_meta( $revision_id, 'footer-backup-id', get_last_header_footer_id('theme-footer') );
+
 	}
 
-	update_revision_meta( $revision_id, 'header-backup-id', get_last_header_footer_id('theme-header') );
-	update_revision_meta( $revision_id, 'footer-backup-id', get_last_header_footer_id('theme-footer') );
-
+	
 	return true;
 
 }
@@ -77,7 +78,7 @@ add_action('impruw_before_theme_switch', 'impruw_create_site_restore_point');
 
 
 
-function impruw_restore_page($revision_id,$backup = true){
+function impruw_restore_page($revision_id, $backup = true){
 	global $wpdb;
 
 	$revision = get_post( $revision_id );
@@ -156,7 +157,14 @@ function impruw_restore_page($revision_id,$backup = true){
 
 function imp_restore_page(){
 	// switch_to_blog(42);
-	$backup_id = impruw_restore_page( (int)$_GET['revision_id'] );
+if (isset($_GET['site_backup_id']))
+		imp_restore_site();
+	
+	$backup_id = null;
+	if (isset($_GET['revision_id']))
+		$backup_id = impruw_restore_page( (int)$_GET['revision_id'] );
+
+	
 	// restore_current_blog();
 	wp_send_json( array( 'code' => 'OK', 'data' => $backup_id));
 }
@@ -210,7 +218,7 @@ function impruw_restore_site($site_backup_id){
 }
 
 function imp_restore_site(){
-	$site_backup_id = $_GET['site-backup-id'];
+	$site_backup_id = $_GET['site_backup_id'];
 	impruw_restore_site( $site_backup_id );
 	
 }

@@ -812,11 +812,13 @@ function get_header_footer_layout_published( $key, $revision_id = FALSE ){
     else{
         if ($key == THEME_HEADER_KEY){
             $header_backup_id = get_post_meta($revision_id,'header-backup-id',true);
-            $layout = $wpdb->get_var($wpdb->prepare("SELECT layout FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $header_backup_id ));
+            if (!empty($header_backup_id))
+                $layout = $wpdb->get_var($wpdb->prepare("SELECT layout FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $header_backup_id ));
         }
         elseif ($key == THEME_FOOTER_KEY) {
             $footer_backup_id = get_post_meta($revision_id,'footer-backup-id',true);
-            $layout = $wpdb->get_var($wpdb->prepare("SELECT layout FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $footer_backup_id ));
+            if (!empty($footer_backup_id))
+                $layout = $wpdb->get_var($wpdb->prepare("SELECT layout FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $footer_backup_id ));
         }
         if (empty( $layout ))
             $layout = $wpdb->get_var($wpdb->prepare("SELECT layout FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ));
@@ -838,11 +840,13 @@ function get_header_footer_elements_published( $key ,$revision_id = FALSE ){
     else{
         if ($key == THEME_HEADER_KEY){
             $header_backup_id = get_post_meta($revision_id,'header-backup-id',true);
-            $elements = $wpdb->get_var($wpdb->prepare("SELECT elements FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $header_backup_id ));
+            if (!empty($header_backup_id))
+                $elements = $wpdb->get_var($wpdb->prepare("SELECT elements FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $header_backup_id ));
         }
         elseif ($key == THEME_FOOTER_KEY) {
             $footer_backup_id = get_post_meta($revision_id,'footer-backup-id',true);
-            $elements = $wpdb->get_var($wpdb->prepare("SELECT elements FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $footer_backup_id ));
+            if (!empty($footer_backup_id))
+                $elements = $wpdb->get_var($wpdb->prepare("SELECT elements FROM {$wpdb->prefix}header_footer_backup WHERE id = %d", $footer_backup_id ));
         }
         if (empty( $elements ))
             $elements = $wpdb->get_var($wpdb->prepare("SELECT elements FROM {$wpdb->prefix}header_footer_backup WHERE type = %s", $key ));

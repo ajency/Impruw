@@ -18,8 +18,8 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/revisio
             return _this.region.close();
           };
         })(this));
-        this.listenTo(this.view, 'restore:revision', function(revisionId) {
-          return App.execute('restore:revision', revisionId);
+        this.listenTo(this.view, 'restore:revision', function(data) {
+          return App.request('restore:revision', data);
         });
         return this.show(this.view);
       };

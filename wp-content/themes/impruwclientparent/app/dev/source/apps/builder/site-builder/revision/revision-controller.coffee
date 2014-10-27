@@ -15,8 +15,8 @@ define ['app'
 				@listenTo @view, "close:revision",=>
 					@region.close()
 
-				@listenTo @view, 'restore:revision',(revisionId)->
-					App.execute 'restore:revision',revisionId
+				@listenTo @view, 'restore:revision',(data)->
+					App.request 'restore:revision',data
 
 				@show @view
 

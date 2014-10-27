@@ -78,15 +78,20 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
         }
         return revisionsCollection.add(revision);
       },
-      restoreRevision: function(revisionId) {
-        console.log(revisionId);
+      restoreRevision: function(revData) {
+        var data;
+        data = {};
+        if (revData.revId) {
+          data.revision_id = revData.revId;
+        }
+        if (revData.siteBackupId) {
+          data.site_backup_id = revData.siteBackupId;
+        }
         return $.ajax({
           type: 'GET',
           url: "" + AJAXURL + "?action=restore-page",
           async: false,
-          data: {
-            revision_id: revisionId
-          },
+          data: data,
           success: function(resp) {}
         });
       },
@@ -111,8 +116,8 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
     App.commands.setHandler("add:new:revision", function(pageId, revisionData) {
       return API.addNewRevision(pageId, revisionData);
     });
-    return App.commands.setHandler('restore:revision', function(revisionId) {
-      return API.restoreRevision(revisionId);
+    return App.reqres.setHandler('restore:revision', function(data) {
+      return API.restoreRevision(data);
     });
   });
 });

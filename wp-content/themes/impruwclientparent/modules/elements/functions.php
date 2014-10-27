@@ -135,10 +135,7 @@ function set_page_elements_global($page_id,$revision_id = FALSE){
     $header_elements = get_header_footer_elements_published(THEME_HEADER_KEY,$revision_id);
     $footer_elements = get_header_footer_elements_published(THEME_FOOTER_KEY,$revision_id);
 
-    $impruw_page_elements = array_merge( $impruw_page_elements, $header_elements, $footer_elements );
-
-   
-    
+    $impruw_page_elements = array_merge( $impruw_page_elements, $header_elements, $footer_elements );     
 }
 
 function get_element_from_global_page_elements($meta_id){

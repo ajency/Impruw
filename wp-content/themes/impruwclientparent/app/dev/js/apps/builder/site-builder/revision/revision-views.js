@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app'], function(App) {
+define(['app', 'bootbox'], function(App, bootbox) {
   return App.module("SiteBuilderApp.Revision.Views", function(Views, App) {
     var RevisionSingleView;
     RevisionSingleView = (function(_super) {
@@ -64,8 +64,33 @@ define(['app'], function(App) {
           return this.trigger("close:revision");
         },
         'click .restore-revision-btn': function() {
-          if (this.currentRevisionId) {
-            return this.trigger('restore:revision', this.currentRevisionId);
+          var currentRevisionModel, index, siteBackupId, siteRestoreModel;
+          currentRevisionModel = this.collection.get(this.currentRevisionId);
+          index = _.indexOf(this.collection.toArray(), currentRevisionModel);
+          siteRestoreModel = this.collection.find((function(_this) {
+            return function(model) {
+              if (_.indexOf(_this.collection.toArray(), model) < index) {
+                return false;
+              } else {
+                if (model.get('backup_type') === 'site') {
+                  return true;
+                }
+              }
+              return false;
+            };
+          })(this));
+          siteBackupId = 0;
+          if (siteRestoreModel) {
+            siteBackupId = siteRestoreModel.get('site_backup_id');
+            if (siteRestoreModel.id === this.currentRevisionId) {
+              this.currentRevisionId = 0;
+            }
+          }
+          if (this.currentRevisionId || siteBackupId) {
+            return this.trigger('restore:revision', {
+              revId: this.currentRevisionId,
+              siteBackupId: siteBackupId
+            });
           }
         }
       };
@@ -93,7 +118,15 @@ define(['app'], function(App) {
                 var model;
                 model = _this.collection.at(ui.value - 1);
                 _this.currentRevisionId = model.id;
-                return _this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + _this.currentRevisionId);
+                if (_this._checkIfThemeChange(_this.currentRevisionId)) {
+                  return bootbox.confirm("This will cause a theme change. Will not show the elements properly", function(result) {
+                    if (result) {
+                      return _this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + _this.currentRevisionId);
+                    }
+                  });
+                } else {
+                  return _this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + _this.currentRevisionId);
+                }
               };
             })(this)
           });
@@ -102,6 +135,14 @@ define(['app'], function(App) {
         lastRevision = _.last(this.collection.toArray());
         this.currentRevisionId = lastRevision.id;
         return this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + this.currentRevisionId);
+      };
+
+      RevisionView.prototype._checkIfThemeChange = function(revisionId) {
+        if (CURRENTTHEME !== _.slugify(this.collection.get(revisionId).get('page_theme'))) {
+          return true;
+        } else {
+          return false;
+        }
       };
 
       return RevisionView;

@@ -13,6 +13,7 @@ function get_revisions( $page_id = 0 ) {
     foreach ( $revisions_as_object as $revision_id => $revision_post ) {
         if ( strpos( $revision_post->post_name, 'autosave' ) === FALSE ){
             $revision_post->backup_type = get_post_meta($revision_post->ID,'backup-type',true);
+            $revision_post->page_theme = get_post_meta($revision_post->ID,'page-theme',true);
             if($revision_post->backup_type == 'site')
                 $revision_post->site_backup_id = get_post_meta($revision_post->ID,'site-backup-id',true);
             if ($revision_post->post_author == get_current_user_id())

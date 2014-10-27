@@ -1,4 +1,4 @@
-define ['app'],(App)->
+define ['app', 'bootbox'],(App,bootbox)->
 	App.module "SiteBuilderApp.Revision.Views",(Views,App)->
 
 
@@ -69,8 +69,29 @@ define ['app'],(App)->
 				'click .cancel-view-history': ->
 					@trigger "close:revision"
 				'click .restore-revision-btn': ->
-					if @currentRevisionId
-						@trigger 'restore:revision', @currentRevisionId
+					currentRevisionModel =  @collection.get(@currentRevisionId)
+					index = _.indexOf @collection.toArray(), currentRevisionModel
+
+					siteRestoreModel = @collection.find (model)=>
+						if _.indexOf( @collection.toArray(), model ) < index
+							return false
+						else
+							if model.get('backup_type') is 'site'
+								return true
+						return false
+
+					siteBackupId = 0
+
+					if siteRestoreModel
+						siteBackupId = siteRestoreModel.get 'site_backup_id'
+
+						if siteRestoreModel.id is @currentRevisionId
+							@currentRevisionId = 0
+
+					if @currentRevisionId or siteBackupId
+						@trigger 'restore:revision', 
+							revId : @currentRevisionId
+							siteBackupId : siteBackupId
 
 			initialize : ->
 				@collection.comparator = 'ID'
@@ -93,7 +114,12 @@ define ['app'],(App)->
 						change :(event,ui)=>
 							model =  @collection.at ui.value - 1
 							@currentRevisionId = model.id
-							@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionId}"
+							if @_checkIfThemeChange(@currentRevisionId)
+								bootbox.confirm "This will cause a theme change. Will not show the elements properly",(result)=>
+									if result
+										@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionId}"
+							else
+								@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionId}"
 					# .addSliderSegments $slider.slider("option").max
 
 				@$el.find('.ui-slider-segment').tooltip()
@@ -102,4 +128,14 @@ define ['app'],(App)->
 				@currentRevisionId = lastRevision.id
 
 				@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionId}"
+
+
+			_checkIfThemeChange : (revisionId)->
+
+				if CURRENTTHEME isnt _.slugify @collection.get(revisionId).get('page_theme') 
+					return true
+
+				else 
+					return false
+
 				
