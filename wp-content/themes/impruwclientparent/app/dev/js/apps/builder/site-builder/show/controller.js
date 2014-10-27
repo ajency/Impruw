@@ -1,7 +1,7 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __slice = [].slice,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  __slice = [].slice;
 
 define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-builder/show/views'], function(App, AppController, bootbox) {
   return App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
@@ -11,6 +11,8 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
       __extends(BuilderController, _super);
 
       function BuilderController() {
+        this.addNestedElements = __bind(this.addNestedElements, this);
+        this.startFillingElements = __bind(this.startFillingElements, this);
         return BuilderController.__super__.constructor.apply(this, arguments);
       }
 
@@ -40,10 +42,10 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
           }
           return App.request("add:new:element", container, type, modelData);
         });
-        App.execute("when:fetched", [elements], (function(_this) {
+        elements._fetch.done((function(_this) {
           return function() {
             elementLoaded = true;
-            _.delay(function() {
+            return _.delay(function() {
               _this.deferreds = [];
               _this.startFillingElements();
               return $.when.apply($, _this.deferreds).done(function() {
@@ -55,23 +57,20 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
                 _this.view.triggerMethod("page:rendered");
                 return _this.deferreds = [];
               }).fail(function() {
-                return App.autoSaveAPI.local.suspend();
-              }).always(function() {
-                return App.autoSaveAPI.local.createStorage();
+                App.autoSaveAPI.local.suspend();
+                App.autoSaveAPI.local.reset();
+                return _this.view.triggerMethod("page:render:failed");
               });
-            }, 400);
-            return _this.show(_this.view, {
-              loading: true
-            });
+            }, 200);
+          };
+        })(this)).fail((function(_this) {
+          return function() {
+            return _this.view.triggerMethod("page:rendered:failed");
           };
         })(this));
-        return _.delay((function(_this) {
-          return function() {
-            if (!elementLoaded) {
-              return bootbox.alert("Sorry, but this page didn't load properly. Please refresh the page");
-            }
-          };
-        })(this), 15000);
+        return this.show(this.view, {
+          loading: true
+        });
       };
 
       BuilderController.prototype._getContainer = function(section) {
@@ -134,7 +133,6 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
 
       function Controller() {
         this.pageNameUpdated = __bind(this.pageNameUpdated, this);
-        this.loadRevision = __bind(this.loadRevision, this);
         this.triggerPagePublishOnView = __bind(this.triggerPagePublishOnView, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
@@ -153,18 +151,12 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
           $.cookie('current-page-id', pageId);
           return App.execute("editable:page:changed", pageId);
         });
-        this.listenTo(layout, "add:page:revisions", this.addPageRevisions);
         this.listenTo(this.layout, "add:new:page:clicked", function() {
           return App.execute("show:add:new:page", {
             region: App.dialogRegion
           });
         });
         App.commands.setHandler("page:published", this.triggerPagePublishOnView);
-        this.listenTo(App.vent, "revision:link:clicked", function(revisionId) {
-          var currentPageId;
-          currentPageId = App.request("get:current:editable:page");
-          return App.execute("editable:page:changed", currentPageId, revisionId);
-        });
         this.listenTo(layout, 'show', (function(_this) {
           return function(layout) {
             return _.delay(function() {
@@ -194,23 +186,6 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
 
       Controller.prototype.triggerPagePublishOnView = function() {
         return this.layout.triggerMethod("page:published");
-      };
-
-      Controller.prototype.loadRevision = function(revisionId) {
-        var currentPageId;
-        currentPageId = App.request("get:current:editable:page");
-        return App.execute("editable:page:changed", currentPageId, revisionId);
-      };
-
-      Controller.prototype.addPageRevisions = function() {
-        var currentPageId, pageRevisions;
-        currentPageId = App.request("get:current:editable:page");
-        pageRevisions = App.request("get:page:revisions", currentPageId);
-        return App.execute("when:fetched", [pageRevisions], (function(_this) {
-          return function() {
-            return _this.layout.triggerMethod("add:page:revision:items", pageRevisions);
-          };
-        })(this));
       };
 
       Controller.prototype.updatePageName = function(pageData) {
@@ -243,12 +218,10 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         });
         App.elements = [];
         siteBuilderController = new Show.BuilderController({
-          pageId: pageId,
-          revisionId: revisionId
+          pageId: pageId
         });
         return App.execute("show:right:block", {
           region: App.rightBlockRegion,
-          revisionId: revisionId,
           pageId: pageId
         });
       };

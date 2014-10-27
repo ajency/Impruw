@@ -36,35 +36,33 @@ define [ 'app'
                 # triggered when all models are fetched for the page
                 # usign this event to start filling up the builder
                 # with elements
-                App.execute "when:fetched", [elements] ,=>
+                elements._fetch.done =>
                     
-                    elementLoaded = true
-                    _.delay =>
-
-                        @deferreds = []
-                        @startFillingElements()
+                        elementLoaded = true
+                        _.delay =>
+                            @deferreds = []
+                            @startFillingElements()
+                            
+                            $.when(@deferreds...).done (elements...)=> 
+                                    App.autoSaveAPI.local.resume()
+                                    App.autoSaveAPI.local.doAutoSave()
+                                    App.vent.trigger "page:rendered"
+                                    @view.triggerMethod "page:rendered"
+                                    # release memory
+                                    @deferreds = []
+                                .fail =>
+                                    App.autoSaveAPI.local.suspend()
+                                    App.autoSaveAPI.local.reset()
+                                    @view.triggerMethod "page:render:failed"
+                                
+                        , 200
                         
-                        $.when(@deferreds...).done (elements...)=> 
-                                App.autoSaveAPI.local.resume()
-                                App.autoSaveAPI.local.doAutoSave()
-                                App.vent.trigger "page:rendered"
-                                @view.triggerMethod "page:rendered"
-                                # release memory
-                                @deferreds = []
-                            .fail ->
-                                App.autoSaveAPI.local.suspend()
-                            .always ->
-                                App.autoSaveAPI.local.createStorage()
+                    .fail =>
+                        @view.triggerMethod "page:rendered:failed"
 
-                    , 400
+                @show @view,
+                    loading : true
 
-                    @show @view,
-                        loading : true
-
-                _.delay =>
-                    if not elementLoaded
-                        bootbox.alert "Sorry, but this page didn't load properly. Please refresh the page"
-                ,15000
 
             _getContainer : ( section )->
                 switch section
@@ -77,7 +75,7 @@ define [ 'app'
 
 
             # start filling elements
-            startFillingElements : ()->
+            startFillingElements : ()=>
                 
                 _.each ['header', 'page' , 'footer'], (key, index)=>
                     section = @view.model.get key
@@ -90,7 +88,7 @@ define [ 'app'
                             @deferreds.push eleController._promise
 
 
-            addNestedElements : ( container, element )->
+            addNestedElements : ( container, element )=>
                 eleController = App.request "add:new:element", container, element.element, element
                 @deferreds.push eleController._promise
                 _.each element.elements, ( column, index )=>
@@ -115,23 +113,17 @@ define [ 'app'
                 @pages = App.request "get:editable:pages"
 
                 @layout = layout = new Show.View.MainView
-                    collection : @pages
+                                            collection : @pages
 
                 @listenTo layout, 'editable:page:changed', ( pageId )->
                     # set the cookie
                     $.cookie 'current-page-id', pageId
                     App.execute "editable:page:changed", pageId
 
-                @listenTo layout, "add:page:revisions", @addPageRevisions
-
                 @listenTo @layout, "add:new:page:clicked", ->
                     App.execute "show:add:new:page", region : App.dialogRegion
 
                 App.commands.setHandler "page:published", @triggerPagePublishOnView
-
-                @listenTo App.vent, "revision:link:clicked", ( revisionId )->
-                    currentPageId = App.request "get:current:editable:page"
-                    App.execute "editable:page:changed", currentPageId, revisionId
 
                 @listenTo layout, 'show', ( layout )=>
                     # added delay so that the html is fully rendered
@@ -166,21 +158,6 @@ define [ 'app'
             triggerPagePublishOnView : =>
                 @layout.triggerMethod "page:published"
 
-
-            # show the previous revision
-            loadRevision : ( revisionId )=>
-                currentPageId = App.request "get:current:editable:page"
-                App.execute "editable:page:changed", currentPageId, revisionId
-
-            # add page revisions
-            addPageRevisions : ->
-                currentPageId = App.request "get:current:editable:page"
-
-                pageRevisions = App.request "get:page:revisions", currentPageId
-
-                App.execute "when:fetched", [ pageRevisions ], =>
-                    @layout.triggerMethod "add:page:revision:items", pageRevisions
-
             #update the name of the page
             updatePageName : ( pageData )->
                 updatedPageModel = App.request "get:page:model:by:id", pageData.ID
@@ -199,10 +176,8 @@ define [ 'app'
                 element.close()
             App.elements = []
             siteBuilderController = new Show.BuilderController
-                pageId : pageId
-                revisionId : revisionId
+                                                    pageId : pageId
 
             App.execute "show:right:block",
                 region : App.rightBlockRegion
-                revisionId : revisionId
                 pageId : pageId
