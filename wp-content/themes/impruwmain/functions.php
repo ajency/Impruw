@@ -35,6 +35,38 @@
     require_once 'modules/api/main.php';
 
 
+/**
+ * [impruw_wp_mail_from description]
+ * @param  [type] $original_email_address [description]
+ * @return [type]                         [description]
+ */
+function impruw_wp_mail_from( $original_email_address ){
+    //Make sure the email is from the same domain 
+    //as your website to avoid being marked as spam.
+    return 'info@impruw.com';
+}
+add_filter( 'wp_mail_from', 'impruw_wp_mail_from' );
+
+/**
+ * [impruw_wp_mail_from_name description]
+ * @param  [type] $original_email_from [description]
+ * @return [type]                      [description]
+ */
+function impruw_wp_mail_from_name( $original_email_from ){
+    return 'Impruw Ltd.';
+}
+add_filter( 'wp_mail_from_name', 'impruw_wp_mail_from_name' );
+
+/**
+ * [change_email_content_type description]
+ * @return [type] [description]
+ */
+function change_email_content_type() {
+    return 'text/html';
+}
+add_filter( 'wp_mail_content_type', 'change_email_content_type' );
+
+
     /* --------------------------------------------------------------------------------------
      *
      * impruw_register_email_init
