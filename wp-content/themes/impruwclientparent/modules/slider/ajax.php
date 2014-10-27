@@ -194,14 +194,45 @@ function update_translated_page_slide_ajax(){
     $slide_language = $_POST[ 'language' ];
 
     //Check if translated slide exists -> get slide id
-
     //If not then create a translated slide -> get slide id
+    if(!slide_exists_in_lang($parent_slide_id, $slide_language)){
+        $translated_slide_id = create_translated_slide($slider_id,$parent_slide_id,$slide_language,'add') ;
+    }
+    else{
+        //get all child slides
+        $child_slides = get_childslides_of_slide($parent_slide_id);
+
+        foreach ($child_slides as $order => $child_slide) {
+            if($child_slide['lang']==$slide_language){
+                 $translated_slide_id = $child_slide['slideid'];
+            }
+        }
+    }
 
     //Using translated slide id -> get slide $data
+    $data = slide_details_array( $translated_slide_id );
 
     //modify $data['layers'][0]['text'] to reflect $new_caption_title and $new_caption_desc
+    $reference_slide_caption =  get_slide_captionhtml($parent_slide_id);
+    //newcaption = reference caption with new title and desc
+    if ($reference_slide_caption=="") {
+        $reference_slide_caption_title = "";
+        $reference_slide_caption_desc = "";
+    }
+    else{
+        $reference_slide_caption_details = get_slide_caption_details($reference_slide_caption);
+        $reference_slide_caption_title_class = $reference_slide_caption_details['caption_title_class'];
+    }
 
-    //Using slide data -> update_slide( $data, $slide_id, $slide_language, $parent_slide_id)
+    $new_caption =  "<h3 class='".$reference_slide_caption_title_class."' data-title='".$new_caption_title."'>".$new_caption_title."</h3><div class='text' data-capdesc='".$new_caption_desc."'>".$new_caption_desc."</div>";
+
+    $data['layers'][0]['text'] = $new_caption;
+    
+    //Using slide data -> update_language_slide( $data, $slide_id, $slide_language, $parent_slide_id)
+
+    $updated_slide_id = update_slide_by_language( $data , $slide_language, $parent_slide_id );
+
+    wp_send_json( array( 'code' => 'OK', 'data' => array( 'id' => $updated_slide_id ) ) );
 
 }
 add_action( 'wp_ajax_update-translated-page-slide', 'update_translated_page_slide_ajax' );

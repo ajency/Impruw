@@ -631,7 +631,7 @@ function get_languages_of_slide($slide_id){
     return $available_slide_lang;
 }
 
-//function to get the languages in which a slide is available
+//function to get child slides of a slide
 function get_childslides_of_slide($slide_id, $return_parent_slide=FALSE){
     $slide = new RevSlide();
 
@@ -650,4 +650,37 @@ function slide_exists_in_lang($slide_id, $language){
     else{
         return false;
     }
+}
+
+function update_slide_by_language( $data , $slide_language, $parent_slide_id ){
+
+    global $wpdb;
+    $arrData = array();
+
+    $data['lang'] = $slide_language;
+    $data['parentid'] = $parent_slide_id;
+
+    $slide_id = $data['id'];
+
+    $arrData[ "layers" ] = json_encode( $data['layers'] );
+    unset($data['layers']);
+
+    $params  = wp_parse_args( $data, slide_defaults() );
+    
+    //change params to json
+    $params2             = json_encode( $params );
+    $arrData[ "params" ] = $params2;
+
+
+    $tab = GlobalsRevSlider::$table_slides;
+
+    $slide_id_ret = $wpdb->update( $tab, $arrData, array( "id" => $slide_id ) );
+
+    if ( $slide_id_ret != 0 ) {
+
+        return $slide_id;
+    } else {
+        return 0;
+    }
+
 }
