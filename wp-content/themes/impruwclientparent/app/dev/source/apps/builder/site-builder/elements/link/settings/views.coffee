@@ -14,17 +14,17 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                 super opt
 
             onRender: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
                 @$el.find('select').selectpicker()
                 @setFields()
 
             # set fields for the form
             setFields: ->
                 if @eleModel.get('draggable') is true
-                    @$el.find('input[name="draggable"]').checkbox 'check'
+                    @$el.find('input[name="draggable"]').radiocheck 'check'
 
                 if @eleModel.get('target') is '_BLANK'
-                    @$el.find('input[name="target"]').checkbox 'check'
+                    @$el.find('input[name="target"]').radiocheck 'check'
 
                 _.each ['link', 'text'], (field, i)=>
                     @$el.find("input[name='#{field}']").val @eleModel.get field
@@ -45,7 +45,7 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                     @trigger "element:style:changed", $(evt.target).val()
                 'blur input.linktext': (evt)->
                     name = $(evt.target).attr 'name'
-                    if name is 'link' and $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 2) isnt "//"
+                    if name is 'link' and $(evt.target).val().substring(0, 8) isnt "https://" and $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 2) isnt "//"
                         $(evt.target).val "http://" + $(evt.target).val()
                     @trigger "element:#{name}:changed", $(evt.target).val()
                 'change input[name="target"]': (evt)->

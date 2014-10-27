@@ -11,4 +11,5 @@ define ['apps/leftnav/app'
 		'apps/my-profile/app'
         'apps/billing/app'
         'apps/language-translation/language-translation-app'
+        'apps/emails/app'
         'apps/seo/app'],->

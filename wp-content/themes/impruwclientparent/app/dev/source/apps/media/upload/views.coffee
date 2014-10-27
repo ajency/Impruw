@@ -13,7 +13,7 @@ define [ 'app'
                       <br/>
                       <div class="progress-text"></div>
                       <div id="progress" style="width: 30%; margin: 0px auto; display: none;" class="progress progress-striped active">
-                          <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="progress-bar"></div>
+                          <div role="progressbar" class="progress-bar  progress-bar-info"></div>
                           <span class="sr-only">{{#polyglot}}0% Complete{{/polyglot}} </span>
                       </div>
                   </div>'

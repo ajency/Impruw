@@ -23,17 +23,17 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
       };
 
       SettingsView.prototype.onRender = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         this.$el.find('select').selectpicker();
         return this.setFields();
       };
 
       SettingsView.prototype.setFields = function() {
         if (this.eleModel.get('draggable') === true) {
-          this.$el.find('input[name="draggable"]').checkbox('check');
+          this.$el.find('input[name="draggable"]').radiocheck('check');
         }
         if (this.eleModel.get('target') === '_BLANK') {
-          this.$el.find('input[name="target"]').checkbox('check');
+          this.$el.find('input[name="target"]').radiocheck('check');
         }
         _.each(['link', 'text'], (function(_this) {
           return function(field, i) {
@@ -62,7 +62,7 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
         'blur input.linktext': function(evt) {
           var name;
           name = $(evt.target).attr('name');
-          if (name === 'link' && $(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 2) !== "//") {
+          if (name === 'link' && $(evt.target).val().substring(0, 8) !== "https://" && $(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 2) !== "//") {
             $(evt.target).val("http://" + $(evt.target).val());
           }
           return this.trigger("element:" + name + ":changed", $(evt.target).val());

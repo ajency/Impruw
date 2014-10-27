@@ -117,7 +117,7 @@ define ['app'
 								<div class="imgthumb full-w col-sm-12">
                                     <div class="arrange-slides">
                                         <div class="arrow">
-                                            <span class="bicon icon-uniF140"></span>
+                                            <span class="glyphicon glyphicon-resize-vertical"></span>
                                         </div>
                                     </div>
 									<img src="{{full_url}}" class="img-responsive">
@@ -295,7 +295,7 @@ define ['app'
                         # @setCaptionDefaults()
 
                 'blur .caption-link':(evt)->
-                    if $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 2) isnt "//"
+                    if $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 8) isnt "https://" and $(evt.target).val().substring(0, 2) isnt "//"
                         $(evt.target).val "http://" + $(evt.target).val()
                         
 
@@ -320,7 +320,7 @@ define ['app'
 
             onShow :->
                 @$el.find('select').selectpicker()
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
                 if Marionette.getOption(@,'element') is 'Slider'
                     @setCaptionDefaults()
 
@@ -337,8 +337,8 @@ define ['app'
                     if $(captionHtml).first().find('a').length
                         @$el.find('.caption-title').val $(captionHtml).first().find('a').first().html()
                         @$el.find('.caption-link').val $(captionHtml).first().find('a').first().attr 'href'
-                        @$el.find('input.link-check').checkbox('check')
-                        @$el.find('input.link-target').checkbox('check') if $(captionHtml).first().find('a').first().attr('target') is '_blank'
+                        @$el.find('input.link-check').radiocheck('check')
+                        @$el.find('input.link-target').radiocheck('check') if $(captionHtml).first().find('a').first().attr('target') is '_blank'
                     else 
                         @$el.find('.form-group.link-hide').addClass('hide')
                         @$el.find('.caption-title').val $(captionHtml).first().html()

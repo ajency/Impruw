@@ -114,7 +114,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
         				</div>'
 
             onShow: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
 
             onShowSuccessMessage: ->
                 @$el.prepend '<div class="alert alert-success">'+ _.polyglot.t("New Page added")+'</div>'

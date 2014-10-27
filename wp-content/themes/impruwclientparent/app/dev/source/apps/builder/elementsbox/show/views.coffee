@@ -25,6 +25,8 @@ define [ 'app'
 
          serializeData : ->
             data = super()
+            data.helpText = _.polyglot.t data.helpText
+      
             data.elementName = ->
                if @title
                   return _.polyglot.t @title

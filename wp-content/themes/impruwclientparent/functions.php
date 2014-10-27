@@ -2,88 +2,81 @@
 /*
  * File Name: functions.php Description: This file has a list of the following functions used in this theme
  */
-//Used for page excerpt generation
+
+define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS', true);
+
+//Used for page exc erpt generation
 require_once 'underscore.php';
+
 // Include WPML API
 include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
-
-use framework\elements\PageElementsCollection;
 
 define( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
 
 // include mustache
-require PARENTTHEMEPATH . '/lib/Mustache/Autoloader.php';
+include_once( dirname( __FILE__ ) . '/lib/Mustache/Autoloader.php');
 Mustache_Autoloader::register();
-
+ 
 global $me;
 $me = new Mustache_Engine ();
 
-//load framework
-require 'framework/autoload.php';
-require 'api/class-wp-json-rooms.php';
+//external modules
+include_once( dirname( __FILE__ ) . '/modules/lessc.inc.php' );
 
+//impruw specific modules
+include_once( dirname( __FILE__ ) . '/modules/slider/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/pages/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/rooms/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/site/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/user/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/themes/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/facilities/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/plans/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/tariff/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/daterange/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/bookings/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/revision/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/elements/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/media/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/language/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/language/languagefunctions.php' );
+include_once( dirname( __FILE__ ) . '/modules/billing/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/seo/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/emails/ajax.php' );
+include_once( dirname( __FILE__ ) . '/modules/heartbeat/heartbeat.php' );
+include_once( dirname( __FILE__ ) . '/api/entities/leftnav.php' );
+include_once( dirname( __FILE__ ) . '/modules/braintree/main-config.php' );
+include_once( dirname( __FILE__ ) . '/modules/emailAPI/main.php' );
+include_once( dirname( __FILE__ ) . '/elements/Element.php' );
+include_once( dirname( __FILE__ ) . '/includes/SiteModel.php' );
+include_once( dirname( __FILE__ ) . '/includes/UserModel.php' );
+include_once( dirname( __FILE__ ) . '/includes/RoomModel.php' );
+include_once( dirname( __FILE__ ) . '/includes/Media.php' );
+include_once( dirname( __FILE__ ) . '/modules/enqueue.php' );
 
-new \framework\cron\ThemeExportCron();
-new \framework\cron\ThemeImportCron();
 
 /**
- * Include the less php compiler
- */
-require_once 'modules/lessc.inc.php';
-
-/**
- * Module Loader
- */
-require_once 'modules/slider/ajax.php';
-require_once 'modules/pages/ajax.php';
-require_once 'modules/rooms/ajax.php';
-require_once 'modules/site/ajax.php';
-require_once 'modules/user/ajax.php';
-require_once 'modules/themes/ajax.php';
-require_once 'modules/facilities/ajax.php';
-require_once 'modules/plans/ajax.php';
-require_once 'modules/tariff/ajax.php';
-require_once 'modules/daterange/ajax.php';
-require_once 'modules/bookings/ajax.php';
-require_once 'modules/revision/ajax.php';
-require_once 'modules/elements/ajax.php';
-require_once 'modules/media/ajax.php';
-require_once 'modules/language/ajax.php';
-require_once 'modules/language/languagefunctions.php';
-require_once 'modules/billing/ajax.php';
-require_once 'modules/seo/ajax.php';
-require_once 'modules/heartbeat/heartbeat.php';
-require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
-
-/***
- * Load braintree PHP library
- */
-require_once 'modules/braintree/main-config.php';
-
-global $page_id;
-$page_id = 0;
-
-
-require_once PARENTTHEMEPATH . 'elements/Element.php';
-require_once PARENTTHEMEPATH . 'includes/SiteModel.php';
-require_once PARENTTHEMEPATH . 'includes/UserModel.php';
-require_once PARENTTHEMEPATH . 'includes/RoomModel.php';
-require_once PARENTTHEMEPATH . 'includes/Media.php';
-
-// add theme support
-add_theme_support( 'menus' );
-add_theme_support( 'post-thumbnails' );
-
-// remove wordpress admin bar
-show_admin_bar( FALSE );
-//load_theme_textdomain( 'impruwclientparent' );
-load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
-
-function page_excerpt_support(){
-    add_post_type_support( 'page', 'excerpt' );
+ * After theme setup hook function
+ * disables admin bar
+ * loads textdomain
+ * add menu support
+ * add post-thumbnail support
+ * add page excerpt support
+ **/
+function impruw_after_theme_setup(){
     
+    // remove wordpress admin bar
+    show_admin_bar( FALSE );
+    //load_theme_textdomain( 'impruwclientparent' );
+    load_theme_textdomain('impruwclientparent', get_template_directory() . '/languages');
+
+    // add theme support
+    add_theme_support( 'menus' );
+    add_theme_support( 'post-thumbnails' );
+    add_post_type_support( 'page', 'excerpt' );
 }
-add_action( 'after_setup_theme', 'page_excerpt_support' );
+add_action( 'after_setup_theme', 'impruw_after_theme_setup' );
+
 
 /**
  * [send_contact_form_message description]
@@ -97,7 +90,6 @@ function send_contact_form_message() {
     $headers = 'From:contact@impruw.com ';
 
     $site_email = get_option( 'admin_email', get_bloginfo( 'admin_email' ) );
-
 
     $message = $_POST [ 'c-message' ];
     $fname = $_POST [ 'c-first-name' ];
@@ -135,7 +127,6 @@ add_action( 'wp_ajax_send-contact-form-message', 'send_contact_form_message' );
 add_action( 'wp_ajax_nopriv_send-contact-form-message', 'send_contact_form_message' );
 
 function change_email_content_type() {
-
     return 'text/html';
 }
 
@@ -224,9 +215,6 @@ function create_room_taxonomies_and_add_terms() {
 
     // Add new taxonomy, Types
     register_taxonomy( 'impruw_room_facility', array() );
-    /*
-     * $facilities_labels = array( 'name' => _x('Facilities', 'taxonomy general name'), 'singular_name' => _x('Facility', 'taxonomy singular name'), 'search_items' => __('Search Facilities','impruwclientparent'), 'all_items' => __('All Facilities','impruwclientparent'), 'parent_item' => __('Parent Facility','impruwclientparent'), 'parent_item_colon' => __('Parent Facility:','impruwclientparent'), 'edit_item' => __('Edit Facility','impruwclientparent'), 'update_item' => __('Update Facility','impruwclientparent'), 'add_new_item' => __('Add New Facility','impruwclientparent'), 'new_item_name' => __('New Facility','impruwclientparent'), 'menu_name' => __('Facility','impruwclientparent') ); $tag_args = array( 'hierarchical' => true, 'labels' => $facilities_labels, 'show_ui' => true, 'show_admin_column' => true, 'query_var' => true, 'rewrite' => array('slug' => 'facility') ); register_taxonomy('impruw_room_facility', 'impruw_room', $tag_args);
-     */
 
     $labels = array(
         'name' => _x( 'Facilities', 'taxonomy general name' ),
@@ -279,10 +267,7 @@ function generate_markup( $section ) {
     if($id === 0 && (is_home() && is_front_page()))
         $id = get_option( 'page_on_front', 0);
 
-    //Generate page markup based on language
-    ////if ( wpml_get_current_language() != wpml_get_default_language() ) {
-        $id = icl_object_id( $id, 'page', TRUE, 'en' );
-    //}
+    $id = icl_object_id( $id, 'page', TRUE, 'en' );
 
     $autosave = FALSE;
 
@@ -309,20 +294,6 @@ function generate_markup( $section ) {
     return $html;
 }
 
-if ( function_exists( 'add_image_size' ) ) {
-    add_image_size( 'new-size', 350, 250, TRUE ); //(cropped)
-}
-add_filter( 'image_size_names_choose', 'my_image_sizes' );
-
-function my_image_sizes( $sizes ) {
-
-    $addsizes = array(
-        "new-size" => __( "New Size" )
-    );
-    $newsizes = array_merge( $sizes, $addsizes );
-
-    return $newsizes;
-}
 
 /**
  * Gets the markup
@@ -438,7 +409,7 @@ function add_element_markup( $element ) {
  */
 function get_builder_row_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/BuilderRow.php';
+    include_once( dirname( __FILE__ ) . '/elements/BuilderRow.php');
 
     $row = new BuilderRow( $element );
 
@@ -464,7 +435,7 @@ function get_builder_row_markup( $element ) {
  */
 function get_builder_row_column_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/BuilderRowColumn.php';
+    include_once( dirname( __FILE__ ) . '/elements/BuilderRowColumn.php');
 
     $column = new BuilderRowColumn( $element );
 
@@ -490,7 +461,7 @@ function get_builder_row_column_markup( $element ) {
  */
 function get_room_description_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomDescription.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomDescription.php');
 
     global $page_id;
 
@@ -508,7 +479,7 @@ function get_room_description_markup( $element ) {
  */
 function get_room_title_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomTitle.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomTitle.php');
 
     $room = new RoomTitle( $element );
 
@@ -524,7 +495,7 @@ function get_room_title_markup( $element ) {
  */
 function get_room_gallery_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomGallery.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomGallery.php');
 
     $room = new RoomGallery( $element );
 
@@ -540,7 +511,7 @@ function get_room_gallery_markup( $element ) {
  */
 function get_room_list_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomList.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomList.php');
 
     $room = new RoomList( $element );
 
@@ -556,7 +527,7 @@ function get_room_list_markup( $element ) {
  */
 function get_room_summary_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomSummary.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomSummary.php');
 
     $room = new RoomSummary( $element );
 
@@ -572,7 +543,7 @@ function get_room_summary_markup( $element ) {
  */
 function get_room_tariff_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomTariff.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomTariff.php');
 
     $room = new RoomTariff( $element );
 
@@ -588,7 +559,7 @@ function get_room_tariff_markup( $element ) {
  */
 function get_room_facilities_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomFacilities.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomFacilities.php');
 
     $room = new RoomFacilities( $element );
 
@@ -604,7 +575,7 @@ function get_room_facilities_markup( $element ) {
  */
 function get_room_booking_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomBooking.php';
+    include_once( dirname( __FILE__ ) . '/elements/room/RoomBooking.php');
 
     $room = new RoomBooking( $element );
 
@@ -620,7 +591,7 @@ function get_room_booking_markup( $element ) {
  */
 function get_image_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ImageElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/ImageElement.php');
 
     $image = new ImageElement( $element );
 
@@ -636,7 +607,7 @@ function get_image_element_markup( $element ) {
  */
 function get_image_with_text_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ImageWithText.php';
+    include_once( dirname( __FILE__ ) . '/elements/ImageWithText.php');
 
     $image = new ImageWithText( $element );
 
@@ -652,7 +623,7 @@ function get_image_with_text_element_markup( $element ) {
  */
 function get_contact_form_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ContactFormElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/ContactFormElement.php');
 
     $contact = new ContactFormElement( $element );
 
@@ -668,7 +639,7 @@ function get_contact_form_element_markup( $element ) {
  */
 function get_map_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/MapElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/MapElement.php');
 
     $map = new MapElement( $element );
 
@@ -684,7 +655,7 @@ function get_map_element_markup( $element ) {
  */
 function get_logo_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/LogoElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/LogoElement.php');
 
     $logo = new LogoElement( $element );
 
@@ -699,7 +670,7 @@ function get_logo_element_markup( $element ) {
  * @param type $element
  */
 function get_language_switcher_element_markup( $element ){
-    require_once PARENTTHEMEPATH . 'elements/LanguageSwitcher.php';
+    include_once( dirname( __FILE__ ) . '/elements/LanguageSwitcher.php');
 
     $languageSwitcher = new LanguageSwitcher( $element );
 
@@ -717,7 +688,7 @@ function get_language_switcher_element_markup( $element ){
  */
 function get_address_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/AddressElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/AddressElement.php');
 
     $address = new AddressElement( $element );
 
@@ -733,7 +704,7 @@ function get_address_element_markup( $element ) {
  */
 function get_social_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/SocialElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/SocialElement.php');
 
     $social = new SocialElement( $element );
 
@@ -749,7 +720,7 @@ function get_social_element_markup( $element ) {
  */
 function get_title_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/TitleElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/TitleElement.php');
 
     $title = new TitleElement( $element );
 
@@ -765,7 +736,7 @@ function get_title_element_markup( $element ) {
  */
 function get_link_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/LinkElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/LinkElement.php');
 
     $link = new LinkElement( $element );
 
@@ -781,7 +752,7 @@ function get_link_element_markup( $element ) {
  */
 function get_text_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/TextElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/TextElement.php');
 
     $text = new TextElement( $element );
 
@@ -796,7 +767,7 @@ function get_text_element_markup( $element ) {
  * @param type $element
  */
 function get_table_element_markup( $element ){
-    require_once PARENTTHEMEPATH . 'elements/TableElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/TableElement.php');
 
     $table = new TableElement( $element );
 
@@ -807,7 +778,7 @@ function get_table_element_markup( $element ){
 }
 
 function get_widget_element_markup( $element ){
-    require_once PARENTTHEMEPATH . 'elements/WidgetElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/WidgetElement.php');
 
     $widget = new WidgetElement( $element );
 
@@ -824,7 +795,7 @@ function get_widget_element_markup( $element ){
  */
 function get_slider_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/SliderElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/SliderElement.php');
 
     $slider = new SliderElement( $element );
 
@@ -840,7 +811,7 @@ function get_slider_element_markup( $element ) {
  */
 function get_menu_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/MenuElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/MenuElement.php');
 
     $menu = new MenuElement( $element );
 
@@ -856,7 +827,7 @@ function get_menu_element_markup( $element ) {
  */
 function get_container_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ContainerElement.php';
+    include_once( dirname( __FILE__ ) . '/elements/ContainerElement.php');
 
     $row = new ContainerElement( $element );
 
@@ -929,145 +900,11 @@ function get_parent_template_directory_uri() {
     return "$theme_root_uri/impruwclientparent";
 }
 
-/**
- * getThemeCSS
- * echo's the JS files for site
- */
-function get_theme_JS() {
-
-    ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.slimmenu.min.js"></script>
-    <!-- 
-    <script src="<?php //echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
-     -->
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/user_management.js"></script>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/polyglot.js"></script>
-    <?php
-        if ( is_page_template( 'page-login.php' ) ) {
-            // Do NOT load lightbox
-        } else { ?>
-            <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
-        <?php }
-    ?>
-    
-    <!-- Isotope -->
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/isotope.js"></script>
-    <script>
-        jQuery(document).ready(function () {
-            if (jQuery('ul.gallery li').length === 0)
-                return;
-
-            var $container = jQuery('ul.gallery').imagesLoaded(function () {
-                $container.isotope({
-                    // options
-                    itemSelector: '.isotope-element'
-                });
-                setTimeout(function () {
-                    jQuery(window).resize();
-                }, 500);
-            });
-        });
-    </script>
-    <script>
-        // Slimmenu Init
-        jQuery(document).ready(function () {
-            jQuery('.slimmenu').slimmenu({
-                resizeWidth: '767',
-                collapserTitle: 'Menu',
-                animSpeed: 'medium',
-                indentChildren: false,
-                childrenIndenter: '&nbsp;'
-            });
-        });
-    </script>
-    <?php
-    $theme_path = get_stylesheet_directory() . "/js";
-    if ( file_exists( $theme_path ) && is_dir( $theme_path ) ) {
-
-        $js_files = scandir( $theme_path, 1 );
-        foreach ( $js_files as $key => $value ) {
-            if ( endsWith( $value, '.js' ) )
-                $files [ ] = $value;
-        }
-
-        $files = !is_array( $files ) ? array() : $files;
-
-        asort( $files );
-
-        foreach ( $files as $file ) {
-            ?>
-            <script
-                src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $file; ?>"></script>
-        <?php
-        }
-    }
-}
-
 function endsWith( $haystack, $needle ) {
 
     return $needle === "" || substr( $haystack, -strlen( $needle ) ) === $needle;
 }
 
-/**
- * getThemeCSS
- * echo's the JS files for site
- */
-function get_theme_CSS() {
-
-    ?>
-    <link
-        href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css"
-        type="text/css" rel="stylesheet"/>
-    <link
-        href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css"
-        type="text/css" rel="stylesheet"/>
-    <link
-        href="<?php echo get_parent_template_directory_uri(); ?>/css/lightbox.css"
-        type="text/css" rel="stylesheet"/>
-    <link
-        href="<?php echo get_parent_template_directory_uri(); ?>/css/style.css"
-        type="text/css" rel="stylesheet"/>
-    <?php
-    $theme_path = get_stylesheet_directory() . "/css";
-    $css_files = scandir( $theme_path, 1 );
-    $files = array();
-    if ( file_exists( $theme_path ) && is_dir( $theme_path ) ) {
-
-        foreach ( $css_files as $key => $value ) {
-
-            if ( !in_array( $value, array(
-                ".",
-                "..",
-                "theme-style.css"
-            ) )
-            ) {
-
-                $files [ ] = $value;
-            }
-        }
-        asort( $files );
-
-        foreach ( $files as $file ) {
-            echo "<link rel='stylesheet' href='" . get_template_directory_uri() . "/css/$file' type='text/css'/>";
-        }
-    }
-    ?>
-    <?php 
-        // if the theme preview color changing is enabled and cookie is set 
-        $theme_preview_ids = explode(',', THEME_ID);
-
-        if( !in_array(get_current_blog_id(), $theme_preview_ids)){ ?>
-
-            <link class="theme-style" href="<?php echo get_theme_style_sheet_file_path(); ?>" type="text/css" rel="stylesheet"/>
-        <?php } else { ?>
-            <style>
-                body {visibility:hidden;}
-            </style>
-            <link class="theme-style" href="" type="text/css" rel="stylesheet"/>
-        <?php
-        }
-}
 
 /**
  * Fecthed the json for a page from DB
@@ -1093,143 +930,8 @@ function get_page_json( $id ) {
     return $json;
 }
 
-/**
- * Reads the json layout and save it
- */
-function save_json_structure() {
 
-    $json = $_POST [ 'json' ];
 
-    global $wpdb;
-
-    $wpdb->update( $wpdb->base_prefix . 'page_layouts', array(
-        'title' => 'home-2',
-        'json' => maybe_serialize( $json )
-    ), array(
-        'id' => 4
-    ) );
-
-    wp_send_json( array(
-        'code' => 'OK',
-        'json' => $json
-    ) );
-}
-
-add_action( 'wp_ajax_save_json_structure', 'save_json_structure' );
-add_action( 'wp_ajax_nopriv_save_json_structure', 'save_json_structure' );
-
-/**
- * Retuns the jSON layout for the given ID
- */
-function get_saved_layout() {
-
-    $page_id = $_GET [ 'pageId' ];
-
-    define( 'FOR_BUILDER', TRUE );
-
-    $json = get_page_markup_JSON( $page_id );
-
-    echo json_encode( $json );
-
-    die();
-}
-
-add_action( 'wp_ajax_get_saved_layout', 'get_saved_layout' );
-add_action( 'wp_ajax_nopriv_get_saved_layout', 'get_saved_layout' );
-
-// insert_room();
-function insert_room() {
-
-    $terms = array(
-        10
-    );
-    $array = array(
-        'post_title' => 'Deluxe',
-        'post_content' => 'Thisis a deluxe room.',
-        'user_id' => 3,
-        'inventory' => 10,
-        'terms' => $terms
-    );
-    $attribute_array = array(
-        'weekday_price' => '10',
-        'weekend_price' => '20',
-        'num_of_adults' => '2',
-        'num_of_children' => '2',
-        'extra_adult' => '10',
-        'extra_child' => '10',
-        'include_tax' => 'yes',
-        'tax_percent' => '12',
-        'terms_and_conditions' => 'agree'
-    );
-    $addons_array = array(
-        'breakfast at bed' => '10',
-        'lunch_buffet' => '10'
-    );
-    $tariff_array = array(
-        array(
-            'start_date' => date( "Y/m/d" ),
-            'end_date' => date( "Y/m/d" ),
-            'attributes' => $attribute_array,
-            'add_ons' => $addons_array
-        )
-    );
-    add_new_room( 1, $array, $tariff_array );
-    echo "yes";
-    exit();
-}
-
-function add_new_room( $blog_id, $array, $tariff_array ) {
-
-    switch_to_blog( $blog_id );
-    $my_post = array(
-        'post_title' => $array [ 'post_title' ],
-        'post_content' => $array [ 'post_content' ],
-        'post_status' => 'publish',
-        'post_author' => $array [ 'user_id' ],
-        'post_type' => 'impruw_room'
-    );
-    // print_r($array['terms']);exit;
-    // Insert the post into the database
-    $post_id = wp_insert_post( $my_post );
-    update_post_meta( $post_id, 'inventory', $array [ 'inventory' ] ); // adds thew inventory value to the room
-    // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruw_room_facility'));exit;;
-    update_post_meta( $post_id, 'room-attachments', $array [ 'room_attachments' ] );
-
-    // insert featured image
-    /*
-     * if(count($array['room_attachments'])>0){ update_post_meta($post_id,'thumbnail-id',$array['room_attachments'][0] ); }
-     */
-
-    $plan_tariff_array = explode( ',', $array [ 'plantariff' ] );
-    $plan_tariff_serialized = maybe_serialize( $plan_tariff_array );
-
-    update_post_meta( $post_id, 'room-plantariff', $plan_tariff_serialized );
-
-    wp_set_object_terms( $post_id, $array [ 'terms' ], 'impruw_room_facility' );
-    add_room_tariff( $post_id, $tariff_array );
-    restore_current_blog();
-
-    return $post_id; // added on 14jan2014
-}
-
-function add_room_tariff( $post_id, $tariff_array ) {
-
-    global $wpdb;
-    foreach ( $tariff_array as $tariff ) {
-        if ( is_array( $tariff ) )
-            $start_date = $tariff [ 'start_date' ];
-        $end_date = $tariff [ 'end_date' ];
-        $attributes = maybe_serialize( $tariff [ 'attributes' ] );
-        $add_ons = maybe_serialize( $tariff [ 'add_ons' ] );
-        $wpdb->insert( $wpdb->prefix . 'room_tariffs', array(
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-            'post_id' => $post_id,
-            'attributes' => $attributes,
-            'add_ons' => $add_ons
-        ) );
-    }
-}
 
 function agc_register_parent_site_menus() {
 
@@ -1240,196 +942,6 @@ function agc_register_parent_site_menus() {
 }
 
 add_action( 'init', 'agc_register_parent_site_menus' );
-
-/**
- * Function to return the actual content markup
- */
-function get_content_markup() {
-
-    $json = $_POST [ 'json' ];
-
-    global $page_id;
-
-    $page_id = (int)$_POST [ 'pageId' ];
-
-    define( 'FOR_BUILDER', TRUE );
-
-    $data = array();
-
-    if ( !isset( $json ) )
-        $data [ ] = "Nothing Found";
-
-    foreach ( $json as $section ) {
-
-        $d = elements_markup( $section [ 'elements' ] );
-        $data = array_merge( $data, $d );
-    }
-
-    if ( $data )
-        echo json_encode( array(
-            'code' => 'OK',
-            'data' => $data
-        ) );
-    else
-        echo json_encode( array(
-            'code' => 'ERROR',
-            'message' => 'Nothing to return'
-        ) );
-    die();
-}
-
-add_action( 'wp_ajax_get_content_markup', 'get_content_markup' );
-add_action( 'wp_ajax_nopriv_get_content_markup', 'get_content_markup' );
-
-/**
- * [elements_markup description]
- *
- * @param  [type] $elements
- *            [description]
- *
- * @return [type] [description]
- */
-function elements_markup( $elements ) {
-
-    $e = array();
-
-    foreach ( $elements as $element ) {
-
-        // skip if already sent
-        if ( $element [ 'contentFetched' ] == 'true' )
-            continue;
-
-        if ( $element [ 'elementType' ] === 'BuilderRow' || $element [ 'elementType' ] === 'BuilderRowColumn' ) {
-
-            if ( isset( $element [ 'elements' ] ) && count( $element [ 'elements' ] ) > 0 ) {
-                $eles = elements_markup( $element [ 'elements' ] );
-                $e = array_merge( $e, $eles );
-            }
-        } else {
-            $e [ $element [ 'id' ] ] = add_element_markup( $element );
-        }
-    }
-
-    return $e;
-}
-
-/**
- * Get site details
- */
-/*
- * function get_site_data(){ $blogdetails = get_blog_details(get_current_blog_id()); header('Content-Type: application/json'); echo json_encode(array('code' => 'OK', 'sitetitle'=> $blogdetails->blogname) ); die(); } add_action('wp_ajax_get_site_data','get_site_data'); add_action('wp_ajax_nopriv_get_site_data','get_site_data');
- */
-
-/**
- * Get site details
- */
-function get_site_data_ajx() {
-
-    $site_id = $_GET [ 'id' ];
-
-    $site_profile_details = get_site_data( $site_id );
-
-    header( 'Content-Type: application/json' );
-    echo json_encode( array(
-        'code' => 'OK',
-        'data' => $site_profile_details
-    ) );
-    die();
-}
-
-add_action( 'wp_ajax_get_site_data_ajx', 'get_site_data_ajx' );
-add_action( 'wp_ajax_nopriv_get_site_data_ajx', 'get_site_data_ajx' );
-
-/**
- * Function to get site details
- *
- * @param
- *            int site id $site_id
- *
- * @return array containing site profile data
- */
-function get_site_data( $site_id ) {
-
-    $site = new SiteModel( $site_id );
-    $site_profile_data = $site->get_site_profile();
-
-    return $site_profile_data;
-}
-
-/**
- * Function to remove business logo
- */
-function remove_business_logo() {
-
-    var_dump( 'remove business  logo' );
-    $result = update_option( 'sitebusiness-logo', '' );
-    if ( !result ) {
-        wp_send_json( array(
-            'code' => 'ERROR',
-            'msg' => _( 'Error removing business logo' )
-        ) );
-    } else {
-        wp_send_json( array(
-            'code' => 'OK',
-            'msg' => _( 'Business logo removed successfully' )
-        ) );
-    }
-}
-
-add_action( 'wp_ajax_remove_business_logo', 'remove_business_logo' );
-add_action( 'wp_ajax_nopriv_remove_business_logo', 'remove_business_logo' );
-
-/**
- * Function to save site profile (business details, social)
- * Type: Ajax call
- */
-function update_site_data() {
-
-    if ( 'POST' !== $_SERVER [ 'REQUEST_METHOD' ] )
-        wp_send_json( 'Invalid request method' );
-
-    $changes = $_POST [ 'changes' ];
-
-    if ( save_site_data( $changes ) ) {
-
-        header( 'Content-Type: application/json' );
-        echo json_encode( array(
-            'code' => 'OK'
-        ) );
-        die();
-    } else {
-
-        header( 'Content-Type: application/json' );
-        echo json_encode( array(
-            'code' => 'FAILED',
-            'msg' => _( 'Could not save site profile' )
-        ) );
-        die();
-    }
-}
-
-add_action( 'wp_ajax_update_site_data', 'update_site_data' );
-add_action( 'wp_ajax_nopriv_update_site_data', 'update_site_data' );
-
-/**
- * Function to Save site Details
- *
- * @param
- *            array containign business details & social details
- *            Ex: $site_form_data sitedata( 'business'=>array('ph'=>99),
- *            'social'=>array('facebook'=>'myfbid') )
- *
- * @return boolean
- */
-function save_site_data( $site_form_data ) {
-
-    $site = new SiteModel( get_current_blog_id() );
-
-    if ( $site->save_site_profile( $site_form_data ) )
-        return TRUE;
-    else
-        return FALSE;
-}
 
 /**
  * Function accepts serialized form data and returns aray containing form field name-value
@@ -1850,7 +1362,7 @@ add_action( 'wp_ajax_remove_menu_item', 'remove_menu_item' );
 
 function query_attachments() {
 
-    require_once PARENTTHEMEPATH . 'includes/Media.php';
+    include_once( dirname( __FILE__ ) . '/includes/Media.php');
 
     $query = array();
     $query[ 'order' ] = $_REQUEST[ 'order' ];
@@ -3251,78 +2763,6 @@ function delete_daterange( $daterange_id ) {
     return TRUE;
 }
 
-/**
- * function to add new room
- */
-function add_new_room_ajx() {
-
-    // var_dump($_POST);
-    $room_name = $_POST [ 'category' ];
-    $room_nos = $_POST [ 'nos' ];
-    $room_desc = $_POST [ 'description' ];
-    $room_facilities = $_POST [ 'facilities' ];
-    $checkin_format = $_POST [ 'checkinformat' ];
-    $checkin_time = $_POST [ 'checkintime' ];
-    $additional_policies = $_POST [ 'additionalpolicies' ];
-    $tax_option = $_POST [ 'tax_option' ];
-    $room_attachments = $_POST [ 'room_attachments' ];
-    $room_plantariff = $_POST [ 'plantariffids' ];
-
-    $array = array(
-        'post_title' => $room_name,
-        'post_content' => $room_desc,
-        'user_id' => get_current_user_id(),
-        'inventory' => $room_nos,
-        'terms' => $room_facilities,
-        'room_attachments' => $room_attachments,
-        'plantariff' => $room_plantariff
-    );
-
-    $attribute_array = array(
-        'weekday_price' => '10',
-        'weekend_price' => '20',
-        'num_of_adults' => '2',
-        'num_of_children' => '2',
-        'extra_adult' => '10',
-        'extra_child' => '10',
-        'include_tax' => 'yes',
-        'tax_percent' => '12',
-        'terms_and_conditions' => 'agree'
-    );
-
-    $addons_array = array(
-        'breakfast at bed' => '10',
-        'lunch_buffet' => '10'
-    );
-
-    $tariff_array = array(
-        array(
-            'start_date' => date( "Y/m/d" ),
-            'end_date' => date( "Y/m/d" ),
-            'attributes' => $attribute_array,
-            'add_ons' => $addons_array
-        )
-    );
-
-    $newroom_id = add_new_room( get_current_blog_id(), $array, $tariff_array ); // need to handle error ; no return type
-
-    update_option( 'checkin-format', $checkin_format );
-    update_option( 'checkin-time', $checkin_time );
-    update_option( 'additional-policies', $additional_policies );
-    update_option( 'tax-option', $tax_option );
-
-    $newroom = new RoomModel( $newroom_id );
-    $newroomdata = $newroom->get_all_roomdata();
-
-    wp_send_json( array(
-        'code' => 'OK',
-        'msg' => _( 'New Room added successfully' ),
-        'roomdata' => $newroomdata
-    ) );
-}
-
-add_action( 'wp_ajax_add_new_room_ajx', 'add_new_room_ajx' );
-add_action( 'wp_ajax_nopriv_add_new_room_ajx', 'add_new_room_ajx' );
 
 /**
  * *
@@ -3978,14 +3418,6 @@ function get_compiled_stylesheet_directory_uri() {
 
 }
 
-/*
-  function enqueue_contact_page_script(){
-  wp_enqueue_script ('contact-us', get_template_directory_uri () . 'js/contact.js',array('jquery'));
-  wp_enqueue_script ('maps', get_template_directory_uri () . 'js/contact.js');
-  wp_enqueue_script ('maps', get_template_directory_uri () . 'js/contact.js');
-  } */
-
-
 /**
  * Common Element Templates & Classes for Child Themes
  */
@@ -4290,6 +3722,3 @@ if(!function_exists('theme_color_sets')){
         return array();
     }
 }
-
-
-
