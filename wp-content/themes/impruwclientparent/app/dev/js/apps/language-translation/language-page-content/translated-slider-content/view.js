@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return TranslatedSlideItemView.__super__.constructor.apply(this, arguments);
       }
 
-      TranslatedSlideItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content title" id="translated-slidercaption-title" value="{{captionTitle}}"> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content text" id="translated-slidercaption-desc" value="{{captionDesc}}"> <input type="hidden" id="translated-slideparent-id" value="{{slideParentId}}"> <input type="hidden" id="translated-slider-id" value="{{sliderId}}"> <button id="btn-save-slider-translation-element" class="btn btn-xs trans-action aj-imp-orange-btn"> Save </button> </div> </div> </div> </div>';
+      TranslatedSlideItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> {{#captionAdded}}<input type="text" class="form-control translated-element-content title" id="translated-slidercaption-title" value="{{captionTitle}}">{{/captionAdded}} {{^captionAdded}}<div class="form-control translated-element-content title"> <p>{{captionTitle}}</p> </div> {{/captionAdded}} </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> {{#captionAdded}}<input type="text" class="form-control translated-element-content text" id="translated-slidercaption-desc" value="{{captionDesc}}"> <input type="hidden" id="translated-slideparent-id" value="{{slideParentId}}"> <input type="hidden" id="translated-slider-id" value="{{sliderId}}"> <button id="btn-save-slider-translation-element" class="btn btn-xs trans-action aj-imp-orange-btn"> Save </button> {{/captionAdded}} {{^captionAdded}}<div class="form-control translated-element-content text"> <p>{{captionDesc}}</p> </div> {{/captionAdded}} </div> </div> </div> </div>';
 
       TranslatedSlideItemView.prototype.events = {
         "click #btn-save-slider-translation-element": "updatePageSlide"
@@ -22,6 +22,13 @@ define(['app'], function(App) {
         data = TranslatedSlideItemView.__super__.mixinTemplateHelpers.call(this, data);
         editingLanguage = Marionette.getOption(this, 'editingLanguage');
         console.log(editingLanguage + " is the editing language");
+        data.captionAdded = function() {
+          if (data[editingLanguage]['layers']['0'] !== void 0) {
+            return true;
+          } else {
+            return false;
+          }
+        };
         data.captionTitle = function() {
           var captionHtml, captionTitle;
           if (data[editingLanguage] !== void 0) {

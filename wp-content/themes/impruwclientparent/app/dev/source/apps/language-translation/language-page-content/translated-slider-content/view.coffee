@@ -9,7 +9,10 @@ define ['app'], (App)->
                     <div class="col-sm-12"> 
                         <div class="form-group trans-field"> 
                             <div class="col-sm-10"> 
-                                    <input type="text" class="form-control translated-element-content title" id="translated-slidercaption-title" value="{{captionTitle}}">
+                                    {{#captionAdded}}<input type="text" class="form-control translated-element-content title" id="translated-slidercaption-title" value="{{captionTitle}}">{{/captionAdded}}
+                                    {{^captionAdded}}<div class="form-control translated-element-content title">
+                                        <p>{{captionTitle}}</p>
+                                    </div> {{/captionAdded}}
                                
                             </div> 
                         </div> 
@@ -19,10 +22,13 @@ define ['app'], (App)->
                     <div class="col-sm-12"> 
                         <div class="form-group trans-field"> 
                             <div class="col-sm-10">
-                                <input type="text" class="form-control translated-element-content text" id="translated-slidercaption-desc" value="{{captionDesc}}">
+                                {{#captionAdded}}<input type="text" class="form-control translated-element-content text" id="translated-slidercaption-desc" value="{{captionDesc}}">
                                     <input type="hidden" id="translated-slideparent-id" value="{{slideParentId}}">
                                     <input type="hidden" id="translated-slider-id" value="{{sliderId}}">
-                                    <button id="btn-save-slider-translation-element" class="btn btn-xs trans-action aj-imp-orange-btn"> Save </button> 
+                                    <button id="btn-save-slider-translation-element" class="btn btn-xs trans-action aj-imp-orange-btn"> Save </button> {{/captionAdded}}
+                                {{^captionAdded}}<div class="form-control translated-element-content text">
+                                    <p>{{captionDesc}}</p>
+                                </div> {{/captionAdded}}
                             </div> 
                         </div> 
                     </div>
@@ -37,6 +43,12 @@ define ['app'], (App)->
                 editingLanguage = Marionette.getOption @, 'editingLanguage'
 
                 console.log editingLanguage+" is the editing language"
+
+                data.captionAdded = ->
+                    if data[editingLanguage]['layers']['0'] isnt undefined
+                        return true
+                    else
+                        return false
 
                 data.captionTitle = ->
                     if data[editingLanguage] isnt undefined
