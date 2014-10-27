@@ -4144,7 +4144,7 @@ form .aj-imp-submit:hover {
 
 @media (max-width: 850px) {
   .aj-imp-block-list ul .block {
-    width: 100%;
+    width: auto;
     margin: 0 auto 2em;
   }
 }
