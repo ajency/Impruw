@@ -27,7 +27,6 @@ define ['app'], (App)->
 
             mixinTemplateHelpers: (data)->
                 data = super data
-                console.log data
                 data.captionTitle = ->
                     if data[WPML_DEFAULT_LANG]['layers']['0'] isnt undefined
                         captionHtml = data[WPML_DEFAULT_LANG]['layers']['0']['text']
@@ -62,7 +61,6 @@ define ['app'], (App)->
 
             initialize :->
                 collection = new Backbone.Collection @model.get('slides')
-                console.log collection
                 @collection = collection
 
 

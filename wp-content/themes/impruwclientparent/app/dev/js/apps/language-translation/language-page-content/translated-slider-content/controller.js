@@ -31,7 +31,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype.updatePageSlideContent = function(outerview, innerview, newCaptionTitle, newCaptionDesc, slideParentId, sliderId) {
         var data, model, responseFn;
         model = innerview.model;
-        console.log(model);
         data = {
           newCaptionTitle: newCaptionTitle,
           newCaptionDesc: newCaptionDesc,
@@ -39,7 +38,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
           slideParentId: slideParentId,
           sliderId: sliderId
         };
-        console.log(data);
         responseFn = (function(_this) {
           return function(response) {
             return console.log("Success");

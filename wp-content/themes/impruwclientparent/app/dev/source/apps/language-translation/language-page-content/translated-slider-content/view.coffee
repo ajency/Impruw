@@ -42,7 +42,6 @@ define ['app'], (App)->
 
                 editingLanguage = Marionette.getOption @, 'editingLanguage'
 
-                console.log editingLanguage+" is the editing language"
 
                 data.captionAdded = ->
                     if data[editingLanguage]['layers']['0'] isnt undefined
@@ -87,15 +86,11 @@ define ['app'], (App)->
 
             updatePageSlide:(e) ->
                 e.preventDefault()
-                console.log "update page slide"
+                
                 newCaptionTitle  = @$el.find('#translated-slidercaption-title').val()
                 newCaptionDesc = @$el.find('#translated-slidercaption-desc').val()
                 slideParentId = @$el.find('#translated-slideparent-id').val()
                 sliderId = @$el.find('#translated-slider-id').val()
-
-                console.log newCaptionTitle
-                console.log newCaptionDesc
-                console.log slideParentId
                 
                 @trigger "page:slide:updated", newCaptionTitle, newCaptionDesc, slideParentId,sliderId
 

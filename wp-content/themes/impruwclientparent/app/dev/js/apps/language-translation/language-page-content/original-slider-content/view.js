@@ -15,7 +15,6 @@ define(['app'], function(App) {
 
       OriginalSlideItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalSlideItemView.__super__.mixinTemplateHelpers.call(this, data);
-        console.log(data);
         data.captionTitle = function() {
           var captionHtml, captionTitle;
           if (data[WPML_DEFAULT_LANG]['layers']['0'] !== void 0) {
@@ -60,7 +59,6 @@ define(['app'], function(App) {
       OriginalSlideView.prototype.initialize = function() {
         var collection;
         collection = new Backbone.Collection(this.model.get('slides'));
-        console.log(collection);
         return this.collection = collection;
       };
 

@@ -28,15 +28,13 @@ define ['app', 'controllers/base-controller'
             updatePageSlideContent :(outerview,innerview, newCaptionTitle,newCaptionDesc,slideParentId,sliderId)->
 
                 model = innerview.model
-                console.log model
+                
                 data =
                     newCaptionTitle: newCaptionTitle
                     newCaptionDesc: newCaptionDesc
                     language: @editLang
                     slideParentId: slideParentId
                     sliderId: sliderId
-
-                console.log data
 
                 responseFn = (response)=>
                     console.log "Success"

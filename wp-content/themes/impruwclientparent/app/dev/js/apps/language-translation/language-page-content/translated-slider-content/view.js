@@ -21,7 +21,6 @@ define(['app'], function(App) {
         var editingLanguage;
         data = TranslatedSlideItemView.__super__.mixinTemplateHelpers.call(this, data);
         editingLanguage = Marionette.getOption(this, 'editingLanguage');
-        console.log(editingLanguage + " is the editing language");
         data.captionAdded = function() {
           if (data[editingLanguage]['layers']['0'] !== void 0) {
             return true;
@@ -75,14 +74,10 @@ define(['app'], function(App) {
       TranslatedSlideItemView.prototype.updatePageSlide = function(e) {
         var newCaptionDesc, newCaptionTitle, slideParentId, sliderId;
         e.preventDefault();
-        console.log("update page slide");
         newCaptionTitle = this.$el.find('#translated-slidercaption-title').val();
         newCaptionDesc = this.$el.find('#translated-slidercaption-desc').val();
         slideParentId = this.$el.find('#translated-slideparent-id').val();
         sliderId = this.$el.find('#translated-slider-id').val();
-        console.log(newCaptionTitle);
-        console.log(newCaptionDesc);
-        console.log(slideParentId);
         return this.trigger("page:slide:updated", newCaptionTitle, newCaptionDesc, slideParentId, sliderId);
       };
 
