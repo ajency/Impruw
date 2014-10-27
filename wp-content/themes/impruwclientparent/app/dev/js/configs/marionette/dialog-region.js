@@ -9,7 +9,7 @@ define(['marionette', 'mustache'], function(Marionette, Mustache) {
       return Dialog.__super__.constructor.apply(this, arguments);
     }
 
-    Dialog.prototype.template = '<div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button> <h4 class="modal-title">{{modal_title}}</h4> </div> <div class="modal-body"></div> <div class="modal-footer"> </div> </div> </div>';
+    Dialog.prototype.template = '<div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button> <h4 class="modal-title">{{modal_title}}</h4> </div> <div class="modal-body"></div> </div> </div>';
 
     Dialog.prototype.open = function(view) {
       var options, wrapper;
