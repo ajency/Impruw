@@ -2,6 +2,9 @@
 /*
  * File Name: functions.php Description: This file has a list of the following functions used in this theme
  */
+
+define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS', true);
+
 //Used for page exc erpt generation
 require_once 'underscore.php';
 
