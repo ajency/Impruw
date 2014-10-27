@@ -3582,6 +3582,8 @@ form .aj-imp-submit:hover {
 @media (max-width: 767px) {
   .aj-imp-homepage .home-2 h2 {
     text-align: center;
+    font-size: 2em;
+    word-wrap: break-word;
   }
 }
 .aj-imp-homepage .home-2 p {
@@ -4145,6 +4147,7 @@ form .aj-imp-submit:hover {
 @media (max-width: 850px) {
   .aj-imp-block-list ul .block {
     width: auto;
+    max-width: 100%;
     margin: 0 auto 2em;
   }
 }
