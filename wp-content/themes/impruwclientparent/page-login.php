@@ -32,7 +32,7 @@ add_string_translations();
                         <label for="inputEmail"
                                class="col-sm-3 control-label"><?php echo icl_t('theme impruwlogin', 'email_label', 'Email'); ?></label>
 
-                        <div class="col-sm-6 col-sm-offset-3">
+                        <div class="col-sm-6">
 
                             <input type="email" class="form-control  parsley-validated parsley-error" id="inputEmail"
                                    name="inputEmail" placeholder="<?php echo icl_t('theme impruwlogin', 'email_placeholder', 'Email ID you signed up with'); ?>" parsley-required="true"
@@ -48,7 +48,7 @@ add_string_translations();
                         <label for="inputPass"
                                class="col-sm-3 control-label"><?php echo icl_t('theme impruwlogin', 'password_label', 'Password'); ?></label>
 
-                        <div class="col-sm-6 col-sm-offset-3">
+                        <div class="col-sm-6">
                             <input type="password" class="form-control  parsley-validated parsley-error" id="inputPass"
                                    name="inputPass" placeholder="<?php echo icl_t('theme impruwlogin', 'password_label', 'Password'); ?>" parsley-required="true"
                                    parsley-trigger="blur" parsley-validation-minlength="0"
@@ -94,7 +94,7 @@ add_string_translations();
                         <label for="inputEmail"
                                class="col-sm-3 control-label"><?php echo icl_t('theme impruwlogin', 'email_label', 'Email'); ?></label>
 
-                        <div class="col-sm-6 col-sm-offset-3">
+                        <div class="col-sm-6">
 
                             <input type="email" class="form-control  parsley-validated parsley-error"
                                    id="forgotPasswordEmail"

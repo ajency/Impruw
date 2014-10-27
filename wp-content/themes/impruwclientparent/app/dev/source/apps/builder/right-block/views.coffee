@@ -13,9 +13,6 @@ define ['app'],(App)->
 						<div id="revision-history" class="revision-history">
 							
 						</div>
-						<div class="aj-imp-builder-options"> 
-							<a href="#" class="builder-help">{{#polyglot}}Need Help{{/polyglot}}&nbsp;<span class="bicon icon-uniF13B"></span></a>
-						</div>
 						<div id="unused-elements"></div>'
 
 			regions:

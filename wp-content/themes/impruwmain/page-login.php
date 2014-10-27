@@ -7,7 +7,7 @@
     <div class="aj-imp-login-form">
         <div class="row">
             <div class="col-sm-12 aj-imp-login-header">
-                <h1><?php echo __('Sign in', 'impruwmain'); ?>  <span><?php echo __('Impruw', 'impruwmain'); ?></span>
+                <h1><?php echo __('Sign in to', 'impruwmain'); ?>  <span><?php echo __('Impruw', 'impruwmain'); ?></span>
                 </h1>
 
                 <p class="desc">

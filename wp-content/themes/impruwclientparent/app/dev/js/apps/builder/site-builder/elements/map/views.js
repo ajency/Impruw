@@ -4,10 +4,19 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
 define(['app'], function(App) {
   return App.module('SiteBuilderApp.Element.Map.Views', function(Views, App, Backbone, Marionette, $, _) {
+    var callbacks;
+    callbacks = null;
+    window.initializeMap = function() {
+      if (callbacks !== null) {
+        callbacks.fire();
+        return callbacks.remove(window['renderMap']);
+      }
+    };
     return Views.MapView = (function(_super) {
       __extends(MapView, _super);
 
       function MapView() {
+        this.renderMap = __bind(this.renderMap, this);
         this.adjustMapHeight = __bind(this.adjustMapHeight, this);
         this.mapMoved = __bind(this.mapMoved, this);
         return MapView.__super__.constructor.apply(this, arguments);
@@ -43,7 +52,6 @@ define(['app'], function(App) {
         this.parentColumns = this.$el.parents('.column');
         return this.parentColumns.each((function(_this) {
           return function(index, parentColumn) {
-            console.log(parentColumn);
             $(parentColumn).on('class:changed', _this.adjustMapHeight);
             return $(parentColumn).on('element:moved', _this.mapMoved);
           };
@@ -72,6 +80,17 @@ define(['app'], function(App) {
       };
 
       MapView.prototype.geoCodeAddress = function() {
+        callbacks = $.Callbacks('once');
+        window['renderMap'] = this.renderMap;
+        callbacks.add(window['renderMap']);
+        if (typeof google === 'undefined') {
+          return $.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap');
+        } else {
+          return this.renderMap();
+        }
+      };
+
+      MapView.prototype.renderMap = function() {
         var address, geocoder;
         address = window.ADDRESS;
         geocoder = new google.maps.Geocoder();

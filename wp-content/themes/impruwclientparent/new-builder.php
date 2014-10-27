@@ -17,39 +17,13 @@
     <meta name="viewport" content="width=device-width">
     <title><?php wp_title( '|', TRUE, 'right' ); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="shortcut icon" href="<?php echo get_parent_template_directory_uri(); ?>/images/favicon.png" type="image/x-icon" />
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <!--[if lt IE 9]>
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jqueryui.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet"
-          media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.resizableColumns.css" rel="stylesheet" media="screen"/>
-
-
-    <!-- Wordpress image editor -->
-    <link href="<?php echo site_url(); ?>//wp-includes/css/dashicons.min.css" rel="stylesheet" media="screen">
-    <link href="<?php echo site_url(); ?>/wp-includes/js/imgareaselect/imgareaselect.css" rel="stylesheet"
-          media="screen">
-    <link href="<?php echo site_url(); ?>/wp-content/plugins/revslider/rs-plugin/css/dynamic-captions.css" rel="stylesheet"
-    <link href="<?php echo site_url(); ?>/wp-admin/css/media-rtl.css" rel="stylesheet" media="screen">
-    <link href="<?php echo site_url(); ?>/wp-admin/css/media.css" rel="stylesheet" media="screen">
-
-
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/main.css" rel="stylesheet"
-          media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/builder.css" rel="stylesheet"
-          media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/custom.css" rel="stylesheet"
-          media="screen"/>
-    <link rel="shortcut icon" href="wp-content/themes/impruwclientparent/images/favicon.png" type="image/x-icon" />
-
-    <link href="<?php echo get_template_directory_uri(); ?>/css/slimmenu.min.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_theme_style_sheet_file_path(); ?> " rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/pace.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.minicolors.css" rel="stylesheet"
-          media="screen">
+    <?php wp_head(); ?>
+    
 </head>
 <body <?php body_class(); ?>>
 
@@ -73,7 +47,7 @@
 <div id="fb-root"></div>
 
 <div id="choose-theme-region"></div>
-<div class="aj-imp-builder container">
+<div class="aj-imp-builder container-fluid">
     <div id="header-region"></div>
     <div id="builder-region"></div>
     <div id="elements-box-region"></div>
@@ -131,8 +105,8 @@
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
+
+<script src="<?php echo get_parent_template_directory_uri() ?>/bower_components/pace/pace.js"></script>
 <!-- Unused Elements Box -->
 <div id="fl_menu" class="aj-imp-trash-elements"></div>
 <!-- Unused Elements Box -->
@@ -142,19 +116,20 @@
 
 <?php if ( ENV === 'production' ): ?>
     
-     
     <script
         src="<?php echo get_parent_template_directory_uri(); ?>/app/production/builder-main.js?ver=<?php echo JSVERSION ?>"></script>
 <?php else: ?>
-   <!-- 
-      <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> 
-
-    <script src="<?php  get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
- -->
-    <script data-main="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/builder-main"
-            src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
+   <script data-main="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/builder-main"
+            src="<?php echo get_parent_template_directory_uri(); ?>/bower_components/requirejs/require.js"></script>
 <?php endif; ?>
 <?php endif; ?>
-
+<!-- JS Error Tracking -->
+<script>
+    (function(_,e,rr,s){_errs=[s];var c=_.onerror;_.onerror=function(){var a=arguments;_errs.push(a);
+    c&&c.apply(this,a)};var b=function(){var c=e.createElement(rr),b=e.getElementsByTagName(rr)[0];
+    c.src="//beacon.errorception.com/"+s+".js";c.async=!0;b.parentNode.insertBefore(c,b)};
+    _.addEventListener?_.addEventListener("load",b,!1):_.attachEvent("onload",b)})
+    (window,document,"script","5440a65769c1935122000238");
+</script>
 </body>
 </html>

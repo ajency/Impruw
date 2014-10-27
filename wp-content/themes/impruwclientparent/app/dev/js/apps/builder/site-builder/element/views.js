@@ -179,7 +179,7 @@ define(['app'], function(App, elementTpl) {
         return ErrorView.__super__.constructor.apply(this, arguments);
       }
 
-      ErrorView.prototype.template = '<div style="width:100%; height:150px; margin:auto"> conponent of type {{element}} did not load properly </div>';
+      ErrorView.prototype.template = '<div style="width:100%; height:150px; margin:auto"> component of type {{element}} did not load properly </div>';
 
       return ErrorView;
 

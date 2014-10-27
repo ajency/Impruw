@@ -50,7 +50,7 @@ define ['app','bootbox'], (App,bootbox)->
 				@$el.find('.table-holder').height( @$el.find('.table-responsive').height() + 15 )
 				@setResizable()
 				# @$el.find('select').selectpicker()
-				# @$el.find('[data-toggle="checkbox"]').checkbox() 
+				# @$el.find('[data-toggle="checkbox"]').radiocheck() 
 
 
 			setResizable : ->

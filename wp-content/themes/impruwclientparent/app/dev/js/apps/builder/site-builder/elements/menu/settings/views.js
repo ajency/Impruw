@@ -23,18 +23,18 @@ define(['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
       };
 
       SettingsView.prototype.onRender = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
-        this.$el.find('input[type="radio"]').radio();
+        this.$el.find('input[type="checkbox"]').radiocheck();
+        this.$el.find('input[type="radio"]').radiocheck();
         this.$el.find('select').selectpicker();
         return this.setFields();
       };
 
       SettingsView.prototype.setFields = function() {
         if (this.eleModel.get('draggable') === true) {
-          this.$el.find('input[name="draggable"]').checkbox('check');
+          this.$el.find('input[name="draggable"]').radiocheck('check');
         }
         if (this.eleModel.get('justified') === true) {
-          this.$el.find('input[name="justified"]').checkbox('check');
+          this.$el.find('input[name="justified"]').radiocheck('check');
         }
         this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
         this.$el.find('select[name="choose-menu"]').selectpicker('val', this.eleModel.get('menu_id'));

@@ -51,6 +51,7 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
       };
 
       AutoSaveLocal.prototype.createStorage = function() {
+        console.log('clear');
         this.key = "impruw-builder-" + this.blogId;
         return window.sessionStorage.setItem(this.key, '');
       };
@@ -79,6 +80,10 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
           return window.sessionStorage.getItem(this.key) !== null;
         }
         return false;
+      };
+
+      AutoSaveLocal.prototype.reset = function() {
+        return window.sessionStorage.setItem(this.key, '');
       };
 
       return AutoSaveLocal;

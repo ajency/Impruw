@@ -14,17 +14,17 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
                 super opt
 
             onRender: ->
-                @$el.find('input[type="checkbox"]').checkbox()
-                @$el.find('input[type="radio"]').radio()
+                @$el.find('input[type="checkbox"]').radiocheck()
+                @$el.find('input[type="radio"]').radiocheck()
                 @$el.find('select').selectpicker()
                 @setFields()
 
             # set fields for the form
             setFields: ->
                 if @eleModel.get('draggable') is true
-                    @$el.find('input[name="draggable"]').checkbox('check')
+                    @$el.find('input[name="draggable"]').radiocheck('check')
                 if @eleModel.get('justified') is true
-                    @$el.find('input[name="justified"]').checkbox('check')
+                    @$el.find('input[name="justified"]').radiocheck('check')
 
                 @$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'style'
                 @$el.find('select[name="choose-menu"]').selectpicker 'val', @eleModel.get 'menu_id'

@@ -1,19 +1,21 @@
 /*
-Theme Name:     Impruw Dashboard
+Theme Name:     Impruw Dashboard Styles
 Theme URI:      http://ajency.in/
-Description:    Layout for Main Dashboard
+Description:    Style Classes for the Dashboard
 Author:         Jarryd for Ajency.in
 Author URI:     http://ajency.in/
 Template:       impruw
 Version:        0.1.0
 */
 
-/****Icon Font****/
-@import url(icon-fonts.css);
-@import url(../../builder/css/builder-icon-fonts.css);
+/****Builder Icon Font****/
+@import url(dashboard-icon-fonts.css);
 
-/****Lightbox CSS****/
-@import url(lightbox.css);
+/****Reset Body Font Size****/
+body{
+  font-size:14px;
+  line-height: 1.2;
+}
 
 /****Colors****/
 @logo-blue: #182944;
@@ -26,7 +28,8 @@ Version:        0.1.0
 @preview-grey: #F3F3F3;
 @success-green: #2ECC71;
 @alert-green: #c5e5de;
-@red:#f21515;
+@red: #f21515;
+
 /****Link Styles****/
 a {
 	color: @orange;
@@ -51,6 +54,9 @@ a {
 		&.pull-left, &.pull-right {
 			margin: 0.5em;
 		}
+	}
+	&.btn {
+		color: #fff;
 	}
 }
 
@@ -345,6 +351,7 @@ p {
 								font-size: 0.8em;
 								text-transform: capitalize;
 								font-weight: 300;
+								color: @blue-grey;
 							}
 						}
 						p {
@@ -511,10 +518,16 @@ form {
 		font-size: 1.1em;
 		&.checkbox, &.radio {
 			padding-top: 0 !important;
-			&.checked {
-				color: @dash-grey;
-				.second-icon {
-					color: @orange;
+			.custom-checkbox, .custom-radio {
+				z-index: 1;
+				cursor: pointer;
+				&:checked {
+					& + .icons {
+						color: @dash-grey;
+						.icon-checked {
+							color: @orange !important;
+						}
+					}
 				}
 			}
 		}
@@ -528,6 +541,9 @@ form {
 			position: absolute;
 			bottom: 0;
 			left: 0;
+			padding: 0;
+			line-height: 1.6;
+			font-weight: 300;
 			small {
 				display: block;
 				font-weight: 300;
@@ -560,6 +576,7 @@ form {
 			.fileinput {
 				.thumbnail {
 					border-radius: 2px;
+					border: 1px solid @dash-grey;
 				}
 				.btn {
 					color: @blue-grey;
@@ -663,6 +680,7 @@ form {
 		border-bottom: 1px solid lighten(@dash-grey, 10%);
 		padding-bottom: 3px;
 		height: auto;
+		color: lighten(@3-grey, 20%);
 		&:focus {
 			border-color: @orange;
 			background: lighten(@dash-grey, 30%);
@@ -683,6 +701,13 @@ form {
 			border: 0;
 			border-bottom: 1px solid lighten(@dash-grey, 10%);
 			padding-bottom: 3px;
+		}
+	}
+	.has-feedback {
+		.form-control-feedback {
+			right: 2px !important;
+			padding: 0 !important;
+			color: @dash-grey;
 		}
 	}
 	.aj-imp-submit {
@@ -1342,9 +1367,11 @@ form {
 	.modal-dialog {
 		.modal-content {
 			box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.25);
+			border-radius: 2px;
 			.modal-header {
 				background: @preview-grey;
 				padding: 0.5em 1em;
+				border-radius: 2px 2px 0 0;
 				.modal-title {
 					color: @dash-grey;
 					text-align: center;
@@ -1355,11 +1382,18 @@ form {
 				padding: 0.5em 1em;
 				background: @preview-grey;
 				min-height: 2em;
+				border-radius: 0 0 2px 2px;
 				.aj-imp-modal-save {
 					background: @orange;
 					&:hover {
 						background: lighten(@orange, 20%);
 					}
+				}
+			}
+			.modal-body {
+				margin-bottom: 0.5em;
+				.modal-footer {
+					margin: 0 -0.5em -2.5em;
 				}
 			}
 		}
@@ -1447,6 +1481,17 @@ form {
 		padding: 2em;
 		.modal-dialog {
 			width: 70%;
+			.modal-content {
+				width: 100%;
+				.modal-body {
+					padding: 0.5em;
+				}
+			}
+		}
+	}
+	&.small-modal {
+		.modal-dialog {
+			width: 40%;
 			.modal-content {
 				width: 100%;
 				.modal-body {
@@ -1665,6 +1710,12 @@ form {
 			color: @dash-grey;
 		}
 	}
+	#grid-region, #grid-media-region {
+		padding: 0 30px;
+	}
+	#grid-media-region {
+		margin: 0 -0.5em;
+	}
 	.aj-imp-block-button {
 		margin: 1em 0;
 		a {
@@ -1728,11 +1779,10 @@ form {
 							position: relative;
 							left: -5px;
 							top: 40%;
-							.bicon {
+							.glyphicon {
 								display: block;
 								font-size: 2em;
 								color: @preview-grey;
-								transform: rotate(90deg);
 							}
 						}
 					}
@@ -1747,11 +1797,6 @@ form {
 							vertical-align: top;
 							margin-right: 0.5em;
 							min-width: 316px;						
-						}
-						.arrange-slides {
-							.arrow {
-								left: 0;
-							}
 						}
 					}
 				}
@@ -2073,6 +2118,7 @@ form {
 			border-radius: 0;
 			color: #fff;
 			line-height: 15px;
+			padding: 8px 12px;
 			cursor: pointer;
 		}
 		&:hover {
@@ -2234,7 +2280,7 @@ form {
 		.ui-datepicker-prev, .ui-datepicker-next {
 			border-color: lighten(@dash-grey, 5%);
 			&:hover {
-				background: @orange;
+				background: @dash-grey;
 			}
 		}
 	}
@@ -2972,6 +3018,9 @@ form {
 #slides-list-region {
 	border: 1px solid lighten(@dash-grey, 10%);
 	border-radius: 4px;
+	#slides-accordion {
+		margin-bottom: 0;
+	}
 	.panel {
 		overflow: visible;
 	}
@@ -3506,11 +3555,17 @@ form {
 	}
 
 /**** Booking Availability Popover ****/
+.popover {
+	border-radius: 2px;
+}
+
 .booking-slider-pop {
 	width: 236px;
 	margin-top: 30px;
 	.ui-slider {
 		background: #E3E3E3 !important;
+		width: 75%;
+		margin: 0 auto 0.75em;
 		.ui-slider-handle {
 			background: @dash-grey;
 			&:hover, &:focus {
@@ -3866,11 +3921,13 @@ form {
 .daterange-legends{
 	text-transform:uppercase;
 	font-size:0.9em;
-	li{
-			span{
+	li {
+		color: @3-grey;
+		span {
 			width: 13px;
 			height: 13px;
 			display: inline-block;
+			vertical-align: text-top;
 			background: #ccc;
 			margin-right: 5px;
 		}
@@ -3913,12 +3970,15 @@ form {
 .language, .billing-container {
 	.aj-imp-sub-head-thin {
 		.bootstrap-select {
+			width: auto !important;
+			vertical-align: text-top;
 			.dropdown-toggle {
 				padding: 0;
 				border-bottom: 0;
 				font-size: 0.8em;
 				text-transform: uppercase;
 				font-weight: 300;
+				min-width: 300px;
 				&:hover, &:focus {
 					background: transparent;
 				}
@@ -3936,6 +3996,7 @@ form {
 					margin-bottom: 0;
 					.aj-imp-widget-title {
 						border-bottom: 1px dotted @dash-grey;
+
 					}
 				}
 			}
@@ -4361,6 +4422,7 @@ form {
 			border-radius: 3px;
 			background: #fff;
 			position: relative;
+			cursor: pointer;
 			.ticker {
 				position: absolute;
 				top: -7px;
@@ -4372,6 +4434,7 @@ form {
 				background: @orange;
 				display: none;
 				box-shadow: 0 0 2px @dash-grey;
+				line-height: 1.2;
 				&:hover {
 					cursor: pointer;
 				}
@@ -4384,6 +4447,7 @@ form {
 					color: @dash-grey;
 					padding-top: 0;
 					bottom: auto;
+					line-height: 1.2
 				}
 				.form-control {
 					border: 0;
@@ -4391,17 +4455,30 @@ form {
 					font-weight: 700;
 					padding: 0;
 					background: #fff;
+					line-height: 1.2;
+					height: auto;
 				}
 			}
 			&:hover {
-				box-shadow: 0 0 2px 2px @preview-grey;
+				box-shadow: 0 0 2px 2px darken(@preview-grey, 10%);
+				border-color: @blue-grey;
+				.ticker {
+					display: block;
+					background: @blue-grey;
+				}
 			}
 			&.selected {
 				border-color: @orange;
 				.ticker {
 					display: block;
+					background: @orange;
 				}
 			}
+		}
+	}
+	#add-new-card {
+		.bootstrap-select {
+			width: 120px;
 		}
 	}
 }
@@ -5012,5 +5089,229 @@ form {
 	}
 	.prism {
 		margin-bottom: 2.5em;
+	}
+}
+
+// Datepicker
+// --------------------------------------------------
+
+.ui-datepicker {
+  width: 264px;
+  background-color: #fff;
+  display: none;
+  margin: 1em 0;
+  border: 4px solid lighten(@dash-grey, 10%);
+  border-radius: 2px;
+
+  // Navigation pad
+  .ui-datepicker-header {
+    background-color: lighten(@dash-grey, 10%);
+    color: @dash-grey;
+    cursor: default;
+    margin: -7px -7px 2px;
+    position: relative;
+    border-radius: 2px 2px 0 0;
+  }
+  .ui-datepicker-prev,
+  .ui-datepicker-next {
+    position: absolute;
+    top: 0;
+    width: 52px;
+    height: 44px;
+    color: @dash-grey;
+    text-align: center;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: @3-grey;
+    }
+    &:active {
+      background-color: darken(@dash-grey, 10%);
+    }
+    &.ui-state-disabled {
+      background-color: transparent;
+      color: fade(@dash-grey, 75%);
+      cursor: default;
+      opacity: 0.7;
+    }
+  }
+  .ui-datepicker-prev {
+    left: 0;
+    border-right: 1px solid lighten(@dash-grey, 5%);
+    border-radius: 2px 0 0 0;
+  }
+  .ui-datepicker-next {
+    right: 0;
+    border-left: 1px solid lighten(@dash-grey, 5%);
+    border-radius: 0 2px 0 0;
+  }
+  .ui-datepicker-title {
+    margin: 0 52px;
+    line-height: 44px;
+    text-align: center;
+    font-size: 1.2em;
+    color: @3-grey;
+  }
+  .ui-datepicker-prev span,
+  .ui-datepicker-next span {
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -5px;
+    top: 50%;
+    margin-top: -6px;
+    text-indent: -9999px;
+    width: 0;
+    height: 0;
+    content: "";
+  }
+  .ui-icon-circle-triangle-w {
+    border: inset transparent;
+    border-width: 7px 12px 7px 0;
+    border-right-color: @dash-grey;
+  }
+  .ui-icon-circle-triangle-e {
+    border: outset transparent;
+    border-width: 7px 0 7px 12px;
+    border-left-color: @dash-grey;
+  }
+
+  // General styling
+  table {
+    font-size: 1em;
+    margin: 0 0 3px;
+    width: 100%;
+  }
+  th {
+    min-width: 34px;
+    height: 30px;
+    text-align: center;
+    font-weight: bold;
+    border: 0;
+    padding: 1px;
+    vertical-align: middle;
+    color: @dash-grey;
+  }
+  td {
+    border: 0;
+    padding: 1px;
+    text-align: center;
+    vertical-align: middle;
+
+    span,
+    a {
+      display: block;
+      text-decoration: none;
+      color: @3-grey;
+      height: 30px;
+      line-height: 30px;
+      min-width: 34px;
+    }
+    a {
+      border-radius: 2px;
+      
+      &:hover {
+        background-color: darken(@dash-grey, 10%);
+        color: @preview-grey;
+      }
+    }
+  }
+  .ui-state-active {
+    background-color: @3-grey;
+    color: @preview-grey !important;
+  }
+  .ui-datepicker-other-month a {
+    color: mix(@3-grey, white, 30%);
+  }
+
+  // Aditional elements
+  select {
+    font-size: 1em;
+    margin: 1px 0;
+  }
+  select.ui-datepicker-month-year {
+    width: 100%;
+  }
+  select.ui-datepicker-month,
+  select.ui-datepicker-year {
+    width: 49%;
+  }
+  .ui-datepicker-buttonpane {
+    background-image: none;
+    margin: .7em 0 0 0;
+    padding: 0 .2em;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .ui-datepicker-buttonpane button {
+    float: right;
+    margin: .5em .2em .4em;
+    cursor: pointer;
+    padding: .2em .6em .3em .6em;
+    width: auto;
+    overflow: visible;
+  }
+   .ui-datepicker-buttonpane button.ui-datepicker-current {
+    float: left;
+  }
+
+  &:before {
+    content: "";
+    border-color: transparent transparent lighten(@dash-grey, 10%);
+    border-style: solid;
+    border-width: 0 6px 6px;
+    height: 0;
+    margin-top: 0;
+    opacity: 1;
+    position: absolute;
+    left: 12px;
+    top: -10px;
+    width: 0;
+    z-index: 10;
+  }
+  &.ui-datepicker-multi {
+    width: auto;
+  }
+}
+
+// Multiple calendars
+.ui-datepicker-multi {
+  .ui-datepicker-group {
+    float: left;
+  }
+  .ui-datepicker-group table {
+    width: 95%;
+    margin: 0 auto .4em;
+  }
+  .ui-datepicker-group-last,
+  .ui-datepicker-group-middle {
+    .ui-datepicker-header {
+      border-left-width: 0;
+    }
+  }
+  .ui-datepicker-buttonpane {
+    clear: left;
+  }  
+} 
+.ui-datepicker-multi-2 .ui-datepicker-group {
+  width: 50%;
+}
+.ui-datepicker-multi-3 .ui-datepicker-group {
+  width: 33.3%;
+}
+.ui-datepicker-multi-4 .ui-datepicker-group {
+  width: 25%;
+}
+.ui-datepicker-row-break {
+  clear: both;
+  width: 100%;
+  font-size: 0;
+}
+
+/**** Remove Specific Form Borders ****/
+.edit-room-container {
+	form {
+		border-bottom: 0;
 	}
 }

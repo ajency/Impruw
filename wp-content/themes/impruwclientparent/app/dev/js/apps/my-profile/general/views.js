@@ -17,7 +17,7 @@ define(['app', 'text!apps/my-profile/general/templates/generalform.html'], funct
       GeneralForm.prototype.className = 'form-horizontal';
 
       GeneralForm.prototype.onRender = function() {
-        return this.$el.find('input[type="checkbox"]').checkbox();
+        return this.$el.find('input[type="checkbox"]').radiocheck();
       };
 
       GeneralForm.prototype.onShow = function() {

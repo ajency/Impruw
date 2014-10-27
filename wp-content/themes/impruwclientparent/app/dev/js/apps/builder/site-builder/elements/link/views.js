@@ -21,6 +21,7 @@ define(['app'], function(App) {
         data.textContent = function() {
           var textContent;
           textContent = data.text[WPML_DEFAULT_LANG];
+          textContent = _.stripslashes(textContent);
           return textContent;
         };
         return data;

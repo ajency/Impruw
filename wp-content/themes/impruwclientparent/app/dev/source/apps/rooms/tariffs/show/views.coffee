@@ -97,7 +97,7 @@ define ['app', 'moment'], (App, moment)->
                                  <span class="glyphicon glyphicon-exclamation-sign"></span>
                               </span>{{#polyglot}}No Data Added{{/polyglot}}
                               <div class="block-action">
-                                 <button type="button" class="btn btn-sm add-trariff edit-tran">
+                                 <button type="button" class="btn btn-default btn-sm add-trariff edit-tran">
                                     <span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Add{{/polyglot}}
                                  </button>
                               </div>
@@ -135,7 +135,7 @@ define ['app', 'moment'], (App, moment)->
                                  <span class="price">{{currency}}&nbsp;{{weekend.extra_child}}</span>
                               </div>
                               <div class="block-action">
-                                 <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button>
+                                 <button type="button" class="btn btn-default btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button>
                               </div>
                            </div>
                         {{/id}}'

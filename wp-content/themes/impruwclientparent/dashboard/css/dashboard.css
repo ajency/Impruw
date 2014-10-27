@@ -1411,6 +1411,18 @@ form .aj-imp-submit:hover {
 .modal.medium-modal .modal-dialog .modal-content .modal-body {
   padding: 0.5em;
 }
+.modal.small-modal {
+  padding: 2em;
+}
+.modal.small-modal .modal-dialog {
+  width: 50%;
+}
+.modal.small-modal .modal-dialog .modal-content {
+  width: 100%;
+}
+.modal.small-modal .modal-dialog .modal-content .modal-body {
+  padding: 0.5em;
+}
 .modal .aj-imp-edit-image {
   border-radius: 0;
 }
@@ -4914,4 +4926,19 @@ form .aj-imp-submit:hover {
 }
 .guide-wrapper .prism {
   margin-bottom: 2.5em;
+}
+/**** Dashboard Emails Styles****/
+.emails .table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 1em;
+}
+.emails .table-responsive .action-links a {
+  display: inline-block;
+  margin: 0 0.5em 0.5em 0;
+}
+.emails .table-responsive .action-links .icon {
+  vertical-align: text-top;
 }
