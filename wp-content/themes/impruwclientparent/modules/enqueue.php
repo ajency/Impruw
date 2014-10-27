@@ -70,7 +70,7 @@ function impruw_wp_enqueue_builder_styles(){
             get_parent_template_directory_uri() . '/js/jquery-ui/jquery-ui.min.css', 
             array('bootstrap'), JSVERSION );
         wp_enqueue_style( 'pace', 
-            get_parent_template_directory_uri() . '/bower_components/pace/themes/orange/pace-theme-minimal.css', 
+            get_parent_template_directory_uri() . '/bower_components/pace/themes/orange/pace-theme-center-simple.css', 
             array('bootstrap'), JSVERSION );
         wp_enqueue_style( 'minicolors', 
             get_parent_template_directory_uri() . '/bower_components/jquery-minicolors/jquery.minicolors.css', 
@@ -136,7 +136,7 @@ function impruw_wp_enqueue_dashboard_styles(){
         get_parent_template_directory_uri() . '/js/jquery-ui/jquery-ui.min.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'pace', 
-        get_parent_template_directory_uri() . '/bower_components/pace/themes/orange/pace-theme-minimal.css', 
+        get_parent_template_directory_uri() . '/bower_components/pace/themes/orange/pace-theme-center-simple.css', 
         array('bootstrap'), JSVERSION );
     wp_enqueue_style( 'minicolors', 
         get_parent_template_directory_uri() . '/bower_components/jquery-minicolors/jquery.minicolors.css', 
