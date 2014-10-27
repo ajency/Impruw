@@ -44,10 +44,13 @@ define ['app'], (App)->
 
 
                 data.captionAdded = ->
-                    if data[editingLanguage]['layers']['0'] isnt undefined
-                        return true
-                    else
-                        return false
+                    captionAdded = true
+                    if data[editingLanguage] isnt undefined
+                        if data[editingLanguage]['layers']['0'] isnt undefined
+                            captionAdded = true
+                        else
+                            captionAdded = false
+                    captionAdded
 
                 data.captionTitle = ->
                     if data[editingLanguage] isnt undefined

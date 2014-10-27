@@ -22,11 +22,16 @@ define(['app'], function(App) {
         data = TranslatedSlideItemView.__super__.mixinTemplateHelpers.call(this, data);
         editingLanguage = Marionette.getOption(this, 'editingLanguage');
         data.captionAdded = function() {
-          if (data[editingLanguage]['layers']['0'] !== void 0) {
-            return true;
-          } else {
-            return false;
+          var captionAdded;
+          captionAdded = true;
+          if (data[editingLanguage] !== void 0) {
+            if (data[editingLanguage]['layers']['0'] !== void 0) {
+              captionAdded = true;
+            } else {
+              captionAdded = false;
+            }
           }
+          return captionAdded;
         };
         data.captionTitle = function() {
           var captionHtml, captionTitle;
