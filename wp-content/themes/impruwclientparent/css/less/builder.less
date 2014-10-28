@@ -2695,7 +2695,7 @@ a {
         }
         .revision-timeline {
             padding: 1em 1em 0.75em 0.5em;
-            margin: 1em 3em;
+            margin: 1em;
             background: @preview-grey;
             border: 1px solid @dash-grey;
             border-radius: 2px;
@@ -2706,13 +2706,29 @@ a {
                 background: transparent;
                 margin: 0 0 0.5em;
                 .ui-slider-segment {
+                	position: relative;
+                	border: 2px solid transparent;
                 	&.site-backup {
                 		border: 2px solid @3-grey;
                 	}
+                	/*&:before {
+                		position: absolute;
+                		height: 0px;
+                		border-top: 1px dashed @dash-grey;
+                		right: 10px;
+                		top: 1px;
+                		width: 100px;
+                		content: " ";
+                		display: block;
+                	}
+                	&:first-child {
+                		&:before {
+                			display: none;
+                		}
+                	}*/
                     &.active {
                         border: 2px solid @orange;
                         background: #fff;
-                        .pulse;
                     }
                 }
                 .ui-slider-handle {
@@ -2730,27 +2746,6 @@ a {
                         outline: none;
                         border-bottom-color: @3-grey;
                     }
-                }
-            }
-            .slider-button {
-                position: absolute;
-                top: 2px;
-                width: 30px;
-                font-size: 1.3em;
-                background: @dash-grey;
-                color: #fff;
-                text-align: center;
-                padding: 0.5em 0.6em 0.4em;
-                &.prev {
-                    left: -30px;
-                    border-radius: 2px 0 0 2px;
-                }
-                &.next {
-                    right: -30px;
-                    border-radius: 0 2px 2px 0;
-                }
-                &:hover {
-                    color: @3-grey;
                 }
             }
         }

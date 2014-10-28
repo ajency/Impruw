@@ -27,14 +27,11 @@ define ['app', 'bootbox'],(App,bootbox)->
 							<h2 class="page-title">View Your Site History</h2>
 							<p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p>
 							<div class="revision-timeline">
-								<div id="slider" class="ui-slider">
-									</div>
-								<a class="slider-button prev"><span class="bicon icon-uniF19C"></span></a>
-								<a class="slider-button next"><span class="bicon icon-uniF19B"></span></a>
+								<div id="slider" class="ui-slider"></div>
 							</div>
 							<div class="row timeline-actions">
 								<div class="col-sm-6 revision-info">
-									<div class="revision-by">Published virsion</div> 
+									<div class="revision-by">Published Version</div> 
 									<span class="time"></span>
 								</div>
 								<div class="col-sm-6 revision-actions">
@@ -97,24 +94,6 @@ define ['app', 'bootbox'],(App,bootbox)->
 						@trigger 'restore:revision', 
 							revId : @currentRevisionId
 							siteBackupId : siteBackupId
-
-				'click .slider-button.next' : ->
-					if @sliderValue is 0
-						sliderValue = @collection.size()
-					else if @sliderValue is @collection.size()
-						return
-					else
-						sliderValue += 1
-					@$slider.slider( "value", sliderValue );
-
-				'click .slider-button.prev' : ->
-					if @sliderValue is 0
-						sliderValue = @collection.size()
-					else if @sliderValue is 1
-						return
-					else
-						sliderValue -= 1
-					@$slider.slider( "value", sliderValue );
 
 			initialize : ->
 				@collection.comparator = 'ID'

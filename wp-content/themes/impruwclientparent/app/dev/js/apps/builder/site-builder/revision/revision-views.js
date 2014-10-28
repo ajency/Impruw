@@ -37,7 +37,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return RevisionView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"> </div> <a class="slider-button prev"><span class="bicon icon-uniF19C"></span></a> <a class="slider-button next"><span class="bicon icon-uniF19B"></span></a> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published virsion</div> <span class="time"></span> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <div id="IframeWrapper" style="position: relative;"> <div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div> <iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe> </div> </div> </div>';
+      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"></div> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published Version</div> <span class="time"></span> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <div id="IframeWrapper" style="position: relative;"> <div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div> <iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe> </div> </div> </div>';
 
       RevisionView.prototype.itemViewContainer = '#slider';
 
@@ -98,28 +98,6 @@ define(['app', 'bootbox'], function(App, bootbox) {
               siteBackupId: siteBackupId
             });
           }
-        },
-        'click .slider-button.next': function() {
-          var sliderValue;
-          if (this.sliderValue === 0) {
-            sliderValue = this.collection.size();
-          } else if (this.sliderValue === this.collection.size()) {
-            return;
-          } else {
-            sliderValue += 1;
-          }
-          return this.$slider.slider("value", sliderValue);
-        },
-        'click .slider-button.prev': function() {
-          var sliderValue;
-          if (this.sliderValue === 0) {
-            sliderValue = this.collection.size();
-          } else if (this.sliderValue === 1) {
-            return;
-          } else {
-            sliderValue -= 1;
-          }
-          return this.$slider.slider("value", sliderValue);
         }
       };
 
