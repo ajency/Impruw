@@ -59,7 +59,7 @@ define ['app'], (App)->
                             else
                               @$el.parent().find('.alert').remove()
                               @$el.parent().prepend "<div class=\"alert alert-error\">" + _.polyglot.t("Email address is not in correct format") + "</div>"
-                              @$el.find('input').val ''
+                              @$el.find('#email_username').val ''
                             
 
                   onSavedUserEmail:(response) ->
@@ -71,7 +71,7 @@ define ['app'], (App)->
                     # console.log @$el.parent()
                     @$el.parent().find('.alert').remove()
                     @$el.parent().prepend "<div class=\"alert alert-success\">" + msg + "</div>"
-                    @$el.find('input').val ''
+                    @$el.find('#email_username').val ''
 
                   validateEmail :(email) ->
                     emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i)

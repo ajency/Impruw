@@ -34,7 +34,7 @@ define(['app'], function(App) {
             } else {
               this.$el.parent().find('.alert').remove();
               this.$el.parent().prepend("<div class=\"alert alert-error\">" + _.polyglot.t("Email address is not in correct format") + "</div>");
-              return this.$el.find('input').val('');
+              return this.$el.find('#email_username').val('');
             }
           }
         }
@@ -49,7 +49,7 @@ define(['app'], function(App) {
         }
         this.$el.parent().find('.alert').remove();
         this.$el.parent().prepend("<div class=\"alert alert-success\">" + msg + "</div>");
-        return this.$el.find('input').val('');
+        return this.$el.find('#email_username').val('');
       };
 
       AddUserEmailView.prototype.validateEmail = function(email) {
