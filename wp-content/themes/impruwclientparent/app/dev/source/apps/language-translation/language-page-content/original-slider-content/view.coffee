@@ -31,7 +31,7 @@ define ['app'], (App)->
                     if data[WPML_DEFAULT_LANG]['layers']['0'] isnt undefined
                         captionHtml = data[WPML_DEFAULT_LANG]['layers']['0']['text']
                         captionHtml = '<div>'+captionHtml+'</div>'
-                        captionTitle = $(captionHtml).find('.title').html()
+                        captionTitle = $(captionHtml).find('.title').text()
                     else
                         captionTitle = "No caption title added"
                     captionTitle
