@@ -142,7 +142,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
                 model = _this.collection.at(ui.value - 1);
                 _this.currentRevisionId = model.id;
                 if (_this._checkIfThemeChange(_this.currentRevisionId)) {
-                  return bootbox.confirm("This will cause a theme change. Will not show the elements properly", function(result) {
+                  return bootbox.confirm("This backup uses a different theme. The page is viewed using the current theme. If restored to this point will cause the site to be restored to the nearest theme change", function(result) {
                     if (result) {
                       return _this.changeIframe(_this.currentRevisionId);
                     }
@@ -154,7 +154,10 @@ define(['app', 'bootbox'], function(App, bootbox) {
             })(this)
           });
         }
-        return this.$el.find('.ui-slider-segment').tooltip();
+        this.$el.find('.ui-slider-segment').tooltip();
+        return this.$el.find('iframe').load(function() {
+          return this.style.height = this.contentWindow.document.body.offsetHeight + 10 + 'px';
+        });
       };
 
       RevisionView.prototype._checkIfThemeChange = function(revisionId) {

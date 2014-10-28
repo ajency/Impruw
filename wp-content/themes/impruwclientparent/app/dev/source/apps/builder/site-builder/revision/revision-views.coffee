@@ -135,7 +135,8 @@ define ['app', 'bootbox'],(App,bootbox)->
 							model =  @collection.at ui.value - 1
 							@currentRevisionId = model.id
 							if @_checkIfThemeChange(@currentRevisionId)
-								bootbox.confirm "This will cause a theme change. Will not show the elements properly",(result)=>
+								bootbox.confirm "This backup uses a different theme. The page is viewed using the current theme.
+								 If restored to this point will cause the site to be restored to the nearest theme change",(result)=>
 									if result
 										@changeIframe @currentRevisionId
 							else
@@ -143,6 +144,9 @@ define ['app', 'bootbox'],(App,bootbox)->
 					# .addSliderSegments $slider.slider("option").max
 
 				@$el.find('.ui-slider-segment').tooltip()
+
+				@$el.find('iframe').load ()->
+				    @style.height = @contentWindow.document.body.offsetHeight + 10 + 'px'
 
 				# lastRevision = _.last @collection.toArray()
 				# @currentRevisionId = lastRevision.id
