@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app'], function(App) {
+define(['app', 'moment'], function(App, moment) {
   return App.module('RevisionHistory.Views', function(Views, App) {
     var RevisionHistoryItem;
     RevisionHistoryItem = (function(_super) {
@@ -14,28 +14,8 @@ define(['app'], function(App) {
       RevisionHistoryItem.prototype.template = '<li> <span class="revision"> {{author}}, {{timeElapsed}} <a href="#" class="time-link">{{post_modified}}</a> </span> </li>';
 
       RevisionHistoryItem.prototype.mixinTemplateHelpers = function(data) {
-        var days, hours, milliseconds, minutes, seconds;
         data = RevisionHistoryItem.__super__.mixinTemplateHelpers.call(this, data);
-        milliseconds = new Date() - (new Date(data.post_date));
-        seconds = parseInt((milliseconds / 1000) % 60);
-        minutes = parseInt((milliseconds / (1000 * 60)) % 60);
-        hours = parseInt((milliseconds / (1000 * 60 * 60)) % 24);
-        days = parseInt((milliseconds / (1000 * 60 * 60 * 24)) % 7);
-        if (days > 1) {
-          data.timeElapsed = "" + days + " days ago";
-        } else if (days === 1) {
-          data.timeElapsed = "1 day ago";
-        } else if (hours > 1) {
-          data.timeElapsed = "" + hours + " hours ago";
-        } else if (hours === 1) {
-          data.timeElapsed = "1 hour ago";
-        } else if (minutes > 1) {
-          data.timeElapsed = "" + minutes + " minutes ago";
-        } else if (minutes === 1) {
-          data.timeElapsed = "1 minute ago";
-        } else if (seconds) {
-          data.timeElapsed = "" + seconds + " seconds ago";
-        }
+        data.timeElapsed = moment(new Date(data.post_date)).fromNow();
         return data;
       };
 

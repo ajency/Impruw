@@ -1,5 +1,6 @@
 define ['app'
-],(App)->
+		'moment'
+],(App,moment)->
 	App.module 'RevisionHistory.Views',(Views,App)->
 
 		class RevisionHistoryItem extends Marionette.ItemView
@@ -13,25 +14,7 @@ define ['app'
 
 			mixinTemplateHelpers : (data)->
 				data = super data 
-				milliseconds = new Date() - (new Date(data.post_date))
-				seconds = parseInt (milliseconds / 1000) % 60 
-				minutes = parseInt (milliseconds / (1000*60)) % 60
-				hours   = parseInt (milliseconds / (1000*60*60)) % 24
-				days   = parseInt (milliseconds / (1000*60*60*24)) % 7
-				if days > 1
-					data.timeElapsed = "#{days} days ago"
-				else if days is 1
-					data.timeElapsed = "1 day ago"
-				else if hours > 1
-					data.timeElapsed = "#{hours} hours ago"
-				else if hours is 1
-					data.timeElapsed = "1 hour ago"
-				else if minutes > 1
-					data.timeElapsed = "#{minutes} minutes ago"
-				else if minutes is 1
-					data.timeElapsed = "1 minute ago"
-				else if seconds 
-					data.timeElapsed = "#{seconds} seconds ago"
+				data.timeElapsed = moment(new Date( data.post_date )).fromNow();
 			# 	# data.
 				data
 

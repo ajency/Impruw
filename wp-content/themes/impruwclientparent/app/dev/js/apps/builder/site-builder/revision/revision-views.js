@@ -185,30 +185,11 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       RevisionView.prototype.changeIframe = function(revisionId) {
-        var currentRevisionModel, days, hours, milliseconds, minutes, seconds, timeElapsed;
+        var currentRevisionModel, timeElapsed;
         this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + revisionId);
         currentRevisionModel = this.collection.get(revisionId);
         this.$el.find('.revision-info .time').text(currentRevisionModel.get('post_date'));
-        milliseconds = new Date() - (new Date(currentRevisionModel.get('post_date')));
-        seconds = parseInt((milliseconds / 1000) % 60);
-        minutes = parseInt((milliseconds / (1000 * 60)) % 60);
-        hours = parseInt((milliseconds / (1000 * 60 * 60)) % 24);
-        days = parseInt((milliseconds / (1000 * 60 * 60 * 24)) % 7);
-        if (days > 1) {
-          timeElapsed = "" + days + " days ago";
-        } else if (days === 1) {
-          timeElapsed = "1 day ago";
-        } else if (hours > 1) {
-          timeElapsed = "" + hours + " hours ago";
-        } else if (hours === 1) {
-          timeElapsed = "1 hour ago";
-        } else if (minutes > 1) {
-          timeElapsed = "" + minutes + " minutes ago";
-        } else if (minutes === 1) {
-          timeElapsed = "1 minute ago";
-        } else if (seconds) {
-          timeElapsed = "" + seconds + " seconds ago";
-        }
+        timeElapsed = moment(new Date(currentRevisionModel.get('post_date'))).fromNow();
         return this.$el.find('.revision-info .revision-by').text("Version by " + (currentRevisionModel.get('author')) + ", " + timeElapsed);
       };
 

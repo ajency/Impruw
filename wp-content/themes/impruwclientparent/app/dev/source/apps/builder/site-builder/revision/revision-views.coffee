@@ -186,25 +186,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 				currentRevisionModel = @collection.get revisionId
 				@$el.find('.revision-info .time').text currentRevisionModel.get 'post_date'
 
-				milliseconds = new Date() - (new Date(currentRevisionModel.get('post_date')))
-				seconds = parseInt (milliseconds / 1000) % 60 
-				minutes = parseInt (milliseconds / (1000*60)) % 60
-				hours   = parseInt (milliseconds / (1000*60*60)) % 24
-				days   = parseInt (milliseconds / (1000*60*60*24)) % 7
-				if days > 1
-					timeElapsed = "#{days} days ago"
-				else if days is 1
-					timeElapsed = "1 day ago"
-				else if hours > 1
-					timeElapsed = "#{hours} hours ago"
-				else if hours is 1
-					timeElapsed = "1 hour ago"
-				else if minutes > 1
-					timeElapsed = "#{minutes} minutes ago"
-				else if minutes is 1
-					timeElapsed = "1 minute ago"
-				else if seconds 
-					timeElapsed = "#{seconds} seconds ago"
+				timeElapsed = moment(new Date(currentRevisionModel.get('post_date'))).fromNow();
 
 
 				@$el.find('.revision-info .revision-by').text "Version by #{currentRevisionModel.get('author')}, #{timeElapsed}"
