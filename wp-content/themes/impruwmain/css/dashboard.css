@@ -3789,6 +3789,7 @@ form .aj-imp-submit:hover {
   color: #fff;
   padding: 0.2em 1em;
   font-weight: 400;
+  font-size: 2.5em;
 }
 .aj-imp-contactpage .contact .c-address {
   display: inline-block;
@@ -3833,7 +3834,7 @@ form .aj-imp-submit:hover {
     float: none;
   }
   .aj-imp-contactpage .contact h2 {
-    font-size: 2.2em;
+    font-size: 2em;
     display: block;
   }
 }
