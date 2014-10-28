@@ -37,6 +37,12 @@ define(['app'], function(App) {
               return this.$el.find('#email_username').val('');
             }
           }
+        },
+        'blur #email_username': function(evt) {
+          var username;
+          username = $(evt.target).val();
+          username = username.toLowerCase();
+          return $(evt.target).val(username);
         }
       };
 

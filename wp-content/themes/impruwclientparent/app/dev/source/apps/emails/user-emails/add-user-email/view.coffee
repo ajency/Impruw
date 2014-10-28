@@ -60,6 +60,11 @@ define ['app'], (App)->
                               @$el.parent().find('.alert').remove()
                               @$el.parent().prepend "<div class=\"alert alert-error\">" + _.polyglot.t("Email address is not in correct format") + "</div>"
                               @$el.find('#email_username').val ''
+
+                      'blur #email_username':(evt)->
+                        username = $(evt.target).val()
+                        username = username.toLowerCase()
+                        $(evt.target).val username
                             
 
                   onSavedUserEmail:(response) ->
