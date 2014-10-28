@@ -217,12 +217,12 @@ function impruw_restore_site($site_backup_id){
 
 }
 
-function imp_restore_site(){
-	$site_backup_id = $_GET['site_backup_id'];
-	impruw_restore_site( $site_backup_id );
+// function imp_restore_site(){
+// 	$site_backup_id = $_GET['site_backup_id'];
+// 	impruw_restore_site( $site_backup_id );
 	
-}
-add_action('wp_ajax_restore-site','imp_restore_site');
+// }
+// add_action('wp_ajax_restore-site','imp_restore_site');
 
 
 
