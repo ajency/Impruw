@@ -227,11 +227,12 @@ function update_email($args){
 
     //Check if useremail already exists
     $account =  impruw_email_accounts::get_account($args['email_id']);
-
     if($account){
-
+        $password_data = true;
         // updating password
-        $password_data = $account->update_password($args['password']);
+        if($args['password']!=""){
+            $password_data = $account->update_password($args['password']);
+        }
 
         $account->name = $args['name'];
         $name_data = $account->save();
