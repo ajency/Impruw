@@ -582,27 +582,33 @@ function get_slide_captionhtml($slide_id){
 
 
 function get_slide_caption_details($slide_caption_html){
+
+    $caption_details = array();
     $dom = new DOMDocument();
     // $slide_caption_html ='<h3 class="title sub-title" data-title="fr title">fr title</h3><div class="text" data-capdesc="dis is descccc" id="text">dis is descccc</div>';
 
+    $html = str_get_html(stripslashes($slide_caption_html));
+
+    $title = $html->find('h3[id=revslide-caption-title]',0)->innertext ;
+    $caption_details['caption_title'] = isset($title) ? $title : '' ;
+
+    $description = $html->find('div[id=revslide-caption-desc]',0)->innertext ;
+    $caption_details['caption_description'] = isset($description) ? $description : '' ;
+
+
     $dom->loadHTML(stripslashes($slide_caption_html));
 
-    $caption_details = array();
 
     $searchNode = $dom->getElementsByTagName( "h3" ); 
 
 
     foreach( $searchNode as $searchNode ) 
     { 
-        // $title = $searchNode->getAttribute('data-title');
-        $dom->preserveWhiteSpace = false;
-        $dom->validateOnParse = true;
-        $title = $dom->getElementById('revslide-caption-title')->nodeValue;
+        
         $title_class = $searchNode->getAttribute('class');
 
     }
 
-    $caption_details['caption_title'] = isset($title) ? $title : '' ;
     $caption_details['caption_title_class'] =  isset($title_class) ? $title_class : '' ;
 
 
@@ -617,18 +623,6 @@ function get_slide_caption_details($slide_caption_html){
     $caption_details['caption_title_link_target'] =  isset($title_href_target) ? $title_href_target : '' ;
 
     $searchNode = $dom->getElementsByTagName( "div" ); 
-
-
-    foreach( $searchNode as $searchNode ) 
-    { 
-        // $description = $searchNode->getAttribute('data-capdesc');
-        $dom->preserveWhiteSpace = false;
-        $dom->validateOnParse = true;
-
-        $description = $dom->getElementById('revslide-caption-desc')->nodeValue;
-
-    }
-    $caption_details['caption_description'] = isset($description) ? $description : '' ;
 
     return $caption_details;
 }
