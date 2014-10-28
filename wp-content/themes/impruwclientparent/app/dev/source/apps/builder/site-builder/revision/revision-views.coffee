@@ -3,13 +3,14 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 
 		class RevisionSingleView extends Marionette.ItemView
-			template  : '<div class="ui-slider-segment {{backup_type}}-backup" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip"
-				data-container=".revision-container" data-placement="top" data-title="{{author}} - {{post_modified}}"></div>'
+			template  : '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip"
+				data-container=".revision-container" data-placement="top" title="{{author}} - {{post_modified}}   Theme : {{page_theme}}"></div>'
 
 			mixinTemplateHelpers : (data)->
 				data = super data
 				data.notFirst  = Marionette.getOption @, 'notFirst'
 				data.segmentGap = Marionette.getOption @, 'segmentGap'
+				data.theme_slug =  _.slugify data.page_theme
 				data
 
 			onRender: ()->
@@ -100,21 +101,21 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 				'click .slider-button.next' : ->
 					if @sliderValue is 0
-						@sliderValue = @collection.size()
+						sliderValue = @collection.size()
 					else if @sliderValue is @collection.size()
 						return
 					else
-						@sliderValue += 1
-					@$slider.slider( "value", @sliderValue );
+						sliderValue += 1
+					@$slider.slider( "value", sliderValue );
 
 				'click .slider-button.prev' : ->
 					if @sliderValue is 0
-						@sliderValue = @collection.size()
+						sliderValue = @collection.size()
 					else if @sliderValue is 1
 						return
 					else
-						@sliderValue -= 1
-					@$slider.slider( "value", @sliderValue );
+						sliderValue -= 1
+					@$slider.slider( "value", sliderValue );
 
 			initialize : ->
 				@collection.comparator = 'ID'
@@ -137,7 +138,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 						orientation: 'horizontal'
 						range: false
 						change :(event,ui)=>
-							@sliderValue = ui.value
+							
 							model =  @collection.at ui.value - 1
 							@currentRevisionId = model.id
 							if @_checkIfThemeChange(@currentRevisionId)
@@ -145,7 +146,13 @@ define ['app', 'bootbox'],(App,bootbox)->
 								 If restored to this point will cause the site to be restored to the nearest theme change",(result)=>
 									if result
 										@changeIframe @currentRevisionId
+										@sliderValue = ui.value
+									else 
+										if @sliderValue
+											@$slider.slider( "value", @sliderValue );
+
 							else
+								@sliderValue = ui.value
 								@changeIframe @currentRevisionId
 
 

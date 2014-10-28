@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
+define(["app", 'backbone', 'moment', 'bootbox'], function(App, Backbone, moment, bootbox) {
   return App.module("Entities.Revision", function(Revision, App, Backbone, Marionette, $, _) {
     var API, RevisionCollection, RevisionModel, revisionsArray;
     RevisionModel = (function(_super) {
@@ -94,7 +94,12 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
           data: data,
           success: function(resp) {
             if (resp.code === 'OK') {
-              return window.location.reload();
+              bootbox.alert("The page will reload.");
+              return _.delay((function(_this) {
+                return function() {
+                  return window.location.reload();
+                };
+              })(this), 2000);
             }
           }
         });

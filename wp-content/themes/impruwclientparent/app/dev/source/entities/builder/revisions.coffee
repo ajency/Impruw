@@ -1,4 +1,4 @@
-define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
+define ["app", 'backbone', 'moment','bootbox'], (App, Backbone, moment, bootbox) ->
     App.module "Entities.Revision", (Revision, App, Backbone, Marionette, $, _)->
 
         # Page Model
@@ -82,7 +82,10 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
                     success : (resp)->
 
                         if resp.code is 'OK'
-                            window.location.reload()
+                            bootbox.alert "The page will reload."
+                            _.delay =>
+                                window.location.reload()
+                            ,2000
                         # App.instanceId = resp.instance if resp.success is true
 
 

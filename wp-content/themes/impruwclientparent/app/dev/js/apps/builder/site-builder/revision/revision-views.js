@@ -11,12 +11,13 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return RevisionSingleView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionSingleView.prototype.template = '<div class="ui-slider-segment {{backup_type}}-backup" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" data-container=".revision-container" data-placement="top" data-title="{{author}} - {{post_modified}}"></div>';
+      RevisionSingleView.prototype.template = '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" data-container=".revision-container" data-placement="top" title="{{author}} - {{post_modified}}   Theme : {{page_theme}}"></div>';
 
       RevisionSingleView.prototype.mixinTemplateHelpers = function(data) {
         data = RevisionSingleView.__super__.mixinTemplateHelpers.call(this, data);
         data.notFirst = Marionette.getOption(this, 'notFirst');
         data.segmentGap = Marionette.getOption(this, 'segmentGap');
+        data.theme_slug = _.slugify(data.page_theme);
         return data;
       };
 
@@ -99,24 +100,26 @@ define(['app', 'bootbox'], function(App, bootbox) {
           }
         },
         'click .slider-button.next': function() {
+          var sliderValue;
           if (this.sliderValue === 0) {
-            this.sliderValue = this.collection.size();
+            sliderValue = this.collection.size();
           } else if (this.sliderValue === this.collection.size()) {
             return;
           } else {
-            this.sliderValue += 1;
+            sliderValue += 1;
           }
-          return this.$slider.slider("value", this.sliderValue);
+          return this.$slider.slider("value", sliderValue);
         },
         'click .slider-button.prev': function() {
+          var sliderValue;
           if (this.sliderValue === 0) {
-            this.sliderValue = this.collection.size();
+            sliderValue = this.collection.size();
           } else if (this.sliderValue === 1) {
             return;
           } else {
-            this.sliderValue -= 1;
+            sliderValue -= 1;
           }
-          return this.$slider.slider("value", this.sliderValue);
+          return this.$slider.slider("value", sliderValue);
         }
       };
 
@@ -142,16 +145,21 @@ define(['app', 'bootbox'], function(App, bootbox) {
             change: (function(_this) {
               return function(event, ui) {
                 var childView, model;
-                _this.sliderValue = ui.value;
                 model = _this.collection.at(ui.value - 1);
                 _this.currentRevisionId = model.id;
                 if (_this._checkIfThemeChange(_this.currentRevisionId)) {
                   bootbox.confirm("This backup uses a different theme. The page is viewed using the current theme. If restored to this point will cause the site to be restored to the nearest theme change", function(result) {
                     if (result) {
-                      return _this.changeIframe(_this.currentRevisionId);
+                      _this.changeIframe(_this.currentRevisionId);
+                      return _this.sliderValue = ui.value;
+                    } else {
+                      if (_this.sliderValue) {
+                        return _this.$slider.slider("value", _this.sliderValue);
+                      }
                     }
                   });
                 } else {
+                  _this.sliderValue = ui.value;
                   _this.changeIframe(_this.currentRevisionId);
                 }
                 _this.$el.find('.ui-slider-segment').removeClass('active');
