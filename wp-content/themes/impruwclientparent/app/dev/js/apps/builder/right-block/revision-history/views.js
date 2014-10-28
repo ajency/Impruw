@@ -58,7 +58,9 @@ define(['app'], function(App) {
       RevisionHitoryList.prototype.events = {
         'click .view-history-link': function(e) {
           e.preventDefault();
-          return this.trigger("show:revision:restore");
+          if (this.collection.at(0)) {
+            return this.trigger("show:revision:restore");
+          }
         }
       };
 

@@ -11,7 +11,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return RevisionSingleView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionSingleView.prototype.template = '<div class="ui-slider-segment {{backup_type}}-backup" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" data-container=".revision-container" data-placement="top" title="{{author}} - {{post_modified}}"></div>';
+      RevisionSingleView.prototype.template = '<div class="ui-slider-segment {{backup_type}}-backup" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" data-container=".revision-container" data-placement="top" data-title="{{author}} - {{post_modified}}"></div>';
 
       RevisionSingleView.prototype.mixinTemplateHelpers = function(data) {
         data = RevisionSingleView.__super__.mixinTemplateHelpers.call(this, data);
@@ -67,7 +67,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         },
         'click .restore-revision-btn': function() {
           var currentRevisionModel, index, siteBackupId, siteRestoreModel;
-          if (currentRevisionId === 0) {
+          if (this.currentRevisionId === 0) {
             return false;
           }
           currentRevisionModel = this.collection.get(this.currentRevisionId);

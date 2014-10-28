@@ -49,7 +49,8 @@ define ['app'
 			events : 
 				'click .view-history-link' :(e)-> 
                 	e.preventDefault()
-                	@trigger "show:revision:restore"
+                	if @collection.at(0)
+                		@trigger "show:revision:restore"
                 	
 			onShow:->
 				# console.log 'df'

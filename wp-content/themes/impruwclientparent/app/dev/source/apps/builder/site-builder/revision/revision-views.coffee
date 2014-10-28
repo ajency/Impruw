@@ -4,7 +4,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 		class RevisionSingleView extends Marionette.ItemView
 			template  : '<div class="ui-slider-segment {{backup_type}}-backup" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip"
-				data-container=".revision-container" data-placement="top" title="{{author}} - {{post_modified}}"></div>'
+				data-container=".revision-container" data-placement="top" data-title="{{author}} - {{post_modified}}"></div>'
 
 			mixinTemplateHelpers : (data)->
 				data = super data
@@ -72,7 +72,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 					@trigger "close:revision"
 					$('body').removeClass('no-scroll')
 				'click .restore-revision-btn': ->
-					if currentRevisionId is 0
+					if @currentRevisionId is 0
 						return false
 					currentRevisionModel =  @collection.get(@currentRevisionId)
 					index = _.indexOf @collection.toArray(), currentRevisionModel
