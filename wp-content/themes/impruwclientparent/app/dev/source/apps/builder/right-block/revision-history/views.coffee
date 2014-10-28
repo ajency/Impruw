@@ -13,7 +13,7 @@ define ['app'
 
 			mixinTemplateHelpers : (data)->
 				data = super data 
-				milliseconds = new Date() - (new Date(data.post_modified))
+				milliseconds = new Date() - (new Date(data.post_date))
 				seconds = parseInt (milliseconds / 1000) % 60 
 				minutes = parseInt (milliseconds / (1000*60)) % 60
 				hours   = parseInt (milliseconds / (1000*60*60)) % 24

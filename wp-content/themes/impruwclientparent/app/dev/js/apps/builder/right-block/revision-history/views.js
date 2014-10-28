@@ -16,7 +16,7 @@ define(['app'], function(App) {
       RevisionHistoryItem.prototype.mixinTemplateHelpers = function(data) {
         var days, hours, milliseconds, minutes, seconds;
         data = RevisionHistoryItem.__super__.mixinTemplateHelpers.call(this, data);
-        milliseconds = new Date() - (new Date(data.post_modified));
+        milliseconds = new Date() - (new Date(data.post_date));
         seconds = parseInt((milliseconds / 1000) % 60);
         minutes = parseInt((milliseconds / (1000 * 60)) % 60);
         hours = parseInt((milliseconds / (1000 * 60 * 60)) % 24);

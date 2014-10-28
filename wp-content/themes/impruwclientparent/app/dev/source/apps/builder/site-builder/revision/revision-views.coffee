@@ -34,8 +34,8 @@ define ['app', 'bootbox'],(App,bootbox)->
 							</div>
 							<div class="row timeline-actions">
 								<div class="col-sm-6 revision-info">
-									Version by Admin, 5 minutes ago 
-									<span class="time">15th Oct 2014 @ 13:41:21</span>
+									<div class="revision-by">Published virsion</div> 
+									<span class="time"></span>
 								</div>
 								<div class="col-sm-6 revision-actions">
 									<button class="btn btn-default btn-sm cancel-view-history">Cancel</button>
@@ -92,42 +92,61 @@ define ['app', 'bootbox'],(App,bootbox)->
 							revId : @currentRevisionId
 							siteBackupId : siteBackupId
 
+				'click .slider-button.next' : ->
+					if @sliderValue is 0
+						@sliderValue = @collection.size()
+					else if @sliderValue is @collection.size()
+						return
+					else
+						@sliderValue += 1
+					@$slider.slider( "value", @sliderValue );
+
+				'click .slider-button.prev' : ->
+					if @sliderValue is 0
+						@sliderValue = @collection.size()
+					else if @sliderValue is 1
+						return
+					else
+						@sliderValue -= 1
+					@$slider.slider( "value", @sliderValue );
+
 			initialize : ->
 				@collection.comparator = 'ID'
 				@collection.sort()
 				@currentRevisionId = 0
+				@sliderValue = 0
 
 			onShow : ->
 				@$el.attr 'id', 'revision-region'
 				@$el.show()
 				$('body').addClass('no-scroll')
 				 # Range Slider for Revisions
-				$slider = @$el.find('#slider')
+				@$slider = @$el.find('#slider')
 				# console.log $slider.slider("option")
-				if $slider.length > 0
-					$slider.slider
+				if @$slider.length > 0
+					@$slider.slider
 						min: 1
 						max: @collection.size()
 						value: @collection.size()
 						orientation: 'horizontal'
 						range: false
 						change :(event,ui)=>
+							@sliderValue = ui.value
 							model =  @collection.at ui.value - 1
 							@currentRevisionId = model.id
 							if @_checkIfThemeChange(@currentRevisionId)
 								bootbox.confirm "This will cause a theme change. Will not show the elements properly",(result)=>
 									if result
-										@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionId}"
+										@changeIframe @currentRevisionId
 							else
-								@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionId}"
+								@changeIframe @currentRevisionId
 					# .addSliderSegments $slider.slider("option").max
 
 				@$el.find('.ui-slider-segment').tooltip()
 
-				lastRevision = _.last @collection.toArray()
-				@currentRevisionId = lastRevision.id
+				# lastRevision = _.last @collection.toArray()
+				# @currentRevisionId = lastRevision.id
 
-				@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionId}"
 
 
 			_checkIfThemeChange : (revisionId)->
@@ -137,5 +156,35 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 				else 
 					return false
+
+
+			changeIframe : (revisionId)->
+				@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{revisionId}"
+				currentRevisionModel = @collection.get revisionId
+				@$el.find('.revision-info .time').text currentRevisionModel.get 'post_date'
+
+				milliseconds = new Date() - (new Date(currentRevisionModel.get('post_date')))
+				seconds = parseInt (milliseconds / 1000) % 60 
+				minutes = parseInt (milliseconds / (1000*60)) % 60
+				hours   = parseInt (milliseconds / (1000*60*60)) % 24
+				days   = parseInt (milliseconds / (1000*60*60*24)) % 7
+				if days > 1
+					timeElapsed = "#{days} days ago"
+				else if days is 1
+					timeElapsed = "1 day ago"
+				else if hours > 1
+					timeElapsed = "#{hours} hours ago"
+				else if hours is 1
+					timeElapsed = "1 hour ago"
+				else if minutes > 1
+					timeElapsed = "#{minutes} minutes ago"
+				else if minutes is 1
+					timeElapsed = "1 minute ago"
+				else if seconds 
+					timeElapsed = "#{seconds} seconds ago"
+
+
+				@$el.find('.revision-info .revision-by').text "Version by #{currentRevisionModel.get('author')}, #{timeElapsed}"
+
 
 				

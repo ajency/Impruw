@@ -36,7 +36,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return RevisionView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"> </div> <a class="slider-button prev"><span class="bicon icon-uniF19C"></span></a> <a class="slider-button next"><span class="bicon icon-uniF19B"></span></a> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> Version by Admin, 5 minutes ago <span class="time">15th Oct 2014 @ 13:41:21</span> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <iframe src="{{SITEURL}}" style="width : 100%; height: 400px;"></iframe> </div> </div>';
+      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"> </div> <a class="slider-button prev"><span class="bicon icon-uniF19C"></span></a> <a class="slider-button next"><span class="bicon icon-uniF19B"></span></a> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published virsion</div> <span class="time"></span> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <iframe src="{{SITEURL}}" style="width : 100%; height: 400px;"></iframe> </div> </div>';
 
       RevisionView.prototype.itemViewContainer = '#slider';
 
@@ -93,23 +93,43 @@ define(['app', 'bootbox'], function(App, bootbox) {
               siteBackupId: siteBackupId
             });
           }
+        },
+        'click .slider-button.next': function() {
+          if (this.sliderValue === 0) {
+            this.sliderValue = this.collection.size();
+          } else if (this.sliderValue === this.collection.size()) {
+            return;
+          } else {
+            this.sliderValue += 1;
+          }
+          return this.$slider.slider("value", this.sliderValue);
+        },
+        'click .slider-button.prev': function() {
+          if (this.sliderValue === 0) {
+            this.sliderValue = this.collection.size();
+          } else if (this.sliderValue === 1) {
+            return;
+          } else {
+            this.sliderValue -= 1;
+          }
+          return this.$slider.slider("value", this.sliderValue);
         }
       };
 
       RevisionView.prototype.initialize = function() {
         this.collection.comparator = 'ID';
         this.collection.sort();
-        return this.currentRevisionId = 0;
+        this.currentRevisionId = 0;
+        return this.sliderValue = 0;
       };
 
       RevisionView.prototype.onShow = function() {
-        var $slider, lastRevision;
         this.$el.attr('id', 'revision-region');
         this.$el.show();
         $('body').addClass('no-scroll');
-        $slider = this.$el.find('#slider');
-        if ($slider.length > 0) {
-          $slider.slider({
+        this.$slider = this.$el.find('#slider');
+        if (this.$slider.length > 0) {
+          this.$slider.slider({
             min: 1,
             max: this.collection.size(),
             value: this.collection.size(),
@@ -118,25 +138,23 @@ define(['app', 'bootbox'], function(App, bootbox) {
             change: (function(_this) {
               return function(event, ui) {
                 var model;
+                _this.sliderValue = ui.value;
                 model = _this.collection.at(ui.value - 1);
                 _this.currentRevisionId = model.id;
                 if (_this._checkIfThemeChange(_this.currentRevisionId)) {
                   return bootbox.confirm("This will cause a theme change. Will not show the elements properly", function(result) {
                     if (result) {
-                      return _this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + _this.currentRevisionId);
+                      return _this.changeIframe(_this.currentRevisionId);
                     }
                   });
                 } else {
-                  return _this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + _this.currentRevisionId);
+                  return _this.changeIframe(_this.currentRevisionId);
                 }
               };
             })(this)
           });
         }
-        this.$el.find('.ui-slider-segment').tooltip();
-        lastRevision = _.last(this.collection.toArray());
-        this.currentRevisionId = lastRevision.id;
-        return this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + this.currentRevisionId);
+        return this.$el.find('.ui-slider-segment').tooltip();
       };
 
       RevisionView.prototype._checkIfThemeChange = function(revisionId) {
@@ -145,6 +163,34 @@ define(['app', 'bootbox'], function(App, bootbox) {
         } else {
           return false;
         }
+      };
+
+      RevisionView.prototype.changeIframe = function(revisionId) {
+        var currentRevisionModel, days, hours, milliseconds, minutes, seconds, timeElapsed;
+        this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + revisionId);
+        currentRevisionModel = this.collection.get(revisionId);
+        this.$el.find('.revision-info .time').text(currentRevisionModel.get('post_date'));
+        milliseconds = new Date() - (new Date(currentRevisionModel.get('post_date')));
+        seconds = parseInt((milliseconds / 1000) % 60);
+        minutes = parseInt((milliseconds / (1000 * 60)) % 60);
+        hours = parseInt((milliseconds / (1000 * 60 * 60)) % 24);
+        days = parseInt((milliseconds / (1000 * 60 * 60 * 24)) % 7);
+        if (days > 1) {
+          timeElapsed = "" + days + " days ago";
+        } else if (days === 1) {
+          timeElapsed = "1 day ago";
+        } else if (hours > 1) {
+          timeElapsed = "" + hours + " hours ago";
+        } else if (hours === 1) {
+          timeElapsed = "1 hour ago";
+        } else if (minutes > 1) {
+          timeElapsed = "" + minutes + " minutes ago";
+        } else if (minutes === 1) {
+          timeElapsed = "1 minute ago";
+        } else if (seconds) {
+          timeElapsed = "" + seconds + " seconds ago";
+        }
+        return this.$el.find('.revision-info .revision-by').text("Version by " + (currentRevisionModel.get('author')) + ", " + timeElapsed);
       };
 
       return RevisionView;
