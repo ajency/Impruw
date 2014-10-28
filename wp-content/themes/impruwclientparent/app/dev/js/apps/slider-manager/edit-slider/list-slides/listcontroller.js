@@ -259,7 +259,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         } else {
           data = this.layerDefault();
         }
-        data.text = "<h3 class='" + (this.$el.find('.caption-style').val()) + "' data-title='" + (this.$el.find('.caption-title').val()) + "'>";
+        data.text = "<h3 class='" + (this.$el.find('.caption-style').val()) + "' id='revslide-caption-title'>";
         if (this.$el.find('input.link-check').is(':checked')) {
           data.text += "<a href='" + (this.$el.find('.caption-link').val()) + "'";
           data.text += this.$el.find('input.link-target').is(':checked') ? "target='_blank'>" : "target='_self'>";
@@ -268,7 +268,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         if (this.$el.find('input.link-check').is(':checked')) {
           data.text += "</a>";
         }
-        data.text += "</h3><div class='text' data-capdesc='" + (this.$el.find('.caption-description').val()) + "'>" + (this.$el.find('.caption-description').val()) + "</div>";
+        data.text += "</h3><div class='text' id='revslide-caption-desc'>" + (this.$el.find('.caption-description').val()) + "</div>";
         data.style = this.$el.find('.caption-background').val();
         position = this.$el.find('input[name="position"]:checked').val();
         position = position.split(',');

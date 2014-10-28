@@ -232,7 +232,7 @@ function update_translated_page_slide_ajax(){
 
     // $new_caption =  "<h3 class='".$reference_slide_caption_title_class."' data-title='".$new_caption_title."'>".$new_caption_title."</h3><div class='text' data-capdesc='".$new_caption_desc."'>".$new_caption_desc."</div>";
 
-    $new_caption = "<h3 class='".$reference_slide_caption_title_class."' data-title='".$new_caption_title."'>";
+    $new_caption = "<h3 class='".$reference_slide_caption_title_class."' id='revslide-caption-title'>";
 
     if(isset($reference_slide_title_link)){
         $new_caption .=  "<a href='".$reference_slide_title_link."' target='".$reference_slide_title_link_target."'>";
@@ -243,7 +243,7 @@ function update_translated_page_slide_ajax(){
     if(isset($reference_slide_title_link)){
         $new_caption .=  "</a>" ;
     }
-    $new_caption .=  "</h3><div class='text' data-capdesc='".$new_caption_desc."'>".$new_caption_desc."</div>";
+    $new_caption .=  "</h3><div class='text' id='revslide-caption-desc'>".$new_caption_desc."</div>";
 
     $data['layers'][0]['text'] = $new_caption;
     
