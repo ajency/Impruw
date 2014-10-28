@@ -226,7 +226,7 @@ and open the template in the editor.
 @media (max-width: 971px) {
   .logo {
     text-align: center;
-    margin: auto;
+    margin: 0.5em auto !important;
   }
   .logo a {
     display: inline-block;
