@@ -141,19 +141,22 @@ define(['app', 'bootbox'], function(App, bootbox) {
             range: false,
             change: (function(_this) {
               return function(event, ui) {
-                var model;
+                var childView, model;
                 _this.sliderValue = ui.value;
                 model = _this.collection.at(ui.value - 1);
                 _this.currentRevisionId = model.id;
                 if (_this._checkIfThemeChange(_this.currentRevisionId)) {
-                  return bootbox.confirm("This backup uses a different theme. The page is viewed using the current theme. If restored to this point will cause the site to be restored to the nearest theme change", function(result) {
+                  bootbox.confirm("This backup uses a different theme. The page is viewed using the current theme. If restored to this point will cause the site to be restored to the nearest theme change", function(result) {
                     if (result) {
                       return _this.changeIframe(_this.currentRevisionId);
                     }
                   });
                 } else {
-                  return _this.changeIframe(_this.currentRevisionId);
+                  _this.changeIframe(_this.currentRevisionId);
                 }
+                _this.$el.find('.ui-slider-segment').removeClass('active');
+                childView = _this.children.findByModel(model);
+                return childView.$el.addClass('active');
               };
             })(this)
           });

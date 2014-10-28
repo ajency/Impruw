@@ -147,6 +147,11 @@ define ['app', 'bootbox'],(App,bootbox)->
 										@changeIframe @currentRevisionId
 							else
 								@changeIframe @currentRevisionId
+
+
+							@$el.find('.ui-slider-segment').removeClass 'active'
+							childView = @children.findByModel model
+							childView.$el.addClass 'active'
 					# .addSliderSegments $slider.slider("option").max
 
 				@$el.find('.ui-slider-segment').tooltip()
