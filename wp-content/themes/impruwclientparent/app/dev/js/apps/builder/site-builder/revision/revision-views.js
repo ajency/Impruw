@@ -36,7 +36,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return RevisionView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"> </div> <a class="slider-button prev"><span class="bicon icon-uniF19C"></span></a> <a class="slider-button next"><span class="bicon icon-uniF19B"></span></a> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published virsion</div> <span class="time"></span> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <iframe src="{{SITEURL}}" style="width : 100%; height: 400px;"></iframe> </div> </div>';
+      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"> </div> <a class="slider-button prev"><span class="bicon icon-uniF19C"></span></a> <a class="slider-button next"><span class="bicon icon-uniF19B"></span></a> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published virsion</div> <span class="time"></span> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <div id="IframeWrapper" style="position: relative;"> <div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div> <iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;"></iframe> </div> </div> </div>';
 
       RevisionView.prototype.itemViewContainer = '#slider';
 
@@ -56,6 +56,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       RevisionView.prototype.mixinTemplateHelpers = function(data) {
         data = RevisionView.__super__.mixinTemplateHelpers.call(this, data);
         data.SITEURL = SITEURL;
+        data.site = _.slugify(this.collection.at(0).get('post_title'));
         return data;
       };
 
@@ -66,6 +67,9 @@ define(['app', 'bootbox'], function(App, bootbox) {
         },
         'click .restore-revision-btn': function() {
           var currentRevisionModel, index, siteBackupId, siteRestoreModel;
+          if (currentRevisionId === 0) {
+            return false;
+          }
           currentRevisionModel = this.collection.get(this.currentRevisionId);
           index = _.indexOf(this.collection.toArray(), currentRevisionModel);
           siteRestoreModel = this.collection.find((function(_this) {
@@ -156,7 +160,8 @@ define(['app', 'bootbox'], function(App, bootbox) {
         }
         this.$el.find('.ui-slider-segment').tooltip();
         return this.$el.find('iframe').load(function() {
-          return this.style.height = this.contentWindow.document.body.offsetHeight + 10 + 'px';
+          this.style.height = this.contentWindow.document.body.offsetHeight + 10 + 'px';
+          return $("#iframeBlocker").height(this.style.height);
         });
       };
 

@@ -43,7 +43,10 @@ define ['app', 'bootbox'],(App,bootbox)->
 								</div>
 							</div>
 							<div class="revision-view">
-								<iframe src="{{SITEURL}}" style="width : 100%; height: 400px;"></iframe>
+								<div id="IframeWrapper" style="position: relative;">
+								<div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div>
+								<iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;"></iframe>
+								</div>
 							</div>
 						</div>' 
 
@@ -61,6 +64,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 			mixinTemplateHelpers : (data)->
 				data = super data
 				data.SITEURL = SITEURL
+				data.site = _.slugify @collection.at(0).get 'post_title'
 				data
 
 			events : 
@@ -68,6 +72,8 @@ define ['app', 'bootbox'],(App,bootbox)->
 					@trigger "close:revision"
 					$('body').removeClass('no-scroll')
 				'click .restore-revision-btn': ->
+					if currentRevisionId is 0
+						return false
 					currentRevisionModel =  @collection.get(@currentRevisionId)
 					index = _.indexOf @collection.toArray(), currentRevisionModel
 
@@ -147,6 +153,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 				@$el.find('iframe').load ()->
 				    @style.height = @contentWindow.document.body.offsetHeight + 10 + 'px'
+				    $("#iframeBlocker").height @style.height
 
 				# lastRevision = _.last @collection.toArray()
 				# @currentRevisionId = lastRevision.id
