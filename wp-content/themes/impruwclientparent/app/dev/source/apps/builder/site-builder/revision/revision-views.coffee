@@ -3,8 +3,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 
 		class RevisionSingleView extends Marionette.ItemView
-			template  : '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip"
-				data-container=".revision-container" data-placement="top" title="{{author}} - {{post_modified}}   Theme : {{page_theme}}"></div>'
+			template  : '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" title="{{author}} - {{post_modified}}   Theme : {{page_theme}}"></div>'
 
 			mixinTemplateHelpers : (data)->
 				data = super data
@@ -46,7 +45,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 							<div class="revision-view">
 								<div id="IframeWrapper" style="position: relative;">
 								<div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div>
-								<iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;"></iframe>
+								<iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe>
 								</div>
 							</div>
 						</div>' 
@@ -161,7 +160,9 @@ define ['app', 'bootbox'],(App,bootbox)->
 							childView.$el.addClass 'active'
 					# .addSliderSegments $slider.slider("option").max
 
-				@$el.find('.ui-slider-segment').tooltip()
+				@$el.find('.ui-slider-segment').tooltip
+					placement: "top"
+					container: ".revision-container"
 
 				@$el.find('iframe').load ()->
 				    @style.height = @contentWindow.document.body.offsetHeight + 10 + 'px'
