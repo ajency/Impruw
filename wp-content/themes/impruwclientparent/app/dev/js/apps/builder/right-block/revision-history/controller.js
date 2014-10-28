@@ -14,6 +14,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/right-block/revision
         var pageId;
         pageId = options.pageId;
         this.revisionCollection = App.request("get:page:revisions", pageId);
+        App.commands.setHandler('update:revision:on:published', (function(_this) {
+          return function(revision) {
+            return _this.revisionCollection.add(revision);
+          };
+        })(this));
         return App.execute("when:fetched", [this.revisionCollection], (function(_this) {
           return function() {
             var lastThreeRevisions;
@@ -32,7 +37,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/right-block/revision
       };
 
       Controller.prototype._showHistoryView = function() {
-        console.log('x');
         return new RevisionHistory.Views.RevisionHitoryList({
           collection: this.latestRevision
         });

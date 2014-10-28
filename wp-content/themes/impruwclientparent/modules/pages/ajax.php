@@ -159,9 +159,12 @@ function publish_page_ajax() {
 
         update_page_autosave( $page_id, $page_json );
 
-        //$revision_data = get_post( $revision_post_id );
+        $revision_data = get_post( $revision_post_id );
+        // print_r($revision_data);
+        $revision_data = generate_revision_data($revision_data);
+        // print_r($revision_data);
 
-        wp_send_json( array( 'success' => true, 'page_id' => $page_id));
+        wp_send_json( array( 'success' => true, 'revision' => $revision_data));
     }
     else{
         $user = get_userdata( $user_id );

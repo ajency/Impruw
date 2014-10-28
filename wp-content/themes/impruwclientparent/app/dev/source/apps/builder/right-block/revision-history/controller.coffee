@@ -8,7 +8,10 @@ define ['app'
 
 			initialize :(options)->
 				pageId = options.pageId
-				@revisionCollection = App.request "get:page:revisions", pageId				
+				@revisionCollection = App.request "get:page:revisions", pageId		
+
+				App.commands.setHandler 'update:revision:on:published',(revision)=>
+					@revisionCollection.add revision		
 
 				App.execute "when:fetched", [@revisionCollection] ,=>
 					lastThreeRevisions = _.first @revisionCollection.toArray() , 3
@@ -24,7 +27,6 @@ define ['app'
 					@show @view
 
 			_showHistoryView:->
-				console.log 'x'
 				new RevisionHistory.Views.RevisionHitoryList
 					collection : @latestRevision
 

@@ -80,6 +80,9 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
                     async: false
                     data : data
                     success : (resp)->
+
+                        if resp.code is 'OK'
+                            window.location.reload()
                         # App.instanceId = resp.instance if resp.success is true
 
 

@@ -94,6 +94,7 @@ function impruw_restore_page($revision_id, $backup = true){
 		return new WP_Error( 'error', __("Revision is not for a page") );
 	$page_id = icl_object_id( $page_id, 'page', true, 'en' );
 	
+	$rev =null;
 	if ($backup == true)
 		$rev = add_page_revision( $page_id );
 
@@ -151,6 +152,7 @@ function impruw_restore_page($revision_id, $backup = true){
 		impruw_restore_elements($footer_elements);
 
 	}
+	return $rev;
 
 
 }
@@ -217,11 +219,11 @@ function impruw_restore_site($site_backup_id){
 
 }
 
-// function imp_restore_site(){
-// 	$site_backup_id = $_GET['site_backup_id'];
-// 	impruw_restore_site( $site_backup_id );
+function imp_restore_site(){
+	$site_backup_id = $_GET['site_backup_id'];
+	impruw_restore_site( $site_backup_id );
 	
-// }
+}
 // add_action('wp_ajax_restore-site','imp_restore_site');
 
 

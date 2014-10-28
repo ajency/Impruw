@@ -92,7 +92,11 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
           url: "" + AJAXURL + "?action=restore-page",
           async: false,
           data: data,
-          success: function(resp) {}
+          success: function(resp) {
+            if (resp.code === 'OK') {
+              return window.location.reload();
+            }
+          }
         });
       },
       getPages: function(param) {

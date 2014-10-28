@@ -29,6 +29,7 @@ define ['app'], (App)->
                 window.SAVING = true
                 $.ajax(options).done (response)->
                     if response.success is true
+                        App.execute "update:revision:on:published",response.revision
                         App.vent.trigger "page:published"
                     else if response.success is false and response.new_instance
                         App.vent.trigger "new:instance:opened", response
