@@ -77,6 +77,37 @@ function impruw_after_theme_setup(){
 }
 add_action( 'after_setup_theme', 'impruw_after_theme_setup' );
 
+/**
+ * [impruw_wp_mail_from description]
+ * @param  [type] $original_email_address [description]
+ * @return [type]                         [description]
+ */
+function impruw_wp_mail_from( $original_email_address ){
+    //Make sure the email is from the same domain 
+    //as your website to avoid being marked as spam.
+    return 'info@impruw.com';
+}
+add_filter( 'wp_mail_from', 'impruw_wp_mail_from' );
+
+/**
+ * [impruw_wp_mail_from_name description]
+ * @param  [type] $original_email_from [description]
+ * @return [type]                      [description]
+ */
+function impruw_wp_mail_from_name( $original_email_from ){
+    return 'Impruw Ltd.';
+}
+add_filter( 'wp_mail_from_name', 'impruw_wp_mail_from_name' );
+
+/**
+ * [change_email_content_type description]
+ * @return [type] [description]
+ */
+function change_email_content_type() {
+    return 'text/html';
+}
+add_filter( 'wp_mail_content_type', 'change_email_content_type' );
+
 
 /**
  * [send_contact_form_message description]
@@ -84,10 +115,6 @@ add_action( 'after_setup_theme', 'impruw_after_theme_setup' );
  * @return [type] [description]
  */
 function send_contact_form_message() {
-
-    add_filter( 'wp_mail_content_type', 'change_email_content_type' );
-
-    $headers = 'From:contact@impruw.com ';
 
     $site_email = get_option( 'admin_email', get_bloginfo( 'admin_email' ) );
 
@@ -97,7 +124,7 @@ function send_contact_form_message() {
     $email = $_POST [ 'c-email' ];
     $subject = $_POST [ 'c-subject' ];
 
-    $subject = ( !empty( $subject ) ? $subject : '-' );
+    $subject = !empty( $subject ) ? stripslashes($subject) : '-';
     $mailsubject = "Impruw Notification: You have received a $subject email";
 
     $mailbody = " You have been contacted by<br /><br />
@@ -106,10 +133,8 @@ function send_contact_form_message() {
                     Subject : $subject<br /><br />
                     The details of the message are as follows:<br />
                     <p>$message</p>";
-
-    if ( wp_mail( $site_email, $mailsubject, $mailbody, $headers ) ) {
-
-        remove_filter( 'wp_mail_content_type', 'change_email_content_type' );
+    
+    if ( wp_mail( $site_email, $mailsubject, stripslashes($mailbody)) ) {
 
         wp_send_json( array(
             'code' => 'OK',
@@ -126,9 +151,7 @@ function send_contact_form_message() {
 add_action( 'wp_ajax_send-contact-form-message', 'send_contact_form_message' );
 add_action( 'wp_ajax_nopriv_send-contact-form-message', 'send_contact_form_message' );
 
-function change_email_content_type() {
-    return 'text/html';
-}
+
 
 /**
  * Check the site status and redirect if required
