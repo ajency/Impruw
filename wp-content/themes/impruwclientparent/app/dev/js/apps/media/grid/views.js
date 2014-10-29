@@ -110,7 +110,7 @@ define(['app'], function(App, mediaTpl) {
             return function() {
               _this.$el.find('#selectable-images').parent().find('.load-more').remove();
               if (_this.collection.length < _this.collection.totalMedia) {
-                _this.$el.find('#selectable-images').after('<button type="button" class="btn btn-xs load-more"><span class="glyphicon glyphicon-repeat"></span> Load More</button>');
+                _this.$el.find('#selectable-images').after('<button type="button" class="btn btn-default btn-xs load-more"><span class="glyphicon glyphicon-repeat"></span> Load More</button>');
                 return _this.$el.find('#selectable-images').parent().find('.load-more').click(_this.loadMoreClicked);
               }
             };
