@@ -40,8 +40,21 @@ define ['app'
                 	if @collection.at(0)
                 		@trigger "show:revision:restore"
                 	
-			onShow:->
+			initialize:(option)->
+				@revisionCollection = Marionette.getOption @, 'fullCollection'
+				@getLatestCollection()
+				@listenTo @revisionCollection, 'add', @getLatestCollection
+
+			getLatestCollection : =>
+
+				@revisionCollection.comparator = (rev)->
+  						-rev.id;
+				@revisionCollection.sort()
+				lastThreeRevisions = _.first @revisionCollection.toArray() , 3
+
+				@collection = new Backbone.Collection lastThreeRevisions
 				# console.log 'df'
+				@render()
 
 			 
 			

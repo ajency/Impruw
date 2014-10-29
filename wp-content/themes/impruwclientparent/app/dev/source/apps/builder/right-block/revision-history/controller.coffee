@@ -14,12 +14,7 @@ define ['app'
 					@revisionCollection.add revision		
 
 				App.execute "when:fetched", [@revisionCollection] ,=>
-					@revisionCollection.comparator = (rev)->
-  						-rev.id;
-					@revisionCollection.sort()
-					lastThreeRevisions = _.first @revisionCollection.toArray() , 3
-
-					@latestRevision = new Backbone.Collection lastThreeRevisions
+					
 					@view = @_showHistoryView()
 
 					@listenTo @view, "show:revision:restore itemview:show:revision:restore",(view,id = 0)=>
@@ -32,7 +27,7 @@ define ['app'
 
 			_showHistoryView:->
 				new RevisionHistory.Views.RevisionHitoryList
-					collection : @latestRevision
+					fullCollection : @revisionCollection
 
 
 		App.commands.setHandler 'show:revision:history',(opts)->

@@ -345,6 +345,7 @@ function clone_page( $clone_blog, $post_id ) {
     store_unused_elements( $post_id );
     add_page_json( $post_id, $data );
 
+
     delete_all_revisions( $post_id );
     update_page_autosave( $post_id, $data );
 }

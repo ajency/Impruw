@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'moment'], function(App, moment) {
   return App.module('RevisionHistory.Views', function(Views, App) {
@@ -35,6 +36,7 @@ define(['app', 'moment'], function(App, moment) {
       __extends(RevisionHitoryList, _super);
 
       function RevisionHitoryList() {
+        this.getLatestCollection = __bind(this.getLatestCollection, this);
         return RevisionHitoryList.__super__.constructor.apply(this, arguments);
       }
 
@@ -53,7 +55,22 @@ define(['app', 'moment'], function(App, moment) {
         }
       };
 
-      RevisionHitoryList.prototype.onShow = function() {};
+      RevisionHitoryList.prototype.initialize = function(option) {
+        this.revisionCollection = Marionette.getOption(this, 'fullCollection');
+        this.getLatestCollection();
+        return this.listenTo(this.revisionCollection, 'add', this.getLatestCollection);
+      };
+
+      RevisionHitoryList.prototype.getLatestCollection = function() {
+        var lastThreeRevisions;
+        this.revisionCollection.comparator = function(rev) {
+          return -rev.id;
+        };
+        this.revisionCollection.sort();
+        lastThreeRevisions = _.first(this.revisionCollection.toArray(), 3);
+        this.collection = new Backbone.Collection(lastThreeRevisions);
+        return this.render();
+      };
 
       return RevisionHitoryList;
 
