@@ -217,7 +217,14 @@ function ajax_site_logout() {
 
     wp_logout();
 
-    wp_send_json( array( 'code' => 'OK', 'redirect_url' => network_home_url() ) );
+    if (wpml_get_default_language() == 'nb') {
+        $url = network_home_url().'nb';
+    }
+    else{
+        $url = network_home_url();
+    }
+
+    wp_send_json( array( 'code' => 'OK', 'redirect_url' => $url  ) );
 }
 
 add_action( 'wp_ajax_site-logout', 'ajax_site_logout' );
