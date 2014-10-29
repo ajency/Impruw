@@ -41,7 +41,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return RevisionView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <div style="text-align : center;">Page : {{post_title}}</div> <div style="text-align : center;">Total no of revisions : {{size}}</div> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"></div> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published Version</div> <div class="revision-theme"></div> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <div id="IframeWrapper" style="position: relative;"> <div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div> <iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe> </div> </div> </div>';
+      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <div style="text-align : center;">Page name : {{post_title}}</div> <div style="text-align : center;">Number of revisions : {{size}}</div> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"></div> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published Version</div> <div class="revision-theme"></div> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <div id="IframeWrapper" style="position: relative;"> <div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div> <iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe> </div> </div> </div>';
 
       RevisionView.prototype.itemViewContainer = '#slider';
 
@@ -108,8 +108,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       RevisionView.prototype.initialize = function() {
         this.collection.comparator = 'ID';
-        this.collection.sort();
-        return this.sliderValue = 0;
+        return this.collection.sort();
       };
 
       RevisionView.prototype.onShow = function() {
@@ -129,20 +128,9 @@ define(['app', 'bootbox'], function(App, bootbox) {
                 var childView;
                 _this.currentRevisionModel = _this.collection.at(ui.value - 1);
                 if (_this._checkIfThemeChange()) {
-                  bootbox.confirm("This backup uses a different theme. The page is viewed using the current theme. If restored to this point will cause the site to be restored to the nearest theme change", function(result) {
-                    if (result) {
-                      _this.changeIframe();
-                      return _this.sliderValue = ui.value;
-                    } else {
-                      if (_this.sliderValue) {
-                        return _this.$slider.slider("value", _this.sliderValue);
-                      }
-                    }
-                  });
-                } else {
-                  _this.sliderValue = ui.value;
-                  _this.changeIframe();
+                  bootbox.alert(" You had used a different theme here. If you restore to this point, the theme will be applied across all the pages in the website. You may lose your current layout, although you can recover the lost elements from our unused elements toolbox on the site builder");
                 }
+                _this.changeIframe();
                 _this.$el.find('.ui-slider-segment').removeClass('active');
                 childView = _this.children.findByModel(_this.currentRevisionModel);
                 return childView.$el.addClass('active');

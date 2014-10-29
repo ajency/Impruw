@@ -30,8 +30,8 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 			template : '<div class="revision-container">
 							<h2 class="page-title">View Your Site History</h2>
-							<div style="text-align : center;">Page : {{post_title}}</div>
-							<div style="text-align : center;">Total no of revisions : {{size}}</div>
+							<div style="text-align : center;">Page name : {{post_title}}</div>
+							<div style="text-align : center;">Number of revisions : {{size}}</div>
 							<p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p>
 							<div class="revision-timeline">
 								<div id="slider" class="ui-slider"></div>
@@ -109,7 +109,6 @@ define ['app', 'bootbox'],(App,bootbox)->
 				@collection.comparator = 'ID'
 				@collection.sort()
 				# @currentRevisionId = 0
-				@sliderValue = 0
 
 			onShow : ->
 				@$el.attr 'id', 'revision-region'
@@ -130,18 +129,13 @@ define ['app', 'bootbox'],(App,bootbox)->
 							@currentRevisionModel =  @collection.at ui.value - 1
 							
 							if @_checkIfThemeChange()
-								bootbox.confirm "This backup uses a different theme. The page is viewed using the current theme.
-								 If restored to this point will cause the site to be restored to the nearest theme change",(result)=>
-									if result
-										@changeIframe()
-										@sliderValue = ui.value
-									else 
-										if @sliderValue
-											@$slider.slider( "value", @sliderValue );
+								bootbox.alert " You had used a different theme here. If you restore to this 
+									point, the theme will be applied across all the pages in the website. 
+									You may lose your current layout, although you can recover the lost 
+									elements from our unused elements toolbox on the site builder"
+									
 
-							else
-								@sliderValue = ui.value
-								@changeIframe()
+							@changeIframe()
 
 
 							@$el.find('.ui-slider-segment').removeClass 'active'
