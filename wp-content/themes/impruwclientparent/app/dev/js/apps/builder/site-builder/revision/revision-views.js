@@ -19,6 +19,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         data.notFirst = Marionette.getOption(this, 'notFirst');
         data.segmentGap = Marionette.getOption(this, 'segmentGap');
         data.theme_slug = _.slugify(data.page_theme);
+        data.post_date = data.post_date.replace(/-/g, '/');
         dateGMT = new Date(data.post_date + ' UTC ');
         data.date = dateGMT.toLocaleString();
         return data;
@@ -147,12 +148,15 @@ define(['app', 'bootbox'], function(App, bootbox) {
             })(this)
           });
         }
-        this.$el.find('.ui-slider-segment').tooltip({
-          placement: "top",
-          container: ".revision-container"
-        });
+        _.delay((function(_this) {
+          return function() {
+            return _this.$el.find('#slider > div').tooltip({
+              placement: "top",
+              container: ".revision-container"
+            });
+          };
+        })(this), 1000);
         return this.$el.find('iframe').load(function() {
-          console.log('iframe load');
           this.style.height = this.contentWindow.document.body.offsetHeight + 10 + 'px';
           return $("#iframeBlocker").height(this.style.height);
         });
@@ -169,7 +173,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       RevisionView.prototype.changeIframe = function() {
         var dateGMT, timeElapsed;
         this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + this.currentRevisionModel.id);
-        dateGMT = new Date(this.currentRevisionModel.get('post_date') + ' UTC ');
+        dateGMT = new Date(this.currentRevisionModel.get('post_date').replace(/-/g, '/') + ' UTC ');
         this.$el.find('.revision-info .time').text(dateGMT.toLocaleString());
         timeElapsed = moment(dateGMT).fromNow();
         this.$el.find('.revision-info .revision-by').text("Version by " + (this.currentRevisionModel.get('author')) + ", " + timeElapsed);

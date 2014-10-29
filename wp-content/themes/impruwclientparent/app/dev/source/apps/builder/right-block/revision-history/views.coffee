@@ -14,10 +14,9 @@ define ['app'
 
 			mixinTemplateHelpers : (data)->
 				data = super data 
-				dateGMT = new Date(data.post_date+' UTC ')
+				dateGMT = new Date(data.post_date.replace(/-/g,'/')+' UTC ')
 				data.date = dateGMT.toLocaleDateString()
 				data.timeElapsed = moment(dateGMT).fromNow();
-			# 	# data.
 				data
 
 		class Views.RevisionHitoryList extends Marionette.CompositeView

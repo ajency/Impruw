@@ -12,6 +12,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 				data.notFirst  = Marionette.getOption @, 'notFirst'
 				data.segmentGap = Marionette.getOption @, 'segmentGap'
 				data.theme_slug =  _.slugify data.page_theme
+				data.post_date = data.post_date.replace /-/g,'/'
 				dateGMT = new Date(data.post_date+' UTC ')
 				data.date = dateGMT.toLocaleString()
 				data
@@ -144,12 +145,14 @@ define ['app', 'bootbox'],(App,bootbox)->
 							childView = @children.findByModel @currentRevisionModel
 							childView.$el.addClass 'active'
 
-				@$el.find('.ui-slider-segment').tooltip
-					placement: "top"
-					container: ".revision-container"
+				
+				_.delay =>
+					@$el.find('#slider > div').tooltip
+						placement: "top"
+						container: ".revision-container"
+				,1000
 
 				@$el.find('iframe').load ()->
-					console.log 'iframe load'
 					@style.height = @contentWindow.document.body.offsetHeight + 10 + 'px'
 					$("#iframeBlocker").height @style.height
 
@@ -170,7 +173,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 			changeIframe : ->
 				@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionModel.id}"
 								
-				dateGMT = new Date(@currentRevisionModel.get('post_date')+' UTC ')
+				dateGMT = new Date(@currentRevisionModel.get('post_date').replace(/-/g,'/')+' UTC ')
 
 				@$el.find('.revision-info .time').text dateGMT.toLocaleString()
 
