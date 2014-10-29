@@ -33,7 +33,7 @@ define ['app'], (App)->
                                 <div class="form-group">
                                   <label for="email-password" class="col-sm-3 control-label">{{#polyglot}}Password:{{/polyglot}}</label>
                                   <div class="col-sm-9 col-sm-offset-3">
-                                    <input id="email-password" name="password" type="password" value="{{password}}" class="form-control" required>
+                                    <input id="email-password" name="password" type="password" value="{{password}}" class="form-control" required minlength="6">
                                   </div>
                                 </div>
                                 <div class="form-group">
@@ -53,25 +53,41 @@ define ['app'], (App)->
                             data = Backbone.Syphon.serialize @
                             data.email_id = data.email_username+'@'+@model.get('domain_name')
                             # console.log data.email_id
-                            if @validateEmail(data.email_id)
+                            username = data.email_username
+                            doesMatch = /^\d+$/.test(username)
+                            if doesMatch
                               @$el.parent().find('.alert').remove()
-                              @trigger "add:user:email", data
+                              @$el.parent().prepend "<div class=\"alert alert-error\">" + _.polyglot.t("Email address should contain atleast one letter") + "</div>"
+                              @$el.find('#email_username').val ''
                             else
-                              @$el.parent().find('.alert').remove()
-                              @$el.parent().prepend "<div class=\"alert alert-error\">" + _.polyglot.t("Email address is not in correct format") + "</div>"
-                              @$el.find('input').val ''
+                              if @validateEmail(data.email_id)
+                                @$el.parent().find('.alert').remove()
+                                @trigger "add:user:email", data
+                              else
+                                @$el.parent().find('.alert').remove()
+                                @$el.parent().prepend "<div class=\"alert alert-error\">" + _.polyglot.t("Email address is not in correct format") + "</div>"
+                                @$el.find('#email_username').val ''
+                              
+
+                      'blur #email_username':(evt)->
+                        username = $(evt.target).val()
+                        username = username.toLowerCase()
+                        $(evt.target).val username
                             
 
                   onSavedUserEmail:(response) ->
                     if response.code is 'OK'
                       msg = _.polyglot.t("New user email created")
+                      @$el.parent().find('.alert').remove()
+                      @$el.parent().prepend "<div class=\"alert alert-success\">" + msg + "</div>"
+                      @$el.find('input').val ''
                     else if response.code is 'ERROR'
                       msg = _.polyglot.t response.msg
+                      @$el.parent().find('.alert').remove()
+                      @$el.parent().prepend "<div class=\"alert alert-success\">" + msg + "</div>"
+                      @$el.find('#email_username').val ''
                     
-                    # console.log @$el.parent()
-                    @$el.parent().find('.alert').remove()
-                    @$el.parent().prepend "<div class=\"alert alert-success\">" + msg + "</div>"
-                    @$el.find('input').val ''
+                    
 
                   validateEmail :(email) ->
                     emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i)

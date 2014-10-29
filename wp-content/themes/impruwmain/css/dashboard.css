@@ -3582,6 +3582,8 @@ form .aj-imp-submit:hover {
 @media (max-width: 767px) {
   .aj-imp-homepage .home-2 h2 {
     text-align: center;
+    font-size: 2em;
+    word-wrap: break-word;
   }
 }
 .aj-imp-homepage .home-2 p {
@@ -3787,6 +3789,7 @@ form .aj-imp-submit:hover {
   color: #fff;
   padding: 0.2em 1em;
   font-weight: 400;
+  font-size: 2.5em;
 }
 .aj-imp-contactpage .contact .c-address {
   display: inline-block;
@@ -3831,7 +3834,7 @@ form .aj-imp-submit:hover {
     float: none;
   }
   .aj-imp-contactpage .contact h2 {
-    font-size: 2.2em;
+    font-size: 2em;
     display: block;
   }
 }
@@ -4144,7 +4147,8 @@ form .aj-imp-submit:hover {
 
 @media (max-width: 850px) {
   .aj-imp-block-list ul .block {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     margin: 0 auto 2em;
   }
 }

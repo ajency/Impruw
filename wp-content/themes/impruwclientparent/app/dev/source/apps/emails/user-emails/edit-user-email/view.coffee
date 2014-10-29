@@ -30,7 +30,7 @@ define ['app'], (App)->
                                 <div class="form-group">
                                   <label for="email-password" class="col-sm-3 control-label">{{#polyglot}}Reset Password:{{/polyglot}}</label>
                                   <div class="col-sm-9 col-sm-offset-3">
-                                    <input id="email-password" name="password" type="password" value="" class="form-control" required>
+                                    <input id="email-password" name="password" type="password" class="form-control" minlength="6">
                                   </div>
                                 </div>
                                 <div class="form-group">

@@ -264,6 +264,35 @@ function get_page_table_elements($page_id){
    return $elements;    
 }
 
+function get_page_slider_collection($page_id){
+    $sliders =  get_page_slider_elements($page_id);
+    
+    foreach ($sliders as $key => $slider) {
+        $slides_arr = get_multilingual_slides( $slider['slider_id'] );
+        $sliders[$key]['slides'] = $slides_arr;
+    }
+
+    return $sliders;
+}
+
+//Function to get all page slider elements
+function get_page_slider_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+
+    $elements = array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_slider_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('Slider')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;    
+}
+
 //Function to get all page header elements of a site
 function get_header_translation_elements(){
 
@@ -324,6 +353,20 @@ function get_row_table_elements( $row_element, &$elements ){
                 get_row_table_elements( $element,$elements );
             } else {
                 if(in_array($element[ 'element'] , array('Table')))
+                    $elements[] = $element;
+            }
+        }
+    }
+}
+
+function get_row_slider_elements( $row_element, &$elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( $element[ 'element' ] === 'Row' ) {
+                get_row_slider_elements( $element,$elements );
+            } else {
+                if(in_array($element[ 'element'] , array('Slider')))
                     $elements[] = $element;
             }
         }
@@ -483,7 +526,50 @@ function get_single_room_page_title(){
     return $single_room_title;
 }
 
+/**
+ * Get an array of enabled languages
+ */
+function get_enabled_languages(){
+    $active_languages = wpml_get_active_languages();
+    $enabled_languages = array();
+    foreach ($active_languages as $language) {
+        array_push($enabled_languages, $language['code']);
+    }
 
+    return $enabled_languages;
+}
 
+/**
+ * Get language child slides for a given parent slide 
+ */
 
+function get_language_slides_by_slideid($slider_id,$slide_id){
+    $slider = new RevSlider();
 
+    $slides = $slider->initByID( $slider_id );
+    $slides     = $slider->getSlides( FALSE );
+    $childslides = array();
+    $lang_slides = array();
+
+    foreach ( $slides as $slide ) {
+
+        $parentSlide = $slide->getParentSlide();
+        $parent_slide_id = $parentSlide->getID();
+
+        //Fetch language child slides of given slide id only
+        if ($parent_slide_id == $slide_id) {
+            $childslides = $parentSlide->getArrChildrenLangs(TRUE);
+        }
+
+    }
+
+    if (!empty($childslides)) {
+        foreach ($childslides as $slide) {
+            $lang_slides[$slide['lang']] = $slide['slideid'];
+        } 
+    }
+   
+
+    return $lang_slides;
+
+}

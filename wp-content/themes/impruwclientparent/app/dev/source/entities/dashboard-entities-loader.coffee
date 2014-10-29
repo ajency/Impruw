@@ -22,5 +22,6 @@ define [
     'entities/header-elements'
     'entities/footer-elements'
     'entities/page-table-elements'
+    'entities/page-slider-elements'
     'entities/emails'
 ], ->

@@ -3034,10 +3034,17 @@ a {
 					margin-bottom: 1em;
 				}
 				[class^="msg-"] {
-					color: @3-grey;
+					color: @preview-grey;
 					font-size: 1.2em;
 					margin-bottom: 0.5em;
 					display: none;
+					.glyphicon {
+						color: @orange;
+						font-size: 0.8em;
+					}
+				}
+				&.load-anim {
+					background: rgba(0, 0, 0, 0.8);
 				}
 			}
 			&:hover {
@@ -3494,6 +3501,25 @@ a {
 	}
 }
 
+/**** Element Load Error Styles ****/
+.load-error {
+	background: rgba(255, 255, 255, 0.6);
+	padding: 1em;
+	text-align: center;
+	color: @3-grey;
+	border-radius: 2px;
+	em {
+		font-weight: bold;
+	}
+	.glyphicon {
+		display: block;
+		font-size: 2em;
+		margin-bottom: 0.5em;
+		color: @orange;
+		.pulse;
+	}
+}
+
 /****Image Placeholder Styles****/
 .image-placeholder {
 	text-align: center;
@@ -3806,9 +3832,6 @@ a {
 	}
 	.checkbox {
 		padding-top: 0;
-		.icons {
-			margin-top: 0.3em;
-		}
 	}
 	.field-error {
 		color: @error-red;

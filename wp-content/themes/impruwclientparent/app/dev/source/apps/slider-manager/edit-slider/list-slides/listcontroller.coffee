@@ -365,13 +365,13 @@ define ['app'
                     else
                         data = @layerDefault()
 
-                    data.text = "<h3 class='#{@$el.find('.caption-style').val()}'>"
+                    data.text = "<h3 class='#{@$el.find('.caption-style').val()}' id='revslide-caption-title'>"
                     if @$el.find('input.link-check').is(':checked')
                         data.text += "<a href='#{@$el.find('.caption-link').val()}'" 
                         data.text += if @$el.find('input.link-target').is(':checked') then "target='_blank'>" else "target='_self'>"
                     data.text += @$el.find('.caption-title').val()
                     data.text += "</a>" if @$el.find('input.link-check').is(':checked')
-                    data.text += "</h3><div class='text'>#{@$el.find('.caption-description').val()}</div>"
+                    data.text += "</h3><div class='text' id='revslide-caption-desc'>#{@$el.find('.caption-description').val()}</div>"
                     data.style = @$el.find('.caption-background').val()
 
                     position = @$el.find('input[name="position"]:checked').val()

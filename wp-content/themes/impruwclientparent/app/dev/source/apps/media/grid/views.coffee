@@ -88,7 +88,7 @@ define [ 'app'], ( App, mediaTpl )->
                         success : =>
                            @$el.find('#selectable-images').parent().find('.load-more').remove()
                            if @collection.length < @collection.totalMedia
-                              @$el.find('#selectable-images').after('<button type="button" class="btn btn-xs load-more"><span class="glyphicon glyphicon-repeat"></span> Load More</button>')
+                              @$el.find('#selectable-images').after('<button type="button" class="btn btn-default btn-xs load-more"><span class="glyphicon glyphicon-repeat"></span> Load More</button>')
                               @$el.find('#selectable-images').parent().find('.load-more').click @loadMoreClicked
 
          onShow : ->
