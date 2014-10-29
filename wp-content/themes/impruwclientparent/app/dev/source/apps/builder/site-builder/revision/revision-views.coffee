@@ -4,8 +4,8 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 		class RevisionSingleView extends Marionette.ItemView
 			template  : '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" 
-				{{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" 
-				title="{{author}} - {{date}} ,   Theme : {{page_theme}}"></div>'
+				{{#notFirst}}style="padding-left: {{segmentGap}};"{{/notFirst}}><span class="marker" data-toggle="tooltip" 
+				title="{{author}} - {{date}} ,   Theme : {{page_theme}}"></span></div>'
 
 			mixinTemplateHelpers : (data)->
 				data = super data
@@ -144,7 +144,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 							childView = @children.findByModel @currentRevisionModel
 							childView.$el.addClass 'active'
 
-				@$el.find('.ui-slider-segment').tooltip
+				@$el.find('.ui-slider-segment .marker').tooltip
 					placement: "top"
 					container: ".revision-container"
 

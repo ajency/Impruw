@@ -11,7 +11,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return RevisionSingleView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionSingleView.prototype.template = '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" title="{{author}} - {{date}} ,   Theme : {{page_theme}}"></div>';
+      RevisionSingleView.prototype.template = '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" {{#notFirst}}style="padding-left: {{segmentGap}};"{{/notFirst}}><span class="marker" data-toggle="tooltip" title="{{author}} - {{date}} ,   Theme : {{page_theme}}"></span></div>';
 
       RevisionSingleView.prototype.mixinTemplateHelpers = function(data) {
         var dateGMT;
@@ -147,7 +147,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
             })(this)
           });
         }
-        this.$el.find('.ui-slider-segment').tooltip({
+        this.$el.find('.ui-slider-segment .marker').tooltip({
           placement: "top",
           container: ".revision-container"
         });
