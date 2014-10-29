@@ -31,13 +31,11 @@ define ['app', 'bootbox'],(App,bootbox)->
 							<h2 class="page-title">View Your Site History</h2>
 							<p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p>
 							<div class="revision-timeline">
-								<div id="slider" class="ui-slider">
-									</div>
-								
+								<div id="slider" class="ui-slider"></div>
 							</div>
 							<div class="row timeline-actions">
 								<div class="col-sm-6 revision-info">
-									<div class="revision-by">Published version</div> 
+									<div class="revision-by">Published Version</div> 
 									<span class="time"></span>
 									<div class="revision-theme"></div>
 								</div>
@@ -103,7 +101,6 @@ define ['app', 'bootbox'],(App,bootbox)->
 							revId : @currentRevisionModel.id
 							siteBackupId : siteBackupId
 
-				
 			initialize : ->
 				@collection.comparator = 'ID'
 				@collection.sort()
