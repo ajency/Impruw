@@ -2694,7 +2694,7 @@ a {
             text-align: center;
         }
         .revision-timeline {
-            padding: 1em 1em 0.75em 0.5em;
+            padding: 0.8em 1em 0.75em;
             margin: 1em;
             background: @preview-grey;
             border: 1px solid @dash-grey;
@@ -2707,28 +2707,112 @@ a {
                 margin: 0 0 0.5em;
                 .ui-slider-segment {
                 	position: relative;
-                	border: 2px solid transparent;
-                	&.site-backup {
-                		border: 2px solid @3-grey;
-                	}
-                	/*&:before {
-                		position: absolute;
-                		height: 0px;
-                		border-top: 1px dashed @dash-grey;
-                		right: 10px;
-                		top: 1px;
-                		width: 100px;
+                	border-radius: 0;
+                	border-top: 1px dashed @dash-grey;
+                	background: transparent;
+                	margin: 0;
+                	height: 10px;
+                	width: 0;
+                	top: 4px;
+                	.marker {
+                		width: 9px;
+                		height: 9px;
                 		content: " ";
                 		display: block;
+                		position: absolute;
+                		border-radius: 9px;
+                		background: @dash-grey;
+                		border: 2px solid @preview-grey;
+                		z-index: 1;
+                		right: -5px;
+                		top: -5px;
                 	}
-                	&:first-child {
-                		&:before {
-                			display: none;
+                	&.site-backup {
+                		border-top-color: @3-grey;
+                    	.marker {
+                    		border: 2px solid @3-grey;
+                    		background: @preview-grey;
+                    	}
+                	}
+                	&.blue-bold {
+                		border-top-color: #07669E;
+                		.marker {
+                			background: #07669E;
                 		}
-                	}*/
+                		&.site-backup {
+                			.marker {
+                				border: 2px solid #07669E;
+                				background: @preview-grey;
+                			}
+                		}
+                	}
+                	&.diamond-theme {
+                		border-top-color: lighten(#483535, 25%);
+                		.marker {
+                			background: lighten(#483535, 25%);
+                		}
+                		&.site-backup {
+                			.marker {
+                				border: 2px solid lighten(#483535, 25%);
+                				background: @preview-grey;
+                			}
+                		}
+                	}
+                	&.pink-theme {
+                		border-top-color: #FF5F5F;
+                		.marker {
+                			background: #FF5F5F;
+                		}
+                		&.site-backup {
+                			.marker {
+                				border: 2px solid #FF5F5F;
+                				background: @preview-grey;
+                			}
+                		}
+                	}
+                	&.classic-green {
+                		border-top-color: #5CA9A1;
+                		.marker {
+                			background: #5CA9A1;
+                		}
+                		&.site-backup {
+                			.marker {
+                				border: 2px solid #5CA9A1;
+                				background: @preview-grey;
+                			}
+                		}
+                	}
+                	&.minimal-theme {
+                		border-top-color: #ED1C24;
+                		.marker {
+                			background: #ED1C24;
+                		}
+                		&.site-backup {
+                			.marker {
+                				border: 2px solid #ED1C24;
+                				background: @preview-grey;
+                			}
+                		}
+                	}
+                	&.neon-theme {
+                		border-top-color: #39435C;
+                		.marker {
+                			background: #39435C;
+                		}
+                		&.site-backup {
+                			.marker {
+                				border: 2px solid #39435C;
+                				background: @preview-grey;
+                			}
+                		}
+                	}
                     &.active {
-                        border: 2px solid @orange;
-                        background: #fff;
+                    	border-top-style: solid;
+                    	.marker {
+                    		border-color: @orange !important;
+                    		background: @preview-grey !important;
+                    		.pulse;
+                    	}
                     }
                 }
                 .ui-slider-handle {
@@ -2740,8 +2824,11 @@ a {
                     border-color: transparent transparent @dash-grey transparent;
                     background: transparent;
                     cursor: pointer;
-                    margin-left: -6px;
                     top: 13px;
+                    margin-left: -8px;
+                    &[style*="100"] {
+                    	margin-left: -8px;
+                    }
                     &:focus, &:hover {
                         outline: none;
                         border-bottom-color: @3-grey;

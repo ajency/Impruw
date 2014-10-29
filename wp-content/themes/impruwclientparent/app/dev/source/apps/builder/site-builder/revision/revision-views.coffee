@@ -4,8 +4,8 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 		class RevisionSingleView extends Marionette.ItemView
 			template  : '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" 
-				{{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" 
-				title="{{author}} - {{date}} ,   Theme : {{page_theme}}"></div>'
+				{{#notFirst}}style="padding-left: {{segmentGap}};"{{/notFirst}}><span class="marker" data-toggle="tooltip" 
+				title="{{author}} - {{date}} ,   Theme : {{page_theme}}"></span></div>'
 
 			mixinTemplateHelpers : (data)->
 				data = super data
@@ -147,7 +147,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 				
 				_.delay =>
-					@$el.find('#slider > div').tooltip
+					@$el.find('#slider .marker').tooltip
 						placement: "top"
 						container: ".revision-container"
 				,1000
