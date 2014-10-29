@@ -16,7 +16,7 @@ define(['app', 'moment'], function(App, moment) {
       RevisionHistoryItem.prototype.mixinTemplateHelpers = function(data) {
         var dateGMT;
         data = RevisionHistoryItem.__super__.mixinTemplateHelpers.call(this, data);
-        dateGMT = new Date(data.post_date + ' UTC ');
+        dateGMT = new Date(data.post_date.replace(/-/g, '/') + ' UTC ');
         data.date = dateGMT.toLocaleDateString();
         data.timeElapsed = moment(dateGMT).fromNow();
         return data;

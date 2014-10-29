@@ -3,7 +3,7 @@ require.config({
   baseUrl: 'http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/',
   paths: {
     jquery: 'plugins/jquery',
-    jqueryui: 'plugins/jquery.ui',
+    jqueryui: 'plugins/jquery-ui.min',
     underscore: 'plugins/underscore',
     backbone: 'plugins/backbone',
     marionette: 'plugins/backbone.marionette',
