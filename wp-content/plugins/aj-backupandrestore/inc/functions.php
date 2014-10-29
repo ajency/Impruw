@@ -43,10 +43,12 @@ function impruw_create_page_backup( $revision_id , $backup_type = 'page', $site_
 	if ( impruw_is_front_page($page_id) ){
 		$header_backup_id = impruw_header_footer_backup(THEME_HEADER_KEY);
 		$footer_backup_id = impruw_header_footer_backup(THEME_FOOTER_KEY);
-		update_revision_meta( $revision_id, 'header-backup-id', get_last_header_footer_id('theme-header') );
-		update_revision_meta( $revision_id, 'footer-backup-id', get_last_header_footer_id('theme-footer') );
+		
 
 	}
+
+	update_revision_meta( $revision_id, 'header-backup-id', get_last_header_footer_id('theme-header') );
+	update_revision_meta( $revision_id, 'footer-backup-id', get_last_header_footer_id('theme-footer') );
 
 	
 	return true;
