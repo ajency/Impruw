@@ -22,13 +22,21 @@ define(['app', 'controllers/base-controller', 'apps/builder/right-block/revision
         return App.execute("when:fetched", [this.revisionCollection], (function(_this) {
           return function() {
             var lastThreeRevisions;
+            _this.revisionCollection.comparator = function(rev) {
+              return -rev.id;
+            };
+            _this.revisionCollection.sort();
             lastThreeRevisions = _.first(_this.revisionCollection.toArray(), 3);
             _this.latestRevision = new Backbone.Collection(lastThreeRevisions);
             _this.view = _this._showHistoryView();
-            _this.listenTo(_this.view, "show:revision:restore", function() {
+            _this.listenTo(_this.view, "show:revision:restore itemview:show:revision:restore", function(view, id) {
+              if (id == null) {
+                id = 0;
+              }
               return App.execute("show:revision:restore", {
                 region: App.revisionRestoreRegion,
-                revisionCollection: _this.revisionCollection
+                revisionCollection: _this.revisionCollection,
+                revisionId: id
               });
             });
             return _this.show(_this.view);

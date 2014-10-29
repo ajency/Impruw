@@ -14,15 +14,19 @@ define ['app'
 					@revisionCollection.add revision		
 
 				App.execute "when:fetched", [@revisionCollection] ,=>
+					@revisionCollection.comparator = (rev)->
+  						-rev.id;
+					@revisionCollection.sort()
 					lastThreeRevisions = _.first @revisionCollection.toArray() , 3
 
 					@latestRevision = new Backbone.Collection lastThreeRevisions
 					@view = @_showHistoryView()
 
-					@listenTo @view, "show:revision:restore",=>
+					@listenTo @view, "show:revision:restore itemview:show:revision:restore",(view,id = 0)=>
 						App.execute "show:revision:restore",
 							region : App.revisionRestoreRegion
 							revisionCollection : @revisionCollection
+							revisionId : id
 
 					@show @view
 

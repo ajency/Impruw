@@ -13,6 +13,12 @@ define(['app', 'moment'], function(App, moment) {
 
       RevisionHistoryItem.prototype.template = '<li> <span class="revision"> {{author}}, {{timeElapsed}} <a href="#" class="time-link">{{date}}</a> </span> </li>';
 
+      RevisionHistoryItem.prototype.events = {
+        'click .time-link': function(e) {
+          return this.trigger("show:revision:restore", this.model.id);
+        }
+      };
+
       RevisionHistoryItem.prototype.mixinTemplateHelpers = function(data) {
         var dateGMT;
         data = RevisionHistoryItem.__super__.mixinTemplateHelpers.call(this, data);

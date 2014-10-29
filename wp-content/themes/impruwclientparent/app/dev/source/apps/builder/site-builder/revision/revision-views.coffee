@@ -30,6 +30,8 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 			template : '<div class="revision-container">
 							<h2 class="page-title">View Your Site History</h2>
+							<div style="text-align : center;">Page : {{post_title}}</div>
+							<div style="text-align : center;">Total no of revisions : {{size}}</div>
 							<p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p>
 							<div class="revision-timeline">
 								<div id="slider" class="ui-slider"></div>
@@ -37,7 +39,6 @@ define ['app', 'bootbox'],(App,bootbox)->
 							<div class="row timeline-actions">
 								<div class="col-sm-6 revision-info">
 									<div class="revision-by">Published Version</div> 
-									<span class="time"></span>
 									<div class="revision-theme"></div>
 								</div>
 								<div class="col-sm-6 revision-actions">
@@ -68,6 +69,8 @@ define ['app', 'bootbox'],(App,bootbox)->
 				data = super data
 				data.SITEURL = SITEURL
 				data.site = _.slugify @collection.at(0).get 'post_title'
+				data.post_title = @collection.at(0).get 'post_title'
+				data.size = @collection.size()
 				data
 
 			events : 
@@ -158,6 +161,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 				# lastRevision = _.last @collection.toArray()
 				# @currentRevisionId = lastRevision.id
+				@trigger 'after:show'
 
 
 
@@ -175,13 +179,16 @@ define ['app', 'bootbox'],(App,bootbox)->
 								
 				dateGMT = new Date(@currentRevisionModel.get('post_date').replace(/-/g,'/')+' UTC ')
 
-				@$el.find('.revision-info .time').text dateGMT.toLocaleString()
+				# @$el.find('.revision-info .time').text dateGMT.toLocaleString()
 
 				timeElapsed = moment(dateGMT).fromNow();
 
-				@$el.find('.revision-info .revision-by').text "Version by #{@currentRevisionModel.get('author')}, #{timeElapsed}"
+				@$el.find('.revision-info .revision-by').text "Revision at #{timeElapsed}"
 
 				@$el.find('.revision-info .revision-theme').text "Theme : #{@currentRevisionModel.get('page_theme')}"
 
 
-				
+			onShowRevisionWithId: (revisionId)->
+				model = @collection.get revisionId
+				index = _.indexOf @collection.toArray(), model
+				@$slider.slider( "value", index+1);

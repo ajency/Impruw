@@ -12,6 +12,10 @@ define ['app'
 
 				@view = @_getRevisionView()
 
+				@listenTo @view, 'after:show',=>
+					if options.revisionId
+						@view.triggerMethod 'show:revision:with:id',options.revisionId
+
 				@listenTo @view, "close:revision",=>
 					@region.close()
 

@@ -13,6 +13,13 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/revisio
       Controller.prototype.initialize = function(options) {
         this.revisionCollection = options.revisionCollection;
         this.view = this._getRevisionView();
+        this.listenTo(this.view, 'after:show', (function(_this) {
+          return function() {
+            if (options.revisionId) {
+              return _this.view.triggerMethod('show:revision:with:id', options.revisionId);
+            }
+          };
+        })(this));
         this.listenTo(this.view, "close:revision", (function(_this) {
           return function() {
             return _this.region.close();

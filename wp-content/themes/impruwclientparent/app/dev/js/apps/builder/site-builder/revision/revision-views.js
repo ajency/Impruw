@@ -41,7 +41,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return RevisionView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"></div> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published Version</div> <span class="time"></span> <div class="revision-theme"></div> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <div id="IframeWrapper" style="position: relative;"> <div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div> <iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe> </div> </div> </div>';
+      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <div style="text-align : center;">Page : {{post_title}}</div> <div style="text-align : center;">Total no of revisions : {{size}}</div> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"></div> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published Version</div> <div class="revision-theme"></div> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <div id="IframeWrapper" style="position: relative;"> <div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div> <iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe> </div> </div> </div>';
 
       RevisionView.prototype.itemViewContainer = '#slider';
 
@@ -62,6 +62,8 @@ define(['app', 'bootbox'], function(App, bootbox) {
         data = RevisionView.__super__.mixinTemplateHelpers.call(this, data);
         data.SITEURL = SITEURL;
         data.site = _.slugify(this.collection.at(0).get('post_title'));
+        data.post_title = this.collection.at(0).get('post_title');
+        data.size = this.collection.size();
         return data;
       };
 
@@ -156,10 +158,11 @@ define(['app', 'bootbox'], function(App, bootbox) {
             });
           };
         })(this), 1000);
-        return this.$el.find('iframe').load(function() {
+        this.$el.find('iframe').load(function() {
           this.style.height = this.contentWindow.document.body.offsetHeight + 10 + 'px';
           return $("#iframeBlocker").height(this.style.height);
         });
+        return this.trigger('after:show');
       };
 
       RevisionView.prototype._checkIfThemeChange = function() {
@@ -174,10 +177,16 @@ define(['app', 'bootbox'], function(App, bootbox) {
         var dateGMT, timeElapsed;
         this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + this.currentRevisionModel.id);
         dateGMT = new Date(this.currentRevisionModel.get('post_date').replace(/-/g, '/') + ' UTC ');
-        this.$el.find('.revision-info .time').text(dateGMT.toLocaleString());
         timeElapsed = moment(dateGMT).fromNow();
-        this.$el.find('.revision-info .revision-by').text("Version by " + (this.currentRevisionModel.get('author')) + ", " + timeElapsed);
+        this.$el.find('.revision-info .revision-by').text("Revision at " + timeElapsed);
         return this.$el.find('.revision-info .revision-theme').text("Theme : " + (this.currentRevisionModel.get('page_theme')));
+      };
+
+      RevisionView.prototype.onShowRevisionWithId = function(revisionId) {
+        var index, model;
+        model = this.collection.get(revisionId);
+        index = _.indexOf(this.collection.toArray(), model);
+        return this.$slider.slider("value", index + 1);
       };
 
       return RevisionView;

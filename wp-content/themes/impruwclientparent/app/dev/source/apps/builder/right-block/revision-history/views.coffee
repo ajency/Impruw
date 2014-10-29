@@ -12,6 +12,10 @@ define ['app'
 							</span>
 						</li>'
 
+			events : 
+				'click .time-link':(e)->
+					@trigger "show:revision:restore", @model.id
+
 			mixinTemplateHelpers : (data)->
 				data = super data 
 				dateGMT = new Date(data.post_date.replace(/-/g,'/')+' UTC ')
