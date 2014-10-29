@@ -149,6 +149,7 @@ define [ 'app' ],( App, elementTpl )->
 
       class Views.ErrorView extends Marionette.ItemView
 
-         template : '<div style="width:100%; height:150px; margin:auto">
-                        component of type {{element}} did not load properly
+         template : '<div class="load-error">
+                        <span class="glyphicon glyphicon-warning-sign"></span>
+                        Component of type <em>{{element}}</em> did not load properly.
                      </div>'
