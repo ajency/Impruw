@@ -159,12 +159,17 @@ function impruw_restore_page($revision_id, $backup = true){
 
 function imp_restore_page(){
 	// switch_to_blog(42);
-if (isset($_GET['site_backup_id']))
-		imp_restore_site();
+	$page_backup = true;
+	if (isset($_GET['site_backup_id'])){
+		$site_backup_id = $_GET['site_backup_id'];
+		impruw_restore_site( $site_backup_id );
+
+		$page_backup = false;
+	}
 	
 	$backup_id = null;
 	if (isset($_GET['revision_id']))
-		$backup_id = impruw_restore_page( (int)$_GET['revision_id'] );
+		$backup_id = impruw_restore_page( (int)$_GET['revision_id'] , $page_backup);
 
 	
 	// restore_current_blog();
@@ -220,8 +225,7 @@ function impruw_restore_site($site_backup_id){
 }
 
 function imp_restore_site(){
-	$site_backup_id = $_GET['site_backup_id'];
-	impruw_restore_site( $site_backup_id );
+	
 	
 }
 // add_action('wp_ajax_restore-site','imp_restore_site');

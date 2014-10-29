@@ -3,13 +3,17 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 
 		class RevisionSingleView extends Marionette.ItemView
-			template  : '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" title="{{author}} - {{post_modified}}   Theme : {{page_theme}}"></div>'
+			template  : '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" 
+				{{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" 
+				title="{{author}} - {{date}} ,   Theme : {{page_theme}}"></div>'
 
 			mixinTemplateHelpers : (data)->
 				data = super data
 				data.notFirst  = Marionette.getOption @, 'notFirst'
 				data.segmentGap = Marionette.getOption @, 'segmentGap'
 				data.theme_slug =  _.slugify data.page_theme
+				dateGMT = new Date(data.post_date+' UTC ')
+				data.date = dateGMT.toLocaleString()
 				data
 
 			onRender: ()->
@@ -29,13 +33,13 @@ define ['app', 'bootbox'],(App,bootbox)->
 							<div class="revision-timeline">
 								<div id="slider" class="ui-slider">
 									</div>
-								<a class="slider-button prev"><span class="bicon icon-uniF19C"></span></a>
-								<a class="slider-button next"><span class="bicon icon-uniF19B"></span></a>
+								
 							</div>
 							<div class="row timeline-actions">
 								<div class="col-sm-6 revision-info">
-									<div class="revision-by">Published virsion</div> 
+									<div class="revision-by">Published version</div> 
 									<span class="time"></span>
+									<div class="revision-theme"></div>
 								</div>
 								<div class="col-sm-6 revision-actions">
 									<button class="btn btn-default btn-sm cancel-view-history">Cancel</button>
@@ -71,11 +75,12 @@ define ['app', 'bootbox'],(App,bootbox)->
 				'click .cancel-view-history': ->
 					@trigger "close:revision"
 					$('body').removeClass('no-scroll')
+
 				'click .restore-revision-btn': ->
-					if @currentRevisionId is 0
+					if not @currentRevisionModel 
 						return false
-					currentRevisionModel =  @collection.get(@currentRevisionId)
-					index = _.indexOf @collection.toArray(), currentRevisionModel
+					
+					index = _.indexOf @collection.toArray(), @currentRevisionModel
 
 					siteRestoreModel = @collection.find (model)=>
 						if _.indexOf( @collection.toArray(), model ) < index
@@ -90,36 +95,19 @@ define ['app', 'bootbox'],(App,bootbox)->
 					if siteRestoreModel
 						siteBackupId = siteRestoreModel.get 'site_backup_id'
 
-						if siteRestoreModel.id is @currentRevisionId
-							@currentRevisionId = 0
+						if siteRestoreModel.id is @currentRevisionModel.id
+							@currentRevisionModel.id = 0
 
-					if @currentRevisionId or siteBackupId
+					if @currentRevisionModel.id or siteBackupId
 						@trigger 'restore:revision', 
-							revId : @currentRevisionId
+							revId : @currentRevisionModel.id
 							siteBackupId : siteBackupId
 
-				'click .slider-button.next' : ->
-					if @sliderValue is 0
-						sliderValue = @collection.size()
-					else if @sliderValue is @collection.size()
-						return
-					else
-						sliderValue += 1
-					@$slider.slider( "value", sliderValue );
-
-				'click .slider-button.prev' : ->
-					if @sliderValue is 0
-						sliderValue = @collection.size()
-					else if @sliderValue is 1
-						return
-					else
-						sliderValue -= 1
-					@$slider.slider( "value", sliderValue );
-
+				
 			initialize : ->
 				@collection.comparator = 'ID'
 				@collection.sort()
-				@currentRevisionId = 0
+				# @currentRevisionId = 0
 				@sliderValue = 0
 
 			onShow : ->
@@ -138,13 +126,13 @@ define ['app', 'bootbox'],(App,bootbox)->
 						range: false
 						change :(event,ui)=>
 							
-							model =  @collection.at ui.value - 1
-							@currentRevisionId = model.id
-							if @_checkIfThemeChange(@currentRevisionId)
+							@currentRevisionModel =  @collection.at ui.value - 1
+							
+							if @_checkIfThemeChange()
 								bootbox.confirm "This backup uses a different theme. The page is viewed using the current theme.
 								 If restored to this point will cause the site to be restored to the nearest theme change",(result)=>
 									if result
-										@changeIframe @currentRevisionId
+										@changeIframe()
 										@sliderValue = ui.value
 									else 
 										if @sliderValue
@@ -152,45 +140,48 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 							else
 								@sliderValue = ui.value
-								@changeIframe @currentRevisionId
+								@changeIframe()
 
 
 							@$el.find('.ui-slider-segment').removeClass 'active'
-							childView = @children.findByModel model
+							childView = @children.findByModel @currentRevisionModel
 							childView.$el.addClass 'active'
-					# .addSliderSegments $slider.slider("option").max
 
 				@$el.find('.ui-slider-segment').tooltip
 					placement: "top"
 					container: ".revision-container"
 
 				@$el.find('iframe').load ()->
-				    @style.height = @contentWindow.document.body.offsetHeight + 10 + 'px'
-				    $("#iframeBlocker").height @style.height
+					console.log 'iframe load'
+					@style.height = @contentWindow.document.body.offsetHeight + 10 + 'px'
+					$("#iframeBlocker").height @style.height
 
 				# lastRevision = _.last @collection.toArray()
 				# @currentRevisionId = lastRevision.id
 
 
 
-			_checkIfThemeChange : (revisionId)->
+			_checkIfThemeChange : ->
 
-				if CURRENTTHEME isnt _.slugify @collection.get(revisionId).get('page_theme') 
+				if CURRENTTHEME isnt _.slugify @currentRevisionModel.get('page_theme') 
 					return true
 
 				else 
 					return false
 
 
-			changeIframe : (revisionId)->
-				@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{revisionId}"
-				currentRevisionModel = @collection.get revisionId
-				@$el.find('.revision-info .time').text currentRevisionModel.get 'post_date'
+			changeIframe : ->
+				@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionModel.id}"
+								
+				dateGMT = new Date(@currentRevisionModel.get('post_date')+' UTC ')
 
-				timeElapsed = moment(new Date(currentRevisionModel.get('post_date'))).fromNow();
+				@$el.find('.revision-info .time').text dateGMT.toLocaleString()
 
+				timeElapsed = moment(dateGMT).fromNow();
 
-				@$el.find('.revision-info .revision-by').text "Version by #{currentRevisionModel.get('author')}, #{timeElapsed}"
+				@$el.find('.revision-info .revision-by').text "Version by #{@currentRevisionModel.get('author')}, #{timeElapsed}"
+
+				@$el.find('.revision-info .revision-theme').text "Theme : #{@currentRevisionModel.get('page_theme')}"
 
 
 				

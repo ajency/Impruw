@@ -11,13 +11,16 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return RevisionSingleView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionSingleView.prototype.template = '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" title="{{author}} - {{post_modified}}   Theme : {{page_theme}}"></div>';
+      RevisionSingleView.prototype.template = '<div class="ui-slider-segment {{backup_type}}-backup {{theme_slug}}" {{#notFirst}}style="margin-left: {{segmentGap}};"{{/notFirst}} data-toggle="tooltip" title="{{author}} - {{date}} ,   Theme : {{page_theme}}"></div>';
 
       RevisionSingleView.prototype.mixinTemplateHelpers = function(data) {
+        var dateGMT;
         data = RevisionSingleView.__super__.mixinTemplateHelpers.call(this, data);
         data.notFirst = Marionette.getOption(this, 'notFirst');
         data.segmentGap = Marionette.getOption(this, 'segmentGap');
         data.theme_slug = _.slugify(data.page_theme);
+        dateGMT = new Date(data.post_date + ' UTC ');
+        data.date = dateGMT.toLocaleString();
         return data;
       };
 
@@ -37,7 +40,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return RevisionView.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"> </div> <a class="slider-button prev"><span class="bicon icon-uniF19C"></span></a> <a class="slider-button next"><span class="bicon icon-uniF19B"></span></a> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published virsion</div> <span class="time"></span> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <div id="IframeWrapper" style="position: relative;"> <div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div> <iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe> </div> </div> </div>';
+      RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"> </div> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published version</div> <span class="time"></span> <div class="revision-theme"></div> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button> </div> </div> <div class="revision-view"> <div id="IframeWrapper" style="position: relative;"> <div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div> <iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe> </div> </div> </div>';
 
       RevisionView.prototype.itemViewContainer = '#slider';
 
@@ -67,12 +70,11 @@ define(['app', 'bootbox'], function(App, bootbox) {
           return $('body').removeClass('no-scroll');
         },
         'click .restore-revision-btn': function() {
-          var currentRevisionModel, index, siteBackupId, siteRestoreModel;
-          if (this.currentRevisionId === 0) {
+          var index, siteBackupId, siteRestoreModel;
+          if (!this.currentRevisionModel) {
             return false;
           }
-          currentRevisionModel = this.collection.get(this.currentRevisionId);
-          index = _.indexOf(this.collection.toArray(), currentRevisionModel);
+          index = _.indexOf(this.collection.toArray(), this.currentRevisionModel);
           siteRestoreModel = this.collection.find((function(_this) {
             return function(model) {
               if (_.indexOf(_this.collection.toArray(), model) < index) {
@@ -88,45 +90,22 @@ define(['app', 'bootbox'], function(App, bootbox) {
           siteBackupId = 0;
           if (siteRestoreModel) {
             siteBackupId = siteRestoreModel.get('site_backup_id');
-            if (siteRestoreModel.id === this.currentRevisionId) {
-              this.currentRevisionId = 0;
+            if (siteRestoreModel.id === this.currentRevisionModel.id) {
+              this.currentRevisionModel.id = 0;
             }
           }
-          if (this.currentRevisionId || siteBackupId) {
+          if (this.currentRevisionModel.id || siteBackupId) {
             return this.trigger('restore:revision', {
-              revId: this.currentRevisionId,
+              revId: this.currentRevisionModel.id,
               siteBackupId: siteBackupId
             });
           }
-        },
-        'click .slider-button.next': function() {
-          var sliderValue;
-          if (this.sliderValue === 0) {
-            sliderValue = this.collection.size();
-          } else if (this.sliderValue === this.collection.size()) {
-            return;
-          } else {
-            sliderValue += 1;
-          }
-          return this.$slider.slider("value", sliderValue);
-        },
-        'click .slider-button.prev': function() {
-          var sliderValue;
-          if (this.sliderValue === 0) {
-            sliderValue = this.collection.size();
-          } else if (this.sliderValue === 1) {
-            return;
-          } else {
-            sliderValue -= 1;
-          }
-          return this.$slider.slider("value", sliderValue);
         }
       };
 
       RevisionView.prototype.initialize = function() {
         this.collection.comparator = 'ID';
         this.collection.sort();
-        this.currentRevisionId = 0;
         return this.sliderValue = 0;
       };
 
@@ -144,13 +123,12 @@ define(['app', 'bootbox'], function(App, bootbox) {
             range: false,
             change: (function(_this) {
               return function(event, ui) {
-                var childView, model;
-                model = _this.collection.at(ui.value - 1);
-                _this.currentRevisionId = model.id;
-                if (_this._checkIfThemeChange(_this.currentRevisionId)) {
+                var childView;
+                _this.currentRevisionModel = _this.collection.at(ui.value - 1);
+                if (_this._checkIfThemeChange()) {
                   bootbox.confirm("This backup uses a different theme. The page is viewed using the current theme. If restored to this point will cause the site to be restored to the nearest theme change", function(result) {
                     if (result) {
-                      _this.changeIframe(_this.currentRevisionId);
+                      _this.changeIframe();
                       return _this.sliderValue = ui.value;
                     } else {
                       if (_this.sliderValue) {
@@ -160,10 +138,10 @@ define(['app', 'bootbox'], function(App, bootbox) {
                   });
                 } else {
                   _this.sliderValue = ui.value;
-                  _this.changeIframe(_this.currentRevisionId);
+                  _this.changeIframe();
                 }
                 _this.$el.find('.ui-slider-segment').removeClass('active');
-                childView = _this.children.findByModel(model);
+                childView = _this.children.findByModel(_this.currentRevisionModel);
                 return childView.$el.addClass('active');
               };
             })(this)
@@ -174,26 +152,28 @@ define(['app', 'bootbox'], function(App, bootbox) {
           container: ".revision-container"
         });
         return this.$el.find('iframe').load(function() {
+          console.log('iframe load');
           this.style.height = this.contentWindow.document.body.offsetHeight + 10 + 'px';
           return $("#iframeBlocker").height(this.style.height);
         });
       };
 
-      RevisionView.prototype._checkIfThemeChange = function(revisionId) {
-        if (CURRENTTHEME !== _.slugify(this.collection.get(revisionId).get('page_theme'))) {
+      RevisionView.prototype._checkIfThemeChange = function() {
+        if (CURRENTTHEME !== _.slugify(this.currentRevisionModel.get('page_theme'))) {
           return true;
         } else {
           return false;
         }
       };
 
-      RevisionView.prototype.changeIframe = function(revisionId) {
-        var currentRevisionModel, timeElapsed;
-        this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + revisionId);
-        currentRevisionModel = this.collection.get(revisionId);
-        this.$el.find('.revision-info .time').text(currentRevisionModel.get('post_date'));
-        timeElapsed = moment(new Date(currentRevisionModel.get('post_date'))).fromNow();
-        return this.$el.find('.revision-info .revision-by').text("Version by " + (currentRevisionModel.get('author')) + ", " + timeElapsed);
+      RevisionView.prototype.changeIframe = function() {
+        var dateGMT, timeElapsed;
+        this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + this.currentRevisionModel.id);
+        dateGMT = new Date(this.currentRevisionModel.get('post_date') + ' UTC ');
+        this.$el.find('.revision-info .time').text(dateGMT.toLocaleString());
+        timeElapsed = moment(dateGMT).fromNow();
+        this.$el.find('.revision-info .revision-by').text("Version by " + (this.currentRevisionModel.get('author')) + ", " + timeElapsed);
+        return this.$el.find('.revision-info .revision-theme').text("Theme : " + (this.currentRevisionModel.get('page_theme')));
       };
 
       return RevisionView;

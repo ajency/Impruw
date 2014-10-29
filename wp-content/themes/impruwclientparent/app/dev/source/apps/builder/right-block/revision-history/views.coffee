@@ -8,13 +8,15 @@ define ['app'
 			template : '<li>
 							<span class="revision">
 								{{author}}, {{timeElapsed}}
-								<a href="#" class="time-link">{{post_modified}}</a>
+								<a href="#" class="time-link">{{date}}</a>
 							</span>
 						</li>'
 
 			mixinTemplateHelpers : (data)->
 				data = super data 
-				data.timeElapsed = moment(new Date( data.post_date )).fromNow();
+				dateGMT = new Date(data.post_date+' UTC ')
+				data.date = dateGMT.toLocaleDateString()
+				data.timeElapsed = moment(dateGMT).fromNow();
 			# 	# data.
 				data
 

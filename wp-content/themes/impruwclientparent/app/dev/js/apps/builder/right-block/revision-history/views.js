@@ -11,11 +11,14 @@ define(['app', 'moment'], function(App, moment) {
         return RevisionHistoryItem.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionHistoryItem.prototype.template = '<li> <span class="revision"> {{author}}, {{timeElapsed}} <a href="#" class="time-link">{{post_modified}}</a> </span> </li>';
+      RevisionHistoryItem.prototype.template = '<li> <span class="revision"> {{author}}, {{timeElapsed}} <a href="#" class="time-link">{{date}}</a> </span> </li>';
 
       RevisionHistoryItem.prototype.mixinTemplateHelpers = function(data) {
+        var dateGMT;
         data = RevisionHistoryItem.__super__.mixinTemplateHelpers.call(this, data);
-        data.timeElapsed = moment(new Date(data.post_date)).fromNow();
+        dateGMT = new Date(data.post_date + ' UTC ');
+        data.date = dateGMT.toLocaleDateString();
+        data.timeElapsed = moment(dateGMT).fromNow();
         return data;
       };
 
