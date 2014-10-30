@@ -118,6 +118,16 @@ module.exports = (grunt) ->
 						'../js/script.js'
 					]
 
+			minifyNSourceMap : 
+				options : 
+					sourceMap: true
+				files : 
+					'../app/production/builder-main.js' : ['../app/production/builder-main.js' ]
+					'../app/production/dashboard-main.js' : ['../app/production/dashboard-main.js' ]
+					
+
+
+
 		exec : 
 			compiledBuild : 
 				cmd : 'r.js -o ../app/dev/build.js && r.js -o ../app/dev/dbuild.js'
@@ -134,5 +144,5 @@ module.exports = (grunt) ->
 			"cssmin:buildAll"
 			"uglify:buildFront"
 			"exec:compiledBuild"
-			"concat_sourcemap:buildSourceMap"
+			"uglify:minifyNSourceMap"
 		]

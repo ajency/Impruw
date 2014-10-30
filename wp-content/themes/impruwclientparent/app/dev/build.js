@@ -3,7 +3,7 @@
     name : 'plugins/almond',
     include : 'builder-main',
     exclude : ['plugins/ckeditor/ckeditor'],
-    //optimize: 'none',
+    optimize: 'none',
     wrap: false,
     out: '../production/builder-main.js',
     paths: {

@@ -2,7 +2,7 @@
   baseUrl: './js',
   name: 'plugins/almond',
   include : 'dashboard-main',
-  //optimize: 'none',
+  optimize: 'none',
   wrap: false,
   out: '../production/dashboard-main.js',
   paths: {
