@@ -43,7 +43,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 								</div>
 								<div class="col-sm-6 revision-actions">
 									<button class="btn btn-default btn-sm cancel-view-history">Cancel</button>
-									<button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn">Restore to this Version</button>
+									<button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn hidden">Restore to this Version</button>
 								</div>
 							</div>
 							<div class="revision-view">
@@ -141,6 +141,8 @@ define ['app', 'bootbox'],(App,bootbox)->
 							@$el.find('.ui-slider-segment').removeClass 'active'
 							childView = @children.findByModel @currentRevisionModel
 							childView.$el.addClass 'active'
+
+							@$el.find('.restore-revision-btn').removeClass 'hidden'
 
 				
 				_.delay =>
