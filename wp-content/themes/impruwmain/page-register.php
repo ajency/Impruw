@@ -60,8 +60,8 @@ get_header();
 
                         <select name="user_language" id="inputLanguage"  required  parsley-required-message="<?php echo __('Please select any one of the languages available.', 'impruwmain'); ?>"   > 
 
-                            <option value="en" <?php if ($norwegian_sel == false) echo " selected "; ?> ><?php echo __('English', 'impruwmain'); ?></option>
-                            <option value="nb" <?php if ($norwegian_sel == true) echo " selected "; ?>><?php echo __('Norwegian', 'impruwmain'); ?></option>
+                            <option value="en" <?php if (ICL_LANGUAGE_CODE==='en') echo " selected "; ?> ><?php echo __('English', 'impruwmain'); ?></option>
+                            <option value="nb" <?php if (ICL_LANGUAGE_CODE==='nb') echo " selected "; ?>><?php echo __('Norwegian', 'impruwmain'); ?></option>
 
                         </select>
                         <div class="p-messages"></div>

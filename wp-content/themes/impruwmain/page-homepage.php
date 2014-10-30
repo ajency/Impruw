@@ -3,6 +3,8 @@
  * Template Name: Impruw Home Page
  */
 get_header();
+$register_page = get_page_by_title( 'Register' );
+$register_page_id = $register_page->ID;
 ?>
 
 <div class="aj-imp-homepage">
@@ -10,7 +12,7 @@ get_header();
     <div class="home-1">
     	<h1><?php _e('Grow Your Online Hotel Business<br> With <span>Impruw</span>','impruwmain')?></h1>
         <?php if( !is_user_logged_in() ) { ?>
-        	<a href="<?php echo site_url(); ?>/register/" class="btn btn-hg big-sign"><span class="icon icon-pen"></span> <?php _e('Sign up for a free trial','impruwmain')?></a>
+            <a class="btn btn-hg big-sign" href="<?php echo get_permalink(icl_object_id($register_page_id, 'page', TRUE)); ?>"><span class="icon icon-pen"></span><?php _e('Sign up for a free trial','impruwmain')?></a>
         <?php } ?>
         <img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/HOME_banner.png" title="<?php _e('Impruw Themes','impruwmain'); ?>" alt="<?php _e('Impruw Themes','impruwmain'); ?>" class="img-responsive" />
     </div>
