@@ -47,7 +47,8 @@ define(['app'], function(App) {
         this.editor.setData(html);
         this.editor.on('changedTitleStyle', (function(_this) {
           return function(evt) {
-            return _this.model.set('style', evt.data.style);
+            _this.model.set('style', evt.data.style);
+            return _this.model.save();
           };
         })(this));
         this.editor.on('titleStylesInitDone', (function(_this) {
