@@ -59,11 +59,11 @@ define ['app', 'bootbox'],(App,bootbox)->
 			itemView : RevisionSingleView
 
 			itemViewOptions : (model,index)->
-				size = @collection.size()
-				gap = 100 / (size - 1) + "%"
+				size = @collection.size()+1
+				@gap = 100 / (size - 1) + "%"
 				notFirst = if index then  true else  false
 				notFirst : notFirst
-				segmentGap : gap
+				segmentGap : @gap
 
 			mixinTemplateHelpers : (data)->
 				data = super data
@@ -112,6 +112,11 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 			onShow : ->
 				@$el.attr 'id', 'revision-region'
+
+				@$el.find('#slider').append "<div class='ui-slider-segment page-backup #{CURRENTTHEME}' 
+				style='padding-left: #{@gap};'><span class='marker' data-toggle='tooltip' 
+				title='Published Version'></span></div>"
+
 				@$el.show()
 				$('body').addClass('no-scroll')
 				 # Range Slider for Revisions
@@ -120,11 +125,18 @@ define ['app', 'bootbox'],(App,bootbox)->
 				if @$slider.length > 0
 					@$slider.slider
 						min: 1
-						max: @collection.size()
-						value: @collection.size()
+						max: @collection.size()+1
+						value: @collection.size()+1
 						orientation: 'horizontal'
 						range: false
 						change :(event,ui)=>
+
+							max = @$slider.slider( "option", "max" )
+							if ui.value is max
+								@changeIframeToPublished()
+								@$el.find('.ui-slider-segment').removeClass 'active'
+								@$el.find('.ui-slider-segment').last().addClass 'active'
+								return
 							
 							@currentRevisionModel =  @collection.at ui.value - 1
 							
@@ -170,6 +182,15 @@ define ['app', 'bootbox'],(App,bootbox)->
 					return false
 
 
+			changeIframeToPublished : ->
+				@$el.find('iframe').attr 'src', "#{SITEURL}/#{ _.slugify(@collection.at(0).get('post_title'))}"
+
+				@$el.find('.revision-info .revision-by').text "Published Version"
+
+				@$el.find('.revision-info .revision-theme').text "Theme : #{CURRENTTHEME}"
+
+				@$el.find('.restore-revision-btn').addClass 'hidden'
+
 			changeIframe : ->
 				@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionModel.id}"
 								
@@ -184,7 +205,12 @@ define ['app', 'bootbox'],(App,bootbox)->
 				@$el.find('.revision-info .revision-theme').text "Theme : #{@currentRevisionModel.get('page_theme')}"
 
 
+
+
 			onShowRevisionWithId: (revisionId)->
-				model = @collection.get revisionId
-				index = _.indexOf @collection.toArray(), model
-				@$slider.slider( "value", index+1);
+				if revisionId is 0
+					@$slider.slider "value", @$slider.slider( "option", "max" )
+				else
+					model = @collection.get revisionId
+					index = _.indexOf @collection.toArray(), model
+					@$slider.slider( "value", index+1)

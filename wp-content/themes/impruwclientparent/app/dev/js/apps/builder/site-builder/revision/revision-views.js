@@ -48,13 +48,13 @@ define(['app', 'bootbox'], function(App, bootbox) {
       RevisionView.prototype.itemView = RevisionSingleView;
 
       RevisionView.prototype.itemViewOptions = function(model, index) {
-        var gap, notFirst, size;
-        size = this.collection.size();
-        gap = 100 / (size - 1) + "%";
+        var notFirst, size;
+        size = this.collection.size() + 1;
+        this.gap = 100 / (size - 1) + "%";
         notFirst = index ? true : false;
         return {
           notFirst: notFirst,
-          segmentGap: gap
+          segmentGap: this.gap
         };
       };
 
@@ -113,19 +113,27 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       RevisionView.prototype.onShow = function() {
         this.$el.attr('id', 'revision-region');
+        this.$el.find('#slider').append("<div class='ui-slider-segment page-backup " + CURRENTTHEME + "' style='padding-left: " + this.gap + ";'><span class='marker' data-toggle='tooltip' title='Published Version'></span></div>");
         this.$el.show();
         $('body').addClass('no-scroll');
         this.$slider = this.$el.find('#slider');
         if (this.$slider.length > 0) {
           this.$slider.slider({
             min: 1,
-            max: this.collection.size(),
-            value: this.collection.size(),
+            max: this.collection.size() + 1,
+            value: this.collection.size() + 1,
             orientation: 'horizontal',
             range: false,
             change: (function(_this) {
               return function(event, ui) {
-                var childView;
+                var childView, max;
+                max = _this.$slider.slider("option", "max");
+                if (ui.value === max) {
+                  _this.changeIframeToPublished();
+                  _this.$el.find('.ui-slider-segment').removeClass('active');
+                  _this.$el.find('.ui-slider-segment').last().addClass('active');
+                  return;
+                }
                 _this.currentRevisionModel = _this.collection.at(ui.value - 1);
                 if (_this._checkIfThemeChange()) {
                   bootbox.alert(" You had used a different theme here. If you restore to this point, the theme will be applied across all the pages in the website. You may lose your current layout, although you can recover the lost elements from our unused elements toolbox on the site builder");
@@ -162,6 +170,13 @@ define(['app', 'bootbox'], function(App, bootbox) {
         }
       };
 
+      RevisionView.prototype.changeIframeToPublished = function() {
+        this.$el.find('iframe').attr('src', "" + SITEURL + "/" + (_.slugify(this.collection.at(0).get('post_title'))));
+        this.$el.find('.revision-info .revision-by').text("Published Version");
+        this.$el.find('.revision-info .revision-theme').text("Theme : " + CURRENTTHEME);
+        return this.$el.find('.restore-revision-btn').addClass('hidden');
+      };
+
       RevisionView.prototype.changeIframe = function() {
         var dateGMT, timeElapsed;
         this.$el.find('iframe').attr('src', "" + SITEURL + "/?revision=" + this.currentRevisionModel.id);
@@ -173,9 +188,13 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       RevisionView.prototype.onShowRevisionWithId = function(revisionId) {
         var index, model;
-        model = this.collection.get(revisionId);
-        index = _.indexOf(this.collection.toArray(), model);
-        return this.$slider.slider("value", index + 1);
+        if (revisionId === 0) {
+          return this.$slider.slider("value", this.$slider.slider("option", "max"));
+        } else {
+          model = this.collection.get(revisionId);
+          index = _.indexOf(this.collection.toArray(), model);
+          return this.$slider.slider("value", index + 1);
+        }
       };
 
       return RevisionView;
