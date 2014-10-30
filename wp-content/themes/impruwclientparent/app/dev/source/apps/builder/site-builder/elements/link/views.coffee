@@ -24,6 +24,7 @@ define ['app'], (App)->
             onRender: ()->
                 className = _.slugify @model.get 'style'
                 @$el.addClass className
+                @$el.addClass "text-#{@model.get('align')}"
 
             # avoid and anchor tag click events
             events:

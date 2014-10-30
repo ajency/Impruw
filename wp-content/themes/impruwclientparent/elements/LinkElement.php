@@ -60,6 +60,8 @@ class LinkElement extends Element {
         
         $this->text   = $text;
 
+        $this->align = isset( $element[ 'align' ] ) ? $element[ 'align' ] : '' ;
+
 
         $this->target = $element[ 'target' ];
         $this->style  = sanitize_title( $element[ 'style' ] );
@@ -74,7 +76,7 @@ class LinkElement extends Element {
      */
     function generate_markup() {
 
-        $template = '<span class="link {{style}}"><a href="{{link}}" target="{{target}}">{{text}}</a></span>';
+        $template = '<span class="link {{style}} text-{{align}}"><a href="{{link}}" target="{{target}}">{{text}}</a></span>';
         global $me;
 
         return $me->render( $template, $this );

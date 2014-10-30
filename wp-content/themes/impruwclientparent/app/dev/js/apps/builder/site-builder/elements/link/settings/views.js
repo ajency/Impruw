@@ -45,7 +45,8 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
             }
           };
         })(this));
-        return this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
+        this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
+        return this.$el.find('select[name="align"]').selectpicker('val', this.eleModel.get('align'));
       };
 
       SettingsView.prototype.events = {
@@ -58,6 +59,9 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
         },
         'change select[name="style"]': function(evt) {
           return this.trigger("element:style:changed", $(evt.target).val());
+        },
+        'change select[name="align"]': function(evt) {
+          return this.trigger("element:alignment:changed", $(evt.target).val());
         },
         'blur input.linktext': function(evt) {
           var name;
