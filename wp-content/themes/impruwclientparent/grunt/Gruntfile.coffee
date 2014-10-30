@@ -125,8 +125,8 @@ module.exports = (grunt) ->
 		concat_sourcemap:
 			buildSourceMap : 
 				files : 
-					'../app/production/builder-main.js.map' : ['../app/production/builder-main.js' ]
-					'../app/production/dashboard-main.js.map' : ['../app/production/dashboard-main.js' ]
+					'../app/production/builder-main.js' : ['../app/production/builder-main.js' ]
+					'../app/production/dashboard-main.js' : ['../app/production/dashboard-main.js' ]
 
 
 	grunt.registerTask "build", "Build production resources", (target)->
