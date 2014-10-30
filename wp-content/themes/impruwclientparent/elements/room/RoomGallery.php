@@ -56,7 +56,7 @@ class RoomGallery extends SliderElement {
           $this->markup    =    $this->generate_markup();
         }
         else if((int)$this->slider_id === 0){
-          if ($_GET['preview'] === "true"){
+          if (isset($_GET['preview']) && $_GET['preview'] === "true"){
             $this->markup = $this->generate_preview_markup();
           }
           else{

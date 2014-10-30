@@ -127,13 +127,24 @@ function is_theme_choosed() {
 
 function get_theme_style_sheet_file_path() {
 
+
+    if (isset($_GET['revision'])){
+        $revision_id = (int) $_GET['revision'];
+        $theme = get_post_meta($revision_id,'page-theme',true);
+
+        $current_theme = wp_get_theme(); 
+        // if not then switch the theme -- this creates a backup of the site
+        if ($current_theme->name != $theme)
+            return get_theme_root_uri().'/'.sanitize_title( $theme ).'/css/theme-style.css';
+    }
+
     $compiled_css_file = get_compiled_stylesheet_directory_path() . '/theme-style.css';
 
     if ( file_exists( $compiled_css_file ) )
 
         return get_compiled_stylesheet_directory_uri() . '/theme-style.css';
 
-    return get_template_directory_uri() . '/css/theme-style.css';;
+    return get_template_directory_uri() . '/css/theme-style.css';
 }
 
 function create_custom_theme_color( $formdata ) {

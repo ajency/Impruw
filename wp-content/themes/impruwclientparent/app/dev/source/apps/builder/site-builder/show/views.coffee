@@ -185,8 +185,7 @@ define [ 'app'
             @displayPageNameForUpdate()
 
             $('body').on 'click',@_removeAllFocusClass
-
-            
+   
 
          _addToPageSlug : (pageId)=>
             page = App.request "get:fetched:page", pageId
@@ -361,9 +360,13 @@ define [ 'app'
 
       class View.Builder extends Marionette.ItemView
 
-         template : '<header id="site-header-region" class="droppable-column"></header>
+         template : '<header id="site-header-region" class="droppable-column edit-lock"></header>
                      <div id="site-page-content-region" class="droppable-column"></div>
-                     <footer id="site-footer-region" class="droppable-column"></footer>'
+                     <footer id="site-footer-region" class="droppable-column edit-lock"></footer>'
+
+         events : 
+            'click .headit' :->
+               $( 'select#builder-page-sel' ).selectpicker 'val', parseInt @model.get 'front_page'
 
          onRetryEditPageClicked : =>
             App.commands.execute 'editable:page:changed', @model.get 'page_id'
@@ -395,6 +398,13 @@ define [ 'app'
                tolerance : 'pointer'
                receive : @elementDropped
                placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
+
+            if @model.get 'is_home_page'
+               @$el.find('#site-header-region, #site-footer-region').removeClass 'edit-lock'
+            
+
+            @$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div></div></div>')
+            @$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div></div></div>')
 
 
          _getHelper : (evt,original)=>

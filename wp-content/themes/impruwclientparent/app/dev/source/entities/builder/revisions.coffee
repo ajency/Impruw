@@ -1,4 +1,4 @@
-define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
+define ["app", 'backbone', 'moment','bootbox'], (App, Backbone, moment, bootbox) ->
     App.module "Entities.Revision", (Revision, App, Backbone, Marionette, $, _)->
 
         # Page Model
@@ -45,14 +45,14 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
         # PUBLIC API FOR ENitity
         API =
             getPageRevisions: (pageId)->
-                revisionsCollection = revisionsArray[pageId] || false
+                # revisionsCollection = revisionsArray[pageId] || false
 
-                if not revisionsCollection
-                    revisionsCollection = new RevisionCollection
-                    revisionsCollection.fetch
-                        data:
-                            page_id: pageId
-                    revisionsArray[pageId] = revisionsCollection
+                # if not revisionsCollection
+                revisionsCollection = new RevisionCollection
+                revisionsCollection.fetch
+                    data:
+                        page_id: pageId
+                    # revisionsArray[pageId] = revisionsCollection
 
                 revisionsCollection
 
@@ -70,6 +70,24 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
                 revisionsCollection.add revision
 
+            restoreRevision : (revData)->
+                data = {}
+                if revData.revId then data.revision_id = revData.revId
+                if revData.siteBackupId then data.site_backup_id = revData.siteBackupId
+                $.ajax
+                    type: 'GET'
+                    url: "#{AJAXURL}?action=restore-page"
+                    async: false
+                    data : data
+                    success : (resp)->
+
+                        if resp.code is 'OK'
+                            bootbox.alert "The page will reload."
+                            _.delay =>
+                                window.location.reload()
+                            ,2000
+                        # App.instanceId = resp.instance if resp.success is true
+
 
             getPages: (param = {})->
                 pages
@@ -84,5 +102,8 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
         App.commands.setHandler "add:new:revision", (pageId, revisionData)->
             API.addNewRevision pageId, revisionData
+
+        App.reqres.setHandler 'restore:revision', (data)->
+            API.restoreRevision data
 
 		

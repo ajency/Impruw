@@ -35,6 +35,7 @@ define(['app'], function(App) {
         window.SAVING = true;
         return $.ajax(options).done(function(response) {
           if (response.success === true) {
+            App.execute("update:revision:on:published", response.revision);
             return App.vent.trigger("page:published");
           } else if (response.success === false && response.new_instance) {
             return App.vent.trigger("new:instance:opened", response);

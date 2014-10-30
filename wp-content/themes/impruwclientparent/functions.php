@@ -13,6 +13,9 @@ include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
 
 define( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
 
+define('THEME_HEADER_KEY' ,'theme-header-published');
+define('THEME_FOOTER_KEY' ,'theme-footer-published');
+
 // include mustache
 include_once( dirname( __FILE__ ) . '/lib/Mustache/Autoloader.php');
 Mustache_Autoloader::register();
@@ -285,6 +288,16 @@ function generate_markup( $section ) {
 
     global $post, $markup_JSON;
 
+    // copy data in header footer table
+    if ( get_header_footer_published_id(THEME_HEADER_KEY) == null ){
+        $header_json = get_option( "theme-header-autosave" );
+        publish_footer_header_json( 'header' , $header_json );
+    } 
+    if ( get_header_footer_published_id(THEME_FOOTER_KEY) == null ){
+        $footer_json = get_option( "theme-footer-autosave" );
+        publish_footer_header_json( 'footer' , $footer_json );
+    }
+
     $id = !is_null( $post ) ? $post->ID : 0;
 
     //fallback if $id is 0
@@ -299,8 +312,18 @@ function generate_markup( $section ) {
         $autosave = TRUE;
         //$id = $_GET[ 'preview' ];
     }
+    $revision_id = FALSE;
+    if( isset( $_GET['revision'] )  )
+        $revision_id = (int) $_GET['revision'];
 
-    $markup_JSON = get_page_json_for_site( $id, $autosave );
+    if(!$autosave){
+    //     print_r('prev');
+       set_page_elements_global($id,$revision_id);
+    }
+    // get_element_from_page_elements('a');
+   
+
+    $markup_JSON = get_page_json_for_site( $id, $autosave ,false , $revision_id);
 
     if ( !isset( $markup_JSON [ $section ] ) )
         return;
@@ -881,8 +904,8 @@ function get_page_markup_JSON( $page_id = 0 ) {
     $page_id = get_the_ID();
 
     $json = array();
-    $json [ 'header' ] = get_option( 'theme-header', array() );
-    $json [ 'footer' ] = get_option( 'theme-footer', array() );
+    $json [ 'header' ] = get_header_footer_layout_published( THEME_HEADER_KEY );
+    $json [ 'footer' ] = get_header_footer_layout_published( THEME_FOOTER_KEY );
 
     $page_json = get_post_meta( $page_id, "page-json", TRUE );
     $json [ 'page' ] = is_array( $page_json ) ? $page_json : array();
@@ -3001,9 +3024,10 @@ function save_initial_layout() {
     $footer = isset( $json [ 'footer' ] ) && is_array( $json [ 'footer' ] ) ? $json [ 'footer' ] : FALSE;
 
     if ( is_array( $header ) )
-        update_option( 'theme-header', $header );
+        // update_option( THEME_HEADER_KEY, $header );
+        publish_footer_header_json('header',$header);
     else
-        delete_option( 'theme-header' );
+        delete_header_footer_published( THEME_HEADER_KEY );
 
     if ( is_array( $pagejson ) )
         update_post_meta( $page_id, 'page-json', $pagejson );
@@ -3011,9 +3035,10 @@ function save_initial_layout() {
         delete_post_meta( $page_id, 'page-json' );
 
     if ( is_array( $footer ) )
-        update_option( 'theme-footer', $footer );
+        // update_option( THEME_FOOTER_KEY, $footer );
+        publish_footer_header_json('footer',$footer);
     else
-        delete_option( 'theme-footer' );
+        delete_header_footer_published( THEME_FOOTER_KEY );
 
     wp_send_json( array(
         'code' => 'OK'
@@ -3037,7 +3062,7 @@ function get_initial_saved_layout() {
 
     // switch_to_blog(1);
 
-    $header = get_option( 'theme-header' );
+    $header = get_header_footer_layout_published( THEME_HEADER_KEY );
 
     if ( is_array( $header ) )
         $json [ 'header' ] = $header;
@@ -3046,7 +3071,7 @@ function get_initial_saved_layout() {
     if ( is_array( $page ) )
         $json [ 'page' ] = $page;
 
-    $footer = get_option( 'theme-footer' );
+    $footer = get_header_footer_layout_published( THEME_FOOTER_KEY );
     if ( is_array( $footer ) )
         $json [ 'footer' ] = $footer;
 

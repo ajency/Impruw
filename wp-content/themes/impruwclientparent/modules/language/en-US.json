@@ -827,5 +827,8 @@
       "Name:":"Name:",
       "Email account successfully re-enabled" : "Email account successfully re-enabled",
       "no_user_email_accounts": "No Email accounts associated to <b>%{domain_name}</b> domain found. Add an email account by clicking on <b>Add User</b> below.",
-      "This feature allows you to  completely hide content in specific languages from visitors on the live site." : "This feature allows you to  completely hide content in specific languages from visitors on the live site." 
+      "This feature allows you to  completely hide content in specific languages from visitors on the live site." : "This feature allows you to  completely hide content in specific languages from visitors on the live site.",
+      "Update address " : "Update address " ,
+      "History" : "History",
+      "View Full History" : "View Full History" 
 }

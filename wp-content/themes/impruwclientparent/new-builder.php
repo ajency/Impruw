@@ -53,6 +53,10 @@
     <div id="elements-box-region"></div>
 </div>
 
+<div id="revision-region-holder" >
+    
+</div>
+
 <div id="login-region"></div>
 <div id="settings-region"></div>
 <div id="dialog-region" class="modal "></div>

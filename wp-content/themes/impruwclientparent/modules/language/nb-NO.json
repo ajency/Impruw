@@ -827,5 +827,7 @@
       "Name:":"navn:",
       "Email account successfully re-enabled" : "E-postkonto vellykket aktivert",      
       "no_user_email_accounts": "Ingen E-postkontoer knyttet til <b>%{domain_name}</b> domene funnet. Legge til en e-postkonto ved å klikke på <b>Legg til bruker</b> nedenfor.",
-    "This feature allows you to  completely hide content in specific languages from visitors on the live site." : "This feature allows you to  completely hide content in specific languages from visitors on the live site._N"
+    "This feature allows you to  completely hide content in specific languages from visitors on the live site." : "This feature allows you to  completely hide content in specific languages from visitors on the live site._N",
+    "History" : "History_N",
+    "View Full History" : "View Full History_N"
   }
