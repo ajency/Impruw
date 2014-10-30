@@ -8,7 +8,7 @@
     out: '../production/builder-main.js',
     paths: {
         jquery: 'plugins/jquery',
-        jqueryui: 'plugins/jquery-ui.min',
+        jqueryui: 'plugins/jquery.ui',
         underscore: 'plugins/underscore',
         backbone: 'plugins/backbone',
         marionette: 'plugins/backbone.marionette',
