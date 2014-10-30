@@ -86,7 +86,7 @@ define(['app', 'moment'], function(App, moment) {
         return this.render();
       };
 
-      RevisionHitoryList.prototype.onShow = function() {
+      RevisionHitoryList.prototype.onRender = function() {
         if (this.collection.size()) {
           return this.$el.find('.view-history-link').removeClass('hidden');
         }

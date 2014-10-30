@@ -62,7 +62,7 @@ define ['app'
 				# console.log 'df'
 				@render()
 
-			onShow : ->
+			onRender : ->
 				if @collection.size()
 					@$el.find('.view-history-link').removeClass 'hidden'
 
