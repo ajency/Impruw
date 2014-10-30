@@ -4,7 +4,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'moment'], function(App, moment) {
   return App.module('RevisionHistory.Views', function(Views, App) {
-    var RevisionHistoryItem;
+    var EmptyHistoryItem, RevisionHistoryItem;
     RevisionHistoryItem = (function(_super) {
       __extends(RevisionHistoryItem, _super);
 
@@ -32,6 +32,18 @@ define(['app', 'moment'], function(App, moment) {
       return RevisionHistoryItem;
 
     })(Marionette.ItemView);
+    EmptyHistoryItem = (function(_super) {
+      __extends(EmptyHistoryItem, _super);
+
+      function EmptyHistoryItem() {
+        return EmptyHistoryItem.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyHistoryItem.prototype.template = '<div style="color:#fff">No revisions made</div>';
+
+      return EmptyHistoryItem;
+
+    })(Marionette.ItemView);
     return Views.RevisionHitoryList = (function(_super) {
       __extends(RevisionHitoryList, _super);
 
@@ -40,9 +52,11 @@ define(['app', 'moment'], function(App, moment) {
         return RevisionHitoryList.__super__.constructor.apply(this, arguments);
       }
 
-      RevisionHitoryList.prototype.template = '<h6>{{#polyglot}}History{{/polyglot}}</h6> <ol> </ol> <a href="#history" class="view-history-link">{{#polyglot}}View Full History{{/polyglot}}</a>';
+      RevisionHitoryList.prototype.template = '<h6>{{#polyglot}}History{{/polyglot}}</h6> <ol> </ol> <a href="#history" class="view-history-link hidden">{{#polyglot}}View Full History{{/polyglot}}</a>';
 
       RevisionHitoryList.prototype.itemView = RevisionHistoryItem;
+
+      RevisionHitoryList.prototype.emptyView = EmptyHistoryItem;
 
       RevisionHitoryList.prototype.itemViewContainer = 'ol';
 
@@ -70,6 +84,12 @@ define(['app', 'moment'], function(App, moment) {
         lastThreeRevisions = _.first(this.revisionCollection.toArray(), 3);
         this.collection = new Backbone.Collection(lastThreeRevisions);
         return this.render();
+      };
+
+      RevisionHitoryList.prototype.onShow = function() {
+        if (this.collection.size()) {
+          return this.$el.find('.view-history-link').removeClass('hidden');
+        }
       };
 
       return RevisionHitoryList;

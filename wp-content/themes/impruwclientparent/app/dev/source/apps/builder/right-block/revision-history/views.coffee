@@ -23,14 +23,20 @@ define ['app'
 				data.timeElapsed = moment(dateGMT).fromNow();
 				data
 
+		class EmptyHistoryItem extends Marionette.ItemView
+
+			template : '<div style="color:#fff">No revisions made</div>'
+
 		class Views.RevisionHitoryList extends Marionette.CompositeView
 
 			template : '<h6>{{#polyglot}}History{{/polyglot}}</h6>
 							<ol>
 							</ol>
-							<a href="#history" class="view-history-link">{{#polyglot}}View Full History{{/polyglot}}</a>'
+							<a href="#history" class="view-history-link hidden">{{#polyglot}}View Full History{{/polyglot}}</a>'
 
 			itemView : RevisionHistoryItem
+
+			emptyView : EmptyHistoryItem
 			
 			itemViewContainer : 'ol'
 
@@ -55,6 +61,10 @@ define ['app'
 				@collection = new Backbone.Collection lastThreeRevisions
 				# console.log 'df'
 				@render()
+
+			onShow : ->
+				if @collection.size()
+					@$el.find('.view-history-link').removeClass 'hidden'
 
 			 
 			
