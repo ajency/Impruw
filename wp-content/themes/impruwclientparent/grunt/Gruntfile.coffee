@@ -118,11 +118,21 @@ module.exports = (grunt) ->
 						'../js/script.js'
 					]
 
+		exec : 
+			compiledBuild : 
+				cmd : 'r.js -o ../app/dev/build.js && r.js -o ../app/dev/dbuild.js'
+
+		concat_sourcemap:
+			buildSourceMap : 
+				files : 
+					'../app/production/builder-main.js.map' : ['../app/production/builder-main.js' ]
+					'../app/production/dashboard-main.js.map' : ['../app/production/dashboard-main.js' ]
 
 
 	grunt.registerTask "build", "Build production resources", (target)->
 		grunt.task.run [
 			"cssmin:buildAll"
 			"uglify:buildFront"
-			#"copy:buildAll"
+			"exec:compiledBuild"
+			"concat_sourcemap:buildSourceMap"
 		]
