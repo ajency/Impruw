@@ -35,6 +35,40 @@
     
     <div class="site-style-container">
         <header class="site-header">
-            <?php echo generate_markup( 'header' ); ?>
+
+            <?php
+            if(!isset($_GET['no_header'])){
+                echo generate_markup( 'header' );
+            }
+            elseif( isset($_GET['no_header']) && isset($_GET['revision']) ){
+                
+                $revision_id = (int) $_GET['revision'];
+                $revision = get_post( $revision_id );
+
+                if ( strpos($revision->post_name, 'revision') == false )
+                    return new WP_Error( 'error', __("This is not a revision") );
+
+                $page_id = $revision->post_parent;
+
+                $page = get_post( $page_id );
+
+                // check if post is a page
+                if ( $page->post_type != 'page' )
+                    return new WP_Error( 'error', __("Revision is not for a page") );
+
+                $page_id = icl_object_id( $page_id, 'page', true, 'en' );
+            
+                if(!impruw_is_front_page($page_id))
+                    echo '<div>Header Region</div>';
+                else
+                    echo generate_markup( 'header' );
+            }
+            else{
+                if(!is_front_page())
+                    echo '<div>Header Region</div>';
+                else
+                    echo generate_markup( 'header' );
+            }
+            ?>
         </header>
         <!-- .site-header -->

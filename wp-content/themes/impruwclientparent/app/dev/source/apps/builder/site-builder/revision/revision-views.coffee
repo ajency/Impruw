@@ -49,7 +49,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 							<div class="revision-view">
 								<div id="IframeWrapper" style="position: relative;">
 								<div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div>
-								<iframe src="{{SITEURL}}/{{site}}" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe>
+								<iframe src="{{SITEURL}}/{{site}}/?no_header=true" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe>
 								</div>
 							</div>
 						</div>' 
@@ -183,7 +183,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 
 			changeIframeToPublished : ->
-				@$el.find('iframe').attr 'src', "#{SITEURL}/#{ _.slugify(@collection.at(0).get('post_title'))}"
+				@$el.find('iframe').attr 'src', "#{SITEURL}/#{ _.slugify(@collection.at(0).get('post_title'))}/?no_header=true"
 
 				@$el.find('.revision-info .revision-by').text "Published Version"
 
@@ -192,7 +192,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 				@$el.find('.restore-revision-btn').addClass 'hidden'
 
 			changeIframe : ->
-				@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionModel.id}"
+				@$el.find('iframe').attr 'src', "#{SITEURL}/?revision=#{@currentRevisionModel.id}&no_header=true"
 								
 				dateGMT = new Date(@currentRevisionModel.get('post_date').replace(/-/g,'/')+' UTC ')
 
