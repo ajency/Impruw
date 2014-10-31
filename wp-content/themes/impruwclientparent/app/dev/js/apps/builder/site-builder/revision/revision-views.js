@@ -113,7 +113,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       RevisionView.prototype.onShow = function() {
         this.$el.attr('id', 'revision-region');
-        this.$el.find('#slider').append("<div class='ui-slider-segment page-backup " + CURRENTTHEME + "' style='padding-left: " + this.gap + ";'><span class='marker' data-toggle='tooltip' title='Published Version'></span></div>");
+        this.$el.find('#slider').append("<div class='ui-slider-segment published-version " + CURRENTTHEME + "' style='padding-left: " + this.gap + ";'><span class='marker' data-toggle='tooltip' title='Published Version'></span></div>");
         this.$el.show();
         $('body').addClass('no-scroll');
         this.$slider = this.$el.find('#slider');

@@ -113,7 +113,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 			onShow : ->
 				@$el.attr 'id', 'revision-region'
 
-				@$el.find('#slider').append "<div class='ui-slider-segment page-backup #{CURRENTTHEME}' 
+				@$el.find('#slider').append "<div class='ui-slider-segment published-version #{CURRENTTHEME}' 
 				style='padding-left: #{@gap};'><span class='marker' data-toggle='tooltip' 
 				title='Published Version'></span></div>"
 
