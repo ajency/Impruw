@@ -665,6 +665,11 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
 
     do_action('impruw_before_theme_switch');
 
+    if ( wp_get_theme()->name == 'Impruw Client Parent')
+        $initial_backup = TRUE;
+    else
+        $initial_backup = FALSE;
+
     //assign the theme to
     $theme = wp_get_theme( $theme_name ); //Change the name here to change the theme
 
@@ -701,6 +706,8 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
         }
         
     }
+    if ($initial_backup)
+        do_action('impruw_before_theme_switch');
 }
 
 
