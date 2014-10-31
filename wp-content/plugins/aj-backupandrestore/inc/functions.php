@@ -98,6 +98,7 @@ function impruw_restore_page($revision_id, $backup = true){
 	
 	$rev =null;
 	if ($backup == true)
+		publish_page( $page_id );
 		$rev = add_page_revision( $page_id );
 
 	// get page-json and page elements
