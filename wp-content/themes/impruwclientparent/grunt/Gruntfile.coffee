@@ -130,7 +130,7 @@ module.exports = (grunt) ->
 
 		exec : 
 			compiledBuild : 
-				cmd : 'r.js -o ../app/dev/build.js && r.js -o ../app/dev/dbuild.js'
+				cmd : 'r.js.cmd -o ../app/dev/build.js && r.js.cmd -o ../app/dev/dbuild.js'
 
 		concat_sourcemap:
 			buildSourceMap : 
