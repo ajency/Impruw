@@ -113,9 +113,9 @@ define ['app', 'bootbox'],(App,bootbox)->
 			onShow : ->
 				@$el.attr 'id', 'revision-region'
 
-				@$el.find('#slider').append "<div class='ui-slider-segment published-version #{CURRENTTHEME}' 
+				@$el.find('#slider').append "<div class='ui-slider-segment published-version ' 
 				style='padding-left: #{@gap};'><span class='marker' data-toggle='tooltip' 
-				title='Published Version'></span></div>"
+				title='Published Version,  Theme : #{CURRENTTHEMENAME}'></span></div>"
 
 				@$el.show()
 				$('body').addClass('no-scroll')
@@ -175,7 +175,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 			_checkIfThemeChange : ->
 
-				if CURRENTTHEME isnt _.slugify @currentRevisionModel.get('page_theme') 
+				if CURRENTTHEMENAME isnt @currentRevisionModel.get('page_theme') 
 					return true
 
 				else 
@@ -187,7 +187,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 				@$el.find('.revision-info .revision-by').text "Published Version"
 
-				@$el.find('.revision-info .revision-theme').text "Theme : #{CURRENTTHEME}"
+				@$el.find('.revision-info .revision-theme').text "Theme : #{CURRENTTHEMENAME}"
 
 				@$el.find('.restore-revision-btn').addClass 'hidden'
 

@@ -59,13 +59,13 @@
                 $page_id = icl_object_id( $page_id, 'page', true, 'en' );
             
                 if(!impruw_is_front_page($page_id))
-                    echo '<div>Header Region</div>';
+                    show_revision_header_placeholder();
                 else
                     echo generate_markup( 'header' );
             }
             else{
                 if(!is_front_page())
-                    echo '<div class="edit-info">The Header is saved on Your Homepage. View the Header changes on Your Homepage.</div>';
+                    show_revision_header_placeholder();
                 else
                     echo generate_markup( 'header' );
             }

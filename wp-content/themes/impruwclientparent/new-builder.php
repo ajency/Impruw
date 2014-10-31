@@ -91,6 +91,7 @@
     var DASHBOARDURL = '<?php echo site_url('dashboard'); ?>';
     var BUILDERURL = '<?php echo site_url('site-builder'); ?>';
     var CURRENTTHEME = '<?php echo wp_get_theme()->get_stylesheet() ?>';
+    var CURRENTTHEMENAME = '<?php echo wp_get_theme()->name ?>';
     var THEMECOLORSET = '<?php echo get_option('current_color_set','default'); ?>';
     var AUTOSAVEINTERVAL = 6000 * 10 * 2 ;
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;

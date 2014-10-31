@@ -113,7 +113,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       RevisionView.prototype.onShow = function() {
         this.$el.attr('id', 'revision-region');
-        this.$el.find('#slider').append("<div class='ui-slider-segment published-version " + CURRENTTHEME + "' style='padding-left: " + this.gap + ";'><span class='marker' data-toggle='tooltip' title='Published Version'></span></div>");
+        this.$el.find('#slider').append("<div class='ui-slider-segment published-version ' style='padding-left: " + this.gap + ";'><span class='marker' data-toggle='tooltip' title='Published Version,  Theme : " + CURRENTTHEMENAME + "'></span></div>");
         this.$el.show();
         $('body').addClass('no-scroll');
         this.$slider = this.$el.find('#slider');
@@ -163,7 +163,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       RevisionView.prototype._checkIfThemeChange = function() {
-        if (CURRENTTHEME !== _.slugify(this.currentRevisionModel.get('page_theme'))) {
+        if (CURRENTTHEMENAME !== this.currentRevisionModel.get('page_theme')) {
           return true;
         } else {
           return false;
@@ -173,7 +173,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       RevisionView.prototype.changeIframeToPublished = function() {
         this.$el.find('iframe').attr('src', "" + SITEURL + "/" + (_.slugify(this.collection.at(0).get('post_title'))) + "/?no_header=true");
         this.$el.find('.revision-info .revision-by').text("Published Version");
-        this.$el.find('.revision-info .revision-theme').text("Theme : " + CURRENTTHEME);
+        this.$el.find('.revision-info .revision-theme').text("Theme : " + CURRENTTHEMENAME);
         return this.$el.find('.restore-revision-btn').addClass('hidden');
       };
 

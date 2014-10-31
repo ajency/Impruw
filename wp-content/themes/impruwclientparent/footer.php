@@ -35,13 +35,13 @@
                 $page_id = icl_object_id( $page_id, 'page', true, 'en' );
             
                 if(!impruw_is_front_page($page_id))
-                    echo '<div>Footer Region</div>';
+                    show_revision_footer_placeholder();
                 else
                     echo generate_markup( 'footer' );
             }
             else{
                 if(!is_front_page())
-                    echo '<div class="edit-info">The Footer is saved on Your Homepage. View the Footer changes on Your Homepage.</div>';
+                    show_revision_footer_placeholder();
                 else
                     echo generate_markup( 'footer' );
             }

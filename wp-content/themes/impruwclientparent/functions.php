@@ -3771,3 +3771,13 @@ if(!function_exists('theme_color_sets')){
         return array();
     }
 }
+
+
+function show_revision_header_placeholder(){
+    echo '<div class="edit-info">The Header is saved on Your Homepage. View the Header changes on Your Homepage.</div>';
+}
+
+function show_revision_footer_placeholder(){
+    echo '<div class="edit-info">The Footer is saved on Your Homepage. View the Footer changes on Your Homepage.</div>';
+
+}
