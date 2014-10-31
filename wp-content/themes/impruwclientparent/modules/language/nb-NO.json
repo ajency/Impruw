@@ -399,7 +399,7 @@
     "Your Room Title":"Din romtittel",
     "Room Title Desc1":"Dette bil bare virke på enkeltroms-siden. Bytt til siden for enkeltrom og legg til dette elementet. Romtittelen vil bli vist på nettsiden din.",
     "Room Title Desc2":"For å få \"Bestilling og tilgjengelighet\"-knappen til å virke, bruk et Romreservasjons-element. Når den trykkes på på siden din, vil den ta deg til bestillingsseksjonen.",
-    "No menu found":"Ingen meny funnet",
+    "No menu found. Click to Edit or Create a Menu.":"Ingen meny funnet",
     "Upload Image":"Last opp bilde",
     "No Menu Items found":"Ingen menyelementer funnet. Legg til menyelementer til menyen din.",
     "Menu item updated":"Menyelementet er oppdatert",

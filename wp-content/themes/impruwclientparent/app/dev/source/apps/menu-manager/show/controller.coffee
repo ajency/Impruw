@@ -62,6 +62,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
          template : '<div class="col-md-12">
                         <div class="modal-help-text">
+                           <span class="glyphicon glyphicon-info-sign"></span>&nbsp;
                            {{#polyglot}}If you wanted to go to a particular page you can do that by selecting the page in Current Page: drop down on the site builder right below the header.{{/polyglot}}
                         </div>
                      </div>
