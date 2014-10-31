@@ -2798,6 +2798,25 @@ a {
             color: darken(@dash-grey, 20%);
             font-size: 1.5em;
             text-align: center;
+            margin: 0.5em 0;
+        }
+        .pg-name {
+        	color: @dash-grey;
+        	font-size: 1.1em;
+        	text-align: center;
+        	span {
+        		color: @blue-grey;
+        		font-weight: 700;
+        	}
+        }
+        .revision-count {
+        	color: @dash-grey;
+        	text-align: center;
+        	margin: 0.25em 0;
+        	span {
+        		color: @orange;
+        		font-weight: 700;
+        	}
         }
         .rev-desc {
             color: @dash-grey;
@@ -2805,7 +2824,7 @@ a {
             text-align: center;
         }
         .revision-timeline {
-            padding: 0.8em 1em 0.75em;
+            padding: 0.8em 1em;
             margin: 1em;
             background: @preview-grey;
             border: 1px solid @dash-grey;
@@ -2925,6 +2944,20 @@ a {
                     		.pulse;
                     	}
                     }
+                    &.published-version {
+                		.marker {
+                			border-radius: 0;
+                			width: 0; 
+							height: 0; 
+							border-color: transparent !important;
+							border-left: 5px solid transparent !important;
+							border-right: 5px solid transparent !important;
+							border-top: 10px solid @orange !important;
+							border-bottom: 0 !important;
+							background: transparent !important;
+							.pulse;
+                		}
+                	}
                 }
                 .ui-slider-handle {
                     border-radius: 0;

@@ -30,8 +30,8 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 			template : '<div class="revision-container">
 							<h2 class="page-title">View Your Site History</h2>
-							<div style="text-align : center;">Page name : {{post_title}}</div>
-							<div style="text-align : center;">Number of revisions : {{size}}</div>
+							<div class="pg-name">Page name : <span>{{post_title}}</span></div>
+							<div class="revision-count">Number of revisions : <span>{{size}}</span></div>
 							<p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p>
 							<div class="revision-timeline">
 								<div id="slider" class="ui-slider"></div>

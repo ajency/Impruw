@@ -41,7 +41,7 @@
             }
             else{
                 if(!is_front_page())
-                    echo '<div>Footer Region</div>';
+                    echo '<div class="edit-info">The Footer is saved on Your Homepage. View the Footer changes on Your Homepage.</div>';
                 else
                     echo generate_markup( 'footer' );
             }

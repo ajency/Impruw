@@ -65,7 +65,7 @@
             }
             else{
                 if(!is_front_page())
-                    echo '<div>Header Region</div>';
+                    echo '<div class="edit-info">The Header is saved on Your Homepage. View the Header changes on Your Homepage.</div>';
                 else
                     echo generate_markup( 'header' );
             }
