@@ -3,6 +3,8 @@
  * Template Name: Impruw Themes Showcase
  */
 get_header();
+$register_page = get_page_by_title( 'Register' );
+$register_page_id = $register_page->ID;
 
 if (have_posts()) : while (have_posts()) : the_post();
 ?>
@@ -17,7 +19,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 	    // Get Post Content
 	    the_content();
 	    ?>
-	    <a class="btn btn-hg register-link" href="<?php echo site_url(); ?>/register/"><?php echo __('Start Creating!', 'impruwmain'); ?></a>
+	    <a class="btn btn-hg register-link" href="<?php echo get_permalink(icl_object_id($register_page_id, 'page', TRUE)); ?>"><?php _e('Start Creating!', 'impruwmain')?></a>
 	</div>
 	<div class="grid clearfix">
 		<figure class="effect-zoe">
