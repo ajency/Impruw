@@ -149,7 +149,7 @@
 .site-style-container footer {
   background: transparent;
 }
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .logo {
     text-align: center;
     margin: 0.5em auto !important;
@@ -388,7 +388,7 @@
   margin-bottom: 10px;
   padding-left: 5px;
 }
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .address {
     text-align: center;
   }
@@ -505,7 +505,7 @@
 .social.social-center {
   text-align: center;
 }
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .social {
     text-align: center !important;
   }
