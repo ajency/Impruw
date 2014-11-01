@@ -200,7 +200,7 @@ and open the template in the editor.
 */
 .site-style-container .row.center-container {
   max-width: 1170px;
-  margin: 0.5em auto;
+  margin: 0.5em auto !important;
 }
 .site-style-container .row.grey-background {
   background: #2a3b66;
@@ -427,7 +427,7 @@ and open the template in the editor.
 }
 /****Link Element Styles****/
 .link {
-  display: inline-block;
+  display: block;
   margin: 0 0.5em 0.5em 0;
 }
 .link.button a {
