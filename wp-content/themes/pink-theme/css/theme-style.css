@@ -223,7 +223,7 @@ and open the template in the editor.
   background: transparent;
 }
 /**** Logo Styles ****/
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .logo {
     text-align: center;
     margin: 0.5em auto !important;
@@ -468,7 +468,7 @@ and open the template in the editor.
   margin-bottom: 10px;
   padding-left: 5px;
 }
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .address {
     text-align: center;
   }
@@ -586,7 +586,7 @@ and open the template in the editor.
 .social.social-center {
   text-align: center;
 }
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .social {
     text-align: center !important;
   }
@@ -1932,7 +1932,7 @@ ul.gallery {
 .lang-sel.align-center {
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .lang-sel {
     text-align: center;
   }
@@ -2392,7 +2392,7 @@ and open the template in the editor.
   margin: 0.5em auto;
   max-width: 220px;
 }
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .social {
     text-align: center;
     margin: 1em 0;
