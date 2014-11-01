@@ -4176,7 +4176,7 @@ form .aj-imp-submit:hover {
   margin: 10px 2% 40px;
   max-height: 360px;
   width: 46%;
-  background: #aaa;
+  background: #000;
   text-align: center;
   border-radius: 3px 3px 0 0;
 }
@@ -4255,7 +4255,7 @@ figure.effect-zoe .browser-bar {
 }
 
 figure.effect-zoe:hover img {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 figure.effect-zoe figcaption {
@@ -4278,7 +4278,7 @@ figure.effect-zoe h2 {
 
 figure.effect-zoe p.icon-links a {
   float: right;
-  color: #3c4a50;
+  color: #666;
   font-size: 1.4em;
 }
 
@@ -4289,12 +4289,12 @@ figure.effect-zoe:hover p.icon-links a:focus {
 
 figure.effect-zoe p.description {
   position: absolute;
-  background: rgba(0, 0, 0, 0.4);
   bottom: 8em;
   padding: 1em;
   left: 1em;
   right: 1em;
   color: #fff;
+  text-shadow: 1px 1px 2px #000;
   text-transform: none;
   font-size: 90%;
   opacity: 0;
