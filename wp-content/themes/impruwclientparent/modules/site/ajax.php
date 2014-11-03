@@ -108,6 +108,7 @@ function assign_theme_to_site_ajax() {
     $clone_pages = !isset( $_POST[ 'clone_pages' ] ) ? TRUE : FALSE;
 
     assign_theme_to_site( $new_theme_id, $clone_pages );
+    update_option('theme-style-filename','');
 
     //Restore default language back to original
     $sitepress->switch_lang($site_current_language);

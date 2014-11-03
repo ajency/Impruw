@@ -3338,7 +3338,12 @@ function wp_send_error_json( $message ) {
  * [secondary1] => #baa345
  * )
  */
-function switch_theme_colour( $colours ) {
+function switch_theme_colour( $colours , $color_scheme ) {
+
+    if ($color_scheme == 'default'){
+        update_option( 'theme-style-filename', '' );
+        return;
+    }
 
     $file_name = get_template_directory_uri() . '/resources/less/variables.less';
 
@@ -3352,7 +3357,7 @@ function switch_theme_colour( $colours ) {
 
         $css_filepath = check_create_less_resource_folder();
 
-        compile_new_css_to_folder( $new_varible_less_content, $css_filepath );
+        compile_new_css_to_folder( $new_varible_less_content, $css_filepath, $color_scheme );
 
     endif;
 
@@ -3428,7 +3433,7 @@ function check_create_less_resource_folder() {
  * @param type $new_varible_less_content
  * @param type $css_filename
  */
-function compile_new_css_to_folder( $new_varible_less_content, $css_filepath ) {
+function compile_new_css_to_folder( $new_varible_less_content, $css_filepath, $color_scheme ) {
 
     $compile_file = get_stylesheet_directory() . '/resources/less/compile.less';
 
@@ -3437,7 +3442,8 @@ function compile_new_css_to_folder( $new_varible_less_content, $css_filepath ) {
     $less->setVariables( $new_varible_less_content );
 
     try {
-        $less->compileFile( $compile_file, $css_filepath . '/theme-style.css' );
+        $less->compileFile( $compile_file, $css_filepath . '/theme-style-' . $color_scheme . '.css' );
+        update_option( 'theme-style-filename', 'theme-style-' . $color_scheme );
     } catch ( Exception $ex ) {
         echo "lessphp fatal error: " . $ex->getMessage();
     }
