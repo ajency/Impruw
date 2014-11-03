@@ -97,9 +97,10 @@ function impruw_restore_page($revision_id, $backup = true){
 	$page_id = icl_object_id( $page_id, 'page', true, 'en' );
 	
 	$rev =null;
-	if ($backup == true)
+	if ($backup == true){
 		publish_page( $page_id );
 		$rev = add_page_revision( $page_id );
+	}
 
 	// get page-json and page elements
 	$layout = get_post_meta($revision_id,'page-json',true);

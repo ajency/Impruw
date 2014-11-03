@@ -134,8 +134,11 @@ function get_theme_style_sheet_file_path() {
 
         $current_theme = wp_get_theme(); 
         // if not then switch the theme -- this creates a backup of the site
-        if ($current_theme->name != $theme)
+        if ($current_theme->name != $theme){
+            if( $theme == 'Diamond Theme')
+                $theme = 'Theme Diamond';
             return get_theme_root_uri().'/'.sanitize_title( $theme ).'/css/theme-style.css';
+        }
     }
 
     $compiled_css_file = get_compiled_stylesheet_directory_path() . '/theme-style.css';

@@ -110,7 +110,7 @@ $register_page_id = $register_page->ID;
     			<h4><?php _e('Ready to get Started?','impruwmain')?></h4>
     		</div>
     		<div class="col-md-6">
-                <a href="<?php echo site_url(); ?>/register/" class="btn btn-hg big-sign"><span class="icon icon-pen"></span> <?php _e('Sign up for a free trial','impruwmain')?></a>
+                <a class="btn btn-hg big-sign" href="<?php echo get_permalink(icl_object_id($register_page_id, 'page', TRUE)); ?>"><span class="icon icon-pen"></span><?php _e('Sign up for a free trial','impruwmain')?></a>
     		</div>
     	</div>
     </div>

@@ -2272,19 +2272,56 @@ a {
 		}
 	}
 	.col-counter {
-		border: 1px solid @preview-grey;
-		border-radius: 2px;
+		border-bottom: 1px solid @dash-grey;
 		margin: 0 20px 1em;
 		padding: 0.5em 0;
 		.col-counter-label {
-			text-align: right;
+			text-align: center;
 			font-size: 1.2em;
 			color: @dash-grey;
 			line-height: 2.2;
+			margin: 0 0 0.5em;
 		}
 		.set-column-count {
-			.selected {
-				background: @orange;
+			.col-item {
+				background: @dash-grey;
+				position: relative;
+				border-radius: 2px;
+				text-align: center;
+				padding: 0.25em;
+				max-height: 70px;
+				overflow: hidden;
+				cursor: pointer;
+				img {
+					margin: auto;
+				}
+				.col-label {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					right: 0;
+					left: 0;
+					background: rgba(255, 255, 255, 0.6);
+					border-radius: 2px;
+					color: @3-grey;
+					padding: 1em 0.5em;
+					font-size: 1.2em;
+					display: none;
+				}
+				&:hover {
+					background: @blue-grey;
+					.col-label {
+						display: block;
+					}
+				}
+				&.selected {
+					background: @orange;
+					.col-label {
+						display: block;
+						color: @orange;
+						background: rgba(255, 255, 255, 0.7);
+					}
+				}
 			}
 		}
 	}
@@ -2390,14 +2427,15 @@ a {
 				border-color: transparent;
 				box-shadow: none;
 				.imgthumb {
-					height: 120px;
+					height: 175px;
 					text-align: center;
 					overflow: hidden;
+					background: @preview-grey;
 					img {
 						vertical-align: middle;
 						max-height: initial;
 						display: inline-block;
-						width: 100%;
+						width: auto;
 					}
 					&:before {
 						content: "";
@@ -2420,7 +2458,7 @@ a {
 					}
 				}
 				&:hover {
-					background: darken(@preview-grey, 10%);
+					background: darken(@preview-grey, 5%);
 					box-shadow: none;
 					.ticker {
 						display: block;
@@ -2432,7 +2470,7 @@ a {
 					background: @preview-grey;
 					border-color: transparent;
 					.imgthumb {
-						border: 2px solid @orange;
+						background: darken(@preview-grey, 10%);
 					}
 					.caption {
 						.item-title {
