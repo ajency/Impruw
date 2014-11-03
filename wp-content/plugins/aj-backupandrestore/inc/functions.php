@@ -33,6 +33,16 @@ function impruw_create_page_backup( $revision_id , $backup_type = 'page', $site_
 
 	update_revision_meta( $revision_id, 'backup-type', $backup_type );
 
+	$custom_theme_color_set = !empty(get_option('custom_theme_color_set')) ? get_option('custom_theme_color_set') : '';
+	$theme_style_filename = !empty(get_option('theme-style-filename')) ? get_option('theme-style-filename') : '';
+
+	$color_scheme_data = array(
+		'current_color_set' => get_option('current_color_set') ,
+		'custom_theme_color_set' => $custom_theme_color_set,
+		'theme-style-filename' => $theme_style_filename );
+
+	update_revision_meta( $revision_id, 'color-scheme-data', maybe_serialize($color_scheme_data));
+
 	$theme = wp_get_theme();
     $theme_name = $theme->name;
     update_revision_meta( $revision_id, 'page-theme', $theme_name );
@@ -44,7 +54,6 @@ function impruw_create_page_backup( $revision_id , $backup_type = 'page', $site_
 		$header_backup_id = impruw_header_footer_backup(THEME_HEADER_KEY);
 		$footer_backup_id = impruw_header_footer_backup(THEME_FOOTER_KEY);
 		
-
 	}
 
 	update_revision_meta( $revision_id, 'header-backup-id', get_last_header_footer_id('theme-header') );
@@ -117,6 +126,17 @@ function impruw_restore_page($revision_id, $backup = true){
 	update_revision_meta( $autosave_id, 'page-json', $layout );
 
 	impruw_restore_elements($page_elements);
+
+
+	// restore color scheme
+	$color_scheme_data =  get_post_meta( $revision_id, 'color-scheme-data', true ) ;
+	
+	if ( !empty($color_scheme_data) ){
+		$color_scheme_data = maybe_unserialize( $color_scheme_data );
+		update_option( 'current_color_set', $color_scheme_data['current_color_set'] );
+		update_option( 'custom_theme_color_set', $color_scheme_data['custom_theme_color_set'] );
+		update_option( 'theme-style-filename', $color_scheme_data['theme-style-filename'] );
+	}
 
 
 
