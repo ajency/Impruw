@@ -2623,12 +2623,24 @@ a {
 			}
 		}
 		.create-button {
-			border-bottom: 1px solid @dash-grey;
 			margin-bottom: 1em;
-			padding: 0 0 1em;
+			padding-bottom: 1em;
+			.or {
+				display: block;
+				font-size: 1.5em;
+				color: @dash-grey;
+				text-transform: uppercase;
+				margin-bottom: 0.5em;
+			}
+			.create-menu {
+				background: @blue-grey;
+				&:hover {
+					background: lighten(@blue-grey, 10%);
+				}
+			}
 		}
 		.menu-name {
-			background: @preview-grey;
+			background: darken(@preview-grey, 10%);
 			padding: 0.5em 0.5em 1em;
 			border-radius: 2px;
 			.control-label {

@@ -75,12 +75,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                            </p>
                            <form class="form-horizontal">
                               <div class="form-group">
-                                 <div class="create-button">
-                                    <button type="button" class="create-menu btn btn-default btn-sm aj-imp-orange-btn"><span class="glyphicon glyphicon-plus"></span>&nbsp;{{#polyglot}}Create a New Menu{{/polyglot}}</button>
-                                 </div>
-                              </div>
-                              <div class="form-group">
-                                 <label class="col-sm-4 control-label">{{#polyglot}}Or Choose a Menu{{/polyglot}}</label>
+                                 <label class="col-sm-4 control-label">{{#polyglot}}Choose a Menu{{/polyglot}}</label>
                                  <div class="col-sm-8">
                                     <div class="btn-group bootstrap-select">
                                       <button class="btn btn-default dropdown-toggle t-a-l" type="button" data-toggle="dropdown">
@@ -94,6 +89,16 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                                       </ul>
                                     </div>
                                  </div>
+                              </div>
+                               <div class="form-group">
+                                 <div class="col-sm-8 col-sm-offset-4 create-button">
+                                    <span class="or">Or</span>
+                                    <button type="button" class="create-menu btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span>&nbsp;{{#polyglot}}Create a New Menu{{/polyglot}}</button>
+                                 </div>
+                              </div>
+                              <div class="form-group menu-name">
+                                 <label class="control-label">Menu Name</label>
+                                 <input class="form-control" placeholder="Enter a name for your menu" type="text">
                               </div>
                               <div class="form-group">
                                  <label class="col-sm-4 control-label">{{#polyglot}}Choose a Menu Style{{/polyglot}}</label>
@@ -111,10 +116,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                                     </div>
                                  </div>
                               </div>
-                              <div class="form-group menu-name">
-                                 <label class="control-label">Menu Name</label>
-                                 <input class="form-control" placeholder="Enter a name for your menu" type="text">
-                              </div>
+                              
                            </form>
                         </div>
 
