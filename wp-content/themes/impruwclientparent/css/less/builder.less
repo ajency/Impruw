@@ -2264,13 +2264,19 @@ a {
 		margin: 0 20px 1em;
 		padding: 0.5em 0;
 		.col-counter-label {
-			text-align: center;
 			font-size: 1.2em;
 			color: @dash-grey;
 			line-height: 2.2;
 			margin: 0 0 0.5em;
 		}
 		.set-column-count {
+			.col-sm-1 {
+				min-width: 140px;
+				display: inline-block;
+				@media (max-width: 767px) { 
+					width:140px;
+				}
+			}
 			.col-item {
 				background: @dash-grey;
 				position: relative;
@@ -2292,8 +2298,8 @@ a {
 					background: rgba(255, 255, 255, 0.6);
 					border-radius: 2px;
 					color: @3-grey;
-					padding: 1em 0.5em;
-					font-size: 1.2em;
+					padding: 0.5em;
+					font-size: 1.1em;
 					display: none;
 				}
 				&:hover {
@@ -2684,6 +2690,12 @@ a {
 			}
 		}
 		
+	}
+	.modal-body-title {
+		font-size: 1.2em;
+		color: @dash-grey;
+		line-height: 2.2;
+		margin: 0 20px 0.5em;
 	}
 	&.bootbox {
 		.btn-primary {
