@@ -33,8 +33,8 @@ function impruw_create_page_backup( $revision_id , $backup_type = 'page', $site_
 
 	update_revision_meta( $revision_id, 'backup-type', $backup_type );
 
-	$custom_theme_color_set = !empty(get_option('custom_theme_color_set')) ? get_option('custom_theme_color_set') : '';
-	$theme_style_filename = !empty(get_option('theme-style-filename')) ? get_option('theme-style-filename') : '';
+	$custom_theme_color_set =  !get_option('custom_theme_color_set') ? get_option('custom_theme_color_set') : '';
+	$theme_style_filename = !get_option('theme-style-filename') ? get_option('theme-style-filename') : '';
 
 	$color_scheme_data = array(
 		'current_color_set' => get_option('current_color_set') ,
