@@ -66,8 +66,67 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                            {{#polyglot}}If you wanted to go to a particular page you can do that by selecting the page in Current Page: drop down on the site builder right below the header.{{/polyglot}}
                         </div>
                      </div>
-   						<div id="add-menu-items" class="col-md-6"></div>
-   						<div id="list-menu-items" class="col-md-6"></div>'
+   						<div class="col-md-5">
+
+                        <div class="create-menu-container">
+                           <p class="desc">
+                              {{#polyglot}}You can either edit a previously added menu or create a new menu. To edit a previously added menu, select it from the dropdown{{/polyglot}}
+                              <small>{{#polyglot}}Note: Editing a menu will update all occurrences of this menu.{{/polyglot}}</small>
+                           </p>
+                           <form class="form-horizontal">
+                              <div class="form-group">
+                                 <div class="create-button">
+                                    <button type="button" class="create-menu btn btn-default btn-sm aj-imp-orange-btn"><span class="glyphicon glyphicon-plus"></span>&nbsp;{{#polyglot}}Create a New Menu{{/polyglot}}</button>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label class="col-sm-4 control-label">{{#polyglot}}Or Choose a Menu{{/polyglot}}</label>
+                                 <div class="col-sm-8">
+                                    <div class="btn-group bootstrap-select">
+                                      <button class="btn btn-default dropdown-toggle t-a-l" type="button" data-toggle="dropdown">
+                                        Main Menu <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu" role="menu">
+                                        <li class="selected"><a href="#">Main Menu</a></li>
+                                        <li><a href="#">Menu 1</a></li>
+                                        <li><a href="#">Menu 2</a></li>
+                                        <li><a href="#">Menu 3</a></li>
+                                      </ul>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label class="col-sm-4 control-label">{{#polyglot}}Choose a Menu Style{{/polyglot}}</label>
+                                 <div class="col-sm-8">
+                                    <div class="btn-group bootstrap-select">
+                                      <button class="btn btn-default dropdown-toggle t-a-l" type="button" data-toggle="dropdown">
+                                        Slim Menu <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu" role="menu">
+                                        <li class="selected"><a href="#">Main Menu</a></li>
+                                        <li><a href="#">Footer Menu</a></li>
+                                        <li><a href="#">Vertical Menu</a></li>
+                                        <li><a href="#">Another Menu Style</a></li>
+                                      </ul>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="form-group menu-name">
+                                 <label class="control-label">Menu Name</label>
+                                 <input class="form-control" placeholder="Enter a name for your menu" type="text">
+                              </div>
+                           </form>
+                        </div>
+
+                     </div>
+   						<div class="col-md-7">
+                        <div id="add-menu-items"></div>
+                        <div id="list-menu-items"></div>
+                        <div class="menu-actions clearfix">
+                           <a class="delete-menu red-link"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Menu{{/polyglot}}</a>
+                           <button type="button" class="update-menu pull-right btn btn-default btn-sm aj-imp-orange-btn"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;{{#polyglot}}Update Menu{{/polyglot}}</button>
+                        </div>
+                     </div>'
 
          dialogOptions :
             modal_title : _.polyglot.t 'Menu Manager'

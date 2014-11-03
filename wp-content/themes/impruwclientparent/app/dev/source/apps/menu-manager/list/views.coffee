@@ -9,7 +9,7 @@ define [ 'app'], ( App )->
                        <div class="col-sm-8 menu-name">{{menu_item_title}}</div>
                        <div class="col-sm-3 menu-edit">
                          <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}">
-                           <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}View{{/polyglot}}
+                           <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit{{/polyglot}}
                          </a>
                        </div>
                      </div>
@@ -19,7 +19,7 @@ define [ 'app'], ( App )->
                            <label class="col-sm-4 control-label">{{#polyglot}}Menu Link Label{{/polyglot}}</label>
                            <div class="col-sm-8">
                              <input value="{{menu_item_title}}" parsley-required="true" type="text" name="menu_item_title"
-                              class="form-control menuname" readonly="readonly"/>
+                              class="form-control menuname" />
                            </div>
                          </div>
                          <div class="form-group">
@@ -32,9 +32,9 @@ define [ 'app'], ( App )->
                          <div class="form-group form-actions">
                            <div class="col-sm-offset-4 col-sm-8">
                              <!--<input type="hidden" value="{{menu_id}}" name="menu_id"/> -->
-                             <!--<button type="button" class="update-menu-item btn btn-info"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button>-->
-                             <button type="button" class="btn cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></button>
-                             <button type="button" class="btn btn-danger delete-menu-item"><span class="glyphicon glyphicon-trash"></span></button>
+                             <button type="button" class="update-menu-item btn btn-default btn-xs aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button>
+                             <button type="button" class="btn btn-default btn-xs cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></button>
+                             <a class="delete-menu-item red-link"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a>
                            </div>
                          </div>
                        </form>

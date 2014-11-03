@@ -6,9 +6,14 @@ define ['app'], (App)->
             template: '<div class="aj-imp-add-menu-item">
                         <h4>{{#polyglot}}Add Menu Item{{/polyglot}}</h4>
 
-                        <p class="desc">{{#polyglot}}Add menu items by clicking on the Add menu item button below. You can edit the order of your menu items from the list on the right. You can only add pages to menu items, to edit the name of the page go back to your site builder and edit the name of page by editing the page title on the top left corner.{{/polyglot}}</p>
+                        <ul class="list-steps">
+                            <li>{{#polyglot}}Add menu items by selecting an item from the dropdown and clicking on the Add menu item button below.{{/polyglot}}</li>
+                            <li>{{#polyglot}}You can edit the order of your menu items from the list on the right.{{/polyglot}}</li>
+                            <li>{{#polyglot}}To make a menu item a submenu, indent the menu.{{/polyglot}}</li>
+                            <li>{{#polyglot}}You can only add pages to menu items, to edit the name of the page go back to your site builder and edit the name of page by editing the page title on the top left corner.{{/polyglot}}</li>
+                        </ul>
                         <div id="{{menu_slug}}-add-menu" class="add-menu-form">
-                            <form class="form-horizontal well">
+                            <form class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label">{{#polyglot}}Menu Link{{/polyglot}}</label>
 
@@ -25,7 +30,7 @@ define ['app'], (App)->
                                 <div class="form-group">
                                     <div class="col-sm-offset-4 col-sm-8">
                                         <!--<input type="hidden" value="{{id}}" name="menu_id"/> -->
-                                        <button type="button" class="add-menu-item btn btn-xs aj-imp-orange-btn"><span>{{#polyglot}}Add Menu Item{{/polyglot}}</span></button>
+                                        <button type="button" class="add-menu-item btn btn-default btn-xs aj-imp-orange-btn"><span>{{#polyglot}}Add Menu Item{{/polyglot}}</span></button>
                                         <input type="reset" id="btn_resetmenu" style="display:none">
                                     </div>
                                 </div>

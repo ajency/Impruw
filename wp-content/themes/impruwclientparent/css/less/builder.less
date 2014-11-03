@@ -1943,23 +1943,26 @@ a {
 }
 
 .modal-help-text {
-	padding: 0.75em 1em 1em;
+	padding: 0.75em 1em 1em 36px;
 	background: @preview-grey;
 	border-left: 3px solid @blue-grey;
 	color: @dash-grey;
 	margin-bottom: 0.75em;
 	font-size: 0.88em;
+	position: relative;
 	.glyphicon {
-		color: @blue-grey;
-		font-size: 1.2em;
+		color: darken(@preview-grey, 10%);
+		font-size: 2em;
 		top: 3px;
-		.pulse;
+		position: absolute;
+		left: 6px;
+		top: 6px;
 	}
 	&:hover {
 		box-shadow: 1px 1px 2px darken(@preview-grey, 10%);
 		border-color: @orange;
 		.glyphicon {
-			color: @orange;
+			color: darken(@preview-grey, 15%);
 		}
 	}
 }
@@ -2610,14 +2613,47 @@ a {
 	.menu-manager-container {
 		padding: 0 2em;
 	}
+	.create-menu-container {
+		.desc {
+			color: @dash-grey;
+			font-size: 1.1em;
+			small {
+				display: block;
+				margin: 0.5em 0;
+			}
+		}
+		.create-button {
+			border-bottom: 1px solid @dash-grey;
+			margin-bottom: 1em;
+			padding: 0 0 1em;
+		}
+		.menu-name {
+			background: @preview-grey;
+			padding: 0.5em 0.5em 1em;
+			border-radius: 2px;
+			.control-label {
+				color: darken(@dash-grey, 20%);
+				font-size: 1.2em;
+			}
+		}
+	}
 	.aj-imp-add-menu-item {
 		h4 {
-			font-size: 2em;
+			font-size: 1.4em;
 			color: @dash-grey;
 		}
 		.desc {
 			font-size: 0.9em;
 			color: @dash-grey;
+		}
+		.list-steps {
+			list-style: circle;
+			padding-left: 1em;
+			li {
+				color: @dash-grey;
+				font-size: 0.9em;
+				margin-bottom: 0.25em;
+			}
 		}
 		.aj-imp-add-link {
 			font-size: 1.2em;
@@ -2660,7 +2696,7 @@ a {
 					.menu-edit {
 						text-align: right;
 						a {
-							color: @orange;
+							color: @blue-grey;
 						}
 					}
 				}
@@ -2669,14 +2705,9 @@ a {
 					margin: 10px -15px -10px;
 					padding: 15px 0;
 					.form-actions {
-						.btn {
-							padding: 5px 8px 6px;
-							&.save-btn {
-								background: @orange;
-								&:hover {
-									background: lighten(@orange, 20%);
-								}
-							}
+						.red-link {
+							vertical-align: middle;
+							font-size: 0.8em;
 						}
 					}
 				}
@@ -3394,6 +3425,7 @@ a {
 /****Builder Form Styles****/
 .form-group {
 	.form-control {
+		border-radius: 2px;
 		&:focus {
 			border-color: @orange;
 		}
