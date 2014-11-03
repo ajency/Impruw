@@ -1027,6 +1027,10 @@ function translate_page( $theme_site_id, $language_code, $post_id){
     
 
     add_page_json( $post_id, $data );
+    //get all the elements array using layout
+    $page_elements = create_page_element_array($data);
+    // update post meta page-elements
+    update_page_elements($post_id,$page_elements);
 
     delete_all_revisions( $post_id );
     update_page_autosave( $post_id, $data );
