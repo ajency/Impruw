@@ -435,10 +435,13 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       Builder.prototype.onShow = function() {
+        if (!this.model.get('is_home_page')) {
+          this.$el.find('#site-header-region, #site-footer-region').removeClass('droppable-column');
+        }
         this.$el.find('.droppable-column').sortable({
           revert: 'invalid',
           items: '> .element-wrapper',
-          connectWith: '.droppable-column,.column',
+          connectWith: '.droppable-column,.droppable-column .column',
           start: function(e, ui) {
             window.dragging = true;
           },

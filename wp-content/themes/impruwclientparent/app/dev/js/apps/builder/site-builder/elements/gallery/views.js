@@ -15,6 +15,12 @@ define(['app'], function(App) {
 
       GalleryItem.prototype.template = '<img src="{{thumb_url}}" alt="Slide" class="img-responsive" />';
 
+      GalleryItem.prototype.onShow = function() {
+        return this.$el.find('img').error(function() {
+          return $(this).unbind("error").attr("src", THEMEURL + "/images/imageNotFound.jpg");
+        });
+      };
+
       GalleryItem.prototype.onRender = function() {
         var randomH, randomW;
         randomW = Math.random() * 50 > 25 ? 1 : 2;

@@ -14,6 +14,9 @@ define [ 'app'
 							 <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive "/>
 							 <div class="clearfix"></div>
 						{{/image}}
+						{{#imageNotFound}}
+                            <div class="image-placeholder" style="height:100%;"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Image not found. Upload new image.{{/polyglot}}</div>
+                        {{/imageNotFound}}
 						{{#placeholder}}
 							 <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Logo</div>
 						{{/placeholder}}'

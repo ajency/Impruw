@@ -373,10 +373,13 @@ define [ 'app'
 
          onShow : ->
 
+            if not @model.get 'is_home_page'
+               @$el.find('#site-header-region, #site-footer-region').removeClass 'droppable-column'
+
             @$el.find( '.droppable-column' ).sortable
                revert : 'invalid'
                items : '> .element-wrapper'
-               connectWith : '.droppable-column,.column'
+               connectWith : '.droppable-column,.droppable-column .column'
                start : ( e, ui )->
 #                  w = ui.item.width()
 #                  h = if ui.item.height() > 200 then 200 else ui.item.height()
