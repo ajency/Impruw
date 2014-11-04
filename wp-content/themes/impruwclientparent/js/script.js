@@ -450,6 +450,9 @@ jQuery(document).ready(function(){
     $('img').each(function(){
         imageLoaded(this);
     });
+    $("img").error(function () {
+        $(this).unbind("error").attr("src", THEMEURL+"/images/imageNotFound.jpg");
+    });
 });
 
 /************ slimenu.js ***************/

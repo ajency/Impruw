@@ -49,6 +49,7 @@ class ImageElement extends Element {
         
         $this->image_id = isset($element['image_id']) ? $element['image_id'] : 0;
         $this->size = $element['size'];
+        print_r($element);
         $this->height = isset($element['heightRatio']) ? $element['heightRatio'] : 'auto';
         $this->position_top = isset($element['topRatio']) ? $element['topRatio'] : 0;
 
@@ -124,6 +125,7 @@ class ImageElement extends Element {
         }
 
         $path = wp_get_attachment_image_src($a_id, $size);
+        print_r($path);
 
         $markup = '';
 
@@ -136,7 +138,7 @@ class ImageElement extends Element {
             
         }
         else{
-            $markup .= "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";
+            $markup .= '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span>No image found</div>';
         }
 
         if ($this->link_check )
