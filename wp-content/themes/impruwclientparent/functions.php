@@ -3555,6 +3555,17 @@ $base_element_templates = array(
             'name' => 'Room Summary New',
             'template' => '<div class="room-img"><a style="background: url({{image_url}}) no-repeat center center;"></a></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">Total: {{no_of_rooms}}<small> rooms</small></div><button class="btn btn-room">View Details</button></div>'
         )
+    ),
+    'Spacer' => array(
+        array(
+            'name' => 'Blank'
+        ),
+        array(
+            'name' => 'Line'
+        ),
+        array(
+            'name' => 'Pattern'
+        )
     )
 );
 

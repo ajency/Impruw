@@ -300,9 +300,9 @@ function get_elementbox_elements() {
         ),
         array(
             'element' => 'Spacer',
-            'title' => 'Horizontal Divider',
+            'title' => 'Horizontal Space',
             'icon' => 'bicon icon-uniF105',
-            'helpText' => 'Add a spacer between content, you can change the height and type of the spacer.'
+            'helpText' => 'Add a horizontal space between content, you can change the height and type of the space.'
         )        
     );
 

@@ -10,11 +10,15 @@ define(['app'], function(App) {
         return SpacerView.__super__.constructor.apply(this, arguments);
       }
 
-      SpacerView.prototype.template = 'test';
+      SpacerView.prototype.template = '<hr>';
 
       SpacerView.prototype.className = 'spacer';
 
-      SpacerView.prototype.onRender = function() {};
+      SpacerView.prototype.onRender = function() {
+        var className;
+        className = _.slugify(this.model.get('style'));
+        return this.$el.addClass(className);
+      };
 
       SpacerView.prototype.onShow = function() {};
 
