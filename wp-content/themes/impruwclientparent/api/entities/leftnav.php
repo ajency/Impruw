@@ -297,8 +297,13 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF101',
             'helpText' => 'Showcase your plans, tariff and availability for particular dates using the booking calendar.',
             'category' => 'room'
-        )
-        
+        ),
+        array(
+            'element' => 'HorizontalDivider',
+            'title' => 'Horizontal Divider',
+            'icon' => 'bicon icon-uniF105',
+            'helpText' => 'Add a spacer between content, you can change the height and type of the spacer.'
+        )        
     );
 
     return $elements;
