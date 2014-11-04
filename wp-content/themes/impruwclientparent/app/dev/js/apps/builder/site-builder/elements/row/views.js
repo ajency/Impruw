@@ -25,7 +25,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return this.$el.sortable({
           revert: 'invalid',
           items: '> .element-wrapper',
-          connectWith: '.droppable-column,.column',
+          connectWith: '.droppable-column, .droppable-column .column',
           handle: '.aj-imp-drag-handle',
           start: function(e, ui) {
             window.dragging = true;

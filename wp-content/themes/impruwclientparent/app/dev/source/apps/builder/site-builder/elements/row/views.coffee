@@ -12,7 +12,7 @@ define ['app','bootbox'], (App,bootbox)->
                 @$el.sortable
                     revert: 'invalid'
                     items: '> .element-wrapper'
-                    connectWith: '.droppable-column,.column'
+                    connectWith: '.droppable-column, .droppable-column .column'
                     handle: '.aj-imp-drag-handle'
                     start: (e, ui)->
 #                        ui.placeholder.height ui.item.height()
