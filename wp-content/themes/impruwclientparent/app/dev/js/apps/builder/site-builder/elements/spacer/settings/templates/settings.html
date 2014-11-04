@@ -16,11 +16,47 @@
             <input type="checkbox" name="draggable"/></span></div>
       </div>
       <div class="form-group edit-by-user">
+        <label for="" class="col-sm-4 control-label">{{#polyglot}}Choose Type{{/polyglot}}</label>
+        <div class="col-sm-8">
+          <select name="style">{{#styles}}
+            <option value="{{name}}">{{name}}</option>{{/styles}}
+          </select>
+        </div>
+      </div>
+      <div class="form-group edit-by-user">
         <label for="" class="col-sm-4 control-label">{{#polyglot}}Choose Style{{/polyglot}}</label>
         <div class="col-sm-8">
           <select name="style">{{#styles}}
             <option value="{{name}}">{{name}}</option>{{/styles}}
           </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="" class="col-sm-4 control-label">{{#polyglot}}Primary Color{{/polyglot}}</label>
+        <div class="col-sm-8">
+          <div class="colors">
+            <span style="background: #7EC2AB;" class="selected">&nbsp;</span>
+            <span style="background: #4DA8A1;">&nbsp;</span>
+            <span style="background: #ffffff;">&nbsp;</span>
+            <span style="background: #282827;">&nbsp;</span>
+            <span style="background: #E1E1E1;">&nbsp;</span>
+            <span style="background: #282827;">&nbsp;</span>
+            <span style="background: #7EC2AB;">&nbsp;</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="" class="col-sm-4 control-label">{{#polyglot}}Secondary Color{{/polyglot}}</label>
+        <div class="col-sm-8">
+          <div class="colors">
+            <span style="background: #7EC2AB;">&nbsp;</span>
+            <span style="background: #4DA8A1;">&nbsp;</span>
+            <span style="background: #ffffff;" class="selected">&nbsp;</span>
+            <span style="background: #282827;">&nbsp;</span>
+            <span style="background: #E1E1E1;">&nbsp;</span>
+            <span style="background: #282827;">&nbsp;</span>
+            <span style="background: #7EC2AB;">&nbsp;</span>
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -45,7 +81,7 @@
           </select>
         </div>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="" class="col-sm-4 control-label">{{#polyglot}}Left Margin{{/polyglot}}</label>
         <div class="col-sm-8">
           <select name="left_margin" class="spacing">
@@ -66,7 +102,7 @@
             <option value="right-margin-large">{{#polyglot}}Large{{/polyglot}}</option>
           </select>
         </div>
-      </div>
+      </div> -->
     </form>
   </div>
 </div>
