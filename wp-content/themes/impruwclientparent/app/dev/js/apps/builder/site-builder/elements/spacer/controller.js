@@ -24,18 +24,16 @@ define(['app', 'apps/builder/site-builder/elements/spacer/views', 'apps/builder/
         return Controller.__super__.bindEvents.call(this);
       };
 
-      Controller.prototype._getSpacerView = function(model, template) {
+      Controller.prototype._getSpacerView = function(model) {
         return new Spacer.Views.SpacerView({
-          model: model,
-          template: template
+          model: model
         });
       };
 
       Controller.prototype.renderElement = function() {
-        var template, view;
+        var view;
         this.removeSpinner();
-        template = this._getElementTemplate(this.layout.model);
-        view = this._getSpacerView(this.layout.model, template);
+        view = this._getSpacerView(this.layout.model);
         return this.layout.elementRegion.show(view);
       };
 

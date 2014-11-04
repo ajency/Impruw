@@ -13,17 +13,6 @@ define [ 'app'
             _.defaults options.modelData,
                element : 'Spacer'
 
-            # if _.isObject window.HOTELADDRESS
-            #    options.modelData.street = window.HOTELADDRESS.street
-            #    options.modelData.city = window.HOTELADDRESS.city
-            #    options.modelData.country = window.HOTELADDRESS.country
-            #    options.modelData.phone_no = window.HOTELADDRESS.other_phone_no[0]
-            #    options.modelData.email = window.HOTELADDRESS.site_email
-               
-            # if window.ISDEMOTHEME is '1'
-            #    options.modelData.email = 'info@impruw.com'
-
-
             super( options )
 
          bindEvents : ->
@@ -31,16 +20,14 @@ define [ 'app'
             @listenTo @layout.model, "change:style", @renderElement
             super()
 
-         _getSpacerView : ( model, template )->
+         _getSpacerView : ( model )->
             new Spacer.Views.SpacerView
                model : model
-               template : template
 
 
          # setup templates for the element
          renderElement : ()=>
             @removeSpinner()
             # get the address element template
-            template = @_getElementTemplate @layout.model
-            view = @_getSpacerView @layout.model, template
+            view = @_getSpacerView @layout.model
             @layout.elementRegion.show view

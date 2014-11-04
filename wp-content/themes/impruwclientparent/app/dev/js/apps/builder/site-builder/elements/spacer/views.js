@@ -14,19 +14,9 @@ define(['app'], function(App) {
 
       SpacerView.prototype.className = 'spacer';
 
-      SpacerView.prototype.onRender = function() {
-        var className;
-        className = _.slugify(this.model.get('style'));
-        return this.$el.addClass(className);
-      };
+      SpacerView.prototype.onRender = function() {};
 
-      SpacerView.prototype.onShow = function() {
-        this.$el.attr("data-content", _.polyglot.t("Update address ") + (" <a href='" + SITEURL + "/dashboard/#/site-profile'>") + _.polyglot.t("here") + "</a> ");
-        return this.$el.popover({
-          html: true,
-          placement: 'top'
-        });
-      };
+      SpacerView.prototype.onShow = function() {};
 
       return SpacerView;
 

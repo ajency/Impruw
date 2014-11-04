@@ -299,7 +299,7 @@ function get_elementbox_elements() {
             'category' => 'room'
         ),
         array(
-            'element' => 'HorizontalDivider',
+            'element' => 'Spacer',
             'title' => 'Horizontal Divider',
             'icon' => 'bicon icon-uniF105',
             'helpText' => 'Add a spacer between content, you can change the height and type of the spacer.'
