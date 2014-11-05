@@ -211,7 +211,8 @@ function get_elementbox_elements() {
             'element' => 'Link',
             'icon' => 'bicon icon-uniF149',
             'helpText' => 'Add a text link or turn it into a button. Connect people to other pages on your site, pages on other sites, email addresses and files that they may want to download.',
-            'styles' => get_styles( 'Link' )
+            'styles' => get_styles( 'Link' ),
+            'link_pages' => get_all_menu_pages()
         ),
         array(
             'element' => 'ContactForm',

@@ -43,11 +43,9 @@
         <label for="" class="col-sm-4 control-label">{{#polyglot}}Page{{/polyglot}}</label>
         <div class="col-sm-8">
           <select name="pages">
-            <option value="">{{#polyglot}}Home{{/polyglot}}</option>
-            <option value="">{{#polyglot}}About Us{{/polyglot}}</option>
-            <option value="">{{#polyglot}}Rooms{{/polyglot}}</option>
-            <option value="">{{#polyglot}}Gallery{{/polyglot}}</option>
-            <option value="">{{#polyglot}}Contact Us{{/polyglot}}</option>
+            {{#link_pages}}
+            <option value="{{ID}}">{{post_title}}</option>
+            {{/link_pages}}
           </select>
         </div>
       </div>
