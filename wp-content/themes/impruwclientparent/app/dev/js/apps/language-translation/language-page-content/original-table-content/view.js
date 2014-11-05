@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('LanguageApp.LanguagePageContent.OriginalTable.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var OriginalTableItemView;
+    var EmptyTableView, OriginalTableItemView;
     OriginalTableItemView = (function(_super) {
       __extends(OriginalTableItemView, _super);
 
@@ -42,6 +42,18 @@ define(['app'], function(App) {
       return OriginalTableItemView;
 
     })(Marionette.ItemView);
+    EmptyTableView = (function(_super) {
+      __extends(EmptyTableView, _super);
+
+      function EmptyTableView() {
+        return EmptyTableView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyTableView.prototype.template = '<br/><div class="empty-info">You have no tables to translate</div><br/>';
+
+      return EmptyTableView;
+
+    })(Marionette.ItemView);
     return Views.OriginalTableView = (function(_super) {
       __extends(OriginalTableView, _super);
 
@@ -52,6 +64,8 @@ define(['app'], function(App) {
       OriginalTableView.prototype.template = '<div id="original-page-table"></div>';
 
       OriginalTableView.prototype.itemView = OriginalTableItemView;
+
+      OriginalTableView.prototype.emptyView = EmptyTableView;
 
       OriginalTableView.prototype.itemViewContainer = '#original-page-table';
 

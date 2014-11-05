@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('LanguageApp.LanguagePageContent.OriginalSlider.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var OriginalSlideItemView, OriginalSlideView;
+    var EmptySliderView, OriginalSlideItemView, OriginalSlideView;
     OriginalSlideItemView = (function(_super) {
       __extends(OriginalSlideItemView, _super);
 
@@ -50,7 +50,7 @@ define(['app'], function(App) {
         return OriginalSlideView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalSlideView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{element}}</small></h6> <div id="original-page-slide"> </div> <hr>';
+      OriginalSlideView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div id="original-page-slide"> </div> <hr>';
 
       OriginalSlideView.prototype.itemView = OriginalSlideItemView;
 
@@ -65,6 +65,18 @@ define(['app'], function(App) {
       return OriginalSlideView;
 
     })(Marionette.CompositeView);
+    EmptySliderView = (function(_super) {
+      __extends(EmptySliderView, _super);
+
+      function EmptySliderView() {
+        return EmptySliderView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptySliderView.prototype.template = '<br/><div class="empty-info">You have no slides to translate</div><br/>';
+
+      return EmptySliderView;
+
+    })(Marionette.ItemView);
     return Views.OriginalSliderView = (function(_super) {
       __extends(OriginalSliderView, _super);
 
@@ -75,6 +87,8 @@ define(['app'], function(App) {
       OriginalSliderView.prototype.template = '<div id="original-page-slider"> </div>';
 
       OriginalSliderView.prototype.itemView = OriginalSlideView;
+
+      OriginalSliderView.prototype.emptyView = EmptySliderView;
 
       OriginalSliderView.prototype.itemViewContainer = '#original-page-slider';
 
