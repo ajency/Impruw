@@ -14,13 +14,16 @@ define(['app', 'apps/builder/site-builder/elements/spacer/views', 'apps/builder/
 
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
-          element: 'Spacer'
+          element: 'Spacer',
+          type: 'blank',
+          style: 'default',
+          height: 20
         });
         return Controller.__super__.initialize.call(this, options);
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:style", this.renderElement);
+        this.listenTo(this.layout.model, "change:style change:type", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -34,6 +37,12 @@ define(['app', 'apps/builder/site-builder/elements/spacer/views', 'apps/builder/
         var view;
         this.removeSpinner();
         view = this._getSpacerView(this.layout.model);
+        this.listenTo(view, 'set:spacer:height', (function(_this) {
+          return function(height) {
+            _this.layout.model.set('height', height);
+            return _this.layout.model.save();
+          };
+        })(this));
         return this.layout.elementRegion.show(view);
       };
 

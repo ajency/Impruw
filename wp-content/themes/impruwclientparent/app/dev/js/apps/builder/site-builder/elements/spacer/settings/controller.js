@@ -18,7 +18,14 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
         this.model = opt.model;
         this.region = App.settingsRegion;
         model = App.request("get:element:settings:options", 'Spacer');
+        console.log(model);
         view = this._getSettingView(model, this.model);
+        this.listenTo(view, "element:type:changed", (function(_this) {
+          return function(type) {
+            _this.model.set("type", type);
+            return view.triggerMethod("type:" + type);
+          };
+        })(this));
         this.listenTo(view, "element:style:changed", (function(_this) {
           return function(style) {
             return _this.model.set("style", style);

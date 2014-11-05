@@ -18,20 +18,22 @@
       <div class="form-group edit-by-user">
         <label for="" class="col-sm-4 control-label">{{#polyglot}}Choose Type{{/polyglot}}</label>
         <div class="col-sm-8">
-          <select name="style">{{#styles}}
-            <option value="{{name}}">{{name}}</option>{{/styles}}
+          <select name="type">
+            <option value="blank">Blank</option>
+            <option value="line">Line</option>
+            <option value="pattern">Pattern</option>
           </select>
         </div>
       </div>
-      <div class="form-group edit-by-user">
+      <div class="form-group edit-by-user style">
         <label for="" class="col-sm-4 control-label">{{#polyglot}}Choose Style{{/polyglot}}</label>
         <div class="col-sm-8">
           <select name="style">{{#styles}}
-            <option value="{{name}}">{{name}}</option>{{/styles}}
+            <option value="{{value}}">{{name}}</option>{{/styles}}
           </select>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group edit-by-user prim-colors">
         <label for="" class="col-sm-4 control-label">{{#polyglot}}Primary Color{{/polyglot}}</label>
         <div class="col-sm-8">
           <div class="colors">
@@ -45,7 +47,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group edit-by-user sec-colors">
         <label for="" class="col-sm-4 control-label">{{#polyglot}}Secondary Color{{/polyglot}}</label>
         <div class="col-sm-8">
           <div class="colors">

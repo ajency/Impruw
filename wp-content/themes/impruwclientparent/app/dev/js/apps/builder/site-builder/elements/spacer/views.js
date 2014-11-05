@@ -10,17 +10,31 @@ define(['app'], function(App) {
         return SpacerView.__super__.constructor.apply(this, arguments);
       }
 
-      SpacerView.prototype.template = '<hr>';
+      SpacerView.prototype.template = '<hr class="{{style}}" >';
 
       SpacerView.prototype.className = 'spacer';
 
       SpacerView.prototype.onRender = function() {
-        var className;
-        className = _.slugify(this.model.get('style'));
-        return this.$el.addClass(className);
+        this.$el.addClass(this.model.get('type'));
+        if (this.model.get('type') !== 'line') {
+          return this.$el.find('hr').css('height', this.model.get('height'));
+        }
       };
 
-      SpacerView.prototype.onShow = function() {};
+      SpacerView.prototype.onShow = function() {
+        if (this.model.get('type') !== 'line') {
+          return this.$el.find('hr').resizable({
+            helper: "ui-image-resizable-helper",
+            handles: "s",
+            stop: (function(_this) {
+              return function(evt, ui) {
+                _this.$el.css('width', 'auto');
+                return _this.trigger('set:spacer:height', _this.$el.height());
+              };
+            })(this)
+          });
+        }
+      };
 
       return SpacerView;
 

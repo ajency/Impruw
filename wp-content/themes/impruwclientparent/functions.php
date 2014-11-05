@@ -436,6 +436,9 @@ function add_element_markup( $element ) {
         case 'RoomBooking' :
             $html = get_room_booking_markup( $element );
             break;
+        case 'Spacer' :
+            $html = get_spacer_element_markup( $element );
+            break;
         default :
             break;
     }
@@ -822,6 +825,16 @@ function get_table_element_markup( $element ){
 
     return $html;
 
+}
+
+function get_spacer_element_markup( $element ){
+    include_once( dirname( __FILE__ ) . '/elements/SpacerElement.php');
+
+    $spacer = new SpacerElement( $element );
+
+    $html = $spacer->get_markup();
+
+    return $html;
 }
 
 function get_widget_element_markup( $element ){
@@ -3557,16 +3570,12 @@ $base_element_templates = array(
         )
     ),
     'Spacer' => array(
-        array(
-            'name' => 'Blank'
-        ),
-        array(
-            'name' => 'Line'
-        ),
-        array(
-            'name' => 'Pattern'
+            array( 'name' => 'Default', 'value' => 'default' ),
+            array( 'name' => 'Style 1', 'value' => 'style-1' ),
+            array( 'name' => 'Style 2', 'value' => 'style-2' ),
+            array( 'name' => 'Style 3', 'value' => 'style-3' )  
         )
-    )
+    
 );
 
 /**

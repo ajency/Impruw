@@ -10,7 +10,19 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                 { @model } = opt
                 @region = App.settingsRegion
                 model = App.request "get:element:settings:options", 'Spacer'
+                console.log model
                 view = @_getSettingView model, @model
+
+                @listenTo view, "element:type:changed", (type)=>
+                    
+                    @model.set "type", type
+
+                    # if type is 'Blank'
+                    #     @model.set "style", 'Default'
+
+                    # type = _.slugify type
+                    view.triggerMethod "type:#{type}"
+
 
                 @listenTo view, "element:style:changed", (style)=>
                     @model.set "style", style

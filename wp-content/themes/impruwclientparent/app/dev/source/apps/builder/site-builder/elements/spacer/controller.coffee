@@ -12,12 +12,15 @@ define [ 'app'
 
             _.defaults options.modelData,
                element : 'Spacer'
+               type : 'blank'
+               style : 'default'
+               height : 20
 
             super( options )
 
          bindEvents : ->
             # start listening to model events
-            @listenTo @layout.model, "change:style", @renderElement
+            @listenTo @layout.model, "change:style change:type", @renderElement
             super()
 
          _getSpacerView : ( model )->
@@ -30,4 +33,9 @@ define [ 'app'
             @removeSpinner()
             # get the address element template
             view = @_getSpacerView @layout.model
+
+            @listenTo view , 'set:spacer:height',(height)=>
+               @layout.model.set 'height',height
+               @layout.model.save()
+
             @layout.elementRegion.show view

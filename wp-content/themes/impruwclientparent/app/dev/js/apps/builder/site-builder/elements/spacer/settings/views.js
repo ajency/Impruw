@@ -32,17 +32,21 @@ define(['app', 'text!apps/builder/site-builder/elements/spacer/settings/template
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').radiocheck('check');
         }
-        this.$el.find('select[name="align"]').selectpicker('val', this.eleModel.get('align'));
         this.$el.find('select[name="top_margin"]').selectpicker('val', this.eleModel.get('top_margin'));
         this.$el.find('select[name="left_margin"]').selectpicker('val', this.eleModel.get('left_margin'));
         this.$el.find('select[name="bottom_margin"]').selectpicker('val', this.eleModel.get('bottom_margin'));
-        return this.$el.find('select[name="right_margin"]').selectpicker('val', this.eleModel.get('right_margin'));
+        this.$el.find('select[name="right_margin"]').selectpicker('val', this.eleModel.get('right_margin'));
+        this.$el.find('select[name="type"]').selectpicker('val', this.eleModel.get('type')).selectpicker('refresh');
+        return this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style')).selectpicker('refresh');
       };
 
       SettingsView.prototype.events = {
         'click .close-settings': function(evt) {
           evt.preventDefault();
           return App.settingsRegion.close();
+        },
+        'change select[name="type"]': function(evt) {
+          return this.trigger("element:type:changed", $(evt.target).val());
         },
         'change select[name="style"]': function(evt) {
           return this.trigger("element:style:changed", $(evt.target).val());
@@ -53,6 +57,19 @@ define(['app', 'text!apps/builder/site-builder/elements/spacer/settings/template
         'change select.spacing': function(evt) {
           return this.trigger("element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val());
         }
+      };
+
+      SettingsView.prototype.onTypeBlank = function() {
+        return this.$el.find('.style, .prim-colors , .sec-colors').hide();
+      };
+
+      SettingsView.prototype.onTypeLine = function() {
+        this.$el.find(' .sec-colors').hide();
+        return this.$el.find('.style, .prim-colors ').show();
+      };
+
+      SettingsView.prototype.onTypePattern = function() {
+        return this.$el.find('.style, .prim-colors , .sec-colors').show();
       };
 
       return SettingsView;

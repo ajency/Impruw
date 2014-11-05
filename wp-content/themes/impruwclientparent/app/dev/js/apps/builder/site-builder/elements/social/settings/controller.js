@@ -18,6 +18,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
         this.model = opt.model;
         this.region = App.settingsRegion;
         model = App.request("get:element:settings:options", 'Social');
+        console.log(model);
         view = this._getSettingView(model, this.model);
         this.listenTo(view, "element:style:changed", (function(_this) {
           return function(style) {

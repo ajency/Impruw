@@ -1,24 +1,33 @@
 define ['app'], (App)->
 
-    # Row views
-    App.module 'SiteBuilderApp.Element.Spacer.Views', (Views, App, Backbone, Marionette, $, _)->
+	# Row views
+	App.module 'SiteBuilderApp.Element.Spacer.Views', (Views, App, Backbone, Marionette, $, _)->
 
-        # Menu item view
-        #class Views.SpacerView extends Marionette.ItemView
+		# Menu item view
+		#class Views.SpacerView extends Marionette.ItemView
 
-        # layouts
-        class Views.SpacerView extends Marionette.ItemView
-            # basic template
-            template: '<hr>'
+		# layouts
+		class Views.SpacerView extends Marionette.ItemView
+			# basic template
+			template: '<hr class="{{style}}" >'
 
-            className: 'spacer'
+			className: 'spacer'
 
-            onRender: ->
-                className = _.slugify @model.get 'style'
-                @$el.addClass className
+			onRender: ->
+				# className = _.slugify @model.get 'type'
+				@$el.addClass  @model.get 'type'
+				if @model.get('type') isnt 'line'
+					@$el.find('hr').css 'height', @model.get 'height'
 
-            onShow : ->
-               # @$el.attr "data-content", _.polyglot.t("Update address ")+" <a href='#{SITEURL}/dashboard/#/site-profile'>"+_.polyglot.t("here")+"</a> "
-               # @$el.popover
-               #    html : true
-               #    placement : 'top'
+			onShow : ->
+				if @model.get('type') isnt 'line'
+					@$el.find('hr').resizable
+                        helper : "ui-image-resizable-helper"
+                        handles: "s"
+                        stop : (evt, ui)=>
+                            @$el.css 'width','auto'
+                            @trigger 'set:spacer:height', @$el.height()
+			   # @$el.attr "data-content", _.polyglot.t("Update address ")+" <a href='#{SITEURL}/dashboard/#/site-profile'>"+_.polyglot.t("here")+"</a> "
+			   # @$el.popover
+			   #    html : true
+			   #    placement : 'top'

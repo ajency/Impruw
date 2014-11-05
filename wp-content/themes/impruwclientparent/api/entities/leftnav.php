@@ -302,6 +302,7 @@ function get_elementbox_elements() {
             'element' => 'Spacer',
             'title' => 'Horizontal Space',
             'icon' => 'bicon icon-uniF105',
+            'styles' => get_styles( 'Spacer' ),
             'helpText' => 'Add a horizontal space between content, you can change the height and type of the space.'
         )        
     );
