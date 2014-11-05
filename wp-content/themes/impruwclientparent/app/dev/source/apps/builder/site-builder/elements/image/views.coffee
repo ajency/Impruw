@@ -13,6 +13,9 @@ define ['app'], (App)->
                           <img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/>
                           <div class="clearfix"></div>
                         {{/image}}
+                        {{#imageNotFound}}
+                            <div class="image-placeholder" style="height:100%;"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Image not found. Upload new image.{{/polyglot}}</div>
+                        {{/imageNotFound}}
                         {{#placeholder}}
                           <div class="image-placeholder" style="height:100%;"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div>
                         {{/placeholder}}
@@ -24,6 +27,8 @@ define ['app'], (App)->
 
                 if @model.isNew()
                     data.placeholder = true
+                else if not @model.get 'url'
+                    data.imageNotFound = true
                 else
                     data.image = true
                     data.imageurl = ''
@@ -48,6 +53,12 @@ define ['app'], (App)->
                 # @imageHeightRatio = Marionette.getOption @,'imageHeightRatio'
                 # @positionTopRatio = Marionette.getOption @, 'positionTopRatio' 
                 @eleModel = Marionette.getOption @, 'eleModel'
+
+                
+                # if not @model.get 'url'
+                #     console.log @model
+                #     console.log @model.get 'url'
+                #     console.log 'data.imageNotFound'
                 
 
 
@@ -68,6 +79,8 @@ define ['app'], (App)->
                         handles: "s"
                         stop : (evt, ui)=>
                             @$el.css 'width','auto'
+                    return
+                else if not @model.get 'url'
                     return
 
 
@@ -139,7 +152,7 @@ define ['app'], (App)->
                 width = @$el.width()
                 image = @model.getBestFit width
                 @$el.find('img').attr 'src', image.url
-                
+
                 @trigger "image:size:selected", image.size
                 # set the URL of the image depending on the available size
                 

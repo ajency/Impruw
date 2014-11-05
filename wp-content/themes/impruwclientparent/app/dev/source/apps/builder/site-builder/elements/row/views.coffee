@@ -104,13 +104,11 @@ define ['app','bootbox'], (App,bootbox)->
 
                 @$el.on "adjust:resizer",(e)=>
                     e.stopPropagation()
-                    console.log 'column resizer set'
                     @setColumnResizer()
 
             _addFocusClass : (e)->
                 e.stopPropagation()
                 $('.element-wrapper').removeClass('focus-class')
-                console.log 'click'
                 $(e.target).closest('.element-wrapper').addClass('focus-class')
 
             # set new classes on style change

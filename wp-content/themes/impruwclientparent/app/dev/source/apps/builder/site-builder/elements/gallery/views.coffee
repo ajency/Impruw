@@ -8,6 +8,16 @@ define ['app'], (App)->
 
             template: '<img src="{{thumb_url}}" alt="Slide" class="img-responsive" />'
 
+            # mixinTemplateHelpers : (data)->
+            #     data = super data
+                
+            #     data
+
+            onShow : ->
+                @$el.find('img').error ()->
+                    $(@).unbind("error").attr("src", THEMEURL+"/images/imageNotFound.jpg")
+
+
             onRender: ->
                 randomW = if Math.random() * 50 > 25 then 1 else 2
                 randomH = if Math.random() * 50 > 25 then 1 else 2

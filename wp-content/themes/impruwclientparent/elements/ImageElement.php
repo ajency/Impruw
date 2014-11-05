@@ -136,7 +136,7 @@ class ImageElement extends Element {
             
         }
         else{
-            $markup .= "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";
+            $markup .= '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span>No image found</div>';
         }
 
         if ($this->link_check )

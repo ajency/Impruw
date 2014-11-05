@@ -30,6 +30,10 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                 randomH = if Math.random() * 50 > 25 then 1 else 2
                 @$el.addClass "width-#{randomW} height-#{randomH}"
 
+            onShow : ->
+                @$el.find('img').error ()->
+                    $(@).unbind("error").attr("src", THEMEURL+"/images/imageNotFound.jpg")
+
             events : 
                 'click' : (e)->
                     e.preventDefault()
