@@ -11,10 +11,20 @@
 	font-style: normal; 
 }
 
+body {
+	font-size: 14px;
+	line-height: 1.2;
+}
+
 /****body styles****/
 .site-style-container {
 	font-family: 'Helvetica', sans-serif;
 	font-weight: 400;
+	line-height: 1.2;
+
+	.site-page {
+		min-height: 40vh;
+	}
 
 	/*-- Site Builder Container --*/
 	.site-header, .site-footer, .site-page {
@@ -61,10 +71,20 @@
 	.power-up {
 		margin: 0.5em 0;
 		text-align: center;
-		img {
-			max-height: 20px;
-			display: inline-block;
-			margin-right: 0.3em;
+		font-size: 0.78em;
+		a {
+			img {
+				max-height: 16px;
+				display: inline-block;
+				margin-right: 0.3em;
+				opacity: 0.7;
+			}
+			&:hover {
+				text-decoration: none;
+				img {
+					opacity: 1;
+				}
+			}
 		}
 	}
 }

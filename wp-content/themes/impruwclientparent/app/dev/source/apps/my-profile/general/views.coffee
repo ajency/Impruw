@@ -14,7 +14,7 @@ define [ 'app'
 
             # set the flatui checkbox radio and bootstrap select ui
             onRender : ->
-                @$el.find( 'input[type="checkbox"]' ).checkbox()
+                @$el.find( 'input[type="checkbox"]' ).radiocheck()
 
             onShow : ->
                 val = @model.get 'new_feature_alert'

@@ -9,7 +9,7 @@ get_header();
 <div class="aj-imp-register-form">
     <div class="row">
         <div class="col-sm-12 aj-imp-register-header">
-            <h1><?php echo __('Sign Up', 'impruwmain'); ?> <span><?php echo __('Impruw', 'impruwmain'); ?></span></h1>
+            <h1><?php echo __('Sign Up on', 'impruwmain'); ?> <span><?php echo __('Impruw', 'impruwmain'); ?></span></h1>
             <p class="desc">
                 <?php echo __('Sign up in 30 seconds. No credit card required. If you already have an Impruw account sign in.', 'impruwmain');
                 ?>  
@@ -60,8 +60,8 @@ get_header();
 
                         <select name="user_language" id="inputLanguage"  required  parsley-required-message="<?php echo __('Please select any one of the languages available.', 'impruwmain'); ?>"   > 
 
-                            <option value="en" <?php if ($norwegian_sel == false) echo " selected "; ?> ><?php echo __('English', 'impruwmain'); ?></option>
-                            <option value="nb" <?php if ($norwegian_sel == true) echo " selected "; ?>><?php echo __('Norwegian', 'impruwmain'); ?></option>
+                            <option value="en" <?php if (ICL_LANGUAGE_CODE==='en') echo " selected "; ?> ><?php echo __('English', 'impruwmain'); ?></option>
+                            <option value="nb" <?php if (ICL_LANGUAGE_CODE==='nb') echo " selected "; ?>><?php echo __('Norwegian', 'impruwmain'); ?></option>
 
                         </select>
                         <div class="p-messages"></div>

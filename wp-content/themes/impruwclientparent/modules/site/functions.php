@@ -1,6 +1,20 @@
 <?php
 
 /**
+ * Check if current site is impruw demo site
+ * @return boolean [description]
+ */
+function is_impruw_demo_site(){
+    
+    if(!defined('THEME_ID'))
+        return false;
+
+    $theme_preview_ids = explode(',', THEME_ID);
+
+    return in_array(get_current_blog_id(), $theme_preview_ids);
+}
+
+/**
  * Gets the site Details
  *
  * @param type $site_id
@@ -331,6 +345,7 @@ function clone_page( $clone_blog, $post_id ) {
     store_unused_elements( $post_id );
     add_page_json( $post_id, $data );
 
+
     delete_all_revisions( $post_id );
     update_page_autosave( $post_id, $data );
 }
@@ -363,17 +378,17 @@ function clone_header_footer( $theme_site_id, $language_code) {
     $clone_blog = $theme_site_id; //server
 
     switch_to_blog( $clone_blog );
-    $header = get_json_to_clone( 'theme-header' );
-    $footer = get_json_to_clone( 'theme-footer' );
+    $header = get_json_to_clone( THEME_HEADER_KEY );
+    $footer = get_json_to_clone( THEME_FOOTER_KEY );
     restore_current_blog();
 
     $data = set_json_to_site( $header,$language_code, $clone_first_time);
     update_option( 'theme-header-autosave', $data );
-    update_option( 'theme-header', $data );
+    publish_footer_header_json( 'header', $data );
 
     $data = set_json_to_site( $footer,$language_code, $clone_first_time);
     update_option( 'theme-footer-autosave', $data );
-    update_option( 'theme-footer', $data );
+    publish_footer_header_json( 'footer', $data );
 }
 
 /**
@@ -648,6 +663,13 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
 
     restore_current_blog();
 
+    do_action('impruw_before_theme_switch');
+
+    if ( wp_get_theme()->name == 'Impruw Client Parent')
+        $initial_backup = TRUE;
+    else
+        $initial_backup = FALSE;
+
     //assign the theme to
     $theme = wp_get_theme( $theme_name ); //Change the name here to change the theme
 
@@ -684,6 +706,8 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
         }
         
     }
+    if ($initial_backup)
+        do_action('impruw_before_theme_switch');
 }
 
 
@@ -1003,6 +1027,10 @@ function translate_page( $theme_site_id, $language_code, $post_id){
     
 
     add_page_json( $post_id, $data );
+    //get all the elements array using layout
+    $page_elements = create_page_element_array($data);
+    // update post meta page-elements
+    update_page_elements($post_id,$page_elements);
 
     delete_all_revisions( $post_id );
     update_page_autosave( $post_id, $data );
@@ -1111,4 +1139,11 @@ function delete_domain_mapping() {
     $wpdb->delete( $table_name, array( 'blog_id' => get_current_blog_id() ) );
 
     update_option( 'domain-name',  get_option( 'blogname' ) . '.impruw.com' );
+}
+
+function get_site_domain_name(){
+
+    $domain_name = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
+
+    return $domain_name;
 }

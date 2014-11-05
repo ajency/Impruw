@@ -3,7 +3,7 @@
     name : 'plugins/almond',
     include : 'builder-main',
     exclude : ['plugins/ckeditor/ckeditor'],
-    //optimize: 'none',
+    optimize: 'none',
     wrap: false,
     out: '../production/builder-main.js',
     paths: {
@@ -24,6 +24,7 @@
         bootstrapselect: 'plugins/bootstrapselect',
         underscorestring: 'plugins/underscore.string',
         imgLiquid: 'plugins/bower_components/imgLiquid/js/imgLiquid',
+        radiocheck: 'plugins/flatui-radiocheck',
         radio: 'plugins/flatui-radio',
         cookie: 'plugins/cookie.min',
         checkbox: 'plugins/flatui-checkbox',
@@ -102,6 +103,7 @@
         nestedsortable : ['jqueryui'],
         radio : ['bootstrap'],
         checkbox : ['bootstrap'],
+        radiocheck: ['bootstrap'],
         bootstrapselect : ['bootstrap'],
         bootbox : {
             deps : ['bootstrap'],

@@ -20,6 +20,7 @@ define(['app', 'text!apps/room-summary/checkin/templates/checkinView.html'], fun
 
       CheckinForm.prototype.onShow = function() {
         var radioHtml, timeFormat;
+        this.$el.find('input[type="radio"]').radiocheck();
         timeFormat = this.model.get('time_format');
         radioHtml = this.$el.find('input:radio[name="time_format"]').filter("[value='" + timeFormat + "']");
         radioHtml.attr('checked', 'checked');
@@ -29,16 +30,18 @@ define(['app', 'text!apps/room-summary/checkin/templates/checkinView.html'], fun
           'step': 5
         });
         return this.$el.find('.radio').click((function(_this) {
-          return function() {
+          return function(evt) {
+            var eleId;
+            eleId = $(evt.currentTarget).attr('id');
             return _.delay(function() {
-              return _this.checkTimeFormatSelection();
+              return _this.checkTimeFormatSelection(eleId);
             }, 10);
           };
         })(this));
       };
 
-      CheckinForm.prototype.checkTimeFormatSelection = function() {
-        if (this.$el.find('#tweleve-hour').hasClass('checked')) {
+      CheckinForm.prototype.checkTimeFormatSelection = function(eleId) {
+        if (eleId === 'tweleve-hour') {
           this.$el.find('.check-time').timepicker('remove');
           return this.$el.find('.check-time').timepicker({
             'timeFormat': 'g:ia',

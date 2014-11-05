@@ -13,6 +13,7 @@ define ['marionette', 'underscore'], (Marionette, _)->
         dialogRegion: Marionette.Region.Dialog.extend el: '#dialog-region'
         chooseThemeRegion: '#choose-theme-region'
         rightBlockRegion: '#fl_menu'
+        revisionRestoreRegion : '#revision-region-holder'
 
     App.startNewInstance = ->
         instanceId = _.makeid()

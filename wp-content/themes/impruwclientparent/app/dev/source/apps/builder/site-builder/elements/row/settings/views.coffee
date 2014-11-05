@@ -14,7 +14,7 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
                 super opt
 
             onRender: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
                 @$el.find('select').selectpicker()
                 @$el.find(".set-column-count a.btn.#{@eleModel.get('columncount')}-col").addClass 'selected'
                 @setFields()
@@ -22,7 +22,7 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
             # set fields for the form
             setFields: ->
                 if @eleModel.get('draggable') is true
-                    @$el.find('input[name="draggable"]').checkbox('check')
+                    @$el.find('input[name="draggable"]').radiocheck('check')
 
                 @$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'style'
 

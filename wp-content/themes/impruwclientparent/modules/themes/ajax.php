@@ -53,9 +53,16 @@ function ajax_change_theme_color() {
     // return single theme color set in key-value format
     $colors = set_color_to_array( $set_colors );
 
+    $color_name = $colors[ 'name' ];
+
+    if ( $color_name == 'custom' )
+        $color_scheme = uniqid();
+    else 
+        $color_scheme = sanitize_title( $color_name );
+
     unset( $colors[ 'name' ] );
 
-    switch_theme_colour( $colors );
+    switch_theme_colour( $colors , $color_scheme );
 
     wp_send_json( array( 'code' => 'OK' ) );
 }

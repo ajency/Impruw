@@ -14,7 +14,8 @@ define(['marionette', 'underscore'], function(Marionette, _) {
       el: '#dialog-region'
     }),
     chooseThemeRegion: '#choose-theme-region',
-    rightBlockRegion: '#fl_menu'
+    rightBlockRegion: '#fl_menu',
+    revisionRestoreRegion: '#revision-region-holder'
   });
   App.startNewInstance = function() {
     var instanceId;

@@ -10,6 +10,7 @@ define ['app', 'apps/builder/site-builder/elements/link/views',
             initialize: (options)->
                 _.defaults options.modelData,
                     element: 'Link'
+                    align : 'left'
                     link: '#'
                     text: 
                         'en':'Add link'
@@ -20,7 +21,7 @@ define ['app', 'apps/builder/site-builder/elements/link/views',
 
             bindEvents: ->
                 # start listening to model events
-                @listenTo @layout.model, "change:style change:link change:text change:target", @renderElement
+                @listenTo @layout.model, "change:style change:link change:text change:target change:align", @renderElement
                 super()
 
             _getLinkView: (model)->

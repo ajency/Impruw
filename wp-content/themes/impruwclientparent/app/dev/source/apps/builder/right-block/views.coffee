@@ -10,16 +10,19 @@ define ['app'],(App)->
 						<div id="aj-imp-color-sel"> 
 						  <a class="btn btn-xs btn-block">{{#polyglot}}Change Theme Colors{{/polyglot}}</a>
 						</div> 
-						<div class="aj-imp-builder-options"> 
-							<a href="#" class="builder-help">{{#polyglot}}Need Help{{/polyglot}}&nbsp;<span class="bicon icon-uniF13B"></span></a>
+						<div id="revision-history" class="revision-history">
+							
 						</div>
 						<div id="unused-elements"></div>'
 
 			regions:
 				unusedElementsRegion : '#unused-elements'
+				revisionHistoryRegion : '#revision-history'
 
 			events : 
                 'click #aj-imp-color-sel' :-> @trigger "show:theme:color:clicked" 
+
+               
 
 			onShow :->
 				@$el.tabSlideOut

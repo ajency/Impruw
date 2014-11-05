@@ -1,0 +1,597 @@
+/*custom.css*/
+
+btn{
+    color : #fff !important;
+}
+
+.builder-sortable-helper{
+    width: 100px;
+    top:100px;
+    height: 50px;
+    border: 2px;
+    background-color: #5E5555;
+}
+
+.builder-sortable-placeholder{
+    height: 80px;
+}
+
+.ui-sortable-placeholder {
+    outline: 1px dashed #5E5555;
+    visibility: visible!Important;
+    border-radius: 4px;
+    background: transparent!Important;
+}
+
+#aj-imp-builder-drag-drop > div.row{
+	margin-bottom: 10px;
+}
+
+#aj-imp-builder-drag-drop > .layout-header, #aj-imp-builder-drag-drop > .layout-footer{
+    min-height: 150px;
+    /*background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;*/
+}
+
+#aj-imp-builder-drag-drop .drag-here{
+    position: absolute;
+    height: 50px;    
+    width: 100%;
+    bottom:0px;
+    text-align: center;
+    /*background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;*/
+}
+
+#aj-imp-builder-drag-drop > .layout-content {
+    min-height: 400px;
+    /*background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;*/
+}
+
+li.ui-sortable-placeholder{
+    height : 80px;
+    list-style: none;
+}
+
+#map-canvas{
+    height : 250px;
+}
+
+/*#aj-imp-builder-drag-drop > hr{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}*/
+
+#controls-drag{
+	z-index : 1030;
+}
+
+a{
+    outline: none;
+}
+
+div.element-drop-loader{
+
+    height      : 60px; 
+    background  : url(../images/loader.gif) no-repeat center center #fff;
+    position    : absolute;
+    width       : 100%;
+    top         : 0;
+
+}
+
+div.element-drop-loader > p{
+    text-align: center;
+    padding-top: 50px;
+}
+
+.settings{
+    display:none;
+}
+
+.hover-class:hover > .element-controls .non-visible{
+    display:none !important;
+}
+.hover-class:hover > .element-controls .aj-imp-col-divider{
+    display: block;
+}
+.aj-imp-col-divider{
+    display:none;
+    z-index:100;
+}
+
+/*#header-region {
+    min-height: 80px;
+}*/
+/*
+.aj-imp-builder-layout-mode .row .column.empty-column{
+    background: none !important;
+}
+*/
+.aj-imp-builder-layout-mode .row .column {
+    background-color: transparent !important;
+}
+
+
+
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+
+
+.image-img-with-text{
+    margin: 7px
+}
+
+.top-margin-small{margin-top:5px;}
+.left-margin-small{margin-left:5px;}
+.right-margin-small{margin-right:5px;}
+.bottom-margin-small{margin-bottom:5px;}
+
+.top-margin-medium{margin-top:10px;}
+.left-margin-medium{margin-left:10px;}
+.right-margin-medium{margin-right:10px;}
+.bottom-margin-medium{margin-bottom:10px;}
+
+.top-margin-large{margin-top:15px;}
+.left-margin-large{margin-left:15px;}
+.right-margin-large{margin-right:15px;}
+.bottom-margin-large{margin-bottom:15px;}
+
+.ui-image-resizable-helper{
+    border : 1px solid #ccc;
+}
+
+/*.element-wrapper:hover{
+    border : 1px solid orange;
+}
+.element-wrapper{
+    border : 1px solid transparent;
+}
+.hover-class:hover > .element-controls .aj-imp-delete-btn{
+    display: block
+}
+.hover-class:hover > .element-controls .aj-imp-drag-handle{
+    display: block
+}
+.hover-class:hover > .element-controls .aj-imp-settings-btn{
+    display: block
+}
+.element-wrapper .element-controls{
+    position : relative;
+}
+
+.element-wrapper .element-controls .aj-imp-delete-btn{
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    padding: 5px 10px 10px 5px;
+}
+
+.element-wrapper .element-controls .aj-imp-drag-handle{
+    position: absolute;
+    top: -13px;
+    left: 0%;
+    padding: 5px 20px 0;
+    margin-left: -48px;
+}
+.element-wrapper .element-controls .aj-imp-settings-btn{
+    position: absolute;
+    top: -13px;
+    right: 10px;
+    padding: 5px 10px 10px 5px;
+    display:none;
+}*/
+
+.droppable-column{
+    min-height: 200px;
+}
+
+#elements-box-region{
+    position:absolute;
+    top:100px;
+}
+
+#settings-region{
+    position: absolute !important;
+    z-index : 1000;
+}
+
+/*!
+* bootstrap-select v1.4.3
+* http://silviomoreto.github.io/bootstrap-select/
+*
+* Copyright 2013 bootstrap-select
+* Licensed under the MIT license
+*/
+
+.bootstrap-select.btn-group,
+.bootstrap-select.btn-group[class*="span"] {
+    float: none;
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-left: 0;
+}
+.form-search .bootstrap-select.btn-group,
+.form-inline .bootstrap-select.btn-group,
+.form-horizontal .bootstrap-select.btn-group {
+    margin-bottom: 0;
+}
+
+.bootstrap-select.form-control {
+    margin-bottom: 0;
+    padding: 0;
+    border: none;
+}
+
+.bootstrap-select.btn-group.pull-right,
+.bootstrap-select.btn-group[class*="span"].pull-right,
+.row-fluid .bootstrap-select.btn-group[class*="span"].pull-right {
+    float: right;
+}
+
+.input-append .bootstrap-select.btn-group {
+    margin-left: -1px;
+}
+
+.input-prepend .bootstrap-select.btn-group {
+    margin-right: -1px;
+}
+
+.bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]) {
+    width: 220px;
+}
+
+.bootstrap-select {
+    /*width: 220px\9; IE8 and below*/
+    width: 220px\0; /*IE9 and below*/
+}
+
+.bootstrap-select.form-control:not([class*="span"]) {
+    width: 100%;
+}
+
+.bootstrap-select > .btn {
+    width: 100%;
+}
+
+.error .bootstrap-select .btn {
+    border: 1px solid #b94a48;
+}
+
+.bootstrap-select .btn:focus {
+    outline: thin dotted #333333 !important;
+    outline: 5px auto -webkit-focus-ring-color !important;
+    outline-offset: -2px;
+}
+
+.bootstrap-select.btn-group .btn .filter-option {
+    overflow: hidden;
+    position: absolute;
+    left: 12px;
+    right: 25px;
+    text-align: left;
+}
+
+.bootstrap-select.btn-group .btn .caret {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    margin-top: -2px;
+    vertical-align: middle;
+}
+
+.bootstrap-select.btn-group > .disabled,
+.bootstrap-select.btn-group .dropdown-menu li.disabled > a {
+    cursor: not-allowed;
+}
+
+.bootstrap-select.btn-group > .disabled:focus {
+    outline: none !important;
+}
+
+.bootstrap-select.btn-group[class*="span"] .btn {
+    width: 100%;
+}
+
+.bootstrap-select.btn-group .dropdown-menu {
+    min-width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.bootstrap-select.btn-group .dropdown-menu.inner {
+    position: static;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
+}
+
+.bootstrap-select.btn-group .dropdown-menu dt {
+    display: block;
+    padding: 3px 20px;
+    cursor: default;
+}
+
+.bootstrap-select.btn-group .div-contain {
+    overflow: hidden;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li {
+    position: relative;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li > a.opt {
+    position: relative;
+    padding-left: 35px;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li > a {
+    cursor: pointer;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li > dt small {
+    font-weight: normal;
+}
+
+.bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a i.check-mark {
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+    margin-top: 2.5px;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li a i.check-mark {
+    display: none;
+}
+
+.bootstrap-select.btn-group.show-tick .dropdown-menu li a span.text {
+    margin-right: 34px;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li small {
+    padding-left: 0.5em;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li:not(.disabled) > a:hover small,
+.bootstrap-select.btn-group .dropdown-menu li:not(.disabled) > a:focus small,
+.bootstrap-select.btn-group .dropdown-menu li.active:not(.disabled) > a small {
+    color: #64b1d8;
+    color: rgba(255,255,255,0.4);
+}
+
+.bootstrap-select.btn-group .dropdown-menu li > dt small {
+    font-weight: normal;
+}
+
+.bootstrap-select.show-menu-arrow .dropdown-toggle:before {
+    content: '';
+    display: inline-block;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #CCC;
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    bottom: -4px;
+    left: 9px;
+    display: none;
+}
+
+.bootstrap-select.show-menu-arrow .dropdown-toggle:after {
+    content: '';
+    display: inline-block;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid white;
+    position: absolute;
+    bottom: -4px;
+    left: 10px;
+    display: none;
+}
+
+.bootstrap-select.show-menu-arrow.dropup .dropdown-toggle:before {
+  bottom: auto;
+  top: -3px;
+  border-top: 7px solid #ccc;
+  border-bottom: 0;
+  border-top-color: rgba(0, 0, 0, 0.2);
+}
+
+.bootstrap-select.show-menu-arrow.dropup .dropdown-toggle:after {
+  bottom: auto;
+  top: -3px;
+  border-top: 6px solid #ffffff;
+  border-bottom: 0;
+}
+
+.bootstrap-select.show-menu-arrow.pull-right .dropdown-toggle:before {
+    right: 12px;
+    left: auto;
+}
+.bootstrap-select.show-menu-arrow.pull-right .dropdown-toggle:after {
+    right: 13px;
+    left: auto;
+}
+
+.bootstrap-select.show-menu-arrow.open > .dropdown-toggle:before,
+.bootstrap-select.show-menu-arrow.open > .dropdown-toggle:after {
+    display: block;
+}
+
+.bootstrap-select.btn-group .no-results {
+    padding: 3px;
+    background: #f5f5f5;
+    margin: 0 5px;
+}
+
+.mobile-device {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block !important;
+    width: 100%;
+    height: 100% !important;
+    opacity: 0;
+}
+
+.bootstrap-select.fit-width {
+    width: auto !important;
+}
+
+.bootstrap-select.btn-group.fit-width .btn .filter-option {
+    position: static;
+}
+
+.bootstrap-select.btn-group.fit-width .btn .caret {
+    position: static;
+    top: auto;
+    margin-top: -1px;
+}
+
+.control-group.error .bootstrap-select .dropdown-toggle{
+    border-color: #b94a48;
+}
+
+.bootstrap-select-searchbox {
+    padding: 4px 8px;
+}
+
+.bootstrap-select-searchbox input {
+    margin-bottom: 0;
+}
+
+/********* color change options.css *****************/
+.options-div {
+    background: #333;
+    width: 200px;
+    padding: 0.5em;
+    color: #fff;
+    z-index: 9999;
+    border-radius: 0 0 2px 0;
+    height: auto !important;
+}
+.options-div .handle {
+    background: #333;
+    padding: 0.4em 0.5em 0.5em;
+    color: #fff;
+    font-size: 1.5em;
+    border-radius: 0 2px 2px 0;
+}
+.options-div.open .handle {
+    right: -42px !important;
+}
+.options-div .handle:hover {
+    color: #FF7E00
+}
+.options-div h5 {
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+.options-div .option-colors {
+    list-style: none;
+    padding: 0;
+}
+.options-div .option-colors li a {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #ccc;
+    padding: 0.5em;
+    border-radius: 2px;
+}
+.options-div .option-colors li a:hover, .options-div .option-colors li a.active {
+    background: #222;
+    color: #fff;
+}
+.options-div .option-colors li a h6 {
+    font-weight: 300;
+    font-size: 0.8em;
+}
+.options-div .option-colors li a .color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #fff;
+    margin: 0 0.2em 0.3em 0;
+}
+@media(max-width:767px){
+    .options-div {
+        position: absolute !important;
+    }
+}
+
+.ui-timepicker-wrapper {
+overflow-y: auto;
+height: 150px;
+width: 6.5em;
+background: #fff;
+border: 1px solid #ddd;
+-webkit-box-shadow:0 5px 10px rgba(0,0,0,0.2);
+-moz-box-shadow:0 5px 10px rgba(0,0,0,0.2);
+box-shadow:0 5px 10px rgba(0,0,0,0.2);
+outline: none;
+z-index: 10001;
+margin: 0;
+}
+.ui-timepicker-wrapper.ui-timepicker-with-duration {
+width: 13em;
+}
+.ui-timepicker-wrapper.ui-timepicker-with-duration.ui-timepicker-step-30,
+.ui-timepicker-wrapper.ui-timepicker-with-duration.ui-timepicker-step-60 {
+width: 11em;
+}
+.ui-timepicker-list {
+margin: 0;
+padding: 0;
+list-style: none;
+}
+.ui-timepicker-duration {
+margin-left: 5px; color: #888;
+}
+.ui-timepicker-list:hover .ui-timepicker-duration {
+color: #888;
+}
+.ui-timepicker-list li {
+padding: 3px 0 3px 5px;
+cursor: pointer;
+white-space: nowrap;
+color: #000;
+list-style: none;
+margin: 0;
+}
+.ui-timepicker-list:hover .ui-timepicker-selected {
+background: #fff; color: #000;
+}
+li.ui-timepicker-selected,
+.ui-timepicker-list li:hover,
+.ui-timepicker-list .ui-timepicker-selected:hover {
+background: #1980EC; color: #fff;
+}
+li.ui-timepicker-selected .ui-timepicker-duration,
+.ui-timepicker-list li:hover .ui-timepicker-duration {
+color: #ccc;
+}
+.ui-timepicker-list li.ui-timepicker-disabled,
+.ui-timepicker-list li.ui-timepicker-disabled:hover,
+.ui-timepicker-list li.ui-timepicker-selected.ui-timepicker-disabled {
+color: #888;
+cursor: default;
+}
+.ui-timepicker-list li.ui-timepicker-disabled:hover,
+.ui-timepicker-list li.ui-timepicker-selected.ui-timepicker-disabled {
+background: #f2f2f2;
+}
+
+/**** Header & Footer Revision Messages ****/
+.edit-info {
+    margin: 0.5em;
+    padding: 1em;
+    border: 1px dotted #ccc;
+    font-size: 1.1em;
+    color: #aaa;
+    text-align: center;
+}

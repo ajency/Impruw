@@ -25,6 +25,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
       SingleElement.prototype.serializeData = function() {
         var data;
         data = SingleElement.__super__.serializeData.call(this);
+        data.helpText = _.polyglot.t(data.helpText);
         data.elementName = function() {
           if (this.title) {
             return _.polyglot.t(this.title);

@@ -14,17 +14,17 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                 super opt
 
             onRender: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
                 @$el.find('select').selectpicker()
                 @setFields()
 
             # set fields for the form
             setFields: ->
                 if @eleModel.get('draggable') is true
-                    @$el.find('input[name="draggable"]').checkbox 'check'
+                    @$el.find('input[name="draggable"]').radiocheck 'check'
 
                 if @eleModel.get('target') is '_BLANK'
-                    @$el.find('input[name="target"]').checkbox 'check'
+                    @$el.find('input[name="target"]').radiocheck 'check'
 
                 _.each ['link', 'text'], (field, i)=>
                     @$el.find("input[name='#{field}']").val @eleModel.get field
@@ -33,6 +33,7 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                         @$el.find("input[name='#{field}']").val textval[WPML_DEFAULT_LANG]
 
                 @$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'style'
+                @$el.find('select[name="align"]').selectpicker 'val', @eleModel.get 'align'
 
             # events
             events:
@@ -43,6 +44,8 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                     @trigger "element:draggable:changed", $(evt.target).is(':checked')
                 'change select[name="style"]': (evt)->
                     @trigger "element:style:changed", $(evt.target).val()
+                'change select[name="align"]': (evt)->
+                    @trigger "element:alignment:changed", $(evt.target).val()
                 'blur input.linktext': (evt)->
                     name = $(evt.target).attr 'name'
                     if name is 'link' and $(evt.target).val().substring(0, 8) isnt "https://" and $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 2) isnt "//"
@@ -50,6 +53,7 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                     @trigger "element:#{name}:changed", $(evt.target).val()
                 'change input[name="target"]': (evt)->
                     @trigger "element:target:changed", if $(evt.target).is(':checked') then '_BLANK' else '_self'
+
 
             onBeforeClose: ->
                 #trigger blur events so that the model gets updated

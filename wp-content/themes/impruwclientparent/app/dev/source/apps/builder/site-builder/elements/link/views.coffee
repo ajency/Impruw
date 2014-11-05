@@ -17,12 +17,14 @@ define ['app'], (App)->
 
                 data.textContent = ->
                     textContent = data.text[WPML_DEFAULT_LANG]
+                    textContent = _.stripslashes textContent
                     return textContent
                 data
 
             onRender: ()->
                 className = _.slugify @model.get 'style'
                 @$el.addClass className
+                @$el.addClass "text-#{@model.get('align')}"
 
             # avoid and anchor tag click events
             events:

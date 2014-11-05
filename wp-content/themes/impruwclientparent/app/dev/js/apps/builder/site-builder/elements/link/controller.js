@@ -15,6 +15,7 @@ define(['app', 'apps/builder/site-builder/elements/link/views', 'apps/builder/si
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Link',
+          align: 'left',
           link: '#',
           text: {
             'en': 'Add link',
@@ -26,7 +27,7 @@ define(['app', 'apps/builder/site-builder/elements/link/views', 'apps/builder/si
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:style change:link change:text change:target", this.renderElement);
+        this.listenTo(this.layout.model, "change:style change:link change:text change:target change:align", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 

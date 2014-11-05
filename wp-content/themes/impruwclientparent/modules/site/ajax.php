@@ -108,6 +108,7 @@ function assign_theme_to_site_ajax() {
     $clone_pages = !isset( $_POST[ 'clone_pages' ] ) ? TRUE : FALSE;
 
     assign_theme_to_site( $new_theme_id, $clone_pages );
+    update_option('theme-style-filename','');
 
     //Restore default language back to original
     $sitepress->switch_lang($site_current_language);
@@ -217,7 +218,14 @@ function ajax_site_logout() {
 
     wp_logout();
 
-    wp_send_json( array( 'code' => 'OK', 'redirect_url' => network_home_url() ) );
+    if (wpml_get_default_language() == 'nb') {
+        $url = network_home_url().'nb';
+    }
+    else{
+        $url = network_home_url();
+    }
+
+    wp_send_json( array( 'code' => 'OK', 'redirect_url' => $url  ) );
 }
 
 add_action( 'wp_ajax_site-logout', 'ajax_site_logout' );

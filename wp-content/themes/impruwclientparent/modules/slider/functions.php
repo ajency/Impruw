@@ -200,7 +200,7 @@ function slider_defaults() {
         'delay'                        => '9000',
         'shuffle'                      => 'off',
         'lazy_load'                    => 'off',
-        'use_wpml'                     => 'off',
+        'use_wpml'                     => 'on',
         'stop_slider'                  => 'off',
         'stop_after_loops'             => 0,
         'stop_at_slide'                => 2,
@@ -365,21 +365,97 @@ function slide_defaults() {
     );
 }
 
+
 /**
  * Update the slides based on the slide ID
  *
  */
-function update_slide( $data, $slide_id ) {
+function update_slide( $data, $slide_id, $language='all', $parent_slide=0) {
 
     global $wpdb;
     //$slide_id= 21;
     $arrData = array();
 
+    
+    //Get previous caption
+    $old_slider_caption = get_slide_captionhtml($slide_id);
+
+    if ($old_slider_caption==="") {
+        $old_caption_title = "";
+        $old_caption_desc = "";
+    }
+    else{
+        $old_caption_details = get_slide_caption_details($old_slider_caption);
+        $old_caption_title = $old_caption_details['caption_title'];
+        $old_caption_desc = $old_caption_details['caption_description'];   
+    }
+
+    //New caption details
+    if(isset($data['layers'])){
+
+        $new_caption_details = get_slide_caption_details($data['layers'][0]['text']);
+        $new_caption_title = $new_caption_details['caption_title'];
+        $new_caption_title_class = $new_caption_details['caption_title_class'];
+        $new_caption_desc = $new_caption_details['caption_description'];
+
+        if ($new_caption_details['caption_title_link']!="") {
+            $new_caption_title_link =$new_caption_details['caption_title_link'];
+        }
+        if ($new_caption_details['caption_title_link_target']!="") {
+            $new_caption_title_link_target = $new_caption_details['caption_title_link_target'];
+        }
+        
+        $default_language = wpml_get_default_language();
+
+        //Modify caption only for default language, for other languages keep the previous caption
+        if (($language==='all')||($language===$default_language)) {
+            // $new_caption =  "<h3 class='".$new_caption_title_class."' data-title='".$new_caption_title."'>".$new_caption_title."</h3><div class='text' data-capdesc='".$new_caption_desc."'>".$new_caption_desc."</div>";
+
+            $new_caption = "<h3 class='".$new_caption_title_class."' id='revslide-caption-title'>";
+            if(isset($new_caption_title_link)){
+                $new_caption .=  "<a href='".$new_caption_title_link."' target='".$new_caption_title_link_target."'>";
+            }
+                
+                
+            $new_caption .=  $new_caption_title;
+
+            if(isset($new_caption_title_link)){
+                $new_caption .=  "</a>" ;
+            }
+            $new_caption .=  "</h3><div class='text' id='revslide-caption-desc'>".$new_caption_desc."</div>";
+
+        }
+        else{
+            // $new_caption =  "<h3 class='".$new_caption_title_class."' data-title='".$old_caption_title."'>".$old_caption_title."</h3><div class='text' data-capdesc='".$old_caption_desc."'>".$old_caption_desc."</div>";
+            $new_caption = "<h3 class='".$new_caption_title_class."' id='revslide-caption-title'>";
+            if(isset($new_caption_title_link)){
+                $new_caption .=  "<a href='".$new_caption_title_link."' target='".$new_caption_title_link_target."'>";
+            }
+                
+                
+            $new_caption .=  $old_caption_title;
+
+            if(isset($new_caption_title_link)){
+                $new_caption .=  "</a>" ;
+            }
+            $new_caption .=  "</h3><div class='text' id='revslide-caption-desc'>".$old_caption_desc."</div>";
+        }
+
+        $data['layers'][0]['text'] = $new_caption;
+
+    }
+
     $arrData[ "layers" ] = json_encode( $data['layers'] );
     unset($data['layers']);
 
-    $params  = wp_parse_args( $data, slide_defaults() );
+    $data['lang'] = $language;
 
+    if ($parent_slide!=0) {
+        $data['parentid'] = $parent_slide;
+    }
+
+    $params  = wp_parse_args( $data, slide_defaults() );
+    
     //change params to json
     $params2             = json_encode( $params );
     $arrData[ "params" ] = $params2;
@@ -408,4 +484,254 @@ function delete_slide_ajax( $data ) {
     $slide = new RevSlide();
 
     $slide->deleteSlideFromData( $data );
+}
+
+/**
+ * Created translated slides for a given slider
+ */
+function create_translated_slide($slider_id,$parent_slide_id,$language,$operation){
+
+    $data = array(
+                'sliderid' => $slider_id, 
+                'slideid' => $parent_slide_id, 
+                'lang' => $language, 
+                'operation' => $operation
+                );
+    $slide = new RevSlide();
+
+    $slide_response = $slide->doSlideLangOperation($data);
+
+    $slide_id_ret = get_translated_slide_id($slide_response);
+
+    return $slide_id_ret;
+
+}
+
+/**
+ * Function to get newly translated slide id from the response of revslider's doSlideLangOperation($data) function
+ */
+function get_translated_slide_id($translated_resp){
+
+    $lang_html = $translated_resp['html'];
+
+    $d = new DOMDocument();
+    $d->loadHTML($lang_html);
+    $searchNode = $d->getElementsByTagName( "img" ); 
+
+
+    foreach( $searchNode as $searchNode ) 
+    { 
+        $data_slideid = $searchNode->getAttribute('data-slideid');
+
+    }
+
+    return $data_slideid;
+
+}
+
+/**
+ * Get translated child slides for a parent slide by slider id
+ */
+
+function get_language_child_slides($slider_id, $return_parent_slide=TRUE){
+    $slider = new RevSlider();
+
+    $slides = $slider->initByID( $slider_id );
+    $slides     = $slider->getSlides( FALSE );
+    $childslides = array();
+
+    foreach ( $slides as $slide ) {
+
+        $parentSlide = $slide->getParentSlide();
+        $childslides[] = $parentSlide->getArrChildrenLangs($return_parent_slide);
+
+    }
+
+    return $childslides;
+
+
+}
+
+function update_translated_slides($data, $slider_id,$parent_id){
+    //Update slide for other enabled languages as well
+    //For default language caption should be same
+    //For other languages captions should be same as previous or blank
+
+    //Get default language
+    
+    //Get array of translated slide ids
+    $child_slide_id_ret = array();
+   
+    $translated_slides = get_childslides_of_slide($parent_id);
+
+    foreach ($translated_slides as $language_child_slide) {
+        $translated_child_slide_id = $language_child_slide['slideid'];
+        $translated_child_slide_lang = $language_child_slide['lang'];
+        $child_slide_id_ret[] = update_slide( $data, $translated_child_slide_id, $translated_child_slide_lang,$parent_id );
+    }
+
+    return $child_slide_id_ret;
+}
+
+function get_slide_captionhtml($slide_id){
+    $slide_data = slide_details_array($slide_id);
+
+    $caption_html = isset($slide_data['layers'][0]) ? $slide_data['layers'][0]['text'] : "" ;
+    return $caption_html;
+}
+
+
+function get_slide_caption_details($slide_caption_html){
+
+    $caption_details = array();
+    $dom = new DOMDocument();
+    // $slide_caption_html ='<h3 class="title sub-title" data-title="fr title">fr title</h3><div class="text" data-capdesc="dis is descccc" id="text">dis is descccc</div>';
+
+    $html = str_get_html(stripslashes($slide_caption_html));
+
+    $title = $html->find('h3[id=revslide-caption-title]',0)->innertext ;
+    $caption_details['caption_title'] = isset($title) ? $title : '' ;
+
+    $description = $html->find('div[id=revslide-caption-desc]',0)->innertext ;
+    $caption_details['caption_description'] = isset($description) ? $description : '' ;
+
+
+    $dom->loadHTML(stripslashes($slide_caption_html));
+
+
+    $searchNode = $dom->getElementsByTagName( "h3" ); 
+
+
+    foreach( $searchNode as $searchNode ) 
+    { 
+        
+        $title_class = $searchNode->getAttribute('class');
+
+    }
+
+    $caption_details['caption_title_class'] =  isset($title_class) ? $title_class : '' ;
+
+
+    $searchNode = $dom->getElementsByTagName( "a" ); 
+    foreach( $searchNode as $searchNode ) 
+    { 
+        $title_href = $searchNode->getAttribute('href');
+        $title_href_target = $searchNode->getAttribute('target');
+
+    }
+    $caption_details['caption_title_link'] =  isset($title_href) ? $title_href : '' ;
+    $caption_details['caption_title_link_target'] =  isset($title_href_target) ? $title_href_target : '' ;
+
+    $searchNode = $dom->getElementsByTagName( "div" ); 
+
+    return $caption_details;
+}
+
+
+function get_multilingual_slides($sliderID){
+
+    if ( !slider_exists( $sliderID ) )
+        return array();
+
+    $slider = new RevSlider();
+    $slider->initByID( $sliderID );
+
+
+    $slides     = $slider->getSlides( FALSE );
+    $slides_arr = array();
+    foreach ( $slides as $order => $slide ) {
+
+        $all_array = array('id'          => $slide->getID(),
+                        'link'        => '',
+                        'slide_title' => '',
+                        'thumb_url'   => $slide->getThumbUrl(),
+                        'image_id'    => $slide->getImageID(),
+                        'full_url'    => $slide->getImageUrl(),
+                        'file_name'   => $slide->getImageFilename(),
+                        'order'       => $slide->getOrder(),
+                        'slider_id'   => $slide->getSliderId(),
+                        'layers'      => $slide->getLayers()
+                        );
+
+
+        $parentSlide = $slide->getParentSlide();
+        $childslides_arr=$parentSlide->getArrChildrenLangs(FALSE);
+
+        $lang_slide_array = array();
+
+        foreach ($childslides_arr as $childslide) {
+            $slide_lang = $childslide['lang'];
+            $slide_id = $childslide['slideid'];
+            $lang_slide_array[$slide_lang] = slide_details_array( $slide_id );
+        }
+
+        $lang_slide_array['all'] = $all_array;
+        $slides_arr[ ] = $lang_slide_array;
+    }
+    return $slides_arr;
+}
+
+
+//function to get the languages in which a slide is available
+function get_languages_of_slide($slide_id){
+    $slide = new RevSlide();
+
+    $slide->initByID( $slide_id );
+    $available_slide_lang = $slide->getArrChildLangCodes();
+
+    return $available_slide_lang;
+}
+
+//function to get child slides of a slide
+function get_childslides_of_slide($slide_id, $return_parent_slide=FALSE){
+    $slide = new RevSlide();
+
+    $slide->initByID( $slide_id );
+    $child_slides = $slide->getArrChildrenLangs($return_parent_slide);
+
+    return $child_slides;
+}
+
+//check if slide exists in given language
+function slide_exists_in_lang($slide_id, $language){
+    $slide_language_array = get_languages_of_slide($slide_id);
+    if (in_array($language, $slide_language_array)) {
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function update_slide_by_language( $data , $slide_language, $parent_slide_id ){
+
+    global $wpdb;
+    $arrData = array();
+
+    $data['lang'] = $slide_language;
+    $data['parentid'] = $parent_slide_id;
+
+    $slide_id = $data['id'];
+
+    $arrData[ "layers" ] = json_encode( $data['layers'] );
+    unset($data['layers']);
+
+    $params  = wp_parse_args( $data, slide_defaults() );
+    
+    //change params to json
+    $params2             = json_encode( $params );
+    $arrData[ "params" ] = $params2;
+
+
+    $tab = GlobalsRevSlider::$table_slides;
+
+    $slide_id_ret = $wpdb->update( $tab, $arrData, array( "id" => $slide_id ) );
+
+    if ( $slide_id_ret != 0 ) {
+
+        return $slide_id;
+    } else {
+        return 0;
+    }
+
 }

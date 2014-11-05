@@ -952,6 +952,11 @@ form .aj-imp-submit:hover {
   margin: 3em auto;
   padding: 1em;
 }
+@media (max-width: 767px) {
+  .aj-imp-register-form {
+    width: 100%;
+  }
+}
 .aj-imp-register-form .aj-imp-register-header {
   border-bottom: 1px solid #eaeaea;
   text-align: center;
@@ -1059,7 +1064,7 @@ form .aj-imp-submit:hover {
   margin-bottom: 1em;
 }
 .aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .control-label {
-  top: 0.3em;
+  top: 1em;
 }
 .aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group {
   margin-bottom: 0;
@@ -3537,6 +3542,15 @@ form .aj-imp-submit:hover {
 .aj-imp-homepage .home-1 .big-sign:hover {
   background: #25406a;
 }
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-1 {
+    padding: 0.5em;
+  }
+  .aj-imp-homepage .home-1 .big-sign {
+    font-size: 1.2em;
+    white-space: normal;
+  }
+}
 .aj-imp-homepage .home-1 .img-responsive {
   margin: 0 auto;
   padding-bottom: 2em;
@@ -3568,6 +3582,8 @@ form .aj-imp-submit:hover {
 @media (max-width: 767px) {
   .aj-imp-homepage .home-2 h2 {
     text-align: center;
+    font-size: 2em;
+    word-wrap: break-word;
   }
 }
 .aj-imp-homepage .home-2 p {
@@ -3607,7 +3623,7 @@ form .aj-imp-submit:hover {
     margin: 1em 0;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 969px) {
   .aj-imp-homepage .home-2 {
     text-align: center;
   }
@@ -3675,7 +3691,7 @@ form .aj-imp-submit:hover {
   font-size: 0.88em;
   text-align: left;
 }
-@media (max-width: 767px) {
+@media (max-width: 969px) {
   .aj-imp-homepage .home-4 .info-blocks .block p {
     text-align: center;
   }
@@ -3683,7 +3699,7 @@ form .aj-imp-submit:hover {
 .aj-imp-homepage .home-4 .info-blocks .block:last-child {
   margin-right: 0;
 }
-@media (max-width: 767px) {
+@media (max-width: 969px) {
   .aj-imp-homepage .home-4 .info-blocks .block {
     text-align: center;
     width: 100%;
@@ -3720,7 +3736,7 @@ form .aj-imp-submit:hover {
   color: #000;
   font-size: 3em;
 }
-@media (max-width: 767px) {
+@media (max-width: 969px) {
   .aj-imp-homepage .home-6 h4 {
     text-align: center;
   }
@@ -3735,12 +3751,14 @@ form .aj-imp-submit:hover {
 .aj-imp-homepage .home-6 .big-sign:hover {
   background: #25406a;
 }
-@media (max-width: 767px) {
+@media (max-width: 969px) {
   .aj-imp-homepage .home-6 .big-sign {
     margin: 1em auto;
+    font-size: 1.2em;
+    white-space: normal;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 969px) {
   .aj-imp-homepage .home-6 {
     text-align: center;
   }
@@ -3771,6 +3789,7 @@ form .aj-imp-submit:hover {
   color: #fff;
   padding: 0.2em 1em;
   font-weight: 400;
+  font-size: 2.5em;
 }
 .aj-imp-contactpage .contact .c-address {
   display: inline-block;
@@ -3807,9 +3826,16 @@ form .aj-imp-submit:hover {
   float: right;
 }
 @media (max-width: 767px) {
+  .aj-imp-contactpage .main-title {
+    font-size: 2em;
+  }
   .aj-imp-contactpage .contact {
     width: 96%;
     float: none;
+  }
+  .aj-imp-contactpage .contact h2 {
+    font-size: 2em;
+    display: block;
   }
 }
 .aj-imp-contactpage .contact-form-container {
@@ -3824,6 +3850,15 @@ form .aj-imp-submit:hover {
   text-align: center;
   text-transform: uppercase;
   padding: 1em 0;
+}
+@media (max-width: 767px) {
+  .aj-imp-contactpage .contact-form-container {
+    margin: 0.5em;
+    padding: 1em;
+  }
+  .aj-imp-contactpage .contact-form-container h3 {
+    font-size: 1.5em;
+  }
 }
 /**** Team Page Styles ****/
 .aj-imp-teampage {
@@ -3894,6 +3929,35 @@ form .aj-imp-submit:hover {
 .aj-imp-teampage .member:hover p {
   color: #333333;
 }
+
+@media (max-width: 767px) {
+  .aj-imp-teampage .main-title {
+    font-size: 2em;
+  }
+  .aj-imp-teampage .member {
+    margin: 2em 15px;
+    text-align: center;
+  }
+  .aj-imp-teampage .member .member-pic {
+    height: auto;
+    overflow: visible;
+  }
+  .aj-imp-teampage .member .member-pic .img-circle {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin: auto;
+  }
+  .aj-imp-teampage .member:hover .member-pic .img-circle {
+    bottom: auto;
+  }
+  .aj-imp-teampage .member h4 {
+    color: #ee4423;
+  }
+  .aj-imp-teampage .member p {
+    color: #333333;
+  }
+}
 /**** FAQ Page Styles ****/
 .aj-imp-faqpage {
   margin: 0 -15px;
@@ -3912,6 +3976,7 @@ form .aj-imp-submit:hover {
   font-weight: 300;
   color: #333333;
   font-size: 1.3em;
+  padding: 0 0.5em;
 }
 .aj-imp-faqpage .faq-container {
   margin: 0 4em;
@@ -3980,6 +4045,18 @@ form .aj-imp-submit:hover {
 .aj-imp-faqpage .faqs .category-head a {
   font-size: 0.5em;
   color: #c3c3c3;
+}
+
+@media (max-width: 767px) {
+  .aj-imp-faqpage .main-title {
+    font-size: 1.5em;
+  }
+  .aj-imp-faqpage .desc {
+    font-size: 1em;
+  }
+  .aj-imp-faqpage .faq-container {
+    margin: 0 0.5em;
+  }
 }
 /****Block List Styles****/
 .aj-imp-themes .main-title {
@@ -4070,8 +4147,207 @@ form .aj-imp-submit:hover {
 
 @media (max-width: 850px) {
   .aj-imp-block-list ul .block {
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto 2em;
+  }
+}
+
+@media (max-width: 767px) {
+  .aj-imp-themes.aj-imp-register-form {
     width: 100%;
   }
+  .aj-imp-themes .main-title {
+    font-size: 2.5em;
+  }
+  .aj-imp-themes .pg-content {
+    font-size: 1em !important;
+  }
+}
+
+/*---------------*/
+/***** Zoe *****/
+/*---------------*/
+/* Common style */
+.grid figure {
+  position: relative;
+  float: left;
+  overflow: hidden;
+  margin: 10px 2% 40px;
+  max-height: 360px;
+  width: 46%;
+  background: #000;
+  text-align: center;
+  border-radius: 3px 3px 0 0;
+}
+
+@media (max-width: 969px) {
+  .grid figure {
+    width: 96%;
+  }
+}
+
+.grid figure img {
+  position: relative;
+  display: block;
+  width: 100%;
+  opacity: 1;
+}
+
+.grid figure figcaption {
+  padding: 2em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.25em;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.grid figure figcaption::before,
+.grid figure figcaption::after {
+  pointer-events: none;
+}
+
+.grid figure figcaption,
+.grid figure figcaption > a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Anchor will cover the whole item by default */
+/* For some effects it will show as a button */
+.grid figure figcaption > a {
+  z-index: 1000;
+}
+
+.grid figure h2 {
+  word-spacing: -0.15em;
+  font-weight: 300;
+  font-size: 2em;
+  color: #aaa;
+}
+
+.grid figure h2 span {
+  font-weight: 700;
+}
+
+.grid figure h2,
+.grid figure p {
+  margin: 0;
+}
+
+.grid figure p {
+  letter-spacing: 1px;
+  font-size: 68.5%;
+}
+
+figure.effect-zoe .browser-bar {
+  background: #ccc;
+  border-radius: 3px 3px 0 0;
+  height: 10px;
+  text-align: left;
+  font-size: 1.3em;
+  line-height: 0.41;
+  padding: 0 5px;
+}
+
+figure.effect-zoe:hover img {
+  opacity: 0.5;
+}
+
+figure.effect-zoe figcaption {
+  top: auto;
+  bottom: 0;
+  padding: 1em;
+  height: 3.75em;
+  background: #fff;
+  color: #3c4a50;
+  border-bottom: 1px solid #ccc;
+  -webkit-transition: -webkit-transform 0.35s;
+  transition: transform 0.35s;
+  -webkit-transform: translate3d(0,100%,0);
+  transform: translate3d(0,100%,0);
+}
+
+figure.effect-zoe h2 {
+  float: left;
+}
+
+figure.effect-zoe p.icon-links a {
+  float: right;
+  color: #666;
+  font-size: 1.4em;
+}
+
+figure.effect-zoe:hover p.icon-links a:hover,
+figure.effect-zoe:hover p.icon-links a:focus {
+  color: #ff7e00;
+}
+
+figure.effect-zoe p.description {
+  position: absolute;
+  bottom: 8em;
+  padding: 1em;
+  left: 1em;
+  right: 1em;
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+  text-transform: none;
+  font-size: 90%;
+  opacity: 0;
+  -webkit-transition: opacity 0.35s;
+  transition: opacity 0.35s;
+  -webkit-backface-visibility: hidden; /* Fix for Chrome 37.0.2062.120 (Mac) */
+}
+
+figure.effect-zoe h2,
+figure.effect-zoe p.icon-links a {
+  -webkit-transition: -webkit-transform 0.35s;
+  transition: transform 0.35s;
+  -webkit-transform: translate3d(0,200%,0);
+  transform: translate3d(0,200%,0);
+}
+
+figure.effect-zoe p.icon-links a span::before {
+  display: inline-block;
+  padding: 8px 10px;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+figure.effect-zoe:hover p.description {
+  opacity: 1;
+}
+
+figure.effect-zoe:hover figcaption,
+figure.effect-zoe:hover h2,
+figure.effect-zoe:hover p.icon-links a {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
+figure.effect-zoe:hover h2 {
+  -webkit-transition-delay: 0.05s;
+  transition-delay: 0.05s;
+}
+
+figure.effect-zoe:hover p.icon-links a:nth-child(3) {
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+}
+
+figure.effect-zoe:hover p.icon-links a:nth-child(2) {
+  -webkit-transition-delay: 0.15s;
+  transition-delay: 0.15s;
+}
+
+figure.effect-zoe:hover p.icon-links a:first-child {
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
 }
 
 /****Pricing Plans Styles****/
@@ -4117,6 +4393,12 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-pricing .price-plans .panel .panel-heading h3 {
   color: #aaaaaa;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
 .aj-imp-pricing .price-plans .panel .panel-heading span,
 .aj-imp-pricing .price-plans .panel .panel-body span {

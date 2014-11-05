@@ -49,13 +49,13 @@ define(['app', 'text!apps/builder/site-builder/elements/table/settings/templates
 
       SettingsView.prototype.onRender = function() {
         this.setFields();
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         return this.$el.find('select').selectpicker();
       };
 
       SettingsView.prototype.setFields = function() {
         if (this.eleModel.get('draggable')) {
-          this.$el.find('input[name="draggable"]').checkbox('check');
+          this.$el.find('input[name="draggable"]').radiocheck('check');
         }
         this.$el.find('#checkbox-bordered').prop('checked', this.eleModel.get('bordered'));
         this.$el.find('#checkbox-striped').prop('checked', this.eleModel.get('striped'));

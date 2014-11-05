@@ -34,10 +34,16 @@ define ['app'], (App)->
                     translated_text
                 data
 
+        class EmptyTableView extends Marionette.ItemView
+
+            template: '<br/><div class="empty-info">You have no tables to translate</div><br/>'
+
         class Views.OriginalTableView extends Marionette.CompositeView
 
             template : '<div id="original-page-table"></div>'
 
             itemView : OriginalTableItemView
+
+            emptyView : EmptyTableView
 
             itemViewContainer : '#original-page-table'

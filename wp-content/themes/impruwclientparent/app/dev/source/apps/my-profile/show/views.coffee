@@ -18,7 +18,7 @@ define ['app'
 
             # set the flatui checkbox radio and bootstrap select ui
             onShow: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
                 @$el.find('select').selectpicker()
 
 	

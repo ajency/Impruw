@@ -3,7 +3,8 @@ define ['app'
         'apps/builder/site-builder/element/controller'
         'apps/builder/site-builder/autosave/controller'
         'apps/builder/site-builder/publish/publish'
-        'apps/builder/site-builder/elements-loader'], (App)->
+        'apps/builder/site-builder/elements-loader'
+        'apps/builder/site-builder/revision/revision-controller'], (App)->
     App.module 'SiteBuilderApp', (SiteBuilderApp, App, Backbone, Marionette, $, _)->
 
         App.elements = []

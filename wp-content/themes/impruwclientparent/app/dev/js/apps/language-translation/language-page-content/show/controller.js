@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/language-translation/language-page-content/show/view', 'apps/language-translation/language-page-content/original-page-content/controller', 'apps/language-translation/language-page-content/translated-page-content/controller', 'apps/language-translation/language-page-content/original-table-content/controller', 'apps/language-translation/language-page-content/translated-table-content/controller'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'apps/language-translation/language-page-content/show/view', 'apps/language-translation/language-page-content/original-page-content/controller', 'apps/language-translation/language-page-content/translated-page-content/controller', 'apps/language-translation/language-page-content/original-table-content/controller', 'apps/language-translation/language-page-content/translated-table-content/controller', 'apps/language-translation/language-page-content/original-slider-content/controller', 'apps/language-translation/language-page-content/translated-slider-content/controller'], function(App, AppController) {
   return App.module('LanguageApp.LanguagePageContent', function(LanguagePageContent, App, Backbone, Marionette, $, _) {
     LanguagePageContent.Controller = (function(_super) {
       __extends(Controller, _super);
@@ -37,11 +37,21 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
               editLang: _this.editLang,
               pageId: _this.originalId
             });
-            return App.execute("translated:table:content:app", {
+            App.execute("translated:table:content:app", {
               region: _this.languagePageContentLayout.translatedTableContent,
               editLang: _this.editLang,
               pageId: _this.pageId,
               originalId: _this.originalId
+            });
+            App.execute("original:slider:content:app", {
+              region: _this.languagePageContentLayout.originalSliderContent,
+              editLang: _this.editLang,
+              pageId: _this.originalId
+            });
+            return App.execute("translated:slider:content:app", {
+              region: _this.languagePageContentLayout.translatedSliderContent,
+              editLang: _this.editLang,
+              pageId: _this.originalId
             });
           };
         })(this));

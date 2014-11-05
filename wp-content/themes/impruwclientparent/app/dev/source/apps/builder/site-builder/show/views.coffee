@@ -65,6 +65,7 @@ define [ 'app'
             @$el.empty()   
             @$el.fadeIn()
 
+
          handleWindowEvents : ->
             
             $(window).on 'unload.site-builder', @windowUnloadHandler
@@ -184,8 +185,7 @@ define [ 'app'
             @displayPageNameForUpdate()
 
             $('body').on 'click',@_removeAllFocusClass
-
-            
+   
 
          _addToPageSlug : (pageId)=>
             page = App.request "get:fetched:page", pageId
@@ -360,15 +360,26 @@ define [ 'app'
 
       class View.Builder extends Marionette.ItemView
 
-         template : '<header id="site-header-region" class="droppable-column"></header>
+         template : '<header id="site-header-region" class="droppable-column edit-lock"></header>
                      <div id="site-page-content-region" class="droppable-column"></div>
-                     <footer id="site-footer-region" class="droppable-column"></footer>'
+                     <footer id="site-footer-region" class="droppable-column edit-lock"></footer>'
+
+         events : 
+            'click .headit' :->
+               $( 'select#builder-page-sel' ).selectpicker 'val', parseInt @model.get 'front_page'
+
+         onRetryEditPageClicked : =>
+            App.commands.execute 'editable:page:changed', @model.get 'page_id'
 
          onShow : ->
+
+            if not @model.get 'is_home_page'
+               @$el.find('#site-header-region, #site-footer-region').removeClass 'droppable-column'
+
             @$el.find( '.droppable-column' ).sortable
                revert : 'invalid'
                items : '> .element-wrapper'
-               connectWith : '.droppable-column,.column'
+               connectWith : '.droppable-column,.droppable-column .column'
                start : ( e, ui )->
 #                  w = ui.item.width()
 #                  h = if ui.item.height() > 200 then 200 else ui.item.height()
@@ -391,6 +402,13 @@ define [ 'app'
                receive : @elementDropped
                placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
 
+            if @model.get 'is_home_page'
+               @$el.find('#site-header-region, #site-footer-region').removeClass 'edit-lock'
+            
+
+            @$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div></div></div>')
+            @$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div></div></div>')
+
 
          _getHelper : (evt,original)=>
 
@@ -408,3 +426,30 @@ define [ 'app'
                metaId = ui.item.attr 'data-meta-id'
                metaId = if metaId isnt undefined then parseInt( metaId ) else 0
                @trigger "add:new:element", $( evt.target ), type, metaId
+
+         onPageRenderFailed : ->
+            @showRenderError()
+
+         showRenderError : =>
+            @$el.addClass  'dsdsds'
+            @$el.prepend '<h3>Failed to render view</h3>
+                        <button class="retry-edit-page">Retry</button>
+                        <button class="let-us-know">Let us know about this</button>'
+            @$el.find('.retry-edit-page').on 'click', @onRetryEditPageClicked
+            @$el.find('.let-us-know').on 'click', @onLetUsKnowClicked
+           
+         errorNotified : =>
+            @$el.find('.let-us-know').after 'Error reported successfully'
+
+         onLetUsKnowClicked : =>
+            error = 
+               type : 'page_load_failed'
+               user_id : window.USER.ID
+               details : 
+                  page_id : @model.get 'page_id'
+                  blog_id : window.BLOGID
+                  message : 'Page load failed in builder'
+
+            deferred = App.request 'error:encountered', error
+            deferred.always =>
+               @errorNotified()

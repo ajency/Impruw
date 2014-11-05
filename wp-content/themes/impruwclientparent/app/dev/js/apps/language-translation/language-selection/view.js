@@ -37,7 +37,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
       };
 
       LanguageItemView.prototype.onShow = function() {
-        return this.$el.find('input[type="checkbox"]').checkbox();
+        return this.$el.find('input[type="checkbox"]').radiocheck();
       };
 
       LanguageItemView.prototype.saveLanguage = function(evt) {
@@ -78,7 +78,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         this.loadLanguageDropdown();
         this.viewEnabledLanguages();
         this.viewHiddenLanguageList();
-        return this.$el.find('input[type="checkbox"]').checkbox();
+        return this.$el.find('input[type="checkbox"]').radiocheck();
       };
 
       LanguageSelectionView.prototype.serializeData = function() {
@@ -117,7 +117,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
       LanguageSelectionView.prototype.hideLanguage = function(e) {
         var arr, hiddenlanguages;
         e.preventDefault();
-        arr = this.$el.find("div#hide-langs input[type='checkbox']");
+        arr = this.$el.find("ul#hide-langs input[type='checkbox']");
         hiddenlanguages = new Array();
         jQuery.each(arr, function() {
           if (this.checked) {
@@ -227,7 +227,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         this.$el.find(".selected-languages").html(htmlString);
         this.$el.find('select').selectpicker('refresh');
         this.$el.find("#hide-langs").html(htmlforHiddenLangView);
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         this.$el.find('.alert').remove();
         this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("Available languages updated") + '</div>');
         return this.$el.find('.alert').fadeOut(5000);

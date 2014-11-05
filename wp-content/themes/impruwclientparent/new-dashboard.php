@@ -10,36 +10,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <!-- Bootstrap -->
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/pace.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet"
-          media="screen">
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" rel="stylesheet" media="screen">
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/main.min.css" rel="stylesheet" media="screen">
-
-    <!-- Wordpress image editor -->
-    <link href="<?php echo site_url(); ?>//wp-includes/css/dashicons.min.css" rel="stylesheet" media="screen">
-    <link href="<?php echo site_url(); ?>/wp-includes/js/imgareaselect/imgareaselect.css" rel="stylesheet"
-          media="screen">
-    <link href="<?php echo site_url(); ?>/wp-admin/css/media-rtl.css" rel="stylesheet" media="screen">
-    <link href="<?php echo site_url(); ?>/wp-admin/css/media.css" rel="stylesheet" media="screen">
-
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.minicolors.css" rel="stylesheet"
-          media="screen">
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.timepicker.css" rel="stylesheet"
-          media="screen">
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/dashboard/css/dashboard.css" rel="stylesheet"
-          media="screen">
-    <link rel="shortcut icon" href="wp-content/themes/impruwclientparent/images/favicon.png" type="image/x-icon" />
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+    <link rel="shortcut icon" href="<?php echo get_parent_template_directory_uri(); ?>/images/favicon.png" type="image/x-icon" />
     <!--[if lt IE 9]>
-    <script src="../../assets/js/html5shiv.js"></script>
-    <script src="../../assets/js/respond.min.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
+    <?php wp_head(); ?>
 </head>
 <body>
-<div class="aj-imp-container container">
+<div class="aj-imp-container container-fluid">
     <div class="row aj-upper-content">
         <div class="aj-imp-left col-md-3 col-sm-4" id="aj-imp-left">
         </div>
@@ -47,7 +27,7 @@
         <div id="aj-imp-right" class="aj-imp-right col-md-9 col-sm-8"></div>
         <!-- /aj-imp-right -->
     </div>
-    <div class="row" id="footer-section">
+    <div class="row hidden" id="footer-section">
         <div class="aj-imp-foot-left col-md-3 col-sm-4">
             &nbsp;
         </div>
@@ -70,13 +50,15 @@
 
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
+    var DOMAIN_NAME = '<?php echo get_site_domain_name(); ?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var USERDATA = <?php $impruwUserModel = new ImpruwUser(get_current_user_id());
-echo json_encode($impruwUserModel->get_user_basic_info());
-?>;
+                        echo json_encode($impruwUserModel->get_user_basic_info());
+                    ?>;
     var SITEID = {'id':<?php echo get_current_blog_id(); ?>}
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
     var _WPNONCE = '<?php echo wp_create_nonce('media-form'); ?>';
+    var _RVNONCE = '<?php echo wp_create_nonce("revslider_actions"); ?>';
     var APPSTATE = <?php echo impruw_app_model() ?>;
     var STATISTICS = '<?php echo get_option('statistics_enabled', 'false'); ?>';
 
@@ -89,16 +71,21 @@ echo json_encode($impruwUserModel->get_user_basic_info());
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
 </script>
-<script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
+<script src="<?php echo get_parent_template_directory_uri() ?>/bower_components/pace/pace.js"></script>
+<script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
 <?php if ( ENV === 'production' ): ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo
-    JSVERSION ?>"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo JSVERSION ?>"></script>
 <?php else: ?>
-    <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor/ckeditor.js"></script>
     <script data-main="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/dashboard-main"
-            src="<?php echo get_parent_template_directory_uri(); ?>/dashboard/require.js"></script>
+            src="<?php echo get_parent_template_directory_uri(); ?>/bower_components/requirejs/require.js"></script>
 <?php endif; ?>
+<!-- JS Error Tracking -->
+<script>
+    (function(_,e,rr,s){_errs=[s];var c=_.onerror;_.onerror=function(){var a=arguments;_errs.push(a);
+    c&&c.apply(this,a)};var b=function(){var c=e.createElement(rr),b=e.getElementsByTagName(rr)[0];
+    c.src="//beacon.errorception.com/"+s+".js";c.async=!0;b.parentNode.insertBefore(c,b)};
+    _.addEventListener?_.addEventListener("load",b,!1):_.attachEvent("onload",b)})
+    (window,document,"script","5440a65769c1935122000238");
+</script>
 </body>
 </html>

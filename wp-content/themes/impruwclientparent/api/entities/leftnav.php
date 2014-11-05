@@ -76,6 +76,11 @@ function get_menu_items() {
             )
         ),
         array(
+            'url' => '#/emails',
+            'title' => 'Emails',
+            'icon' => 'envelope',
+        ),
+        array(
             'url' => '#/seo',
             'title' => 'SEO',
             'icon' => 'magnifier',
@@ -698,29 +703,37 @@ function get_style_template( $element ) {
     return $mtemplate;
 }
 
-function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false ) {
+function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false ,$revision_id = FALSE) {
 
     if ( $page_id == 0 )
         return FALSE;
 
     $json = array();
-    $key = '';
+    $key = '-published';
     if ( $autosave === TRUE )
         $key = '-autosave';
 
     if (!$onlyPage){
-        $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
+        if ( $autosave === TRUE )
+            $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
+        else
+            $json [ 'header' ] = get_header_footer_layout_published( THEME_HEADER_KEY ,$revision_id);
 
         if ( $key === '-autosave' && empty( $json [ 'header' ] ) )
-            $json [ 'header' ] = get_option( 'theme-header', array() );
+            $json [ 'header' ] = get_header_footer_layout_published( THEME_HEADER_KEY ,$revision_id);
+            //get_option( THEME_HEADER_KEY, array() );
 
-        $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
+        if ( $autosave === TRUE )
+            $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
+        else
+            $json [ 'footer' ] = get_header_footer_layout_published( THEME_FOOTER_KEY ,$revision_id);
 
         if ( $key === '-autosave' && empty( $json [ 'footer' ] ) )
-            $json [ 'footer' ] = get_option( 'theme-footer', array() );
+            $json [ 'footer' ] = get_header_footer_layout_published( THEME_FOOTER_KEY ,$revision_id);
+            //get_option( THEME_FOOTER_KEY, array() );
     }
 
-    $json[ 'page' ] = get_page_content_json( $page_id, $autosave );
+    $json[ 'page' ] = get_page_content_json( $page_id, $autosave ,$revision_id);
 
     $d = array();
 
@@ -728,6 +741,10 @@ function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false 
         $d [ $section ] = array();
         if ( !is_array( $elements ) )
             continue;
+        // if (!$autosave && in_array($section,array('header','footer'))){
+        //     $d [ $section ] = $json [ $section ];
+        //     continue;
+        // }
         foreach ( $elements as $element ) {
             if ( $element [ 'element' ] === "Row" ) {
                 $element [ 'columncount' ] = count( $element [ 'elements' ] );
@@ -757,13 +774,18 @@ function get_page_main_json( $page_id = 0 ) {
 
 
 function read_page_json() {
+    // global $sitepress;
 
     $page_id = $_REQUEST [ 'page_id' ];
     $only_page = $_REQUEST [ 'only_page' ] ;
     $page_id= icl_object_id( $page_id, 'page', TRUE, 'en' );
 
     $data = get_page_json_for_site( $page_id, TRUE, $only_page === 'yes' );
-    
+
+    $data['is_home_page'] = impruw_is_front_page($page_id);
+    $data['front_page'] = icl_object_id( get_option('page_on_front'), 'page', true , wpml_get_default_language());
+   
+
     $lock = true;
     if( wp_check_post_lock( $page_id ) === false ){
         $new_lock = wp_set_post_lock( $page_id );
@@ -808,3 +830,15 @@ function get_site_socials() {
 }
 
 add_action( 'wp_ajax_get-site-socials', 'get_site_socials' );
+
+function impruw_error_encountered(){
+
+    $error = $_REQUEST['error'];
+    ob_start();
+    print_r($error);
+    $html = ob_get_clean();
+    wp_mail('impruw@ajency.in', 'Impruw Error On Live', $html);
+    wp_die();
+}
+add_action( 'wp_ajax_impruw_error_encountered', 'impruw_error_encountered' );
+add_action( 'wp_ajax_nopriv_impruw_error_encountered', 'impruw_error_encountered' );

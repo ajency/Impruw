@@ -39,6 +39,7 @@ define ['app'], (App)->
 
                 @editor.on 'changedTitleStyle',(evt)=>
                     @model.set 'style', evt.data.style
+                    @model.save()
 
                 @editor.on 'titleStylesInitDone',=>
                     @editor.fire 'initStylesList',

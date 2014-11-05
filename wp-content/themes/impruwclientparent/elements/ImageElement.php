@@ -132,17 +132,17 @@ class ImageElement extends Element {
         }
 
         if($path !== false) {
-            $markup .= "<div class='image {$this->class_name}' style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive  {$this->margins}' width='100%' style=' position: relative;' onload='imageLoaded(this)'/></div>";
+            $markup .= "<div class='image {$this->class_name}' style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive  {$this->margins}' width='100%' style=' position: relative;' /></div>";
             
         }
         else{
-            $markup .= "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";
+            $markup .= '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span>No image found</div>';
         }
 
         if ($this->link_check )
             $markup .= "</a>";
 
-        return $markup;
+        return $markup; 
             
     }
     
