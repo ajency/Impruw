@@ -19,7 +19,7 @@ define ['app'], (App)->
                                 <div class="form-group"> 
                                     <label for="" class="col-sm-3 control-label">Description</label> 
                                     <div class="col-sm-9 col-sm-offset-3"> 
-                                        <div tabindex="1" class="original text"> {{captionDesc}} </div> 
+                                        <div tabindex="1" class="original text"> {{{captionDesc}}} </div> 
                                     </div> 
                                 </div> 
                             </div>

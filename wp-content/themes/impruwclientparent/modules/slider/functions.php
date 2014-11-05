@@ -589,7 +589,7 @@ function get_slide_caption_details($slide_caption_html){
 
     $html = str_get_html(stripslashes($slide_caption_html));
 
-    $title = $html->find('h3[id=revslide-caption-title]',0)->innertext ;
+    $title = $html->find('h3[id=revslide-caption-title]',0)->plaintext ;
     $caption_details['caption_title'] = isset($title) ? $title : '' ;
 
     $description = $html->find('div[id=revslide-caption-desc]',0)->innertext ;
