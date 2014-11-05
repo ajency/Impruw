@@ -63,7 +63,7 @@ define ['app'], (App)->
                             captionTitle = "No caption title added"
                     else
                         captionTitle = ""
-
+                    captionTitle = _.stripslashes captionTitle
                     captionTitle
                     
                     
@@ -77,6 +77,7 @@ define ['app'], (App)->
                             captionDesc = "No caption description added"
                     else
                         captionDesc = ""
+                    captionDesc = _.stripslashes captionDesc
                     captionDesc
 
                 data.slideParentId = ->
