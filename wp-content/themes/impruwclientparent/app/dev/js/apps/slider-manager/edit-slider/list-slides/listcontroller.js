@@ -226,7 +226,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           this.$el.find('.caption-exist').show();
           captionHtml = $.parseHTML(_.stripslashes(caption.text));
           if ($(captionHtml).first().find('a').length) {
-            this.$el.find('.caption-title').val($(captionHtml).first().find('a').first().html());
+            this.$el.find('.caption-title').val(_.unescape($(captionHtml).first().find('a').first().html()));
             this.$el.find('.caption-link').val($(captionHtml).first().find('a').first().attr('href'));
             this.$el.find('input.link-check').radiocheck('check');
             if ($(captionHtml).first().find('a').first().attr('target') === '_blank') {
@@ -234,10 +234,10 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             }
           } else {
             this.$el.find('.form-group.link-hide').addClass('hide');
-            this.$el.find('.caption-title').val($(captionHtml).first().html());
+            this.$el.find('.caption-title').val(_.unescape($(captionHtml).first().html()));
             this.$el.find('.caption-link').val('');
           }
-          this.$el.find('.caption-description').val($(captionHtml).last().html());
+          this.$el.find('.caption-description').val(_.unescape($(captionHtml).last().html()));
           this.$el.find('.caption-style').selectpicker('val', $(captionHtml).first().attr('class'));
           this.$el.find('.caption-background').selectpicker('val', caption.style);
           return this.$el.find("input[name='position'][value='" + caption.left + "," + caption.top + "']").prop('checked', true);
