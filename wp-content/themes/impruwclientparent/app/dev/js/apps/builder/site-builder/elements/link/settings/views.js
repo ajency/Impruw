@@ -29,6 +29,7 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
       };
 
       SettingsView.prototype.setFields = function() {
+        var alignClass, btnName;
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').radiocheck('check');
         }
@@ -46,7 +47,9 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
           };
         })(this));
         this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
-        this.$el.find('select[name="align"]').selectpicker('val', this.eleModel.get('align'));
+        alignClass = this.eleModel.get('align');
+        btnName = '.js-btn-' + alignClass;
+        this.$el.find(btnName).addClass('aj-imp-orange-btn');
         return this.$el.find('select[name="link_page"]').selectpicker('val', this.eleModel.get('link_page_id'));
       };
 
@@ -67,7 +70,25 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
           }
           return this.trigger("element:linkpage:changed", $(evt.target).val());
         },
-        'change select[name="align"]': function(evt) {
+        'click .js-btn-left': function(evt) {
+          evt.preventDefault();
+          this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn");
+          return this.trigger("element:alignment:changed", $(evt.target).val());
+        },
+        'click .js-btn-center': function(evt) {
+          evt.preventDefault();
+          this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn");
+          return this.trigger("element:alignment:changed", $(evt.target).val());
+        },
+        'click .js-btn-right': function(evt) {
+          evt.preventDefault();
+          this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn");
           return this.trigger("element:alignment:changed", $(evt.target).val());
         },
         'blur input.linktext': function(evt) {

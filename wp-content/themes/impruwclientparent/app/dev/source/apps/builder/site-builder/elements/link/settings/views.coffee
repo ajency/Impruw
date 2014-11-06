@@ -33,7 +33,11 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                         @$el.find("input[name='#{field}']").val textval[WPML_DEFAULT_LANG]
 
                 @$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'style'
-                @$el.find('select[name="align"]').selectpicker 'val', @eleModel.get 'align'
+
+                alignClass = @eleModel.get 'align'
+                btnName = '.js-btn-'+alignClass
+                @$el.find(btnName).addClass 'aj-imp-orange-btn'
+
                 @$el.find('select[name="link_page"]').selectpicker 'val', @eleModel.get 'link_page_id'
 
             # events
@@ -49,8 +53,34 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                     if $(evt.target).val()!="-1"
                         @$el.find('input[name="link"]').val ''
                     @trigger "element:linkpage:changed", $(evt.target).val()
-                'change select[name="align"]': (evt)->
+
+                'click .js-btn-left': (evt)->
+                    evt.preventDefault()
+                    # add left button the orange class if not present
+                    @$el.find('.js-btn-left').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-center').removeClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-right').removeClass("aj-imp-orange-btn")
+
                     @trigger "element:alignment:changed", $(evt.target).val()
+
+                'click .js-btn-center': (evt)->
+                    evt.preventDefault()
+
+                    @$el.find('.js-btn-center').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-left').removeClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-right').removeClass("aj-imp-orange-btn")
+
+                    @trigger "element:alignment:changed", $(evt.target).val()
+
+                'click .js-btn-right': (evt)->
+                    evt.preventDefault()
+
+                    @$el.find('.js-btn-right').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-left').removeClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-center').removeClass("aj-imp-orange-btn")
+
+                    @trigger "element:alignment:changed", $(evt.target).val()
+
                 'blur input.linktext': (evt)->
                     name = $(evt.target).attr 'name'
                     if name is 'link' and $(evt.target).val().substring(0, 8) isnt "https://" and $(evt.target).val().substring(0, 7) isnt "http://" and $(evt.target).val().substring(0, 2) isnt "//"
