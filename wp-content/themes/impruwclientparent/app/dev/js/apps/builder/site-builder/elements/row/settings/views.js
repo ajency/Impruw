@@ -17,12 +17,18 @@ define(['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
       SettingsView.prototype.className = '';
 
       SettingsView.prototype.mixinTemplateHelpers = function(data) {
+        var toRemove;
         data = SettingsView.__super__.mixinTemplateHelpers.call(this, data);
         data.THEMEURL = THEMEURL;
         data.CURRENTTHEMEURL = CURRENTTHEMEURL;
+        toRemove = [];
         _.each(data.styles, function(style) {
-          return style.slug = _.slugify(style.name);
+          style.slug = _.slugify(style.name);
+          if (_.contains(style.hide, CURRENTTHEMENAME)) {
+            return toRemove.push(style);
+          }
         });
+        data.styles = _.difference(data.styles, toRemove);
         return data;
       };
 

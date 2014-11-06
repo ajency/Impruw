@@ -225,20 +225,25 @@
                   ),
         'Row' => array(
                     array(
-                        'name'      => 'Pattern BG'
+                        'name'      => 'Pattern BG',
+                        'desc' => 'this is description for Pattern BG'
                     ),
                     array(
-                        'name'      => 'Highlight Box'
+                        'name'      => 'Highlight Box',
+                        'desc' => 'this is description for Highlight Box'
                     ),
                     array(
-                        'name'      => 'White Box'
+                        'name'      => 'White Box',
+                        'desc' => 'this is description for White Box'
                     ),
                     array(
-                        'name'      => 'Menu Bar'
+                        'name'      => 'Menu Bar',
+                        'desc' => 'this is description for Menu Bar'
                     )
                     ,
                     array(
-                        'name'      => 'Footer Text'
+                        'name'      => 'Footer Text',
+                        'desc' => 'this is description for Footer Text'
                     )
                  ),
         'Social' => array(

@@ -3481,16 +3481,24 @@ global $base_element_templates;
 $base_element_templates = array(
     'Row' => array(
         array(
-            'name' => 'Center Container'
+            'name' => 'Center Container',
+            'desc' => 'this is description for center container',
+            'hide' => array()
         ),
         array(
-            'name' => 'Grey Background'
+            'name' => 'Grey Background',
+            'desc' => 'this is description for Grey Background',
+            'hide' => array()
         ),
         array(
-            'name' => 'Footer Container'
+            'name' => 'Footer Container',
+            'desc' => 'this is description for Footer Container',
+            'hide' => array()
         ),
         array(
-            'name' => 'Column Dividers'
+            'name' => 'Column Dividers',
+            'desc' => 'this is description for Column Dividers',
+            'hide' => array()
         )
     ),
     'Menu' => array(

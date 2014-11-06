@@ -169,7 +169,18 @@
 
     global $element_templates;
 
-    $element_templates = array('Title' => array(array('name' => 'Box Title'), array('name' => 'White Title'), array('name' => 'Center Title'), array('name' => 'Small Grey Title')), 'Row' => array(array('name' => 'Green Background'), array('name' => 'Shaded Background')), 'Link' => array(array('name' => 'Default Style'), array('name' => 'Button'), array('name' => 'Header Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));
+    $element_templates = array('Title' => array(array('name' => 'Box Title'), array('name' => 'White Title'), array('name' => 'Center Title'), array('name' => 'Small Grey Title')), 
+        'Row' => array(
+            array(
+                'name' => 'Green Background',
+                'desc' => 'this is description for Green Background'
+                ), 
+            array(
+                'name' => 'Shaded Background',
+                'desc' => 'this is description for Shaded Background'                
+                )
+            ), 
+        'Link' => array(array('name' => 'Default Style'), array('name' => 'Button'), array('name' => 'Header Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));
 
      /**
      * Footer selector for the theme powered by Impruw message

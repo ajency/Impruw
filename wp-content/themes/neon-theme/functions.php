@@ -223,22 +223,28 @@
                   ),
         'Row' => array(
                     array(
-                        'name'      => 'Top Bar'
+                        'name'      => 'Top Bar',
+                        'desc' => 'this is description for Top Bar'
                     ),
                     array(
-                        'name'      => 'Footer Columns'
+                        'name'      => 'Footer Columns',
+                        'desc' => 'this is description for Footer Columns'
                     ),
                     array(
-                        'name'      => 'Menu Bar'
+                        'name'      => 'Menu Bar',
+                        'desc' => 'this is description for Menu Bar'
                     ),
                     array(
-                        'name'      => 'Footer Bar'
+                        'name'      => 'Footer Bar',
+                        'desc' => 'this is description for Footer Bar'
                     ),
                     array(
-                        'name'      => 'Padded Container'
+                        'name'      => 'Padded Container',
+                        'desc' => 'this is description for Padded Container'
                     ),
                     array(
-                        'name'      => 'Shadow Box'
+                        'name'      => 'Shadow Box',
+                        'desc' => 'this is description for Shadow Box'
                     )
                  ),
         'Social' => array(

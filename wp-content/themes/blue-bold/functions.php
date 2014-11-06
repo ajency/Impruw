@@ -174,7 +174,37 @@
 
     global $element_templates;
 
-    $element_templates = array('Menu' => array(array('name' => 'Footer Menu 2')), 'Title' => array(array('name' => 'Title Super Text'), array('name' => 'Page Title',), array('name' => 'Footer Title'), array('name' => 'Footer Sub Title'), array('name' => 'Small Title'), array('name' => 'Grey Title Text'), array('name' => 'Emphasis Text'), array('name' => 'Inner Title'), array('name' => 'Thumb Title'), array('name' => 'Thumb Main Title')), 'Row' => array(array('name' => 'Blue Strip Top'), array('name' => 'White Shaded Background')), 'Social' => array(array('name' => 'Default Style'), array('name' => 'Small Social')), 'Link' => array(array('name' => 'Default Style'), array('name' => 'Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));
+    $element_templates = array(
+        'Menu' => array(
+            array(
+                'name' => 'Footer Menu 2'
+                )
+            ), 
+        'Title' => array(
+            array(
+                'name' => 'Title Super Text'
+                ), 
+            array(
+                'name' => 'Page Title'
+                ), 
+            array(
+                'name' => 'Footer Title'
+                ), 
+            array(
+                'name' => 'Footer Sub Title'
+                ), 
+            array('name' => 'Small Title'), array('name' => 'Grey Title Text'), array('name' => 'Emphasis Text'), array('name' => 'Inner Title'), array('name' => 'Thumb Title'), array('name' => 'Thumb Main Title')), 
+        'Row' => array(
+            array(
+                'name' => 'Blue Strip Top',
+                'desc' => 'this is description for Blue Strip Top'
+                ), 
+            array(
+                'name' => 'White Shaded Background',
+                'desc' => 'this is description for White Shaded Background'
+                )
+            ), 
+        'Social' => array(array('name' => 'Default Style'), array('name' => 'Small Social')), 'Link' => array(array('name' => 'Default Style'), array('name' => 'Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));
 
      /**
      * Footer selector for the theme powered by Impruw message

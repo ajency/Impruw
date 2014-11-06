@@ -13,8 +13,12 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
                 data = super data
                 data.THEMEURL = THEMEURL
                 data.CURRENTTHEMEURL = CURRENTTHEMEURL
+                toRemove = []
                 _.each data.styles, (style)->
                     style.slug = _.slugify style.name
+                    if _.contains style.hide , CURRENTTHEMENAME
+                        toRemove.push style
+                data.styles = _.difference data.styles, toRemove
 
                 data
 
