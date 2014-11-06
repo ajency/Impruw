@@ -18,11 +18,12 @@ define ['app'
             addNewElement: (container, type, modelData)->
                 
                 if SiteBuilderApp.Element[type]
-                    ele = new SiteBuilderApp.Element[type].Controller
-                        container: container
-                        modelData: modelData
-                    App.elements.push ele
-                    ele
+                    eleCtrl = new SiteBuilderApp.Element[type].Controller
+                                    container: container
+                                    modelData: modelData
+                    App.elements.push eleCtrl
+                    eleCtrl._deferred.resolve true
+                    eleCtrl
                 else
                     return false
 

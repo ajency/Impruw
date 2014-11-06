@@ -7,14 +7,15 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
         return this.showController = new SiteBuilderApp.Show.Controller;
       },
       addNewElement: function(container, type, modelData) {
-        var ele;
+        var eleCtrl;
         if (SiteBuilderApp.Element[type]) {
-          ele = new SiteBuilderApp.Element[type].Controller({
+          eleCtrl = new SiteBuilderApp.Element[type].Controller({
             container: container,
             modelData: modelData
           });
-          App.elements.push(ele);
-          return ele;
+          App.elements.push(eleCtrl);
+          eleCtrl._deferred.resolve(true);
+          return eleCtrl;
         } else {
           return false;
         }
