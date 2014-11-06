@@ -2042,7 +2042,7 @@ ul.gallery {
   background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
 }
 .spacer.pattern hr.style-3 {
-  background-color: #e1e1e1;
+  background-color: #24d07c;
   background-image: linear-gradient(45deg, #39435c 25%, transparent 25%, transparent 75%, #39435c 75%, #39435c), linear-gradient(45deg, #39435c 25%, transparent 25%, transparent 75%, #39435c 75%, #39435c);
   background-size: 60px 60px;
   background-position: 0 0, 30px 30px;
