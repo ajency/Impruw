@@ -1,19 +1,28 @@
-define ['app'
-        'controllers/base-controller'
-        'apps/builder/site-builder/elements/social/settings/views'],
+define ['app', 'controllers/base-controller', 'apps/builder/site-builder/elements/spacer/settings/views'],
 (App, AppController)->
-    App.module 'SiteBuilderApp.Element.Social.Settings', (Settings, App, Backbone, Marionette, $, _)->
+    App.module 'SiteBuilderApp.Element.Spacer.Settings', (Settings, App, Backbone, Marionette, $, _)->
 
         # menu controller
         class Settings.Controller extends AppController
 
-            # initialize controller.
+            # initialize controller
             initialize: (opt = {})->
                 { @model } = opt
                 @region = App.settingsRegion
-                model = App.request "get:element:settings:options", 'Social'
+                model = App.request "get:element:settings:options", 'Spacer'
                 console.log model
                 view = @_getSettingView model, @model
+
+                @listenTo view, "element:type:changed", (type)=>
+                    
+                    @model.set "type", type
+
+                    # if type is 'Blank'
+                    #     @model.set "style", 'Default'
+
+                    # type = _.slugify type
+                    view.triggerMethod "type:#{type}"
+
 
                 @listenTo view, "element:style:changed", (style)=>
                     @model.set "style", style
@@ -42,7 +51,7 @@ define ['app'
                     model: model
 
 
-        App.vent.on "show:social:settings:popup", (model)->
+        App.vent.on "show:spacer:settings:popup", (model)->
             new Settings.Controller
                 model: model
 
