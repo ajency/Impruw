@@ -335,16 +335,16 @@ define ['app'
                     # console.log "abc_#{$(captionHtml).first().find('a').first().html()}"
 
                     if $(captionHtml).first().find('a').length
-                        @$el.find('.caption-title').val $(captionHtml).first().find('a').first().html()
+                        @$el.find('.caption-title').val _.unescape $(captionHtml).first().find('a').first().html()
                         @$el.find('.caption-link').val $(captionHtml).first().find('a').first().attr 'href'
                         @$el.find('input.link-check').radiocheck('check')
                         @$el.find('input.link-target').radiocheck('check') if $(captionHtml).first().find('a').first().attr('target') is '_blank'
                     else 
                         @$el.find('.form-group.link-hide').addClass('hide')
-                        @$el.find('.caption-title').val $(captionHtml).first().html()
+                        @$el.find('.caption-title').val _.unescape $(captionHtml).first().html()
                         @$el.find('.caption-link').val ''
 
-                    @$el.find('.caption-description').val $(captionHtml).last().html()
+                    @$el.find('.caption-description').val _.unescape $(captionHtml).last().html()
                     @$el.find('.caption-style').selectpicker 'val',$(captionHtml).first().attr 'class'
                     @$el.find('.caption-background').selectpicker 'val',caption.style
                     @$el.find("input[name='position'][value='#{caption.left},#{caption.top}']").prop 'checked',true

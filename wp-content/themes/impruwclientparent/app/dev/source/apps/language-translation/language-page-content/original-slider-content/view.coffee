@@ -19,7 +19,7 @@ define ['app'], (App)->
                                 <div class="form-group"> 
                                     <label for="" class="col-sm-3 control-label">Description</label> 
                                     <div class="col-sm-9 col-sm-offset-3"> 
-                                        <div tabindex="1" class="original text"> {{captionDesc}} </div> 
+                                        <div tabindex="1" class="original text"> {{{captionDesc}}} </div> 
                                     </div> 
                                 </div> 
                             </div>
@@ -49,7 +49,7 @@ define ['app'], (App)->
 
         class OriginalSlideView extends Marionette.CompositeView
 
-            template : '<h6 class="aj-imp-sub-head-thin"><small>{{element}}</small></h6>
+            template : '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6>
                         <div id="original-page-slide">
                         </div>
                         <hr>'
@@ -65,6 +65,9 @@ define ['app'], (App)->
 
 
 
+        class EmptySliderView extends Marionette.ItemView
+            template: '<br/><div class="empty-info">You have no slides to translate</div><br/>'
+
         class Views.OriginalSliderView extends Marionette.CompositeView
 
             template : '<div id="original-page-slider">
@@ -72,5 +75,7 @@ define ['app'], (App)->
                         '
 
             itemView : OriginalSlideView
+
+            emptyView : EmptySliderView
 
             itemViewContainer : '#original-page-slider'

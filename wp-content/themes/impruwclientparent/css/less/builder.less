@@ -1776,6 +1776,15 @@ a {
 			}
 		}
 	}
+	.collapse-link {
+		display: inline-block;
+		color: @dash-grey;
+		font-size: 0.88em;
+		margin-bottom: 0.75em;
+		&:hover, &:focus {
+			color: @blue-grey;
+		}
+	}
 }
 
 /****Builder Element Layout Mode Styles****/
@@ -3426,6 +3435,7 @@ a {
 /****Builder Form Styles****/
 .form-group {
 	.form-control {
+		border-radius: 2px;
 		&:focus {
 			border-color: @orange;
 		}
@@ -3594,7 +3604,7 @@ a {
 					border-width: 1px;
 					line-height: 1em;
 					height: 32px;
-					border-radius: 3px;
+					border-radius: 2px;
 					&.bootstrap-select {
 						padding: 0;
 						height: auto;
