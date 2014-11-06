@@ -10,7 +10,7 @@ define(['app'], function(App) {
         return SpacerView.__super__.constructor.apply(this, arguments);
       }
 
-      SpacerView.prototype.template = '<hr class="{{style}}" >';
+      SpacerView.prototype.template = '<div class="blank-info">{{#polyglot}}This is a blank spacer. Increase or decrease the height to add space between elements.{{/polyglot}}</div><hr class="{{style}}" >';
 
       SpacerView.prototype.className = 'spacer';
 
