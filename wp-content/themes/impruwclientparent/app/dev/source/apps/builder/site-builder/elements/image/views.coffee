@@ -119,7 +119,7 @@ define ['app'], (App)->
 
                 @parentColumns = @$el.parents('.column')
                 @parentColumns.each (index,parentColumn)=>
-                    console.log parentColumn
+                    # console.log parentColumn
                     $(parentColumn).on 'class:changed',@adjustImage
                     $(parentColumn).on 'element:moved',@imageMoved
 
