@@ -23,4 +23,5 @@
 		'apps/builder/site-builder/elements/roomsummary/controller'
 		'apps/builder/site-builder/elements/table/controller'
 		'apps/builder/site-builder/elements/widget/controller'
+		'apps/builder/site-builder/elements/spacer/controller'
  ],->

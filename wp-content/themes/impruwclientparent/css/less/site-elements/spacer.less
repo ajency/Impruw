@@ -1,0 +1,102 @@
+.spacer {
+	.blank-info {
+		display: none;
+		text-align: center;
+		color: @black;
+		font-size: 1.1em;
+		background: rgba(255, 255, 255, 0.4);
+		padding: 0.5em 1em;
+		width: 80%;
+		margin: auto;
+	}
+	hr {
+		border: 0;
+		height: 0;
+		margin: @large 0; 
+	}
+	&.blank {
+		.blank-info {
+			display: block;
+		}
+	}
+	&.line {
+		hr {
+			border: 0;
+		    height: 1px;
+		    background: @secondary1;
+		    &.style-1 {
+		    	background: transparent;
+			    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+			    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+			    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+			    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+			}
+			&.style-2 {
+				background: transparent;
+				min-height: 20px;
+				position:relative;
+				overflow:hidden; 
+			    &:before {
+			    	content: ""; 
+					position:absolute; 
+					z-index: 1; 
+					width:96%;  
+					top: -10px; 
+					height: 10px; 
+					left: 2%; 
+					border-radius: 100px / 5px; 
+					box-shadow:0 0 18px rgba(0,0,0,0.6);
+			    }
+			}
+			&.style-3 {
+				background: transparent;
+				padding: 0;
+			    border: none;
+			    border-top: medium double @secondary1;
+			    color: @secondary1;
+			    text-align: center;
+			    &:after {
+			    	content: "§";
+				    display: inline-block;
+				    position: relative; 
+				    top: -0.7em;  
+				    font-size: 1.5em;
+				    padding: 0 0.25em;
+				    background: @white;
+			    }
+			}
+		}
+	}
+	&.pattern {
+		hr {
+			height: 20px;
+			background-color: @secondary1;
+			background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
+			&.style-1 {
+				background:
+					radial-gradient(@tertiary1 15%, transparent 16%) 0 0,
+					radial-gradient(@tertiary1 15%, transparent 16%) 8px 8px,
+					radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+					radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+				background-size:16px 16px;
+				background-color: @secondary1;
+			}
+			&.style-2 {
+				background-color: @secondary1;
+				background-image: linear-gradient(white 2px, transparent 2px),
+				linear-gradient(90deg, white 2px, transparent 2px),
+				linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+				background-size:50px 50px, 50px 50px, 10px 10px, 10px 10px;
+				background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px
+			}
+			&.style-3 {
+				background-color: @primary1;
+				background-image: linear-gradient(45deg, @tertiary1 25%, transparent 25%, transparent 75%, @tertiary1 75%, @tertiary1), 
+				linear-gradient(45deg, @tertiary1 25%, transparent 25%, transparent 75%, @tertiary1 75%, @tertiary1);
+				background-size:60px 60px;
+				background-position:0 0, 30px 30px
+			}
+		}
+	}
+}
