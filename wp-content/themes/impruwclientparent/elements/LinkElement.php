@@ -45,7 +45,7 @@ class LinkElement extends Element {
 
         parent::__construct( $element );
 
-        if(isset($element[ 'link_page_id' ]) && $element[ 'link' ]=="http://"){
+        if(isset($element[ 'link_page_id' ]) && $element[ 'link_page_id' ]!="-1"){
             $link_page_id   = $element[ 'link_page_id' ];
             $this->link   = get_permalink(icl_object_id($link_page_id, 'page', TRUE));
         }

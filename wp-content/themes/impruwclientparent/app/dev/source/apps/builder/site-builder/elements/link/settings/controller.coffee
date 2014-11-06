@@ -33,6 +33,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                     textdata[WPML_DEFAULT_LANG] = text
 
                     @model.set "text", textdata
+                    @model.trigger "change:text", @model
 
                 @listenTo view, "element:target:changed", (target)=>
                     @model.set "target", target
