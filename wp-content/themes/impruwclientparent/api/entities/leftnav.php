@@ -298,8 +298,14 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF101',
             'helpText' => 'Showcase your plans, tariff and availability for particular dates using the booking calendar.',
             'category' => 'room'
-        )
-        
+        ),
+        array(
+            'element' => 'Spacer',
+            'title' => 'Horizontal Space',
+            'icon' => 'bicon icon-uniF105',
+            'styles' => get_styles( 'Spacer' ),
+            'helpText' => 'Add a horizontal space between content, you can change the height and type of the space.'
+        )        
     );
 
     return $elements;

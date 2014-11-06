@@ -1,8 +1,8 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/builder/site-builder/elements/social/settings/views'], function(App, AppController) {
-  return App.module('SiteBuilderApp.Element.Social.Settings', function(Settings, App, Backbone, Marionette, $, _) {
+define(['app', 'controllers/base-controller', 'apps/builder/site-builder/elements/spacer/settings/views'], function(App, AppController) {
+  return App.module('SiteBuilderApp.Element.Spacer.Settings', function(Settings, App, Backbone, Marionette, $, _) {
     Settings.Controller = (function(_super) {
       __extends(Controller, _super);
 
@@ -17,9 +17,15 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
         }
         this.model = opt.model;
         this.region = App.settingsRegion;
-        model = App.request("get:element:settings:options", 'Social');
+        model = App.request("get:element:settings:options", 'Spacer');
         console.log(model);
         view = this._getSettingView(model, this.model);
+        this.listenTo(view, "element:type:changed", (function(_this) {
+          return function(type) {
+            _this.model.set("type", type);
+            return view.triggerMethod("type:" + type);
+          };
+        })(this));
         this.listenTo(view, "element:style:changed", (function(_this) {
           return function(style) {
             return _this.model.set("style", style);
@@ -57,7 +63,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
       return Controller;
 
     })(AppController);
-    return App.vent.on("show:social:settings:popup", function(model) {
+    return App.vent.on("show:spacer:settings:popup", function(model) {
       return new Settings.Controller({
         model: model
       });

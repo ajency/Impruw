@@ -1745,6 +1745,23 @@ a {
 					}
 				}
 			}
+			.colors {
+				margin: 0.75em 0;
+				span {
+					width: 20px;
+					height: 20px;
+					display: inline-block;
+					margin: 0.1em;
+					border: 2px solid #fff;
+					cursor: pointer;
+					&.selected {
+						border-color: @orange;
+					}
+					&:hover {
+						box-shadow: 1px 1px 1px 0px @dash-grey;
+					}
+				}
+			}
 			.field-error {
 				color: @error-red;
 				padding: 0.5em 0;
