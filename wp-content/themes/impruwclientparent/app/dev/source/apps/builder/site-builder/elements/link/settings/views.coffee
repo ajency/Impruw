@@ -57,7 +57,7 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                 'click .js-btn-left': (evt)->
                     evt.preventDefault()
                     # add left button the orange class if not present
-                    @$el.find('.js-btn-left').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-left').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur()
                     @$el.find('.js-btn-center').removeClass("aj-imp-orange-btn")
                     @$el.find('.js-btn-right').removeClass("aj-imp-orange-btn")
 
@@ -66,7 +66,7 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                 'click .js-btn-center': (evt)->
                     evt.preventDefault()
 
-                    @$el.find('.js-btn-center').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-center').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur()
                     @$el.find('.js-btn-left').removeClass("aj-imp-orange-btn")
                     @$el.find('.js-btn-right').removeClass("aj-imp-orange-btn")
 
@@ -75,7 +75,7 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
                 'click .js-btn-right': (evt)->
                     evt.preventDefault()
 
-                    @$el.find('.js-btn-right').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-right').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur()
                     @$el.find('.js-btn-left').removeClass("aj-imp-orange-btn")
                     @$el.find('.js-btn-center').removeClass("aj-imp-orange-btn")
 

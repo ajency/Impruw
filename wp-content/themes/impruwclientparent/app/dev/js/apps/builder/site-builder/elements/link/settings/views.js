@@ -72,21 +72,21 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
         },
         'click .js-btn-left': function(evt) {
           evt.preventDefault();
-          this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur();
           this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn");
           this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn");
           return this.trigger("element:alignment:changed", $(evt.target).val());
         },
         'click .js-btn-center': function(evt) {
           evt.preventDefault();
-          this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur();
           this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn");
           this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn");
           return this.trigger("element:alignment:changed", $(evt.target).val());
         },
         'click .js-btn-right': function(evt) {
           evt.preventDefault();
-          this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur();
           this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn");
           this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn");
           return this.trigger("element:alignment:changed", $(evt.target).val());
