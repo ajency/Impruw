@@ -58,6 +58,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
             return _this.model.set("target", target);
           };
         })(this));
+        this.listenTo(view, "element:linkpage:changed", (function(_this) {
+          return function(linkpage) {
+            return _this.model.set("link_page_id", linkpage);
+          };
+        })(this));
         return this.show(view);
       };
 

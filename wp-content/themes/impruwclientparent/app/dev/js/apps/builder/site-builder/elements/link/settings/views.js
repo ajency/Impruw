@@ -46,7 +46,8 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
           };
         })(this));
         this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
-        return this.$el.find('select[name="align"]').selectpicker('val', this.eleModel.get('align'));
+        this.$el.find('select[name="align"]').selectpicker('val', this.eleModel.get('align'));
+        return this.$el.find('select[name="link_page"]').selectpicker('val', this.eleModel.get('link_page_id'));
       };
 
       SettingsView.prototype.events = {
@@ -60,6 +61,12 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
         'change select[name="style"]': function(evt) {
           return this.trigger("element:style:changed", $(evt.target).val());
         },
+        'change select[name="link_page"]': function(evt) {
+          if ($(evt.target).val() !== "-1") {
+            this.$el.find('input[name="link"]').val('');
+          }
+          return this.trigger("element:linkpage:changed", $(evt.target).val());
+        },
         'change select[name="align"]': function(evt) {
           return this.trigger("element:alignment:changed", $(evt.target).val());
         },
@@ -67,6 +74,9 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
           var name;
           name = $(evt.target).attr('name');
           if (name === 'link' && $(evt.target).val().substring(0, 8) !== "https://" && $(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 2) !== "//") {
+            if ($(evt.target).val() !== "") {
+              this.$el.find('select[name="link_page"]').selectpicker('val', '-1');
+            }
             $(evt.target).val("http://" + $(evt.target).val());
           }
           return this.trigger("element:" + name + ":changed", $(evt.target).val());

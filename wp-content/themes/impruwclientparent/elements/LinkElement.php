@@ -45,7 +45,13 @@ class LinkElement extends Element {
 
         parent::__construct( $element );
 
-        $this->link   = $element[ 'link' ];
+        if(isset($element[ 'link_page_id' ]) && $element[ 'link' ]=="http://"){
+            $link_page_id   = $element[ 'link_page_id' ];
+            $this->link   = get_permalink(icl_object_id($link_page_id, 'page', TRUE));
+        }
+        else
+            $this->link   = $element[ 'link' ];
+
 
         $current_language = ICL_LANGUAGE_CODE;
         $text = '';
@@ -77,6 +83,7 @@ class LinkElement extends Element {
     function generate_markup() {
 
         $template = '<span class="link {{style}} text-{{align}}"><a href="{{link}}" target="{{target}}">{{text}}</a></span>';
+
         global $me;
 
         return $me->render( $template, $this );

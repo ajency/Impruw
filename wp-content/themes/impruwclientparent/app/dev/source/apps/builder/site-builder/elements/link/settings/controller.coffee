@@ -37,6 +37,10 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                 @listenTo view, "element:target:changed", (target)=>
                     @model.set "target", target
 
+
+                @listenTo view, "element:linkpage:changed", (linkpage)=>
+                    @model.set "link_page_id", linkpage
+
                 @show view
 
 

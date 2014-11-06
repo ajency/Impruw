@@ -42,7 +42,8 @@
       <div class="form-group edit-by-user">
         <label for="" class="col-sm-4 control-label">{{#polyglot}}Page{{/polyglot}}</label>
         <div class="col-sm-8">
-          <select name="pages">
+          <select name="link_page">
+            <option value="-1">Select Page</option>
             {{#link_pages}}
             <option value="{{ID}}">{{post_title}}</option>
             {{/link_pages}}
