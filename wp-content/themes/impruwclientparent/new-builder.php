@@ -63,129 +63,7 @@
 <!-- /.modal -->
 <div id="initial-loader"></div>
 
-<!-- Test Modal -->
-<button class="btn btn-default" data-toggle="modal" data-target="#test-dialog">Row Popup</button>
-<div class="modal  wide-modal in" id="test-dialog" aria-hidden="false"><div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button class="close" aria-hidden="true" data-dismiss="modal" type="button">×</button> <h4 class="modal-title">Pick a Row Style</h4> </div> <div class="modal-body">
-<div class="col-counter">
-    <div class="modal-body-title col-counter-label">
-        Choose the Number of Columns:
-    </div>
-    <div class="row set-column-count">
-        <div class="col-sm-1">
-            <div class="col-item">
-                <img class="img-responsive ui-selectee" src="<?php echo get_parent_template_directory_uri(); ?>/images/1-column.png">
-                <div class="col-label">1 Column</div>
-            </div>
-        </div>
-       <div class="col-sm-1">
-            <div class="col-item selected">
-                <img class="img-responsive ui-selectee" src="<?php echo get_parent_template_directory_uri(); ?>/images/2-column.png">
-                <div class="col-label">2 Columns</div>
-            </div>
-        </div>
-        <div class="col-sm-1">
-            <div class="col-item">
-                <img class="img-responsive ui-selectee" src="<?php echo get_parent_template_directory_uri(); ?>/images/3-column.png">
-                <div class="col-label">3 Columns</div>
-            </div>
-        </div>
-        <div class="col-sm-1">
-            <div class="col-item">
-                <img class="img-responsive ui-selectee" src="<?php echo get_parent_template_directory_uri(); ?>/images/4-column.png">
-                <div class="col-label">4 Columns</div>
-            </div>
-        </div>
-        <div class="col-sm-1">
-            <div class="col-item">
-                <img class="img-responsive ui-selectee" src="<?php echo get_parent_template_directory_uri(); ?>/images/5-column.png">
-                <div class="col-label">5 Columns</div>
-            </div>
-        </div>
-        <div class="col-sm-1">
-            <div class="col-item">
-                <img class="img-responsive ui-selectee" src="<?php echo get_parent_template_directory_uri(); ?>/images/6-column.png">
-                <div class="col-label">6 Columns</div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div>
-<div class="tab-content clearfix"> 
-    <div class="modal-body-title">
-        Choose your Row Style:
-    </div>
-    <div class="tab-pane active" id="all-media-region"> <div id="grid-region">
-    <div class="row"><div class="thumbnails overflow-view ui-selectable">
-        <div class="col-sm-3 single-item ui-selectee selected">
-            <a class="thumbnail ui-selectee" href="#"> 
-                <div class="imgthumb ui-selectee"><img class="img-responsive ui-selectee" src="<?php echo get_template_directory_uri(); ?>/resources/img/none.png"></div> 
-                <div class="caption">
-                    <h3 class="item-title">Full Width Row</h3>
-                    <p class="item-desc">
-                        Description of the Row goes here. Keep it Short!
-                    </p>
-                </div>
-                <div class="ticker ui-selectee"><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee"></span></div> 
-            </a> 
-        </div>
-        <div class="col-sm-3 single-item ui-selectee">
-            <a class="thumbnail ui-selectee" href="#"> 
-                <div class="imgthumb ui-selectee"><img class="img-responsive ui-selectee" src="<?php echo get_template_directory_uri(); ?>/resources/img/center container 1.png"></div> 
-                <div class="caption">
-                    <h3 class="item-title">Center Container</h3>
-                    <p class="item-desc">
-                        Description of the Row goes here. Keep it Short! 
-                    </p>
-                </div>
-                <div class="ticker ui-selectee"><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee"></span></div> 
-            </a> 
-        </div>
-        <div class="col-sm-3 single-item ui-selectee">
-            <a class="thumbnail ui-selectee" href="#"> 
-                <div class="imgthumb ui-selectee"><img class="img-responsive ui-selectee" src="<?php echo get_template_directory_uri(); ?>/resources/img/menu bar.png"></div> 
-                <div class="caption">
-                    <h3 class="item-title">Menu Bar</h3>
-                    <p class="item-desc">
-                        Description of the Row goes here. Keep it Short!
-                    </p>
-                </div>
-                <div class="ticker ui-selectee"><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee"></span></div> 
-            </a> 
-        </div>
-        <div class="col-sm-3 single-item ui-selectee">
-            <a class="thumbnail ui-selectee" href="#"> 
-                <div class="imgthumb ui-selectee"><img class="img-responsive ui-selectee" src="<?php echo get_template_directory_uri(); ?>/resources/img/colounm divider.png"></div> 
-                <div class="caption">
-                    <h3 class="item-title">Column Dividers</h3>
-                    <p class="item-desc">
-                        Description of the Row goes here. Keep it Short!
-                    </p>
-                </div>
-                <div class="ticker ui-selectee"><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee"></span></div> 
-            </a> 
-        </div>
-        <div class="col-sm-3 single-item ui-selectee">
-            <a class="thumbnail ui-selectee" href="#"> 
-                <div class="imgthumb ui-selectee"><img class="img-responsive ui-selectee" src="<?php echo get_template_directory_uri(); ?>/resources/img/footer.png"></div> 
-                <div class="caption">
-                    <h3 class="item-title">Footer Container</h3>
-                    <p class="item-desc">
-                        Description of the Row goes here. Keep it Short!
-                    </p>
-                </div>
-                <div class="ticker ui-selectee"><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee"></span></div> 
-            </a> 
-        </div>
-    </div>
-    </div></div> 
-    </div> </div></div>
-    <div class="modal-help-text">
-        <span class="glyphicon glyphicon-info-sign"></span>
-        The changes you make will be applied in your builder.
-    </div>
-</div> <div class="modal-footer"> </div> </div> </div></div>
-<!-- Test Modal -->
 
 <script type="text/javascript">
     var USER = <?php echo json_encode(get_user_model()); ?>;
@@ -202,6 +80,7 @@
 
 
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
+    var CURRENTTHEMEURL = '<?php echo get_template_directory_uri() ?>'
     var SITEURL = '<?php echo site_url(); ?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
