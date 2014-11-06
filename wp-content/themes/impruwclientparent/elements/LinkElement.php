@@ -45,9 +45,11 @@ class LinkElement extends Element {
 
         parent::__construct( $element );
 
+        
         if(isset($element[ 'link_page_id' ]) && $element[ 'link_page_id' ]!="-1"){
             $link_page_id   = $element[ 'link_page_id' ];
-            $this->link   = get_permalink(icl_object_id($link_page_id, 'page', TRUE));
+            $link_post_type = get_post_type( $link_page_id ) ;
+            $this->link   = get_permalink(icl_object_id($link_page_id,  $link_post_type, TRUE));
         }
         else
             $this->link   = $element[ 'link' ];
