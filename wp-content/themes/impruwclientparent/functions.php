@@ -3481,6 +3481,11 @@ global $base_element_templates;
 $base_element_templates = array(
     'Row' => array(
         array(
+            'name' => 'Default',
+            'desc' => 'this is description for default container',
+            'hide' => array()
+        ),
+        array(
             'name' => 'Center Container',
             'desc' => 'this is description for center container',
             'hide' => array()
