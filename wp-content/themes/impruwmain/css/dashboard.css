@@ -3565,7 +3565,7 @@ form .aj-imp-submit:hover {
   position: absolute;
   pointer-events: none;
   border-color: rgba(136, 183, 213, 0);
-  border-top-color: #8E8E8E;
+  border-top-color: #888888;
   border-width: 25px;
   margin-left: -25px;
 }
@@ -3634,7 +3634,7 @@ form .aj-imp-submit:hover {
 .aj-imp-homepage .home-3 {
   padding: 3em 15% 2em;
   text-align: center;
-  border-top: 2px solid #f3f3f3;
+  /*border-top: 2px solid #f3f3f3;*/
 }
 .aj-imp-homepage .home-3 h2 {
   color: #000;
@@ -3646,7 +3646,8 @@ form .aj-imp-submit:hover {
   margin-bottom: 2em;
 }
 .aj-imp-homepage .home-4 {
-  background: url('../images/bg_polka.png');
+  /*background: url('../images/bg_polka.png');*/
+  border-bottom: 2px solid #f3f3f3;
   padding: 4em 15% 2em;
 }
 .aj-imp-homepage .home-4 h2 {

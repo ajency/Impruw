@@ -19,7 +19,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 	    // Get Post Content
 	    the_content();
 	    ?>
-	    <a class="btn btn-hg register-link" href="<?php echo get_permalink(icl_object_id($register_page_id, 'page', TRUE)); ?>"><?php _e('Start Creating!', 'impruwmain')?></a>
+	    <a class="btn btn-hg register-link" href="<?php echo get_permalink(icl_object_id($register_page_id, 'page', TRUE)); ?>"><?php _e('Request a Demo', 'impruwmain')?></a>
 	</div>
 	<div class="grid clearfix">
 		<figure class="effect-zoe">
@@ -28,7 +28,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 				<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/MinimalThemeScreen-c.jpg" class="img-responsive"> 
 			</a>
 			<figcaption>
-				<h2><span><?php echo __('Minimal', 'impruwmain'); ?></span><?php echo __('Theme', 'impruwmain'); ?></h2>
+				<h2><span><?php echo __('Minimal', 'impruwmain'); ?></span></h2>
 				<p class="icon-links">
 					<a target="_blank" href="http://minimal.impruw.com"><span class="glyphicon glyphicon-eye-open"></span></a>
 				</p>
@@ -67,7 +67,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 				<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/PinkThemeScreen-c.jpg" class="img-responsive"> 
 			</a>
 			<figcaption>
-				<h2><span><?php echo __('Pink', 'impruwmain'); ?></span><?php echo __('Theme', 'impruwmain'); ?></h2>
+				<h2><span><?php echo __('Pink', 'impruwmain'); ?></span></h2>
 				<p class="icon-links">
 					<a target="_blank" href="http://pinktheme.impruw.com"><span class="glyphicon glyphicon-eye-open"></span></a>
 				</p>
@@ -80,7 +80,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 				<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/NeonThemeScreen-c.jpg" class="img-responsive">
 			</a>
 			<figcaption>
-				<h2><span><?php echo __('Neon', 'impruwmain'); ?></span><?php echo __('Theme', 'impruwmain'); ?></h2>
+				<h2><span><?php echo __('Neon', 'impruwmain'); ?></span></h2>
 				<p class="icon-links">
 					<a target="_blank" href="http://neon.impruw.com"><span class="glyphicon glyphicon-eye-open"></span></a>
 				</p>
@@ -93,7 +93,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 				<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/DiamondThemeScreen-c.jpg" class="img-responsive"> 
 			</a>
 			<figcaption>
-				<h2><span><?php echo __('Diamond', 'impruwmain'); ?></span><?php echo __('Theme', 'impruwmain'); ?></h2>
+				<h2><span><?php echo __('Diamond', 'impruwmain'); ?></span></h2>
 				<p class="icon-links">
 					<a target="_blank" href="http://diamond.impruw.com"><span class="glyphicon glyphicon-eye-open"></span></a>
 				</p>
