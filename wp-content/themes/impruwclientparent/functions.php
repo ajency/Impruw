@@ -3535,6 +3535,41 @@ $base_element_templates = array(
         array(
             'name' => 'Small Address',
             'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
+        ),
+        array(
+            'name' => 'Restaurant Menu',
+            'template' => '<div class="smart-table multi-column">
+                                <h4 class="smart-title">Appetizers</h4>
+                                <dl class="smart-cell">
+                                    <dt>Fried Spring Rolls</dt>
+                                    <dd>chicken or vegetable</dd>
+                                    <dd class="emphasis">$2.95</dd>
+                                </dl>
+                                <dl class="smart-cell">
+                                    <dt>Gai of Nuur Satay</dt>
+                                    <dd>skewered chicken or beef with a peanut sauce</dd>
+                                    <dd class="emphasis">$4.95</dd>
+                                </dl>
+                                <dl class="smart-cell">
+                                    <dt>Tofu Tod</dt>
+                                    <dd>fried tofu with a mild chili peanut sauce</dd>
+                                    <dd class="emphasis">$3.95</dd>
+                                </dl>
+                                <dl class="smart-cell">
+                                    <dt>Fresh Thai Summer Roll</dt>
+                                    <dd>with shrimp in a tamarind sauce</dd>
+                                    <dd class="emphasis">$4.50</dd>
+                                </dl>
+                                <dl class="smart-cell">
+                                    <dt>Fried Tiger Shrimp Rolls</dt>
+                                    <dd>with a plum sauce</dd>
+                                    <dd class="emphasis">$4.95</dd>
+                                </dl>
+                                <dl class="smart-cell">
+                                    <dt>Thai Spare Ribs</dt>
+                                    <dd class="emphasis">$8.95</dd>
+                                </dl>
+                            </div>'
         )
     ),
     'Social' => array(
