@@ -3493,12 +3493,12 @@ $base_element_templates = array(
         array(
             'name' => 'Grey Background',
             'desc' => 'this is description for Grey Background',
-            'hide' => array()
+            'hide' => array('Classic Green', 'Neon Theme')
         ),
         array(
             'name' => 'Footer Container',
             'desc' => 'this is description for Footer Container',
-            'hide' => array()
+            'hide' => array('Neon Theme')
         ),
         array(
             'name' => 'Column Dividers',
