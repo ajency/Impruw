@@ -170,7 +170,7 @@ define [ 'app'
             removePageFromMenu : (pageId)->
                 menuCollection = App.request "get:menu:items:by:menuid", window.MENUID
                 menuToRemove = menuCollection.find (menuModel)->
-                    if parseInt(menuModel.get('page_id')) is pageId
+                    if menuModel.get('page_id') is pageId
                         return true
                 menuCollection.remove menuToRemove
 

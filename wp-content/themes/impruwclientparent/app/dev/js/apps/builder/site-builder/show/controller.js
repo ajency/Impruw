@@ -164,7 +164,6 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             return page.destroy({
               success: function(model, res, opt) {
                 _this.removePageFromMenu(model.get('original_id'));
-                console.log(model);
                 return App.builderRegion.currentView.triggerMethod('show:home:page');
               }
             });
@@ -206,9 +205,6 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             return true;
           }
         });
-        console.log(menuCollection);
-        console.log(menuToRemove);
-        console.log(pageId);
         return menuCollection.remove(menuToRemove);
       };
 

@@ -79,9 +79,9 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         'click .delete-page': function(e) {
           e.preventDefault();
           if (ISFRONTPAGE) {
-            return bootbox.alert(_.polyglot.t('This is a Homepage. You cannot delete your Homepage'));
+            return bootbox.alert(_.polyglot.t('Sorry you cannot delete your home page. You can change the layout of this page to suit your needs.'));
           } else {
-            return bootbox.confirm(_.polyglot.t('Are are about to delete the curent page. Page once deleted cannot be recovered. Are you sure you want to delete this page?'), (function(_this) {
+            return bootbox.confirm(_.polyglot.t('Once deleted you will not be able to restore this page. Are you sure you want to delete the page?'), (function(_this) {
               return function(result) {
                 if (result) {
                   return _this.trigger('delete:page:clicked');
@@ -170,7 +170,6 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.removePageDropDown = function(model) {
-        console.log(model);
         this.$el.find('select#builder-page-sel').find("option[data-originalid='" + (model.get('original_id')) + "']").remove();
         return this.$el.find('select#builder-page-sel').selectpicker('refresh');
       };

@@ -53,10 +53,11 @@ define [ 'app'
             'click .delete-page': (e)->
                e.preventDefault()
                if ISFRONTPAGE
-                  bootbox.alert _.polyglot.t 'This is a Homepage. You cannot delete your Homepage'
+                  bootbox.alert _.polyglot.t 'Sorry you cannot delete your home page. 
+                     You can change the layout of this page to suit your needs.'
                else
-                  bootbox.confirm _.polyglot.t('Are are about to delete the curent page. 
-                     Page once deleted cannot be recovered. Are you sure you want to delete this page?'), (result)=>
+                  bootbox.confirm _.polyglot.t('Once deleted you will not be able to 
+                     restore this page. Are you sure you want to delete the page?'), (result)=>
                      if result
                         @trigger 'delete:page:clicked'
 
