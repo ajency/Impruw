@@ -304,13 +304,16 @@
                   ),
         'Row' => array(
                     array(
-                        'name'      => 'Menu Bar'
+                        'name'      => 'Menu Bar',
+                        'desc' => 'this is description for Menu Bar'
                     ),
                     array(
-                        'name'      => 'Footer Bar'
+                        'name'      => 'Footer Bar',
+                        'desc' => 'this is description for Footer Bar'                
                     ),
                     array(
-                        'name'      => 'Padded Container'
+                        'name'      => 'Padded Container',
+                        'desc' => 'this is description for Padded Container'
                     )
                  ),
         'Social' => array(
