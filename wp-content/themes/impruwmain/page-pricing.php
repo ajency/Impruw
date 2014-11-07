@@ -26,20 +26,24 @@ if (have_posts()) : while (have_posts()) : the_post();
         <div class="col-sm-4">
             <div id="free-plan" class="panel panel-default text-center">
                 <div class="panel-heading">
-                    <h3><?php echo __('Free', 'impruwmain'); ?></h3>
+                    <h3><?php echo __('Essential', 'impruwmain'); ?></h3>
                 </div>
                 <div class="panel-body">
                     <h3 class="panel-title price"><?php echo __('£ 0', 'impruwmain'); ?></h3>
                     <span></span>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><?php echo __('Mobile &amp; Tablet Ready Site', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Assisted Set-Up', 'impruwmain'); ?></li>
                     <li class="list-group-item"><?php echo __('Unlimited Pages', 'impruwmain'); ?></li>
-                    <li class="list-group-item"><?php echo __('5 Languages', 'impruwmain'); ?></li>
-                    <li class="list-group-item"><?php echo __('Flexible, easy-to-use Site builder', 'impruwmain'); ?></li>
-                    <li class="list-group-item"><?php echo __('24/7 security monitoring', 'impruwmain'); ?></li>
-                    <li class="list-group-item"><?php echo __('24/7 technical support', 'impruwmain'); ?></li>
-                    <li class="list-group-item"><?php echo __('Free subdomain on impruw.com', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Easy to use Content Management System (CMS)', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Mobile and Tablet Ready Site', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('1 x Email Account', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Facebook/Twitter Widgets', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Search Engine Optimisation (SEO)', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Online Support', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Continuous Development', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Full Range of Usage Statistics', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('+1 Add-on', 'impruwmain'); ?></li>
                 </ul>
             </div>
         </div>
@@ -47,19 +51,23 @@ if (have_posts()) : while (have_posts()) : the_post();
         <div class="col-sm-4">
         	<div class="panel panel-default text-center"> 
         		<div class="panel-heading"> 
-        			<h3><?php echo __('Monthly Plan', 'impruwmain'); ?></h3> 
+        			<h3><?php echo __('Plus', 'impruwmain'); ?></h3> 
         		</div> 
         		<div class="panel-body"> 
         			<h3 class="panel-title price"><?php echo __('£ 50', 'impruwmain'); ?></h3> 
         		</div> 
         		<ul class="list-group"> 
-        			<li class="list-group-item"><?php echo __('Mobile &amp; Tablet Ready Site', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('Unlimited Pages', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('5 Languages', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('Flexible, easy-to-use Site builder', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('24/7 security monitoring', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('24/7 technical support', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('Custom domain', 'impruwmain'); ?></li>
+        			<li class="list-group-item"><?php echo __('Assisted Set-Up', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Unlimited Pages', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Easy to use Content Management System (CMS)', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Mobile and Tablet Ready Site', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('5 x Email Account', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Facebook/Twitter Widgets', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Search Engine Optimisation (SEO)', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Online Support', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Continuous Development', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Full Range of Usage Statistics', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('+3 Add-ons', 'impruwmain'); ?></li>
         		</ul> 
         	</div>
     	</div>
@@ -67,19 +75,24 @@ if (have_posts()) : while (have_posts()) : the_post();
         <div class="col-sm-4">
         	<div class="panel panel-default text-center"> 
         		<div class="panel-heading"> 
-        			<h3><?php echo __('Yearly Plan', 'impruwmain'); ?></h3> 
+        			<h3><?php echo __('Premium', 'impruwmain'); ?></h3> 
         		</div> 
         		<div class="panel-body"> 
         			<h3 class="panel-title price"><?php echo __('£ 500', 'impruwmain'); ?></h3> 
         		</div> 
         		<ul class="list-group"> 
-        			<li class="list-group-item"><?php echo __('Mobile &amp; Tablet Ready Site', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('Unlimited Pages', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('5 Languages', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('Flexible, easy-to-use Site builder', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('24/7 security monitoring', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('24/7 technical support', 'impruwmain'); ?></li> 
-        			<li class="list-group-item"><?php echo __('Custom domain', 'impruwmain'); ?></li>
+        			<li class="list-group-item"><?php echo __('Assisted Set-Up', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Unlimited Pages', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Easy to use Content Management System (CMS)', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Mobile and Tablet Ready Site', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('10 x Email Account', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Facebook/Twitter Widgets', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Search Engine Optimisation (SEO)', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Online Support', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Continuous Development', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Full Range of Usage Statistics', 'impruwmain'); ?></li>
+                    <li class="list-group-item"><?php echo __('Unlimited Add-ons', 'impruwmain'); ?></li>
+                </ul>
         	</div>
         </div>
     </div>
