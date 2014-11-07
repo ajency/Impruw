@@ -900,3 +900,40 @@ function delete_header_footer_published( $key ){
 
     return $result;
 }
+
+
+function delete_page_all_data( $page_id ){
+
+    global $sitepress, $wpdb;
+
+
+    if ( impruw_is_front_page( $page_id ) )
+        return fasle;
+    else
+        // get english version of page
+        $page_id = icl_object_id( $page_id, 'page', true, 'en' );
+
+        // delete all elements for the page
+        $page_autosave = wp_get_post_autosave( $page_id );
+        $page_json = get_post_meta( $page_autosave->ID, 'page-json', true );
+        $page_elements = create_page_element_array($page_json);
+        foreach ($page_elements as $page_element) {
+            delete_metadata_by_mid('post',$page_element['meta_id']);
+        }
+
+        // delete all revisions for a page + autosave
+        $page_revisions = wp_get_post_revisions( $page_id );
+        foreach ($page_revisions as $page_revision) {
+            wp_delete_post( $page_revision->ID, true );    
+        }
+        
+        // delete all translations for a page including the page itself
+        $trid = $sitepress->get_element_trid( $page_id, 'post_page' );        
+        $translations = $sitepress->get_element_translations( $trid, 'post_page' );
+        foreach ($translations as $page_translation) {
+            wp_delete_post( $page_translation->element_id, true );
+        }
+
+        return true;
+
+}

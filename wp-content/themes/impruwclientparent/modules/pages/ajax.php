@@ -245,3 +245,14 @@ function take_over_page_editing(){
 }
 add_action('wp_ajax_take_over_page_editing', 'take_over_page_editing');
 
+
+function impruw_delete_page(){
+    $page_id = $_POST['page_id'];
+    $response = delete_page_all_data( $page_id );
+    wp_send_json( array( 'code' => 'OK', 'data' => $page_id ) );
+}
+add_action('wp_ajax_impruw-delete-page','impruw_delete_page');
+// add_action('wp_ajax_nopriv_delete-page','impruw_delete_page1');
+
+
+

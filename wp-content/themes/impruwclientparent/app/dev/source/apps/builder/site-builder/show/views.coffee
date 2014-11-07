@@ -1,6 +1,7 @@
 define [ 'app'
          'text!apps/builder/site-builder/show/templates/maintemplate.html'
-         'moment' ], ( App, mainviewTpl, moment )->
+         'moment' 
+         'bootbox'], ( App, mainviewTpl, moment ,bootbox)->
 
    App.module 'SiteBuilderApp.Show.View', ( View, App, Backbone, Marionette, $, _ )->
 
@@ -12,6 +13,7 @@ define [ 'app'
 
          collectionEvents :
             "add" : "addPageDropDown"
+            'remove' : 'removePageDropDown'
 
          templateHelpers : ( data = {} )->
             data.DASHBOARDURL = DASHBOARDURL
@@ -47,6 +49,16 @@ define [ 'app'
 
             'click .add-new-page' : ->
                @trigger "add:new:page:clicked"
+
+            'click .delete-page': (e)->
+               e.preventDefault()
+               if ISFRONTPAGE
+                  bootbox.alert _.polyglot.t 'This is a Homepage. You cannot delete your Homepage'
+               else
+                  bootbox.confirm _.polyglot.t('Are are about to delete the curent page. 
+                     Page once deleted cannot be recovered. Are you sure you want to delete this page?'), (result)=>
+                     if result
+                        @trigger 'delete:page:clicked'
 
             'click .btn-update-pg-name' : ->
                currentPageId = @getCurrentPageId()
@@ -107,17 +119,15 @@ define [ 'app'
                if modelId == @new_page_id and model.get('post_name') not in ['full-width-page']
                   page_name = model.get 'post_title'
                   select_html = "<option value='"+modelId+"' data-originalid='"+originalPageId+"'>#{page_name}</option>"
-                  selectpicker_html = "<li rel='#{index}'>
-                                            <a tabindex='0' class='' style=''>
-                                                <span class='text'>#{page_name}</span>
-                                                <i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
-                                            </a>
-                                        </li>"
-                  @$el.find( 'select#builder-page-sel' )
-                     .parent().find('div .dropdown-menu ul' ).append( selectpicker_html )
+                 
                   @$el.find( 'select#builder-page-sel' ).append( select_html )
+                  @$el.find( 'select#builder-page-sel' ).selectpicker 'refresh'
 
             @enableSelectPicker()
+
+         removePageDropDown : (model)=>
+            @$el.find( 'select#builder-page-sel' ).find("option[data-originalid='#{model.get('original_id')}']").remove()
+            @$el.find( 'select#builder-page-sel' ).selectpicker 'refresh'
 
          initialize : ->
             @currentPageId = 0
@@ -366,7 +376,11 @@ define [ 'app'
 
          events : 
             'click .headit' :->
-               $( 'select#builder-page-sel' ).selectpicker 'val', parseInt @model.get 'front_page'
+               @onShowHomePage()
+
+         onShowHomePage :->
+            $( 'select#builder-page-sel' ).selectpicker 'val', parseInt @model.get 'front_page'
+            $( 'select#builder-page-sel' ).selectpicker 'refresh'
 
          onRetryEditPageClicked : =>
             App.commands.execute 'editable:page:changed', @model.get 'page_id'

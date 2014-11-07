@@ -44,6 +44,7 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         });
         elements._fetch.done((function(_this) {
           return function() {
+            window.ISFRONTPAGE = elements.get('is_home_page');
             elementLoaded = true;
             return _.delay(function() {
               _this.deferreds = [];
@@ -156,6 +157,19 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             region: App.dialogRegion
           });
         });
+        this.listenTo(this.layout, 'delete:page:clicked', (function(_this) {
+          return function() {
+            var page;
+            page = _this.pages.get($.cookie('current-page-id'));
+            return page.destroy({
+              success: function(model, res, opt) {
+                _this.removePageFromMenu(model.get('original_id'));
+                console.log(model);
+                return App.builderRegion.currentView.triggerMethod('show:home:page');
+              }
+            });
+          };
+        })(this));
         App.commands.setHandler("page:published", this.triggerPagePublishOnView);
         this.listenTo(layout, 'show', (function(_this) {
           return function(layout) {
@@ -182,6 +196,20 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         return this.show(layout, {
           loading: true
         });
+      };
+
+      Controller.prototype.removePageFromMenu = function(pageId) {
+        var menuCollection, menuToRemove;
+        menuCollection = App.request("get:menu:items:by:menuid", window.MENUID);
+        menuToRemove = menuCollection.find(function(menuModel) {
+          if (menuModel.get('page_id') === pageId) {
+            return true;
+          }
+        });
+        console.log(menuCollection);
+        console.log(menuToRemove);
+        console.log(pageId);
+        return menuCollection.remove(menuToRemove);
       };
 
       Controller.prototype.triggerPagePublishOnView = function() {

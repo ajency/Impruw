@@ -16,6 +16,8 @@ define [ 'app'
                 #element json
                 elements = App.request "get:page:json", pageId, revisionId
 
+
+
                 elementLoaded = false
 
                 # builder view
@@ -37,6 +39,8 @@ define [ 'app'
                 # usign this event to start filling up the builder
                 # with elements
                 elements._fetch.done =>
+
+                        window.ISFRONTPAGE = elements.get 'is_home_page'
                     
                         elementLoaded = true
                         _.delay =>
@@ -123,6 +127,15 @@ define [ 'app'
                 @listenTo @layout, "add:new:page:clicked", ->
                     App.execute "show:add:new:page", region : App.dialogRegion
 
+                @listenTo @layout, 'delete:page:clicked',=>
+                    page = @pages.get $.cookie 'current-page-id'
+                    page.destroy
+                        success : (model,res,opt)=>
+                            @removePageFromMenu model.get 'original_id'
+                            
+                            App.builderRegion.currentView.triggerMethod 'show:home:page'
+
+
                 App.commands.setHandler "page:published", @triggerPagePublishOnView
 
                 @listenTo layout, 'show', ( layout )=>
@@ -153,6 +166,13 @@ define [ 'app'
 
                 @show layout,
                     loading : true
+
+            removePageFromMenu : (pageId)->
+                menuCollection = App.request "get:menu:items:by:menuid", window.MENUID
+                menuToRemove = menuCollection.find (menuModel)->
+                    if parseInt(menuModel.get('page_id')) is pageId
+                        return true
+                menuCollection.remove menuToRemove
 
 
             triggerPagePublishOnView : =>

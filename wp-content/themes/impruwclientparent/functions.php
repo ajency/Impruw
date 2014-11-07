@@ -1203,6 +1203,7 @@ function get_menu_to_array( $mn, $by = 'name' ) {
             'menu_item_title' => $translated_menu_item_page_title,
             'menu_item_url'   => $menu_item->url,
             'menu_id'         => $menu->term_id,
+            'page_id'       => $menu_item->object_id
         );
 
         if ( (int)$menu_item->menu_item_parent === 0 ) {
