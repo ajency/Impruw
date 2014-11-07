@@ -75,8 +75,8 @@
 }
 @font-face {
   font-family: 'icomoon';
-  src: url("../resources/fonts/icomoon.eot");
-  src: url("../resources/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../resources/fonts/icomoon.woff") format("woff"), url("../resources/fonts/icomoon.ttf") format("truetype"), url("../resources/fonts/icomoon.svg#icomoon") format("svg");
+  src: url("../../../themes/minimal-theme/resources/fonts/icomoon.eot");
+  src: url("../../../themes/minimal-theme/resources/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../../../themes/minimal-theme/resources/fonts/icomoon.woff") format("woff"), url("../../../themes/minimal-theme/resources/fonts/icomoon.ttf") format("truetype"), url("../../../themes/minimal-theme/resources/fonts/icomoon.svg#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -148,7 +148,8 @@
 }
 .site-style-container .row.center-container {
   max-width: 1170px;
-  margin: 0.5em auto;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 .site-style-container .row.grey-background {
   background: #FFFFFF;
@@ -170,7 +171,7 @@
 .site-style-container footer {
   background: transparent;
 }
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .logo {
     text-align: center;
     margin: 0.5em auto !important;
@@ -369,7 +370,7 @@
   margin: 0 0 0.5em;
 }
 .link {
-  display: inline-block;
+  display: block;
   margin: 0 0.5em 0.5em 0;
 }
 .link.button a {
@@ -409,7 +410,7 @@
   margin-bottom: 10px;
   padding-left: 5px;
 }
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .address {
     text-align: center;
   }
@@ -526,7 +527,7 @@
 .social.social-center {
   text-align: center;
 }
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .social {
     text-align: center !important;
   }
@@ -1792,7 +1793,7 @@ ul.gallery {
 .lang-sel.align-center {
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .lang-sel {
     text-align: center;
   }
@@ -1970,7 +1971,7 @@ ul.gallery {
   margin: 1.5em auto;
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .logo {
     text-align: center;
   }
@@ -2182,7 +2183,7 @@ ul.gallery {
   margin-bottom: 10px;
   padding-left: 5px;
 }
-@media (max-width: 991px) {
+@media (max-width: 992px) {
   .address {
     text-align: center;
   }
@@ -2225,7 +2226,7 @@ ul.gallery {
   color: #282827;
 }
 .link {
-  display: inline-block;
+  display: block;
   margin: 0 0.5em 0.5em 0;
 }
 .link.capitalized-link a {
@@ -3025,12 +3026,12 @@ ul.gallery {
 .social.small-social li:hover a:before {
   color: #776251;
 }
-@media (max-width: 991px) {
+@media (max-width: 992px) {
   .social.small-social {
     text-align: center;
   }
 }
-@media (max-width: 991px) {
+@media (max-width: 992px) {
   .social {
     text-align: center;
   }
@@ -3240,7 +3241,7 @@ ul.gallery {
 .lang-sel.align-center {
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .lang-sel {
     text-align: center !important;
   }
