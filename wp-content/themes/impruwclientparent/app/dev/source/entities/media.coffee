@@ -112,6 +112,9 @@ define ["app", 'backbone'], ( App, Backbone ) ->
             mediaCollection.add media
             media
 
+         removeMedia : (model)->
+            mediaCollection.remove model
+
 
       #REQUEST HANDLERS
       App.reqres.setHandler "get:empty:media:collection", ->
@@ -125,3 +128,6 @@ define ["app", 'backbone'], ( App, Backbone ) ->
 
       App.commands.setHandler "new:media:added", ( modelData )->
          API.createNewMedia modelData
+
+      App.commands.setHandler 'remove:media',(model)->
+         API.removeMedia model
