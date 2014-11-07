@@ -50,12 +50,18 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
               textdata['en'] = original_data;
             }
             textdata[WPML_DEFAULT_LANG] = text;
-            return _this.model.set("text", textdata);
+            _this.model.set("text", textdata);
+            return _this.model.trigger("change:text", _this.model);
           };
         })(this));
         this.listenTo(view, "element:target:changed", (function(_this) {
           return function(target) {
             return _this.model.set("target", target);
+          };
+        })(this));
+        this.listenTo(view, "element:linkpage:changed", (function(_this) {
+          return function(linkpage) {
+            return _this.model.set("link_page_id", linkpage);
           };
         })(this));
         return this.show(view);

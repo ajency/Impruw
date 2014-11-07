@@ -27,7 +27,7 @@ define(['app', 'apps/builder/site-builder/elements/link/views', 'apps/builder/si
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:style change:link change:text change:target change:align", this.renderElement);
+        this.listenTo(this.layout.model, "change:style change:link change:text change:target change:align change:link_page_id", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 

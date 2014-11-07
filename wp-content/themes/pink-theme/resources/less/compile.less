@@ -1,11 +1,15 @@
 // Core mixins
 @import "../../../impruwclientparent/css/less/site-elements/mixins.less";
 
+//== Font URL
+
+@font-url: "../../../themes/pink-theme/resources/fonts";
+
 // Font Files
 @font-face {
 	font-family: 'icomoon';
-	src: url("../../../themes/impruwclientparent/fonts/icomoon.eot");
-	src: url("../../../themes/impruwclientparent/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../../../themes/impruwclientparent/fonts/icomoon.woff") format("woff"), url("../../../themes/impruwclientparent/fonts/icomoon.ttf") format("truetype"), url("../../../themes/impruwclientparent/fonts/icomoon.svg#icomoon") format("svg");
+	src: url("@{font-url}/icomoon.eot");
+	src: url("@{font-url}/icomoon.eot?#iefix") format("embedded-opentype"), url("@{font-url}/icomoon.woff") format("woff"), url("@{font-url}/icomoon.ttf") format("truetype"), url("@{font-url}/icomoon.svg#icomoon") format("svg");
 	font-weight: normal;
 	font-style: normal; 
 }
