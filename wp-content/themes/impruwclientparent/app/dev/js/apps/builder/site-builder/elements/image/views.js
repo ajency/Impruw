@@ -114,7 +114,6 @@ define(['app'], function(App) {
         this.parentColumns = this.$el.parents('.column');
         this.parentColumns.each((function(_this) {
           return function(index, parentColumn) {
-            console.log(parentColumn);
             $(parentColumn).on('class:changed', _this.adjustImage);
             return $(parentColumn).on('element:moved', _this.imageMoved);
           };
