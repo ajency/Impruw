@@ -3786,6 +3786,7 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-contactpage .contact h2 {
   display: inline-block;
+  min-width: 250px;
   background: #ee4423;
   color: #fff;
   padding: 0.2em 1em;
