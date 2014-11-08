@@ -4375,13 +4375,18 @@ figure.effect-zoe:hover p.icon-links a:first-child {
 .aj-imp-pricing .pg-content .register-link:hover {
   background: #ffb266;
 }
-.aj-imp-pricing .price-plans .price {
-  font-size: 4em;
+.aj-imp-pricing .price-plans h3.price {
+  font-size: 3em;
   color: #ff7e00;
+}
+.aj-imp-pricing .price-plans h4.price {
+  font-size: 1.5em;
+  color: #182944;
 }
 .aj-imp-pricing .price-plans .price .price-cents {
   vertical-align: super;
   font-size: 50%;
+  color: #aaa;
 }
 .aj-imp-pricing .price-plans .price .price-month {
   font-size: 35%;
@@ -4461,4 +4466,34 @@ figure.effect-zoe:hover p.icon-links a:first-child {
 }
 .aj-imp-pricing .price-plans .panel:hover .btn:hover {
   background: #ff9833;
+}
+.aj-imp-pricing .add-ons {
+  margin: 1em auto;
+  width: 50%;
+  background: #fff;
+  box-shadow: 0 0 2px 3px #ddd;
+  text-align: center;
+  padding: 1em;
+}
+.aj-imp-pricing .add-ons h5 {
+  font-size: 1.6em;
+  color: #ff7e00;
+}
+.aj-imp-pricing .add-ons ol {
+    list-style-type: none;
+    list-style-type: decimal !ie; /*IE 7- hack*/
+    margin: 0;
+    padding: 0;
+}
+.aj-imp-pricing .add-ons ol > li{
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 0.5em;
+    font-size: 1.2em;
+    color: #aaa;
+}
+@media (max-width: 767px) {
+  .aj-imp-pricing .add-ons {
+    width: 90%;
+  }
 }

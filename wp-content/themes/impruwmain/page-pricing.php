@@ -29,8 +29,8 @@ if (have_posts()) : while (have_posts()) : the_post();
                     <h3><?php echo __('Essential', 'impruwmain'); ?></h3>
                 </div>
                 <div class="panel-body">
-                    <h3 class="panel-title price"><?php echo __('£ 0', 'impruwmain'); ?></h3>
-                    <span></span>
+                    <h3 class="panel-title price"><?php echo __('£9.99/month', 'impruwmain'); ?><small class="price-cents"><?php echo __('(+ vat)', 'impruwmain'); ?></small></h3>
+                    <h4 class="panel-title price"><?php echo __('£399.99 Set-up fee', 'impruwmain'); ?><small class="price-cents"><?php echo __('(+ vat)', 'impruwmain'); ?></small></h4>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item"><?php echo __('Assisted Set-Up', 'impruwmain'); ?></li>
@@ -54,7 +54,8 @@ if (have_posts()) : while (have_posts()) : the_post();
         			<h3><?php echo __('Plus', 'impruwmain'); ?></h3> 
         		</div> 
         		<div class="panel-body"> 
-        			<h3 class="panel-title price"><?php echo __('£ 50', 'impruwmain'); ?></h3> 
+        			<h3 class="panel-title price"><?php echo __('£14.99/month', 'impruwmain'); ?><small class="price-cents"><?php echo __('(+ vat)', 'impruwmain'); ?></small></h3>
+                    <h4 class="panel-title price"><?php echo __('£399.99 Set-up fee', 'impruwmain'); ?><small class="price-cents"><?php echo __('(+ vat)', 'impruwmain'); ?></small></h4>
         		</div> 
         		<ul class="list-group"> 
         			<li class="list-group-item"><?php echo __('Assisted Set-Up', 'impruwmain'); ?></li>
@@ -78,7 +79,8 @@ if (have_posts()) : while (have_posts()) : the_post();
         			<h3><?php echo __('Premium', 'impruwmain'); ?></h3> 
         		</div> 
         		<div class="panel-body"> 
-        			<h3 class="panel-title price"><?php echo __('£ 500', 'impruwmain'); ?></h3> 
+        			<h3 class="panel-title price"><?php echo __('£19.99/month', 'impruwmain'); ?><small class="price-cents"><?php echo __('(+ vat)', 'impruwmain'); ?></small></h3>
+                    <h4 class="panel-title price"><?php echo __('£399.99 Set-up fee', 'impruwmain'); ?><small class="price-cents"><?php echo __('(+ vat)', 'impruwmain'); ?></small></h4>
         		</div> 
         		<ul class="list-group"> 
         			<li class="list-group-item"><?php echo __('Assisted Set-Up', 'impruwmain'); ?></li>
@@ -95,6 +97,18 @@ if (have_posts()) : while (have_posts()) : the_post();
                 </ul>
         	</div>
         </div>
+    </div>
+
+    <div class="add-ons">
+        <h5><?php echo __('Available Add-ons', 'impruwmain'); ?></h5>
+        <ol>
+            <li><?php echo __('Food / drink menu styles', 'impruwmain'); ?></li>
+            <li><?php echo __('Add room categories', 'impruwmain'); ?></li>
+            <li><?php echo __('Display room availability through availability calendar', 'impruwmain'); ?></li>
+            <li><?php echo __('Add upto 5 language translations', 'impruwmain'); ?></li>
+            <li><?php echo __('Create slide shows', 'impruwmain'); ?></li>
+            <li><?php echo __('Create custom emails', 'impruwmain'); ?></li>
+        </ol>
     </div>
     
 </div>
