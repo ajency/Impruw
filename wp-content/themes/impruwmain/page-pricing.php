@@ -45,6 +45,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     <li class="list-group-item"><?php echo __('Full Range of Usage Statistics', 'impruwmain'); ?></li>
                     <li class="list-group-item"><?php echo __('+1 Add-on', 'impruwmain'); ?></li>
                 </ul>
+                <button class="btn btn-default btn-block" data-toggle="modal" data-target="#quote-pop"><?php echo __('Request a Quote', 'impruwmain'); ?></button>
             </div>
         </div>
 
@@ -70,6 +71,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     <li class="list-group-item"><?php echo __('Full Range of Usage Statistics', 'impruwmain'); ?></li>
                     <li class="list-group-item"><?php echo __('+3 Add-ons', 'impruwmain'); ?></li>
         		</ul> 
+                <button class="btn btn-default btn-block" data-toggle="modal" data-target="#quote-pop"><?php echo __('Request a Quote', 'impruwmain'); ?></button>
         	</div>
     	</div>
 
@@ -95,6 +97,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     <li class="list-group-item"><?php echo __('Full Range of Usage Statistics', 'impruwmain'); ?></li>
                     <li class="list-group-item"><?php echo __('Unlimited Add-ons', 'impruwmain'); ?></li>
                 </ul>
+                <button class="btn btn-default btn-block" data-toggle="modal" data-target="#quote-pop"><?php echo __('Request a Quote', 'impruwmain'); ?></button>
         	</div>
         </div>
     </div>
@@ -109,6 +112,20 @@ if (have_posts()) : while (have_posts()) : the_post();
             <li><?php echo __('Create slide shows', 'impruwmain'); ?></li>
             <li><?php echo __('Create custom emails', 'impruwmain'); ?></li>
         </ol>
+    </div>
+
+    <div class="modal fade" id="quote-pop" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel"><?php echo __('Request a Quote', 'impruwmain'); ?></h4>
+          </div>
+          <div class="modal-body">
+            <?php echo do_shortcode('[formidable id=2]');?>
+          </div>
+        </div>
+      </div>
     </div>
     
 </div>
