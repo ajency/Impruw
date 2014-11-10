@@ -173,11 +173,11 @@
         'Row' => array(
             array(
                 'name' => 'Green Background',
-                'desc' => 'this is description for Green Background'
+                'desc' => 'Full width row with a theme colored background. Best way to use:  Use this in the header or footer or any place that you need a colored background. Ensure its inside the center container / fix width row else the layout will not be aligned.'
                 ), 
             array(
                 'name' => 'Shaded Background',
-                'desc' => 'this is description for Shaded Background'                
+                'desc' => 'Full width row with a light grey shaded back ground. Best way to use: Use this row style to highlight key points of your site.'                
                 )
             ), 
         'Link' => array(array('name' => 'Default Style'), array('name' => 'Button'), array('name' => 'Header Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));
