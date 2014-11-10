@@ -3570,6 +3570,27 @@ $base_element_templates = array(
                                     <dd class="emphasis">$8.95</dd>
                                 </dl>
                             </div>'
+        ),
+        array(
+            'name' => 'Testimonial',
+            'template' => '<div class="smart-table testimonials boxed">
+                                <h4 class="smart-title">Testimonials</h4>
+                                <dl class="smart-cell">
+                                    <dt>Love it!</dt>
+                                    <dd>I absolutely love this company and their work.</dd>
+                                    <dd class="emphasis">Joan Rivers</dd>
+                                </dl>
+                                <dl class="smart-cell">
+                                    <dt>The best experience ever</dt>
+                                    <dd>We stayed with them for our birthday celebration and the ambience and service were absolutely top-notch. Recommend this place to everyone thats looking for a quiet getaway.</dd>
+                                    <dd class="emphasis">Henry Ford</dd>
+                                </dl>
+                                <dl class="smart-cell">
+                                    <dt>Look No Further...</dt>
+                                    <dd>An end to end solution for all our business needs with excellent support.</dd>
+                                    <dd class="emphasis">Tom Petty</dd>
+                                </dl>
+                            </div>'
         )
     ),
     'Social' => array(

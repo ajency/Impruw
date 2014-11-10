@@ -2047,6 +2047,114 @@ ul.gallery {
   background-size: 60px 60px;
   background-position: 0 0, 30px 30px;
 }
+/**** Styles for Smart Tables ****/
+.smart-table {
+  *zoom: 1;
+  text-align: center;
+}
+.smart-table:after,
+.smart-table:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.smart-table .smart-title {
+  font-size: 2em;
+  margin: 0 auto 1em;
+  font-weight: 300;
+}
+.smart-table .smart-cell {
+  padding: 0.5em 1em;
+  margin-bottom: 0.5em;
+}
+.smart-table .smart-cell dt {
+  font-size: 1.2em;
+  color: #e223a1;
+  margin: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.smart-table .smart-cell dd {
+  font-size: 1em;
+  color: #ffffff;
+}
+.smart-table .smart-cell dd.emphasis {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.smart-table.multi-column {
+  text-align: left;
+}
+.smart-table.multi-column .smart-title {
+  margin: 0 0.5em 1em;
+}
+.smart-table.multi-column .smart-cell {
+  width: 33%;
+  min-width: 300px;
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+}
+.smart-table.multi-column .smart-cell dt {
+  border-bottom: 1px dotted #ffffff;
+  margin: 0 0 0.5em;
+  font-weight: 500;
+}
+.smart-table.multi-column .smart-cell .emphasis {
+  position: absolute;
+  right: 0.75em;
+  top: 0.5em;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #24d07c;
+}
+@media (max-width: 992px) {
+  .smart-table.multi-column .smart-cell {
+    width: 49%;
+  }
+}
+@media (max-width: 767px) {
+  .smart-table.multi-column .smart-cell {
+    width: 100%;
+  }
+}
+.smart-table.testimonials {
+  text-align: left;
+}
+.smart-table.testimonials .smart-title {
+  border-bottom: 1px solid #e223a1;
+  margin-bottom: 0.5em;
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+.smart-table.testimonials .smart-cell dt {
+  text-transform: none;
+  color: #24d07c;
+}
+.smart-table.testimonials .smart-cell dd {
+  font-style: italic;
+  color: #ffffff;
+}
+.smart-table.testimonials .smart-cell dd.emphasis {
+  text-align: right;
+  font-size: 0.88em;
+  font-weight: 700;
+  color: #e223a1;
+  font-style: normal;
+}
+.smart-table.testimonials.boxed {
+  text-align: center;
+}
+.smart-table.testimonials.boxed .smart-title {
+  border-bottom: 0;
+}
+.smart-table.testimonials.boxed .smart-cell {
+  background: #60719b;
+  border-bottom: 1px dotted #24d07c;
+}
+.smart-table.testimonials.boxed .smart-cell dd.emphasis {
+  text-align: center;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
