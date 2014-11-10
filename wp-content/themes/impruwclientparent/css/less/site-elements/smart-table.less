@@ -87,7 +87,7 @@
 				}
 			}
 		}
-		&.boxed {
+		&.centered {
 			text-align: center;
 			.smart-title {
 				border-bottom: 0;
@@ -101,6 +101,38 @@
 						text-transform: uppercase;
 						color: darken(@text-color, 10%);
 					}
+				}
+			}
+		}
+		&.boxed {
+			.smart-title {
+				border: 0;
+			}
+			.smart-cell {
+				position: relative;
+				border: 1px solid @primary1;
+				border-radius: 3px;
+				margin-bottom: 2.5em;
+				dt {
+					font-size: 1.1em;
+					color: @text-color;
+				}
+				dd {
+					&.emphasis {
+						position: absolute;
+						bottom: -2.4em;
+						left: 0;
+					}
+				}
+				&:after {
+					content: "";
+					position: absolute;
+					top: 100%;
+					left: 0.5em;
+					border-top: 10px solid black;
+					border-top-color: inherit; 
+					border-left: 10px solid transparent;
+					border-right: 10px solid transparent; 
 				}
 			}
 		}
