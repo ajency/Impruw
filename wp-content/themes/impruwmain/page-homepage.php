@@ -5,6 +5,9 @@
 get_header();
 $register_page = get_page_by_title( 'Register' );
 $register_page_id = $register_page->ID;
+
+$demo_page = get_page_by_title( 'Request a Demo' );
+$demo_page_id = $demo_page->ID;
 ?>
 
 <div class="aj-imp-homepage">
@@ -12,13 +15,13 @@ $register_page_id = $register_page->ID;
     <div class="home-1">
     	<h1><?php _e('Grow Your Business Online<br> With <span>Impruw</span>','impruwmain')?></h1>
         <?php if( !is_user_logged_in() ) { ?>
-            <a class="btn btn-hg big-sign" href="<?php echo get_permalink(icl_object_id($register_page_id, 'page', TRUE)); ?>"><span class="icon icon-pen"></span><?php _e('Request A Demo','impruwmain')?></a>
+            <a class="btn btn-hg big-sign" href="<?php echo get_permalink(icl_object_id($demo_page_id, 'page', TRUE)); ?>"><span class="icon icon-pen"></span><?php _e('Request A Demo','impruwmain')?></a>
         <?php } ?>
         <img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/HOME_banner.png" title="<?php _e('Impruw Themes','impruwmain'); ?>" alt="<?php _e('Impruw Themes','impruwmain'); ?>" class="img-responsive" />
     </div>
 
     <div class="home-3">
-        <h2><?php _e('Do it yourself - Really!','impruwmain')?></h2>
+        <h2><?php _e('Easily Update Content','impruwmain')?></h2>
         <p><?php _e('A simple drag & drop interface makes managing your website quick and simple.','impruwmain')?></p>
         <img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/HOME_gif.gif" title="<?php _e('Impruw Site Builder','impruwmain'); ?>" alt="<?php _e('Impruw Site Builder','impruwmain'); ?>" class="img-responsive" style="margin:auto;" />
     </div>
@@ -92,11 +95,11 @@ $register_page_id = $register_page->ID;
     			<?php _e('SEO and Statistics - Be found, and know who’s looking.','impruwmain')?>
     		</div>
     		<div class="block">
-    			<?php _e('Professional email service and other tools to manage your online presence.','impruwmain')?>
-    		</div>
-    		<div class="block">
     			<?php _e('Stay Connected with E-mail.','impruwmain')?>
     		</div>
+            <div class="block">
+                <?php _e('Make your site multilingual.','impruwmain')?>
+            </div>
     		<div class="block">
     			<?php _e('Frustration-free content updates.','impruwmain')?>
     		</div>
@@ -110,7 +113,7 @@ $register_page_id = $register_page->ID;
     			<h4><?php _e('Ready to get Started?','impruwmain')?></h4>
     		</div>
     		<div class="col-md-6">
-                <a class="btn btn-hg big-sign" href="<?php echo get_permalink(icl_object_id($register_page_id, 'page', TRUE)); ?>"><span class="icon icon-pen"></span><?php _e('Sign up for a free trial','impruwmain')?></a>
+                <a class="btn btn-hg big-sign" href="<?php echo get_permalink(icl_object_id($demo_page_id, 'page', TRUE)); ?>"><span class="icon icon-pen"></span><?php _e('Request A Demo','impruwmain')?></a>
     		</div>
     	</div>
     </div>

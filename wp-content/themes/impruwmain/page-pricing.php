@@ -105,12 +105,10 @@ if (have_posts()) : while (have_posts()) : the_post();
     <div class="add-ons">
         <h5><?php echo __('Available Add-ons', 'impruwmain'); ?></h5>
         <ol>
-            <li><?php echo __('Food / drink menu styles', 'impruwmain'); ?></li>
-            <li><?php echo __('Add room categories', 'impruwmain'); ?></li>
-            <li><?php echo __('Display room availability through availability calendar', 'impruwmain'); ?></li>
-            <li><?php echo __('Add upto 5 language translations', 'impruwmain'); ?></li>
-            <li><?php echo __('Create slide shows', 'impruwmain'); ?></li>
-            <li><?php echo __('Create custom emails', 'impruwmain'); ?></li>
+            <li><?php echo __('Food/Drink menu', 'impruwmain'); ?></li>
+            <li><?php echo __('Display rooms', 'impruwmain'); ?></li>
+            <li><?php echo __('Availability Calendar for rooms', 'impruwmain'); ?></li>
+            <li><?php echo __('Language translation', 'impruwmain'); ?></li>
         </ol>
     </div>
 
