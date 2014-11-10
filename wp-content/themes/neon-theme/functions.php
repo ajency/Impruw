@@ -224,7 +224,7 @@
         'Row' => array(
                     array(
                         'name'      => 'Top Bar',
-                        'desc' => 'this is description for Top Bar'
+                        'desc' => 'Full width row but with a slim horizontal bar at the bottom. Best way to use:  Use this row in your header or anywhere else, to give the effect of a separator just below this row.'
                     ),
                     array(
                         'name'      => 'Footer Columns',
