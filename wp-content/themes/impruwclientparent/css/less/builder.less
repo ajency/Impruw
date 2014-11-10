@@ -2338,10 +2338,6 @@ a {
 		padding-top: 10px;
 		max-height: 400px;
 		overflow-y: auto;
-		&.overflow-view {
-			max-height: initial;
-			overflow: visible;
-		}
 		.single-img, .single-item {
 			position: relative;
 			padding: 0 5px;
@@ -2491,6 +2487,45 @@ a {
 				.ticker {
 					display: block;
 					background: @orange;
+				}
+			}
+		}
+		&.overflow-view {
+			max-height: initial;
+			overflow: visible;
+			.clearfix;
+			.single-item {
+				.thumbnail {
+					background: lighten(@dash-grey, 20%);
+					.clearfix;
+					.imgthumb {
+						width: 39%;
+						display: inline-block;
+						vertical-align: top;
+						margin: 0 1% 5px 0;
+						background: transparent;
+						&:before {
+							display: none;
+						}
+					}
+					.caption {
+						display: inline-block;
+						width: 58%;
+						vertical-align: top;
+						padding: 0;
+						.item-title {
+							margin-top: 0;
+						}
+					}
+				}
+				&.selected, &.ui-selected {
+					.thumbnail {
+						background: lighten(@dash-grey, 30%);
+						box-shadow: 1px 1px 3px lighten(@dash-grey, 10%);
+						.imgthumb {
+							background: transparent;
+						}
+					}
 				}
 			}
 		}
