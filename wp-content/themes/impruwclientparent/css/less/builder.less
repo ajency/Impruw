@@ -2497,21 +2497,21 @@ a {
 			.single-item {
 				.thumbnail {
 					background: lighten(@dash-grey, 20%);
+					height: 200px;
+					overflow: hidden;
 					.clearfix;
 					.imgthumb {
 						width: 39%;
-						display: inline-block;
+						float: left;
 						vertical-align: top;
-						margin: 0 1% 5px 0;
+						margin: 0 5px 5px 0;
 						background: transparent;
+						height: auto;
 						&:before {
 							display: none;
 						}
 					}
 					.caption {
-						display: inline-block;
-						width: 58%;
-						vertical-align: top;
 						padding: 0;
 						.item-title {
 							margin-top: 0;
