@@ -114,6 +114,7 @@
 				border: 1px solid @primary1;
 				border-radius: 3px;
 				margin-bottom: 2.5em;
+				background: @tertiary1;
 				dt {
 					font-size: 1.1em;
 					color: @text-color;
@@ -125,7 +126,7 @@
 						left: 0;
 					}
 				}
-				&:after {
+				&:after, &:before {
 					content: "";
 					position: absolute;
 					top: 100%;
@@ -134,6 +135,15 @@
 					border-top-color: inherit; 
 					border-left: 10px solid transparent;
 					border-right: 10px solid transparent; 
+					z-index: 1;
+				}
+				&:before {
+					border-top: 8px solid @tertiary1;
+					border-left: 8px solid transparent;
+					border-right: 8px solid transparent; 
+					top: 99.5%;
+					left: 0.6em;
+					z-index: 2;
 				}
 			}
 		}
