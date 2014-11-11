@@ -2619,8 +2619,18 @@ a {
 			display: block;
 			text-align: left !important;
 		}
+		.selected a {
+			color: #fff;
+		}
+		.add a {
+			color: @orange;
+			&:hover {
+				color: #fff;
+			}
+		}
 	}
 	.create-menu-container {
+		border-bottom: 1px solid lighten(@dash-grey, 20%);
 		.desc {
 			color: @dash-grey;
 			font-size: 1.1em;
@@ -2660,6 +2670,7 @@ a {
 		h4 {
 			font-size: 1.4em;
 			color: @dash-grey;
+			margin-top: 0;
 		}
 		.desc {
 			font-size: 0.9em;
@@ -2667,7 +2678,8 @@ a {
 		}
 		.list-steps {
 			list-style: circle;
-			padding-left: 1em;
+			padding-left: 0;
+			margin-top: 1em;
 			li {
 				color: @dash-grey;
 				font-size: 0.9em;
@@ -2751,7 +2763,7 @@ a {
 		border-radius: 2px;
 		padding: 0.5em;
 		h4 {
-			font-size: 1.1em;
+			font-size: 1.3em;
 			color: @dash-grey;
 		}
 	}

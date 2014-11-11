@@ -76,7 +76,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                            <form class="form-horizontal">
                               <div class="form-group">
                                  <div class="col-sm-6 choose-menu">
-                                    <label class="control-label">{{#polyglot}}Choose a Menu{{/polyglot}}</label>
+                                    <label class="control-label">{{#polyglot}}Choose a Menu to Edit{{/polyglot}}</label>
                                     <div class="btn-group bootstrap-select">
                                       <button class="btn btn-default dropdown-toggle t-a-l" type="button" data-toggle="dropdown">
                                         Main Menu <span class="caret"></span>
@@ -86,7 +86,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                                         <li><a href="#">Menu 1</a></li>
                                         <li><a href="#">Menu 2</a></li>
                                         <li><a href="#">Menu 3</a></li>
-                                        <li class="add"><a href="#">Add New Menu</a></li>
+                                        <li class="add"><a href="#"><span class="glyphicon glyphicon-plus"></span> Add New Menu</a></li>
                                       </ul>
                                     </div>
                                  </div>
