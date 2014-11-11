@@ -68,8 +68,11 @@ define ['app', 'bootbox'],(App,bootbox)->
 			mixinTemplateHelpers : (data)->
 				data = super data
 				data.SITEURL = SITEURL
-				data.site = _.slugify @collection.at(0).get 'post_title'
-				data.post_title = @collection.at(0).get 'post_title'
+				page_id = @collection.last().get 'post_parent'
+				@currentPageObject = _.findWhere window.PAGES , 
+						ID : page_id
+				data.site = @currentPageObject.post_name
+				data.post_title = @currentPageObject.post_title
 				data.size = @collection.size()
 				data
 
@@ -183,7 +186,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 
 			changeIframeToPublished : ->
-				@$el.find('iframe').attr 'src', "#{SITEURL}/#{ _.slugify(@collection.at(0).get('post_title'))}/?no_header=true"
+				@$el.find('iframe').attr 'src', "#{SITEURL}/#{@currentPageObject.post_name}/?no_header=true"
 
 				@$el.find('.revision-info .revision-by').text "Published Version"
 

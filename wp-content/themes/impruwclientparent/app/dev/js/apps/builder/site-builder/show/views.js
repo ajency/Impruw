@@ -100,6 +100,16 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           };
           return this.trigger("update:page:name", data);
         },
+        'click .btn-update-pg-slug': function() {
+          var currentPageId, data, updatedPageSlug;
+          currentPageId = this.getCurrentPageId();
+          updatedPageSlug = this.$el.find('.page-slug-edit').val();
+          data = {
+            'post_name': updatedPageSlug,
+            'ID': currentPageId
+          };
+          return this.trigger("update:page:slug", data);
+        },
         'click #take-over-button': 'takeOverPage'
       };
 
@@ -235,13 +245,9 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype._addToPageSlug = function(pageId) {
-        var newUrl, page, toArray;
+        var page;
         page = App.request("get:fetched:page", pageId);
-        toArray = $('.page-slug-edit').val().split('/');
-        newUrl = toArray.pop();
-        newUrl = toArray.push(page.get('post_name'));
-        newUrl = toArray.join('/');
-        return $('.page-slug-edit').val(newUrl);
+        return $('.page-slug-edit').val(page.get('post_name'));
       };
 
       MainView.prototype.enableSelectPicker = function() {

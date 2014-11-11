@@ -69,6 +69,14 @@ define [ 'app'
                   'ID' : currentPageId
                @trigger "update:page:name", data
 
+            'click .btn-update-pg-slug' : ->
+               currentPageId = @getCurrentPageId()
+               updatedPageSlug = @$el.find( '.page-slug-edit' ).val()
+               data =
+                  'post_name' : updatedPageSlug
+                  'ID' : currentPageId
+               @trigger "update:page:slug", data
+
             'click #take-over-button' : 'takeOverPage'
 
          onPageRendered : ->
@@ -200,12 +208,12 @@ define [ 'app'
 
          _addToPageSlug : (pageId)=>
             page = App.request "get:fetched:page", pageId
-            toArray = $('.page-slug-edit').val().split('/')
-            newUrl = toArray.pop()
+            # toArray = $('.page-slug-edit').val().split('/')
+            # newUrl = toArray.pop()
             #newUrl = toArray.pop()
-            newUrl = toArray.push page.get 'post_name'
-            newUrl = toArray.join '/'
-            $('.page-slug-edit').val newUrl
+            # newUrl = toArray.push page.get 'post_name'
+            # newUrl = toArray.join '/'
+            $('.page-slug-edit').val page.get 'post_name'
 
          #set the selectpicker for the drop down
          enableSelectPicker : =>

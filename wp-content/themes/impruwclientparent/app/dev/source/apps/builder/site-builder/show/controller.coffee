@@ -119,8 +119,9 @@ define [ 'app'
                 @layout = layout = new Show.View.MainView
                                             collection : @pages
 
-                @listenTo layout, 'editable:page:changed', ( pageId )->
+                @listenTo layout, 'editable:page:changed', ( pageId )=>
                     # set the cookie
+                    @setCurrentPage @pages.get(pageId)
                     $.cookie 'current-page-id', pageId
                     App.execute "editable:page:changed", pageId
 
@@ -149,6 +150,7 @@ define [ 'app'
                     , 200
 
                 @listenTo layout, "update:page:name", @updatePageName
+                @listenTo layout, "update:page:slug", @updatePageSlug
 
                 # heartbeat API
                 @listenTo App.vent, 'page:took:over', (errorMessage)->
@@ -186,8 +188,19 @@ define [ 'app'
                     wait : true
                     success : @pageNameUpdated
 
+            updatePageSlug : ( pageData )->
+                updatedPageModel = App.request "get:page:model:by:id", pageData.ID
+                updatedPageModel.set pageData
+                updatedPageModel.save null,
+                    wait : true
+                    success : @setCurrentPage
+
             pageNameUpdated : ( updatedPageModel )=>
+                @setCurrentPage updatedPageModel
                 @layout.triggerMethod "page:name:updated", updatedPageModel
+
+            setCurrentPage : (model)->
+                window.CURRENTPAGE = model.toJSON()
 
         App.commands.setHandler "editable:page:changed", ( pageId, revisionId = 0 )=>
             

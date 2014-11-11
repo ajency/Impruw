@@ -148,10 +148,13 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         this.layout = layout = new Show.View.MainView({
           collection: this.pages
         });
-        this.listenTo(layout, 'editable:page:changed', function(pageId) {
-          $.cookie('current-page-id', pageId);
-          return App.execute("editable:page:changed", pageId);
-        });
+        this.listenTo(layout, 'editable:page:changed', (function(_this) {
+          return function(pageId) {
+            _this.setCurrentPage(_this.pages.get(pageId));
+            $.cookie('current-page-id', pageId);
+            return App.execute("editable:page:changed", pageId);
+          };
+        })(this));
         this.listenTo(this.layout, "add:new:page:clicked", function() {
           return App.execute("show:add:new:page", {
             region: App.dialogRegion
@@ -180,6 +183,7 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
           };
         })(this));
         this.listenTo(layout, "update:page:name", this.updatePageName);
+        this.listenTo(layout, "update:page:slug", this.updatePageSlug);
         this.listenTo(App.vent, 'page:took:over', function(errorMessage) {
           return layout.triggerMethod('page:took:over', errorMessage);
         });
@@ -222,8 +226,23 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         });
       };
 
+      Controller.prototype.updatePageSlug = function(pageData) {
+        var updatedPageModel;
+        updatedPageModel = App.request("get:page:model:by:id", pageData.ID);
+        updatedPageModel.set(pageData);
+        return updatedPageModel.save(null, {
+          wait: true,
+          success: this.setCurrentPage
+        });
+      };
+
       Controller.prototype.pageNameUpdated = function(updatedPageModel) {
+        this.setCurrentPage(updatedPageModel);
         return this.layout.triggerMethod("page:name:updated", updatedPageModel);
+      };
+
+      Controller.prototype.setCurrentPage = function(model) {
+        return window.CURRENTPAGE = model.toJSON();
       };
 
       return Controller;
