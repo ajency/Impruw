@@ -909,16 +909,18 @@ function delete_page_all_data( $page_id ){
 
     if ( impruw_is_front_page( $page_id ) )
         return fasle;
-    else
+    else {
         // get english version of page
         $page_id = icl_object_id( $page_id, 'page', true, 'en' );
 
         // delete all elements for the page
         $page_autosave = wp_get_post_autosave( $page_id );
-        $page_json = get_post_meta( $page_autosave->ID, 'page-json', true );
-        $page_elements = create_page_element_array($page_json);
-        foreach ($page_elements as $page_element) {
-            delete_metadata_by_mid('post',$page_element['meta_id']);
+        if ($page_autosave){
+            $page_json = get_post_meta( $page_autosave->ID, 'page-json', true );
+            $page_elements = create_page_element_array($page_json);
+            foreach ($page_elements as $page_element) {
+                delete_metadata_by_mid('post',$page_element['meta_id']);
+            }
         }
 
         // delete all revisions for a page + autosave
@@ -935,5 +937,6 @@ function delete_page_all_data( $page_id ){
         }
 
         return true;
+    }
 
 }
