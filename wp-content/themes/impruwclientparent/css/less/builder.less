@@ -2613,6 +2613,13 @@ a {
 	.menu-manager-container {
 		padding: 0 2em;
 	}
+	.choose-menu {
+		padding-left: 0;
+		.control-label {
+			display: block;
+			text-align: left !important;
+		}
+	}
 	.create-menu-container {
 		.desc {
 			color: @dash-grey;
@@ -2738,7 +2745,15 @@ a {
 				}
 			}
 		}
-		
+	}
+	.styles-container {
+		background: @preview-grey;
+		border-radius: 2px;
+		padding: 0.5em;
+		h4 {
+			font-size: 1.1em;
+			color: @dash-grey;
+		}
 	}
 	&.bootbox {
 		.btn-primary {
