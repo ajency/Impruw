@@ -455,6 +455,14 @@ jQuery(document).ready(function(){
     });
 });
 
+
+/************ slider.js ***************/
+
+jQuery(document).ready(function(){
+    $('.tp-caption .caption-hover').parent().addClass('caption-hover');
+    $('.tp-caption .caption-hover').removeClass('caption-hover');
+})
+
 /************ slimenu.js ***************/
 jQuery(document).ready(function () {
     
