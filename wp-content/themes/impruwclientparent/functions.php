@@ -3539,7 +3539,6 @@ $base_element_templates = array(
         array(
             'name' => 'Restaurant Menu',
             'template' => '<div class="smart-table multi-column">
-                                <h4 class="smart-title">Appetizers</h4>
                                 <dl class="smart-cell">
                                     <dt>Fried Spring Rolls</dt>
                                     <dd>chicken or vegetable</dd>
@@ -3574,7 +3573,6 @@ $base_element_templates = array(
         array(
             'name' => 'Testimonial',
             'template' => '<div class="smart-table testimonials boxed">
-                                <h4 class="smart-title">Testimonials</h4>
                                 <dl class="smart-cell">
                                     <dt>Love it!</dt>
                                     <dd>I absolutely love this company and their work.</dd>
