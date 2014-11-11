@@ -400,7 +400,7 @@ add_filter( 'wp_mail_content_type', 'change_email_content_type' );
         $result = '';
         $info = '';
         $form_data = array();
-        $form_subject = __('Contact Form', 'impruwmain');
+        $form_subject = __('Request a Demo', 'impruwmain');
         extract(shortcode_atts(array(// if you don't provide an e-mail address, the shortcode will pick the e-mail address of the admin:
             "email"         => get_bloginfo('admin_email'), "subject" => "", "label_name" => __("Your Name", "impruwmain"), "label_email" => __("Your E-mail Address","impruwmain"), "label_subject" => __("Subject","impruwmain"), "label_message" => __("Your Message","impruwmain"), "label_submit" => __("Submit","impruwmain"), // the error message when at least one of the required fields are empty:
             "error_empty"   => "<div class='alert alert-error'>Please fill in all the required fields.</div>", // the error message when the e-mail address is not valid:
