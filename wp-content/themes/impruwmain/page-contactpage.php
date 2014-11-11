@@ -13,7 +13,7 @@ get_header();
     </div>
     <div class="row">
         <div class="col-md-7 aj-imp-register-left">
-            <?php echo do_shortcode('[contact subject="Request a Demo"]');?>
+            <?php echo do_shortcode('[formidable id=3]');?>
         </div>
         <div class="col-md-5 aj-imp-register-right">
             <!--<div class="aj-imp-reg-step">
@@ -32,7 +32,13 @@ get_header();
             <div class="aj-imp-reg-step">
                 <h5><?php echo __('What happens next?', 'impruwmain'); ?></h5>
                 <p>
-                    <?php echo __('Get in touch with us Using this form and we will set up an appointment to do a demo for you.', 'impruwmain'); ?>
+                    <?php echo __('We\'ll contact you shortly to discuss your website needs and what Impruw can do for you.', 'impruwmain'); ?>
+                </p>
+                <p>
+                    <?php echo __('Our business hours are Monday to Friday, 9:30 - 17:30.', 'impruwmain'); ?>
+                </p>
+                <p>
+                    <?php echo __('We look forward to helping your business unlock its web potential.', 'impruwmain'); ?>
                 </p>
             </div>
         </div>
