@@ -1,10 +1,25 @@
 .tp-caption {
 	padding: @medium;
+	max-width: 100%;
+	.text {
+		white-space: normal;
+	}
 	&.transparent-black {
 		background: rgba(0, 0, 0, 0.7);
 	}
 	&.transparent-white {
 		background: rgba(255, 255, 255, 0.7);
+	}
+	&.caption-hover {
+		display: none;
+	}
+}
+
+.rev_slider_wrapper {
+	&:hover {
+		.caption-hover {
+			display: block;
+		}
 	}
 }
 
