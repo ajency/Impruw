@@ -110,7 +110,7 @@ define(['app'], function(App) {
 
       TranslatedTableView.prototype.childView = TranslatedTableItemView;
 
-      TranslatedTableView.prototype.itemViewContainer = '#translatable-page-table';
+      TranslatedTableView.prototype.childViewContainer = '#translatable-page-table';
 
       TranslatedTableView.prototype.itemViewOptions = function() {
         var language;

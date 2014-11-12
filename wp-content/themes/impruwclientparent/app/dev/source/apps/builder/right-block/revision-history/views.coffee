@@ -38,7 +38,7 @@ define ['app'
 
 			emptyView : EmptyHistoryItem
 			
-			itemViewContainer : 'ol'
+			childViewContainer : 'ol'
 
 			events : 
 				'click .view-history-link' :(e)-> 

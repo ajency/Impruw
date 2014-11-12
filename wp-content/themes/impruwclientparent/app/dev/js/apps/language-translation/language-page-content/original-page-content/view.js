@@ -58,7 +58,7 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
 
       OriginalPageView.prototype.childView = OriginalPageItemView;
 
-      OriginalPageView.prototype.itemViewContainer = '#translatable-page-elements';
+      OriginalPageView.prototype.childViewContainer = '#translatable-page-elements';
 
       OriginalPageView.prototype.serializeData = function() {
         var data;

@@ -108,7 +108,7 @@ define(['app'], function(App) {
 
       UserEmailView.prototype.emptyView = EmptyView;
 
-      UserEmailView.prototype.itemViewContainer = 'tbody';
+      UserEmailView.prototype.childViewContainer = 'tbody';
 
       UserEmailView.prototype.events = {
         'click #add-new-user-email-btn': 'addNewUserEmail'

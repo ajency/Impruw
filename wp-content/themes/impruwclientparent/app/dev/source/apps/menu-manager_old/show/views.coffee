@@ -35,7 +35,7 @@ define ['app'
 
 					childView : MenuItemView
 
-					itemViewContainer : 'ol.sortable-menu-items'
+					childViewContainer : 'ol.sortable-menu-items'
 
 					className : 'tab-pane'
 
@@ -91,4 +91,4 @@ define ['app'
 
 						data
 
-					itemViewContainer : '.tab-content'
+					childViewContainer : '.tab-content'

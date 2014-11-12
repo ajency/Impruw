@@ -135,7 +135,7 @@ define [ 'app', 'controllers/base-controller'
 
             template : "<div class='card-list row'></div>"
             childView : SingleCardView
-            itemViewContainer : '.card-list'
+            childViewContainer : '.card-list'
 
 
         App.commands.setHandler "show:card", ( opts ) ->

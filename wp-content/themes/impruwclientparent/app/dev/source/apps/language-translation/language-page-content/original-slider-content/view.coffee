@@ -56,7 +56,7 @@ define ['app'], (App)->
 
             childView : OriginalSlideItemView
 
-            itemViewContainer : '#original-page-slide'
+            childViewContainer : '#original-page-slide'
 
 
             initialize :->
@@ -78,4 +78,4 @@ define ['app'], (App)->
 
             emptyView : EmptySliderView
 
-            itemViewContainer : '#original-page-slider'
+            childViewContainer : '#original-page-slider'

@@ -91,7 +91,7 @@ define(['app', 'text!apps//language-translation/language-footer/translated-foote
 
       TranslatedFooterView.prototype.childView = TranslatedFooterItemView;
 
-      TranslatedFooterView.prototype.itemViewContainer = '#translated-footer-elements';
+      TranslatedFooterView.prototype.childViewContainer = '#translated-footer-elements';
 
       TranslatedFooterView.prototype.serializeData = function() {
         var data;

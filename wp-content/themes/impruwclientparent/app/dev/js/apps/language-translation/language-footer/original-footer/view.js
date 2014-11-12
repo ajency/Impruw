@@ -58,7 +58,7 @@ define(['app', 'text!apps//language-translation/language-footer/original-footer/
 
       OriginalFooterView.prototype.childView = OriginalFooterItemView;
 
-      OriginalFooterView.prototype.itemViewContainer = '#translatable-footer-elements';
+      OriginalFooterView.prototype.childViewContainer = '#translatable-footer-elements';
 
       OriginalFooterView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalFooterView.__super__.mixinTemplateHelpers.call(this, data);

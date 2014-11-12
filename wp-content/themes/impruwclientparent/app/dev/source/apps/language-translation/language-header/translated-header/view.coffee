@@ -85,7 +85,7 @@ define ['app'
 
             childView : TranslatedHeaderItemView
 
-            itemViewContainer : '#translated-header-elements'
+            childViewContainer : '#translated-header-elements'
 
             serializeData: ()->
                 data = super()

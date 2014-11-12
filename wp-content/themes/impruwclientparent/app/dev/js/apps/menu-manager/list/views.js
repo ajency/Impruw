@@ -81,7 +81,7 @@ define(['app'], function(App) {
 
       MenuCollectionView.prototype.emptyView = EmptyView;
 
-      MenuCollectionView.prototype.itemViewContainer = 'ol.sortable-menu-items';
+      MenuCollectionView.prototype.childViewContainer = 'ol.sortable-menu-items';
 
       MenuCollectionView.prototype.className = 'aj-imp-menu-item-list';
 

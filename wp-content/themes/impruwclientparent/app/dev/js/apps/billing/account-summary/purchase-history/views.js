@@ -39,7 +39,7 @@ define(['app', 'text!apps/billing/account-summary/templates/purchaseHistory.html
 
       Transaction.prototype.template = viewTpl;
 
-      Transaction.prototype.itemViewContainer = 'tbody';
+      Transaction.prototype.childViewContainer = 'tbody';
 
       Transaction.prototype.childView = SingleTranscation;
 

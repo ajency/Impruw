@@ -70,7 +70,7 @@ define [ 'app'
 
             childView : SinglePlanView
 
-            itemViewContainer : '.price-plans'
+            childViewContainer : '.price-plans'
 
             serializeData :->
                 data = super()

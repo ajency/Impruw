@@ -48,7 +48,7 @@ define ['app'
 
             template : leftNavTpl
 
-            itemViewContainer : '#aj-imp-dash-menu'
+            childViewContainer : '#aj-imp-dash-menu'
 
             childView : MenuItem
 

@@ -47,7 +47,7 @@ define ['app'
 
             childView : OriginalHeaderItemView
 
-            itemViewContainer : '#translatable-header-elements'
+            childViewContainer : '#translatable-header-elements'
 
             mixinTemplateHelpers: (data)->
                 data = super data 

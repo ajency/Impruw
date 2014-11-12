@@ -46,4 +46,4 @@ define ['app'], (App)->
 
             emptyView : EmptyTableView
 
-            itemViewContainer : '#original-page-table'
+            childViewContainer : '#original-page-table'

@@ -86,7 +86,7 @@ define [ 'app'], ( App )->
 
          emptyView : EmptyView
 
-         itemViewContainer : 'ol.sortable-menu-items'
+         childViewContainer : 'ol.sortable-menu-items'
 
          className : 'aj-imp-menu-item-list'
 

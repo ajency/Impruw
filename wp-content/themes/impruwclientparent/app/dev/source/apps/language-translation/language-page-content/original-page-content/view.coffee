@@ -49,7 +49,7 @@ define ['app'
 
             childView : OriginalPageItemView
 
-            itemViewContainer : '#translatable-page-elements'
+            childViewContainer : '#translatable-page-elements'
 
             serializeData: ()->
                 data = super()

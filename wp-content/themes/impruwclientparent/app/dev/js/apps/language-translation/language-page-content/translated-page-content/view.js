@@ -95,7 +95,7 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
 
       TranslatedPageView.prototype.childView = TranslatedPageItemView;
 
-      TranslatedPageView.prototype.itemViewContainer = '#translated-page-elements';
+      TranslatedPageView.prototype.childViewContainer = '#translated-page-elements';
 
       TranslatedPageView.prototype.events = {
         "click #btn-save-translated-page-title": "updatePageTitle",

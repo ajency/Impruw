@@ -78,7 +78,7 @@ define(['app'], function(App, mediaTpl) {
 
       GridView.prototype.emptyView = EmptyMediaGrid;
 
-      GridView.prototype.itemViewContainer = '#selectable-images';
+      GridView.prototype.childViewContainer = '#selectable-images';
 
       GridView.prototype.collectionEvents = {
         'show:grid': function() {

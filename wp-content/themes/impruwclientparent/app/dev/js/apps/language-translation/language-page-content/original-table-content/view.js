@@ -67,7 +67,7 @@ define(['app'], function(App) {
 
       OriginalTableView.prototype.emptyView = EmptyTableView;
 
-      OriginalTableView.prototype.itemViewContainer = '#original-page-table';
+      OriginalTableView.prototype.childViewContainer = '#original-page-table';
 
       return OriginalTableView;
 

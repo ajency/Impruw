@@ -61,7 +61,7 @@ define(['app'], function(App) {
 
       SeoPageNavView.prototype.childView = SeoPageNavItemView;
 
-      SeoPageNavView.prototype.itemViewContainer = '#js-seo-nav-bar';
+      SeoPageNavView.prototype.childViewContainer = '#js-seo-nav-bar';
 
       SeoPageNavView.prototype.events = {
         'click a#seo-rooms': 'loadSeoRoomContent'

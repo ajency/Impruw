@@ -110,7 +110,7 @@ define ['app'], (App)->
 
             childView : TranslatedSlideItemView
 
-            itemViewContainer : '#translated-page-slide'
+            childViewContainer : '#translated-page-slide'
 
 
             initialize :->
@@ -130,7 +130,7 @@ define ['app'], (App)->
 
             childView : TranslatedSlideView
 
-            itemViewContainer : '#translated-page-slider'
+            childViewContainer : '#translated-page-slider'
 
             itemViewOptions : ->
                 language = Marionette.getOption @, 'language'

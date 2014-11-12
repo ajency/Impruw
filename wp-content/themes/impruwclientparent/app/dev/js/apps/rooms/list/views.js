@@ -48,7 +48,7 @@ define(['app', 'text!apps/rooms/list/templates/mainview2.html', 'text!apps/rooms
 
       RoomsListView.prototype.template = mainviewTpl;
 
-      RoomsListView.prototype.itemViewContainer = '.new-room-list';
+      RoomsListView.prototype.childViewContainer = '.new-room-list';
 
       RoomsListView.prototype.childView = RoomSingle;
 

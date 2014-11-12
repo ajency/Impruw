@@ -39,7 +39,7 @@ define(['app'], function(App) {
 
       LanguagePageNavView.prototype.childView = LanguagePageNavItemView;
 
-      LanguagePageNavView.prototype.itemViewContainer = '#js-page-nav-bar';
+      LanguagePageNavView.prototype.childViewContainer = '#js-page-nav-bar';
 
       LanguagePageNavView.prototype.events = {
         'click a#site': 'loadSiteContent',

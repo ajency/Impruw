@@ -63,7 +63,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
 
       PlansView.prototype.childView = SinglePlanView;
 
-      PlansView.prototype.itemViewContainer = '.price-plans';
+      PlansView.prototype.childViewContainer = '.price-plans';
 
       PlansView.prototype.serializeData = function() {
         var data;

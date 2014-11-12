@@ -54,7 +54,7 @@ define(['app'], function(App) {
 
       OriginalSlideView.prototype.childView = OriginalSlideItemView;
 
-      OriginalSlideView.prototype.itemViewContainer = '#original-page-slide';
+      OriginalSlideView.prototype.childViewContainer = '#original-page-slide';
 
       OriginalSlideView.prototype.initialize = function() {
         var collection;
@@ -90,7 +90,7 @@ define(['app'], function(App) {
 
       OriginalSliderView.prototype.emptyView = EmptySliderView;
 
-      OriginalSliderView.prototype.itemViewContainer = '#original-page-slider';
+      OriginalSliderView.prototype.childViewContainer = '#original-page-slider';
 
       return OriginalSliderView;
 

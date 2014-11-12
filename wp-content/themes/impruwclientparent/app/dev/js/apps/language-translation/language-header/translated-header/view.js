@@ -91,7 +91,7 @@ define(['app', 'text!apps//language-translation/language-header/translated-heade
 
       TranslatedHeaderView.prototype.childView = TranslatedHeaderItemView;
 
-      TranslatedHeaderView.prototype.itemViewContainer = '#translated-header-elements';
+      TranslatedHeaderView.prototype.childViewContainer = '#translated-header-elements';
 
       TranslatedHeaderView.prototype.serializeData = function() {
         var data;

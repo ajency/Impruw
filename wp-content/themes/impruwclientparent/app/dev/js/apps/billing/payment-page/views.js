@@ -148,7 +148,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
 
       PaymentPageView.prototype.childView = SingleCreditCard;
 
-      PaymentPageView.prototype.itemViewContainer = '.card-list';
+      PaymentPageView.prototype.childViewContainer = '.card-list';
 
       PaymentPageView.prototype.className = 'col-sm-8';
 

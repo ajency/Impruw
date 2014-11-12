@@ -59,7 +59,7 @@ define [ 'app'], ( App, mediaTpl )->
 
          emptyView : EmptyMediaGrid
          
-         itemViewContainer : '#selectable-images'
+         childViewContainer : '#selectable-images'
 
          collectionEvents : 
             'show:grid' : ->

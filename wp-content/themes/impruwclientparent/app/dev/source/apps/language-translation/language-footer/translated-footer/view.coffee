@@ -85,7 +85,7 @@ define ['app'
 
             childView : TranslatedFooterItemView
 
-            itemViewContainer : '#translated-footer-elements'
+            childViewContainer : '#translated-footer-elements'
 
             serializeData: ()->
                 data = super()

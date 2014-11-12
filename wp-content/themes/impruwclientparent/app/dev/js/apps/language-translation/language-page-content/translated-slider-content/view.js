@@ -104,7 +104,7 @@ define(['app'], function(App) {
 
       TranslatedSlideView.prototype.childView = TranslatedSlideItemView;
 
-      TranslatedSlideView.prototype.itemViewContainer = '#translated-page-slide';
+      TranslatedSlideView.prototype.childViewContainer = '#translated-page-slide';
 
       TranslatedSlideView.prototype.initialize = function() {
         var collection;
@@ -134,7 +134,7 @@ define(['app'], function(App) {
 
       TranslatedSliderView.prototype.childView = TranslatedSlideView;
 
-      TranslatedSliderView.prototype.itemViewContainer = '#translated-page-slider';
+      TranslatedSliderView.prototype.childViewContainer = '#translated-page-slider';
 
       TranslatedSliderView.prototype.itemViewOptions = function() {
         var language;

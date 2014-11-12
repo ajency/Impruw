@@ -114,7 +114,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       PageTemplatesGrid.prototype.childView = TemplateView;
 
-      PageTemplatesGrid.prototype.itemViewContainer = '.templates';
+      PageTemplatesGrid.prototype.childViewContainer = '.templates';
 
       PageTemplatesGrid.prototype.emptyView = EmptyView;
 
@@ -138,7 +138,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       ThemeTemplatesGrid.prototype.childView = TemplateView;
 
-      ThemeTemplatesGrid.prototype.itemViewContainer = '.templates';
+      ThemeTemplatesGrid.prototype.childViewContainer = '.templates';
 
       ThemeTemplatesGrid.prototype.emptyView = EmptyView;
 

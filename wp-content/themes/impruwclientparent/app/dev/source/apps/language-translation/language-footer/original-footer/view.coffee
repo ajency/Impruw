@@ -47,7 +47,7 @@ define ['app'
 
             childView : OriginalFooterItemView
 
-            itemViewContainer : '#translatable-footer-elements'
+            childViewContainer : '#translatable-footer-elements'
 
             mixinTemplateHelpers: (data)->
                 data = super data 

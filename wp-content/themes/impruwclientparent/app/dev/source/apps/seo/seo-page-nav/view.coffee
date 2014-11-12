@@ -56,7 +56,7 @@ define ['app'], (App)->
 
                     childView :  SeoPageNavItemView 
 
-                    itemViewContainer : '#js-seo-nav-bar' 
+                    childViewContainer : '#js-seo-nav-bar' 
 
                     events:
                         'click a#seo-rooms' : 'loadSeoRoomContent'

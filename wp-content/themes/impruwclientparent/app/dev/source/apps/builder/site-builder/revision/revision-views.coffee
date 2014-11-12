@@ -54,7 +54,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 							</div>
 						</div>' 
 
-			itemViewContainer : '#slider'
+			childViewContainer : '#slider'
 
 			childView : RevisionSingleView
 

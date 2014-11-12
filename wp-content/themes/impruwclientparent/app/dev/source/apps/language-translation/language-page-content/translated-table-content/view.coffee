@@ -92,7 +92,7 @@ define ['app'], (App)->
 
             childView : TranslatedTableItemView
 
-            itemViewContainer : '#translatable-page-table'
+            childViewContainer : '#translatable-page-table'
 
             itemViewOptions : ->
                 language = Marionette.getOption @, 'language'

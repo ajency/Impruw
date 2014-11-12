@@ -101,7 +101,7 @@ define ['app'], (App)->
 
                     emptyView : EmptyView
 
-                    itemViewContainer : 'tbody'
+                    childViewContainer : 'tbody'
 
                     events:
                         'click #add-new-user-email-btn' : 'addNewUserEmail'

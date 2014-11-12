@@ -1,0 +1,323 @@
+Searching 669 files for "itemViewContainer :" (case sensitive)
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/billing/account-summary/purchase-history/views.coffee:
+   21              template: viewTpl
+   22  
+   23:             itemViewContainer : 'tbody'
+   24  
+   25              childView : SingleTranscation
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/billing/payment-page/views.coffee:
+  112              childView : SingleCreditCard
+  113  
+  114:             itemViewContainer : '.card-list'
+  115  
+  116              className : 'col-sm-8'
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/billing/pricing-plans/views.coffee:
+   71              childView : SinglePlanView
+   72  
+   73:             itemViewContainer : '.price-plans'
+   74  
+   75              serializeData :->
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/billing/update-billing/card-details/controller.coffee:
+  136              template : "<div class='card-list row'></div>"
+  137              childView : SingleCardView
+  138:             itemViewContainer : '.card-list'
+  139  
+  140  
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/builder/right-block/revision-history/views.coffee:
+   39  			emptyView : EmptyHistoryItem
+   40  			
+   41: 			itemViewContainer : 'ol'
+   42  
+   43  			events : 
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/builder/site-builder/element/Find Results:
+    2  
+    3  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/billing/account-summary/purchase-history/views.coffee:
+    4:    23              itemViewContainer : 'tbody'
+    5     24  
+    6     25:             itemView : SingleTranscation
+    .
+   13    112:             itemView : SingleCreditCard
+   14    113  
+   15:   114              itemViewContainer : '.card-list'
+   16  
+   17  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/billing/pricing-plans/views.coffee:
+   ..
+   20     71:             itemView : SinglePlanView
+   21     72  
+   22:    73              itemViewContainer : '.price-plans'
+   23  
+   24  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/billing/update-billing/card-details/controller.coffee:
+   ..
+   26    136              template : "<div class='card-list row'></div>"
+   27    137:             itemView : SingleCardView
+   28:   138              itemViewContainer : '.card-list'
+   29    139  
+   30  
+   ..
+   44  
+   45  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/builder/site-builder/revision/revision-views.coffee:
+   46:    57  			itemViewContainer : '#slider'
+   47     58  
+   48     59: 			itemView : RevisionSingleView
+   ..
+   69     48:             itemView : OriginalFooterItemView
+   70     49  
+   71:    50              itemViewContainer : '#translatable-footer-elements'
+   72  
+   73  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-footer/translated-footer/view.coffee:
+   ..
+   76     86:             itemView : TranslatedFooterItemView
+   77     87  
+   78:    88              itemViewContainer : '#translated-footer-elements'
+   79  
+   80  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-header/original-header/view.coffee:
+   ..
+   83     48:             itemView : OriginalHeaderItemView
+   84     49  
+   85:    50              itemViewContainer : '#translatable-header-elements'
+   86  
+   87  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-header/translated-header/view.coffee:
+   ..
+   90     86:             itemView : TranslatedHeaderItemView
+   91     87  
+   92:    88              itemViewContainer : '#translated-header-elements'
+   93  
+   94  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-content/original-page-content/view.coffee:
+   ..
+   97     50:             itemView : OriginalPageItemView
+   98     51  
+   99:    52              itemViewContainer : '#translatable-page-elements'
+  100  
+  101  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-content/original-slider-content/view.coffee:
+  ...
+  104     57:             itemView : OriginalSlideItemView
+  105     58  
+  106:    59              itemViewContainer : '#original-page-slide'
+  107     ..
+  108     75                          '
+  ...
+  124     88:             itemView : TranslatedPageItemView
+  125     89  
+  126:    90              itemViewContainer : '#translated-page-elements'
+  127  
+  128  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-content/translated-slider-content/view.coffee:
+  ...
+  131    111:             itemView : TranslatedSlideItemView
+  132    112  
+  133:   113              itemViewContainer : '#translated-page-slide'
+  134    ...
+  135    129                          </div>'
+  ...
+  137    131:             itemView : TranslatedSlideView
+  138    132  
+  139:   133              itemViewContainer : '#translated-page-slider'
+  140  
+  141  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-content/translated-table-content/view.coffee:
+  ...
+  144     93:             itemView : TranslatedTableItemView
+  145     94  
+  146:    95              itemViewContainer : '#translatable-page-table'
+  147  
+  148  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-nav/view.coffee:
+  ...
+  151     46:                     itemView :  LanguagePageNavItemView 
+  152     47  
+  153:    48                      itemViewContainer : '#js-page-nav-bar' 
+  154  
+  155  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-rooms/original-room-dateranges/view.coffee:
+  ...
+  180  
+  181  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/leftnav/show/views.coffee:
+  182:    51              itemViewContainer : '#aj-imp-dash-menu'
+  183     52  
+  184     53:             itemView : MenuItem
+  ...
+  205     36: 					itemView : MenuItemView
+  206     37  
+  207:    38  					itemViewContainer : 'ol.sortable-menu-items'
+  208  
+  209  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/rooms/list/views.coffee:
+  210:    29           itemViewContainer : '.new-room-list'
+  211     30  
+  212     31:          itemView : RoomSingle
+  ...
+  219     57:                     itemView :  SeoPageNavItemView 
+  220     58  
+  221:    59                      itemViewContainer : '#js-seo-nav-bar' 
+  222  
+  223  /Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/slider-manager/edit-slider/slide-text-layer/slide-text-layer-views.coffee:
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/builder/site-builder/revision/revision-views.coffee:
+   55  						</div>' 
+   56  
+   57: 			itemViewContainer : '#slider'
+   58  
+   59  			childView : RevisionSingleView
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/builder/site-builder/templates/pagetemplates.coffee:
+   76              childView: TemplateView
+   77  
+   78:             itemViewContainer : '.templates'
+   79  
+   80              emptyView: EmptyView
+   ..
+   92              childView: TemplateView
+   93  
+   94:             itemViewContainer : '.templates'
+   95  
+   96              emptyView: EmptyView
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/emails/user-emails/show/view.coffee:
+  102                      emptyView : EmptyView
+  103  
+  104:                     itemViewContainer : 'tbody'
+  105  
+  106                      events:
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-footer/original-footer/view.coffee:
+   48              childView : OriginalFooterItemView
+   49  
+   50:             itemViewContainer : '#translatable-footer-elements'
+   51  
+   52              mixinTemplateHelpers: (data)->
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-footer/translated-footer/view.coffee:
+   86              childView : TranslatedFooterItemView
+   87  
+   88:             itemViewContainer : '#translated-footer-elements'
+   89  
+   90              serializeData: ()->
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-header/original-header/view.coffee:
+   48              childView : OriginalHeaderItemView
+   49  
+   50:             itemViewContainer : '#translatable-header-elements'
+   51  
+   52              mixinTemplateHelpers: (data)->
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-header/translated-header/view.coffee:
+   86              childView : TranslatedHeaderItemView
+   87  
+   88:             itemViewContainer : '#translated-header-elements'
+   89  
+   90              serializeData: ()->
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-content/original-page-content/view.coffee:
+   50              childView : OriginalPageItemView
+   51  
+   52:             itemViewContainer : '#translatable-page-elements'
+   53  
+   54              serializeData: ()->
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-content/original-slider-content/view.coffee:
+   57              childView : OriginalSlideItemView
+   58  
+   59:             itemViewContainer : '#original-page-slide'
+   60  
+   61  
+   ..
+   79              emptyView : EmptySliderView
+   80  
+   81:             itemViewContainer : '#original-page-slider'
+   82  
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-content/original-table-content/view.coffee:
+   47              emptyView : EmptyTableView
+   48  
+   49:             itemViewContainer : '#original-page-table'
+   50  
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-content/translated-page-content/view.coffee:
+   88              childView : TranslatedPageItemView
+   89  
+   90:             itemViewContainer : '#translated-page-elements'
+   91  
+   92              events:
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-content/translated-slider-content/view.coffee:
+  111              childView : TranslatedSlideItemView
+  112  
+  113:             itemViewContainer : '#translated-page-slide'
+  114  
+  115  
+  ...
+  131              childView : TranslatedSlideView
+  132  
+  133:             itemViewContainer : '#translated-page-slider'
+  134  
+  135              itemViewOptions : ->
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-content/translated-table-content/view.coffee:
+   93              childView : TranslatedTableItemView
+   94  
+   95:             itemViewContainer : '#translatable-page-table'
+   96  
+   97              itemViewOptions : ->
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/language-translation/language-page-nav/view.coffee:
+   46                      childView :  LanguagePageNavItemView 
+   47  
+   48:                     itemViewContainer : '#js-page-nav-bar' 
+   49  
+   50                      events:
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/leftnav/show/views.coffee:
+   49              template : leftNavTpl
+   50  
+   51:             itemViewContainer : '#aj-imp-dash-menu'
+   52  
+   53              childView : MenuItem
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/media/grid/views.coffee:
+   60           emptyView : EmptyMediaGrid
+   61           
+   62:          itemViewContainer : '#selectable-images'
+   63  
+   64           collectionEvents : 
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/menu-manager/list/views.coffee:
+   87           emptyView : EmptyView
+   88  
+   89:          itemViewContainer : 'ol.sortable-menu-items'
+   90  
+   91           className : 'aj-imp-menu-item-list'
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/menu-manager_old/show/views.coffee:
+   36  					childView : MenuItemView
+   37  
+   38: 					itemViewContainer : 'ol.sortable-menu-items'
+   39  
+   40  					className : 'tab-pane'
+   ..
+   92  						data
+   93  
+   94: 					itemViewContainer : '.tab-content'
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/rooms/list/views.coffee:
+   27           template : mainviewTpl
+   28  
+   29:          itemViewContainer : '.new-room-list'
+   30  
+   31           childView : RoomSingle
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/seo/seo-page-nav/view.coffee:
+   57                      childView :  SeoPageNavItemView 
+   58  
+   59:                     itemViewContainer : '#js-seo-nav-bar' 
+   60  
+   61                      events:
+
+/Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev/source/apps/slider-manager/edit-slider/slide-text-layer/slide-text-layer-views.coffee:
+  189  		# 	emptyView : NoTextLayerView
+  190  
+  191: 		# 	itemViewContainer : '#text-layers'
+  192  
+  193  		# 	events : 
+
+50 matches across 27 files

@@ -75,7 +75,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
             childView: TemplateView
 
-            itemViewContainer : '.templates'
+            childViewContainer : '.templates'
 
             emptyView: EmptyView
 
@@ -91,7 +91,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
             childView: TemplateView
 
-            itemViewContainer : '.templates'
+            childViewContainer : '.templates'
 
             emptyView: EmptyView
 

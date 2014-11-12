@@ -45,7 +45,7 @@ define ['app'], (App)->
 
                     childView :  LanguagePageNavItemView 
 
-                    itemViewContainer : '#js-page-nav-bar' 
+                    childViewContainer : '#js-page-nav-bar' 
 
                     events:
                         'click a#site' : 'loadSiteContent'

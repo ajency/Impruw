@@ -58,7 +58,7 @@ define(['app', 'text!apps//language-translation/language-header/original-header/
 
       OriginalHeaderView.prototype.childView = OriginalHeaderItemView;
 
-      OriginalHeaderView.prototype.itemViewContainer = '#translatable-header-elements';
+      OriginalHeaderView.prototype.childViewContainer = '#translatable-header-elements';
 
       OriginalHeaderView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalHeaderView.__super__.mixinTemplateHelpers.call(this, data);

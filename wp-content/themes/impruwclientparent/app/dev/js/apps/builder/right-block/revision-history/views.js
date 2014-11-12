@@ -58,7 +58,7 @@ define(['app', 'moment'], function(App, moment) {
 
       RevisionHitoryList.prototype.emptyView = EmptyHistoryItem;
 
-      RevisionHitoryList.prototype.itemViewContainer = 'ol';
+      RevisionHitoryList.prototype.childViewContainer = 'ol';
 
       RevisionHitoryList.prototype.events = {
         'click .view-history-link': function(e) {

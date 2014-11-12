@@ -111,7 +111,7 @@ define [ 'app'
 
             childView : SingleCreditCard
 
-            itemViewContainer : '.card-list'
+            childViewContainer : '.card-list'
 
             className : 'col-sm-8'
 

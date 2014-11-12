@@ -70,7 +70,7 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
 
       LeftNav.prototype.template = leftNavTpl;
 
-      LeftNav.prototype.itemViewContainer = '#aj-imp-dash-menu';
+      LeftNav.prototype.childViewContainer = '#aj-imp-dash-menu';
 
       LeftNav.prototype.childView = MenuItem;
 

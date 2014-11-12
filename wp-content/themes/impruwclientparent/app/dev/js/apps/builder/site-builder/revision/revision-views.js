@@ -43,7 +43,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       RevisionView.prototype.template = '<div class="revision-container"> <h2 class="page-title">View Your Site History</h2> <div class="pg-name">Page name : <span>{{post_title}}</span></div> <div class="revision-count">Number of revisions : <span>{{size}}</span></div> <p class="rev-desc">View the saved points in your site, and restore your page or entire site to that point from here.</p> <div class="revision-timeline"> <div id="slider" class="ui-slider"></div> </div> <div class="row timeline-actions"> <div class="col-sm-6 revision-info"> <div class="revision-by">Published Version</div> <div class="revision-theme"></div> </div> <div class="col-sm-6 revision-actions"> <button class="btn btn-default btn-sm cancel-view-history">Cancel</button> <button class="btn btn-default btn-sm aj-imp-orange-btn restore-revision-btn hidden">Restore to this Version</button> </div> </div> <div class="revision-view"> <div id="IframeWrapper" style="position: relative;"> <div id="iframeBlocker" style="position: absolute; top: 0; left: 0; width:100% "></div> <iframe src="{{SITEURL}}/{{site}}/?no_header=true" style="width : 100%; height: 400px;" scrolling="no" seamless="seamless"></iframe> </div> </div> </div>';
 
-      RevisionView.prototype.itemViewContainer = '#slider';
+      RevisionView.prototype.childViewContainer = '#slider';
 
       RevisionView.prototype.childView = RevisionSingleView;
 

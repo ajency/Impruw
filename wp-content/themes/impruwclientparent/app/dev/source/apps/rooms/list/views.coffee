@@ -26,7 +26,7 @@ define [ 'app'
 
          template : mainviewTpl
 
-         itemViewContainer : '.new-room-list'
+         childViewContainer : '.new-room-list'
 
          childView : RoomSingle
 

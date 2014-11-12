@@ -87,7 +87,7 @@ define ['app'
 
             childView : TranslatedPageItemView
 
-            itemViewContainer : '#translated-page-elements'
+            childViewContainer : '#translated-page-elements'
 
             events:
                 "click #btn-save-translated-page-title" : "updatePageTitle"

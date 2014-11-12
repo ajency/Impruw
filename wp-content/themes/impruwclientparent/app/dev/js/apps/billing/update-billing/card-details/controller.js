@@ -158,7 +158,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
 
       CardsView.prototype.childView = SingleCardView;
 
-      CardsView.prototype.itemViewContainer = '.card-list';
+      CardsView.prototype.childViewContainer = '.card-list';
 
       return CardsView;
 

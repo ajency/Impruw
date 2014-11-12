@@ -188,7 +188,7 @@ define ['app'
 
 		# 	emptyView : NoTextLayerView
 
-		# 	itemViewContainer : '#text-layers'
+		# 	childViewContainer : '#text-layers'
 
 		# 	events : 
 		# 		'click #add-text-layer' : '_addTextLayer'

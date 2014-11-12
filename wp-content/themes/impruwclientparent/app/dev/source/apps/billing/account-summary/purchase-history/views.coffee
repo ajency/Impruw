@@ -20,7 +20,7 @@ define ['app'
 
             template: viewTpl
 
-            itemViewContainer : 'tbody'
+            childViewContainer : 'tbody'
 
             childView : SingleTranscation
 

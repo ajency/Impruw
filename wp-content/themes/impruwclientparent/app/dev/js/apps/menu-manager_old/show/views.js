@@ -50,7 +50,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menucollection.html', 'tex
 
       SingleManagerView.prototype.childView = MenuItemView;
 
-      SingleManagerView.prototype.itemViewContainer = 'ol.sortable-menu-items';
+      SingleManagerView.prototype.childViewContainer = 'ol.sortable-menu-items';
 
       SingleManagerView.prototype.className = 'tab-pane';
 
@@ -129,7 +129,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menucollection.html', 'tex
         return data;
       };
 
-      MenuManagerView.prototype.itemViewContainer = '.tab-content';
+      MenuManagerView.prototype.childViewContainer = '.tab-content';
 
       return MenuManagerView;
 
