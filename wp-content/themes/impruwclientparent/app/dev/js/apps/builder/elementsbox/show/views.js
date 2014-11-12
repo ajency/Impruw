@@ -56,7 +56,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
 
       MainView.prototype.id = 'controls-drag';
 
-      MainView.prototype.itemView = Views.SingleElement;
+      MainView.prototype.childView = Views.SingleElement;
 
       MainView.prototype.initialize = function(opts) {
         this.roomElements = 'li[data-element="RoomFacilities"],li[data-element="RoomTitle"],li[data-element="RoomDescription"],li[data-element="RoomTariff"],li[data-element="RoomBooking"]';

@@ -37,7 +37,7 @@ define(['app'], function(App) {
 
       LanguagePageNavView.prototype.template = '<ul class="nav nav-pills" id="js-page-nav-bar"> <li> <a href="#site" id="site" data-toggle="tab"> {{#polyglot}}Site Profile{{/polyglot}} </a> </li> <li> <a href="#page-header" id="page-header" data-toggle="tab"> {{#polyglot}}Page Header{{/polyglot}} </a> </li> <li> <a href="#page-footer" id="page-footer" data-toggle="tab"> {{#polyglot}}Page Footer{{/polyglot}} </a> </li> <li> <a href="#rooms" id="rooms" data-toggle="tab"> {{#polyglot}}All Rooms{{/polyglot}} </a> </li> </ul>';
 
-      LanguagePageNavView.prototype.itemView = LanguagePageNavItemView;
+      LanguagePageNavView.prototype.childView = LanguagePageNavItemView;
 
       LanguagePageNavView.prototype.itemViewContainer = '#js-page-nav-bar';
 

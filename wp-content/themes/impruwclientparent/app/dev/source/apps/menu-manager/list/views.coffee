@@ -82,7 +82,7 @@ define [ 'app'], ( App )->
                         <ol class="list-group sortable-menu-items ui-sortable"></ol>
                     </div>'
 
-         itemView : MenuItemView
+         childView : MenuItemView
 
          emptyView : EmptyView
 

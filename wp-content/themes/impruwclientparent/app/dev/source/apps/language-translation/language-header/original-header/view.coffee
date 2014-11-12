@@ -45,7 +45,7 @@ define ['app'
 
             template : originalheaderviewTpl
 
-            itemView : OriginalHeaderItemView
+            childView : OriginalHeaderItemView
 
             itemViewContainer : '#translatable-header-elements'
 

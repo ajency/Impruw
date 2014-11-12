@@ -68,7 +68,7 @@ define [ 'app'
 
             template : viewTpl
 
-            itemView : SinglePlanView
+            childView : SinglePlanView
 
             itemViewContainer : '.price-plans'
 

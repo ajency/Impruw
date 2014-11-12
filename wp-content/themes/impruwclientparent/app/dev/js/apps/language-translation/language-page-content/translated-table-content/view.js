@@ -108,7 +108,7 @@ define(['app'], function(App) {
 
       TranslatedTableView.prototype.template = '<div id="translatable-page-table"></div>';
 
-      TranslatedTableView.prototype.itemView = TranslatedTableItemView;
+      TranslatedTableView.prototype.childView = TranslatedTableItemView;
 
       TranslatedTableView.prototype.itemViewContainer = '#translatable-page-table';
 

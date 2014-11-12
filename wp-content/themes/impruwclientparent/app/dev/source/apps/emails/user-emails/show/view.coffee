@@ -97,7 +97,7 @@ define ['app'], (App)->
                       "add" : "render"
 
 
-                    itemView : UserEmailItemView
+                    childView : UserEmailItemView
 
                     emptyView : EmptyView
 

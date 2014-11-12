@@ -89,7 +89,7 @@ define(['app', 'text!apps//language-translation/language-footer/translated-foote
 
       TranslatedFooterView.prototype.template = translatedfooterviewTpl;
 
-      TranslatedFooterView.prototype.itemView = TranslatedFooterItemView;
+      TranslatedFooterView.prototype.childView = TranslatedFooterItemView;
 
       TranslatedFooterView.prototype.itemViewContainer = '#translated-footer-elements';
 

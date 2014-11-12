@@ -104,7 +104,7 @@ define(['app'], function(App) {
         "add": "render"
       };
 
-      UserEmailView.prototype.itemView = UserEmailItemView;
+      UserEmailView.prototype.childView = UserEmailItemView;
 
       UserEmailView.prototype.emptyView = EmptyView;
 

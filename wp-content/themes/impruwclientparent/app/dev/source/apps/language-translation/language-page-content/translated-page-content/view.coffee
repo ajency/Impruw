@@ -85,7 +85,7 @@ define ['app'
 
             template : translatedpageviewTpl
 
-            itemView : TranslatedPageItemView
+            childView : TranslatedPageItemView
 
             itemViewContainer : '#translated-page-elements'
 

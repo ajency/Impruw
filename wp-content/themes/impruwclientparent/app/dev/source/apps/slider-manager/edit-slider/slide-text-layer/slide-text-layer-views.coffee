@@ -184,7 +184,7 @@ define ['app'
 		# 				<button id="add-text-layer">Add Layer</button>
 		# 				<button id="save-layers"> Save Slide </button>'
 
-		# 	itemView : TextLayerView
+		# 	childView : TextLayerView
 
 		# 	emptyView : NoTextLayerView
 

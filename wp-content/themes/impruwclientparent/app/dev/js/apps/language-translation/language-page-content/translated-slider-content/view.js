@@ -102,7 +102,7 @@ define(['app'], function(App) {
 
       TranslatedSlideView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div id="translated-page-slide"> </div> <hr>';
 
-      TranslatedSlideView.prototype.itemView = TranslatedSlideItemView;
+      TranslatedSlideView.prototype.childView = TranslatedSlideItemView;
 
       TranslatedSlideView.prototype.itemViewContainer = '#translated-page-slide';
 
@@ -132,7 +132,7 @@ define(['app'], function(App) {
 
       TranslatedSliderView.prototype.template = '<div id="translated-page-slider"> </div>';
 
-      TranslatedSliderView.prototype.itemView = TranslatedSlideView;
+      TranslatedSliderView.prototype.childView = TranslatedSlideView;
 
       TranslatedSliderView.prototype.itemViewContainer = '#translated-page-slider';
 

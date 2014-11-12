@@ -51,7 +51,7 @@ define [ 'app'
 
          id : 'controls-drag'
 
-         itemView : Views.SingleElement
+         childView : Views.SingleElement
 
          initialize : (opts)->
             @roomElements = 'li[data-element="RoomFacilities"],li[data-element="RoomTitle"],li[data-element="RoomDescription"],li[data-element="RoomTariff"],li[data-element="RoomBooking"]'

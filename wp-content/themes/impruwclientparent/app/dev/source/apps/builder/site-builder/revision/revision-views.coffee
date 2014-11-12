@@ -56,7 +56,7 @@ define ['app', 'bootbox'],(App,bootbox)->
 
 			itemViewContainer : '#slider'
 
-			itemView : RevisionSingleView
+			childView : RevisionSingleView
 
 			itemViewOptions : (model,index)->
 				size = @collection.size()+1

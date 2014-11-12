@@ -56,7 +56,7 @@ define(['app', 'text!apps//language-translation/language-header/original-header/
 
       OriginalHeaderView.prototype.template = originalheaderviewTpl;
 
-      OriginalHeaderView.prototype.itemView = OriginalHeaderItemView;
+      OriginalHeaderView.prototype.childView = OriginalHeaderItemView;
 
       OriginalHeaderView.prototype.itemViewContainer = '#translatable-header-elements';
 

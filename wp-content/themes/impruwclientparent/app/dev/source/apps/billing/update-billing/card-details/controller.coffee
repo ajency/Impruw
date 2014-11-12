@@ -134,7 +134,7 @@ define [ 'app', 'controllers/base-controller'
         class CardsView extends Marionette.CompositeView
 
             template : "<div class='card-list row'></div>"
-            itemView : SingleCardView
+            childView : SingleCardView
             itemViewContainer : '.card-list'
 
 

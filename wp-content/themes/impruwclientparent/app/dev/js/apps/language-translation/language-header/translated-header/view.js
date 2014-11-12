@@ -89,7 +89,7 @@ define(['app', 'text!apps//language-translation/language-header/translated-heade
 
       TranslatedHeaderView.prototype.template = translatedheaderviewTpl;
 
-      TranslatedHeaderView.prototype.itemView = TranslatedHeaderItemView;
+      TranslatedHeaderView.prototype.childView = TranslatedHeaderItemView;
 
       TranslatedHeaderView.prototype.itemViewContainer = '#translated-header-elements';
 

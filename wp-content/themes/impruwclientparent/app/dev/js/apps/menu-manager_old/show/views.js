@@ -48,7 +48,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menucollection.html', 'tex
 
       SingleManagerView.prototype.template = menumanagerTpl;
 
-      SingleManagerView.prototype.itemView = MenuItemView;
+      SingleManagerView.prototype.childView = MenuItemView;
 
       SingleManagerView.prototype.itemViewContainer = 'ol.sortable-menu-items';
 

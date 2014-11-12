@@ -108,7 +108,7 @@ define ['app'], (App)->
                         </div>
                         <hr>'
 
-            itemView : TranslatedSlideItemView
+            childView : TranslatedSlideItemView
 
             itemViewContainer : '#translated-page-slide'
 
@@ -128,7 +128,7 @@ define ['app'], (App)->
             template : '<div id="translated-page-slider">
                         </div>'
 
-            itemView : TranslatedSlideView
+            childView : TranslatedSlideView
 
             itemViewContainer : '#translated-page-slider'
 

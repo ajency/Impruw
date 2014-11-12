@@ -93,7 +93,7 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
 
       TranslatedPageView.prototype.template = translatedpageviewTpl;
 
-      TranslatedPageView.prototype.itemView = TranslatedPageItemView;
+      TranslatedPageView.prototype.childView = TranslatedPageItemView;
 
       TranslatedPageView.prototype.itemViewContainer = '#translated-page-elements';
 

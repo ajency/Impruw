@@ -61,7 +61,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
 
       PlansView.prototype.template = viewTpl;
 
-      PlansView.prototype.itemView = SinglePlanView;
+      PlansView.prototype.childView = SinglePlanView;
 
       PlansView.prototype.itemViewContainer = '.price-plans';
 

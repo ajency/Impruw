@@ -52,7 +52,7 @@ define(['app'], function(App) {
 
       OriginalSlideView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div id="original-page-slide"> </div> <hr>';
 
-      OriginalSlideView.prototype.itemView = OriginalSlideItemView;
+      OriginalSlideView.prototype.childView = OriginalSlideItemView;
 
       OriginalSlideView.prototype.itemViewContainer = '#original-page-slide';
 
@@ -86,7 +86,7 @@ define(['app'], function(App) {
 
       OriginalSliderView.prototype.template = '<div id="original-page-slider"> </div>';
 
-      OriginalSliderView.prototype.itemView = OriginalSlideView;
+      OriginalSliderView.prototype.childView = OriginalSlideView;
 
       OriginalSliderView.prototype.emptyView = EmptySliderView;
 

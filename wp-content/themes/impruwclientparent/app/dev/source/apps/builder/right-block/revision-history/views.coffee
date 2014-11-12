@@ -34,7 +34,7 @@ define ['app'
 							</ol>
 							<a href="#history" class="view-history-link hidden">{{#polyglot}}View Full History{{/polyglot}}</a>'
 
-			itemView : RevisionHistoryItem
+			childView : RevisionHistoryItem
 
 			emptyView : EmptyHistoryItem
 			

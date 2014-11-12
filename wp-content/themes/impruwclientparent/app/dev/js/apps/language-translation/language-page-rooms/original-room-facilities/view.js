@@ -27,7 +27,7 @@ define(['app'], function(App) {
 
       OriginalRoomFacilitiesView.prototype.className = 'col-sm-7';
 
-      OriginalRoomFacilitiesView.prototype.itemView = OriginalRoomFacilitiesItemView;
+      OriginalRoomFacilitiesView.prototype.childView = OriginalRoomFacilitiesItemView;
 
       return OriginalRoomFacilitiesView;
 

@@ -29,7 +29,7 @@ define(['app'], function(App) {
 
       TranslatedRoomFacilitiesView.prototype.className = 'col-sm-5';
 
-      TranslatedRoomFacilitiesView.prototype.itemView = TranslatedRoomFacilitiesItemView;
+      TranslatedRoomFacilitiesView.prototype.childView = TranslatedRoomFacilitiesItemView;
 
       TranslatedRoomFacilitiesView.prototype.childViewContainer = '.edit_term_translation';
 

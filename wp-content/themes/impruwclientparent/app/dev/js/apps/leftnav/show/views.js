@@ -72,7 +72,7 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
 
       LeftNav.prototype.itemViewContainer = '#aj-imp-dash-menu';
 
-      LeftNav.prototype.itemView = MenuItem;
+      LeftNav.prototype.childView = MenuItem;
 
       LeftNav.prototype.serializeData = function() {
         var data;

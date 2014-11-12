@@ -54,7 +54,7 @@ define ['app'], (App)->
                         </div>
                         <hr>'
 
-            itemView : OriginalSlideItemView
+            childView : OriginalSlideItemView
 
             itemViewContainer : '#original-page-slide'
 
@@ -74,7 +74,7 @@ define ['app'], (App)->
                         </div>
                         '
 
-            itemView : OriginalSlideView
+            childView : OriginalSlideView
 
             emptyView : EmptySliderView
 

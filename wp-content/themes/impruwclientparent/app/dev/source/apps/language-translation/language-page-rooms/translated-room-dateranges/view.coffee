@@ -23,7 +23,7 @@ define ['app'], (App)->
 
                     className : 'col-sm-5'
 
-                    itemView : TranslatedRoomDaterangesItemView
+                    childView : TranslatedRoomDaterangesItemView
 
                     childViewContainer: '.edit_daterange_translation'
 

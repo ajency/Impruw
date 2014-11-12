@@ -43,7 +43,7 @@ define ['app'], (App)->
 
                                 </ul>'
 
-                    itemView :  LanguagePageNavItemView 
+                    childView :  LanguagePageNavItemView 
 
                     itemViewContainer : '#js-page-nav-bar' 
 

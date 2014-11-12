@@ -83,7 +83,7 @@ define ['app'
 
             template : translatedfooterviewTpl
 
-            itemView : TranslatedFooterItemView
+            childView : TranslatedFooterItemView
 
             itemViewContainer : '#translated-footer-elements'
 

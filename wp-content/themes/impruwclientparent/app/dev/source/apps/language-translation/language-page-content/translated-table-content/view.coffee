@@ -90,7 +90,7 @@ define ['app'], (App)->
 
             template : '<div id="translatable-page-table"></div>'
 
-            itemView : TranslatedTableItemView
+            childView : TranslatedTableItemView
 
             itemViewContainer : '#translatable-page-table'
 

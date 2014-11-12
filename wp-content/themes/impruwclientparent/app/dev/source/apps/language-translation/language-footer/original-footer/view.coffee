@@ -45,7 +45,7 @@ define ['app'
 
             template : originalfooterviewTpl
 
-            itemView : OriginalFooterItemView
+            childView : OriginalFooterItemView
 
             itemViewContainer : '#translatable-footer-elements'
 

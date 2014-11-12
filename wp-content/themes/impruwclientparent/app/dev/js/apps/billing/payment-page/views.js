@@ -146,7 +146,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
 
       PaymentPageView.prototype.template = paymentViewTpl;
 
-      PaymentPageView.prototype.itemView = SingleCreditCard;
+      PaymentPageView.prototype.childView = SingleCreditCard;
 
       PaymentPageView.prototype.itemViewContainer = '.card-list';
 

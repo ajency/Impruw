@@ -54,7 +54,7 @@ define ['app'], (App)->
                         @loadSeoRoomContent()
                         @$el.find( "li" ).first().addClass( 'active' )
 
-                    itemView :  SeoPageNavItemView 
+                    childView :  SeoPageNavItemView 
 
                     itemViewContainer : '#js-seo-nav-bar' 
 

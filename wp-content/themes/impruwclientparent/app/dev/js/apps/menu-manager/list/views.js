@@ -77,7 +77,7 @@ define(['app'], function(App) {
 
       MenuCollectionView.prototype.template = '<div class="panel panel-default"> <ol class="list-group sortable-menu-items ui-sortable"></ol> </div>';
 
-      MenuCollectionView.prototype.itemView = MenuItemView;
+      MenuCollectionView.prototype.childView = MenuItemView;
 
       MenuCollectionView.prototype.emptyView = EmptyView;
 

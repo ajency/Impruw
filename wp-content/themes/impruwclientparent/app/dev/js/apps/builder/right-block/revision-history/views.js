@@ -54,7 +54,7 @@ define(['app', 'moment'], function(App, moment) {
 
       RevisionHitoryList.prototype.template = '<h6>{{#polyglot}}History{{/polyglot}}</h6> <ol> </ol> <a href="#history" class="view-history-link hidden">{{#polyglot}}View Full History{{/polyglot}}</a>';
 
-      RevisionHitoryList.prototype.itemView = RevisionHistoryItem;
+      RevisionHitoryList.prototype.childView = RevisionHistoryItem;
 
       RevisionHitoryList.prototype.emptyView = EmptyHistoryItem;
 

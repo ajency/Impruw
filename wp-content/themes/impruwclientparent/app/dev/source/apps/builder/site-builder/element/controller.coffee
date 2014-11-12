@@ -56,6 +56,8 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
             if element.isNew()
                App.execute "when:fetched", element, =>
                   @layout.triggerMethod "before:render:element"
+                  @renderElement()
+                  return
                   try
                      @renderElement()
                   catch e

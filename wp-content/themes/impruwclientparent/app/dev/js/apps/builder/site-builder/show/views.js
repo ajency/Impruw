@@ -420,7 +420,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       RevisionView.prototype.className = 'dropdown-menu pull-right revision-dropdown';
 
-      RevisionView.prototype.itemView = SingleRevision;
+      RevisionView.prototype.childView = SingleRevision;
 
       RevisionView.prototype.emptyView = NoRevisionView;
 

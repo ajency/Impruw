@@ -33,7 +33,7 @@ define ['app'
 
 					template : menumanagerTpl
 
-					itemView : MenuItemView
+					childView : MenuItemView
 
 					itemViewContainer : 'ol.sortable-menu-items'
 

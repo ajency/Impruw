@@ -94,6 +94,5 @@ require.config({
 });
 
 require(['pluginloader', 'configloader', 'app', 'entitiesloader', 'controllers/base-controller', 'controllers/builder-base-controller', 'componentloader', 'appsloader'], function(plugins, configs, App) {
-  console.log(App);
   return App.start();
 });

@@ -29,7 +29,7 @@ define(['app'], function(App) {
 
       TranslatedRoomDaterangesView.prototype.className = 'col-sm-5';
 
-      TranslatedRoomDaterangesView.prototype.itemView = TranslatedRoomDaterangesItemView;
+      TranslatedRoomDaterangesView.prototype.childView = TranslatedRoomDaterangesItemView;
 
       TranslatedRoomDaterangesView.prototype.childViewContainer = '.edit_daterange_translation';
 

@@ -72,6 +72,8 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
             return function() {
               var e;
               _this.layout.triggerMethod("before:render:element");
+              _this.renderElement();
+              return;
               try {
                 return _this.renderElement();
               } catch (_error) {

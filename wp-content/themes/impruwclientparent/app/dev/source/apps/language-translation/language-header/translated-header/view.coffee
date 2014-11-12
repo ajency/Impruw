@@ -83,7 +83,7 @@ define ['app'
 
             template : translatedheaderviewTpl
 
-            itemView : TranslatedHeaderItemView
+            childView : TranslatedHeaderItemView
 
             itemViewContainer : '#translated-header-elements'
 

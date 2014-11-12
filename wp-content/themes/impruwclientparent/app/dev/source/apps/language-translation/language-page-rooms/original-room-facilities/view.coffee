@@ -19,4 +19,4 @@ define ['app'], (App)->
 
                     className : 'col-sm-7'
 
-                    itemView : OriginalRoomFacilitiesItemView
+                    childView : OriginalRoomFacilitiesItemView

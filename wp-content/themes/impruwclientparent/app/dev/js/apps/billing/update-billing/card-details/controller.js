@@ -156,7 +156,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
 
       CardsView.prototype.template = "<div class='card-list row'></div>";
 
-      CardsView.prototype.itemView = SingleCardView;
+      CardsView.prototype.childView = SingleCardView;
 
       CardsView.prototype.itemViewContainer = '.card-list';
 

@@ -42,7 +42,7 @@ define ['app'], (App)->
 
             template : '<div id="original-page-table"></div>'
 
-            itemView : OriginalTableItemView
+            childView : OriginalTableItemView
 
             emptyView : EmptyTableView
 

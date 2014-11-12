@@ -56,7 +56,7 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
 
       OriginalPageView.prototype.template = originalpageviewTpl;
 
-      OriginalPageView.prototype.itemView = OriginalPageItemView;
+      OriginalPageView.prototype.childView = OriginalPageItemView;
 
       OriginalPageView.prototype.itemViewContainer = '#translatable-page-elements';
 

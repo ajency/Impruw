@@ -112,5 +112,4 @@ require [   'pluginloader'
             'controllers/builder-base-controller'
             'componentloader'
             'appsloader'], ( plugins, configs, App )->
-               console.log(App)
                App.start()

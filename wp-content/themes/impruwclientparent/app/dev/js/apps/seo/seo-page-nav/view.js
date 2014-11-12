@@ -59,7 +59,7 @@ define(['app'], function(App) {
         return this.$el.find("li").first().addClass('active');
       };
 
-      SeoPageNavView.prototype.itemView = SeoPageNavItemView;
+      SeoPageNavView.prototype.childView = SeoPageNavItemView;
 
       SeoPageNavView.prototype.itemViewContainer = '#js-seo-nav-bar';
 

@@ -63,7 +63,7 @@ define(['app'], function(App) {
 
       OriginalTableView.prototype.template = '<div id="original-page-table"></div>';
 
-      OriginalTableView.prototype.itemView = OriginalTableItemView;
+      OriginalTableView.prototype.childView = OriginalTableItemView;
 
       OriginalTableView.prototype.emptyView = EmptyTableView;
 

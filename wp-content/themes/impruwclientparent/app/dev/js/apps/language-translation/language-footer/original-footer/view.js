@@ -56,7 +56,7 @@ define(['app', 'text!apps//language-translation/language-footer/original-footer/
 
       OriginalFooterView.prototype.template = originalfooterviewTpl;
 
-      OriginalFooterView.prototype.itemView = OriginalFooterItemView;
+      OriginalFooterView.prototype.childView = OriginalFooterItemView;
 
       OriginalFooterView.prototype.itemViewContainer = '#translatable-footer-elements';
 

@@ -22,7 +22,7 @@ define ['app'
 
             itemViewContainer : 'tbody'
 
-            itemView : SingleTranscation
+            childView : SingleTranscation
 
             onShow: ->
                 @$el.find('input[type="checkbox"]').radiocheck()

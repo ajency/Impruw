@@ -55,7 +55,7 @@ define [ 'app'], ( App, mediaTpl )->
          template : '<div id="selectable-images"></div>
                      <div id="edit-image-view"></div>'
 
-         itemView : MediaView
+         childView : MediaView
 
          emptyView : EmptyMediaGrid
          

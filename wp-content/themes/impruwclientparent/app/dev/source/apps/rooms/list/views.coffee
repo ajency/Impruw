@@ -28,7 +28,7 @@ define [ 'app'
 
          itemViewContainer : '.new-room-list'
 
-         itemView : RoomSingle
+         childView : RoomSingle
 
          emptyView : EmptyView
 

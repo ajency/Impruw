@@ -109,7 +109,7 @@ define [ 'app'
 
             template : paymentViewTpl
 
-            itemView : SingleCreditCard
+            childView : SingleCreditCard
 
             itemViewContainer : '.card-list'
 

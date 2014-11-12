@@ -23,7 +23,7 @@ define ['app'], (App)->
 
                     className : 'col-sm-5'
 
-                    itemView : TranslatedRoomFacilitiesItemView
+                    childView : TranslatedRoomFacilitiesItemView
 
                     childViewContainer: '.edit_term_translation'
 

@@ -74,7 +74,7 @@ define(['app'], function(App, mediaTpl) {
 
       GridView.prototype.template = '<div id="selectable-images"></div> <div id="edit-image-view"></div>';
 
-      GridView.prototype.itemView = MediaView;
+      GridView.prototype.childView = MediaView;
 
       GridView.prototype.emptyView = EmptyMediaGrid;
 

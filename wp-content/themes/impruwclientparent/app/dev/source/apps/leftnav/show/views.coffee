@@ -50,7 +50,7 @@ define ['app'
 
             itemViewContainer : '#aj-imp-dash-menu'
 
-            itemView : MenuItem
+            childView : MenuItem
 
             serializeData : ->
                 data = super()

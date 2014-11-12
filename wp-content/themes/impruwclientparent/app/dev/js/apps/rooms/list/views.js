@@ -50,7 +50,7 @@ define(['app', 'text!apps/rooms/list/templates/mainview2.html', 'text!apps/rooms
 
       RoomsListView.prototype.itemViewContainer = '.new-room-list';
 
-      RoomsListView.prototype.itemView = RoomSingle;
+      RoomsListView.prototype.childView = RoomSingle;
 
       RoomsListView.prototype.emptyView = EmptyView;
 

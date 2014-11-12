@@ -45,7 +45,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       RevisionView.prototype.itemViewContainer = '#slider';
 
-      RevisionView.prototype.itemView = RevisionSingleView;
+      RevisionView.prototype.childView = RevisionSingleView;
 
       RevisionView.prototype.itemViewOptions = function(model, index) {
         var notFirst, size;

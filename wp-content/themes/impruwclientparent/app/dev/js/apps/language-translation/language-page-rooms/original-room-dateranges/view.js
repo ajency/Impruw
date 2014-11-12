@@ -27,7 +27,7 @@ define(['app'], function(App) {
 
       OriginalRoomDaterangesView.prototype.className = 'col-sm-7';
 
-      OriginalRoomDaterangesView.prototype.itemView = OriginalRoomDaterangesItemView;
+      OriginalRoomDaterangesView.prototype.childView = OriginalRoomDaterangesItemView;
 
       return OriginalRoomDaterangesView;
 

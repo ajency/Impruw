@@ -367,7 +367,7 @@ define [ 'app'
 
          className : 'dropdown-menu pull-right revision-dropdown'
 
-         itemView : SingleRevision
+         childView : SingleRevision
 
          emptyView : NoRevisionView
 
