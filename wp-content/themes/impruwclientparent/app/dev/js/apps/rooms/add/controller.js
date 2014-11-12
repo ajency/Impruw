@@ -70,10 +70,9 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
             _this.listenTo(_this.layout, "save:new:room", function(data) {
               return _this._saveNewRoom(data);
             });
-            _this.show(layout, {
+            return _this.show(layout, {
               loading: true
             });
-            return App.navigate("rooms/add");
           };
         })(this));
       };

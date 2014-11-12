@@ -3,10 +3,13 @@ define [ 'app', 'controllers/base-controller'
          'apps/rooms/facilities/facilitiesapp'
          'apps/rooms/gallery/galleryapp'
          'apps/rooms/booking/bookingcontroller' ], ( App, AppController )->
+    
     App.module 'RoomsApp.Add', ( Add, App, Backbone, Marionette, $, _ )->
+
         class Add.Controller extends AppController
 
             initialize : ( options )->
+
                 @roomModel = App.request "create:new:room:model", {}
 
                 #get the currency for the site
@@ -64,8 +67,6 @@ define [ 'app', 'controllers/base-controller'
 
                     @show layout,
                         loading : true
-
-                    App.navigate "rooms/add"
 
 
             _saveNewRoom : ( data )=>

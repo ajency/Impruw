@@ -15,9 +15,6 @@ define(['app', 'controllers/base-controller', 'apps/rooms/list/views'], function
         this.collection = collection = App.request("get:room:entities");
         this.layout = this._getLayout(collection);
         this.listenTo(this.layout, "show", this.showRoomsList);
-        this.listenTo(this.layout, 'add:new:room:clicked', function() {
-          return App.execute("show:add:room");
-        });
         App.vent.trigger("set:active:menu", 'rooms');
         return this.show(this.layout, {
           loading: true
