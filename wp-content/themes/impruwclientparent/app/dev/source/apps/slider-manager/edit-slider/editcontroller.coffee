@@ -67,7 +67,7 @@ define ['app'
 
 
         # slider form
-        class EditSliderLayout extends Marionette.Layout
+        class EditSliderLayout extends Marionette.LayoutView
 
             template: '<div class="row edit-slider">
             									<div class="col-sm-12 slider-right-region">

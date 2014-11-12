@@ -54,7 +54,7 @@ define [ 'app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views' ]
                collection : tcollection
 
 
-      class GridLayout extends Marionette.Layout
+      class GridLayout extends Marionette.LayoutView
 
          template : '	<div id="packages-region"></div>
                      						<div id="tariff-region"></div>'

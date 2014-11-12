@@ -3,7 +3,7 @@ define ['app'
 
             App.module 'SeoApp.SeoRooms.Views', (Views, App, Backbone, Marionette, $, _)->
 
-                class Views.SeoRooomsLayout extends Marionette.Layout
+                class Views.SeoRooomsLayout extends Marionette.LayoutView
 
                     template : seoroomsviewTpl
 

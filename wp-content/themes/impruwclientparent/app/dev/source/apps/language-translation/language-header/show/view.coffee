@@ -4,7 +4,7 @@ define ['app'
             App.module 'LanguageApp.LanguageHeaderContent.Views', (Views, App, Backbone, Marionette, $, _)->
 
 
-                class Views.LanguageHeaderContentLayout extends Marionette.Layout
+                class Views.LanguageHeaderContentLayout extends Marionette.LayoutView
 
                     template : pageheaderviewTpl
 

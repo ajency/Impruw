@@ -6,7 +6,7 @@ define ['app'
 			App.module 'HeaderApp.Show.Views', (Views, App, Backbone, Marionette, $, _)->
 
 				# Header main view
-				class Views.MainView extends Marionette.Layout
+				class Views.MainView extends Marionette.LayoutView
 
 					template : mainviewTpl
 

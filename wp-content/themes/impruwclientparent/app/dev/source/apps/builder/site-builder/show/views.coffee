@@ -5,7 +5,7 @@ define [ 'app'
 
    App.module 'SiteBuilderApp.Show.View', ( View, App, Backbone, Marionette, $, _ )->
 
-      class View.MainView extends Marionette.Layout
+      class View.MainView extends Marionette.LayoutView
 
          template : mainviewTpl
 

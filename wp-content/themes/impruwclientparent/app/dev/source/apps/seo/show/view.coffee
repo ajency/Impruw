@@ -3,7 +3,7 @@ define [ 'app'
     App.module 'SeoApp.Show.View', ( View, App, Backbone, Marionette, $, _ )->
 
         # Genral form
-        class View.SeoView extends Marionette.Layout
+        class View.SeoView extends Marionette.LayoutView
 
             template : formTpl
 

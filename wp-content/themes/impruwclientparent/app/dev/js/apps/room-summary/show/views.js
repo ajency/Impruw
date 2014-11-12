@@ -22,6 +22,6 @@ define(['app', 'text!apps/room-summary/show/templates/mainview.html'], function(
 
       return Layout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

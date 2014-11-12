@@ -21,6 +21,6 @@ define(['app', 'text!apps/language-translation/language-site-details/templates/l
 
       return LanguageSiteContentLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

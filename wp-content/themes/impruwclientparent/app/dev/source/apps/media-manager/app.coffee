@@ -66,7 +66,7 @@ define ['app'
         # define the region which can be later accessed with layout.{regionName} property
         # this is the main view for the dialog region. dialogOptions property is set to
         # set the modal title
-        class OuterLayout extends Marionette.Layout
+        class OuterLayout extends Marionette.LayoutView
 
             template: '<ul class="nav nav-tabs">
                           <li class="active all-media-tab"><a href="#all-media-region" data-toggle="tab">{{#polyglot}}Gallery{{/polyglot}}</a></li>

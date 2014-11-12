@@ -82,11 +82,11 @@ define(['app'], function(App) {
 
       ThemeColorSetView.prototype.template = '<ul class="color-set-list"></ul>';
 
-      ThemeColorSetView.prototype.itemView = SingleSetView;
+      ThemeColorSetView.prototype.childView = SingleSetView;
 
       ThemeColorSetView.prototype.emptyView = EmptyView;
 
-      ThemeColorSetView.prototype.itemViewContainer = '.color-set-list';
+      ThemeColorSetView.prototype.childViewContainer = '.color-set-list';
 
       return ThemeColorSetView;
 

@@ -67,7 +67,7 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/home/template
 
       return DashboardLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return Home.on('start', function() {
       return new DashboardRouter;
     });

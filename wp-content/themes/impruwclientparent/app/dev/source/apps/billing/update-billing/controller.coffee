@@ -31,7 +31,7 @@ define [ 'app', 'controllers/base-controller'
             getLayout : ->
                 new LayoutView
 
-        class LayoutView extends Marionette.Layout
+        class LayoutView extends Marionette.LayoutView
 
             template: viewTpl
 

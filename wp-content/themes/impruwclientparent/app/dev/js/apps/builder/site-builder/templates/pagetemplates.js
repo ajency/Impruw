@@ -163,7 +163,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       return TemplatesLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler("show:templates:grid", function(opt) {
       return new PageTemplatesController(opt);
     });

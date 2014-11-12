@@ -33,6 +33,6 @@ define(['app', 'text!apps/language-translation/show/templates/languageview.html'
 
       return LanguageLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

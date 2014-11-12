@@ -21,6 +21,6 @@ define(['app', 'text!apps/billing/account-summary/templates/mainView.html'], fun
 
       return Layout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

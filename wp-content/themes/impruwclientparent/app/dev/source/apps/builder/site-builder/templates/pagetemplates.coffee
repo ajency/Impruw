@@ -95,7 +95,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
             emptyView: EmptyView
 
-        class TemplatesLayout extends Marionette.Layout 
+        class TemplatesLayout extends Marionette.LayoutView 
             template : '<div class="page-templates"></div>
                         <div class="theme-templates"></div>'
 

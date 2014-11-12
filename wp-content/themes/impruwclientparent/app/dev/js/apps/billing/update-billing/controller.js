@@ -61,7 +61,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
 
       return LayoutView;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler("show:billing:info:app", function(opts) {
       return new UpdateBilling.Controller(opts);
     });

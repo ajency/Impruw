@@ -157,7 +157,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       return AddSlideLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler("show:add:new:slide", function(options) {
       if (options == null) {
         options = {};

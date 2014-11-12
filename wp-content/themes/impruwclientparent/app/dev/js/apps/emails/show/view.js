@@ -19,6 +19,6 @@ define(['app', 'text!apps/emails/show/templates/emailsview.html'], function(App,
 
       return EmailView;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

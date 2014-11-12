@@ -51,7 +51,7 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
 
       return StatisticsLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     Statistics.Controller = (function(_super) {
       __extends(Controller, _super);
 

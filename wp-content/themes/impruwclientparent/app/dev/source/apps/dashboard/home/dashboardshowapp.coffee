@@ -36,7 +36,7 @@ define ['app', 'controllers/base-controller',
 
 
                 # define the layout
-        class DashboardLayout extends Marionette.Layout
+        class DashboardLayout extends Marionette.LayoutView
 
             template: dashboardTpl
 

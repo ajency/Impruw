@@ -108,7 +108,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       return OuterLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     API = {
       show: function() {
         return new ShowController({

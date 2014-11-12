@@ -3,7 +3,7 @@ define ['app'
 
             App.module 'LanguageApp.LanguagePageRooms.Views', (Views, App, Backbone, Marionette, $, _)->
 
-                class Views.PageRooomsLayout extends Marionette.Layout
+                class Views.PageRooomsLayout extends Marionette.LayoutView
 
                     template : languagepageroomsviewTpl
 

@@ -2,7 +2,7 @@ define ['app'
         'text!apps/rooms/add/templates/add-room.html'],
 (App, addRoomTpl)->
     App.module 'RoomsApp.Booking.View', (View, App, Backbone, Marionette, $, _)->
-        class View.BookingRoomLayout extends Marionette.Layout
+        class View.BookingRoomLayout extends Marionette.LayoutView
 
             className: 'row room-booking'
 

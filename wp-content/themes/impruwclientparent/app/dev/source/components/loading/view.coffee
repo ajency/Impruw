@@ -1,5 +1,6 @@
 # list currency views
 define ['marionette'], (Marionette) ->
+    
     class LoadingView extends Marionette.ItemView
 
         template: _.template('<i></i>', {})

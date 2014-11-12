@@ -153,7 +153,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       return AddPageView;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler("show:add:new:page", function(opt) {
       return new AddPageController(opt);
     });

@@ -116,7 +116,7 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontro
 
       return OuterLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     API = {
       show: function() {
         return new SliderManagerController({

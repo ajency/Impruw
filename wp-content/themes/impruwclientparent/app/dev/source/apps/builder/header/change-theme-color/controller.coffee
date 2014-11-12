@@ -1,6 +1,6 @@
-define ['app', 'controllers/base-controller'
-        'apps/builder/header/change-theme-color/views'], (App, AppController)->
-    App.module 'ChangeThemeColorApp', (ChangeThemeColorApp, App, Backbone, Marionette, $, _)->
+define ['app', 'controllers/base-controller'], (App, AppController)->
+
+   App.module 'ChangeThemeColorApp', (ChangeThemeColorApp, App, Backbone, Marionette, $, _)->
 
         # Controller class for showing theme color edits
         class ChangeThemeColorController extends AppController
@@ -59,7 +59,7 @@ define ['app', 'controllers/base-controller'
                 @layout.trigger "edit:theme:color" , model
 
 
-        class ChangeThemeColorLayout extends Marionette.Layout
+        class ChangeThemeColorLayout extends Marionette.LayoutView
 
             template: '<div id="theme-color-set"></div>
             		   <div id ="theme-color-edit"></div>'

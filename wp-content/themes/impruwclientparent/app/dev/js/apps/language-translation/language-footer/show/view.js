@@ -21,6 +21,6 @@ define(['app', 'text!apps/language-translation/language-footer/show/templates/la
 
       return LanguageFooterContentLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

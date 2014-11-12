@@ -4,7 +4,7 @@ define ['app'
             App.module 'EmailsApp.Show.Views', (Views, App, Backbone, Marionette, $, _)->
 
 
-                class Views.EmailView extends Marionette.Layout
+                class Views.EmailView extends Marionette.LayoutView
 
                     template : emailsviewTpl
 

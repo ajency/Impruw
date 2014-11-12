@@ -1,7 +1,7 @@
 define ['app'
         'text!apps/my-profile/show/templates/mainview.html'], (App, mainviewTpl)->
     App.module 'MyProfileApp.Show.View', (View, App, Backbone, Marionette, $, _)->
-        class View.Layout extends Marionette.Layout
+        class View.Layout extends Marionette.LayoutView
 
             initialize: ->
 

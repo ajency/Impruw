@@ -68,6 +68,8 @@ require.config
 
       jquery : ['underscore']
       jqueryui : ['jquery']
+      drilldown : ['jquery']
+      moment : ['jquery']
       backbone : ['jquery', 'underscore']
       marionette : ['backbone']
       polyglot :
@@ -110,4 +112,5 @@ require [   'pluginloader'
             'controllers/builder-base-controller'
             'componentloader'
             'appsloader'], ( plugins, configs, App )->
-   App.start()
+               console.log(App)
+               App.start()

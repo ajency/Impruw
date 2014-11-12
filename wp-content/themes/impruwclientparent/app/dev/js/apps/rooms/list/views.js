@@ -81,6 +81,6 @@ define(['app', 'text!apps/rooms/list/templates/mainview2.html', 'text!apps/rooms
 
       return RoomListLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

@@ -4,7 +4,7 @@ define [ 'app'
          'text!apps/billing/payment-page/templates/paymentView.html'
          'text!apps/billing/payment-page/templates/cardList.html' ], ( App, viewTpl, newpaymentViewTpl, paymentViewTpl, cardListTpl )->
     App.module 'BillingApp.Payment.View', ( View, App, Backbone, Marionette, $, _ )->
-        class View.Layout extends Marionette.Layout
+        class View.Layout extends Marionette.LayoutView
 
             template : viewTpl
 

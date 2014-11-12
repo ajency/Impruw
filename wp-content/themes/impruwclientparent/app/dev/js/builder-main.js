@@ -54,6 +54,8 @@ require.config({
     svgpainter: ['jquery'],
     jquery: ['underscore'],
     jqueryui: ['jquery'],
+    drilldown: ['jquery'],
+    moment: ['jquery'],
     backbone: ['jquery', 'underscore'],
     marionette: ['backbone'],
     polyglot: {
@@ -92,5 +94,6 @@ require.config({
 });
 
 require(['pluginloader', 'configloader', 'app', 'entitiesloader', 'controllers/base-controller', 'controllers/builder-base-controller', 'componentloader', 'appsloader'], function(plugins, configs, App) {
+  console.log(App);
   return App.start();
 });

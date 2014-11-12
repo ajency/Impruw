@@ -38,7 +38,7 @@ define(['app', 'text!apps/dashboard/statistics/charts/templates/layout.html', 'n
 
       return Layout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return Views.Chart = (function(_super) {
       __extends(Chart, _super);
 

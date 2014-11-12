@@ -27,6 +27,6 @@ define(['app', 'text!apps/my-profile/show/templates/mainview.html'], function(Ap
 
       return Layout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

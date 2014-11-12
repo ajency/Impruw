@@ -38,6 +38,6 @@ define(['app'], function(App) {
 
       return RightBlockLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

@@ -40,7 +40,7 @@ define ['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/vie
                 new SiteAnalyticsLayout
 
 
-        class SiteAnalyticsLayout extends Marionette.Layout
+        class SiteAnalyticsLayout extends Marionette.LayoutView
 
             className: 'row'
 

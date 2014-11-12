@@ -361,7 +361,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       return MainView;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     SingleRevision = (function(_super) {
       __extends(SingleRevision, _super);
 

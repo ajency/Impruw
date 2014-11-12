@@ -81,7 +81,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
 
       return GridLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler("show:tariff:grid", function(opt) {
       return new ShowController(opt);
     });

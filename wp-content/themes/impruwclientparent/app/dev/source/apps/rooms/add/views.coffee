@@ -2,7 +2,7 @@ define [ 'app'
          'text!apps/rooms/add/templates/add-room.html' ],
 ( App, addRoomTpl )->
     App.module 'RoomsApp.Add.View', ( View, App, Backbone, Marionette, $, _ )->
-        class View.AddRoomLayout extends Marionette.Layout
+        class View.AddRoomLayout extends Marionette.LayoutView
 
             added : false
 

@@ -85,6 +85,6 @@ define(['app', 'text!apps/rooms/edit/templates/edit-room.html', 'jqueryvalidate'
 
       return EditRoomLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

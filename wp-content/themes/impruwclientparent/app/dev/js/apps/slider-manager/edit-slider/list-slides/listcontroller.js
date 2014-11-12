@@ -476,7 +476,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       return SlidesListLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     App.commands.setHandler('show:slides:list', function(opts) {
       if (opts == null) {
         opts = {};

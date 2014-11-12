@@ -3,7 +3,7 @@ define ['app'
         'jqueryvalidate'],
 (App, addRoomTpl ,  jqueryvalidate)->
     App.module 'RoomsApp.Edit.View', (View, App, Backbone, Marionette, $, _)->
-        class View.EditRoomLayout extends Marionette.Layout
+        class View.EditRoomLayout extends Marionette.LayoutView
 
             tagName: 'div'
 

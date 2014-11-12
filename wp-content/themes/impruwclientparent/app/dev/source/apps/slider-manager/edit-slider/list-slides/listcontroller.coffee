@@ -516,7 +516,7 @@ define ['app'
 
 
 
-        class SlidesListLayout extends Marionette.Layout
+        class SlidesListLayout extends Marionette.LayoutView
 
             template: '<div class="row">
                             <div class="col-sm-12">

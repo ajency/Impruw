@@ -57,7 +57,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/add/addfaci
 
       return FacilitiesViewLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler("show:facilities", function(opts) {
       return new FacilitiesApp.FacilitiesController(opts);
     });

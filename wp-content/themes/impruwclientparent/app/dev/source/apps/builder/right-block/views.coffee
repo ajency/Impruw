@@ -1,7 +1,7 @@
 define ['app'],(App)->
 	App.module 'RightBlock.Views', (Views,App)->
 		
-		class Views.RightBlockLayout extends Marionette.Layout
+		class Views.RightBlockLayout extends Marionette.LayoutView
 
 			className: 'right-toolbox'
 

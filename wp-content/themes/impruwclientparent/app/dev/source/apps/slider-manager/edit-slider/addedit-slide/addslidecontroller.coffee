@@ -99,7 +99,7 @@ define ['app'
                     @trigger "cancel:create:new:slide"
 
 
-        class AddSlideLayout extends Marionette.Layout
+        class AddSlideLayout extends Marionette.LayoutView
 
             template: '
             								<div id="media-region">

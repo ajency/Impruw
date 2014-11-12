@@ -23,7 +23,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       return BookingRoomLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     View.CalendarView = (function(_super) {
       __extends(CalendarView, _super);
 

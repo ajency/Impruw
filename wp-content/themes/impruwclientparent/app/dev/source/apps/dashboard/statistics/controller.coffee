@@ -11,7 +11,7 @@ define ['app'
 					appRoutes :
 						'statistics' : 'showStatistics'
 
-				class StatisticsLayout extends Marionette.Layout
+				class StatisticsLayout extends Marionette.LayoutView
 
 					template : layoutTpl
 

@@ -61,7 +61,7 @@ define(['marionette', 'underscore'], function(Marionette, _) {
   App.commands.setHandler("unregister:builder:instance", function(instance, id) {
     return App.unregisterElement(instance, id);
   });
-  App.on("initialize:after", function(options) {
+  App.addInitializer(function(options) {
     var user;
     Pace.on('done', function() {
       Pace.options = {

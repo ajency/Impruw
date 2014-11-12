@@ -74,7 +74,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/showcontr
 
       return RoomsTariffAppLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler("show:rooms:tariffs:app", function(opt) {
       return new RoomsTariff.RoomsTariffAppController(opt);
     });

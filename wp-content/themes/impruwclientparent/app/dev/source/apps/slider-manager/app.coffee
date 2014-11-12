@@ -89,7 +89,7 @@ define ['app'
         # define the region which can be later accessed with layout.{regionName} property
         # this is the main view for the dialog region. dialogOptions property is set to
         # set the modal title
-        class OuterLayout extends Marionette.Layout
+        class OuterLayout extends Marionette.LayoutView
 
             template: '<div id="slider-manager-region"></div>'
 

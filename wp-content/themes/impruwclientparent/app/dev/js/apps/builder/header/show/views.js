@@ -38,6 +38,6 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
 
       return MainView;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

@@ -104,7 +104,7 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
 
       return EditSliderLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler('show:edit:slider', function(opts) {
       if (opts == null) {
         opts = {};

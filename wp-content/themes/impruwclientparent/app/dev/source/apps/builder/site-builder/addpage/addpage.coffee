@@ -74,7 +74,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             _getAddPageView : ->
                 new AddPageView
 
-        class AddPageView extends Marionette.Layout
+        class AddPageView extends Marionette.LayoutView
 
             tagName: 'form'
 

@@ -21,6 +21,6 @@ define(['app', 'text!apps/seo/templates/seoroomsview.html'], function(App, seoro
 
       return SeoRooomsLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

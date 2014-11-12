@@ -90,7 +90,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       return MediaMangerLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler("menu-manager", function(menuCollection, menuId) {
       var opts;
       opts = {

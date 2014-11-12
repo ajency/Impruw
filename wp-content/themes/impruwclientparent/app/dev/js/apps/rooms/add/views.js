@@ -83,6 +83,6 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       return AddRoomLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

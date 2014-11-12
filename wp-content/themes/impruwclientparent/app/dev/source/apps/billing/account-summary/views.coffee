@@ -3,7 +3,7 @@ define ['app'
 
     App.module 'BillingApp.AccountSummary.View', (View, App, Backbone, Marionette, $, _)->
 
-        class View.Layout extends Marionette.Layout
+        class View.Layout extends Marionette.LayoutView
 
             template: viewTpl
 

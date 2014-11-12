@@ -4,7 +4,7 @@ define [ 'app' ],( App, elementTpl )->
    App.module 'SiteBuilderApp.Element.Views', ( Views, App, Backbone, Marionette, $, _ )->
 
       # Pages single view
-      class Views.ElementView extends Marionette.Layout
+      class Views.ElementView extends Marionette.LayoutView
 
          # basic template
          template : '<form>

@@ -171,7 +171,7 @@ define(['app'], function(App, elementTpl) {
 
       return ElementView;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return Views.ErrorView = (function(_super) {
       __extends(ErrorView, _super);
 

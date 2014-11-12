@@ -51,7 +51,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       return EditSliderLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler('show:edit:slider', function(opts) {
       if (opts == null) {
         opts = {};

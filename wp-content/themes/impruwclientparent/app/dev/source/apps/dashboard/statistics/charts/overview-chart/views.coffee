@@ -5,7 +5,7 @@ define ['app'
 
 			App.module 'DashboardApp.Statistics.OverViewChart.Views', (Views, App, Backbone, Marionette, $, _)->
 
-				class Views.Layout extends Marionette.Layout
+				class Views.Layout extends Marionette.LayoutView
 					template : layoutTmpl
 
 					regions : 

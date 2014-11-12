@@ -22,6 +22,6 @@ define(['app', 'text!apps/seo/templates/view.html'], function(App, formTpl) {
 
       return SeoView;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

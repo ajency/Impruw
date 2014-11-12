@@ -21,7 +21,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html', 'text!apps/
 
       return Layout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     View.SelectedPlanView = (function(_super) {
       __extends(SelectedPlanView, _super);
 

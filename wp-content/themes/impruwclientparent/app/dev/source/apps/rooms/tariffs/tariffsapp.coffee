@@ -38,7 +38,7 @@ define ['app'
                 new RoomsTariffAppLayout
 
         # Rooms tariff layout
-        class RoomsTariffAppLayout extends Marionette.Layout
+        class RoomsTariffAppLayout extends Marionette.LayoutView
 
             className: 'room-tariff-container'
 

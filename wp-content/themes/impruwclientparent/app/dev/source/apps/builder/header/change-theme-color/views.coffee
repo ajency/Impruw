@@ -1,5 +1,7 @@
 define ['app'], (App)->
+
     App.module 'ChangeThemeColorApp.Views', (Views, App, Backbone, Marionette, $, _)->
+
         class SingleSetView extends Marionette.ItemView
 
             tagName: 'li'
@@ -59,9 +61,9 @@ define ['app'], (App)->
 
             template: '<ul class="color-set-list"></ul>'
 
-            itemView: SingleSetView
+            childView: SingleSetView
 
             emptyView: EmptyView
 
-            itemViewContainer: '.color-set-list'
+            childViewContainer: '.color-set-list'
 							

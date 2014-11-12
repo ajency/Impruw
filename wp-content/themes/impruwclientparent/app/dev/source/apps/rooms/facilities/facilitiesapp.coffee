@@ -30,7 +30,7 @@ define ['app'
             _getFacilitiesViewLayout: ->
                 new FacilitiesViewLayout
 
-        class FacilitiesViewLayout extends Marionette.Layout
+        class FacilitiesViewLayout extends Marionette.LayoutView
 
             template: '<h4 class="aj-imp-sub-head scroll-ref">
             									{{#polyglot}}Facilities{{/polyglot}}

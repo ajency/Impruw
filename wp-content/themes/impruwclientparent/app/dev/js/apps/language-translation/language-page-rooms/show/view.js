@@ -31,6 +31,6 @@ define(['app', 'text!apps/language-translation/language-page-rooms/templates/lan
 
       return PageRooomsLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

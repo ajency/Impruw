@@ -33,7 +33,7 @@ define [ 'app'
          emptyView : EmptyView
 
 
-      class Views.RoomListLayout extends Marionette.Layout
+      class Views.RoomListLayout extends Marionette.LayoutView
 
          template : '<div id="room-list"></div><div id="editor-region"></div>'
 

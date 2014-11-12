@@ -1,4 +1,5 @@
 define ['app', 'controllers/base-controller'], (App, AppController)->
+
     App.module 'EditThemeColorApp', (EditThemeColorApp, App, Backbone, Marionette, $, _)->
 
         # Controller class for showing header resion

@@ -90,7 +90,7 @@ define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/vie
 
       return SiteAnalyticsLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler("show:site:analytics:data", function(opt) {
       return new SiteAnalyticsController(opt);
     });
