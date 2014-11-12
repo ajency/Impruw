@@ -49,7 +49,7 @@ define(['app'], function(App) {
 
       RoomFacilitiesView.prototype.childView = RoomFacilitiesItemView;
 
-      RoomFacilitiesView.prototype.itemViewContainer = '.facilities';
+      RoomFacilitiesView.prototype.childViewContainer = '.facilities';
 
       RoomFacilitiesView.prototype.emptyView = EmptyView;
 

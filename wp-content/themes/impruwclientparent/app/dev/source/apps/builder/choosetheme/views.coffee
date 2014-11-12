@@ -106,7 +106,7 @@ define ['app', 'bootbox'], (App, bootbox)->
 
 			childView: ThemeView
 
-			itemViewContainer: '.aj-imp-block-list ul'
+			childViewContainer: '.aj-imp-block-list ul'
 
 			serializeData:->
 				data = super()

@@ -86,7 +86,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SelectedMedia.prototype.emptyView = EmptyView;
 
-      SelectedMedia.prototype.itemViewContainer = '#selected-images';
+      SelectedMedia.prototype.childViewContainer = '#selected-images';
 
       return SelectedMedia;
 

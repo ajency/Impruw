@@ -81,7 +81,7 @@ define ['app'], (App)->
 
             emptyView: EmptyView
 
-            itemViewContainer: '.facilities-list'
+            childViewContainer: '.facilities-list'
 
             itemViewOptions: (item, index)->
                 prefacilities = Marionette.getOption @, 'prefacilities'

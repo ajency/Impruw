@@ -109,7 +109,7 @@ define ['app'], (App)->
 
             childView: TrafficSingle
 
-            itemViewContainer: 'table > tbody'
+            childViewContainer: 'table > tbody'
 
             emptyView: TrafficEmpty
 

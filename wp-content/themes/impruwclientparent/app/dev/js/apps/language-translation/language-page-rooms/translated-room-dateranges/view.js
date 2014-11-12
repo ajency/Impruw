@@ -31,7 +31,7 @@ define(['app'], function(App) {
 
       TranslatedRoomDaterangesView.prototype.itemView = TranslatedRoomDaterangesItemView;
 
-      TranslatedRoomDaterangesView.prototype.itemViewContainer = '.edit_daterange_translation';
+      TranslatedRoomDaterangesView.prototype.childViewContainer = '.edit_daterange_translation';
 
       TranslatedRoomDaterangesView.prototype.events = {
         "click #btn_update-daterange-translation": "updateDaterange"

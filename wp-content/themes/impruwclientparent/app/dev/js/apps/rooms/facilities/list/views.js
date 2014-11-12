@@ -87,7 +87,7 @@ define(['app'], function(App) {
 
       FacilitiesView.prototype.emptyView = EmptyView;
 
-      FacilitiesView.prototype.itemViewContainer = '.facilities-list';
+      FacilitiesView.prototype.childViewContainer = '.facilities-list';
 
       FacilitiesView.prototype.itemViewOptions = function(item, index) {
         var id, ids, prefacilities, selected, v;

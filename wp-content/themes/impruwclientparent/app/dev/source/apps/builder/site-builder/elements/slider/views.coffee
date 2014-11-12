@@ -63,7 +63,7 @@ define ['app'], (App)->
 
             emptyView: EmptySlider
 
-            itemViewContainer: '.fullwidthbanner > ul'
+            childViewContainer: '.fullwidthbanner > ul'
 
             itemViewOptions : ->
                 slide_transition : @model.get 'reset_transitions'

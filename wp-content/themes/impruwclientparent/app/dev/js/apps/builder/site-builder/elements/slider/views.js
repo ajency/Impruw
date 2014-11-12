@@ -78,7 +78,7 @@ define(['app'], function(App) {
 
       SliderView.prototype.emptyView = EmptySlider;
 
-      SliderView.prototype.itemViewContainer = '.fullwidthbanner > ul';
+      SliderView.prototype.childViewContainer = '.fullwidthbanner > ul';
 
       SliderView.prototype.itemViewOptions = function() {
         return {

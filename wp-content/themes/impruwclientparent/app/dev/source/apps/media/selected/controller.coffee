@@ -43,7 +43,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
             template: '<div id="selected-images"></div>'
             childView: SelectedSingle
             emptyView: EmptyView
-            itemViewContainer: '#selected-images'
+            childViewContainer: '#selected-images'
 
         Selected.on 'initialize:before', ->
 

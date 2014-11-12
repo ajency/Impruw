@@ -70,7 +70,7 @@ define ['app','bootbox'], (App, bootbox)->
 				        </div>
 				    </div>'
 
-            itemViewContainer: 'ul.trash-list'
+            childViewContainer: 'ul.trash-list'
 
             events:
                 'click a.clear-all-elements' : (e)->

@@ -58,7 +58,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
 
       LanguageSelectionView.prototype.childView = LanguageItemView;
 
-      LanguageSelectionView.prototype.itemViewContainer = '.languages.clearfix';
+      LanguageSelectionView.prototype.childViewContainer = '.languages.clearfix';
 
       LanguageSelectionView.prototype.events = {
         'click #btn_update-enabled-languages': 'setEnabledLanguages',

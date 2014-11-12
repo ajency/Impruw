@@ -48,7 +48,7 @@ define [ 'app' ], (App)->
 
             childView: LanguageSwitcherItemView
 
-            itemViewContainer: '#language-selector-lang'
+            childViewContainer: '#language-selector-lang'
 
             onRender: ()->
                 # get the className from options

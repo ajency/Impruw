@@ -469,7 +469,7 @@ define ['app'
 
             emptyView: NoSlidesView
 
-            itemViewContainer: '#slides-accordion'
+            childViewContainer: '#slides-accordion'
 
             mixinTemplateHelpers :(data)->
                 data = super data

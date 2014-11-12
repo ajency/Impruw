@@ -35,7 +35,7 @@ define ['app'], (App)->
 
             childView: RoomFacilitiesItemView
 
-            itemViewContainer: '.facilities'
+            childViewContainer: '.facilities'
 
             emptyView: EmptyView
 

@@ -47,7 +47,7 @@ define(['app'], function(App) {
 
       LanguageSwitcherView.prototype.childView = LanguageSwitcherItemView;
 
-      LanguageSwitcherView.prototype.itemViewContainer = '#language-selector-lang';
+      LanguageSwitcherView.prototype.childViewContainer = '#language-selector-lang';
 
       LanguageSwitcherView.prototype.onRender = function() {
         var className, style;

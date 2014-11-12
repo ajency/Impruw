@@ -98,7 +98,7 @@ define(['app'], function(App) {
 
       TrafficViewChart.prototype.childView = TrafficSingle;
 
-      TrafficViewChart.prototype.itemViewContainer = 'table > tbody';
+      TrafficViewChart.prototype.childViewContainer = 'table > tbody';
 
       TrafficViewChart.prototype.emptyView = TrafficEmpty;
 

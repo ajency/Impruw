@@ -19,7 +19,7 @@ define ['app'],
         # Submenu view
         class Views.SubMenuView extends Marionette.CompositeView
             childView: Views.MenuItemView
-            itemViewContainer: 'ul.submenu'
+            childViewContainer: 'ul.submenu'
 
         class EmptyView extends Marionette.ItemView
             tagsName: 'ul'

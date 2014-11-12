@@ -126,7 +126,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       ChooseThemeView.prototype.childView = ThemeView;
 
-      ChooseThemeView.prototype.itemViewContainer = '.aj-imp-block-list ul';
+      ChooseThemeView.prototype.childViewContainer = '.aj-imp-block-list ul';
 
       ChooseThemeView.prototype.serializeData = function() {
         var data;

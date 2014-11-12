@@ -31,7 +31,7 @@ define(['app'], function(App) {
 
       TranslatedRoomFacilitiesView.prototype.itemView = TranslatedRoomFacilitiesItemView;
 
-      TranslatedRoomFacilitiesView.prototype.itemViewContainer = '.edit_term_translation';
+      TranslatedRoomFacilitiesView.prototype.childViewContainer = '.edit_term_translation';
 
       TranslatedRoomFacilitiesView.prototype.events = {
         "click #btn_update-term-translation": "updateFacilityTerms"

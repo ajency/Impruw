@@ -56,7 +56,7 @@ define(['app', 'moment'], function(App, moment) {
 
       PackagesView.prototype.childView = PackageSingle;
 
-      PackagesView.prototype.itemViewContainer = '.package-blocks';
+      PackagesView.prototype.childViewContainer = '.package-blocks';
 
       return PackagesView;
 
@@ -200,7 +200,7 @@ define(['app', 'moment'], function(App, moment) {
 
       DateRangeView.prototype.childView = SingleTariff;
 
-      DateRangeView.prototype.itemViewContainer = '.package-blocks';
+      DateRangeView.prototype.childViewContainer = '.package-blocks';
 
       return DateRangeView;
 

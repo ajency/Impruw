@@ -376,7 +376,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlidesListView.prototype.emptyView = NoSlidesView;
 
-      SlidesListView.prototype.itemViewContainer = '#slides-accordion';
+      SlidesListView.prototype.childViewContainer = '#slides-accordion';
 
       SlidesListView.prototype.mixinTemplateHelpers = function(data) {
         data = SlidesListView.__super__.mixinTemplateHelpers.call(this, data);

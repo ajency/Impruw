@@ -83,7 +83,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       UnsedElementsViews.prototype.template = '<div class="label trash-label clearfix"><span><span class="glyphicon glyphicon-trash"></span> {{#polyglot}}Unused Elements{{/polyglot}}</span></div> <div class="menu aj-imp-drag-menu"> <p class="desc"> {{#polyglot}}Unused deleted elements{{/polyglot}} </p> <a href="#" class="trash-elem-link clear-all-elements"><span class="bicon icon-uniF16F"></span> {{#polyglot}}Clear Elements{{/polyglot}}</a> <ul class="trash-list"> </ul> </div> </div>';
 
-      UnsedElementsViews.prototype.itemViewContainer = 'ul.trash-list';
+      UnsedElementsViews.prototype.childViewContainer = 'ul.trash-list';
 
       UnsedElementsViews.prototype.events = {
         'click a.clear-all-elements': function(e) {

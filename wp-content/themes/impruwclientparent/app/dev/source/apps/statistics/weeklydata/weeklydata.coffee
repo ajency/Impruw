@@ -69,7 +69,7 @@ define ['app', 'controllers/base-controller', 'moment'], (App, AppController, mo
             							</div>
             						</div>'
 
-            itemViewContainer: '.weekly-list'
+            childViewContainer: '.weekly-list'
 
             childView: SingleDayData
 

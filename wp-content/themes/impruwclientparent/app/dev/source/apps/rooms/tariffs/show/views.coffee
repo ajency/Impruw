@@ -48,7 +48,7 @@ define ['app', 'moment'], (App, moment)->
 
             childView: PackageSingle
 
-            itemViewContainer: '.package-blocks'
+            childViewContainer: '.package-blocks'
 
 
         ################ Tariffs views ###################
@@ -220,7 +220,7 @@ define ['app', 'moment'], (App, moment)->
 
             childView: SingleTariff
 
-            itemViewContainer: '.package-blocks'
+            childViewContainer: '.package-blocks'
 
 
         class Views.DateRangeCollectionView extends Marionette.CollectionView

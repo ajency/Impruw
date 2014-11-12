@@ -25,7 +25,7 @@ define ['app'], (App)->
 
                     itemView : TranslatedRoomDaterangesItemView
 
-                    itemViewContainer: '.edit_daterange_translation'
+                    childViewContainer: '.edit_daterange_translation'
 
                     events:
                         "click #btn_update-daterange-translation" : "updateDaterange"

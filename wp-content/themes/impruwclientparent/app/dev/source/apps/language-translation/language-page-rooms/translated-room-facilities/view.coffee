@@ -25,7 +25,7 @@ define ['app'], (App)->
 
                     itemView : TranslatedRoomFacilitiesItemView
 
-                    itemViewContainer: '.edit_term_translation'
+                    childViewContainer: '.edit_term_translation'
 
                     events:
                         "click #btn_update-term-translation" : "updateFacilityTerms"

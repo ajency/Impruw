@@ -36,7 +36,7 @@ define(['app'], function(App) {
 
       SubMenuView.prototype.childView = Views.MenuItemView;
 
-      SubMenuView.prototype.itemViewContainer = 'ul.submenu';
+      SubMenuView.prototype.childViewContainer = 'ul.submenu';
 
       return SubMenuView;
 

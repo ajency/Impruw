@@ -42,7 +42,7 @@ define ['app'
 
             childView: LanguageItemView
 
-            itemViewContainer: '.languages.clearfix'
+            childViewContainer: '.languages.clearfix'
 
             events:
                 'click #btn_update-enabled-languages': 'setEnabledLanguages'
