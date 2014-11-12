@@ -64,6 +64,20 @@ define ['marionette', 'mustache', 'underscore'], (Marionette, Mustache, _ )->
         unhide: ->
             @$el.show()
 
+    _.extend Marionette.ItemView::,
+
+        _renderTemplate : ->
+            template = @getTemplate()
+            data = this.serializeData()
+            data = this.mixinTemplateHelpers data
+      
+            # Render and add to el
+            html = Marionette.Renderer.render template, data, @
+            @attachElContent(html);
+      
+            return @
+
+
     # overwrite the default rendering engine to mustache
     Marionette.Renderer.render = (template, data)->
         if not template

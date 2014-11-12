@@ -86,6 +86,17 @@ define(['marionette', 'mustache', 'underscore'], function(Marionette, Mustache, 
       return this.$el.show();
     }
   });
+  _.extend(Marionette.ItemView.prototype, {
+    _renderTemplate: function() {
+      var data, html, template;
+      template = this.getTemplate();
+      data = this.serializeData();
+      data = this.mixinTemplateHelpers(data);
+      html = Marionette.Renderer.render(template, data, this);
+      this.attachElContent(html);
+      return this;
+    }
+  });
   Marionette.Renderer.render = function(template, data) {
     if (!template) {
       template = '';
