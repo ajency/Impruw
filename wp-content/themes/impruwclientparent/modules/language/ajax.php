@@ -318,14 +318,13 @@ function update_element_content(){
 
     foreach ($impruw_page_elements_original  as $page_element) {
         if ($page_element['meta_id'] == $page_element_meta_id) {
-
             if ($page_element['element'] === 'Link') {
                 $page_element['text'] = $_POST['text'] ;
             }
             else{
                 $page_element['content'] = $_POST['content'] ;
             }
-            
+
         }
         $impruw_page_elements_modified[] = $page_element;
     }
@@ -358,13 +357,13 @@ function update_header_element_content(){
 
     foreach ($header_elements  as $header_element) {
         if ($header_element['meta_id'] == $element_meta_id) {
-            if ($page_element['element'] === 'Link') {
+            if ($header_element['element'] === 'Link') {
                 $header_element['text'] = $_POST['text'] ;
             }
             else{
-               $header_element['content'] = $_POST['content'] ;
+             $header_element['content'] = $_POST['content'] ;
             }
-            
+
         }
         $header_elements_modified[] = $header_element;
     }
@@ -397,13 +396,13 @@ function update_footer_element_content(){
 
     foreach ($footer_elements  as $footer_element) {
         if ($footer_element['meta_id'] == $element_meta_id) {
-            if ($page_element['element'] === 'Link') {
+            if ($footer_element['element'] === 'Link') {
                 $footer_element['text'] = $_POST['text'] ;
             }
             else{
-               $footer_element['content'] = $_POST['content'] ;
+             $footer_element['content'] = $_POST['content'] ;
             }
-            
+
         }
         $footer_elements_modified[] = $footer_element;
     }
@@ -416,7 +415,6 @@ function update_footer_element_content(){
 
 }
 add_action( 'wp_ajax_create-footerElements', 'update_footer_element_content' );
-
 
  // remove language selector if only one language is enabled
 add_action('wp_head', 'wpml_hide_langs');
