@@ -3568,6 +3568,10 @@ $base_element_templates = array(
                                     <dt>Thai Spare Ribs</dt>
                                     <dd class="emphasis">$8.95</dd>
                                 </dl>
+                                <div class="add-another">
+                                    <span class="bicon icon-uniF193"></span>
+                                    Add Another Item
+                                </div>
                             </div>'
         ),
         array(
@@ -3588,6 +3592,10 @@ $base_element_templates = array(
                                     <dd>An end to end solution for all our business needs with excellent support.</dd>
                                     <dd class="emphasis">- Tom Petty</dd>
                                 </dl>
+                                <div class="add-another">
+                                    <span class="bicon icon-uniF193"></span>
+                                    Add Another Item
+                                </div>
                             </div>'
         )
     ),
