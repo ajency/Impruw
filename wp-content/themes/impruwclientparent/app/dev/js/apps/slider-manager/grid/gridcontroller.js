@@ -74,7 +74,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SliderGridView.prototype.className = 'row sliders';
 
-      SliderGridView.prototype.itemView = SliderView;
+      SliderGridView.prototype.childView = SliderView;
 
       SliderGridView.prototype.events = {
         'click a.create-slider': function(e) {

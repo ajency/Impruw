@@ -54,7 +54,7 @@ define(['app', 'moment'], function(App, moment) {
 
       PackagesView.prototype.template = '<div class="packages"> <div class="package-blocks header clearfix"></div> <button type="button" class="btn-add-plan"> <span class="glyphicon glyphicon-plus-sign"></span> &nbsp;{{#polyglot}}Add Plan{{/polyglot}}</button> </div>';
 
-      PackagesView.prototype.itemView = PackageSingle;
+      PackagesView.prototype.childView = PackageSingle;
 
       PackagesView.prototype.itemViewContainer = '.package-blocks';
 
@@ -198,7 +198,7 @@ define(['app', 'moment'], function(App, moment) {
         };
       };
 
-      DateRangeView.prototype.itemView = SingleTariff;
+      DateRangeView.prototype.childView = SingleTariff;
 
       DateRangeView.prototype.itemViewContainer = '.package-blocks';
 
@@ -214,7 +214,7 @@ define(['app', 'moment'], function(App, moment) {
 
       DateRangeCollectionView.prototype.className = 'tariff clearfix';
 
-      DateRangeCollectionView.prototype.itemView = DateRangeView;
+      DateRangeCollectionView.prototype.childView = DateRangeView;
 
       DateRangeCollectionView.prototype.itemViewOptions = function(item, index) {
         var currency, roomId;

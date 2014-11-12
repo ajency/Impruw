@@ -372,7 +372,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlidesListView.prototype.template = ' <div class="slides-list"> <div class="panel-group" id="slides-accordion"></div> </div> <div id="edit-image-view" class="edit-image-view"></div>';
 
-      SlidesListView.prototype.itemView = SlideView;
+      SlidesListView.prototype.childView = SlideView;
 
       SlidesListView.prototype.emptyView = NoSlidesView;
 

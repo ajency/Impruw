@@ -82,7 +82,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SelectedMedia.prototype.template = '<div id="selected-images"></div>';
 
-      SelectedMedia.prototype.itemView = SelectedSingle;
+      SelectedMedia.prototype.childView = SelectedSingle;
 
       SelectedMedia.prototype.emptyView = EmptyView;
 

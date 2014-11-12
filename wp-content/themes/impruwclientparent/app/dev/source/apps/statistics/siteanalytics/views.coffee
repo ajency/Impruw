@@ -107,7 +107,7 @@ define ['app'], (App)->
             							</div>
             						</div>'
 
-            itemView: TrafficSingle
+            childView: TrafficSingle
 
             itemViewContainer: 'table > tbody'
 

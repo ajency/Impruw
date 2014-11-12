@@ -33,7 +33,7 @@ define(['app'], function(App) {
 
       SocialView.prototype.className = 'social';
 
-      SocialView.prototype.itemView = SocialItem;
+      SocialView.prototype.childView = SocialItem;
 
       SocialView.prototype.onRender = function() {
         var className, style;

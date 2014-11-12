@@ -77,7 +77,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return UnsedElementsViews.__super__.constructor.apply(this, arguments);
       }
 
-      UnsedElementsViews.prototype.itemView = SingleUnusedElement;
+      UnsedElementsViews.prototype.childView = SingleUnusedElement;
 
       UnsedElementsViews.prototype.emtpyView = EmptyUnsedElementView;
 

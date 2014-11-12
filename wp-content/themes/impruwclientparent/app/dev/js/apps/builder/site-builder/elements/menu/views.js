@@ -34,7 +34,7 @@ define(['app'], function(App) {
         return SubMenuView.__super__.constructor.apply(this, arguments);
       }
 
-      SubMenuView.prototype.itemView = Views.MenuItemView;
+      SubMenuView.prototype.childView = Views.MenuItemView;
 
       SubMenuView.prototype.itemViewContainer = 'ul.submenu';
 
@@ -67,7 +67,7 @@ define(['app'], function(App) {
 
       MenuView.prototype.className = 'nav';
 
-      MenuView.prototype.itemView = Views.MenuItemView;
+      MenuView.prototype.childView = Views.MenuItemView;
 
       MenuView.prototype.emptyView = EmptyView;
 

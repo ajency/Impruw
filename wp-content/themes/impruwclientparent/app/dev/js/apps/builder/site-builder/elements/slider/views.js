@@ -74,7 +74,7 @@ define(['app'], function(App) {
 
       SliderView.prototype.id = _.uniqueId('carousel-');
 
-      SliderView.prototype.itemView = SliderItem;
+      SliderView.prototype.childView = SliderItem;
 
       SliderView.prototype.emptyView = EmptySlider;
 

@@ -61,7 +61,7 @@ define ['app'
 
             className: 'row sliders'
 
-            itemView: SliderView
+            childView: SliderView
 
             events:
                 'click a.create-slider': (e) ->

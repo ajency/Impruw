@@ -124,7 +124,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       ChooseThemeView.prototype.className = 'aj-imp-theme-area';
 
-      ChooseThemeView.prototype.itemView = ThemeView;
+      ChooseThemeView.prototype.childView = ThemeView;
 
       ChooseThemeView.prototype.itemViewContainer = '.aj-imp-block-list ul';
 

@@ -66,7 +66,7 @@ define(['app', 'controllers/base-controller', 'moment'], function(App, AppContro
 
       WeeklyDataView.prototype.itemViewContainer = '.weekly-list';
 
-      WeeklyDataView.prototype.itemView = SingleDayData;
+      WeeklyDataView.prototype.childView = SingleDayData;
 
       WeeklyDataView.prototype.serializeData = function() {
         var data;

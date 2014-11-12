@@ -164,7 +164,7 @@ define ['app'
 
             className: 'plans-view'
 
-            itemView: BookingPlanSingle
+            childView: BookingPlanSingle
 
             emptyView: BookingPlanEmpty
 

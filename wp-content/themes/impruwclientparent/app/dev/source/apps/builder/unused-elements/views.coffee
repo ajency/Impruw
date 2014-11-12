@@ -55,7 +55,7 @@ define ['app','bootbox'], (App, bootbox)->
 
         class Views.UnsedElementsViews extends Marionette.CompositeView
 
-            itemView: SingleUnusedElement
+            childView: SingleUnusedElement
 
             emtpyView: EmptyUnsedElementView
 

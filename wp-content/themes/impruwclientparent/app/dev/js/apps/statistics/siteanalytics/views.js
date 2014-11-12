@@ -96,7 +96,7 @@ define(['app'], function(App) {
 
       TrafficViewChart.prototype.template = '<h4> All Traffic Data</h4> <div class="row traffic-list-table"> <div class="col-md-12"> <table class="traffic-list table table-striped"> <thead> <tr> <th class="text-left">Source</th> <th >Visits</th> <th>Page views</th> <th>Avg time on the page</th> <th>Bounce rate</th> </tr> </thead> <tbody> </tbody> </table> </div> </div>';
 
-      TrafficViewChart.prototype.itemView = TrafficSingle;
+      TrafficViewChart.prototype.childView = TrafficSingle;
 
       TrafficViewChart.prototype.itemViewContainer = 'table > tbody';
 

@@ -40,7 +40,7 @@ define ['app'
 
             template: languageselectionviewTpl
 
-            itemView: LanguageItemView
+            childView: LanguageItemView
 
             itemViewContainer: '.languages.clearfix'
 

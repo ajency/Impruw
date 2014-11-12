@@ -33,7 +33,7 @@ define ['app'], (App)->
             						<ul class='facilities clearfix'>
             						</ul>"
 
-            itemView: RoomFacilitiesItemView
+            childView: RoomFacilitiesItemView
 
             itemViewContainer: '.facilities'
 

@@ -112,7 +112,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       PageTemplatesGrid.prototype.template = '<h4>{{#polyglot}}Choose page Template{{/polyglot}}</h4> <ul class="templates"></ul> <input type="text" style="display: none" name="menu_order" id="menu-order">';
 
-      PageTemplatesGrid.prototype.itemView = TemplateView;
+      PageTemplatesGrid.prototype.childView = TemplateView;
 
       PageTemplatesGrid.prototype.itemViewContainer = '.templates';
 
@@ -136,7 +136,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       ThemeTemplatesGrid.prototype.template = '<h4>{{#polyglot}}Choose Theme Template{{/polyglot}}</h4> <ul class="templates"></ul>';
 
-      ThemeTemplatesGrid.prototype.itemView = TemplateView;
+      ThemeTemplatesGrid.prototype.childView = TemplateView;
 
       ThemeTemplatesGrid.prototype.itemViewContainer = '.templates';
 

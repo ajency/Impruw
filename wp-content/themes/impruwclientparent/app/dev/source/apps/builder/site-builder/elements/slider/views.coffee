@@ -59,7 +59,7 @@ define ['app'], (App)->
 
             id: _.uniqueId('carousel-')
 
-            itemView: SliderItem
+            childView: SliderItem
 
             emptyView: EmptySlider
 

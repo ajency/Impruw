@@ -465,7 +465,7 @@ define ['app'
                         <div id="edit-image-view" class="edit-image-view"></div>'
 
 
-            itemView: SlideView
+            childView: SlideView
 
             emptyView: NoSlidesView
 

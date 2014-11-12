@@ -47,7 +47,7 @@ define(['app'], function(App) {
 
       RoomFacilitiesView.prototype.template = "<div class='room-facilities-title'> <h5>{{#polyglot}}Room Features{{/polyglot}}</h5> <h4>{{#polyglot}}Standard Book{{/polyglot}}</h5> </div> <ul class='facilities clearfix'> </ul>";
 
-      RoomFacilitiesView.prototype.itemView = RoomFacilitiesItemView;
+      RoomFacilitiesView.prototype.childView = RoomFacilitiesItemView;
 
       RoomFacilitiesView.prototype.itemViewContainer = '.facilities';
 

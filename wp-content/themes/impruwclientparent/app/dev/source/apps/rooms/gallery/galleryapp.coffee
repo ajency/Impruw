@@ -52,7 +52,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
             className: 'isotope'
 
-            itemView: SingleGalleryItem
+            childView: SingleGalleryItem
 
             emptyView: NoGalleryItem
 

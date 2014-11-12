@@ -16,7 +16,7 @@ define ['app'], (App)->
             
             className: 'social'
             
-            itemView: SocialItem
+            childView: SocialItem
             
             onRender: ()->
                 # get the className from options

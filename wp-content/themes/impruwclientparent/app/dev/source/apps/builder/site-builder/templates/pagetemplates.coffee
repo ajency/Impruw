@@ -73,7 +73,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
             		   <ul class="templates"></ul>
             		   <input type="text" style="display: none" name="menu_order" id="menu-order">'
 
-            itemView: TemplateView
+            childView: TemplateView
 
             itemViewContainer : '.templates'
 
@@ -89,7 +89,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
             template: '<h4>{{#polyglot}}Choose Theme Template{{/polyglot}}</h4>
                        <ul class="templates"></ul>'
 
-            itemView: TemplateView
+            childView: TemplateView
 
             itemViewContainer : '.templates'
 

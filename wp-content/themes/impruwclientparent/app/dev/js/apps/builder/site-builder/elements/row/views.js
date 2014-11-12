@@ -100,7 +100,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       RowView.prototype.template = '';
 
-      RowView.prototype.itemView = ColumnView;
+      RowView.prototype.childView = ColumnView;
 
       RowView.prototype.initialize = function(opt) {
         var col, column, i, _i, _j, _len, _len1, _ref, _ref1, _results, _results1;

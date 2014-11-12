@@ -94,7 +94,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       GalleryView.prototype.className = 'isotope';
 
-      GalleryView.prototype.itemView = SingleGalleryItem;
+      GalleryView.prototype.childView = SingleGalleryItem;
 
       GalleryView.prototype.emptyView = NoGalleryItem;
 

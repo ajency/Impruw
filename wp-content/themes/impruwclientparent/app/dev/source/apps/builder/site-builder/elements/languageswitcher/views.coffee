@@ -46,7 +46,7 @@ define [ 'app' ], (App)->
                         </div>
                        {{/placeholder}}'
 
-            itemView: LanguageSwitcherItemView
+            childView: LanguageSwitcherItemView
 
             itemViewContainer: '#language-selector-lang'
 

@@ -101,7 +101,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menucollection.html', 'tex
 
       MenuManagerView.prototype.template = menucollectionTpl;
 
-      MenuManagerView.prototype.itemView = SingleManagerView;
+      MenuManagerView.prototype.childView = SingleManagerView;
 
       MenuManagerView.prototype.itemViewOptions = function(item, index) {
         return {

@@ -46,7 +46,7 @@ define ['app', 'moment'], (App, moment)->
                             &nbsp;{{#polyglot}}Add Plan{{/polyglot}}</button>
                         </div>'
 
-            itemView: PackageSingle
+            childView: PackageSingle
 
             itemViewContainer: '.package-blocks'
 
@@ -218,7 +218,7 @@ define ['app', 'moment'], (App, moment)->
                 currency = Marionette.getOption @, 'currency'
                 currency: currency
 
-            itemView: SingleTariff
+            childView: SingleTariff
 
             itemViewContainer: '.package-blocks'
 
@@ -227,7 +227,7 @@ define ['app', 'moment'], (App, moment)->
 
             className: 'tariff clearfix'
 
-            itemView: DateRangeView
+            childView: DateRangeView
 
             itemViewOptions: (item, index)->
                 roomId = Marionette.getOption @, 'roomId'

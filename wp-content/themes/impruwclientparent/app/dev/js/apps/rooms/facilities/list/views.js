@@ -83,7 +83,7 @@ define(['app'], function(App) {
 
       FacilitiesView.prototype.template = '<div class="facilities-list clearfix"></div>';
 
-      FacilitiesView.prototype.itemView = FacilityItem;
+      FacilitiesView.prototype.childView = FacilityItem;
 
       FacilitiesView.prototype.emptyView = EmptyView;
 

@@ -70,7 +70,7 @@ define ['app'
 
 					template : menucollectionTpl
 
-					itemView: SingleManagerView
+					childView: SingleManagerView
 
 					itemViewOptions:(item, index)->
 									itemIndex : index

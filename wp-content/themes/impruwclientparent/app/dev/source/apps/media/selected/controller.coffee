@@ -41,7 +41,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
         class SelectedMedia extends Marionette.CompositeView
             className: 'clearfix'
             template: '<div id="selected-images"></div>'
-            itemView: SelectedSingle
+            childView: SelectedSingle
             emptyView: EmptyView
             itemViewContainer: '#selected-images'
 

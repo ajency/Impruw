@@ -104,7 +104,7 @@ define ['app', 'bootbox'], (App, bootbox)->
 
 			className: 'aj-imp-theme-area'
 
-			itemView: ThemeView
+			childView: ThemeView
 
 			itemViewContainer: '.aj-imp-block-list ul'
 

@@ -202,7 +202,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       PlansView.prototype.className = 'plans-view';
 
-      PlansView.prototype.itemView = BookingPlanSingle;
+      PlansView.prototype.childView = BookingPlanSingle;
 
       PlansView.prototype.emptyView = BookingPlanEmpty;
 

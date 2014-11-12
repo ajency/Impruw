@@ -56,7 +56,7 @@ define(['app'], function(App) {
 
       GalleryView.prototype.id = _.uniqueId('gallery-');
 
-      GalleryView.prototype.itemView = GalleryItem;
+      GalleryView.prototype.childView = GalleryItem;
 
       GalleryView.prototype.emptyView = EmptyGallery;
 

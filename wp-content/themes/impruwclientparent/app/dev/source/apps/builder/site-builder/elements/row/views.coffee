@@ -66,7 +66,7 @@ define ['app','bootbox'], (App,bootbox)->
 
             template: ''
 
-            itemView: ColumnView
+            childView: ColumnView
 
             initialize: (opt = {})->
                 @collection = new Backbone.Collection

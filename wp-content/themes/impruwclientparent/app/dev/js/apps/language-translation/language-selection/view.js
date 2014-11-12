@@ -56,7 +56,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
 
       LanguageSelectionView.prototype.template = languageselectionviewTpl;
 
-      LanguageSelectionView.prototype.itemView = LanguageItemView;
+      LanguageSelectionView.prototype.childView = LanguageItemView;
 
       LanguageSelectionView.prototype.itemViewContainer = '.languages.clearfix';
 

@@ -39,7 +39,7 @@ define ['app'], (App)->
 
             id: _.uniqueId('gallery-')
 
-            itemView: GalleryItem
+            childView: GalleryItem
 
             emptyView: EmptyGallery
 

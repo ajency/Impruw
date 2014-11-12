@@ -18,7 +18,7 @@ define ['app'],
 
         # Submenu view
         class Views.SubMenuView extends Marionette.CompositeView
-            itemView: Views.MenuItemView
+            childView: Views.MenuItemView
             itemViewContainer: 'ul.submenu'
 
         class EmptyView extends Marionette.ItemView
@@ -31,7 +31,7 @@ define ['app'],
         class Views.MenuView extends Marionette.CompositeView
             tagName: 'ul'
             className: 'nav'
-            itemView: Views.MenuItemView
+            childView: Views.MenuItemView
             emptyView: EmptyView
 
 

@@ -77,7 +77,7 @@ define ['app'], (App)->
 
             template: '<div class="facilities-list clearfix"></div>'
 
-            itemView: FacilityItem
+            childView: FacilityItem
 
             emptyView: EmptyView
 

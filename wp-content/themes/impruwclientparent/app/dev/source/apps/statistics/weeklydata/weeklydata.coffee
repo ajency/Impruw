@@ -71,7 +71,7 @@ define ['app', 'controllers/base-controller', 'moment'], (App, AppController, mo
 
             itemViewContainer: '.weekly-list'
 
-            itemView: SingleDayData
+            childView: SingleDayData
 
             serializeData: ->
                 data = super()
