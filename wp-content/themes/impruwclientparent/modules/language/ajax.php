@@ -291,10 +291,99 @@ function update_translated_page_title(){
 }
 add_action( 'wp_ajax_update-translated-page-title', 'update_translated_page_title' );
 
-add_action( 'wp_ajax_create-pageElements', 'update_element_model' );
-add_action( 'wp_ajax_create-pageTableElements', 'update_element_model' );
-add_action( 'wp_ajax_create-headerElements', 'update_element_model' );
-add_action( 'wp_ajax_create-footerElements', 'update_element_model' );
+function update_element_content(){
+
+    $page_id = $_POST['json-page-id'];
+    $page_id = icl_object_id($page_id, 'page', true,'en');
+    
+    $page_element_meta_id = $_POST['meta_id'];
+    
+    // update meta in page-elements as well
+    $impruw_page_elements_original = get_post_meta($page_id,'page-elements',true);
+
+    $impruw_page_elements_modified = array();
+
+    foreach ($impruw_page_elements_original  as $page_element) {
+        if ($page_element['meta_id'] == $page_element_meta_id) {
+            $page_element['content'] = $_POST['content'] ;
+        }
+        $impruw_page_elements_modified[] = $page_element;
+    }
+
+    update_post_meta($page_id, 'page-elements', $impruw_page_elements_modified);
+    unset($_POST['json-page-id']);
+    
+    update_element_model();
+
+}
+
+add_action( 'wp_ajax_create-pageElements', 'update_element_content' );
+add_action( 'wp_ajax_create-pageTableElements', 'update_element_content' );
+
+function update_header_element_content(){
+
+    $element_meta_id = $_POST['meta_id'];
+
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'header_footer_backup';
+
+    $sql = "SELECT elements FROM " . $table_name . " WHERE `type`= 'theme-header-published'";
+
+    $query_result = $wpdb->get_row( $sql);
+
+    $header_elements = maybe_unserialize($query_result->elements);
+
+    $header_elements_modified = array();
+
+    foreach ($header_elements  as $header_element) {
+        if ($header_element['meta_id'] == $element_meta_id) {
+            $header_element['content'] = $_POST['content'] ;
+        }
+        $header_elements_modified[] = $header_element;
+    }
+
+    $serialized_header_elements_modified = maybe_serialize($header_elements_modified);
+
+    $wpdb->update( $table_name, array( 'elements' => $serialized_header_elements_modified ), array( 'type' => 'theme-header-published') );
+    
+    update_element_model();
+
+}
+
+add_action( 'wp_ajax_create-headerElements', 'update_header_element_content' );
+
+function update_footer_element_content(){
+
+    $element_meta_id = $_POST['meta_id'];
+
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'header_footer_backup';
+
+    $sql = "SELECT elements FROM " . $table_name . " WHERE `type`= 'theme-footer-published'";
+
+    $query_result = $wpdb->get_row( $sql);
+
+    $footer_elements = maybe_unserialize($query_result->elements);
+
+    $footer_elements_modified = array();
+
+    foreach ($footer_elements  as $footer_element) {
+        if ($footer_element['meta_id'] == $element_meta_id) {
+            $footer_element['content'] = $_POST['content'] ;
+        }
+        $footer_elements_modified[] = $footer_element;
+    }
+
+    $serialized_footer_elements_modified = maybe_serialize($footer_elements_modified);
+
+    $wpdb->update( $table_name, array( 'elements' => $serialized_footer_elements_modified ), array( 'type' => 'theme-footer-published') );
+    
+    update_element_model();
+
+}
+add_action( 'wp_ajax_create-footerElements', 'update_footer_element_content' );
 
  // remove language selector if only one language is enabled
 add_action('wp_head', 'wpml_hide_langs');
