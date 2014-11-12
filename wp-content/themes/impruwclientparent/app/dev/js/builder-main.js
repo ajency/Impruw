@@ -15,7 +15,7 @@ require.config({
     bootstrapselect: 'bower_components/bootstrap-select/dist/js/bootstrap-select',
     underscorestring: 'bower_components/underscore.string/dist/underscore.string.min',
     backbonesyphon: 'bower_components/backbone.syphon/lib/amd/backbone.syphon',
-    jqueryvalidate: 'bower_components/jquery.validate/dist/jquery.validate',
+    'jquery.validate': 'bower_components/jquery.validate/dist/jquery.validate',
     isotope: 'bower_components/isotope/dist/isotope.pkgd',
     imgLiquid: 'bower_components/imgLiquid/js/imgLiquid',
     polyglot: 'bower_components/polyglot/build/polyglot',
@@ -61,7 +61,7 @@ require.config({
     polyglot: {
       exports: 'Polyglot'
     },
-    jqueryvalidate: ['jquery'],
+    'jquery.validate': ['jquery'],
     underscorestring: ['underscore'],
     backbonesyphon: ['backbone'],
     jqueryspin: ['jquery'],

@@ -1,7 +1,7 @@
 define ['app'
         'text!apps/rooms/edit/templates/edit-room.html'
-        'jqueryvalidate'],
-(App, addRoomTpl ,  jqueryvalidate)->
+        'jquery.validate'],
+(App, addRoomTpl)->
     App.module 'RoomsApp.Edit.View', (View, App, Backbone, Marionette, $, _)->
         class View.EditRoomLayout extends Marionette.LayoutView
 

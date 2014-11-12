@@ -34,7 +34,7 @@ define [
                   @region.currentView.$el.removeAttr "style"
                when "spinner"
                   return if not @region
-                  return realView.close() if @region.currentView isnt loadingView
+                  return realView.destroy() if @region.currentView isnt loadingView
 
 
             if not config.debug

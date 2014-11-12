@@ -46,7 +46,7 @@ define(['app', 'controllers/base-controller', 'components/loading/view'], functi
                 return;
               }
               if (_this.region.currentView !== loadingView) {
-                return realView.close();
+                return realView.destroy();
               }
           }
           if (!config.debug) {

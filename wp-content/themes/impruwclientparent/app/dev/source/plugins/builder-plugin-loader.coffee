@@ -10,7 +10,7 @@ define [
    'backbonesyphon'
    'mustache'
    'underscorestring'
-   'jqueryvalidate'
+   'jquery.validate'
    'bootstrap'
    'bootbox'
    'radiocheck'

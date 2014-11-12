@@ -1,6 +1,6 @@
 ## You can add your own jquery plugins here
 ## Or even mixin some extra functions
-define ['jquery', 'underscore', 'jqueryvalidate', 'jqueryuii18n' , 'configs/polyglot'], ($, _)->
+define ['jquery', 'underscore', 'jquery.validate', 'jqueryuii18n' , 'configs/polyglot'], ($, _)->
 
     # define helper functions
     $.fn.isEmptyColumn = (params = {})->
