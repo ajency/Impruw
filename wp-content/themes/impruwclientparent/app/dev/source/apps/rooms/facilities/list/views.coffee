@@ -83,7 +83,7 @@ define ['app'], (App)->
 
             childViewContainer: '.facilities-list'
 
-            itemViewOptions: (item, index)->
+            childViewOptions: (item, index)->
                 prefacilities = Marionette.getOption @, 'prefacilities'
                 id = parseInt item.get 'term_id'
                 selected = false
@@ -98,7 +98,6 @@ define ['app'], (App)->
             onUpdateView: (model)->
                 term_id = model.get 'term_id'
                 facility_name = model.get 'facility_name'
-                #console.log(model)
                 @$el.find("#facility-#{term_id} .display_facility").removeClass 'hidden'
                 @$el.find("#facility-#{term_id} .update_facility").addClass 'hidden'
                 @$el.find("#facility-#{term_id} .facility-name").text facility_name

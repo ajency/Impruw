@@ -89,7 +89,7 @@ define(['app'], function(App) {
 
       FacilitiesView.prototype.childViewContainer = '.facilities-list';
 
-      FacilitiesView.prototype.itemViewOptions = function(item, index) {
+      FacilitiesView.prototype.childViewOptions = function(item, index) {
         var id, ids, prefacilities, selected, v;
         prefacilities = Marionette.getOption(this, 'prefacilities');
         id = parseInt(item.get('term_id'));
