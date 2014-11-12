@@ -10,6 +10,7 @@
 	.smart-cell {
 		padding: 0.5em 1em;
 		margin-bottom: 0.5em;
+		position: relative;
 		dt {
 			font-size: 1.2em;
 			color: @secondary1;
@@ -23,6 +24,30 @@
 			&.emphasis {
 				font-size: 1.5em;
 				font-weight: 500;
+			}
+			&.delete {
+				display: none;
+				a {
+					padding: 0.2em 0.5em 0;
+					font-size: 1.2em;
+					background: #ff3333;
+					border-radius: 2px;
+					color: #fff;
+					position: absolute;
+					top: 5px;
+					left: 5px;
+					z-index: 6;
+					box-shadow: 1px 1px 3px #aaa;
+					&:hover {
+						background: lighten(#ff3333, 10%);
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		&:hover {
+			.delete {
+				display: block;
 			}
 		}
 	}

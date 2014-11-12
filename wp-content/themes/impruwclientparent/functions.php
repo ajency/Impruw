@@ -3543,6 +3543,7 @@ $base_element_templates = array(
                                     <dt>Fried Spring Rolls</dt>
                                     <dd>chicken or vegetable</dd>
                                     <dd class="emphasis">$2.95</dd>
+                                    <dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>
                                 </dl>
                                 <dl class="smart-cell">
                                     <dt>Gai of Nuur Satay</dt>
@@ -3581,6 +3582,7 @@ $base_element_templates = array(
                                     <dt>Love it!</dt>
                                     <dd>I absolutely love this company and their work.</dd>
                                     <dd class="emphasis">- Joan Rivers</dd>
+                                    <dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>
                                 </dl>
                                 <dl class="smart-cell">
                                     <dt>The best experience ever</dt>
