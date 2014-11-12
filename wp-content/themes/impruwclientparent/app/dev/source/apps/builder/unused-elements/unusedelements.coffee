@@ -8,7 +8,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
                 {@pageId, revisionId} = opts
 
                 # clear current view
-                @region.close()
+                @region.empty()
 
                 @unusedElementCollection = App.request "get:unused:elements", @pageId, revisionId
 

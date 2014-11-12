@@ -20,7 +20,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/revisio
         })(this));
         this.listenTo(this.view, "close:revision", (function(_this) {
           return function() {
-            return _this.region.close();
+            return _this.region.empty();
           };
         })(this));
         this.listenTo(this.view, 'restore:revision', function(data) {

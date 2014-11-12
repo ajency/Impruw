@@ -29,7 +29,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                         model : model
 
             closeEditThemeClick:->
-                @region.close()
+                @region.empty()
 
                 $("#theme-color-set").slideDown()
 

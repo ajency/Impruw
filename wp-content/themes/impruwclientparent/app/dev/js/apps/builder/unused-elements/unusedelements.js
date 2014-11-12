@@ -18,7 +18,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
       UnusedElementController.prototype.initialize = function(opts) {
         var revisionId;
         this.pageId = opts.pageId, revisionId = opts.revisionId;
-        this.region.close();
+        this.region.empty();
         this.unusedElementCollection = App.request("get:unused:elements", this.pageId, revisionId);
         return this.unusedElementCollection.xhr.done(this.showView);
       };

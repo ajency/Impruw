@@ -30,7 +30,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       EditThemeColorController.prototype.closeEditThemeClick = function() {
-        this.region.close();
+        this.region.empty();
         return $("#theme-color-set").slideDown();
       };
 

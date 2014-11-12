@@ -43,7 +43,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
 
                 responseFn = ()=>
                     window.location.href = BUILDERURL
-                    #@region.close()
+                    #@region.empty()
 
                 # assign the new theme to site
                 $.post "#{AJAXURL}?action=assign-theme-to-site", data, responseFn, 'json'

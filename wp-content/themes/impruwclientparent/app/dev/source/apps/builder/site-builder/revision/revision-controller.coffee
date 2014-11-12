@@ -16,7 +16,7 @@ define ['app'
 					@view.triggerMethod 'show:revision:with:id',options.revisionId
 
 				@listenTo @view, "close:revision",=>
-					@region.close()
+					@region.empty()
 
 				@listenTo @view, 'restore:revision',(data)->
 					App.request 'restore:revision',data
