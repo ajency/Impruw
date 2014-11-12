@@ -21,7 +21,7 @@ define(['marionette'], function(Marionette) {
       }
     };
 
-    Settings.prototype.onClose = function() {
+    Settings.prototype.onEmpty = function() {
       return this.$el.draggable('destroy');
     };
 

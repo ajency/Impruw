@@ -44,7 +44,7 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
             events:
                 'click .close-settings': (evt)->
                     evt.preventDefault()
-                    App.settingsRegion.close()
+                    App.settingsRegion.empty()
                 'change input[name="draggable"]': (evt)->
                     @trigger "element:draggable:changed", $(evt.target).is(':checked')
                 'change select[name="style"]': (evt)->

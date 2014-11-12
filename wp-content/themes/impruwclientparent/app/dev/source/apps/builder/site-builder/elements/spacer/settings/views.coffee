@@ -37,7 +37,7 @@ define ['app', 'text!apps/builder/site-builder/elements/spacer/settings/template
             events:
                 'click .close-settings': (evt)->
                     evt.preventDefault()
-                    App.settingsRegion.close()
+                    App.settingsRegion.empty()
 
                 'change select[name="type"]': (evt)->
                     # @$el.find('select[name="style"]').selectpicker('val', 'Default').selectpicker('refresh')

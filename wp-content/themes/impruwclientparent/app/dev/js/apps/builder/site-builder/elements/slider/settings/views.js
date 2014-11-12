@@ -69,7 +69,7 @@ define(['app', 'text!apps/builder/site-builder/elements/slider/settings/template
       SettingsView.prototype.events = {
         'click .close-settings': function(evt) {
           evt.preventDefault();
-          return App.settingsRegion.close();
+          return App.settingsRegion.empty();
         },
         'change select[name="slider_id"]': function(evt) {
           return this.trigger("element:slider_id:changed", $(evt.target).val());

@@ -36,7 +36,7 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
             events:
                 'click .close-settings': (evt)->
                     evt.preventDefault()
-                    App.settingsRegion.close()
+                    App.settingsRegion.empty()
                 'change select[name="style"]': (evt)->
                     @trigger "element:style:changed", $(evt.target).val()
                 'change select[name="choose-menu"]': (evt)->

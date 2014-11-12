@@ -32,7 +32,7 @@ define ['app', 'text!apps/builder/site-builder/elements/contactform/settings/tem
             events:
                 'click .close-settings': (evt)->
                     evt.preventDefault()
-                    App.settingsRegion.close()
+                    App.settingsRegion.empty()
                 'change select[name="style"]': (evt)->
                     @trigger "element:style:changed", $(evt.target).val()
                 'change input[name="draggable"]': (evt)->

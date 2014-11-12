@@ -41,7 +41,7 @@ define(['app', 'text!apps/builder/site-builder/elements/logo/settings/templates/
       SettingsView.prototype.events = {
         'click .close-settings': function(evt) {
           evt.preventDefault();
-          return App.settingsRegion.close();
+          return App.settingsRegion.empty();
         },
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));

@@ -41,7 +41,7 @@ define(['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
       SettingsView.prototype.events = {
         'click .close-settings': function(evt) {
           evt.preventDefault();
-          return App.settingsRegion.close();
+          return App.settingsRegion.empty();
         },
         'click .set-column-count a.btn': function(evt) {
           evt.stopPropagation();

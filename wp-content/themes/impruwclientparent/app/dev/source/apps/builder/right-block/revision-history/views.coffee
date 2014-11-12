@@ -59,7 +59,6 @@ define ['app'
 				lastThreeRevisions = _.first @revisionCollection.toArray() , 3
 
 				@collection = new Backbone.Collection lastThreeRevisions
-				# console.log 'df'
 				@render()
 
 			onRender : ->

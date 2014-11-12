@@ -46,7 +46,7 @@ define ['app', 'text!apps/builder/site-builder/elements/slider/settings/template
             events:
                 'click .close-settings': (evt)->
                     evt.preventDefault()
-                    App.settingsRegion.close()
+                    App.settingsRegion.empty()
                 'change select[name="slider_id"]': (evt)->
                     @trigger "element:slider_id:changed", $(evt.target).val()
                 'change select[name="slide_transition"]': (evt)->

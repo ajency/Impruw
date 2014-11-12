@@ -32,7 +32,7 @@ define ['app', 'text!apps/builder/site-builder/elements/gallery/settings/templat
             events:
                 'click .close-settings': (evt)->
                     evt.preventDefault()
-                    App.settingsRegion.close()
+                    App.settingsRegion.empty()
                 'change select[name="slider_id"]': (evt)->
                     @trigger "element:slider_id:changed", $(evt.target).val()
                 'change input[name="draggable"]': (evt)->

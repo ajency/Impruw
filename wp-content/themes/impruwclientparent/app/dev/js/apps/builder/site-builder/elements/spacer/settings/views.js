@@ -43,7 +43,7 @@ define(['app', 'text!apps/builder/site-builder/elements/spacer/settings/template
       SettingsView.prototype.events = {
         'click .close-settings': function(evt) {
           evt.preventDefault();
-          return App.settingsRegion.close();
+          return App.settingsRegion.empty();
         },
         'change select[name="type"]': function(evt) {
           return this.trigger("element:type:changed", $(evt.target).val());

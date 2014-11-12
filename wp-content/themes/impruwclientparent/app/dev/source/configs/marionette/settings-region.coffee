@@ -1,4 +1,5 @@
 define [ 'marionette' ], ( Marionette ) ->
+
    class Marionette.Region.Settings extends Marionette.Region
 
       #initiate modal on show
@@ -13,5 +14,5 @@ define [ 'marionette' ], ( Marionette ) ->
             view.$el.find( 'form .form-group' ).hide()
             view.$el.find( 'form .form-group.edit-by-user' ).show()
 
-      onClose : ->
+      onEmpty : ->
          @$el.draggable 'destroy'

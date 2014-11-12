@@ -30,7 +30,7 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
             events:
                 'click .close-settings': (evt)->
                     evt.preventDefault()
-                    App.settingsRegion.close()
+                    App.settingsRegion.empty()
                 'click .set-column-count a.btn': (evt)->
                     evt.stopPropagation()
                     @$el.find('.set-column-count a.btn').removeClass('selected')
