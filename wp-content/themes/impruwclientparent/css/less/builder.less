@@ -2758,22 +2758,35 @@ a {
 			.list-group-item {
 				.menu-item {
 					.menu-dragger {
-						color: @dash-grey;
+						color: lighten(@dash-grey, 10%);
 						font-size: 1.2em;
 						text-align: center;
 						cursor: move;
 					}
+					.menu-name {
+						color: @3-grey;
+						padding-top: 1px;
+					}
 					.menu-edit {
 						text-align: right;
-						a {
-							color: @blue-grey;
-						}
+						font-size: 0.8em;
+						padding-top: 4px;
 					}
 				}
 				.menu-item-edit {
 					background: lighten(@dash-grey, 30%);
 					margin: 10px -15px -10px;
-					padding: 15px 0;
+					padding: 0.5em 1em;
+					.form-group {
+						.control-label {
+							display: block;
+							color: @dash-grey;
+							text-transform: uppercase;
+						}
+						.menutitle {
+							min-width: 300px;
+						}
+					}
 					.form-actions {
 						.red-link {
 							vertical-align: middle;
