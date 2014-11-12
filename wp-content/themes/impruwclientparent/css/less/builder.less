@@ -2612,25 +2612,6 @@ a {
 	}
 	.menu-manager-container {
 		padding: 0 2em;
-	}
-	.choose-menu {
-		padding-left: 0;
-		.control-label {
-			display: block;
-			text-align: left !important;
-		}
-		.selected a {
-			color: #fff;
-		}
-		.add a {
-			color: @orange;
-			&:hover {
-				color: #fff;
-			}
-		}
-	}
-	.create-menu-container {
-		border-bottom: 1px solid lighten(@dash-grey, 20%);
 		.desc {
 			color: @dash-grey;
 			font-size: 1.1em;
@@ -2639,27 +2620,46 @@ a {
 				margin: 0.5em 0;
 			}
 		}
-		.create-button {
-			margin-bottom: 1em;
-			padding-bottom: 1em;
-			.or {
+	}
+	.create-menu-container {
+		background: @preview-grey;
+		padding: 1em;
+		border-radius: 2px;
+		.choose-menu {
+			padding-left: 0;
+			.control-label {
 				display: block;
-				font-size: 1.5em;
+				text-align: left !important;
+				line-height: 1.4;
 				color: @dash-grey;
 				text-transform: uppercase;
-				margin-bottom: 0.5em;
 			}
-			.create-menu {
-				background: @blue-grey;
+			.selected a {
+				color: #fff;
+			}
+			.add a {
+				color: @orange;
 				&:hover {
-					background: lighten(@blue-grey, 10%);
+					color: #fff;
+				}
+			}
+			.option-or {
+				display: inline-block;
+				font-size: 1.2em;
+				color: @dash-grey;
+				text-transform: uppercase;
+				margin: 0 1em;
+			}
+			.create-new-menu {
+				text-transform: uppercase;
+				font-size: 1.2em;
+				&:hover {
+					color: darken(@orange, 10%);
+					text-decoration: underline;
 				}
 			}
 		}
 		.menu-name {
-			background: darken(@preview-grey, 10%);
-			padding: 0.5em 0.5em 1em;
-			border-radius: 2px;
 			.control-label {
 				color: darken(@dash-grey, 20%);
 				font-size: 1.2em;
