@@ -16,7 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
         var menucollection, view;
         this.menucollection = menucollection = opts.collection;
         this.view = view = this._getView(menucollection);
-        this.listenTo(this.view, "itemview:update:menu:item:clicked", (function(_this) {
+        this.listenTo(this.view, "childview:update:menu:item:clicked", (function(_this) {
           return function(iv, formdata, model) {
             return model.save(formdata, {
               wait: true,
@@ -29,7 +29,7 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
             return _this.view.triggerMethod('triggerOrderChange');
           };
         })(this));
-        this.listenTo(this.view, "itemview:delete:menu:item:clicked", (function(_this) {
+        this.listenTo(this.view, "childview:delete:menu:item:clicked", (function(_this) {
           return function(iv, model) {
             return _this.region.trigger("delete:menu:item:model", model);
           };

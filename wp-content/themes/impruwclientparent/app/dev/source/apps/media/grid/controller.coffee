@@ -16,22 +16,22 @@ define [ 'app', 'controllers/base-controller', 'apps/media/grid/views' ], ( App,
 
 				view = @_getView @mediaCollection
 
-				@listenTo view, "itemview:media:element:selected", ( iv ) =>
+				@listenTo view, "childview:media:element:selected", ( iv ) =>
 					# trigger "media:element:clicked" event on the region. the main app controller will
 					# listen to this event and get the clicked model and pass it on to edit media app
 					Marionette.triggerMethod.call( @region,
 					  "media:element:selected",
 					  Marionette.getOption( iv, 'model' ) )
 
-				@listenTo view, "itemview:media:element:unselected", ( iv ) =>
+				@listenTo view, "childview:media:element:unselected", ( iv ) =>
 					Marionette.triggerMethod.call( @region,
 					  "media:element:unselected",
 					  Marionette.getOption( iv, 'model' ) )
 
-				@listenTo view, "itemview:delete:media:image", ( iv, model ) =>
+				@listenTo view, "childview:delete:media:image", ( iv, model ) =>
 					@deleteImage model
 
-				@listenTo view, "itemview:show:image:editor", (iv, model) =>
+				@listenTo view, "childview:show:image:editor", (iv, model) =>
 					_region = @region
 					ratio  = App.currentImageRatio
 					editView = App.request "get:image:editor:view", model, 

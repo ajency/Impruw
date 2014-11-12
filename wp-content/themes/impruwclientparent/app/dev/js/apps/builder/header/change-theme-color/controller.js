@@ -31,8 +31,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         var themeColorCollection;
         themeColorCollection = App.request("get:themes:color:collection");
         this.themeColorSetView = this.getView(themeColorCollection);
-        this.listenTo(this.themeColorSetView, "itemview:change:theme:color", this.changeThemeColorClick);
-        this.listenTo(this.themeColorSetView, "itemview:edit:theme:color:clicked", this.editThemeColorClick);
+        this.listenTo(this.themeColorSetView, "childview:change:theme:color", this.changeThemeColorClick);
+        this.listenTo(this.themeColorSetView, "childview:edit:theme:color:clicked", this.editThemeColorClick);
         return this.layout.themecolorsetRegion.show(this.themeColorSetView);
       };
 

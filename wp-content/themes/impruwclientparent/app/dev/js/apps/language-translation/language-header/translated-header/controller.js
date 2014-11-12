@@ -16,7 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.siteModel = siteModel = App.request("get:language:based:site", this.editLang);
         this.headerElementsCollection = App.request("get:header:elements");
         this.translatedHeaderView = this._getTranslatedHeaderView(this.headerElementsCollection);
-        this.listenTo(this.translatedHeaderView, "itemview:header:element:updated", this.updateHeaderElementContent);
+        this.listenTo(this.translatedHeaderView, "childview:header:element:updated", this.updateHeaderElementContent);
         return this.show(this.translatedHeaderView, {
           loading: true
         });

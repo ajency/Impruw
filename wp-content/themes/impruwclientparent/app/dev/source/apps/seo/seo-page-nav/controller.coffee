@@ -16,7 +16,7 @@ define ['app', 'controllers/base-controller'
                 @seoPageNavView = @_getPageNavView @collection
 
                 @listenTo @seoPageNavView, "seo:room:content", @loadSeoRoomContent
-                @listenTo @seoPageNavView, "itemview:page:content", @loadSeoPageContent
+                @listenTo @seoPageNavView, "childview:page:content", @loadSeoPageContent
                 # @listenTo @languagePageNavView, "site:translate:content", @loadSiteContent
 
                 #function to load view

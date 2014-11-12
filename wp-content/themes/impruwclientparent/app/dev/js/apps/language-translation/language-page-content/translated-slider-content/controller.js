@@ -15,7 +15,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.editLang = opts.editLang;
         this.pageSliderCollection = App.request("get:page:slider:elements", this.pageId, this.editLang);
         this.translatedContentView = this._getLanguageView();
-        this.listenTo(this.translatedContentView, "itemview:itemview:page:slide:updated", this.updatePageSlideContent);
+        this.listenTo(this.translatedContentView, "childview:childview:page:slide:updated", this.updatePageSlideContent);
         return this.show(this.translatedContentView, {
           loading: true
         });

@@ -24,7 +24,7 @@ define ['app'
 					# console.log layerModel
 					# @collection.add layerModel
 
-				@listenTo @view,'itemview:remove:text:layer',(itemview)->
+				@listenTo @view,'childview:remove:text:layer',(itemview)->
 					# @collection.remove itemview.model	
 
 				

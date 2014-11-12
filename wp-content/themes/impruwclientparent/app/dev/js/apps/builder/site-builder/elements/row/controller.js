@@ -51,7 +51,7 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
         var row;
         this.removeSpinner();
         row = this._getRowView();
-        this.listenTo(row, "itemview:element:moved", this.elementMoved);
+        this.listenTo(row, "childview:element:moved", this.elementMoved);
         this.layout.elementRegion.show(row);
         return this.changeStyle(this.layout.model);
       };

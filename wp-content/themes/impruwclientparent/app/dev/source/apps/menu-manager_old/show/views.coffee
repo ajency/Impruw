@@ -18,7 +18,7 @@ define ['app'
 
 					events:
 						'click .update-menu-item' : -> 
-							App.vent.trigger "itemview:update:menu:item", @.model, Backbone.Syphon.serialize @
+							App.vent.trigger "childview:update:menu:item", @.model, Backbone.Syphon.serialize @
 
 					onRender:->
 						@$el.attr 'id', 'item-' + @model.get 'ID'
@@ -65,7 +65,7 @@ define ['app'
 				class Views.MenuManagerView extends Marionette.CompositeView
 
 					initialize:->
-						@on "itemview:menu:order:changed",(iv,order)=> 
+						@on "childview:menu:order:changed",(iv,order)=> 
 											@trigger "menu:order:changed", iv.model,order
 
 					template : menucollectionTpl

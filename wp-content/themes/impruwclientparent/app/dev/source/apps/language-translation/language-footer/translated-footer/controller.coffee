@@ -16,7 +16,7 @@ define ['app', 'controllers/base-controller'
 
                 @translatedFooterView = @_getTranslatedFooterView @footerElementsCollection
 
-                @listenTo @translatedFooterView, "itemview:footer:element:updated", @updateFooterElementContent
+                @listenTo @translatedFooterView, "childview:footer:element:updated", @updateFooterElementContent
 
                 #function to load view
                 @show @translatedFooterView,

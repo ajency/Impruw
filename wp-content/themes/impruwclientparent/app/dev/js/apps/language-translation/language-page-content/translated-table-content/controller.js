@@ -16,7 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.originalId = opts.originalId;
         this.pageTableCollection = App.request("get:page:table:elements", this.originalId, this.editLang);
         this.translatedContentView = this._getLanguageView(this.pageTableCollection);
-        this.listenTo(this.translatedContentView, "itemview:page:table:updated", this.updatePageTableContent);
+        this.listenTo(this.translatedContentView, "childview:page:table:updated", this.updatePageTableContent);
         return this.show(this.translatedContentView, {
           loading: true
         });

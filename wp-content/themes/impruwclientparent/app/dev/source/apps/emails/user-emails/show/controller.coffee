@@ -11,8 +11,8 @@ define ['app', 'controllers/base-controller'
                 @userEmailView = @_getuserEmailView()
 
                 @listenTo @userEmailView, "add:new:user:email", @addNewUserEmail
-                @listenTo @userEmailView, "itemview:disable:user:email", @disableUserEmail
-                @listenTo @userEmailView, "itemview:delete:user:email", @deleteUserEmail
+                @listenTo @userEmailView, "childview:disable:user:email", @disableUserEmail
+                @listenTo @userEmailView, "childview:delete:user:email", @deleteUserEmail
                
                 #function to load view
                 @show @userEmailView,

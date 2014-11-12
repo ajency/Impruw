@@ -13,7 +13,7 @@ define ['app', 'controllers/base-controller'
 
                 @languageSelectionView = @_getLanguageView @collection, @siteModel
 
-                @listenTo @languageSelectionView, "itemview:language:updated", @updateLanguageModel
+                @listenTo @languageSelectionView, "childview:language:updated", @updateLanguageModel
                 @listenTo @languageSelectionView, "update:enabled:languages", @updateEnabledLanguages
                 @listenTo @languageSelectionView, "update:hidden:language", @updateHiddenLanguage
                 @listenTo @languageSelectionView, "load:language:page:nav", @loadLanguagePageNav

@@ -16,7 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/leftnav/show/views', 'entiti
           collection: this.links
         });
         this.listenTo(App.vent, "set:active:menu", this.setActiveMenu);
-        this.listenTo(this.view, "itemview:logout:clicked", this.siteLogoutAjax);
+        this.listenTo(this.view, "childview:logout:clicked", this.siteLogoutAjax);
         return this.show(this.view, {
           loading: true
         });

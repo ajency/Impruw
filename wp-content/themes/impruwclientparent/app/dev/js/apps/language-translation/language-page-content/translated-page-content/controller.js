@@ -21,7 +21,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.translatedContentView = this._getLanguageView(this.pageModel, this.pageElementsCollection);
         this.listenTo(this.translatedContentView, "translated:page:title:updated", this.updateTranslatedPageTitle);
         this.listenTo(this.translatedContentView, "translated:page:url:updated", this.updateTranslatedPageUrl);
-        this.listenTo(this.translatedContentView, "itemview:page:element:updated", this.updatePageElementContent);
+        this.listenTo(this.translatedContentView, "childview:page:element:updated", this.updatePageElementContent);
         return this.show(this.translatedContentView, {
           loading: true
         });

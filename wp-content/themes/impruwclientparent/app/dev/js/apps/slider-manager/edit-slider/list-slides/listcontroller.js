@@ -30,7 +30,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         }
         this.layout = layout = this._getSlidesListLayout();
         this.listView = listView = this._getSlidesListView(collection, element);
-        this.listenTo(listView, "itemview:slide:updated:with:data", function(iv, data) {
+        this.listenTo(listView, "childview:slide:updated:with:data", function(iv, data) {
           var slide;
           slide = iv.model;
           slide.set(data);
@@ -39,12 +39,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             success: this.slideModelUpdated
           });
         });
-        this.listenTo(listView, "itemview:remove:slide", function(iv, slide) {
+        this.listenTo(listView, "childview:remove:slide", function(iv, slide) {
           return slide.destroy({
             wait: true
           });
         });
-        this.listenTo(listView, "itemview:edit:image", function(iv, imageId) {
+        this.listenTo(listView, "childview:edit:image", function(iv, imageId) {
           var editView, mediaId, ratio;
           mediaId = parseInt(iv.model.get('image_id'));
           ratio = App.currentImageRatio;
@@ -57,7 +57,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             return layout.slidesListRegion.show(listView);
           });
         });
-        this.listenTo(listView, "itemview:add:text", function(iv, imageId) {
+        this.listenTo(listView, "childview:add:text", function(iv, imageId) {
           return App.execute('show:slide:text:layer', {
             region: layout.slidesListRegion,
             model: iv.model

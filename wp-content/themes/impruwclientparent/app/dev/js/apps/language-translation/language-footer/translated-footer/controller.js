@@ -16,7 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.siteModel = siteModel = App.request("get:language:based:site", this.editLang);
         this.footerElementsCollection = App.request("get:footer:elements");
         this.translatedFooterView = this._getTranslatedFooterView(this.footerElementsCollection);
-        this.listenTo(this.translatedFooterView, "itemview:footer:element:updated", this.updateFooterElementContent);
+        this.listenTo(this.translatedFooterView, "childview:footer:element:updated", this.updateFooterElementContent);
         return this.show(this.translatedFooterView, {
           loading: true
         });

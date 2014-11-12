@@ -23,7 +23,7 @@ define ['app'
 
                 @listView = listView = @_getSlidesListView collection, element
 
-                @listenTo listView, "itemview:slide:updated:with:data", (iv, data)->
+                @listenTo listView, "childview:slide:updated:with:data", (iv, data)->
                     slide = iv.model
                     slide.set data
                     slide.save null,
@@ -31,10 +31,10 @@ define ['app'
                         success: @slideModelUpdated
 
 
-                @listenTo listView, "itemview:remove:slide", (iv, slide)->
+                @listenTo listView, "childview:remove:slide", (iv, slide)->
                     slide.destroy wait: true
 
-                @listenTo listView, "itemview:edit:image", (iv, imageId)->
+                @listenTo listView, "childview:edit:image", (iv, imageId)->
                     mediaId = parseInt iv.model.get 'image_id'
                     ratio  = App.currentImageRatio 
 
@@ -47,7 +47,7 @@ define ['app'
                         # listView.triggerMethod "image:editing:cancelled"
                         layout.slidesListRegion.show listView
 
-                @listenTo listView, "itemview:add:text",(iv, imageId)->
+                @listenTo listView, "childview:add:text",(iv, imageId)->
                     App.execute 'show:slide:text:layer',
                         region : layout.slidesListRegion
                         model : iv.model

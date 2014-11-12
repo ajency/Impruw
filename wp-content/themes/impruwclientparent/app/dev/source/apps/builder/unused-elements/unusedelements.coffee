@@ -21,7 +21,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
                 @view = view = @getUnsedElementView @unusedElementCollection
 
                 @listenTo view, 'clear:all:elements', @clearAllElements
-                @listenTo view, 'itemview:clear:element', @clearElement
+                @listenTo view, 'childview:clear:element', @clearElement
 
                 @listenTo App.vent, 'page:took:over', ->
                     view.triggerMethod 'page:took:over'

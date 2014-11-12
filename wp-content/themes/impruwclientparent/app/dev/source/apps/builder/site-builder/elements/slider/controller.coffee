@@ -68,7 +68,7 @@ define ['app'
                         @layout.elementRegion.show view
                         # @renderElement()
 
-                    @listenTo view ,"render:slider itemview:render:slider",=>
+                    @listenTo view ,"render:slider childview:render:slider",=>
                         @layout.model.save()
                         @layout.elementRegion.show view
 

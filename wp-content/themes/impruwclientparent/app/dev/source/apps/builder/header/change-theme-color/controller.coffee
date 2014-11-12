@@ -25,9 +25,9 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
                 @themeColorSetView = @getView themeColorCollection
 
-                @listenTo @themeColorSetView, "itemview:change:theme:color", @changeThemeColorClick
+                @listenTo @themeColorSetView, "childview:change:theme:color", @changeThemeColorClick
 
-                @listenTo @themeColorSetView, "itemview:edit:theme:color:clicked", @editThemeColorClick
+                @listenTo @themeColorSetView, "childview:edit:theme:color:clicked", @editThemeColorClick
 
                 @layout.themecolorsetRegion.show @themeColorSetView
 

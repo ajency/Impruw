@@ -11,7 +11,7 @@ define ['app', 'controllers/base-controller'
 
                 @listenTo App.vent, "set:active:menu", @setActiveMenu
 
-                @listenTo @view ,"itemview:logout:clicked", @siteLogoutAjax
+                @listenTo @view ,"childview:logout:clicked", @siteLogoutAjax
 
                 @show @view,
                     loading : true

@@ -41,7 +41,7 @@ define ['app', 'bootbox', 'apps/builder/site-builder/elements/row/views',
             # get menu
             row = @_getRowView()
 
-            @listenTo row, "itemview:element:moved", @elementMoved
+            @listenTo row, "childview:element:moved", @elementMoved
 
             @layout.elementRegion.show row
             @changeStyle @layout.model

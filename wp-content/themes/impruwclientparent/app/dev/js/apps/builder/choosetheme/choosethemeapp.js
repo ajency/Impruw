@@ -40,7 +40,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
       };
 
       ChooseThemeController.prototype.listenViewEvents = function(view) {
-        this.listenTo(view, "itemview:choose:theme:clicked", this.themeSelected);
+        this.listenTo(view, "childview:choose:theme:clicked", this.themeSelected);
         this.listenTo(view, "cancel:theme:switch", this.cancelThemeSwitch);
         return this.listenTo(view, "close", this.resetRouter);
       };

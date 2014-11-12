@@ -14,7 +14,7 @@ define ['app', 'controllers/base-controller'
 
                 @translatedContentView = @_getLanguageView()
 
-                @listenTo @translatedContentView, "itemview:itemview:page:slide:updated", @updatePageSlideContent
+                @listenTo @translatedContentView, "childview:childview:page:slide:updated", @updatePageSlideContent
 
                 #function to load view
                 @show @translatedContentView,

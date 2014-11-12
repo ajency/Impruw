@@ -18,10 +18,10 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         this.listenTo(view, "create:new:slider", function() {
           return Marionette.triggerMethod.call(this.region, "create:new:slider");
         });
-        this.listenTo(view, "itemview:edit:slider", function(iv, id) {
+        this.listenTo(view, "childview:edit:slider", function(iv, id) {
           return Marionette.triggerMethod.call(this.region, "edit:slider", id);
         });
-        this.listenTo(view, "itemview:delete:slider", function(iv, id) {
+        this.listenTo(view, "childview:delete:slider", function(iv, id) {
           return Marionette.triggerMethod.call(this.region, "delete:slider", id);
         });
         return this.show(view, {

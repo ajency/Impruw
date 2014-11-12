@@ -30,7 +30,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/unused-elements/view
         }
         this.view = view = this.getUnsedElementView(this.unusedElementCollection);
         this.listenTo(view, 'clear:all:elements', this.clearAllElements);
-        this.listenTo(view, 'itemview:clear:element', this.clearElement);
+        this.listenTo(view, 'childview:clear:element', this.clearElement);
         this.listenTo(App.vent, 'page:took:over', function() {
           return view.triggerMethod('page:took:over');
         });

@@ -14,8 +14,8 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/show/view
         this.userEmailCollection = App.request("get:user:email:collection");
         this.userEmailView = this._getuserEmailView();
         this.listenTo(this.userEmailView, "add:new:user:email", this.addNewUserEmail);
-        this.listenTo(this.userEmailView, "itemview:disable:user:email", this.disableUserEmail);
-        this.listenTo(this.userEmailView, "itemview:delete:user:email", this.deleteUserEmail);
+        this.listenTo(this.userEmailView, "childview:disable:user:email", this.disableUserEmail);
+        this.listenTo(this.userEmailView, "childview:delete:user:email", this.deleteUserEmail);
         return this.show(this.userEmailView, {
           loading: true
         });

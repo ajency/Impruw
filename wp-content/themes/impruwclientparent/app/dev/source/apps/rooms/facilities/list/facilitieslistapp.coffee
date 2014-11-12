@@ -13,10 +13,10 @@ define ['app'
                 @cview = cview = @_getFacilitiesView collection, facilities
 
                 # delete:facility:clicked
-                @listenTo cview, "itemview:delete:facility:clicked", @deleteFacility
+                @listenTo cview, "childview:delete:facility:clicked", @deleteFacility
 
                 # update facility : clicked
-                @listenTo cview, "itemview:update:facility:clicked", @updateFacility
+                @listenTo cview, "childview:update:facility:clicked", @updateFacility
 
                 # new facility
                 @listenTo @region, "new:facility:added", (model)->

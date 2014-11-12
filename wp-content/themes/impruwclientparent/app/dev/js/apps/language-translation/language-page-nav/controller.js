@@ -17,7 +17,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.collection = collection = App.request("get:language:pages", language);
         this.languagePageNavView = this._getPageNavView(this.collection);
         this.listenTo(this.languagePageNavView, "page:room:content", this.loadLanguagePageRoomContent);
-        this.listenTo(this.languagePageNavView, "itemview:page:content", this.loadLanguagePageContent);
+        this.listenTo(this.languagePageNavView, "childview:page:content", this.loadLanguagePageContent);
         this.listenTo(this.languagePageNavView, "site:translate:content", this.loadSiteContent);
         this.listenTo(this.languagePageNavView, "header:translate:content", this.loadHeaderContent);
         this.listenTo(this.languagePageNavView, "footer:translate:content", this.loadFooterContent);

@@ -17,7 +17,7 @@ define(['app', 'controllers/base-controller', 'apps/seo/seo-page-nav/view'], fun
         this.collection = collection = App.request("get:language:pages", language);
         this.seoPageNavView = this._getPageNavView(this.collection);
         this.listenTo(this.seoPageNavView, "seo:room:content", this.loadSeoRoomContent);
-        this.listenTo(this.seoPageNavView, "itemview:page:content", this.loadSeoPageContent);
+        this.listenTo(this.seoPageNavView, "childview:page:content", this.loadSeoPageContent);
         return this.show(this.seoPageNavView, {
           loading: true
         });

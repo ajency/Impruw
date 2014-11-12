@@ -16,22 +16,22 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
         this.mediaCollection = window.f = new MediaCollection;
         this.mediaCollection.fetch();
         view = this._getView(this.mediaCollection);
-        this.listenTo(view, "itemview:media:element:selected", (function(_this) {
+        this.listenTo(view, "childview:media:element:selected", (function(_this) {
           return function(iv) {
             return Marionette.triggerMethod.call(_this.region, "media:element:selected", Marionette.getOption(iv, 'model'));
           };
         })(this));
-        this.listenTo(view, "itemview:media:element:unselected", (function(_this) {
+        this.listenTo(view, "childview:media:element:unselected", (function(_this) {
           return function(iv) {
             return Marionette.triggerMethod.call(_this.region, "media:element:unselected", Marionette.getOption(iv, 'model'));
           };
         })(this));
-        this.listenTo(view, "itemview:delete:media:image", (function(_this) {
+        this.listenTo(view, "childview:delete:media:image", (function(_this) {
           return function(iv, model) {
             return _this.deleteImage(model);
           };
         })(this));
-        this.listenTo(view, "itemview:show:image:editor", (function(_this) {
+        this.listenTo(view, "childview:show:image:editor", (function(_this) {
           return function(iv, model) {
             var editView, ratio, _region;
             _region = _this.region;

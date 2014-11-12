@@ -23,7 +23,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menucollection.html', 'tex
 
       MenuItemView.prototype.events = {
         'click .update-menu-item': function() {
-          return App.vent.trigger("itemview:update:menu:item", this.model, Backbone.Syphon.serialize(this));
+          return App.vent.trigger("childview:update:menu:item", this.model, Backbone.Syphon.serialize(this));
         }
       };
 
@@ -92,7 +92,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menucollection.html', 'tex
       }
 
       MenuManagerView.prototype.initialize = function() {
-        return this.on("itemview:menu:order:changed", (function(_this) {
+        return this.on("childview:menu:order:changed", (function(_this) {
           return function(iv, order) {
             return _this.trigger("menu:order:changed", iv.model, order);
           };

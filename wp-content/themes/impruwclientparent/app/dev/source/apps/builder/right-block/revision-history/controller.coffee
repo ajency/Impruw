@@ -17,7 +17,7 @@ define ['app'
 					
 					@view = @_showHistoryView()
 
-					@listenTo @view, "show:revision:restore itemview:show:revision:restore",(view,id = 0)=>
+					@listenTo @view, "show:revision:restore childview:show:revision:restore",(view,id = 0)=>
 						App.execute "show:revision:restore",
 							region : App.revisionRestoreRegion
 							revisionCollection : @revisionCollection

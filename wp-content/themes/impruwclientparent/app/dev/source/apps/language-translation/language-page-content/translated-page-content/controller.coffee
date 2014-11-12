@@ -22,7 +22,7 @@ define ['app', 'controllers/base-controller'
                 @listenTo @translatedContentView, "translated:page:title:updated", @updateTranslatedPageTitle
                 @listenTo @translatedContentView, "translated:page:url:updated", @updateTranslatedPageUrl
 
-                @listenTo @translatedContentView, "itemview:page:element:updated", @updatePageElementContent
+                @listenTo @translatedContentView, "childview:page:element:updated", @updatePageElementContent
 
                 #function to load view
                 @show @translatedContentView,

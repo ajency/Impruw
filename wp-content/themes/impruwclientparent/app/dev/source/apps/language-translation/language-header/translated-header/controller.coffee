@@ -16,7 +16,7 @@ define ['app', 'controllers/base-controller'
 
                 @translatedHeaderView = @_getTranslatedHeaderView @headerElementsCollection
 
-                @listenTo @translatedHeaderView, "itemview:header:element:updated", @updateHeaderElementContent
+                @listenTo @translatedHeaderView, "childview:header:element:updated", @updateHeaderElementContent
 
                 #function to load view
                 @show @translatedHeaderView,

@@ -19,8 +19,8 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'
         facilities = opt.facilities;
         this.collection = collection = App.request("get:default:facilities");
         this.cview = cview = this._getFacilitiesView(collection, facilities);
-        this.listenTo(cview, "itemview:delete:facility:clicked", this.deleteFacility);
-        this.listenTo(cview, "itemview:update:facility:clicked", this.updateFacility);
+        this.listenTo(cview, "childview:delete:facility:clicked", this.deleteFacility);
+        this.listenTo(cview, "childview:update:facility:clicked", this.updateFacility);
         this.listenTo(this.region, "new:facility:added", function(model) {
           return this.collection.add(model);
         });

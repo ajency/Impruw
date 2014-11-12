@@ -22,7 +22,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/right-block/revision
         return App.execute("when:fetched", [this.revisionCollection], (function(_this) {
           return function() {
             _this.view = _this._showHistoryView();
-            _this.listenTo(_this.view, "show:revision:restore itemview:show:revision:restore", function(view, id) {
+            _this.listenTo(_this.view, "show:revision:restore childview:show:revision:restore", function(view, id) {
               if (id == null) {
                 id = 0;
               }

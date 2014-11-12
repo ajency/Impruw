@@ -28,14 +28,14 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
             _showTemplateViews: ->
                 @PageTemplateView = @_getPageTemplatesGrid @collection
-                @listenTo @PageTemplateView, "itemview:template:clicked", (iv, model)=>
+                @listenTo @PageTemplateView, "childview:template:clicked", (iv, model)=>
                     # pass on this model with region trigger event
                     Marionette.triggerMethod.call @region, "template:selected", model
 
                 @layout.pageTemplatesRegion.show @PageTemplateView
 
                 @ThemeTemplateView = @_getThemeTemplatesGrid @templates
-                @listenTo @ThemeTemplateView, "itemview:template:clicked", (iv, model)=>
+                @listenTo @ThemeTemplateView, "childview:template:clicked", (iv, model)=>
                     # pass on this model with region trigger event
                     Marionette.triggerMethod.call @region, "template:selected", model
 

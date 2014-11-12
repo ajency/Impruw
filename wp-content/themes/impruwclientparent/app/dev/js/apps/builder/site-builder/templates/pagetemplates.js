@@ -39,14 +39,14 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       PageTemplatesController.prototype._showTemplateViews = function() {
         this.PageTemplateView = this._getPageTemplatesGrid(this.collection);
-        this.listenTo(this.PageTemplateView, "itemview:template:clicked", (function(_this) {
+        this.listenTo(this.PageTemplateView, "childview:template:clicked", (function(_this) {
           return function(iv, model) {
             return Marionette.triggerMethod.call(_this.region, "template:selected", model);
           };
         })(this));
         this.layout.pageTemplatesRegion.show(this.PageTemplateView);
         this.ThemeTemplateView = this._getThemeTemplatesGrid(this.templates);
-        this.listenTo(this.ThemeTemplateView, "itemview:template:clicked", (function(_this) {
+        this.listenTo(this.ThemeTemplateView, "childview:template:clicked", (function(_this) {
           return function(iv, model) {
             return Marionette.triggerMethod.call(_this.region, "template:selected", model);
           };

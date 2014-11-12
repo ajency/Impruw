@@ -15,7 +15,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.siteModel = App.request('get:site:model');
         this.collection = collection = App.request("get:all:languages");
         this.languageSelectionView = this._getLanguageView(this.collection, this.siteModel);
-        this.listenTo(this.languageSelectionView, "itemview:language:updated", this.updateLanguageModel);
+        this.listenTo(this.languageSelectionView, "childview:language:updated", this.updateLanguageModel);
         this.listenTo(this.languageSelectionView, "update:enabled:languages", this.updateEnabledLanguages);
         this.listenTo(this.languageSelectionView, "update:hidden:language", this.updateHiddenLanguage);
         this.listenTo(this.languageSelectionView, "load:language:page:nav", this.loadLanguagePageNav);

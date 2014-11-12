@@ -14,7 +14,7 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], f
         var menuCollection, view;
         menuCollection = App.request("get:site:menus");
         view = this.getView(menuCollection);
-        this.listenTo(view, 'itemview:menu:order:changed', function(iv, order) {
+        this.listenTo(view, 'childview:menu:order:changed', function(iv, order) {
           var newOrder;
           console.log(order);
           newOrder = _.idOrder(order);
@@ -22,14 +22,14 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], f
           console.log(iv);
           return iv.model.get('menu_items').updateOrder(newOrder, iv.model.get('id'));
         });
-        this.listenTo(view, "itemview:new:menu:item:added", function(iv, data) {
+        this.listenTo(view, "childview:new:menu:item:added", function(iv, data) {
           var items, menu, menuitem;
           menuitem = App.request("create:new:menu:item", data, data['menu_id']);
           menu = menuCollection.get(parseInt(data['menu_id']));
           items = menu.get('menu_items');
           return items.add(menuitem);
         });
-        this.listenTo(App.vent, "itemview:update:menu:item", function(menuItem, newData) {
+        this.listenTo(App.vent, "childview:update:menu:item", function(menuItem, newData) {
           return App.execute("update:menu:item", menuItem, newData);
         });
         this.show(view, {

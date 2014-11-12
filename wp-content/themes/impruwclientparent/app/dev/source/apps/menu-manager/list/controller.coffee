@@ -12,7 +12,7 @@ define [ 'app', 'controllers/base-controller', 'apps/menu-manager/list/views' ],
 
             @view = view = @_getView menucollection
 
-            @listenTo @view, "itemview:update:menu:item:clicked", ( iv, formdata, model ) =>
+            @listenTo @view, "childview:update:menu:item:clicked", ( iv, formdata, model ) =>
                model.save formdata,
                   wait : true
                   success : @updatedSuccess
@@ -21,7 +21,7 @@ define [ 'app', 'controllers/base-controller', 'apps/menu-manager/list/views' ],
             @listenTo @menucollection, 'add remove', =>
                @view.triggerMethod 'triggerOrderChange'
 
-            @listenTo @view, "itemview:delete:menu:item:clicked", ( iv, model ) =>
+            @listenTo @view, "childview:delete:menu:item:clicked", ( iv, model ) =>
                @region.trigger "delete:menu:item:model", model
 
             @listenTo @view, "view:menu:order:changed", ( order, collection ) =>
