@@ -88,33 +88,25 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                                 </ul>
                               </div>
                               <span class="option-or">{{#polyglot}}Or{{/polyglot}}</span>
-                              <a href="#" class="create-new-menu">{{#polyglot}}Create a Menu{{/polyglot}}
+                              <a href="#new-menu-name" data-toggle="collapse" class="create-new-menu">{{#polyglot}}Create a Menu{{/polyglot}}</a>
                            </div>
-                           <div class="new-menu-name collapse">
-                               <input class="form-control" placeholder="{{#polyglot}}Enter a name for your menu{{/polyglot}}" type="text">
-                           </div>
+                           <form id="new-menu-name" class="form-inline collapse">
+                              <div class="form-group">
+                                 <input class="form-control" placeholder="{{#polyglot}}Enter a name for your menu{{/polyglot}}" type="text">
+                              </div>
+                              <button class="btn btn-default aj-imp-orange-btn" type="button">{{#polyglot}}Create{{/polyglot}}</button>
+                           </form>
                         </div>
                         <div id="add-menu-items"></div>
                         <div id="list-menu-items"></div>
                         <div class="menu-actions clearfix">
                            <a class="delete-menu red-link"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Menu{{/polyglot}}</a>
-                           <button type="button" class="update-menu pull-right btn btn-default btn-sm aj-imp-orange-btn"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;{{#polyglot}}Update Menu{{/polyglot}}</button>
                         </div>
                      </div>
    						<div class="col-md-4">
                         <div class="styles-container">
                           <h4>{{#polyglot}}Choose a Menu Style{{/polyglot}}</h4>
-                          <div class="btn-group bootstrap-select">
-                            <button class="btn btn-default dropdown-toggle t-a-l" type="button" data-toggle="dropdown">
-                              Slim Menu <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                              <li class="selected"><a href="#">Main Menu</a></li>
-                              <li><a href="#">Footer Menu</a></li>
-                              <li><a href="#">Vertical Menu</a></li>
-                              <li><a href="#">Another Menu Style</a></li>
-                            </ul>
-                          </div>
+                          
                       </div>
                      </div>'
 

@@ -2625,8 +2625,10 @@ a {
 		background: @preview-grey;
 		padding: 1em;
 		border-radius: 2px;
+		.clearfix;
 		.choose-menu {
-			padding-left: 0;
+			float: left;
+			margin-right: 1em;
 			.control-label {
 				display: block;
 				text-align: left !important;
@@ -2654,54 +2656,91 @@ a {
 				text-transform: uppercase;
 				font-size: 1.2em;
 				&:hover {
-					color: darken(@orange, 10%);
-					text-decoration: underline;
+					color: lighten(@orange, 10%);
 				}
 			}
 		}
-		.menu-name {
-			.control-label {
-				color: darken(@dash-grey, 20%);
-				font-size: 1.2em;
+		#new-menu-name {
+			float: left;
+			margin-top: 1.88em;
+			.form-control {
+				min-width: 220px;
 			}
 		}
 	}
-	.aj-imp-add-menu-item {
-		h4 {
-			font-size: 1.4em;
-			color: @dash-grey;
-			margin-top: 0;
-		}
-		.desc {
-			font-size: 0.9em;
-			color: @dash-grey;
-		}
-		.list-steps {
-			list-style: circle;
-			padding-left: 0;
-			margin-top: 1em;
-			li {
-				color: @dash-grey;
-				font-size: 0.9em;
-				margin-bottom: 0.25em;
+	.aj-imp-menu-edit {
+		.clearfix;
+		.add-menu-toggle {
+			padding: 10px 13px;
+			width: 40px;
+			height: 40px;
+			background: @orange;
+			color: #fff;
+			border-radius: 40px;
+			margin: 1em 0;
+			display: block;
+			float: right;
+			font-size: 1.2em;
+			text-align: center;
+			&:hover {
+				background: lighten(@orange, 10%);
 			}
 		}
-		.aj-imp-add-link {
-			font-size: 1.2em;
-			color: @orange;
-		}
-		.add-menu-form {
-			margin: 1em 0 0;
-			form {
-				margin: 0;
-				.form-actions {
-					text-align: right;
-					.btn {
-						padding: 5px 8px 6px;
-						&.save-btn {
-							background: @orange;
-							&:hover {
-								background: lighten(@orange, 20%);
+		.aj-imp-add-menu-item {
+			h4 {
+				font-size: 1.4em;
+				color: @dash-grey;
+				margin-top: 0;
+			}
+			.desc {
+				font-size: 0.9em;
+				color: @dash-grey;
+			}
+			.list-steps {
+				list-style: circle;
+				padding-left: 0;
+				margin-top: 1em;
+				li {
+					color: @dash-grey;
+					font-size: 0.9em;
+					margin-bottom: 0.25em;
+				}
+			}
+			.aj-imp-add-link {
+				font-size: 1.2em;
+				color: @orange;
+			}
+			.add-menu-form {
+				margin: 1em 0 0;
+				padding: 1em;
+				.form-inline {
+					margin: 0;
+					.form-group {
+						.control-label {
+							display: block;
+							color: @dash-grey;
+							text-transform: uppercase;
+						}
+						.url {
+							min-width: 200px;
+						}
+					}
+					.option-or {
+						display: inline-block;
+						font-size: 1.2em;
+						color: @dash-grey;
+						text-transform: uppercase;
+						margin: 0 1em;
+					}
+					.form-actions {
+						text-align: right;
+						.btn {
+							padding: 5px 8px 6px;
+							&.save-btn {
+								background: @orange;
+								&:hover {
+									background: lighten(@orange, 20%);
+								}
 							}
 						}
 					}
@@ -2759,7 +2798,7 @@ a {
 		}
 	}
 	.styles-container {
-		background: @preview-grey;
+		background: darken(@preview-grey, 10%);
 		border-radius: 2px;
 		padding: 0.5em;
 		h4 {
