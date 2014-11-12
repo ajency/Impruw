@@ -305,7 +305,13 @@ function update_element_content(){
 
     foreach ($impruw_page_elements_original  as $page_element) {
         if ($page_element['meta_id'] == $page_element_meta_id) {
-            $page_element['content'] = $_POST['content'] ;
+            if ($page_element['element'] === 'Link') {
+                $page_element['text'] = $_POST['text'] ;
+            }
+            else{
+                $page_element['content'] = $_POST['content'] ;
+            }
+
         }
         $impruw_page_elements_modified[] = $page_element;
     }
@@ -338,7 +344,13 @@ function update_header_element_content(){
 
     foreach ($header_elements  as $header_element) {
         if ($header_element['meta_id'] == $element_meta_id) {
-            $header_element['content'] = $_POST['content'] ;
+            if ($header_element['element'] === 'Link') {
+                $header_element['text'] = $_POST['text'] ;
+            }
+            else{
+             $header_element['content'] = $_POST['content'] ;
+            }
+
         }
         $header_elements_modified[] = $header_element;
     }
@@ -371,7 +383,13 @@ function update_footer_element_content(){
 
     foreach ($footer_elements  as $footer_element) {
         if ($footer_element['meta_id'] == $element_meta_id) {
-            $footer_element['content'] = $_POST['content'] ;
+            if ($footer_element['element'] === 'Link') {
+                $footer_element['text'] = $_POST['text'] ;
+            }
+            else{
+             $footer_element['content'] = $_POST['content'] ;
+            }
+
         }
         $footer_elements_modified[] = $footer_element;
     }
