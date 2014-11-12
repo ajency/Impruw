@@ -21,7 +21,7 @@ define ["marionette"
 
         # add new element to the section
         add: (layout, section)->
-            @listenTo layout, 'close', @close
+            @listenTo layout, 'destroy', @destroy
             type = layout.model.get "element"
             if section.find("li[data-element='#{type}']").length is 1
                 section.find("li[data-element='#{type}']").replaceWith layout.$el
@@ -40,7 +40,9 @@ define ["marionette"
             #check if element need save
             if not layout.model.isNew() or layout.model.get('element') is 'Row'
                 layout.triggerMethod "before:render:element"
+                @renderElement()
+                return
                 try
-                    @renderElement()
+                    
                 catch e
                     @layout.elementRegion.show @_getErrorView()

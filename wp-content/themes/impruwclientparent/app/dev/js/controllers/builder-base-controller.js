@@ -30,7 +30,7 @@ define(["marionette", "app"], function(Marionette, App) {
 
     AppController.prototype.add = function(layout, section) {
       var e, type;
-      this.listenTo(layout, 'close', this.close);
+      this.listenTo(layout, 'destroy', this.destroy);
       type = layout.model.get("element");
       if (section.find("li[data-element='" + type + "']").length === 1) {
         section.find("li[data-element='" + type + "']").replaceWith(layout.$el);
@@ -45,8 +45,10 @@ define(["marionette", "app"], function(Marionette, App) {
       }
       if (!layout.model.isNew() || layout.model.get('element') === 'Row') {
         layout.triggerMethod("before:render:element");
+        this.renderElement();
+        return;
         try {
-          return this.renderElement();
+
         } catch (_error) {
           e = _error;
           return this.layout.elementRegion.show(this._getErrorView());
