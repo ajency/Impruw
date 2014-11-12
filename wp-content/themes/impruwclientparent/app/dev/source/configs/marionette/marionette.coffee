@@ -48,7 +48,7 @@ define ['marionette', 'mustache', 'underscore'], (Marionette, Mustache, _ )->
         resetElementRegistry: ->
             oldCount = @getElementRegistrySize()
             for key, controller of @_elementRegistry
-                controller.layout.close()
+                controller.layout.destroy()
             msg = "There were #{oldCount} controllers in the registry, there are now #{@getElementRegistrySize()}"
             if @getElementRegistrySize() > 0 then console.warn(msg, @_elementRegistry) else console.log(msg)
 

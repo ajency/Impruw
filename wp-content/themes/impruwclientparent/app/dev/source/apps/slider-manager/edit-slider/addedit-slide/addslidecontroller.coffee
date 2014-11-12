@@ -35,13 +35,13 @@ define ['app'
 
                 @listenTo addSlideView, "cancel:create:new:slide", (data)=>
                     Marionette.triggerMethod.call @region, "region:closed"
-                    layout.close()
+                    layout.destroy()
 
                 @show layout
 
             newSlideCreated: (model, response, options)=>
                 Marionette.triggerMethod.call @region, "new:slide:created", model
-                @layout.close()
+                @layout.destroy()
 
             _getAddSlideLayout: ->
                 new AddSlideLayout

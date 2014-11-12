@@ -60,7 +60,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         this.listenTo(addSlideView, "cancel:create:new:slide", (function(_this) {
           return function(data) {
             Marionette.triggerMethod.call(_this.region, "region:closed");
-            return layout.close();
+            return layout.destroy();
           };
         })(this));
         return this.show(layout);
@@ -68,7 +68,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       AddSlideController.prototype.newSlideCreated = function(model, response, options) {
         Marionette.triggerMethod.call(this.region, "new:slide:created", model);
-        return this.layout.close();
+        return this.layout.destroy();
       };
 
       AddSlideController.prototype._getAddSlideLayout = function() {

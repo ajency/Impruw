@@ -16,16 +16,16 @@ define(["marionette", "app"], function(Marionette, App) {
       AppController.__super__.constructor.call(this, options);
     }
 
-    AppController.prototype.close = function() {
+    AppController.prototype.destroy = function() {
       var args;
       args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
       if (this.layout) {
-        this.layout.close();
+        this.layout.destroy();
       }
       delete this.layout;
       delete this.options;
       App.commands.execute("unregister:builder:instance", this, this._instance_id);
-      return AppController.__super__.close.call(this, args);
+      return AppController.__super__.destroy.call(this, args);
     };
 
     AppController.prototype.add = function(layout, section) {

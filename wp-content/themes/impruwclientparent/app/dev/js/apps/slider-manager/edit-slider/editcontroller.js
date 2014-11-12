@@ -21,7 +21,7 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
         this.listenTo(layout, "cancel:edit:slider", (function(_this) {
           return function() {
             Marionette.triggerMethod.call(_this.region, "cancel:edit:slider");
-            return layout.close();
+            return layout.destroy();
           };
         })(this));
         this.listenTo(layout, "show:edit:slide", (function(_this) {

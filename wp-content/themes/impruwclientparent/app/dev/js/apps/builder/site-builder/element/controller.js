@@ -51,7 +51,7 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
             if (_this.layout.$el.parent().hasClass('column') && _this.layout.$el.parent().children('.element-wrapper').length === 1) {
               _this.layout.$el.parent().addClass('empty-column');
             }
-            return _this.layout.close();
+            return _this.layout.destroy();
           };
         })(this));
         this.layout.elementRegion.on("show", (function(_this) {

@@ -46,7 +46,7 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
                if @layout.$el.parent().hasClass( 'column' ) and @layout.$el.parent().children( '.element-wrapper' ).length is 1
                   @layout.$el.parent().addClass( 'empty-column' )
 
-               @layout.close()
+               @layout.destroy()
 
             @layout.elementRegion.on "show", ( view )=>
                model = Marionette.getOption @layout, 'model'

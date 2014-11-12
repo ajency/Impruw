@@ -65,7 +65,7 @@ define(['marionette', 'mustache', 'underscore'], function(Marionette, Mustache, 
       _ref = this._elementRegistry;
       for (key in _ref) {
         controller = _ref[key];
-        controller.layout.close();
+        controller.layout.destroy();
       }
       msg = "There were " + oldCount + " controllers in the registry, there are now " + (this.getElementRegistrySize());
       if (this.getElementRegistrySize() > 0) {

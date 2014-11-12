@@ -18,7 +18,7 @@ define ['app'
 
                 @listenTo layout, "cancel:edit:slider", =>
                     Marionette.triggerMethod.call @region, "cancel:edit:slider"
-                    layout.close()
+                    layout.destroy()
 
 
                 @listenTo layout, "show:edit:slide", (slideId)=>
