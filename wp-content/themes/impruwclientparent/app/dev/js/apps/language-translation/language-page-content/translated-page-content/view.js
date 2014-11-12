@@ -98,13 +98,15 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
       TranslatedPageView.prototype.itemViewContainer = '#translated-page-elements';
 
       TranslatedPageView.prototype.events = {
-        "click #btn-save-translated-page-title": "updatePageTitle"
+        "click #btn-save-translated-page-title": "updatePageTitle",
+        "click #btn-save-translated-page-url": "updatePageUrl"
       };
 
       TranslatedPageView.prototype.serializeData = function() {
         var data;
         data = TranslatedPageView.__super__.serializeData.call(this);
         data.language = _.polyglot.t(data.language);
+        data.SITEURL = window.SITEURL;
         return data;
       };
 
@@ -122,6 +124,14 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
         newPageTitle = this.$el.find('#translated-page-title').val();
         pageId = this.$el.find('#translated-page-id').val();
         return this.trigger("translated:page:title:updated", newPageTitle, pageId);
+      };
+
+      TranslatedPageView.prototype.updatePageUrl = function(e) {
+        var newPageUrl, pageId;
+        e.preventDefault();
+        newPageUrl = this.$el.find('#translated-page-url').val();
+        pageId = this.$el.find('#translated-page-id').val();
+        return this.trigger("translated:page:url:updated", newPageUrl, pageId);
       };
 
       return TranslatedPageView;

@@ -5,8 +5,8 @@ define [ "app", 'backbone' ], ( App, Backbone ) ->
 		class Pages.PageModel extends Backbone.Model
 
 			# defaults for
-			defaults : ->
-				post_title : ''
+			# defaults : ->
+			# 	post_title : ''
 
 			name : 'page'
 

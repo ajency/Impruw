@@ -222,6 +222,7 @@ function get_page_by_lang($page_id,$language){
     $data['pageTitle'] = $page->post_title;
     $data['pageId'] = $page_id;
     $data['language'] = $language_name;
+    $data['pageUrl'] = $page->post_name;
 
     return $data;
 }

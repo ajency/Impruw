@@ -64,6 +64,7 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
         var data;
         data = OriginalPageView.__super__.serializeData.call(this);
         data.language = _.polyglot.t(data.language);
+        data.SITEURL = window.SITEURL;
         return data;
       };
 

@@ -11,12 +11,6 @@ define(["app", 'backbone'], function(App, Backbone) {
         return PageModel.__super__.constructor.apply(this, arguments);
       }
 
-      PageModel.prototype.defaults = function() {
-        return {
-          post_title: ''
-        };
-      };
-
       PageModel.prototype.name = 'page';
 
       PageModel.prototype.idAttribute = 'ID';
