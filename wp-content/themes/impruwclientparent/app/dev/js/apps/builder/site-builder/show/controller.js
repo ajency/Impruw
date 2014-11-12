@@ -254,10 +254,10 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
           revisionId = 0;
         }
         if (siteBuilderController !== null) {
-          siteBuilderController.close();
+          siteBuilderController.destroy();
         }
         _.each(App.elements, function(element) {
-          return element.close();
+          return element.destroy();
         });
         App.elements = [];
         siteBuilderController = new Show.BuilderController({

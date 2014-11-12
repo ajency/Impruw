@@ -39,7 +39,6 @@ define [ 'app'
                 # usign this event to start filling up the builder
                 # with elements
                 elements._fetch.done =>
-
                         window.ISFRONTPAGE = elements.get 'is_home_page'
                     
                         elementLoaded = true
@@ -204,9 +203,9 @@ define [ 'app'
 
         App.commands.setHandler "editable:page:changed", ( pageId, revisionId = 0 )=>
             
-            siteBuilderController.close() if siteBuilderController isnt null
+            siteBuilderController.destroy() if siteBuilderController isnt null
             _.each App.elements , (element)->
-                element.close()
+                element.destroy()
             App.elements = []
             siteBuilderController = new Show.BuilderController
                                                     pageId : pageId
