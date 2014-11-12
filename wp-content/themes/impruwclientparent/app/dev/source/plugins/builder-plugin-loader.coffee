@@ -14,8 +14,8 @@ define [
    'bootstrap'
    'bootbox'
    'radiocheck'
-   'json2'
    'heartbeat'
+   'json2'
    'imageareaselect'
    'imageedit'
    'svgpainter'
@@ -36,5 +36,4 @@ define [
    'resizablecolumns'
    'jqueryuii18n'
    'tabslideout'
-   # 'flippant'
 ], ->

@@ -15,76 +15,67 @@ require.config
       underscore : 'bower_components/underscore/underscore'
       backbone : 'bower_components/backbone/backbone'
       marionette : 'bower_components/backbone.marionette/lib/backbone.marionette'
-      tpl : 'plugins/tpl'
-      text : 'plugins/text'
-      spin : 'plugins/spin'
-      jqueryspin : 'plugins/jquery.spin'
+      spin : 'bower_components/spin.js/spin'
+      jqueryspin : 'bower_components/spin/javascripts/jquery.spin'
       bootstrap : 'bower_components/bootstrap/dist/js/bootstrap'
-      bootbox : 'plugins/bootbox.min'
-      holder : 'plugins/holder'
       mustache : 'bower_components/mustache/mustache'
       moment : 'bower_components/moment/moment'
-      bootstrapselect : 'plugins/bootstrapselect'
+      bootstrapselect : 'bower_components/bootstrap-select/dist/js/bootstrap-select'
       underscorestring : 'bower_components/underscore.string/dist/underscore.string.min'
-      radiocheck : 'plugins/flatui-radiocheck'
-      radio : 'plugins/flatui-radio'
-      cookie : 'plugins/cookie.min'
-      checkbox : 'plugins/flatui-checkbox'
-      ckeditor : 'plugins/ckeditor'
-      backboneform : 'plugins/backbone.form'
-      backbonesyphon : 'plugins/backbone.syphon'
-      backboneassociations : 'plugins/backbone.associations'
-      nestedsortable : 'plugins/nested.sortable'
+      backbonesyphon : 'bower_components/backbone.syphon/lib/amd/backbone.syphon'
       jqueryvalidate : 'bower_components/jquery.validate/dist/jquery.validate'
       isotope : 'bower_components/isotope/dist/isotope.pkgd'
-      plupload : 'plugins/plupload.full'
+      imgLiquid : 'bower_components/imgLiquid/js/imgLiquid'
       polyglot : 'bower_components/polyglot/build/polyglot'
+      minicolors : 'bower_components/jquery-minicolors/jquery.minicolors.min'
+      resizablecolumns : 'bower_components/jquery-resizable-columns/dist/jquery.resizableColumns.min'
+      drilldown : 'bower_components/jquery-drilldown/jquery.drilldown.min'
+      cookie : 'bower_components/jquery.cookie/jquery.cookie'
+      
+      tpl : 'plugins/tpl'
+      text : 'plugins/text'
+      bootbox : 'plugins/bootbox.min'
+      radiocheck : 'plugins/flatui-radiocheck'
+      radio : 'plugins/flatui-radio'
+      checkbox : 'plugins/flatui-checkbox'
+      ckeditor : 'plugins/ckeditor'
+      nestedsortable : 'plugins/nested.sortable'
+      plupload : 'plugins/plupload.full'
       themepunch : 'plugins/themepunch.plugins.min'
-      imgLiquid : 'plugins/bower_components/imgLiquid/js/imgLiquid'
       revslider : 'plugins/revolution.min'
-      googlemap : 'https://maps.googleapis.com/maps/api/js?sensor=false'
+      tabslideout : 'plugins/jquery.tabSlideOut.v1.3'
+      jqueryuii18n : 'plugins/jquery-ui-i18n'
+      
       pluginloader : 'plugins/builder-plugin-loader'
       appsloader : 'apps/builder-apps-loader'
       configloader : 'configs/builder-config-loader'
       entitiesloader : 'entities/builder-entities-loader'
       componentloader : 'components/builder-component-loader'
       app : 'builder-app'
-      minicolors : 'plugins/jquery.minicolors.min'
-      drilldown : 'plugins/jquery.drilldown.min'
-      resizablecolumns : 'plugins/jquery.resizableColumns.min'
-      tabslideout : 'plugins/jquery.tabSlideOut.v1.3'
-      #flippant: 'plugins/flippant.min'
-
+      
       # wordpress cropping js
       imageareaselect : '../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min'
       imageedit : '../../../../../wp-admin/js/image-edit'
       json2 : '../../../../../wp-includes/js/json2'
       svgpainter : '../../../../../wp-admin/js/svg-painter'
       heartbeat : '../../../../../wp-includes/js/heartbeat'
-      jqueryuii18n : 'plugins/jquery-ui-i18n'
+      
 
    shim :
       imageedit : ['jquery','json2','imageareaselect']
       imageareaselect : ['jquery']
       svgpainter : ['jquery']
-      
-      underscore :
-         exports : '_'
+
       jquery : ['underscore']
       jqueryui : ['jquery']
-      backbone :
-         deps : ['jquery', 'underscore']
-         exports : 'Backbone'
-      marionette :
-         deps : ['backbone']
-         exports : 'Marionette'
+      backbone : ['jquery', 'underscore']
+      marionette : ['backbone']
       polyglot :
          exports : 'Polyglot'
       jqueryvalidate : ['jquery']
       underscorestring : ['underscore']
       backbonesyphon : ['backbone']
-      backboneassociations : ['backbone']
-      jqueryspin : ['spin']
+      jqueryspin : ['jquery']
       bootstrap : ['jquery']
       themepunch : ['jquery']
       isotope : ['jquery']

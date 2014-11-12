@@ -22,12 +22,12 @@ define ['app'], (App)->
 			onShow : ->
 				if @model.get('type') isnt 'line'
 					@$el.find('hr').resizable
-                        helper : "ui-image-resizable-helper"
-                        handles: "s"
-                        stop : (evt, ui)=>
-                            @$el.css 'width','auto'
-                            @trigger 'set:spacer:height', @$el.height()
-			   # @$el.attr "data-content", _.polyglot.t("Update address ")+" <a href='#{SITEURL}/dashboard/#/site-profile'>"+_.polyglot.t("here")+"</a> "
-			   # @$el.popover
-			   #    html : true
-			   #    placement : 'top'
+						helper : "ui-image-resizable-helper"
+						handles: "s"
+						stop : (evt, ui)=>
+							@$el.css 'width','auto'
+							@trigger 'set:spacer:height', @$el.height()
+			   	# @$el.attr "data-content", _.polyglot.t("Update address ")+" <a href='#{SITEURL}/dashboard/#/site-profile'>"+_.polyglot.t("here")+"</a> "
+			   	# @$el.popover
+			   	#    html : true
+			   	#    placement : 'top'
