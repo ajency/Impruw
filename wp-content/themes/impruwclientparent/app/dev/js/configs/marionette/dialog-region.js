@@ -49,7 +49,7 @@ define(['marionette', 'mustache'], function(Marionette, Mustache) {
     };
 
     Dialog.prototype.clearDialog = function() {
-      this.close();
+      this.empty();
       return this.$el.empty();
     };
 

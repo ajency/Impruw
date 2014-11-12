@@ -50,7 +50,7 @@ define ['marionette', 'mustache'], (Marionette, Mustache) ->
 
 
         clearDialog: ()->
-            @close()
+            @empty()
             @$el.empty()
 
 			
