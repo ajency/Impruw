@@ -40,9 +40,7 @@ define ["marionette"
             #check if element need save
             if not layout.model.isNew() or layout.model.get('element') is 'Row'
                 layout.triggerMethod "before:render:element"
-                @renderElement()
-                return
                 try
-                    
+                    @renderElement()
                 catch e
                     @layout.elementRegion.show @_getErrorView()

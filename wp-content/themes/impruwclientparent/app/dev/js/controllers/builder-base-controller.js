@@ -45,10 +45,8 @@ define(["marionette", "app"], function(Marionette, App) {
       }
       if (!layout.model.isNew() || layout.model.get('element') === 'Row') {
         layout.triggerMethod("before:render:element");
-        this.renderElement();
-        return;
         try {
-
+          return this.renderElement();
         } catch (_error) {
           e = _error;
           return this.layout.elementRegion.show(this._getErrorView());
