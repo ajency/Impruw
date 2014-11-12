@@ -100,7 +100,7 @@ define [ 'app'
 
 
          # append html
-         appendHtml : ( cv, view, index )->
+         attachHtml : ( cv, view, index )->
             return if view.model.get( 'element' ) is 'Row'
 
             category = view.model.get( 'category' ) || 'content'

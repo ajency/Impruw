@@ -106,7 +106,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
         })(this));
       };
 
-      MainView.prototype.appendHtml = function(cv, view, index) {
+      MainView.prototype.attachHtml = function(cv, view, index) {
         var category;
         if (view.model.get('element') === 'Row') {
           return;
