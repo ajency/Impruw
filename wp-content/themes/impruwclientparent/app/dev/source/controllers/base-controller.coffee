@@ -10,7 +10,7 @@ define ["marionette"
             super options
 
 
-        close: (args...) ->
+        destroy: (args...) ->
             delete @region
             delete @options
             App.commands.execute "unregister:instance", @, @_instance_id
@@ -19,8 +19,8 @@ define ["marionette"
 
         show: (view, options = {}) ->
             _.defaults options,
-                loading: false
-                region: @region
+                    loading: false
+                    region: @region
 
             @_setMainView view
             @_manageView view, options

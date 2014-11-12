@@ -21,16 +21,16 @@ define(["marionette", "app"], function(Marionette, App) {
       BuilderSettingController.__super__.constructor.call(this, options);
     }
 
-    BuilderSettingController.prototype.close = function() {
+    BuilderSettingController.prototype.destroy = function() {
       var args;
       args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
       delete this.region;
       delete this.options;
       App.commands.execute("unregister:builder:instance", this, this._instance_id);
-      return BuilderSettingController.__super__.close.call(this, args);
+      return BuilderSettingController.__super__.destroy.call(this, args);
     };
 
-    BuilderSettingController.prototype.onClose = function() {
+    BuilderSettingController.prototype.onDestroy = function() {
       if (!this.model.hasChanged()) {
         return;
       }

@@ -23,7 +23,7 @@ define [ "marionette"
 
       # close the controller.
       # unregister the controller instance from application object
-      close : ( args... ) ->
+      destroy : ( args... ) ->
          delete @region
          delete @options
          App.commands.execute "unregister:builder:instance", @, @_instance_id
@@ -31,7 +31,7 @@ define [ "marionette"
 
       # listen to onClose event.
       # this event will be triggered when the element setting popup is closed.
-      onClose : ->
+      onDestroy : ->
 
          # return if the model is not changed. @use: model.hasChanged() function
          return if not @model.hasChanged()
