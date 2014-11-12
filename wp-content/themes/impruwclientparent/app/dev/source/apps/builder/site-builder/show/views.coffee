@@ -56,8 +56,9 @@ define [ 'app'
                   bootbox.alert _.polyglot.t 'Sorry you cannot delete your home page. 
                      You can change the layout of this page to suit your needs.'
                else
-                  bootbox.confirm _.polyglot.t('Once deleted you will not be able to 
-                     restore this page. Are you sure you want to delete the page?'), (result)=>
+                  bootbox.confirm _.polyglot.t('Deleting a page might lead to broken links if the page is 
+                     linked on the website. Once deleted, you will not be able to recover the page. Are 
+                     you sure you want to continue to delete the page?'), (result)=>
                      if result
                         @trigger 'delete:page:clicked'
 
