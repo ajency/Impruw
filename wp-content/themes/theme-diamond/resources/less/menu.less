@@ -73,6 +73,33 @@
 					}
 				}
 			}
+			&.menu-item-has-children {
+				padding-right: 1em;
+			}
+			> .sub-menu {
+				padding: 0;
+				padding-top: 0.5em;
+				min-width: 100%;
+				width: auto;
+				border: 0;
+				border-bottom: 1px solid darken(@tertiary1, 10%);
+				box-shadow: 0 8px 6px -6px @tertiary1;
+				li {
+					background: #fff;
+					display: block;
+					border: 1px solid darken(@tertiary1, 10%);
+					border-bottom: 0;
+					a {
+						padding: @regular @large;
+						background: transparent;
+						border: 0;
+						white-space: nowrap;
+						&:after {
+							display: none !important;
+						}
+					}
+				}
+			}
 			&.current-menu-item {
 				background: @primary1;
 				a {
