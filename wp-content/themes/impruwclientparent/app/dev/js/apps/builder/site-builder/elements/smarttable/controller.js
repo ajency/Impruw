@@ -56,8 +56,9 @@ define(['app', 'apps/builder/site-builder/elements/smarttable/views', 'apps/buil
       };
 
       Controller.prototype._generateCollections = function() {
-        this.collection = new Backbone.Collection(this.layout.model.get('contents')['en']);
-        this.collectionOther = new Backbone.Collection(this.layout.model.get('contents')['nb']);
+        this.collection = new Backbone.Collection(this.layout.model.get('contents')[WPML_DEFAULT_LANG]);
+        window.WPML_OTHER_LANG = _.without(Object.getOwnPropertyNames(ACTIVE_LANGUAGES), WPML_DEFAULT_LANG)[0];
+        this.collectionOther = new Backbone.Collection(this.layout.model.get('contents')[WPML_OTHER_LANG]);
         return this.listenTo(this.collection, 'remove', (function(_this) {
           return function(model, collection, options) {
             _this.collectionOther.remove(_this.collectionOther.at(options.index));
@@ -73,8 +74,8 @@ define(['app', 'apps/builder/site-builder/elements/smarttable/views', 'apps/buil
         this.listenTo(this.view, 'itemview:save:smart:table save:smart:table', function() {
           var data;
           data = this.layout.model.get('contents');
-          data['en'] = this.collection.toJSON();
-          data['nb'] = this.collectionOther.toJSON();
+          data[WPML_DEFAULT_LANG] = this.collection.toJSON();
+          data[WPML_OTHER_LANG] = this.collectionOther.toJSON();
           this.layout.model.set('contents', data);
           return this.layout.model.save();
         });
@@ -92,8 +93,8 @@ define(['app', 'apps/builder/site-builder/elements/smarttable/views', 'apps/buil
               em: 'demo_N'
             }
           };
-          this.collection.add(data['en']);
-          this.collectionOther.add(data['nb']);
+          this.collection.add(data[WPML_DEFAULT_LANG]);
+          this.collectionOther.add(data[WPML_OTHER_LANG]);
           return this.view.trigger('save:smart:table');
         });
         return this.layout.elementRegion.show(this.view);

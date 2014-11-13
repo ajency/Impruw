@@ -50,10 +50,10 @@ define [ 'app'
 
 			_generateCollections : ->
 				# content collection for current language
-				@collection = new Backbone.Collection @layout.model.get('contents')['en']
-
+				@collection = new Backbone.Collection @layout.model.get('contents')[WPML_DEFAULT_LANG]
+				window.WPML_OTHER_LANG =  _.without(Object.getOwnPropertyNames(ACTIVE_LANGUAGES),WPML_DEFAULT_LANG)[0]
 				# content collection for other language
-				@collectionOther = new Backbone.Collection @layout.model.get('contents')['nb']
+				@collectionOther = new Backbone.Collection @layout.model.get('contents')[WPML_OTHER_LANG]
 
 				@listenTo @collection , 'remove',(model,collection,options)=>
 					@collectionOther.remove @collectionOther.at options.index
@@ -70,8 +70,8 @@ define [ 'app'
 
 				@listenTo @view, 'itemview:save:smart:table save:smart:table',->
 					data = @layout.model.get('contents')
-					data['en'] = @collection.toJSON()
-					data['nb'] = @collectionOther.toJSON()
+					data[WPML_DEFAULT_LANG] = @collection.toJSON()
+					data[WPML_OTHER_LANG] = @collectionOther.toJSON()
 					@layout.model.set 'contents', data
 					@layout.model.save()
 
@@ -86,9 +86,9 @@ define [ 'app'
 							dd : 'New description_N'
 							em : 'demo_N'
 
-					@collection.add data['en']
+					@collection.add data[WPML_DEFAULT_LANG]
 
-					@collectionOther.add data['nb']
+					@collectionOther.add data[WPML_OTHER_LANG]
 
 					@view.trigger 'save:smart:table'
 
