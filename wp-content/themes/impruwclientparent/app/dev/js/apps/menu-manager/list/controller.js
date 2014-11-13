@@ -15,7 +15,14 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
         this.menuId = opts.menuId;
         menu = window.menusCollection.get(this.menuId);
         menuItemsCollection = menu.get('menuItems');
-        this.view = view = this._getView(menuItemsCollection);
+        if (menuItemsCollection.length() === 0) {
+          menuItemsCollection.fetch().then(function(response) {
+            var view;
+            return this.view = view = this._getView(menuItemsCollection);
+          });
+        } else {
+          this.view = view = this._getView(menuItemsCollection);
+        }
         return this.show(this.view);
       };
 

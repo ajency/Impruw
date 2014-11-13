@@ -14,7 +14,12 @@ define [ 'app', 'controllers/base-controller', 'apps/menu-manager/list/views' ],
 
             menuItemsCollection = menu.get 'menuItems'
 
-            @view = view = @_getView menuItemsCollection
+            if menuItemsCollection.length() is 0
+               menuItemsCollection.fetch().then (response)->
+                  @view = view = @_getView menuItemsCollection
+
+            else
+               @view = view = @_getView menuItemsCollection
 
             @show @view
 

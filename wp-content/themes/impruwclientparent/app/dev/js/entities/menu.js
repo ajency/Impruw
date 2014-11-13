@@ -34,6 +34,8 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       MenuItemCollection.prototype.model = Menus.MenuItemModel;
 
+      MenuItemCollection.prototype.fetch = function(data) {};
+
       return MenuItemCollection;
 
     })(Backbone.Collection);

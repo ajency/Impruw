@@ -156,14 +156,12 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                 @menuId = menuId
                 @$el.find('a.delete-menu').parent().removeClass 'hidden'
                 App.execute "add:menu:items:app",
-                                region : @addMenuRegion
-                                menuId : @menuId
+                                    region : @addMenuRegion
+                                    menuId : @menuId
 
                 App.execute "list:menu:items:app",
-                                region : @listMenuRegion
-                                menuId : @menuId
-
-               
+                                    region : @listMenuRegion
+                                    menuId : @menuId
 
             onAddMenuFailed : (message)->
                 message = '<p>' + _.polyglot.t message + '</p>'
@@ -172,8 +170,6 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             onAddMenuSuccess : (menuId)->
                 @$el.find('select.global-menus-list').selectpicker('refresh')
                 @$el.find('select.global-menus-list').selectpicker 'val', menuId
-
-
 
             dialogOptions :
                 modal_title : _.polyglot.t 'Menu Manager'

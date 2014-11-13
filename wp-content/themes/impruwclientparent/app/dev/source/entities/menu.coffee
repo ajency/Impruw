@@ -14,6 +14,9 @@ define ["app", 'backbone'], (App, Backbone) ->
         class Menus.MenuItemCollection extends Backbone.Collection
             model : Menus.MenuItemModel
 
+            fetch : (data)->
+                
+
 
         class Menus.MenuModel extends Backbone.Model 
 
