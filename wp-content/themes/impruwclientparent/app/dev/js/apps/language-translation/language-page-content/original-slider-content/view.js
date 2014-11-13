@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('LanguageApp.LanguagePageContent.OriginalSlider.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var OriginalSlideItemView, OriginalSlideView;
+    var EmptySliderView, OriginalSlideItemView, OriginalSlideView;
     OriginalSlideItemView = (function(_super) {
       __extends(OriginalSlideItemView, _super);
 
@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return OriginalSlideItemView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalSlideItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Caption</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{{captionTitle}}} </div> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Description</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original text"> {{captionDesc}} </div> </div> </div> </div> </div>';
+      OriginalSlideItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Caption</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{{captionTitle}}} </div> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Description</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original text"> {{{captionDesc}}} </div> </div> </div> </div> </div>';
 
       OriginalSlideItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalSlideItemView.__super__.mixinTemplateHelpers.call(this, data);
@@ -50,7 +50,7 @@ define(['app'], function(App) {
         return OriginalSlideView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalSlideView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{element}}</small></h6> <div id="original-page-slide"> </div> <hr>';
+      OriginalSlideView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div id="original-page-slide"> </div> <hr>';
 
       OriginalSlideView.prototype.itemView = OriginalSlideItemView;
 
@@ -65,6 +65,18 @@ define(['app'], function(App) {
       return OriginalSlideView;
 
     })(Marionette.CompositeView);
+    EmptySliderView = (function(_super) {
+      __extends(EmptySliderView, _super);
+
+      function EmptySliderView() {
+        return EmptySliderView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptySliderView.prototype.template = '<br/><div class="empty-info">You have no slides to translate</div><br/>';
+
+      return EmptySliderView;
+
+    })(Marionette.ItemView);
     return Views.OriginalSliderView = (function(_super) {
       __extends(OriginalSliderView, _super);
 
@@ -75,6 +87,8 @@ define(['app'], function(App) {
       OriginalSliderView.prototype.template = '<div id="original-page-slider"> </div>';
 
       OriginalSliderView.prototype.itemView = OriginalSlideView;
+
+      OriginalSliderView.prototype.emptyView = EmptySliderView;
 
       OriginalSliderView.prototype.itemViewContainer = '#original-page-slider';
 

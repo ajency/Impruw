@@ -1109,7 +1109,7 @@ a {
 					width: 56%;
 					vertical-align: top;
 					.page-slug-edit {
-						width: 80%;
+						width: auto;
 						display: inline-block;
 						color: lighten(@dash-grey, 10%);
 						padding: 0.2em;
@@ -1121,6 +1121,22 @@ a {
 						&:focus {
 							color: @3-grey;
 							background: @preview-grey;
+							& + .btn-update-pg-slug {
+								opacity: 1;
+							}
+						}
+					}
+					.btn-update-pg-slug {
+						color: @blue-grey;
+						border: 1px solid lighten(@dash-grey, 20%);
+						background: @preview-grey;
+						padding: 0.33em 0.5em;
+						border-radius: 3px;
+						margin-left: 0.2em;
+						font-size: 0.88em;
+						opacity: 0;
+						&:hover, &:focus {
+							background: #fff;
 						}
 					}
 					.bootstrap-select {
@@ -1745,6 +1761,23 @@ a {
 					}
 				}
 			}
+			.colors {
+				margin: 0.75em 0;
+				span {
+					width: 20px;
+					height: 20px;
+					display: inline-block;
+					margin: 0.1em;
+					border: 2px solid #fff;
+					cursor: pointer;
+					&.selected {
+						border-color: @orange;
+					}
+					&:hover {
+						box-shadow: 1px 1px 1px 0px @dash-grey;
+					}
+				}
+			}
 			.field-error {
 				color: @error-red;
 				padding: 0.5em 0;
@@ -1757,6 +1790,15 @@ a {
 				text-align: center;
 				margin-bottom: 0;
 			}
+		}
+	}
+	.collapse-link {
+		display: inline-block;
+		color: @dash-grey;
+		font-size: 0.88em;
+		margin-bottom: 0.75em;
+		&:hover, &:focus {
+			color: @blue-grey;
 		}
 	}
 }
@@ -1947,7 +1989,7 @@ a {
 	background: @preview-grey;
 	border-left: 3px solid @blue-grey;
 	color: @dash-grey;
-	margin-bottom: 0.75em;
+	margin: 0.75em 20px;
 	font-size: 0.88em;
 	position: relative;
 	.glyphicon {
@@ -2279,13 +2321,19 @@ a {
 		margin: 0 20px 1em;
 		padding: 0.5em 0;
 		.col-counter-label {
-			text-align: center;
 			font-size: 1.2em;
 			color: @dash-grey;
 			line-height: 2.2;
 			margin: 0 0 0.5em;
 		}
 		.set-column-count {
+			.col-sm-1 {
+				min-width: 140px;
+				display: inline-block;
+				@media (max-width: 767px) { 
+					width:140px;
+				}
+			}
 			.col-item {
 				background: @dash-grey;
 				position: relative;
@@ -2307,8 +2355,8 @@ a {
 					background: rgba(255, 255, 255, 0.6);
 					border-radius: 2px;
 					color: @3-grey;
-					padding: 1em 0.5em;
-					font-size: 1.2em;
+					padding: 0.5em;
+					font-size: 1.1em;
 					display: none;
 				}
 				&:hover {
@@ -2317,7 +2365,7 @@ a {
 						display: block;
 					}
 				}
-				&.selected {
+				&.ui-selected {
 					background: @orange;
 					.col-label {
 						display: block;
@@ -2332,10 +2380,6 @@ a {
 		padding-top: 10px;
 		max-height: 400px;
 		overflow-y: auto;
-		&.overflow-view {
-			max-height: initial;
-			overflow: visible;
-		}
 		.single-img, .single-item {
 			position: relative;
 			padding: 0 5px;
@@ -2458,6 +2502,7 @@ a {
 						font-size: 0.88em;
 						color: @dash-grey;
 						margin-bottom: 0;
+						min-height: 110px;
 					}
 				}
 				&:hover {
@@ -2484,6 +2529,45 @@ a {
 				.ticker {
 					display: block;
 					background: @orange;
+				}
+			}
+		}
+		&.overflow-view {
+			max-height: initial;
+			overflow: visible;
+			.clearfix;
+			.single-item {
+				.thumbnail {
+					background: lighten(@dash-grey, 20%);
+					height: 200px;
+					overflow: hidden;
+					.clearfix;
+					.imgthumb {
+						width: 39%;
+						float: left;
+						vertical-align: top;
+						margin: 0 5px 5px 0;
+						background: transparent;
+						height: auto;
+						&:before {
+							display: none;
+						}
+					}
+					.caption {
+						padding: 0;
+						.item-title {
+							margin-top: 0;
+						}
+					}
+				}
+				&.selected, &.ui-selected {
+					.thumbnail {
+						background: lighten(@dash-grey, 30%);
+						box-shadow: 1px 1px 3px lighten(@dash-grey, 10%);
+						.imgthumb {
+							background: transparent;
+						}
+					}
 				}
 			}
 		}
@@ -2612,135 +2696,32 @@ a {
 	}
 	.menu-manager-container {
 		padding: 0 2em;
-		.desc {
+	}
+	.aj-imp-add-menu-item {
+		h4 {
+			font-size: 2em;
 			color: @dash-grey;
-			font-size: 1.1em;
-			small {
-				display: block;
-				margin: 0.5em 0;
-			}
 		}
-	}
-	.create-menu-container {
-		background: @preview-grey;
-		padding: 1em;
-		border-radius: 2px;
-		.clearfix;
-		.choose-menu {
-			float: left;
-			margin-right: 1em;
-			.control-label {
-				display: block;
-				text-align: left !important;
-				line-height: 1.4;
-				color: @dash-grey;
-				text-transform: uppercase;
-			}
-			.selected a {
-				color: #fff;
-			}
-			.add a {
-				color: @orange;
-				&:hover {
-					color: #fff;
-				}
-			}
-			.option-or {
-				display: inline-block;
-				font-size: 1.2em;
-				color: @dash-grey;
-				text-transform: uppercase;
-				margin: 0 1em;
-			}
-			.create-new-menu {
-				text-transform: uppercase;
-				font-size: 1.2em;
-				&:hover {
-					color: lighten(@orange, 10%);
-				}
-			}
+		.desc {
+			font-size: 0.9em;
+			color: @dash-grey;
 		}
-		#new-menu-name {
-			float: left;
-			margin-top: 1.88em;
-			.form-control {
-				min-width: 220px;
-			}
-		}
-	}
-	.aj-imp-menu-edit {
-		.clearfix;
-		.add-menu-toggle {
-			padding: 10px 13px;
-			width: 40px;
-			height: 40px;
-			background: @orange;
-			color: #fff;
-			border-radius: 40px;
-			margin: 1em 0;
-			display: block;
-			float: right;
+		.aj-imp-add-link {
 			font-size: 1.2em;
-			text-align: center;
-			&:hover {
-				background: lighten(@orange, 10%);
-			}
+			color: @orange;
 		}
-		.aj-imp-add-menu-item {
-			h4 {
-				font-size: 1.4em;
-				color: @dash-grey;
-				margin-top: 0;
-			}
-			.desc {
-				font-size: 0.9em;
-				color: @dash-grey;
-			}
-			.list-steps {
-				list-style: circle;
-				padding-left: 0;
-				margin-top: 1em;
-				li {
-					color: @dash-grey;
-					font-size: 0.9em;
-					margin-bottom: 0.25em;
-				}
-			}
-			.aj-imp-add-link {
-				font-size: 1.2em;
-				color: @orange;
-			}
-			.add-menu-form {
-				margin: 1em 0 0;
-				padding: 1em;
-				.form-inline {
-					margin: 0;
-					.form-group {
-						.control-label {
-							display: block;
-							color: @dash-grey;
-							text-transform: uppercase;
-						}
-						.url {
-							min-width: 200px;
-						}
-					}
-					.option-or {
-						display: inline-block;
-						font-size: 1.2em;
-						color: @dash-grey;
-						text-transform: uppercase;
-						margin: 0 1em;
-					}
-					.form-actions {
-						text-align: right;
-						.btn {
-							padding: 5px 8px 6px;
-							&.save-btn {
-								background: @orange;
-								&:hover {
-									background: lighten(@orange, 20%);
-								}
+		.add-menu-form {
+			margin: 1em 0 0;
+			form {
+				margin: 0;
+				.form-actions {
+					text-align: right;
+					.btn {
+						padding: 5px 8px 6px;
+						&.save-btn {
+							background: @orange;
+							&:hover {
+								background: lighten(@orange, 20%);
 							}
 						}
 					}
@@ -2758,39 +2739,31 @@ a {
 			.list-group-item {
 				.menu-item {
 					.menu-dragger {
-						color: lighten(@dash-grey, 10%);
+						color: @dash-grey;
 						font-size: 1.2em;
 						text-align: center;
 						cursor: move;
 					}
-					.menu-name {
-						color: @3-grey;
-						padding-top: 1px;
-					}
 					.menu-edit {
 						text-align: right;
-						font-size: 0.8em;
-						padding-top: 4px;
+						a {
+							color: @orange;
+						}
 					}
 				}
 				.menu-item-edit {
 					background: lighten(@dash-grey, 30%);
 					margin: 10px -15px -10px;
-					padding: 0.5em 1em;
-					.form-group {
-						.control-label {
-							display: block;
-							color: @dash-grey;
-							text-transform: uppercase;
-						}
-						.menutitle {
-							min-width: 300px;
-						}
-					}
+					padding: 15px 0;
 					.form-actions {
-						.red-link {
-							vertical-align: middle;
-							font-size: 0.8em;
+						.btn {
+							padding: 5px 8px 6px;
+							&.save-btn {
+								background: @orange;
+								&:hover {
+									background: lighten(@orange, 20%);
+								}
+							}
 						}
 					}
 				}
@@ -2809,15 +2782,13 @@ a {
 				}
 			}
 		}
+		
 	}
-	.styles-container {
-		background: darken(@preview-grey, 10%);
-		border-radius: 2px;
-		padding: 0.5em;
-		h4 {
-			font-size: 1.3em;
-			color: @dash-grey;
-		}
+	.modal-body-title {
+		font-size: 1.2em;
+		color: @dash-grey;
+		line-height: 2.2;
+		margin: 0 20px 0.5em;
 	}
 	&.bootbox {
 		.btn-primary {
@@ -3685,7 +3656,7 @@ a {
 					border-width: 1px;
 					line-height: 1em;
 					height: 32px;
-					border-radius: 3px;
+					border-radius: 2px;
 					&.bootstrap-select {
 						padding: 0;
 						height: auto;
@@ -3948,7 +3919,7 @@ a {
 .aj-imp-orange-btn {
 	background: @orange;
 	color: #fff;
-	&:hover {
+	&:hover, &:focus {
 		background: lighten(@orange, 20%);
 	}
 }

@@ -26,17 +26,11 @@
       <div class="form-group edit-by-user">
         <label for="" class="col-sm-4 control-label">{{#polyglot}}Align{{/polyglot}}</label>
         <div class="col-sm-8">
-          <select name="align">
-            <option value="left">{{#polyglot}}Left{{/polyglot}}</option>
-            <option value="center">{{#polyglot}}Center{{/polyglot}}</option>
-            <option value="right">{{#polyglot}}Right{{/polyglot}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group edit-by-user">
-        <label for="" class="col-sm-4 control-label">{{#polyglot}}Add Url{{/polyglot}}</label>
-        <div class="col-sm-8">
-          <input type="text" name="link" class="linktext form-control required url"/>
+          <div class="btn-group btn-group-sm">
+            <button value="left" class="btn btn-default js-btn-left">{{#polyglot}}Left{{/polyglot}}</button>
+            <button value="center" class="btn btn-default js-btn-center">{{#polyglot}}Center{{/polyglot}}</button>
+            <button value="right" class="btn btn-default js-btn-right">{{#polyglot}}Right{{/polyglot}}</button>
+          </div>
         </div>
       </div>
       <div class="form-group edit-by-user">
@@ -46,9 +40,33 @@
         </div>
       </div>
       <div class="form-group edit-by-user">
-        <label for="" class="col-sm-4 control-label">{{#polyglot}}Open in new window{{/polyglot}}</label>
-        <div class="col-sm-8"><span class="checkbox">
-            <input type="checkbox" name="target"/></span></div>
+        <label for="" class="col-sm-4 control-label">{{#polyglot}}Page{{/polyglot}}</label>
+        <div class="col-sm-8">
+          <select name="link_page">
+            <option value="-1">Select Page</option>
+            {{#link_pages}}
+            <option value="{{original_id}}">{{post_title}}</option>
+            {{/link_pages}}
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-4">
+          <a data-toggle="collapse" data-target="#custom-url" class="collapse-link">{{#polyglot}}Add Custom URL{{/polyglot}} &nbsp;<span class="caret"></span></a>
+        </div>
+      </div>
+      <div id="custom-url" class="form-group collapse">
+        <label for="" class="col-sm-4 control-label">{{#polyglot}}Add Url{{/polyglot}}</label>
+        <div class="col-sm-8">
+          <input type="text" name="link" class="linktext form-control required url"/>
+        </div>
+      </div>
+      <div class="form-group edit-by-user">
+        <div class="col-sm-8 col-sm-offset-4">
+            <label for="" class="checkbox">
+              <input type="checkbox" name="target"/>{{#polyglot}}Open in new window{{/polyglot}}
+            </label>
+          </div>
       </div>
     </form>
   </div>

@@ -436,6 +436,9 @@ function add_element_markup( $element ) {
         case 'RoomBooking' :
             $html = get_room_booking_markup( $element );
             break;
+        case 'Spacer' :
+            $html = get_spacer_element_markup( $element );
+            break;
         default :
             break;
     }
@@ -824,6 +827,16 @@ function get_table_element_markup( $element ){
 
 }
 
+function get_spacer_element_markup( $element ){
+    include_once( dirname( __FILE__ ) . '/elements/SpacerElement.php');
+
+    $spacer = new SpacerElement( $element );
+
+    $html = $spacer->get_markup();
+
+    return $html;
+}
+
 function get_widget_element_markup( $element ){
     include_once( dirname( __FILE__ ) . '/elements/WidgetElement.php');
 
@@ -1190,6 +1203,7 @@ function get_menu_to_array( $mn, $by = 'name' ) {
             'menu_item_title' => $translated_menu_item_page_title,
             'menu_item_url'   => $menu_item->url,
             'menu_id'         => $menu->term_id,
+            'page_id'       => $menu_item->object_id
         );
 
         if ( (int)$menu_item->menu_item_parent === 0 ) {
@@ -3338,7 +3352,12 @@ function wp_send_error_json( $message ) {
  * [secondary1] => #baa345
  * )
  */
-function switch_theme_colour( $colours ) {
+function switch_theme_colour( $colours , $color_scheme ) {
+
+    if ($color_scheme == 'default'){
+        update_option( 'theme-style-filename', '' );
+        return;
+    }
 
     $file_name = get_template_directory_uri() . '/resources/less/variables.less';
 
@@ -3352,7 +3371,7 @@ function switch_theme_colour( $colours ) {
 
         $css_filepath = check_create_less_resource_folder();
 
-        compile_new_css_to_folder( $new_varible_less_content, $css_filepath );
+        compile_new_css_to_folder( $new_varible_less_content, $css_filepath, $color_scheme );
 
     endif;
 
@@ -3428,7 +3447,7 @@ function check_create_less_resource_folder() {
  * @param type $new_varible_less_content
  * @param type $css_filename
  */
-function compile_new_css_to_folder( $new_varible_less_content, $css_filepath ) {
+function compile_new_css_to_folder( $new_varible_less_content, $css_filepath, $color_scheme ) {
 
     $compile_file = get_stylesheet_directory() . '/resources/less/compile.less';
 
@@ -3437,7 +3456,8 @@ function compile_new_css_to_folder( $new_varible_less_content, $css_filepath ) {
     $less->setVariables( $new_varible_less_content );
 
     try {
-        $less->compileFile( $compile_file, $css_filepath . '/theme-style.css' );
+        $less->compileFile( $compile_file, $css_filepath . '/theme-style-' . $color_scheme . '.css' );
+        update_option( 'theme-style-filename', 'theme-style-' . $color_scheme );
     } catch ( Exception $ex ) {
         echo "lessphp fatal error: " . $ex->getMessage();
     }
@@ -3475,16 +3495,29 @@ global $base_element_templates;
 $base_element_templates = array(
     'Row' => array(
         array(
-            'name' => 'Center Container'
+            'name' => 'Default',
+            'desc' => 'Full width row without a background colour. ',
+            'hide' => array()
         ),
         array(
-            'name' => 'Grey Background'
+            'name' => 'Center Container',
+            'desc' => 'This row has fixed width without a background in the middle. Best way to use: Use this row as the site content, to keep the standard look of the page.',
+            'hide' => array()
         ),
         array(
-            'name' => 'Footer Container'
+            'name' => 'Grey Background',
+            'desc' => 'Full width row with a light grey back ground. Best way to use: Use this row style to highlight key points of your site',
+            'hide' => array('Classic Green', 'Neon Theme', 'Minimal Theme', 'Diamond Theme')
         ),
         array(
-            'name' => 'Column Dividers'
+            'name' => 'Footer Container',
+            'desc' => 'Full width row with a dark grey back ground. Best way to use: Use this row style as footer on your website',
+            'hide' => array('Neon Theme', 'Minimal Theme', 'Diamond Theme')
+        ),
+        array(
+            'name' => 'Column Dividers',
+            'desc' => 'Similar to a plain row with the exception of a vertical line between columns. Best way to use:  Use this when you need line separators between columns. Ensure its inside the center container / fix width row else the layout will not be aligned.',
+            'hide' => array()
         )
     ),
     'Menu' => array(
@@ -3549,7 +3582,14 @@ $base_element_templates = array(
             'name' => 'Room Summary New',
             'template' => '<div class="room-img"><a style="background: url({{image_url}}) no-repeat center center;"></a></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">Total: {{no_of_rooms}}<small> rooms</small></div><button class="btn btn-room">View Details</button></div>'
         )
-    )
+    ),
+    'Spacer' => array(
+            array( 'name' => 'Default', 'value' => 'default' ),
+            array( 'name' => 'Style 1', 'value' => 'style-1' ),
+            array( 'name' => 'Style 2', 'value' => 'style-2' ),
+            array( 'name' => 'Style 3', 'value' => 'style-3' )  
+        )
+    
 );
 
 /**

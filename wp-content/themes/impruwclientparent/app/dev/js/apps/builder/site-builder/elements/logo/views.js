@@ -12,7 +12,7 @@ define(['app', 'apps/builder/site-builder/elements/image/views'], function(App) 
 
       LogoView.prototype.className = 'logo';
 
-      LogoView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive "/> <div class="clearfix"></div> {{/image}} {{#placeholder}} <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Logo</div> {{/placeholder}}';
+      LogoView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive "/> <div class="clearfix"></div> {{/image}} {{#imageNotFound}} <div class="image-placeholder" style="height:100%;"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Image not found. Upload new image.{{/polyglot}}</div> {{/imageNotFound}} {{#placeholder}} <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Logo</div> {{/placeholder}}';
 
       return LogoView;
 

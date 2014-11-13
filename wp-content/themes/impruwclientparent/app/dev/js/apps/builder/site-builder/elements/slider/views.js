@@ -31,7 +31,9 @@ define(['app'], function(App) {
       };
 
       SliderItem.prototype.onRender = function() {
-        return this.$el.attr('data-slotamount', '0').attr('data-masterspeed', '500').attr('data-transition', Marionette.getOption(this, 'slide_transition'));
+        this.$el.attr('data-slotamount', '0').attr('data-masterspeed', '500').attr('data-transition', Marionette.getOption(this, 'slide_transition'));
+        this.$el.find('.tp-caption .caption-hover').parent().addClass('caption-hover');
+        return this.$el.find('.tp-caption .caption-hover').removeClass('caption-hover');
       };
 
       SliderItem.prototype.modelEvents = {

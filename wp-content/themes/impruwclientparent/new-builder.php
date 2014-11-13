@@ -63,6 +63,8 @@
 <!-- /.modal -->
 <div id="initial-loader"></div>
 
+
+
 <script type="text/javascript">
     var USER = <?php echo json_encode(get_user_model()); ?>;
     var ROOMS = <?php echo json_encode(get_roomss()); ?>;
@@ -80,6 +82,7 @@
     var MENUS = <?php echo json_encode(wp_get_nav_menus()) ?>;
 
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
+    var CURRENTTHEMEURL = '<?php echo get_template_directory_uri() ?>'
     var SITEURL = '<?php echo site_url(); ?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';

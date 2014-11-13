@@ -53,6 +53,10 @@
                             <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
                             {{/pages}}
                         </select>
+                        <a href="#" class="delete-page">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            {{#polyglot}}Delete Page{{/polyglot}}
+                        </a>
                     </div>
                     <a href="#" class="add-new-page">
                         <span class="glyphicon glyphicon-plus-sign"></span>
@@ -79,7 +83,9 @@
                 </div>
                 <div class="aj-imp-browser-address-bar clearfix">
                     <b>{{#polyglot}}Page URL{{/polyglot}}: </b>
-                    <input type="text" value="{{SITEURL}}" class="page-slug-edit">
+                    <span class="site-url">{{SITEURL}}</span>
+                    <input type="text" value="" class="page-slug-edit">
+                    <button type="button" class="btn-update-pg-slug">{{#polyglot}}Update{{/polyglot}}</button>
                 </div>
             </div>
             <div class="aj-imp-save-action col-sm-3">
