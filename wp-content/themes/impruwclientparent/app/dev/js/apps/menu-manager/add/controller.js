@@ -31,10 +31,13 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/add/views'], fu
       };
 
       Controller.prototype.saveMenuResponseHandler = function(response) {
-        var menuItemModel;
-        menuItemModel = App.Entities.Menus.MenuItemModel;
+        var menu, menuItemModel, menuItemsCollection;
+        menuItemModel = new App.Entities.Menus.MenuItemModel;
         if (response.success === true) {
+          menu = window.menusCollection.get(this.menuId);
+          menuItemsCollection = menu.get('menuItems');
           menuItemModel.set(response.data);
+          menuItemsCollection.add(menuItemModel);
           return this.view.triggerMethod("add:menuitem:success", menuItemModel);
         } else {
           return this.view.triggerMethod("add:menuitem:failed", response.message);

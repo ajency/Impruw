@@ -25,9 +25,12 @@ define [ 'app', 'controllers/base-controller', 'apps/menu-manager/add/views' ], 
                 $.post AJAXURL, ajaxData, @saveMenuResponseHandler, 'json'
 
             saveMenuResponseHandler : (response)=>
-                menuItemModel = App.Entities.Menus.MenuItemModel
+                menuItemModel = new App.Entities.Menus.MenuItemModel
                 if response.success is true
+                    menu = window.menusCollection.get @menuId
+                    menuItemsCollection = menu.get 'menuItems'
                     menuItemModel.set response.data
+                    menuItemsCollection.add menuItemModel
                     @view.triggerMethod "add:menuitem:success", menuItemModel
                 else
                     @view.triggerMethod "add:menuitem:failed", response.message

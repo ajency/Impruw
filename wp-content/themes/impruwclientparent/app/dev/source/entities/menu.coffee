@@ -2,17 +2,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 
     App.module "Entities.Menus", (Menus, App, Backbone, Marionette, $, _)->
 
-        class Menus.MenuModel extends Backbone.Model 
-            url : ->
-                if @isNew() then '/menus' else "/menus/#{@get 'id'}"
-
-        class Menus.MenuCollection extends Backbone.Collection
-            model : Menus.MenuModel
-
         class Menus.MenuItemModel extends Backbone.Model
 
-            defaults : ->
-                menu_id : 0
+            idAttribute : 'menu-item-db-id'
 
             url : ->
                 menuId = @get 'menu_id'
@@ -21,6 +13,22 @@ define ["app", 'backbone'], (App, Backbone) ->
 
         class Menus.MenuItemCollection extends Backbone.Collection
             model : Menus.MenuItemModel
+
+
+        class Menus.MenuModel extends Backbone.Model 
+
+            idAttribute : 'term_id'
+            
+            defaults : ->
+                menuItems : new Menus.MenuItemCollection
+
+            url : ->
+                if @isNew() then '/menus' else "/menus/#{@get 'id'}"
+
+        class Menus.MenuCollection extends Backbone.Collection
+            model : Menus.MenuModel
+
+        
 
         window.menusCollection = new Menus.MenuCollection
         menusCollection.add MENUS

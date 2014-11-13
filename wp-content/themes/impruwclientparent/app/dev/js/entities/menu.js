@@ -3,36 +3,6 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Menus", function(Menus, App, Backbone, Marionette, $, _) {
-    Menus.MenuModel = (function(_super) {
-      __extends(MenuModel, _super);
-
-      function MenuModel() {
-        return MenuModel.__super__.constructor.apply(this, arguments);
-      }
-
-      MenuModel.prototype.url = function() {
-        if (this.isNew()) {
-          return '/menus';
-        } else {
-          return "/menus/" + (this.get('id'));
-        }
-      };
-
-      return MenuModel;
-
-    })(Backbone.Model);
-    Menus.MenuCollection = (function(_super) {
-      __extends(MenuCollection, _super);
-
-      function MenuCollection() {
-        return MenuCollection.__super__.constructor.apply(this, arguments);
-      }
-
-      MenuCollection.prototype.model = Menus.MenuModel;
-
-      return MenuCollection;
-
-    })(Backbone.Collection);
     Menus.MenuItemModel = (function(_super) {
       __extends(MenuItemModel, _super);
 
@@ -40,11 +10,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         return MenuItemModel.__super__.constructor.apply(this, arguments);
       }
 
-      MenuItemModel.prototype.defaults = function() {
-        return {
-          menu_id: 0
-        };
-      };
+      MenuItemModel.prototype.idAttribute = 'menu-item-db-id';
 
       MenuItemModel.prototype.url = function() {
         var menuId;
@@ -69,6 +35,44 @@ define(["app", 'backbone'], function(App, Backbone) {
       MenuItemCollection.prototype.model = Menus.MenuItemModel;
 
       return MenuItemCollection;
+
+    })(Backbone.Collection);
+    Menus.MenuModel = (function(_super) {
+      __extends(MenuModel, _super);
+
+      function MenuModel() {
+        return MenuModel.__super__.constructor.apply(this, arguments);
+      }
+
+      MenuModel.prototype.idAttribute = 'term_id';
+
+      MenuModel.prototype.defaults = function() {
+        return {
+          menuItems: new Menus.MenuItemCollection
+        };
+      };
+
+      MenuModel.prototype.url = function() {
+        if (this.isNew()) {
+          return '/menus';
+        } else {
+          return "/menus/" + (this.get('id'));
+        }
+      };
+
+      return MenuModel;
+
+    })(Backbone.Model);
+    Menus.MenuCollection = (function(_super) {
+      __extends(MenuCollection, _super);
+
+      function MenuCollection() {
+        return MenuCollection.__super__.constructor.apply(this, arguments);
+      }
+
+      MenuCollection.prototype.model = Menus.MenuModel;
+
+      return MenuCollection;
 
     })(Backbone.Collection);
     window.menusCollection = new Menus.MenuCollection;

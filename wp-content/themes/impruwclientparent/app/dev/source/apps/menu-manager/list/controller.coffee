@@ -8,37 +8,20 @@ define [ 'app', 'controllers/base-controller', 'apps/menu-manager/list/views' ],
 
          # initialize
          initialize : ( opts )->
-            @menucollection = menucollection = opts.collection
+            {@menuId} = opts
 
-            @view = view = @_getView menucollection
+            menu = window.menusCollection.get @menuId
 
-            @listenTo @view, "itemview:update:menu:item:clicked", ( iv, formdata, model ) =>
-               model.save formdata,
-                  wait : true
-                  success : @updatedSuccess
+            menuItemsCollection = menu.get 'menuItems'
 
-
-            @listenTo @menucollection, 'add remove', =>
-               @view.triggerMethod 'triggerOrderChange'
-
-            @listenTo @view, "itemview:delete:menu:item:clicked", ( iv, model ) =>
-               @region.trigger "delete:menu:item:model", model
-
-            @listenTo @view, "view:menu:order:changed", ( order, collection ) =>
-               @region.trigger "menu:order:changed", order, collection
-
+            @view = view = @_getView menuItemsCollection
 
             @show @view
 
 
-
          _getView : ( menucollection ) ->
             new List.Views.MenuCollectionView
-               collection : menucollection
-
-
-         updatedSuccess : =>
-            @view.triggerMethod "menu:item:updated"
+                           collection : menucollection
 
 
       App.commands.setHandler "list:menu:items:app", ( opts )->
