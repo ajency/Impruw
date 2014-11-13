@@ -51,7 +51,7 @@ define ['app'],
             # this helps to reorder the menu items before
             # the collection is rendered with item views
             onBeforeRender: ->
-                #@collection.sort()
+                @collection.sort()
 
             # set alignment
             setAlignment: (align)=>
