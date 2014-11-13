@@ -53,6 +53,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return this.$el.addClass("width-" + randomW + " height-" + randomH);
       };
 
+      SingleGalleryItem.prototype.onShow = function() {
+        return this.$el.find('img').error(function() {
+          return $(this).unbind("error").attr("src", THEMEURL + "/images/imageNotFound.jpg");
+        });
+      };
+
       SingleGalleryItem.prototype.events = {
         'click': function(e) {
           return e.preventDefault();

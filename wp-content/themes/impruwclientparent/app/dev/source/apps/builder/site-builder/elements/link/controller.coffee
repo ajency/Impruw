@@ -21,7 +21,7 @@ define ['app', 'apps/builder/site-builder/elements/link/views',
 
             bindEvents: ->
                 # start listening to model events
-                @listenTo @layout.model, "change:style change:link change:text change:target change:align", @renderElement
+                @listenTo @layout.model, "change:style change:link change:text change:target change:align change:link_page_id", @renderElement
                 super()
 
             _getLinkView: (model)->

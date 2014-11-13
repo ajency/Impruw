@@ -12,6 +12,7 @@ define ['app'
                 { @model } = opt
                 @region = App.settingsRegion
                 model = App.request "get:element:settings:options", 'Social'
+                console.log model
                 view = @_getSettingView model, @model
 
                 @listenTo view, "element:style:changed", (style)=>

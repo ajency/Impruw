@@ -91,12 +91,7 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
         this.listenTo(this.layout.model, "change:top_margin", this.setMargin);
         this.listenTo(this.layout.model, "change:bottom_margin", this.setMargin);
         this.listenTo(this.layout.model, "change:left_margin", this.setMargin);
-        this.listenTo(this.layout.model, "change:right_margin", this.setMargin);
-        return this.listenTo(this.layout.elementRegion, 'show', (function(_this) {
-          return function() {
-            return _this._deferred.resolve(true);
-          };
-        })(this));
+        return this.listenTo(this.layout.model, "change:right_margin", this.setMargin);
       };
 
       Controller.prototype.setDraggable = function(model) {

@@ -59,6 +59,7 @@ define [ 'app', 'controllers/base-controller', 'apps/media/grid/views' ], ( App,
 
 			#delete a image from the gallery
 			deleteImage : ( imageModel )->
+				App.execute 'remove:media', imageModel
 				imageModel.destroy
 					allData : false
 					wait : true

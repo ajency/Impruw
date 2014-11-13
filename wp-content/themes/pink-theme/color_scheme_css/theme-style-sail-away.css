@@ -75,8 +75,8 @@
 }
 @font-face {
   font-family: 'icomoon';
-  src: url("../../../themes/impruwclientparent/fonts/icomoon.eot");
-  src: url("../../../themes/impruwclientparent/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../../../themes/impruwclientparent/fonts/icomoon.woff") format("woff"), url("../../../themes/impruwclientparent/fonts/icomoon.ttf") format("truetype"), url("../../../themes/impruwclientparent/fonts/icomoon.svg#icomoon") format("svg");
+  src: url("../../../themes/pink-theme/resources/fonts/icomoon.eot");
+  src: url("../../../themes/pink-theme/resources/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../../../themes/pink-theme/resources/fonts/icomoon.woff") format("woff"), url("../../../themes/pink-theme/resources/fonts/icomoon.ttf") format("truetype"), url("../../../themes/pink-theme/resources/fonts/icomoon.svg#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -176,7 +176,8 @@
 }
 .site-style-container .row.center-container {
   max-width: 1170px;
-  margin: 0.5em auto;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 .site-style-container .row.grey-background {
   background: #fd8a33;
@@ -198,7 +199,7 @@
 .site-style-container footer {
   background: transparent;
 }
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .logo {
     text-align: center;
     margin: 0.5em auto !important;
@@ -397,7 +398,7 @@
   margin: 0 0 0.5em;
 }
 .link {
-  display: inline-block;
+  display: block;
   margin: 0 0.5em 0.5em 0;
 }
 .link.button a {
@@ -437,7 +438,7 @@
   margin-bottom: 10px;
   padding-left: 5px;
 }
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .address {
     text-align: center;
   }
@@ -554,7 +555,7 @@
 .social.social-center {
   text-align: center;
 }
-@media (max-width: 971px) {
+@media (max-width: 992px) {
   .social {
     text-align: center !important;
   }
@@ -1820,7 +1821,7 @@ ul.gallery {
 .lang-sel.align-center {
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .lang-sel {
     text-align: center;
   }
@@ -2262,7 +2263,7 @@ ul.gallery {
   margin: 0.5em auto;
   max-width: 220px;
 }
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .social {
     text-align: center;
     margin: 1em 0;

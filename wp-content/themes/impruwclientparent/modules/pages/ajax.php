@@ -224,9 +224,18 @@ add_action( 'wp_ajax_read-page', 'ajax_read_page' );
  */
 function ajax_update_page() {
     $page_id = $_POST[ 'ID' ];
-    $page_name = $_POST[ 'post_title' ];
-
-    wp_update_post( array( 'ID' => $page_id, 'post_title' => $page_name ) );
+    if (isset($_POST[ 'post_title'] )){
+        $page_name = $_POST[ 'post_title' ];
+        remove_action( 'post_updated', 'wp_save_post_revision', 10, 1 );
+        wp_update_post( array( 'ID' => $page_id, 'post_title' => $page_name ) );
+        add_action( 'post_updated', 'wp_save_post_revision', 10, 1 );
+    }
+    elseif ( isset( $_POST[ 'post_name' ] ) ) {
+        $page_slug = $_POST[ 'post_name' ];
+        global $wpdb;
+        $page_slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $page_slug);
+        $wpdb->update( $wpdb->posts, array(  'post_name' => $page_slug ), array( 'ID' => $page_id ) );
+    }
 
     $page_data = get_post( $page_id, ARRAY_A );
 
@@ -244,4 +253,15 @@ function take_over_page_editing(){
     wp_send_json(1);
 }
 add_action('wp_ajax_take_over_page_editing', 'take_over_page_editing');
+
+
+function impruw_delete_page(){
+    $page_id = $_POST['page_id'];
+    $response = delete_page_all_data( $page_id );
+    wp_send_json( array( 'code' => 'OK', 'data' => $page_id ) );
+}
+add_action('wp_ajax_impruw-delete-page','impruw_delete_page');
+// add_action('wp_ajax_nopriv_delete-page','impruw_delete_page1');
+
+
 

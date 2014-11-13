@@ -13,7 +13,8 @@ function get_revisions( $page_id = 0 ) {
     foreach ( $revisions_as_object as $revision_id => $revision_post ) {
         if ( strpos( $revision_post->post_name, 'autosave' ) === FALSE ){
             $revision_post = generate_revision_data($revision_post);
-            $revisions[ ] = $revision_post;
+            if (!empty($revision_post->backup_type))
+                $revisions[ ] = $revision_post;
         }
     }
 

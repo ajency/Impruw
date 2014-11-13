@@ -82,7 +82,7 @@ define(['app'], function(App, elementTpl) {
 
       ElementView.prototype._noOptions = function() {
         var nosettings;
-        nosettings = ['Logo', 'Text', 'Title', 'Gallery'];
+        nosettings = ['Logo', 'Text', 'Title', 'Gallery', 'ContactForm'];
         if (nosettings.indexOf(this.model.get('element')) !== -1) {
           return this.$el.children('.element-controls').children('.aj-imp-settings-btn').remove();
         }

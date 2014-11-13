@@ -223,22 +223,28 @@
                   ),
         'Row' => array(
                     array(
-                        'name'      => 'Top Bar'
+                        'name'      => 'Top Bar',
+                        'desc' => 'Full width row but with a slim horizontal bar at the bottom. Best way to use:  Use this row in your header or anywhere else, to give the effect of a separator just below this row.'
                     ),
                     array(
-                        'name'      => 'Footer Columns'
+                        'name'      => 'Footer Columns',
+                        'desc' => 'Full width row with a green bar on the top of the row. Best way to use:  Use this row in your footer or anywhere else, to give the effect of a separator just above this row.'
                     ),
                     array(
-                        'name'      => 'Menu Bar'
+                        'name'      => 'Menu Bar',
+                        'desc' => 'Full width row with a green bar at the bottom of the row. Best way to use:  Use this row in your header or anywhere else, to give the effect of a separator just below this row.'
                     ),
                     array(
-                        'name'      => 'Footer Bar'
+                        'name'      => 'Footer Bar',
+                        'desc' => 'Full width row but with a slim horizontal bar at the top. Best way to use:  Use this row in your footer or anywhere else, to give the effect of a separator just above this row.'
                     ),
                     array(
-                        'name'      => 'Padded Container'
+                        'name'      => 'Padded Container',
+                        'desc' => 'Full width row with padding around it. Best way to use:  Use this when you need some additional space around your elements. Ensure its inside the center container / fix width row else the layout will not be aligned.'
                     ),
                     array(
-                        'name'      => 'Shadow Box'
+                        'name'      => 'Shadow Box',
+                        'desc' => 'Full width row with a darker shaded back ground. Best way to use: Use this row style to highlight key points of your site.'
                     )
                  ),
         'Social' => array(

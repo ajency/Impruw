@@ -91,10 +91,12 @@ define ['app'
 
             events:
                 "click #btn-save-translated-page-title" : "updatePageTitle"
+                "click #btn-save-translated-page-url" : "updatePageUrl"
 
             serializeData: ()->
                 data = super()
                 data.language = _.polyglot.t(data.language)
+                data.SITEURL = window.SITEURL
                 data
 
             itemViewOptions : ->
@@ -107,3 +109,10 @@ define ['app'
                 newPageTitle = @$el.find('#translated-page-title').val()
                 pageId = @$el.find('#translated-page-id').val()
                 @trigger "translated:page:title:updated", newPageTitle, pageId
+
+            updatePageUrl : (e)->
+                e.preventDefault()
+                newPageUrl = @$el.find('#translated-page-url').val()
+                pageId = @$el.find('#translated-page-id').val()
+                @trigger "translated:page:url:updated", newPageUrl, pageId
+

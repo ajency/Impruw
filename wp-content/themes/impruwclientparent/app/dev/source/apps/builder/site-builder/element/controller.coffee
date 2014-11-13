@@ -77,8 +77,8 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
             @listenTo @layout.model, "change:left_margin", @setMargin
             @listenTo @layout.model, "change:right_margin", @setMargin
 
-            @listenTo @layout.elementRegion, 'show', =>
-               @_deferred.resolve true
+            # @listenTo @layout.elementRegion, 'show', =>
+            #    @_deferred.resolve true
 
          # set draggable
          setDraggable : ( model )=>
