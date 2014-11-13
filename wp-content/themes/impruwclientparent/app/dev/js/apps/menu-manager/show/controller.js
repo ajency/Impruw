@@ -23,10 +23,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       Controller.prototype.addNewMenu = function(menuName) {
-        return $.post(AJAXURL, {
+        var data;
+        data = {
           action: 'builder-add-new-menu',
           menu_name: menuName
-        }, this.addMenuResponseHandler);
+        };
+        return $.post(AJAXURL, data, this.addMenuResponseHandler, 'json');
       };
 
       Controller.prototype.addMenuResponseHandler = function(response) {
@@ -74,6 +76,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       __extends(DropdownListView, _super);
 
       function DropdownListView() {
+        this.menuChanged = __bind(this.menuChanged, this);
         return DropdownListView.__super__.constructor.apply(this, arguments);
       }
 
@@ -95,14 +98,24 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       DropdownListView.prototype.menuChanged = function() {
         var menuId;
         menuId = this.$el.selectpicker('val');
-        return this.trigger('menu:changed', menuId);
+        if (menuId !== '') {
+          return this.trigger('menu:changed', menuId);
+        }
+      };
+
+      DropdownListView.prototype.onRender = function() {
+        return this.$el.prepend('<option value="">Choose Menu</option>');
       };
 
       DropdownListView.prototype.onShow = function() {
         var menuId;
         menuId = Marionette.getOption(this, 'menuId');
+        menuId = parseInt(menuId) === 0 ? '' : menuId;
         this.$el.selectpicker();
-        return this.$el.selectpicker('val', menuId);
+        this.$el.selectpicker('val', menuId);
+        if (menuId !== '') {
+          return this.trigger('menu:changed', menuId);
+        }
       };
 
       return DropdownListView;
@@ -142,14 +155,15 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       MediaMangerLayout.prototype.menuChanged = function(menuId) {
+        this.menuId = menuId;
         this.$el.find('a.delete-menu').parent().removeClass('hidden');
         App.execute("add:menu:items:app", {
           region: this.addMenuRegion,
-          menuId: menuId
+          menuId: this.menuId
         });
         return App.execute("list:menu:items:app", {
           region: this.listMenuRegion,
-          menuId: menuId
+          menuId: this.menuId
         });
       };
 

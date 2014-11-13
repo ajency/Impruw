@@ -18,12 +18,10 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                 @show @layout
 
             addNewMenu : (menuName)=>
-                $.post AJAXURL,
-                        (
-                            action : 'builder-add-new-menu'
-                            menu_name : menuName
-                        ),
-                        @addMenuResponseHandler
+                data = 
+                    action : 'builder-add-new-menu'
+                    menu_name : menuName
+                $.post AJAXURL, data ,@addMenuResponseHandler, 'json'
 
             addMenuResponseHandler : (response)=>
                 if response.success isnt true
@@ -54,16 +52,19 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             events : 
                 'change' : 'menuChanged'
             
-            menuChanged : ->
+            menuChanged : =>
                 menuId = @$el.selectpicker 'val'
-                @trigger 'menu:changed', menuId
+                @trigger 'menu:changed', menuId if menuId isnt ''
+
+            onRender : ->
+                @$el.prepend '<option value="">Choose Menu</option>'
 
             onShow : ->
                 menuId = Marionette.getOption @, 'menuId'
+                menuId = if parseInt(menuId) is 0 then '' else menuId
                 @$el.selectpicker()
                 @$el.selectpicker('val', menuId)
-
-
+                @trigger 'menu:changed', menuId if menuId isnt ''
 
 
         # Rooms tariff layout
@@ -152,16 +153,15 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                     @gloablMenusList.show menuListView
 
             menuChanged : (menuId) =>
+                @menuId = menuId
                 @$el.find('a.delete-menu').parent().removeClass 'hidden'
                 App.execute "add:menu:items:app",
-                                region : @addMenuRegion
-                                menuId : menuId
+                                    region : @addMenuRegion
+                                    menuId : @menuId
 
                 App.execute "list:menu:items:app",
-                                region : @listMenuRegion
-                                menuId : menuId
-
-               
+                                    region : @listMenuRegion
+                                    menuId : @menuId
 
             onAddMenuFailed : (message)->
                 message = '<p>' + _.polyglot.t message + '</p>'
@@ -170,8 +170,6 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             onAddMenuSuccess : (menuId)->
                 @$el.find('select.global-menus-list').selectpicker('refresh')
                 @$el.find('select.global-menus-list').selectpicker 'val', menuId
-
-
 
             dialogOptions :
                 modal_title : _.polyglot.t 'Menu Manager'

@@ -6,7 +6,7 @@ define [ 'app'], ( App )->
 
          template : '<div class="row menu-item">
                        <div class="col-sm-1 menu-dragger"><span class="bicon icon-uniF160"></span></div>
-                       <div class="col-sm-8 menu-name">{{menu_item_title}}</div>
+                       <div class="col-sm-8 menu-name">{{title}}</div>
                        <div class="col-sm-3 menu-edit">
                          <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}" class="blue-link">
                            <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit Link{{/polyglot}}

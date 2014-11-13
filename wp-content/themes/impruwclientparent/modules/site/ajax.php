@@ -263,3 +263,37 @@ function builder_add_new_menu(){
     }
 }
 add_action('wp_ajax_builder-add-new-menu', 'builder_add_new_menu');
+
+function builder_add_new_menu_item(){
+
+    $menu_id = $_REQUEST['menu_id'];
+    $menu_item = $_REQUEST['menu-item'];
+    $menu_item['menu-item-status'] = 'publish';
+
+    $menu_item_id = wp_update_nav_menu_item($menu_id, 0, $menu_item);
+
+    if(is_wp_error($menu_item_id )){
+        wp_send_json(array('success' => false, 'messsage' => $menu_item_id->get_message()) );
+    }
+    else{
+        $menu_item['menu-item-db-id'] = $menu_item_id;
+        wp_send_json(array('success' => true, 'data' => $menu_item));
+    }
+}
+add_action('wp_ajax_builder-add-new-menu-item', 'builder_add_new_menu_item');
+
+/**
+ * [fetch_menu_items_for_menu description]
+ * @return [type] [description]
+ */
+function fetch_menu_items_for_menu(){
+
+    $menu_id = $_REQUEST['menu_id'];
+
+    $menu_items = wp_get_nav_menu_items( $menu_id );
+
+    wp_send_json(array('success' => true, 'data' => $menu_items) );
+}   
+add_action('wp_ajax_fetch-menu-items-for-menu', 'fetch_menu_items_for_menu');
+
+
