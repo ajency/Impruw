@@ -16,22 +16,22 @@ define [ 'app'
 					innerStyle : 'Default'
 					contents : 
 						en : [
-								dt: 'Fried Spring Rolls'			
-								dd: 'chicken or vegetable'
-								em: '$2.95'
+								dt: 'demo'
+								dd: 'demo'
+								em: 'demo'
 							,
-								dt : 'Gai of Nuur Satay'			
-								dd : 'skewered chicken or beef with a peanut sauce'
-								em : '$4.95'							
+								dt: 'demo'
+								dd: 'demo'
+								em: 'demo'						
 						]
 						nb : [
-								dt: 'Fried Spring Rolls_N'			
-								dd: 'chicken or vegetable_N'
-								em: '$2.95'
+								dt: 'demo'
+								dd: 'demo'
+								em: 'demo'
 							,
-								dt : 'Gai of Nuur Satay_N'			
-								dd : 'skewered chicken or beef with a peanut sauce_N'
-								em : '$4.95'							
+								dt: 'demo'
+								dd: 'demo'
+								em: 'demo'							
 						]
 
 
@@ -78,13 +78,13 @@ define [ 'app'
 				@listenTo @view, 'add:new:model:to:collection',->
 					data = 
 						en :
-							dt : 'New Title'
-							dd : 'New description'
-							em : 'demo'
+							dt: 'demo'
+							dd: 'demo'
+							em: 'demo'
 						nb : 
-							dt : 'New Title_N'
-							dd : 'New description_N'
-							em : 'demo_N'
+							dt: 'demo'
+							dd: 'demo'
+							em: 'demo'
 
 					@collection.add data[WPML_DEFAULT_LANG]
 
