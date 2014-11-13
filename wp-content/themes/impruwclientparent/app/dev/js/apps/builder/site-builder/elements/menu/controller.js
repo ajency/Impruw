@@ -18,7 +18,8 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
         _.defaults(options.modelData, {
           element: 'Menu',
           justified: false,
-          style: ''
+          style: '',
+          menuitems: []
         });
         return Controller.__super__.initialize.call(this, options);
       };

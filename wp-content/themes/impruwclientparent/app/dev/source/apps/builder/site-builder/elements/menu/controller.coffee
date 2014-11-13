@@ -13,6 +13,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
                     element: 'Menu'
                     justified: false
                     style: ''
+                    menuitems : []
                 super(options)
 
             bindEvents: ->

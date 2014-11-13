@@ -83,6 +83,7 @@
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
     var _WPNONCE = '<?php echo wp_create_nonce('media-form'); ?>';
     var _RVNONCE = '<?php echo wp_create_nonce("revslider_actions"); ?>';
+    var _MENUNONCE = '<?php echo wp_create_nonce("menu-settings-column-nonce"); ?>';
     var JSVERSION = '<?php echo JSVERSION; ?>';
     
     var ISTHEMESELECTED = <?php echo is_theme_choosed() ?>;
