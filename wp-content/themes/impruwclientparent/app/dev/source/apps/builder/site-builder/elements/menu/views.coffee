@@ -35,7 +35,7 @@ define ['app'],
             emptyView: EmptyView
             events:
                 'click': ->
-                    @trigger "open:menu:manager"
+                    App.execute "menu-manager", 0
                 'click a': (evt)->
                     evt.preventDefault()
 

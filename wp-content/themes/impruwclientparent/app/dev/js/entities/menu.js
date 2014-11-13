@@ -10,6 +10,14 @@ define(["app", 'backbone'], function(App, Backbone) {
         return MenuModel.__super__.constructor.apply(this, arguments);
       }
 
+      MenuModel.prototype.url = function() {
+        if (this.isNew()) {
+          return '/menus';
+        } else {
+          return "/menus/" + (this.get('id'));
+        }
+      };
+
       return MenuModel;
 
     })(Backbone.Model);
@@ -23,6 +31,44 @@ define(["app", 'backbone'], function(App, Backbone) {
       MenuCollection.prototype.model = Menus.MenuModel;
 
       return MenuCollection;
+
+    })(Backbone.Collection);
+    Menus.MenuItemModel = (function(_super) {
+      __extends(MenuItemModel, _super);
+
+      function MenuItemModel() {
+        return MenuItemModel.__super__.constructor.apply(this, arguments);
+      }
+
+      MenuItemModel.prototype.defaults = function() {
+        return {
+          menu_id: 0
+        };
+      };
+
+      MenuItemModel.prototype.url = function() {
+        var menuId;
+        menuId = this.get('menu_id');
+        if (this.isNew()) {
+          return "/menus/" + menuId;
+        } else {
+          return "/menus/" + (this.get('id'));
+        }
+      };
+
+      return MenuItemModel;
+
+    })(Backbone.Model);
+    Menus.MenuItemCollection = (function(_super) {
+      __extends(MenuItemCollection, _super);
+
+      function MenuItemCollection() {
+        return MenuItemCollection.__super__.constructor.apply(this, arguments);
+      }
+
+      MenuItemCollection.prototype.model = Menus.MenuItemModel;
+
+      return MenuItemCollection;
 
     })(Backbone.Collection);
     window.menusCollection = new Menus.MenuCollection;

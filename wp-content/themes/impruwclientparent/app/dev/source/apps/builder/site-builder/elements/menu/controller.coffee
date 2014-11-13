@@ -72,7 +72,4 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
                 templateClass = [model.get 'style'] ? ''
                 collection = new Backbone.Collection
                 view = @_getMenuView(collection, templateClass)
-                
-                @listenTo view, "open:menu:manager", =>
-                    App.execute "menu-manager", collection, 0
                 @layout.elementRegion.show view

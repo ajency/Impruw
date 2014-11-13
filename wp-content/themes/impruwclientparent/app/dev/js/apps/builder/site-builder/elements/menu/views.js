@@ -73,7 +73,7 @@ define(['app'], function(App) {
 
       MenuView.prototype.events = {
         'click': function() {
-          return this.trigger("open:menu:manager");
+          return App.execute("menu-manager", 0);
         },
         'click a': function(evt) {
           return evt.preventDefault();

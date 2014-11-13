@@ -86,11 +86,6 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
         templateClass = (_ref = [model.get('style')]) != null ? _ref : '';
         collection = new Backbone.Collection;
         view = this._getMenuView(collection, templateClass);
-        this.listenTo(view, "open:menu:manager", (function(_this) {
-          return function() {
-            return App.execute("menu-manager", collection, 0);
-          };
-        })(this));
         return this.layout.elementRegion.show(view);
       };
 
