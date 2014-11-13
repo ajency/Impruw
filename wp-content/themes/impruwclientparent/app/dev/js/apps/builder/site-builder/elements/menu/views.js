@@ -12,7 +12,7 @@ define(['app'], function(App) {
         return MenuItemView.__super__.constructor.apply(this, arguments);
       }
 
-      MenuItemView.prototype.template = '<a href="{{menu_item_url}}">{{menu_item_title}}</a>';
+      MenuItemView.prototype.template = '<a href="#">{{title}}</a>';
 
       MenuItemView.prototype.initialize = function(opt) {
         if (opt == null) {
@@ -72,8 +72,9 @@ define(['app'], function(App) {
       MenuView.prototype.emptyView = EmptyView;
 
       MenuView.prototype.events = {
-        'click': function() {
-          return App.execute("menu-manager", 0);
+        'click': function(e) {
+          e.preventDefault();
+          return this.trigger("menu:element:clicked");
         },
         'click a': function(evt) {
           return evt.preventDefault();

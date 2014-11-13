@@ -81,11 +81,27 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
       };
 
       Controller.prototype.renderElement = function() {
-        var collection, model, templateClass, view, _ref;
+        var menu, menuId, menuItemCollection, model, templateClass, view, _ref;
         model = this.layout.model;
         templateClass = (_ref = [model.get('style')]) != null ? _ref : '';
-        collection = new Backbone.Collection;
-        view = this._getMenuView(collection, templateClass);
+        menuId = model.get('menu_id');
+        if (parseInt(menuId) > 0) {
+          menu = window.menusCollection.get(menuId);
+          menuItemCollection = menu.get('menuItems');
+          if (menuItemCollection.length === 0) {
+            menuItemCollection.fetch({
+              menu_id: menuId
+            });
+          }
+        } else {
+          menuItemCollection = new Backbone.Collection;
+        }
+        view = this._getMenuView(menuItemCollection, templateClass);
+        this.listenTo(view, "menu:element:clicked", (function(_this) {
+          return function() {
+            return App.execute("menu-manager", model, model.get('menu_id'));
+          };
+        })(this));
         return this.layout.elementRegion.show(view);
       };
 

@@ -7,7 +7,7 @@ define ['app'],
         # Menu item view
         class Views.MenuItemView extends Marionette.ItemView
 
-            template: '<a href="{{menu_item_url}}">{{menu_item_title}}</a>'
+            template: '<a href="#">{{title}}</a>'
 
             initialize: (opt = {})->
                 @listenTo @model, "change", @render
@@ -34,8 +34,9 @@ define ['app'],
             itemView: Views.MenuItemView
             emptyView: EmptyView
             events:
-                'click': ->
-                    App.execute "menu-manager", 0
+                'click': (e)->
+                    e.preventDefault()
+                    @trigger "menu:element:clicked"
                 'click a': (evt)->
                     evt.preventDefault()
 

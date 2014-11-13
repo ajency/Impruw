@@ -70,6 +70,18 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
             renderElement: ()=>
                 model = @layout.model
                 templateClass = [model.get 'style'] ? ''
-                collection = new Backbone.Collection
-                view = @_getMenuView(collection, templateClass)
+                menuId = model.get('menu_id')
+                if parseInt(menuId) > 0
+                    menu = window.menusCollection.get menuId
+                    menuItemCollection = menu.get 'menuItems'
+                    if menuItemCollection.length is 0
+                        menuItemCollection.fetch(menu_id : menuId)
+                else 
+                    menuItemCollection = new Backbone.Collection
+
+                view = @_getMenuView(menuItemCollection, templateClass)
+
+                @listenTo view, "menu:element:clicked", =>
+                    App.execute "menu-manager", model, model.get 'menu_id'
+
                 @layout.elementRegion.show view

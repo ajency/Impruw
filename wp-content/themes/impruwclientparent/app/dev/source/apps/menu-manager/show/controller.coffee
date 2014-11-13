@@ -9,9 +9,9 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             # initialize
             initialize : ( opts )->
             
-                {menuId} = opts
+                {@menuId, @menuElementModel} = opts
 
-                @layout = layout = @getLayout menuId
+                @layout = layout = @getLayout @menuId
 
                 @listenTo layout, 'add:new:menu', @addNewMenu
 
@@ -37,6 +37,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                 new MediaMangerLayout 
                         collection : globalMenusCollection
                         menuId : menuId
+                        menuElementModel : @menuElementModel
 
         class MenuOption extends Marionette.ItemView
             tagName : 'option'
@@ -144,7 +145,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                      </div>'
 
             initialize : (options)->
-                { @collection, @menuId } = options
+                { @collection, @menuId, @menuElementModel } = options
                 @listenTo @, 'show', =>
                     menuListView = new DropdownListView 
                                         collection : @collection
@@ -154,6 +155,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
             menuChanged : (menuId) =>
                 @menuId = menuId
+                @menuElementModel.set 'menu_id', @menuId
                 @$el.find('a.delete-menu').parent().removeClass 'hidden'
                 App.execute "add:menu:items:app",
                                     region : @addMenuRegion
@@ -181,9 +183,10 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
         
             
-        App.commands.setHandler "menu-manager", ( menuId ) ->
+        App.commands.setHandler "menu-manager", ( menuElementModel, menuId ) ->
             opts =
                 region : App.dialogRegion
                 menuId : menuId
+                menuElementModel : menuElementModel
 
             new Show.Controller opts

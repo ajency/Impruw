@@ -276,7 +276,12 @@ function builder_add_new_menu_item(){
         wp_send_json(array('success' => false, 'messsage' => $menu_item_id->get_message()) );
     }
     else{
-        $menu_item['menu-item-db-id'] = $menu_item_id;
+        $menu_items = wp_get_nav_menu_items( $menu_id );
+        foreach ($menu_items as $item) {
+            if($item->ID === $menu_item_id){
+                $menu_item = $item;
+            }
+        }
         wp_send_json(array('success' => true, 'data' => $menu_item));
     }
 }
