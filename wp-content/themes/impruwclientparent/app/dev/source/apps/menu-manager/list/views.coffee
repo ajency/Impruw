@@ -30,7 +30,7 @@ define [ 'app'], ( App )->
                             <label class="control-label">&nbsp;</label>
                              <!--<input type="hidden" value="{{menu_id}}" name="menu_id"/> -->
                              <button type="button" class="update-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button>
-                             <button type="button" class="btn btn-default cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></button>
+                             <a href="#" class="blue-link cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></a>
                          </div>
                        </form>
                      </div>'
@@ -60,6 +60,7 @@ define [ 'app'], ( App )->
                @$el.find( '.menuname' ).val( @model.get 'menu_item_title' )
                @$el.find( '.menutitle' ).val( @model.get 'menu_item_url' )
                @$el.find( "#menuitem-#{menu_id}-#{menu_item_id}" ).click()
+               return false
 
       class EmptyView extends Marionette.ItemView
 
