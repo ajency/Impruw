@@ -14,6 +14,12 @@ define(['app'], function(App) {
 
       MenuItemView.prototype.className = 'aj-imp-menu-edit';
 
+      MenuItemView.prototype.ui = {
+        'menuName': 'input[name="custom-menu-name"]',
+        'menuUrl': 'input[name="custom-menu-url"]',
+        'pageId': '#page_id'
+      };
+
       MenuItemView.prototype.events = {
         'change select[name="page_id"]': function() {
           if (this.$el.find('#page_id').selectpicker('val') !== '') {
@@ -23,16 +29,26 @@ define(['app'], function(App) {
         'keypress input[name="custom-menu-name"],input[name="custom-menu-url"]': function() {
           return this.$el.find('#page_id').selectpicker('val', '');
         },
-        'click .add-menu-item': function() {
-          var data, pageId, pageName;
-          pageId = this.$el.find('#page_id').val();
-          pageName = this.$el.find('#page_id option:selected').text();
-          data = {
-            'page_id': pageId,
-            'menu_item_title': pageName
-          };
-          return this.trigger("add:menu:item:clicked", data);
+        'click .add-menu-item': 'addMenuItem'
+      };
+
+      MenuItemView.prototype.addMenuItem = function() {
+        var data;
+        data = {};
+        if (this.ui.menuName.val() !== '') {
+          data['menu-item-title'] = this.ui.menuName.val();
+          data['menu-item-type'] = 'custom';
+          data['menu-item-url'] = this.ui.menuUrl.val();
+        } else {
+          data['menu-item-object-id'] = this.ui.pageId.selectpicker('val');
+          data['menu-item-db-id'] = 0;
+          data['menu-item-object'] = 'page';
+          data['menu-item-parent-id'] = 0;
+          data['menu-item-type'] = 'post_type';
+          data['menu-item-title'] = this.ui.pageId.find('option:selected').text();
         }
+        data['menu-settings-column-nonce'] = window._MENUNONCE;
+        return this.trigger("add:menu:item:clicked", data);
       };
 
       MenuItemView.prototype.serializeData = function() {

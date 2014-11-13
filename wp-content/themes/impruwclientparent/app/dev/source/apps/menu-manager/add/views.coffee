@@ -43,24 +43,38 @@ define ['app'], (App)->
 
             className: 'aj-imp-menu-edit'
 
+            ui:
+                'menuName' : 'input[name="custom-menu-name"]'
+                'menuUrl' : 'input[name="custom-menu-url"]'
+                'pageId' : '#page_id'
 
             events:
                 'change select[name="page_id"]' : ->
                     if @$el.find('#page_id').selectpicker('val') isnt ''  
                         @$el.find('input[name="custom-menu-name"],input[name="custom-menu-url"]').val ''
-                        
+
                 'keypress input[name="custom-menu-name"],input[name="custom-menu-url"]' : ->
                     @$el.find('#page_id').selectpicker 'val', ''
 
-                'click .add-menu-item': ->
-                    pageId = @$el.find('#page_id').val()
-                    pageName = @$el.find('#page_id option:selected').text()
+                'click .add-menu-item': 'addMenuItem'
 
-                    data =
-                        'page_id' : pageId
-                        'menu_item_title' : pageName
-
-                    @trigger "add:menu:item:clicked", data
+            addMenuItem : ->
+                data = {}
+                if @ui.menuName.val() isnt ''
+                    data['menu-item-title'] = @ui.menuName.val()
+                    data['menu-item-type'] = 'custom'
+                    data['menu-item-url'] = @ui.menuUrl.val()
+                else
+                    data['menu-item-object-id'] =  @ui.pageId.selectpicker 'val'
+                    data['menu-item-db-id'] = 0
+                    data['menu-item-object'] = 'page'
+                    data['menu-item-parent-id'] = 0
+                    data['menu-item-type'] = 'post_type'
+                    data['menu-item-title'] = @ui.pageId.find('option:selected').text()
+                    
+                data['menu-settings-column-nonce'] = window._MENUNONCE
+                
+                @trigger "add:menu:item:clicked", data
 
             serializeData :->
                 data = super()

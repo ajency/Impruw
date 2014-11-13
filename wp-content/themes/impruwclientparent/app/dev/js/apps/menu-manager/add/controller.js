@@ -9,31 +9,36 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/add/views'], fu
 
       function Controller() {
         this.menuItemAdded = __bind(this.menuItemAdded, this);
-        this.saveMenu = __bind(this.saveMenu, this);
+        this.saveMenuResponseHandler = __bind(this.saveMenuResponseHandler, this);
+        this.saveMenuItem = __bind(this.saveMenuItem, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
       Controller.prototype.initialize = function(opts) {
         this.menuId = opts.menuId;
         this.view = this._getView();
-        this.listenTo(this.view, {
-          "add:menu:item:clicked": (function(_this) {
-            return function(data) {
-              return _this.saveMenu(data, _this.menuId);
-            };
-          })(this)
-        });
+        this.listenTo(this.view, "add:menu:item:clicked", this.saveMenuItem);
         return this.show(this.view);
       };
 
-      Controller.prototype.saveMenu = function(data) {
-        var menumodel;
-        menumodel = App.request("create:new:menu:item");
-        menumodel.set('menu_id', parseInt(this.menuId));
-        return menumodel.save(data, {
-          wait: true,
-          success: this.menuItemAdded
-        });
+      Controller.prototype.saveMenuItem = function(data) {
+        var ajaxData;
+        ajaxData = {};
+        ajaxData['menu_id'] = this.menuId;
+        ajaxData['action'] = 'builder-add-new-menu-item';
+        ajaxData['menu-item'] = data;
+        return $.post(AJAXURL, ajaxData, this.saveMenuResponseHandler, 'json');
+      };
+
+      Controller.prototype.saveMenuResponseHandler = function(response) {
+        var menuItemModel;
+        menuItemModel = App.Entities.Menus.MenuItemModel;
+        if (response.success === true) {
+          menuItemModel.set(response.data);
+          return this.view.triggerMethod("add:menuitem:success", menuItemModel);
+        } else {
+          return this.view.triggerMethod("add:menuitem:failed", response.message);
+        }
       };
 
       Controller.prototype.menuItemAdded = function(model) {

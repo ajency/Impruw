@@ -12,17 +12,25 @@ define [ 'app', 'controllers/base-controller', 'apps/menu-manager/add/views' ], 
 
                 @view = @_getView()
 
-                @listenTo @view, "add:menu:item:clicked" : ( data )=>
-                    @saveMenu data, @menuId
+                @listenTo @view, "add:menu:item:clicked", @saveMenuItem
 
                 @show @view
 
-            saveMenu : ( data ) =>
-                menumodel = App.request "create:new:menu:item"
-                menumodel.set 'menu_id', parseInt @menuId
-                menumodel.save data,
-                    wait : true
-                    success : @menuItemAdded
+            saveMenuItem : ( data ) =>
+                #add menu id
+                ajaxData = {}
+                ajaxData['menu_id'] = @menuId
+                ajaxData['action'] = 'builder-add-new-menu-item'
+                ajaxData['menu-item'] = data
+                $.post AJAXURL, ajaxData, @saveMenuResponseHandler, 'json'
+
+            saveMenuResponseHandler : (response)=>
+                menuItemModel = App.Entities.Menus.MenuItemModel
+                if response.success is true
+                    menuItemModel.set response.data
+                    @view.triggerMethod "add:menuitem:success", menuItemModel
+                else
+                    @view.triggerMethod "add:menuitem:failed", response.message
 
             menuItemAdded : ( model )=>
                 @view.triggerMethod "new:menu:created"
