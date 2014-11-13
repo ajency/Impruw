@@ -245,3 +245,21 @@ function ajax_update_domain_mapping() {
 }
 
 add_action( 'wp_ajax_update-domain-name', 'ajax_update_domain_mapping' );
+
+
+function builder_add_new_menu(){
+
+    $menu_name = $_REQUEST['menu_name'];
+    // Check if the menu exists
+    $menu_exists = wp_get_nav_menu_object( $menu_name );
+
+    // If it doesn't exist, let's create it.
+    if( !$menu_exists){
+        $menu = wp_create_nav_menu( $menu_name );
+        $menu = wp_get_nav_menu_object($menu_name );
+        wp_send_json(array('success' => true, 'data' => $menu ));
+    }else{
+        wp_send_json(array('success' => false, 'message' => 'Menu already exists' ));
+    }
+}
+add_action('wp_ajax_builder-add-new-menu', 'builder_add_new_menu');

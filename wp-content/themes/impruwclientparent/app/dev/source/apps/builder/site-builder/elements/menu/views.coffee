@@ -33,11 +33,9 @@ define ['app'],
             className: 'nav'
             itemView: Views.MenuItemView
             emptyView: EmptyView
-
-
             events:
                 'click': ->
-                    @trigger "open:menu:manager"
+                    App.execute "menu-manager", 0
                 'click a': (evt)->
                     evt.preventDefault()
 
@@ -52,7 +50,7 @@ define ['app'],
             # this helps to reorder the menu items before
             # the collection is rendered with item views
             onBeforeRender: ->
-                @collection.sort()
+                #@collection.sort()
 
             # set alignment
             setAlignment: (align)=>

@@ -1,66 +1,81 @@
 define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
-   #Login App module
-   App.module "MenuManager.Show", ( Show, App )->
+    #Login App module
+    App.module "MenuManager.Show", ( Show, App )->
 
-      #Show Controller
-      class Show.Controller extends AppController
+        #Show Controller
+        class Show.Controller extends AppController
 
-         # initialize
-         initialize : ( opts )->
-            @menuId = 0
+            # initialize
+            initialize : ( opts )->
+            
+                {menuId} = opts
 
-            if opts.menuId
-               @menuId = menuId = opts.menuId
+                @layout = layout = @getLayout menuId
 
-            @menuCollection = menuCollection = opts.menuCollection
+                @listenTo layout, 'add:new:menu', @addNewMenu
 
-            if @menuId is 0
-               @menuCollection.once "add", ( model )=>
-                  @menuId = model.get 'menu_id'
-                  App.execute "add:menu:items:app",
-                     region : @layout.addMenuRegion
-                     menuId : @menuId
+                @show @layout
 
-            @layout = layout = @getLayout()
+            addNewMenu : (menuName)=>
+                $.post AJAXURL,
+                        (
+                            action : 'builder-add-new-menu'
+                            menu_name : menuName
+                        ),
+                        @addMenuResponseHandler
 
-            @listenTo @layout, "show", =>
-               App.execute "add:menu:items:app",
-                  region : @layout.addMenuRegion
-                  menuId : @menuId
-
-               App.execute "list:menu:items:app",
-                  region : @layout.listMenuRegion
-                  collection : @menuCollection
-
-               @listenTo @layout.addMenuRegion, "menu:model:to:collection", ( model ) =>
-                  @menuCollection.add model
+            addMenuResponseHandler : (response)=>
+                if response.success isnt true
+                    @layout.triggerMethod "add:menu:failed", response.message
+                else
+                    model = new App.Entities.Menus.MenuModel response.data
+                    window.menusCollection.add model
+                    @layout.triggerMethod "add:menu:success", model.get 'term_id'
 
 
-               @listenTo @layout.listMenuRegion, "delete:menu:item:model", ( model ) =>
-                  model.destroy
-                     wait : true
+            getLayout : (menuId )->
+                globalMenusCollection = window.menusCollection
+                new MediaMangerLayout 
+                        collection : globalMenusCollection
+                        menuId : menuId
 
-               @listenTo @layout.listMenuRegion, 'menu:order:changed', ( order, collection )=>
-                  newOrder = _.idOrder order
-                  collection.updateOrder newOrder, @menuId
+        class MenuOption extends Marionette.ItemView
+            tagName : 'option'
+            template : '{{name}}'
+            onRender : ->
+                @$el.attr 'value', @model.get 'term_id'
 
-               @listenTo @layout.listMenuRegion, 'menu:order:changed:collection', ( newOrder, collection )=>
-                  collection.updateOrder newOrder, @menuId
+        class DropdownListView extends Marionette.CollectionView
+            tagName : 'select'
+            className : 'global-menus-list'
+            itemView : MenuOption
+            emptyView : Marionette.ItemView.extend tagName : 'option', template : 'Add Menu'
+            events : 
+                'change' : 'menuChanged'
+            
+            menuChanged : ->
+                menuId = @$el.selectpicker 'val'
+                @trigger 'menu:changed', menuId
 
-            @show @layout
+            onShow : ->
+                menuId = Marionette.getOption @, 'menuId'
+                @$el.selectpicker()
+                @$el.selectpicker('val', menuId)
 
 
-         getLayout : ( menuCollection )->
-            new MediaMangerLayout
 
 
-      # Rooms tariff layout
-      class MediaMangerLayout extends Marionette.Layout
+        # Rooms tariff layout
+        class MediaMangerLayout extends Marionette.Layout
 
-         className : 'menu-manager-container row'
+            className : 'menu-manager-container row'
 
-         template : '<div class="col-md-12">
+            events : 
+                'click #new-menu-name button' : ->
+                    @trigger "add:new:menu", @$el.find('#new-menu-name input[type="text"]').val()
+
+            template : '<div class="col-md-12">
                         <div class="modal-help-text">
                            <span class="glyphicon glyphicon-info-sign"></span>&nbsp;
                            {{#polyglot}}If you wanted to go to a particular page you can do that by selecting the page in Current Page: drop down on the site builder right below the header.{{/polyglot}}
@@ -77,15 +92,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                            <div class="choose-menu">
                               <label class="control-label">{{#polyglot}}Select a Menu to Edit{{/polyglot}}</label>
                               <div class="btn-group bootstrap-select">
-                                <button class="btn btn-default dropdown-toggle t-a-l" type="button" data-toggle="dropdown">
-                                  Main Menu <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                  <li class="selected"><a href="#">Main Menu</a></li>
-                                  <li><a href="#">Menu 1</a></li>
-                                  <li><a href="#">Menu 2</a></li>
-                                  <li><a href="#">Menu 3</a></li>
-                                </ul>
+                                <div id="global-menus-list-view"></div>
                               </div>
                               <span class="option-or">{{#polyglot}}Or{{/polyglot}}</span>
                               <a href="#new-menu-name" data-toggle="collapse" class="create-new-menu">{{#polyglot}}Create a Menu{{/polyglot}}</a>
@@ -99,7 +106,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                         </div>
                         <div id="add-menu-items"></div>
                         <div id="list-menu-items"></div>
-                        <div class="menu-actions clearfix">
+                        <div class="menu-actions clearfix hidden">
                            <a class="delete-menu red-link"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Menu{{/polyglot}}</a>
                         </div>
                      </div>
@@ -135,18 +142,50 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                       </div>
                      </div>'
 
-         dialogOptions :
-            modal_title : _.polyglot.t 'Menu Manager'
+            initialize : (options)->
+                { @collection, @menuId } = options
+                @listenTo @, 'show', =>
+                    menuListView = new DropdownListView 
+                                        collection : @collection
+                                        menuId : @menuId
+                    @listenTo menuListView, "menu:changed", @menuChanged
+                    @gloablMenusList.show menuListView
 
-         regions :
-            addMenuRegion : '#add-menu-items'
-            listMenuRegion : '#list-menu-items'
+            menuChanged : (menuId) =>
+                @$el.find('a.delete-menu').parent().removeClass 'hidden'
+                App.execute "add:menu:items:app",
+                                region : @addMenuRegion
+                                menuId : menuId
+
+                App.execute "list:menu:items:app",
+                                region : @listMenuRegion
+                                menuId : menuId
+
+               
+
+            onAddMenuFailed : (message)->
+                message = '<p>' + _.polyglot.t message + '</p>'
+                @$el.find('#new-menu-name input[type="text"]').after message
+
+            onAddMenuSuccess : (menuId)->
+                @$el.find('select.global-menus-list').selectpicker('refresh')
+                @$el.find('select.global-menus-list').selectpicker 'val', menuId
 
 
-      App.commands.setHandler "menu-manager", ( menuCollection, menuId ) ->
-         opts =
-            region : App.dialogRegion
-            menuCollection : menuCollection
-            menuId : menuId
 
-         new Show.Controller opts
+            dialogOptions :
+                modal_title : _.polyglot.t 'Menu Manager'
+
+            regions :
+                addMenuRegion : '#add-menu-items'
+                listMenuRegion : '#list-menu-items'
+                gloablMenusList : '#global-menus-list-view'
+
+        
+            
+        App.commands.setHandler "menu-manager", ( menuId ) ->
+            opts =
+                region : App.dialogRegion
+                menuId : menuId
+
+            new Show.Controller opts

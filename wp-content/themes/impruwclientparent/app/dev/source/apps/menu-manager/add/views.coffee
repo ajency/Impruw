@@ -1,6 +1,7 @@
 define ['app'], (App)->
     
     App.module 'MenuManager.Add.Views', (Views, App)->
+        
         class Views.MenuItemView extends Marionette.ItemView
 
             template: '<a class="add-menu-toggle" data-toggle="collapse" href="#add-menu-container"><span class="glyphicon glyphicon-plus"></span></a>

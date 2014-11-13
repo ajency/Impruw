@@ -73,7 +73,7 @@ define(['app'], function(App) {
 
       MenuView.prototype.events = {
         'click': function() {
-          return this.trigger("open:menu:manager");
+          return App.execute("menu-manager", 0);
         },
         'click a': function(evt) {
           return evt.preventDefault();
@@ -87,9 +87,7 @@ define(['app'], function(App) {
         return this.onSetJustified(this.options.prop.justified);
       };
 
-      MenuView.prototype.onBeforeRender = function() {
-        return this.collection.sort();
-      };
+      MenuView.prototype.onBeforeRender = function() {};
 
       MenuView.prototype.setAlignment = function(align) {
         this.$el.removeClass('navbar-left navbar-center navbar-right');

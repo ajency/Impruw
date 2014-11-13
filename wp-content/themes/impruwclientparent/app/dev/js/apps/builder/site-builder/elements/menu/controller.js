@@ -18,7 +18,8 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
         _.defaults(options.modelData, {
           element: 'Menu',
           justified: false,
-          style: ''
+          style: '',
+          menu_id: 0
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -80,23 +81,12 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
       };
 
       Controller.prototype.renderElement = function() {
-        var itemCollection, model;
-        window.MENUID = parseInt(this.layout.model.get('menu_id'));
-        this.itemCollection = itemCollection = this._getMenuCollection();
+        var collection, model, templateClass, view, _ref;
         model = this.layout.model;
-        return App.execute("when:fetched", itemCollection, (function(_this) {
-          return function() {
-            var menu_id, templateClass, view, _ref;
-            templateClass = (_ref = [model.get('style')]) != null ? _ref : '';
-            view = _this._getMenuView(itemCollection, templateClass);
-            _this.menu_id = menu_id = _this.layout.model.get('menu_id');
-            _this.listenTo(itemCollection, "menu:order:updated", view.render);
-            _this.listenTo(view, "open:menu:manager", function() {
-              return App.execute("menu-manager", _this.itemCollection, _this.menu_id);
-            });
-            return _this.layout.elementRegion.show(view);
-          };
-        })(this));
+        templateClass = (_ref = [model.get('style')]) != null ? _ref : '';
+        collection = new Backbone.Collection;
+        view = this._getMenuView(collection, templateClass);
+        return this.layout.elementRegion.show(view);
       };
 
       return Controller;

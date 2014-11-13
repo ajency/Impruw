@@ -13,6 +13,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
                     element: 'Menu'
                     justified: false
                     style: ''
+                    menu_id : 0
                 super(options)
 
             bindEvents: ->
@@ -67,20 +68,8 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
 
             # setup templates for the element
             renderElement: ()=>
-                window.MENUID = parseInt @layout.model.get 'menu_id'
-                @itemCollection = itemCollection = @_getMenuCollection()
-
                 model = @layout.model
-
-                App.execute "when:fetched", itemCollection, =>
-                    templateClass = [model.get 'style'] ? ''
-
-                    view = @_getMenuView itemCollection, templateClass
-
-                    @menu_id = menu_id = @layout.model.get 'menu_id'
-
-                    @listenTo itemCollection, "menu:order:updated", view.render
-                    @listenTo view, "open:menu:manager", =>
-                        App.execute "menu-manager", @itemCollection, @menu_id
-
-                    @layout.elementRegion.show view
+                templateClass = [model.get 'style'] ? ''
+                collection = new Backbone.Collection
+                view = @_getMenuView(collection, templateClass)
+                @layout.elementRegion.show view
