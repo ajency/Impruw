@@ -114,7 +114,32 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
    						<div class="col-md-4">
                         <div class="styles-container">
                           <h4>{{#polyglot}}Choose a Menu Style{{/polyglot}}</h4>
-                          
+                          <div class="row thumbnails overflow-view">
+                           <div class="col-sm-6 single-item ui-selected">
+                              <a href="#" class="thumbnail">
+                                 <div class="ticker ui-selectee" style=""><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee" style=""></span></div>
+                                 <div class="imgthumb">
+                                    <img class="img-responsive" src="http://localhost/impruw/test2/wp-content/themes/pink-theme/resources/img/menu-slimmenu.png" />
+                                 </div>
+                              </a>
+                           </div>
+                           <div class="col-sm-6 single-item">
+                              <a href="#" class="thumbnail">
+                                 <div class="ticker ui-selectee" style=""><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee" style=""></span></div>
+                                 <div class="imgthumb">
+                                    <img class="img-responsive" src="http://localhost/impruw/test2/wp-content/themes/pink-theme/resources/img/menu-footer-menu.png" />
+                                 </div>
+                              </a>
+                           </div>
+                           <div class="col-sm-6 single-item">
+                              <a href="#" class="thumbnail">
+                                 <div class="ticker ui-selectee" style=""><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee" style=""></span></div>
+                                 <div class="imgthumb">
+                                    <img class="img-responsive" src="http://localhost/impruw/test2/wp-content/themes/pink-theme/resources/img/menu-left-menu.png" />
+                                 </div>
+                              </a>
+                           </div>
+                          </div>
                       </div>
                      </div>'
 
