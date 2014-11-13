@@ -2771,6 +2771,7 @@ a {
 						text-align: right;
 						font-size: 0.8em;
 						padding-top: 4px;
+						visibility: hidden;
 					}
 				}
 				.menu-item-edit {
@@ -2806,6 +2807,9 @@ a {
 					.menu-name {
 						color: @blue-grey;
 					}
+					.menu-edit {
+						visibility: visible;
+					}
 				}
 			}
 		}
@@ -2813,10 +2817,18 @@ a {
 	.styles-container {
 		background: darken(@preview-grey, 10%);
 		border-radius: 2px;
-		padding: 0.5em;
+		padding: 0.5em 30px;
 		h4 {
 			font-size: 1.3em;
 			color: @dash-grey;
+		}
+		.single-item {
+			.thumbnail {
+				background: @preview-grey;
+				.imgthumb {
+					background: transparent;
+				}
+			}
 		}
 	}
 	&.bootbox {
