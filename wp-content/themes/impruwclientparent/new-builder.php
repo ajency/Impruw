@@ -76,6 +76,8 @@
     var ELEMENTS = <?php echo json_encode(get_elementbox_elements()); ?>;
     var BLOGID = <?php echo get_current_blog_id(); ?>;
 
+    //menus
+    var MENUS = <?php echo json_encode(wp_get_nav_menus()) ?>;
 
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
@@ -102,7 +104,6 @@
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
     var PLUGIN_URI  = '<?php echo WP_PLUGIN_URL; ?>';
     var ISTHEMEEDITOR = '<?php echo current_user_can( 'edit_impruw_theme' ) ? 'yes' : 'no' ?>';
-    var MENUID = 0;
     var HOTELADDRESS = <?php echo json_encode(get_site_details()) ?>;
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;
