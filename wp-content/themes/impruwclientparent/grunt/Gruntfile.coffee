@@ -130,7 +130,13 @@ module.exports = (grunt) ->
 
 		exec : 
 			compiledBuild : 
-				cmd : 'r.js.cmd -o ../app/dev/build.js && r.js.cmd -o ../app/dev/dbuild.js'
+				cmd : ->
+					if process.platform is "win32"
+						cmd = 'r.js.cmd -o ../app/dev/build.js && r.js.cmd -o ../app/dev/dbuild.js'
+					else
+						cmd = 'r.js -o ../app/dev/build.js && r.js -o ../app/dev/dbuild.js'
+					cmd
+
 
 		concat_sourcemap:
 			buildSourceMap : 

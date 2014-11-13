@@ -1109,7 +1109,7 @@ a {
 					width: 56%;
 					vertical-align: top;
 					.page-slug-edit {
-						width: 80%;
+						width: auto;
 						display: inline-block;
 						color: lighten(@dash-grey, 10%);
 						padding: 0.2em;
@@ -1121,6 +1121,22 @@ a {
 						&:focus {
 							color: @3-grey;
 							background: @preview-grey;
+							& + .btn-update-pg-slug {
+								opacity: 1;
+							}
+						}
+					}
+					.btn-update-pg-slug {
+						color: @blue-grey;
+						border: 1px solid lighten(@dash-grey, 20%);
+						background: @preview-grey;
+						padding: 0.33em 0.5em;
+						border-radius: 3px;
+						margin-left: 0.2em;
+						font-size: 0.88em;
+						opacity: 0;
+						&:hover, &:focus {
+							background: #fff;
 						}
 					}
 					.bootstrap-select {
@@ -1745,6 +1761,23 @@ a {
 					}
 				}
 			}
+			.colors {
+				margin: 0.75em 0;
+				span {
+					width: 20px;
+					height: 20px;
+					display: inline-block;
+					margin: 0.1em;
+					border: 2px solid #fff;
+					cursor: pointer;
+					&.selected {
+						border-color: @orange;
+					}
+					&:hover {
+						box-shadow: 1px 1px 1px 0px @dash-grey;
+					}
+				}
+			}
 			.field-error {
 				color: @error-red;
 				padding: 0.5em 0;
@@ -1757,6 +1790,15 @@ a {
 				text-align: center;
 				margin-bottom: 0;
 			}
+		}
+	}
+	.collapse-link {
+		display: inline-block;
+		color: @dash-grey;
+		font-size: 0.88em;
+		margin-bottom: 0.75em;
+		&:hover, &:focus {
+			color: @blue-grey;
 		}
 	}
 }
@@ -3445,6 +3487,7 @@ a {
 /****Builder Form Styles****/
 .form-group {
 	.form-control {
+		border-radius: 2px;
 		&:focus {
 			border-color: @orange;
 		}
@@ -3613,7 +3656,7 @@ a {
 					border-width: 1px;
 					line-height: 1em;
 					height: 32px;
-					border-radius: 3px;
+					border-radius: 2px;
 					&.bootstrap-select {
 						padding: 0;
 						height: auto;
@@ -3876,7 +3919,7 @@ a {
 .aj-imp-orange-btn {
 	background: @orange;
 	color: #fff;
-	&:hover {
+	&:hover, &:focus {
 		background: lighten(@orange, 20%);
 	}
 }

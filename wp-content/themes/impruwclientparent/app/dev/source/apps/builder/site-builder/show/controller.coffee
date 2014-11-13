@@ -16,6 +16,8 @@ define [ 'app'
                 #element json
                 elements = App.request "get:page:json", pageId, revisionId
 
+
+
                 elementLoaded = false
 
                 # builder view
@@ -37,6 +39,8 @@ define [ 'app'
                 # usign this event to start filling up the builder
                 # with elements
                 elements._fetch.done =>
+
+                        window.ISFRONTPAGE = elements.get 'is_home_page'
                     
                         elementLoaded = true
                         _.delay =>
@@ -115,13 +119,23 @@ define [ 'app'
                 @layout = layout = new Show.View.MainView
                                             collection : @pages
 
-                @listenTo layout, 'editable:page:changed', ( pageId )->
+                @listenTo layout, 'editable:page:changed', ( pageId )=>
                     # set the cookie
+                    @setCurrentPage @pages.get(pageId)
                     $.cookie 'current-page-id', pageId
                     App.execute "editable:page:changed", pageId
 
                 @listenTo @layout, "add:new:page:clicked", ->
                     App.execute "show:add:new:page", region : App.dialogRegion
+
+                @listenTo @layout, 'delete:page:clicked',=>
+                    page = @pages.get $.cookie 'current-page-id'
+                    page.destroy
+                        success : (model,res,opt)=>
+                            @removePageFromMenu model.get 'original_id'
+                            
+                            App.builderRegion.currentView.triggerMethod 'show:home:page'
+
 
                 App.commands.setHandler "page:published", @triggerPagePublishOnView
 
@@ -136,6 +150,7 @@ define [ 'app'
                     , 200
 
                 @listenTo layout, "update:page:name", @updatePageName
+                @listenTo layout, "update:page:slug", @updatePageSlug
 
                 # heartbeat API
                 @listenTo App.vent, 'page:took:over', (errorMessage)->
@@ -154,6 +169,13 @@ define [ 'app'
                 @show layout,
                     loading : true
 
+            removePageFromMenu : (pageId)->
+                menuCollection = App.request "get:menu:items:by:menuid", window.MENUID
+                menuToRemove = menuCollection.find (menuModel)->
+                    if menuModel.get('page_id') is pageId
+                        return true
+                menuCollection.remove menuToRemove
+
 
             triggerPagePublishOnView : =>
                 @layout.triggerMethod "page:published"
@@ -166,8 +188,19 @@ define [ 'app'
                     wait : true
                     success : @pageNameUpdated
 
+            updatePageSlug : ( pageData )->
+                updatedPageModel = App.request "get:page:model:by:id", pageData.ID
+                updatedPageModel.set pageData
+                updatedPageModel.save null,
+                    wait : true
+                    success : @setCurrentPage
+
             pageNameUpdated : ( updatedPageModel )=>
+                @setCurrentPage updatedPageModel
                 @layout.triggerMethod "page:name:updated", updatedPageModel
+
+            setCurrentPage : (model)->
+                window.CURRENTPAGE = model.toJSON()
 
         App.commands.setHandler "editable:page:changed", ( pageId, revisionId = 0 )=>
             

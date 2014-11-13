@@ -59,10 +59,15 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       RevisionView.prototype.mixinTemplateHelpers = function(data) {
+        var page_id;
         data = RevisionView.__super__.mixinTemplateHelpers.call(this, data);
         data.SITEURL = SITEURL;
-        data.site = _.slugify(this.collection.at(0).get('post_title'));
-        data.post_title = this.collection.at(0).get('post_title');
+        page_id = this.collection.last().get('post_parent');
+        this.currentPageObject = _.findWhere(window.PAGES, {
+          ID: page_id
+        });
+        data.site = this.currentPageObject.post_name;
+        data.post_title = this.currentPageObject.post_title;
         data.size = this.collection.size();
         return data;
       };
@@ -171,7 +176,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       RevisionView.prototype.changeIframeToPublished = function() {
-        this.$el.find('iframe').attr('src', "" + SITEURL + "/" + (_.slugify(this.collection.at(0).get('post_title'))) + "/?no_header=true");
+        this.$el.find('iframe').attr('src', "" + SITEURL + "/" + this.currentPageObject.post_name + "/?no_header=true");
         this.$el.find('.revision-info .revision-by').text("Published Version");
         this.$el.find('.revision-info .revision-theme').text("Theme : " + CURRENTTHEMENAME);
         return this.$el.find('.restore-revision-btn').addClass('hidden');

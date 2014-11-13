@@ -143,6 +143,9 @@ define(["app", 'backbone'], function(App, Backbone) {
         media = new Media.MediaModel(data);
         mediaCollection.add(media);
         return media;
+      },
+      removeMedia: function(model) {
+        return mediaCollection.remove(model);
       }
     };
     App.reqres.setHandler("get:empty:media:collection", function() {
@@ -157,8 +160,11 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("get:media:by:id", function(mediaId) {
       return API.getMediaById(mediaId);
     });
-    return App.commands.setHandler("new:media:added", function(modelData) {
+    App.commands.setHandler("new:media:added", function(modelData) {
       return API.createNewMedia(modelData);
+    });
+    return App.commands.setHandler('remove:media', function(model) {
+      return API.removeMedia(model);
     });
   });
 });
