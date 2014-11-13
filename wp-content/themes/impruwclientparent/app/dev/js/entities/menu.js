@@ -26,6 +26,8 @@ define(["app", 'backbone', 'jquery'], function(App, Backbone, $) {
 
       MenuItemCollection.prototype.model = Menus.MenuItemModel;
 
+      MenuItemCollection.prototype.comparator = 'menu_order';
+
       MenuItemCollection.prototype.fetch = function(data) {
         if (data == null) {
           data = {};
