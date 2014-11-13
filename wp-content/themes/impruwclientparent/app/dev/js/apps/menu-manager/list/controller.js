@@ -15,20 +15,25 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
         this.menuId = opts.menuId;
         menu = window.menusCollection.get(this.menuId);
         menuItemsCollection = menu.get('menuItems');
-        if (menuItemsCollection.length() === 0) {
-          menuItemsCollection.fetch().then(function(response) {
-            var view;
-            return this.view = view = this._getView(menuItemsCollection);
-          });
+        if (menuItemsCollection.length === 0) {
+          return menuItemsCollection.fetch({
+            menu_id: this.menuId
+          }).done((function(_this) {
+            return function() {
+              var view;
+              _this.view = view = _this._getView(menuItemsCollection);
+              return _this.show(_this.view);
+            };
+          })(this));
         } else {
           this.view = view = this._getView(menuItemsCollection);
+          return this.show(this.view);
         }
-        return this.show(this.view);
       };
 
-      Controller.prototype._getView = function(menucollection) {
+      Controller.prototype._getView = function(menuItemsCollection) {
         return new List.Views.MenuCollectionView({
-          collection: menucollection
+          collection: menuItemsCollection
         });
       };
 

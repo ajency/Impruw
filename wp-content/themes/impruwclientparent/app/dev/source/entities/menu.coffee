@@ -1,21 +1,21 @@
-define ["app", 'backbone'], (App, Backbone) ->
+define ["app", 'backbone', 'jquery'], (App, Backbone, $)->
 
     App.module "Entities.Menus", (Menus, App, Backbone, Marionette, $, _)->
 
         class Menus.MenuItemModel extends Backbone.Model
-
-            idAttribute : 'menu-item-db-id'
-
-            url : ->
-                menuId = @get 'menu_id'
-                if @isNew() then "/menus/#{menuId}" else "/menus/#{@get 'id'}"
-
+            idAttribute : 'ID'
 
         class Menus.MenuItemCollection extends Backbone.Collection
             model : Menus.MenuItemModel
 
-            fetch : (data)->
+            fetch : (data= {})->
+                data['action'] = 'fetch-menu-items-for-menu'
+                $.get AJAXURL, data, @handleFetchResponse, 'json'
                 
+            handleFetchResponse : (response)=>
+                if response.success is true
+                    @add response.data        
+               
 
 
         class Menus.MenuModel extends Backbone.Model 

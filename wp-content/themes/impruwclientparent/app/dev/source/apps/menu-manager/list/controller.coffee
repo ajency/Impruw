@@ -14,19 +14,18 @@ define [ 'app', 'controllers/base-controller', 'apps/menu-manager/list/views' ],
 
             menuItemsCollection = menu.get 'menuItems'
 
-            if menuItemsCollection.length() is 0
-               menuItemsCollection.fetch().then (response)->
+            if menuItemsCollection.length is 0
+               menuItemsCollection.fetch(menu_id : @menuId).done =>
                   @view = view = @_getView menuItemsCollection
-
+                  @show @view
             else
                @view = view = @_getView menuItemsCollection
+               @show @view
 
-            @show @view
 
-
-         _getView : ( menucollection ) ->
+         _getView : ( menuItemsCollection ) ->
             new List.Views.MenuCollectionView
-                           collection : menucollection
+                           collection : menuItemsCollection
 
 
       App.commands.setHandler "list:menu:items:app", ( opts )->
