@@ -305,7 +305,14 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF105',
             'styles' => get_styles( 'Spacer' ),
             'helpText' => 'Add a horizontal space between content, you can change the height and type of the space.'
-        )        
+        ),
+        array(
+            'element' => 'SmartTable',
+            'title' => 'Smart Table',
+            'icon' => 'bicon icon-uniF166',
+            'helpText' => 'help text to be added',
+            'styles' => get_styles( 'SmartTable' )
+        )
     );
 
     return $elements;
