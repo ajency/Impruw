@@ -2908,9 +2908,21 @@ a {
 		}
 		.single-item {
 			.thumbnail {
-				background: @preview-grey;
+				background: @dash-grey !important;
+				height: auto !important;
 				.imgthumb {
 					background: transparent;
+					width: 100% !important;
+					float: none !important;
+					margin: 0 !important;
+					img {
+						width: 100%;
+					}
+				}
+			}
+			&.ui-selected {
+				.thumbnail {
+					background: @preview-grey !important;
 				}
 			}
 		}
