@@ -16,8 +16,7 @@ define(['marionette'], function(Marionette) {
       });
       this.$el.center(false);
       if (ISTHEMEEDITOR === 'no') {
-        view.$el.find('form .form-group').hide();
-        return view.$el.find('form .form-group.edit-by-user').show();
+        return view.$el.find('form .form-group').not('.edit-by-user').hide();
       }
     };
 
