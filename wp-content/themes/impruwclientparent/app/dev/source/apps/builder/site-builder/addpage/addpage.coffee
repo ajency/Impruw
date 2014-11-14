@@ -37,9 +37,32 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
 
             showSuccessMessage : ( page ) =>
-
                 @addToPageMenu page
                 @layout.triggerMethod "show:success:message"
+
+                ### Update the element setting collection's link model to reflect the newly added page BEGINS###
+                
+                # Get element setting collection
+                elementsCollection = App.request "get:elementbox:elements"
+
+                # Get the link model to be modified
+                linkModel = elementsCollection.get('Link')
+
+                # Get the array of page/room objects associated with the linkmodel
+                linkModelLinkPages = linkModel.get 'link_pages'
+                # Get the new page object that needs to be added to the above array
+                newLinkedPageObj = page.attributes
+                # Add the page object to the array
+                linkModelLinkPages[linkModelLinkPages.length] = newLinkedPageObj
+
+                # Remove the old linkmodel and add the new updated linkModel to the collection
+                elementsCollection.remove linkModel
+                newLinkModel =  linkModel.set 'link_pages', linkModelLinkPages
+                elementsCollection.add newLinkModel
+
+                ### Update the element setting collection's link model to reflect the newly added page ENDS###
+
+
                 #if page is selected to be added as a menu item
                 menuId = window.MENUID
 
