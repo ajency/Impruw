@@ -1953,12 +1953,22 @@ ul.gallery {
 }
 .tp-caption {
   padding: 1em;
+  max-width: 100%;
+}
+.tp-caption .text {
+  white-space: normal;
 }
 .tp-caption.transparent-black {
   background: rgba(0, 0, 0, 0.7);
 }
 .tp-caption.transparent-white {
   background: rgba(255, 255, 255, 0.7);
+}
+.tp-caption.caption-hover {
+  display: none;
+}
+.rev_slider_wrapper:hover .caption-hover {
+  display: block;
 }
 @media (max-width: 480px) {
   .tp-bullets {
@@ -2062,14 +2072,10 @@ ul.gallery {
   content: "";
   display: table;
 }
-.smart-table .smart-title {
-  font-size: 2em;
-  margin: 0 auto 1em;
-  font-weight: 300;
-}
 .smart-table .smart-cell {
   padding: 0.5em 1em;
   margin-bottom: 0.5em;
+  position: relative;
 }
 .smart-table .smart-cell dt {
   font-size: 1.2em;
@@ -2086,11 +2092,48 @@ ul.gallery {
   font-size: 1.5em;
   font-weight: 500;
 }
+.smart-table .smart-cell dd.delete {
+  display: none;
+}
+.smart-table .smart-cell dd.delete a {
+  padding: 0.2em 0.5em 0;
+  font-size: 1.2em;
+  background: #ff3333;
+  border-radius: 2px;
+  color: #fff;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 6;
+  box-shadow: 1px 1px 3px #aaa;
+}
+.smart-table .smart-cell dd.delete a:hover {
+  background: #ff6666;
+  text-decoration: none;
+}
+.smart-table .smart-cell:hover .delete {
+  display: block;
+}
+.smart-table .add-another {
+  text-align: center;
+  background: rgba(243, 243, 243, 0.8);
+  cursor: pointer;
+  color: #aaa;
+  border-radius: 2px;
+  padding: 0.5em 1em;
+  margin: 0 0.5em;
+}
+.smart-table .add-another .bicon {
+  display: block;
+  font-size: 1.3em;
+  margin-bottom: 0.5em;
+}
+.smart-table .add-another:hover {
+  background: #ff7e00;
+  color: #fff;
+}
 .smart-table.multi-column {
   text-align: left;
-}
-.smart-table.multi-column .smart-title {
-  margin: 0 0.5em 1em;
 }
 .smart-table.multi-column .smart-cell {
   width: 33%;
@@ -2103,6 +2146,7 @@ ul.gallery {
   border-bottom: 1px dotted #282827;
   margin: 0 0 0.5em;
   font-weight: 500;
+  padding-right: 25%;
 }
 .smart-table.multi-column .smart-cell .emphasis {
   position: absolute;
@@ -2125,12 +2169,6 @@ ul.gallery {
 .smart-table.testimonials {
   text-align: left;
 }
-.smart-table.testimonials .smart-title {
-  border-bottom: 1px solid #831618;
-  margin-bottom: 0.5em;
-  font-size: 1.2em;
-  text-transform: uppercase;
-}
 .smart-table.testimonials .smart-cell dt {
   text-transform: none;
   color: #ed1c24;
@@ -2146,18 +2184,53 @@ ul.gallery {
   color: #831618;
   font-style: normal;
 }
-.smart-table.testimonials.boxed {
+.smart-table.testimonials.centered {
   text-align: center;
 }
-.smart-table.testimonials.boxed .smart-title {
-  border-bottom: 0;
-}
-.smart-table.testimonials.boxed .smart-cell {
-  background: #ffffff;
+.smart-table.testimonials.centered .smart-cell {
   border-bottom: 1px dotted #ed1c24;
 }
-.smart-table.testimonials.boxed .smart-cell dd.emphasis {
+.smart-table.testimonials.centered .smart-cell dd.emphasis {
+  font-size: 0.8em;
   text-align: center;
+  text-transform: uppercase;
+  color: #0e0e0e;
+}
+.smart-table.testimonials.boxed .smart-cell {
+  position: relative;
+  border: 1px solid #ed1c24;
+  border-radius: 3px;
+  margin-bottom: 2.5em;
+  background: #ffffff;
+}
+.smart-table.testimonials.boxed .smart-cell dt {
+  font-size: 1.1em;
+  color: #282827;
+}
+.smart-table.testimonials.boxed .smart-cell dd.emphasis {
+  position: absolute;
+  bottom: -2.4em;
+  left: 0;
+}
+.smart-table.testimonials.boxed .smart-cell:after,
+.smart-table.testimonials.boxed .smart-cell:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0.5em;
+  border-top: 10px solid black;
+  border-top-color: inherit;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  z-index: 1;
+}
+.smart-table.testimonials.boxed .smart-cell:before {
+  border-top: 8px solid #ffffff;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  top: 99.5%;
+  left: 0.6em;
+  z-index: 2;
 }
 /*
 To change this license header, choose License Headers in Project Properties.
