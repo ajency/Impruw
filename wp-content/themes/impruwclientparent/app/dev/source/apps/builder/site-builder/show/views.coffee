@@ -1,6 +1,7 @@
 define [ 'app'
          'text!apps/builder/site-builder/show/templates/maintemplate.html'
-         'moment' ], ( App, mainviewTpl, moment )->
+         'moment' 
+         'bootbox'], ( App, mainviewTpl, moment ,bootbox)->
 
    App.module 'SiteBuilderApp.Show.View', ( View, App, Backbone, Marionette, $, _ )->
 
@@ -12,6 +13,7 @@ define [ 'app'
 
          collectionEvents :
             "add" : "addPageDropDown"
+            'remove' : 'removePageDropDown'
 
          templateHelpers : ( data = {} )->
             data.DASHBOARDURL = DASHBOARDURL
@@ -48,6 +50,18 @@ define [ 'app'
             'click .add-new-page' : ->
                @trigger "add:new:page:clicked"
 
+            'click .delete-page': (e)->
+               e.preventDefault()
+               if ISFRONTPAGE
+                  bootbox.alert _.polyglot.t 'Sorry you cannot delete your home page. 
+                     You can change the layout of this page to suit your needs.'
+               else
+                  bootbox.confirm _.polyglot.t('Deleting a page might lead to broken links if the page is 
+                     linked on the website. Once deleted, you will not be able to recover the page. Are 
+                     you sure you want to continue to delete the page?'), (result)=>
+                     if result
+                        @trigger 'delete:page:clicked'
+
             'click .btn-update-pg-name' : ->
                currentPageId = @getCurrentPageId()
                updatedPageName = @$el.find( '#page_name' ).val()
@@ -55,6 +69,14 @@ define [ 'app'
                   'post_title' : updatedPageName
                   'ID' : currentPageId
                @trigger "update:page:name", data
+
+            'click .btn-update-pg-slug' : ->
+               currentPageId = @getCurrentPageId()
+               updatedPageSlug = @$el.find( '.page-slug-edit' ).val()
+               data =
+                  'post_name' : updatedPageSlug
+                  'ID' : currentPageId
+               @trigger "update:page:slug", data
 
             'click #take-over-button' : 'takeOverPage'
 
@@ -107,17 +129,15 @@ define [ 'app'
                if modelId == @new_page_id and model.get('post_name') not in ['full-width-page']
                   page_name = model.get 'post_title'
                   select_html = "<option value='"+modelId+"' data-originalid='"+originalPageId+"'>#{page_name}</option>"
-                  selectpicker_html = "<li rel='#{index}'>
-                                            <a tabindex='0' class='' style=''>
-                                                <span class='text'>#{page_name}</span>
-                                                <i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
-                                            </a>
-                                        </li>"
-                  @$el.find( 'select#builder-page-sel' )
-                     .parent().find('div .dropdown-menu ul' ).append( selectpicker_html )
+                 
                   @$el.find( 'select#builder-page-sel' ).append( select_html )
+                  @$el.find( 'select#builder-page-sel' ).selectpicker 'refresh'
 
             @enableSelectPicker()
+
+         removePageDropDown : (model)=>
+            @$el.find( 'select#builder-page-sel' ).find("option[data-originalid='#{model.get('original_id')}']").remove()
+            @$el.find( 'select#builder-page-sel' ).selectpicker 'refresh'
 
          initialize : ->
             @currentPageId = 0
@@ -189,12 +209,12 @@ define [ 'app'
 
          _addToPageSlug : (pageId)=>
             page = App.request "get:fetched:page", pageId
-            toArray = $('.page-slug-edit').val().split('/')
-            newUrl = toArray.pop()
+            # toArray = $('.page-slug-edit').val().split('/')
+            # newUrl = toArray.pop()
             #newUrl = toArray.pop()
-            newUrl = toArray.push page.get 'post_name'
-            newUrl = toArray.join '/'
-            $('.page-slug-edit').val newUrl
+            # newUrl = toArray.push page.get 'post_name'
+            # newUrl = toArray.join '/'
+            $('.page-slug-edit').val page.get 'post_name'
 
          #set the selectpicker for the drop down
          enableSelectPicker : =>
@@ -366,7 +386,11 @@ define [ 'app'
 
          events : 
             'click .headit' :->
-               $( 'select#builder-page-sel' ).selectpicker 'val', parseInt @model.get 'front_page'
+               @onShowHomePage()
+
+         onShowHomePage :->
+            $( 'select#builder-page-sel' ).selectpicker 'val', parseInt @model.get 'front_page'
+            $( 'select#builder-page-sel' ).selectpicker 'refresh'
 
          onRetryEditPageClicked : =>
             App.commands.execute 'editable:page:changed', @model.get 'page_id'

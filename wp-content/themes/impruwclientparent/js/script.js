@@ -455,6 +455,14 @@ jQuery(document).ready(function(){
     });
 });
 
+
+/************ slider.js ***************/
+
+jQuery(document).ready(function(){
+    $('.tp-caption .caption-hover').parent().addClass('caption-hover');
+    $('.tp-caption .caption-hover').removeClass('caption-hover');
+})
+
 /************ slimenu.js ***************/
 jQuery(document).ready(function () {
     
@@ -499,7 +507,7 @@ jQuery(document).ready(function() {
         geocoder = new google.maps.Geocoder();
 
         var mapOptions = {
-            zoom: 8,
+            zoom: 17,
             center: new google.maps.LatLng(-34.397, 150.644)
         };
 

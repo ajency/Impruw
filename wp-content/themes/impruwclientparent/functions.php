@@ -1216,6 +1216,7 @@ function get_menu_to_array( $mn, $by = 'name' ) {
             'menu_item_title' => $translated_menu_item_page_title,
             'menu_item_url'   => $menu_item->url,
             'menu_id'         => $menu->term_id,
+            'page_id'       => $menu_item->object_id
         );
 
         if ( (int)$menu_item->menu_item_parent === 0 ) {
@@ -3507,16 +3508,29 @@ global $base_element_templates;
 $base_element_templates = array(
     'Row' => array(
         array(
-            'name' => 'Center Container'
+            'name' => 'Default',
+            'desc' => 'Full width row without a background colour. ',
+            'hide' => array()
         ),
         array(
-            'name' => 'Grey Background'
+            'name' => 'Center Container',
+            'desc' => 'This row has fixed width without a background in the middle. Best way to use: Use this row as the site content, to keep the standard look of the page.',
+            'hide' => array()
         ),
         array(
-            'name' => 'Footer Container'
+            'name' => 'Grey Background',
+            'desc' => 'Full width row with a light grey back ground. Best way to use: Use this row style to highlight key points of your site',
+            'hide' => array('Classic Green', 'Neon Theme', 'Minimal Theme', 'Diamond Theme')
         ),
         array(
-            'name' => 'Column Dividers'
+            'name' => 'Footer Container',
+            'desc' => 'Full width row with a dark grey back ground. Best way to use: Use this row style as footer on your website',
+            'hide' => array('Neon Theme', 'Minimal Theme', 'Diamond Theme')
+        ),
+        array(
+            'name' => 'Column Dividers',
+            'desc' => 'Similar to a plain row with the exception of a vertical line between columns. Best way to use:  Use this when you need line separators between columns. Ensure its inside the center container / fix width row else the layout will not be aligned.',
+            'hide' => array()
         )
     ),
     'Menu' => array(
