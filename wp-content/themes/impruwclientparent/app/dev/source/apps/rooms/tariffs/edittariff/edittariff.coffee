@@ -11,25 +11,28 @@ define [ 'app', 'controllers/base-controller',
 
                 #get the currency
                 sitemodel = App.request "get:site:model"
-                currentCurrency = sitemodel.get 'currency'
 
-                @tariffView = tariffView = @_getEditTariffView tariff, currentCurrency
+                App.execute "when:fetched", sitemodel, =>
 
-                @listenTo tariffView, "update:tariff:details", ( data )=>
-                    tariff.set data
-                    tariff.save null,
-                        wait : true
-                        success : @tariffSaved
+                    currentCurrency = sitemodel.get 'currency'
 
-                @listenTo tariffView, "delete:tariff", ( model ) =>
-                    model.destroy
-                        allData : false
-                        wait : true
-                        success : @tariffDeleted
+                    @tariffView = tariffView = @_getEditTariffView tariff, currentCurrency
+
+                    @listenTo tariffView, "update:tariff:details", ( data )=>
+                        tariff.set data
+                        tariff.save null,
+                            wait : true
+                            success : @tariffSaved
+
+                    @listenTo tariffView, "delete:tariff", ( model ) =>
+                        model.destroy
+                            allData : false
+                            wait : true
+                            success : @tariffDeleted
 
 
-                @show tariffView,
-                    loading : true
+                    @show tariffView,
+                        loading : true
 
             tariffSaved : =>
                 @tariffView.triggerMethod "saved:tariff"
@@ -51,6 +54,11 @@ define [ 'app', 'controllers/base-controller',
             className : 'form-horizontal'
 
             template : editTariffTpl
+
+            mixinTemplateHelpers : (data)->
+                data = super data
+                data.currency = Marionette.getOption @, "currency"
+                data
 
             dialogOptions :
                 modal_title : _.polyglot.t 'Edit Tariff'
@@ -78,7 +86,7 @@ define [ 'app', 'controllers/base-controller',
             # show checkbox
             onShow : ->
                 @$el.find( 'input[type="checkbox"]' ).radiocheck()
-                @$el.find('.currency' ).text Marionette.getOption @, 'currency'
+                # @$el.find('.currency' ).text Marionette.getOption @, 'currency'
                 #validate the form with rules
                 @$el.validate()
 
