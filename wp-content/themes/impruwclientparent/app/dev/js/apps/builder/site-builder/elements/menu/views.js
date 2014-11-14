@@ -88,9 +88,7 @@ define(['app'], function(App) {
         return this.onSetJustified(this.options.prop.justified);
       };
 
-      MenuView.prototype.onBeforeRender = function() {
-        return this.collection.sort();
-      };
+      MenuView.prototype.onBeforeRender = function() {};
 
       MenuView.prototype.setAlignment = function(align) {
         this.$el.removeClass('navbar-left navbar-center navbar-right');
