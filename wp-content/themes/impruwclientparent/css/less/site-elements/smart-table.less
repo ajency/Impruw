@@ -2,11 +2,6 @@
 .smart-table {
 	.clearfix;
 	text-align: center;
-	.smart-title {
-		font-size: 2em;
-		margin: 0 auto 1em;
-		font-weight: 300;
-	}
 	.smart-cell {
 		padding: 0.5em 1em;
 		margin-bottom: 0.5em;
@@ -53,7 +48,7 @@
 	}
 	.add-another {
 		text-align: center;
-		background: #f3f3f3;
+		background: fade(#f3f3f3, 80%);
 		cursor: pointer;
 		color: #aaa;
 		border-radius: 2px;
@@ -71,9 +66,6 @@
 	}
 	&.multi-column {
 		text-align: left;
-		.smart-title {
-			margin: 0 0.5em 1em;
-		}
 		.smart-cell {
 			width: 33%;
 			min-width: 300px;
@@ -108,12 +100,6 @@
 	}
 	&.testimonials {
 		text-align: left;
-		.smart-title {
-			border-bottom: 1px solid @secondary1;
-			margin-bottom: 0.5em;
-			font-size: 1.2em;
-			text-transform: uppercase;
-		}
 		.smart-cell {
 			dt {
 				text-transform: none;
@@ -133,9 +119,6 @@
 		}
 		&.centered {
 			text-align: center;
-			.smart-title {
-				border-bottom: 0;
-			}
 			.smart-cell {
 				border-bottom: 1px dotted @primary1;
 				dd {
@@ -149,9 +132,6 @@
 			}
 		}
 		&.boxed {
-			.smart-title {
-				border: 0;
-			}
 			.smart-cell {
 				position: relative;
 				border: 1px solid @primary1;

@@ -309,7 +309,7 @@ function get_elementbox_elements() {
         array(
             'element' => 'SmartTable',
             'title' => 'Smart Table',
-            'icon' => 'bicon icon-uniF166',
+            'icon' => 'bicon icon-uniF142',
             'helpText' => 'help text to be added',
             'styles' => get_styles( 'SmartTable' )
         )
