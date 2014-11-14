@@ -1987,12 +1987,22 @@ ul.gallery {
 }
 .tp-caption {
   padding: 1em;
+  max-width: 100%;
+}
+.tp-caption .text {
+  white-space: normal;
 }
 .tp-caption.transparent-black {
   background: rgba(0, 0, 0, 0.7);
 }
 .tp-caption.transparent-white {
   background: rgba(255, 255, 255, 0.7);
+}
+.tp-caption.caption-hover {
+  display: none;
+}
+.rev_slider_wrapper:hover .caption-hover {
+  display: block;
 }
 @media (max-width: 480px) {
   .tp-bullets {
