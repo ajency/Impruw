@@ -2344,6 +2344,57 @@ and open the template in the editor.
   width: 100%;
   background: #7ecbc3;
 }
+.nav.slimmenu li.menu-item-has-children a {
+  padding-right: 40px;
+}
+.nav.slimmenu li.menu-item-has-children .sub-collapser > i {
+  color: #ffffff;
+}
+.nav.slimmenu li > .sub-menu {
+  padding: 0;
+  min-width: 100%;
+  width: auto;
+  border: 0;
+  box-shadow: 0 8px 6px -6px #e1e1e1;
+}
+.nav.slimmenu li > .sub-menu li {
+  display: block;
+}
+.nav.slimmenu li > .sub-menu li a {
+  padding: 1.5em;
+  background: transparent;
+  border: 0;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.nav.slimmenu li > .sub-menu li a:hover {
+  background: #ffffff;
+  color: #5ca9a1;
+}
+.nav.slimmenu li > .sub-menu li:hover {
+  border: 0 !important;
+  border-bottom: 1px solid #ffffff !important;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children {
+  padding-right: 0;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu {
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  padding-left: 1.5em;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu li {
+  border: 0;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu li a {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+}
+.nav.slimmenu.collapsed > li .sub-collapser {
+  height: auto;
+  width: auto;
+  padding: 0.5em 1em;
+}
 .nav.footer-menu {
   padding-left: 0;
   text-align: center;
