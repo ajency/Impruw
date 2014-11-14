@@ -19,7 +19,8 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
           element: 'Row',
           columncount: 2,
           elements: [],
-          meta_id: 0
+          meta_id: 0,
+          style: 'Default'
         });
         return Controller.__super__.initialize.call(this, options);
       };
