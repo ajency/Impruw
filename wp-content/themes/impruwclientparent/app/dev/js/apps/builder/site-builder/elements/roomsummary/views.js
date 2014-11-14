@@ -54,7 +54,7 @@ define(['app'], function(App) {
         isSingle = Marionette.getOption(this, 'isSingleRoom');
         if (!_.isUndefined(isSingle)) {
           this.$el.closest('.element-wrapper').children('.element-controls').find('.aj-imp-settings-btn').remove();
-          this.$el.attr("data-content", _.polyglot.t('Update display details') + (" <a href='" + SITEURL + "/dashboard/#/room-summary'>") + _.polyglot.t('here') + "</a> ");
+          this.$el.attr("data-content", _.polyglot.t('Update display details') + (" <a href='" + SITEURL + "/dashboard/#/room-summary' target='BLANK'>") + _.polyglot.t('here') + "</a> ");
           return this.$el.popover({
             html: true,
             placement: 'top'

@@ -106,7 +106,7 @@ define ['app'], (App)->
                if not _.isUndefined isSingle
                   @$el.closest('.element-wrapper').children('.element-controls').find('.aj-imp-settings-btn').remove()
 
-                  @$el.attr "data-content", _.polyglot.t('Update display details')+ " <a href='#{SITEURL}/dashboard/#/room-summary'>"+_.polyglot.t('here')+"</a> "
+                  @$el.attr "data-content", _.polyglot.t('Update display details')+ " <a href='#{SITEURL}/dashboard/#/room-summary' target='BLANK'>"+_.polyglot.t('here')+"</a> "
                   @$el.popover
                      html : true
                      placement : 'top'
