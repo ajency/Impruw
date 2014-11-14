@@ -439,6 +439,9 @@ function add_element_markup( $element ) {
         case 'Spacer' :
             $html = get_spacer_element_markup( $element );
             break;
+        case 'SmartTable' :
+            $html = get_smart_table_element_markup( $element );
+            break;
         default :
             break;
     }
@@ -833,6 +836,16 @@ function get_spacer_element_markup( $element ){
     $spacer = new SpacerElement( $element );
 
     $html = $spacer->get_markup();
+
+    return $html;
+}
+
+function get_smart_table_element_markup( $element ){
+    include_once( dirname( __FILE__ ) . '/elements/SmartTableElement.php');
+
+    $smart_table = new SmartTableElement( $element );
+
+    $html = $smart_table->get_markup();
 
     return $html;
 }
@@ -3549,6 +3562,75 @@ $base_element_templates = array(
         array(
             'name' => 'Small Address',
             'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
+        )
+        
+    ),
+    'SmartTable' => array(
+        array(
+            'name' => 'Restaurant Menu',
+            'inner_style' => array( 'Default', 'Multi Column' ),
+            // 'template' => '<div class="smart-table multi-column">
+            //                     <dl class="smart-cell">
+            //                         <dt>Fried Spring Rolls</dt>
+            //                         <dd>chicken or vegetable</dd>
+            //                         <dd class="emphasis">$2.95</dd>
+            //                         <dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Gai of Nuur Satay</dt>
+            //                         <dd>skewered chicken or beef with a peanut sauce</dd>
+            //                         <dd class="emphasis">$4.95</dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Tofu Tod</dt>
+            //                         <dd>fried tofu with a mild chili peanut sauce</dd>
+            //                         <dd class="emphasis">$3.95</dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Fresh Thai Summer Roll</dt>
+            //                         <dd>with shrimp in a tamarind sauce</dd>
+            //                         <dd class="emphasis">$4.50</dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Fried Tiger Shrimp Rolls</dt>
+            //                         <dd>with a plum sauce</dd>
+            //                         <dd class="emphasis">$4.95</dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Thai Spare Ribs</dt>
+            //                         <dd class="emphasis">$8.95</dd>
+            //                     </dl>
+            //                     <div class="add-another">
+            //                         <span class="bicon icon-uniF193"></span>
+            //                         Add Another Item
+            //                     </div>
+            //                 </div>'
+        ),
+        array(
+            'name' => 'Testimonials',
+            'inner_style' => array( 'Default', 'Boxed'),
+            // 'template' => '<div class="smart-table testimonials boxed">
+            //                     <dl class="smart-cell">
+            //                         <dt>Love it!</dt>
+            //                         <dd>I absolutely love this company and their work.</dd>
+            //                         <dd class="emphasis">- Joan Rivers</dd>
+            //                         <dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>The best experience ever</dt>
+            //                         <dd>We stayed with them for our birthday celebration and the ambience and service were absolutely top-notch. Recommend this place to everyone thats looking for a quiet getaway.</dd>
+            //                         <dd class="emphasis">- Henry Ford</dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Look No Further...</dt>
+            //                         <dd>An end to end solution for all our business needs with excellent support.</dd>
+            //                         <dd class="emphasis">- Tom Petty</dd>
+            //                     </dl>
+            //                     <div class="add-another">
+            //                         <span class="bicon icon-uniF193"></span>
+            //                         Add Another Item
+            //                     </div>
+            //                 </div>'
         )
     ),
     'Social' => array(
