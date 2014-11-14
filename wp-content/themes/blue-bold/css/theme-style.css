@@ -2347,6 +2347,30 @@ and open the template in the editor.
 .nav.slimmenu > li:last-child a {
   border-right: 0;
 }
+.nav.slimmenu.collapsed > li.menu-item-has-children {
+  padding-right: 0;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu {
+  padding-left: 1.5em;
+  border-bottom-width: 1px;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu li {
+  border: 0;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu li a {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+  padding: 1.5em 0.5em;
+}
+.nav.slimmenu.collapsed > li .sub-collapser {
+  height: auto;
+  width: auto;
+  padding: 0.5em 1em;
+  background: #d9d9d9;
+  right: 0.5em;
+}
+.nav.slimmenu.collapsed > li .sub-collapser > i {
+  color: #07669e;
+}
 .nav .menu-collapser {
   background: #fff;
   color: #07669e;
