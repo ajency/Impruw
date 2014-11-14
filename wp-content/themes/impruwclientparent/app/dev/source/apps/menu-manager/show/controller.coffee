@@ -1,4 +1,4 @@
-define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
+define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController, bootbox )->
 
     #Login App module
     App.module "MenuManager.Show", ( Show, App )->
@@ -14,6 +14,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                 @layout = layout = @getLayout @menuId
 
                 @listenTo layout, 'add:new:menu', @addNewMenu
+                @listenTo layout, 'delete:menu:clicked', @deleteMenu
 
                 @show @layout
 
@@ -22,6 +23,20 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                     action : 'builder-add-new-menu'
                     menu_name : menuName
                 $.post AJAXURL, data ,@addMenuResponseHandler, 'json'
+
+            deleteMenu : (menuId)->
+                menuId = parseInt menuId
+                if menuId is 0 then return
+                ajaxData = 
+                    action : 'builder-delete-menu'
+                    menuId : menuId
+                $.post AJAXURL, ajaxData, @deleteMenuResponseHandler, 'json'
+
+            deleteMenuResponseHandler : (response)=>
+                # TODO: delete menu functionality
+                menuModel = window.menusCollection.get 3
+                window.menusCollection.remove menuModel
+                @layout.triggerMethod 'menu:delete:success'
 
             addMenuResponseHandler : (response)=>
                 if response.success isnt true
@@ -74,6 +89,12 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             className : 'menu-manager-container row'
 
             events : 
+                'click a.delete-menu' : ->
+                    bootbox.confirm "Are you sure? Need Proper  message here.", ( answer )=>
+                            if answer is yes
+                                @trigger "delete:menu:clicked", @menuId
+
+
                 'click #new-menu-name button' : ->
                     @trigger "add:new:menu", @$el.find('#new-menu-name input[type="text"]').val()
 
@@ -164,6 +185,10 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                 App.execute "list:menu:items:app",
                                     region : @listMenuRegion
                                     menuId : @menuId
+
+
+            onMenuDeleteSuccess : ->
+
 
             onAddMenuFailed : (message)->
                 message = '<p>' + _.polyglot.t message + '</p>'

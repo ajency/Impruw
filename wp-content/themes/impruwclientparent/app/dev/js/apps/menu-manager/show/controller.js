@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppController, bootbox) {
   return App.module("MenuManager.Show", function(Show, App) {
     var DropdownListView, MediaMangerLayout, MenuOption;
     Show.Controller = (function(_super) {
@@ -10,6 +10,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       function Controller() {
         this.addMenuResponseHandler = __bind(this.addMenuResponseHandler, this);
+        this.deleteMenuResponseHandler = __bind(this.deleteMenuResponseHandler, this);
         this.addNewMenu = __bind(this.addNewMenu, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
@@ -19,6 +20,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         this.menuId = opts.menuId, this.menuElementModel = opts.menuElementModel;
         this.layout = layout = this.getLayout(this.menuId);
         this.listenTo(layout, 'add:new:menu', this.addNewMenu);
+        this.listenTo(layout, 'delete:menu:clicked', this.deleteMenu);
         return this.show(this.layout);
       };
 
@@ -29,6 +31,26 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           menu_name: menuName
         };
         return $.post(AJAXURL, data, this.addMenuResponseHandler, 'json');
+      };
+
+      Controller.prototype.deleteMenu = function(menuId) {
+        var ajaxData;
+        menuId = parseInt(menuId);
+        if (menuId === 0) {
+          return;
+        }
+        ajaxData = {
+          action: 'builder-delete-menu',
+          menuId: menuId
+        };
+        return $.post(AJAXURL, ajaxData, this.deleteMenuResponseHandler, 'json');
+      };
+
+      Controller.prototype.deleteMenuResponseHandler = function(response) {
+        var menuModel;
+        menuModel = window.menusCollection.get(3);
+        window.menusCollection.remove(menuModel);
+        return this.layout.triggerMethod('menu:delete:success');
       };
 
       Controller.prototype.addMenuResponseHandler = function(response) {
@@ -133,6 +155,15 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       MediaMangerLayout.prototype.className = 'menu-manager-container row';
 
       MediaMangerLayout.prototype.events = {
+        'click a.delete-menu': function() {
+          return bootbox.confirm("Are you sure? Need Proper  message here.", (function(_this) {
+            return function(answer) {
+              if (answer === true) {
+                return _this.trigger("delete:menu:clicked", _this.menuId);
+              }
+            };
+          })(this));
+        },
         'click #new-menu-name button': function() {
           return this.trigger("add:new:menu", this.$el.find('#new-menu-name input[type="text"]').val());
         }
@@ -168,6 +199,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           menuId: this.menuId
         });
       };
+
+      MediaMangerLayout.prototype.onMenuDeleteSuccess = function() {};
 
       MediaMangerLayout.prototype.onAddMenuFailed = function(message) {
         message = '<p>' + _.polyglot.t(message + '</p>');
