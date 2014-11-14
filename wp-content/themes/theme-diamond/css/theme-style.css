@@ -2239,7 +2239,7 @@ and open the template in the editor.
 }
 .nav.slimmenu > li .sub-collapser > i {
   font-size: 0.6em;
-  color: #aba390;
+  color: #dc6868;
 }
 .nav.slimmenu > li > ul.dropDrown {
   padding: 0;
@@ -2303,6 +2303,27 @@ and open the template in the editor.
 }
 .nav.slimmenu > li:last-child a {
   border-right: 0;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children {
+  padding-right: 0;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu {
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu li {
+  border: 0;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu li a {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+}
+.nav.slimmenu.collapsed > li .sub-collapser {
+  background: #edebe7;
+  height: auto;
+  width: auto;
+  padding: 0.5em 1em;
+  right: 1.5em;
 }
 .nav.footer-menu {
   padding: 0;
