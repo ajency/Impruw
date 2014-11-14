@@ -63,5 +63,5 @@ define ['app'
 				_.each innerStyle,(stl)->
 					options += "<option value='#{stl}'>#{stl}</option>"
 				@$el.find('select[name="style"]').html options
-				@$el.find('select[name="style"]').val 'Default'
+				@$el.find('select[name="style"]').selectpicker 'val', 'Default'
 				@$el.find('select[name="style"]').selectpicker 'refresh'

@@ -82,7 +82,7 @@ define [ 'app' ],( App, elementTpl )->
          # remove settings button by default
          _noOptions : ()->
             nosettings = [ 'Logo', 'Text', 'Title', 'Gallery', 'ContactForm', 'RoomFacilities', 'RoomTitle',
-               'RoomDescription', 'RoomSummary', 'RoomTariff', 'RoomBooking' ]
+               'RoomDescription',  'RoomTariff', 'RoomBooking' ]
             if nosettings.indexOf( @model.get 'element' ) isnt -1
                @$el.children('.element-controls').children('.aj-imp-settings-btn' ).remove()
 

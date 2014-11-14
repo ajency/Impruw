@@ -77,7 +77,7 @@ define(['app', 'text!apps/builder/site-builder/elements/smarttable/settings/temp
           return options += "<option value='" + stl + "'>" + stl + "</option>";
         });
         this.$el.find('select[name="style"]').html(options);
-        this.$el.find('select[name="style"]').val('Default');
+        this.$el.find('select[name="style"]').selectpicker('val', 'Default');
         return this.$el.find('select[name="style"]').selectpicker('refresh');
       };
 
