@@ -122,7 +122,10 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 				$ul.append childView.el
 
 			onMenuOrderUpdated : ->
-				@ui.sortableList.before "<p class='help-text'>#{_.polyglot.t 'Order updated successfully'}</p>"
+				@ui.sortableList.parents('.panel').before "<div class='alert alert-success alert-dismissible' role='alert'>
+                                  <button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
+                                    #{_.polyglot.t 'Order updated successfully'}
+                                </div>"
 				@ui.sortableList.nestedSortable 'enable'
 
 			onShow : ->
