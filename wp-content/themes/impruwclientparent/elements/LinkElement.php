@@ -51,7 +51,7 @@ class LinkElement extends Element {
             $link_post_type = get_post_type( $link_page_id ) ;
             $this->link   = get_permalink(icl_object_id($link_page_id,  $link_post_type, TRUE));
         }
-        else if( trim($element[ 'link' ])==""||trim($element[ 'link' ])=="http://"){
+        else if( trim($element[ 'link' ])==""||trim($element[ 'link' ])=="http://"||trim($element[ 'link' ])=="http://#"){
             $this->link   = '#';
         }
         else
