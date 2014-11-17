@@ -114,9 +114,7 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
                         <div class="create-menu-container">
                            <div class="choose-menu">
                               <label class="control-label">{{#polyglot}}Select a Menu to Edit{{/polyglot}}</label>
-                              <div class="btn-group bootstrap-select">
-                                <div id="global-menus-list-view"></div>
-                              </div>
+                              <div id="global-menus-list-view"></div>
                               <span class="option-or">{{#polyglot}}Or{{/polyglot}}</span>
                               <a href="#new-menu-name" data-toggle="collapse" class="create-new-menu">{{#polyglot}}Create a Menu{{/polyglot}}</a>
                            </div>
@@ -191,7 +189,8 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 
 
             onAddMenuFailed : (message)->
-                message = '<p>' + _.polyglot.t message + '</p>'
+                message = '<p class="help-block">' + _.polyglot.t message + '</p>'
+                @$el.find('#new-menu-name > .form-group').addClass('has-error')
                 @$el.find('#new-menu-name input[type="text"]').after message
 
             onAddMenuSuccess : (menuId)->

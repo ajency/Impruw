@@ -2729,16 +2729,24 @@ a {
 					color: #fff;
 				}
 			}
+			#global-menus-list-view {
+				display: inline-block;
+				.global-menus-list {
+					margin-bottom: 0;
+				}
+			}
 			.option-or {
 				display: inline-block;
 				font-size: 1.2em;
 				color: @dash-grey;
 				text-transform: uppercase;
 				margin: 0 1em;
+				vertical-align: middle;
 			}
 			.create-new-menu {
 				text-transform: uppercase;
 				font-size: 1.2em;
+				vertical-align: middle;
 				&:hover {
 					color: lighten(@orange, 10%);
 				}
@@ -2749,6 +2757,12 @@ a {
 			margin-top: 1.88em;
 			.form-control {
 				min-width: 220px;
+			}
+			.help-block {
+				margin-bottom: 0;
+			}
+			.aj-imp-orange-btn {
+				vertical-align: top;
 			}
 		}
 	}
