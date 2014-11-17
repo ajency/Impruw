@@ -197,11 +197,11 @@
         'Row' => array(
             array(
                 'name' => 'Blue Strip Top',
-                'desc' => 'Full width row with a blue bar on the top of the row. Best way to use:  Use this row as your main site content row, to give the effect of a separator just below your navigation menu as displayed in the theme.'
+                'desc' => 'Full width row with a blue bar on the top of the row. <br><strong>Best way to use:</strong>  Use this row as your main site content row, to give the effect of a separator just below your navigation menu as displayed in the theme.'
                 ), 
             array(
                 'name' => 'White Shaded Background',
-                'desc' => 'Full width row with a white background. Best way to use:  Use this row anywhere you need a white background.'
+                'desc' => 'Full width row with a white background. <br><strong>Best way to use:</strong>  Use this row anywhere you need a white background.'
                 )
             ), 
         'Social' => array(array('name' => 'Default Style'), array('name' => 'Small Social')), 'Link' => array(array('name' => 'Default Style'), array('name' => 'Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));
