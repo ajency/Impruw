@@ -47,6 +47,7 @@ define [ 'app', 'controllers/base-controller',
                                 @$el.parent().find( '.alert' ).remove()
                                 @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Date range overlaps existing date range" ) + "</div>"
                             else
+                                @$el.find('#btn_savedaterange').prop 'disabled', true
                                 @trigger "add:daterange:details", data
                         else
                             @$el.parent().find( '.alert' ).remove()
@@ -66,7 +67,7 @@ define [ 'app', 'controllers/base-controller',
 
                         fromDate = moment( fromDate ).subtract( 'days', 1 )
                         toDate = moment( toDate ).add( 'days', 1 )
-                        console.info fromDate, toDate
+                        # console.info fromDate, toDate
                         # fromDateCheck = moment( selectedDate.from_date ).isAfter( fromDate )
                         # toDateCheck = moment( selectedDate.to_date ).isBefore( toDate )
 
@@ -84,6 +85,7 @@ define [ 'app', 'controllers/base-controller',
                 @$el.find( 'input' ).val ''
                 @$el.find( '.dated' ).datepicker 'destroy'
                 @displayDatePicker()
+                @$el.find('#btn_savedaterange').prop 'disabled', false
 
             displayDatePicker : ->
                 @$el.find( '.dated' ).datepicker
