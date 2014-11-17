@@ -22,13 +22,30 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
             return function() {
               var view;
               _this.view = view = _this._getView(menuItemsCollection);
+              _this.bindMenuItemEvents();
               return _this.show(_this.view);
             };
           })(this));
         } else {
           this.view = view = this._getView(menuItemsCollection);
+          this.bindMenuItemEvents();
           return this.show(this.view);
         }
+      };
+
+      Controller.prototype.bindMenuItemEvents = function() {
+        return this.listenTo(this.view, "itemview:delete:menu:item:clicked", this.deleteMenuItem);
+      };
+
+      Controller.prototype.deleteMenuItem = function(childView, model) {
+        var data;
+        data = {
+          action: 'builder-remove-menu-item',
+          menu_item_id: model.get('ID')
+        };
+        return $.post(AJAXURL, data, function(response) {
+          return model.collection.remove(model);
+        }, 'json');
       };
 
       Controller.prototype._getView = function(menuItemsCollection) {

@@ -1,4 +1,4 @@
-define [ 'app'], ( App )->
+define [ 'app', 'bootbox'], ( App, bootbox )->
 
 	App.module 'MenuManager.List.Views', ( Views, App )->
 		
@@ -59,8 +59,10 @@ define [ 'app'], ( App )->
 					@trigger "update:menu:item:clicked", formdata, @model
 
 				'click .delete-menu-item' : ->
-					if confirm _.polyglot.t 'Delete menu item'
-						@trigger "delete:menu:item:clicked", @model
+					bootbox.confirm  _.polyglot.t('Delete menu item?'), ( answer )=>
+							if answer is yes
+								@trigger "delete:menu:item:clicked", @model
+						
 
 				'click .cancel-menu-item' : ->
 					menu_id = @model.get 'menu_id'

@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app'], function(App) {
+define(['app', 'bootbox'], function(App, bootbox) {
   return App.module('MenuManager.List.Views', function(Views, App) {
     var EmptyView, MenuItemView;
     MenuItemView = (function(_super) {
@@ -38,9 +38,13 @@ define(['app'], function(App) {
           return this.trigger("update:menu:item:clicked", formdata, this.model);
         },
         'click .delete-menu-item': function() {
-          if (confirm(_.polyglot.t('Delete menu item'))) {
-            return this.trigger("delete:menu:item:clicked", this.model);
-          }
+          return bootbox.confirm(_.polyglot.t('Delete menu item?'), (function(_this) {
+            return function(answer) {
+              if (answer === true) {
+                return _this.trigger("delete:menu:item:clicked", _this.model);
+              }
+            };
+          })(this));
         },
         'click .cancel-menu-item': function() {
           var menu_id, menu_item_id;
