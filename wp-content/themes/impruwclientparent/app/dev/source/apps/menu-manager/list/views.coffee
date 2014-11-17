@@ -110,12 +110,12 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 				
 			createSubMenuAndAppend : (collectionView, childView)->
 				menuItemModel = childView.model
-				$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'} ul")
+				$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'} ol")
 
 				if $ul.length is 0
-					$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'}").append '<ul class="submenu"></ul>'
+					$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'}").append '<ol></ol>'
 					
-				$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'} ul")
+				$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'} ol")
 				$ul.append childView.el
 
 			onShow : ->
@@ -125,5 +125,15 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 					tolerance : 'intersect'
 					maxLevels : 2
 					stop : ( e, ui )=>
-						order = @$el.find( '.sortable-menu-items' ).nestedSortable 'toHierarchy'
-						console.log order
+						order = @$el.find( '.sortable-menu-items' ).nestedSortable 'toArray'
+						newOrder = []
+						_.each order, (item, index)->
+							return if not item['item_id']
+							itemData = {}
+							itemData['menu_item_id'] = item['item_id']
+							if item['parent_id']
+								itemData['menu_item_parent'] = item['parent_id']
+							newOrder.push itemData
+
+						console.log newOrder
+
