@@ -95,24 +95,13 @@ define [ 'app'], ( App )->
 
 			appendHtml : (collectionView, childView, index)->
 
-				if collectionView.isBuffering
-					# buffering happens on reset events and initial renders
-					# in order to reduce the number of inserts into the
-					# document, which are expensive.
-					
-					console.log childView.el
-					if childView.model.get('menu_item_parent') is '0'
-						collectionView.$el.append childView.el
-					else
-						@createSubMenuAndAppend collectionView, childView
-						
-					collectionView._bufferedChildren.push childView
+				if childView.model.get('menu_item_parent') is '0'
+					collectionView.$el.append childView.el
 				else
-					# If we've already rendered the main collection, append
-					# the new child into the correct order if we need to. Otherwise
-					# append to the end.
-					collectionView._insertAfter childView  unless collectionView._insertBefore(childView, index)
-			
+					@createSubMenuAndAppend collectionView, childView
+					
+				collectionView._bufferedChildren.push childView
+				
 			createSubMenuAndAppend : (collectionView, childView)->
 				menuItemModel = childView.model
 				$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'} ul")

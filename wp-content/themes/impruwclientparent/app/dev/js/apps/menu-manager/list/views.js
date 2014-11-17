@@ -90,19 +90,12 @@ define(['app'], function(App) {
       MenuCollectionView.prototype.className = 'aj-imp-menu-item-list';
 
       MenuCollectionView.prototype.appendHtml = function(collectionView, childView, index) {
-        if (collectionView.isBuffering) {
-          console.log(childView.el);
-          if (childView.model.get('menu_item_parent') === '0') {
-            collectionView.$el.append(childView.el);
-          } else {
-            this.createSubMenuAndAppend(collectionView, childView);
-          }
-          return collectionView._bufferedChildren.push(childView);
+        if (childView.model.get('menu_item_parent') === '0') {
+          collectionView.$el.append(childView.el);
         } else {
-          if (!collectionView._insertBefore(childView, index)) {
-            return collectionView._insertAfter(childView);
-          }
+          this.createSubMenuAndAppend(collectionView, childView);
         }
+        return collectionView._bufferedChildren.push(childView);
       };
 
       MenuCollectionView.prototype.createSubMenuAndAppend = function(collectionView, childView) {
