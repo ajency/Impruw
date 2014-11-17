@@ -83,8 +83,8 @@ define [ 'app'], ( App )->
 		class Views.MenuCollectionView extends Marionette.CompositeView
 
 			template : '<div class="panel panel-default">
-						<ol class="list-group sortable-menu-items ui-sortable"></ol>
-					</div>'
+							<ol class="list-group sortable-menu-items ui-sortable"></ol>
+						</div>'
 
 			itemView : MenuItemView
 
@@ -95,10 +95,11 @@ define [ 'app'], ( App )->
 			className : 'aj-imp-menu-item-list'
 
 			onShow : ->
-				@$el.find( '.sortable-menu-items' ).sortable
+				@$el.find( '.sortable-menu-items' ).nestedSortable
 					handle : 'div.menu-dragger'
 					items : 'li.list-group-item'
 					tolerance : 'intersect'
+					maxLevels : 2
 					stop : ( e, ui )=>
 						order = @$el.find( '.sortable-menu-items' ).sortable 'toArray'
 						@sendData order, @collection

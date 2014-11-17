@@ -94,10 +94,11 @@ define(['app'], function(App) {
       MenuCollectionView.prototype.className = 'aj-imp-menu-item-list';
 
       MenuCollectionView.prototype.onShow = function() {
-        return this.$el.find('.sortable-menu-items').sortable({
+        return this.$el.find('.sortable-menu-items').nestedSortable({
           handle: 'div.menu-dragger',
           items: 'li.list-group-item',
           tolerance: 'intersect',
+          maxLevels: 2,
           stop: (function(_this) {
             return function(e, ui) {
               var order;
