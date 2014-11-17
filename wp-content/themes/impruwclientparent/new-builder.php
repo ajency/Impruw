@@ -43,7 +43,7 @@
 <!-- Lost Connection -->
 <div class="conn-lost-overlay hidden"></div>
 <!-- Lost Connection -->
-
+<div id="tree"></div>
 <div id="fb-root"></div>
 
 <div id="choose-theme-region"></div>

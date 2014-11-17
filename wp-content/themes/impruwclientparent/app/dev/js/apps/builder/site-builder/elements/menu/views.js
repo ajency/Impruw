@@ -24,6 +24,10 @@ define(['app'], function(App) {
 
       MenuItemView.prototype.tagName = 'li';
 
+      MenuItemView.prototype.onRender = function() {
+        return this.$el.attr('id', 'item-' + this.model.get('ID'));
+      };
+
       return MenuItemView;
 
     })(Marionette.ItemView);
@@ -65,7 +69,7 @@ define(['app'], function(App) {
 
       MenuView.prototype.tagName = 'ul';
 
-      MenuView.prototype.className = 'nav';
+      MenuView.prototype.className = 'nav slimmenu';
 
       MenuView.prototype.itemView = Views.MenuItemView;
 
@@ -86,6 +90,30 @@ define(['app'], function(App) {
         this.$el.addClass(this.className);
         this.$el.addClass(_.slugify(this.options.templateClass));
         return this.onSetJustified(this.options.prop.justified);
+      };
+
+      MenuView.prototype.appendHtml = function(collectionView, childView, index) {
+        if (childView.model.get('menu_item_parent') === '0') {
+          collectionView.$el.append(childView.el);
+        } else {
+          this.createSubMenuAndAppend(collectionView, childView);
+        }
+        return collectionView._bufferedChildren.push(childView);
+      };
+
+      MenuView.prototype.createSubMenuAndAppend = function(collectionView, childView) {
+        var $ul, menuItemModel;
+        menuItemModel = childView.model;
+        $ul = collectionView.$el.find("#item-" + (menuItemModel.get('menu_item_parent')) + " ul");
+        if ($ul.length === 0) {
+          $ul = collectionView.$el.find("#item-" + (menuItemModel.get('menu_item_parent'))).append('<ul></ul>');
+        }
+        $ul = collectionView.$el.find("#item-" + (menuItemModel.get('menu_item_parent')) + " ul");
+        return $ul.append(childView.el);
+      };
+
+      MenuView.prototype.onShow = function() {
+        return this.$el.slimmenu();
       };
 
       MenuView.prototype.onBeforeRender = function() {};

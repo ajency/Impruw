@@ -8,7 +8,7 @@ define [ 'app'], ( App )->
 					   <div class="col-sm-1 menu-dragger"><span class="bicon icon-uniF160"></span></div>
 					   <div class="col-sm-8 menu-name">{{title}}</div>
 					   <div class="col-sm-3 menu-edit">
-					   	{{#isCustom}}
+						{{#isCustom}}
 						 <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}" class="blue-link">
 						   <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit Link{{/polyglot}}
 						 </a>
@@ -51,7 +51,6 @@ define [ 'app'], ( App )->
 				data
 
 			onRender : ->
-				console.log @model
 				@$el.attr 'id', 'item-' + @model.get 'ID'
 
 			events :
@@ -94,6 +93,36 @@ define [ 'app'], ( App )->
 
 			className : 'aj-imp-menu-item-list'
 
+			appendHtml : (collectionView, childView, index)->
+
+				if collectionView.isBuffering
+					# buffering happens on reset events and initial renders
+					# in order to reduce the number of inserts into the
+					# document, which are expensive.
+					
+					console.log childView.el
+					if childView.model.get('menu_item_parent') is '0'
+						collectionView.$el.append childView.el
+					else
+						@createSubMenuAndAppend collectionView, childView
+						
+					collectionView._bufferedChildren.push childView
+				else
+					# If we've already rendered the main collection, append
+					# the new child into the correct order if we need to. Otherwise
+					# append to the end.
+					collectionView._insertAfter childView  unless collectionView._insertBefore(childView, index)
+			
+			createSubMenuAndAppend : (collectionView, childView)->
+				menuItemModel = childView.model
+				$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'} ul")
+
+				if $ul.length is 0
+					$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'}").append '<ul class="submenu"></ul>'
+					
+				$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'} ul")
+				$ul.append childView.el
+
 			onShow : ->
 				@$el.find( '.sortable-menu-items' ).nestedSortable
 					handle : 'div.menu-dragger'
@@ -101,35 +130,5 @@ define [ 'app'], ( App )->
 					tolerance : 'intersect'
 					maxLevels : 2
 					stop : ( e, ui )=>
-						order = @$el.find( '.sortable-menu-items' ).sortable 'toArray'
-						@sendData order, @collection
-			#@trigger "menu:item:order:changed",order
-
-			sendData : ( order, collection )->
-				@trigger "view:menu:order:changed", order, collection
-
-			onMenuItemUpdated : ->
-				@$el.find( '.alert' ).remove()
-				@$el.prepend '<div class="alert alert-success">' + _.polyglot.t( "Menu item updated" ) + '</div>'
-
-			onTriggerOrderChange : =>
-				_.delay =>
-				   order = @$el.find( '.sortable-menu-items' ).sortable 'toArray'
-				   @sendData order, @collection
-				, 600
-
-			itemViewOptions : ( collection, index ) =>
-				itemIndex : index
-				collection : @collection
-
-			serializeData : ->
-				data =
-					menus : []
-
-				@collection.each ( model, index )->
-					menu = {}
-					menu.menu_item_url = model.get 'menu_item_url'
-					menu.menu_name = model.get 'menu_item_title'
-					data.menus.push menu
-				data
-
+						order = @$el.find( '.sortable-menu-items' ).nestedSortable 'toHierarchy'
+						console.log order

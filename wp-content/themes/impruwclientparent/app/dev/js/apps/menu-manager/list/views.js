@@ -1,6 +1,5 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app'], function(App) {
   return App.module('MenuManager.List.Views', function(Views, App) {
@@ -29,7 +28,6 @@ define(['app'], function(App) {
       };
 
       MenuItemView.prototype.onRender = function() {
-        console.log(this.model);
         return this.$el.attr('id', 'item-' + this.model.get('ID'));
       };
 
@@ -78,8 +76,6 @@ define(['app'], function(App) {
       __extends(MenuCollectionView, _super);
 
       function MenuCollectionView() {
-        this.itemViewOptions = __bind(this.itemViewOptions, this);
-        this.onTriggerOrderChange = __bind(this.onTriggerOrderChange, this);
         return MenuCollectionView.__super__.constructor.apply(this, arguments);
       }
 
@@ -93,6 +89,33 @@ define(['app'], function(App) {
 
       MenuCollectionView.prototype.className = 'aj-imp-menu-item-list';
 
+      MenuCollectionView.prototype.appendHtml = function(collectionView, childView, index) {
+        if (collectionView.isBuffering) {
+          console.log(childView.el);
+          if (childView.model.get('menu_item_parent') === '0') {
+            collectionView.$el.append(childView.el);
+          } else {
+            this.createSubMenuAndAppend(collectionView, childView);
+          }
+          return collectionView._bufferedChildren.push(childView);
+        } else {
+          if (!collectionView._insertBefore(childView, index)) {
+            return collectionView._insertAfter(childView);
+          }
+        }
+      };
+
+      MenuCollectionView.prototype.createSubMenuAndAppend = function(collectionView, childView) {
+        var $ul, menuItemModel;
+        menuItemModel = childView.model;
+        $ul = collectionView.$el.find("#item-" + (menuItemModel.get('menu_item_parent')) + " ul");
+        if ($ul.length === 0) {
+          $ul = collectionView.$el.find("#item-" + (menuItemModel.get('menu_item_parent'))).append('<ul class="submenu"></ul>');
+        }
+        $ul = collectionView.$el.find("#item-" + (menuItemModel.get('menu_item_parent')) + " ul");
+        return $ul.append(childView.el);
+      };
+
       MenuCollectionView.prototype.onShow = function() {
         return this.$el.find('.sortable-menu-items').nestedSortable({
           handle: 'div.menu-dragger',
@@ -102,52 +125,11 @@ define(['app'], function(App) {
           stop: (function(_this) {
             return function(e, ui) {
               var order;
-              order = _this.$el.find('.sortable-menu-items').sortable('toArray');
-              return _this.sendData(order, _this.collection);
+              order = _this.$el.find('.sortable-menu-items').nestedSortable('toHierarchy');
+              return console.log(order);
             };
           })(this)
         });
-      };
-
-      MenuCollectionView.prototype.sendData = function(order, collection) {
-        return this.trigger("view:menu:order:changed", order, collection);
-      };
-
-      MenuCollectionView.prototype.onMenuItemUpdated = function() {
-        this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("Menu item updated") + '</div>');
-      };
-
-      MenuCollectionView.prototype.onTriggerOrderChange = function() {
-        return _.delay((function(_this) {
-          return function() {
-            var order;
-            order = _this.$el.find('.sortable-menu-items').sortable('toArray');
-            return _this.sendData(order, _this.collection);
-          };
-        })(this), 600);
-      };
-
-      MenuCollectionView.prototype.itemViewOptions = function(collection, index) {
-        return {
-          itemIndex: index,
-          collection: this.collection
-        };
-      };
-
-      MenuCollectionView.prototype.serializeData = function() {
-        var data;
-        data = {
-          menus: []
-        };
-        this.collection.each(function(model, index) {
-          var menu;
-          menu = {};
-          menu.menu_item_url = model.get('menu_item_url');
-          menu.menu_name = model.get('menu_item_title');
-          return data.menus.push(menu);
-        });
-        return data;
       };
 
       return MenuCollectionView;

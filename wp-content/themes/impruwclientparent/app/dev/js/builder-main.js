@@ -45,6 +45,7 @@ require.config({
     drilldown: 'plugins/jquery.drilldown.min',
     resizablecolumns: 'plugins/jquery.resizableColumns.min',
     tabslideout: 'plugins/jquery.tabSlideOut.v1.3',
+    slimmenu: 'plugins/slimmenu/jquery.slimmenu',
     imageareaselect: '../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min',
     imageedit: '../../../../../wp-admin/js/image-edit',
     json2: '../../../../../wp-includes/js/json2',
@@ -73,6 +74,7 @@ require.config({
       exports: 'Polyglot'
     },
     jqueryvalidate: ['jquery'],
+    slimmenu: ['jquery'],
     underscorestring: ['underscore'],
     backbonesyphon: ['backbone'],
     backboneassociations: ['backbone'],
