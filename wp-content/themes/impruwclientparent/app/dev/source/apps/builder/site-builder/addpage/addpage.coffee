@@ -38,7 +38,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
             showSuccessMessage : ( page ) =>
                 @addToPageMenu page
-                @layout.triggerMethod "show:success:message"
+                @layout.triggerMethod "show:success:message",page
 
                 ### Update the element setting collection's link model to reflect the newly added page BEGINS###
                 
@@ -139,7 +139,8 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             onShow: ->
                 @$el.find('input[type="checkbox"]').radiocheck()
 
-            onShowSuccessMessage: ->
+            onShowSuccessMessage: (page)->
+                @$el.find('#post_title').val page.get 'post_title'
                 @$el.prepend '<div class="alert alert-success">'+ _.polyglot.t("New Page added")+'</div>'
 
             onUpdateTemplatePageId : ( id, is_theme_template = false )->

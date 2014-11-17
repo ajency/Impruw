@@ -133,6 +133,7 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
       __extends(Controller, _super);
 
       function Controller() {
+        this.setCurrentPage = __bind(this.setCurrentPage, this);
         this.pageNameUpdated = __bind(this.pageNameUpdated, this);
         this.triggerPagePublishOnView = __bind(this.triggerPagePublishOnView, this);
         return Controller.__super__.constructor.apply(this, arguments);
@@ -256,7 +257,9 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
       };
 
       Controller.prototype.setCurrentPage = function(model) {
-        return window.CURRENTPAGE = model.toJSON();
+        App.execute('add:page:to:collection', model);
+        window.CURRENTPAGE = model.toJSON();
+        return this.layout.triggerMethod('page:slug:updated', model.get('post_name'));
       };
 
       return Controller;

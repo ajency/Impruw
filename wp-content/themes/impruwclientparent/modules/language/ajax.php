@@ -281,11 +281,16 @@ function update_translated_page_title(){
         'post_title'   => $page_title,
         'post_type'    => 'page'
     );
+    global $wpdb;
+    $all_names = $wpdb->get_col( "SELECT post_title FROM {$wpdb->posts} WHERE post_type = 'page'" );
+    $page['post_title'] = impruw_page_find_alternate_name( $all_names, $page['post_title'] );
+
 
     // Update the post into the database
     $return_post_id = wp_update_post( $page );
 
     $data['post_id'] = $return_post_id;
+    $data['post_title'] = $page['post_title'];
 
     wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
 }
@@ -297,9 +302,15 @@ function update_translated_page_url(){
     $page_id = $_REQUEST['page_id'];
     global $wpdb;
     $page_slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $page_slug);
+
+    $all_names = $wpdb->get_col( "SELECT post_name FROM {$wpdb->posts} WHERE post_type = 'page'" );
+    $page_slug = impruw_page_find_alternate_name( $all_names, $page_slug );
+
+
     $wpdb->update( $wpdb->posts, array(  'post_name' => $page_slug ), array( 'ID' => $page_id ) );
 
     $data['post_id'] = $page_id;
+    $data['post_name'] = $page_slug;
     wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
 }
 add_action( 'wp_ajax_update-translated-page-url', 'update_translated_page_url' );

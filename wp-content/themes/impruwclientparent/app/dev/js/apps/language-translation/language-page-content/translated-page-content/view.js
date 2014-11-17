@@ -134,6 +134,14 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
         return this.trigger("translated:page:url:updated", newPageUrl, pageId);
       };
 
+      TranslatedPageView.prototype.onTranslatePageTitleUpdated = function(data) {
+        return this.$el.find('#translated-page-title').val(data.data.post_title);
+      };
+
+      TranslatedPageView.prototype.onTranslatePageUrlUpdated = function(data) {
+        return this.$el.find('#translated-page-url').val(data.data.post_name);
+      };
+
       return TranslatedPageView;
 
     })(Marionette.CompositeView);

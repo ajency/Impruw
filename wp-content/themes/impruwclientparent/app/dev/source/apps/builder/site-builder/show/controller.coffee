@@ -221,8 +221,10 @@ define [ 'app'
                 @setCurrentPage updatedPageModel
                 @layout.triggerMethod "page:name:updated", updatedPageModel
 
-            setCurrentPage : (model)->
+            setCurrentPage : (model)=>
+                App.execute 'add:page:to:collection', model
                 window.CURRENTPAGE = model.toJSON()
+                @layout.triggerMethod 'page:slug:updated', model.get 'post_name'
 
         App.commands.setHandler "editable:page:changed", ( pageId, revisionId = 0 )=>
             
