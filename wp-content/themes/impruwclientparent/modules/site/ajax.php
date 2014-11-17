@@ -316,6 +316,11 @@ function builder_update_menu_items_order(){
     $menu_id = $_POST['menu_id'];
 
     $menu_items = $_POST['menu_items'];
+
+    foreach ($menu_items as $menu_item) {
+        wp_update_post(array('ID' => $menu_item['ID'], 'menu_order' => $menu_item['menu_order']));
+        update_post_meta( $menu_item['ID'], '_menu_item_menu_item_parent', strval( (int) $menu_item['menu_item_parent'] ) );
+    }
     wp_send_json(1);
 }
 add_action('wp_ajax_builder-update-menu-items-order', 'builder_update_menu_items_order');

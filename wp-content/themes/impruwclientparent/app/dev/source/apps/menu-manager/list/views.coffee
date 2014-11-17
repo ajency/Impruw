@@ -137,10 +137,10 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 						_.each order, (item, index)->
 							return if not item['item_id']
 							itemData = {}
-							itemData['menu-item-db-id'] = item['item_id']
-							itemData['menu-item-position'] = index
+							itemData['ID'] = item['item_id']
+							itemData['menu_order'] = index
 							if item['parent_id']
-								itemData['menu-item-parent-id'] = item['parent_id']
+								itemData['menu_item_parent'] = item['parent_id']
 							newOrder.push itemData
 						@ui.sortableList.parent().find('p.help-text').remove()
 						@trigger "menu:item:order:updated", newOrder

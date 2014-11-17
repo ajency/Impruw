@@ -144,10 +144,10 @@ define(['app', 'bootbox'], function(App, bootbox) {
                   return;
                 }
                 itemData = {};
-                itemData['menu-item-db-id'] = item['item_id'];
-                itemData['menu-item-position'] = index;
+                itemData['ID'] = item['item_id'];
+                itemData['menu_order'] = index;
                 if (item['parent_id']) {
-                  itemData['menu-item-parent-id'] = item['parent_id'];
+                  itemData['menu_item_parent'] = item['parent_id'];
                 }
                 return newOrder.push(itemData);
               });
