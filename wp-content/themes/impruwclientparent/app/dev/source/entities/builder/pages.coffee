@@ -89,6 +89,9 @@ define [ "app", 'backbone' ], ( App, Backbone ) ->
 			page = pages.get id
 			page
 
+		App.commands.setHandler 'add:page:to:collection',(model)->
+			pages.add model , {merge: true}
+
 
 		App.reqres.setHandler "create:page:model", ( data )->
 			API.createNewPage data

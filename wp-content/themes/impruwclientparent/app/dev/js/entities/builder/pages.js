@@ -121,6 +121,11 @@ define(["app", 'backbone'], function(App, Backbone) {
       page = pages.get(id);
       return page;
     });
+    App.commands.setHandler('add:page:to:collection', function(model) {
+      return pages.add(model, {
+        merge: true
+      });
+    });
     App.reqres.setHandler("create:page:model", function(data) {
       return API.createNewPage(data);
     });
