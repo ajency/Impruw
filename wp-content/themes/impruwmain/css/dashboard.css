@@ -4515,3 +4515,18 @@ figure.effect-zoe:hover p.icon-links a:first-child {
     width: 90%;
   }
 }
+
+/**** Blog Page Styles ****/
+.impruw-blog .post {
+  margin: 1em 0;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #f3f3f3;
+  color: #aaa;
+}
+.impruw-blog .post .thumb {
+  text-align: center;
+  display: block;
+  background: #aaa;
+  max-height: 200px;
+  overflow: hidden;
+}
