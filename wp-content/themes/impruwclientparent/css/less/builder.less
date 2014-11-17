@@ -2871,6 +2871,17 @@ a {
 						padding-top: 4px;
 						visibility: hidden;
 					}
+					&:hover {
+						.menu-dragger {
+							color: @orange;
+						}
+						.menu-name {
+							color: @blue-grey;
+						}
+						.menu-edit {
+							visibility: visible;
+						}
+					}
 				}
 				.menu-item-edit {
 					background: lighten(@dash-grey, 30%);
@@ -2893,20 +2904,15 @@ a {
 						}
 					}
 				}
+				.submenu {
+					padding: 0;
+					border-left: 1px solid lighten(@dash-grey, 10%);
+					margin-left: 1.7em;
+					margin-top: 0.5em;
+				}
 				&:last-child {
 					.menu-item-edit {
 						border-radius: 0 0 4px 4px;
-					}
-				}
-				&:hover {
-					.menu-dragger {
-						color: @orange;
-					}
-					.menu-name {
-						color: @blue-grey;
-					}
-					.menu-edit {
-						visibility: visible;
 					}
 				}
 			}
