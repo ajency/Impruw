@@ -34,6 +34,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
             # setup templates for the element
             renderElement: ()=>
                 model = @layout.model
+                @listenTo @layout.model, "positionupdated", @renderElement
                 templateClass = [model.get 'style'] ? ''
                 menuId = model.get('menu_id')
                 if parseInt(menuId) > 0

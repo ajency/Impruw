@@ -28,8 +28,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       MenuItemView.prototype.onRender = function() {
-        this.$el.attr('id', 'item-' + this.model.get('ID'));
-        return console.log(this.model);
+        return this.$el.attr('id', 'item-' + this.model.get('ID'));
       };
 
       MenuItemView.prototype.events = {
@@ -136,7 +135,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
           stop: (function(_this) {
             return function(e, ui) {
               var newOrder, order;
-              order = _this.$el.find('.sortable-menu-items').nestedSortable('toArray');
+              order = _this.ui.sortableList.nestedSortable('toArray');
               newOrder = [];
               _.each(order, function(item, index) {
                 var itemData;
@@ -147,7 +146,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
                 itemData['ID'] = item['item_id'];
                 itemData['menu_order'] = index;
                 if (item['parent_id']) {
-                  itemData['menu_item_parent'] = item['parent_id'];
+                  itemData['menu_item_parent'] = item['parent_id'] + '';
                 }
                 return newOrder.push(itemData);
               });

@@ -51,7 +51,6 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 
 			onRender : ->
 				@$el.attr 'id', 'item-' + @model.get 'ID'
-				console.log @model
 
 			events :
 				'click .update-menu-item' : ->
@@ -132,7 +131,7 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 					tolerance : 'intersect'
 					maxLevels : 2
 					stop : ( e, ui )=>
-						order = @$el.find( '.sortable-menu-items' ).nestedSortable 'toArray'
+						order = @ui.sortableList.nestedSortable 'toArray'
 						newOrder = []
 						_.each order, (item, index)->
 							return if not item['item_id']
@@ -140,8 +139,9 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 							itemData['ID'] = item['item_id']
 							itemData['menu_order'] = index
 							if item['parent_id']
-								itemData['menu_item_parent'] = item['parent_id']
+								itemData['menu_item_parent'] = item['parent_id'] + ''
 							newOrder.push itemData
+							
 						@ui.sortableList.parent().find('p.help-text').remove()
 						@trigger "menu:item:order:updated", newOrder
 						@ui.sortableList.nestedSortable 'disable'

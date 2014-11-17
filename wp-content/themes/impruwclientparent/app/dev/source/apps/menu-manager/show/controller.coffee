@@ -209,6 +209,7 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				App.execute "list:menu:items:app",
 									region : @listMenuRegion
 									menuId : @menuId
+									menuElementModel : @menuElementModel
 
 
 			onMenuDeleteSuccess : ->

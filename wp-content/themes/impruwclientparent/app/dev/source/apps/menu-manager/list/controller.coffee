@@ -1,60 +1,67 @@
 define [ 'app', 'controllers/base-controller', 'apps/menu-manager/list/views' ], ( App, AppController )->
 
-   #Login App module
-   App.module "MenuManager.List", ( List, App )->
+	#Login App module
+	App.module "MenuManager.List", ( List, App )->
 
-      #Show Controller
-      class List.Controller extends AppController
+		#Show Controller
+		class List.Controller extends AppController
 
-         # initialize
-         initialize : ( opts )->
-            {@menuId} = opts
+			# initialize
+			initialize : ( opts )->
+				{@menuId, @menuElementModel} = opts
 
-            menu = window.menusCollection.get @menuId
+				menu = window.menusCollection.get @menuId
 
-            menuItemsCollection = menu.get 'menuItems'
+				@menuItemsCollection = menuItemsCollection = menu.get 'menuItems'
 
-            if menuItemsCollection.length is 0
-               menuItemsCollection.fetch(menu_id : @menuId).done =>
-                  @view = view = @_getView menuItemsCollection
-                  @bindMenuItemEvents()
-                  @show @view
-            else
-               @view = view = @_getView menuItemsCollection
-               @bindMenuItemEvents()
-               @show @view
+				if menuItemsCollection.length is 0
+					menuItemsCollection.fetch(menu_id : @menuId).done =>
+						@view = view = @_getView menuItemsCollection
+						@bindMenuItemEvents()
+						@show @view
+				else
+					@view = view = @_getView menuItemsCollection
+					@bindMenuItemEvents()
+					@show @view
 
-         bindMenuItemEvents : ->
-            @listenTo @view, "itemview:delete:menu:item:clicked", @deleteMenuItem
-            @listenTo @view, "menu:item:order:updated", @menutItemsOrderUpdated
+			bindMenuItemEvents : ->
+				@listenTo @view, "itemview:delete:menu:item:clicked", @deleteMenuItem
+				@listenTo @view, "menu:item:order:updated", @menutItemsOrderUpdated
 
-         menutItemsOrderUpdated : (_menuItems)=>
-            data = 
-               action : 'builder-update-menu-items-order'
-               menu_items : _menuItems
-               menu_id : @menuId
+			menutItemsOrderUpdated : (_menuItems)=>
+				data = 
+					action : 'builder-update-menu-items-order'
+					menu_items : _menuItems
+					menu_id : @menuId
 
-            $.post AJAXURL, data, @menutItemsOrderUpdateResponseHandler, 'json'
+				$.post AJAXURL, data, (response)=>
+					
+					if response is 1
+						_.each _menuItems, (item)=>
+							model = @menuItemsCollection.get item['ID']
+							item['ID'] = parseInt item['ID']
+							model.set item
 
-         menutItemsOrderUpdateResponseHandler : (response)=>
-            if response is 1
-              @view.triggerMethod 'menu:order:updated' 
+						@menuElementModel.trigger 'change:menu_id'
+						@view.triggerMethod 'menu:order:updated'
 
-         deleteMenuItem : (childView, model)->
-            data = 
-               action : 'builder-remove-menu-item'
-               menu_item_id : model.get 'ID'
+				, 'json'
 
-            $.post AJAXURL, data, (response)->
-               model.collection.remove model
-            , 'json'
+			deleteMenuItem : (childView, model)->
+				data = 
+					action : 'builder-remove-menu-item'
+					menu_item_id : model.get 'ID'
 
-         _getView : ( menuItemsCollection ) ->
-            new List.Views.MenuCollectionView
-                           collection : menuItemsCollection
+				$.post AJAXURL, data, (response)->
+					model.collection.remove model
+				, 'json'
+
+			_getView : ( menuItemsCollection ) ->
+				new List.Views.MenuCollectionView
+									collection : menuItemsCollection
 
 
-      App.commands.setHandler "list:menu:items:app", ( opts )->
-         new List.Controller opts
+		App.commands.setHandler "list:menu:items:app", ( opts )->
+			new List.Controller opts
 
 			

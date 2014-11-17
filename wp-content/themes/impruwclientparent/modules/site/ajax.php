@@ -313,8 +313,6 @@ add_action('wp_ajax_builder-remove-menu-item', 'builder_remove_menu_item');
 
 function builder_update_menu_items_order(){
 
-    $menu_id = $_POST['menu_id'];
-
     $menu_items = $_POST['menu_items'];
 
     foreach ($menu_items as $menu_item) {

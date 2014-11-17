@@ -264,7 +264,8 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
         });
         return App.execute("list:menu:items:app", {
           region: this.listMenuRegion,
-          menuId: this.menuId
+          menuId: this.menuId,
+          menuElementModel: this.menuElementModel
         });
       };
 
