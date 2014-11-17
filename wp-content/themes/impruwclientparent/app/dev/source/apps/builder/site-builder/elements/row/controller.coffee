@@ -14,6 +14,7 @@ define ['app', 'bootbox', 'apps/builder/site-builder/elements/row/views',
                columncount : 2
                elements : []
                meta_id : 0
+               style : 'Default'
 
             super( options )
 
