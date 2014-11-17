@@ -26,9 +26,21 @@ define [ 'app', 'controllers/base-controller', 'apps/menu-manager/list/views' ],
 
          bindMenuItemEvents : ->
             @listenTo @view, "itemview:delete:menu:item:clicked", @deleteMenuItem
+            @listenTo @view, "menu:item:order:updated", @menutItemsOrderUpdated
+
+         menutItemsOrderUpdated : (_menuItems)=>
+            data = 
+               action : 'builder-update-menu-items-order'
+               menu_items : _menuItems
+               menu_id : @menuId
+
+            $.post AJAXURL, data, @menutItemsOrderUpdateResponseHandler, 'json'
+
+         menutItemsOrderUpdateResponseHandler : (response)=>
+            if response is 1
+              @view.triggerMethod 'menu:order:updated' 
 
          deleteMenuItem : (childView, model)->
-            
             data = 
                action : 'builder-remove-menu-item'
                menu_item_id : model.get 'ID'

@@ -311,4 +311,13 @@ function builder_remove_menu_item(){
 }
 add_action('wp_ajax_builder-remove-menu-item', 'builder_remove_menu_item');
 
+function builder_update_menu_items_order(){
+
+    $menu_id = $_POST['menu_id'];
+
+    $menu_items = $_POST['menu_items'];
+    wp_send_json(1);
+}
+add_action('wp_ajax_builder-update-menu-items-order', 'builder_update_menu_items_order');
+
 

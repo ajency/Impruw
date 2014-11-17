@@ -1,4 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], function(App, AppController) {
@@ -7,6 +8,8 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
       __extends(Controller, _super);
 
       function Controller() {
+        this.menutItemsOrderUpdateResponseHandler = __bind(this.menutItemsOrderUpdateResponseHandler, this);
+        this.menutItemsOrderUpdated = __bind(this.menutItemsOrderUpdated, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -34,7 +37,24 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
       };
 
       Controller.prototype.bindMenuItemEvents = function() {
-        return this.listenTo(this.view, "itemview:delete:menu:item:clicked", this.deleteMenuItem);
+        this.listenTo(this.view, "itemview:delete:menu:item:clicked", this.deleteMenuItem);
+        return this.listenTo(this.view, "menu:item:order:updated", this.menutItemsOrderUpdated);
+      };
+
+      Controller.prototype.menutItemsOrderUpdated = function(_menuItems) {
+        var data;
+        data = {
+          action: 'builder-update-menu-items-order',
+          menu_items: _menuItems,
+          menu_id: this.menuId
+        };
+        return $.post(AJAXURL, data, this.menutItemsOrderUpdateResponseHandler, 'json');
+      };
+
+      Controller.prototype.menutItemsOrderUpdateResponseHandler = function(response) {
+        if (response === 1) {
+          return this.view.triggerMethod('menu:order:updated');
+        }
       };
 
       Controller.prototype.deleteMenuItem = function(childView, model) {

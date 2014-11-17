@@ -11,7 +11,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return MenuItemView.__super__.constructor.apply(this, arguments);
       }
 
-      MenuItemView.prototype.template = '<div class="row menu-item"> <div class="col-sm-1 menu-dragger"><span class="bicon icon-uniF160"></span></div> <div class="col-sm-8 menu-name">{{title}}</div> <div class="col-sm-3 menu-edit"> {{#isCustom}} <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}" class="blue-link"> <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit Link{{/polyglot}} </a> {{/isCustom}} <a class="delete-menu-item red-link"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a> </div> </div> {{#isCustom}} <div id="menu-item-{{menu_id}}-{{ID}}" class="collapse menu-item-edit"> <form class="form-inline"> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label> <input value="{{title}}" parsley-required="true" type="text" name="menu_item_title" class="form-control menuname" /> </div> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu URL{{/polyglot}}</label> <input value="{{url}}" parsley-type="url" parsley-required="true" type="text" name="menu_item_url" class="form-control menutitle" /> </div> <div class="form-group form-actions"> <label class="control-label">&nbsp;</label> <!--<input type="hidden" value="{{menu_id}}" name="menu_id"/> --> <button type="button" class="update-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button> <a href="#" class="blue-link cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></a> </div> </form> </div>{{/isCustom}}';
+      MenuItemView.prototype.template = '<div class="row menu-item"> <div class="col-sm-1 menu-dragger"><span class="bicon icon-uniF160"></span></div> <div class="col-sm-8 menu-name">{{title}}</div> <div class="col-sm-3 menu-edit"> {{#isCustom}} <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}" class="blue-link"> <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit Link{{/polyglot}} </a> {{/isCustom}} <a class="delete-menu-item red-link"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a> </div> </div> {{#isCustom}} <div id="menu-item-{{menu_id}}-{{ID}}" class="collapse menu-item-edit"> <form class="form-inline"> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label> <input value="{{title}}" parsley-required="true" type="text" name="menu_item_title" class="form-control menuname" /> </div> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu URL{{/polyglot}}</label> <input value="{{url}}" parsley-type="url" parsley-required="true" type="text" name="menu_item_url" class="form-control menutitle" /> </div> <div class="form-group form-actions"> <label class="control-label">&nbsp;</label> <button type="button" class="update-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button> <a href="#" class="blue-link cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></a> </div> </form> </div>{{/isCustom}}';
 
       MenuItemView.prototype.tagName = 'li';
 
@@ -28,7 +28,8 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       MenuItemView.prototype.onRender = function() {
-        return this.$el.attr('id', 'item-' + this.model.get('ID'));
+        this.$el.attr('id', 'item-' + this.model.get('ID'));
+        return console.log(this.model);
       };
 
       MenuItemView.prototype.events = {
@@ -93,6 +94,10 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       MenuCollectionView.prototype.className = 'aj-imp-menu-item-list';
 
+      MenuCollectionView.prototype.ui = {
+        sortableList: '.sortable-menu-items'
+      };
+
       MenuCollectionView.prototype.appendHtml = function(collectionView, childView, index) {
         if (this.collection.length === 0) {
           Marionette.CollectionView.prototype.appendHtml.apply(this, arguments);
@@ -117,8 +122,13 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return $ul.append(childView.el);
       };
 
+      MenuCollectionView.prototype.onMenuOrderUpdated = function() {
+        this.ui.sortableList.before("<p class='help-text'>" + (_.polyglot.t('Order updated successfully')) + "</p>");
+        return this.ui.sortableList.nestedSortable('enable');
+      };
+
       MenuCollectionView.prototype.onShow = function() {
-        return this.$el.find('.sortable-menu-items').nestedSortable({
+        return this.ui.sortableList.nestedSortable({
           handle: 'div.menu-dragger',
           items: 'li.list-group-item',
           tolerance: 'intersect',
@@ -134,13 +144,16 @@ define(['app', 'bootbox'], function(App, bootbox) {
                   return;
                 }
                 itemData = {};
-                itemData['menu_item_id'] = item['item_id'];
+                itemData['menu-item-db-id'] = item['item_id'];
+                itemData['menu-item-position'] = index;
                 if (item['parent_id']) {
-                  itemData['menu_item_parent'] = item['parent_id'];
+                  itemData['menu-item-parent-id'] = item['parent_id'];
                 }
                 return newOrder.push(itemData);
               });
-              return console.log(newOrder);
+              _this.ui.sortableList.parent().find('p.help-text').remove();
+              _this.trigger("menu:item:order:updated", newOrder);
+              return _this.ui.sortableList.nestedSortable('disable');
             };
           })(this)
         });

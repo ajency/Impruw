@@ -31,7 +31,6 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 						 </div>
 						 <div class="form-group form-actions">
 							<label class="control-label">&nbsp;</label>
-							 <!--<input type="hidden" value="{{menu_id}}" name="menu_id"/> -->
 							 <button type="button" class="update-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button>
 							 <a href="#" class="blue-link cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></a>
 						 </div>
@@ -52,6 +51,7 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 
 			onRender : ->
 				@$el.attr 'id', 'item-' + @model.get 'ID'
+				console.log @model
 
 			events :
 				'click .update-menu-item' : ->
@@ -95,6 +95,9 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 
 			className : 'aj-imp-menu-item-list'
 
+			ui : 
+				sortableList : '.sortable-menu-items'
+
 			appendHtml : (collectionView, childView, index)->
 
 				if @collection.length is 0
@@ -118,8 +121,12 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 				$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'} ol")
 				$ul.append childView.el
 
+			onMenuOrderUpdated : ->
+				@ui.sortableList.before "<p class='help-text'>#{_.polyglot.t 'Order updated successfully'}</p>"
+				@ui.sortableList.nestedSortable 'enable'
+
 			onShow : ->
-				@$el.find( '.sortable-menu-items' ).nestedSortable
+				@ui.sortableList.nestedSortable
 					handle : 'div.menu-dragger'
 					items : 'li.list-group-item'
 					tolerance : 'intersect'
@@ -130,10 +137,12 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 						_.each order, (item, index)->
 							return if not item['item_id']
 							itemData = {}
-							itemData['menu_item_id'] = item['item_id']
+							itemData['menu-item-db-id'] = item['item_id']
+							itemData['menu-item-position'] = index
 							if item['parent_id']
-								itemData['menu_item_parent'] = item['parent_id']
+								itemData['menu-item-parent-id'] = item['parent_id']
 							newOrder.push itemData
-
-						console.log newOrder
+						@ui.sortableList.parent().find('p.help-text').remove()
+						@trigger "menu:item:order:updated", newOrder
+						@ui.sortableList.nestedSortable 'disable'
 
