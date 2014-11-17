@@ -94,7 +94,7 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 							 </div>
 						  </a>'
 
-			onShow : ->
+			onRender : ->
 				@$el.attr 'data-menu-style', @model.get 'name'
 
 
@@ -102,8 +102,12 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 			itemView : MenuStyleItemView
 
 			onShow : ->
+				currentStyle  = Marionette.getOption @, 'currentStyle'
 				@$el.selectable
 						selected: @menuStyleSelected
+
+				@$el.find "div[data-menu-style='#{currentStyle}']"
+					.addClass 'ui-selected'
 
 			menuStyleSelected : ( event, ui )=>
 				@trigger "menu:style:selected", $(ui.selected).attr 'data-menu-style'
@@ -183,6 +187,7 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				stylesCollection = new Backbone.Collection styles
 				menuStylesView = new MenuStylesView
 										collection : stylesCollection
+										currentStyle : @menuElementModel.get 'style'
 
 				@listenTo menuStylesView, "menu:style:selected", @updateSelectedMenu
 				@menuStylesRegion.show menuStylesView

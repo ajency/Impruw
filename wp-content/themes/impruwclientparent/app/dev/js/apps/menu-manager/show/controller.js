@@ -155,7 +155,7 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
 
       MenuStyleItemView.prototype.template = '<a href="#" class="thumbnail"> <div class="ticker ui-selectee" style=""><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee" style=""></span></div> <div class="imgthumb"> <img alt="{{name}}" class="img-responsive" src="{{imagePath}}" /> </div> </a>';
 
-      MenuStyleItemView.prototype.onShow = function() {
+      MenuStyleItemView.prototype.onRender = function() {
         return this.$el.attr('data-menu-style', this.model.get('name'));
       };
 
@@ -173,9 +173,12 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       MenuStylesView.prototype.itemView = MenuStyleItemView;
 
       MenuStylesView.prototype.onShow = function() {
-        return this.$el.selectable({
+        var currentStyle;
+        currentStyle = Marionette.getOption(this, 'currentStyle');
+        this.$el.selectable({
           selected: this.menuStyleSelected
         });
+        return this.$el.find("div[data-menu-style='" + currentStyle + "']").addClass('ui-selected');
       };
 
       MenuStylesView.prototype.menuStyleSelected = function(event, ui) {
@@ -237,7 +240,8 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
         styles = _.isArray(styles) ? styles : [];
         stylesCollection = new Backbone.Collection(styles);
         menuStylesView = new MenuStylesView({
-          collection: stylesCollection
+          collection: stylesCollection,
+          currentStyle: this.menuElementModel.get('style')
         });
         this.listenTo(menuStylesView, "menu:style:selected", this.updateSelectedMenu);
         return this.menuStylesRegion.show(menuStylesView);
