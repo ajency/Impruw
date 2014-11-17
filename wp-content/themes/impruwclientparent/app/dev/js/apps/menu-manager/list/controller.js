@@ -53,7 +53,7 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
               _.each(_menuItems, function(item) {
                 var model;
                 model = _this.menuItemsCollection.get(item['ID']);
-                item['ID'] = parseInt(item['ID']);
+                delete item['ID'];
                 return model.set(item);
               });
               _this.menuElementModel.trigger('change:menu_id');

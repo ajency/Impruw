@@ -147,10 +147,12 @@ define(['app', 'bootbox'], function(App, bootbox) {
                 itemData['menu_order'] = index;
                 if (item['parent_id']) {
                   itemData['menu_item_parent'] = item['parent_id'] + '';
+                } else {
+                  itemData['menu_item_parent'] = "0";
                 }
                 return newOrder.push(itemData);
               });
-              _this.ui.sortableList.parent().find('p.help-text').remove();
+              _this.$el.find('.alert').remove();
               _this.trigger("menu:item:order:updated", newOrder);
               return _this.ui.sortableList.nestedSortable('disable');
             };

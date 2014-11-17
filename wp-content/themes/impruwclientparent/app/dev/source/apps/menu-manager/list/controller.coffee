@@ -39,7 +39,7 @@ define [ 'app', 'controllers/base-controller', 'apps/menu-manager/list/views' ],
 					if response is 1
 						_.each _menuItems, (item)=>
 							model = @menuItemsCollection.get item['ID']
-							item['ID'] = parseInt item['ID']
+							delete item['ID']
 							model.set item
 
 						@menuElementModel.trigger 'change:menu_id'

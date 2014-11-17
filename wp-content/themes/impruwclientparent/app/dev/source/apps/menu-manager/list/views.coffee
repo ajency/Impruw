@@ -143,9 +143,12 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 							itemData['menu_order'] = index
 							if item['parent_id']
 								itemData['menu_item_parent'] = item['parent_id'] + ''
+							else
+								itemData['menu_item_parent'] = "0"
+
 							newOrder.push itemData
 							
-						@ui.sortableList.parent().find('p.help-text').remove()
+						@$el.find('.alert').remove()
 						@trigger "menu:item:order:updated", newOrder
 						@ui.sortableList.nestedSortable 'disable'
 
