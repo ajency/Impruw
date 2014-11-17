@@ -2102,7 +2102,7 @@ ul.gallery {
   border-radius: 2px;
   color: #fff;
   position: absolute;
-  top: 5px;
+  bottom: 5px;
   left: 5px;
   z-index: 6;
   box-shadow: 1px 1px 3px #aaa;
