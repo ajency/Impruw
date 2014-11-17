@@ -15,7 +15,7 @@ define(['app'], function(App) {
       RoomDescriptionView.prototype.template = '<div class="room-description-container clearfix"> <div class="room-description"> <h1>{{#polyglot}}Room Description{{/polyglot}}</h1> <div class="room-description-desc">{{#polyglot}}This will display the room description{{/polyglot}}</div> </div> </div>';
 
       RoomDescriptionView.prototype.onShow = function() {
-        this.$el.attr("data-content", "" + _.polyglot.t('Update room information') + (" <a href='" + SITEURL + "/dashboard/#/rooms'>") + _.polyglot.t('here') + "</a> ");
+        this.$el.attr("data-content", "" + _.polyglot.t('Update room information') + (" <a href='" + SITEURL + "/dashboard/#/rooms' target='BLANK'>") + _.polyglot.t('here') + "</a> ");
         return this.$el.popover({
           html: true,
           placement: 'top'

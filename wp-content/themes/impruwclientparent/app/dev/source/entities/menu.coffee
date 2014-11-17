@@ -7,6 +7,7 @@ define ["app", 'backbone', 'jquery'], (App, Backbone, $)->
 
         class Menus.MenuItemCollection extends Backbone.Collection
             model : Menus.MenuItemModel
+            comparator : 'menu_order'
 
             fetch : (data= {})->
                 data['action'] = 'fetch-menu-items-for-menu'

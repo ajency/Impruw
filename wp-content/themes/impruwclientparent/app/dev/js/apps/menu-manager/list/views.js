@@ -12,7 +12,7 @@ define(['app'], function(App) {
         return MenuItemView.__super__.constructor.apply(this, arguments);
       }
 
-      MenuItemView.prototype.template = '<div class="row menu-item"> <div class="col-sm-1 menu-dragger"><span class="bicon icon-uniF160"></span></div> <div class="col-sm-8 menu-name">{{title}}</div> <div class="col-sm-3 menu-edit"> <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}" class="blue-link"> <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit Link{{/polyglot}} </a> <a class="delete-menu-item red-link"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a> </div> </div> <div id="menu-item-{{menu_id}}-{{ID}}" class="collapse menu-item-edit"> <form class="form-inline"> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label> <input value="{{menu_item_title}}" parsley-required="true" type="text" name="menu_item_title" class="form-control menuname" /> </div> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu URL{{/polyglot}}</label> <input value="{{menu_item_url}}" parsley-type="url" parsley-required="true" type="text" name="menu_item_url" class="form-control menutitle" /> </div> <div class="form-group form-actions"> <label class="control-label">&nbsp;</label> <!--<input type="hidden" value="{{menu_id}}" name="menu_id"/> --> <button type="button" class="update-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button> <a href="#" class="blue-link cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></a> </div> </form> </div>';
+      MenuItemView.prototype.template = '<div class="row menu-item"> <div class="col-sm-1 menu-dragger"><span class="bicon icon-uniF160"></span></div> <div class="col-sm-8 menu-name">{{title}}</div> <div class="col-sm-3 menu-edit"> {{#isCustom}} <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}" class="blue-link"> <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit Link{{/polyglot}} </a> {{/isCustom}} <a class="delete-menu-item red-link"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a> </div> </div> {{#isCustom}} <div id="menu-item-{{menu_id}}-{{ID}}" class="collapse menu-item-edit"> <form class="form-inline"> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label> <input value="{{title}}" parsley-required="true" type="text" name="menu_item_title" class="form-control menuname" /> </div> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu URL{{/polyglot}}</label> <input value="{{url}}" parsley-type="url" parsley-required="true" type="text" name="menu_item_url" class="form-control menutitle" /> </div> <div class="form-group form-actions"> <label class="control-label">&nbsp;</label> <!--<input type="hidden" value="{{menu_id}}" name="menu_id"/> --> <button type="button" class="update-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button> <a href="#" class="blue-link cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></a> </div> </form> </div>{{/isCustom}}';
 
       MenuItemView.prototype.tagName = 'li';
 
@@ -22,7 +22,14 @@ define(['app'], function(App) {
         'change': 'render'
       };
 
+      MenuItemView.prototype.mixinTemplateHelpers = function(data) {
+        data = MenuItemView.__super__.mixinTemplateHelpers.call(this, data);
+        data.isCustom = data.object === 'custom';
+        return data;
+      };
+
       MenuItemView.prototype.onRender = function() {
+        console.log(this.model);
         return this.$el.attr('id', 'item-' + this.model.get('ID'));
       };
 
@@ -87,10 +94,11 @@ define(['app'], function(App) {
       MenuCollectionView.prototype.className = 'aj-imp-menu-item-list';
 
       MenuCollectionView.prototype.onShow = function() {
-        return this.$el.find('.sortable-menu-items').sortable({
+        return this.$el.find('.sortable-menu-items').nestedSortable({
           handle: 'div.menu-dragger',
           items: 'li.list-group-item',
           tolerance: 'intersect',
+          maxLevels: 2,
           stop: (function(_this) {
             return function(e, ui) {
               var order;

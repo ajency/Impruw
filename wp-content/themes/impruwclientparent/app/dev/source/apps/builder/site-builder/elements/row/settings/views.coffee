@@ -24,6 +24,8 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
 
             initialize: (opt = {})->
                 {@eleModel} = opt
+                if @eleModel.get('style') is ''
+                    @eleModel.set 'style', 'Default'
                 super opt
 
             

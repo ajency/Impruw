@@ -133,6 +133,8 @@ define [ 'app'
                     page.destroy
                         success : (model,res,opt)=>
                             @removePageFromMenu model.get 'original_id'
+
+                            @removePageFromLinkSettings model.get 'original_id'
                             
                             App.builderRegion.currentView.triggerMethod 'show:home:page'
 
@@ -175,6 +177,26 @@ define [ 'app'
                     if menuModel.get('page_id') is pageId
                         return true
                 menuCollection.remove menuToRemove
+
+            removePageFromLinkSettings : (pageId)->
+                # Get element setting collection
+                elementsCollection = App.request "get:elementbox:elements"
+
+                # Get the link model to be modified
+                linkModel = elementsCollection.get('Link')
+
+                # Get the array of page/room objects associated with the linkmodel
+                linkModelLinkPages = linkModel.get 'link_pages'
+                
+                # Loop through the above array and delete the page whose original_id is pageId
+                linkModelLinkPages = $.grep(linkModelLinkPages, (pageObject, i) ->
+                                  pageObject.original_id is pageId
+                                , true)
+
+                # Remove the old linkmodel and add the new updated linkModel to the collection
+                elementsCollection.remove linkModel
+                newLinkModel =  linkModel.set 'link_pages', linkModelLinkPages
+                elementsCollection.add newLinkModel
 
 
             triggerPagePublishOnView : =>

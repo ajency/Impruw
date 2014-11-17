@@ -1,4 +1,4 @@
-define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
+define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController, bootbox )->
 
     #Login App module
     App.module "MenuManager.Show", ( Show, App )->
@@ -9,11 +9,12 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             # initialize
             initialize : ( opts )->
             
-                {menuId} = opts
+                {@menuId, @menuElementModel} = opts
 
-                @layout = layout = @getLayout menuId
+                @layout = layout = @getLayout @menuId
 
                 @listenTo layout, 'add:new:menu', @addNewMenu
+                @listenTo layout, 'delete:menu:clicked', @deleteMenu
 
                 @show @layout
 
@@ -22,6 +23,20 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                     action : 'builder-add-new-menu'
                     menu_name : menuName
                 $.post AJAXURL, data ,@addMenuResponseHandler, 'json'
+
+            deleteMenu : (menuId)->
+                menuId = parseInt menuId
+                if menuId is 0 then return
+                ajaxData = 
+                    action : 'builder-delete-menu'
+                    menuId : menuId
+                $.post AJAXURL, ajaxData, @deleteMenuResponseHandler, 'json'
+
+            deleteMenuResponseHandler : (response)=>
+                # TODO: delete menu functionality
+                menuModel = window.menusCollection.get 3
+                window.menusCollection.remove menuModel
+                @layout.triggerMethod 'menu:delete:success'
 
             addMenuResponseHandler : (response)=>
                 if response.success isnt true
@@ -37,6 +52,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                 new MediaMangerLayout 
                         collection : globalMenusCollection
                         menuId : menuId
+                        menuElementModel : @menuElementModel
 
         class MenuOption extends Marionette.ItemView
             tagName : 'option'
@@ -73,6 +89,12 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             className : 'menu-manager-container row'
 
             events : 
+                'click a.delete-menu' : ->
+                    bootbox.confirm "Are you sure? Need Proper  message here.", ( answer )=>
+                            if answer is yes
+                                @trigger "delete:menu:clicked", @menuId
+
+
                 'click #new-menu-name button' : ->
                     @trigger "add:new:menu", @$el.find('#new-menu-name input[type="text"]').val()
 
@@ -144,7 +166,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                      </div>'
 
             initialize : (options)->
-                { @collection, @menuId } = options
+                { @collection, @menuId, @menuElementModel } = options
                 @listenTo @, 'show', =>
                     menuListView = new DropdownListView 
                                         collection : @collection
@@ -154,6 +176,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
             menuChanged : (menuId) =>
                 @menuId = menuId
+                @menuElementModel.set 'menu_id', @menuId
                 @$el.find('a.delete-menu').parent().removeClass 'hidden'
                 App.execute "add:menu:items:app",
                                     region : @addMenuRegion
@@ -162,6 +185,10 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                 App.execute "list:menu:items:app",
                                     region : @listMenuRegion
                                     menuId : @menuId
+
+
+            onMenuDeleteSuccess : ->
+
 
             onAddMenuFailed : (message)->
                 message = '<p>' + _.polyglot.t message + '</p>'
@@ -181,9 +208,10 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
         
             
-        App.commands.setHandler "menu-manager", ( menuId ) ->
+        App.commands.setHandler "menu-manager", ( menuElementModel, menuId ) ->
             opts =
                 region : App.dialogRegion
                 menuId : menuId
+                menuElementModel : menuElementModel
 
             new Show.Controller opts
