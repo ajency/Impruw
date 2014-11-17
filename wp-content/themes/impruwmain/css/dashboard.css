@@ -4517,6 +4517,13 @@ figure.effect-zoe:hover p.icon-links a:first-child {
 }
 
 /**** Blog Page Styles ****/
+.impruw-blog .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5em;
+}
 .impruw-blog .post {
   margin: 1em 0;
   padding-bottom: 1em;
@@ -4529,4 +4536,12 @@ figure.effect-zoe:hover p.icon-links a:first-child {
   background: #aaa;
   max-height: 200px;
   overflow: hidden;
+}
+.impruw-blog .post .thumb .img-responsive {
+  margin: auto;
+}
+.impruw-blog .post .post-title a {
+  font-size: 1em;
+  font-weight: 300;
+  margin: 1em 0;
 }
