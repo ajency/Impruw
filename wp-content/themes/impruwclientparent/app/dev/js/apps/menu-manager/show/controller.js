@@ -155,6 +155,10 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
 
       MenuStyleItemView.prototype.template = '<a href="#" class="thumbnail"> <div class="ticker ui-selectee" style=""><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee" style=""></span></div> <div class="imgthumb"> <img alt="{{name}}" class="img-responsive" src="{{imagePath}}" /> </div> </a>';
 
+      MenuStyleItemView.prototype.onShow = function() {
+        return this.$el.attr('data-menu-style', this.model.get('name'));
+      };
+
       return MenuStyleItemView;
 
     })(Marionette.ItemView);
@@ -162,13 +166,20 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       __extends(MenuStylesView, _super);
 
       function MenuStylesView() {
+        this.menuStyleSelected = __bind(this.menuStyleSelected, this);
         return MenuStylesView.__super__.constructor.apply(this, arguments);
       }
 
       MenuStylesView.prototype.itemView = MenuStyleItemView;
 
       MenuStylesView.prototype.onShow = function() {
-        return this.$el.selectable();
+        return this.$el.selectable({
+          selected: this.menuStyleSelected
+        });
+      };
+
+      MenuStylesView.prototype.menuStyleSelected = function(event, ui) {
+        return this.trigger("menu:style:selected", $(ui.selected).attr('data-menu-style'));
       };
 
       return MenuStylesView;
@@ -179,6 +190,7 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
 
       function MediaMangerLayout() {
         this.menuChanged = __bind(this.menuChanged, this);
+        this.updateSelectedMenu = __bind(this.updateSelectedMenu, this);
         this.showMenuStyles = __bind(this.showMenuStyles, this);
         return MediaMangerLayout.__super__.constructor.apply(this, arguments);
       }
@@ -227,7 +239,13 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
         menuStylesView = new MenuStylesView({
           collection: stylesCollection
         });
+        this.listenTo(menuStylesView, "menu:style:selected", this.updateSelectedMenu);
         return this.menuStylesRegion.show(menuStylesView);
+      };
+
+      MediaMangerLayout.prototype.updateSelectedMenu = function(menuStyle) {
+        console.log(menuStyle);
+        return this.menuElementModel.set('style', menuStyle);
       };
 
       MediaMangerLayout.prototype.menuChanged = function(menuId) {

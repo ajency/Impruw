@@ -94,14 +94,19 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 							 </div>
 						  </a>'
 
+			onShow : ->
+				@$el.attr 'data-menu-style', @model.get 'name'
+
 
 		class MenuStylesView extends Marionette.CollectionView
 			itemView : MenuStyleItemView
 
 			onShow : ->
-				@$el.selectable()
+				@$el.selectable
+						selected: @menuStyleSelected
 
-
+			menuStyleSelected : ( event, ui )=>
+				@trigger "menu:style:selected", $(ui.selected).attr 'data-menu-style'
 
 		# Rooms tariff layout
 		class MediaMangerLayout extends Marionette.Layout
@@ -178,7 +183,13 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				stylesCollection = new Backbone.Collection styles
 				menuStylesView = new MenuStylesView
 										collection : stylesCollection
+
+				@listenTo menuStylesView, "menu:style:selected", @updateSelectedMenu
 				@menuStylesRegion.show menuStylesView
+
+			updateSelectedMenu : (menuStyle)=>
+				console.log menuStyle
+				@menuElementModel.set 'style', menuStyle
 
 			menuChanged : (menuId) =>
 				@menuId = menuId
@@ -191,7 +202,6 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				App.execute "list:menu:items:app",
 									region : @listMenuRegion
 									menuId : @menuId
-
 
 
 			onMenuDeleteSuccess : ->
