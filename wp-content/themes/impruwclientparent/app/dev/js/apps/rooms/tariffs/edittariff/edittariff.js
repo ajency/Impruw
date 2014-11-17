@@ -15,36 +15,37 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
       }
 
       EditTariffController.prototype.initialize = function(opt) {
-        var currentCurrency, sitemodel, tariff, tariffView;
+        var sitemodel, tariff;
         if (!opt.model) {
           tariff = App.request("get:tariff", opt.tariffId);
         } else {
           tariff = opt.model;
         }
         sitemodel = App.request("get:site:model");
-        currentCurrency = sitemodel.get('currency');
-        this.tariffView = tariffView = this._getEditTariffView(tariff, currentCurrency);
-        this.listenTo(tariffView, "update:tariff:details", (function(_this) {
-          return function(data) {
-            tariff.set(data);
-            return tariff.save(null, {
-              wait: true,
-              success: _this.tariffSaved
+        return App.execute("when:fetched", sitemodel, (function(_this) {
+          return function() {
+            var currentCurrency, tariffView;
+            currentCurrency = sitemodel.get('currency');
+            _this.tariffView = tariffView = _this._getEditTariffView(tariff, currentCurrency);
+            _this.listenTo(tariffView, "update:tariff:details", function(data) {
+              tariff.set(data);
+              return tariff.save(null, {
+                wait: true,
+                success: _this.tariffSaved
+              });
+            });
+            _this.listenTo(tariffView, "delete:tariff", function(model) {
+              return model.destroy({
+                allData: false,
+                wait: true,
+                success: _this.tariffDeleted
+              });
+            });
+            return _this.show(tariffView, {
+              loading: true
             });
           };
         })(this));
-        this.listenTo(tariffView, "delete:tariff", (function(_this) {
-          return function(model) {
-            return model.destroy({
-              allData: false,
-              wait: true,
-              success: _this.tariffDeleted
-            });
-          };
-        })(this));
-        return this.show(tariffView, {
-          loading: true
-        });
       };
 
       EditTariffController.prototype.tariffSaved = function() {
@@ -78,6 +79,12 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 
       EditTariffView.prototype.template = editTariffTpl;
 
+      EditTariffView.prototype.mixinTemplateHelpers = function(data) {
+        data = EditTariffView.__super__.mixinTemplateHelpers.call(this, data);
+        data.currency = Marionette.getOption(this, "currency");
+        return data;
+      };
+
       EditTariffView.prototype.dialogOptions = {
         modal_title: _.polyglot.t('Edit Tariff'),
         modal_size: 'medium-modal'
@@ -110,7 +117,6 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 
       EditTariffView.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').radiocheck();
-        this.$el.find('.currency').text(Marionette.getOption(this, 'currency'));
         return this.$el.validate();
       };
 

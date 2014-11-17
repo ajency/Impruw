@@ -2955,9 +2955,13 @@ a {
 	.popover {
 		border-radius: 3px;
 		background: @dark-blue;
+		border: 1px solid @dark-blue;
 		box-shadow: 0 0 2px 1px @dash-grey;
 		.arrow {
 			border-top-color: @dark-blue;
+			&:after {
+				border-top-color: @dark-blue;
+			}
 		}
 		.popover-content {
 			padding: 0.75em;
