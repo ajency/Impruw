@@ -13,7 +13,9 @@ define ['app'], (App)->
                                     <label class="control-label">{{#polyglot}}Page Item{{/polyglot}}</label>
                                     <div class="bootstrap-select">
                                         <select name="page_id" id="page_id">
+                                            {{^hasMenus}}
                                             <option value="">{{#polyglot}}Choose Page{{/polyglot}}</option>
+                                            {{/hasMenus}}
                                             {{#pages}}
                                             <option value="{{ID}}">{{post_title}}</option>
                                             {{/pages}}
@@ -80,6 +82,7 @@ define ['app'], (App)->
                 data = super()
                 pages = App.request "get:editable:pages"
                 data.pages = pages.toJSON()
+                data.hasMenus = pages.length > 0
                 data
 
 
