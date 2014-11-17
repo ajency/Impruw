@@ -302,3 +302,13 @@ function fetch_menu_items_for_menu(){
 add_action('wp_ajax_fetch-menu-items-for-menu', 'fetch_menu_items_for_menu');
 
 
+function builder_remove_menu_item(){
+
+    $menu_item_id = $_REQUEST['menu_item_id'];
+
+    wp_send_json(1);
+
+}
+add_action('wp_ajax_builder-remove-menu-item', 'builder_remove_menu_item');
+
+

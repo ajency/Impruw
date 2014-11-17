@@ -17,11 +17,25 @@ define [ 'app', 'controllers/base-controller', 'apps/menu-manager/list/views' ],
             if menuItemsCollection.length is 0
                menuItemsCollection.fetch(menu_id : @menuId).done =>
                   @view = view = @_getView menuItemsCollection
+                  @bindMenuItemEvents()
                   @show @view
             else
                @view = view = @_getView menuItemsCollection
+               @bindMenuItemEvents()
                @show @view
 
+         bindMenuItemEvents : ->
+            @listenTo @view, "itemview:delete:menu:item:clicked", @deleteMenuItem
+
+         deleteMenuItem : (childView, model)->
+            
+            data = 
+               action : 'builder-remove-menu-item'
+               menu_item_id : model.get 'ID'
+
+            $.post AJAXURL, data, (response)->
+               model.collection.remove model
+            , 'json'
 
          _getView : ( menuItemsCollection ) ->
             new List.Views.MenuCollectionView
