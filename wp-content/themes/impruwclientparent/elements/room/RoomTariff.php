@@ -185,6 +185,17 @@ class RoomTariff extends Element {
                         </div>
                     </div>';
 
+            $has_plan = false;
+            foreach ($this->tariff as $value) {
+                if ($value['plan_id'] == $plans[$key]['id']){
+                    $has_plan = true;
+                    break;
+                    // continue 2;
+                }
+            }
+            if (!$has_plan)
+                continue;
+            
             $template .= $me->render($html, $data);
         }
 
@@ -202,6 +213,17 @@ class RoomTariff extends Element {
         $template = '<div id="tariff-region">';
 
         foreach ($date_range as $key => $value) {
+
+            $has_range = false;
+            foreach ($this->tariff as $tariff) {
+                # code...
+                if($tariff['daterange_id'] == $value['id']){
+                    $has_range = true;
+                    break;
+                }
+            }
+            if(!$has_range)
+                continue;
 
             $data = array('from_date' => date('d/M ', strtotime($date_range[$key]['from_date'])),
                 'to_date' => date('d/M ', strtotime($date_range[$key]['to_date'])),
@@ -244,6 +266,17 @@ class RoomTariff extends Element {
         $html = '<div class="package-blocks clearfix">';
 
         foreach ($plans as $key2 => $value2) :
+
+            $has_plan = false;
+            foreach ($this->tariff as $value) {
+                if ($value['plan_id'] == $plans[$key2]['id']){
+                    $has_plan = true;
+                    break;
+                    // continue 2;
+                }
+            }
+            if (!$has_plan)
+                continue;
 
             $data = $this->check_tariff($plans[$key2]['id'], $date_range_id);
 
