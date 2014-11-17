@@ -241,7 +241,8 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       MediaMangerLayout.prototype.onMenuDeleteSuccess = function() {};
 
       MediaMangerLayout.prototype.onAddMenuFailed = function(message) {
-        message = '<p>' + _.polyglot.t(message + '</p>');
+        message = '<p class="help-block">' + _.polyglot.t(message + '</p>');
+        this.$el.find('#new-menu-name .form-group').addClass('has-error');
         return this.$el.find('#new-menu-name input[type="text"]').after(message);
       };
 

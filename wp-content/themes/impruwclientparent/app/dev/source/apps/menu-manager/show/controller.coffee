@@ -193,8 +193,9 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 
 
 			onAddMenuFailed : (message)->
-				message = '<p>' + _.polyglot.t message + '</p>'
-				@$el.find('#new-menu-name input[type="text"]').after message
+        message = '<p class="help-block">' + _.polyglot.t message + '</p>'
+        @$el.find('#new-menu-name .form-group').addClass('has-error')
+        @$el.find('#new-menu-name input[type="text"]').after message
 
 			onAddMenuSuccess : (menuId)->
 				@$el.find('select.global-menus-list').selectpicker('refresh')
