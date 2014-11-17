@@ -174,11 +174,11 @@
         'Row' => array(
             array(
                 'name' => 'Slideshow Container',
-                'desc' => ' Full width row for slider element. Best way to use:  Use this to add your slider. Ensure its inside the center container / fix width row else the layout will not be aligned.'
+                'desc' => ' Full width row for slider element. <br><strong>Best way to use:</strong>  Use this to add your slider. Ensure its inside the center container / fix width row else the layout will not be aligned.'
                 ), 
             array(
                 'name' => 'Long Bar',
-                'desc' => 'Vertical theme colored long bar that takes extends from the row down taking the entire height. Best way to use: Place it along the side of a page to add maybe a menu or widgets'
+                'desc' => 'Vertical theme colored long bar that takes extends from the row down taking the entire height. <br><strong>Best way to use:</strong> Place it along the side of a page to add maybe a menu or widgets'
                 )
             ), 
         'Social' => array(array('name' => 'Default Style'), array('name' => 'Small Social')), 'Link' => array(array('name' => 'Default Style'), array('name' => 'Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));

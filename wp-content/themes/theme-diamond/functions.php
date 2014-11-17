@@ -226,25 +226,25 @@
         'Row' => array(
                     array(
                         'name'      => 'Pattern BG',
-                        'desc' => 'Full width row with a light color pattern background. Best way to use: Use this row to as background for the page as it is used in the theme and add other white rows over this'
+                        'desc' => 'Full width row with a light color pattern background. <br><strong>Best way to use:</strong> Use this row to as background for the page as it is used in the theme and add other white rows over this'
                     ),
                     array(
                         'name'      => 'Highlight Box',
-                        'desc' => 'Full width white row with a border and a diamond theme design. Best way to use: Use this row style to highlight key points of your site. Place it inside a pattern background row.'
+                        'desc' => 'Full width white row with a border and a diamond theme design. <br><strong>Best way to use:</strong> Use this row style to highlight key points of your site. Place it inside a pattern background row.'
                     ),
                     array(
                         'name'      => 'White Box',
-                        'desc' => 'Full width white row with a border. Best way to use: Use this row style to add any content. Place it inside a pattern background row.'
+                        'desc' => 'Full width white row with a border. <br><strong>Best way to use:</strong> Use this row style to add any content. Place it inside a pattern background row.'
                     ),
                     array(
                         'name'      => 'Menu Bar',
-                        'desc' => 'Full width row designed with a white background for menu. Best way to use:  Use this to add your navigation menu as displayed in the diamond theme. Ensure its inside the center container / fix width row else the layout will not be aligned.
+                        'desc' => 'Full width row designed with a white background for menu. <br><strong>Best way to use:</strong>  Use this to add your navigation menu as displayed in the diamond theme. Ensure its inside the center container / fix width row else the layout will not be aligned.
 '
                     )
                     ,
                     array(
                         'name'      => 'Footer Text',
-                        'desc' => 'Full width transparent container that take the background of the row it is placed in. Best way to use: Use this when you need some additional space around your elements. Ensure its inside another container / fix width row else the layout will not be aligned.'
+                        'desc' => 'Full width transparent container that take the background of the row it is placed in. <br><strong>Best way to use:</strong> Use this when you need some additional space around your elements. Ensure its inside another container / fix width row else the layout will not be aligned.'
                     )
                  ),
         'Social' => array(
