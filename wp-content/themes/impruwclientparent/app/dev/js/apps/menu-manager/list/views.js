@@ -95,7 +95,7 @@ define(['app'], function(App) {
           return;
         }
         if (childView.model.get('menu_item_parent') === '0') {
-          collectionView.$el.append(childView.el);
+          collectionView.$(this.itemViewContainer).append(childView.el);
         } else {
           this.createSubMenuAndAppend(collectionView, childView);
         }

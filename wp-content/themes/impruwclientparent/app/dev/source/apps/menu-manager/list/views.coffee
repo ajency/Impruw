@@ -100,7 +100,7 @@ define [ 'app'], ( App )->
 					return
 
 				if childView.model.get('menu_item_parent') is '0'
-					collectionView.$el.append childView.el
+					collectionView.$(@itemViewContainer).append childView.el
 				else
 					@createSubMenuAndAppend collectionView, childView
 					
