@@ -211,6 +211,8 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
           })(this));
         },
         'click #new-menu-name button': function() {
+          this.$el.find('#new-menu-name form-group').removeClass('has-error');
+          this.$el.find('#new-menu-name p.help-block').remove();
           return this.trigger("add:new:menu", this.$el.find('#new-menu-name input[type="text"]').val());
         }
       };
@@ -275,6 +277,8 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       };
 
       MediaMangerLayout.prototype.onAddMenuSuccess = function(menuId) {
+        this.$el.find('#new-menu-name input').val('');
+        this.$el.find('#new-menu-name .form-group').removeClass('has-error');
         this.$el.find('select.global-menus-list').selectpicker('refresh');
         return this.$el.find('select.global-menus-list').selectpicker('val', menuId);
       };
