@@ -151,7 +151,9 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
         return MenuStyleItemView.__super__.constructor.apply(this, arguments);
       }
 
-      MenuStyleItemView.prototype.template = '<div class="col-sm-6 single-item ui-selected"> <a href="#" class="thumbnail"> <div class="ticker ui-selectee" style=""><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee" style=""></span></div> <div class="imgthumb"> <img class="img-responsive" src="http://localhost/impruw/test2/wp-content/themes/pink-theme/resources/img/menu-slimmenu.png" /> </div> </a> </div>';
+      MenuStyleItemView.prototype.className = 'col-sm-6 single-item';
+
+      MenuStyleItemView.prototype.template = '<a href="#" class="thumbnail"> <div class="ticker ui-selectee" style=""><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee" style=""></span></div> <div class="imgthumb"> <img alt="{{name}}" class="img-responsive" src="{{imagePath}}" /> </div> </a>';
 
       return MenuStyleItemView;
 
@@ -164,6 +166,10 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       }
 
       MenuStylesView.prototype.itemView = MenuStyleItemView;
+
+      MenuStylesView.prototype.onShow = function() {
+        return this.$el.selectable();
+      };
 
       return MenuStylesView;
 
@@ -213,10 +219,10 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       };
 
       MediaMangerLayout.prototype.showMenuStyles = function() {
-        var menuStylesView, model, styles, stylesCollection, _ref;
+        var menuStylesView, model, styles, stylesCollection;
         model = App.request("get:element:settings:options", 'Menu');
         styles = model.get('styles');
-        styles = (_ref = _.isArray(styles)) != null ? _ref : [];
+        styles = _.isArray(styles) ? styles : [];
         stylesCollection = new Backbone.Collection(styles);
         menuStylesView = new MenuStylesView({
           collection: stylesCollection

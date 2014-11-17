@@ -84,17 +84,22 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 
 
 		class MenuStyleItemView extends Marionette.ItemView
-			template : '<div class="col-sm-6 single-item ui-selected">
-						  <a href="#" class="thumbnail">
+			
+			className : 'col-sm-6 single-item'
+
+			template : '<a href="#" class="thumbnail">
 							 <div class="ticker ui-selectee" style=""><span class="glyphicon glyphicon-ok ui-selectee"></span><span class="glyphicon glyphicon-minus ui-selectee" style=""></span></div>
 							 <div class="imgthumb">
-								<img class="img-responsive" src="http://localhost/impruw/test2/wp-content/themes/pink-theme/resources/img/menu-slimmenu.png" />
+								<img alt="{{name}}" class="img-responsive" src="{{imagePath}}" />
 							 </div>
-						  </a>
-					   </div>'
+						  </a>'
+
 
 		class MenuStylesView extends Marionette.CollectionView
 			itemView : MenuStyleItemView
+
+			onShow : ->
+				@$el.selectable()
 
 
 
@@ -169,7 +174,7 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 			showMenuStyles : =>
 				model = App.request "get:element:settings:options", 'Menu'
 				styles = model.get 'styles'
-				styles = _.isArray(styles) ? []
+				styles = if _.isArray(styles) then styles else []
 				stylesCollection = new Backbone.Collection styles
 				menuStylesView = new MenuStylesView
 										collection : stylesCollection
@@ -193,9 +198,9 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 
 
 			onAddMenuFailed : (message)->
-        message = '<p class="help-block">' + _.polyglot.t message + '</p>'
-        @$el.find('#new-menu-name .form-group').addClass('has-error')
-        @$el.find('#new-menu-name input[type="text"]').after message
+		        message = '<p class="help-block">' + _.polyglot.t message + '</p>'
+		        @$el.find('#new-menu-name .form-group').addClass('has-error')
+		        @$el.find('#new-menu-name input[type="text"]').after message
 
 			onAddMenuSuccess : (menuId)->
 				@$el.find('select.global-menus-list').selectpicker('refresh')

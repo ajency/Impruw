@@ -3535,10 +3535,12 @@ $base_element_templates = array(
     ),
     'Menu' => array(
         array(
-            'name' => 'Slimmenu'
+            'name' => 'Slimmenu',
+            'imagePath' => get_template_directory_uri() . '/images/slimenu.jpg'
         ),
         array(
-            'name' => 'Footer Menu'
+            'name' => 'Footer Menu',
+            'imagePath' => get_template_directory_uri() . '/images/footer-menu.jpg'
         )
     ),
     'Title' => array(

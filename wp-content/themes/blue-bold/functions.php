@@ -177,9 +177,10 @@
     $element_templates = array(
         'Menu' => array(
             array(
-                'name' => 'Footer Menu 2'
-                )
-            ), 
+                'name' => 'Footer Menu 2',
+                'imagePath' => get_template_directory_uri() . '/images/footer-menu-2.jpg'
+            )
+        ), 
         'Title' => array(
             array(
                 'name' => 'Title Super Text'
