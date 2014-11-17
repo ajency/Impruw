@@ -37,6 +37,9 @@ define(['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
           opt = {};
         }
         this.eleModel = opt.eleModel;
+        if (this.eleModel.get('style') === '') {
+          this.eleModel.set('style', 'Default');
+        }
         return SettingsView.__super__.initialize.call(this, opt);
       };
 

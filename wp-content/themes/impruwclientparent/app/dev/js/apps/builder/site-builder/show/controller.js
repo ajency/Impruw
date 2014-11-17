@@ -167,6 +167,7 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             return page.destroy({
               success: function(model, res, opt) {
                 _this.removePageFromMenu(model.get('original_id'));
+                _this.removePageFromLinkSettings(model.get('original_id'));
                 return App.builderRegion.currentView.triggerMethod('show:home:page');
               }
             });
@@ -210,6 +211,19 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
           }
         });
         return menuCollection.remove(menuToRemove);
+      };
+
+      Controller.prototype.removePageFromLinkSettings = function(pageId) {
+        var elementsCollection, linkModel, linkModelLinkPages, newLinkModel;
+        elementsCollection = App.request("get:elementbox:elements");
+        linkModel = elementsCollection.get('Link');
+        linkModelLinkPages = linkModel.get('link_pages');
+        linkModelLinkPages = $.grep(linkModelLinkPages, function(pageObject, i) {
+          return pageObject.original_id === pageId;
+        }, true);
+        elementsCollection.remove(linkModel);
+        newLinkModel = linkModel.set('link_pages', linkModelLinkPages);
+        return elementsCollection.add(newLinkModel);
       };
 
       Controller.prototype.triggerPagePublishOnView = function() {
