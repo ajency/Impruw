@@ -59,6 +59,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           if (_.isEmpty(facilityName)) {
             return this.$el.find('#error-msg').text('Facility name required');
           } else {
+            this.$el.find('.add-facility').prop('disabled', true);
             return this.trigger("add:new:facility", {
               name: this.$el.find('input[name="name"]').val()
             });
@@ -67,7 +68,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       AddFacilityView.prototype.onFacilityAdded = function() {
-        return this.$el.find('input').val('');
+        this.$el.find('input').val('');
+        return this.$el.find('.add-facility').prop('disabled', false);
       };
 
       return AddFacilityView;
