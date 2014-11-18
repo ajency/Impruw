@@ -33,12 +33,13 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				if menuId is 0 then return
 				ajaxData = 
 					action : 'builder-delete-menu'
-					menuId : menuId
+					menu_id : menuId
 				$.post AJAXURL, ajaxData, @deleteMenuResponseHandler, 'json'
 
 			deleteMenuResponseHandler : (response)=>
 				# TODO: delete menu functionality
-				menuModel = window.menusCollection.get 3
+				@menuElementModel.set 'menu_id', 0
+				menuModel = window.menusCollection.get response.menu_id
 				window.menusCollection.remove menuModel
 				@layout.triggerMethod 'menu:delete:success'
 
@@ -85,6 +86,10 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				@$el.selectpicker()
 				@$el.selectpicker('val', menuId)
 				@trigger 'menu:changed', menuId if menuId isnt ''
+
+			onMenuDeleted : ->
+				@$el.selectpicker 'refresh'
+				@$el.selectpicker 'val', ''
 
 
 		class MenuStyleItemView extends Marionette.ItemView
@@ -178,11 +183,11 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 			initialize : (options)->
 				{ @collection, @menuId, @menuElementModel } = options
 				@listenTo @, 'show', =>
-					menuListView = new DropdownListView 
+					@menuListView = new DropdownListView 
 										collection : @collection
 										menuId : @menuId
-					@listenTo menuListView, "menu:changed", @menuChanged
-					@gloablMenusList.show menuListView
+					@listenTo @menuListView, "menu:changed", @menuChanged
+					@gloablMenusList.show @menuListView
 
 				@listenTo @, 'show', @showMenuStyles
 
@@ -217,6 +222,10 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 
 
 			onMenuDeleteSuccess : ->
+				@listMenuRegion.close()
+				@addMenuRegion.close()
+				@$el.find('a.delete-menu').addClass 'hidden'
+				@menuListView.triggerMethod 'menu:deleted'
 
 
 			onAddMenuFailed : (message)->

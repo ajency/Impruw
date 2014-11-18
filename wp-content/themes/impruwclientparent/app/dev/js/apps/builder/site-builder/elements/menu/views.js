@@ -93,6 +93,10 @@ define(['app'], function(App) {
       };
 
       MenuView.prototype.appendHtml = function(collectionView, childView, index) {
+        if (this.collection.length === 0) {
+          Marionette.CollectionView.prototype.appendHtml.apply(this, arguments);
+          return;
+        }
         if (childView.model.get('menu_item_parent') === '0') {
           collectionView.$el.append(childView.el);
         } else {

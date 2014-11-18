@@ -47,14 +47,15 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
         }
         ajaxData = {
           action: 'builder-delete-menu',
-          menuId: menuId
+          menu_id: menuId
         };
         return $.post(AJAXURL, ajaxData, this.deleteMenuResponseHandler, 'json');
       };
 
       Controller.prototype.deleteMenuResponseHandler = function(response) {
         var menuModel;
-        menuModel = window.menusCollection.get(3);
+        this.menuElementModel.set('menu_id', 0);
+        menuModel = window.menusCollection.get(response.menu_id);
         window.menusCollection.remove(menuModel);
         return this.layout.triggerMethod('menu:delete:success');
       };
@@ -147,6 +148,11 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
         }
       };
 
+      DropdownListView.prototype.onMenuDeleted = function() {
+        this.$el.selectpicker('refresh');
+        return this.$el.selectpicker('val', '');
+      };
+
       return DropdownListView;
 
     })(Marionette.CollectionView);
@@ -229,13 +235,12 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
         this.collection = options.collection, this.menuId = options.menuId, this.menuElementModel = options.menuElementModel;
         this.listenTo(this, 'show', (function(_this) {
           return function() {
-            var menuListView;
-            menuListView = new DropdownListView({
+            _this.menuListView = new DropdownListView({
               collection: _this.collection,
               menuId: _this.menuId
             });
-            _this.listenTo(menuListView, "menu:changed", _this.menuChanged);
-            return _this.gloablMenusList.show(menuListView);
+            _this.listenTo(_this.menuListView, "menu:changed", _this.menuChanged);
+            return _this.gloablMenusList.show(_this.menuListView);
           };
         })(this));
         return this.listenTo(this, 'show', this.showMenuStyles);
@@ -275,7 +280,12 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
         });
       };
 
-      MediaMangerLayout.prototype.onMenuDeleteSuccess = function() {};
+      MediaMangerLayout.prototype.onMenuDeleteSuccess = function() {
+        this.listMenuRegion.close();
+        this.addMenuRegion.close();
+        this.$el.find('a.delete-menu').addClass('hidden');
+        return this.menuListView.triggerMethod('menu:deleted');
+      };
 
       MediaMangerLayout.prototype.onAddMenuFailed = function(message) {
         message = '<p class="help-block">' + _.polyglot.t(message + '</p>');

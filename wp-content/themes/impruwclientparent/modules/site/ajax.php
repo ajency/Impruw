@@ -311,6 +311,17 @@ function builder_remove_menu_item(){
 }
 add_action('wp_ajax_builder-remove-menu-item', 'builder_remove_menu_item');
 
+
+function builder_delete_menu(){
+
+    $menu_id = $_POST['menu_id'];
+
+    wp_delete_nav_menu( $menu_id );
+    
+    wp_send_json(array('menu_id' => $menu_id));
+}
+add_action('wp_ajax_builder-delete-menu', 'builder_delete_menu');
+
 function builder_update_menu_items_order(){
 
     $menu_items = $_POST['menu_items'];

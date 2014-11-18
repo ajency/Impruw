@@ -52,6 +52,10 @@ define ['app'], (App)->
 
 			appendHtml : (collectionView, childView, index)->
 
+				if @collection.length is 0
+					Marionette.CollectionView::appendHtml.apply @,arguments
+					return
+
 				if childView.model.get('menu_item_parent') is '0'
 					collectionView.$el.append childView.el
 				else
