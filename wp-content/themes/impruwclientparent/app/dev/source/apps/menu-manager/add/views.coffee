@@ -13,9 +13,7 @@ define ['app'], (App)->
                                     <label class="control-label">{{#polyglot}}Page Item{{/polyglot}}</label>
                                     <div class="bootstrap-select">
                                         <select name="page_id" id="page_id">
-                                            {{^hasMenus}}
                                             <option value="">{{#polyglot}}Choose Page{{/polyglot}}</option>
-                                            {{/hasMenus}}
                                             {{#pages}}
                                             <option value="{{ID}}">{{post_title}}</option>
                                             {{/pages}}
@@ -37,7 +35,7 @@ define ['app'], (App)->
                                 <div class="form-group">
                                     <label class="control-label">&nbsp;</label>
                                     <button type="button" class="add-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Add{{/polyglot}}</span></button>
-                                    <input type="reset" id="btn_resetmenu" style="display:none">
+                                    <input type="reset" id="btn_resetmenu" class="hidden"/>
                                 </div>
                             </form>
                         </div>
@@ -49,6 +47,7 @@ define ['app'], (App)->
                 'menuName' : 'input[name="custom-menu-name"]'
                 'menuUrl' : 'input[name="custom-menu-url"]'
                 'pageId' : '#page_id'
+                'resetButton' : '#btn_resetmenu'
 
             events:
                 'change select[name="page_id"]' : ->
@@ -61,13 +60,18 @@ define ['app'], (App)->
                 'click .add-menu-item': 'addMenuItem'
 
             addMenuItem : ->
+                @$el.find('.alert').remove()
                 data = {}
                 if @ui.menuName.val() isnt ''
                     data['menu-item-title'] = @ui.menuName.val()
                     data['menu-item-type'] = 'custom'
                     data['menu-item-url'] = @ui.menuUrl.val()
                 else
-                    data['menu-item-object-id'] =  @ui.pageId.selectpicker 'val'
+                    pageId = @ui.pageId.selectpicker 'val'
+                    if pageId is ''
+                        @showMissingFieldMessage()
+                        return
+                    data['menu-item-object-id'] =  pageId
                     data['menu-item-db-id'] = 0
                     data['menu-item-object'] = 'page'
                     data['menu-item-parent-id'] = 0
@@ -78,13 +82,19 @@ define ['app'], (App)->
                 
                 @trigger "add:menu:item:clicked", data
 
+            showMissingFieldMessage : =>
+                message = _.polyglot.t 'Sorry, you need to add the menu name and link for custom menus or you could simply select a page from page item drop down'
+                @$el.find 'form.form-inline'
+                    .prepend "<div class='alert alert-danger'>#{message}</div>"
+
             serializeData :->
                 data = super()
                 pages = App.request "get:editable:pages"
                 data.pages = pages.toJSON()
-                data.hasMenus = pages.length > 0
                 data
 
+            onAddMenuitemSuccess : =>
+                @ui.resetButton.click()
 
             onNewMenuCreated: ->
                 @$el.find('.alert').remove()

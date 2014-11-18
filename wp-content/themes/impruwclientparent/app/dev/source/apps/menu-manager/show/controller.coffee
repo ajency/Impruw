@@ -128,7 +128,8 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 
 			events : 
 				'click a.delete-menu' : ->
-					bootbox.confirm "Are you sure? Need Proper  message here.", ( answer )=>
+					message = _.polyglot.t 'All the occurrences of this menu will be deleted from the website. Are you sure you want to delete the menu?'
+					bootbox.confirm message, ( answer )=>
 							if answer is yes
 								@trigger "delete:menu:clicked", @menuId
 
@@ -204,7 +205,6 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				@menuStylesRegion.show menuStylesView
 
 			updateSelectedMenu : (menuStyle)=>
-				console.log menuStyle
 				@menuElementModel.set 'style', menuStyle
 
 			menuChanged : (menuId) =>

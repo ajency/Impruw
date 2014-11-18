@@ -214,7 +214,9 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
 
       MediaMangerLayout.prototype.events = {
         'click a.delete-menu': function() {
-          return bootbox.confirm("Are you sure? Need Proper  message here.", (function(_this) {
+          var message;
+          message = _.polyglot.t('All the occurrences of this menu will be deleted from the website. Are you sure you want to delete the menu?');
+          return bootbox.confirm(message, (function(_this) {
             return function(answer) {
               if (answer === true) {
                 return _this.trigger("delete:menu:clicked", _this.menuId);
@@ -261,7 +263,6 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       };
 
       MediaMangerLayout.prototype.updateSelectedMenu = function(menuStyle) {
-        console.log(menuStyle);
         return this.menuElementModel.set('style', menuStyle);
       };
 

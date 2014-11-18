@@ -306,6 +306,8 @@ function builder_remove_menu_item(){
 
     $menu_item_id = $_REQUEST['menu_item_id'];
 
+    wp_delete_post( $menu_item_id );
+    
     wp_send_json(1);
 
 }
