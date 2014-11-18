@@ -709,3 +709,9 @@ add_filter( 'wp_mail_content_type', 'change_email_content_type' );
       }
 
     }
+
+/**** Blog Excerpt More ****/
+function new_excerpt_more( $more ) {
+  return '&hellip;';
+}
+add_filter('excerpt_more', 'new_excerpt_more');
