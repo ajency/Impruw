@@ -42,9 +42,10 @@ get_header();
 
         <?php endwhile; ?>
 
-		<div class="navigation">
-			<span class="newer"><?php previous_posts_link(__('« Newer','impruwmain')) ?></span> <span class="older"><?php next_posts_link(__('Older »','impruwmain')) ?></span>
-		</div><!-- /.navigation -->
+		<nav class="navigation clearfix">
+		    <div class="previous pull-left"><?php previous_posts_link(__('&larr; Newer','impruwmain')) ?></div>
+		    <div class="next pull-right"><?php next_posts_link(__('Older &rarr;','impruwmain')) ?></div>
+		</nav><!-- /.navigation -->
 
 	<?php else: ?>
 
