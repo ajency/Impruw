@@ -42,7 +42,7 @@ define ['app'
 
             isSingleRoomPage: ->
                 pageName = App.request "get:current:editable:page:name"
-                pageName is 'Single Room'
+                pageName is SINGLE_ROOM_PAGE
 
 
             # setup templates for the element

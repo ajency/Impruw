@@ -22,55 +22,29 @@ define ['app'], (App)->
 
 			singleRoomTemplate: '<div class="room-summary-container ">
 									<div class="room-summary-title">
-										<h4>Room Summary</h4>
+										<h4>{{#polyglot}}Room Summary{{/polyglot}}</h4>
 									</div>
 									<div class="room-summary">
 										<div class="room-summary-item">
-											<span class="key">No. of Rooms : </span>
-											<span class="value">Visible on live</span>
+											<span class="key">{{#polyglot}}No. of Rooms{{/polyglot}}: </span>
+											<span class="value">{{#polyglot}}Visible on live{{/polyglot}}</span>
 										</div>
 										<div class="room-summary-item">
-											<span class="key">Check-in : </span>
+											<span class="key">{{#polyglot}}Check-in{{/polyglot}} : </span>
 											<span class="value">{{checkin_time}}</span>
 										</div>
 										<div class="room-summary-item">
-											<span class="key">Check-out : </span>
+											<span class="key">{{#polyglot}}Check-out{{/polyglot}} : </span>
 											<span class="value">{{checkout_time}}</span>
 										</div>
 									   <div class="room-summary-item">
-											<span class="key">Additional policy : </span>
+											<span class="key">{{#polyglot}}Additional policy{{/polyglot}} : </span>
 											<span class="value">{{additional_policy}}</span>
 										</div>
 									</div>
 								</div>'
 
-			  # '<div class="room-summary-container">
-			  #                         <div class="room-summary-title">
-			  #                             <h4>Room Summary</h4>
-			  #                         </div>
-			  #                         <div class="room-summary">
-			  #                             <div class="room-summary-item">
-			  #                                 <span class="key">No. of Rooms</span>
-			  #                                 <span class="value">3</span>
-			  #                             </div>
-			  #                             <div class="room-summary-item">
-			  #                                 <span class="key">Guests</span>
-			  #                                 <span class="value">2</span>
-			  #                             </div>
-			  #                             <div class="room-summary-item">
-			  #                                 <span class="key">Room Type</span>
-			  #                                 <span class="value">Deluxe Room</span>
-			  #                             </div>
-			  #                             <div class="room-summary-item">
-			  #                                 <span class="key">Check-in</span>
-			  #                                 <span class="value">10.00 AM</span>
-			  #                             </div>
-			  #                             <div class="room-summary-item">
-			  #                                 <span class="key">Check-out</span>
-			  #                                 <span class="value">1.00 PM</span>
-			  #                             </div>
-			  #                         </div>
-			  #                     </div>'
+
 
 			events :
 				'click .room-img > img' : 'showMediaManager'
@@ -129,3 +103,4 @@ define ['app'], (App)->
 
 				if not _.isUndefined roomNotSet
 					@template = @roomNotSetTemplate
+
