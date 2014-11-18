@@ -2373,6 +2373,7 @@ and open the template in the editor.
   background: #2a3b66;
   margin: 0;
   padding: 0;
+  left: 1.5em;
   box-shadow: 0 6px 4px -4px #2a3b66;
 }
 .nav.slimmenu > li ul li {
@@ -2407,6 +2408,7 @@ and open the template in the editor.
     background: #1b2642;
     height: 36px;
     width: 40px;
+    top: -5px;
   }
   .nav.slimmenu > li ul {
     padding-left: 2em;

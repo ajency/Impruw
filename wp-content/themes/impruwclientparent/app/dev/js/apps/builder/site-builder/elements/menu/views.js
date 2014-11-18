@@ -12,7 +12,7 @@ define(['app'], function(App) {
         return MenuItemView.__super__.constructor.apply(this, arguments);
       }
 
-      MenuItemView.prototype.template = '<a href="{{menu_item_url}}">{{menu_item_title}}</a>';
+      MenuItemView.prototype.template = '<a href="#">{{title}}</a>';
 
       MenuItemView.prototype.initialize = function(opt) {
         if (opt == null) {
@@ -23,6 +23,10 @@ define(['app'], function(App) {
       };
 
       MenuItemView.prototype.tagName = 'li';
+
+      MenuItemView.prototype.onRender = function() {
+        return this.$el.attr('id', 'item-' + this.model.get('ID'));
+      };
 
       return MenuItemView;
 
@@ -50,7 +54,7 @@ define(['app'], function(App) {
 
       EmptyView.prototype.tagsName = 'ul';
 
-      EmptyView.prototype.template = '<li>{{#polyglot}}No menu found{{/polyglot}}</li>';
+      EmptyView.prototype.template = '<div class="empty-view"><span class="bicon icon-uniF14E"></span>{{#polyglot}}No menu found. Click to Edit or Create a Menu.{{/polyglot}}</div>';
 
       return EmptyView;
 
@@ -65,15 +69,16 @@ define(['app'], function(App) {
 
       MenuView.prototype.tagName = 'ul';
 
-      MenuView.prototype.className = 'nav';
+      MenuView.prototype.className = 'nav slimmenu';
 
       MenuView.prototype.itemView = Views.MenuItemView;
 
       MenuView.prototype.emptyView = EmptyView;
 
       MenuView.prototype.events = {
-        'click': function() {
-          return this.trigger("open:menu:manager");
+        'click': function(e) {
+          e.preventDefault();
+          return this.trigger("menu:element:clicked");
         },
         'click a': function(evt) {
           return evt.preventDefault();
@@ -87,9 +92,31 @@ define(['app'], function(App) {
         return this.onSetJustified(this.options.prop.justified);
       };
 
-      MenuView.prototype.onBeforeRender = function() {
-        return this.collection.sort();
+      MenuView.prototype.appendHtml = function(collectionView, childView, index) {
+        if (childView.model.get('menu_item_parent') === '0') {
+          collectionView.$el.append(childView.el);
+        } else {
+          this.createSubMenuAndAppend(collectionView, childView);
+        }
+        return collectionView._bufferedChildren.push(childView);
       };
+
+      MenuView.prototype.createSubMenuAndAppend = function(collectionView, childView) {
+        var $ul, menuItemModel;
+        menuItemModel = childView.model;
+        $ul = collectionView.$el.find("#item-" + (menuItemModel.get('menu_item_parent')) + " ul");
+        if ($ul.length === 0) {
+          $ul = collectionView.$el.find("#item-" + (menuItemModel.get('menu_item_parent'))).append('<ul></ul>');
+        }
+        $ul = collectionView.$el.find("#item-" + (menuItemModel.get('menu_item_parent')) + " ul");
+        return $ul.append(childView.el);
+      };
+
+      MenuView.prototype.onShow = function() {
+        return this.$el.slimmenu();
+      };
+
+      MenuView.prototype.onBeforeRender = function() {};
 
       MenuView.prototype.setAlignment = function(align) {
         this.$el.removeClass('navbar-left navbar-center navbar-right');
