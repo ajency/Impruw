@@ -122,7 +122,7 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				@trigger "menu:style:selected", $(ui.selected).attr 'data-menu-style'
 
 		# Rooms tariff layout
-		class MediaMangerLayout extends Marionette.Layout
+		class MediaMangerLayout extends Marionette.LayoutView
 
 			className : 'menu-manager-container row'
 

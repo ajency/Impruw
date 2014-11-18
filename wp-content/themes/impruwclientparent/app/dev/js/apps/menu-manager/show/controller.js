@@ -313,7 +313,7 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
 
       return MediaMangerLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return App.commands.setHandler("menu-manager", function(menuElementModel, menuId) {
       var opts;
       opts = {

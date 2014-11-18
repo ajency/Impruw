@@ -19,7 +19,7 @@ define(['app', 'text!apps/language-translation/language-page-rooms/templates/lan
 
       return PageRooomsLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
     return {
       onShow: function() {
         return this.$el.find('select').selectpicker();

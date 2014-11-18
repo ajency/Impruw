@@ -63,6 +63,6 @@ define(['app', 'text!apps/rooms/edit/templates/edit-room.html'], function(App, a
 
       return EditRoomLayout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });

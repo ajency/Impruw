@@ -21,6 +21,6 @@ define(['app', 'text!apps/billing/update-billing/templates/view.html'], function
 
       return Layout;
 
-    })(Marionette.Layout);
+    })(Marionette.LayoutView);
   });
 });
