@@ -21,7 +21,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype._getLanguageView = function(collection) {
-        return new OriginalSmartTable.Views.OriginalSmartTableView({
+        return new OriginalSmartTable.Views.OriginalSmartTablesView({
           collection: collection
         });
       };

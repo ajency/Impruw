@@ -20,7 +20,7 @@ define ['app', 'controllers/base-controller'
 
             _getLanguageView :(collection)->
                 #TODO pass default language
-                new OriginalSmartTable.Views.OriginalSmartTableView
+                new OriginalSmartTable.Views.OriginalSmartTablesView
                     collection: collection
 
         App.commands.setHandler "original:smart:table:app", (opts) ->

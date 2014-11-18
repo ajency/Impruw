@@ -247,7 +247,7 @@ add_action( 'wp_ajax_get-page-tables', 'get_page_tables_ajax' );
 function get_page_smart_tables_ajax(){
     $page_id = $_REQUEST['pageId'];
 
-    $data =  get_page_table_elements($page_id);
+    $data =  get_page_smarttable_elements($page_id);
 
     wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
 }

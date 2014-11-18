@@ -265,6 +265,24 @@ function get_page_table_elements($page_id){
    return $elements;    
 }
 
+//Function to get all page smart table elements
+function get_page_smarttable_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+
+    $elements = array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_smarttable_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('SmartTable')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;    
+}
+
 function get_page_slider_collection($page_id){
     $sliders =  get_page_slider_elements($page_id);
     
@@ -354,6 +372,20 @@ function get_row_table_elements( $row_element, &$elements ){
                 get_row_table_elements( $element,$elements );
             } else {
                 if(in_array($element[ 'element'] , array('Table')))
+                    $elements[] = $element;
+            }
+        }
+    }
+}
+
+function get_row_smarttable_elements( $row_element, &$elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( $element[ 'element' ] === 'Row' ) {
+                get_row_smarttable_elements( $element,$elements );
+            } else {
+                if(in_array($element[ 'element'] , array('SmartTable')))
                     $elements[] = $element;
             }
         }

@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('LanguageApp.LanguagePageContent.OriginalSmartTable.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var EmptySmartTableView, OriginalSmartTableItemView;
+    var EmptySmartTableView, OriginalSmartTableItemView, OriginalSmartTableView;
     OriginalSmartTableItemView = (function(_super) {
       __extends(OriginalSmartTableItemView, _super);
 
@@ -11,11 +11,7 @@ define(['app'], function(App) {
         return OriginalSmartTableItemView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalSmartTableItemView.prototype.tagName = 'div';
-
-      OriginalSmartTableItemView.prototype.className = 'form-group legend-group';
-
-      OriginalSmartTableItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group smart-table-elements"> <label class="col-sm-3 control-label" for="">{{element_name}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original {{element}}" tabindex="1"> {{{contentText}}} </div> </div> </div> </div>';
+      OriginalSmartTableItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Heading</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{#dtExist}}{{dt}}{{/dtExist}} </div> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Description</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{#ddExist}}{{dd}}{{/ddExist}} </div> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Attribute</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{#emExist}}{{em}}{{/emExist}} </div> </div> </div> </div> </div>';
 
       OriginalSmartTableItemView.prototype.events = {
         'click a': function(e) {
@@ -25,23 +21,45 @@ define(['app'], function(App) {
 
       OriginalSmartTableItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalSmartTableItemView.__super__.mixinTemplateHelpers.call(this, data);
-        data.element_name = function() {
-          var element_name;
-          element_name = _.polyglot.t(data.element);
-          return element_name;
-        };
-        data.contentText = function() {
-          var translated_text, _ref;
-          translated_text = (_ref = data.content[WPML_DEFAULT_LANG]) != null ? _ref : data.content;
-          translated_text = _.stripslashes(translated_text);
-          return translated_text;
-        };
+        if ((data.dt != null) && data.dt !== '') {
+          data.dtExist = true;
+        }
+        if ((data.dd != null) && data.dd !== '') {
+          data.ddExist = true;
+        }
+        if ((data.em != null) && data.em !== '') {
+          data.emExist = true;
+        }
         return data;
       };
 
       return OriginalSmartTableItemView;
 
     })(Marionette.ItemView);
+    OriginalSmartTableView = (function(_super) {
+      __extends(OriginalSmartTableView, _super);
+
+      function OriginalSmartTableView() {
+        return OriginalSmartTableView.__super__.constructor.apply(this, arguments);
+      }
+
+      OriginalSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small></h6> <div id="original-smart-table"> </div> <hr>';
+
+      OriginalSmartTableView.prototype.itemView = OriginalSmartTableItemView;
+
+      OriginalSmartTableView.prototype.itemViewContainer = '#original-smart-table';
+
+      OriginalSmartTableView.prototype.initialize = function() {
+        var collection, completeContent;
+        completeContent = this.model.get('contents');
+        collection = new Backbone.Collection(completeContent[WPML_DEFAULT_LANG]);
+        console.log(collection);
+        return this.collection = collection;
+      };
+
+      return OriginalSmartTableView;
+
+    })(Marionette.CompositeView);
     EmptySmartTableView = (function(_super) {
       __extends(EmptySmartTableView, _super);
 
@@ -54,22 +72,22 @@ define(['app'], function(App) {
       return EmptySmartTableView;
 
     })(Marionette.ItemView);
-    return Views.OriginalSmartTableView = (function(_super) {
-      __extends(OriginalSmartTableView, _super);
+    return Views.OriginalSmartTablesView = (function(_super) {
+      __extends(OriginalSmartTablesView, _super);
 
-      function OriginalSmartTableView() {
-        return OriginalSmartTableView.__super__.constructor.apply(this, arguments);
+      function OriginalSmartTablesView() {
+        return OriginalSmartTablesView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalSmartTableView.prototype.template = '<div id="original-smart-page-table"></div>';
+      OriginalSmartTablesView.prototype.template = '<div id="original-smart-page-table"></div>';
 
-      OriginalSmartTableView.prototype.itemView = OriginalSmartTableItemView;
+      OriginalSmartTablesView.prototype.itemView = OriginalSmartTableView;
 
-      OriginalSmartTableView.prototype.emptyView = EmptySmartTableView;
+      OriginalSmartTablesView.prototype.emptyView = EmptySmartTableView;
 
-      OriginalSmartTableView.prototype.itemViewContainer = '#original-smart-page-table';
+      OriginalSmartTablesView.prototype.itemViewContainer = '#original-smart-page-table';
 
-      return OriginalSmartTableView;
+      return OriginalSmartTablesView;
 
     })(Marionette.CompositeView);
   });
