@@ -74,9 +74,12 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 			tagName : 'select'
 			className : 'global-menus-list'
 			itemView : MenuOption
-			emptyView : NoMenuView
+			#emptyView : NoMenuView
 			events : 
 				'change' : 'menuChanged'
+
+			onRender : ->
+				@$el.prepend '<option value="">Choose Menu</option>'
 			
 			menuChanged : =>
 				menuId = @$el.selectpicker 'val'
@@ -226,7 +229,7 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 			onMenuDeleteSuccess : ->
 				@listMenuRegion.close()
 				@addMenuRegion.close()
-				@$el.find('a.delete-menu').addClass 'hidden'
+				@$el.find('a.delete-menu').parent().addClass 'hidden'
 				@menuListView.triggerMethod 'menu:deleted'
 
 

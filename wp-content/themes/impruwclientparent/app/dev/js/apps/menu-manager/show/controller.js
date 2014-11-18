@@ -134,10 +134,12 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
 
       DropdownListView.prototype.itemView = MenuOption;
 
-      DropdownListView.prototype.emptyView = NoMenuView;
-
       DropdownListView.prototype.events = {
         'change': 'menuChanged'
+      };
+
+      DropdownListView.prototype.onRender = function() {
+        return this.$el.prepend('<option value="">Choose Menu</option>');
       };
 
       DropdownListView.prototype.menuChanged = function() {
@@ -295,7 +297,7 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       MediaMangerLayout.prototype.onMenuDeleteSuccess = function() {
         this.listMenuRegion.close();
         this.addMenuRegion.close();
-        this.$el.find('a.delete-menu').addClass('hidden');
+        this.$el.find('a.delete-menu').parent().addClass('hidden');
         return this.menuListView.triggerMethod('menu:deleted');
       };
 
