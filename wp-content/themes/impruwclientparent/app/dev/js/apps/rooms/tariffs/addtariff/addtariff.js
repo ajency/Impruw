@@ -25,7 +25,6 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
           return function() {
             var currentCurrency, tariffView;
             currentCurrency = sitemodel.get('currency');
-            console.log(sitemodel);
             _this.tariffView = tariffView = _this._getAddTariffView(tariff, currentCurrency);
             _this.listenTo(tariffView, "add:tariff", function(data) {
               tariff.set(data);

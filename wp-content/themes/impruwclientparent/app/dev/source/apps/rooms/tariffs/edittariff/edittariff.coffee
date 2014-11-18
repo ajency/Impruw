@@ -34,7 +34,7 @@ define [ 'app', 'controllers/base-controller',
                     @show tariffView,
                         loading : true
 
-            tariffSaved : =>
+            tariffSaved : (model)=>
                 @tariffView.triggerMethod "saved:tariff"
 
             tariffDeleted : =>
@@ -76,6 +76,17 @@ define [ 'app', 'controllers/base-controller',
 
                         @trigger "delete:tariff", @model
 
+            initialize : ->
+                weekday = @model.get 'weekday'
+                if not weekday.enable?
+                    weekday.enable = true
+                    @model.set 'weekday', weekday
+
+                weekend = @model.get 'weekend'
+                if not weekend.enable?
+                    weekend.enable = true
+                    @model.set 'weekend', weekend
+
             onSavedTariff : ->
                 @$el.find('.alert').remove()
                 @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Tariff updated successfully" ) + "</div>"
@@ -86,6 +97,22 @@ define [ 'app', 'controllers/base-controller',
             # show checkbox
             onShow : ->
                 @$el.find( 'input[type="checkbox"]' ).radiocheck()
+
+                weekday = @model.get 'weekday'
+                if not weekday.enable?
+                    weekday.enable = true
+                    @model.set 'weekday', weekday
+                if _.toBoolean weekday.enable
+                    @$el.find( 'input[type="checkbox"][name="weekday[enable]"]' ).radiocheck('check')
+
+
+                weekend = @model.get 'weekend'
+                if not weekend.enable?
+                    weekend.enable = true
+                    @model.set 'weekend', weekend
+                if _.toBoolean weekend.enable
+                    @$el.find( 'input[type="checkbox"][name="weekend[enable]"]' ).radiocheck('check')
+
                 # @$el.find('.currency' ).text Marionette.getOption @, 'currency'
                 #validate the form with rules
                 @$el.validate()
