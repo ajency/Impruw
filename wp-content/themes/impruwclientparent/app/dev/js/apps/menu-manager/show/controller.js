@@ -4,7 +4,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
 define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppController, bootbox) {
   return App.module("MenuManager.Show", function(Show, App) {
-    var DropdownListView, MediaMangerLayout, MenuOption, MenuStyleItemView, MenuStylesView;
+    var DropdownListView, MediaMangerLayout, MenuOption, MenuStyleItemView, MenuStylesView, NoMenuView;
     Show.Controller = (function(_super) {
       __extends(Controller, _super);
 
@@ -102,6 +102,24 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       return MenuOption;
 
     })(Marionette.ItemView);
+    NoMenuView = (function(_super) {
+      __extends(NoMenuView, _super);
+
+      function NoMenuView() {
+        return NoMenuView.__super__.constructor.apply(this, arguments);
+      }
+
+      NoMenuView.prototype.tagName = 'option';
+
+      NoMenuView.prototype.template = _.polyglot.t('Choose Menu');
+
+      NoMenuView.prototype.onRender = function() {
+        return this.$el.attr('value', '');
+      };
+
+      return NoMenuView;
+
+    })(Marionette.ItemView);
     DropdownListView = (function(_super) {
       __extends(DropdownListView, _super);
 
@@ -116,10 +134,7 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
 
       DropdownListView.prototype.itemView = MenuOption;
 
-      DropdownListView.prototype.emptyView = Marionette.ItemView.extend({
-        tagName: 'option',
-        template: 'Add Menu'
-      });
+      DropdownListView.prototype.emptyView = NoMenuView;
 
       DropdownListView.prototype.events = {
         'change': 'menuChanged'
@@ -131,10 +146,6 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
         if (menuId !== '') {
           return this.trigger('menu:changed', menuId);
         }
-      };
-
-      DropdownListView.prototype.onRender = function() {
-        return this.$el.prepend('<option value="">Choose Menu</option>');
       };
 
       DropdownListView.prototype.onShow = function() {

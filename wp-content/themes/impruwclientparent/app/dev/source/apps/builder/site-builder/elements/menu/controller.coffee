@@ -37,7 +37,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
                 @listenTo @layout.model, "positionupdated", @renderElement
                 templateClass = [model.get 'style'] ? ''
                 menuId = model.get('menu_id')
-                if parseInt(menuId) > 0
+                if parseInt(menuId) > 0 and window.menusCollection.length > 0
                     menu = window.menusCollection.get menuId
                     menuItemCollection = menu.get 'menuItems'
                     if menuItemCollection.length is 0

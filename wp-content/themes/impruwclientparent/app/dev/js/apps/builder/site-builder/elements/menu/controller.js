@@ -47,7 +47,7 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
         this.listenTo(this.layout.model, "positionupdated", this.renderElement);
         templateClass = (_ref = [model.get('style')]) != null ? _ref : '';
         menuId = model.get('menu_id');
-        if (parseInt(menuId) > 0) {
+        if (parseInt(menuId) > 0 && window.menusCollection.length > 0) {
           menu = window.menusCollection.get(menuId);
           menuItemCollection = menu.get('menuItems');
           if (menuItemCollection.length === 0) {

@@ -65,20 +65,22 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 			onRender : ->
 				@$el.attr 'value', @model.get 'term_id'
 
+		class NoMenuView extends Marionette.ItemView
+			tagName : 'option'
+			template : _.polyglot.t 'Choose Menu'
+			onRender : -> @$el.attr 'value',''
+
 		class DropdownListView extends Marionette.CollectionView
 			tagName : 'select'
 			className : 'global-menus-list'
 			itemView : MenuOption
-			emptyView : Marionette.ItemView.extend tagName : 'option', template : 'Add Menu'
+			emptyView : NoMenuView
 			events : 
 				'change' : 'menuChanged'
 			
 			menuChanged : =>
 				menuId = @$el.selectpicker 'val'
 				@trigger 'menu:changed', menuId if menuId isnt ''
-
-			onRender : ->
-				@$el.prepend '<option value="">Choose Menu</option>'
 
 			onShow : ->
 				menuId = Marionette.getOption @, 'menuId'
