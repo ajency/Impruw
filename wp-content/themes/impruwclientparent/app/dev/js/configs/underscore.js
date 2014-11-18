@@ -41,19 +41,10 @@ define(['underscore', 'underscorestring'], function(_) {
       return text;
     },
     stripslashes: function(str) {
+      if (!_.isString(str)) {
+        return str;
+      }
       return str.replace(/\\/g, '');
-      return (str + "").replace(/\\(.?)/g, function(s, n1) {
-        switch (n1) {
-          case "\\":
-            return "\\";
-          case "0":
-            return "\u0000";
-          case "":
-            return "";
-          default:
-            return n1;
-        }
-      });
     }
   });
 });

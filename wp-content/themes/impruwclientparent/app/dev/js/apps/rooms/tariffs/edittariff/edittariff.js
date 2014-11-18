@@ -48,7 +48,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
         })(this));
       };
 
-      EditTariffController.prototype.tariffSaved = function() {
+      EditTariffController.prototype.tariffSaved = function(model) {
         return this.tariffView.triggerMethod("saved:tariff");
       };
 
@@ -106,6 +106,20 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
         }
       };
 
+      EditTariffView.prototype.initialize = function() {
+        var weekday, weekend;
+        weekday = this.model.get('weekday');
+        if (weekday.enable == null) {
+          weekday.enable = true;
+          this.model.set('weekday', weekday);
+        }
+        weekend = this.model.get('weekend');
+        if (weekend.enable == null) {
+          weekend.enable = true;
+          return this.model.set('weekend', weekend);
+        }
+      };
+
       EditTariffView.prototype.onSavedTariff = function() {
         this.$el.find('.alert').remove();
         return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Tariff updated successfully") + "</div>");
@@ -116,7 +130,24 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
       };
 
       EditTariffView.prototype.onShow = function() {
+        var weekday, weekend;
         this.$el.find('input[type="checkbox"]').radiocheck();
+        weekday = this.model.get('weekday');
+        if (weekday.enable == null) {
+          weekday.enable = true;
+          this.model.set('weekday', weekday);
+        }
+        if (_.toBoolean(weekday.enable)) {
+          this.$el.find('input[type="checkbox"][name="weekday[enable]"]').radiocheck('check');
+        }
+        weekend = this.model.get('weekend');
+        if (weekend.enable == null) {
+          weekend.enable = true;
+          this.model.set('weekend', weekend);
+        }
+        if (_.toBoolean(weekend.enable)) {
+          this.$el.find('input[type="checkbox"][name="weekend[enable]"]').radiocheck('check');
+        }
         return this.$el.validate();
       };
 

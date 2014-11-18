@@ -129,17 +129,7 @@ function get_elementbox_elements() {
             'element' => 'Menu',
             'icon' => 'bicon icon-uniF14E',
             'helpText' => 'Click on the menu item to add and remove pages from the menu.',
-            'styles' => get_styles( 'Menu' ),
-            'site_menus' => array(
-                array(
-                    'menu_id' => 2,
-                    'menu_name' => 'Main Menu'
-                ),
-                array(
-                    'menu_id' => 3,
-                    'menu_name' => 'Footer menu'
-                )
-            )
+            'styles' => get_styles( 'Menu' )
         ),
         array(
             'element' => 'Row',

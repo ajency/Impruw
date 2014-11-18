@@ -2503,9 +2503,6 @@ a {
 						color: @dash-grey;
 						margin-bottom: 0;
 						min-height: 110px;
-						strong {
-							color: darken(@dash-grey, 10%);
-						}
 					}
 				}
 				&:hover {
@@ -2699,32 +2696,149 @@ a {
 	}
 	.menu-manager-container {
 		padding: 0 2em;
-	}
-	.aj-imp-add-menu-item {
-		h4 {
-			font-size: 2em;
-			color: @dash-grey;
-		}
 		.desc {
-			font-size: 0.9em;
 			color: @dash-grey;
+			font-size: 1.1em;
+			small {
+				display: block;
+				margin: 0.5em 0;
+			}
 		}
-		.aj-imp-add-link {
+	}
+	.create-menu-container {
+		background: @preview-grey;
+		padding: 1em;
+		border-radius: 2px;
+		.clearfix;
+		.choose-menu {
+			float: left;
+			margin-right: 1em;
+			.control-label {
+				display: block;
+				text-align: left !important;
+				line-height: 1.4;
+				color: @dash-grey;
+				text-transform: uppercase;
+			}
+			.selected a {
+				color: #fff;
+			}
+			.add a {
+				color: @orange;
+				&:hover {
+					color: #fff;
+				}
+			}
+			#global-menus-list-view {
+				display: inline-block;
+				.global-menus-list {
+					margin-bottom: 0;
+				}
+			}
+			.option-or {
+				display: inline-block;
+				font-size: 1.2em;
+				color: @dash-grey;
+				text-transform: uppercase;
+				margin: 0 1em;
+				vertical-align: middle;
+			}
+			.create-new-menu {
+				text-transform: uppercase;
+				font-size: 1.2em;
+				vertical-align: middle;
+				&:hover {
+					color: lighten(@orange, 10%);
+				}
+			}
+		}
+		#new-menu-name {
+			float: left;
+			margin-top: 1.88em;
+			.form-control {
+				min-width: 220px;
+			}
+			.help-block {
+				margin-bottom: 0;
+			}
+			.aj-imp-orange-btn {
+				vertical-align: top;
+			}
+		}
+	}
+	.aj-imp-menu-edit {
+		.clearfix;
+		.add-menu-toggle {
+			padding: 10px 13px;
+			width: 40px;
+			height: 40px;
+			background: @orange;
+			color: #fff;
+			border-radius: 40px;
+			margin: 1em 0;
+			display: block;
+			float: right;
 			font-size: 1.2em;
-			color: @orange;
+			text-align: center;
+			&:hover {
+				background: lighten(@orange, 10%);
+			}
 		}
-		.add-menu-form {
-			margin: 1em 0 0;
-			form {
-				margin: 0;
-				.form-actions {
-					text-align: right;
-					.btn {
-						padding: 5px 8px 6px;
-						&.save-btn {
-							background: @orange;
-							&:hover {
-								background: lighten(@orange, 20%);
+		.aj-imp-add-menu-item {
+			h4 {
+				font-size: 1.4em;
+				color: @dash-grey;
+				margin-top: 0;
+			}
+			.desc {
+				font-size: 0.9em;
+				color: @dash-grey;
+			}
+			.list-steps {
+				list-style: circle;
+				padding-left: 0;
+				margin-top: 1em;
+				li {
+					color: @dash-grey;
+					font-size: 0.9em;
+					margin-bottom: 0.25em;
+				}
+			}
+			.aj-imp-add-link {
+				font-size: 1.2em;
+				color: @orange;
+			}
+			.add-menu-form {
+				margin: 1em 0 0;
+				padding: 1em;
+				.form-inline {
+					margin: 0;
+					.form-group {
+						.control-label {
+							display: block;
+							color: @dash-grey;
+							text-transform: uppercase;
+						}
+						.url {
+							min-width: 200px;
+						}
+					}
+					.option-or {
+						display: inline-block;
+						font-size: 1.2em;
+						color: @dash-grey;
+						text-transform: uppercase;
+						margin: 0 1em;
+					}
+					.form-actions {
+						text-align: right;
+						.btn {
+							padding: 5px 8px 6px;
+							&.save-btn {
+								background: @orange;
+								&:hover {
+									background: lighten(@orange, 20%);
+								}
 							}
 						}
 					}
@@ -2742,50 +2856,96 @@ a {
 			.list-group-item {
 				.menu-item {
 					.menu-dragger {
-						color: @dash-grey;
+						color: lighten(@dash-grey, 10%);
 						font-size: 1.2em;
 						text-align: center;
 						cursor: move;
 					}
+					.menu-name {
+						color: @3-grey;
+						padding-top: 1px;
+					}
 					.menu-edit {
 						text-align: right;
-						a {
+						font-size: 0.8em;
+						padding-top: 4px;
+						visibility: hidden;
+					}
+					&:hover {
+						.menu-dragger {
 							color: @orange;
+						}
+						.menu-name {
+							color: @blue-grey;
+						}
+						.menu-edit {
+							visibility: visible;
 						}
 					}
 				}
 				.menu-item-edit {
 					background: lighten(@dash-grey, 30%);
 					margin: 10px -15px -10px;
-					padding: 15px 0;
-					.form-actions {
-						.btn {
-							padding: 5px 8px 6px;
-							&.save-btn {
-								background: @orange;
-								&:hover {
-									background: lighten(@orange, 20%);
-								}
-							}
+					padding: 0.5em 1em;
+					.form-group {
+						.control-label {
+							display: block;
+							color: @dash-grey;
+							text-transform: uppercase;
+						}
+						.menutitle {
+							min-width: 300px;
 						}
 					}
+					.form-actions {
+						.red-link {
+							vertical-align: middle;
+							font-size: 0.8em;
+						}
+					}
+				}
+				> ol {
+					padding: 0;
+					border-left: 1px solid lighten(@dash-grey, 10%);
+					margin-left: 1.7em;
+					margin-top: 0.5em;
 				}
 				&:last-child {
 					.menu-item-edit {
 						border-radius: 0 0 4px 4px;
 					}
 				}
-				&:hover {
-					.menu-dragger {
-						color: @orange;
-					}
-					.menu-name {
-						color: @blue-grey;
+			}
+		}
+	}
+	.styles-container {
+		background: darken(@preview-grey, 10%);
+		border-radius: 2px;
+		padding: 0.5em 30px;
+		h4 {
+			font-size: 1.3em;
+			color: @dash-grey;
+		}
+		.single-item {
+			.thumbnail {
+				background: @dash-grey !important;
+				height: auto !important;
+				.imgthumb {
+					background: transparent;
+					width: 100% !important;
+					float: none !important;
+					margin: 0 !important;
+					img {
+						width: 100%;
 					}
 				}
 			}
+			&.ui-selected {
+				.thumbnail {
+					background: @preview-grey !important;
+				}
+			}
 		}
-		
 	}
 	.modal-body-title {
 		font-size: 1.2em;

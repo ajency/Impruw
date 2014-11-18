@@ -44,7 +44,7 @@ define(['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
       };
 
       SettingsView.prototype.dialogOptions = {
-        modal_title: _.polyglot.t('Row Options'),
+        modal_title: _.polyglot.t('Pick a Row Style'),
         modal_size: 'wide-modal'
       };
 
