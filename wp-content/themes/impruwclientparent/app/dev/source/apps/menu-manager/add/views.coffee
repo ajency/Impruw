@@ -82,7 +82,7 @@ define ['app'], (App)->
                 @trigger "add:menu:item:clicked", data
 
             showMissingFieldMessage : =>
-                message = _.polyglot.t 'Please choose a page or enter custom menu item'
+                message = _.polyglot.t 'Sorry, you need to add the menu name and link for custom menus or you could simply select a page from page item drop down'
                 @$el.find 'form.form-inline'
                     .prepend "<div class='alert alert-danger'>#{message}</div>"
 

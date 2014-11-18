@@ -61,7 +61,7 @@ define(['app'], function(App) {
 
       MenuItemView.prototype.showMissingFieldMessage = function() {
         var message;
-        message = _.polyglot.t('Please choose a page or enter custom menu item');
+        message = _.polyglot.t('Sorry, you need to add the menu name and link for custom menus or you could simply select a page from page item drop down');
         return this.$el.find('form.form-inline').prepend("<div class='alert alert-danger'>" + message + "</div>");
       };
 
