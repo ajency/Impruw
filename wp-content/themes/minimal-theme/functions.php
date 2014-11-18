@@ -305,15 +305,15 @@
         'Row' => array(
                     array(
                         'name'      => 'Menu Bar',
-                        'desc' => 'Full width row designed like a banner with a red background. Best way to use:<br><strong>Best way to use:</strong>  Use this to add your navigation menu as displayed in the minimal theme. Ensure its inside the center container / fix width row else the layout will not be aligned.'
+                        'desc' => 'Full width row designed like a banner with a red background. Best way to use:  Use this to add your navigation menu as displayed in the minimal theme. Ensure its inside the center container / fix width row else the layout will not be aligned.'
                     ),
                     array(
                         'name'      => 'Footer Bar',
-                        'desc' => 'Full width row with a dark grey background. <br><strong>Best way to use:</strong>  Use this as a footer on your website. Ensure its inside the center container / fix width row else the layout will not be aligned.'                
+                        'desc' => 'Full width row with a dark grey background. Best way to use:  Use this as a footer on your website. Ensure its inside the center container / fix width row else the layout will not be aligned.'                
                     ),
                     array(
                         'name'      => 'Padded Container',
-                        'desc' => 'Full width row with padding around it. <br><strong>Best way to use:</strong>  Use this when you need some additional space around your elements. Ensure its inside the center container / fix width row else the layout will not be aligned.'
+                        'desc' => 'Full width row with padding around it. Best way to use:  Use this when you need some additional space around your elements. Ensure its inside the center container / fix width row else the layout will not be aligned.'
                     )
                  ),
         'Social' => array(

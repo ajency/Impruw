@@ -15,8 +15,7 @@ define ['app', 'controllers/base-controller',
             
             App.execute "when:fetched", sitemodel, =>
                currentCurrency = sitemodel.get 'currency'
-               console.log sitemodel
-
+               
                @tariffView = tariffView = @_getAddTariffView tariff, currentCurrency
 
                @listenTo tariffView, "add:tariff", ( data )=>

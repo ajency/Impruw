@@ -9,8 +9,6 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
 
       function Controller() {
         this.renderElement = __bind(this.renderElement, this);
-        this.newMenuItemAdded = __bind(this.newMenuItemAdded, this);
-        this.addNewMenuItem = __bind(this.addNewMenuItem, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -18,7 +16,8 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
         _.defaults(options.modelData, {
           element: 'Menu',
           justified: false,
-          style: ''
+          style: '',
+          menu_id: 0
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -34,26 +33,6 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
         return Controller.__super__.bindEvents.call(this);
       };
 
-      Controller.prototype.addNewMenuItem = function(menu) {
-        var data, menumodel;
-        menumodel = App.request("create:new:menu:item");
-        menumodel.set('menu_id', parseInt(this.layout.model.get('menu_id')));
-        data = {
-          menu_item_title: menu.get('post_title'),
-          page_id: menu.get('original_id'),
-          menu_item_parent: 0,
-          order: 0
-        };
-        return menumodel.save(data, {
-          wait: true,
-          success: this.newMenuItemAdded
-        });
-      };
-
-      Controller.prototype.newMenuItemAdded = function(model) {
-        return this.menuCollection.add(model);
-      };
-
       Controller.prototype._getMenuView = function(collection, templateClass) {
         return new Menu.Views.MenuView({
           collection: collection,
@@ -62,41 +41,30 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
         });
       };
 
-      Controller.prototype._getMenuCollection = function() {
-        if (_.isUndefined(this.menuCollection)) {
-          if (this.layout.model.get('menu_id') > 0) {
-            this.menuCollection = App.request("get:menu:items:by:menuid", this.layout.model.get('menu_id'));
-          } else {
-            this.menuCollection = App.request("get:menu:item:collection");
-            this.menuCollection.once("add", (function(_this) {
-              return function(model) {
-                _this.layout.model.set('menu_id', model.get('menu_id'));
-                return _this.layout.model.save();
-              };
-            })(this));
-          }
-        }
-        return this.menuCollection;
-      };
-
       Controller.prototype.renderElement = function() {
-        var itemCollection, model;
-        window.MENUID = parseInt(this.layout.model.get('menu_id'));
-        this.itemCollection = itemCollection = this._getMenuCollection();
+        var menu, menuId, menuItemCollection, model, templateClass, view, _ref;
         model = this.layout.model;
-        return App.execute("when:fetched", itemCollection, (function(_this) {
-          return function() {
-            var menu_id, templateClass, view, _ref;
-            templateClass = (_ref = [model.get('style')]) != null ? _ref : '';
-            view = _this._getMenuView(itemCollection, templateClass);
-            _this.menu_id = menu_id = _this.layout.model.get('menu_id');
-            _this.listenTo(itemCollection, "menu:order:updated", view.render);
-            _this.listenTo(view, "open:menu:manager", function() {
-              return App.execute("menu-manager", _this.itemCollection, _this.menu_id);
+        this.listenTo(this.layout.model, "positionupdated", this.renderElement);
+        templateClass = (_ref = [model.get('style')]) != null ? _ref : '';
+        menuId = model.get('menu_id');
+        if (parseInt(menuId) > 0) {
+          menu = window.menusCollection.get(menuId);
+          menuItemCollection = menu.get('menuItems');
+          if (menuItemCollection.length === 0) {
+            menuItemCollection.fetch({
+              menu_id: menuId
             });
-            return _this.layout.elementRegion.show(view);
+          }
+        } else {
+          menuItemCollection = new Backbone.Collection;
+        }
+        view = this._getMenuView(menuItemCollection, templateClass);
+        this.listenTo(view, "menu:element:clicked", (function(_this) {
+          return function() {
+            return App.execute("menu-manager", model, model.get('menu_id'));
           };
         })(this));
+        return this.layout.elementRegion.show(view);
       };
 
       return Controller;
