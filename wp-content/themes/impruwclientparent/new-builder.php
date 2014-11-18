@@ -43,7 +43,7 @@
 <!-- Lost Connection -->
 <div class="conn-lost-overlay hidden"></div>
 <!-- Lost Connection -->
-
+<div id="tree"></div>
 <div id="fb-root"></div>
 
 <div id="choose-theme-region"></div>
@@ -79,6 +79,8 @@
     var ELEMENTS = <?php echo json_encode(get_elementbox_elements()); ?>;
     var BLOGID = <?php echo get_current_blog_id(); ?>;
 
+    //menus
+    var MENUS = <?php echo json_encode(wp_get_nav_menus()) ?>;
 
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var CURRENTTHEMEURL = '<?php echo get_template_directory_uri() ?>'
@@ -87,6 +89,7 @@
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
     var _WPNONCE = '<?php echo wp_create_nonce('media-form'); ?>';
     var _RVNONCE = '<?php echo wp_create_nonce("revslider_actions"); ?>';
+    var _MENUNONCE = '<?php echo wp_create_nonce("menu-settings-column-nonce"); ?>';
     var JSVERSION = '<?php echo JSVERSION; ?>';
     
     var ISTHEMESELECTED = <?php echo is_theme_choosed() ?>;
@@ -105,7 +108,6 @@
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
     var PLUGIN_URI  = '<?php echo WP_PLUGIN_URL; ?>';
     var ISTHEMEEDITOR = '<?php echo current_user_can( 'edit_impruw_theme' ) ? 'yes' : 'no' ?>';
-    var MENUID = 0;
     var HOTELADDRESS = <?php echo json_encode(get_site_details()) ?>;
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;

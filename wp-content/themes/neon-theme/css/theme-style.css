@@ -2439,6 +2439,40 @@ and open the template in the editor.
   background: #252c3d;
   color: #24d07c;
 }
+.nav.slimmenu > li.menu-item-has-children > a {
+  padding-right: 30px;
+}
+.nav.slimmenu > li.menu-item-has-children .sub-collapser {
+  width: 20px;
+  height: 26px;
+}
+.nav.slimmenu > li.menu-item-has-children .sub-collapser > i {
+  color: #24d07c;
+}
+.nav.slimmenu > li > .sub-menu {
+  min-width: 100%;
+  width: auto;
+  border: 0;
+  left: 1.5em;
+  background: #e223a1;
+  padding: 0;
+  padding-top: 0.5em;
+  text-align: left;
+}
+.nav.slimmenu > li > .sub-menu li {
+  display: block;
+  background: transparent;
+}
+.nav.slimmenu > li > .sub-menu li a {
+  background: transparent;
+  border: 0;
+  white-space: nowrap;
+  color: #e1e1e1;
+  margin: 0;
+}
+.nav.slimmenu > li > .sub-menu li a:hover {
+  color: #24d07c;
+}
 .nav.slimmenu > li.current-menu-item {
   background: #24d07c;
 }
@@ -2452,6 +2486,33 @@ and open the template in the editor.
 }
 .nav.slimmenu > li:last-child a {
   border-right: 0;
+}
+.nav.slimmenu.collapsed {
+  text-align: left;
+}
+.nav.slimmenu.collapsed > li a {
+  margin-left: 0;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children a {
+  padding-right: 1.5em;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu {
+  border: 0;
+  border-bottom: 1px solid #e1e1e1;
+  box-shadow: none;
+  padding: 0;
+  background: transparent;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu li {
+  border: 0;
+}
+.nav.slimmenu.collapsed > li.menu-item-has-children > .sub-menu li a {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+}
+.nav.slimmenu.collapsed > li .sub-collapser {
+  height: auto;
+  width: auto;
+  padding: 0.5em 1em;
 }
 .nav.footer-menu {
   padding: 0;

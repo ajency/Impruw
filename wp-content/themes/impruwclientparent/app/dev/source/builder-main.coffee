@@ -53,6 +53,7 @@ require.config
       drilldown : 'plugins/jquery.drilldown.min'
       resizablecolumns : 'plugins/jquery.resizableColumns.min'
       tabslideout : 'plugins/jquery.tabSlideOut.v1.3'
+      slimmenu : 'plugins/slimmenu/jquery.slimmenu'
       #flippant: 'plugins/flippant.min'
 
       # wordpress cropping js
@@ -81,6 +82,7 @@ require.config
       polyglot :
          exports : 'Polyglot'
       jqueryvalidate : ['jquery']
+      slimmenu : ['jquery']
       underscorestring : ['underscore']
       backbonesyphon : ['backbone']
       backboneassociations : ['backbone']

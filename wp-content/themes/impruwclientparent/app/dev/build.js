@@ -55,6 +55,7 @@
         heartbeat : '../../../../../../wp-includes/js/heartbeat',
         jqueryuii18n : 'plugins/jquery-ui-i18n',
         tabslideout : 'plugins/jquery.tabSlideOut.v1.3',
+        slimmenu : 'plugins/slimmenu/jquery.slimmenu',
         app : 'builder-app'
     },
     shim : {
@@ -82,6 +83,7 @@
         },
         holder : 'Holder',
         jqueryvalidate : ['jquery'],
+        slimmenu : ['jquery'],
         underscorestring : ['underscore'],
         backboneform : ['backbone'],
         backbonesyphon : ['backbone'],

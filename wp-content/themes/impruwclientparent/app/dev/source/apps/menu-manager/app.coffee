@@ -15,7 +15,7 @@ define ['app'
         API =
             show: ()->
                 new MenuManager.Show.Controller
-                    region: App.dialogRegion
+                            region: App.dialogRegion
 
 
         App.vent.on "show:menu:manager", ->
