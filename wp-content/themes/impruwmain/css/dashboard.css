@@ -4527,7 +4527,7 @@ figure.effect-zoe:hover p.icon-links a:first-child {
 .impruw-blog .post {
   margin: 1em 0;
   padding-bottom: 1em;
-  border-bottom: 1px solid #f3f3f3;
+  border-bottom: 1px solid #E3E3E3;
   color: #aaa;
 }
 .impruw-blog .post .thumb {
@@ -4536,6 +4536,7 @@ figure.effect-zoe:hover p.icon-links a:first-child {
   background: #aaa;
   max-height: 200px;
   overflow: hidden;
+  margin-bottom: 0.5em;
 }
 .impruw-blog .post .thumb .img-responsive {
   margin: auto;
@@ -4544,4 +4545,38 @@ figure.effect-zoe:hover p.icon-links a:first-child {
   font-size: 1em;
   font-weight: 300;
   margin: 1em 0;
+}
+.impruw-blog .post .meta {
+  font-size: 1.1em;
+  display: block;
+  margin-bottom: 1em;
+  font-weight: 300;
+}
+.impruw-blog .post .meta strong {
+  font-weight: 700;
+  color: #999;
+}
+.impruw-blog .post .excerpt {
+  font-size: 1em;
+}
+.impruw-blog .blog-sidebar .cat-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.2em;
+}
+.impruw-blog .blog-sidebar .cat-list .categories {
+  color: #999;
+  font-weight: 300;
+  font-size: 1.5em;
+}
+.impruw-blog .blog-sidebar .cat-list .categories ul {
+  font-size: 0.666em;
+  margin: 0.5em 0 1em;
+  padding: 0.5em 0.5em 0;
+  border-top: 1px solid #f3f3f3;
+  list-style: none;
+}
+.impruw-blog .blog-sidebar .cat-list .categories ul li {
+  margin-bottom: 0.5em;
 }
