@@ -4,7 +4,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
 define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppController, bootbox) {
   return App.module("MenuManager.Show", function(Show, App) {
-    var DropdownListView, MediaMangerLayout, MenuOption, MenuStyleItemView, MenuStylesView, NoMenuView;
+    var DropdownListView, MediaMangerLayout, MenuOption, MenuStyleItemView, MenuStylesView;
     Show.Controller = (function(_super) {
       __extends(Controller, _super);
 
@@ -102,24 +102,6 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       return MenuOption;
 
     })(Marionette.ItemView);
-    NoMenuView = (function(_super) {
-      __extends(NoMenuView, _super);
-
-      function NoMenuView() {
-        return NoMenuView.__super__.constructor.apply(this, arguments);
-      }
-
-      NoMenuView.prototype.tagName = 'option';
-
-      NoMenuView.prototype.template = _.polyglot.t('Choose Menu');
-
-      NoMenuView.prototype.onRender = function() {
-        return this.$el.attr('value', '');
-      };
-
-      return NoMenuView;
-
-    })(Marionette.ItemView);
     DropdownListView = (function(_super) {
       __extends(DropdownListView, _super);
 
@@ -198,12 +180,18 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       MenuStylesView.prototype.itemView = MenuStyleItemView;
 
       MenuStylesView.prototype.onShow = function() {
-        var currentStyle;
+        var currentStyle, firstStyle;
         currentStyle = Marionette.getOption(this, 'currentStyle');
         this.$el.selectable({
           selected: this.menuStyleSelected
         });
-        return this.$el.find("div[data-menu-style='" + currentStyle + "']").addClass('ui-selected');
+        if (currentStyle === '') {
+          firstStyle = this.$el.find("div[data-menu-style]").first();
+          firstStyle.addClass('ui-selected');
+          return this.trigger("menu:style:selected", firstStyle.attr('data-menu-style'));
+        } else {
+          return this.$el.find("div[data-menu-style='" + currentStyle + "']").addClass('ui-selected');
+        }
       };
 
       MenuStylesView.prototype.menuStyleSelected = function(event, ui) {
