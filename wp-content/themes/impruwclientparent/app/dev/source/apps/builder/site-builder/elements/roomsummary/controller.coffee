@@ -24,10 +24,11 @@ define ['app'
                 @listenTo @layout.model, "change:room_id", @renderElement
                 super()
 
-            _getRoomSummaryView: (model, imageModel,  template)->
+            _getRoomSummaryView: (model, imageModel,siteModel, template)->
                 opt =
                     model: model
                     imageModel : imageModel
+                    siteModel : siteModel
 
                 if @isSingleRoomPage()
                     opt.isSingleRoom = true
@@ -54,12 +55,14 @@ define ['app'
                 
                 imageModel = App.request "get:media:by:id", @layout.model.get 'image_id'
 
+                siteModel = App.request "get:site:model"
+
                 
 
-                App.execute "when:fetched", [model,imageModel], =>
+                App.execute "when:fetched", [model,imageModel,siteModel], =>
                     # get the address element template
                     template = @_getElementTemplate @layout.model
-                    view = @_getRoomSummaryView model,imageModel, template
+                    view = @_getRoomSummaryView model,imageModel,siteModel, template
                     
                     @listenTo view, "show:media:manager", (ratio = false)=>
                         App.navigate "media-manager", trigger: true
