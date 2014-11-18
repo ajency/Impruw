@@ -1,5 +1,4 @@
-define ['app'],
-(App)->
+define ['app'], (App)->
 
 	# Headerapp views
 	App.module 'SiteBuilderApp.Element.Menu.Views', (Views, App, Backbone, Marionette, $, _)->

@@ -49,7 +49,8 @@ define ['marionette', 'mustache'], (Marionette, Mustache) ->
             @listenTo view, 'dialog:resize', @resizeDialog
 
 
-        clearDialog: ()->
+        clearDialog: ()=>
+            @trigger 'before:close'
             @close()
             @$el.empty()
 

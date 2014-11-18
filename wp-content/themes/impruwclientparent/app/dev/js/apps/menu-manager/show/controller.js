@@ -12,16 +12,22 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
         this.addMenuResponseHandler = __bind(this.addMenuResponseHandler, this);
         this.deleteMenuResponseHandler = __bind(this.deleteMenuResponseHandler, this);
         this.addNewMenu = __bind(this.addNewMenu, this);
+        this.saveMenuElementModel = __bind(this.saveMenuElementModel, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
       Controller.prototype.initialize = function(opts) {
         var layout;
-        this.menuId = opts.menuId, this.menuElementModel = opts.menuElementModel;
+        this.menuId = opts.menuId, this.menuElementModel = opts.menuElementModel, this.region = opts.region;
         this.layout = layout = this.getLayout(this.menuId);
         this.listenTo(layout, 'add:new:menu', this.addNewMenu);
         this.listenTo(layout, 'delete:menu:clicked', this.deleteMenu);
+        this.listenTo(this.region, 'before:close', this.saveMenuElementModel);
         return this.show(this.layout);
+      };
+
+      Controller.prototype.saveMenuElementModel = function() {
+        return this.menuElementModel.save();
       };
 
       Controller.prototype.addNewMenu = function(menuName) {

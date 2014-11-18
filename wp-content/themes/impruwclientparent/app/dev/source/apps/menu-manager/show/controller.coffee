@@ -9,14 +9,18 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 			# initialize
 			initialize : ( opts )->
 			
-				{@menuId, @menuElementModel} = opts
+				{@menuId, @menuElementModel, @region} = opts
 
 				@layout = layout = @getLayout @menuId
 
 				@listenTo layout, 'add:new:menu', @addNewMenu
 				@listenTo layout, 'delete:menu:clicked', @deleteMenu
+				@listenTo @region, 'before:close', @saveMenuElementModel
 
 				@show @layout
+
+			saveMenuElementModel : =>
+				@menuElementModel.save()
 
 			addNewMenu : (menuName)=>
 				data = 
