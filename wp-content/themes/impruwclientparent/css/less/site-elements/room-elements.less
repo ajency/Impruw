@@ -857,6 +857,19 @@
 	}
 }
 
+/**** Builder Room Elements Uneditable Styles ****/
+.aj-imp-builder-layout-mode {
+	.roomtitle, .room-facilities-container, .roomdescription, .room-tariff-container, .roombooking {
+		cursor: not-allowed;
+		* {
+			-webkit-user-select: none;  
+			-moz-user-select: none;    
+			-ms-user-select: none;      
+			user-select: none;
+		}
+	}
+}
+
 /**** Vertical Bootstrap Slider Styles ****/
 .vertical .carousel-inner {
   	height: 100%;
