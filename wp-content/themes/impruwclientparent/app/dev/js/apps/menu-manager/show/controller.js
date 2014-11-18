@@ -263,7 +263,6 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       };
 
       MediaMangerLayout.prototype.updateSelectedMenu = function(menuStyle) {
-        console.log(menuStyle);
         return this.menuElementModel.set('style', menuStyle);
       };
 

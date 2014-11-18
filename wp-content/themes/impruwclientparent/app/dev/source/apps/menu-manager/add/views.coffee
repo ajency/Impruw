@@ -35,7 +35,7 @@ define ['app'], (App)->
                                 <div class="form-group">
                                     <label class="control-label">&nbsp;</label>
                                     <button type="button" class="add-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Add{{/polyglot}}</span></button>
-                                    <input type="reset" id="btn_resetmenu" style="display:none">
+                                    <input type="reset" id="btn_resetmenu" class="hidden"/>
                                 </div>
                             </form>
                         </div>
@@ -47,6 +47,7 @@ define ['app'], (App)->
                 'menuName' : 'input[name="custom-menu-name"]'
                 'menuUrl' : 'input[name="custom-menu-url"]'
                 'pageId' : '#page_id'
+                'resetButton' : '#btn_resetmenu'
 
             events:
                 'change select[name="page_id"]' : ->
@@ -92,6 +93,8 @@ define ['app'], (App)->
                 data.pages = pages.toJSON()
                 data
 
+            onAddMenuitemSuccess : =>
+                @ui.resetButton.click()
 
             onNewMenuCreated: ->
                 @$el.find('.alert').remove()

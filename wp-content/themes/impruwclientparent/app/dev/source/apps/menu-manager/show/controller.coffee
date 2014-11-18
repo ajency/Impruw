@@ -205,7 +205,6 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				@menuStylesRegion.show menuStylesView
 
 			updateSelectedMenu : (menuStyle)=>
-				console.log menuStyle
 				@menuElementModel.set 'style', menuStyle
 
 			menuChanged : (menuId) =>
