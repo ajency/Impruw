@@ -11,8 +11,8 @@ define [ 'marionette' ], ( Marionette ) ->
          @$el.center( false )
 
          if  ISTHEMEEDITOR is 'no'
-            view.$el.find( 'form .form-group' ).hide()
-            view.$el.find( 'form .form-group.edit-by-user' ).show()
+            view.$el.find( 'form .form-group' ).not('.edit-by-user').hide()
+            # view.$el.find( 'form .form-group.edit-by-user' ).show()
 
       onEmpty : ->
          @$el.draggable 'destroy'

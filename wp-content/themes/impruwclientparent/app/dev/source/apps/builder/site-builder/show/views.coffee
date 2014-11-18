@@ -87,6 +87,9 @@ define [ 'app'
             @$el.empty()   
             @$el.fadeIn()
 
+         onPageSlugUpdated : (slugName)->
+            @$el.find( '.page-slug-edit' ).val slugName
+
 
          handleWindowEvents : ->
             
@@ -278,6 +281,7 @@ define [ 'app'
 
          onPageNameUpdated : ( pageModel )->
             page_name = pageModel.get 'post_title'
+            @$el.find( '#page_name' ).val page_name
             page_id = pageModel.get 'ID'
             @$el.find( 'div .dropdown-menu ul .selected .text' ).text( page_name )
             @$el.find( 'div .btn-group .filter-option' ).text( page_name )

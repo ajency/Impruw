@@ -133,6 +133,7 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
       __extends(Controller, _super);
 
       function Controller() {
+        this.setCurrentPage = __bind(this.setCurrentPage, this);
         this.pageNameUpdated = __bind(this.pageNameUpdated, this);
         this.triggerPagePublishOnView = __bind(this.triggerPagePublishOnView, this);
         return Controller.__super__.constructor.apply(this, arguments);
@@ -167,6 +168,7 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             return page.destroy({
               success: function(model, res, opt) {
                 _this.removePageFromMenu(model.get('original_id'));
+                _this.removePageFromLinkSettings(model.get('original_id'));
                 return App.builderRegion.currentView.triggerMethod('show:home:page');
               }
             });
@@ -212,6 +214,19 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         return menuCollection.remove(menuToRemove);
       };
 
+      Controller.prototype.removePageFromLinkSettings = function(pageId) {
+        var elementsCollection, linkModel, linkModelLinkPages, newLinkModel;
+        elementsCollection = App.request("get:elementbox:elements");
+        linkModel = elementsCollection.get('Link');
+        linkModelLinkPages = linkModel.get('link_pages');
+        linkModelLinkPages = $.grep(linkModelLinkPages, function(pageObject, i) {
+          return pageObject.original_id === pageId;
+        }, true);
+        elementsCollection.remove(linkModel);
+        newLinkModel = linkModel.set('link_pages', linkModelLinkPages);
+        return elementsCollection.add(newLinkModel);
+      };
+
       Controller.prototype.triggerPagePublishOnView = function() {
         return this.layout.triggerMethod("page:published");
       };
@@ -242,7 +257,9 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
       };
 
       Controller.prototype.setCurrentPage = function(model) {
-        return window.CURRENTPAGE = model.toJSON();
+        App.execute('add:page:to:collection', model);
+        window.CURRENTPAGE = model.toJSON();
+        return this.layout.triggerMethod('page:slug:updated', model.get('post_name'));
       };
 
       return Controller;

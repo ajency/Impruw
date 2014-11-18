@@ -116,3 +116,11 @@ define ['app'
                 pageId = @$el.find('#translated-page-id').val()
                 @trigger "translated:page:url:updated", newPageUrl, pageId
 
+            onTranslatePageTitleUpdated : (data)->
+                @$el.find('#translated-page-title').val data.data.post_title
+
+            onTranslatePageUrlUpdated : (data)->
+                @$el.find('#translated-page-url').val data.data.post_name
+
+
+

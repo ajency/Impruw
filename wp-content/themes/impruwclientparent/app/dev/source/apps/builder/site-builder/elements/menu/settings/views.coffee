@@ -26,21 +26,15 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
                 if @eleModel.get('justified') is true
                     @$el.find('input[name="justified"]').radiocheck('check')
 
-                @$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'style'
-                @$el.find('select[name="choose-menu"]').selectpicker 'val', @eleModel.get 'menu_id'
                 @$el.find('select[name="top_margin"]').selectpicker 'val', @eleModel.get 'top_margin'
                 @$el.find('select[name="left_margin"]').selectpicker 'val', @eleModel.get 'left_margin'
                 @$el.find('select[name="bottom_margin"]').selectpicker 'val', @eleModel.get 'bottom_margin'
                 @$el.find('select[name="right_margin"]').selectpicker 'val', @eleModel.get 'right_margin'
 
-            events:
+            events: 
                 'click .close-settings': (evt)->
                     evt.preventDefault()
                     App.settingsRegion.empty()
-                'change select[name="style"]': (evt)->
-                    @trigger "element:style:changed", $(evt.target).val()
-                'change select[name="choose-menu"]': (evt)->
-                    @trigger "element:menu:changed", $(evt.target).val()
                 'change input[name="draggable"]': (evt)->
                     @trigger "element:draggable:changed", $(evt.target).is(':checked')
                 'change input[name="justified"]': (evt)->

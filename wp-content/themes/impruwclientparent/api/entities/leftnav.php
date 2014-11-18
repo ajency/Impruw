@@ -129,17 +129,7 @@ function get_elementbox_elements() {
             'element' => 'Menu',
             'icon' => 'bicon icon-uniF14E',
             'helpText' => 'Click on the menu item to add and remove pages from the menu.',
-            'styles' => get_styles( 'Menu' ),
-            'site_menus' => array(
-                array(
-                    'menu_id' => 2,
-                    'menu_name' => 'Main Menu'
-                ),
-                array(
-                    'menu_id' => 3,
-                    'menu_name' => 'Footer menu'
-                )
-            )
+            'styles' => get_styles( 'Menu' )
         ),
         array(
             'element' => 'Row',
@@ -305,7 +295,14 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF105',
             'styles' => get_styles( 'Spacer' ),
             'helpText' => 'Add a horizontal space between content, you can change the height and type of the space.'
-        )        
+        ),
+        array(
+            'element' => 'SmartTable',
+            'title' => 'Smart Table',
+            'icon' => 'bicon icon-uniF142',
+            'helpText' => 'help text to be added',
+            'styles' => get_styles( 'SmartTable' )
+        )
     );
 
     return $elements;

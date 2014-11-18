@@ -14,11 +14,13 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
       }
 
       Controller.prototype.initialize = function(options) {
+        this.isNew = _.isEmpty(options.modelData);
         _.defaults(options.modelData, {
           element: 'Row',
           columncount: 2,
           elements: [],
-          meta_id: 0
+          meta_id: 0,
+          style: 'Default'
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -51,6 +53,13 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
         var row;
         this.removeSpinner();
         row = this._getRowView();
+        this.listenTo(row, 'show', (function(_this) {
+          return function() {
+            if (_this.isNew) {
+              return App.vent.trigger("show:row:settings:popup", _this.layout.model);
+            }
+          };
+        })(this));
         this.listenTo(row, "childview:element:moved", this.elementMoved);
         this.layout.elementRegion.show(row);
         return this.changeStyle(this.layout.model);

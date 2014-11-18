@@ -45,6 +45,7 @@ require.config
       revslider : 'plugins/revolution.min'
       tabslideout : 'plugins/jquery.tabSlideOut.v1.3'
       jqueryuii18n : 'plugins/jquery-ui-i18n'
+      slimmenu : 'plugins/slimmenu/jquery.slimmenu'
       
       pluginloader : 'plugins/builder-plugin-loader'
       appsloader : 'apps/builder-apps-loader'
@@ -52,7 +53,7 @@ require.config
       entitiesloader : 'entities/builder-entities-loader'
       componentloader : 'components/builder-component-loader'
       app : 'builder-app'
-      
+
       # wordpress cropping js
       imageareaselect : '../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min'
       imageedit : '../../../../../wp-admin/js/image-edit'
@@ -75,6 +76,7 @@ require.config
       polyglot :
          exports : 'Polyglot'
       'jquery.validate' : ['jquery']
+      slimmenu : ['jquery']
       underscorestring : ['underscore']
       backbonesyphon : ['backbone']
       jqueryspin : ['jquery']

@@ -14,17 +14,64 @@ define(['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
 
       SettingsView.prototype.template = settingsTpl;
 
-      SettingsView.prototype.className = 'modal-content settings-box';
+      SettingsView.prototype.className = '';
+
+      SettingsView.prototype.mixinTemplateHelpers = function(data) {
+        var toRemove;
+        data = SettingsView.__super__.mixinTemplateHelpers.call(this, data);
+        data.THEMEURL = THEMEURL;
+        data.CURRENTTHEMEURL = CURRENTTHEMEURL;
+        toRemove = [];
+        _.each(data.styles, function(style) {
+          style.slug = _.slugify(style.name);
+          if (_.contains(style.hide, CURRENTTHEMENAME)) {
+            return toRemove.push(style);
+          }
+        });
+        data.styles = _.difference(data.styles, toRemove);
+        return data;
+      };
 
       SettingsView.prototype.initialize = function(opt) {
         if (opt == null) {
           opt = {};
         }
         this.eleModel = opt.eleModel;
+        if (this.eleModel.get('style') === '') {
+          this.eleModel.set('style', 'Default');
+        }
         return SettingsView.__super__.initialize.call(this, opt);
       };
 
+      SettingsView.prototype.dialogOptions = {
+        modal_title: _.polyglot.t('Pick a Row Style'),
+        modal_size: 'wide-modal'
+      };
+
+      SettingsView.prototype.onShow = function() {
+        this.$el.find(".col-item[data-col='" + (this.eleModel.get('columncount')) + "'] ").addClass('ui-selected');
+        return this.$el.find(".single-item[data-style='" + (this.eleModel.get('style')) + "'] ").addClass('ui-selected');
+      };
+
       SettingsView.prototype.onRender = function() {
+        this.$el.find('.set-column-count').selectable({
+          cancel: '.ui-selected',
+          filter: ".col-item",
+          selected: (function(_this) {
+            return function(event, ui) {
+              return _this.trigger("element:column:count:changed", $(ui.selected).attr('data-col'));
+            };
+          })(this)
+        });
+        this.$el.find('.style-select').selectable({
+          cancel: '.ui-selected',
+          filter: ".single-item",
+          selected: (function(_this) {
+            return function(event, ui) {
+              return _this.trigger("element:style:changed", $(ui.selected).attr('data-style'));
+            };
+          })(this)
+        });
         this.$el.find('input[type="checkbox"]').radiocheck();
         this.$el.find('select').selectpicker();
         this.$el.find(".set-column-count a.btn." + (this.eleModel.get('columncount')) + "-col").addClass('selected');
@@ -58,9 +105,9 @@ define(['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
       };
 
       SettingsView.prototype.onColumnCountChanged = function(count) {
-        if (count !== parseInt(this.$el.find('.set-column-count a.btn.selected').text())) {
-          this.$el.find('.set-column-count a.btn').removeClass('selected');
-          return this.$el.find(".set-column-count a.btn." + count + "-col").addClass('selected');
+        if (count !== parseInt(this.$el.find('.col-item.ui-selected').attr('data-col'))) {
+          this.$el.find('.col-item.ui-selected').removeClass('ui-selected');
+          return this.$el.find(".col-item[data-col='" + count + "'] ").addClass('ui-selected');
         }
       };
 

@@ -36,8 +36,6 @@ define(['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
         if (this.eleModel.get('justified') === true) {
           this.$el.find('input[name="justified"]').radiocheck('check');
         }
-        this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
-        this.$el.find('select[name="choose-menu"]').selectpicker('val', this.eleModel.get('menu_id'));
         this.$el.find('select[name="top_margin"]').selectpicker('val', this.eleModel.get('top_margin'));
         this.$el.find('select[name="left_margin"]').selectpicker('val', this.eleModel.get('left_margin'));
         this.$el.find('select[name="bottom_margin"]').selectpicker('val', this.eleModel.get('bottom_margin'));
@@ -48,12 +46,6 @@ define(['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
         'click .close-settings': function(evt) {
           evt.preventDefault();
           return App.settingsRegion.empty();
-        },
-        'change select[name="style"]': function(evt) {
-          return this.trigger("element:style:changed", $(evt.target).val());
-        },
-        'change select[name="choose-menu"]': function(evt) {
-          return this.trigger("element:menu:changed", $(evt.target).val());
         },
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));

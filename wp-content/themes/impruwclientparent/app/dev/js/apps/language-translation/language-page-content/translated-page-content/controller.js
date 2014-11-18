@@ -36,27 +36,37 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype.updateTranslatedPageTitle = function(newPageTitle, pageId) {
-        var data;
+        var data, req;
         data = [];
         data['translatedPageTitle'] = newPageTitle;
         data['translatedPageID'] = pageId;
         this.pageModel.set(data);
-        return $.post("" + AJAXURL + "?action=update-translated-page-title", {
+        req = $.post("" + AJAXURL + "?action=update-translated-page-title", {
           page_title: newPageTitle,
           page_id: pageId
         }, this.pageTitleUpdated, 'json');
+        return req.done((function(_this) {
+          return function(data) {
+            return _this.translatedContentView.triggerMethod('translate:page:title:updated', data);
+          };
+        })(this));
       };
 
       Controller.prototype.updateTranslatedPageUrl = function(newPageUrl, pageId) {
-        var data;
+        var data, req;
         data = [];
         data['translatedPageUrl'] = newPageUrl;
         data['translatedPageID'] = pageId;
         this.pageModel.set(data);
-        return $.post("" + AJAXURL + "?action=update-translated-page-url", {
+        req = $.post("" + AJAXURL + "?action=update-translated-page-url", {
           page_url: newPageUrl,
           page_id: pageId
         }, this.pageTitleUpdated, 'json');
+        return req.done((function(_this) {
+          return function(data) {
+            return _this.translatedContentView.triggerMethod('translate:page:url:updated', data);
+          };
+        })(this));
       };
 
       Controller.prototype.pageTitleUpdated = function(response) {

@@ -8,48 +8,76 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
       __extends(Controller, _super);
 
       function Controller() {
-        this.updatedSuccess = __bind(this.updatedSuccess, this);
+        this.menutItemsOrderUpdated = __bind(this.menutItemsOrderUpdated, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
       Controller.prototype.initialize = function(opts) {
-        var menucollection, view;
-        this.menucollection = menucollection = opts.collection;
-        this.view = view = this._getView(menucollection);
-        this.listenTo(this.view, "childview:update:menu:item:clicked", (function(_this) {
-          return function(iv, formdata, model) {
-            return model.save(formdata, {
-              wait: true,
-              success: _this.updatedSuccess
-            });
-          };
-        })(this));
-        this.listenTo(this.menucollection, 'add remove', (function(_this) {
-          return function() {
-            return _this.view.triggerMethod('triggerOrderChange');
-          };
-        })(this));
-        this.listenTo(this.view, "childview:delete:menu:item:clicked", (function(_this) {
-          return function(iv, model) {
-            return _this.region.trigger("delete:menu:item:model", model);
-          };
-        })(this));
-        this.listenTo(this.view, "view:menu:order:changed", (function(_this) {
-          return function(order, collection) {
-            return _this.region.trigger("menu:order:changed", order, collection);
-          };
-        })(this));
-        return this.show(this.view);
+        var menu, menuItemsCollection, view;
+        this.menuId = opts.menuId, this.menuElementModel = opts.menuElementModel;
+        menu = window.menusCollection.get(this.menuId);
+        this.menuItemsCollection = menuItemsCollection = menu.get('menuItems');
+        if (menuItemsCollection.length === 0) {
+          return menuItemsCollection.fetch({
+            menu_id: this.menuId
+          }).done((function(_this) {
+            return function() {
+              var view;
+              _this.view = view = _this._getView(menuItemsCollection);
+              _this.bindMenuItemEvents();
+              return _this.show(_this.view);
+            };
+          })(this));
+        } else {
+          this.view = view = this._getView(menuItemsCollection);
+          this.bindMenuItemEvents();
+          return this.show(this.view);
+        }
       };
 
-      Controller.prototype._getView = function(menucollection) {
+      Controller.prototype.bindMenuItemEvents = function() {
+        this.listenTo(this.view, "childview:delete:menu:item:clicked", this.deleteMenuItem);
+        return this.listenTo(this.view, "menu:item:order:updated", this.menutItemsOrderUpdated);
+      };
+
+      Controller.prototype.menutItemsOrderUpdated = function(_menuItems) {
+        var data;
+        data = {
+          action: 'builder-update-menu-items-order',
+          menu_items: _menuItems,
+          menu_id: this.menuId
+        };
+        return $.post(AJAXURL, data, (function(_this) {
+          return function(response) {
+            if (response === 1) {
+              _.each(_menuItems, function(item) {
+                var model;
+                model = _this.menuItemsCollection.get(item['ID']);
+                delete item['ID'];
+                return model.set(item);
+              });
+              _this.menuElementModel.trigger('change:menu_id');
+              return _this.view.triggerMethod('menu:order:updated');
+            }
+          };
+        })(this), 'json');
+      };
+
+      Controller.prototype.deleteMenuItem = function(childView, model) {
+        var data;
+        data = {
+          action: 'builder-remove-menu-item',
+          menu_item_id: model.get('ID')
+        };
+        return $.post(AJAXURL, data, function(response) {
+          return model.collection.remove(model);
+        }, 'json');
+      };
+
+      Controller.prototype._getView = function(menuItemsCollection) {
         return new List.Views.MenuCollectionView({
-          collection: menucollection
+          collection: menuItemsCollection
         });
-      };
-
-      Controller.prototype.updatedSuccess = function() {
-        return this.view.triggerMethod("menu:item:updated");
       };
 
       return Controller;

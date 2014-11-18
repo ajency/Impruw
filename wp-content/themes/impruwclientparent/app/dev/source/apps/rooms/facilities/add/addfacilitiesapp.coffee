@@ -49,10 +49,12 @@ define ['app'
                     if _.isEmpty facilityName
                         @$el.find('#error-msg').text 'Facility name required'
                     else
+                        @$el.find('.add-facility').prop 'disabled',true
                         @trigger "add:new:facility", name: @$el.find('input[name="name"]').val()
 
             onFacilityAdded: ->
                 @$el.find('input').val ''
+                @$el.find('.add-facility').prop 'disabled', false
 
 
         App.commands.setHandler "show:add:facility", (opts) ->

@@ -42,15 +42,5 @@ define ['underscore', 'underscorestring'], (_) ->
             return text
 
         stripslashes: (str) ->
+            return str if not _.isString str
             return str.replace(/\\/g, '')
-            (str + "").replace /\\(.?)/g, (s, n1) ->
-                switch n1
-                    when "\\"
-                        "\\"
-                    when "0"
-                        "\u0000"
-                    when ""
-                        ""
-                    else
-                        n1
-

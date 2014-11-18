@@ -46,8 +46,7 @@
 				text-transform:uppercase;
 				font-size:0.722em;
 				color:@white;
-				padding:12px 30px;				
-			
+				padding:12px 30px;
 				&:hover{
 					background-color:@white;
 					color:@primary1;
@@ -59,6 +58,65 @@
 				li{
 					width:100%;
 					background:@primary2;
+				}
+			}
+			&.menu-item-has-children {
+				a {
+					padding-right: 40px;
+				}
+				.sub-collapser {
+					> i {
+						color: @white;
+					}
+				}
+			}
+			> .sub-menu {
+				padding: 0;
+				min-width: 100%;
+				width: auto;
+				border: 0;
+				box-shadow: 0 8px 6px -6px @tertiary1;
+				li {
+					display: block;
+					a {
+						padding: @large;
+						background: transparent;
+						border: 0;
+						white-space: nowrap;
+						color: @white;
+						&:hover {
+							background: @white;
+							color: @primary1;
+						}
+					}
+					&:hover {
+						border: 0 !important;
+						border-bottom: 1px solid @white !important;
+					}
+				}
+			}
+		}
+		&.collapsed {
+			> li {
+				&.menu-item-has-children {
+					padding-right: 0;
+					> .sub-menu {
+						border: 0;
+						box-shadow: none;
+						padding: 0;
+						padding-left: @large;
+						li {
+							border: 0;
+							a {
+								border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+							}
+						}
+					}
+				}
+				.sub-collapser {
+					height: auto;
+					width: auto;
+					padding: 0.5em 1em;
 				}
 			}
 		}

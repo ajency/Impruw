@@ -36,6 +36,7 @@ require.config({
     revslider: 'plugins/revolution.min',
     tabslideout: 'plugins/jquery.tabSlideOut.v1.3',
     jqueryuii18n: 'plugins/jquery-ui-i18n',
+    slimmenu: 'plugins/slimmenu/jquery.slimmenu',
     pluginloader: 'plugins/builder-plugin-loader',
     appsloader: 'apps/builder-apps-loader',
     configloader: 'configs/builder-config-loader',
@@ -62,6 +63,7 @@ require.config({
       exports: 'Polyglot'
     },
     'jquery.validate': ['jquery'],
+    slimmenu: ['jquery'],
     underscorestring: ['underscore'],
     backbonesyphon: ['backbone'],
     jqueryspin: ['jquery'],

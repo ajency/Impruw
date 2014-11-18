@@ -57,9 +57,21 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       AddPageController.prototype.showSuccessMessage = function(page) {
-        var data, menuCollection, menuId, menumodel;
+        var data, elementsCollection, linkModel, linkModelLinkPages, menuCollection, menuId, menumodel, newLinkModel, newLinkedPageObj;
         this.addToPageMenu(page);
-        this.layout.triggerMethod("show:success:message");
+        this.layout.triggerMethod("show:success:message", page);
+
+        /* Update the element setting collection's link model to reflect the newly added page BEGINS */
+        elementsCollection = App.request("get:elementbox:elements");
+        linkModel = elementsCollection.get('Link');
+        linkModelLinkPages = linkModel.get('link_pages');
+        newLinkedPageObj = page.attributes;
+        linkModelLinkPages[linkModelLinkPages.length] = newLinkedPageObj;
+        elementsCollection.remove(linkModel);
+        newLinkModel = linkModel.set('link_pages', linkModelLinkPages);
+        elementsCollection.add(newLinkModel);
+
+        /* Update the element setting collection's link model to reflect the newly added page ENDS */
         menuId = window.MENUID;
         if (menuId === 0) {
           return;
@@ -126,7 +138,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return this.$el.find('input[type="checkbox"]').radiocheck();
       };
 
-      AddPageView.prototype.onShowSuccessMessage = function() {
+      AddPageView.prototype.onShowSuccessMessage = function(page) {
+        this.$el.find('#post_title').val(page.get('post_title'));
         return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("New Page added") + '</div>');
       };
 

@@ -122,6 +122,10 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         return this.$el.fadeIn();
       };
 
+      MainView.prototype.onPageSlugUpdated = function(slugName) {
+        return this.$el.find('.page-slug-edit').val(slugName);
+      };
+
       MainView.prototype.handleWindowEvents = function() {
         return $(window).on('unload.site-builder', this.windowUnloadHandler);
       };
@@ -316,6 +320,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.onPageNameUpdated = function(pageModel) {
         var page_id, page_name;
         page_name = pageModel.get('post_title');
+        this.$el.find('#page_name').val(page_name);
         page_id = pageModel.get('ID');
         this.$el.find('div .dropdown-menu ul .selected .text').text(page_name);
         this.$el.find('div .btn-group .filter-option').text(page_name);

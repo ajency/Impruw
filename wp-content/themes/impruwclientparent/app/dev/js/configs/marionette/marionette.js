@@ -131,6 +131,15 @@ define(['marionette', 'mustache', 'underscore'], function(Marionette, Mustache, 
     }
     return template;
   };
+  Marionette._ctrl = {};
+  Marionette.run = function(options) {
+    var CtrlClass;
+    CtrlClass = Marionette._ctrl[options['ctrl']];
+    return new CtrlClass({
+      region: options['region'],
+      options: options['args']
+    });
+  };
   return Marionette.FormView = (function(_super) {
     __extends(FormView, _super);
 

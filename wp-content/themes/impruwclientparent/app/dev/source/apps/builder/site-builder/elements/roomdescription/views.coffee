@@ -16,7 +16,7 @@ define ['app'], (App)->
             						</div>'
 
             onShow:->
-                @$el.attr "data-content", ""+_.polyglot.t('Update room information')+" <a href='#{SITEURL}/dashboard/#/rooms'>"+_.polyglot.t('here')+"</a> "
+                @$el.attr "data-content", ""+_.polyglot.t('Update room information')+" <a href='#{SITEURL}/dashboard/#/rooms' target='BLANK'>"+_.polyglot.t('here')+"</a> "
                 @$el.popover
                     html : true
                     placement : 'top'

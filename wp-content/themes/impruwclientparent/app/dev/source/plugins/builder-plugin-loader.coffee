@@ -36,4 +36,5 @@ define [
    'resizablecolumns'
    'jqueryuii18n'
    'tabslideout'
+   'slimmenu'
 ], ->

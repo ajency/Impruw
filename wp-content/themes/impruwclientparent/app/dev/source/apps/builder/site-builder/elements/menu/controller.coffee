@@ -13,6 +13,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
                     element: 'Menu'
                     justified: false
                     style: ''
+                    menu_id : 0
                 super(options)
 
             bindEvents: ->
@@ -23,64 +24,30 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
                     @layout.elementRegion.currentView.triggerMethod "set:justified", model.get 'justified'
                 super()
 
-            addNewMenuItem : ( menu ) =>
-
-                menumodel = App.request "create:new:menu:item"
-
-                menumodel.set 'menu_id', parseInt @layout.model.get 'menu_id'
-
-                data =
-                    menu_item_title: menu.get 'post_title'
-                    page_id : menu.get 'original_id'
-                    menu_item_parent: 0
-                    order: 0
-
-                menumodel.save data,
-                    wait: true
-                    success: @newMenuItemAdded
-
-            newMenuItemAdded:(model)=>
-                @menuCollection.add model
-
             # create a new menu view
             _getMenuView: (collection, templateClass)->
                 new Menu.Views.MenuView
-                    collection: collection,
-                    prop: @layout.model.toJSON()
-                    templateClass: templateClass
-
-            _getMenuCollection: ->
-
-                if _.isUndefined @menuCollection
-                    
-                    if @layout.model.get('menu_id') > 0
-                        @menuCollection = App.request "get:menu:items:by:menuid", @layout.model.get 'menu_id'
-                    else
-                        @menuCollection = App.request "get:menu:item:collection"
-                        # listen to add event to set menu Id to element  model
-                        @menuCollection.once "add", (model)=>
-                            @layout.model.set 'menu_id', model.get 'menu_id'
-                            # save the model
-                            @layout.model.save()
-
-                @menuCollection
+                        collection: collection,
+                        prop: @layout.model.toJSON()
+                        templateClass: templateClass
 
             # setup templates for the element
             renderElement: ()=>
-                window.MENUID = parseInt @layout.model.get 'menu_id'
-                @itemCollection = itemCollection = @_getMenuCollection()
-
                 model = @layout.model
+                @listenTo @layout.model, "positionupdated", @renderElement
+                templateClass = [model.get 'style'] ? ''
+                menuId = model.get('menu_id')
+                if parseInt(menuId) > 0
+                    menu = window.menusCollection.get menuId
+                    menuItemCollection = menu.get 'menuItems'
+                    if menuItemCollection.length is 0
+                        menuItemCollection.fetch(menu_id : menuId)
+                else 
+                    menuItemCollection = new Backbone.Collection
 
-                App.execute "when:fetched", itemCollection, =>
-                    templateClass = [model.get 'style'] ? ''
+                view = @_getMenuView(menuItemCollection, templateClass)
 
-                    view = @_getMenuView itemCollection, templateClass
+                @listenTo view, "menu:element:clicked", =>
+                    App.execute "menu-manager", model, model.get 'menu_id'
 
-                    @menu_id = menu_id = @layout.model.get 'menu_id'
-
-                    @listenTo itemCollection, "menu:order:updated", view.render
-                    @listenTo view, "open:menu:manager", =>
-                        App.execute "menu-manager", @itemCollection, @menu_id
-
-                    @layout.elementRegion.show view
+                @layout.elementRegion.show view

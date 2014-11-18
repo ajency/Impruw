@@ -43,7 +43,7 @@ define(['app'], function(App) {
       };
 
       SocialView.prototype.onShow = function() {
-        this.$el.attr("data-content", "If you are trying to set your Facebook or Twitter link, you can do that by going to your <a href='../dashboard/#/site-profile/' target='_BLANK'>site profile</a> from the dashboard. You can test the icons by clicking on preview or your live site.");
+        this.$el.attr("data-content", "If you are trying to set your Facebook or Twitter link, you can do that by going to your <a href='../dashboard/#/site-profile/' target='BLANK'>site profile</a> from the dashboard. You can test the icons by clicking on preview or your live site.");
         return this.$el.popover({
           html: true,
           placement: 'top'
