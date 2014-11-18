@@ -8,18 +8,20 @@ define(['app'], function(App) {
       __extends(MenuItemView, _super);
 
       function MenuItemView() {
+        this.onAddMenuitemSuccess = __bind(this.onAddMenuitemSuccess, this);
         this.showMissingFieldMessage = __bind(this.showMissingFieldMessage, this);
         return MenuItemView.__super__.constructor.apply(this, arguments);
       }
 
-      MenuItemView.prototype.template = '<a class="add-menu-toggle" data-toggle="collapse" href="#add-menu-container"><span class="glyphicon glyphicon-plus"></span></a> <div id="add-menu-container" class="aj-imp-add-menu-item collapse"> <div id="{{menu_slug}}-add-menu" class="add-menu-form"> <h4>{{#polyglot}}Add Menu Item{{/polyglot}}</h4> <form class="form-inline"> <div class="form-group"> <label class="control-label">{{#polyglot}}Page Item{{/polyglot}}</label> <div class="bootstrap-select"> <select name="page_id" id="page_id"> <option value="">{{#polyglot}}Choose Page{{/polyglot}}</option> {{#pages}} <option value="{{ID}}">{{post_title}}</option> {{/pages}} </select> </div> </div> <div class="form-group option-or"> <label class="control-label">&nbsp;</label> {{#polyglot}}Or{{/polyglot}} </div> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label> <input name="custom-menu-name" class="form-control" placeholder="{{#polyglot}}Custom Menu Name{{/polyglot}}" type="text"> </div> <div class="form-group"> <label class="control-label">{{#polyglot}}URL{{/polyglot}}</label> <input name="custom-menu-url" class="form-control url" placeholder="{{#polyglot}}Custom Menu URL{{/polyglot}}" type="text"> </div> <div class="form-group"> <label class="control-label">&nbsp;</label> <button type="button" class="add-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Add{{/polyglot}}</span></button> <input type="reset" id="btn_resetmenu" style="display:none"> </div> </form> </div> </div>';
+      MenuItemView.prototype.template = '<a class="add-menu-toggle" data-toggle="collapse" href="#add-menu-container"><span class="glyphicon glyphicon-plus"></span></a> <div id="add-menu-container" class="aj-imp-add-menu-item collapse"> <div id="{{menu_slug}}-add-menu" class="add-menu-form"> <h4>{{#polyglot}}Add Menu Item{{/polyglot}}</h4> <form class="form-inline"> <div class="form-group"> <label class="control-label">{{#polyglot}}Page Item{{/polyglot}}</label> <div class="bootstrap-select"> <select name="page_id" id="page_id"> <option value="">{{#polyglot}}Choose Page{{/polyglot}}</option> {{#pages}} <option value="{{ID}}">{{post_title}}</option> {{/pages}} </select> </div> </div> <div class="form-group option-or"> <label class="control-label">&nbsp;</label> {{#polyglot}}Or{{/polyglot}} </div> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label> <input name="custom-menu-name" class="form-control" placeholder="{{#polyglot}}Custom Menu Name{{/polyglot}}" type="text"> </div> <div class="form-group"> <label class="control-label">{{#polyglot}}URL{{/polyglot}}</label> <input name="custom-menu-url" class="form-control url" placeholder="{{#polyglot}}Custom Menu URL{{/polyglot}}" type="text"> </div> <div class="form-group"> <label class="control-label">&nbsp;</label> <button type="button" class="add-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Add{{/polyglot}}</span></button> <input type="reset" id="btn_resetmenu" class="hidden"/> </div> </form> </div> </div>';
 
       MenuItemView.prototype.className = 'aj-imp-menu-edit';
 
       MenuItemView.prototype.ui = {
         'menuName': 'input[name="custom-menu-name"]',
         'menuUrl': 'input[name="custom-menu-url"]',
-        'pageId': '#page_id'
+        'pageId': '#page_id',
+        'resetButton': '#btn_resetmenu'
       };
 
       MenuItemView.prototype.events = {
@@ -71,6 +73,10 @@ define(['app'], function(App) {
         pages = App.request("get:editable:pages");
         data.pages = pages.toJSON();
         return data;
+      };
+
+      MenuItemView.prototype.onAddMenuitemSuccess = function() {
+        return this.ui.resetButton.click();
       };
 
       MenuItemView.prototype.onNewMenuCreated = function() {
