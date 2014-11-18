@@ -65,18 +65,15 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 			onRender : ->
 				@$el.attr 'value', @model.get 'term_id'
 
-		class NoMenuView extends Marionette.ItemView
-			tagName : 'option'
-			template : _.polyglot.t 'Choose Menu'
-			onRender : -> @$el.attr 'value',''
-
 		class DropdownListView extends Marionette.CollectionView
 			tagName : 'select'
 			className : 'global-menus-list'
 			itemView : MenuOption
-			emptyView : NoMenuView
 			events : 
 				'change' : 'menuChanged'
+
+			onRender : ->
+				@$el.prepend '<option value="">Choose Menu</option>'
 			
 			menuChanged : =>
 				menuId = @$el.selectpicker 'val'
@@ -117,8 +114,13 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				@$el.selectable
 						selected: @menuStyleSelected
 
-				@$el.find "div[data-menu-style='#{currentStyle}']"
-					.addClass 'ui-selected'
+				if currentStyle is ''
+					firstStyle = @$el.find("div[data-menu-style]").first()
+					firstStyle.addClass 'ui-selected'
+					@trigger "menu:style:selected", firstStyle.attr 'data-menu-style'
+				else
+					@$el.find "div[data-menu-style='#{currentStyle}']"
+						.addClass 'ui-selected'
 
 			menuStyleSelected : ( event, ui )=>
 				@trigger "menu:style:selected", $(ui.selected).attr 'data-menu-style'
@@ -226,7 +228,7 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 			onMenuDeleteSuccess : ->
 				@listMenuRegion.close()
 				@addMenuRegion.close()
-				@$el.find('a.delete-menu').addClass 'hidden'
+				@$el.find('a.delete-menu').parent().addClass 'hidden'
 				@menuListView.triggerMethod 'menu:deleted'
 
 
