@@ -239,6 +239,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
               pageId = _this.$el.find('select#builder-page-sel').selectpicker('val');
             }
             _this.$el.find('select#builder-page-sel-lock,select#builder-page-sel').selectpicker('val', pageId);
+            _this.$el.find('select#builder-page-sel-lock,select#builder-page-sel').selectpicker('refresh');
             _this._addToPageSlug(pageId);
             return _this.changePreviewLinkUrl();
           };

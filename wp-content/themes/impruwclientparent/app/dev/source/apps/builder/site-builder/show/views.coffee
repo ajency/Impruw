@@ -196,6 +196,8 @@ define [ 'app'
                
                @$el.find( 'select#builder-page-sel-lock,select#builder-page-sel' ).selectpicker 'val', pageId
 
+               @$el.find( 'select#builder-page-sel-lock,select#builder-page-sel' ).selectpicker 'refresh'
+
                @_addToPageSlug pageId
                
                @changePreviewLinkUrl()
