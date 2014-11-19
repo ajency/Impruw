@@ -90,7 +90,11 @@ define ['app'], (App)->
             serializeData :->
                 data = super()
                 pages = App.request "get:editable:pages"
-                data.pages = pages.toJSON()
+                pages = pages.toJSON()
+                pages = _.reject pages, (page)-> 
+                            title = page['post_title']
+                            title is 'Single Room' or title is 'Enkeltrom'
+                data.pages = pages
                 data
 
             onAddMenuitemSuccess : =>

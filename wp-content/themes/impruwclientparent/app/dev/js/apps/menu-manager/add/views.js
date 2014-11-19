@@ -71,7 +71,13 @@ define(['app'], function(App) {
         var data, pages;
         data = MenuItemView.__super__.serializeData.call(this);
         pages = App.request("get:editable:pages");
-        data.pages = pages.toJSON();
+        pages = pages.toJSON();
+        pages = _.reject(pages, function(page) {
+          var title;
+          title = page['post_title'];
+          return title === 'Single Room' || title === 'Enkeltrom';
+        });
+        data.pages = pages;
         return data;
       };
 
