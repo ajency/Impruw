@@ -432,13 +432,18 @@ function update_slide( $data, $slide_id, $language='all', $parent_slide=0) {
                 $new_caption .=  "<a href='".$new_caption_title_link."' target='".$new_caption_title_link_target."'>";
             }
                 
-                
-            $new_caption .=  $old_caption_title;
+            if ($old_slider_caption==="")
+                $new_caption .= $new_caption_title;
+            else
+                $new_caption .=  $old_caption_title;
 
             if(isset($new_caption_title_link)){
                 $new_caption .=  "</a>" ;
             }
-            $new_caption .=  "</h3><div class='text' id='revslide-caption-desc'>".$old_caption_desc."</div>";
+            if ($old_slider_caption==="")
+                $new_caption .=  "</h3><div class='text' id='revslide-caption-desc'>".$new_caption_desc."</div>";
+            else
+                $new_caption .=  "</h3><div class='text' id='revslide-caption-desc'>".$old_caption_desc."</div>";
         }
 
         $data['layers'][0]['text'] = $new_caption;
