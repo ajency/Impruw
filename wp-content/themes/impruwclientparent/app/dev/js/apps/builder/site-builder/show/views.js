@@ -501,8 +501,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         if (this.model.get('is_home_page')) {
           this.$el.find('#site-header-region, #site-footer-region').removeClass('edit-lock');
         }
-        this.$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div></div></div>');
-        return this.$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div></div></div>');
+        this.$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div><button class="btn btn-default btn-xs aj-imp-orange-btn">Edit Homepage</button></div></div>');
+        return this.$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div><button class="btn btn-default btn-xs aj-imp-orange-btn">Edit Homepage</button></div></div>');
       };
 
       Builder.prototype._getHelper = function(evt, original) {
