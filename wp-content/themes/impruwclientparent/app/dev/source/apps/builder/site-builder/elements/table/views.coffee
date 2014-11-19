@@ -150,6 +150,10 @@ define ['app','bootbox'], (App,bootbox)->
 				CKEDITOR.on 'instanceCreated', @configureEditor
 				@editor = CKEDITOR.inline document.getElementById id
 				@editor.config.placeholder = 'Click to enter text.'
+				$(evt.target).closest('td,th').find('div').trigger 'blur'
+                _.delay =>
+                    $(evt.target).closest('td,th').find('div').trigger 'focus'
+                ,200
 				# @editor.setData _.stripslashes @model.get 'content'
 
 			configureEditor : (event) =>

@@ -36,7 +36,13 @@ define(['app'], function(App) {
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
         html = this.$el.html();
         this.editor.setData(html);
-        return this.editor.config.placeholder = 'Click here to enter your text...';
+        this.editor.config.placeholder = 'Click here to enter your text...';
+        this.$el.trigger('blur');
+        return _.delay((function(_this) {
+          return function() {
+            return _this.$el.trigger('focus');
+          };
+        })(this), 200);
       };
 
       TextView.prototype.onShow = function() {
