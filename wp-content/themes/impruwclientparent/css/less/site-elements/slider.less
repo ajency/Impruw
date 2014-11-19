@@ -1,6 +1,10 @@
 .tp-caption {
-	padding: @medium;
-	max-width: 100%;
+	padding: @medium !important;
+	max-width: 100% !important;
+	.title, h3 {
+		white-space: normal;
+		width: 100%;
+	}
 	.text {
 		white-space: normal;
 	}
@@ -15,7 +19,7 @@
 	}
 }
 
-.rev_slider_wrapper {
+.rev_slider_wrapper, .revslider-initialised {
 	&:hover {
 		.caption-hover {
 			display: block;
