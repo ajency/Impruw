@@ -59,6 +59,7 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
           menuItemCollection = new Backbone.Collection;
         }
         view = this._getMenuView(menuItemCollection, templateClass);
+        view.on('show', view.removeMenuSettingsIcon);
         this.listenTo(view, "menu:element:clicked", (function(_this) {
           return function() {
             return App.execute("menu-manager", model, model.get('menu_id'));

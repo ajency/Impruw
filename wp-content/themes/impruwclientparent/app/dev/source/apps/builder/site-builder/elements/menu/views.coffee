@@ -73,6 +73,11 @@ define ['app'], (App)->
 				$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'} ul")
 				$ul.append childView.el
 
+			removeMenuSettingsIcon : =>
+				@$el.closest '.element-wrapper'
+					.find '.element-controls .aj-imp-settings-btn'
+					.remove()
+
 			onShow : ->
 				@$el.slimmenu()
 

@@ -64,6 +64,7 @@ define(['app'], function(App) {
 
       function MenuView() {
         this.setAlignment = __bind(this.setAlignment, this);
+        this.removeMenuSettingsIcon = __bind(this.removeMenuSettingsIcon, this);
         return MenuView.__super__.constructor.apply(this, arguments);
       }
 
@@ -114,6 +115,10 @@ define(['app'], function(App) {
         }
         $ul = collectionView.$el.find("#item-" + (menuItemModel.get('menu_item_parent')) + " ul");
         return $ul.append(childView.el);
+      };
+
+      MenuView.prototype.removeMenuSettingsIcon = function() {
+        return this.$el.closest('.element-wrapper').find('.element-controls .aj-imp-settings-btn').remove();
       };
 
       MenuView.prototype.onShow = function() {

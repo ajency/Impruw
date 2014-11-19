@@ -13,7 +13,7 @@ define(['app'], function(App) {
         return MenuItemView.__super__.constructor.apply(this, arguments);
       }
 
-      MenuItemView.prototype.template = '<a class="add-menu-toggle" data-toggle="collapse" href="#add-menu-container"><span class="glyphicon glyphicon-plus"></span></a> <div id="add-menu-container" class="aj-imp-add-menu-item collapse"> <div id="{{menu_slug}}-add-menu" class="add-menu-form"> <h4>{{#polyglot}}Add Menu Item{{/polyglot}}</h4> <form class="form-inline"> <div class="form-group"> <label class="control-label">{{#polyglot}}Page Item{{/polyglot}}</label> <div class="bootstrap-select"> <select name="page_id" id="page_id"> <option value="">{{#polyglot}}Choose Page{{/polyglot}}</option> {{#pages}} <option value="{{ID}}">{{post_title}}</option> {{/pages}} </select> </div> </div> <div class="form-group option-or"> <label class="control-label">&nbsp;</label> {{#polyglot}}Or{{/polyglot}} </div> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label> <input name="custom-menu-name" class="form-control" placeholder="{{#polyglot}}Custom Menu Name{{/polyglot}}" type="text"> </div> <div class="form-group"> <label class="control-label">{{#polyglot}}URL{{/polyglot}}</label> <input name="custom-menu-url" class="form-control url" placeholder="{{#polyglot}}Custom Menu URL{{/polyglot}}" type="text"> </div> <div class="form-group"> <label class="control-label">&nbsp;</label> <button type="button" class="add-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Add{{/polyglot}}</span></button> <input type="reset" id="btn_resetmenu" class="hidden"/> </div> </form> </div> </div>';
+      MenuItemView.prototype.template = '<a class="add-menu-toggle" data-toggle="collapse" href="#add-menu-container"><span class="glyphicon glyphicon-plus"></span></a> <div id="add-menu-container" class="aj-imp-add-menu-item collapse"> <div id="{{menu_slug}}-add-menu" class="add-menu-form"> <h4>{{#polyglot}}Add Menu Item{{/polyglot}}</h4> <form class="form-inline"> <div class="form-group"> <label class="control-label">{{#polyglot}}Page Item{{/polyglot}}</label> <div class="bootstrap-select"> <select name="page_id" id="page_id"> <option value="">{{#polyglot}}Choose Page{{/polyglot}}</option> {{#pages}} <option value="{{ID}}">{{post_title}}</option> {{/pages}} </select> </div> </div> <div class="form-group option-or"> <label class="control-label">&nbsp;</label> {{#polyglot}}Or{{/polyglot}} </div> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label> <input name="custom-menu-name" class="form-control" placeholder="{{#polyglot}}Custom Menu Name{{/polyglot}}" type="text"> </div> <div class="form-group"> <label class="control-label">{{#polyglot}}URL{{/polyglot}}</label> <input id="custom-menu-url" value="http://" name="custom-menu-url" required class="form-control url" placeholder="{{#polyglot}}Custom Menu URL{{/polyglot}}" type="url"> </div> <div class="form-group"> <label class="control-label">&nbsp;</label> <button type="button" class="add-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Add{{/polyglot}}</span></button> <input type="reset" id="btn_resetmenu" class="hidden"/> </div> </form> </div> </div>';
 
       MenuItemView.prototype.className = 'aj-imp-menu-edit';
 
@@ -21,13 +21,16 @@ define(['app'], function(App) {
         'menuName': 'input[name="custom-menu-name"]',
         'menuUrl': 'input[name="custom-menu-url"]',
         'pageId': '#page_id',
-        'resetButton': '#btn_resetmenu'
+        'resetButton': '#btn_resetmenu',
+        'form': 'form.form-inline',
+        'customUrlField': 'input[name="custom-menu-url"]'
       };
 
       MenuItemView.prototype.events = {
         'change select[name="page_id"]': function() {
           if (this.$el.find('#page_id').selectpicker('val') !== '') {
-            return this.$el.find('input[name="custom-menu-name"],input[name="custom-menu-url"]').val('');
+            this.$el.find('input[name="custom-menu-name"],input[name="custom-menu-url"]').val('');
+            return this.$el.find('input[name="custom-menu-url"]').next('.field-error').remove();
           }
         },
         'keypress input[name="custom-menu-name"],input[name="custom-menu-url"]': function() {
@@ -41,6 +44,9 @@ define(['app'], function(App) {
         this.$el.find('.alert').remove();
         data = {};
         if (this.ui.menuName.val() !== '') {
+          if (!this.ui.customUrlField.valid()) {
+            return;
+          }
           data['menu-item-title'] = this.ui.menuName.val();
           data['menu-item-type'] = 'custom';
           data['menu-item-url'] = this.ui.menuUrl.val();
@@ -71,7 +77,13 @@ define(['app'], function(App) {
         var data, pages;
         data = MenuItemView.__super__.serializeData.call(this);
         pages = App.request("get:editable:pages");
-        data.pages = pages.toJSON();
+        pages = pages.toJSON();
+        pages = _.reject(pages, function(page) {
+          var title;
+          title = page['post_title'];
+          return title === 'Single Room' || title === 'Enkeltrom';
+        });
+        data.pages = pages;
         return data;
       };
 
@@ -86,7 +98,19 @@ define(['app'], function(App) {
       };
 
       MenuItemView.prototype.onShow = function() {
-        return this.$el.find('select[name="page_id"]').selectpicker();
+        this.$el.find('select[name="page_id"]').selectpicker();
+        return this.ui.form.validate({
+          rules: {
+            "custom-menu-url": {
+              url2: true
+            }
+          },
+          message: {
+            "custom-menu-url": {
+              url2: 'Some message'
+            }
+          }
+        });
       };
 
       return MenuItemView;

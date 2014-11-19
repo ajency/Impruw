@@ -47,6 +47,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
 
                 view = @_getMenuView(menuItemCollection, templateClass)
 
+                view.on 'show', view.removeMenuSettingsIcon
                 @listenTo view, "menu:element:clicked", =>
                     App.execute "menu-manager", model, model.get 'menu_id'
 
