@@ -25,36 +25,31 @@ define ['jquery', 'underscore', 'jquery.validate', 'jqueryuii18n' , 'configs/pol
         errorClass: 'field-error'
         validClass: 'field-valid'
 
+
     
     $.extend $.validator.messages,
-          required: _.polyglot.t("This field is required.")
-          remote: _.polyglot.t("Please fix this field.")
-          email: _.polyglot.t("Please enter a valid email address.")
-          url: _.polyglot.t("Please enter a valid URL.")
-          date: _.polyglot.t("Please enter a valid date.")
-          dateISO: _.polyglot.t("Please enter a valid date (ISO).")
-          number: _.polyglot.t("Please enter a valid number.")
-          digits: _.polyglot.t("Please enter only digits.")
-          creditcard: _.polyglot.t("Please enter a valid credit card number.")
-          equalTo: _.polyglot.t("Please enter the same value again.")
-          maxlength: $.validator.format(_.polyglot.t("Please enter no more than {0} characters."))
-          minlength: $.validator.format(_.polyglot.t("Please enter at least {0} characters."))
-          rangelength: $.validator.format(_.polyglot.t("Please enter a value between {0} and {1} characters long."))
-          range: $.validator.format(_.polyglot.t("Please enter a value between {0} and {1}."))
-          max: $.validator.format(_.polyglot.t("Please enter a value less than or equal to {0}."))
-          min: $.validator.format(_.polyglot.t("Please enter a value greater than or equal to {0}."))
+        required: _.polyglot.t("This field is required.")
+        remote: _.polyglot.t("Please fix this field.")
+        email: _.polyglot.t("Please enter a valid email address.")
+        url2: _.polyglot.t("Please enter a valid URL.")
+        date: _.polyglot.t("Please enter a valid date.")
+        dateISO: _.polyglot.t("Please enter a valid date (ISO).")
+        number: _.polyglot.t("Please enter a valid number.")
+        digits: _.polyglot.t("Please enter only digits.")
+        creditcard: _.polyglot.t("Please enter a valid credit card number.")
+        equalTo: _.polyglot.t("Please enter the same value again.")
+        maxlength: $.validator.format(_.polyglot.t("Please enter no more than {0} characters."))
+        minlength: $.validator.format(_.polyglot.t("Please enter at least {0} characters."))
+        rangelength: $.validator.format(_.polyglot.t("Please enter a value between {0} and {1} characters long."))
+        range: $.validator.format(_.polyglot.t("Please enter a value between {0} and {1}."))
+        max: $.validator.format(_.polyglot.t("Please enter a value less than or equal to {0}."))
+        min: $.validator.format(_.polyglot.t("Please enter a value greater than or equal to {0}."))
 
 
-#    $.fn.center = (parent) ->
-#        if parent
-#            parent = @parent()
-#        else
-#            parent = window
-#        @css
-#            position: "fixed"
-#            top: ((($(parent).height() - @outerHeight()) / 2) + $(parent).scrollTop() + "px")
-#            left: ((($(parent).width() - @outerWidth()) / 2) + $(parent).scrollLeft() + "px")
-#        this
+        # same as url, but TLD is optional
+        $.validator.addMethod "url2", (value, element)->
+            @.optional(element) || /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)*(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value)
+        , $.validator.messages.url
 
     $.fn.center = (parent) ->
         if parent

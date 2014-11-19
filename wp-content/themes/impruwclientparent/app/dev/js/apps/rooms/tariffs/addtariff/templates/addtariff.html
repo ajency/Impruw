@@ -6,8 +6,8 @@
 			<label for="inputAddress2" class="col-sm-5 control-label">{{#polyglot}}Tariff{{/polyglot}}({{currency}})</label>
 			<div class="col-sm-7 col-sm-offset-5">
 				<label for="checkbox2" class="checkbox"> <input 
-					type="checkbox" data-toggle="checkbox" class="chk_tariffdays"
-					tariff-type='weekday' checked="checked">{{#polyglot}} Weekday {{/polyglot}}</label> <span class="help-block">{{#polyglot}}Monday to Friday{{/polyglot}}</span> <input type="text"
+					type="hidden" data-toggle="checkbox" class="chk_tariffdays"
+					tariff-type='weekday' name="weekday[enable]" value="true">{{#polyglot}} Weekday {{/polyglot}}</label> <span class="help-block">{{#polyglot}}Monday to Friday{{/polyglot}}</span> <input type="text"
 					class="form-control formel_weedaytariff" id="weekday_tariff"
 					name="weekday[charge]" placeholder="420" value="" data-rule-number="true">
 			</div>
@@ -19,7 +19,7 @@
 			<div class="col-sm-7">
 				<label for="checkbox2" class="checkbox"> <input 
 					type="checkbox" data-toggle="checkbox" class="chk_tariffdays"
-					tariff-type='weekend' checked="checked">{{#polyglot}} Weekend {{/polyglot}}</label> <span class="help-block">{{#polyglot}}Saturday to Sunday{{/polyglot}}</span> <input type="text"
+					tariff-type='weekend' name="weekend[enable]" checked>{{#polyglot}} Weekend {{/polyglot}}</label> <span class="help-block">{{#polyglot}}Saturday to Sunday{{/polyglot}}</span> <input type="text"
 					class="form-control formel_weekendtariff" id="weekend_tariff"
 					name="weekend[charge]" placeholder="999" value="" data-rule-number="true">
 			</div>

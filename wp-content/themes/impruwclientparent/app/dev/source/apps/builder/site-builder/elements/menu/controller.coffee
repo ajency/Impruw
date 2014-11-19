@@ -35,9 +35,9 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
             renderElement: ()=>
                 model = @layout.model
                 @listenTo @layout.model, "positionupdated", @renderElement
-                templateClass = [model.get 'style'] ? ''
+                templateClass = if model.get('style') isnt '' then model.get('style') else ''
                 menuId = model.get('menu_id')
-                if parseInt(menuId) > 0
+                if parseInt(menuId) > 0 and window.menusCollection.length > 0
                     menu = window.menusCollection.get menuId
                     menuItemCollection = menu.get 'menuItems'
                     if menuItemCollection.length is 0
@@ -47,6 +47,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
 
                 view = @_getMenuView(menuItemCollection, templateClass)
 
+                view.on 'show', view.removeMenuSettingsIcon
                 @listenTo view, "menu:element:clicked", =>
                     App.execute "menu-manager", model, model.get 'menu_id'
 

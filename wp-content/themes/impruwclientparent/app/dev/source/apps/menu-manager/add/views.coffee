@@ -30,12 +30,12 @@ define ['app'], (App)->
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">{{#polyglot}}URL{{/polyglot}}</label>
-                                    <input name="custom-menu-url" class="form-control url" placeholder="{{#polyglot}}Custom Menu URL{{/polyglot}}" type="text">
+                                    <input id="custom-menu-url" value="http://" name="custom-menu-url" required class="form-control url" placeholder="{{#polyglot}}Custom Menu URL{{/polyglot}}" type="url">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">&nbsp;</label>
                                     <button type="button" class="add-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Add{{/polyglot}}</span></button>
-                                    <input type="reset" id="btn_resetmenu" style="display:none">
+                                    <input type="reset" id="btn_resetmenu" class="hidden"/>
                                 </div>
                             </form>
                         </div>
@@ -47,11 +47,15 @@ define ['app'], (App)->
                 'menuName' : 'input[name="custom-menu-name"]'
                 'menuUrl' : 'input[name="custom-menu-url"]'
                 'pageId' : '#page_id'
+                'resetButton' : '#btn_resetmenu'
+                'form' : 'form.form-inline'
+                'customUrlField' : 'input[name="custom-menu-url"]'
 
             events:
                 'change select[name="page_id"]' : ->
                     if @$el.find('#page_id').selectpicker('val') isnt ''  
                         @$el.find('input[name="custom-menu-name"],input[name="custom-menu-url"]').val ''
+                        @$el.find('input[name="custom-menu-url"]').next('.field-error').remove()
 
                 'keypress input[name="custom-menu-name"],input[name="custom-menu-url"]' : ->
                     @$el.find('#page_id').selectpicker 'val', ''
@@ -62,6 +66,7 @@ define ['app'], (App)->
                 @$el.find('.alert').remove()
                 data = {}
                 if @ui.menuName.val() isnt ''
+                    if not @ui.customUrlField.valid() then return
                     data['menu-item-title'] = @ui.menuName.val()
                     data['menu-item-type'] = 'custom'
                     data['menu-item-url'] = @ui.menuUrl.val()
@@ -82,16 +87,22 @@ define ['app'], (App)->
                 @trigger "add:menu:item:clicked", data
 
             showMissingFieldMessage : =>
-                message = _.polyglot.t 'Please choose a page or enter custom menu item'
+                message = _.polyglot.t 'Sorry, you need to add the menu name and link for custom menus or you could simply select a page from page item drop down'
                 @$el.find 'form.form-inline'
                     .prepend "<div class='alert alert-danger'>#{message}</div>"
 
             serializeData :->
                 data = super()
                 pages = App.request "get:editable:pages"
-                data.pages = pages.toJSON()
+                pages = pages.toJSON()
+                pages = _.reject pages, (page)-> 
+                            title = page['post_title']
+                            title is 'Single Room' or title is 'Enkeltrom'
+                data.pages = pages
                 data
 
+            onAddMenuitemSuccess : =>
+                @ui.resetButton.click()
 
             onNewMenuCreated: ->
                 @$el.find('.alert').remove()
@@ -100,4 +111,12 @@ define ['app'], (App)->
 
             onShow: ->
                @$el.find('select[name="page_id"]').selectpicker()
+               @ui.form.validate
+                            rules : 
+                                "custom-menu-url" : 
+                                            url2 : true
+                            message : 
+                                "custom-menu-url" :
+                                        url2 : 'Some message'
+
 						

@@ -20,7 +20,7 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				@show @layout
 
 			saveMenuElementModel : =>
-				@menuElementModel.save()
+				@menuElementModel.save() 
 
 			addNewMenu : (menuName)=>
 				data = 
@@ -69,16 +69,15 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 			tagName : 'select'
 			className : 'global-menus-list'
 			childView : MenuOption
-			emptyView : Marionette.ItemView.extend tagName : 'option', template : 'Add Menu'
 			events : 
 				'change' : 'menuChanged'
+
+			onRender : ->
+				@$el.prepend '<option value="">Choose Menu</option>'
 			
 			menuChanged : =>
 				menuId = @$el.selectpicker 'val'
 				@trigger 'menu:changed', menuId if menuId isnt ''
-
-			onRender : ->
-				@$el.prepend '<option value="">Choose Menu</option>'
 
 			onShow : ->
 				menuId = Marionette.getOption @, 'menuId'
@@ -115,8 +114,13 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				@$el.selectable
 						selected: @menuStyleSelected
 
-				@$el.find "div[data-menu-style='#{currentStyle}']"
-					.addClass 'ui-selected'
+				if currentStyle is ''
+					firstStyle = @$el.find("div[data-menu-style]").first()
+					firstStyle.addClass 'ui-selected'
+					@trigger "menu:style:selected", firstStyle.attr 'data-menu-style'
+				else
+					@$el.find "div[data-menu-style='#{currentStyle}']"
+						.addClass 'ui-selected'
 
 			menuStyleSelected : ( event, ui )=>
 				@trigger "menu:style:selected", $(ui.selected).attr 'data-menu-style'
@@ -128,7 +132,8 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 
 			events : 
 				'click a.delete-menu' : ->
-					bootbox.confirm "Are you sure? Need Proper  message here.", ( answer )=>
+					message = _.polyglot.t 'All the occurrences of this menu will be deleted from the website. Are you sure you want to delete the menu?'
+					bootbox.confirm message, ( answer )=>
 							if answer is yes
 								@trigger "delete:menu:clicked", @menuId
 
@@ -204,7 +209,6 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 				@menuStylesRegion.show menuStylesView
 
 			updateSelectedMenu : (menuStyle)=>
-				console.log menuStyle
 				@menuElementModel.set 'style', menuStyle
 
 			menuChanged : (menuId) =>
@@ -224,7 +228,7 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 			onMenuDeleteSuccess : ->
 				@listMenuRegion.close()
 				@addMenuRegion.close()
-				@$el.find('a.delete-menu').addClass 'hidden'
+				@$el.find('a.delete-menu').parent().addClass 'hidden'
 				@menuListView.triggerMethod 'menu:deleted'
 
 

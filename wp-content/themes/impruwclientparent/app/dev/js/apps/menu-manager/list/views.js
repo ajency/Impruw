@@ -38,7 +38,9 @@ define(['app', 'bootbox'], function(App, bootbox) {
           return this.trigger("update:menu:item:clicked", formdata, this.model);
         },
         'click .delete-menu-item': function() {
-          return bootbox.confirm(_.polyglot.t('Delete menu item?'), (function(_this) {
+          var message;
+          message = _.polyglot.t('This menu item will be removed from all the occurrences of the menu. Are you sure you want to delete the menu item?');
+          return bootbox.confirm(message, (function(_this) {
             return function(answer) {
               if (answer === true) {
                 return _this.trigger("delete:menu:item:clicked", _this.model);

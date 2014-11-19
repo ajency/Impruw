@@ -116,13 +116,12 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
 
       DropdownListView.prototype.childView = MenuOption;
 
-      DropdownListView.prototype.emptyView = Marionette.ItemView.extend({
-        tagName: 'option',
-        template: 'Add Menu'
-      });
-
       DropdownListView.prototype.events = {
         'change': 'menuChanged'
+      };
+
+      DropdownListView.prototype.onRender = function() {
+        return this.$el.prepend('<option value="">Choose Menu</option>');
       };
 
       DropdownListView.prototype.menuChanged = function() {
@@ -131,10 +130,6 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
         if (menuId !== '') {
           return this.trigger('menu:changed', menuId);
         }
-      };
-
-      DropdownListView.prototype.onRender = function() {
-        return this.$el.prepend('<option value="">Choose Menu</option>');
       };
 
       DropdownListView.prototype.onShow = function() {
@@ -185,12 +180,18 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       MenuStylesView.prototype.childView = MenuStyleItemView;
 
       MenuStylesView.prototype.onShow = function() {
-        var currentStyle;
+        var currentStyle, firstStyle;
         currentStyle = Marionette.getOption(this, 'currentStyle');
         this.$el.selectable({
           selected: this.menuStyleSelected
         });
-        return this.$el.find("div[data-menu-style='" + currentStyle + "']").addClass('ui-selected');
+        if (currentStyle === '') {
+          firstStyle = this.$el.find("div[data-menu-style]").first();
+          firstStyle.addClass('ui-selected');
+          return this.trigger("menu:style:selected", firstStyle.attr('data-menu-style'));
+        } else {
+          return this.$el.find("div[data-menu-style='" + currentStyle + "']").addClass('ui-selected');
+        }
       };
 
       MenuStylesView.prototype.menuStyleSelected = function(event, ui) {
@@ -214,7 +215,9 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
 
       MediaMangerLayout.prototype.events = {
         'click a.delete-menu': function() {
-          return bootbox.confirm("Are you sure? Need Proper  message here.", (function(_this) {
+          var message;
+          message = _.polyglot.t('All the occurrences of this menu will be deleted from the website. Are you sure you want to delete the menu?');
+          return bootbox.confirm(message, (function(_this) {
             return function(answer) {
               if (answer === true) {
                 return _this.trigger("delete:menu:clicked", _this.menuId);
@@ -261,7 +264,6 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       };
 
       MediaMangerLayout.prototype.updateSelectedMenu = function(menuStyle) {
-        console.log(menuStyle);
         return this.menuElementModel.set('style', menuStyle);
       };
 
@@ -283,7 +285,7 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       MediaMangerLayout.prototype.onMenuDeleteSuccess = function() {
         this.listMenuRegion.close();
         this.addMenuRegion.close();
-        this.$el.find('a.delete-menu').addClass('hidden');
+        this.$el.find('a.delete-menu').parent().addClass('hidden');
         return this.menuListView.triggerMethod('menu:deleted');
       };
 

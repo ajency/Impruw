@@ -35,12 +35,14 @@ define(['app', 'text!apps/builder/site-builder/elements/smarttable/settings/temp
       };
 
       SettingsView.prototype.setFields = function() {
+        var innerStyle;
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').radiocheck('check');
         }
+        innerStyle = this.eleModel.get('innerStyle');
         this.$el.find('select[name="type"]').selectpicker('val', this.eleModel.get('style'));
         this.$el.find('select[name="type"]').selectpicker('refresh');
-        this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('innerStyle'));
+        this.$el.find('select[name="style"]').selectpicker('val', innerStyle);
         return this.$el.find('select[name="style"]').selectpicker('refresh');
       };
 

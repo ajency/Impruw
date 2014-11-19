@@ -94,8 +94,19 @@ define(['app', 'moment'], function(App, moment) {
       };
 
       SingleTariff.prototype.initialize = function() {
+        var weekday, weekend;
         this.plan = App.request("get:plan:by:id", this.model.get('plan_id'));
-        return this.listenTo(this.plan, "change", this.render);
+        this.listenTo(this.plan, "change", this.render);
+        if ((this.model.get('weekday') != null) && (this.model.get('weekday')['enable'] == null)) {
+          weekday = this.model.get('weekday');
+          weekday.enable = true;
+          this.model.set('weekday', weekday);
+        }
+        if ((this.model.get('weekend') != null) && (this.model.get('weekend')['enable'] == null)) {
+          weekend = this.model.get('weekend');
+          weekend.enable = true;
+          return this.model.set('weekend', weekend);
+        }
       };
 
       SingleTariff.prototype.serializeData = function() {
@@ -104,10 +115,21 @@ define(['app', 'moment'], function(App, moment) {
         data.currency = Marionette.getOption(this, 'currency');
         data.plan_name = this.plan.get('plan_name');
         data.plan_description = this.plan.get('plan_description');
+        if (data.id != null) {
+          if (_.toBoolean(this.model.get('weekday')['enable']) && _.toBoolean(this.model.get('weekend')['enable'])) {
+            data.isFullweek = true;
+          }
+          if (_.toBoolean(this.model.get('weekday')['enable'])) {
+            data.isWeekday = true;
+          }
+          if (_.toBoolean(this.model.get('weekend')['enable'])) {
+            data.isWeekend = true;
+          }
+        }
         return data;
       };
 
-      SingleTariff.prototype.template = '{{^id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a> </div> <div class="block clearfix not-yet-added empty"> <span class="no-data"> <span class="glyphicon glyphicon-exclamation-sign"></span> </span>{{#polyglot}}No Data Added{{/polyglot}} <div class="block-action"> <button type="button" class="btn btn-default btn-sm add-trariff edit-tran"> <span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Add{{/polyglot}} </button> </div> </div> {{/id}} {{#id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a> </div> <div class="block clearfix"> <div class="weekday"> {{#polyglot}}Weekdays{{/polyglot}} <span class="price">{{currency}}&nbsp;{{weekday.charge}}</span> </div> <div class="weekend"> {{#polyglot}}Weekends{{/polyglot}} <span class="price">{{currency}}&nbsp;{{weekend.charge}}</span> </div> <div class="tariff-label clearfix">{{#polyglot}}Extra Adult{{/polyglot}}</div> <div class="weekday"> <span class="price">{{currency}}&nbsp;{{weekday.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{currency}}&nbsp;{{weekend.extra_adult}}</span> </div> <div class="tariff-label clearfix">{{#polyglot}}Extra Child{{/polyglot}}</div> <div class="weekday"> <span class="price">{{currency}}&nbsp;{{weekday.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{currency}}&nbsp;{{weekend.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-default btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button> </div> </div> {{/id}}';
+      SingleTariff.prototype.template = '{{^id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a> </div> <div class="block clearfix not-yet-added empty"> <span class="no-data"> <span class="glyphicon glyphicon-exclamation-sign"></span> </span>{{#polyglot}}No Data Added{{/polyglot}} <div class="block-action"> <button type="button" class="btn btn-default btn-sm add-trariff edit-tran"> <span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Add{{/polyglot}} </button> </div> </div> {{/id}} {{#id}} <div class="package-header {{^isFullweek}}common-plan{{/isFullweek}}"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a> </div> <div class="block clearfix"> {{#isWeekday}}<div class="weekday"> {{#isFullweek}}{{#polyglot}}Weekdays{{/polyglot}}{{/isFullweek}} <span class="price">{{currency}}&nbsp;{{weekday.charge}}</span> </div>{{/isWeekday}} {{#isWeekend}}<div class="weekend"> {{#isFullweek}}{{#polyglot}}Weekends{{/polyglot}}{{/isFullweek}} <span class="price">{{currency}}&nbsp;{{weekend.charge}}</span> </div>{{/isWeekend}} <div class="tariff-label clearfix">{{#polyglot}}Extra Adult{{/polyglot}}</div> {{#isWeekday}}<div class="weekday"> <span class="price">{{currency}}&nbsp;{{weekday.extra_adult}}</span> </div>{{/isWeekday}} {{#isWeekend}}<div class="weekend"> <span class="price">{{currency}}&nbsp;{{weekend.extra_adult}}</span> </div>{{/isWeekend}} <div class="tariff-label clearfix">{{#polyglot}}Extra Child{{/polyglot}}</div> {{#isWeekday}}<div class="weekday"> <span class="price">{{currency}}&nbsp;{{weekday.extra_child}}</span> </div>{{/isWeekday}} {{#isWeekend}}<div class="weekend"> <span class="price">{{currency}}&nbsp;{{weekend.extra_child}}</span> </div>{{/isWeekend}} <div class="block-action"> <button type="button" class="btn btn-default btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button> </div> </div> {{/id}}';
 
       return SingleTariff;
 

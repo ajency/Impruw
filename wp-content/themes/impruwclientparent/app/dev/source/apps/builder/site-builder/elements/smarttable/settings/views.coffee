@@ -29,9 +29,10 @@ define ['app'
 			setFields: ->
 				if @eleModel.get('draggable') is true
 					@$el.find('input[name="draggable"]').radiocheck('check')
+				innerStyle = @eleModel.get 'innerStyle'
 				@$el.find('select[name="type"]').selectpicker 'val', @eleModel.get 'style'
 				@$el.find('select[name="type"]').selectpicker 'refresh'
-				@$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'innerStyle'
+				@$el.find('select[name="style"]').selectpicker 'val', innerStyle
 				@$el.find('select[name="style"]').selectpicker 'refresh'
 				
 
