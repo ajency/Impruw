@@ -30,7 +30,7 @@ define ['app'], (App)->
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">{{#polyglot}}URL{{/polyglot}}</label>
-                                    <input name="custom-menu-url" class="form-control url" placeholder="{{#polyglot}}Custom Menu URL{{/polyglot}}" type="text">
+                                    <input id="custom-menu-url" value="http://" name="custom-menu-url" required class="form-control url" placeholder="{{#polyglot}}Custom Menu URL{{/polyglot}}" type="url">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">&nbsp;</label>
@@ -48,11 +48,14 @@ define ['app'], (App)->
                 'menuUrl' : 'input[name="custom-menu-url"]'
                 'pageId' : '#page_id'
                 'resetButton' : '#btn_resetmenu'
+                'form' : 'form.form-inline'
+                'customUrlField' : 'input[name="custom-menu-url"]'
 
             events:
                 'change select[name="page_id"]' : ->
                     if @$el.find('#page_id').selectpicker('val') isnt ''  
                         @$el.find('input[name="custom-menu-name"],input[name="custom-menu-url"]').val ''
+                        @$el.find('input[name="custom-menu-url"]').next('.field-error').remove()
 
                 'keypress input[name="custom-menu-name"],input[name="custom-menu-url"]' : ->
                     @$el.find('#page_id').selectpicker 'val', ''
@@ -63,6 +66,7 @@ define ['app'], (App)->
                 @$el.find('.alert').remove()
                 data = {}
                 if @ui.menuName.val() isnt ''
+                    if not @ui.customUrlField.valid() then return
                     data['menu-item-title'] = @ui.menuName.val()
                     data['menu-item-type'] = 'custom'
                     data['menu-item-url'] = @ui.menuUrl.val()
@@ -107,4 +111,12 @@ define ['app'], (App)->
 
             onShow: ->
                @$el.find('select[name="page_id"]').selectpicker()
+               @ui.form.validate
+                            rules : 
+                                "custom-menu-url" : 
+                                            url2 : true
+                            message : 
+                                "custom-menu-url" :
+                                        url2 : 'Some message'
+
 						
