@@ -22,7 +22,7 @@ define ['app','bootbox'], (App,bootbox)->
 				'blur .cke_editable' : 'saveTableMarkup'
 
 				'click a': (e)->
-                    e.preventDefault()
+					e.preventDefault()
 
 				'click .table-holder' : 'destroyEditor'
 
@@ -151,18 +151,18 @@ define ['app','bootbox'], (App,bootbox)->
 				@editor = CKEDITOR.inline document.getElementById id
 				@editor.config.placeholder = 'Click to enter text.'
 				$(evt.target).closest('td,th').find('div').trigger 'blur'
-                _.delay =>
-                    $(evt.target).closest('td,th').find('div').trigger 'focus'
-                ,200
+				_.delay =>
+					$(evt.target).closest('td,th').find('div').trigger 'focus'
+				,200
 				# @editor.setData _.stripslashes @model.get 'content'
 
 			configureEditor : (event) =>
-                editor = event.editor
-                element = editor.element
+				editor = event.editor
+				element = editor.element
 
-                if element.getAttribute('id') is @$el.attr 'id'
-                    editor.on 'configLoaded', ->
-                        editor.config.placeholder = 'Enter Data'
+				if element.getAttribute('id') is @$el.attr 'id'
+					editor.on 'configLoaded', ->
+						editor.config.placeholder = 'Enter Data'
 
 			destroyEditor :(evt)=>
 				evt.stopPropagation()
