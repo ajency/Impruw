@@ -741,7 +741,7 @@ and open the template in the editor.
   margin-right: 0;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty {
-  height: 139px;
+  height: 136px;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty .no-data {
   min-height: 77px;
@@ -1490,14 +1490,18 @@ and open the template in the editor.
 .aj-imp-builder-layout-mode .room-facilities-container,
 .aj-imp-builder-layout-mode .roomdescription,
 .aj-imp-builder-layout-mode .room-tariff-container,
-.aj-imp-builder-layout-mode .roombooking {
+.aj-imp-builder-layout-mode .roombooking,
+.aj-imp-builder-layout-mode .roomsummary,
+.aj-imp-builder-layout-mode .roomgallery {
   cursor: not-allowed;
 }
 .aj-imp-builder-layout-mode .roomtitle *,
 .aj-imp-builder-layout-mode .room-facilities-container *,
 .aj-imp-builder-layout-mode .roomdescription *,
 .aj-imp-builder-layout-mode .room-tariff-container *,
-.aj-imp-builder-layout-mode .roombooking * {
+.aj-imp-builder-layout-mode .roombooking *,
+.aj-imp-builder-layout-mode .roomsummary *,
+.aj-imp-builder-layout-mode .roomgallery * {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1977,8 +1981,13 @@ ul.gallery {
   padding-bottom: 75%;
 }
 .tp-caption {
-  padding: 1em;
-  max-width: 100%;
+  padding: 1em !important;
+  max-width: 100% !important;
+}
+.tp-caption .title,
+.tp-caption h3 {
+  white-space: normal;
+  width: 100%;
 }
 .tp-caption .text {
   white-space: normal;
@@ -1992,7 +2001,8 @@ ul.gallery {
 .tp-caption.caption-hover {
   display: none;
 }
-.rev_slider_wrapper:hover .caption-hover {
+.rev_slider_wrapper:hover .caption-hover,
+.revslider-initialised:hover .caption-hover {
   display: block;
 }
 @media (max-width: 480px) {
@@ -2935,7 +2945,7 @@ and open the template in the editor.
   display: block;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty {
-  height: 139px;
+  height: 136px;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty .no-data {
   min-height: 77px;

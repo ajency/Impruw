@@ -170,7 +170,7 @@
 
     global $element_templates;
 
-    $element_templates = array('Menu' => array(array('name' => 'Left Menu')), 'Title' => array(array('name' => 'Page Title',), array('name' => 'Blue Capital Title',)), 
+    $element_templates = array('Menu' => array(array('name' => 'Left Menu', 'imagePath' => get_template_directory_uri() . '/resources/img/left-menu.png')), 'Title' => array(array('name' => 'Page Title',), array('name' => 'Blue Capital Title',)), 
         'Row' => array(
             array(
                 'name' => 'Slideshow Container',
