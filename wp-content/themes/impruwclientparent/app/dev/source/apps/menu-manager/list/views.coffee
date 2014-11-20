@@ -27,11 +27,12 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 						 <div class="form-group">
 							<label class="control-label">{{#polyglot}}Custom Menu URL{{/polyglot}}</label>
 							<input value="{{url}}" required type="url" 
-								name="menu-item-url-{{ID}}" id="menu-item-url-{{ID}}" class="form-control menuname" />
+								name="menu-item-url" id="menu-item-url-{{ID}}" class="form-control menuname" />
 						 </div>
 						 <div class="form-group form-actions">
 							<label class="control-label">&nbsp;</label>
-								<input type="hidden" value={{ID}} name="ID">
+								<input type="hidden" value="{{ID}}" name="ID">
+								<input type="hidden" value="custom" name="menu-item-type">
 							 <button type="button" class="update-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button>
 							 <a href="#" class="blue-link cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></a>
 						 </div>
@@ -60,7 +61,6 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 				'click .update-menu-item' : ->
 					return if not @ui.customMeuUpdateForm.valid()
 					formdata = Backbone.Syphon.serialize @
-					console.log formdata
 					@trigger "update:menu:item:clicked", formdata, @model
 
 				'click .delete-menu-item' : ->
@@ -71,12 +71,9 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 						
 
 				'click .cancel-menu-item' : ->
-					menu_id = @model.get 'menu_id'
-					menu_item_id = @model.get 'ID'
-					@$el.find( '.menuname' ).val( @model.get 'menu_item_title' )
-					@$el.find( '.menutitle' ).val( @model.get 'menu_item_url' )
-					@$el.find( "#menuitem-#{menu_id}-#{menu_item_id}" ).click()
-					return false
+					@$el.closest '.list-group-item'
+						.find '[data-toggle]'
+						.click()
 
 			onShow : ->
 				urlField = "menu-item-url-#{@model.get 'ID'}"
