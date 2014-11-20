@@ -48,6 +48,7 @@ a.red-link.pull-right {
   font-family: 'Lato', sans-serif;
   background: url('../images/dash-nav-bg.png') repeat;
   max-width: none;
+  min-height: 80vh;
 }
 .aj-imp-container .aj-imp-left {
   padding: 0;
@@ -889,6 +890,28 @@ form .aj-imp-submit:hover {
 .aj-imp-lo-footer {
   padding: 1em 0;
   text-align: center;
+  background: #333;
+}
+.aj-imp-lo-footer .footer-img {
+  padding: 7px;
+  border-radius: 50%;
+  background: #f3f3f3;
+  display: inline-block;
+  width: 63px;
+  height: 63px;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  -ms-transition: all .5s ease;
+  transition: all .5s ease;
+  position: relative;
+}
+.aj-imp-lo-footer .footer-img img {
+  margin-right: 6px;
+}
+.aj-imp-lo-footer:hover .footer-img {
+  margin-top: -32px;
+  border-top: 1px solid #333;
   background: #fff;
 }
 .aj-imp-lo-footer .copyright {
