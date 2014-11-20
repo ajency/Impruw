@@ -3567,15 +3567,14 @@ $base_element_templates = array(
         ),
         array(
             'name' => 'Tabs',
-            'template' => '<div class="tab-container tabs-style-underline" role="tabpanel">
+            'template' => '<div class="tab-container tabs-style-flip" role="tabpanel">
 
                               <!-- Nav tabs -->
                               <ul class="nav nav-tabs nav-justified" role="tablist">
                                 
-                                <li role="presentation" class="active"><a href="#tab-1" role="tab" data-toggle="tab">Tab 1</a></li>
-                                <li role="presentation"><a href="#tab-2" role="tab" data-toggle="tab">Tab 2</a></li>
-                                <li role="presentation"><a href="#tab-3" role="tab" data-toggle="tab">Tab 3</a></li>
-                                <li role="presentation" class="add-another"><a href="#" role="tab" data-toggle="tab"><span class="bicon icon-uniF146"></span></a></li>
+                                <li role="presentation" class="active"><a href="#tab-1" role="tab" data-toggle="tab"><span>Tab 1</span></a></li>
+                                <li role="presentation"><a href="#tab-2" role="tab" data-toggle="tab"><span>Tab 2</span></a></li>
+                                <li role="presentation"><a href="#tab-3" role="tab" data-toggle="tab"><span>Tab 3</span></a></li>
                               </ul>
 
                               <!-- Tab panes -->
