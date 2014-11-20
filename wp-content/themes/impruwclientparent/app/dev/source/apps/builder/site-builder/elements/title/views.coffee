@@ -55,6 +55,11 @@ define ['app'], (App)->
                 
                 @editor.config.placeholder = 'Click here to enter Title'
 
+                @$el.trigger 'blur'
+                _.delay =>
+                    @$el.trigger 'focus'
+                ,200
+
             # initialize the CKEditor for the text element on show
             # used setData instead of showing in template. this works well
             # using template to load content add the html tags in content

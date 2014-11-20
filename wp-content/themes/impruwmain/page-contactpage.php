@@ -12,7 +12,7 @@ get_header();
         </div>
     </div>
     <div class="row">
-        <div class="col-md-7 aj-imp-register-left">
+        <div class="col-md-7 aj-imp-register-left aj-imp-request-demo">
             <?php echo do_shortcode('[formidable id=3]');?>
         </div>
         <div class="col-md-5 aj-imp-register-right">
