@@ -891,6 +891,7 @@ form .aj-imp-submit:hover {
   padding: 1em 0;
   text-align: center;
   background: #333;
+  min-height: 90px;
 }
 .aj-imp-lo-footer .footer-img {
   padding: 7px;
@@ -910,7 +911,7 @@ form .aj-imp-submit:hover {
   margin-right: 6px;
 }
 .aj-imp-lo-footer:hover .footer-img {
-  margin-top: -32px;
+  transform: translate(0,-32px);
   border-top: 1px solid #333;
   background: #fff;
 }
