@@ -41,6 +41,7 @@ define [ 'app'
                App.vent.trigger "change:page:check:single:room"
                @changePreviewLinkUrl()
                @displayPageNameForUpdate()
+               @showHideDeletePageBtn()
                @$el.find('.aj-imp-builder-drag-drop').fadeOut 'fast', -> App.resetElementRegistry()
                
 
@@ -89,6 +90,13 @@ define [ 'app'
 
          onPageSlugUpdated : (slugName)->
             @$el.find( '.page-slug-edit' ).val slugName
+
+         showHideDeletePageBtn : ->
+            if @getCurrentPageName() in UNDELETABLE_PAGES
+               @$el.find('.delete-page').addClass 'hide'
+            else
+               @$el.find('.delete-page').removeClass 'hide'
+
 
 
          handleWindowEvents : ->
@@ -265,7 +273,7 @@ define [ 'app'
             @$el.find( '.btn-update-pg-name, .btn-update-pg-slug' ).removeAttr 'disabled'
 
             currentPageName = @getCurrentPageName()
-            singleRoom = @isSingleRoomPage()
+            singleRoom = @isUnEditablePage()
 
             if singleRoom is true
                @$el.find( '#page_name , .page-slug-edit' ).attr 'readonly', 'readonly'
@@ -273,10 +281,10 @@ define [ 'app'
 
             @$el.find( '#page_name' ).val currentPageName
 
-         isSingleRoomPage : ->
+         isUnEditablePage : ->
             pageName = App.request "get:current:editable:page:name"
             page = false
-            if pageName is SINGLE_ROOM_PAGE
+            if pageName in UNDELETABLE_PAGES
                page = true
             page
 

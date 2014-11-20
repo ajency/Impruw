@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 define(['app', 'text!apps//language-translation/language-page-content/translated-page-content/templates/translatedpageview.html'], function(App, translatedpageviewTpl) {
   return App.module('LanguageApp.LanguagePageContent.TranslatedPage.Views', function(Views, App, Backbone, Marionette, $, _) {
@@ -103,10 +104,13 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
       };
 
       TranslatedPageView.prototype.serializeData = function() {
-        var data;
+        var data, _ref;
         data = TranslatedPageView.__super__.serializeData.call(this);
         data.language = _.polyglot.t(data.language);
         data.SITEURL = window.SITEURL;
+        if (_ref = data.pageTitle, __indexOf.call(UNDELETABLE_PAGES, _ref) >= 0) {
+          data.isTitleEditable = true;
+        }
         return data;
       };
 

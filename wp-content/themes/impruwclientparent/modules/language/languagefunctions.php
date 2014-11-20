@@ -493,6 +493,30 @@ function get_native_language_name($language_code){
     return $native_language_name;
 }
 
+function get_builder_uneditable_pages(){
+    $language_code = wpml_get_default_language();
+
+    $uneditable_page_title = array();
+    switch ($language_code) {
+        case 'en':
+            $uneditable_page_title = array('Home','Rooms','Single Room','Contact Us');
+            break;
+        case 'nb':
+            $uneditable_page_title = array('Hjem','rom','Enkeltrom','Kontakt oss');
+            break; 
+        
+        default:
+            $uneditable_page_title = array('Home','Rooms','Single Room','Contact Us');
+            break;
+    }
+    return $uneditable_page_title;
+}
+
+function get_dashboard_uneditable_pages(){
+    $uneditable_page_title = array('Home','Rooms','Single Room','Contact Us','Hjem','rom','Enkeltrom','Kontakt oss');
+    return $uneditable_page_title;
+}
+
 function get_single_room_page_title(){
     $language_code = wpml_get_default_language();
     $single_room_title = 'Single Room';

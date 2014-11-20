@@ -97,6 +97,8 @@ define ['app'
                 data = super()
                 data.language = _.polyglot.t(data.language)
                 data.SITEURL = window.SITEURL
+                if data.pageTitle in UNDELETABLE_PAGES
+                    data.isTitleEditable = true
                 data
 
             itemViewOptions : ->
