@@ -104,11 +104,6 @@ define(['app'], function(App) {
             "custom-menu-url": {
               url2: true
             }
-          },
-          message: {
-            "custom-menu-url": {
-              url2: 'Some message'
-            }
           }
         });
       };

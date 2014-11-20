@@ -115,8 +115,3 @@ define ['app'], (App)->
                             rules : 
                                 "custom-menu-url" : 
                                             url2 : true
-                            message : 
-                                "custom-menu-url" :
-                                        url2 : 'Some message'
-
-						

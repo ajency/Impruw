@@ -287,6 +287,17 @@ function builder_add_new_menu_item(){
 }
 add_action('wp_ajax_builder-add-new-menu-item', 'builder_add_new_menu_item');
 
+function builder_update_menu_item(){
+
+    $menu_data = $_REQUEST['menu_data'];
+    $menu_item_db_id = $menu_data['ID'];
+
+    wp_update_post(array( 'ID' => $menu_item_db_id, 'post_title' => $menu_data['menu-item-title']) );
+    update_post_meta( $menu_item_db_id, '_menu_item_url', esc_url_raw($menu_data['menu-item-url']) );
+    wp_send_json(1 );
+}
+add_action('wp_ajax_builder-update-menu-item', 'builder_update_menu_item');
+
 /**
  * [fetch_menu_items_for_menu description]
  * @return [type] [description]
