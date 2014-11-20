@@ -3567,10 +3567,10 @@ $base_element_templates = array(
         ),
         array(
             'name' => 'Tabs',
-            'template' => '<div class="tab-container tabs-above tab-bordered tabs-style-linetriangle" role="tabpanel">
+            'template' => '<div class="tab-container tabs-style-underline" role="tabpanel">
 
                               <!-- Nav tabs -->
-                              <ul class="nav nav-tabs" role="tablist">
+                              <ul class="nav nav-tabs nav-justified" role="tablist">
                                 
                                 <li role="presentation" class="active"><a href="#tab-1" role="tab" data-toggle="tab">Tab 1</a></li>
                                 <li role="presentation"><a href="#tab-2" role="tab" data-toggle="tab">Tab 2</a></li>

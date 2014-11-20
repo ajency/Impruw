@@ -2271,6 +2271,377 @@ ul.gallery {
   left: 0.6em;
   z-index: 2;
 }
+/**** Tab Styles****/
+.tab-align-center .nav-tabs > li,
+.tab-align-center .nav-pills > li,
+.tab-align-right .nav-tabs > li,
+.tab-align-right .nav-pills > li {
+  float: none;
+  display: inline-block;
+  *display: inline;
+  /* ie7 fix */
+
+  zoom: 1;
+  /* hasLayout ie7 trigger */
+
+}
+.tabs-left .nav-tabs,
+.tabs-right .nav-tabs,
+.tabs-left .tab-content,
+.tabs-right .tab-content {
+  height: 100%;
+}
+.tab-align-center .nav-tabs,
+.tab-align-center .nav-pills {
+  text-align: center;
+}
+.tab-align-right .nav-tabs,
+.tab-align-right .nav-pills {
+  text-align: right;
+}
+.tab-align-right .nav-tabs li:last-child {
+  margin-right: -2px;
+}
+.tab-height-xs .tab-content {
+  height: 135px!important;
+  overflow: auto;
+}
+.tab-height-sm .tab-content {
+  height: 195px!important;
+  overflow: auto;
+}
+.tab-height-md .tab-content {
+  height: 280px!important;
+  overflow: auto;
+}
+.tab-height-lg .tab-content {
+  height: 400px!important;
+  overflow: auto;
+}
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+  display: none;
+}
+.tab-content > .active,
+.pill-content > .active {
+  display: block;
+}
+.tabs-above > .nav-tabs > .active > a,
+.tabs-above > .nav-tabs > .active > a:hover,
+.tabs-above > .nav-tabs > .active > a:focus {
+  border-color: #ddd #ddd #fff #ddd;
+}
+.tabs-below > .nav-tabs,
+.tabs-right > .nav-tabs,
+.tabs-left > .nav-tabs {
+  border-bottom: 0;
+}
+.tabs-below > .nav-tabs {
+  border-top: 1px solid #ddd;
+}
+.tabs-below > .nav-tabs > li {
+  margin-top: -1px;
+  margin-bottom: 0;
+}
+.tabs-below > .nav-tabs > li > a {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+.tabs-below > .nav-tabs > li > a:hover,
+.tabs-below > .nav-tabs > li > a:focus {
+  border-top-color: #ddd;
+  border-bottom-color: transparent;
+}
+.tabs-below > .nav-tabs > .active > a,
+.tabs-below > .nav-tabs > .active > a:hover,
+.tabs-below > .nav-tabs > .active > a:focus {
+  border-color: transparent #ddd #ddd #ddd;
+}
+.tabs-left > .nav-tabs > li,
+.tabs-right > .nav-tabs > li {
+  float: none;
+}
+.tabs-left > .nav-tabs > li > a,
+.tabs-right > .nav-tabs > li > a {
+  margin-right: 0;
+  margin-bottom: 3px;
+}
+.tabs-left > .nav-tabs {
+  float: left;
+  margin-right: 19px;
+  border-right: 1px solid #ddd;
+}
+.tabs-left > .nav-tabs > li > a {
+  margin-right: -1px;
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+.tabs-left > .nav-tabs > li > a:hover,
+.tabs-left > .nav-tabs > li > a:focus {
+  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+}
+.tabs-left > .nav-tabs .active > a,
+.tabs-left > .nav-tabs .active > a:hover,
+.tabs-left > .nav-tabs .active > a:focus {
+  border-color: #ddd transparent #ddd #ddd;
+  *border-right-color: #ffffff;
+}
+.tabs-right > .nav-tabs {
+  float: right;
+  border-left: 1px solid #ddd;
+}
+.tabs-right > .nav-tabs > li > a {
+  margin-left: -1px;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+.tabs-right > .nav-tabs > li > a:hover,
+.tabs-right > .nav-tabs > li > a:focus {
+  border-color: #eeeeee #eeeeee #eeeeee #dddddd;
+}
+.tabs-right > .nav-tabs .active > a,
+.tabs-right > .nav-tabs .active > a:hover,
+.tabs-right > .nav-tabs .active > a:focus {
+  border-color: #ddd #ddd #ddd transparent;
+  *border-left-color: #ffffff;
+}
+.tab-sideways .nav-tabs {
+  margin-top: 51px;
+  border: none !important;
+  position: relative;
+}
+.tab-sideways .nav-tabs > li {
+  height: 20px;
+  width: 120px;
+  margin-bottom: 100px;
+}
+.tab-sideways .nav-tabs > li > a {
+  border-bottom: 1px solid #ddd;
+  border-right-color: transparent;
+  text-align: center;
+  border-radius: 4px 4px 0px 0px;
+}
+.tab-sideways .nav-tabs .dropdown-menu {
+  margin-top: 20px;
+}
+.tabs-left.tab-sideways .nav-tabs {
+  left: -50px;
+  margin-right: -50px;
+}
+.tabs-right.tab-sideways .nav-tabs {
+  right: -50px;
+  margin-left: -50px;
+}
+.tabs-right.tab-sideways .nav-tabs > li.active > a,
+.tabs-right.tab-sideways .nav-tabs > li.active > a:hover,
+.tabs-right.tab-sideways .nav-tabs > li.active > a:focus {
+  border-radius: 4px 4px 0px 0px;
+  border-color: #ddd;
+  border-bottom: none !important;
+}
+.tabs-left.tab-sideways .nav-tabs > li.active > a,
+.tabs-left.tab-sideways .nav-tabs > li.active > a:hover,
+.tabs-left.tab-sideways .nav-tabs > li.active > a:focus {
+  border-radius: 4px 4px 0px 0px;
+  border-color: #ddd;
+  border-bottom: none !important;
+}
+.tabs-right.tab-sideways .nav-tabs > li {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.tabs-left.tab-sideways .nav-tabs > li {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+.tab-sideways .nav-tabs > li > a {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.tab-content {
+  padding: 10px;
+}
+.tabs-above.tab-bordered .tab-content {
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+}
+.tabs-below.tab-bordered .tab-content {
+  border: 1px solid #ddd;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+}
+.tabs-left .nav-tabs,
+.tabs-right .nav-tabs,
+.tabs-left .tab-content,
+.tabs-right .tab-content {
+  height: 100%;
+}
+.tabs-left.tab-bordered .tab-content {
+  border: 1px solid #ddd;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+}
+.tabs-left.tab-bordered .tab-content .tab-pane,
+.tabs-right.tab-bordered .tab-content .tab-pane {
+  margin-left: 0;
+}
+.tabs-right.tab-bordered .tab-content {
+  border: 1px solid #ddd;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+.tabs-left.tab-sideways.tab-bordered .tab-content {
+  margin-left: 41px;
+}
+.tabs-right.tab-sideways.tab-bordered .tab-content {
+  margin-right: 41px;
+}
+.tab-container {
+  margin: 1em 0;
+  padding: 0 1em;
+}
+.tab-container .nav-tabs li {
+  margin-bottom: -1px;
+}
+.tab-container .nav-tabs li.add-another a {
+  background: #aaa;
+}
+.tab-container .nav-tabs li.add-another a .bicon {
+  color: #fff;
+  margin: 0;
+}
+.tab-container .nav-tabs li.add-another a:hover {
+  background: #ff7e00;
+  border-color: #ff7e00 #ff7e00 transparent;
+}
+/*****************************/
+/* Underline */
+/*****************************/
+.tabs-style-underline .nav {
+  background: #fff;
+  z-index: -1;
+}
+.tabs-style-underline .nav li {
+  border: 0;
+  margin-bottom: -2px;
+}
+.tabs-style-underline .nav li.active a {
+  border: 0;
+  color: #ed1c24;
+}
+.tabs-style-underline .tab-content {
+  background: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+.tabs-style-underline .nav a {
+  padding: 0.5em 1em 0.75em;
+  border: 0;
+  margin: 0;
+  border-radius: 0;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+.tabs-style-underline .nav a:hover {
+  background: transparent;
+  color: #831618;
+}
+.tabs-style-underline .nav li a::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: #ed1c24;
+  content: '';
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  -webkit-transform: translate3d(0, 150%, 0);
+  transform: translate3d(0, 150%, 0);
+}
+.tabs-style-underline .nav li.active a::after {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.tabs-style-underline .nav a span {
+  font-weight: 700;
+}
+/*****************************/
+/* Triangle and line */
+/*****************************/
+.tabs-style-linetriangle .nav {
+  background: #ffffff;
+  width: 100%;
+}
+.tabs-style-linetriangle .nav a {
+  overflow: visible;
+  margin: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+.tabs-style-linetriangle .nav a:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.tabs-style-linetriangle .nav li {
+  border: 0;
+  margin-bottom: 0;
+}
+.tabs-style-linetriangle .nav li.active a {
+  border-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  color: #ed1c24;
+  background: transparent;
+}
+.tabs-style-linetriangle .nav li.active a:hover,
+.tabs-style-linetriangle .nav li.active a:focus {
+  border-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.tabs-style-linetriangle .nav a span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1em;
+}
+.tabs-style-linetriangle .nav li.active a:after,
+.tabs-style-linetriangle .nav li.active a:before {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: solid transparent;
+  content: '';
+  pointer-events: none;
+}
+.tabs-style-linetriangle .nav li.active a:after {
+  margin-left: -10px;
+  border-width: 10px;
+  border-top-color: #ffffff;
+}
+.tabs-style-linetriangle .nav li.active a:before {
+  margin-left: -11px;
+  border-width: 11px;
+  border-top-color: rgba(0, 0, 0, 0.2);
+}
+@media screen and (max-width: 58em) {
+  .tabs-style-linetriangle .nav {
+    font-size: 0.6em;
+  }
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
