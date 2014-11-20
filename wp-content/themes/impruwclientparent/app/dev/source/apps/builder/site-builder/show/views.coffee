@@ -261,22 +261,22 @@ define [ 'app'
 
          #display the page name in the textbox
          displayPageNameForUpdate : ->
-            @$el.find( '#page_name' ).removeAttr 'readonly'
-            @$el.find( '.btn-update-pg-name' ).removeAttr 'disabled'
+            @$el.find( '#page_name, .page-slug-edit' ).removeAttr 'readonly'
+            @$el.find( '.btn-update-pg-name, .btn-update-pg-slug' ).removeAttr 'disabled'
 
             currentPageName = @getCurrentPageName()
             singleRoom = @isSingleRoomPage()
 
             if singleRoom is true
-               @$el.find( '#page_name' ).attr 'readonly', 'readonly'
-               @$el.find( '.btn-update-pg-name' ).attr 'disabled', 'disabled'
+               @$el.find( '#page_name , .page-slug-edit' ).attr 'readonly', 'readonly'
+               @$el.find( '.btn-update-pg-name, .btn-update-pg-slug' ).attr 'disabled', 'disabled'
 
             @$el.find( '#page_name' ).val currentPageName
 
          isSingleRoomPage : ->
             pageName = App.request "get:current:editable:page:name"
             page = false
-            if pageName is 'Single Room'
+            if pageName is SINGLE_ROOM_PAGE
                page = true
             page
 

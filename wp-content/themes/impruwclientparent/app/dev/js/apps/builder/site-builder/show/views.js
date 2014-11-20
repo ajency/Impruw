@@ -297,13 +297,13 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       MainView.prototype.displayPageNameForUpdate = function() {
         var currentPageName, singleRoom;
-        this.$el.find('#page_name').removeAttr('readonly');
-        this.$el.find('.btn-update-pg-name').removeAttr('disabled');
+        this.$el.find('#page_name, .page-slug-edit').removeAttr('readonly');
+        this.$el.find('.btn-update-pg-name, .btn-update-pg-slug').removeAttr('disabled');
         currentPageName = this.getCurrentPageName();
         singleRoom = this.isSingleRoomPage();
         if (singleRoom === true) {
-          this.$el.find('#page_name').attr('readonly', 'readonly');
-          this.$el.find('.btn-update-pg-name').attr('disabled', 'disabled');
+          this.$el.find('#page_name , .page-slug-edit').attr('readonly', 'readonly');
+          this.$el.find('.btn-update-pg-name, .btn-update-pg-slug').attr('disabled', 'disabled');
         }
         return this.$el.find('#page_name').val(currentPageName);
       };
@@ -312,7 +312,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         var page, pageName;
         pageName = App.request("get:current:editable:page:name");
         page = false;
-        if (pageName === 'Single Room') {
+        if (pageName === SINGLE_ROOM_PAGE) {
           page = true;
         }
         return page;
