@@ -289,3 +289,140 @@
 		}
 	}
 }
+
+/*****************************/
+/* Underline */
+/*****************************/
+
+.tabs-style-underline .nav {
+	background: #fff;
+	z-index: -1;
+}
+
+.tabs-style-underline .nav li {
+	border: 0;
+	margin-bottom: -2px;
+	&.active {
+		a {
+			border: 0;
+			color: @primary1;
+		}
+	}
+}
+
+.tabs-style-underline .tab-content {
+	background: @white;
+	position: relative;
+	z-index: 1;
+}
+
+.tabs-style-underline .nav a {
+	padding: 0.5em 1em 0.75em;
+	border: 0;
+	margin: 0;
+	border-radius: 0;
+	-webkit-transition: color 0.2s;
+	transition: color 0.2s;
+	&:hover {
+		background: transparent;
+		color: @secondary1;
+	}
+}
+
+.tabs-style-underline .nav li a::after {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 6px;
+	background: @primary1;
+	content: '';
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+	-webkit-transform: translate3d(0,150%,0);
+	transform: translate3d(0,150%,0);
+}
+
+.tabs-style-underline .nav li.active a::after {
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+.tabs-style-underline .nav a span {
+	font-weight: 700;
+}
+
+/*****************************/
+/* Triangle and line */
+/*****************************/
+
+.tabs-style-linetriangle .nav {
+    background: @tertiary1;
+    width: 100%;
+}
+
+.tabs-style-linetriangle .nav a {
+	overflow: visible;
+    margin: 0;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	-webkit-transition: color 0.2s;
+	transition: color 0.2s;
+    &:hover {
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+    }
+}
+
+.tabs-style-linetriangle .nav li {
+	border: 0;
+	margin-bottom: 0;
+	&.active {
+		a {
+			border-color: transparent;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+			color: @primary1;
+            background: transparent;
+            &:hover, &:focus {
+                border-color: transparent;
+                border-bottom: 1px solid rgba(0,0,0,0.2);
+            }
+		}
+	}
+}
+
+.tabs-style-linetriangle .nav a span {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 1em;
+}
+
+.tabs-style-linetriangle .nav li.active a:after, 
+.tabs-style-linetriangle .nav li.active a:before {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: solid transparent;
+	content: '';
+	pointer-events: none;
+}
+
+.tabs-style-linetriangle .nav li.active a:after {
+	margin-left: -10px;
+	border-width: 10px;
+	border-top-color: @tertiary1;
+}
+
+.tabs-style-linetriangle .nav li.active a:before {
+	margin-left: -11px;
+	border-width: 11px;
+	border-top-color: rgba(0,0,0,0.2);
+}
+
+@media screen and (max-width: 58em) {
+	.tabs-style-linetriangle .nav {
+		font-size: 0.6em;
+	}
+}
