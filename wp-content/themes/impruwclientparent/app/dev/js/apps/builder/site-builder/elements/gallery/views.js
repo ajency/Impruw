@@ -65,7 +65,7 @@ define(['app'], function(App) {
         this.collection.sort();
         isSingleRoom = Marionette.getOption(this, 'inSingleRoom');
         if (isSingleRoom) {
-          this.template = '<h3 class="gallery-title">' + _.polyglot.t('Gallery') + '</h3> <div class="if-required"></div>';
+          this.template = '<div class="roomgallery"><h3 class="gallery-title">' + _.polyglot.t('Gallery') + '</h3> <div class="if-required"></div></div>';
           return this.itemViewContainer = '.if-required';
         } else {
           this.template = '<div class="if-required"></div>';

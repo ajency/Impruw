@@ -34,7 +34,7 @@ define ['app'
 
             # time to save model to server
             onClose: ->
-                return if not @model.hasChanged()
+                # return if not @model.hasChanged()
 
                 @model.save null,
                     wait: true

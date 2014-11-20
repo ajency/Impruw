@@ -417,8 +417,11 @@ add_filter( 'wp_nav_menu_objects', 'impruw_filter_menu_class', 10, 2 );
 function impruw_filter_menu_class( $objects, $args ) {
 
     $current_language = wpml_get_current_language();
+     foreach ( $objects as $i => $object ) {
 
-    foreach ( $objects as $i => $object ) {
+        if($object->type === 'custom')
+            continue;
+
         $item_page_id = $objects[$i]->object_id;
 
         $translated_item_page_id = icl_object_id($item_page_id, 'page', true, $current_language);
@@ -433,10 +436,6 @@ function impruw_filter_menu_class( $objects, $args ) {
         $objects[$i]->title = $translated_menu_item_page_title;
 
     }
-
-//    echo "<pre>";
-//    print_r($objects);
-//    echo "<pre>";
 
     return $objects;
 

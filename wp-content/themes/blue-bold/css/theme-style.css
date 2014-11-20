@@ -656,6 +656,7 @@ and open the template in the editor.
   max-width: 200px;
   white-space: normal;
   margin-right: 0.5em;
+  vertical-align: top;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .package-header {
   background: #07669e;
@@ -712,8 +713,18 @@ and open the template in the editor.
   font-size: 0.66em;
   line-height: 1.4em;
 }
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.common-plan {
+  text-align: center;
+  padding-top: 1em;
+  min-height: 136px;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.common-plan .weekday,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.common-plan .weekend {
+  width: 100%;
+  margin-right: 0;
+}
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty {
-  height: 139px;
+  height: 136px;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty .no-data {
   min-height: 77px;
@@ -1457,6 +1468,28 @@ and open the template in the editor.
   color: #919191;
   text-transform: none;
 }
+/**** Builder Room Elements Uneditable Styles ****/
+.aj-imp-builder-layout-mode .roomtitle,
+.aj-imp-builder-layout-mode .room-facilities-container,
+.aj-imp-builder-layout-mode .roomdescription,
+.aj-imp-builder-layout-mode .room-tariff-container,
+.aj-imp-builder-layout-mode .roombooking,
+.aj-imp-builder-layout-mode .roomsummary,
+.aj-imp-builder-layout-mode .roomgallery {
+  cursor: not-allowed;
+}
+.aj-imp-builder-layout-mode .roomtitle *,
+.aj-imp-builder-layout-mode .room-facilities-container *,
+.aj-imp-builder-layout-mode .roomdescription *,
+.aj-imp-builder-layout-mode .room-tariff-container *,
+.aj-imp-builder-layout-mode .roombooking *,
+.aj-imp-builder-layout-mode .roomsummary *,
+.aj-imp-builder-layout-mode .roomgallery * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 /**** Vertical Bootstrap Slider Styles ****/
 .vertical .carousel-inner {
   height: 100%;
@@ -1931,8 +1964,13 @@ ul.gallery {
   padding-bottom: 75%;
 }
 .tp-caption {
-  padding: 1em;
-  max-width: 100%;
+  padding: 1em !important;
+  max-width: 100% !important;
+}
+.tp-caption .title,
+.tp-caption h3 {
+  white-space: normal;
+  width: 100%;
 }
 .tp-caption .text {
   white-space: normal;
@@ -1946,7 +1984,8 @@ ul.gallery {
 .tp-caption.caption-hover {
   display: none;
 }
-.rev_slider_wrapper:hover .caption-hover {
+.rev_slider_wrapper:hover .caption-hover,
+.revslider-initialised:hover .caption-hover {
   display: block;
 }
 @media (max-width: 480px) {
@@ -2624,10 +2663,10 @@ and open the template in the editor.
   font-weight: 300;
   position: absolute;
   width: 80px;
-  background: #fff;
+  background: #f2f2f2;
   max-width: 80px;
   padding-right: 10px;
-  min-height: 139px;
+  min-height: 136px;
   z-index: 1;
   font-size: 0.88em;
 }
@@ -2695,7 +2734,7 @@ and open the template in the editor.
   display: block;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty {
-  height: 139px;
+  height: 136px;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block.empty .no-data {
   min-height: 77px;

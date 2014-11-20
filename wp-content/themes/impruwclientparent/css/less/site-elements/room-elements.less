@@ -76,6 +76,7 @@
 						max-width: 200px;
 						white-space: normal;
 						margin-right: @regular;
+						vertical-align: top;
 						.package-header {
 							background: @primary1;
 							padding: @regular;
@@ -127,8 +128,17 @@
 									}
 								}
 							}
+							&.common-plan {
+								text-align: center;
+								padding-top: 1em;
+								min-height: 136px;
+								.weekday, .weekend {
+									width: 100%;
+									margin-right: 0;
+								}
+							}
 							&.empty {
-								height: 139px;
+								height: 136px;
 								.no-data {
 									min-height: 77px;
 									display: block;
@@ -846,6 +856,19 @@
 		font-size: .6em;
 		color: #919191;
 		text-transform: none;
+	}
+}
+
+/**** Builder Room Elements Uneditable Styles ****/
+.aj-imp-builder-layout-mode {
+	.roomtitle, .room-facilities-container, .roomdescription, .room-tariff-container, .roombooking, .roomsummary, .roomgallery {
+		cursor: not-allowed;
+		* {
+			-webkit-user-select: none;  
+			-moz-user-select: none;    
+			-ms-user-select: none;      
+			user-select: none;
+		}
 	}
 }
 

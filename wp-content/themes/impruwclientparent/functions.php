@@ -3536,11 +3536,11 @@ $base_element_templates = array(
     'Menu' => array(
         array(
             'name' => 'Slimmenu',
-            'imagePath' => get_template_directory_uri() . '/images/slimenu.jpg'
+            'imagePath' => get_template_directory_uri() . '/resources/img/slimmenu.png'
         ),
         array(
             'name' => 'Footer Menu',
-            'imagePath' => get_template_directory_uri() . '/images/footer-menu.jpg'
+            'imagePath' => get_template_directory_uri() . '/resources/img/footer-menu.png'
         )
     ),
     'Title' => array(

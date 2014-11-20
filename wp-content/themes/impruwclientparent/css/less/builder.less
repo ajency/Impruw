@@ -24,7 +24,7 @@ Version:        0.1.0
 body{
 	font-size:14px;
 	line-height: 1.2;
-	&.no-scroll {
+	&.no-scroll, &.modal-open {
 		position: relative;
 		overflow: hidden;
 		max-height: 100vh;
@@ -2720,6 +2720,9 @@ a {
 				color: @dash-grey;
 				text-transform: uppercase;
 			}
+			.bootstrap-select {
+				margin-bottom: 0;
+			}
 			.selected a {
 				color: #fff;
 			}
@@ -3989,6 +3992,32 @@ a {
 		font-size: 4.5em;
 		color: lighten(@dash-grey, 20%);
 		text-shadow: 1px 1px 2px @3-grey;
+	}
+}
+
+/**** Widget Placeholder Styles ****/
+.widget-message {
+	text-align: center;
+	font-size: 1.2em;
+	color: darken(@dash-grey, 10%);
+	background: lighten(@dash-grey, 20%);
+	border-radius: 2px;
+	padding: 0.5em;
+	cursor: default;
+	.bicon {
+		display: block;
+		margin: 0.025em 0;
+		font-size: 4.5em;
+		color: lighten(@dash-grey, 10%);
+		text-shadow: 1px 1px 2px @3-grey;
+	}
+	em {
+		color: @blue-grey;
+		font-style: normal;
+		font-weight: 500;
+	}
+	small {
+		display: block;
 	}
 }
 

@@ -196,6 +196,8 @@ define [ 'app'
                
                @$el.find( 'select#builder-page-sel-lock,select#builder-page-sel' ).selectpicker 'val', pageId
 
+               @$el.find( 'select#builder-page-sel-lock,select#builder-page-sel' ).selectpicker 'refresh'
+
                @_addToPageSlug pageId
                
                @changePreviewLinkUrl()
@@ -259,22 +261,22 @@ define [ 'app'
 
          #display the page name in the textbox
          displayPageNameForUpdate : ->
-            @$el.find( '#page_name' ).removeAttr 'readonly'
-            @$el.find( '.btn-update-pg-name' ).removeAttr 'disabled'
+            @$el.find( '#page_name, .page-slug-edit' ).removeAttr 'readonly'
+            @$el.find( '.btn-update-pg-name, .btn-update-pg-slug' ).removeAttr 'disabled'
 
             currentPageName = @getCurrentPageName()
             singleRoom = @isSingleRoomPage()
 
             if singleRoom is true
-               @$el.find( '#page_name' ).attr 'readonly', 'readonly'
-               @$el.find( '.btn-update-pg-name' ).attr 'disabled', 'disabled'
+               @$el.find( '#page_name , .page-slug-edit' ).attr 'readonly', 'readonly'
+               @$el.find( '.btn-update-pg-name, .btn-update-pg-slug' ).attr 'disabled', 'disabled'
 
             @$el.find( '#page_name' ).val currentPageName
 
          isSingleRoomPage : ->
             pageName = App.request "get:current:editable:page:name"
             page = false
-            if pageName is 'Single Room'
+            if pageName is SINGLE_ROOM_PAGE
                page = true
             page
 
@@ -389,8 +391,10 @@ define [ 'app'
                      <footer id="site-footer-region" class="droppable-column edit-lock"></footer>'
 
          events : 
-            'click .headit' :->
-               @onShowHomePage()
+            'click .edit-home-btn' :->
+               bootbox.confirm 'Do you wish to switch to homepage?',(res)=>
+                  if res 
+                     @onShowHomePage()
 
          onShowHomePage :->
             $( 'select#builder-page-sel' ).selectpicker 'val', parseInt @model.get 'front_page'
@@ -434,8 +438,8 @@ define [ 'app'
                @$el.find('#site-header-region, #site-footer-region').removeClass 'edit-lock'
             
 
-            @$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div></div></div>')
-            @$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div></div></div>')
+            @$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div><button class="btn btn-default btn-xs aj-imp-orange-btn edit-home-btn">Edit Homepage</button></div></div>')
+            @$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div><button class="btn btn-default btn-xs aj-imp-orange-btn edit-home-btn">Edit Homepage</button></div></div>')
 
 
          _getHelper : (evt,original)=>

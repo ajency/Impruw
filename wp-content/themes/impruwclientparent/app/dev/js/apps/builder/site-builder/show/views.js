@@ -239,6 +239,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
               pageId = _this.$el.find('select#builder-page-sel').selectpicker('val');
             }
             _this.$el.find('select#builder-page-sel-lock,select#builder-page-sel').selectpicker('val', pageId);
+            _this.$el.find('select#builder-page-sel-lock,select#builder-page-sel').selectpicker('refresh');
             _this._addToPageSlug(pageId);
             return _this.changePreviewLinkUrl();
           };
@@ -296,13 +297,13 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       MainView.prototype.displayPageNameForUpdate = function() {
         var currentPageName, singleRoom;
-        this.$el.find('#page_name').removeAttr('readonly');
-        this.$el.find('.btn-update-pg-name').removeAttr('disabled');
+        this.$el.find('#page_name, .page-slug-edit').removeAttr('readonly');
+        this.$el.find('.btn-update-pg-name, .btn-update-pg-slug').removeAttr('disabled');
         currentPageName = this.getCurrentPageName();
         singleRoom = this.isSingleRoomPage();
         if (singleRoom === true) {
-          this.$el.find('#page_name').attr('readonly', 'readonly');
-          this.$el.find('.btn-update-pg-name').attr('disabled', 'disabled');
+          this.$el.find('#page_name , .page-slug-edit').attr('readonly', 'readonly');
+          this.$el.find('.btn-update-pg-name, .btn-update-pg-slug').attr('disabled', 'disabled');
         }
         return this.$el.find('#page_name').val(currentPageName);
       };
@@ -311,7 +312,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         var page, pageName;
         pageName = App.request("get:current:editable:page:name");
         page = false;
-        if (pageName === 'Single Room') {
+        if (pageName === SINGLE_ROOM_PAGE) {
           page = true;
         }
         return page;
@@ -456,8 +457,14 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       Builder.prototype.template = '<header id="site-header-region" class="droppable-column edit-lock"></header> <div id="site-page-content-region" class="droppable-column"></div> <footer id="site-footer-region" class="droppable-column edit-lock"></footer>';
 
       Builder.prototype.events = {
-        'click .headit': function() {
-          return this.onShowHomePage();
+        'click .edit-home-btn': function() {
+          return bootbox.confirm('Do you wish to switch to homepage?', (function(_this) {
+            return function(res) {
+              if (res) {
+                return _this.onShowHomePage();
+              }
+            };
+          })(this));
         }
       };
 
@@ -500,8 +507,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         if (this.model.get('is_home_page')) {
           this.$el.find('#site-header-region, #site-footer-region').removeClass('edit-lock');
         }
-        this.$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div></div></div>');
-        return this.$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div></div></div>');
+        this.$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div><button class="btn btn-default btn-xs aj-imp-orange-btn edit-home-btn">Edit Homepage</button></div></div>');
+        return this.$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div><button class="btn btn-default btn-xs aj-imp-orange-btn edit-home-btn">Edit Homepage</button></div></div>');
       };
 
       Builder.prototype._getHelper = function(evt, original) {

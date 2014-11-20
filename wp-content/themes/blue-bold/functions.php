@@ -178,7 +178,7 @@
         'Menu' => array(
             array(
                 'name' => 'Footer Menu 2',
-                'imagePath' => get_template_directory_uri() . '/images/footer-menu-2.jpg'
+                'imagePath' => get_template_directory_uri() . '/resources/img/footer-menu-2.png'
             )
         ), 
         'Title' => array(

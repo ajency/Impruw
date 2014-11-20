@@ -42,12 +42,12 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
       };
 
       Controller.prototype.renderElement = function() {
-        var menu, menuId, menuItemCollection, model, templateClass, view, _ref;
+        var menu, menuId, menuItemCollection, model, templateClass, view;
         model = this.layout.model;
         this.listenTo(this.layout.model, "positionupdated", this.renderElement);
-        templateClass = (_ref = [model.get('style')]) != null ? _ref : '';
+        templateClass = model.get('style') !== '' ? model.get('style') : '';
         menuId = model.get('menu_id');
-        if (parseInt(menuId) > 0) {
+        if (parseInt(menuId) > 0 && window.menusCollection.length > 0) {
           menu = window.menusCollection.get(menuId);
           menuItemCollection = menu.get('menuItems');
           if (menuItemCollection.length === 0) {
@@ -59,6 +59,7 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
           menuItemCollection = new Backbone.Collection;
         }
         view = this._getMenuView(menuItemCollection, templateClass);
+        view.on('show', view.removeMenuSettingsIcon);
         this.listenTo(view, "menu:element:clicked", (function(_this) {
           return function() {
             return App.execute("menu-manager", model, model.get('menu_id'));

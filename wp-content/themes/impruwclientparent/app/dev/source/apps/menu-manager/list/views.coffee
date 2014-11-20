@@ -18,19 +18,21 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 					 </div>
 					 {{#isCustom}}
 					 <div id="menu-item-{{menu_id}}-{{ID}}" class="collapse menu-item-edit">
-					   <form class="form-inline">
+					   <form class="form-inline custom-menu-item-update-form">
 						 <div class="form-group">
 							<label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label>
-							<input value="{{title}}" parsley-required="true" type="text" name="menu_item_title"
+							<input value="{{title}}" required type="text" name="menu-item-title"
 							  class="form-control menuname" />
 						 </div>
 						 <div class="form-group">
 							<label class="control-label">{{#polyglot}}Custom Menu URL{{/polyglot}}</label>
-							<input value="{{url}}" parsley-type="url" parsley-required="true" type="text"
-								name="menu_item_url" class="form-control menutitle" />
+							<input value="{{url}}" required type="url" 
+								name="menu-item-url" id="menu-item-url-{{ID}}" class="form-control menuname" />
 						 </div>
 						 <div class="form-group form-actions">
 							<label class="control-label">&nbsp;</label>
+								<input type="hidden" value="{{ID}}" name="ID">
+								<input type="hidden" value="custom" name="menu-item-type">
 							 <button type="button" class="update-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button>
 							 <a href="#" class="blue-link cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></a>
 						 </div>
@@ -44,6 +46,9 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 			modelEvents :
 				'change' : 'render'
 
+			ui :
+				customMeuUpdateForm : '.custom-menu-item-update-form'
+
 			mixinTemplateHelpers : (data)->
 				data = super data
 				data.isCustom = data.object is 'custom'
@@ -54,22 +59,29 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 
 			events :
 				'click .update-menu-item' : ->
+					return if not @ui.customMeuUpdateForm.valid()
 					formdata = Backbone.Syphon.serialize @
 					@trigger "update:menu:item:clicked", formdata, @model
 
 				'click .delete-menu-item' : ->
-					bootbox.confirm  _.polyglot.t('Delete menu item?'), ( answer )=>
+					message = _.polyglot.t 'This menu item will be removed from all the occurrences of the menu. Are you sure you want to delete the menu item?'
+					bootbox.confirm  message, ( answer )=>
 							if answer is yes
 								@trigger "delete:menu:item:clicked", @model
 						
 
 				'click .cancel-menu-item' : ->
-					menu_id = @model.get 'menu_id'
-					menu_item_id = @model.get 'ID'
-					@$el.find( '.menuname' ).val( @model.get 'menu_item_title' )
-					@$el.find( '.menutitle' ).val( @model.get 'menu_item_url' )
-					@$el.find( "#menuitem-#{menu_id}-#{menu_item_id}" ).click()
-					return false
+					@$el.closest '.list-group-item'
+						.find '[data-toggle]'
+						.click()
+
+			onShow : ->
+				urlField = "menu-item-url-#{@model.get 'ID'}"
+				options = 
+					rules : {}
+				options['rules'][urlField] = url2 : true
+				@ui.customMeuUpdateForm.validate options	
+										
 
 		class EmptyView extends Marionette.ItemView
 

@@ -437,10 +437,8 @@ function get_element_model( $element ) {
     switch ( $element ) {
 
         case 'Menu' :
-            $model = array(
-                'style' => 'Slimmenu',
-                'menu_id' => 2
-            );
+            $model = array();
+            break;
         case 'Logo' :
             $model = array(
                 'style' => 'header',
