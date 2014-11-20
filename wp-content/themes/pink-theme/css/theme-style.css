@@ -2773,6 +2773,7 @@ and open the template in the editor.
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range .date {
   display: block;
+  background: transparent !important;
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range .from,
 .room-tariff-container .room-tariff-grid .tariff .date-range .to {
