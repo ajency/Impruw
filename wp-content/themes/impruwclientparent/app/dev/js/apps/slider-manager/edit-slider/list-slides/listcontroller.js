@@ -241,6 +241,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             this.$el.find('.caption-link').val('');
           }
           this.$el.find('.caption-description').val(_.unescape($(captionHtml).last().html()));
+          $(captionHtml).first().removeClass('caption-hover');
           this.$el.find('.caption-style').selectpicker('val', $(captionHtml).first().attr('class'));
           this.$el.find('.caption-background').selectpicker('val', caption.style);
           return this.$el.find("input[name='position'][value='" + caption.left + "," + caption.top + "']").prop('checked', true);
@@ -262,8 +263,10 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         } else {
           data = this.layerDefault();
         }
-        data.text = "<h3 class='" + (this.$el.find('.caption-style').val()) + " ";
-        data.text += "caption-hover ";
+        data.text = "<h3 class='" + (this.$el.find('.caption-style').val());
+        if (this.$el.find('input.hover-check').is(':checked')) {
+          data.text += " caption-hover ";
+        }
         data.text += "' id='revslide-caption-title'>";
         if (this.$el.find('input.link-check').is(':checked')) {
           data.text += "<a href='" + (this.$el.find('.caption-link').val()) + "'";

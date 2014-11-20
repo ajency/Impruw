@@ -52,8 +52,8 @@ define ['app'], (App)->
                 # set the template if single room or if any other page
                 isSingleRoom = Marionette.getOption @, 'inSingleRoom'
                 if isSingleRoom
-                    @template = '<h3 class="gallery-title">'+_.polyglot.t('Gallery')+'</h3>
-                                                <div class="if-required"></div>'
+                    @template = '<div class="roomgallery"><h3 class="gallery-title">'+_.polyglot.t('Gallery')+'</h3>
+                                                <div class="if-required"></div></div>'
                     @itemViewContainer = '.if-required'
 
                 else

@@ -37,6 +37,7 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
 
       Controller.prototype.bindMenuItemEvents = function() {
         this.listenTo(this.view, "childview:delete:menu:item:clicked", this.deleteMenuItem);
+        this.listenTo(this.view, "childview:update:menu:item:clicked", this.updateMenuItem);
         return this.listenTo(this.view, "menu:item:order:updated", this.menutItemsOrderUpdated);
       };
 
@@ -61,6 +62,18 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
             }
           };
         })(this), 'json');
+      };
+
+      Controller.prototype.updateMenuItem = function(childView, menuData, model) {
+        var data;
+        data = {
+          action: 'builder-update-menu-item',
+          menu_data: menuData
+        };
+        return $.post(AJAXURL, data, function(response) {
+          model.set('title', menuData['menu-item-title']);
+          return model.set('url', menuData['menu-item-url']);
+        }, 'json');
       };
 
       Controller.prototype.deleteMenuItem = function(childView, model) {

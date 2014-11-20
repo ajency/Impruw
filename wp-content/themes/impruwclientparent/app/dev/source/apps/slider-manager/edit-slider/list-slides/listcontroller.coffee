@@ -356,7 +356,8 @@ define ['app'
                         @$el.find('.caption-link').val ''
 
                     @$el.find('.caption-description').val _.unescape $(captionHtml).last().html()
-                    @$el.find('.caption-style').selectpicker 'val',$(captionHtml).first().attr 'class'
+                    $(captionHtml).first().removeClass 'caption-hover'
+                    @$el.find('.caption-style').selectpicker 'val', $(captionHtml).first().attr('class')
                     @$el.find('.caption-background').selectpicker 'val',caption.style
                     @$el.find("input[name='position'][value='#{caption.left},#{caption.top}']").prop 'checked',true
                 else
@@ -376,8 +377,9 @@ define ['app'
                     else
                         data = @layerDefault()
 
-                    data.text = "<h3 class='#{@$el.find('.caption-style').val()} "
-                    data.text += "caption-hover "
+                    data.text = "<h3 class='#{@$el.find('.caption-style').val()}"
+                    if @$el.find('input.hover-check').is(':checked')
+                        data.text += " caption-hover "
                     data.text += "' id='revslide-caption-title'>"
                     if @$el.find('input.link-check').is(':checked')
                         data.text += "<a href='#{@$el.find('.caption-link').val()}'" 

@@ -11,7 +11,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return MenuItemView.__super__.constructor.apply(this, arguments);
       }
 
-      MenuItemView.prototype.template = '<div class="row menu-item"> <div class="col-sm-1 menu-dragger"><span class="bicon icon-uniF160"></span></div> <div class="col-sm-8 menu-name">{{title}}</div> <div class="col-sm-3 menu-edit"> {{#isCustom}} <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}" class="blue-link"> <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit Link{{/polyglot}} </a> {{/isCustom}} <a class="delete-menu-item red-link"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a> </div> </div> {{#isCustom}} <div id="menu-item-{{menu_id}}-{{ID}}" class="collapse menu-item-edit"> <form class="form-inline"> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label> <input value="{{title}}" parsley-required="true" type="text" name="menu_item_title" class="form-control menuname" /> </div> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu URL{{/polyglot}}</label> <input value="{{url}}" parsley-type="url" parsley-required="true" type="text" name="menu_item_url" class="form-control menutitle" /> </div> <div class="form-group form-actions"> <label class="control-label">&nbsp;</label> <button type="button" class="update-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button> <a href="#" class="blue-link cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></a> </div> </form> </div>{{/isCustom}}';
+      MenuItemView.prototype.template = '<div class="row menu-item"> <div class="col-sm-1 menu-dragger"><span class="bicon icon-uniF160"></span></div> <div class="col-sm-8 menu-name">{{title}}</div> <div class="col-sm-3 menu-edit"> {{#isCustom}} <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}" class="blue-link"> <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit Link{{/polyglot}} </a> {{/isCustom}} <a class="delete-menu-item red-link"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a> </div> </div> {{#isCustom}} <div id="menu-item-{{menu_id}}-{{ID}}" class="collapse menu-item-edit"> <form class="form-inline custom-menu-item-update-form"> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label> <input value="{{title}}" required type="text" name="menu-item-title" class="form-control menuname" /> </div> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu URL{{/polyglot}}</label> <input value="{{url}}" required type="url" name="menu-item-url" id="menu-item-url-{{ID}}" class="form-control menuname" /> </div> <div class="form-group form-actions"> <label class="control-label">&nbsp;</label> <input type="hidden" value="{{ID}}" name="ID"> <input type="hidden" value="custom" name="menu-item-type"> <button type="button" class="update-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button> <a href="#" class="blue-link cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></a> </div> </form> </div>{{/isCustom}}';
 
       MenuItemView.prototype.tagName = 'li';
 
@@ -19,6 +19,10 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       MenuItemView.prototype.modelEvents = {
         'change': 'render'
+      };
+
+      MenuItemView.prototype.ui = {
+        customMeuUpdateForm: '.custom-menu-item-update-form'
       };
 
       MenuItemView.prototype.mixinTemplateHelpers = function(data) {
@@ -34,6 +38,9 @@ define(['app', 'bootbox'], function(App, bootbox) {
       MenuItemView.prototype.events = {
         'click .update-menu-item': function() {
           var formdata;
+          if (!this.ui.customMeuUpdateForm.valid()) {
+            return;
+          }
           formdata = Backbone.Syphon.serialize(this);
           return this.trigger("update:menu:item:clicked", formdata, this.model);
         },
@@ -49,14 +56,20 @@ define(['app', 'bootbox'], function(App, bootbox) {
           })(this));
         },
         'click .cancel-menu-item': function() {
-          var menu_id, menu_item_id;
-          menu_id = this.model.get('menu_id');
-          menu_item_id = this.model.get('ID');
-          this.$el.find('.menuname').val(this.model.get('menu_item_title'));
-          this.$el.find('.menutitle').val(this.model.get('menu_item_url'));
-          this.$el.find("#menuitem-" + menu_id + "-" + menu_item_id).click();
-          return false;
+          return this.$el.closest('.list-group-item').find('[data-toggle]').click();
         }
+      };
+
+      MenuItemView.prototype.onShow = function() {
+        var options, urlField;
+        urlField = "menu-item-url-" + (this.model.get('ID'));
+        options = {
+          rules: {}
+        };
+        options['rules'][urlField] = {
+          url2: true
+        };
+        return this.ui.customMeuUpdateForm.validate(options);
       };
 
       return MenuItemView;

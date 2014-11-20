@@ -118,14 +118,14 @@ define ['app', 'moment'], (App, moment)->
                            </div>
                         {{/id}}
                         {{#id}}
-                           <div class="package-header {{^isFullweek}}common-plan{{/isFullweek}}">
+                           <div class="package-header">
                               <h6>{{plan_name}}</h6>
                               <div class="package-desc">
                                  {{plan_description}}
                               </div>
                               <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a>
                            </div>
-                           <div class="block clearfix">
+                           <div class="block clearfix {{^isFullweek}}common-plan{{/isFullweek}}">
                               {{#isWeekday}}<div class="weekday">
                                  {{#isFullweek}}{{#polyglot}}Weekdays{{/polyglot}}{{/isFullweek}}
                                  <span class="price">{{currency}}&nbsp;{{weekday.charge}}</span>
