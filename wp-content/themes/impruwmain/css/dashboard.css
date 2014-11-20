@@ -4396,7 +4396,12 @@ figure.effect-zoe:hover p.icon-links a:first-child {
   border-radius: 2px;
   margin-top: 1em;
 }
-.aj-imp-pricing .form-group input[type="text"], .aj-imp-contactpage .form-group input[type="text"] {
+.aj-imp-pricing .form-group input[type="text"], 
+.aj-imp-pricing .form-group input[type="email"],
+.aj-imp-pricing .form-group input[type="tel"], 
+.aj-imp-request-demo .form-group input[type="text"], 
+.aj-imp-request-demo .form-group input[type="email"],
+.aj-imp-request-demo .form-group input[type="tel"] {
   border: none;
   border-bottom: 1px solid #c3c3c3;
   background: #fff;
@@ -4406,7 +4411,12 @@ figure.effect-zoe:hover p.icon-links a:first-child {
   padding: 8px 12px;
   transition: border 0.25s linear 0s, color 0.25s linear 0s, background-color 0.25s linear 0s;
 }
-.aj-imp-pricing .form-group input[type="text"]:focus, .aj-imp-contactpage .form-group input[type="text"]:focus {
+.aj-imp-pricing .form-group input[type="text"]:focus, 
+.aj-imp-pricing .form-group input[type="email"]:focus, 
+.aj-imp-pricing .form-group input[type="tel"]:focus, 
+.aj-imp-request-demo .form-group input[type="text"]:focus, 
+.aj-imp-request-demo .form-group input[type="email"]:focus, 
+.aj-imp-request-demo .form-group input[type="tel"]:focus {
   background: #f6f6f6;
   border-bottom-color: #ff7e00;
 }
