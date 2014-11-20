@@ -4,6 +4,8 @@ define ['app'], (App)->
 
         class OriginalSmartTableItemView extends Marionette.ItemView
 
+            className : 'smart-cell'
+
             template : '<div class="form-group legend-group">
                             <div class="col-sm-12"> 
                                 <div class="form-group"> 
@@ -49,9 +51,10 @@ define ['app'], (App)->
         class OriginalSmartTableView extends Marionette.CompositeView
 
             template : '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small></h6>
-                        <div id="original-smart-table">
+                        <a data-toggle="collapse" data-target="#original-smart-table">Open/Close</a>
+                        <div id="original-smart-table" class="collapse in">
                         </div>
-                        <hr>'
+                        <hr class="dark">'
 
             itemView : OriginalSmartTableItemView
 

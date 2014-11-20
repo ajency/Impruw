@@ -11,6 +11,8 @@ define(['app'], function(App) {
         return OriginalSmartTableItemView.__super__.constructor.apply(this, arguments);
       }
 
+      OriginalSmartTableItemView.prototype.className = 'smart-cell';
+
       OriginalSmartTableItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Heading</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{#dtExist}}{{dt}}{{/dtExist}} </div> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Description</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{#ddExist}}{{dd}}{{/ddExist}} </div> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Attribute</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{#emExist}}{{em}}{{/emExist}} </div> </div> </div> </div> </div>';
 
       OriginalSmartTableItemView.prototype.events = {
@@ -43,7 +45,7 @@ define(['app'], function(App) {
         return OriginalSmartTableView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small></h6> <div id="original-smart-table"> </div> <hr>';
+      OriginalSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small></h6> <a data-toggle="collapse" data-target="#original-smart-table">Open/Close</a> <div id="original-smart-table" class="collapse in"> </div> <hr class="dark">';
 
       OriginalSmartTableView.prototype.itemView = OriginalSmartTableItemView;
 
