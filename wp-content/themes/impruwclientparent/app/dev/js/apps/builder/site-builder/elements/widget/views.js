@@ -39,6 +39,8 @@ define(['app'], function(App) {
           }
           return;
         }
+        this.$el.html('<div class="widget-message"><span class="bicon icon-uniF162"></span>Widget Type: <em>' + _.capitalize(this.model.get('type')) + '</em><small>' + _.polyglot.t('Widget will be visible on the live site') + '.</small></div>');
+        return;
         widgetHtml = $.parseHTML(_.stripslashes(this.model.get('widgetCode')));
         this.$el.html(widgetHtml);
         if (this.model.get('type') === 'youtube') {
@@ -69,7 +71,7 @@ define(['app'], function(App) {
         }
         if (this.model.get('type') === 'tripadvisor') {
           this.$el.removeAttr('style');
-          return this.$el.html(_.stripslashes(this.model.get('widgetCode')));
+          return this.$el.html('<div class="widget-message"><span class="bicon icon-uniF162"></span>Widget Type: <em>TripAdvisor</em><small>Widget will be visible on the live site.</small></div>');
         }
       };
 
