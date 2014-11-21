@@ -72,7 +72,7 @@ define ['app'], (App)->
 
             tagName : 'form'
             template : '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6>
-                        <div class="dashboard-smarttable-{{meta_id}} collapse in">
+                        <div class="dashboard-smarttable-{{meta_id}} collapse">
                             <div class = "translated-smart-table" ></div>
                             <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-smarttable-translation-element">Save Smart Table</button>
                         </div>
@@ -114,3 +114,8 @@ define ['app'], (App)->
             itemViewOptions : ->
                 language = Marionette.getOption @, 'language'
                 editingLanguage : language
+
+            onTranslateSmartableUpdated :->
+                TranslatedSmartTableView.triggerMethod 'translate:smartable:updated'
+
+

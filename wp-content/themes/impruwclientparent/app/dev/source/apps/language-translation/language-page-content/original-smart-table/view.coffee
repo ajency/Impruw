@@ -50,14 +50,25 @@ define ['app'], (App)->
 
         class OriginalSmartTableView extends Marionette.CompositeView
 
-            template : '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small><a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}" class="smart-collapse">Collapse</a></h6>
-                        <div class="original-smart-table dashboard-smarttable-{{meta_id}} collapse in">
+            template : '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small><a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}" class="smart-collapse">Expand</a></h6>
+                        <div class="original-smart-table dashboard-smarttable-{{meta_id}} collapse">
                         </div>
                         <hr class="dark">'
 
             itemView : OriginalSmartTableItemView
 
             itemViewContainer : '.original-smart-table'
+
+            events:
+                'click a.smart-collapse': (e)->
+                    e.preventDefault()
+                    expandOrContact = $(e.target).html()
+
+                    if expandOrContact is 'Expand'
+                        $(e.target).html('Contract')
+                    else if expandOrContact is 'Contract'
+                        $(e.target).html('Expand')
+
 
 
             initialize :->
@@ -67,7 +78,7 @@ define ['app'], (App)->
 
         class EmptySmartTableView extends Marionette.ItemView
 
-            template: '<br/><div class="empty-info">You have no smart tables to translate</div><br/>'
+            template: '<br/><div class="empty-info">{{#polyglot}}You have no smart tables to translate{{/polyglot}}</div><br/>'
 
         class Views.OriginalSmartTablesView extends Marionette.CompositeView
 

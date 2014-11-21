@@ -50,8 +50,9 @@ define ['app', 'controllers/base-controller'
                     wait: true
                     success: @contentUpdated
 
-            contentUpdated :->
+            contentUpdated :=>
                 console.log "Successfully updated smart table content"
+                @translatedContentView.triggerMethod 'itemView:translate:smartable:updated'
 
         App.commands.setHandler "translated:smart:table:app", (opts) ->
             new TranslatedSmartTable.Controller opts

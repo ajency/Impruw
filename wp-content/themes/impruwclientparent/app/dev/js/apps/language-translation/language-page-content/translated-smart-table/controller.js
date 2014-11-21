@@ -1,4 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'controllers/base-controller', 'apps/language-translation/language-page-content/translated-smart-table/view'], function(App, AppController) {
@@ -7,6 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       __extends(Controller, _super);
 
       function Controller() {
+        this.contentUpdated = __bind(this.contentUpdated, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -53,7 +55,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype.contentUpdated = function() {
-        return console.log("Successfully updated smart table content");
+        console.log("Successfully updated smart table content");
+        return this.translatedContentView.triggerMethod('itemView:translate:smartable:updated');
       };
 
       return Controller;

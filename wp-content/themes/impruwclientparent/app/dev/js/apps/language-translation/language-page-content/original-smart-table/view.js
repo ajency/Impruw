@@ -45,11 +45,24 @@ define(['app'], function(App) {
         return OriginalSmartTableView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small><a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}" class="smart-collapse">Collapse</a></h6> <div class="original-smart-table dashboard-smarttable-{{meta_id}} collapse in"> </div> <hr class="dark">';
+      OriginalSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small><a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}" class="smart-collapse">Expand</a></h6> <div class="original-smart-table dashboard-smarttable-{{meta_id}} collapse"> </div> <hr class="dark">';
 
       OriginalSmartTableView.prototype.itemView = OriginalSmartTableItemView;
 
       OriginalSmartTableView.prototype.itemViewContainer = '.original-smart-table';
+
+      OriginalSmartTableView.prototype.events = {
+        'click a.smart-collapse': function(e) {
+          var expandOrContact;
+          e.preventDefault();
+          expandOrContact = $(e.target).html();
+          if (expandOrContact === 'Expand') {
+            return $(e.target).html('Contract');
+          } else if (expandOrContact === 'Contract') {
+            return $(e.target).html('Expand');
+          }
+        }
+      };
 
       OriginalSmartTableView.prototype.initialize = function() {
         var collection, completeContent;
@@ -68,7 +81,7 @@ define(['app'], function(App) {
         return EmptySmartTableView.__super__.constructor.apply(this, arguments);
       }
 
-      EmptySmartTableView.prototype.template = '<br/><div class="empty-info">You have no smart tables to translate</div><br/>';
+      EmptySmartTableView.prototype.template = '<br/><div class="empty-info">{{#polyglot}}You have no smart tables to translate{{/polyglot}}</div><br/>';
 
       return EmptySmartTableView;
 
