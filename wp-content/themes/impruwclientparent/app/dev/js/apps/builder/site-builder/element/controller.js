@@ -70,14 +70,8 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
         if (element.isNew()) {
           App.execute("when:fetched", element, (function(_this) {
             return function() {
-              var e;
               _this.layout.triggerMethod("before:render:element");
-              try {
-                return _this.renderElement();
-              } catch (_error) {
-                e = _error;
-                return _this.layout.elementRegion.show(_this._getErrorView());
-              }
+              return _this.renderElement();
             };
           })(this));
         }

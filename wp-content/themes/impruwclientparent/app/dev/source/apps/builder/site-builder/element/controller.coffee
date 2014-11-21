@@ -56,10 +56,10 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
             if element.isNew()
                App.execute "when:fetched", element, =>
                   @layout.triggerMethod "before:render:element"
-                  try
-                     @renderElement()
-                  catch e
-                     @layout.elementRegion.show @_getErrorView()
+                  # try
+                  @renderElement()
+                  # catch e
+                     # @layout.elementRegion.show @_getErrorView()
                   
 
             # register a deferred

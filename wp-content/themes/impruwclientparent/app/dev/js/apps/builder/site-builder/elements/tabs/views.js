@@ -13,12 +13,60 @@ define(['app'], function(App) {
 
       TabPaneView.prototype.tagName = 'div';
 
-      TabPaneView.prototype.className = ' tab-pane';
+      TabPaneView.prototype.className = ' tab-pane column empty-column';
 
       TabPaneView.prototype.template = '';
 
       TabPaneView.prototype.onRender = function() {
         return this.$el.attr('role', 'tabpanel').attr('id', _.uniqueId('tab-'));
+      };
+
+      TabPaneView.prototype.onShow = function() {
+        return this.$el.sortable({
+          revert: 'invalid',
+          items: '> .element-wrapper',
+          connectWith: '.droppable-column, .droppable-column .column',
+          handle: '.aj-imp-drag-handle',
+          start: function(e, ui) {
+            window.dragging = true;
+          },
+          stop: function(e, ui) {
+            window.dragging = false;
+          },
+          helper: this._getHelper,
+          opacity: .65,
+          placeholder: "ui-sortable-placeholder builder-sortable-placeholder",
+          out: (function(_this) {
+            return function(evt, ui) {
+              _this.$el.closest('.tab-container').closest('.element-wrapper').removeClass('hover-class');
+              window.dragging = false;
+            };
+          })(this),
+          over: (function(_this) {
+            return function() {
+              _.delay(function() {
+                return _this.$el.closest('.tab-container').closest('.element-wrapper').addClass('hover-class');
+              }, 100);
+              window.dragging = true;
+            };
+          })(this),
+          remove: (function(_this) {
+            return function(evt, ui) {
+              _this.$el.trigger("element:moved", $(evt.target));
+              if ($(evt.target).children().length === 0) {
+                return $(evt.target).addClass('empty-column');
+              }
+            };
+          })(this),
+          update: (function(_this) {
+            return function(e, ui) {
+              if (ui.item.find('form').find('input[name="element"]').val() === 'Row') {
+                ui.item.children('.element-markup').children().trigger('row:is:moved', ui.item.children('.element-markup').children().prop('id'));
+              }
+              return $(e.target).removeClass('empty-column');
+            };
+          })(this)
+        });
       };
 
       return TabPaneView;
@@ -31,11 +79,31 @@ define(['app'], function(App) {
         return TabsView.__super__.constructor.apply(this, arguments);
       }
 
-      TabsView.prototype.template = '<div class="tab-container tabs-style-flip" role="tabpanel"> <!-- Nav tabs --> <ul class="nav nav-tabs nav-justified" role="tablist"> </ul> <!-- Tab panes --> <div class="tab-content"> </div> </div>';
+      TabsView.prototype.className = 'tab-container tabs-style-flip';
+
+      TabsView.prototype.template = '<!-- Nav tabs --> <ul class="nav nav-tabs nav-justified" role="tablist"> </ul> <div class="add-tab">Add Tab</div> <!-- Tab panes --> <div class="tab-content"> </div>';
 
       TabsView.prototype.itemView = TabPaneView;
 
       TabsView.prototype.itemViewContainer = '.tab-content';
+
+      TabsView.prototype.collectionEvents = {
+        'add': 'collectionAdded'
+      };
+
+      TabsView.prototype.events = {
+        'click .add-tab': function() {
+          return this.collection.add({
+            position: this.collection.size() + 1,
+            element: 'TabPane',
+            elements: []
+          });
+        }
+      };
+
+      TabsView.prototype.onRender = function() {
+        return this.$el.attr('role', "tabpanel");
+      };
 
       TabsView.prototype.initialize = function(opt) {
         var col, column, i, _i, _j, _len, _len1, _ref, _ref1, _results, _results1;
@@ -52,6 +120,8 @@ define(['app'], function(App) {
               position: i,
               element: 'TabPane',
               elements: []
+            }, {
+              silent: true
             }));
           }
           return _results;
@@ -62,7 +132,9 @@ define(['app'], function(App) {
             column = _ref1[_j];
             col = _.clone(column);
             delete col.elements;
-            _results1.push(this.collection.add(col));
+            _results1.push(this.collection.add(col, {
+              silent: true
+            }));
           }
           return _results1;
         }
@@ -71,7 +143,19 @@ define(['app'], function(App) {
       TabsView.prototype.onAfterItemAdded = function(itemView) {
         var id;
         id = itemView.$el.attr('id');
-        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class="active"><a href="#' + id + '" role="tab" data-toggle="tab"><span>Tab 1</span></a></li>');
+        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class=""><a href="#' + id + '" role="tab" data-toggle="tab"><span>Tab 1</span></a></li>');
+      };
+
+      TabsView.prototype.onShow = function() {
+        return this.$el.tabs();
+      };
+
+      TabsView.prototype.collectionAdded = function() {
+        return _.delay((function(_this) {
+          return function() {
+            return _this.$el.tabs('refresh');
+          };
+        })(this), 200);
       };
 
       return TabsView;
