@@ -1,0 +1,58 @@
+/**** List Styles ****/
+.impruw-list {
+	ul {
+		list-style-type: disc;
+		list-style-position: inside;
+		&.hover-list {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		  	li {
+				font: 200 1em/1.5;
+			  	border-bottom: 1px solid @text-color;
+			  	padding: 0;
+			  	margin: 0;
+			  	a, span {
+					text-decoration: none;
+					color: @text-color;
+					display: block;
+					margin: 0;
+					padding: 0.5em;
+					-webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+					-moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+					-o-transition: font-size 0.3s ease, background-color 0.3s ease;
+					-ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+					transition: font-size 0.3s ease, background-color 0.3s ease;
+					&:hover {
+						font-size: 1.2em;
+		  				color: @primary1;
+		  				background: @tertiary1;
+					}
+				}
+			  	&:last-child {
+			  		border: none;
+			  	}
+			}
+		}
+		&.numbered-list {
+			counter-reset: list-counter;
+			list-style-type: none;
+			li {
+				a, span {
+					text-decoration: none;
+					color: @text-color;
+					display: inline-block;
+					margin: 0;
+					padding: 0.5em;
+				}
+				&:before {
+					content: counter(list-counter, decimal);
+					counter-increment: list-counter;
+					color: @tertiary1;
+					font-size: 1.5em;
+					font-style: italic;
+				}
+			}
+		}
+	}
+}

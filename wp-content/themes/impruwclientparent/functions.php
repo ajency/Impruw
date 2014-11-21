@@ -3564,6 +3564,31 @@ $base_element_templates = array(
         array(
             'name' => 'Small Address',
             'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
+        ),
+        array(
+            'name' => 'List',
+            'template' => '<div class="impruw-list">
+                                <ul class="numbered-list">
+                                    <li>
+                                        <span>List Item 1</span>
+                                    </li>
+                                    <li>
+                                        <span>List Item 2</span>
+                                    </li>
+                                    <li>
+                                        <span>List Item 3</span>
+                                    </li>
+                                    <li>
+                                        <span>List Item 4</span>
+                                    </li>
+                                    <li>
+                                        <span>List Item 5</span>
+                                    </li>
+                                    <li>
+                                        <span>List Item 6</span>
+                                    </li>
+                                </ul>
+                            </div>'
         )
         
     ),
