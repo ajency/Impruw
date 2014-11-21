@@ -4423,9 +4423,11 @@ figure.effect-zoe:hover p.icon-links a:first-child {
 .aj-imp-pricing .form-group input[type="text"], 
 .aj-imp-pricing .form-group input[type="email"],
 .aj-imp-pricing .form-group input[type="tel"], 
+.aj-imp-pricing .form-group input[type="url"],
 .aj-imp-request-demo .form-group input[type="text"], 
 .aj-imp-request-demo .form-group input[type="email"],
-.aj-imp-request-demo .form-group input[type="tel"] {
+.aj-imp-request-demo .form-group input[type="tel"],
+.aj-imp-request-demo .form-group input[type="url"] {
   border: none;
   border-bottom: 1px solid #c3c3c3;
   background: #fff;
@@ -4438,11 +4440,14 @@ figure.effect-zoe:hover p.icon-links a:first-child {
 .aj-imp-pricing .form-group input[type="text"]:focus, 
 .aj-imp-pricing .form-group input[type="email"]:focus, 
 .aj-imp-pricing .form-group input[type="tel"]:focus, 
+.aj-imp-pricing .form-group input[type="url"]:focus, 
 .aj-imp-request-demo .form-group input[type="text"]:focus, 
 .aj-imp-request-demo .form-group input[type="email"]:focus, 
-.aj-imp-request-demo .form-group input[type="tel"]:focus {
+.aj-imp-request-demo .form-group input[type="tel"]:focus,
+.aj-imp-request-demo .form-group input[type="url"]:focus {
   background: #f6f6f6;
   border-bottom-color: #ff7e00;
+  outline: 0;
 }
 .aj-imp-pricing .price-plans .panel {
   -webkit-transition-property: scale;
