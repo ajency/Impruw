@@ -55,8 +55,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype.contentUpdated = function() {
-        console.log("Successfully updated smart table content");
-        return this.translatedContentView.triggerMethod('itemView:translate:smartable:updated');
+        return this.translatedContentView.triggerMethod('translate:smartable:updated');
       };
 
       return Controller;

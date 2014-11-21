@@ -116,6 +116,7 @@ define ['app'], (App)->
                 editingLanguage : language
 
             onTranslateSmartableUpdated :->
-                TranslatedSmartTableView.triggerMethod 'translate:smartable:updated'
+                console.log "Succes"
+                # TranslatedSmartTableView.triggerMethod 'translate:smartable:updated'
 
 

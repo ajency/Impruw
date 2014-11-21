@@ -128,7 +128,7 @@ define(['app'], function(App) {
       };
 
       TranslatedSmartTablesView.prototype.onTranslateSmartableUpdated = function() {
-        return TranslatedSmartTableView.triggerMethod('translate:smartable:updated');
+        return console.log("Succes");
       };
 
       return TranslatedSmartTablesView;
