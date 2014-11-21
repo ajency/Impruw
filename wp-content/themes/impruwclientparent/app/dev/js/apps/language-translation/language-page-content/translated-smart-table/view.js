@@ -21,6 +21,15 @@ define(['app'], function(App) {
         }
       };
 
+      TranslatedSmartTableItemView.prototype.serializeData = function() {
+        var data;
+        data = TranslatedSmartTableItemView.__super__.serializeData.call(this);
+        data.dd = _.stripslashes(data.dd);
+        data.dt = _.stripslashes(data.dt);
+        data.em = _.stripslashes(data.em);
+        return data;
+      };
+
       TranslatedSmartTableItemView.prototype.mixinTemplateHelpers = function(data) {
         var editingLanguage, smarttableIndex;
         data = TranslatedSmartTableItemView.__super__.mixinTemplateHelpers.call(this, data);

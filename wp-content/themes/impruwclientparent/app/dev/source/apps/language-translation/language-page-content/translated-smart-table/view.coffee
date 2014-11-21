@@ -39,6 +39,14 @@ define ['app'], (App)->
                     e.preventDefault()
 
 
+            serializeData: ()->
+                data = super()
+                data.dd = _.stripslashes(data.dd)
+                data.dt = _.stripslashes(data.dt)
+                data.em = _.stripslashes(data.em)
+                data
+
+
             mixinTemplateHelpers: (data)->
                 data = super data
                 editingLanguage = Marionette.getOption @, 'editingLanguage'
