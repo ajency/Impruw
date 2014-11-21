@@ -45,7 +45,7 @@ define(['app'], function(App) {
         return OriginalSmartTableView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small></h6> <a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}">Open/Close</a> <div class="original-smart-table dashboard-smarttable-{{meta_id}} collapse in"> </div> <hr class="dark">';
+      OriginalSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small><a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}" class="smart-collapse">Collapse</a></h6> <div class="original-smart-table dashboard-smarttable-{{meta_id}} collapse in"> </div> <hr class="dark">';
 
       OriginalSmartTableView.prototype.itemView = OriginalSmartTableItemView;
 

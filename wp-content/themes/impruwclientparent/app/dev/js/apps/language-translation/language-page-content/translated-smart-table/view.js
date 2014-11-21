@@ -68,7 +68,7 @@ define(['app'], function(App) {
 
       TranslatedSmartTableView.prototype.tagName = 'form';
 
-      TranslatedSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}">Open/Close</a> <div class="dashboard-smarttable-{{meta_id}} collapse in"> <div class = "translated-smart-table" ></div> <button class="btn-save-smarttable-translation-element"> Save </button> </div> <hr class="dark">';
+      TranslatedSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div class="dashboard-smarttable-{{meta_id}} collapse in"> <div class = "translated-smart-table" ></div> <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-smarttable-translation-element">Save Smart Table</button> </div> <hr class="dark">';
 
       TranslatedSmartTableView.prototype.itemView = TranslatedSmartTableItemView;
 
