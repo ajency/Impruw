@@ -3,7 +3,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
         #Page model
         class PageSmartTableElements.SmartTableElementModel extends Backbone.Model
-            name: 'pageTableElements'
+            name: 'pageSmartTableElements'
             idAttribute: 'elementId'
 
         #Page Collection class

@@ -14,38 +14,36 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.pageId = opts.pageId;
         this.editLang = opts.editLang;
         this.originalId = opts.originalId;
-        this.pageTableCollection = App.request("get:smart:table:elements", this.originalId, this.editLang);
-        this.translatedContentView = this._getLanguageView(this.pageTableCollection);
-        this.listenTo(this.translatedContentView, "itemview:page:smart:table:updated", this.updateSmartTableContent);
+        this.pageSmartTableCollection = App.request("get:smart:table:elements", this.originalId, this.editLang);
+        this.translatedContentView = this._getLanguageView(this.pageSmartTableCollection);
+        this.listenTo(this.translatedContentView, "itemview:page:smarttable:updated", this.updatePageSmartTable);
         return this.show(this.translatedContentView, {
           loading: true
         });
       };
 
       Controller.prototype._getLanguageView = function(collection) {
-        return new TranslatedSmartTable.Views.TranslatedSmartTableView({
+        return new TranslatedSmartTable.Views.TranslatedSmartTablesView({
           collection: collection,
           language: this.editLang
         });
       };
 
-      Controller.prototype.updateSmartTableContent = function(view, newElemContent) {
-        var data, editLang, model, translatedContent;
-        model = view.model;
-        translatedContent = model.get('content');
-        if (_.isObject(translatedContent)) {
-          data = {};
-          Object.getOwnPropertyNames(translatedContent).forEach(function(val, idx, array) {
-            return data[val] = _.stripslashes(translatedContent[val]);
-          });
-        } else {
-          data = {};
-          data['en'] = _.stripslashes(translatedContent);
-          data['nb'] = _.stripslashes(translatedContent);
+      Controller.prototype.updatePageSmartTable = function(outerview, data) {
+        var contents, editingLang, model, smarttableData;
+        model = outerview.model;
+        editingLang = this.editLang;
+        smarttableData = data;
+        contents = model.get('contents');
+        if (!o.hasOwnProperty(editingLang)) {
+          contents[editingLang] = new Array();
         }
-        editLang = this.editLang;
-        data[editLang] = newElemContent;
-        model.set('content', data);
+        _.each(smarttableData, function(value, key) {
+          return _.each(value, function(value, key) {
+            return contents[editingLang][key] = value;
+          });
+        });
+        model.set('contents', contents);
         model.set('source', 'dashboard');
         model.set('json-page-id', this.pageId);
         return model.save(null, {
@@ -54,8 +52,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         });
       };
 
-      Controller.contentUpdated = function() {
-        return console.log("Successfully updated content");
+      Controller.prototype.contentUpdated = function() {
+        return console.log("Successfully updated smart table content");
       };
 
       return Controller;

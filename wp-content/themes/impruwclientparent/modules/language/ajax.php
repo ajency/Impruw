@@ -341,6 +341,9 @@ function update_element_content(){
             if ($page_element['element'] === 'Link') {
                 $page_element['text'] = $_POST['text'] ;
             }
+            else if($page_element['element'] === 'SmartTable'){
+                $page_element['contents'] = $_POST['contents'] ;
+            }
             else{
                 $page_element['content'] = $_POST['content'] ;
             }
@@ -357,6 +360,7 @@ function update_element_content(){
 }
 
 add_action( 'wp_ajax_create-pageElements', 'update_element_content' );
+add_action( 'wp_ajax_create-pageSmartTableElements', 'update_element_content' );
 add_action( 'wp_ajax_create-pageTableElements', 'update_element_content' );
 
 function update_header_element_content(){

@@ -11,7 +11,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         return SmartTableElementModel.__super__.constructor.apply(this, arguments);
       }
 
-      SmartTableElementModel.prototype.name = 'pageTableElements';
+      SmartTableElementModel.prototype.name = 'pageSmartTableElements';
 
       SmartTableElementModel.prototype.idAttribute = 'elementId';
 

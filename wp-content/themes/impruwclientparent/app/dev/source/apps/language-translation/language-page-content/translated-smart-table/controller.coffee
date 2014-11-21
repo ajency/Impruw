@@ -11,49 +11,47 @@ define ['app', 'controllers/base-controller'
                 @originalId = opts.originalId
 
                 #get page element collection
-                @pageTableCollection = App.request "get:smart:table:elements" , @originalId , @editLang
+                @pageSmartTableCollection = App.request "get:smart:table:elements" , @originalId , @editLang
 
-                @translatedContentView = @_getLanguageView @pageTableCollection
+                @translatedContentView = @_getLanguageView @pageSmartTableCollection
 
-                @listenTo @translatedContentView, "itemview:page:smart:table:updated", @updateSmartTableContent 
+                @listenTo @translatedContentView, "itemview:page:smarttable:updated", @updatePageSmartTable
 
                 #function to load view
                 @show @translatedContentView,
                     loading: true
 
             _getLanguageView :(collection)->
-                new TranslatedSmartTable.Views.TranslatedSmartTableView
+                new TranslatedSmartTable.Views.TranslatedSmartTablesView
                     collection: collection
-                    language: @editLang
+                    language : @editLang
 
-            updateSmartTableContent :(view,newElemContent)->
-                model = view.model
+            updatePageSmartTable :(outerview,data)->
+                model = outerview.model
+                editingLang = @editLang
+                smarttableData =  data
 
-                translatedContent =  model.get('content')
-
-                if _.isObject translatedContent
-                    data = {}
-                    Object.getOwnPropertyNames(translatedContent).forEach (val, idx, array) ->
-                        data[val] = _.stripslashes translatedContent[val]
-                else
-                    data = {}
-                    data['en'] = _.stripslashes translatedContent
-                    data['nb'] = _.stripslashes translatedContent
-
-                editLang = @editLang
-
-                data[editLang] = newElemContent
-                # console.log data
-                model.set 'content', data
-                model.set 'source', 'dashboard' 
+                # get original smartable content
+                contents = model.get 'contents'
+               
+                unless o.hasOwnProperty(editingLang)
+                    contents[editingLang] = new Array()
+                
+                # modify the smartable content
+                _.each smarttableData, (value, key) ->
+                      _.each value, (value, key) ->
+                        contents[editingLang][key] = value
+                
+                model.set 'contents' , contents
+                model.set 'source', 'dashboard'
                 model.set 'json-page-id', @pageId
 
                 model.save null,
                     wait: true
                     success: @contentUpdated
 
-            @contentUpdated :->
-                console.log "Successfully updated content"
+            contentUpdated :->
+                console.log "Successfully updated smart table content"
 
         App.commands.setHandler "translated:smart:table:app", (opts) ->
             new TranslatedSmartTable.Controller opts

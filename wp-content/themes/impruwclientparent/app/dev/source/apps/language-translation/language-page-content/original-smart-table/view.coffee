@@ -51,20 +51,19 @@ define ['app'], (App)->
         class OriginalSmartTableView extends Marionette.CompositeView
 
             template : '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small></h6>
-                        <a data-toggle="collapse" data-target="#original-smart-table">Open/Close</a>
-                        <div id="original-smart-table" class="collapse in">
+                        <a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}">Open/Close</a>
+                        <div class="original-smart-table dashboard-smarttable-{{meta_id}} collapse in">
                         </div>
                         <hr class="dark">'
 
             itemView : OriginalSmartTableItemView
 
-            itemViewContainer : '#original-smart-table'
+            itemViewContainer : '.original-smart-table'
 
 
             initialize :->
                 completeContent = @model.get('contents')
                 collection = new Backbone.Collection completeContent[WPML_DEFAULT_LANG]
-                console.log collection
                 @collection = collection
 
         class EmptySmartTableView extends Marionette.ItemView

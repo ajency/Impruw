@@ -4,97 +4,106 @@ define ['app'], (App)->
 
         class TranslatedSmartTableItemView extends Marionette.ItemView
 
-            tagName : 'div'
+            className : 'smart-cell'
 
-            className : 'form-group legend-group'
-
-            template : '<div class="col-sm-12">
-                            <div class="form-group trans-field" id="translated-smart-table-elements">
-                                <div class="col-sm-10">
-                                    <div class="form-control translated-element-content {{element}}" tabindex="1" id="translated-smart-table-content">
-                                        {{{contentText}}}
-                                    </div>
-                                    <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-smart-table">
-                                        {{#polyglot}}Save{{/polyglot}}
-                                    </button>
-                                </div>
-                             
+            template : '<div class="form-group legend-group">
+                            <div class="col-sm-12"> 
+                                <div class="form-group">  
+                                    <div class="col-sm-10"> 
+                                        <input type="text" class="form-control translated-element-content title" id="translated-smarttable-dt" value="{{dt}}" name="{{dtInputName}}">
+                                    </div> 
+                                </div> 
                             </div>
-                         </div>'
+                        </div>
+                        <div class="form-group legend-group">
+                            <div class="col-sm-12"> 
+                                <div class="form-group"> 
+                                    <div class="col-sm-10"> 
+                                        <input type="text" class="form-control translated-element-content title" id="translated-smarttable-dt" value="{{dd}}"  name="{{ddInputName}}">
+                                    </div> 
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="form-group legend-group">
+                            <div class="col-sm-12"> 
+                                <div class="form-group">
+                                    <div class="col-sm-10"> 
+                                        <input type="text" class="form-control translated-element-content title" id="translated-smarttable-dt" value="{{em}}" name="{{emInputName}}">
+                                    </div> 
+                                </div> 
+                            </div>
+                        </div>'
 
             events:
-                "click #btn-save-translated-smart-table" : "updatePageSmartTable"
-                "click table td" : "showEditor"
-                "click table th" : "showEditor"
-                'click .cke_editable' : (e)->
-                    e.stopPropagation()
                 'click a': (e)->
                     e.preventDefault()
+
 
             mixinTemplateHelpers: (data)->
                 data = super data
                 editingLanguage = Marionette.getOption @, 'editingLanguage'
-                data.contentText = ->
-                    if _.isObject(data.content)
-                      if data.content[editingLanguage] is undefined
-                        translated_text = data.content[WPML_DEFAULT_LANG]
-                      else
-                        translated_text = data.content[editingLanguage]
-                    else
-                      translated_text = data.content
-                    # console.log translated_text
-                    translated_text = _.stripslashes translated_text
-                    translated_text
+                smarttableIndex =  Marionette.getOption @, 'smarttableIndex'
+
+                data.ddInputName = ->
+                    ddInputName = editingLanguage+"["+smarttableIndex+"][dd]"
+                    ddInputName.toString()
+                    return ddInputName
+                data.dtInputName = ->
+                    dtInputName = editingLanguage+"["+smarttableIndex+"][dt]"
+                    dtInputName.toString()
+                    return dtInputName
+                data.emInputName = ->
+                    emInputName = editingLanguage+"["+smarttableIndex+"][em]"
+                    emInputName.toString()
+                    return emInputName
+
                 data
+               
 
-            updatePageSmartTable:(e) ->
-                e.preventDefault()
-                newHtmlContent  = $('#translated-table-content').clone()
-                $(newHtmlContent).find('td div, th div').removeAllAttr()
-                newElementContent =  "#{$(newHtmlContent).html()}"
-                # console.log newElementContent
-                # @trigger "page:smart:table:updated", newElementContent
+        class TranslatedSmartTableView extends Marionette.CompositeView
 
-            showEditor :(evt)->
-                evt.stopPropagation()
-                if @editor
-                    @editor.destroy()
-                    @$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr 'id'
-                
-                # console.log 'showEditor'
-                id = _.uniqueId 'text-'
-                $(evt.target).closest('td,th').find('div').attr('contenteditable', 'true').attr 'id', id
-                CKEDITOR.on 'instanceCreated', @configureEditor
-                @editor = CKEDITOR.inline document.getElementById id
-                @editor.config.placeholder = 'Click to enter text.'
+            tagName : 'form'
+            template : '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6>
+                        <a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}">Open/Close</a>
+                        <div class="dashboard-smarttable-{{meta_id}} collapse in">
+                            <div class = "translated-smart-table" ></div>
+                            <button class="btn-save-smarttable-translation-element"> Save </button>
+                        </div>
 
-            configureEditor : (event) =>
-                editor = event.editor
-                element = editor.element
-
-                if element.getAttribute('id') is @$el.attr 'id'
-                    editor.on 'configLoaded', ->
-                        editor.config.placeholder = 'Enter Data'
-
-            destroyEditor :->
-                if @editor
-                    @editor.destroy()
-                    @editor = null
-                    # console.log 'editor destroyed'
-                    @$el.find('td div, th div').removeAttr('contenteditable').removeAttr('style').removeAttr 'id'
-                    @$el.find('table').resizableColumns('destroy')
-                    @$el.find('table').resizableColumns()
-
-        
-        class Views.TranslatedSmartTableView extends Marionette.CompositeView
-
-            template : '<div id="translatable-page-smart-table"></div>'
+                        <hr class="dark">'
 
             itemView : TranslatedSmartTableItemView
 
-            itemViewContainer : '#translatable-page-smart-table'
+            itemViewContainer : '.translated-smart-table'
+
+            events:
+                'click .btn-save-smarttable-translation-element': (e)->
+                    e.preventDefault()
+                    data = Backbone.Syphon.serialize @
+                    @trigger "page:smarttable:updated" ,data
+
+            itemViewOptions :(model,index)->
+                editingLanguage = Marionette.getOption @, 'editingLanguage'
+                editingLanguage : editingLanguage
+                smarttableIndex : index
+
+            initialize :->
+                editingLanguage = Marionette.getOption @, 'editingLanguage'
+                completeContent = @model.get('contents')
+                collection = new Backbone.Collection completeContent[editingLanguage]
+                if collection.length==0
+                    collection = new Backbone.Collection completeContent[WPML_DEFAULT_LANG]
+                @collection = collection
+
+
+        class Views.TranslatedSmartTablesView extends Marionette.CompositeView
+
+            template : '<div id="translated-smart-page-table"></div>'
+
+            itemView : TranslatedSmartTableView
+
+            itemViewContainer : '#translated-smart-page-table'
 
             itemViewOptions : ->
                 language = Marionette.getOption @, 'language'
                 editingLanguage : language
-
