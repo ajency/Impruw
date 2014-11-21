@@ -3567,7 +3567,7 @@ $base_element_templates = array(
         ),
         array(
             'name' => 'Tabs',
-            'template' => '<div class="tab-container tabs-style-flip" role="tabpanel">
+            'template' => '<div class="tab-container tabs-style-linebox" role="tabpanel">
 
                               <!-- Nav tabs -->
                               <ul class="nav nav-tabs nav-justified" role="tablist">
