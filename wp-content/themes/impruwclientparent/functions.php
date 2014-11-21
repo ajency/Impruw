@@ -3568,7 +3568,7 @@ $base_element_templates = array(
         array(
             'name' => 'List',
             'template' => '<div class="impruw-list">
-                                <ul class="numbered-list">
+                                <ul class="checked-list">
                                     <li>
                                         <span>List Item 1</span>
                                     </li>

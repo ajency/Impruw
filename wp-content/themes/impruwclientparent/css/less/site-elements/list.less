@@ -1,5 +1,6 @@
 /**** List Styles ****/
 .impruw-list {
+	margin: 0.5em 0;
 	ul {
 		list-style-type: disc;
 		list-style-position: inside;
@@ -37,6 +38,7 @@
 		&.numbered-list {
 			counter-reset: list-counter;
 			list-style-type: none;
+			margin-left: 0.5em;
 			li {
 				a, span {
 					text-decoration: none;
@@ -49,8 +51,56 @@
 					content: counter(list-counter, decimal);
 					counter-increment: list-counter;
 					color: @tertiary1;
-					font-size: 1.5em;
+					font-size: 1.1em;
 					font-style: italic;
+				}
+				&:hover {
+					a, span {
+						color: darken(@text-color, 10%);
+					}
+					&:before {
+						color: @primary1;
+					}
+				}
+			}
+		}
+		&.checked-list {
+			list-style-type: none;
+			margin-left: 0.5em;
+			li {
+				font-size: 1.1em;
+				color: lighten(@secondary1, 20%);
+				font-weight: 300;
+				margin: 0 0 @regular;
+				display: block;
+				margin-right: 1%;
+				a, span {
+					text-decoration: none;
+					color: @text-color;
+					display: inline-block;
+					margin: 0;
+				}
+				&:before {
+					display: block;
+					content: '✓';
+					width: 13px;
+					height: 13px;
+					float: left;
+					margin-right: 10px;
+					border: 1px solid @tertiary1;
+					position: relative;
+					font-size: 1.2em;
+					line-height: 0.33em;
+					top: 3px;
+					color: transparent;
+				}
+				&:hover {
+					a, span {
+						color: darken(@text-color, 10%);
+					}
+					&:before {
+						color: @primary1;
+					}
 				}
 			}
 		}

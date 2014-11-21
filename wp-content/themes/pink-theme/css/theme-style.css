@@ -2305,6 +2305,114 @@ ul.gallery {
   left: 0.6em;
   z-index: 2;
 }
+/**** List Styles ****/
+.impruw-list {
+  margin: 0.5em 0;
+}
+.impruw-list ul {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+.impruw-list ul.hover-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.impruw-list ul.hover-list li {
+  font: 200 1em/1.5;
+  border-bottom: 1px solid #989898;
+  padding: 0;
+  margin: 0;
+}
+.impruw-list ul.hover-list li a,
+.impruw-list ul.hover-list li span {
+  text-decoration: none;
+  color: #989898;
+  display: block;
+  margin: 0;
+  padding: 0.5em;
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+.impruw-list ul.hover-list li a:hover,
+.impruw-list ul.hover-list li span:hover {
+  font-size: 1.2em;
+  color: #ff5f5f;
+  background: #2a3b66;
+}
+.impruw-list ul.hover-list li:last-child {
+  border: none;
+}
+.impruw-list ul.numbered-list {
+  counter-reset: list-counter;
+  list-style-type: none;
+  margin-left: 0.5em;
+}
+.impruw-list ul.numbered-list li a,
+.impruw-list ul.numbered-list li span {
+  text-decoration: none;
+  color: #989898;
+  display: inline-block;
+  margin: 0;
+  padding: 0.5em;
+}
+.impruw-list ul.numbered-list li:before {
+  content: counter(list-counter, decimal);
+  counter-increment: list-counter;
+  color: #2a3b66;
+  font-size: 1.1em;
+  font-style: italic;
+}
+.impruw-list ul.numbered-list li:hover a,
+.impruw-list ul.numbered-list li:hover span {
+  color: #7f7f7f;
+}
+.impruw-list ul.numbered-list li:hover:before {
+  color: #ff5f5f;
+}
+.impruw-list ul.checked-list {
+  list-style-type: none;
+  margin-left: 0.5em;
+}
+.impruw-list ul.checked-list li {
+  font-size: 1.1em;
+  color: #ffffff;
+  font-weight: 300;
+  margin: 0 0 0.5em;
+  display: block;
+  margin-right: 1%;
+}
+.impruw-list ul.checked-list li a,
+.impruw-list ul.checked-list li span {
+  text-decoration: none;
+  color: #989898;
+  display: inline-block;
+  margin: 0;
+}
+.impruw-list ul.checked-list li:before {
+  display: block;
+  content: '✓';
+  width: 13px;
+  height: 13px;
+  float: left;
+  margin-right: 10px;
+  border: 1px solid #2a3b66;
+  position: relative;
+  font-size: 1.2em;
+  line-height: 0.33em;
+  top: 3px;
+  color: transparent;
+}
+.impruw-list ul.checked-list li:hover a,
+.impruw-list ul.checked-list li:hover span {
+  color: #7f7f7f;
+}
+.impruw-list ul.checked-list li:hover:before {
+  color: #ff5f5f;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
