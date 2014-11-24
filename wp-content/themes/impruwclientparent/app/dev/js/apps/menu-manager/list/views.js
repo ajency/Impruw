@@ -146,7 +146,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
           handle: 'div.menu-dragger',
           items: 'li.list-group-item',
           tolerance: 'intersect',
-          maxLevels: 2,
+          maxLevels: 1,
           stop: (function(_this) {
             return function(e, ui) {
               var newOrder, order;
