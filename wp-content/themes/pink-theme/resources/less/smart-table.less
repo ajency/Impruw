@@ -1,0 +1,174 @@
+/**** Styles for Smart Tables ****/
+.smart-table {
+	.clearfix;
+	text-align: center;
+	.smart-cell {
+		padding: 0.5em 1em;
+		margin-bottom: 0.5em;
+		position: relative;
+		dt {
+			font-size: 1.2em;
+			color: @tertiary1;
+			margin: 0;
+			font-weight: 700;
+			text-transform: uppercase;
+		}
+		dd {
+			font-size: 1em;
+			color: @text-color;
+			&.emphasis {
+				font-size: 1.5em;
+				font-weight: 500;
+			}
+			&.delete {
+				display: none;
+				a {
+					padding: 0.2em 0.5em 0;
+					font-size: 1.2em;
+					background: #ff3333;
+					border-radius: 2px;
+					color: #fff;
+					position: absolute;
+					bottom: 5px;
+					left: 5px;
+					z-index: 6;
+					box-shadow: 1px 1px 3px #aaa;
+					&:hover {
+						background: lighten(#ff3333, 10%);
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		&:hover {
+			.delete {
+				display: block;
+			}
+		}
+	}
+	.add-another {
+		text-align: center;
+		background: fade(#f3f3f3, 80%);
+		cursor: pointer;
+		color: #aaa;
+		border-radius: 2px;
+		padding: 0.5em 1em;
+		margin: 0 0.5em;
+		.bicon {
+			display: block;
+			font-size: 1.3em;
+			margin-bottom: 0.5em;
+		}
+		&:hover {
+			background: #ff7e00;
+			color: #fff;
+		}
+	}
+	&.multi-column {
+		text-align: left;
+		.smart-cell {
+			width: 33%;
+			min-width: 300px;
+			display: inline-block;
+			position: relative;
+			vertical-align: top;
+			dt {
+				border-bottom: 1px dotted @text-color;
+				margin: 0 0 0.5em;
+				font-weight: 500;
+				padding-right: 25%;
+			}
+			.emphasis {
+				position: absolute;
+				right: 0.75em;
+				top: 0.5em;
+				font-size: 1.2em;
+				font-weight: 700;
+				color: @primary1;
+			}
+		}
+		@media (max-width: 992px) { 
+			.smart-cell {
+				width: 49%;
+			}
+		}
+		@media (max-width: 767px) { 
+			.smart-cell {
+				width: 100%;
+			}
+		}
+	}
+	&.testimonials {
+		text-align: left;
+		.smart-cell {
+			dt {
+				text-transform: none;
+				color: @primary1;
+			}
+			dd {
+				font-style: italic;
+				color: lighten(@text-color, 10%);
+				&.emphasis {
+					text-align: right;
+					font-size: 0.88em;
+					font-weight: 700;
+					color: @tertiary1;
+					font-style: normal;
+				}
+			}
+		}
+		&.centered {
+			text-align: center;
+			.smart-cell {
+				border-bottom: 1px dotted @primary1;
+				dd {
+					&.emphasis {
+						font-size: 0.8em;
+						text-align: center;
+						text-transform: uppercase;
+						color: darken(@text-color, 10%);
+					}
+				}
+			}
+		}
+		&.boxed {
+			.smart-cell {
+				position: relative;
+				border: 1px solid @primary1;
+				border-radius: 3px;
+				margin-bottom: 2.5em;
+				background: @tertiary1;
+				dt {
+					font-size: 1.1em;
+					color: @text-color;
+				}
+				dd {
+					&.emphasis {
+						position: absolute;
+						bottom: -2.4em;
+						left: 0;
+					}
+				}
+				&:after, &:before {
+					content: "";
+					position: absolute;
+					top: 100%;
+					left: 0.5em;
+					border-top: 10px solid black;
+					border-top-color: inherit; 
+					border-left: 10px solid transparent;
+					border-right: 10px solid transparent; 
+					z-index: 1;
+				}
+				&:before {
+					border-top: 8px solid @tertiary1;
+					border-left: 8px solid transparent;
+					border-right: 8px solid transparent; 
+					top: 99.5%;
+					left: 0.6em;
+					z-index: 2;
+				}
+			}
+		}
+	}
+}

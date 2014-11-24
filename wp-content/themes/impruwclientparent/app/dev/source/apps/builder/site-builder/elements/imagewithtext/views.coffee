@@ -52,6 +52,11 @@ define ['app'], (App)->
                 @editor.setData html
                 @editor.config.placeholder = 'Click here to enter your text...'
 
+                @$el.children('.editor').trigger 'blur'
+                _.delay =>
+                    @$el.children('.editor').trigger 'focus'
+                ,200
+
             onStyleUpadted: (newStyle, prevStyle)->
                 @$el.removeClass prevStyle
                     .addClass newStyle

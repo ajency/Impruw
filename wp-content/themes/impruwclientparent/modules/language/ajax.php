@@ -244,6 +244,15 @@ function get_page_tables_ajax(){
 }
 add_action( 'wp_ajax_get-page-tables', 'get_page_tables_ajax' );
 
+function get_page_smart_tables_ajax(){
+    $page_id = $_REQUEST['pageId'];
+
+    $data =  get_page_smarttable_elements($page_id);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_get-page-smart-tables', 'get_page_smart_tables_ajax' );
+
 function get_page_sliders_ajax(){
     $page_id = $_REQUEST['pageId'];
 
@@ -281,15 +290,39 @@ function update_translated_page_title(){
         'post_title'   => $page_title,
         'post_type'    => 'page'
     );
+    global $wpdb;
+    $all_names = $wpdb->get_col( "SELECT post_title FROM {$wpdb->posts} WHERE post_type = 'page'" );
+    $page['post_title'] = impruw_page_find_alternate_name( $all_names, $page['post_title'] );
+
 
     // Update the post into the database
     $return_post_id = wp_update_post( $page );
 
     $data['post_id'] = $return_post_id;
+    $data['post_title'] = $page['post_title'];
 
     wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
 }
 add_action( 'wp_ajax_update-translated-page-title', 'update_translated_page_title' );
+
+
+function update_translated_page_url(){
+    $page_slug = $_REQUEST[ 'page_url' ];
+    $page_id = $_REQUEST['page_id'];
+    global $wpdb;
+    $page_slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $page_slug);
+
+    $all_names = $wpdb->get_col( "SELECT post_name FROM {$wpdb->posts} WHERE post_type = 'page'" );
+    $page_slug = impruw_page_find_alternate_name( $all_names, $page_slug );
+
+
+    $wpdb->update( $wpdb->posts, array(  'post_name' => $page_slug ), array( 'ID' => $page_id ) );
+
+    $data['post_id'] = $page_id;
+    $data['post_name'] = $page_slug;
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_update-translated-page-url', 'update_translated_page_url' );
 
 function update_element_content(){
 
@@ -308,6 +341,9 @@ function update_element_content(){
             if ($page_element['element'] === 'Link') {
                 $page_element['text'] = $_POST['text'] ;
             }
+            else if($page_element['element'] === 'SmartTable'){
+                $page_element['contents'] = $_POST['contents'] ;
+            }
             else{
                 $page_element['content'] = $_POST['content'] ;
             }
@@ -324,6 +360,7 @@ function update_element_content(){
 }
 
 add_action( 'wp_ajax_create-pageElements', 'update_element_content' );
+add_action( 'wp_ajax_create-pageSmartTableElements', 'update_element_content' );
 add_action( 'wp_ajax_create-pageTableElements', 'update_element_content' );
 
 function update_header_element_content(){

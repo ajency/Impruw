@@ -44,6 +44,7 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         });
         elements._fetch.done((function(_this) {
           return function() {
+            window.ISFRONTPAGE = elements.get('is_home_page');
             elementLoaded = true;
             return _.delay(function() {
               _this.deferreds = [];
@@ -132,6 +133,7 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
       __extends(Controller, _super);
 
       function Controller() {
+        this.setCurrentPage = __bind(this.setCurrentPage, this);
         this.pageNameUpdated = __bind(this.pageNameUpdated, this);
         this.triggerPagePublishOnView = __bind(this.triggerPagePublishOnView, this);
         return Controller.__super__.constructor.apply(this, arguments);
@@ -147,15 +149,31 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         this.layout = layout = new Show.View.MainView({
           collection: this.pages
         });
-        this.listenTo(layout, 'editable:page:changed', function(pageId) {
-          $.cookie('current-page-id', pageId);
-          return App.execute("editable:page:changed", pageId);
-        });
+        this.listenTo(layout, 'editable:page:changed', (function(_this) {
+          return function(pageId) {
+            _this.setCurrentPage(_this.pages.get(pageId));
+            $.cookie('current-page-id', pageId);
+            return App.execute("editable:page:changed", pageId);
+          };
+        })(this));
         this.listenTo(this.layout, "add:new:page:clicked", function() {
           return App.execute("show:add:new:page", {
             region: App.dialogRegion
           });
         });
+        this.listenTo(this.layout, 'delete:page:clicked', (function(_this) {
+          return function() {
+            var page;
+            page = _this.pages.get($.cookie('current-page-id'));
+            return page.destroy({
+              success: function(model, res, opt) {
+                _this.removePageFromMenu(model.get('original_id'));
+                _this.removePageFromLinkSettings(model.get('original_id'));
+                return App.builderRegion.currentView.triggerMethod('show:home:page');
+              }
+            });
+          };
+        })(this));
         App.commands.setHandler("page:published", this.triggerPagePublishOnView);
         this.listenTo(layout, 'show', (function(_this) {
           return function(layout) {
@@ -167,6 +185,7 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
           };
         })(this));
         this.listenTo(layout, "update:page:name", this.updatePageName);
+        this.listenTo(layout, "update:page:slug", this.updatePageSlug);
         this.listenTo(App.vent, 'page:took:over', function(errorMessage) {
           return layout.triggerMethod('page:took:over', errorMessage);
         });
@@ -184,6 +203,30 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         });
       };
 
+      Controller.prototype.removePageFromMenu = function(pageId) {
+        var menuCollection, menuToRemove;
+        menuCollection = App.request("get:menu:items:by:menuid", window.MENUID);
+        menuToRemove = menuCollection.find(function(menuModel) {
+          if (menuModel.get('page_id') === pageId) {
+            return true;
+          }
+        });
+        return menuCollection.remove(menuToRemove);
+      };
+
+      Controller.prototype.removePageFromLinkSettings = function(pageId) {
+        var elementsCollection, linkModel, linkModelLinkPages, newLinkModel;
+        elementsCollection = App.request("get:elementbox:elements");
+        linkModel = elementsCollection.get('Link');
+        linkModelLinkPages = linkModel.get('link_pages');
+        linkModelLinkPages = $.grep(linkModelLinkPages, function(pageObject, i) {
+          return pageObject.original_id === pageId;
+        }, true);
+        elementsCollection.remove(linkModel);
+        newLinkModel = linkModel.set('link_pages', linkModelLinkPages);
+        return elementsCollection.add(newLinkModel);
+      };
+
       Controller.prototype.triggerPagePublishOnView = function() {
         return this.layout.triggerMethod("page:published");
       };
@@ -198,8 +241,25 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         });
       };
 
+      Controller.prototype.updatePageSlug = function(pageData) {
+        var updatedPageModel;
+        updatedPageModel = App.request("get:page:model:by:id", pageData.ID);
+        updatedPageModel.set(pageData);
+        return updatedPageModel.save(null, {
+          wait: true,
+          success: this.setCurrentPage
+        });
+      };
+
       Controller.prototype.pageNameUpdated = function(updatedPageModel) {
+        this.setCurrentPage(updatedPageModel);
         return this.layout.triggerMethod("page:name:updated", updatedPageModel);
+      };
+
+      Controller.prototype.setCurrentPage = function(model) {
+        App.execute('add:page:to:collection', model);
+        window.CURRENTPAGE = model.toJSON();
+        return this.layout.triggerMethod('page:slug:updated', model.get('post_name'));
       };
 
       return Controller;

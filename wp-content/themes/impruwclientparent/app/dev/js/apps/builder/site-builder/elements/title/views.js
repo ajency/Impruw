@@ -71,7 +71,13 @@ define(['app'], function(App) {
             return _this.model.set('justify', evt.data.justify);
           };
         })(this));
-        return this.editor.config.placeholder = 'Click here to enter Title';
+        this.editor.config.placeholder = 'Click here to enter Title';
+        this.$el.trigger('blur');
+        return _.delay((function(_this) {
+          return function() {
+            return _this.$el.trigger('focus');
+          };
+        })(this), 200);
       };
 
       TitleView.prototype.onShow = function() {

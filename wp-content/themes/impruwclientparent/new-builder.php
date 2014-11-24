@@ -43,7 +43,7 @@
 <!-- Lost Connection -->
 <div class="conn-lost-overlay hidden"></div>
 <!-- Lost Connection -->
-
+<div id="tree"></div>
 <div id="fb-root"></div>
 
 <div id="choose-theme-region"></div>
@@ -63,6 +63,8 @@
 <!-- /.modal -->
 <div id="initial-loader"></div>
 
+
+
 <script type="text/javascript">
     var USER = <?php echo json_encode(get_user_model()); ?>;
     var ROOMS = <?php echo json_encode(get_roomss()); ?>;
@@ -73,16 +75,21 @@
                                                         array('hide_empty' => 0))) ?>;
     var LANGUAGES = <?php echo json_encode(get_all_languages()); ?>;
     var ACTIVE_LANGUAGE_COUNT = <?php echo count(wpml_get_active_languages()); ?>;
+    var ACTIVE_LANGUAGES = <?php echo json_encode(wpml_get_active_languages()); ?>;
     var ELEMENTS = <?php echo json_encode(get_elementbox_elements()); ?>;
     var BLOGID = <?php echo get_current_blog_id(); ?>;
 
+    //menus
+    var MENUS = <?php echo json_encode(wp_get_nav_menus()) ?>;
 
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
+    var CURRENTTHEMEURL = '<?php echo get_template_directory_uri() ?>'
     var SITEURL = '<?php echo site_url(); ?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
     var _WPNONCE = '<?php echo wp_create_nonce('media-form'); ?>';
     var _RVNONCE = '<?php echo wp_create_nonce("revslider_actions"); ?>';
+    var _MENUNONCE = '<?php echo wp_create_nonce("menu-settings-column-nonce"); ?>';
     var JSVERSION = '<?php echo JSVERSION; ?>';
     
     var ISTHEMESELECTED = <?php echo is_theme_choosed() ?>;
@@ -96,12 +103,12 @@
     var AUTOSAVEINTERVAL = 6000 * 10 * 2 ;
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
     var SINGLE_ROOM_PAGE = '<?php echo get_single_room_page_title();?>';
+    var UNDELETABLE_PAGES = <?php echo json_encode(get_builder_uneditable_pages()); ?>;
     var ADDRESS = '<?php echo get_hotel_address() ?>';
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
     var PLUGIN_URI  = '<?php echo WP_PLUGIN_URL; ?>';
     var ISTHEMEEDITOR = '<?php echo current_user_can( 'edit_impruw_theme' ) ? 'yes' : 'no' ?>';
-    var MENUID = 0;
     var HOTELADDRESS = <?php echo json_encode(get_site_details()) ?>;
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;

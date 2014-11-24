@@ -47,6 +47,7 @@ define(['app'], function(App) {
             captionTitle = "";
           }
           captionTitle = _.stripslashes(captionTitle);
+          captionTitle = _.unescape(captionTitle);
           return captionTitle;
         };
         data.captionDesc = function() {
@@ -63,6 +64,7 @@ define(['app'], function(App) {
             captionDesc = "";
           }
           captionDesc = _.stripslashes(captionDesc);
+          captionDesc = _.unescape(captionDesc);
           return captionDesc;
         };
         data.slideParentId = function() {

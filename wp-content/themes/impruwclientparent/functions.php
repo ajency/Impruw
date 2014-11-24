@@ -436,6 +436,12 @@ function add_element_markup( $element ) {
         case 'RoomBooking' :
             $html = get_room_booking_markup( $element );
             break;
+        case 'Spacer' :
+            $html = get_spacer_element_markup( $element );
+            break;
+        case 'SmartTable' :
+            $html = get_smart_table_element_markup( $element );
+            break;
         default :
             break;
     }
@@ -824,6 +830,26 @@ function get_table_element_markup( $element ){
 
 }
 
+function get_spacer_element_markup( $element ){
+    include_once( dirname( __FILE__ ) . '/elements/SpacerElement.php');
+
+    $spacer = new SpacerElement( $element );
+
+    $html = $spacer->get_markup();
+
+    return $html;
+}
+
+function get_smart_table_element_markup( $element ){
+    include_once( dirname( __FILE__ ) . '/elements/SmartTableElement.php');
+
+    $smart_table = new SmartTableElement( $element );
+
+    $html = $smart_table->get_markup();
+
+    return $html;
+}
+
 function get_widget_element_markup( $element ){
     include_once( dirname( __FILE__ ) . '/elements/WidgetElement.php');
 
@@ -1190,6 +1216,7 @@ function get_menu_to_array( $mn, $by = 'name' ) {
             'menu_item_title' => $translated_menu_item_page_title,
             'menu_item_url'   => $menu_item->url,
             'menu_id'         => $menu->term_id,
+            'page_id'       => $menu_item->object_id
         );
 
         if ( (int)$menu_item->menu_item_parent === 0 ) {
@@ -3481,24 +3508,39 @@ global $base_element_templates;
 $base_element_templates = array(
     'Row' => array(
         array(
-            'name' => 'Center Container'
+            'name' => 'Default',
+            'desc' => 'Full width row without a background colour. ',
+            'hide' => array()
         ),
         array(
-            'name' => 'Grey Background'
+            'name' => 'Center Container',
+            'desc' => 'This row has fixed width without a background in the middle. Best way to use: Use this row as the site content, to keep the standard look of the page.',
+            'hide' => array()
         ),
         array(
-            'name' => 'Footer Container'
+            'name' => 'Grey Background',
+            'desc' => 'Full width row with a light grey back ground. Best way to use: Use this row style to highlight key points of your site',
+            'hide' => array('Classic Green', 'Neon Theme', 'Minimal Theme', 'Diamond Theme')
         ),
         array(
-            'name' => 'Column Dividers'
+            'name' => 'Footer Container',
+            'desc' => 'Full width row with a dark grey back ground. Best way to use: Use this row style as footer on your website',
+            'hide' => array('Neon Theme', 'Minimal Theme', 'Diamond Theme')
+        ),
+        array(
+            'name' => 'Column Dividers',
+            'desc' => 'Similar to a plain row with the exception of a vertical line between columns. Best way to use:  Use this when you need line separators between columns. Ensure its inside the center container / fix width row else the layout will not be aligned.',
+            'hide' => array()
         )
     ),
     'Menu' => array(
         array(
-            'name' => 'Slimmenu'
+            'name' => 'Slimmenu',
+            'imagePath' => get_template_directory_uri() . '/resources/img/slimmenu.png'
         ),
         array(
-            'name' => 'Footer Menu'
+            'name' => 'Footer Menu',
+            'imagePath' => get_template_directory_uri() . '/resources/img/footer-menu.png'
         )
     ),
     'Title' => array(
@@ -3522,6 +3564,75 @@ $base_element_templates = array(
         array(
             'name' => 'Small Address',
             'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
+        )
+        
+    ),
+    'SmartTable' => array(
+        array(
+            'name' => 'Restaurant Menu',
+            'inner_style' => array( 'Default', 'Multi Column' ),
+            // 'template' => '<div class="smart-table multi-column">
+            //                     <dl class="smart-cell">
+            //                         <dt>Fried Spring Rolls</dt>
+            //                         <dd>chicken or vegetable</dd>
+            //                         <dd class="emphasis">$2.95</dd>
+            //                         <dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Gai of Nuur Satay</dt>
+            //                         <dd>skewered chicken or beef with a peanut sauce</dd>
+            //                         <dd class="emphasis">$4.95</dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Tofu Tod</dt>
+            //                         <dd>fried tofu with a mild chili peanut sauce</dd>
+            //                         <dd class="emphasis">$3.95</dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Fresh Thai Summer Roll</dt>
+            //                         <dd>with shrimp in a tamarind sauce</dd>
+            //                         <dd class="emphasis">$4.50</dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Fried Tiger Shrimp Rolls</dt>
+            //                         <dd>with a plum sauce</dd>
+            //                         <dd class="emphasis">$4.95</dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Thai Spare Ribs</dt>
+            //                         <dd class="emphasis">$8.95</dd>
+            //                     </dl>
+            //                     <div class="add-another">
+            //                         <span class="bicon icon-uniF193"></span>
+            //                         Add Another Item
+            //                     </div>
+            //                 </div>'
+        ),
+        array(
+            'name' => 'Testimonials',
+            'inner_style' => array( 'Default', 'Boxed'),
+            // 'template' => '<div class="smart-table testimonials boxed">
+            //                     <dl class="smart-cell">
+            //                         <dt>Love it!</dt>
+            //                         <dd>I absolutely love this company and their work.</dd>
+            //                         <dd class="emphasis">- Joan Rivers</dd>
+            //                         <dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>The best experience ever</dt>
+            //                         <dd>We stayed with them for our birthday celebration and the ambience and service were absolutely top-notch. Recommend this place to everyone thats looking for a quiet getaway.</dd>
+            //                         <dd class="emphasis">- Henry Ford</dd>
+            //                     </dl>
+            //                     <dl class="smart-cell">
+            //                         <dt>Look No Further...</dt>
+            //                         <dd>An end to end solution for all our business needs with excellent support.</dd>
+            //                         <dd class="emphasis">- Tom Petty</dd>
+            //                     </dl>
+            //                     <div class="add-another">
+            //                         <span class="bicon icon-uniF193"></span>
+            //                         Add Another Item
+            //                     </div>
+            //                 </div>'
         )
     ),
     'Social' => array(
@@ -3555,7 +3666,14 @@ $base_element_templates = array(
             'name' => 'Room Summary New',
             'template' => '<div class="room-img"><a style="background: url({{image_url}}) no-repeat center center;"></a></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">Total: {{no_of_rooms}}<small> rooms</small></div><button class="btn btn-room">View Details</button></div>'
         )
-    )
+    ),
+    'Spacer' => array(
+            array( 'name' => 'Default', 'value' => 'default' ),
+            array( 'name' => 'Style 1', 'value' => 'style-1' ),
+            array( 'name' => 'Style 2', 'value' => 'style-2' ),
+            array( 'name' => 'Style 3', 'value' => 'style-3' )  
+        )
+    
 );
 
 /**

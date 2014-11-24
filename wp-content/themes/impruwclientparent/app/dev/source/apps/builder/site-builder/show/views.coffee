@@ -1,6 +1,7 @@
 define [ 'app'
          'text!apps/builder/site-builder/show/templates/maintemplate.html'
-         'moment' ], ( App, mainviewTpl, moment )->
+         'moment' 
+         'bootbox'], ( App, mainviewTpl, moment ,bootbox)->
 
    App.module 'SiteBuilderApp.Show.View', ( View, App, Backbone, Marionette, $, _ )->
 
@@ -12,6 +13,7 @@ define [ 'app'
 
          collectionEvents :
             "add" : "addPageDropDown"
+            'remove' : 'removePageDropDown'
 
          templateHelpers : ( data = {} )->
             data.DASHBOARDURL = DASHBOARDURL
@@ -39,6 +41,7 @@ define [ 'app'
                App.vent.trigger "change:page:check:single:room"
                @changePreviewLinkUrl()
                @displayPageNameForUpdate()
+               @showHideDeletePageBtn()
                @$el.find('.aj-imp-builder-drag-drop').fadeOut 'fast', -> App.resetElementRegistry()
                
 
@@ -48,6 +51,18 @@ define [ 'app'
             'click .add-new-page' : ->
                @trigger "add:new:page:clicked"
 
+            'click .delete-page': (e)->
+               e.preventDefault()
+               if ISFRONTPAGE
+                  bootbox.alert _.polyglot.t 'Sorry you cannot delete your home page. 
+                     You can change the layout of this page to suit your needs.'
+               else
+                  bootbox.confirm _.polyglot.t('Deleting a page might lead to broken links if the page is 
+                     linked on the website. Once deleted, you will not be able to recover the page. Are 
+                     you sure you want to continue to delete the page?'), (result)=>
+                     if result
+                        @trigger 'delete:page:clicked'
+
             'click .btn-update-pg-name' : ->
                currentPageId = @getCurrentPageId()
                updatedPageName = @$el.find( '#page_name' ).val()
@@ -55,6 +70,14 @@ define [ 'app'
                   'post_title' : updatedPageName
                   'ID' : currentPageId
                @trigger "update:page:name", data
+
+            'click .btn-update-pg-slug' : ->
+               currentPageId = @getCurrentPageId()
+               updatedPageSlug = @$el.find( '.page-slug-edit' ).val()
+               data =
+                  'post_name' : updatedPageSlug
+                  'ID' : currentPageId
+               @trigger "update:page:slug", data
 
             'click #take-over-button' : 'takeOverPage'
 
@@ -64,6 +87,16 @@ define [ 'app'
          onPageRenderError : ->
             @$el.empty()   
             @$el.fadeIn()
+
+         onPageSlugUpdated : (slugName)->
+            @$el.find( '.page-slug-edit' ).val slugName
+
+         showHideDeletePageBtn : ->
+            if @getCurrentPageName() in UNDELETABLE_PAGES
+               @$el.find('.delete-page').addClass 'hide'
+            else
+               @$el.find('.delete-page').removeClass 'hide'
+
 
 
          handleWindowEvents : ->
@@ -107,17 +140,15 @@ define [ 'app'
                if modelId == @new_page_id and model.get('post_name') not in ['full-width-page']
                   page_name = model.get 'post_title'
                   select_html = "<option value='"+modelId+"' data-originalid='"+originalPageId+"'>#{page_name}</option>"
-                  selectpicker_html = "<li rel='#{index}'>
-                                            <a tabindex='0' class='' style=''>
-                                                <span class='text'>#{page_name}</span>
-                                                <i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
-                                            </a>
-                                        </li>"
-                  @$el.find( 'select#builder-page-sel' )
-                     .parent().find('div .dropdown-menu ul' ).append( selectpicker_html )
+                 
                   @$el.find( 'select#builder-page-sel' ).append( select_html )
+                  @$el.find( 'select#builder-page-sel' ).selectpicker 'refresh'
 
             @enableSelectPicker()
+
+         removePageDropDown : (model)=>
+            @$el.find( 'select#builder-page-sel' ).find("option[data-originalid='#{model.get('original_id')}']").remove()
+            @$el.find( 'select#builder-page-sel' ).selectpicker 'refresh'
 
          initialize : ->
             @currentPageId = 0
@@ -173,6 +204,8 @@ define [ 'app'
                
                @$el.find( 'select#builder-page-sel-lock,select#builder-page-sel' ).selectpicker 'val', pageId
 
+               @$el.find( 'select#builder-page-sel-lock,select#builder-page-sel' ).selectpicker 'refresh'
+
                @_addToPageSlug pageId
                
                @changePreviewLinkUrl()
@@ -189,12 +222,12 @@ define [ 'app'
 
          _addToPageSlug : (pageId)=>
             page = App.request "get:fetched:page", pageId
-            toArray = $('.page-slug-edit').val().split('/')
-            newUrl = toArray.pop()
+            # toArray = $('.page-slug-edit').val().split('/')
+            # newUrl = toArray.pop()
             #newUrl = toArray.pop()
-            newUrl = toArray.push page.get 'post_name'
-            newUrl = toArray.join '/'
-            $('.page-slug-edit').val newUrl
+            # newUrl = toArray.push page.get 'post_name'
+            # newUrl = toArray.join '/'
+            $('.page-slug-edit').val page.get 'post_name'
 
          #set the selectpicker for the drop down
          enableSelectPicker : =>
@@ -236,28 +269,29 @@ define [ 'app'
 
          #display the page name in the textbox
          displayPageNameForUpdate : ->
-            @$el.find( '#page_name' ).removeAttr 'readonly'
-            @$el.find( '.btn-update-pg-name' ).removeAttr 'disabled'
+            @$el.find( '#page_name, .page-slug-edit' ).removeAttr 'readonly'
+            @$el.find( '.btn-update-pg-name, .btn-update-pg-slug' ).removeAttr 'disabled'
 
             currentPageName = @getCurrentPageName()
-            singleRoom = @isSingleRoomPage()
+            singleRoom = @isUnEditablePage()
 
             if singleRoom is true
-               @$el.find( '#page_name' ).attr 'readonly', 'readonly'
-               @$el.find( '.btn-update-pg-name' ).attr 'disabled', 'disabled'
+               @$el.find( '#page_name , .page-slug-edit' ).attr 'readonly', 'readonly'
+               @$el.find( '.btn-update-pg-name, .btn-update-pg-slug' ).attr 'disabled', 'disabled'
 
             @$el.find( '#page_name' ).val currentPageName
 
-         isSingleRoomPage : ->
+         isUnEditablePage : ->
             pageName = App.request "get:current:editable:page:name"
             page = false
-            if pageName is 'Single Room'
+            if pageName in UNDELETABLE_PAGES
                page = true
             page
 
 
          onPageNameUpdated : ( pageModel )->
             page_name = pageModel.get 'post_title'
+            @$el.find( '#page_name' ).val page_name
             page_id = pageModel.get 'ID'
             @$el.find( 'div .dropdown-menu ul .selected .text' ).text( page_name )
             @$el.find( 'div .btn-group .filter-option' ).text( page_name )
@@ -365,8 +399,14 @@ define [ 'app'
                      <footer id="site-footer-region" class="droppable-column edit-lock"></footer>'
 
          events : 
-            'click .headit' :->
-               $( 'select#builder-page-sel' ).selectpicker 'val', parseInt @model.get 'front_page'
+            'click .edit-home-btn' :->
+               bootbox.confirm 'Do you wish to switch to homepage?',(res)=>
+                  if res 
+                     @onShowHomePage()
+
+         onShowHomePage :->
+            $( 'select#builder-page-sel' ).selectpicker 'val', parseInt @model.get 'front_page'
+            $( 'select#builder-page-sel' ).selectpicker 'refresh'
 
          onRetryEditPageClicked : =>
             App.commands.execute 'editable:page:changed', @model.get 'page_id'
@@ -406,8 +446,8 @@ define [ 'app'
                @$el.find('#site-header-region, #site-footer-region').removeClass 'edit-lock'
             
 
-            @$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div></div></div>')
-            @$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div></div></div>')
+            @$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div><button class="btn btn-default btn-xs aj-imp-orange-btn edit-home-btn">Edit Homepage</button></div></div>')
+            @$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div><button class="btn btn-default btn-xs aj-imp-orange-btn edit-home-btn">Edit Homepage</button></div></div>')
 
 
          _getHelper : (evt,original)=>

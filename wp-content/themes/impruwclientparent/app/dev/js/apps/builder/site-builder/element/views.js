@@ -82,9 +82,11 @@ define(['app'], function(App, elementTpl) {
 
       ElementView.prototype._noOptions = function() {
         var nosettings;
-        nosettings = ['Logo', 'Text', 'Title', 'Gallery'];
-        if (nosettings.indexOf(this.model.get('element')) !== -1) {
-          return this.$el.children('.element-controls').children('.aj-imp-settings-btn').remove();
+        if (ISTHEMEEDITOR === 'no') {
+          nosettings = ['Logo', 'Text', 'Title', 'Gallery', 'ContactForm', 'RoomFacilities', 'RoomTitle', 'RoomDescription', 'RoomTariff', 'RoomBooking', 'Map'];
+          if (nosettings.indexOf(this.model.get('element')) !== -1) {
+            return this.$el.children('.element-controls').children('.aj-imp-settings-btn').remove();
+          }
         }
       };
 

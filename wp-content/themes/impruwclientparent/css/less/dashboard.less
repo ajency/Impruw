@@ -2764,6 +2764,7 @@ form {
 						max-width: 300px;
 						white-space: normal;
 						margin-right: 0.5em;
+						vertical-align: top;
 						.package-header {
 							background: lighten(@dash-grey, 10%);
 							padding: 0.5em;
@@ -2838,7 +2839,7 @@ form {
 								}
 							}
 							&.empty {
-								height: 139px;
+								height: 136px;
 								text-align: center;
 								color: @dash-grey;
 								.no-data {
@@ -2853,6 +2854,15 @@ form {
 								}
 								.tariff-label {
 									text-align: center;
+								}
+							}
+							&.common-plan {
+								text-align: center;
+								padding-top: 1em;
+								min-height: 136px;
+								.weekday, .weekend {
+									width: 100%;
+									margin-right: 0;
 								}
 							}
 							&:hover {
@@ -4307,6 +4317,31 @@ form {
 	}
 	.table {
 		margin-bottom: 0;
+	}
+	.translated-smart-table, .original-smart-table {
+		form {
+			margin: 0;
+			padding: 0;
+			border: 0;
+		}
+		&.in {
+			padding-bottom: 30px;
+		}
+		.smart-collapse {
+			cursor: pointer;
+			display: inline-block;
+			margin-left: 1em;
+			font-size: 0.5em;
+			text-transform: capitalize;
+		}
+		.smart-cell {
+			border-left: 1px solid lighten(@dash-grey, 20%);
+			padding: 0.5em;
+			margin-bottom: 0.5em;
+			&:hover {
+				border-color: @blue-grey;
+			}
+		}
 	}
 }
 

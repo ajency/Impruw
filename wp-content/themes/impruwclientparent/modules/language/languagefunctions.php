@@ -222,6 +222,7 @@ function get_page_by_lang($page_id,$language){
     $data['pageTitle'] = $page->post_title;
     $data['pageId'] = $page_id;
     $data['language'] = $language_name;
+    $data['pageUrl'] = $page->post_name;
 
     return $data;
 }
@@ -257,6 +258,24 @@ function get_page_table_elements($page_id){
             get_row_table_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Table')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;    
+}
+
+//Function to get all page smart table elements
+function get_page_smarttable_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+
+    $elements = array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_smarttable_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('SmartTable')))
                 $elements[] = $element;
         }
     }
@@ -359,6 +378,20 @@ function get_row_table_elements( $row_element, &$elements ){
     }
 }
 
+function get_row_smarttable_elements( $row_element, &$elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( $element[ 'element' ] === 'Row' ) {
+                get_row_smarttable_elements( $element,$elements );
+            } else {
+                if(in_array($element[ 'element'] , array('SmartTable')))
+                    $elements[] = $element;
+            }
+        }
+    }
+}
+
 function get_row_slider_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
@@ -384,8 +417,11 @@ add_filter( 'wp_nav_menu_objects', 'impruw_filter_menu_class', 10, 2 );
 function impruw_filter_menu_class( $objects, $args ) {
 
     $current_language = wpml_get_current_language();
+     foreach ( $objects as $i => $object ) {
 
-    foreach ( $objects as $i => $object ) {
+        if($object->type === 'custom')
+            continue;
+
         $item_page_id = $objects[$i]->object_id;
 
         $translated_item_page_id = icl_object_id($item_page_id, 'page', true, $current_language);
@@ -400,10 +436,6 @@ function impruw_filter_menu_class( $objects, $args ) {
         $objects[$i]->title = $translated_menu_item_page_title;
 
     }
-
-//    echo "<pre>";
-//    print_r($objects);
-//    echo "<pre>";
 
     return $objects;
 
@@ -491,6 +523,30 @@ function get_native_language_name($language_code){
     $language_details =  $sitepress->get_language_details($language_code);
     $native_language_name = $language_details['display_name'];
     return $native_language_name;
+}
+
+function get_builder_uneditable_pages(){
+    $language_code = wpml_get_default_language();
+
+    $uneditable_page_title = array();
+    switch ($language_code) {
+        case 'en':
+            $uneditable_page_title = array('Home','Rooms','Single Room','Contact Us');
+            break;
+        case 'nb':
+            $uneditable_page_title = array('Hjem','rom','Enkeltrom','Kontakt oss');
+            break; 
+        
+        default:
+            $uneditable_page_title = array('Home','Rooms','Single Room','Contact Us');
+            break;
+    }
+    return $uneditable_page_title;
+}
+
+function get_dashboard_uneditable_pages(){
+    $uneditable_page_title = array('Home','Rooms','Single Room','Contact Us','Hjem','rom','Enkeltrom','Kontakt oss');
+    return $uneditable_page_title;
 }
 
 function get_single_room_page_title(){

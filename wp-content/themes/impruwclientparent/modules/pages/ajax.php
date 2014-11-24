@@ -43,6 +43,10 @@ function create_page_ajax() {
     //unset action param
     unset( $data[ 'action' ] );
 
+    global $wpdb;
+    $all_names = $wpdb->get_col( "SELECT post_title FROM {$wpdb->posts} WHERE post_type = 'page'" );
+    $data['post_title'] = impruw_page_find_alternate_name( $all_names, $data['post_title'] );
+
     $is_theme_template = $data['is_theme_template'] == 'true'? true : false;
    
 
@@ -223,10 +227,25 @@ add_action( 'wp_ajax_read-page', 'ajax_read_page' );
  * Function to update the name of a page
  */
 function ajax_update_page() {
+    global $wpdb;
     $page_id = $_POST[ 'ID' ];
-    $page_name = $_POST[ 'post_title' ];
-
-    wp_update_post( array( 'ID' => $page_id, 'post_title' => $page_name ) );
+    if (isset($_POST[ 'post_title'] )){
+        $page_name = $_POST[ 'post_title' ];
+        $all_names = $wpdb->get_col( "SELECT post_title FROM {$wpdb->posts} WHERE post_type = 'page'" );
+        $page_name = impruw_page_find_alternate_name( $all_names, $page_name );
+        remove_action( 'post_updated', 'wp_save_post_revision', 10, 1 );
+        wp_update_post( array( 'ID' => $page_id, 'post_title' => $page_name ) );
+        add_action( 'post_updated', 'wp_save_post_revision', 10, 1 );
+    }
+    elseif ( isset( $_POST[ 'post_name' ] ) ) {
+        $page_slug = $_POST[ 'post_name' ];
+        
+        $page_slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $page_slug);
+        $all_names = $wpdb->get_col( "SELECT post_name FROM {$wpdb->posts} WHERE post_type = 'page'" );
+        // print_r($all_names);
+        $page_slug = impruw_page_find_alternate_name( $all_names, $page_slug );
+        $wpdb->update( $wpdb->posts, array(  'post_name' => $page_slug ), array( 'ID' => $page_id ) );
+    }
 
     $page_data = get_post( $page_id, ARRAY_A );
 
@@ -244,4 +263,30 @@ function take_over_page_editing(){
     wp_send_json(1);
 }
 add_action('wp_ajax_take_over_page_editing', 'take_over_page_editing');
+
+
+function impruw_delete_page(){
+    $page_id = $_POST['page_id'];
+    $response = delete_page_all_data( $page_id );
+    wp_send_json( array( 'code' => 'OK', 'data' => $page_id ) );
+}
+add_action('wp_ajax_impruw-delete-page','impruw_delete_page');
+// add_action('wp_ajax_nopriv_delete-page','impruw_delete_page1');
+
+function impruw_page_find_alternate_name($value_array, $value){
+    if ( !in_array( $value, $value_array )){
+            $new_value = $value;
+    }
+    else{
+        $i = 1;
+        do {
+            
+            $new_value = $value . '-' . $i;
+            $i++;
+        } while ( in_array( $new_value, $value_array ));
+    }
+    return $new_value;
+}
+
+
 

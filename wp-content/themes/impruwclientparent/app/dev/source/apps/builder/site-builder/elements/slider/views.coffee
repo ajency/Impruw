@@ -32,6 +32,9 @@ define ['app'], (App)->
                     .attr 'data-masterspeed', '500'
                     .attr 'data-transition', Marionette.getOption @,'slide_transition'
 
+                @$el.find('.tp-caption .caption-hover').parent().addClass 'caption-hover'
+                @$el.find('.tp-caption .caption-hover').removeClass 'caption-hover'
+
 
             modelEvents : 
                 'change:thumb_url change:full_url' : (model)->

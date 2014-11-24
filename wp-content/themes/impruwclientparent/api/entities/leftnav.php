@@ -129,17 +129,7 @@ function get_elementbox_elements() {
             'element' => 'Menu',
             'icon' => 'bicon icon-uniF14E',
             'helpText' => 'Click on the menu item to add and remove pages from the menu.',
-            'styles' => get_styles( 'Menu' ),
-            'site_menus' => array(
-                array(
-                    'menu_id' => 2,
-                    'menu_name' => 'Main Menu'
-                ),
-                array(
-                    'menu_id' => 3,
-                    'menu_name' => 'Footer menu'
-                )
-            )
+            'styles' => get_styles( 'Menu' )
         ),
         array(
             'element' => 'Row',
@@ -211,7 +201,8 @@ function get_elementbox_elements() {
             'element' => 'Link',
             'icon' => 'bicon icon-uniF149',
             'helpText' => 'Add a text link or turn it into a button. Connect people to other pages on your site, pages on other sites, email addresses and files that they may want to download.',
-            'styles' => get_styles( 'Link' )
+            'styles' => get_styles( 'Link' ),
+            'link_pages' => get_all_link_pages()
         ),
         array(
             'element' => 'ContactForm',
@@ -297,8 +288,21 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF101',
             'helpText' => 'Showcase your plans, tariff and availability for particular dates using the booking calendar.',
             'category' => 'room'
+        ),
+        array(
+            'element' => 'Spacer',
+            'title' => 'Horizontal Space',
+            'icon' => 'bicon icon-uniF105',
+            'styles' => get_styles( 'Spacer' ),
+            'helpText' => 'Add a horizontal space between content, you can change the height and type of the space.'
+        ),
+        array(
+            'element' => 'SmartTable',
+            'title' => 'Smart Table',
+            'icon' => 'bicon icon-uniF142',
+            'helpText' => 'help text to be added',
+            'styles' => get_styles( 'SmartTable' )
         )
-        
     );
 
     return $elements;
@@ -433,10 +437,8 @@ function get_element_model( $element ) {
     switch ( $element ) {
 
         case 'Menu' :
-            $model = array(
-                'style' => 'Slimmenu',
-                'menu_id' => 2
-            );
+            $model = array();
+            break;
         case 'Logo' :
             $model = array(
                 'style' => 'header',
@@ -842,3 +844,13 @@ function impruw_error_encountered(){
 }
 add_action( 'wp_ajax_impruw_error_encountered', 'impruw_error_encountered' );
 add_action( 'wp_ajax_nopriv_impruw_error_encountered', 'impruw_error_encountered' );
+
+
+function  get_all_link_pages(){
+    $rooms = get_all_rooms();
+    $pages = get_all_menu_pages();
+    $link_pages = array();
+    $link_pages = array_merge($rooms, $pages);
+
+    return $link_pages;
+}

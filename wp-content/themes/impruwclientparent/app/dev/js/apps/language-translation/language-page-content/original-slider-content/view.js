@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return OriginalSlideItemView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalSlideItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Caption</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{{captionTitle}}} </div> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Description</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original text"> {{captionDesc}} </div> </div> </div> </div> </div>';
+      OriginalSlideItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Caption</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{{captionTitle}}} </div> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Description</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original text"> {{{captionDesc}}} </div> </div> </div> </div> </div>';
 
       OriginalSlideItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalSlideItemView.__super__.mixinTemplateHelpers.call(this, data);

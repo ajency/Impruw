@@ -61,6 +61,7 @@
     var _RVNONCE = '<?php echo wp_create_nonce("revslider_actions"); ?>';
     var APPSTATE = <?php echo impruw_app_model() ?>;
     var STATISTICS = '<?php echo get_option('statistics_enabled', 'false'); ?>';
+    var UNDELETABLE_PAGES = <?php echo json_encode(get_dashboard_uneditable_pages()); ?>
 
     /************************* Bootstrap Data *************************/
     var PLANS = <?php echo json_encode(get_plans()); ?>;

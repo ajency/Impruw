@@ -183,6 +183,14 @@ define ['app'
                                                         </label>
                                                     </div>
                                                 </div>
+                                                <div class="form-group caption-exist">
+                                                    <div class="col-sm-9 col-sm-offset-3">
+                                                        <label for="" class="control-label checkbox">
+                                                            <input type="checkbox" class="hover-check" name="hoverClass"/>
+                                                            {{#polyglot}}Show on hover{{/polyglot}}
+                                                        </label>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group">
                                                     <div class="col-sm-9 col-sm-offset-3">
                                                         <button type="button" class="btn btn-xs aj-imp-orange-btn save-slide-layer" >{{#polyglot}}Save Caption{{/polyglot}}</button>
@@ -334,18 +342,22 @@ define ['app'
                     # console.log captionHtml
                     # console.log "abc_#{$(captionHtml).first().find('a').first().html()}"
 
+                    if $(captionHtml).first().hasClass 'caption-hover'
+                        @$el.find('input.hover-check').radiocheck('check')
+
                     if $(captionHtml).first().find('a').length
-                        @$el.find('.caption-title').val $(captionHtml).first().find('a').first().html()
+                        @$el.find('.caption-title').val _.unescape $(captionHtml).first().find('a').first().html()
                         @$el.find('.caption-link').val $(captionHtml).first().find('a').first().attr 'href'
                         @$el.find('input.link-check').radiocheck('check')
                         @$el.find('input.link-target').radiocheck('check') if $(captionHtml).first().find('a').first().attr('target') is '_blank'
                     else 
                         @$el.find('.form-group.link-hide').addClass('hide')
-                        @$el.find('.caption-title').val $(captionHtml).first().html()
+                        @$el.find('.caption-title').val _.unescape $(captionHtml).first().html()
                         @$el.find('.caption-link').val ''
 
-                    @$el.find('.caption-description').val $(captionHtml).last().html()
-                    @$el.find('.caption-style').selectpicker 'val',$(captionHtml).first().attr 'class'
+                    @$el.find('.caption-description').val _.unescape $(captionHtml).last().html()
+                    $(captionHtml).first().removeClass 'caption-hover'
+                    @$el.find('.caption-style').selectpicker 'val', $(captionHtml).first().attr('class')
                     @$el.find('.caption-background').selectpicker 'val',caption.style
                     @$el.find("input[name='position'][value='#{caption.left},#{caption.top}']").prop 'checked',true
                 else
@@ -365,7 +377,10 @@ define ['app'
                     else
                         data = @layerDefault()
 
-                    data.text = "<h3 class='#{@$el.find('.caption-style').val()}' id='revslide-caption-title'>"
+                    data.text = "<h3 class='#{@$el.find('.caption-style').val()}"
+                    if @$el.find('input.hover-check').is(':checked')
+                        data.text += " caption-hover "
+                    data.text += "' id='revslide-caption-title'>"
                     if @$el.find('input.link-check').is(':checked')
                         data.text += "<a href='#{@$el.find('.caption-link').val()}'" 
                         data.text += if @$el.find('input.link-target').is(':checked') then "target='_blank'>" else "target='_self'>"

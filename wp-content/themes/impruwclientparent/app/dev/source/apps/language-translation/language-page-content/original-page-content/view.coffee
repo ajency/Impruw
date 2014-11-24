@@ -54,4 +54,6 @@ define ['app'
             serializeData: ()->
                 data = super()
                 data.language = _.polyglot.t(data.language)
+                data.SITEURL = window.SITEURL
                 data
+

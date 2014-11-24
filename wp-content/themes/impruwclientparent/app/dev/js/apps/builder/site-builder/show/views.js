@@ -1,8 +1,9 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'moment'], function(App, mainviewTpl, moment) {
+define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'moment', 'bootbox'], function(App, mainviewTpl, moment, bootbox) {
   return App.module('SiteBuilderApp.Show.View', function(View, App, Backbone, Marionette, $, _) {
     var NoRevisionView, RevisionView, SingleRevision;
     View.MainView = (function(_super) {
@@ -17,6 +18,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.getOriginalPageId = __bind(this.getOriginalPageId, this);
         this.getCurrentPageId = __bind(this.getCurrentPageId, this);
         this.getCurrentPageName = __bind(this.getCurrentPageName, this);
+        this.removePageDropDown = __bind(this.removePageDropDown, this);
         this.addPageDropDown = __bind(this.addPageDropDown, this);
         this.windowBeforeUnloadHandler = __bind(this.windowBeforeUnloadHandler, this);
         this.windowUnloadHandler = __bind(this.windowUnloadHandler, this);
@@ -28,7 +30,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.className = 'aj-imp-builder-area';
 
       MainView.prototype.collectionEvents = {
-        "add": "addPageDropDown"
+        "add": "addPageDropDown",
+        'remove': 'removePageDropDown'
       };
 
       MainView.prototype.templateHelpers = function(data) {
@@ -64,6 +67,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           App.vent.trigger("change:page:check:single:room");
           this.changePreviewLinkUrl();
           this.displayPageNameForUpdate();
+          this.showHideDeletePageBtn();
           return this.$el.find('.aj-imp-builder-drag-drop').fadeOut('fast', function() {
             return App.resetElementRegistry();
           });
@@ -73,6 +77,20 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         },
         'click .add-new-page': function() {
           return this.trigger("add:new:page:clicked");
+        },
+        'click .delete-page': function(e) {
+          e.preventDefault();
+          if (ISFRONTPAGE) {
+            return bootbox.alert(_.polyglot.t('Sorry you cannot delete your home page. You can change the layout of this page to suit your needs.'));
+          } else {
+            return bootbox.confirm(_.polyglot.t('Deleting a page might lead to broken links if the page is linked on the website. Once deleted, you will not be able to recover the page. Are you sure you want to continue to delete the page?'), (function(_this) {
+              return function(result) {
+                if (result) {
+                  return _this.trigger('delete:page:clicked');
+                }
+              };
+            })(this));
+          }
         },
         'click .btn-update-pg-name': function() {
           var currentPageId, data, updatedPageName;
@@ -84,6 +102,16 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           };
           return this.trigger("update:page:name", data);
         },
+        'click .btn-update-pg-slug': function() {
+          var currentPageId, data, updatedPageSlug;
+          currentPageId = this.getCurrentPageId();
+          updatedPageSlug = this.$el.find('.page-slug-edit').val();
+          data = {
+            'post_name': updatedPageSlug,
+            'ID': currentPageId
+          };
+          return this.trigger("update:page:slug", data);
+        },
         'click #take-over-button': 'takeOverPage'
       };
 
@@ -94,6 +122,19 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.onPageRenderError = function() {
         this.$el.empty();
         return this.$el.fadeIn();
+      };
+
+      MainView.prototype.onPageSlugUpdated = function(slugName) {
+        return this.$el.find('.page-slug-edit').val(slugName);
+      };
+
+      MainView.prototype.showHideDeletePageBtn = function() {
+        var _ref;
+        if (_ref = this.getCurrentPageName(), __indexOf.call(UNDELETABLE_PAGES, _ref) >= 0) {
+          return this.$el.find('.delete-page').addClass('hide');
+        } else {
+          return this.$el.find('.delete-page').removeClass('hide');
+        }
       };
 
       MainView.prototype.handleWindowEvents = function() {
@@ -139,19 +180,23 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.new_page_id = this.modelAddedToCollection.get('ID');
         _.each(this.collection.models, (function(_this) {
           return function(model, index) {
-            var modelId, originalPageId, page_name, select_html, selectpicker_html, _ref;
+            var modelId, originalPageId, page_name, select_html, _ref;
             modelId = model.get('ID');
             originalPageId = model.get('original_id');
             if (modelId === _this.new_page_id && ((_ref = model.get('post_name')) !== 'full-width-page')) {
               page_name = model.get('post_title');
               select_html = "<option value='" + modelId + "' data-originalid='" + originalPageId + ("'>" + page_name + "</option>");
-              selectpicker_html = "<li rel='" + index + "'> <a tabindex='0' class='' style=''> <span class='text'>" + page_name + "</span> <i class='glyphicon glyphicon-ok icon-ok check-mark'></i> </a> </li>";
-              _this.$el.find('select#builder-page-sel').parent().find('div .dropdown-menu ul').append(selectpicker_html);
-              return _this.$el.find('select#builder-page-sel').append(select_html);
+              _this.$el.find('select#builder-page-sel').append(select_html);
+              return _this.$el.find('select#builder-page-sel').selectpicker('refresh');
             }
           };
         })(this));
         return this.enableSelectPicker();
+      };
+
+      MainView.prototype.removePageDropDown = function(model) {
+        this.$el.find('select#builder-page-sel').find("option[data-originalid='" + (model.get('original_id')) + "']").remove();
+        return this.$el.find('select#builder-page-sel').selectpicker('refresh');
       };
 
       MainView.prototype.initialize = function() {
@@ -205,6 +250,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
               pageId = _this.$el.find('select#builder-page-sel').selectpicker('val');
             }
             _this.$el.find('select#builder-page-sel-lock,select#builder-page-sel').selectpicker('val', pageId);
+            _this.$el.find('select#builder-page-sel-lock,select#builder-page-sel').selectpicker('refresh');
             _this._addToPageSlug(pageId);
             return _this.changePreviewLinkUrl();
           };
@@ -215,13 +261,9 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype._addToPageSlug = function(pageId) {
-        var newUrl, page, toArray;
+        var page;
         page = App.request("get:fetched:page", pageId);
-        toArray = $('.page-slug-edit').val().split('/');
-        newUrl = toArray.pop();
-        newUrl = toArray.push(page.get('post_name'));
-        newUrl = toArray.join('/');
-        return $('.page-slug-edit').val(newUrl);
+        return $('.page-slug-edit').val(page.get('post_name'));
       };
 
       MainView.prototype.enableSelectPicker = function() {
@@ -266,22 +308,22 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       MainView.prototype.displayPageNameForUpdate = function() {
         var currentPageName, singleRoom;
-        this.$el.find('#page_name').removeAttr('readonly');
-        this.$el.find('.btn-update-pg-name').removeAttr('disabled');
+        this.$el.find('#page_name, .page-slug-edit').removeAttr('readonly');
+        this.$el.find('.btn-update-pg-name, .btn-update-pg-slug').removeAttr('disabled');
         currentPageName = this.getCurrentPageName();
-        singleRoom = this.isSingleRoomPage();
+        singleRoom = this.isUnEditablePage();
         if (singleRoom === true) {
-          this.$el.find('#page_name').attr('readonly', 'readonly');
-          this.$el.find('.btn-update-pg-name').attr('disabled', 'disabled');
+          this.$el.find('#page_name , .page-slug-edit').attr('readonly', 'readonly');
+          this.$el.find('.btn-update-pg-name, .btn-update-pg-slug').attr('disabled', 'disabled');
         }
         return this.$el.find('#page_name').val(currentPageName);
       };
 
-      MainView.prototype.isSingleRoomPage = function() {
+      MainView.prototype.isUnEditablePage = function() {
         var page, pageName;
         pageName = App.request("get:current:editable:page:name");
         page = false;
-        if (pageName === 'Single Room') {
+        if (__indexOf.call(UNDELETABLE_PAGES, pageName) >= 0) {
           page = true;
         }
         return page;
@@ -290,6 +332,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.onPageNameUpdated = function(pageModel) {
         var page_id, page_name;
         page_name = pageModel.get('post_title');
+        this.$el.find('#page_name').val(page_name);
         page_id = pageModel.get('ID');
         this.$el.find('div .dropdown-menu ul .selected .text').text(page_name);
         this.$el.find('div .btn-group .filter-option').text(page_name);
@@ -425,9 +468,20 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       Builder.prototype.template = '<header id="site-header-region" class="droppable-column edit-lock"></header> <div id="site-page-content-region" class="droppable-column"></div> <footer id="site-footer-region" class="droppable-column edit-lock"></footer>';
 
       Builder.prototype.events = {
-        'click .headit': function() {
-          return $('select#builder-page-sel').selectpicker('val', parseInt(this.model.get('front_page')));
+        'click .edit-home-btn': function() {
+          return bootbox.confirm('Do you wish to switch to homepage?', (function(_this) {
+            return function(res) {
+              if (res) {
+                return _this.onShowHomePage();
+              }
+            };
+          })(this));
         }
+      };
+
+      Builder.prototype.onShowHomePage = function() {
+        $('select#builder-page-sel').selectpicker('val', parseInt(this.model.get('front_page')));
+        return $('select#builder-page-sel').selectpicker('refresh');
       };
 
       Builder.prototype.onRetryEditPageClicked = function() {
@@ -464,8 +518,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         if (this.model.get('is_home_page')) {
           this.$el.find('#site-header-region, #site-footer-region').removeClass('edit-lock');
         }
-        this.$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div></div></div>');
-        return this.$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div></div></div>');
+        this.$el.find('#site-header-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Header is Locked<div class="headit">Edit the Header from Your Homepage</div><button class="btn btn-default btn-xs aj-imp-orange-btn edit-home-btn">Edit Homepage</button></div></div>');
+        return this.$el.find('#site-footer-region.edit-lock').append('<div class="edit-unlock"><div class="unlock-message"><span class="bicon icon-uniF180"></span>Your Footer is Locked<div class="headit">Edit the Footer from Your Homepage</div><button class="btn btn-default btn-xs aj-imp-orange-btn edit-home-btn">Edit Homepage</button></div></div>');
       };
 
       Builder.prototype._getHelper = function(evt, original) {

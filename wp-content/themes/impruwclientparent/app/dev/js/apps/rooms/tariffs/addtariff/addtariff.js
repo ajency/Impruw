@@ -14,27 +14,30 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
       }
 
       AddTariffController.prototype.initialize = function(opt) {
-        var currentCurrency, sitemodel, tariff, tariffView;
+        var sitemodel, tariff;
         if (!opt.model) {
           tariff = App.request("get:tariff", opt.tariffId);
         } else {
           tariff = opt.model;
         }
         sitemodel = App.request("get:site:model");
-        currentCurrency = sitemodel.get('currency');
-        this.tariffView = tariffView = this._getAddTariffView(tariff, currentCurrency);
-        this.listenTo(tariffView, "add:tariff", (function(_this) {
-          return function(data) {
-            tariff.set(data);
-            return tariff.save(null, {
-              wait: true,
-              success: _this.tariffSaved
+        return App.execute("when:fetched", sitemodel, (function(_this) {
+          return function() {
+            var currentCurrency, tariffView;
+            currentCurrency = sitemodel.get('currency');
+            _this.tariffView = tariffView = _this._getAddTariffView(tariff, currentCurrency);
+            _this.listenTo(tariffView, "add:tariff", function(data) {
+              tariff.set(data);
+              return tariff.save(null, {
+                wait: true,
+                success: _this.tariffSaved
+              });
+            });
+            return _this.show(tariffView, {
+              loading: true
             });
           };
         })(this));
-        return this.show(tariffView, {
-          loading: true
-        });
       };
 
       AddTariffController.prototype.tariffSaved = function(tariffModel) {
@@ -66,6 +69,12 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
 
       AddTariffView.prototype.template = addTariffTpl;
 
+      AddTariffView.prototype.mixinTemplateHelpers = function(data) {
+        data = AddTariffView.__super__.mixinTemplateHelpers.call(this, data);
+        data.currency = Marionette.getOption(this, "currency");
+        return data;
+      };
+
       AddTariffView.prototype.dialogOptions = {
         modal_title: _.polyglot.t('Add Tariff'),
         modal_size: 'medium-modal'
@@ -88,7 +97,6 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
 
       AddTariffView.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').radiocheck();
-        this.$el.find('.currency').text(Marionette.getOption(this, "currency"));
         return this.$el.validate();
       };
 

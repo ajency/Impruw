@@ -32,6 +32,10 @@ define ['app'], (App)->
                 html = @$el.html()
                 @editor.setData html
                 @editor.config.placeholder = 'Click here to enter your text...'
+                @$el.trigger 'blur'
+                _.delay =>
+                    @$el.trigger 'focus'
+                ,200
 
 
             # initialize the CKEditor for the text element on show

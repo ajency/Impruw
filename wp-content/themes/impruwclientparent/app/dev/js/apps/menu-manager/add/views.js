@@ -1,4 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app'], function(App) {
@@ -7,42 +8,104 @@ define(['app'], function(App) {
       __extends(MenuItemView, _super);
 
       function MenuItemView() {
+        this.onAddMenuitemSuccess = __bind(this.onAddMenuitemSuccess, this);
+        this.showMissingFieldMessage = __bind(this.showMissingFieldMessage, this);
         return MenuItemView.__super__.constructor.apply(this, arguments);
       }
 
-      MenuItemView.prototype.template = '<div class="aj-imp-add-menu-item"> <h4>{{#polyglot}}Add Menu Item{{/polyglot}}</h4> <p class="desc">{{#polyglot}}Add menu items by clicking on the Add menu item button below. You can edit the order of your menu items from the list on the right. You can only add pages to menu items, to edit the name of the page go back to your site builder and edit the name of page by editing the page title on the top left corner.{{/polyglot}}</p> <div id="{{menu_slug}}-add-menu" class="add-menu-form"> <form class="form-horizontal well"> <div class="form-group"> <label class="col-sm-4 control-label">{{#polyglot}}Menu Link{{/polyglot}}</label> <div class="col-sm-8"> <div class="bootstrap-select"> <select name="page_id" id="page_id"> {{#pages}} <option value="{{ID}}">{{post_title}}</option> {{/pages}} </select> </div> </div> </div> <div class="form-group"> <div class="col-sm-offset-4 col-sm-8"> <!--<input type="hidden" value="{{id}}" name="menu_id"/> --> <button type="button" class="add-menu-item btn btn-xs aj-imp-orange-btn"><span>{{#polyglot}}Add Menu Item{{/polyglot}}</span></button> <input type="reset" id="btn_resetmenu" style="display:none"> </div> </div> </form> </div> </div>';
+      MenuItemView.prototype.template = '<a class="add-menu-toggle" data-toggle="collapse" href="#add-menu-container"><span class="glyphicon glyphicon-plus"></span></a> <div id="add-menu-container" class="aj-imp-add-menu-item collapse"> <div id="{{menu_slug}}-add-menu" class="add-menu-form"> <h4>{{#polyglot}}Add Menu Item{{/polyglot}}</h4> <form class="form-inline"> <div class="form-group"> <label class="control-label">{{#polyglot}}Page Item{{/polyglot}}</label> <div class="bootstrap-select"> <select name="page_id" id="page_id"> <option value="">{{#polyglot}}Choose Page{{/polyglot}}</option> {{#pages}} <option value="{{ID}}">{{post_title}}</option> {{/pages}} </select> </div> </div> <div class="form-group option-or"> <label class="control-label">&nbsp;</label> {{#polyglot}}Or{{/polyglot}} </div> <div class="form-group"> <label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label> <input name="custom-menu-name" class="form-control" placeholder="{{#polyglot}}Custom Menu Name{{/polyglot}}" type="text"> </div> <div class="form-group"> <label class="control-label">{{#polyglot}}URL{{/polyglot}}</label> <input id="custom-menu-url" value="http://" name="custom-menu-url" required class="form-control url" placeholder="{{#polyglot}}Custom Menu URL{{/polyglot}}" type="url"> </div> <div class="form-group"> <label class="control-label">&nbsp;</label> <button type="button" class="add-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Add{{/polyglot}}</span></button> <input type="reset" id="btn_resetmenu" class="hidden"/> </div> </form> </div> </div>';
 
       MenuItemView.prototype.className = 'aj-imp-menu-edit';
 
+      MenuItemView.prototype.ui = {
+        'menuName': 'input[name="custom-menu-name"]',
+        'menuUrl': 'input[name="custom-menu-url"]',
+        'pageId': '#page_id',
+        'resetButton': '#btn_resetmenu',
+        'form': 'form.form-inline',
+        'customUrlField': 'input[name="custom-menu-url"]'
+      };
+
       MenuItemView.prototype.events = {
-        'click .add-menu-item': function() {
-          var data, pageId, pageName;
-          pageId = this.$el.find('#page_id').val();
-          pageName = this.$el.find('#page_id option:selected').text();
-          data = {
-            'page_id': pageId,
-            'menu_item_title': pageName
-          };
-          return this.trigger("add:menu:item:clicked", data);
+        'change select[name="page_id"]': function() {
+          if (this.$el.find('#page_id').selectpicker('val') !== '') {
+            this.$el.find('input[name="custom-menu-name"],input[name="custom-menu-url"]').val('');
+            return this.$el.find('input[name="custom-menu-url"]').next('.field-error').remove();
+          }
+        },
+        'keypress input[name="custom-menu-name"],input[name="custom-menu-url"]': function() {
+          return this.$el.find('#page_id').selectpicker('val', '');
+        },
+        'click .add-menu-item': 'addMenuItem'
+      };
+
+      MenuItemView.prototype.addMenuItem = function() {
+        var data, pageId;
+        this.$el.find('.alert').remove();
+        data = {};
+        if (this.ui.menuName.val() !== '') {
+          if (!this.ui.customUrlField.valid()) {
+            return;
+          }
+          data['menu-item-title'] = this.ui.menuName.val();
+          data['menu-item-type'] = 'custom';
+          data['menu-item-url'] = this.ui.menuUrl.val();
+        } else {
+          pageId = this.ui.pageId.selectpicker('val');
+          if (pageId === '') {
+            this.showMissingFieldMessage();
+            return;
+          }
+          data['menu-item-object-id'] = pageId;
+          data['menu-item-db-id'] = 0;
+          data['menu-item-object'] = 'page';
+          data['menu-item-parent-id'] = 0;
+          data['menu-item-type'] = 'post_type';
+          data['menu-item-title'] = this.ui.pageId.find('option:selected').text();
         }
+        data['menu-settings-column-nonce'] = window._MENUNONCE;
+        return this.trigger("add:menu:item:clicked", data);
+      };
+
+      MenuItemView.prototype.showMissingFieldMessage = function() {
+        var message;
+        message = _.polyglot.t('Sorry, you need to add the menu name and link for custom menus or you could simply select a page from page item drop down');
+        return this.$el.find('form.form-inline').prepend("<div class='alert alert-danger'>" + message + "</div>");
       };
 
       MenuItemView.prototype.serializeData = function() {
         var data, pages;
         data = MenuItemView.__super__.serializeData.call(this);
         pages = App.request("get:editable:pages");
-        data.pages = pages.toJSON();
+        pages = pages.toJSON();
+        pages = _.reject(pages, function(page) {
+          var title;
+          title = page['post_title'];
+          return title === 'Single Room' || title === 'Enkeltrom';
+        });
+        data.pages = pages;
         return data;
+      };
+
+      MenuItemView.prototype.onAddMenuitemSuccess = function() {
+        return this.ui.resetButton.click();
       };
 
       MenuItemView.prototype.onNewMenuCreated = function() {
         this.$el.find('.alert').remove();
-        this.$el.find('.add-menu-form').prepend('<div class="alert alert-success">New menu added </div>');
+        this.$el.find('.add-menu-form').prepend('<div class="alert alert-success">New menu added</div>');
         return this.$el.find('#btn_resetmenu').click();
       };
 
       MenuItemView.prototype.onShow = function() {
-        return this.$el.find('select[name="page_id"]').selectpicker();
+        this.$el.find('select[name="page_id"]').selectpicker();
+        return this.ui.form.validate({
+          rules: {
+            "custom-menu-url": {
+              url2: true
+            }
+          }
+        });
       };
 
       return MenuItemView;

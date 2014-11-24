@@ -19,6 +19,8 @@ define(['app', 'text!apps/language-translation/language-page-content/templates/l
         translatedPageContent: ".translated-page-content",
         originalTableContent: ".original-table-content",
         translatedTableContent: ".translated-table-content",
+        originalSmartTable: ".original-smart-table",
+        translatedSmartTable: ".translated-smart-table",
         originalSliderContent: ".original-slider-content",
         translatedSliderContent: ".translated-slider-content"
       };

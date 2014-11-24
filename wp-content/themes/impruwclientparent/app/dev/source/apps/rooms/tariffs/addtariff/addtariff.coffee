@@ -12,18 +12,20 @@ define ['app', 'controllers/base-controller',
 
             #get the currency
             sitemodel = App.request "get:site:model"
-            currentCurrency = sitemodel.get 'currency'
+            
+            App.execute "when:fetched", sitemodel, =>
+               currentCurrency = sitemodel.get 'currency'
+               
+               @tariffView = tariffView = @_getAddTariffView tariff, currentCurrency
 
-            @tariffView = tariffView = @_getAddTariffView tariff, currentCurrency
+               @listenTo tariffView, "add:tariff", ( data )=>
+                  tariff.set data
+                  tariff.save null,
+                     wait : true
+                     success : @tariffSaved
 
-            @listenTo tariffView, "add:tariff", ( data )=>
-               tariff.set data
-               tariff.save null,
-                  wait : true
-                  success : @tariffSaved
-
-            @show tariffView,
-               loading : true
+               @show tariffView,
+                  loading : true
 
          tariffSaved : ( tariffModel )=>
             tariffs = App.request "get:current:tariffs:collection"
@@ -44,6 +46,11 @@ define ['app', 'controllers/base-controller',
 
          template : addTariffTpl
 
+         mixinTemplateHelpers : (data)->
+            data = super data
+            data.currency = Marionette.getOption @, "currency"
+            data
+
          dialogOptions :
             modal_title : _.polyglot.t 'Add Tariff'
             modal_size : 'medium-modal'
@@ -60,7 +67,7 @@ define ['app', 'controllers/base-controller',
          # show checkbox
          onShow : ->
             @$el.find( 'input[type="checkbox"]' ).radiocheck()
-            @$el.find( '.currency' ).text Marionette.getOption @, "currency"
+            # @$el.find( '.currency' ).text Marionette.getOption @, "currency"
             #validate the form with rules
             @$el.validate()
 

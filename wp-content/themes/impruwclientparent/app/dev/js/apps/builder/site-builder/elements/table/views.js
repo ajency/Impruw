@@ -171,7 +171,13 @@ define(['app', 'bootbox'], function(App, bootbox) {
         $(evt.target).closest('td,th').find('div').attr('contenteditable', 'true').attr('id', id);
         CKEDITOR.on('instanceCreated', this.configureEditor);
         this.editor = CKEDITOR.inline(document.getElementById(id));
-        return this.editor.config.placeholder = 'Click to enter text.';
+        this.editor.config.placeholder = 'Click to enter text.';
+        $(evt.target).closest('td,th').find('div').trigger('blur');
+        return _.delay((function(_this) {
+          return function() {
+            return $(evt.target).closest('td,th').find('div').trigger('focus');
+          };
+        })(this), 200);
       };
 
       TableView.prototype.configureEditor = function(event) {

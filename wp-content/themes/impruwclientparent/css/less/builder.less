@@ -24,7 +24,7 @@ Version:        0.1.0
 body{
 	font-size:14px;
 	line-height: 1.2;
-	&.no-scroll {
+	&.no-scroll, &.modal-open {
 		position: relative;
 		overflow: hidden;
 		max-height: 100vh;
@@ -1109,7 +1109,7 @@ a {
 					width: 56%;
 					vertical-align: top;
 					.page-slug-edit {
-						width: 80%;
+						width: auto;
 						display: inline-block;
 						color: lighten(@dash-grey, 10%);
 						padding: 0.2em;
@@ -1121,6 +1121,22 @@ a {
 						&:focus {
 							color: @3-grey;
 							background: @preview-grey;
+							& + .btn-update-pg-slug {
+								opacity: 1;
+							}
+						}
+					}
+					.btn-update-pg-slug {
+						color: @blue-grey;
+						border: 1px solid lighten(@dash-grey, 20%);
+						background: @preview-grey;
+						padding: 0.33em 0.5em;
+						border-radius: 3px;
+						margin-left: 0.2em;
+						font-size: 0.88em;
+						opacity: 0;
+						&:hover, &:focus {
+							background: #fff;
 						}
 					}
 					.bootstrap-select {
@@ -1745,6 +1761,23 @@ a {
 					}
 				}
 			}
+			.colors {
+				margin: 0.75em 0;
+				span {
+					width: 20px;
+					height: 20px;
+					display: inline-block;
+					margin: 0.1em;
+					border: 2px solid #fff;
+					cursor: pointer;
+					&.selected {
+						border-color: @orange;
+					}
+					&:hover {
+						box-shadow: 1px 1px 1px 0px @dash-grey;
+					}
+				}
+			}
 			.field-error {
 				color: @error-red;
 				padding: 0.5em 0;
@@ -1757,6 +1790,15 @@ a {
 				text-align: center;
 				margin-bottom: 0;
 			}
+		}
+	}
+	.collapse-link {
+		display: inline-block;
+		color: @dash-grey;
+		font-size: 0.88em;
+		margin-bottom: 0.75em;
+		&:hover, &:focus {
+			color: @blue-grey;
 		}
 	}
 }
@@ -1947,7 +1989,7 @@ a {
 	background: @preview-grey;
 	border-left: 3px solid @blue-grey;
 	color: @dash-grey;
-	margin-bottom: 0.75em;
+	margin: 0.75em 20px;
 	font-size: 0.88em;
 	position: relative;
 	.glyphicon {
@@ -2323,7 +2365,7 @@ a {
 						display: block;
 					}
 				}
-				&.selected {
+				&.ui-selected {
 					background: @orange;
 					.col-label {
 						display: block;
@@ -2338,10 +2380,6 @@ a {
 		padding-top: 10px;
 		max-height: 400px;
 		overflow-y: auto;
-		&.overflow-view {
-			max-height: initial;
-			overflow: visible;
-		}
 		.single-img, .single-item {
 			position: relative;
 			padding: 0 5px;
@@ -2464,6 +2502,7 @@ a {
 						font-size: 0.88em;
 						color: @dash-grey;
 						margin-bottom: 0;
+						min-height: 110px;
 					}
 				}
 				&:hover {
@@ -2490,6 +2529,45 @@ a {
 				.ticker {
 					display: block;
 					background: @orange;
+				}
+			}
+		}
+		&.overflow-view {
+			max-height: initial;
+			overflow: visible;
+			.clearfix;
+			.single-item {
+				.thumbnail {
+					background: lighten(@dash-grey, 20%);
+					height: 200px;
+					overflow: hidden;
+					.clearfix;
+					.imgthumb {
+						width: 39%;
+						float: left;
+						vertical-align: top;
+						margin: 0 5px 5px 0;
+						background: transparent;
+						height: auto;
+						&:before {
+							display: none;
+						}
+					}
+					.caption {
+						padding: 0;
+						.item-title {
+							margin-top: 0;
+						}
+					}
+				}
+				&.selected, &.ui-selected {
+					.thumbnail {
+						background: lighten(@dash-grey, 30%);
+						box-shadow: 1px 1px 3px lighten(@dash-grey, 10%);
+						.imgthumb {
+							background: transparent;
+						}
+					}
 				}
 			}
 		}
@@ -2618,32 +2696,152 @@ a {
 	}
 	.menu-manager-container {
 		padding: 0 2em;
-	}
-	.aj-imp-add-menu-item {
-		h4 {
-			font-size: 2em;
-			color: @dash-grey;
-		}
 		.desc {
-			font-size: 0.9em;
 			color: @dash-grey;
+			font-size: 1.1em;
+			small {
+				display: block;
+				margin: 0.5em 0;
+			}
 		}
-		.aj-imp-add-link {
+	}
+	.create-menu-container {
+		background: @preview-grey;
+		padding: 1em;
+		border-radius: 2px;
+		.clearfix;
+		.choose-menu {
+			float: left;
+			margin-right: 1em;
+			.control-label {
+				display: block;
+				text-align: left !important;
+				line-height: 1.4;
+				color: @dash-grey;
+				text-transform: uppercase;
+			}
+			.bootstrap-select {
+				margin-bottom: 0;
+			}
+			.selected a {
+				color: #fff;
+			}
+			.add a {
+				color: @orange;
+				&:hover {
+					color: #fff;
+				}
+			}
+			#global-menus-list-view {
+				display: inline-block;
+				.global-menus-list {
+					margin-bottom: 0;
+				}
+			}
+			.option-or {
+				display: inline-block;
+				font-size: 1.2em;
+				color: @dash-grey;
+				text-transform: uppercase;
+				margin: 0 1em;
+				vertical-align: middle;
+			}
+			.create-new-menu {
+				text-transform: uppercase;
+				font-size: 1.2em;
+				vertical-align: middle;
+				&:hover {
+					color: lighten(@orange, 10%);
+				}
+			}
+		}
+		#new-menu-name {
+			float: left;
+			margin-top: 1.88em;
+			.form-control {
+				min-width: 220px;
+			}
+			.help-block {
+				margin-bottom: 0;
+			}
+			.aj-imp-orange-btn {
+				vertical-align: top;
+			}
+		}
+	}
+	.aj-imp-menu-edit {
+		.clearfix;
+		.add-menu-toggle {
+			padding: 10px 13px;
+			width: 40px;
+			height: 40px;
+			background: @orange;
+			color: #fff;
+			border-radius: 40px;
+			margin: 1em 0;
+			display: block;
+			float: right;
 			font-size: 1.2em;
-			color: @orange;
+			text-align: center;
+			&:hover {
+				background: lighten(@orange, 10%);
+			}
 		}
-		.add-menu-form {
-			margin: 1em 0 0;
-			form {
-				margin: 0;
-				.form-actions {
-					text-align: right;
-					.btn {
-						padding: 5px 8px 6px;
-						&.save-btn {
-							background: @orange;
-							&:hover {
-								background: lighten(@orange, 20%);
+		.aj-imp-add-menu-item {
+			h4 {
+				font-size: 1.4em;
+				color: @dash-grey;
+				margin-top: 0;
+			}
+			.desc {
+				font-size: 0.9em;
+				color: @dash-grey;
+			}
+			.list-steps {
+				list-style: circle;
+				padding-left: 0;
+				margin-top: 1em;
+				li {
+					color: @dash-grey;
+					font-size: 0.9em;
+					margin-bottom: 0.25em;
+				}
+			}
+			.aj-imp-add-link {
+				font-size: 1.2em;
+				color: @orange;
+			}
+			.add-menu-form {
+				margin: 1em 0 0;
+				padding: 1em;
+				.form-inline {
+					margin: 0;
+					.form-group {
+						.control-label {
+							display: block;
+							color: @dash-grey;
+							text-transform: uppercase;
+						}
+						.url {
+							min-width: 200px;
+						}
+					}
+					.option-or {
+						display: inline-block;
+						font-size: 1.2em;
+						color: @dash-grey;
+						text-transform: uppercase;
+						margin: 0 1em;
+					}
+					.form-actions {
+						text-align: right;
+						.btn {
+							padding: 5px 8px 6px;
+							&.save-btn {
+								background: @orange;
+								&:hover {
+									background: lighten(@orange, 20%);
+								}
 							}
 						}
 					}
@@ -2661,50 +2859,96 @@ a {
 			.list-group-item {
 				.menu-item {
 					.menu-dragger {
-						color: @dash-grey;
+						color: lighten(@dash-grey, 10%);
 						font-size: 1.2em;
 						text-align: center;
 						cursor: move;
 					}
+					.menu-name {
+						color: @3-grey;
+						padding-top: 1px;
+					}
 					.menu-edit {
 						text-align: right;
-						a {
+						font-size: 0.8em;
+						padding-top: 4px;
+						visibility: hidden;
+					}
+					&:hover {
+						.menu-dragger {
 							color: @orange;
+						}
+						.menu-name {
+							color: @blue-grey;
+						}
+						.menu-edit {
+							visibility: visible;
 						}
 					}
 				}
 				.menu-item-edit {
 					background: lighten(@dash-grey, 30%);
 					margin: 10px -15px -10px;
-					padding: 15px 0;
-					.form-actions {
-						.btn {
-							padding: 5px 8px 6px;
-							&.save-btn {
-								background: @orange;
-								&:hover {
-									background: lighten(@orange, 20%);
-								}
-							}
+					padding: 0.5em 1em;
+					.form-group {
+						.control-label {
+							display: block;
+							color: @dash-grey;
+							text-transform: uppercase;
+						}
+						.menutitle {
+							min-width: 300px;
 						}
 					}
+					.form-actions {
+						.red-link {
+							vertical-align: middle;
+							font-size: 0.8em;
+						}
+					}
+				}
+				> ol {
+					padding: 0;
+					border-left: 1px solid lighten(@dash-grey, 10%);
+					margin-left: 1.7em;
+					margin-top: 0.5em;
 				}
 				&:last-child {
 					.menu-item-edit {
 						border-radius: 0 0 4px 4px;
 					}
 				}
-				&:hover {
-					.menu-dragger {
-						color: @orange;
-					}
-					.menu-name {
-						color: @blue-grey;
+			}
+		}
+	}
+	.styles-container {
+		background: darken(@preview-grey, 10%);
+		border-radius: 2px;
+		padding: 0.5em 30px;
+		h4 {
+			font-size: 1.3em;
+			color: @dash-grey;
+		}
+		.single-item {
+			.thumbnail {
+				background: @dash-grey !important;
+				height: auto !important;
+				.imgthumb {
+					background: transparent;
+					width: 100% !important;
+					float: none !important;
+					margin: 0 !important;
+					img {
+						width: 100%;
 					}
 				}
 			}
+			&.ui-selected {
+				.thumbnail {
+					background: @preview-grey !important;
+				}
+			}
 		}
-		
 	}
 	.modal-body-title {
 		font-size: 1.2em;
@@ -2734,9 +2978,13 @@ a {
 	.popover {
 		border-radius: 3px;
 		background: @dark-blue;
+		border: 1px solid @dark-blue;
 		box-shadow: 0 0 2px 1px @dash-grey;
 		.arrow {
 			border-top-color: @dark-blue;
+			&:after {
+				border-top-color: @dark-blue;
+			}
 		}
 		.popover-content {
 			padding: 0.75em;
@@ -3409,6 +3657,7 @@ a {
 /****Builder Form Styles****/
 .form-group {
 	.form-control {
+		border-radius: 2px;
 		&:focus {
 			border-color: @orange;
 		}
@@ -3577,7 +3826,7 @@ a {
 					border-width: 1px;
 					line-height: 1em;
 					height: 32px;
-					border-radius: 3px;
+					border-radius: 2px;
 					&.bootstrap-select {
 						padding: 0;
 						height: auto;
@@ -3746,6 +3995,32 @@ a {
 	}
 }
 
+/**** Widget Placeholder Styles ****/
+.widget-message {
+	text-align: center;
+	font-size: 1.2em;
+	color: darken(@dash-grey, 10%);
+	background: lighten(@dash-grey, 20%);
+	border-radius: 2px;
+	padding: 0.5em;
+	cursor: default;
+	.bicon {
+		display: block;
+		margin: 0.025em 0;
+		font-size: 4.5em;
+		color: lighten(@dash-grey, 10%);
+		text-shadow: 1px 1px 2px @3-grey;
+	}
+	em {
+		color: @blue-grey;
+		font-style: normal;
+		font-weight: 500;
+	}
+	small {
+		display: block;
+	}
+}
+
 /****Builder Delete Modal Styles****/
 .delete-message {
 	color: @dash-grey;
@@ -3840,7 +4115,7 @@ a {
 .aj-imp-orange-btn {
 	background: @orange;
 	color: #fff;
-	&:hover {
+	&:hover, &:focus {
 		background: lighten(@orange, 20%);
 	}
 }
