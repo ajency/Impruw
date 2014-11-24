@@ -41,6 +41,14 @@ define ['app', 'controllers/base-controller'
                 _.each smarttableData, (value, key) ->
                       _.each value, (value, key) ->
                         contents[editingLang][key] = value
+
+
+                _.each contents, (value, key) ->
+                    _.each value, (val1, key1) ->
+                        _.each val1, (val2, key2) ->
+                            contents[key][key1][key2] = _.stripslashes val2
+
+
                 
                 model.set 'contents' , contents
                 model.set 'source', 'dashboard'

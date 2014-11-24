@@ -20,6 +20,9 @@ define ['app'], (App)->
 				data.dtExist = true if data.dt? and data.dt isnt ''
 				data.ddExist = true if data.dd? and data.dd isnt ''
 				data.emExist = true if data.em? and data.em isnt ''
+				data.dt = _.stripslashes data.dt
+				data.dd = _.stripslashes data.dd
+				data.em = _.stripslashes data.em
 				data
 
 			modelEvents:

@@ -76,6 +76,13 @@ define(['app', 'apps/builder/site-builder/elements/smarttable/views', 'apps/buil
           data = this.layout.model.get('contents');
           data[WPML_DEFAULT_LANG] = this.collection.toJSON();
           data[WPML_OTHER_LANG] = this.collectionOther.toJSON();
+          _.each(data, function(value, key) {
+            return _.each(value, function(val1, key1) {
+              return _.each(val1, function(val2, key2) {
+                return data[key][key1][key2] = _.stripslashes(val2);
+              });
+            });
+          });
           this.layout.model.set('contents', data);
           return this.layout.model.save();
         });

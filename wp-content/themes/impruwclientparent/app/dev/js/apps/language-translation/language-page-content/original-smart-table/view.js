@@ -32,6 +32,9 @@ define(['app'], function(App) {
         if ((data.em != null) && data.em !== '') {
           data.emExist = true;
         }
+        data.dt = _.stripslashes(data.dt);
+        data.dd = _.stripslashes(data.dd);
+        data.em = _.stripslashes(data.em);
         return data;
       };
 

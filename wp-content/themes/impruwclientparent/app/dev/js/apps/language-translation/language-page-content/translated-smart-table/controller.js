@@ -45,6 +45,13 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
             return contents[editingLang][key] = value;
           });
         });
+        _.each(contents, function(value, key) {
+          return _.each(value, function(val1, key1) {
+            return _.each(val1, function(val2, key2) {
+              return contents[key][key1][key2] = _.stripslashes(val2);
+            });
+          });
+        });
         model.set('contents', contents);
         model.set('source', 'dashboard');
         model.set('json-page-id', this.pageId);
