@@ -144,7 +144,7 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 					handle : 'div.menu-dragger'
 					items : 'li.list-group-item'
 					tolerance : 'intersect'
-					maxLevels : 1
+					maxLevels : 2
 					stop : ( e, ui )=>
 						order = @ui.sortableList.nestedSortable 'toArray'
 						newOrder = []
