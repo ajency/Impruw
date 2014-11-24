@@ -50,7 +50,7 @@ define ['app'], (App)->
 
         class OriginalSmartTableView extends Marionette.CompositeView
 
-            template : '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small><a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}" class="smart-collapse">Expand</a></h6>
+            template : '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small><a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}" class="smart-collapse hide">Expand</a></h6>
                         <div class="original-smart-table dashboard-smarttable-{{meta_id}} collapse">
                         </div>
                         <hr class="dark">'
@@ -75,6 +75,12 @@ define ['app'], (App)->
                 completeContent = @model.get('contents')
                 collection = new Backbone.Collection completeContent[WPML_DEFAULT_LANG]
                 @collection = collection
+
+                smartTableMetaId = @model.get 'meta_id'
+                
+                @listenTo App.vent, "translated:smartable:loaded:"+smartTableMetaId, ->
+                    @$el.find('.smart-collapse').removeClass('hide')
+
 
         class EmptySmartTableView extends Marionette.ItemView
 

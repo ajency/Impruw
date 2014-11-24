@@ -102,6 +102,10 @@ define ['app'], (App)->
                     collection = new Backbone.Collection completeContent[WPML_DEFAULT_LANG]
                 @collection = collection
 
+            onShow :->
+                smartTableMetaId = @model.get 'meta_id'
+                App.vent.trigger "translated:smartable:loaded:"+smartTableMetaId
+
 
         class Views.TranslatedSmartTablesView extends Marionette.CompositeView
 

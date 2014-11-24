@@ -103,6 +103,12 @@ define(['app'], function(App) {
         return this.collection = collection;
       };
 
+      TranslatedSmartTableView.prototype.onShow = function() {
+        var smartTableMetaId;
+        smartTableMetaId = this.model.get('meta_id');
+        return App.vent.trigger("translated:smartable:loaded:" + smartTableMetaId);
+      };
+
       return TranslatedSmartTableView;
 
     })(Marionette.CompositeView);

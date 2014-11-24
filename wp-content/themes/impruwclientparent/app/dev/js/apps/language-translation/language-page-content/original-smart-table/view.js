@@ -45,7 +45,7 @@ define(['app'], function(App) {
         return OriginalSmartTableView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small><a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}" class="smart-collapse">Expand</a></h6> <div class="original-smart-table dashboard-smarttable-{{meta_id}} collapse"> </div> <hr class="dark">';
+      OriginalSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small><a data-toggle="collapse" data-target=".dashboard-smarttable-{{meta_id}}" class="smart-collapse hide">Expand</a></h6> <div class="original-smart-table dashboard-smarttable-{{meta_id}} collapse"> </div> <hr class="dark">';
 
       OriginalSmartTableView.prototype.itemView = OriginalSmartTableItemView;
 
@@ -65,10 +65,14 @@ define(['app'], function(App) {
       };
 
       OriginalSmartTableView.prototype.initialize = function() {
-        var collection, completeContent;
+        var collection, completeContent, smartTableMetaId;
         completeContent = this.model.get('contents');
         collection = new Backbone.Collection(completeContent[WPML_DEFAULT_LANG]);
-        return this.collection = collection;
+        this.collection = collection;
+        smartTableMetaId = this.model.get('meta_id');
+        return this.listenTo(App.vent, "translated:smartable:loaded:" + smartTableMetaId, function() {
+          return this.$el.find('.smart-collapse').removeClass('hide');
+        });
       };
 
       return OriginalSmartTableView;
