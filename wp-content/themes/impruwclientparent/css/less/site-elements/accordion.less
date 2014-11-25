@@ -15,8 +15,23 @@
 						display: block;
 						color: @white;
 						padding: 0.75em 1em;
+						&:after {
+							font-family: 'Glyphicons Halflings';
+							content: "\e014";
+							float: right;
+							color: darken(@primary1, 10%);
+							font-size: 0.8em;
+							margin-top: 2px;
+							font-weight: normal;
+						}
+						&.collapsed {
+							&:after {
+								transform: rotate(45deg);
+							}
+						}
 						&:hover, &:focus {
 							text-decoration: none;
+							color: @secondary1;
 						}
 					}
 				}
@@ -25,6 +40,100 @@
 				.panel-body {
 					padding: 1em;
 					color: @text-color;
+				}
+			}
+		}
+		&.flat {
+			.panel {
+				margin: 0;
+				border-radius: 0;
+				border: 0;
+				border-bottom: 1px solid darken(@primary1, 10%);
+				box-shadow: none;
+				.panel-heading {
+					.panel-title {
+						text-align: center;
+						text-transform: uppercase;
+						a {
+							&:after {
+								float: left;
+							}
+							&:focus {
+								color: @white;
+							}
+						}
+					}
+				}
+				&:last-child {
+					border-bottom: 0;
+				}
+			}
+		}
+		&.paper {
+			.panel {
+				margin: 1em 0;
+				border-radius: 0;
+				border: 0;
+				box-shadow: none;
+				.panel-heading {
+					background: transparent;
+					.panel-title {
+						font-weight: 300;
+						a {
+							color: @primary1;
+							margin: 0 -15px;
+							background: @tertiary1;
+							position:relative;
+							transition: all ease 0.6s;
+						    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+						    &:before {
+						    	content:"";
+							    position:absolute;
+							    z-index:-1;
+							    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+							    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+							    box-shadow:0 0 20px rgba(0,0,0,0.8);
+							    top:10px;
+							    bottom:10px;
+							    left:0;
+							    right:0;
+							    -moz-border-radius:100px / 10px;
+							    border-radius:100px / 10px;
+						    }
+							&.collapsed {
+								color: @secondary1;
+								margin: 0;
+								box-shadow: none;
+							}
+							&:hover {
+								background: darken(@tertiary1, 10%);
+							}
+						}
+					}
+				}
+				.panel-body {
+					margin: 0 -15px;
+					background: @tertiary1;
+					box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+					&:after {
+						content:"";
+					    position:absolute;
+					    z-index:-1;
+					    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+					    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+					    box-shadow:0 0 20px rgba(0,0,0,0.8);
+					    top:10px;
+					    bottom:10px;
+					    right:10px;
+					    left:auto;
+					    -webkit-transform:skew(8deg) rotate(3deg);
+					       -moz-transform:skew(8deg) rotate(3deg);
+					        -ms-transform:skew(8deg) rotate(3deg);
+					         -o-transform:skew(8deg) rotate(3deg);
+					            transform:skew(8deg) rotate(3deg);
+					    -moz-border-radius:100px / 10px;
+					    border-radius:100px / 10px;
+					}
 				}
 			}
 		}

@@ -2273,13 +2273,112 @@ ul.gallery {
   color: #f9f8f4;
   padding: 0.75em 1em;
 }
+.accordion-container .panel-group .panel .panel-heading .panel-title a:after {
+  font-family: 'Glyphicons Halflings';
+  content: "\e014";
+  float: right;
+  color: #d23f3f;
+  font-size: 0.8em;
+  margin-top: 2px;
+  font-weight: normal;
+}
+.accordion-container .panel-group .panel .panel-heading .panel-title a.collapsed:after {
+  transform: rotate(45deg);
+}
 .accordion-container .panel-group .panel .panel-heading .panel-title a:hover,
 .accordion-container .panel-group .panel .panel-heading .panel-title a:focus {
   text-decoration: none;
+  color: #483535;
 }
 .accordion-container .panel-group .panel .panel-collapse .panel-body {
   padding: 1em;
   color: #333333;
+}
+.accordion-container .panel-group.flat .panel {
+  margin: 0;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid #d23f3f;
+  box-shadow: none;
+}
+.accordion-container .panel-group.flat .panel .panel-heading .panel-title {
+  text-align: center;
+  text-transform: uppercase;
+}
+.accordion-container .panel-group.flat .panel .panel-heading .panel-title a:after {
+  float: left;
+}
+.accordion-container .panel-group.flat .panel .panel-heading .panel-title a:focus {
+  color: #f9f8f4;
+}
+.accordion-container .panel-group.flat .panel:last-child {
+  border-bottom: 0;
+}
+.accordion-container .panel-group.paper .panel {
+  margin: 1em 0;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+}
+.accordion-container .panel-group.paper .panel .panel-heading {
+  background: transparent;
+}
+.accordion-container .panel-group.paper .panel .panel-heading .panel-title {
+  font-weight: 300;
+}
+.accordion-container .panel-group.paper .panel .panel-heading .panel-title a {
+  color: #dc6868;
+  margin: 0 -15px;
+  background: #d7d3ca;
+  position: relative;
+  transition: all ease 0.6s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.accordion-container .panel-group.paper .panel .panel-heading .panel-title a:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  top: 10px;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+.accordion-container .panel-group.paper .panel .panel-heading .panel-title a.collapsed {
+  color: #483535;
+  margin: 0;
+  box-shadow: none;
+}
+.accordion-container .panel-group.paper .panel .panel-heading .panel-title a:hover {
+  background: #c1bbad;
+}
+.accordion-container .panel-group.paper .panel .panel-body {
+  margin: 0 -15px;
+  background: #d7d3ca;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.accordion-container .panel-group.paper .panel .panel-body:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  top: 10px;
+  bottom: 10px;
+  right: 10px;
+  left: auto;
+  -webkit-transform: skew(8deg) rotate(3deg);
+  -moz-transform: skew(8deg) rotate(3deg);
+  -ms-transform: skew(8deg) rotate(3deg);
+  -o-transform: skew(8deg) rotate(3deg);
+  transform: skew(8deg) rotate(3deg);
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 /*
 To change this license header, choose License Headers in Project Properties.
