@@ -2365,7 +2365,7 @@ ul.gallery {
   height: 13px;
   float: left;
   margin-right: 10px;
-  border: 1px solid #ffffff;
+  border: 1px solid #ed1c24;
   position: relative;
   font-size: 1.2em;
   line-height: 0.33em;
@@ -2377,7 +2377,7 @@ ul.gallery {
   color: #0e0e0e;
 }
 .impruw-list ul.checked-list li:hover:before {
-  color: #ed1c24;
+  color: #831618;
 }
 /*
 To change this license header, choose License Headers in Project Properties.
