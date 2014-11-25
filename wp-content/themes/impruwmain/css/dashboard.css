@@ -48,6 +48,7 @@ a.red-link.pull-right {
   font-family: 'Lato', sans-serif;
   background: url('../images/dash-nav-bg.png') repeat;
   max-width: none;
+  width: auto;
   min-height: 80vh;
 }
 .aj-imp-container .aj-imp-left {
@@ -4448,6 +4449,21 @@ figure.effect-zoe:hover p.icon-links a:first-child {
   background: #f6f6f6;
   border-bottom-color: #ff7e00;
   outline: 0;
+}
+.aj-imp-pricing .form-group.has-error .control-label,
+.aj-imp-request-demo .form-group.has-error .control-label {
+  bottom: 0;
+}
+.aj-imp-pricing .form-group.has-error .form-control,
+.aj-imp-request-demo .form-group.has-error .form-control {
+  border-bottom-color: #e74c3c;
+}
+.aj-imp-pricing .select.form-control {
+  padding: 0;
+}
+.aj-imp-pricing .select.form-control .dropdown-toggle {
+  width: 100%;
+  border-bottom: 0;
 }
 .aj-imp-pricing .price-plans .panel {
   -webkit-transition-property: scale;
