@@ -2281,9 +2281,10 @@ ul.gallery {
   font-size: 0.8em;
   margin-top: 2px;
   font-weight: normal;
+  transition: transform 0.3s ease-in-out;
 }
 .accordion-container .panel-group .panel .panel-heading .panel-title a.collapsed:after {
-  transform: rotate(45deg);
+  transform: rotate(-225deg);
 }
 .accordion-container .panel-group .panel .panel-heading .panel-title a:hover,
 .accordion-container .panel-group .panel .panel-heading .panel-title a:focus {

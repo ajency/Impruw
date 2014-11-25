@@ -3568,7 +3568,7 @@ $base_element_templates = array(
         array(
             'name' => 'Accordion',
             'template' => '<div class="accordion-container">
-                                <div class="panel-group flat" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel-group paper" id="accordion" role="tablist" aria-multiselectable="true">
                                   <div class="panel panel-default">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                       <h4 class="panel-title">
