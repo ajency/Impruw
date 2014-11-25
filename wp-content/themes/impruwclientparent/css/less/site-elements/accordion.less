@@ -1,0 +1,32 @@
+/**** Accordion Styles ****/
+.accordion-container {
+	padding: 0 0.5em;
+	.panel-group {
+		.panel {
+			border: 1px solid @primary1;
+			border-radius: 2px;
+			.panel-heading {
+				background: @primary1;
+				padding: 0;
+				border-radius: 0;
+				.panel-title {
+					font-weight: 400;
+					a {
+						display: block;
+						color: @white;
+						padding: 0.75em 1em;
+						&:hover, &:focus {
+							text-decoration: none;
+						}
+					}
+				}
+			}
+			.panel-collapse {
+				.panel-body {
+					padding: 1em;
+					color: @text-color;
+				}
+			}
+		}
+	}
+}

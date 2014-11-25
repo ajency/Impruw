@@ -2252,6 +2252,35 @@ ul.gallery {
   left: 0.6em;
   z-index: 2;
 }
+/**** Accordion Styles ****/
+.accordion-container {
+  padding: 0 0.5em;
+}
+.accordion-container .panel-group .panel {
+  border: 1px solid #dc6868;
+  border-radius: 2px;
+}
+.accordion-container .panel-group .panel .panel-heading {
+  background: #dc6868;
+  padding: 0;
+  border-radius: 0;
+}
+.accordion-container .panel-group .panel .panel-heading .panel-title {
+  font-weight: 400;
+}
+.accordion-container .panel-group .panel .panel-heading .panel-title a {
+  display: block;
+  color: #f9f8f4;
+  padding: 0.75em 1em;
+}
+.accordion-container .panel-group .panel .panel-heading .panel-title a:hover,
+.accordion-container .panel-group .panel .panel-heading .panel-title a:focus {
+  text-decoration: none;
+}
+.accordion-container .panel-group .panel .panel-collapse .panel-body {
+  padding: 1em;
+  color: #333333;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
