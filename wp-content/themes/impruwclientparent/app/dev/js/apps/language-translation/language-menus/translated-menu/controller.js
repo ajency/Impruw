@@ -16,6 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.siteModel = siteModel = App.request("get:language:based:site", this.editLang);
         this.menuElementsCollection = App.request("get:site:menu:elements", this.editLang);
         this.translatedMenuView = this._getTranslatedMenuView(this.menuElementsCollection);
+        this.listenTo(this.translatedMenuView, "itemview:itemview:menuitem:updated", this.updateMenuElementContent);
         return this.show(this.translatedMenuView, {
           loading: true
         });
@@ -29,26 +30,21 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         });
       };
 
-      Controller.prototype.updateMenuElementContent = function(view, newElemContent) {
-        var content_text, editLang, model, translatedContent;
-        model = view.model;
-        if (model.get('element') === 'Link') {
-          content_text = 'text';
-        } else {
-          content_text = 'content';
-        }
-        translatedContent = model.get(content_text);
-        editLang = this.editLang;
-        translatedContent[editLang] = newElemContent;
-        model.set(content_text, translatedContent);
-        return model.save(null, {
-          wait: true,
-          success: this.contentUpdated
-        });
-      };
-
-      Controller.prototype.contentUpdated = function() {
-        return console.log("Successfully updated content");
+      Controller.prototype.updateMenuElementContent = function(outerview, innerview, translatedMenuItemTitle, menuItemId) {
+        var data, model, responseFn;
+        console.log("Triggered update of menu item");
+        model = innerview.model;
+        data = {
+          translatedMenuItemTitle: translatedMenuItemTitle,
+          menuItemId: menuItemId,
+          language: this.editLang
+        };
+        responseFn = (function(_this) {
+          return function(response) {
+            return console.log("Menu item translation Success");
+          };
+        })(this);
+        return $.post("" + AJAXURL + "?action=update-translated-menu-item", data, responseFn, 'json');
       };
 
       return Controller;

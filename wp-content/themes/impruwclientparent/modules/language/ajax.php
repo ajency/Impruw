@@ -448,6 +448,20 @@ function update_footer_element_content(){
 }
 add_action( 'wp_ajax_create-footerElements', 'update_footer_element_content' );
 
+function update_translated_menu_item_ajax(){
+
+    $menu_item_id = $_REQUEST['menuItemId'];
+    $language = $_REQUEST['language'];
+    $menuitem_translated_label = $_REQUEST['translatedMenuItemTitle'];
+
+    $update_status = translate_custom_menu_item($menu_item_id, $language, $menuitem_translated_label);
+
+    $data = array('menu_item_id'=> $menu_item_id, 'update_status' => $update_status );
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_update-translated-menu-item', 'update_translated_menu_item_ajax' );
+
  // remove language selector if only one language is enabled
 add_action('wp_head', 'wpml_hide_langs');
 function wpml_hide_langs() {

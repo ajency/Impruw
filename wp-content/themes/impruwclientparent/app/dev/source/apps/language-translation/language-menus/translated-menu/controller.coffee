@@ -16,7 +16,7 @@ define ['app', 'controllers/base-controller'
 
                 @translatedMenuView = @_getTranslatedMenuView @menuElementsCollection
 
-                # @listenTo @translatedMenuView, "itemview:header:element:updated", @updateMenuElementContent
+                @listenTo @translatedMenuView, "itemview:itemview:menuitem:updated", @updateMenuElementContent
 
                 #function to load view
                 @show @translatedMenuView,
@@ -28,25 +28,21 @@ define ['app', 'controllers/base-controller'
                     collection: collection
                     language: @editLang
 
-            updateMenuElementContent :(view, newElemContent)->
+            updateMenuElementContent :(outerview,innerview,translatedMenuItemTitle, menuItemId)->
 
-                model = view.model
+                console.log "Triggered update of menu item"
+
+                model = innerview.model
                 
-                if model.get('element') is 'Link'
-                    content_text = 'text'
-                else
-                    content_text = 'content'
+                data =
+                    translatedMenuItemTitle: translatedMenuItemTitle
+                    menuItemId: menuItemId
+                    language: @editLang
 
-                translatedContent = model.get content_text
-                editLang = @editLang
-                translatedContent[editLang] = newElemContent
-                model.set content_text, translatedContent
-                model.save null,
-                    wait: true
-                    success: @contentUpdated
+                responseFn = (response)=>
+                    console.log "Menu item translation Success"
 
-            contentUpdated :->
-                console.log "Successfully updated content"
+                $.post "#{AJAXURL}?action=update-translated-menu-item", data, responseFn, 'json'
 
         App.commands.setHandler "translated:menu:app", (opts) ->
             new TranslatedMenu.Controller opts

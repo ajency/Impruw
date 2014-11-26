@@ -12,18 +12,23 @@ define ['app'
             template : '<div class="col-sm-12">
                             <div class="form-group trans-field">
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control title translated-menu-item" id="translated-slidercaption-title" value="{{title}}">
+                                    <input type="text" class="form-control title translated-menu-item-title" data-menu-item-id = {{ID}} value="{{title}}">
                                         <button class="btn btn-xs trans-action aj-imp-orange-btn btn-save-menu-item-translation">{{#polyglot}} Save {{/polyglot}}</button>
                                 </div>
                             </div>
                         </div>'
 
-            mixinTemplateHelpers: (data)->
-                data = super data
-                # data.element_in_language = ->
-                #     element_in_language = _.polyglot.t(data.element)
-                #     return element_in_language
-                data
+            events:
+                "click .btn-save-menu-item-translation" : "updateMenuItems"
+
+            updateMenuItems:(e) ->
+                e.preventDefault()
+                
+                translatedMenuItemTitle  = @$el.find('.translated-menu-item-title').val()
+                menuItemId = @$el.find('.translated-menu-item-title').attr('data-menu-item-id')
+
+                @trigger "menuitem:updated", translatedMenuItemTitle, menuItemId
+
 
         class TranslatedNavMenuView extends Marionette.CompositeView
 

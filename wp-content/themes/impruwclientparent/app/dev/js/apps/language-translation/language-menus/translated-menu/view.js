@@ -15,11 +15,18 @@ define(['app', 'text!apps//language-translation/language-menus/translated-menu/t
 
       TranslatedMenuItemView.prototype.className = 'form-group legend-group';
 
-      TranslatedMenuItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <input type="text" class="form-control title translated-menu-item" id="translated-slidercaption-title" value="{{title}}"> <button class="btn btn-xs trans-action aj-imp-orange-btn btn-save-menu-item-translation">{{#polyglot}} Save {{/polyglot}}</button> </div> </div> </div>';
+      TranslatedMenuItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <input type="text" class="form-control title translated-menu-item-title" data-menu-item-id = {{ID}} value="{{title}}"> <button class="btn btn-xs trans-action aj-imp-orange-btn btn-save-menu-item-translation">{{#polyglot}} Save {{/polyglot}}</button> </div> </div> </div>';
 
-      TranslatedMenuItemView.prototype.mixinTemplateHelpers = function(data) {
-        data = TranslatedMenuItemView.__super__.mixinTemplateHelpers.call(this, data);
-        return data;
+      TranslatedMenuItemView.prototype.events = {
+        "click .btn-save-menu-item-translation": "updateMenuItems"
+      };
+
+      TranslatedMenuItemView.prototype.updateMenuItems = function(e) {
+        var menuItemId, translatedMenuItemTitle;
+        e.preventDefault();
+        translatedMenuItemTitle = this.$el.find('.translated-menu-item-title').val();
+        menuItemId = this.$el.find('.translated-menu-item-title').attr('data-menu-item-id');
+        return this.trigger("menuitem:updated", translatedMenuItemTitle, menuItemId);
       };
 
       return TranslatedMenuItemView;
