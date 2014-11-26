@@ -12,8 +12,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
       Controller.prototype.initialize = function(opts) {
         this.editLang = opts.editLang;
-        this.headerElementsCollection = App.request("get:header:elements");
-        this.originalMenuView = this._getMenuView(this.headerElementsCollection);
+        this.menuElementsCollection = App.request("get:site:menu:elements", WPML_DEFAULT_LANG);
+        this.originalMenuView = this._getMenuView(this.menuElementsCollection);
         return this.show(this.originalMenuView, {
           loading: true
         });

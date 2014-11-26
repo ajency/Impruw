@@ -11,10 +11,10 @@ define ['app'
 
             template : '<div class="col-sm-12">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="">{{element_in_language}}</label>
+                                <label class="col-sm-3 control-label" for="">{{#polyglot}}Menu item{{/polyglot}}</label>
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <div class="original {{TypeOfElementClass}}" tabindex="1">
-                                        {{{originalContent}}}
+                                    <div class="original title" tabindex="1">
+                                        {{title}}
                                     </div>
                                 </div>
                             </div>
@@ -22,32 +22,46 @@ define ['app'
 
             mixinTemplateHelpers: (data)->
                 data = super data
-                data.TypeOfElementClass = ->
-                    if (data.element is "Title") or (data.element is "Link") 
-                        return "title"
-                    else
-                        return "text"
-
-                data.originalContent = ->
-                    if (data.element is "Link")
-                        originalContent = data.text[WPML_DEFAULT_LANG]
-                        return originalContent
-                    else
-                        originalContent = data.content[WPML_DEFAULT_LANG]
-                        return originalContent
                 data.element_in_language = ->
                     element_in_language = _.polyglot.t(data.element)
                     return element_in_language
                 data
+
+        class EmptyMenuItemView extends Marionette.ItemView
+            template: '<br/><div class="empty-info">{{#polyglot}}No custom menu items to translate{{/polyglot}}</div><br/>'
+
+        class OriginalNavMenuView extends Marionette.CompositeView
+
+            template : '<h6 class="aj-imp-sub-head-thin"><small>{{#polyglot}}Menu Name: {{/polyglot}}{{name}}</small></h6>
+                        <div class="original-menu-items">
+                        </div>
+                        <hr>'
+
+            itemView : OriginalMenuItemView
+
+            itemViewContainer : '.original-menu-items'
+
+            emptyView : EmptyMenuItemView
+
+
+            initialize :->
+                collection = new Backbone.Collection @model.get('custom_menu_items')
+                @collection = collection
+
+
+        class EmptyNavMenuView extends Marionette.ItemView
+            template: '<br/><div class="empty-info">{{#polyglot}}No menus to translate{{/polyglot}}</div><br/>'
 
 
         class Views.OriginalMenuView extends Marionette.CompositeView
 
             template : originalmenuviewTpl
 
-            itemView : OriginalMenuItemView
+            itemView : OriginalNavMenuView
 
             itemViewContainer : '#translatable-menu-elements'
+
+            emptyView : EmptyNavMenuView
 
             mixinTemplateHelpers: (data)->
                 data = super data 

@@ -350,6 +350,39 @@ function get_footer_translation_elements(){
    return $elements;
 }
 
+//Function to get all page footer elements of a site
+function get_site_menu_elements($language){
+
+    $menus = get_terms('nav_menu');
+
+    foreach ($menus as $menu) {
+        $menu_id = $menu->term_id;
+        $menu_items = wp_get_nav_menu_items( $menu_id );
+
+        $custom_menu_items = array();
+
+        foreach ($menu_items as $menu_item) {
+            if ($menu_item->type==='custom') {
+                $menu_item_translation = get_post_meta( $menu_item->ID, '_menu_item_custom_translation', true );
+
+                $menu_item_translation = maybe_unserialize($menu_item_translation);
+
+                if(isset($menu_item_translation[$language])){
+                    $menu_item->title = $menu_item_translation[$language];   
+                }
+
+                $menu_item->menu_item_translation = $menu_item_translation;
+                $custom_menu_items[]= $menu_item;
+            }
+        }
+
+        $menu->custom_menu_items = $custom_menu_items;
+    }
+    $menus = json_decode(json_encode($menus), true);
+
+    return $menus;
+}
+
 function get_row_translation_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {

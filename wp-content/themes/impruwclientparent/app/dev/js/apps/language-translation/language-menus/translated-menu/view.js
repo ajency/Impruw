@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps//language-translation/language-menus/translated-menu/templates/translatedmenuview.html'], function(App, translatedmenuviewTpl) {
   return App.module('LanguageApp.LanguageMenuContent.TranslatedMenu.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var TranslatedMenuItemView;
+    var TranslatedMenuItemView, TranslatedNavMenuView;
     TranslatedMenuItemView = (function(_super) {
       __extends(TranslatedMenuItemView, _super);
 
@@ -15,71 +15,38 @@ define(['app', 'text!apps//language-translation/language-menus/translated-menu/t
 
       TranslatedMenuItemView.prototype.className = 'form-group legend-group';
 
-      TranslatedMenuItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <p class="form-control translated-header-content {{TypeOfElementClass}}">{{contentText}}</p> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="save-translated-header-element"> {{#polyglot}}Save{{/polyglot}} </button> </div> </div> </div>';
+      TranslatedMenuItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <input type="text" class="form-control title translated-menu-item" id="translated-slidercaption-title" value="{{title}}"> <button class="btn btn-xs trans-action aj-imp-orange-btn btn-save-menu-item-translation">{{#polyglot}} Save {{/polyglot}}</button> </div> </div> </div>';
 
       TranslatedMenuItemView.prototype.mixinTemplateHelpers = function(data) {
-        var editingLanguage;
         data = TranslatedMenuItemView.__super__.mixinTemplateHelpers.call(this, data);
-        editingLanguage = Marionette.getOption(this, 'editingLanguage');
-        data.contentText = function() {
-          var translated_text;
-          if (data.element === "Link") {
-            translated_text = data.text[editingLanguage];
-            return translated_text;
-          } else {
-            translated_text = data.content[editingLanguage];
-            return translated_text;
-          }
-        };
-        data.TypeOfElementClass = function() {
-          if ((data.element === "Title") || (data.element === "Link")) {
-            return "title";
-          } else {
-            return "text";
-          }
-        };
         return data;
-      };
-
-      TranslatedMenuItemView.prototype.events = {
-        "click #save-translated-header-element": "updateMenuElement"
-      };
-
-      TranslatedMenuItemView.prototype.updateMenuElement = function(e) {
-        var newElementContent;
-        e.preventDefault();
-        newElementContent = this.$el.find('.translated-header-content').html();
-        return this.trigger("menu:element:updated", newElementContent);
-      };
-
-      TranslatedMenuItemView.prototype.onShow = function() {
-        var content_text, editingLanguage;
-        editingLanguage = Marionette.getOption(this, 'editingLanguage');
-        if (this.model.get('element') === "Title") {
-          this.$el.find('.translated-header-content').attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
-        } else {
-          this.$el.find('.translated-header-content').attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
-        }
-        this.editor = CKEDITOR.inline(document.getElementById(this.$el.find('.translated-header-content').attr('id')));
-        if (this.model.get('element') === 'Link') {
-          content_text = 'text';
-        } else {
-          content_text = 'content';
-        }
-        if (this.model.get(content_text)[editingLanguage] === void 0) {
-          return this.editor.setData("");
-        } else {
-          return this.editor.setData(_.stripslashes(this.model.get(content_text)[editingLanguage]));
-        }
-      };
-
-      TranslatedMenuItemView.prototype.onClose = function() {
-        return this.editor.destroy(true);
       };
 
       return TranslatedMenuItemView;
 
     })(Marionette.ItemView);
+    TranslatedNavMenuView = (function(_super) {
+      __extends(TranslatedNavMenuView, _super);
+
+      function TranslatedNavMenuView() {
+        return TranslatedNavMenuView.__super__.constructor.apply(this, arguments);
+      }
+
+      TranslatedNavMenuView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</h6> <div class="translated-menu-items"> </div> <hr>';
+
+      TranslatedNavMenuView.prototype.itemView = TranslatedMenuItemView;
+
+      TranslatedNavMenuView.prototype.itemViewContainer = '.translated-menu-items';
+
+      TranslatedNavMenuView.prototype.initialize = function() {
+        var collection;
+        collection = new Backbone.Collection(this.model.get('custom_menu_items'));
+        return this.collection = collection;
+      };
+
+      return TranslatedNavMenuView;
+
+    })(Marionette.CompositeView);
     return Views.TranslatedMenuView = (function(_super) {
       __extends(TranslatedMenuView, _super);
 
@@ -89,7 +56,7 @@ define(['app', 'text!apps//language-translation/language-menus/translated-menu/t
 
       TranslatedMenuView.prototype.template = translatedmenuviewTpl;
 
-      TranslatedMenuView.prototype.itemView = TranslatedMenuItemView;
+      TranslatedMenuView.prototype.itemView = TranslatedNavMenuView;
 
       TranslatedMenuView.prototype.itemViewContainer = '#translated-menu-elements';
 

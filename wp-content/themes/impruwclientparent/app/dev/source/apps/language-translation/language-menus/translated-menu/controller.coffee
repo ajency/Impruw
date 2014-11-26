@@ -11,12 +11,12 @@ define ['app', 'controllers/base-controller'
                 #get site model
                 @siteModel = siteModel = App.request "get:language:based:site" , @editLang
 
-                #get page element collection
-                @headerElementsCollection = App.request "get:header:elements" 
+                #get menu collection
+                @menuElementsCollection = App.request "get:site:menu:elements" , @editLang
 
-                @translatedMenuView = @_getTranslatedMenuView @headerElementsCollection
+                @translatedMenuView = @_getTranslatedMenuView @menuElementsCollection
 
-                @listenTo @translatedMenuView, "itemview:header:element:updated", @updateMenuElementContent
+                # @listenTo @translatedMenuView, "itemview:header:element:updated", @updateMenuElementContent
 
                 #function to load view
                 @show @translatedMenuView,
@@ -24,7 +24,7 @@ define ['app', 'controllers/base-controller'
 
             _getTranslatedMenuView :(collection)->
                 new TranslatedMenu.Views.TranslatedMenuView
-                    model : @siteModel
+                    model: @siteModel
                     collection: collection
                     language: @editLang
 

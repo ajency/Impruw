@@ -278,6 +278,14 @@ function get_footer_elements_ajax(){
 }
 add_action( 'wp_ajax_get-footer-elements', 'get_footer_elements_ajax' );
 
+function get_site_menu_elements_ajax(){
+    $language = $_REQUEST['language'];
+    $data =  get_site_menu_elements($language);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_get-site-menu-elements', 'get_site_menu_elements_ajax' );
+
 
 
 function update_translated_page_title(){

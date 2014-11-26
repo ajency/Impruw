@@ -9,9 +9,9 @@ define ['app', 'controllers/base-controller'
                 @editLang = opts.editLang
 
                 #get page element collection
-                @headerElementsCollection = App.request "get:header:elements" 
+                @menuElementsCollection = App.request "get:site:menu:elements" , WPML_DEFAULT_LANG
 
-                @originalMenuView = @_getMenuView @headerElementsCollection
+                @originalMenuView = @_getMenuView @menuElementsCollection
 
                 #function to load view
                 @show @originalMenuView,

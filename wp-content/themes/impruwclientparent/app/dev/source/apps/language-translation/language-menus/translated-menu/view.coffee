@@ -3,7 +3,7 @@ define ['app'
 
     App.module 'LanguageApp.LanguageMenuContent.TranslatedMenu.Views', (Views, App, Backbone, Marionette, $, _)->
 
-        class TranslatedMenuItemView extends Marionette.ItemView
+       class TranslatedMenuItemView extends Marionette.ItemView
 
             tagName : 'div'
 
@@ -12,80 +12,44 @@ define ['app'
             template : '<div class="col-sm-12">
                             <div class="form-group trans-field">
                                 <div class="col-sm-10">
-                                    <p class="form-control translated-header-content {{TypeOfElementClass}}">{{contentText}}</p>
-                                    <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="save-translated-header-element">
-                                        {{#polyglot}}Save{{/polyglot}}
-                                    </button>
+                                    <input type="text" class="form-control title translated-menu-item" id="translated-slidercaption-title" value="{{title}}">
+                                        <button class="btn btn-xs trans-action aj-imp-orange-btn btn-save-menu-item-translation">{{#polyglot}} Save {{/polyglot}}</button>
                                 </div>
                             </div>
-                         </div>'
+                        </div>'
 
             mixinTemplateHelpers: (data)->
                 data = super data
-                editingLanguage = Marionette.getOption @, 'editingLanguage'
-                data.contentText = ->
-                    if (data.element is "Link")
-                        translated_text = data.text[editingLanguage]
-                        return translated_text
-                    else
-                        translated_text = data.content[editingLanguage]
-                        return translated_text
-                        
-
-                data.TypeOfElementClass = ->
-                    if (data.element is "Title") or (data.element is "Link") 
-                        return "title"
-                    else
-                        return "text"
+                # data.element_in_language = ->
+                #     element_in_language = _.polyglot.t(data.element)
+                #     return element_in_language
                 data
 
-            events:
-                "click #save-translated-header-element" : "updateMenuElement"
+        class TranslatedNavMenuView extends Marionette.CompositeView
 
-            updateMenuElement:(e) ->
-                e.preventDefault()
-                newElementContent = @$el.find('.translated-header-content').html()
-                @trigger "menu:element:updated", newElementContent
+            template : '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</h6>
+                        <div class="translated-menu-items">
+                        </div>
+                        <hr>'
 
-            # initialize the CKEditor for the text element on show
-            # used setData instead of showing in template. this works well
-            # using template to load content add the html tags in content
-            # hold the editor instance as the element property so that
-            # we can destroy it on close of element
-            onShow: ->
-                editingLanguage = Marionette.getOption @, 'editingLanguage'
+            itemView : TranslatedMenuItemView
 
-                if  @model.get('element') is "Title"
-                  @$el.find('.translated-header-content').attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
-                else
-                  @$el.find('.translated-header-content').attr('contenteditable', 'true').attr 'id', _.uniqueId 'text-'
+            itemViewContainer : '.translated-menu-items'
 
-                @editor = CKEDITOR.inline document.getElementById @$el.find('.translated-header-content').attr 'id'
 
-                if (@model.get('element') is 'Link')
-                    content_text = 'text'
-                else
-                    content_text = 'content'
-
-                if @model.get(content_text)[editingLanguage] is undefined
-                  @editor.setData ""
-                else
-                  @editor.setData _.stripslashes @model.get(content_text)[editingLanguage]
-
-            # destroy the Ckeditor instance to avoiid memory leaks on close of element
-            # this.editor will hold the reference to the editor instance
-            # Ckeditor has a destroy method to remove a editor instance
-            onClose: ->
-                @editor.destroy(true)
+            initialize :->
+                collection = new Backbone.Collection @model.get('custom_menu_items')
+                @collection = collection
 
 
         class Views.TranslatedMenuView extends Marionette.CompositeView
 
             template : translatedmenuviewTpl
 
-            itemView : TranslatedMenuItemView
+            itemView : TranslatedNavMenuView
 
             itemViewContainer : '#translated-menu-elements'
+
 
             serializeData: ()->
                 data = super()
@@ -95,5 +59,6 @@ define ['app'
             itemViewOptions : ->
                 language = Marionette.getOption @, 'language'
                 editingLanguage : language
+
 
 

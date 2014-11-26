@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps//language-translation/language-menus/original-menu/templates/originalmenuview.html'], function(App, originalmenuviewTpl) {
   return App.module('LanguageApp.LanguageMenuContent.OriginalMenu.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var OriginalMenuItemView;
+    var EmptyMenuItemView, EmptyNavMenuView, OriginalMenuItemView, OriginalNavMenuView;
     OriginalMenuItemView = (function(_super) {
       __extends(OriginalMenuItemView, _super);
 
@@ -15,27 +15,10 @@ define(['app', 'text!apps//language-translation/language-menus/original-menu/tem
 
       OriginalMenuItemView.prototype.className = 'form-group legend-group';
 
-      OriginalMenuItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{element_in_language}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original {{TypeOfElementClass}}" tabindex="1"> {{{originalContent}}} </div> </div> </div> </div>';
+      OriginalMenuItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{#polyglot}}Menu item{{/polyglot}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original title" tabindex="1"> {{title}} </div> </div> </div> </div>';
 
       OriginalMenuItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalMenuItemView.__super__.mixinTemplateHelpers.call(this, data);
-        data.TypeOfElementClass = function() {
-          if ((data.element === "Title") || (data.element === "Link")) {
-            return "title";
-          } else {
-            return "text";
-          }
-        };
-        data.originalContent = function() {
-          var originalContent;
-          if (data.element === "Link") {
-            originalContent = data.text[WPML_DEFAULT_LANG];
-            return originalContent;
-          } else {
-            originalContent = data.content[WPML_DEFAULT_LANG];
-            return originalContent;
-          }
-        };
         data.element_in_language = function() {
           var element_in_language;
           element_in_language = _.polyglot.t(data.element);
@@ -47,6 +30,54 @@ define(['app', 'text!apps//language-translation/language-menus/original-menu/tem
       return OriginalMenuItemView;
 
     })(Marionette.ItemView);
+    EmptyMenuItemView = (function(_super) {
+      __extends(EmptyMenuItemView, _super);
+
+      function EmptyMenuItemView() {
+        return EmptyMenuItemView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyMenuItemView.prototype.template = '<br/><div class="empty-info">{{#polyglot}}No custom menu items to translate{{/polyglot}}</div><br/>';
+
+      return EmptyMenuItemView;
+
+    })(Marionette.ItemView);
+    OriginalNavMenuView = (function(_super) {
+      __extends(OriginalNavMenuView, _super);
+
+      function OriginalNavMenuView() {
+        return OriginalNavMenuView.__super__.constructor.apply(this, arguments);
+      }
+
+      OriginalNavMenuView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{#polyglot}}Menu Name: {{/polyglot}}{{name}}</small></h6> <div class="original-menu-items"> </div> <hr>';
+
+      OriginalNavMenuView.prototype.itemView = OriginalMenuItemView;
+
+      OriginalNavMenuView.prototype.itemViewContainer = '.original-menu-items';
+
+      OriginalNavMenuView.prototype.emptyView = EmptyMenuItemView;
+
+      OriginalNavMenuView.prototype.initialize = function() {
+        var collection;
+        collection = new Backbone.Collection(this.model.get('custom_menu_items'));
+        return this.collection = collection;
+      };
+
+      return OriginalNavMenuView;
+
+    })(Marionette.CompositeView);
+    EmptyNavMenuView = (function(_super) {
+      __extends(EmptyNavMenuView, _super);
+
+      function EmptyNavMenuView() {
+        return EmptyNavMenuView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyNavMenuView.prototype.template = '<br/><div class="empty-info">{{#polyglot}}No menus to translate{{/polyglot}}</div><br/>';
+
+      return EmptyNavMenuView;
+
+    })(Marionette.ItemView);
     return Views.OriginalMenuView = (function(_super) {
       __extends(OriginalMenuView, _super);
 
@@ -56,9 +87,11 @@ define(['app', 'text!apps//language-translation/language-menus/original-menu/tem
 
       OriginalMenuView.prototype.template = originalmenuviewTpl;
 
-      OriginalMenuView.prototype.itemView = OriginalMenuItemView;
+      OriginalMenuView.prototype.itemView = OriginalNavMenuView;
 
       OriginalMenuView.prototype.itemViewContainer = '#translatable-menu-elements';
+
+      OriginalMenuView.prototype.emptyView = EmptyNavMenuView;
 
       OriginalMenuView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalMenuView.__super__.mixinTemplateHelpers.call(this, data);

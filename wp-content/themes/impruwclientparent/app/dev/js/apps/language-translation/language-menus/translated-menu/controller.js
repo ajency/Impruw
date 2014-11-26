@@ -14,9 +14,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         var siteModel;
         this.editLang = opts.editLang;
         this.siteModel = siteModel = App.request("get:language:based:site", this.editLang);
-        this.headerElementsCollection = App.request("get:header:elements");
-        this.translatedMenuView = this._getTranslatedMenuView(this.headerElementsCollection);
-        this.listenTo(this.translatedMenuView, "itemview:header:element:updated", this.updateMenuElementContent);
+        this.menuElementsCollection = App.request("get:site:menu:elements", this.editLang);
+        this.translatedMenuView = this._getTranslatedMenuView(this.menuElementsCollection);
         return this.show(this.translatedMenuView, {
           loading: true
         });
