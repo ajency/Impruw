@@ -294,6 +294,7 @@ add_filter( 'wp_mail_content_type', 'change_email_content_type' );
         wp_enqueue_script("flatui-checkbox", get_template_directory_uri() . '/js/flatui-checkbox.js', array('jquery'), JSVERSION, TRUE);
         wp_enqueue_script("bootstrap-select", get_template_directory_uri() . '/js/bootstrap-select.js', array('jquery'), JSVERSION, TRUE);
         wp_enqueue_script("flatui-radio", get_template_directory_uri() . '/js/flatui-radio.js', array('jquery'), JSVERSION, TRUE);
+        wp_enqueue_script("inputmask", get_template_directory_uri() . '/js/inputmask.min.js', array('jquery'), JSVERSION, TRUE);
 
         wp_enqueue_script("user-login", get_template_directory_uri() . '/js/user-login.js', array('jquery'), JSVERSION, TRUE);
 
