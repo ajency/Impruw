@@ -5,6 +5,13 @@ define ['app'], (App)->
         class Views.MenuItemView extends Marionette.ItemView
 
             template: '<a class="add-menu-toggle" data-toggle="collapse" href="#add-menu-container"><span class="glyphicon glyphicon-plus"></span></a>
+                    <ul class="list-steps">
+                        <li>{{#polyglot}}To add items to the Menu, click on the plus sign.{{/polyglot}}</li>
+                        <li>{{#polyglot}}You can choose a page from the list of available pages from the dropdown OR Add a different page by adding the name of the page to be displayed on the menu and the page URL.{{/polyglot}}</li>
+                        <li>{{#polyglot}}You can only edit custom menu items form here, to edit the names of existing pages, go back to your site builder and edit the name of page by editing the page title on the top left corner.{{/polyglot}}</li>
+                        <li>{{#polyglot}}You can edit the order of your menu by dragging and dropping them in the list.{{/polyglot}}</li>
+                        <li>{{#polyglot}}To make a menu item a submenu, indent that menu item.{{/polyglot}}</li>
+                    </ul>
                     <div id="add-menu-container" class="aj-imp-add-menu-item collapse">
                         <div id="{{menu_slug}}-add-menu" class="add-menu-form">
                             <h4>{{#polyglot}}Add Menu Item{{/polyglot}}</h4>

@@ -3668,11 +3668,19 @@ $base_element_templates = array(
         )
     ),
     'Spacer' => array(
-            array( 'name' => 'Default', 'value' => 'default' ),
-            array( 'name' => 'Style 1', 'value' => 'style-1' ),
-            array( 'name' => 'Style 2', 'value' => 'style-2' ),
-            array( 'name' => 'Style 3', 'value' => 'style-3' )  
-        )
+            'line' => array(
+                array( 'name' => 'Solid Line', 'value' => 'default' ),
+                array( 'name' => 'Single Line', 'value' => 'style-1' ),
+                array( 'name' => 'Shaded Line', 'value' => 'style-2' ),
+                array( 'name' => 'Elegant Line', 'value' => 'style-3' )  
+            ),
+            'pattern' => array(
+                array( 'name' => 'Diagonal Stripes', 'value' => 'default' ),
+                array( 'name' => 'Dotted Layout', 'value' => 'style-1' ),
+                array( 'name' => 'Grid Layout', 'value' => 'style-2' ),
+                array( 'name' => 'Check Layout', 'value' => 'style-3' ) 
+            )
+            )
     
 );
 
