@@ -4596,10 +4596,10 @@ figure.effect-zoe:hover p.icon-links a:first-child {
 .impruw-blog .post .thumb .img-responsive {
   margin: auto;
 }
-.impruw-blog .post .post-title a {
-  font-size: 1em;
+.impruw-blog .post .post-title {
+  font-size: 2.2em;
   font-weight: 300;
-  margin: 1em 0;
+  margin: 0.25em 0;
 }
 .impruw-blog .post .meta {
   font-size: 1.1em;
@@ -4625,13 +4625,28 @@ figure.effect-zoe:hover p.icon-links a:first-child {
   font-weight: 300;
   font-size: 1.5em;
 }
-.impruw-blog .blog-sidebar .cat-list .categories ul {
-  font-size: 0.666em;
+.impruw-blog .blog-sidebar .cat-list .categories ul, .impruw-blog .blog-sidebar .cat-list {
+  font-size: 1em;
   margin: 0.5em 0 1em;
   padding: 0.5em 0.5em 0;
-  border-top: 1px solid #f3f3f3;
   list-style: none;
 }
-.impruw-blog .blog-sidebar .cat-list .categories ul li {
+.impruw-blog .blog-sidebar .cat-list .categories ul li, .impruw-blog .blog-sidebar .cat-list li {
   margin-bottom: 0.5em;
+  font-weight: 300;
+  font-size: 1.5em;
+}
+
+/**** Single Blog Post Styles ****/
+.single-post {
+  padding: 1em 3em;
+}
+.single-post .main-title {
+  border-bottom: 0;
+  padding-bottom: 0.25em;
+}
+.single-post .meta {
+  text-align: center;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #f3f3f3;
 }
