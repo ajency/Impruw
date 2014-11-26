@@ -1147,3 +1147,27 @@ function get_site_domain_name(){
 
     return $domain_name;
 }
+
+function translate_custom_menu_item($menu_item_id, $language, $menuitem_translated_label){
+    // Get original array of menu item label translations from post meta
+    $original_menu_label = get_post_meta( $menu_item_id, '_menu_item_custom_translation', true );
+    $original_menu_label = maybe_unserialize($original_menu_label);
+
+    // If meta of menu item label translations does not exist yet, create an array initialising with en and nb translation
+    if($original_menu_label == ""){
+        $original_menu_label =  array('en' =>  $menuitem_translated_label,
+            'nb' => $menuitem_translated_label );
+    }
+
+    //Assign original array of menu item translations to translated array
+    $translated_menu_label =  $original_menu_label;
+
+    // Update the menu item label for the language you want to save the label translation
+    $translated_menu_label[$language] = $menuitem_translated_label;
+
+    // Serialize the array and update the post meta with this new translated menu label array
+    $translated_meta_value = maybe_serialize($translated_menu_label);
+    $menu_update_status = update_post_meta($menu_item_id, '_menu_item_custom_translation', $translated_meta_value);
+
+    return $menu_update_status;
+}
