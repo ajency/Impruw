@@ -308,7 +308,7 @@ function get_elementbox_elements() {
             // 'title' => 'Tabs',
             'icon' => 'bicon icon-uniF142',
             'helpText' => 'help text to be added',
-            'styles' => array()//get_styles( 'Tabs' )
+            'styles' => get_styles( 'Tabs' )//get_styles( 'Tabs' )
         )
     );
 

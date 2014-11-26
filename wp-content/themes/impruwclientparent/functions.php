@@ -3628,27 +3628,6 @@ $base_element_templates = array(
         array(
             'name' => 'Small Address',
             'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
-        ),
-        array(
-            'name' => 'Tabs',
-            'template' => '<div class="tab-container tabs-style-linebox" role="tabpanel">
-
-                              <!-- Nav tabs -->
-                              <ul class="nav nav-tabs nav-justified" role="tablist">
-                                
-                                <li role="presentation" class="active"><a href="#tab-1" role="tab" data-toggle="tab"><span>Tab 1</span></a></li>
-                                <li role="presentation"><a href="#tab-2" role="tab" data-toggle="tab"><span>Tab 2</span></a></li>
-                                <li role="presentation"><a href="#tab-3" role="tab" data-toggle="tab"><span>Tab 3</span></a></li>
-                              </ul>
-
-                              <!-- Tab panes -->
-                              <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="tab-1">Tab 1 Content</div>
-                                <div role="tabpanel" class="tab-pane" id="tab-2">Tab 2 Content</div>
-                                <div role="tabpanel" class="tab-pane" id="tab-3">Tab 3 Content</div>
-                              </div>
-
-                            </div>'
         )
         
     ),
@@ -3660,6 +3639,13 @@ $base_element_templates = array(
         array(
             'name' => 'Testimonials'
         )
+    ),
+    'Tabs' => array(
+        array('name' => 'Default' , 'value' => 'default' ),
+        array( 'name' => 'Underline', 'value' => 'tabs-style-underline' ),
+        array('name' => 'Linetriangle' , 'value' => 'tabs-style-linetriangle' ),
+        array('name' => 'Linebox' , 'value' => 'tabs-style-linebox' )
+        
     ),
     'Social' => array(
         array(

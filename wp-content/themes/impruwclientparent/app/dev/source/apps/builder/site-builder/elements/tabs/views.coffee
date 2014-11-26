@@ -55,7 +55,7 @@ define ['app'
 
 		class Views.TabsView extends Marionette.CompositeView
 
-			className : 'tab-container tabs-style-flip'
+			className : 'tab-container'
 
 			template : ' 
 
@@ -94,8 +94,7 @@ define ['app'
 
 			onRender : ->
 				@$el.attr 'role',"tabpanel"
-
-
+				@$el.addClass @model.get 'style'
 
 			
 			initialize: (opt = {})->
@@ -130,6 +129,10 @@ define ['app'
 				_.delay =>
 					@$el.tabs('refresh')
 				,200
+
+			onStyleChanged: (newStyle, old)->
+                @$el.removeClass(old) if not _(old).isEmpty()
+                @$el.addClass newStyle
 
 
 			 

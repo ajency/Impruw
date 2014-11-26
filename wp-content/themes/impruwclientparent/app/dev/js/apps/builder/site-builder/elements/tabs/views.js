@@ -80,7 +80,7 @@ define(['app'], function(App) {
         return TabsView.__super__.constructor.apply(this, arguments);
       }
 
-      TabsView.prototype.className = 'tab-container tabs-style-flip';
+      TabsView.prototype.className = 'tab-container';
 
       TabsView.prototype.template = '<!-- Nav tabs --> <ul class="nav nav-tabs nav-justified" role="tablist"> </ul> <div class="add-tab"><span class="bicon icon-uniF193"></span>&nbsp;Add Tab</div> <!-- Tab panes --> <div class="tab-content"> </div>';
 
@@ -107,7 +107,8 @@ define(['app'], function(App) {
       };
 
       TabsView.prototype.onRender = function() {
-        return this.$el.attr('role', "tabpanel");
+        this.$el.attr('role', "tabpanel");
+        return this.$el.addClass(this.model.get('style'));
       };
 
       TabsView.prototype.initialize = function(opt) {
@@ -162,6 +163,13 @@ define(['app'], function(App) {
             return _this.$el.tabs('refresh');
           };
         })(this), 200);
+      };
+
+      TabsView.prototype.onStyleChanged = function(newStyle, old) {
+        if (!_(old).isEmpty()) {
+          this.$el.removeClass(old);
+        }
+        return this.$el.addClass(newStyle);
       };
 
       return TabsView;
