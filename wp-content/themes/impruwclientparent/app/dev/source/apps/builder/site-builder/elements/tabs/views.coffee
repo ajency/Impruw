@@ -64,7 +64,7 @@ define ['app'
 						
 						
 					  </ul>
-					  <div class="add-tab">Add Tab</div>
+					  <div class="add-tab"><span class="bicon icon-uniF193"></span>&nbsp;Add Tab</div>
 
 					  <!-- Tab panes -->
 					  <div class="tab-content">

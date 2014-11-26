@@ -82,7 +82,7 @@ define(['app'], function(App) {
 
       TabsView.prototype.className = 'tab-container tabs-style-flip';
 
-      TabsView.prototype.template = '<!-- Nav tabs --> <ul class="nav nav-tabs nav-justified" role="tablist"> </ul> <div class="add-tab">Add Tab</div> <!-- Tab panes --> <div class="tab-content"> </div>';
+      TabsView.prototype.template = '<!-- Nav tabs --> <ul class="nav nav-tabs nav-justified" role="tablist"> </ul> <div class="add-tab"><span class="bicon icon-uniF193"></span>&nbsp;Add Tab</div> <!-- Tab panes --> <div class="tab-content"> </div>';
 
       TabsView.prototype.itemView = TabPaneView;
 

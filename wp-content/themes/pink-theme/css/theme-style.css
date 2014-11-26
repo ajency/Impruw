@@ -2313,17 +2313,6 @@ ul.gallery {
 .tab-container .nav-tabs li {
   margin-bottom: -1px;
 }
-.tab-container .nav-tabs li.add-another a {
-  background: #aaa;
-}
-.tab-container .nav-tabs li.add-another a .bicon {
-  color: #fff;
-  margin: 0;
-}
-.tab-container .nav-tabs li.add-another a:hover {
-  background: #ff7e00;
-  border-color: #ff7e00 #ff7e00 transparent;
-}
 /*****************************/
 /* Underline */
 /*****************************/
@@ -2449,6 +2438,80 @@ ul.gallery {
 @media screen and (max-width: 58em) {
   .tabs-style-linetriangle .nav {
     font-size: 0.6em;
+  }
+}
+/*****************************/
+/* Line Box */
+/*****************************/
+.tabs-style-linebox .nav li {
+  padding: 0 0 0 1em;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+.tabs-style-linebox .nav li:first-child {
+  padding: 0;
+}
+.tabs-style-linebox .nav li.active {
+  border: 0;
+}
+.tabs-style-linebox .nav li.active a {
+  color: #ffffff;
+  background: transparent;
+}
+.tabs-style-linebox .nav li.active a:hover,
+.tabs-style-linebox .nav li.active a:focus {
+  border: 0;
+  background: transparent;
+}
+.tabs-style-linebox .nav a {
+  padding: 1.5em;
+  border: 0 !important;
+  color: #989898;
+  font-weight: 700;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+.tabs-style-linebox .nav a:hover,
+.tabs-style-linebox .nav a:focus {
+  color: #ff5f5f;
+  background: transparent;
+  border: 0;
+}
+.tabs-style-linebox .nav a::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: #e9e9e9;
+  content: '';
+  -webkit-transition: background-color 0.3s, -webkit-transform 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
+  -webkit-transition-timing-function: ease, cubic-bezier(0.7, 0, 0.3, 1);
+  transition-timing-function: ease, cubic-bezier(0.7, 0, 0.3, 1);
+  -webkit-transform: translate3d(0, 100%, 0) translate3d(0, -3px, 0);
+  transform: translate3d(0, 100%, 0) translate3d(0, -3px, 0);
+}
+.tabs-style-linebox .nav li.active a::after {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.tabs-style-linebox .nav a:hover::after,
+.tabs-style-linebox .nav a:focus::after,
+.tabs-style-linebox .nav li.active a::after {
+  background: #ff5f5f;
+}
+@media screen and (max-width: 58em) {
+  .tabs-style-linebox .nav {
+    display: block;
+    box-shadow: none;
+  }
+  .tabs-style-linebox .nav li {
+    display: block;
+    -webkit-flex: none;
+    flex: none;
   }
 }
 /*
