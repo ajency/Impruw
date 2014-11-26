@@ -494,6 +494,22 @@ jQuery(document).ready(function () {
     });
 });
 
+
+/************ tabs.js *****************/
+jQuery(document).ready(function(){
+    jQuery('.tab-container').each(function(index,container){
+        jQuery(container).children('.nav-tabs').first().find('a').each(function(ind,tab){
+            if(ind == 0){
+                jQuery(tab).parent().addClass('active');
+                jQuery(container).children('.tab-content').first().children('div:eq('+(ind)+')').addClass('active')
+            }
+            jQuery(tab).attr('href','#tab-'+index+'-'+ind);
+            jQuery(container).children('.tab-content').first().children('div:eq('+(ind)+')').attr('id','tab-'+index+'-'+ind);
+        });
+        // jQuery(container).tabs()
+    });
+});
+
 /************ map.js *******************/
 jQuery(document).ready(function() {
 

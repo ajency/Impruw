@@ -18,7 +18,8 @@ define(['app'], function(App) {
       TabPaneView.prototype.template = '';
 
       TabPaneView.prototype.onRender = function() {
-        return this.$el.attr('role', 'tabpanel').attr('id', _.uniqueId('tab-'));
+        this.$el.attr('role', 'tabpanel').attr('id', _.uniqueId('tab-'));
+        return this.$el.attr('data-name', this.model.get('tabName'));
       };
 
       TabPaneView.prototype.onShow = function() {
@@ -96,8 +97,12 @@ define(['app'], function(App) {
           return this.collection.add({
             position: this.collection.size() + 1,
             element: 'TabPane',
-            elements: []
+            elements: [],
+            tabName: 'tab'
           });
+        },
+        'blur .nav-tabs span': function(evt) {
+          return this.$el.find("" + ($(evt.target).parent().attr('href'))).attr('data-name', $(evt.target).text());
         }
       };
 
@@ -119,6 +124,7 @@ define(['app'], function(App) {
             _results.push(this.collection.add({
               position: i,
               element: 'TabPane',
+              tabName: 'tab',
               elements: []
             }, {
               silent: true
@@ -143,7 +149,7 @@ define(['app'], function(App) {
       TabsView.prototype.onAfterItemAdded = function(itemView) {
         var id;
         id = itemView.$el.attr('id');
-        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class=""><a href="#' + id + '" role="tab" data-toggle="tab"><span>Tab 1</span></a></li>');
+        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class=""><a href="#' + id + '" role="tab" data-toggle="tab"><span contenteditable="true">' + itemView.model.get('tabName') + '</span></a></li>');
       };
 
       TabsView.prototype.onShow = function() {

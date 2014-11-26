@@ -364,6 +364,12 @@ function add_element_markup( $element ) {
         case 'Column' :
             $html = get_builder_row_column_markup( $element );
             break;
+        case 'Tabs' :
+            $html = get_tabs_element_markup( $element );
+            break;
+        case 'TabPane':
+            $html = get_tab_pane_element_markup( $element );
+            break;
         case 'ContainerElement' :
             $html = get_container_markup( $element );
             break;
@@ -503,6 +509,64 @@ function get_builder_row_column_markup( $element ) {
     }
 
     $html .= $column->get_close_tag();
+
+    return $html;
+}
+
+/**
+ * Generates the tabs markup
+ *
+ * @param type $element
+ */
+function get_tabs_element_markup( $element ) {
+
+    include_once( dirname( __FILE__ ) . '/elements/TabsElement.php');
+
+    $tab = new Tabs( $element );
+
+    $html = $tab->get_open_tag();
+
+    $tab_bar = "<!-- Nav tabs -->
+                <ul class='nav nav-tabs nav-justified' role='tablist'>";
+        
+    $tab_content = "<div class='tab-content'>";
+
+    if ( $tab->has_child_elements() ) {
+
+        foreach ( $tab->get_elements() as $ele ) {
+
+            $tab_bar .= "<li role='presentation'><a href='#tab-3' role='tab' data-toggle='tab'><span>{$ele['tabName']}</span></a></li>";
+
+            $tab_content .= add_element_markup( $ele );
+        }
+    }
+    $tab_bar .= "</ul>";
+    $tab_content .= "</div>";
+
+    $html .= $tab_bar;
+    $html .= $tab_content;
+
+    $html .= $tab->get_close_tag();
+
+    return $html;
+}
+
+function get_tab_pane_element_markup( $element ){
+    include_once( dirname( __FILE__ ) . '/elements/TabPaneElement.php');
+
+    $tab_pane = new TabPane( $element );
+
+    $html = $tab_pane->get_open_tag();
+     if ( $tab_pane->has_child_elements() ) {
+
+        foreach ( $tab_pane->get_elements() as $ele ) {
+
+            $html .= add_element_markup( $ele );
+        }
+    }
+
+    $html .= $tab_pane->get_close_tag();
+
 
     return $html;
 }

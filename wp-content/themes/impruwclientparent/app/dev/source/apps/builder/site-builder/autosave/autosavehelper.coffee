@@ -52,10 +52,12 @@ define ['app','jquery'], (App, $) ->
 					delete ele.meta_id
 					ele.elements = []
 					_.each $(element).children('.element-markup').children('.tab-container').children('.tab-content').children('.column'), (column, index)=>
+						tabName = $(column).attr('data-name')
 						# className = $(column).attr 'data-class'
 						col =
 							position: index + 1
 							element: 'TabPane'
+							tabName : tabName
 							# className: className
 							elements: AutoSaveHelper.getJson $(column)
 

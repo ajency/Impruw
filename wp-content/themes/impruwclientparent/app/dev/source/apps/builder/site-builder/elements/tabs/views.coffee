@@ -13,6 +13,7 @@ define ['app'
 
 			onRender : ->
 				@$el.attr('role','tabpanel').attr 'id', _.uniqueId 'tab-'
+				@$el.attr('data-name',@model.get('tabName'))
 
 			onShow : ->
 				 @$el.sortable
@@ -77,12 +78,19 @@ define ['app'
 			collectionEvents : 
 				'add' : 'collectionAdded'
 
+
+
 			events : 
 				'click .add-tab' : ->
 					@collection.add
 						position : @collection.size() + 1
 						element : 'TabPane'
 						elements : []
+						tabName : 'tab'
+
+				'blur .nav-tabs span' :(evt)->
+					@$el.find("#{$(evt.target).parent().attr('href')}").attr 'data-name',$(evt.target).text()
+
 
 			onRender : ->
 				@$el.attr 'role',"tabpanel"
@@ -97,6 +105,7 @@ define ['app'
 						@collection.add
 							position: i
 							element: 'TabPane'
+							tabName : 'tab'
 							# className: 6
 							elements: []
 							,{silent: true}
@@ -109,7 +118,8 @@ define ['app'
 			onAfterItemAdded : (itemView)->
 				id = itemView.$el.attr 'id'
 
-				@$el.find('ul.nav-tabs').append '<li role="presentation" class=""><a href="#'+id+'" role="tab" data-toggle="tab"><span>Tab 1</span></a></li>'
+				@$el.find('ul.nav-tabs').append '<li role="presentation" class=""><a href="#'+id+'" role="tab" data-toggle="tab"><span contenteditable="true">'+itemView.model.get('tabName')+'</span></a></li>'
+
 				
 
 

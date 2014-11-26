@@ -29,7 +29,7 @@ define(["marionette", "app"], function(Marionette, App) {
     };
 
     AppController.prototype.add = function(layout, section) {
-      var type;
+      var type, _ref;
       this.listenTo(layout, 'close', this.close);
       type = layout.model.get("element");
       if (section.find("li[data-element='" + type + "']").length === 1) {
@@ -40,7 +40,7 @@ define(["marionette", "app"], function(Marionette, App) {
       section.removeClass('empty-column');
       layout.render();
       layout.triggerMethod('show');
-      if (layout.model.get('element') === 'Row') {
+      if ((_ref = layout.model.get('element')) === 'Row' || _ref === 'Tabs') {
         this.layout.addHiddenFields();
       }
       if (!layout.model.isNew() || layout.model.get('element') === 'Row') {

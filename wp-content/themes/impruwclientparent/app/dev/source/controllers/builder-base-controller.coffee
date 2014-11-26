@@ -35,7 +35,7 @@ define ["marionette"
             layout.triggerMethod 'show'
 
             # for row add hidden fields
-            @layout.addHiddenFields() if layout.model.get('element') is 'Row'
+            @layout.addHiddenFields() if layout.model.get('element') in ['Row','Tabs']
 
             #check if element need save
             if not layout.model.isNew() or layout.model.get('element') is 'Row'
