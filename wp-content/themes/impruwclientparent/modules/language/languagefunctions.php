@@ -419,21 +419,39 @@ function impruw_filter_menu_class( $objects, $args ) {
     $current_language = wpml_get_current_language();
      foreach ( $objects as $i => $object ) {
 
-        if($object->type === 'custom')
-            continue;
+        if($object->type === 'custom'){
+            
+            $translated_title = $object->title;
 
-        $item_page_id = $objects[$i]->object_id;
+            $menu_item_id = $object->ID;
 
-        $translated_item_page_id = icl_object_id($item_page_id, 'page', true, $current_language);
+            $original_menu_label = get_post_meta( $menu_item_id, '_menu_item_custom_translation', true );
 
-        $translated_item_page = get_post($translated_item_page_id);
+            $original_menu_label = maybe_unserialize($original_menu_label);
 
-        $translated_menu_item_page_title = $translated_item_page->post_title;
-        $translated_menu_item_page_url =  get_permalink( $translated_item_page_id);
+            if(isset($original_menu_label[$current_language])){
+                $translated_title = $original_menu_label[$current_language];   
+            }
 
-        $objects[$i]->object_id = $translated_item_page_id;
-        $objects[$i]->url = $translated_menu_item_page_url;
-        $objects[$i]->title = $translated_menu_item_page_title;
+            $objects[$i]->title = $translated_title;
+        }
+        else{
+
+            $item_page_id = $objects[$i]->object_id;
+
+            $translated_item_page_id = icl_object_id($item_page_id, 'page', true, $current_language);
+
+            $translated_item_page = get_post($translated_item_page_id);
+
+            $translated_menu_item_page_title = $translated_item_page->post_title;
+            $translated_menu_item_page_url =  get_permalink( $translated_item_page_id);
+
+            $objects[$i]->object_id = $translated_item_page_id;
+            $objects[$i]->url = $translated_menu_item_page_url;
+            $objects[$i]->title = $translated_menu_item_page_title;
+
+        }
+
 
     }
 
