@@ -4,6 +4,8 @@ define ['app', 'controllers/base-controller'
         'apps/language-translation/language-page-content/translated-page-content/controller'
         'apps/language-translation/language-page-content/original-table-content/controller'
         'apps/language-translation/language-page-content/translated-table-content/controller'
+        'apps/language-translation/language-page-content/original-smart-table/controller'
+        'apps/language-translation/language-page-content/translated-smart-table/controller'
         'apps/language-translation/language-page-content/original-slider-content/controller'
         'apps/language-translation/language-page-content/translated-slider-content/controller'
         ], (App, AppController)->
@@ -47,6 +49,17 @@ define ['app', 'controllers/base-controller'
 
                     App.execute "translated:table:content:app",
                         region: @languagePageContentLayout.translatedTableContent,
+                        editLang : @editLang
+                        pageId :  @pageId
+                        originalId : @originalId
+
+                    App.execute "original:smart:table:app",
+                        region: @languagePageContentLayout.originalSmartTable,
+                        editLang : @editLang
+                        pageId :  @originalId
+
+                    App.execute "translated:smart:table:app",
+                        region: @languagePageContentLayout.translatedSmartTable,
                         editLang : @editLang
                         pageId :  @pageId
                         originalId : @originalId

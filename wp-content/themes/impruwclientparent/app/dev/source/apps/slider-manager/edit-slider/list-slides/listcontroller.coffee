@@ -130,11 +130,9 @@ define ['app'
                                 {{#isSlider}}
                                 <div class="imgthumb col-sm-2">
                                     <div class="arrange-slides">
-                                        <div class="arrange-slides">
                                         <div class="arrow">
                                             <span class="bicon icon-uniF140"></span>
                                         </div>
-                                    </div>
                                     </div>
                                     <img src="{{thumb_url}}" class="img-responsive">
                                     <div class="imgactions">

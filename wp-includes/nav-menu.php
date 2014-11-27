@@ -602,6 +602,40 @@ function wp_get_nav_menu_items( $menu, $args = array() ) {
 		}
 	}
 
+	// Code to display language based title for menu
+	foreach ($items as $i => $item) {
+		$default_language = wpml_get_default_language();
+		if($item->type === 'custom'){
+			
+            $translated_title = $item->title;
+
+            $menu_item_id = $item->ID;
+
+            $original_menu_label = get_post_meta( $menu_item_id, '_menu_item_custom_translation', true );
+
+            $original_menu_label = maybe_unserialize($original_menu_label);
+
+            if(isset($original_menu_label[$default_language])){
+                $translated_title = $original_menu_label[$default_language];   
+            }
+
+            $items[$i]->title = $translated_title;
+        }
+        else{
+
+            $item_page_id = $item->object_id;
+
+            $translated_item_page_id = icl_object_id($item_page_id, 'page', true, $default_language);
+
+            $translated_item_page = get_post($translated_item_page_id);
+
+            $translated_menu_item_page_title = $translated_item_page->post_title;
+
+            $items[$i]->title = $translated_menu_item_page_title;
+
+        }
+	}
+
 	/**
 	 * Filter the navigation menu items being returned.
 	 *

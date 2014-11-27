@@ -1939,7 +1939,7 @@ ul.gallery {
 }
 .lang-sel > div {
   text-align: left;
-  z-index: 3;
+  z-index: 250;
 }
 .lang-sel > div ul,
 .lang-sel > div li {
@@ -2717,7 +2717,7 @@ and open the template in the editor.
   background: #e6e6e6;
   color: #ed1c24;
 }
-.nav.slimmenu > li.menu-item-has-children a {
+.nav.slimmenu > li.menu-item-has-children > a {
   padding-right: 40px;
 }
 .nav.slimmenu > li.menu-item-has-children .sub-collapser > i {
@@ -2743,6 +2743,7 @@ and open the template in the editor.
   white-space: nowrap;
   color: #ffffff;
   margin: 0;
+  text-align: left;
 }
 .nav.slimmenu > li > .sub-menu li a:hover {
   color: #831618;
@@ -4014,6 +4015,7 @@ and open the template in the editor.
 }
 .lang-sel > div {
   text-align: left;
+  z-index: 250;
 }
 .lang-sel > div ul,
 .lang-sel > div li {

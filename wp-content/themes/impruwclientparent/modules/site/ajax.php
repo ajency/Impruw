@@ -276,6 +276,14 @@ function builder_add_new_menu_item(){
         wp_send_json(array('success' => false, 'messsage' => $menu_item_id->get_message()) );
     }
     else{
+        //Add language post meta for each custom label menu
+        if($menu_item['menu-item-type']==='custom'){
+
+            $language = wpml_get_default_language();
+
+            $menu_update_status = translate_custom_menu_item($menu_item_id,$language,$menu_item['menu-item-title']);
+
+        }
         $menu_items = wp_get_nav_menu_items( $menu_id );
         foreach ($menu_items as $item) {
             if($item->ID === $menu_item_id){
@@ -294,7 +302,13 @@ function builder_update_menu_item(){
 
     wp_update_post(array( 'ID' => $menu_item_db_id, 'post_title' => $menu_data['menu-item-title']) );
     update_post_meta( $menu_item_db_id, '_menu_item_url', esc_url_raw($menu_data['menu-item-url']) );
-    wp_send_json(1 );
+
+    //Update transaltion as well
+    $language = wpml_get_default_language();
+
+    $menu_update_status = translate_custom_menu_item($menu_item_db_id,$language,$menu_data['menu-item-title']);
+
+    wp_send_json($menu_item_db_id);
 }
 add_action('wp_ajax_builder-update-menu-item', 'builder_update_menu_item');
 

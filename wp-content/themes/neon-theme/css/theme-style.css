@@ -1935,7 +1935,7 @@ ul.gallery {
 }
 .lang-sel > div {
   text-align: left;
-  z-index: 3;
+  z-index: 250;
 }
 .lang-sel > div ul,
 .lang-sel > div li {
@@ -4183,6 +4183,7 @@ and open the template in the editor.
 }
 .lang-sel > div {
   text-align: left;
+  z-index: 250;
 }
 .lang-sel > div ul,
 .lang-sel > div li {

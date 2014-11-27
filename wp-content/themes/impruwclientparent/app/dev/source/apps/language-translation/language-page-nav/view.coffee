@@ -36,6 +36,11 @@ define ['app'], (App)->
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="#page-menu" id="page-menu" data-toggle="tab">
+                                        {{#polyglot}}Page Menu{{/polyglot}}
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="#rooms" id="rooms" data-toggle="tab">
                                         {{#polyglot}}All Rooms{{/polyglot}}
                                         </a>
@@ -51,6 +56,7 @@ define ['app'], (App)->
                         'click a#site' : 'loadSiteContent'
                         'click a#page-header' : 'loadHeaderContent'
                         'click a#page-footer' : 'loadFooterContent'
+                        'click a#page-menu' : 'loadMenuContent'
                         'click a#rooms' : 'loadRoomContent'
 
                     loadSiteContent: (e) ->
@@ -61,6 +67,9 @@ define ['app'], (App)->
 
                     loadFooterContent: (e) ->
                         @trigger "footer:translate:content"
+
+                    loadMenuContent: (e) ->
+                        @trigger "menu:translate:content"
 
                     loadRoomContent: (e) ->
                         @trigger "page:room:content"
