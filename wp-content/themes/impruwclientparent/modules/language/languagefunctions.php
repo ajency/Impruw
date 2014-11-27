@@ -75,7 +75,7 @@ function impruw_get_languages($lang=false){
                 code, english_name, major, active, default_locale, lt.name AS display_name
             FROM {$wpdb->prefix}icl_languages l
                 JOIN {$wpdb->prefix}icl_languages_translations lt ON l.code=lt.language_code
-            WHERE lt.display_language_code = '{$lang}' AND l.code IN ('en','de','fr','nb' , 'es' )
+            WHERE lt.display_language_code = '{$lang}' AND l.code IN ('en','de','fr','nb' , 'es', 'ru' )
             ORDER BY major DESC, english_name ASC", ARRAY_A);
     $languages = array();
     foreach((array)$res as $r){
