@@ -4650,3 +4650,19 @@ figure.effect-zoe:hover p.icon-links a:first-child {
   padding-bottom: 0.5em;
   border-bottom: 1px solid #f3f3f3;
 }
+.single-post .comments-title {
+  font-size: 2em;
+  font-weight: 400;
+  color: #333;
+}
+.single-post .comments-title span {
+  color: #ff7e00;
+}
+.single-post .blog-comment-form {
+  max-width: 800px;
+}
+.single-post .blog-comment-form .comment-reply-title {
+  font-size: 1.5em;
+  font-weight: 300;
+  color: #aaaaaa;
+}
