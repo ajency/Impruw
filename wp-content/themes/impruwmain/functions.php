@@ -716,3 +716,88 @@ function new_excerpt_more( $more ) {
   return '&hellip;';
 }
 add_filter('excerpt_more', 'new_excerpt_more');
+
+/**** Blog Comments Form ****/
+add_filter( 'comment_form_default_fields', 'bootstrap3_comment_form_fields' );
+function bootstrap3_comment_form_fields( $fields ) {
+    $commenter = wp_get_current_commenter();
+    
+    $req      = get_option( 'require_name_email' );
+    $aria_req = ( $req ? " aria-required='true'" : '' );
+    $html5    = current_theme_supports( 'html5', 'comment-form' ) ? 1 : 0;
+    
+    $fields   =  array(
+        'author' => '<div class="form-group comment-form-author">' . '<label for="author" class="control-label col-sm-3">' . __( 'Name' ) . ( $req ? ' <span class="required">*</span>' : '' ) . '</label> ' .
+                    '<div class="col-sm-9 col-sm-offset-3"><input class="form-control" id="author" name="author" type="text" placeholder="' . __( 'What\'s your name?' ) . '" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . ' /></div></div>',
+        'email'  => '<div class="form-group comment-form-email"><label for="email" class="control-label col-sm-3">' . __( 'Email' ) . ( $req ? ' <span class="required">*</span>' : '' ) . '</label> ' .
+                    '<div class="col-sm-9 col-sm-offset-3"><input class="form-control" id="email" name="email" ' . ( $html5 ? 'type="email"' : 'type="text"' ) . ' placeholder="' . __( 'What\'s your email address?' ) . '" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' /></div></div>',
+        'comment_notes_after' => '',
+    );
+    
+    return $fields;
+}
+
+add_filter( 'comment_form_defaults', 'bootstrap3_comment_form' );
+function bootstrap3_comment_form( $args ) {
+    $args['comment_field'] = '<div class="form-group comment-form-comment">
+            <label for="comment" class="control-label col-sm-3">' . _x( 'Comment', 'noun' ) . '</label> 
+            <div class="col-sm-9 col-sm-offset-3"><textarea class="form-control" id="comment" name="comment" placeholder="' . __( 'What do you have to say?' ) . '" cols="45" rows="4" aria-required="true"></textarea></div>
+        </div>';
+    return $args;
+}
+
+if ( ! function_exists( 'impruwmain_comment' ) ) :
+/**
+ * Template for comments and pingbacks.
+ *
+ * Used as a callback by wp_list_comments() for displaying the comments.
+ *
+ * @since impruwmain 1.0
+ */
+function impruwmain_comment( $comment, $args, $depth ) {
+    $GLOBALS['comment'] = $comment;
+    switch ( $comment->comment_type ) :
+        case 'pingback' :
+        case 'trackback' :
+    ?>
+    <li class="post pingback">
+        <p><?php _e( 'Pingback:', 'impruwmain' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( __( '(Edit)', 'impruwmain' ), ' ' ); ?></p>
+    <?php
+            break;
+        default :
+    ?>
+    <li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
+        <article id="comment-<?php comment_ID(); ?>" class="comment">
+            <footer>
+                <div class="comment-author vcard">
+                    <?php echo get_avatar( $comment, 40 ); ?>
+                    <?php printf( __( '%s <span class="says">says:</span>', 'impruwmain' ), sprintf( '<cite class="fn">%s</cite>', get_comment_author_link() ) ); ?>
+                </div><!-- .comment-author .vcard -->
+                <?php if ( $comment->comment_approved == '0' ) : ?>
+                    <em><?php _e( 'Your comment is awaiting moderation.', 'impruwmain' ); ?></em>
+                    <br />
+                <?php endif; ?>
+ 
+                <div class="comment-meta commentmetadata">
+                    <a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>"><time pubdate datetime="<?php comment_time( 'c' ); ?>">
+                    <?php
+                        /* translators: 1: date, 2: time */
+                        printf( __( '%1$s at %2$s', 'impruwmain' ), get_comment_date(), get_comment_time() ); ?>
+                    </time></a>
+                    <?php edit_comment_link( __( '(Edit)', 'impruwmain' ), ' ' );
+                    ?>
+                </div><!-- .comment-meta .commentmetadata -->
+            </footer>
+ 
+            <div class="comment-content"><?php comment_text(); ?></div>
+ 
+            <div class="reply">
+                <?php comment_reply_link( array_merge( $args, array( 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+            </div><!-- .reply -->
+        </article><!-- #comment-## -->
+ 
+    <?php
+            break;
+    endswitch;
+}
+endif; // ends check for impruwmain_comment()
