@@ -1,37 +1,36 @@
 define [ 'app'
-		 'apps/builder/site-builder/elements/smarttable/views'
-		 'apps/builder/site-builder/elements/smarttable/settings/controller' 
+		 'apps/builder/site-builder/elements/list/views'
+		 'apps/builder/site-builder/elements/list/settings/controller' 
 ],( App )->
-	App.module 'SiteBuilderApp.Element.SmartTable', ( SmartTable, App, Backbone, Marionette, $, _ )->
+	App.module 'SiteBuilderApp.Element.List', ( List, App, Backbone, Marionette, $, _ )->
 
 		# menu controller
-		class SmartTable.Controller extends App.SiteBuilderApp.Element.Controller
+		class List.Controller extends App.SiteBuilderApp.Element.Controller
 
 			# intializer
 			initialize : ( options )->
 
 				_.defaults options.modelData,
-					element : 'SmartTable'
-					style : 'Testimonials'
-					innerStyle : 'Default'
+					element : 'List'
+					style : ''
 					contents : 
 						en : [
-								dt: 'demo'
-								dd: 'demo'
-								em: 'demo'
+								data : 'demo'
 							,
-								dt: 'demo'
-								dd: 'demo'
-								em: 'demo'						
+								data : 'demo'
+							,
+								data : 'demo'
+							,
+								data : 'demo'
 						]
 						nb : [
-								dt: 'demo'
-								dd: 'demo'
-								em: 'demo'
+								data : 'demo'
 							,
-								dt: 'demo'
-								dd: 'demo'
-								em: 'demo'							
+								data : 'demo'
+							,
+								data : 'demo'
+							,
+								data : 'demo'						
 						]
 
 
@@ -39,26 +38,25 @@ define [ 'app'
 
 			bindEvents : ->
 				# start listening to model events
-				@listenTo @layout.model, "change:style change:innerStyle", @renderElement
+				@listenTo @layout.model, "change:style ", @renderElement
 				super()
 
-			_getSmartTableView : ( model, template )->
-				new SmartTable.Views.TableView
-					model : model
-					# template : template
+			_getListView : ->
+				new List.Views.ListView
+					model : @layout.model
 					collection : @collection
 
 			_generateCollections : ->
 				# content collection for current language
 				@collection = new Backbone.Collection @layout.model.get('contents')[WPML_DEFAULT_LANG]
-				window.WPML_OTHER_LANG =  if WPML_DEFAULT_LANG is 'en' then 'nb' else 'en'
+				window.WPML_OTHER_LANG = if WPML_DEFAULT_LANG is 'en' then 'nb' else 'en'
 					# _.without(Object.getOwnPropertyNames(ACTIVE_LANGUAGES),WPML_DEFAULT_LANG)[0]
 				# content collection for other language
 				@collectionOther = new Backbone.Collection @layout.model.get('contents')[WPML_OTHER_LANG]
 
 				@listenTo @collection , 'remove',(model,collection,options)=>
 					@collectionOther.remove @collectionOther.at options.index
-					@view.trigger 'save:smart:table'
+					@view.trigger 'save:list'
 
 
 
@@ -66,10 +64,10 @@ define [ 'app'
 				@removeSpinner()
 
 				@_generateCollections()
-				# template = @_getElementTemplate @layout.model
-				@view = @_getSmartTableView @layout.model #, template
 
-				@listenTo @view, 'itemview:save:smart:table save:smart:table',->
+				@view = @_getListView() 
+
+				@listenTo @view, 'itemview:save:list save:list',->
 					data = @layout.model.get('contents')
 					data[WPML_DEFAULT_LANG] = @collection.toJSON()
 					data[WPML_OTHER_LANG] = @collectionOther.toJSON()
@@ -79,19 +77,15 @@ define [ 'app'
 				@listenTo @view, 'add:new:model:to:collection',->
 					data = 
 						en :
-							dt: 'demo'
-							dd: 'demo'
-							em: 'demo'
+							data : 'demo'
 						nb : 
-							dt: 'demo'
-							dd: 'demo'
-							em: 'demo'
+							data : 'demo'
 
 					@collection.add data[WPML_DEFAULT_LANG]
 
 					@collectionOther.add data[WPML_OTHER_LANG]
 
-					@view.trigger 'save:smart:table'
+					@view.trigger 'save:list'
 
 
 

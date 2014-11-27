@@ -442,6 +442,9 @@ function add_element_markup( $element ) {
         case 'SmartTable' :
             $html = get_smart_table_element_markup( $element );
             break;
+        case 'List':
+            $html = get_list_element_markup( $element );
+            break;
         default :
             break;
     }
@@ -846,6 +849,16 @@ function get_smart_table_element_markup( $element ){
     $smart_table = new SmartTableElement( $element );
 
     $html = $smart_table->get_markup();
+
+    return $html;
+}
+
+function get_list_element_markup( $element ){
+    include_once( dirname( __FILE__ ). '/elements/ListElement.php');
+
+    $list = new ListElement( $element );
+
+    $html = $list->get_markup();
 
     return $html;
 }
@@ -3564,33 +3577,12 @@ $base_element_templates = array(
         array(
             'name' => 'Small Address',
             'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
-        ),
-        array(
-            'name' => 'List',
-            'template' => '<div class="impruw-list">
-                                <ul class="checked-list">
-                                    <li>
-                                        <span>List Item 1</span>
-                                    </li>
-                                    <li>
-                                        <span>List Item 2</span>
-                                    </li>
-                                    <li>
-                                        <span>List Item 3</span>
-                                    </li>
-                                    <li>
-                                        <span>List Item 4</span>
-                                    </li>
-                                    <li>
-                                        <span>List Item 5</span>
-                                    </li>
-                                    <li>
-                                        <span>List Item 6</span>
-                                    </li>
-                                </ul>
-                            </div>'
         )
-        
+    ),
+    'List' => array(
+        array( 'name' => 'Hover List', 'value' => 'hover-list'),
+        array( 'name' => 'Numbered List', 'value' => 'numbered-list' ),
+        array( 'name' => 'Checked List', 'value' => 'checked-list' )
     ),
     'SmartTable' => array(
         array(
