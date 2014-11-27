@@ -128,7 +128,7 @@ define ['app','bootbox'
 			onAfterItemAdded : (itemView)->
 				id = itemView.$el.attr 'id'
 
-				@$el.find('ul.nav-tabs').append '<li role="presentation" class=""><a href="#'+id+'" role="tab" data-toggle="tab"><span contenteditable="true">'+itemView.model.get('tabName')+'</span></a><div class="delete-tab-btn"><span class="glyphicon glyphicon-trash"></span></div></li>'
+				@$el.find('ul.nav-tabs').append '<li role="presentation" class=""><a href="#'+id+'" role="tab" data-toggle="tab"><span contenteditable="true">'+itemView.model.get('tabName')+'</span></a><div class="delete-tab-btn">&times;</div></li>'
 				
 
 			onShow: ->

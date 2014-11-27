@@ -1,11 +1,32 @@
 /**** Tab Styles****/
 .tab-container {
 	margin: 1em 0;
-	padding: 0 1em;
+	padding: 0;
     position: relative;
 	.nav-tabs {
 		li {
 			margin-bottom: -1px;
+            position: relative;
+            .delete-tab-btn {
+                position: absolute;
+                border-radius: 2px;
+                font-size: 0.88em;
+                padding: 0 0.3em;
+                background: fade(#ff3333, 60%);
+                color: #fff;
+                top: 5px;
+                left: 5px;
+                cursor: pointer;
+                display: none;
+                &:hover {
+                    background: fade(#ff3333, 90%);
+                }
+            }
+            &:hover {
+                .delete-tab-btn {
+                    display: block;
+                }
+            }
 		}
 	}
     .add-tab {

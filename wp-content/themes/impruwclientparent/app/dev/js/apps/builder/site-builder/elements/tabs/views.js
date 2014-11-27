@@ -165,7 +165,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       TabsView.prototype.onAfterItemAdded = function(itemView) {
         var id;
         id = itemView.$el.attr('id');
-        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class=""><a href="#' + id + '" role="tab" data-toggle="tab"><span contenteditable="true">' + itemView.model.get('tabName') + '</span></a><div class="delete-tab-btn"><span class="glyphicon glyphicon-trash"></span></div></li>');
+        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class=""><a href="#' + id + '" role="tab" data-toggle="tab"><span contenteditable="true">' + itemView.model.get('tabName') + '</span></a><div class="delete-tab-btn">&times;</div></li>');
       };
 
       TabsView.prototype.onShow = function() {
