@@ -2271,9 +2271,28 @@ ul.gallery {
 .tab-container {
   margin: 1em 0;
   padding: 0 1em;
+  position: relative;
 }
 .tab-container .nav-tabs li {
   margin-bottom: -1px;
+}
+.tab-container .add-tab {
+  position: absolute;
+  border-radius: 2px;
+  background: #ff7e00;
+  padding: 0.5em;
+  font-size: 0.88em;
+  color: #fff;
+  cursor: pointer;
+  top: -10px;
+  right: 5px;
+  display: none;
+}
+.tab-container .add-tab:hover {
+  background: #ff9833;
+}
+.tab-container:hover .add-tab {
+  display: block;
 }
 /*****************************/
 /* Underline */
