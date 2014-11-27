@@ -1,5 +1,5 @@
-define ['app'
-],(App)->
+define ['app','bootbox'
+],(App,bootbox)->
 	App.module 'SiteBuilderApp.Element.Tabs.Views', (Views,App)->
 
 
@@ -12,8 +12,10 @@ define ['app'
 			template : ''
 
 			onRender : ->
-				@$el.attr('role','tabpanel').attr 'id', _.uniqueId 'tab-'
+				id = _.uniqueId 'tab-'
+				@$el.attr('role','tabpanel').attr 'id', id
 				@$el.attr('data-name',@model.get('tabName'))
+				@model.set 'id',id
 
 			onShow : ->
 				 @$el.sortable
@@ -91,6 +93,15 @@ define ['app'
 				'blur .nav-tabs span' :(evt)->
 					@$el.find("#{$(evt.target).parent().attr('href')}").attr 'data-name',$(evt.target).text()
 
+				'click .delete-tab-btn' : (evt)->
+					evt.stopPropagation()
+					id = $(evt.target).closest('.delete-tab-btn').siblings('a').first().attr 'href'
+					id =  _.trim id, '#'
+					if not $("##{id}").isEmptyColumn()
+						bootbox.alert "The tab is not empty. Please delete elements inside tab content to remove"
+						return
+					$(evt.target).closest('li').remove()
+					@collection.remove @collection.get id
 
 			onRender : ->
 				@$el.attr 'role',"tabpanel"
@@ -117,13 +128,30 @@ define ['app'
 			onAfterItemAdded : (itemView)->
 				id = itemView.$el.attr 'id'
 
-				@$el.find('ul.nav-tabs').append '<li role="presentation" class=""><a href="#'+id+'" role="tab" data-toggle="tab"><span contenteditable="true">'+itemView.model.get('tabName')+'</span></a></li>'
-
+				@$el.find('ul.nav-tabs').append '<li role="presentation" class=""><a href="#'+id+'" role="tab" data-toggle="tab"><span contenteditable="true">'+itemView.model.get('tabName')+'</span></a><div class="delete-tab-btn"><span class="glyphicon glyphicon-trash"></span></div></li>'
 				
-
 
 			onShow: ->
 				@$el.tabs()
+
+				# move tab position
+				@$el.find('.nav-tabs').sortable
+					axis : 'x'
+					distance : 10
+					delay : 150
+					cancel : 'span[contenteditable="true"]'
+					cursor : 'move'
+					stop : (evt,ui)=>
+						index = ui.item.index()
+						id = ui.item.find('a').attr 'href'
+						old = @$el.find('.tab-content').children(id).detach()
+						if index is 0
+							@$el.find('.tab-content').prepend old
+						else if index is -1
+							return
+						else
+							$(old).insertAfter @$el.find('.tab-content').children(':eq('+(index-1)+')')
+			
 
 			collectionAdded :->
 				_.delay =>
@@ -133,6 +161,13 @@ define ['app'
 			onStyleChanged: (newStyle, old)->
                 @$el.removeClass(old) if not _(old).isEmpty()
                 @$el.addClass newStyle
+
+
+            onBeforeClose : ->
+            	if not @$el.find('.tab-content').canBeDeleted()
+            		return false
+            	else
+            		return true
 
 
 			 

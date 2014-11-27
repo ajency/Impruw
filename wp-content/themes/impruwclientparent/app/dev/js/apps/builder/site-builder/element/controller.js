@@ -34,7 +34,8 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
         });
         this.listenTo(this.layout, "delete:element", (function(_this) {
           return function(model) {
-            if (model.get('element') === 'Row') {
+            var _ref;
+            if ((_ref = model.get('element')) === 'Row' || _ref === 'Tabs') {
               return _this.deleteElement(model);
             } else {
               return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('Are you sure?') + "</h4>", function(result) {
@@ -70,8 +71,14 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
         if (element.isNew()) {
           App.execute("when:fetched", element, (function(_this) {
             return function() {
+              var e;
               _this.layout.triggerMethod("before:render:element");
-              return _this.renderElement();
+              try {
+                return _this.renderElement();
+              } catch (_error) {
+                e = _error;
+                return _this.layout.elementRegion.show(_this._getErrorView());
+              }
             };
           })(this));
         }

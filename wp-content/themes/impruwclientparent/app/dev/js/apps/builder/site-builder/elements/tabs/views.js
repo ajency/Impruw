@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app'], function(App) {
+define(['app', 'bootbox'], function(App, bootbox) {
   return App.module('SiteBuilderApp.Element.Tabs.Views', function(Views, App) {
     var TabPaneView;
     TabPaneView = (function(_super) {
@@ -18,8 +18,11 @@ define(['app'], function(App) {
       TabPaneView.prototype.template = '';
 
       TabPaneView.prototype.onRender = function() {
-        this.$el.attr('role', 'tabpanel').attr('id', _.uniqueId('tab-'));
-        return this.$el.attr('data-name', this.model.get('tabName'));
+        var id;
+        id = _.uniqueId('tab-');
+        this.$el.attr('role', 'tabpanel').attr('id', id);
+        this.$el.attr('data-name', this.model.get('tabName'));
+        return this.model.set('id', id);
       };
 
       TabPaneView.prototype.onShow = function() {
@@ -103,6 +106,18 @@ define(['app'], function(App) {
         },
         'blur .nav-tabs span': function(evt) {
           return this.$el.find("" + ($(evt.target).parent().attr('href'))).attr('data-name', $(evt.target).text());
+        },
+        'click .delete-tab-btn': function(evt) {
+          var id;
+          evt.stopPropagation();
+          id = $(evt.target).closest('.delete-tab-btn').siblings('a').first().attr('href');
+          id = _.trim(id, '#');
+          if (!$("#" + id).isEmptyColumn()) {
+            bootbox.alert("The tab is not empty. Please delete elements inside tab content to remove");
+            return;
+          }
+          $(evt.target).closest('li').remove();
+          return this.collection.remove(this.collection.get(id));
         }
       };
 
@@ -150,11 +165,33 @@ define(['app'], function(App) {
       TabsView.prototype.onAfterItemAdded = function(itemView) {
         var id;
         id = itemView.$el.attr('id');
-        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class=""><a href="#' + id + '" role="tab" data-toggle="tab"><span contenteditable="true">' + itemView.model.get('tabName') + '</span></a></li>');
+        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class=""><a href="#' + id + '" role="tab" data-toggle="tab"><span contenteditable="true">' + itemView.model.get('tabName') + '</span></a><div class="delete-tab-btn"><span class="glyphicon glyphicon-trash"></span></div></li>');
       };
 
       TabsView.prototype.onShow = function() {
-        return this.$el.tabs();
+        this.$el.tabs();
+        return this.$el.find('.nav-tabs').sortable({
+          axis: 'x',
+          distance: 10,
+          delay: 150,
+          cancel: 'span[contenteditable="true"]',
+          cursor: 'move',
+          stop: (function(_this) {
+            return function(evt, ui) {
+              var id, index, old;
+              index = ui.item.index();
+              id = ui.item.find('a').attr('href');
+              old = _this.$el.find('.tab-content').children(id).detach();
+              if (index === 0) {
+                return _this.$el.find('.tab-content').prepend(old);
+              } else if (index === -1) {
+
+              } else {
+                return $(old).insertAfter(_this.$el.find('.tab-content').children(':eq(' + (index - 1) + ')'));
+              }
+            };
+          })(this)
+        });
       };
 
       TabsView.prototype.collectionAdded = function() {
@@ -170,6 +207,14 @@ define(['app'], function(App) {
           this.$el.removeClass(old);
         }
         return this.$el.addClass(newStyle);
+      };
+
+      TabsView.prototype.onBeforeClose = function() {
+        if (!this.$el.find('.tab-content').canBeDeleted()) {
+          return false;
+        } else {
+          return true;
+        }
       };
 
       return TabsView;

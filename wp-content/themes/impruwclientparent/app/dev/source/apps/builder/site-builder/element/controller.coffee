@@ -31,7 +31,7 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
 
             # listen to delete element event
             @listenTo @layout, "delete:element", ( model )=>
-               if model.get( 'element' ) is 'Row'
+               if model.get( 'element' ) in ['Row','Tabs']
                   @deleteElement model
                else
                   bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t( 'Are you sure?' ) + "</h4>", ( result )=>
@@ -56,10 +56,10 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
             if element.isNew()
                App.execute "when:fetched", element, =>
                   @layout.triggerMethod "before:render:element"
-                  # try
-                  @renderElement()
-                  # catch e
-                     # @layout.elementRegion.show @_getErrorView()
+                  try
+                     @renderElement()
+                  catch e
+                     @layout.elementRegion.show @_getErrorView()
                   
 
             # register a deferred
