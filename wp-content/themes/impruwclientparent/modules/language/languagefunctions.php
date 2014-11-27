@@ -410,7 +410,7 @@ function translate_custom_menu_item($menu_item_id, $language, $menuitem_translat
     $translated_menu_label[$language] = $menuitem_translated_label;
 
     // Serialize the array and update the post meta with this new translated menu label array
-    $translated_meta_value = maybe_serialize($translated_menu_label);
+    $translated_meta_value = $translated_menu_label;
     $menu_update_status = update_post_meta($menu_item_id, '_menu_item_custom_translation', $translated_meta_value);
 
     return $menu_update_status;
