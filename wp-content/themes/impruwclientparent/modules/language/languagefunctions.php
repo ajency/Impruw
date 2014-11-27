@@ -384,14 +384,23 @@ function get_site_menu_elements($language){
 }
 
 function translate_custom_menu_item($menu_item_id, $language, $menuitem_translated_label){
+    $default_language = wpml_get_default_language();
+
     // Get original array of menu item label translations from post meta
     $original_menu_label = get_post_meta( $menu_item_id, '_menu_item_custom_translation', true );
     $original_menu_label = maybe_unserialize($original_menu_label);
 
-    // If meta of menu item label translations does not exist yet, create an array initialising with en and nb translation
+    // If meta of menu item label translations does not exist yet, create an array initialising with default language and other enabled languages
     if($original_menu_label == ""){
-        $original_menu_label =  array('en' =>  $menuitem_translated_label,
-            'nb' => $menuitem_translated_label );
+        $menu_item = get_post($menu_item_id);
+        $menu_item_default_title = $menu_item->post_title; 
+        
+        $enabled_languages = get_enabled_languages();
+        //For each enabled language, Create translated version of the slide
+        foreach ($enabled_languages as $enabled_language) {
+            $original_menu_label[$enabled_language] = $menu_item_default_title;
+        }
+
     }
 
     //Assign original array of menu item translations to translated array
