@@ -86,6 +86,24 @@ define ['app'], (App)->
                             ele.elements.push col
                             return
 
+                    if ele.element is 'Tabs'
+                        ele.draggable = $(element).children('form').find('input[name="draggable"]').val() is "true"
+                        ele.style = $(element).children('form').find('input[name="style"]').val()
+                        delete ele.meta_id
+                        ele.elements = []
+                        _.each $(element).children('.element-markup').children('.tab-container').children('.tab-content').children('.column'), (column, index)=>
+                            tabName = $(column).attr('data-name')
+                            # className = $(column).attr 'data-class'
+                            col =
+                                position: index + 1
+                                element: 'TabPane'
+                                tabName : tabName
+                                # className: className
+                                elements: @_getJson $(column)
+
+                            ele.elements.push col
+                            return
+
                     arr.push ele
 
                 arr
