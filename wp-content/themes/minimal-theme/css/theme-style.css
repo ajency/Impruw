@@ -2470,7 +2470,7 @@ and open the template in the editor.
   background: #e6e6e6;
   color: #ed1c24;
 }
-.nav.slimmenu > li.menu-item-has-children a {
+.nav.slimmenu > li.menu-item-has-children > a {
   padding-right: 40px;
 }
 .nav.slimmenu > li.menu-item-has-children .sub-collapser > i {
@@ -2496,6 +2496,7 @@ and open the template in the editor.
   white-space: nowrap;
   color: #ffffff;
   margin: 0;
+  text-align: left;
 }
 .nav.slimmenu > li > .sub-menu li a:hover {
   color: #831618;
