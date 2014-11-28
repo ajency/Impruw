@@ -40,16 +40,23 @@ define ['app'
 
 				@layout.elementRegion.show @view
 
-			# deleteElement : ( model )->
-			# 	if not @layout.elementRegion.currentView.$el.find('.tab-content').canBeDeleted()
-
-			# 		bootbox.confirm "All elements inside the Tab will also be deleted. Do you want to continue?", ( answer )->
-			# 			if answer is yes
-			# 				model.destroy()
-			# 				_.delay ->
-			# 					App.commands.execute "auto:save"
-			# 				, 700
-			# 	else
-			# 		model.destroy()
+			deleteElement : ( model )->
+				isDeletable = true
+				@layout.elementRegion.currentView.$el.children('.panel-group').children('.panel').each (index,panel)=>
+					if not $(panel).children('.panel-collapse').canBeDeleted()
+						isDeletable = false
+						return false
+				console.log isDeletable
+				if not isDeletable
+					bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t( "All elements inside the Accordion will also be deleted. Do you want to continue?" ) + "</h4>", ( answer )->
+						if answer is yes
+							model.destroy()
+							_.delay ->
+								App.commands.execute "auto:save"
+							, 700
+				else
+					bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t( 'Are you sure?' ) + "</h4>", ( result )=>
+                     	if result is true
+							model.destroy()
 
 

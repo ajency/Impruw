@@ -104,6 +104,24 @@ define ['app'], (App)->
                             ele.elements.push col
                             return
 
+                    if ele.element is 'Accordion'
+                        ele.draggable = $(element).children('form').find('input[name="draggable"]').val() is "true"
+                        ele.style = $(element).children('form').find('input[name="style"]').val()
+                        delete ele.meta_id
+                        ele.elements = []
+                        _.each $(element).children('.element-markup').children('.accordion-container').children('.panel-group').children('.panel'), (column, index)=>
+                            tabName = $(column).children('.panel-heading').find('a').text()
+                            # className = $(column).attr 'data-class'
+                            col =
+                                position: index + 1
+                                element: 'AccordionTab'
+                                tabName : tabName
+                                # className: className
+                                elements: @_getJson $(column).children('.panel-collapse').children('.column')
+
+                            ele.elements.push col
+                            return
+
                     arr.push ele
 
                 arr

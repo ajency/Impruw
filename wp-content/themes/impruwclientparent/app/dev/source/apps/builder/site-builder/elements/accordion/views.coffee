@@ -7,7 +7,7 @@ define ['app','bootbox'
 
 			tagName : 'div'
 
-			className : ' tab-pane column empty-column'
+			className : ' panel panel-default '
 
 			template : '<div class="panel-heading" >
                           <h4 class="panel-title">
@@ -15,12 +15,19 @@ define ['app','bootbox'
                               {{tabName}}
                             </a>
                           </h4>
+                          <div class="delete-accordion-btn">&times;</div>
                         </div>
                         <div  class="panel-collapse collapse in" >
-                          <div class="panel-body column">
+                          <div class="panel-body column empty-column">
                           </div>
-                        </div>
-						'
+                        </div>'
+
+			events : 
+				'click .delete-accordion-btn' : ->
+					if not @$el.children('.panel-collapse').children('.column').isEmptyColumn()
+						bootbox.alert "The tab is not empty. Please delete elements inside tab content to remove"
+						return
+					@model.collection.remove @model
 
 			# onRender : ->
 			# 	id = _.uniqueId 'tab-'
@@ -139,6 +146,7 @@ define ['app','bootbox'
 			onShow: ->
 				@$el.find('.panel-group').accordion
 					header : '.panel-heading'
+					heightStyle: "content"
 
 				# move tab position
 				# @$el.find('.nav-tabs').sortable
@@ -161,7 +169,7 @@ define ['app','bootbox'
 
 			collectionAdded :->
 				_.delay =>
-					@$el.accordion('refresh')
+					@$el.find('.panel-group').accordion('refresh')
 				,200
 
 			onStyleChanged: (newStyle, old)->

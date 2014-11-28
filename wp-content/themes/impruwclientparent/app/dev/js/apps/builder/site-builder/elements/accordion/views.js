@@ -13,9 +13,19 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       AccordionTab.prototype.tagName = 'div';
 
-      AccordionTab.prototype.className = ' tab-pane column empty-column';
+      AccordionTab.prototype.className = ' panel panel-default ';
 
-      AccordionTab.prototype.template = '<div class="panel-heading" > <h4 class="panel-title"> <a > {{tabName}} </a> </h4> </div> <div  class="panel-collapse collapse in" > <div class="panel-body column"> </div> </div>';
+      AccordionTab.prototype.template = '<div class="panel-heading" > <h4 class="panel-title"> <a > {{tabName}} </a> </h4> <div class="delete-accordion-btn">&times;</div> </div> <div  class="panel-collapse collapse in" > <div class="panel-body column empty-column"> </div> </div>';
+
+      AccordionTab.prototype.events = {
+        'click .delete-accordion-btn': function() {
+          if (!this.$el.children('.panel-collapse').children('.column').isEmptyColumn()) {
+            bootbox.alert("The tab is not empty. Please delete elements inside tab content to remove");
+            return;
+          }
+          return this.model.collection.remove(this.model);
+        }
+      };
 
       AccordionTab.prototype.onShow = function() {
         return this.$el.find('.panel-body').sortable({
@@ -136,14 +146,15 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       AccordionView.prototype.onShow = function() {
         return this.$el.find('.panel-group').accordion({
-          header: '.panel-heading'
+          header: '.panel-heading',
+          heightStyle: "content"
         });
       };
 
       AccordionView.prototype.collectionAdded = function() {
         return _.delay((function(_this) {
           return function() {
-            return _this.$el.accordion('refresh');
+            return _this.$el.find('.panel-group').accordion('refresh');
           };
         })(this), 200);
       };

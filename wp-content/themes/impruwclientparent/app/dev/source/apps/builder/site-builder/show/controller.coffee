@@ -85,7 +85,7 @@ define [ 'app'
                     section = @view.model.get key
                     container = @_getContainer key
                     _.each section, ( element, i )=>
-                        if element.element in ['Row','Tabs']
+                        if element.element in ['Row','Tabs','Accordion']
                             @addNestedElements container, element
                         else
                             eleController = App.request "add:new:element", container, element.element, element
@@ -101,9 +101,13 @@ define [ 'app'
                         container = eleController.layout.elementRegion.currentView.$el.children('.tab-content').children().eq( index )
                     else if element.element is 'Row'
                         container = eleController.layout.elementRegion.currentView.$el.children().eq( index )
+                    else if element.element is 'Accordion'
+                        container = eleController.layout.elementRegion.currentView.$el.children('.panel-group').children().eq( index )
                     _.each column.elements, ( ele, i )=>
                         if element.element in ['Row','Tabs']
                             @addNestedElements $( container ), ele
+                        else if element.element is 'Accordion'
+                            @addNestedElements $(container).children('.panel-collapse').children('.column') , ele
                         else
                             eleController = App.request "add:new:element", container, ele.element, ele
                             @deferreds.push eleController._promise

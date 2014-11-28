@@ -46,6 +46,32 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/accordion/views'],
         return this.layout.elementRegion.show(this.view);
       };
 
+      Controller.prototype.deleteElement = function(model) {
+        var isDeletable;
+        isDeletable = true;
+        this.layout.elementRegion.currentView.$el.children('.panel-group').children('.panel').each((function(_this) {
+          return function(index, panel) {
+            if (!$(panel).children('.panel-collapse').canBeDeleted()) {
+              isDeletable = false;
+              return false;
+            }
+          };
+        })(this));
+        console.log(isDeletable);
+        if (!isDeletable) {
+          return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t("All elements inside the Accordion will also be deleted. Do you want to continue?") + "</h4>", function(answer) {
+            if (answer === true) {
+              model.destroy();
+              return _.delay(function() {
+                return App.commands.execute("auto:save");
+              }, 700);
+            }
+          });
+        } else {
+          return model.destroy();
+        }
+      };
+
       return Controller;
 
     })(App.SiteBuilderApp.Element.Controller);

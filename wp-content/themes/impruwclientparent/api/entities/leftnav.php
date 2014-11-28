@@ -761,7 +761,7 @@ function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false 
         //     continue;
         // }
         foreach ( $elements as $element ) {
-            if ( in_array($element [ 'element' ] , array('Row','Tabs')) ) {
+            if ( in_array($element [ 'element' ] , array('Row','Tabs','Accordion')) ) {
                 $element [ 'columncount' ] = count( $element [ 'elements' ] );
                 $d [ $section ] [ ] = get_row_elements( $element );
             } else
