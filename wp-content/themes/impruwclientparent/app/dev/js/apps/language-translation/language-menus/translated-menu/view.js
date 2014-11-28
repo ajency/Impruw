@@ -39,7 +39,7 @@ define(['app', 'text!apps//language-translation/language-menus/translated-menu/t
         return EmptyMenuItemView.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyMenuItemView.prototype.template = '<br/><div class="empty-info">&nbsp;</div><br/>';
+      EmptyMenuItemView.prototype.template = '<br><div class="empty-info invisible">&nbsp;</div><br>';
 
       return EmptyMenuItemView;
 
@@ -51,7 +51,7 @@ define(['app', 'text!apps//language-translation/language-menus/translated-menu/t
         return TranslatedNavMenuView.__super__.constructor.apply(this, arguments);
       }
 
-      TranslatedNavMenuView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</h6> <div class="translated-menu-items"> </div> <hr>';
+      TranslatedNavMenuView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div class="translated-menu-items"> </div> <hr>';
 
       TranslatedNavMenuView.prototype.itemView = TranslatedMenuItemView;
 

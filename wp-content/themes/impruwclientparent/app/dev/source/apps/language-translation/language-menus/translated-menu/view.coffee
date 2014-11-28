@@ -30,12 +30,12 @@ define ['app'
                 @trigger "menuitem:updated", translatedMenuItemTitle, menuItemId
 
         class EmptyMenuItemView extends Marionette.ItemView
-            template: '<br/><div class="empty-info">&nbsp;</div><br/>'
+            template: '<br><div class="empty-info invisible">&nbsp;</div><br>'
 
 
         class TranslatedNavMenuView extends Marionette.CompositeView
 
-            template : '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</h6>
+            template : '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6>
                         <div class="translated-menu-items">
                         </div>
                         <hr>'
