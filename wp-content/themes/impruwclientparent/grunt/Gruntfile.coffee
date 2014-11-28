@@ -137,6 +137,9 @@ module.exports = (grunt) ->
 						cmd = 'r.js -o ../app/dev/build.js && r.js -o ../app/dev/dbuild.js'
 					cmd
 
+			watchCoffee : 
+				cmd : 'jitter ../app/dev/source/ ../app/dev/js/ -b'
+
 
 		concat_sourcemap:
 			buildSourceMap : 
@@ -152,3 +155,7 @@ module.exports = (grunt) ->
 			"exec:compiledBuild"
 			"uglify:minifyNSourceMap"
 		]
+
+	grunt.registerTask "dev", "Start development", [
+		"exec:watchCoffee"
+	]

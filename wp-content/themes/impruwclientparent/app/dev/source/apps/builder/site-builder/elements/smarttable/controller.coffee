@@ -73,6 +73,13 @@ define [ 'app'
 					data = @layout.model.get('contents')
 					data[WPML_DEFAULT_LANG] = @collection.toJSON()
 					data[WPML_OTHER_LANG] = @collectionOther.toJSON()
+					
+					# Backslashes fix
+					_.each data, (value, key) ->
+                    	_.each value, (val1, key1) ->
+                        	_.each val1, (val2, key2) ->
+                            data[key][key1][key2] = _.stripslashes val2
+
 					@layout.model.set 'contents', data
 					@layout.model.save()
 
