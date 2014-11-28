@@ -309,6 +309,12 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF142',
             'helpText' => 'help text to be added',
             'styles' => get_styles( 'Tabs' )//get_styles( 'Tabs' )
+        ),
+        array(
+            'element' => 'Accordion',
+            'icon' => 'bicon icon-uniF142',
+            'helpText' => 'help text to be added',
+            // 'styles' => get_styles( 'SmartTable' )
         )
     );
 
