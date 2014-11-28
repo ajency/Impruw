@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps//language-translation/language-menus/translated-menu/templates/translatedmenuview.html'], function(App, translatedmenuviewTpl) {
   return App.module('LanguageApp.LanguageMenuContent.TranslatedMenu.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var TranslatedMenuItemView, TranslatedNavMenuView;
+    var EmptyMenuItemView, TranslatedMenuItemView, TranslatedNavMenuView;
     TranslatedMenuItemView = (function(_super) {
       __extends(TranslatedMenuItemView, _super);
 
@@ -32,6 +32,18 @@ define(['app', 'text!apps//language-translation/language-menus/translated-menu/t
       return TranslatedMenuItemView;
 
     })(Marionette.ItemView);
+    EmptyMenuItemView = (function(_super) {
+      __extends(EmptyMenuItemView, _super);
+
+      function EmptyMenuItemView() {
+        return EmptyMenuItemView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyMenuItemView.prototype.template = '<br/><div class="empty-info">&nbsp;</div><br/>';
+
+      return EmptyMenuItemView;
+
+    })(Marionette.ItemView);
     TranslatedNavMenuView = (function(_super) {
       __extends(TranslatedNavMenuView, _super);
 
@@ -44,6 +56,8 @@ define(['app', 'text!apps//language-translation/language-menus/translated-menu/t
       TranslatedNavMenuView.prototype.itemView = TranslatedMenuItemView;
 
       TranslatedNavMenuView.prototype.itemViewContainer = '.translated-menu-items';
+
+      TranslatedNavMenuView.prototype.emptyView = EmptyMenuItemView;
 
       TranslatedNavMenuView.prototype.initialize = function() {
         var collection;

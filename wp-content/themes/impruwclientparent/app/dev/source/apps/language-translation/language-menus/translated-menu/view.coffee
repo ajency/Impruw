@@ -29,6 +29,9 @@ define ['app'
 
                 @trigger "menuitem:updated", translatedMenuItemTitle, menuItemId
 
+        class EmptyMenuItemView extends Marionette.ItemView
+            template: '<br/><div class="empty-info">&nbsp;</div><br/>'
+
 
         class TranslatedNavMenuView extends Marionette.CompositeView
 
@@ -40,6 +43,8 @@ define ['app'
             itemView : TranslatedMenuItemView
 
             itemViewContainer : '.translated-menu-items'
+
+            emptyView : EmptyMenuItemView
 
 
             initialize :->
