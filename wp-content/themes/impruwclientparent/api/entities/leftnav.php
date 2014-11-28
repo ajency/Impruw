@@ -302,6 +302,13 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF142',
             'helpText' => 'help text to be added',
             'styles' => get_styles( 'SmartTable' )
+        ),
+        array(
+            'element' => 'Tabs',
+            // 'title' => 'Tabs',
+            'icon' => 'bicon icon-uniF142',
+            'helpText' => 'help text to be added',
+            'styles' => get_styles( 'Tabs' )//get_styles( 'Tabs' )
         )
     );
 
@@ -748,7 +755,7 @@ function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false 
         //     continue;
         // }
         foreach ( $elements as $element ) {
-            if ( $element [ 'element' ] === "Row" ) {
+            if ( in_array($element [ 'element' ] , array('Row','Tabs')) ) {
                 $element [ 'columncount' ] = count( $element [ 'elements' ] );
                 $d [ $section ] [ ] = get_row_elements( $element );
             } else

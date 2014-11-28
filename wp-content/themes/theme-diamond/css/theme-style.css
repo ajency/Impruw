@@ -1920,7 +1920,7 @@ ul.gallery {
 }
 .lang-sel > div {
   text-align: left;
-  z-index: 3;
+  z-index: 250;
 }
 .lang-sel > div ul,
 .lang-sel > div li {
@@ -2380,6 +2380,253 @@ ul.gallery {
   transform: skew(8deg) rotate(3deg);
   -moz-border-radius: 10px;
   border-radius: 10px;
+}
+/**** Tab Styles****/
+.tab-container {
+  margin: 1em 0;
+  padding: 0;
+  position: relative;
+}
+.tab-container .nav-tabs li {
+  margin-bottom: -1px;
+  position: relative;
+}
+.tab-container .nav-tabs li .delete-tab-btn {
+  position: absolute;
+  border-radius: 2px;
+  font-size: 0.88em;
+  padding: 0 0.3em;
+  background: rgba(255, 51, 51, 0.6);
+  color: #fff;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;
+  display: none;
+}
+.tab-container .nav-tabs li .delete-tab-btn:hover {
+  background: rgba(255, 51, 51, 0.9);
+}
+.tab-container .nav-tabs li:hover .delete-tab-btn {
+  display: block;
+}
+.tab-container .add-tab {
+  position: absolute;
+  border-radius: 2px;
+  background: #ff7e00;
+  padding: 0.5em;
+  font-size: 0.88em;
+  color: #fff;
+  cursor: pointer;
+  top: -10px;
+  right: 5px;
+  display: none;
+}
+.tab-container .add-tab:hover {
+  background: #ff9833;
+}
+.tab-container:hover .add-tab {
+  display: block;
+}
+/*****************************/
+/* Underline */
+/*****************************/
+.tabs-style-underline .nav {
+  background: #fff;
+  z-index: -1;
+}
+.tabs-style-underline .nav li {
+  border: 0;
+  margin-bottom: -2px;
+}
+.tabs-style-underline .nav li.active {
+  margin-bottom: -3px;
+}
+.tabs-style-underline .nav li.active a {
+  border: 0;
+  color: #dc6868;
+}
+.tabs-style-underline .nav li.active a:focus {
+  border: 0;
+}
+.tabs-style-underline .tab-content {
+  background: #f9f8f4;
+  position: relative;
+  z-index: 1;
+  padding: 0.5em 0;
+}
+.tabs-style-underline .nav a {
+  padding: 0.5em 1em 0.75em;
+  border: 0;
+  margin: 0;
+  border-radius: 0;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+.tabs-style-underline .nav a:hover {
+  background: transparent;
+  color: #483535;
+}
+.tabs-style-underline .nav li a::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: #dc6868;
+  content: '';
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  -webkit-transform: translate3d(0, 150%, 0);
+  transform: translate3d(0, 150%, 0);
+}
+.tabs-style-underline .nav li.active a::after {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 1px, 0);
+}
+.tabs-style-underline .nav a span {
+  font-weight: 700;
+}
+/*****************************/
+/* Triangle and line */
+/*****************************/
+.tabs-style-linetriangle .nav {
+  background: #d7d3ca;
+  width: 100%;
+}
+.tabs-style-linetriangle .tab-content {
+  padding-top: 1.5em;
+}
+.tabs-style-linetriangle .nav a {
+  overflow: visible;
+  margin: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+.tabs-style-linetriangle .nav a:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.tabs-style-linetriangle .nav li {
+  border: 0;
+  margin-bottom: 0;
+}
+.tabs-style-linetriangle .nav li.active a {
+  border-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  color: #dc6868;
+  background: transparent;
+}
+.tabs-style-linetriangle .nav li.active a:hover,
+.tabs-style-linetriangle .nav li.active a:focus {
+  border-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.tabs-style-linetriangle .nav a span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1em;
+}
+.tabs-style-linetriangle .nav li.active a:after,
+.tabs-style-linetriangle .nav li.active a:before {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: solid transparent;
+  content: '';
+  pointer-events: none;
+}
+.tabs-style-linetriangle .nav li.active a:after {
+  margin-left: -10px;
+  border-width: 10px;
+  border-top-color: #d7d3ca;
+}
+.tabs-style-linetriangle .nav li.active a:before {
+  margin-left: -11px;
+  border-width: 11px;
+  border-top-color: rgba(0, 0, 0, 0.2);
+}
+@media screen and (max-width: 58em) {
+  .tabs-style-linetriangle .nav {
+    font-size: 0.6em;
+  }
+}
+/*****************************/
+/* Line Box */
+/*****************************/
+.tabs-style-linebox .nav li {
+  padding: 0 0 0 1em;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+.tabs-style-linebox .nav li:first-child {
+  padding: 0;
+}
+.tabs-style-linebox .nav li.active {
+  border: 0;
+}
+.tabs-style-linebox .nav li.active a {
+  color: #f9f8f4;
+  background: transparent;
+}
+.tabs-style-linebox .nav li.active a:hover,
+.tabs-style-linebox .nav li.active a:focus {
+  border: 0;
+  background: transparent;
+}
+.tabs-style-linebox .nav a {
+  padding: 1.5em;
+  border: 0 !important;
+  color: #333333;
+  font-weight: 700;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+.tabs-style-linebox .nav a:hover,
+.tabs-style-linebox .nav a:focus {
+  color: #dc6868;
+  background: transparent;
+  border: 0;
+}
+.tabs-style-linebox .nav a::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: #483535;
+  content: '';
+  -webkit-transition: background-color 0.3s, -webkit-transform 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
+  -webkit-transition-timing-function: ease, cubic-bezier(0.7, 0, 0.3, 1);
+  transition-timing-function: ease, cubic-bezier(0.7, 0, 0.3, 1);
+  -webkit-transform: translate3d(0, 100%, 0) translate3d(0, -3px, 0);
+  transform: translate3d(0, 100%, 0) translate3d(0, -3px, 0);
+}
+.tabs-style-linebox .nav li.active a::after {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.tabs-style-linebox .nav a:hover::after,
+.tabs-style-linebox .nav a:focus::after,
+.tabs-style-linebox .nav li.active a::after {
+  background: #dc6868;
+}
+@media screen and (max-width: 58em) {
+  .tabs-style-linebox .nav {
+    display: block;
+    box-shadow: none;
+  }
+  .tabs-style-linebox .nav li {
+    display: block;
+    -webkit-flex: none;
+    flex: none;
+  }
 }
 /*
 To change this license header, choose License Headers in Project Properties.

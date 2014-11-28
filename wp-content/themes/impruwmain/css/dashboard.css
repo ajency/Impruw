@@ -4596,10 +4596,10 @@ figure.effect-zoe:hover p.icon-links a:first-child {
 .impruw-blog .post .thumb .img-responsive {
   margin: auto;
 }
-.impruw-blog .post .post-title a {
-  font-size: 1em;
+.impruw-blog .post .post-title {
+  font-size: 2.2em;
   font-weight: 300;
-  margin: 1em 0;
+  margin: 0.25em 0;
 }
 .impruw-blog .post .meta {
   font-size: 1.1em;
@@ -4625,13 +4625,90 @@ figure.effect-zoe:hover p.icon-links a:first-child {
   font-weight: 300;
   font-size: 1.5em;
 }
-.impruw-blog .blog-sidebar .cat-list .categories ul {
-  font-size: 0.666em;
+.impruw-blog .blog-sidebar .cat-list .categories ul, .impruw-blog .blog-sidebar .cat-list {
+  font-size: 1em;
   margin: 0.5em 0 1em;
   padding: 0.5em 0.5em 0;
-  border-top: 1px solid #f3f3f3;
   list-style: none;
 }
-.impruw-blog .blog-sidebar .cat-list .categories ul li {
+.impruw-blog .blog-sidebar .cat-list .categories ul li, .impruw-blog .blog-sidebar .cat-list li {
   margin-bottom: 0.5em;
+  font-weight: 300;
+  font-size: 1.5em;
 }
+
+/**** Single Blog Post Styles ****/
+.single-post {
+  padding: 1em 3em;
+}
+.single-post .main-title {
+  border-bottom: 0;
+  padding-bottom: 0.25em;
+}
+.single-post .meta {
+  text-align: center;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #f3f3f3;
+}
+.single-post .comments-title {
+  font-size: 2em;
+  font-weight: 400;
+  color: #aaaaaa;
+  margin-bottom: 0.25em;
+  border-bottom: 1px solid #aaa;
+}
+.single-post .comments-title span {
+  color: #ff7e00;
+}
+.single-post .comments-area {
+  max-width: 800px;
+  margin: auto;
+}
+.single-post .blog-comment-form .comment-reply-title {
+  font-size: 1.5em;
+  font-weight: 300;
+  color: #aaaaaa;
+}
+
+/**** Comment List Styles ****/
+ol.commentlist { list-style:none; margin:0 0 1em; padding:0; text-indent:0; }
+ol.commentlist li { }
+ol.commentlist li.alt { }
+ol.commentlist li.bypostauthor {}
+ol.commentlist li.byuser {}
+ol.commentlist li.comment-author-admin {}
+ol.commentlist li.comment { border-bottom:1px dotted #ccc; padding:1em; }
+ol.commentlist li div.comment-author {}
+ol.commentlist li div.vcard { font:normal 16px georgia,times,serif; }
+ol.commentlist li div.vcard cite.fn { font-style:normal; }
+ol.commentlist li div.vcard cite.fn a.url {}
+ol.commentlist li div.vcard img.avatar { border:3px solid #ccc; float:right; margin:0 0 1em 1em; }
+ol.commentlist li div.vcard img.avatar-32 {}
+ol.commentlist li div.vcard img.photo {}
+ol.commentlist li div.vcard span.says {}
+ol.commentlist li div.commentmetadata {}
+ol.commentlist li div.comment-meta { font-size:9px; margin-bottom: 0.5em; }
+ol.commentlist li div.comment-meta a { color:#bbb; }
+ol.commentlist li p { font-size:11px; margin:0 0 1em; color: #333; }
+ol.commentlist li ul { font-size:11px; list-style:square; margin:0 0 1em 2em; }
+ol.commentlist li div.reply { font-size:11px; }
+ol.commentlist li div.reply a { font-weight:bold; }
+ol.commentlist li ul.children { list-style:none; margin:1em 0 0; text-indent:0; }
+ol.commentlist li ul.children li {}
+ol.commentlist li ul.children li.alt {}
+ol.commentlist li ul.children li.bypostauthor {}
+ol.commentlist li ul.children li.byuser {}
+ol.commentlist li ul.children li.comment {}
+ol.commentlist li ul.children li.comment-author-admin {}
+ol.commentlist li ul.children li.depth-2 { border-left:2px solid #555; margin:0 0 .25em .25em; }
+ol.commentlist li ul.children li.depth-3 { border-left:2px solid #999; margin:0 0 .25em .25em; }
+ol.commentlist li ul.children li.depth-4 { border-left:2px solid #bbb; margin:0 0 .25em .25em; }
+ol.commentlist li ul.children li.depth-5 {}
+ol.commentlist li ul.children li.odd {}
+ol.commentlist li.even { background:#fff; }
+ol.commentlist li.odd { background:#f3f3f3; }
+ol.commentlist li.parent { border-left:5px solid #111; }
+ol.commentlist li.pingback { border-bottom:1px dotted #666; padding:1em; }
+ol.commentlist li.thread-alt { }
+ol.commentlist li.thread-even {}
+ol.commentlist li.thread-odd {}
