@@ -13,7 +13,7 @@ define(['app'], function(App) {
 
       ListItem.prototype.tagName = 'li';
 
-      ListItem.prototype.template = '<span class="list-data" contenteditable="true">{{data}}</span> <dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>';
+      ListItem.prototype.template = '<span class="list-data" contenteditable="true">{{data}}</span> <div class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></div>';
 
       ListItem.prototype.modelEvents = {
         'change': function() {

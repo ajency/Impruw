@@ -9,7 +9,7 @@ define ['app'], (App)->
 			tagName : 'li'
 
 			template : '<span class="list-data" contenteditable="true">{{data}}</span>                                   
-						<dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>'
+						<div class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></div>'
 
 			modelEvents:
 				'change' : ->
