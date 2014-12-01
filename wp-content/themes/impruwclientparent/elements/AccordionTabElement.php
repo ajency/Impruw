@@ -65,7 +65,10 @@ class AccordionTab extends Element {
                             </a>
                           </h4>
                     </div>
-                    <div id='collapse-{$this->index}' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='heading-{$this->index}'  >
+                    <div id='collapse-{$this->index}' class='panel-collapse collapse ";
+        if ($this->index == 1)
+            $html .= "in"; 
+        $html .= "' role='tabpanel' aria-labelledby='heading-{$this->index}'  >
                           <div class='panel-body column empty-column'>";
         return $html;
     }

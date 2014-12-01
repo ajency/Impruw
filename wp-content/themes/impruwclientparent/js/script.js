@@ -511,12 +511,6 @@ jQuery(document).ready(function(){
 });
 
 
-jQuery(document).ready(function(){
-    jQuery('.panel-group').accordion({
-                    header : '.panel-heading',
-                    heightStyle: "content"});
-})
-
 /************ map.js *******************/
 jQuery(document).ready(function() {
 
