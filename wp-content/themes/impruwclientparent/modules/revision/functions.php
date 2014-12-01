@@ -237,13 +237,9 @@ function pluck_meta_ids_from_json( $json ) {
  */
 function pluck_meta_ids( $element, &$meta_ids ) {
 
-    if ( isset( $element[ 'element' ] ) && $element[ 'element' ] === "Row" ) {
+    if ( isset( $element[ 'element' ] ) && in_array($element[ 'element' ], array('Row','Column','Tabs','Accordion','TabPane','AccordionTab')) ) {
         foreach ( $element[ 'elements' ] as $column ) {
             pluck_meta_ids( $column, $meta_ids );
-        }
-    } else if ( isset( $element[ 'element' ] ) && $element [ 'element' ] === "Column" ) {
-        foreach ( $element[ 'elements' ] as $ele ) {
-            pluck_meta_ids( $ele, $meta_ids );
         }
     } else {
         pluck_meta_id( $element, $meta_ids );
