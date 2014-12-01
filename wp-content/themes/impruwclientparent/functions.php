@@ -59,6 +59,15 @@ include_once( dirname( __FILE__ ) . '/includes/Media.php' );
 include_once( dirname( __FILE__ ) . '/modules/enqueue.php' );
 
 
+
+function is_impruw_com(){
+    $host = $_SERVER['HTTP_HOST'];
+    if (strpos($host, 'imprw.com' ) !== false) {
+        return true;
+    }
+    return false;
+}
+
 /**
  * After theme setup hook function
  * disables admin bar
