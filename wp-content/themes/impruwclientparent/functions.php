@@ -370,6 +370,12 @@ function add_element_markup( $element ) {
         case 'TabPane':
             $html = get_tab_pane_element_markup( $element );
             break;
+        case 'Accordion':
+            $html = get_accordion_element_markup( $element );
+            break;
+        case 'AccordionTab':
+            $html = get_accordion_tab_element_markup( $element );
+            break;
         case 'ContainerElement' :
             $html = get_container_markup( $element );
             break;
@@ -570,6 +576,47 @@ function get_tab_pane_element_markup( $element ){
 
     return $html;
 }
+
+function get_accordion_element_markup( $element)
+{
+    include_once( dirname( __FILE__ ) . '/elements/AccordionElement.php');
+
+    $accordion = new Accordion( $element );
+
+    $html = $accordion->get_open_tag();
+
+    if ( $accordion->has_child_elements() ) {
+
+        foreach ( $accordion->get_elements() as $ele ) {
+            $html .= add_element_markup( $ele );
+        }
+    }
+
+    $html .= $accordion->get_close_tag();
+
+    return $html;
+}
+
+function get_accordion_tab_element_markup( $element )
+{
+    include_once( dirname( __FILE__ ) . '/elements/AccordionTabElement.php');
+
+    $accordion_tab = new AccordionTab( $element );
+
+    $html = $accordion_tab->get_open_tag();
+
+    if ( $accordion_tab->has_child_elements() ) {
+
+        foreach ( $accordion_tab->get_elements() as $ele ) {
+
+            $html .= add_element_markup( $ele );
+        }
+    }
+
+    $html .= $accordion_tab->get_close_tag();
+    return $html;
+}
+
 
 /**
  * Generates the image markup
