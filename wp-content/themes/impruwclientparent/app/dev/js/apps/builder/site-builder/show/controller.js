@@ -172,7 +172,6 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             page = _this.pages.get($.cookie('current-page-id'));
             return page.destroy({
               success: function(model, res, opt) {
-                _this.removePageFromMenu(model.get('original_id'));
                 _this.removePageFromLinkSettings(model.get('original_id'));
                 return App.builderRegion.currentView.triggerMethod('show:home:page');
               }

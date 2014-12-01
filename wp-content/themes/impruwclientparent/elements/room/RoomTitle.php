@@ -64,10 +64,12 @@ class RoomTitle extends Element {
                                     <h1>{{post_title}}</h1>
                                     <div class="room-title-desc">{{post_excerpt}}</div>
                             </div>
-                            <div class="room-title-actions">
-                                   <a href="#room-booking-region" class="btn btn-sm btn-book">'.__("Booking &amp; Availability","impruwclientparent").'</a>
-                            </div>
+                            
                     </div>';
+
+        // <div class="room-title-actions">
+        //        <a href="#room-booking-region" class="btn btn-sm btn-book">'.__("Booking &amp; Availability","impruwclientparent").'</a>
+        // </div>
 
 
         $data = array();
