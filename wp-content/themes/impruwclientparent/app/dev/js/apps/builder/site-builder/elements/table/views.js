@@ -49,6 +49,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         this.$el.find('.table-holder').html(_.stripslashes(tablecontent));
         this.$el.find('table').resizableColumns();
         this.$el.parent().css('padding-bottom', '7px');
+        this.$el.find('.table-responsive').height(this.$el.find('.table-responsive').height());
         this.$el.find('.table-holder').height(this.$el.find('.table-responsive').height() + 15);
         return this.setResizable();
       };
