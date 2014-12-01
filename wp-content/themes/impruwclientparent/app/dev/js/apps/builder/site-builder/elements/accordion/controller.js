@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'bootbox', 'apps/builder/site-builder/elements/accordion/views'], function(App, bootbox) {
+define(['app', 'bootbox', 'apps/builder/site-builder/elements/accordion/views', 'apps/builder/site-builder/elements/accordion/settings/controller'], function(App, bootbox) {
   return App.module('SiteBuilderApp.Element.Accordion', function(Accordion, App) {
     return Accordion.Controller = (function(_super) {
       __extends(Controller, _super);
@@ -16,7 +16,7 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/accordion/views'],
           columncount: 2,
           elements: [],
           meta_id: 0,
-          style: 'default'
+          style: ''
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -68,7 +68,13 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/accordion/views'],
             }
           });
         } else {
-          return model.destroy();
+          return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('Are you sure?') + "</h4>", (function(_this) {
+            return function(result) {
+              if (result === true) {
+                return model.destroy();
+              }
+            };
+          })(this));
         }
       };
 

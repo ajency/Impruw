@@ -15,7 +15,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       AccordionTab.prototype.className = ' panel panel-default ';
 
-      AccordionTab.prototype.template = '<div class="panel-heading" > <h4 class="panel-title"> <a > {{tabName}} </a> </h4> <div class="delete-accordion-btn">&times;</div> </div> <div  class="panel-collapse collapse in" > <div class="panel-body column empty-column"> </div> </div>';
+      AccordionTab.prototype.template = '<div class="panel-heading" > <h4 class="panel-title"> <a > <span contenteditable="true">{{tabName}}</span> </a> </h4> <div class="delete-accordion-btn">&times;</div> </div> <div  class="panel-collapse collapse in" > <div class="panel-body column empty-column"> </div> </div>';
 
       AccordionTab.prototype.events = {
         'click .delete-accordion-btn': function() {
@@ -28,7 +28,8 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       AccordionTab.prototype.onShow = function() {
-        return this.$el.find('.panel-body').sortable({
+        this.$el.find('.panel-body').sortable;
+        return {
           revert: 'invalid',
           items: '> .element-wrapper',
           connectWith: '.droppable-column, .droppable-column .column',
@@ -72,7 +73,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
               return $(e.target).removeClass('empty-column');
             };
           })(this)
-        });
+        };
       };
 
       return AccordionTab;
@@ -87,7 +88,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       AccordionView.prototype.className = 'accordion-container';
 
-      AccordionView.prototype.template = '<div class="panel-group paper" id="accordion" role="tablist" aria-multiselectable="true"> </div> <div class="add-tab"><span class="bicon icon-uniF193"></span>&nbsp;Add Tab</div>';
+      AccordionView.prototype.template = '<div class="panel-group {{style}}" id="accordion" role="tablist" aria-multiselectable="true"> </div> <div class="add-tab"><span class="bicon icon-uniF193"></span>&nbsp;Add Tab</div>';
 
       AccordionView.prototype.itemView = AccordionTab;
 
@@ -145,9 +146,22 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       AccordionView.prototype.onShow = function() {
-        return this.$el.find('.panel-group').accordion({
+        this.$el.find('.panel-group').accordion({
           header: '.panel-heading',
-          heightStyle: "content"
+          heightStyle: "content",
+          collapsible: true
+        });
+        return this.$el.find('.panel-group').sortable({
+          axis: "y",
+          cancel: '.panel-heading a span',
+          forcePlaceholderSize: true,
+          handle: ".panel-heading",
+          stop: (function(_this) {
+            return function(event, ui) {
+              ui.item.children(".panel-heading").triggerHandler("focusout");
+              return _this.$el.find('.panel-group').accordion("refresh");
+            };
+          })(this)
         });
       };
 
@@ -161,9 +175,9 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       AccordionView.prototype.onStyleChanged = function(newStyle, old) {
         if (!_(old).isEmpty()) {
-          this.$el.removeClass(old);
+          this.$el.find('.panel-group').removeClass(old);
         }
-        return this.$el.addClass(newStyle);
+        return this.$el.find('.panel-group').addClass(newStyle);
       };
 
       return AccordionView;

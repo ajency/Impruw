@@ -1,7 +1,7 @@
 define ['app'
 		'bootbox'
 		'apps/builder/site-builder/elements/accordion/views'
-		# 'apps/builder/site-builder/elements/accordion/settings/controller'
+		'apps/builder/site-builder/elements/accordion/settings/controller'
 ],(App,bootbox)->
 	App.module 'SiteBuilderApp.Element.Accordion',(Accordion,App)->
 
@@ -14,7 +14,7 @@ define ['app'
 					columncount : 2
 					elements : []
 					meta_id : 0
-					style : 'default'
+					style : ''
 
 				super options
 
@@ -56,7 +56,7 @@ define ['app'
 							, 700
 				else
 					bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t( 'Are you sure?' ) + "</h4>", ( result )=>
-                     	if result is true
+						if result is true
 							model.destroy()
 
 

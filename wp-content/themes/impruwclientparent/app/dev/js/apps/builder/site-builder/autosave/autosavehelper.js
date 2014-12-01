@@ -69,7 +69,7 @@ define(['app', 'jquery'], function(App, $) {
             ele.elements = [];
             _.each($(element).children('.element-markup').children('.accordion-container').children('.panel-group').children('.panel'), function(column, index) {
               var col, tabName;
-              tabName = $(column).children('.panel-heading').find('a').text();
+              tabName = $(column).children('.panel-heading').find('a span').text();
               col = {
                 position: index + 1,
                 element: 'AccordionTab',

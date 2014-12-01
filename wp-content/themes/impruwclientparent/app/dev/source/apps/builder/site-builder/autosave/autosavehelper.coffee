@@ -70,7 +70,7 @@ define ['app','jquery'], (App, $) ->
 					delete ele.meta_id
 					ele.elements = []
 					_.each $(element).children('.element-markup').children('.accordion-container').children('.panel-group').children('.panel'), (column, index)=>
-						tabName = $(column).children('.panel-heading').find('a').text()
+						tabName = $(column).children('.panel-heading').find('a span').text()
 						# className = $(column).attr 'data-class'
 						col =
 							position: index + 1
