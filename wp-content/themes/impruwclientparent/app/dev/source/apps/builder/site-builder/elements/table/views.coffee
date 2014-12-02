@@ -47,6 +47,7 @@ define ['app','bootbox'], (App,bootbox)->
 				# @$el.find('#table-style').val @model.get 'style' 
 				@$el.find('table').resizableColumns()
 				@$el.parent().css 'padding-bottom', '7px'
+				@$el.find('.table-responsive').height @$el.find('.table-responsive').height()
 				@$el.find('.table-holder').height( @$el.find('.table-responsive').height() + 15 )
 				@setResizable()
 				# @$el.find('select').selectpicker()

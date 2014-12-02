@@ -110,10 +110,14 @@ define(['app', 'bootbox'], function(App, bootbox) {
         'click .delete-tab-btn': function(evt) {
           var id;
           evt.stopPropagation();
+          if (this.collection.size() <= 1) {
+            bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('Sorry, at least one tab should be present') + "</h4>");
+            return;
+          }
           id = $(evt.target).closest('.delete-tab-btn').siblings('a').first().attr('href');
           id = _.trim(id, '#');
           if (!$("#" + id).isEmptyColumn()) {
-            bootbox.alert("The tab is not empty. Please delete elements inside tab content to remove");
+            bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t("The tab is not empty. Please delete elements inside tab content to remove") + "</h4>");
             return;
           }
           $(evt.target).closest('li').remove();

@@ -67,6 +67,14 @@ function change_email_content_type() {
 add_filter( 'wp_mail_content_type', 'change_email_content_type' );
 
 
+function is_impruw_com(){
+    $host = $_SERVER['HTTP_HOST'];
+    if (strpos($host, 'impruw.com' ) !== false) {
+        return true;
+    }
+    return false;
+}
+
     /* --------------------------------------------------------------------------------------
      *
      * impruw_register_email_init

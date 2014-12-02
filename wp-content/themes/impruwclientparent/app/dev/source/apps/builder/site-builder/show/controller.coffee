@@ -139,7 +139,7 @@ define [ 'app'
                     page = @pages.get $.cookie 'current-page-id'
                     page.destroy
                         success : (model,res,opt)=>
-                            @removePageFromMenu model.get 'original_id'
+                            # @removePageFromMenu model.get 'original_id'
 
                             @removePageFromLinkSettings model.get 'original_id'
                             

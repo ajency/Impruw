@@ -304,6 +304,12 @@ function get_elementbox_elements() {
             'styles' => get_styles( 'SmartTable' )
         ),
         array(
+            'element' => 'List',
+            'icon' => 'bicon icon-uniF142',
+            'helpText' => 'help text to be added',
+            'styles' => get_styles( 'List' )
+        ),
+        array(
             'element' => 'Tabs',
             // 'title' => 'Tabs',
             'icon' => 'bicon icon-uniF142',

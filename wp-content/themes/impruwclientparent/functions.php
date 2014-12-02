@@ -59,6 +59,15 @@ include_once( dirname( __FILE__ ) . '/includes/Media.php' );
 include_once( dirname( __FILE__ ) . '/modules/enqueue.php' );
 
 
+
+function is_impruw_com(){
+    $host = $_SERVER['HTTP_HOST'];
+    if (strpos($host, 'impruw.com' ) !== false) {
+        return true;
+    }
+    return false;
+}
+
 /**
  * After theme setup hook function
  * disables admin bar
@@ -453,6 +462,9 @@ function add_element_markup( $element ) {
             break;
         case 'SmartTable' :
             $html = get_smart_table_element_markup( $element );
+            break;
+        case 'List':
+            $html = get_list_element_markup( $element );
             break;
         default :
             break;
@@ -957,6 +969,16 @@ function get_smart_table_element_markup( $element ){
     $smart_table = new SmartTableElement( $element );
 
     $html = $smart_table->get_markup();
+
+    return $html;
+}
+
+function get_list_element_markup( $element ){
+    include_once( dirname( __FILE__ ). '/elements/ListElement.php');
+
+    $list = new ListElement( $element );
+
+    $html = $list->get_markup();
 
     return $html;
 }
@@ -3680,6 +3702,11 @@ $base_element_templates = array(
     'Accordion' => array(
         array('name' => 'Paper', 'value' => 'paper'),
         array('name' => 'Flat', 'value' => 'flat')
+    ),
+    'List' => array(
+        array( 'name' => 'Hover List', 'value' => 'hover-list'),
+        array( 'name' => 'Numbered List', 'value' => 'numbered-list' ),
+        array( 'name' => 'Checked List', 'value' => 'checked-list' )
     ),
     'SmartTable' => array(
         array(
