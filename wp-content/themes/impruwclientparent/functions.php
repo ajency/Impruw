@@ -59,6 +59,15 @@ include_once( dirname( __FILE__ ) . '/includes/Media.php' );
 include_once( dirname( __FILE__ ) . '/modules/enqueue.php' );
 
 
+
+function is_impruw_com(){
+    $host = $_SERVER['HTTP_HOST'];
+    if (strpos($host, 'impruw.com' ) !== false) {
+        return true;
+    }
+    return false;
+}
+
 /**
  * After theme setup hook function
  * disables admin bar
@@ -364,6 +373,12 @@ function add_element_markup( $element ) {
         case 'Column' :
             $html = get_builder_row_column_markup( $element );
             break;
+        case 'Tabs' :
+            $html = get_tabs_element_markup( $element );
+            break;
+        case 'TabPane':
+            $html = get_tab_pane_element_markup( $element );
+            break;
         case 'ContainerElement' :
             $html = get_container_markup( $element );
             break;
@@ -442,6 +457,9 @@ function add_element_markup( $element ) {
         case 'SmartTable' :
             $html = get_smart_table_element_markup( $element );
             break;
+        case 'List':
+            $html = get_list_element_markup( $element );
+            break;
         default :
             break;
     }
@@ -503,6 +521,64 @@ function get_builder_row_column_markup( $element ) {
     }
 
     $html .= $column->get_close_tag();
+
+    return $html;
+}
+
+/**
+ * Generates the tabs markup
+ *
+ * @param type $element
+ */
+function get_tabs_element_markup( $element ) {
+
+    include_once( dirname( __FILE__ ) . '/elements/TabsElement.php');
+
+    $tab = new Tabs( $element );
+
+    $html = $tab->get_open_tag();
+
+    $tab_bar = "<!-- Nav tabs -->
+                <ul class='nav nav-tabs nav-justified' role='tablist'>";
+        
+    $tab_content = "<div class='tab-content'>";
+
+    if ( $tab->has_child_elements() ) {
+
+        foreach ( $tab->get_elements() as $ele ) {
+
+            $tab_bar .= "<li role='presentation'><a href='#tab-3' role='tab' data-toggle='tab'><span>{$ele['tabName']}</span></a></li>";
+
+            $tab_content .= add_element_markup( $ele );
+        }
+    }
+    $tab_bar .= "</ul>";
+    $tab_content .= "</div>";
+
+    $html .= $tab_bar;
+    $html .= $tab_content;
+
+    $html .= $tab->get_close_tag();
+
+    return $html;
+}
+
+function get_tab_pane_element_markup( $element ){
+    include_once( dirname( __FILE__ ) . '/elements/TabPaneElement.php');
+
+    $tab_pane = new TabPane( $element );
+
+    $html = $tab_pane->get_open_tag();
+     if ( $tab_pane->has_child_elements() ) {
+
+        foreach ( $tab_pane->get_elements() as $ele ) {
+
+            $html .= add_element_markup( $ele );
+        }
+    }
+
+    $html .= $tab_pane->get_close_tag();
+
 
     return $html;
 }
@@ -846,6 +922,16 @@ function get_smart_table_element_markup( $element ){
     $smart_table = new SmartTableElement( $element );
 
     $html = $smart_table->get_markup();
+
+    return $html;
+}
+
+function get_list_element_markup( $element ){
+    include_once( dirname( __FILE__ ). '/elements/ListElement.php');
+
+    $list = new ListElement( $element );
+
+    $html = $list->get_markup();
 
     return $html;
 }
@@ -3565,75 +3651,27 @@ $base_element_templates = array(
             'name' => 'Small Address',
             'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
         )
-        
+    ),
+    'List' => array(
+        array( 'name' => 'Hover List', 'value' => 'hover-list'),
+        array( 'name' => 'Numbered List', 'value' => 'numbered-list' ),
+        array( 'name' => 'Checked List', 'value' => 'checked-list' )
     ),
     'SmartTable' => array(
         array(
             'name' => 'Restaurant Menu',
-            'inner_style' => array( 'Default', 'Multi Column' ),
-            // 'template' => '<div class="smart-table multi-column">
-            //                     <dl class="smart-cell">
-            //                         <dt>Fried Spring Rolls</dt>
-            //                         <dd>chicken or vegetable</dd>
-            //                         <dd class="emphasis">$2.95</dd>
-            //                         <dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Gai of Nuur Satay</dt>
-            //                         <dd>skewered chicken or beef with a peanut sauce</dd>
-            //                         <dd class="emphasis">$4.95</dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Tofu Tod</dt>
-            //                         <dd>fried tofu with a mild chili peanut sauce</dd>
-            //                         <dd class="emphasis">$3.95</dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Fresh Thai Summer Roll</dt>
-            //                         <dd>with shrimp in a tamarind sauce</dd>
-            //                         <dd class="emphasis">$4.50</dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Fried Tiger Shrimp Rolls</dt>
-            //                         <dd>with a plum sauce</dd>
-            //                         <dd class="emphasis">$4.95</dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Thai Spare Ribs</dt>
-            //                         <dd class="emphasis">$8.95</dd>
-            //                     </dl>
-            //                     <div class="add-another">
-            //                         <span class="bicon icon-uniF193"></span>
-            //                         Add Another Item
-            //                     </div>
-            //                 </div>'
+            'inner_style' => array( 'Default', 'Multi Column' )
         ),
         array(
-            'name' => 'Testimonials',
-            'inner_style' => array( 'Default', 'Boxed'),
-            // 'template' => '<div class="smart-table testimonials boxed">
-            //                     <dl class="smart-cell">
-            //                         <dt>Love it!</dt>
-            //                         <dd>I absolutely love this company and their work.</dd>
-            //                         <dd class="emphasis">- Joan Rivers</dd>
-            //                         <dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>The best experience ever</dt>
-            //                         <dd>We stayed with them for our birthday celebration and the ambience and service were absolutely top-notch. Recommend this place to everyone thats looking for a quiet getaway.</dd>
-            //                         <dd class="emphasis">- Henry Ford</dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Look No Further...</dt>
-            //                         <dd>An end to end solution for all our business needs with excellent support.</dd>
-            //                         <dd class="emphasis">- Tom Petty</dd>
-            //                     </dl>
-            //                     <div class="add-another">
-            //                         <span class="bicon icon-uniF193"></span>
-            //                         Add Another Item
-            //                     </div>
-            //                 </div>'
+            'name' => 'Testimonials'
         )
+    ),
+    'Tabs' => array(
+        array('name' => 'Default' , 'value' => 'default' ),
+        array( 'name' => 'Underline', 'value' => 'tabs-style-underline' ),
+        array('name' => 'Linetriangle' , 'value' => 'tabs-style-linetriangle' ),
+        array('name' => 'Linebox' , 'value' => 'tabs-style-linebox' )
+        
     ),
     'Social' => array(
         array(
@@ -3668,11 +3706,19 @@ $base_element_templates = array(
         )
     ),
     'Spacer' => array(
-            array( 'name' => 'Default', 'value' => 'default' ),
-            array( 'name' => 'Style 1', 'value' => 'style-1' ),
-            array( 'name' => 'Style 2', 'value' => 'style-2' ),
-            array( 'name' => 'Style 3', 'value' => 'style-3' )  
-        )
+            'line' => array(
+                array( 'name' => 'Solid Line', 'value' => 'default' ),
+                array( 'name' => 'Single Line', 'value' => 'style-1' ),
+                array( 'name' => 'Shaded Line', 'value' => 'style-2' ),
+                array( 'name' => 'Elegant Line', 'value' => 'style-3' )  
+            ),
+            'pattern' => array(
+                array( 'name' => 'Diagonal Stripes', 'value' => 'default' ),
+                array( 'name' => 'Dotted Layout', 'value' => 'style-1' ),
+                array( 'name' => 'Grid Layout', 'value' => 'style-2' ),
+                array( 'name' => 'Check Layout', 'value' => 'style-3' ) 
+            )
+            )
     
 );
 

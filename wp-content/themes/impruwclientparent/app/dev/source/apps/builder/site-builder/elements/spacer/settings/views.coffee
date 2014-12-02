@@ -29,8 +29,9 @@ define ['app', 'text!apps/builder/site-builder/elements/spacer/settings/template
                 @$el.find('select[name="bottom_margin"]').selectpicker 'val', @eleModel.get 'bottom_margin'
                 @$el.find('select[name="right_margin"]').selectpicker 'val', @eleModel.get 'right_margin'
 
+                style = @eleModel.get 'style'
                 @$el.find('select[name="type"]').selectpicker('val', @eleModel.get('type')).selectpicker('refresh')
-                @$el.find('select[name="style"]').selectpicker('val', @eleModel.get('style')).selectpicker('refresh')
+                @$el.find('select[name="style"]').selectpicker('val', style).selectpicker('refresh')
                 # type = _.slugify @eleModel.get 'type'
                 # @triggerMethod "type:#{type}"
 
@@ -58,8 +59,16 @@ define ['app', 'text!apps/builder/site-builder/elements/spacer/settings/template
             onTypeLine : ->
                 @$el.find(' .sec-colors').hide()
                 @$el.find('.style, .prim-colors ').show()
+                html = ''
+                _.each @model.get('styles')[0],(style,index)=>
+                    html += "<option value='#{style.value}'>#{style.name}</option>"
+                @$el.find('.style').find('select').html(html).selectpicker 'refresh'
                 # @$el.find('select[name="style"]').selectpicker 'show'
 
             onTypePattern : ->
                 @$el.find('.style, .prim-colors , .sec-colors').show()
+                html = ''
+                _.each @model.get('styles')[1],(style,index)=>
+                    html += "<option value='#{style.value}'>#{style.name}</option>"
+                @$el.find('.style').find('select').html(html).selectpicker 'refresh'
                 # @$el.find('select[name="style"]').selectpicker 'show'

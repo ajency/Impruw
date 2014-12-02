@@ -103,6 +103,7 @@
     var AUTOSAVEINTERVAL = 6000 * 10 * 2 ;
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
     var SINGLE_ROOM_PAGE = '<?php echo get_single_room_page_title();?>';
+    var UNDELETABLE_PAGES = <?php echo json_encode(get_builder_uneditable_pages()); ?>;
     var ADDRESS = '<?php echo get_hotel_address() ?>';
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';

@@ -15,10 +15,12 @@ define ['app'], (App)->
                                                 {{#polyglot}}Room Title Desc2{{/polyglot}}
                                             </div>
             							</div>
-            							<div class="room-title-actions">
-            								<button class="btn btn-sm btn-book">{{#polyglot}}Booking{{/polyglot}} &amp; {{#polyglot}}Availability{{/polyglot}}</button>
-            							</div>
+            							
             						</div>'
+
+            # <div class="room-title-actions">
+            #         <button class="btn btn-sm btn-book">{{#polyglot}}Booking{{/polyglot}} &amp; {{#polyglot}}Availability{{/polyglot}}</button>
+            #     </div>
 
             onShow: ->
                 @$el.attr "data-content", _.polyglot.t('Update room title')+ " <a href='#{SITEURL}/dashboard/#rooms' target='BLANK'>"+_.polyglot.t('here')+"</a> "

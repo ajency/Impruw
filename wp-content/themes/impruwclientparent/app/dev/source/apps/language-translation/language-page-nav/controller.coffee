@@ -20,6 +20,7 @@ define ['app', 'controllers/base-controller'
                 @listenTo @languagePageNavView, "site:translate:content", @loadSiteContent
                 @listenTo @languagePageNavView, "header:translate:content", @loadHeaderContent
                 @listenTo @languagePageNavView, "footer:translate:content", @loadFooterContent
+                @listenTo @languagePageNavView, "menu:translate:content", @loadMenuContent
 
                 #function to load view
                 @show @languagePageNavView,
@@ -52,6 +53,9 @@ define ['app', 'controllers/base-controller'
 
             loadFooterContent :->
                 Marionette.triggerMethod.call @region, "load:footer:content", @editingLanguage
+
+            loadMenuContent :->
+                Marionette.triggerMethod.call @region, "load:menu:content", @editingLanguage
 
 
         App.commands.setHandler "show:language:page:nav:app", (opts) ->

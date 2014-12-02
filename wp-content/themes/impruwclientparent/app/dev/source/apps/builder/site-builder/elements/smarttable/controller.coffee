@@ -51,7 +51,8 @@ define [ 'app'
 			_generateCollections : ->
 				# content collection for current language
 				@collection = new Backbone.Collection @layout.model.get('contents')[WPML_DEFAULT_LANG]
-				window.WPML_OTHER_LANG =  _.without(Object.getOwnPropertyNames(ACTIVE_LANGUAGES),WPML_DEFAULT_LANG)[0]
+				window.WPML_OTHER_LANG =  if WPML_DEFAULT_LANG is 'en' then 'nb' else 'en'
+					# _.without(Object.getOwnPropertyNames(ACTIVE_LANGUAGES),WPML_DEFAULT_LANG)[0]
 				# content collection for other language
 				@collectionOther = new Backbone.Collection @layout.model.get('contents')[WPML_OTHER_LANG]
 
@@ -72,6 +73,13 @@ define [ 'app'
 					data = @layout.model.get('contents')
 					data[WPML_DEFAULT_LANG] = @collection.toJSON()
 					data[WPML_OTHER_LANG] = @collectionOther.toJSON()
+					
+					# Backslashes fix
+					_.each data, (value, key) ->
+                    	_.each value, (val1, key1) ->
+                        	_.each val1, (val2, key2) ->
+                            data[key][key1][key2] = _.stripslashes val2
+
 					@layout.model.set 'contents', data
 					@layout.model.save()
 

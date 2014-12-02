@@ -78,9 +78,9 @@ class ContactFormElement extends Element {
                     <select id="subject" required="true" name="c-subject" placeholder="Choose One:"
                             class="form-control flat">
                         <option value="" selected="">Select subject:</option>
-                        <option value="general customer service">General Customer Service</option>
+                        <option value="enquiry">Enquiry</option>
+                        <option value="complaints">Complaints</option>
                         <option value="suggestions">Suggestions</option>
-                        <option value="product support">Product Support</option>
                     </select>
                 </div>
                 <div class="col-md-6">

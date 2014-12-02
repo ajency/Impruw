@@ -1,6 +1,7 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'moment', 'bootbox'], function(App, mainviewTpl, moment, bootbox) {
   return App.module('SiteBuilderApp.Show.View', function(View, App, Backbone, Marionette, $, _) {
@@ -66,6 +67,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           App.vent.trigger("change:page:check:single:room");
           this.changePreviewLinkUrl();
           this.displayPageNameForUpdate();
+          this.showHideDeletePageBtn();
           return this.$el.find('.aj-imp-builder-drag-drop').fadeOut('fast', function() {
             return App.resetElementRegistry();
           });
@@ -124,6 +126,15 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       MainView.prototype.onPageSlugUpdated = function(slugName) {
         return this.$el.find('.page-slug-edit').val(slugName);
+      };
+
+      MainView.prototype.showHideDeletePageBtn = function() {
+        var _ref;
+        if (_ref = this.getCurrentPageName(), __indexOf.call(UNDELETABLE_PAGES, _ref) >= 0) {
+          return this.$el.find('.delete-page').addClass('hide');
+        } else {
+          return this.$el.find('.delete-page').removeClass('hide');
+        }
       };
 
       MainView.prototype.handleWindowEvents = function() {
@@ -297,22 +308,22 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       MainView.prototype.displayPageNameForUpdate = function() {
         var currentPageName, singleRoom;
-        this.$el.find('#page_name').removeAttr('readonly');
-        this.$el.find('.btn-update-pg-name').removeAttr('disabled');
+        this.$el.find('#page_name, .page-slug-edit').removeAttr('readonly');
+        this.$el.find('.btn-update-pg-name, .btn-update-pg-slug').removeAttr('disabled');
         currentPageName = this.getCurrentPageName();
-        singleRoom = this.isSingleRoomPage();
+        singleRoom = this.isUnEditablePage();
         if (singleRoom === true) {
-          this.$el.find('#page_name').attr('readonly', 'readonly');
-          this.$el.find('.btn-update-pg-name').attr('disabled', 'disabled');
+          this.$el.find('#page_name , .page-slug-edit').attr('readonly', 'readonly');
+          this.$el.find('.btn-update-pg-name, .btn-update-pg-slug').attr('disabled', 'disabled');
         }
         return this.$el.find('#page_name').val(currentPageName);
       };
 
-      MainView.prototype.isSingleRoomPage = function() {
+      MainView.prototype.isUnEditablePage = function() {
         var page, pageName;
         pageName = App.request("get:current:editable:page:name");
         page = false;
-        if (pageName === 'Single Room') {
+        if (__indexOf.call(UNDELETABLE_PAGES, pageName) >= 0) {
           page = true;
         }
         return page;

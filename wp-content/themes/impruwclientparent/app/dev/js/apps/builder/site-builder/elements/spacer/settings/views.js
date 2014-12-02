@@ -29,6 +29,7 @@ define(['app', 'text!apps/builder/site-builder/elements/spacer/settings/template
       };
 
       SettingsView.prototype.setFields = function() {
+        var style;
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').radiocheck('check');
         }
@@ -36,8 +37,9 @@ define(['app', 'text!apps/builder/site-builder/elements/spacer/settings/template
         this.$el.find('select[name="left_margin"]').selectpicker('val', this.eleModel.get('left_margin'));
         this.$el.find('select[name="bottom_margin"]').selectpicker('val', this.eleModel.get('bottom_margin'));
         this.$el.find('select[name="right_margin"]').selectpicker('val', this.eleModel.get('right_margin'));
+        style = this.eleModel.get('style');
         this.$el.find('select[name="type"]').selectpicker('val', this.eleModel.get('type')).selectpicker('refresh');
-        return this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style')).selectpicker('refresh');
+        return this.$el.find('select[name="style"]').selectpicker('val', style).selectpicker('refresh');
       };
 
       SettingsView.prototype.events = {
@@ -64,12 +66,28 @@ define(['app', 'text!apps/builder/site-builder/elements/spacer/settings/template
       };
 
       SettingsView.prototype.onTypeLine = function() {
+        var html;
         this.$el.find(' .sec-colors').hide();
-        return this.$el.find('.style, .prim-colors ').show();
+        this.$el.find('.style, .prim-colors ').show();
+        html = '';
+        _.each(this.model.get('styles')[0], (function(_this) {
+          return function(style, index) {
+            return html += "<option value='" + style.value + "'>" + style.name + "</option>";
+          };
+        })(this));
+        return this.$el.find('.style').find('select').html(html).selectpicker('refresh');
       };
 
       SettingsView.prototype.onTypePattern = function() {
-        return this.$el.find('.style, .prim-colors , .sec-colors').show();
+        var html;
+        this.$el.find('.style, .prim-colors , .sec-colors').show();
+        html = '';
+        _.each(this.model.get('styles')[1], (function(_this) {
+          return function(style, index) {
+            return html += "<option value='" + style.value + "'>" + style.name + "</option>";
+          };
+        })(this));
+        return this.$el.find('.style').find('select').html(html).selectpicker('refresh');
       };
 
       return SettingsView;
