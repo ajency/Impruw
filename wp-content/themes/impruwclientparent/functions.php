@@ -62,7 +62,7 @@ include_once( dirname( __FILE__ ) . '/modules/enqueue.php' );
 
 function is_impruw_com(){
     $host = $_SERVER['HTTP_HOST'];
-    if (strpos($host, 'imprw.com' ) !== false) {
+    if (strpos($host, 'impruw.com' ) !== false) {
         return true;
     }
     return false;
