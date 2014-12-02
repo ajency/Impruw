@@ -11,11 +11,11 @@ define ['app','bootbox'
 
 			template : '<div class="panel-heading" >
 						  <h4 class="panel-title">
-							<a >
+							<a>
 							  <span contenteditable="true">{{tabName}}</span>
 							</a>
 						  </h4>
-						  <div class="delete-accordion-btn">&times;</div>
+						  <div class="delete-accordion-btn"><span class="glyphicon glyphicon-trash"></span></div>
 						</div>
 						<div  class="panel-collapse collapse in" >
 						  <div class="panel-body column empty-column">

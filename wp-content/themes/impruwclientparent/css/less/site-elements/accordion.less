@@ -1,6 +1,6 @@
 /**** Accordion Styles ****/
 .accordion-container {
-	padding: 0 0.5em;
+	padding: 0;
 	.panel-group {
 		.panel {
 			border: 1px solid @primary1;
@@ -9,6 +9,7 @@
 				background: @primary1;
 				padding: 0;
 				border-radius: 0;
+				position: relative;
 				.panel-title {
 					font-weight: 400;
 					a {
@@ -34,6 +35,27 @@
 							text-decoration: none;
 							color: @secondary1;
 						}
+					}
+				}
+				.delete-accordion-btn {
+					font-size: 0.8em;
+					background: #ff3333;
+					color: #fff;
+					padding: 0.3em 0.4em 0.1em 0.3em;
+					text-align: center;
+					position: absolute;
+					cursor: pointer;
+					border-radius: 2px;
+					top: 5px;
+					right: 5px;
+					display: none;
+					&:hover {
+						background: lighten(#ff3333, 10%);
+					}
+				}
+				&:hover {
+					.delete-accordion-btn {
+						display: block;
 					}
 				}
 			}
@@ -137,6 +159,18 @@
 					}
 				}
 			}
+		}
+	}
+	.add-tab {
+		background: #ff7e00;
+		padding: 0.5em;
+		text-align: center;
+		color: #fff;
+		margin: 0.5em 0;
+		cursor: pointer;
+		border-radius: 2px;
+		&:hover {
+			background: lighten(#ff7e00, 10%);
 		}
 	}
 }

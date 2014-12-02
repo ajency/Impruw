@@ -15,7 +15,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       AccordionTab.prototype.className = ' panel panel-default ';
 
-      AccordionTab.prototype.template = '<div class="panel-heading" > <h4 class="panel-title"> <a > <span contenteditable="true">{{tabName}}</span> </a> </h4> <div class="delete-accordion-btn">&times;</div> </div> <div  class="panel-collapse collapse in" > <div class="panel-body column empty-column"> </div> </div>';
+      AccordionTab.prototype.template = '<div class="panel-heading" > <h4 class="panel-title"> <a> <span contenteditable="true">{{tabName}}</span> </a> </h4> <div class="delete-accordion-btn"><span class="glyphicon glyphicon-trash"></span></div> </div> <div  class="panel-collapse collapse in" > <div class="panel-body column empty-column"> </div> </div>';
 
       AccordionTab.prototype.events = {
         'click .delete-accordion-btn': function() {
