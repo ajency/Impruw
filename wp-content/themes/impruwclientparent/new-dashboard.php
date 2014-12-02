@@ -99,8 +99,12 @@ if(is_impruw_com()) :
         email: "<?php echo $user->data->user_email  ?>",
         // TODO: The current logged in user's sign-up date as a Unix timestamp.
         // console.
+        user_hash: "<?php echo
+            hash_hmac('sha256', $user->data->user_email, 'sTPoSE_yby5DEHscTDGt1fLckImt4zI1s1p8yBHQ');
+          ?>",
+          
         created_at: <?php echo strtotime($user->data->user_registered) ?>,
-        app_id: "o0cfsl2l"
+        app_id: "zy2m5a0t"
       };
     </script>
     <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/o0cfsl2l';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
