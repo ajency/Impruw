@@ -28,8 +28,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       AccordionTab.prototype.onShow = function() {
-        this.$el.find('.panel-body').sortable;
-        return {
+        return this.$el.find('.panel-body').sortable({
           revert: 'invalid',
           items: '> .element-wrapper',
           connectWith: '.droppable-column, .droppable-column .column',
@@ -73,7 +72,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
               return $(e.target).removeClass('empty-column');
             };
           })(this)
-        };
+        });
       };
 
       return AccordionTab;

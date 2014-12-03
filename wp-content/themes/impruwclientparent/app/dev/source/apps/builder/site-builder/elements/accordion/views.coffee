@@ -30,7 +30,8 @@ define ['app','bootbox'
 					@model.collection.remove @model
 
 			onShow : ->
-				 @$el.find('.panel-body').sortable
+				# console.log 'sortable'
+				@$el.find('.panel-body').sortable
 					revert: 'invalid'
 					items: '> .element-wrapper'
 					connectWith: '.droppable-column, .droppable-column .column'
