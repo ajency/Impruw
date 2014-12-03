@@ -3714,7 +3714,8 @@ $base_element_templates = array(
             'inner_style' => array( 'Default', 'Multi Column' )
         ),
         array(
-            'name' => 'Testimonials'
+            'name' => 'Testimonials',
+            'inner_style' => array('Default', 'Boxed')
         )
     ),
     'Tabs' => array(
