@@ -28,7 +28,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 		<figure class="effect-zoe">
 			<div class="browser-bar">&middot;&middot;&middot;</div>
 			<a target="_blank" href="http://minimal.impruw.com">
-				<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/MinimalThemeScreen-c.jpg" class="img-responsive"> 
+				<img src="<?php echo get_stylesheet_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/MinimalThemeScreen-c.jpg" class="img-responsive"> 
 			</a>
 			<figcaption>
 				<h2><span><?php echo __('Minimal', 'impruwmain'); ?></span></h2>
@@ -41,7 +41,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 		<figure class="effect-zoe">
 			<div class="browser-bar">&middot;&middot;&middot;</div>
 			<a target="_blank" href="http://bluebold.impruw.com">
-				<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/BlueBoldThemeScreen-c.jpg" class="img-responsive"> 
+				<img src="<?php echo get_stylesheet_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/BlueBoldThemeScreen-c.jpg" class="img-responsive"> 
 			</a>
 			<figcaption>
 				<h2><?php echo __('Blue', 'impruwmain'); ?><span><?php echo __('Bold', 'impruwmain'); ?></span></h2>
@@ -54,7 +54,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 		<figure class="effect-zoe">
 			<div class="browser-bar">&middot;&middot;&middot;</div>
 			<a target="_blank" href="http://classicgreen.impruw.com">
-				<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/ClassicGreenThemeScreen-c.jpg" class="img-responsive"> 
+				<img src="<?php echo get_stylesheet_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/ClassicGreenThemeScreen-c.jpg" class="img-responsive"> 
 			</a>
 			<figcaption>
 				<h2><?php echo __('Classic', 'impruwmain'); ?><span><?php echo __('Green', 'impruwmain'); ?></span></h2>
@@ -67,7 +67,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 		<figure class="effect-zoe">
 			<div class="browser-bar">&middot;&middot;&middot;</div>
 			<a target="_blank" href="http://pinktheme.impruw.com">
-				<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/PinkThemeScreen-c.jpg" class="img-responsive"> 
+				<img src="<?php echo get_stylesheet_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/PinkThemeScreen-c.jpg" class="img-responsive"> 
 			</a>
 			<figcaption>
 				<h2><span><?php echo __('Pink', 'impruwmain'); ?></span></h2>
@@ -80,7 +80,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 		<figure class="effect-zoe">
 			<div class="browser-bar">&middot;&middot;&middot;</div>
 			<a target="_blank" href="http://neon.impruw.com">
-				<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/NeonThemeScreen-c.jpg" class="img-responsive">
+				<img src="<?php echo get_stylesheet_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/NeonThemeScreen-c.jpg" class="img-responsive">
 			</a>
 			<figcaption>
 				<h2><span><?php echo __('Neon', 'impruwmain'); ?></span></h2>
@@ -93,7 +93,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 		<figure class="effect-zoe">
 			<div class="browser-bar">&middot;&middot;&middot;</div>
 			<a target="_blank" href="http://diamond.impruw.com">
-				<img src="<?php echo get_template_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/DiamondThemeScreen-c.jpg" class="img-responsive"> 
+				<img src="<?php echo get_stylesheet_directory_uri(); ?>/<?php echo get_language_based_image_path(); ?>/DiamondThemeScreen-c.jpg" class="img-responsive"> 
 			</a>
 			<figcaption>
 				<h2><span><?php echo __('Diamond', 'impruwmain'); ?></span></h2>

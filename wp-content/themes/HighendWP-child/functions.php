@@ -86,7 +86,7 @@ function is_impruw_com(){
     function impruw_register_email_init()
     {
 
-        $url = get_template_directory_uri();
+        $url = get_stylesheet_directory_uri();
 
         $labels = array('name' => 'Emails', 'singular_name' => 'Email', 'add_new' => 'Add New', 'add_new_item' => 'Add New Email', 'edit_item' => 'Edit Email', 'new_item' => 'New Email', 'all_items' => 'All Emails', 'view_item' => 'View Email', 'search_items' => 'Search Emails', 'not_found' => 'No Emails found', 'not_found_in_trash' => 'No Emails found in Trash', 'parent_item_colon' => '', 'menu_name' => 'Emails');
 
@@ -271,10 +271,10 @@ function is_impruw_com(){
     function add_csstopage()
     {
 
-        wp_enqueue_style('bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css');
-        wp_enqueue_style('flat-ui', get_template_directory_uri() . '/css/flat-ui.css');
-        wp_enqueue_style('main.min', get_template_directory_uri() . '/css/main.min.css');
-        wp_enqueue_style('dashboard', get_template_directory_uri() . '/css/dashboard.css');
+        wp_enqueue_style('bootstrap', get_stylesheet_directory_uri() . '/css/bootstrap.min.css');
+        wp_enqueue_style('flat-ui', get_stylesheet_directory_uri() . '/css/flat-ui.css');
+        wp_enqueue_style('main.min', get_stylesheet_directory_uri() . '/css/main.min.css');
+        wp_enqueue_style('dashboard', get_stylesheet_directory_uri() . '/css/dashboard.css');
     }
 
     add_action('wp_enqueue_scripts', 'add_csstopage');
@@ -291,19 +291,19 @@ function is_impruw_com(){
 
         //define ajaxurl for user_management.js
         //$translation_array = array( 'ajaxurl' =>admin_url( 'admin-ajax.php' )  );
-        //wp_enqueue_script('pw-script', get_template_directory_uri() . '/js/user_management.js');
+        //wp_enqueue_script('pw-script', get_stylesheet_directory_uri() . '/js/user_management.js');
 
         /* $translation_array = array( 'valuereqd' =>"other message for reqd"  );
-          wp_enqueue_script('pw-script2', get_template_directory_uri() . '/js/parsley/parsley.js');
+          wp_enqueue_script('pw-script2', get_stylesheet_directory_uri() . '/js/parsley/parsley.js');
           wp_localize_script('pw-script2', 'myobject', $translation_array );
          */
 
-        wp_enqueue_script("bootstrap", get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), JSVERSION, TRUE);
-        wp_enqueue_script("flatui-checkbox", get_template_directory_uri() . '/js/flatui-checkbox.js', array('jquery'), JSVERSION, TRUE);
-        wp_enqueue_script("bootstrap-select", get_template_directory_uri() . '/js/bootstrap-select.js', array('jquery'), JSVERSION, TRUE);
-        wp_enqueue_script("flatui-radio", get_template_directory_uri() . '/js/flatui-radio.js', array('jquery'), JSVERSION, TRUE);
+        wp_enqueue_script("bootstrap", get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array('jquery'), JSVERSION, TRUE);
+        wp_enqueue_script("flatui-checkbox", get_stylesheet_directory_uri() . '/js/flatui-checkbox.js', array('jquery'), JSVERSION, TRUE);
+        wp_enqueue_script("bootstrap-select", get_stylesheet_directory_uri() . '/js/bootstrap-select.js', array('jquery'), JSVERSION, TRUE);
+        wp_enqueue_script("flatui-radio", get_stylesheet_directory_uri() . '/js/flatui-radio.js', array('jquery'), JSVERSION, TRUE);
 
-        wp_enqueue_script("user-login", get_template_directory_uri() . '/js/user-login.js', array('jquery'), JSVERSION, TRUE);
+        wp_enqueue_script("user-login", get_stylesheet_directory_uri() . '/js/user-login.js', array('jquery'), JSVERSION, TRUE);
 
         //Localize user-login to enable translation in wpml
         $user_login_translation = array(
@@ -319,12 +319,12 @@ function is_impruw_com(){
             //Check for the current language and load the right parsley messages file
             $current_language = ICL_LANGUAGE_CODE;
             if ($current_language == 'nb'){
-                wp_enqueue_script('parsley-lang', get_template_directory_uri() . '/js/parsley/i18n/messages.no.js', array(), JSVERSION, TRUE);
+                wp_enqueue_script('parsley-lang', get_stylesheet_directory_uri() . '/js/parsley/i18n/messages.no.js', array(), JSVERSION, TRUE);
             }
 
-            wp_enqueue_script('parsley', get_template_directory_uri() . '/js/parsley/parsley.js', array('jquery'), JSVERSION, TRUE);
+            wp_enqueue_script('parsley', get_stylesheet_directory_uri() . '/js/parsley/parsley.js', array('jquery'), JSVERSION, TRUE);
 
-            wp_enqueue_script("user_management", get_template_directory_uri() . '/js/user_management.js', array(), JSVERSION, TRUE);
+            wp_enqueue_script("user_management", get_stylesheet_directory_uri() . '/js/user_management.js', array(), JSVERSION, TRUE);
 
         }
 
