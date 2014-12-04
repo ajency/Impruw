@@ -68,11 +68,11 @@ class sidebar_generator {
 		}
 	}
 	
-	function admin_enqueue_scripts() {
+	public static function admin_enqueue_scripts() {
 		wp_enqueue_script( array( 'sack' ));
 	}
 
-	function admin_print_scripts(){
+	public static function admin_print_scripts(){
 		?>
 			<script>
 				function add_sidebar( sidebar_name )
