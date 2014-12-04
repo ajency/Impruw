@@ -48,7 +48,7 @@ class sidebar_generator {
 
 	}
 	
-	function init(){
+	public static function init(){
 		//go through each sidebar and register it
 	    $sidebars = sidebar_generator::get_sidebars();
 	    
@@ -410,7 +410,7 @@ class sidebar_generator {
 	/**
 	 * gets the generated sidebars
 	*/
-	function get_sidebars(){
+	public static function get_sidebars(){
 		$sidebars = get_option('sbg_sidebars');
 		return $sidebars;
 	}
