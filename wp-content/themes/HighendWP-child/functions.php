@@ -274,7 +274,7 @@ function is_impruw_com(){
         wp_enqueue_style('bootstrap', get_stylesheet_directory_uri() . '/css/bootstrap.min.css');
         wp_enqueue_style('flat-ui', get_stylesheet_directory_uri() . '/css/flat-ui.css');
         wp_enqueue_style('main.min', get_stylesheet_directory_uri() . '/css/main.min.css');
-        wp_enqueue_style('dashboard', get_stylesheet_directory_uri() . '/css/dashboard.css');
+        // wp_enqueue_style('dashboard', get_stylesheet_directory_uri() . '/css/dashboard.css');
     }
 
     add_action('wp_enqueue_scripts', 'add_csstopage');
