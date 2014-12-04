@@ -53,7 +53,7 @@ define(['app'], function(App) {
 
       ListView.prototype.className = 'impruw-list';
 
-      ListView.prototype.template = '<ul class="list-container {{style}}"></ul> <div class="add-another"> <span class="bicon icon-uniF193"></span> Add Another Item </div>';
+      ListView.prototype.template = '<ul class="list-container {{style}} text-{{align}}"></ul> <div class="add-another"> <span class="bicon icon-uniF193"></span> Add Another Item </div>';
 
       ListView.prototype.itemView = ListItem;
 

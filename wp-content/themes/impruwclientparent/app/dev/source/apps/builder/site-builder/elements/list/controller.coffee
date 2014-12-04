@@ -13,6 +13,7 @@ define [ 'app'
 				_.defaults options.modelData,
 					element : 'List'
 					style : ''
+					align : 'left'
 					contents : 
 						en : [
 								data : 'demo'
@@ -38,7 +39,7 @@ define [ 'app'
 
 			bindEvents : ->
 				# start listening to model events
-				@listenTo @layout.model, "change:style ", @renderElement
+				@listenTo @layout.model, "change:style change:align", @renderElement
 				super()
 
 			_getListView : ->
