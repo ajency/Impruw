@@ -361,6 +361,6 @@
 		</header>
 		<!-- END #hb-header -->
 
-		<?php get_template_part ( 'includes/header' , 'page-title' ); ?>
+		<?php //get_template_part ( 'includes/header' , 'page-title' ); ?>
 		<?php get_template_part( 'includes/header' , 'slider-section'); ?>
 		<?php } ?>
