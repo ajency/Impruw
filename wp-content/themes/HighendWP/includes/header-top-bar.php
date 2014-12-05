@@ -120,12 +120,12 @@ if ( class_exists('Woocommerce') ) {
         <?php
             if ( !is_user_logged_in() ) {
         ?>
-                <a href="#" class="login-btn" data-toggle="popover"><!--<i class="hb-moon-user"></i>--><?php _e('Sign In', 'impruwmain'); ?><i class="icon-angle-down"></i></a>
+                <a href="#" ><!--<i class="hb-moon-user"></i>--><?php _e('Sign In', 'impruwmain'); ?><i class="icon-angle-down"></i></a>
                 <!-- BEGIN .login-dropdown -->
-               <!--  <div class="hb-dropdown-box login-dropdown">
-                    <?php// get_template_part ( 'includes/login' , 'form'); ?>
+               <div class="hb-dropdown-box login-dropdown">
+                    <?php get_template_part ( 'includes/login' , 'form'); ?>
                     <div class="big-overlay"><i class="hb-moon-user"></i></div>
-                </div> -->
+                </div> 
 
                 <!-- END .login-dropdown-->
         <?php 
