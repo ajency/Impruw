@@ -157,7 +157,7 @@ jQuery(document).ready(function($) {
 
     //   $( '#frm_registration' ).parsley( 'addItem', '#recaptcha_response_field' );
 
-    $("select").selectpicker();
+    // $("select").selectpicker();
     /************************* /signup.js *********************************/
 
 
