@@ -57,6 +57,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       TableView.prototype.setResizable = function() {
         return this.$el.find('.table-holder').resizable({
           handles: 's',
+          minHeight: 150,
           resize: (function(_this) {
             return function(event, ui) {
               return _this.$el.find('.table-responsive').height(ui.size.height - 15);

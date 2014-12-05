@@ -57,6 +57,7 @@ define ['app','bootbox'], (App,bootbox)->
 			setResizable : ->
 				@$el.find('.table-holder').resizable
 					handles : 's'
+					minHeight: 150
 					# create : (event,ui)=>
 					# 	console.log ui
 						# ui.size.height = @$el.find('.table-responsive').height() + 15
