@@ -57,5 +57,5 @@ jQuery(document).ready(function(){
 
     });
 
-    jQuery('select').selectpicker();
+    // jQuery('select').selectpicker();
 });
