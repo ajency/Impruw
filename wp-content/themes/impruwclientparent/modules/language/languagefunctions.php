@@ -255,7 +255,7 @@ function get_page_table_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_table_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Table')))
@@ -273,7 +273,7 @@ function get_page_smarttable_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_smarttable_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('SmartTable')))
@@ -302,7 +302,7 @@ function get_page_slider_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_slider_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Slider')))
@@ -441,11 +441,18 @@ function get_row_table_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_table_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('Table')))
+                if(in_array($element[ 'element'] , array('Table'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }
+
                     $elements[] = $element;
+                }
             }
         }
     }
@@ -455,11 +462,17 @@ function get_row_smarttable_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_smarttable_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('SmartTable')))
+                if(in_array($element[ 'element'] , array('SmartTable'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }                    
                     $elements[] = $element;
+                }
             }
         }
     }
@@ -469,11 +482,17 @@ function get_row_slider_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_slider_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('Slider')))
+                if(in_array($element[ 'element'] , array('Slider'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }                      
                     $elements[] = $element;
+                }
             }
         }
     }
