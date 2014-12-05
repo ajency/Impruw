@@ -58,6 +58,22 @@
             display: block;
         }
     }
+    @media(max-width:767px) {
+        .nav-tabs {
+            li {
+                display: inline-block;
+                a {
+                    border-radius: 4px 4px 0 0;
+                }
+            }
+            &.nav-justified {
+                li {
+                    display: table-cell;
+                    width: 1%;
+                }
+            }
+        }
+    }
 }
 
 /*****************************/
