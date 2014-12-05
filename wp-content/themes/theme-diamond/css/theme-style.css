@@ -2569,6 +2569,9 @@ ul.gallery {
   margin-bottom: -1px;
   position: relative;
 }
+.tab-container .nav-tabs li a {
+  border-bottom-color: #dc6868;
+}
 .tab-container .nav-tabs li .delete-tab-btn {
   position: absolute;
   border-radius: 2px;
@@ -2583,6 +2586,12 @@ ul.gallery {
 }
 .tab-container .nav-tabs li .delete-tab-btn:hover {
   background: rgba(255, 51, 51, 0.9);
+}
+.tab-container .nav-tabs li.active a,
+.tab-container .nav-tabs li.active a:hover,
+.tab-container .nav-tabs li.active a:focus {
+  border-color: #dc6868;
+  border-bottom: #f9f8f4;
 }
 .tab-container .nav-tabs li:hover .delete-tab-btn {
   display: block;
@@ -2615,6 +2624,7 @@ ul.gallery {
 .tabs-style-underline .nav li {
   border: 0;
   margin-bottom: -2px;
+  overflow: hidden;
 }
 .tabs-style-underline .nav li.active {
   margin-bottom: -3px;
@@ -2627,7 +2637,6 @@ ul.gallery {
   border: 0;
 }
 .tabs-style-underline .tab-content {
-  background: #f9f8f4;
   position: relative;
   z-index: 1;
   padding: 0.5em 0;

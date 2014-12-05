@@ -7,6 +7,9 @@
 		li {
 			margin-bottom: -1px;
             position: relative;
+            a {
+                border-bottom-color: @primary1; 
+            }
             .delete-tab-btn {
                 position: absolute;
                 border-radius: 2px;
@@ -21,6 +24,12 @@
                 &:hover {
                     background: fade(#ff3333, 90%);
                 }
+            }
+            &.active {
+                a, a:hover, a:focus {
+                   border-color: @primary1; 
+                   border-bottom: @white;
+               }
             }
             &:hover {
                 .delete-tab-btn {
@@ -63,6 +72,7 @@
 .tabs-style-underline .nav li {
 	border: 0;
 	margin-bottom: -2px;
+    overflow: hidden;
 	&.active {
         margin-bottom: -3px;
 		a {
@@ -76,7 +86,6 @@
 }
 
 .tabs-style-underline .tab-content {
-	background: @white;
 	position: relative;
 	z-index: 1;
     padding: 0.5em 0;
