@@ -236,11 +236,12 @@ function get_page_translation_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_translation_elements( $element,$elements );
         } else {
-            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
+            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link'))){
                 $elements[] = $element;
+            }
         }
     }
 
@@ -420,11 +421,17 @@ function get_row_translation_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_translation_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
+                if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link'))){
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }
+
                     $elements[] = $element;
+                }
             }
         }
     }
