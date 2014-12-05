@@ -112,17 +112,17 @@ jQuery(document).ready(function($) {
                 elem.parent().find('.validation-icon').remove();
                 switch (tag) {
                     case 'SELECT':
-                        elem.next().after('<span class="validation-icon input-icon fui-cross-inverted"></span>');
+                        elem.next().after('<span class="validation-icon input-icon hb-moon-close-3"></span>');
                         break;
                     case 'INPUT':
                         if (elem.attr('type') == 'checkbox') {
 
                         } else {
-                            elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>');
+                            elem.after('<span class="validation-icon input-icon hb-moon-close-3"></span>');
                         }
                         break;
                     default:
-                        elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>');
+                        elem.after('<span class="validation-icon input-icon hb-moon-close-3"></span>');
                         break;
                 }
 
@@ -179,20 +179,20 @@ jQuery(document).ready(function($) {
             /* classHandler: function ( elem  ) {
               elem.parent().addClass("has-error").removeClass("has-success");
                 elem.parent().find('.fui-check-inverted').remove()
-                elem.after('<span class="input-icon fui-cross-inverted"></span>')   
+                elem.after('<span class="input-icon hb-moon-close-3"></span>')   
             }*/
         },
         listeners: {
             onFieldSuccess: function(elem, constraints, ParsleyField) {
                 elem.parent().parent().removeClass("has-error").addClass("has-success");
-                elem.parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
+                elem.parent().find('.fui-check-inverted,.hb-moon-close-3').remove();
                 elem.after('<span class="validation-icon input-icon fui-check-inverted"></span>')
             },
 
             onFieldError: function(elem, constraints, ParsleyField) {
                 elem.parent().parent().removeClass("has-success").addClass("has-error");
-                elem.parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
-                elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>')
+                elem.parent().find('.fui-check-inverted,.hb-moon-close-3').remove();
+                elem.after('<span class="validation-icon input-icon hb-moon-close-3"></span>')
             }
         }
     });
