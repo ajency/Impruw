@@ -17,6 +17,9 @@ define ['app'
                 @listenTo view, "element:style:changed", (style)=>
                     @model.set "style", style
 
+                @listenTo view, "element:justified:changed", (justified)=>
+                    @model.set "justified", justified
+
                 @listenTo view, "element:draggable:changed", (draggable)=>
                     @model.set "draggable", draggable
 
