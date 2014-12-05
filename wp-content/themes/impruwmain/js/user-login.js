@@ -57,5 +57,11 @@ jQuery(document).ready(function(){
 
     });
 
+    // SelectPicker for Forms
     jQuery('select').selectpicker();
+
+    // Input Mask Init
+    jQuery('input[type="tel"]').inputmask({
+        mask: '999-999-9999'
+    });
 });

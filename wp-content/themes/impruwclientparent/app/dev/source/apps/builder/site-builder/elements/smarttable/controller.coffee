@@ -51,7 +51,8 @@ define [ 'app'
 			_generateCollections : ->
 				# content collection for current language
 				@collection = new Backbone.Collection @layout.model.get('contents')[WPML_DEFAULT_LANG]
-				window.WPML_OTHER_LANG =  _.without(Object.getOwnPropertyNames(ACTIVE_LANGUAGES),WPML_DEFAULT_LANG)[0]
+				window.WPML_OTHER_LANG =  if WPML_DEFAULT_LANG is 'en' then 'nb' else 'en'
+					# _.without(Object.getOwnPropertyNames(ACTIVE_LANGUAGES),WPML_DEFAULT_LANG)[0]
 				# content collection for other language
 				@collectionOther = new Backbone.Collection @layout.model.get('contents')[WPML_OTHER_LANG]
 

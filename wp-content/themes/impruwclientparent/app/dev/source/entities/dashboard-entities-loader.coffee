@@ -21,6 +21,7 @@ define [
     'entities/seo'
     'entities/header-elements'
     'entities/footer-elements'
+    'entities/site-menu-elements'
     'entities/page-table-elements'
     'entities/page-smarttable-elements'
     'entities/page-slider-elements'

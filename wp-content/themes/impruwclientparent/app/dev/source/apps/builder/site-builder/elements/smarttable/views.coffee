@@ -44,6 +44,11 @@ define ['app'], (App)->
 					@model.set $(e.target).attr('data-key'), $(e.target).text()
 					# console.log @model.toJSON()
 
+				'paste dt,dd' : (e)->
+					_.delay =>
+						$(e.target).text $(e.target).text()
+					,100
+
 				'click .delete a' : (e)->
 					e.stopPropagation()
 					@model.destroy 

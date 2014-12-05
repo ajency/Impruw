@@ -244,6 +244,8 @@ a {
 		font-weight: 400;
 		font-size: 0.7em;
 		padding: 0.5em 0.5em 0;
+		overflow: auto;
+		max-height: 70vh;
 		.aj-imp-builder-items {
 			margin: 0;
 			list-style: none;
@@ -1742,7 +1744,7 @@ a {
 				width: 220px;
 			}
 			.checkbox {
-				margin-top: 8px;
+				margin-top: 10px;
 				.icons {
 					line-height: 20px;
 					.first-icon, .second-icon {
@@ -2183,8 +2185,8 @@ a {
 						cursor: move;
 						overflow: hidden;
 						.arrow {
-							position: relative;
-							left: -5px;
+							position: absolute;
+							left: -2px;
 							top: 40%;
 							.bicon {
 								display: block;
@@ -2195,7 +2197,6 @@ a {
 						}
 					}
 					img {
-						height: 100%;
 						width: auto;
 						max-height: 120px;
 					}
@@ -2208,7 +2209,7 @@ a {
 						}
 						.arrange-slides {
 							.arrow {
-								left: 0;
+								left: 3px;
 							}
 						}
 					}
@@ -2757,7 +2758,7 @@ a {
 		}
 		#new-menu-name {
 			float: left;
-			margin-top: 1.88em;
+			margin-top: 1.78em;
 			.form-control {
 				min-width: 220px;
 			}
@@ -2787,6 +2788,17 @@ a {
 				background: lighten(@orange, 10%);
 			}
 		}
+		.list-steps {
+			list-style: inside none circle;
+			padding-left: 0.5em;
+			padding-right: 3em;
+			margin-top: 1em;
+			li {
+				color: @dash-grey;
+				font-size: 0.9em;
+				margin-bottom: 0.25em;
+			}
+		}
 		.aj-imp-add-menu-item {
 			h4 {
 				font-size: 1.4em;
@@ -2796,16 +2808,6 @@ a {
 			.desc {
 				font-size: 0.9em;
 				color: @dash-grey;
-			}
-			.list-steps {
-				list-style: circle;
-				padding-left: 0;
-				margin-top: 1em;
-				li {
-					color: @dash-grey;
-					font-size: 0.9em;
-					margin-bottom: 0.25em;
-				}
 			}
 			.aj-imp-add-link {
 				font-size: 1.2em;

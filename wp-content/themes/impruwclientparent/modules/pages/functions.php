@@ -351,7 +351,7 @@ function get_json_to_clone( $section, $page_id = 0 ) {
 
     if ( is_array( $elements ) ) {
         foreach ( $elements as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element['element'], array('Row','Tabs','Accordion')) ) {
                 $element[ 'columncount' ] = count( $element[ 'elements' ] );
                 $d[ ] = get_row_elements( $element );
             } else {
@@ -369,7 +369,7 @@ function get_row_elements( $element ) {
 
     foreach ( $element[ 'elements' ] as &$column ) {
         foreach ( $column[ 'elements' ] as &$ele ) {
-            if ( $ele[ 'element' ] === 'Row' ) {
+            if ( in_array($ele['element'], array('Row','Tabs','Accordion'))) {
                 $ele[ 'columncount' ] = count( $ele[ 'elements' ] );
                 $ele = get_row_elements( $ele );
             } else {
