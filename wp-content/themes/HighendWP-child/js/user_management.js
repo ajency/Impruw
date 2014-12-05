@@ -135,17 +135,17 @@ jQuery(document).ready(function($) {
                 elem.parent().find('.validation-icon').remove();
                 switch (tag) {
                     case 'SELECT':
-                        elem.next().after('<span class="validation-icon input-icon fui-check-inverted"></span>');
+                        elem.next().after('<span class="validation-icon input-icon hb-moon-checkmark-circle-2"></span>');
                         break;
                     case 'INPUT':
                         if (elem.attr('type') == 'checkbox') {
 
                         } else {
-                            elem.after('<span class="validation-icon input-icon fui-check-inverted"></span>');
+                            elem.after('<span class="validation-icon input-icon hb-moon-checkmark-circle-2"></span>');
                         }
                         break;
                     default:
-                        elem.after('<span class="validation-icon input-icon fui-check-inverted"></span>');
+                        elem.after('<span class="validation-icon input-icon hb-moon-checkmark-circle-2"></span>');
                         break;
                 }
 
@@ -178,20 +178,20 @@ jQuery(document).ready(function($) {
             }
             /* classHandler: function ( elem  ) {
               elem.parent().addClass("has-error").removeClass("has-success");
-                elem.parent().find('.fui-check-inverted').remove()
+                elem.parent().find('.hb-moon-checkmark-circle-2').remove()
                 elem.after('<span class="input-icon hb-moon-close-3"></span>')   
             }*/
         },
         listeners: {
             onFieldSuccess: function(elem, constraints, ParsleyField) {
                 elem.parent().parent().removeClass("has-error").addClass("has-success");
-                elem.parent().find('.fui-check-inverted,.hb-moon-close-3').remove();
-                elem.after('<span class="validation-icon input-icon fui-check-inverted"></span>')
+                elem.parent().find('.hb-moon-checkmark-circle-2,.hb-moon-close-3').remove();
+                elem.after('<span class="validation-icon input-icon hb-moon-checkmark-circle-2"></span>')
             },
 
             onFieldError: function(elem, constraints, ParsleyField) {
                 elem.parent().parent().removeClass("has-success").addClass("has-error");
-                elem.parent().find('.fui-check-inverted,.hb-moon-close-3').remove();
+                elem.parent().find('.hb-moon-checkmark-circle-2,.hb-moon-close-3').remove();
                 elem.after('<span class="validation-icon input-icon hb-moon-close-3"></span>')
             }
         }
