@@ -299,9 +299,9 @@ function is_impruw_com(){
          */
 
         //wp_enqueue_script("bootstrap", get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array('jquery'), JSVERSION, TRUE);
-        wp_enqueue_script("flatui-checkbox", get_stylesheet_directory_uri() . '/js/flatui-checkbox.js', array('jquery'), JSVERSION, TRUE);
-        wp_enqueue_script("bootstrap-select", get_stylesheet_directory_uri() . '/js/bootstrap-select.js', array('jquery'), JSVERSION, TRUE);
-        wp_enqueue_script("flatui-radio", get_stylesheet_directory_uri() . '/js/flatui-radio.js', array('jquery'), JSVERSION, TRUE);
+        //wp_enqueue_script("flatui-checkbox", get_stylesheet_directory_uri() . '/js/flatui-checkbox.js', array('jquery'), JSVERSION, TRUE);
+        //wp_enqueue_script("bootstrap-select", get_stylesheet_directory_uri() . '/js/bootstrap-select.js', array('jquery'), JSVERSION, TRUE);
+        //wp_enqueue_script("flatui-radio", get_stylesheet_directory_uri() . '/js/flatui-radio.js', array('jquery'), JSVERSION, TRUE);
 
         wp_enqueue_script("user-login", get_stylesheet_directory_uri() . '/js/user-login.js', array('jquery'), JSVERSION, TRUE);
 
