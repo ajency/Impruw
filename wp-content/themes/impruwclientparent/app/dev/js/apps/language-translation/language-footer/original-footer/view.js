@@ -15,10 +15,18 @@ define(['app', 'text!apps//language-translation/language-footer/original-footer/
 
       OriginalFooterItemView.prototype.className = 'form-group legend-group';
 
-      OriginalFooterItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{element_in_language}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original {{TypeOfElementClass}}" tabindex="1"> {{{originalContent}}} </div> </div> </div> </div>';
+      OriginalFooterItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{TabParent}}{{element_in_language}}</label> <div class="col-sm-9 col-sm-offset-3"> <div class="original {{TypeOfElementClass}}" tabindex="1"> {{{originalContent}}} </div> </div> </div> </div>';
 
       OriginalFooterItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalFooterItemView.__super__.mixinTemplateHelpers.call(this, data);
+        data.TabParent = function() {
+          var tabParent;
+          tabParent = '';
+          if ((data.parentElement === "Accordion") || (data.parentElement === "Tabs")) {
+            tabParent += data.parentElement + "->" + data.tabName + "-> ";
+          }
+          return tabParent;
+        };
         data.TypeOfElementClass = function() {
           if ((data.element === "Title") || (data.element === "Link")) {
             return "title";

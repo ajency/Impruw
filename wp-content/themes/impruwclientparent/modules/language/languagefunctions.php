@@ -321,7 +321,7 @@ function get_header_translation_elements(){
     $elements = array();
 
     foreach ( $data as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_translation_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
@@ -340,7 +340,7 @@ function get_footer_translation_elements(){
     $elements = array();
 
     foreach ( $data as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_translation_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))

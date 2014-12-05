@@ -11,7 +11,7 @@ define ['app'
 
             template : '<div class="col-sm-12">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="">{{element_in_language}}</label>
+                                <label class="col-sm-3 control-label" for="">{{TabParent}}{{element_in_language}}</label>
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <div class="original {{TypeOfElementClass}}" tabindex="1">
                                         {{{originalContent}}}
@@ -22,6 +22,13 @@ define ['app'
 
             mixinTemplateHelpers: (data)->
                 data = super data
+
+                data.TabParent = ->
+                    tabParent = ''
+                    if (data.parentElement is "Accordion") or (data.parentElement is "Tabs") 
+                        tabParent += data.parentElement+"->"+data.tabName+"-> "
+                    return tabParent
+                    
                 data.TypeOfElementClass = ->
                     if (data.element is "Title") or (data.element is "Link") 
                         return "title"
