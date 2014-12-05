@@ -277,7 +277,7 @@ function is_impruw_com(){
         // wp_enqueue_style('dashboard', get_stylesheet_directory_uri() . '/css/dashboard.css');
     }
 
-    add_action('wp_enqueue_scripts', 'add_csstopage');
+    //add_action('wp_enqueue_scripts', 'add_csstopage');
 
     /**
      * Function to add required js files
@@ -298,7 +298,7 @@ function is_impruw_com(){
           wp_localize_script('pw-script2', 'myobject', $translation_array );
          */
 
-        wp_enqueue_script("bootstrap", get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array('jquery'), JSVERSION, TRUE);
+        //wp_enqueue_script("bootstrap", get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array('jquery'), JSVERSION, TRUE);
         wp_enqueue_script("flatui-checkbox", get_stylesheet_directory_uri() . '/js/flatui-checkbox.js', array('jquery'), JSVERSION, TRUE);
         wp_enqueue_script("bootstrap-select", get_stylesheet_directory_uri() . '/js/bootstrap-select.js', array('jquery'), JSVERSION, TRUE);
         wp_enqueue_script("flatui-radio", get_stylesheet_directory_uri() . '/js/flatui-radio.js', array('jquery'), JSVERSION, TRUE);

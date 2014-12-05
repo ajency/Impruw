@@ -5,19 +5,10 @@
 get_header();
 
 ?>
-
-<div class="aj-imp-register-form">
+<div id="main-content">
+<div class="container aj-imp-register-form">
     <div class="row">
-        <div class="col-sm-12 aj-imp-register-header">
-            <h1><?php echo __('Sign Up on', 'impruwmain'); ?> <span><?php echo __('Impruw', 'impruwmain'); ?></span></h1>
-            <p class="desc">
-                <?php echo __('Sign up in 30 seconds. No credit card required. If you already have an Impruw account sign in.', 'impruwmain');
-                ?>  
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-7 aj-imp-register-left">
+        <div class="col-7 aj-imp-register-left">
             <form class="form-horizontal clearfix" method="post"  name="frm_registration" id="frm_registration"    >
                 <?php
                 $ajax_nonce = wp_create_nonce("new_user_registration");
@@ -26,9 +17,9 @@ get_header();
                 <span id="register_message" name="register_success"  ></span>
                 <a href="#register_success" id="scrolltosuccess"  > &nbsp; </a>
                 <div class="form-group">
-                    <label for="inputName" class="col-sm-3 control-label"><?php echo __('Your Full Name', 'impruwmain'); ?></label>
+                    <label for="inputName" class="col-3 control-label"><?php echo __('Your Full Name', 'impruwmain'); ?></label>
 
-                    <div class="col-sm-7 col-sm-offset-3">
+                    <div class="col-7">
 
                         <input type="text" class="form-control" id="inputName"  name="display_name" placeholder="<?php echo __('Firstname Lastname', 'impruwmain'); ?>" required   
                                parsley-validation-minlength="0"  parsley-minlength="3" parsley-trigger="blur" parsley-regexp="^[a-zA-Zæøå ]+$"
@@ -40,8 +31,8 @@ get_header();
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Your Email', 'impruwmain'); ?></label>
-                    <div class="col-sm-7 col-sm-offset-3">
+                    <label for="inputEmail" class="col-3 control-label"><?php echo __('Your Email', 'impruwmain'); ?></label>
+                    <div class="col-7">
                         <input type="email" class="form-control parsley-validated parsley-error"
                                parsley-regexp='^(([^<>()æøå[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
                                id="inputEmail"  name="user_email" placeholder="<?php echo __('someone@mail.com', 'impruwmain'); ?>"     
@@ -54,9 +45,9 @@ get_header();
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputLmail" class="col-sm-3 control-label"><?php echo __('Select your language', 'impruwmain'); ?></label>
+                    <label for="inputLmail" class="col-3 control-label"><?php echo __('Select your language', 'impruwmain'); ?></label>
 
-                    <div class="col-sm-7 col-sm-offset-3 site-lang-sel">
+                    <div class="col-7 site-lang-sel">
 
                         <select name="user_language" id="inputLanguage"  required  parsley-required-message="<?php echo __('Please select any one of the languages available.', 'impruwmain'); ?>"   > 
 
@@ -71,23 +62,24 @@ get_header();
                 </div>
 
                 <div class="form-group aj-imp-site-name">
-                    <label for="inputSitename" class="col-sm-3 control-label"><?php echo __('Your website name', 'impruwmain'); ?></label>
+                    <label for="inputSitename" class="col-3 control-label"><?php echo __('Your website name', 'impruwmain'); ?></label>
 
-                    <div class="col-sm-7 col-sm-offset-3">
+                    <div class="col-7 input-group">
 
                         <input type="text" class="form-control parsley-validated parsley-error" id="inputSitename" name="site_name" placeholder="<?php echo __('Website name', 'impruwmain'); ?>"     parsley-required="true"    parsley-trigger="blur"  parsley-validation-minlength="0"  parsley-type="alphanum"    psarsley-remote="<?php echo admin_url('admin-ajax.php') . '?action=check_sitename_exists'; ?>"   value="<?php if (isset($_REQUEST['inputSitename'])) echo $_REQUEST['inputSitename']; ?>"   parsley-required-message="<?php echo __('We need a site name to begin.', 'impruwmain'); ?>"  >
+                        <span class="input-group-addon aj-imp-domain">.impruw.com</span>
                                 <!-- <span class="help-block"></span> -->
                         <div class="p-messages"></div>
 
                     </div>
-                    <div class="col-sm-2 aj-imp-domain">
+                    <!--<div class="col-2 aj-imp-domain">
                         <?php echo __('.impruw.com', 'impruwmain'); ?>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="form-group">
-                    <label for="inputPass" class="col-sm-3 control-label"><?php echo __('Password', 'impruwmain'); ?></label>
+                    <label for="inputPass" class="col-3 control-label"><?php echo __('Password', 'impruwmain'); ?></label>
 
-                    <div class="col-sm-7 col-sm-offset-3">
+                    <div class="col-7">
 
                         <input type="password" class="form-control parsley-validated parsley-error" id="inputPass" name="user_pass" placeholder="<?php echo __('Easy to remember, hard to guess', 'impruwmain'); ?>"  parsley-required="true"  parsley-equalto="#inputPass"     parsley-trigger="blur" parsley-validation-minlength="0" parsley-minlength="6"  parsley-required-message="<?php echo __("Your password needs to be atleast 6 characters long.", 'impruwmain'); ?>"    >
                         <div class="p-messages"></div>
@@ -95,9 +87,9 @@ get_header();
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputRepass" class="col-sm-3 control-label"><?php echo __('Retype Password', 'impruwmain'); ?></label>
+                    <label for="inputRepass" class="col-3 control-label"><?php echo __('Retype Password', 'impruwmain'); ?></label>
 
-                    <div class="col-sm-7 col-sm-offset-3">
+                    <div class="col-7">
 
                         <input type="password" class="form-control parsley-validated parsley-error"   id="inputRepass" name="inputRepass" placeholder="<?php echo __('Confirm your password', 'impruwmain'); ?>"  required   parsley-equalto="#inputPass"   parsley-trigger="blur" parsley-validation-minlength="0"   parsley-required-message="<?php echo __('Please retype your password.', 'impruwmain'); ?>"  parsley-equalto-message="<?php echo __("Your passwords don't match. Try again.", 'impruwmain'); ?>"   >
                         <!-- <span  class="help-block"></span> -->
@@ -130,9 +122,9 @@ get_header();
                 </div> -->
                 <!-- HneyPt -->
                 <div class="form-group hidden">
-                    <label for="inputHoney" class="col-sm-3 control-label"><?php echo __('Please leave this field blank if you see it.', 'impruwmain'); ?></label>
+                    <label for="inputHoney" class="col-3 control-label"><?php echo __('Please leave this field blank if you see it.', 'impruwmain'); ?></label>
 
-                    <div class="col-sm-7 col-sm-offset-3">
+                    <div class="col-7">
 
                         <input type="text" class="form-control parsley-validated parsley-error"   id="inputHoney" name="inputHoney" placeholder="<?php echo __('Honeypot', 'impruwmain'); ?>"  >
                         <!-- <span  class="help-block"></span> -->
@@ -142,7 +134,7 @@ get_header();
                 </div>
                 <!-- HneyPt -->
                 <div class="form-group margin-1">
-                    <div class="col-sm-offset-3 col-sm-7">
+                    <div class="col-7">
                         <label for="checkbox2" class="checkbox">
                             <input type="checkbox" data-toggle="checkbox"  id="checkbox2" name="checkbox2"  value="1"   required  class="parsley-validated parsley-error"   parsley-trigger="blur" parsley-validation-minlength="0">
                             <?php echo __('By signing up you agree to our ', 'impruwmain'); ?><a href="<?php echo get_bloginfo('url'); ?>/terms-of-service/" target="_blank"><?php _e('Terms of Service','impruwmain')?></a>
@@ -162,7 +154,7 @@ get_header();
 
 
                 <div class="row">
-                    <div class="col-sm-offset-3 col-sm-7">
+                    <div class="col-7">
                         <!--  <button type="submit" class="btn btn-wide aj-imp-submit">Start Creating!</button> --> 
                         <button type="button" class="btn btn-wide aj-imp-submit" id="btn_create_site" name="btn_create"  ><?php echo __('Get started!', 'impruwmain'); ?></button> 
                         <img id="registration_loader" src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
@@ -171,7 +163,7 @@ get_header();
                 </div>
             </form>
         </div>
-        <div class="col-md-5 aj-imp-register-right">
+        <div class="col-5 aj-imp-register-right">
             <!--<div class="aj-imp-reg-step">
                 <p>
             <?php echo __('Once you sign up along with your new Impruw account your website will also be created. Take the next step and activate your account using the activation link sent to your email address.', 'impruwmain'); ?>
@@ -203,6 +195,7 @@ get_header();
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <?php
