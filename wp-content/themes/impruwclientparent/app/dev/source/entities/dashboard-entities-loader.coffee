@@ -23,6 +23,7 @@ define [
     'entities/footer-elements'
     'entities/site-menu-elements'
     'entities/page-table-elements'
+    'entities/page-tab-accordions'
     'entities/page-smarttable-elements'
     'entities/page-slider-elements'
     'entities/emails'

@@ -253,6 +253,15 @@ function get_page_smart_tables_ajax(){
 }
 add_action( 'wp_ajax_get-page-smart-tables', 'get_page_smart_tables_ajax' );
 
+function get_get_page_tabs_accordions_ajax(){
+    $page_id = $_REQUEST['pageId'];
+
+    $data =  get_page_tabs_accordion_elements($page_id);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_get-page-tabs-accordions', 'get_get_page_tabs_accordions_ajax' );
+
 function get_page_sliders_ajax(){
     $page_id = $_REQUEST['pageId'];
 

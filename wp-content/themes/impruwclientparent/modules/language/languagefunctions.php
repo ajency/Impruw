@@ -284,6 +284,62 @@ function get_page_smarttable_elements($page_id){
    return $elements;    
 }
 
+//Function to get all page tabs and accordions 
+function get_page_tabs_accordion_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+
+    $tab_elements = array();
+    
+    foreach ( $data['page'] as $element ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+            get_row_tabs_accordion_elements( $element,$elements,$tab_elements);
+        } else {
+            continue;
+        
+        }
+    }
+
+    $tabs = array();
+    $accordions = array();
+
+    foreach ($tab_elements as $tab_element) {
+        switch ($tab_element['tabType']) {
+            case 'Tabs':
+                $tabs[] = $tab_element['tabName'] ;
+                break;
+
+            case 'Accordion':
+                $accordions[] = $tab_element['tabName'];
+                break;
+        }
+    }
+
+    $tab_accordion_elements = array('tabs' => $tabs, 'accordions' => $accordions);
+   return $tab_accordion_elements;    
+}
+
+function get_row_tabs_accordion_elements( $row_element, &$elements, &$tab_elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+
+        if (isset($column['tabName'])){
+            $tab_elements[] = array('tabType' => $row_element[ 'element' ], 'tabName'=> $column['tabName']);
+        }
+        
+        foreach ( $column[ 'elements' ] as $element ) {
+
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                get_row_tabs_accordion_elements( $element,$elements,$tab_elements );
+            } 
+            else {
+                continue;
+            }
+        }
+
+    }
+}
+
+
 function get_page_slider_collection($page_id){
     $sliders =  get_page_slider_elements($page_id);
     
@@ -436,6 +492,7 @@ function get_row_translation_elements( $row_element, &$elements ){
         }
     }
 }
+
 
 function get_row_table_elements( $row_element, &$elements ){
 
