@@ -4,23 +4,23 @@
 
 jQuery(document).ready(function(){
 
-    jQuery('.login-btn').popover({
-        'placement': 'auto bottom',
-        'html': true,
-        'content': '<form id="frm_login" name="frm_login"><div class="form-group"><input type="email" class="form-control" id="InputEmail" placeholder="'+user_login_texts.placeholder_email+'"></div><div class="form-group"><button id="btn_login2" name="btn_login2" type="button" class="btn btn-xs btn-block aj-imp-submit">'+user_login_texts.btn_sign_in+'</button></div><div id="login_status_div"><span class="icon icon-warning"></span> <span id="login_status"></span></div></form>',
-        'container': 'body'
-    });
+    // jQuery('.login-btn').popover({
+    //     'placement': 'auto bottom',
+    //     'html': true,
+    //     'content': '<form id="frm_login" name="frm_login"><div class="form-group"><input type="email" class="form-control" id="InputEmail" placeholder="'+user_login_texts.placeholder_email+'"></div><div class="form-group"><button id="btn_login2" name="btn_login2" type="button" class="btn btn-xs btn-block aj-imp-submit">'+user_login_texts.btn_sign_in+'</button></div><div id="login_status_div"><span class="icon icon-warning"></span> <span id="login_status"></span></div></form>',
+    //     'container': 'body'
+    // });
 
 
-    jQuery('.login-btn').click(function(e){
+    // jQuery('.login-btn').click(function(e){
         
-        e.preventDefault();
+    //     e.preventDefault();
 
-    }).on('shown.bs.popover', function () {
+    // }).on('shown.bs.popover', function () {
         
-        jQuery('.popover').addClass('login-pop');
+    //     jQuery('.popover').addClass('login-pop');
 
-    });
+    // });
 
     jQuery('#InputEmail').live('keypress',function(evt){
     
