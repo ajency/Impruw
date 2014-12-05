@@ -20,14 +20,14 @@
 
     </form> -->
 
-    <form id="frm_login" name="frm_login">
+    <form id="frm_login" name="frm_login" class="hb-login-form">
         <div class="form-group">
             <input type="email" class="form-control" id="InputEmail" placeholder="<?php echo __('Email') ; ?>">
         </div>
         <div class="form-group">
-            <button id="btn_login2" name="btn_login2" type="button" class="btn btn-xs btn-block aj-imp-submit"><?php echo  __( 'Sign In' ); ?></button>
+            <button id="btn_login2" name="btn_login2" type="button" class="hb-button no-three-d hb-small-button aj-imp-submit"><?php echo  __( 'Sign In' ); ?></button>
         </div>
-        <div id="login_status_div">
+        <div id="login_status_div" class="hidden">
             <span class="icon icon-warning">
             
             </span> 
