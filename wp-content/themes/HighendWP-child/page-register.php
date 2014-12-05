@@ -17,7 +17,7 @@ get_header();
                 <span id="register_message" name="register_success"  ></span>
                 <a href="#register_success" id="scrolltosuccess"  > &nbsp; </a>
                 <div class="form-group">
-                    <label for="inputName" class="col-3 control-label"><?php echo __('Your Full Name', 'impruwmain'); ?></label>
+                    <label for="inputName" class="col-3 control-label alignright"><?php echo __('Your Full Name', 'impruwmain'); ?></label>
 
                     <div class="col-7">
 
@@ -31,7 +31,7 @@ get_header();
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputEmail" class="col-3 control-label"><?php echo __('Your Email', 'impruwmain'); ?></label>
+                    <label for="inputEmail" class="col-3 control-label alignright"><?php echo __('Your Email', 'impruwmain'); ?></label>
                     <div class="col-7">
                         <input type="email" class="form-control parsley-validated parsley-error"
                                parsley-regexp='^(([^<>()æøå[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
@@ -45,7 +45,7 @@ get_header();
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputLmail" class="col-3 control-label"><?php echo __('Select your language', 'impruwmain'); ?></label>
+                    <label for="inputLmail" class="col-3 control-label alignright"><?php echo __('Select your language', 'impruwmain'); ?></label>
 
                     <div class="col-7 site-lang-sel">
 
@@ -62,22 +62,21 @@ get_header();
                 </div>
 
                 <div class="form-group aj-imp-site-name">
-                    <label for="inputSitename" class="col-3 control-label"><?php echo __('Your website name', 'impruwmain'); ?></label>
+                    <label for="inputSitename" class="col-3 control-label alignright"><?php echo __('Your website name', 'impruwmain'); ?></label>
 
                     <div class="col-7 input-group">
 
                         <input type="text" class="form-control parsley-validated parsley-error" id="inputSitename" name="site_name" placeholder="<?php echo __('Website name', 'impruwmain'); ?>"     parsley-required="true"    parsley-trigger="blur"  parsley-validation-minlength="0"  parsley-type="alphanum"    psarsley-remote="<?php echo admin_url('admin-ajax.php') . '?action=check_sitename_exists'; ?>"   value="<?php if (isset($_REQUEST['inputSitename'])) echo $_REQUEST['inputSitename']; ?>"   parsley-required-message="<?php echo __('We need a site name to begin.', 'impruwmain'); ?>"  >
-                        <span class="input-group-addon aj-imp-domain">.impruw.com</span>
                                 <!-- <span class="help-block"></span> -->
                         <div class="p-messages"></div>
 
                     </div>
-                    <!--<div class="col-2 aj-imp-domain">
+                    <div class="col-2 aj-imp-domain">
                         <?php echo __('.impruw.com', 'impruwmain'); ?>
-                    </div>-->
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPass" class="col-3 control-label"><?php echo __('Password', 'impruwmain'); ?></label>
+                    <label for="inputPass" class="col-3 control-label alignright"><?php echo __('Password', 'impruwmain'); ?></label>
 
                     <div class="col-7">
 
@@ -87,7 +86,7 @@ get_header();
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputRepass" class="col-3 control-label"><?php echo __('Retype Password', 'impruwmain'); ?></label>
+                    <label for="inputRepass" class="col-3 control-label alignright"><?php echo __('Retype Password', 'impruwmain'); ?></label>
 
                     <div class="col-7">
 
@@ -134,6 +133,7 @@ get_header();
                 </div>
                 <!-- HneyPt -->
                 <div class="form-group margin-1">
+                    <div class="col-3">&nbsp;</div>
                     <div class="col-7">
                         <label for="checkbox2" class="checkbox">
                             <input type="checkbox" data-toggle="checkbox"  id="checkbox2" name="checkbox2"  value="1"   required  class="parsley-validated parsley-error"   parsley-trigger="blur" parsley-validation-minlength="0">
@@ -154,9 +154,10 @@ get_header();
 
 
                 <div class="row">
+                    <div class="col-3">&nbsp;</div>
                     <div class="col-7">
                         <!--  <button type="submit" class="btn btn-wide aj-imp-submit">Start Creating!</button> --> 
-                        <button type="button" class="btn btn-wide aj-imp-submit" id="btn_create_site" name="btn_create"  ><?php echo __('Get started!', 'impruwmain'); ?></button> 
+                        <button type="button" class="hb-button hb-carrot no-three-d aj-imp-submit" id="btn_create_site" name="btn_create"  ><?php echo __('Get started!', 'impruwmain'); ?></button> 
                         <img id="registration_loader" src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
                         <input type="reset" style="display: none"/>
                     </div>
@@ -176,7 +177,7 @@ get_header();
                     <br>
                     <a href="#"><?php echo __('Click here to resend activation mail', 'impruwmain'); ?></a>
                 </p>
-            </div>-->
+            </div>
             <div class="aj-imp-reg-step">
                 <h5><?php echo __('What happens next?', 'impruwmain'); ?></h5>
                 <p>
@@ -192,7 +193,8 @@ get_header();
                 <p>
                     <?php echo __('Send us a mail on ', 'impruwmain'); ?><a href="mailto:support@impruw.com"><?php _e('support@impruw.com','impruwmain')?></a>
                 </p>
-            </div>
+            </div>-->
+            <?php the_content(); ?>
         </div>
     </div>
 </div>
