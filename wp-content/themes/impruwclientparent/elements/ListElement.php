@@ -47,6 +47,8 @@ class ListElement extends Element {
         }
 
         $this->content = $content;
+
+        $this->extra_classes = isset( $element[ 'align' ] ) ? $element[ 'align' ]  : '';
      
         $this->markup = $this->generate_markup();
 
@@ -65,7 +67,7 @@ class ListElement extends Element {
         $html = '';
         
         $html .= "<div class='impruw-list  '>
-                    <ul class='{$this->style_class}'>";
+                    <ul class='{$this->style_class} text-{$this->extra_classes}'>";
 
         foreach ($this->content as $content_array) {
             $html .= "<li ><span>{$content_array['data']}</span></li>";

@@ -14,6 +14,7 @@ define(['app', 'apps/builder/site-builder/elements/list/views', 'apps/builder/si
         _.defaults(options.modelData, {
           element: 'List',
           style: '',
+          align: 'left',
           contents: {
             en: [
               {
@@ -43,7 +44,7 @@ define(['app', 'apps/builder/site-builder/elements/list/views', 'apps/builder/si
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:style ", this.renderElement);
+        this.listenTo(this.layout.model, "change:style change:align", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 

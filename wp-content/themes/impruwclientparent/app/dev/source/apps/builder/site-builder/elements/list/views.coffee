@@ -38,7 +38,7 @@ define ['app'], (App)->
 
 			className: 'impruw-list'
 
-			template : '<ul class="list-container {{style}}"></ul>
+			template : '<ul class="list-container {{style}} text-{{align}}"></ul>
 						<div class="add-another">
                             <span class="bicon icon-uniF193"></span>
                             Add Another Item

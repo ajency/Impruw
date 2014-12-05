@@ -33,7 +33,8 @@ define(['app', 'text!apps/builder/site-builder/elements/list/settings/templates/
           this.$el.find('input[name="draggable"]').radiocheck('check');
         }
         this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
-        return this.$el.find('select[name="style"]').selectpicker('refresh');
+        this.$el.find('select[name="style"]').selectpicker('refresh');
+        return this.$el.find(".align-btn button[value='" + (this.eleModel.get('align')) + "']").addClass('aj-imp-orange-btn');
       };
 
       SettingsView.prototype.events = {
@@ -46,6 +47,13 @@ define(['app', 'text!apps/builder/site-builder/elements/list/settings/templates/
         },
         'change select[name="style"]': function(evt) {
           return this.trigger("element:style:changed", $(evt.target).val());
+        },
+        'click .align-btn button': function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          this.$el.find('.align-btn button').removeClass('aj-imp-orange-btn');
+          $(e.target).addClass('aj-imp-orange-btn');
+          return this.trigger('element:align:changed', $(e.target).val());
         }
       };
 
