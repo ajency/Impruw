@@ -287,12 +287,14 @@ function get_page_smarttable_elements($page_id){
 //Function to get all page tabs and accordions 
 function get_page_tabs_accordion_elements($page_id){
     $data = get_page_json_for_site($page_id, true);
-
+    $level = 0;
+    $position = 0;
     $tab_elements = array();
     
     foreach ( $data['page'] as $element ) {
         if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
-            get_row_tabs_accordion_elements( $element,$elements,$tab_elements);
+            $level++;
+            get_row_tabs_accordion_elements( $element,$elements,$tab_elements,$level,$position );
         } else {
             continue;
         
@@ -301,35 +303,40 @@ function get_page_tabs_accordion_elements($page_id){
 
     $tabs = array();
     $accordions = array();
+    $tabs_and_accordions = array();
 
     foreach ($tab_elements as $tab_element) {
+        $tabs_and_accordions[] = array('tabType'=>$tab_element['tabType'],'level' => $tab_element['level'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']);
         switch ($tab_element['tabType']) {
             case 'Tabs':
-                $tabs[] = $tab_element['tabName'] ;
+                $tabs[] =  array('level' => $tab_element['level'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']); 
                 break;
 
             case 'Accordion':
-                $accordions[] = $tab_element['tabName'];
+                $accordions[] = array('level' => $tab_element['level'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']); 
                 break;
         }
     }
 
-    $tab_accordion_elements = array('tabs' => $tabs, 'accordions' => $accordions);
+
+
+    $tab_accordion_elements = array('0'=>array('ID'=> $page_id.'0', 'tabType'=>'Tabs','tabElements'=>$tabs),'1'=>array('ID'=>$page_id.'1','tabType'=>'Accordions','tabElements'=>$accordions));
    return $tab_accordion_elements;    
 }
 
-function get_row_tabs_accordion_elements( $row_element, &$elements, &$tab_elements ){
+function get_row_tabs_accordion_elements( $row_element, &$elements, &$tab_elements,&$level, &$position ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
 
         if (isset($column['tabName'])){
-            $tab_elements[] = array('tabType' => $row_element[ 'element' ], 'tabName'=> $column['tabName']);
+            $position++;
+            $tab_elements[] = array('level'=>$level, 'position'=>$position, 'tabType' => $row_element[ 'element' ], 'tabName'=> $column['tabName']);
         }
         
         foreach ( $column[ 'elements' ] as $element ) {
 
             if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
-                get_row_tabs_accordion_elements( $element,$elements,$tab_elements );
+                get_row_tabs_accordion_elements( $element,$elements,$tab_elements,$level,$position );
             } 
             else {
                 continue;

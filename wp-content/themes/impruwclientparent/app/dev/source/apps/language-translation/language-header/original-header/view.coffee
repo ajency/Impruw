@@ -11,7 +11,7 @@ define ['app'
 
             template : '<div class="col-sm-12">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="">{{TabParent}}{{element_in_language}}</label>
+                                <label class="col-sm-3 control-label" for="">{{TabType}}{{element_in_language}}</label>
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <div class="original {{TypeOfElementClass}}" tabindex="1">
                                         {{{originalContent}}}

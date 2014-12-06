@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return OriginalTabPaneItemView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalTabPaneItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">{{#polyglot}}Tab Name{{/polyglot}}</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{tabName}} </div> </div> </div> </div> </div>';
+      OriginalTabPaneItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">{{#polyglot}}Name{{/polyglot}}</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{tabName}} </div> </div> </div> </div> </div>';
 
       OriginalTabPaneItemView.prototype.events = {
         'click a': function(e) {
@@ -21,18 +21,6 @@ define(['app'], function(App) {
 
       OriginalTabPaneItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalTabPaneItemView.__super__.mixinTemplateHelpers.call(this, data);
-        if ((data.dt != null) && data.dt !== '') {
-          data.dtExist = true;
-        }
-        if ((data.dd != null) && data.dd !== '') {
-          data.ddExist = true;
-        }
-        if ((data.em != null) && data.em !== '') {
-          data.emExist = true;
-        }
-        data.dt = _.stripslashes(data.dt);
-        data.dd = _.stripslashes(data.dd);
-        data.em = _.stripslashes(data.em);
         return data;
       };
 
@@ -46,7 +34,7 @@ define(['app'], function(App) {
         return OriginalTabPanesView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalTabPanesView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{TabType}}</small></h6> <div class="original-tab-pane"> </div> <hr class="dark">';
+      OriginalTabPanesView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{tabType}}</small></h6> <div class="original-tab-pane"> </div> <hr class="dark">';
 
       OriginalTabPanesView.prototype.itemView = OriginalTabPaneItemView;
 
@@ -66,9 +54,14 @@ define(['app'], function(App) {
       };
 
       OriginalTabPanesView.prototype.initialize = function() {
-        var smartTableMetaId;
-        smartTableMetaId = this.model.get('meta_id');
-        return this.listenTo(App.vent, "translated:smartable:loaded:" + smartTableMetaId, function() {
+        var collection, completeContent, tabAccordionId;
+        completeContent = this.model.get('tabElements');
+        console.log(this.model.get('tabElements'));
+        collection = new Backbone.Collection(completeContent);
+        this.collection = collection;
+        console.log(this.collection);
+        tabAccordionId = this.model.get('ID');
+        return this.listenTo(App.vent, "translated:tabs:accordions:loaded:" + tabAccordionId, function() {
           return this.$el.find('.smart-collapse').removeClass('hide');
         });
       };
