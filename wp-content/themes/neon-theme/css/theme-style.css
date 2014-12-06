@@ -2274,6 +2274,7 @@ ul.gallery {
 .accordion-container .panel-group .panel {
   border: 1px solid #24d07c;
   border-radius: 2px;
+  background: transparent;
 }
 .accordion-container .panel-group .panel .panel-heading {
   background: #24d07c;
@@ -2329,6 +2330,8 @@ ul.gallery {
 .accordion-container .panel-group .panel .panel-collapse .panel-body {
   padding: 1em;
   color: #ffffff;
+  background: transparent;
+  border-color: transparent;
 }
 .accordion-container .panel-group.flat .panel {
   margin: 0;
