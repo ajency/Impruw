@@ -2494,7 +2494,7 @@ ul.gallery {
 .impruw-list ul.numbered-list li:before {
   content: counter(list-counter, decimal);
   counter-increment: list-counter;
-  color: #d9d9d9;
+  color: #b2b2b2;
   font-size: 1.1em;
   font-style: italic;
 }
@@ -2536,7 +2536,7 @@ ul.gallery {
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: transparent;
+  color: #989898;
 }
 .impruw-list ul.checked-list li:hover a,
 .impruw-list ul.checked-list li:hover span {
