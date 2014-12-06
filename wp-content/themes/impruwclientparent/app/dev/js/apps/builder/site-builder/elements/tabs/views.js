@@ -85,7 +85,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       TabsView.prototype.className = 'tab-container';
 
-      TabsView.prototype.template = '<!-- Nav tabs --> <ul class="nav nav-tabs nav-justified" role="tablist"> </ul> <div class="add-tab"><span class="bicon icon-uniF193"></span>&nbsp;Add Tab</div> <!-- Tab panes --> <div class="tab-content"> </div>';
+      TabsView.prototype.template = '<!-- Nav tabs --> <ul class="nav nav-tabs " role="tablist"> </ul> <div class="add-tab"><span class="bicon icon-uniF193"></span>&nbsp;Add Tab</div> <!-- Tab panes --> <div class="tab-content"> </div>';
 
       TabsView.prototype.itemView = TabPaneView;
 
@@ -127,7 +127,8 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       TabsView.prototype.onRender = function() {
         this.$el.attr('role', "tabpanel");
-        return this.$el.addClass(this.model.get('style'));
+        this.$el.addClass(this.model.get('style'));
+        return this.onSetJustified(this.model.get('justified'));
       };
 
       TabsView.prototype.initialize = function(opt) {
@@ -218,6 +219,14 @@ define(['app', 'bootbox'], function(App, bootbox) {
           return false;
         } else {
           return true;
+        }
+      };
+
+      TabsView.prototype.onSetJustified = function(val) {
+        if (val === true) {
+          return this.$el.find('ul.nav.nav-tabs').addClass("nav-justified");
+        } else {
+          return this.$el.find('ul.nav.nav-tabs').removeClass("nav-justified");
         }
       };
 

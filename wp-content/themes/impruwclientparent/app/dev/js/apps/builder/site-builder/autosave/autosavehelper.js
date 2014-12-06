@@ -48,6 +48,7 @@ define(['app', 'jquery'], function(App, $) {
           if (ele.element === 'Tabs') {
             ele.draggable = $(element).children('form').find('input[name="draggable"]').val() === "true";
             ele.style = $(element).children('form').find('input[name="style"]').val();
+            ele.justified = $(element).children('form').find('input[name="justified"]').val();
             delete ele.meta_id;
             ele.elements = [];
             _.each($(element).children('.element-markup').children('.tab-container').children('.tab-content').children('.column'), function(column, index) {

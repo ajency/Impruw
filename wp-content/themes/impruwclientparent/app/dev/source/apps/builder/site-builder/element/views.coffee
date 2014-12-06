@@ -89,7 +89,7 @@ define [ 'app' ],( App, elementTpl )->
 
          # set the hidden fields before rendering the element
          onBeforeRenderElement : ->
-            for field in [ 'meta_id', 'style', 'element' ]
+            for field in [ 'meta_id', 'style', 'element', 'justified' ]
                @setHiddenField field, @model.get field
 
             @setDraggable @model.get 'draggable'
@@ -98,6 +98,9 @@ define [ 'app' ],( App, elementTpl )->
          addHiddenFields : ()->
             for field in [ 'draggable', 'style' ]
                @$el.children( 'form' ).append "<input type='hidden' name='#{field}' value=''/>"
+            if @model.get('element' ) is 'Tabs'
+               @$el.children( 'form' ).append "<input type='hidden' name='justified' value=''/>"
+
 
          # on set draggable
          setDraggable : ( draggable )->

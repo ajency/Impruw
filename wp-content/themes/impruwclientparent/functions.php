@@ -540,12 +540,22 @@ function get_tabs_element_markup( $element ) {
 
     include_once( dirname( __FILE__ ) . '/elements/TabsElement.php');
 
+
     $tab = new Tabs( $element );
+
+    $justified = (isset($element['justified']) && ($element['justified'] == 'true' )) ? true : false ;
+
 
     $html = $tab->get_open_tag();
 
     $tab_bar = "<!-- Nav tabs -->
-                <ul class='nav nav-tabs nav-justified' role='tablist'>";
+                <ul class='nav nav-tabs ";
+
+    if( $justified ) {
+        $tab_bar .= "nav-justified";
+    }
+
+    $tab_bar .= "' role='tablist'>";
         
     $tab_content = "<div class='tab-content'>";
 

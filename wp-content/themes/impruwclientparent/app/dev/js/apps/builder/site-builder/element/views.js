@@ -92,7 +92,7 @@ define(['app'], function(App, elementTpl) {
 
       ElementView.prototype.onBeforeRenderElement = function() {
         var field, _i, _len, _ref;
-        _ref = ['meta_id', 'style', 'element'];
+        _ref = ['meta_id', 'style', 'element', 'justified'];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           field = _ref[_i];
           this.setHiddenField(field, this.model.get(field));
@@ -101,14 +101,15 @@ define(['app'], function(App, elementTpl) {
       };
 
       ElementView.prototype.addHiddenFields = function() {
-        var field, _i, _len, _ref, _results;
+        var field, _i, _len, _ref;
         _ref = ['draggable', 'style'];
-        _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           field = _ref[_i];
-          _results.push(this.$el.children('form').append("<input type='hidden' name='" + field + "' value=''/>"));
+          this.$el.children('form').append("<input type='hidden' name='" + field + "' value=''/>");
         }
-        return _results;
+        if (this.model.get('element') === 'Tabs') {
+          return this.$el.children('form').append("<input type='hidden' name='justified' value=''/>");
+        }
       };
 
       ElementView.prototype.setDraggable = function(draggable) {
