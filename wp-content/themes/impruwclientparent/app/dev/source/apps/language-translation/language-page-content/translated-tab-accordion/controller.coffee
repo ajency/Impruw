@@ -1,8 +1,8 @@
 define ['app', 'controllers/base-controller'
-        'apps/language-translation/language-page-content/translated-smart-table/view'], (App, AppController)->
-    App.module 'LanguageApp.LanguagePageContent.TranslatedSmartTable', (TranslatedSmartTable, App, Backbone, Marionette, $, _)->
+        'apps/language-translation/language-page-content/translated-tab-accordion/view'], (App, AppController)->
+    App.module 'LanguageApp.LanguagePageContent.TranslatedTabAccordion', (TranslatedTabAccordion, App, Backbone, Marionette, $, _)->
 
-        class TranslatedSmartTable.Controller extends AppController
+        class TranslatedTabAccordion.Controller extends AppController
 
             # initiliaze controller
             initialize: (opts)->
@@ -10,23 +10,24 @@ define ['app', 'controllers/base-controller'
                 @editLang = opts.editLang
                 @originalId = opts.originalId
 
-                #get page element collection
-                @pageSmartTableCollection = App.request "get:smart:table:elements" , @originalId , @editLang
+                @pageTabsAccordionCollection = App.request "get:tab:accordion:elements" , @pageId , @editLang
+                
+                console.log @pageTabsAccordionCollection
 
-                @translatedContentView = @_getLanguageView @pageSmartTableCollection
+                @translatedContentView = @_getLanguageView @pageTabsAccordionCollection
 
-                @listenTo @translatedContentView, "itemview:page:smarttable:updated", @updatePageSmartTable
+                # @listenTo @translatedContentView, "itemview:page:smarttable:updated", @updatePageSmartTable
 
                 #function to load view
                 @show @translatedContentView,
                     loading: true
 
             _getLanguageView :(collection)->
-                new TranslatedSmartTable.Views.TranslatedSmartTablesView
+                new TranslatedTabAccordion.Views.TranslatedTabAccordionView
                     collection: collection
                     language : @editLang
 
-            updatePageSmartTable :(outerview,data)->
+            updatePageTabAccordion :(outerview,data)->
                 model = outerview.model
                 editingLang = @editLang
                 smarttableData =  data
@@ -59,7 +60,7 @@ define ['app', 'controllers/base-controller'
                     success: @contentUpdated
 
             contentUpdated :=>
-                @translatedContentView.triggerMethod 'translate:smartable:updated'
+                @translatedContentView.triggerMethod 'translate:tab:accordion:updated'
 
-        App.commands.setHandler "translated:smart:table:app", (opts) ->
-            new TranslatedSmartTable.Controller opts
+        App.commands.setHandler "translated:tab:accordion:app", (opts) ->
+            new TranslatedTabAccordion.Controller opts

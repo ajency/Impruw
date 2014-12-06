@@ -12,8 +12,6 @@ define ['app', 'controllers/base-controller'
                 #get page element collection
                 @pageTabsAccordionCollection = App.request "get:tab:accordion:elements" , @pageId , @editLang
 
-                console.log @pageTabsAccordionCollection
-
                 @originalContentView = @_getLanguageView @pageTabsAccordionCollection
 
                 #function to load view

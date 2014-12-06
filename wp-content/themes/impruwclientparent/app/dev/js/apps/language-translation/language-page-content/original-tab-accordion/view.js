@@ -56,10 +56,8 @@ define(['app'], function(App) {
       OriginalTabPanesView.prototype.initialize = function() {
         var collection, completeContent, tabAccordionId;
         completeContent = this.model.get('tabElements');
-        console.log(this.model.get('tabElements'));
         collection = new Backbone.Collection(completeContent);
         this.collection = collection;
-        console.log(this.collection);
         tabAccordionId = this.model.get('ID');
         return this.listenTo(App.vent, "translated:tabs:accordions:loaded:" + tabAccordionId, function() {
           return this.$el.find('.smart-collapse').removeClass('hide');

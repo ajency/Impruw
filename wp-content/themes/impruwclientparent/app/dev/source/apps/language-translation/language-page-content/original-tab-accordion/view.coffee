@@ -48,10 +48,8 @@ define ['app'], (App)->
 
             initialize :->
                 completeContent = @model.get('tabElements')
-                console.log @model.get('tabElements')
                 collection = new Backbone.Collection completeContent
                 @collection = collection
-                console.log @collection
 
                 tabAccordionId = @model.get 'ID'
                 

@@ -4,6 +4,7 @@ define ['app', 'controllers/base-controller'
         'apps/language-translation/language-page-content/translated-page-content/controller'
         'apps/language-translation/language-page-content/original-table-content/controller'
         'apps/language-translation/language-page-content/original-tab-accordion/controller'
+        'apps/language-translation/language-page-content/translated-tab-accordion/controller'
         'apps/language-translation/language-page-content/translated-table-content/controller'
         'apps/language-translation/language-page-content/original-smart-table/controller'
         'apps/language-translation/language-page-content/translated-smart-table/controller'
@@ -45,6 +46,11 @@ define ['app', 'controllers/base-controller'
 
                     App.execute "original:tab:accordion:app",
                         region: @languagePageContentLayout.originalTabAccordion,
+                        editLang : @editLang
+                        pageId : @originalId
+
+                    App.execute "translated:tab:accordion:app",
+                        region: @languagePageContentLayout.translatedTabAccordion,
                         editLang : @editLang
                         pageId : @originalId
 

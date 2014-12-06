@@ -14,7 +14,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.pageId = opts.pageId;
         this.editLang = opts.editLang;
         this.pageTabsAccordionCollection = App.request("get:tab:accordion:elements", this.pageId, this.editLang);
-        console.log(this.pageTabsAccordionCollection);
         this.originalContentView = this._getLanguageView(this.pageTabsAccordionCollection);
         return this.show(this.originalContentView, {
           loading: true

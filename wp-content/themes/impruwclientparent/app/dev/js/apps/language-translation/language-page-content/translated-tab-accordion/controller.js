@@ -2,9 +2,9 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/language-translation/language-page-content/translated-smart-table/view'], function(App, AppController) {
-  return App.module('LanguageApp.LanguagePageContent.TranslatedSmartTable', function(TranslatedSmartTable, App, Backbone, Marionette, $, _) {
-    TranslatedSmartTable.Controller = (function(_super) {
+define(['app', 'controllers/base-controller', 'apps/language-translation/language-page-content/translated-tab-accordion/view'], function(App, AppController) {
+  return App.module('LanguageApp.LanguagePageContent.TranslatedTabAccordion', function(TranslatedTabAccordion, App, Backbone, Marionette, $, _) {
+    TranslatedTabAccordion.Controller = (function(_super) {
       __extends(Controller, _super);
 
       function Controller() {
@@ -16,22 +16,22 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.pageId = opts.pageId;
         this.editLang = opts.editLang;
         this.originalId = opts.originalId;
-        this.pageSmartTableCollection = App.request("get:smart:table:elements", this.originalId, this.editLang);
-        this.translatedContentView = this._getLanguageView(this.pageSmartTableCollection);
-        this.listenTo(this.translatedContentView, "itemview:page:smarttable:updated", this.updatePageSmartTable);
+        this.pageTabsAccordionCollection = App.request("get:tab:accordion:elements", this.pageId, this.editLang);
+        console.log(this.pageTabsAccordionCollection);
+        this.translatedContentView = this._getLanguageView(this.pageTabsAccordionCollection);
         return this.show(this.translatedContentView, {
           loading: true
         });
       };
 
       Controller.prototype._getLanguageView = function(collection) {
-        return new TranslatedSmartTable.Views.TranslatedSmartTablesView({
+        return new TranslatedTabAccordion.Views.TranslatedTabAccordionView({
           collection: collection,
           language: this.editLang
         });
       };
 
-      Controller.prototype.updatePageSmartTable = function(outerview, data) {
+      Controller.prototype.updatePageTabAccordion = function(outerview, data) {
         var contents, editingLang, model, smarttableData;
         model = outerview.model;
         editingLang = this.editLang;
@@ -62,14 +62,14 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype.contentUpdated = function() {
-        return this.translatedContentView.triggerMethod('translate:smartable:updated');
+        return this.translatedContentView.triggerMethod('translate:tab:accordion:updated');
       };
 
       return Controller;
 
     })(AppController);
-    return App.commands.setHandler("translated:smart:table:app", function(opts) {
-      return new TranslatedSmartTable.Controller(opts);
+    return App.commands.setHandler("translated:tab:accordion:app", function(opts) {
+      return new TranslatedTabAccordion.Controller(opts);
     });
   });
 });

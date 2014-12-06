@@ -2,79 +2,58 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app'], function(App) {
-  return App.module('LanguageApp.LanguagePageContent.TranslatedSmartTable.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var TranslatedSmartTableItemView, TranslatedSmartTableView;
-    TranslatedSmartTableItemView = (function(_super) {
-      __extends(TranslatedSmartTableItemView, _super);
+  return App.module('LanguageApp.LanguagePageContent.TranslatedTabAccordion.Views', function(Views, App, Backbone, Marionette, $, _) {
+    var TranslatedTabPaneItemView, TranslatedTabPanesView;
+    TranslatedTabPaneItemView = (function(_super) {
+      __extends(TranslatedTabPaneItemView, _super);
 
-      function TranslatedSmartTableItemView() {
-        return TranslatedSmartTableItemView.__super__.constructor.apply(this, arguments);
+      function TranslatedTabPaneItemView() {
+        return TranslatedTabPaneItemView.__super__.constructor.apply(this, arguments);
       }
 
-      TranslatedSmartTableItemView.prototype.className = 'smart-cell';
+      TranslatedTabPaneItemView.prototype.className = 'smart-cell';
 
-      TranslatedSmartTableItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content title" id="translated-smarttable-dt" value="{{dt}}" name="{{dtInputName}}"> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content title" id="translated-smarttable-dt" value="{{dd}}"  name="{{ddInputName}}"> </div> </div> </div> </div> <div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content title" id="translated-smarttable-dt" value="{{em}}" name="{{emInputName}}"> </div> </div> </div> </div>';
+      TranslatedTabPaneItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content title"  value="{{tabName}}"> </div> </div> </div> </div>';
 
-      TranslatedSmartTableItemView.prototype.events = {
+      TranslatedTabPaneItemView.prototype.events = {
         'click a': function(e) {
           return e.preventDefault();
         }
       };
 
-      TranslatedSmartTableItemView.prototype.serializeData = function() {
+      TranslatedTabPaneItemView.prototype.serializeData = function() {
         var data;
-        data = TranslatedSmartTableItemView.__super__.serializeData.call(this);
+        data = TranslatedTabPaneItemView.__super__.serializeData.call(this);
         data.dd = _.stripslashes(data.dd);
         data.dt = _.stripslashes(data.dt);
         data.em = _.stripslashes(data.em);
         return data;
       };
 
-      TranslatedSmartTableItemView.prototype.mixinTemplateHelpers = function(data) {
-        var editingLanguage, smarttableIndex;
-        data = TranslatedSmartTableItemView.__super__.mixinTemplateHelpers.call(this, data);
+      TranslatedTabPaneItemView.prototype.mixinTemplateHelpers = function(data) {
+        var editingLanguage;
+        data = TranslatedTabPaneItemView.__super__.mixinTemplateHelpers.call(this, data);
         editingLanguage = Marionette.getOption(this, 'editingLanguage');
-        smarttableIndex = Marionette.getOption(this, 'smarttableIndex');
-        data.ddInputName = function() {
-          var ddInputName;
-          ddInputName = editingLanguage + "[" + smarttableIndex + "][dd]";
-          ddInputName.toString();
-          return ddInputName;
-        };
-        data.dtInputName = function() {
-          var dtInputName;
-          dtInputName = editingLanguage + "[" + smarttableIndex + "][dt]";
-          dtInputName.toString();
-          return dtInputName;
-        };
-        data.emInputName = function() {
-          var emInputName;
-          emInputName = editingLanguage + "[" + smarttableIndex + "][em]";
-          emInputName.toString();
-          return emInputName;
-        };
         return data;
       };
 
-      return TranslatedSmartTableItemView;
+      return TranslatedTabPaneItemView;
 
     })(Marionette.ItemView);
-    TranslatedSmartTableView = (function(_super) {
-      __extends(TranslatedSmartTableView, _super);
+    TranslatedTabPanesView = (function(_super) {
+      __extends(TranslatedTabPanesView, _super);
 
-      function TranslatedSmartTableView() {
-        return TranslatedSmartTableView.__super__.constructor.apply(this, arguments);
+      function TranslatedTabPanesView() {
+        return TranslatedTabPanesView.__super__.constructor.apply(this, arguments);
       }
 
-      TranslatedSmartTableView.prototype.tagName = 'form';
+      TranslatedTabPanesView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div class="dashboard-tabaccordion-{{ID}}"> <div class = "translated-tab-accordion" ></div> <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-tabaccordion-translation-element">Save</button> </div> <hr class="dark">';
 
-      TranslatedSmartTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div class="dashboard-smarttable-{{meta_id}} collapse"> <div class = "translated-smart-table" ></div> <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-smarttable-translation-element">Save Smart Table</button> </div> <hr class="dark">';
+      TranslatedTabPanesView.prototype.itemView = TranslatedTabPaneItemView;
 
-      TranslatedSmartTableView.prototype.itemView = TranslatedSmartTableItemView;
+      TranslatedTabPanesView.prototype.itemViewContainer = '.translated-tab-accordion';
 
-      TranslatedSmartTableView.prototype.itemViewContainer = '.translated-smart-table';
-
-      TranslatedSmartTableView.prototype.events = {
+      TranslatedTabPanesView.prototype.events = {
         'click .btn-save-smarttable-translation-element': function(e) {
           var data;
           e.preventDefault();
@@ -83,7 +62,7 @@ define(['app'], function(App) {
         }
       };
 
-      TranslatedSmartTableView.prototype.itemViewOptions = function(model, index) {
+      TranslatedTabPanesView.prototype.itemViewOptions = function(model, index) {
         var editingLanguage;
         editingLanguage = Marionette.getOption(this, 'editingLanguage');
         return {
@@ -92,40 +71,37 @@ define(['app'], function(App) {
         };
       };
 
-      TranslatedSmartTableView.prototype.initialize = function() {
+      TranslatedTabPanesView.prototype.initialize = function() {
         var collection, completeContent, editingLanguage;
         editingLanguage = Marionette.getOption(this, 'editingLanguage');
-        completeContent = this.model.get('contents');
-        collection = new Backbone.Collection(completeContent[editingLanguage]);
-        if (collection.length === 0) {
-          collection = new Backbone.Collection(completeContent[WPML_DEFAULT_LANG]);
-        }
+        completeContent = this.model.get('tabElements');
+        collection = new Backbone.Collection(completeContent);
         return this.collection = collection;
       };
 
-      TranslatedSmartTableView.prototype.onShow = function() {
-        var smartTableMetaId;
-        smartTableMetaId = this.model.get('meta_id');
-        return App.vent.trigger("translated:smartable:loaded:" + smartTableMetaId);
+      TranslatedTabPanesView.prototype.onShow = function() {
+        var tabAccordionId;
+        tabAccordionId = this.model.get('ID');
+        return App.vent.trigger("translated:tabs:accordions:loaded:" + tabAccordionId);
       };
 
-      return TranslatedSmartTableView;
+      return TranslatedTabPanesView;
 
     })(Marionette.CompositeView);
-    return Views.TranslatedSmartTablesView = (function(_super) {
-      __extends(TranslatedSmartTablesView, _super);
+    return Views.TranslatedTabAccordionView = (function(_super) {
+      __extends(TranslatedTabAccordionView, _super);
 
-      function TranslatedSmartTablesView() {
-        return TranslatedSmartTablesView.__super__.constructor.apply(this, arguments);
+      function TranslatedTabAccordionView() {
+        return TranslatedTabAccordionView.__super__.constructor.apply(this, arguments);
       }
 
-      TranslatedSmartTablesView.prototype.template = '<div id="translated-smart-page-table"></div>';
+      TranslatedTabAccordionView.prototype.template = '<div id="translated-tab-accordions"></div>';
 
-      TranslatedSmartTablesView.prototype.itemView = TranslatedSmartTableView;
+      TranslatedTabAccordionView.prototype.itemView = TranslatedTabPanesView;
 
-      TranslatedSmartTablesView.prototype.itemViewContainer = '#translated-smart-page-table';
+      TranslatedTabAccordionView.prototype.itemViewContainer = '#translated-tab-accordions';
 
-      TranslatedSmartTablesView.prototype.itemViewOptions = function() {
+      TranslatedTabAccordionView.prototype.itemViewOptions = function() {
         var language;
         language = Marionette.getOption(this, 'language');
         return {
@@ -133,11 +109,11 @@ define(['app'], function(App) {
         };
       };
 
-      TranslatedSmartTablesView.prototype.onTranslateSmartableUpdated = function() {
+      TranslatedTabAccordionView.prototype.onTranslateTabAccordionsUpdated = function() {
         return console.log("Succes");
       };
 
-      return TranslatedSmartTablesView;
+      return TranslatedTabAccordionView;
 
     })(Marionette.CompositeView);
   });
