@@ -15,7 +15,13 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       AccordionTab.prototype.className = ' panel panel-default ';
 
-      AccordionTab.prototype.template = '<div class="panel-heading" > <h4 class="panel-title"> <a> <span contenteditable="true">{{tabName}}</span> </a> </h4> <div class="delete-accordion-btn"><span class="glyphicon glyphicon-trash"></span></div> </div> <div  class="panel-collapse collapse in" > <div class="panel-body column empty-column"> </div> </div>';
+      AccordionTab.prototype.template = '<div class="panel-heading" > <h4 class="panel-title"> <a> <span contenteditable="true">{{tab_name}}</span> </a> </h4> <form></form> <div class="delete-accordion-btn"><span class="glyphicon glyphicon-trash"></span></div> </div> <div  class="panel-collapse collapse in" > <div class="panel-body column empty-column"> </div> </div>';
+
+      AccordionTab.prototype.mixinTemplateHelpers = function(data) {
+        data = AccordionTab.__super__.mixinTemplateHelpers.call(this, data);
+        data.tab_name = data.tabName[WPML_DEFAULT_LANG];
+        return data;
+      };
 
       AccordionTab.prototype.events = {
         'click .delete-accordion-btn': function() {
@@ -24,10 +30,20 @@ define(['app', 'bootbox'], function(App, bootbox) {
             return;
           }
           return this.model.collection.remove(this.model);
+        },
+        'blur .panel-title span': function(e) {
+          return this.$el.children('.panel-heading').children('form').find("input[name='" + WPML_DEFAULT_LANG + "']").val($(e.target).text());
         }
       };
 
       AccordionTab.prototype.onShow = function() {
+        var object, prop;
+        object = this.model.get('tabName');
+        for (prop in object) {
+          if (object.hasOwnProperty(prop)) {
+            this.$el.children('.panel-heading').children('form').append("<input type='hidden' name='" + prop + "' value=" + object[prop] + ">");
+          }
+        }
         return this.$el.find('.panel-body').sortable({
           revert: 'invalid',
           items: '> .element-wrapper',
@@ -103,7 +119,10 @@ define(['app', 'bootbox'], function(App, bootbox) {
             position: this.collection.size() + 1,
             element: 'AccordionTab',
             elements: [],
-            tabName: 'tab'
+            tabName: {
+              'en': 'tab',
+              'nb': 'tab_N'
+            }
           });
         }
       };
@@ -122,7 +141,10 @@ define(['app', 'bootbox'], function(App, bootbox) {
             _results.push(this.collection.add({
               position: i,
               element: 'AccordionTab',
-              tabName: 'tab',
+              tabName: {
+                'en': 'tab',
+                'nb': 'tab_N'
+              },
               elements: []
             }, {
               silent: true

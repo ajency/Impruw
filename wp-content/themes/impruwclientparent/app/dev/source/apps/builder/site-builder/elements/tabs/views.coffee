@@ -88,10 +88,11 @@ define ['app','bootbox'
 						position : @collection.size() + 1
 						element : 'TabPane'
 						elements : []
-						tabName : 'tab'
+						tabName : {'en' : 'tab', 'nb' : 'tab_N'}
 
 				'blur .nav-tabs span' :(evt)->
-					@$el.find("#{$(evt.target).parent().attr('href')}").attr 'data-name',$(evt.target).text()
+					# @$el.find("#{$(evt.target).parent().attr('href')}").attr 'data-name',$(evt.target).text()
+					$(evt.target).parent('a').siblings('form').find("input[name=#{WPML_DEFAULT_LANG}]").val $(evt.target).text()
 
 				'click .delete-tab-btn' : (evt)->
 					evt.stopPropagation()
@@ -119,7 +120,7 @@ define ['app','bootbox'
 						@collection.add
 							position: i
 							element: 'TabPane'
-							tabName : 'tab'
+							tabName : {'en' : 'tab', 'nb' : 'tab_N'}
 							# className: 6
 							elements: []
 							,{silent: true}
@@ -132,7 +133,20 @@ define ['app','bootbox'
 			onAfterItemAdded : (itemView)->
 				id = itemView.$el.attr 'id'
 
-				@$el.find('ul.nav-tabs').append '<li role="presentation" class=""><a href="#'+id+'" role="tab" data-toggle="tab"><span contenteditable="true">'+itemView.model.get('tabName')+'</span></a><div class="delete-tab-btn">&times;</div></li>'
+				html = ''
+				object = itemView.model.get 'tabName'
+				for prop of object
+					if object.hasOwnProperty prop
+						html += "<input type='hidden' name='#{prop}' value=#{object[prop]}>"
+
+
+				@$el.find('ul.nav-tabs').append '<li role="presentation" class="">
+						<a href="#'+id+'" role="tab" data-toggle="tab">
+							<span contenteditable="true">'+itemView.model.get('tabName')[WPML_DEFAULT_LANG]+'</span>
+						</a>
+						<div class="delete-tab-btn">&times;</div>
+						<form data-id="'+id+'">'+html+'</form>
+					</li>'
 				
 
 			onShow: ->

@@ -16,7 +16,7 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/tabs/views', 'apps
           justified: true,
           columncount: 2,
           elements: [],
-          meta_id: 0,
+          meta_id: _.uniqueId('tab-'),
           style: 'default'
         });
         options.modelData.justified = _.toBoolean(options.modelData.justified);

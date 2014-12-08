@@ -14,7 +14,7 @@ define ['app'
 					justified: true
 					columncount : 2
 					elements : []
-					meta_id : 0
+					meta_id : _.uniqueId 'tab-'
 					style : 'default'
 
 				options.modelData.justified = _.toBoolean options.modelData.justified

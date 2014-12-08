@@ -563,7 +563,7 @@ function get_tabs_element_markup( $element ) {
 
         foreach ( $tab->get_elements() as $ele ) {
 
-            $tab_bar .= "<li role='presentation'><a href='#tab-3' role='tab' data-toggle='tab'><span>{$ele['tabName']}</span></a></li>";
+            $tab_bar .= "<li role='presentation'><a href='#tab-3' role='tab' data-toggle='tab'><span>{$ele['tabName'][wpml_get_current_language()]}</span></a></li>";
 
             $tab_content .= add_element_markup( $ele );
         }

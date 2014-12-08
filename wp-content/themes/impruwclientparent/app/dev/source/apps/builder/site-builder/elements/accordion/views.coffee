@@ -12,15 +12,21 @@ define ['app','bootbox'
 			template : '<div class="panel-heading" >
 						  <h4 class="panel-title">
 							<a>
-							  <span contenteditable="true">{{tabName}}</span>
+							  <span contenteditable="true">{{tab_name}}</span>
 							</a>
 						  </h4>
+						  <form></form>
 						  <div class="delete-accordion-btn"><span class="glyphicon glyphicon-trash"></span></div>
 						</div>
 						<div  class="panel-collapse collapse in" >
 						  <div class="panel-body column empty-column">
 						  </div>
 						</div>'
+
+			mixinTemplateHelpers : (data)->
+				data = super data
+				data.tab_name = data.tabName[WPML_DEFAULT_LANG]
+				data
 
 			events : 
 				'click .delete-accordion-btn' : ->
@@ -29,7 +35,17 @@ define ['app','bootbox'
 						return
 					@model.collection.remove @model
 
+				'blur .panel-title span' : (e)->
+					@$el.children('.panel-heading').children('form')
+					.find("input[name='#{WPML_DEFAULT_LANG}']").val $(e.target).text()
+
 			onShow : ->
+				object = @model.get 'tabName'
+				for prop of object
+					if object.hasOwnProperty prop
+						@$el.children('.panel-heading').children('form')
+						.append "<input type='hidden' name='#{prop}' value=#{object[prop]}>"
+
 				# console.log 'sortable'
 				@$el.find('.panel-body').sortable
 					revert: 'invalid'
@@ -95,7 +111,7 @@ define ['app','bootbox'
 						position : @collection.size() + 1
 						element : 'AccordionTab'
 						elements : []
-						tabName : 'tab'
+						tabName : {'en' : 'tab', 'nb' : 'tab_N'}
 			
 			initialize: (opt = {})->
 				@collection = new Backbone.Collection
@@ -104,7 +120,7 @@ define ['app','bootbox'
 						@collection.add
 							position: i
 							element: 'AccordionTab'
-							tabName : 'tab'
+							tabName : {'en' : 'tab', 'nb' : 'tab_N'}
 							# className: 6
 							elements: []
 							,{silent: true}
