@@ -60,7 +60,11 @@ class AccordionTab extends Element {
         $html = "<div class='{$this->get_classes()}' > 
                     <div class='panel-heading' role='tab' id='heading-{$this->index}'>
                           <h4 class='panel-title'>
-                            <a data-toggle='collapse' data-parent='#accordion' href='#collapse-{$this->index}' aria-expanded='true' aria-controls='collapse-{$this->index}'>
+                            <a data-toggle='collapse' data-parent='#accordion' href='#collapse-{$this->index}' aria-expanded='true' aria-controls='collapse-{$this->index}' ";
+
+        if ($this->index != 1)
+            $html .= " class='collapsed' "; 
+        $html .= ">
                               {$this->tab_name}
                             </a>
                           </h4>
