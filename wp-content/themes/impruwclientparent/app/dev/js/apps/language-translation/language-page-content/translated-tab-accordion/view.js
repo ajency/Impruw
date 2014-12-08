@@ -13,7 +13,7 @@ define(['app'], function(App) {
 
       TranslatedTabPaneItemView.prototype.className = 'smart-cell';
 
-      TranslatedTabPaneItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content title"  value="{{tabName}}"> </div> </div> </div> </div>';
+      TranslatedTabPaneItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content title"  value="{{tabName}}" name="tabElements[0][tabName]"> <input type="hidden" value="{{level}}" name="tabElements[0][level]"> <input type="hidden" value="{{position}}" name="tabElements[0][position]"> </div> </div> </div> </div>';
 
       TranslatedTabPaneItemView.prototype.events = {
         'click a': function(e) {
@@ -47,6 +47,8 @@ define(['app'], function(App) {
         return TranslatedTabPanesView.__super__.constructor.apply(this, arguments);
       }
 
+      TranslatedTabPanesView.prototype.tagName = 'form';
+
       TranslatedTabPanesView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div class="dashboard-tabaccordion-{{ID}}"> <div class = "translated-tab-accordion" ></div> <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-tabaccordion-translation-element">Save</button> </div> <hr class="dark">';
 
       TranslatedTabPanesView.prototype.itemView = TranslatedTabPaneItemView;
@@ -54,11 +56,11 @@ define(['app'], function(App) {
       TranslatedTabPanesView.prototype.itemViewContainer = '.translated-tab-accordion';
 
       TranslatedTabPanesView.prototype.events = {
-        'click .btn-save-smarttable-translation-element': function(e) {
+        'click .btn-save-tabaccordion-translation-element': function(e) {
           var data;
           e.preventDefault();
           data = Backbone.Syphon.serialize(this);
-          return this.trigger("page:smarttable:updated", data);
+          return this.trigger("page:tabaccordion:updated", data);
         }
       };
 

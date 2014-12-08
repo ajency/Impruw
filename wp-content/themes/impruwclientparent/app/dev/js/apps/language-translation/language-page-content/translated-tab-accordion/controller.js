@@ -17,8 +17,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.editLang = opts.editLang;
         this.originalId = opts.originalId;
         this.pageTabsAccordionCollection = App.request("get:tab:accordion:elements", this.pageId, this.editLang);
-        console.log(this.pageTabsAccordionCollection);
         this.translatedContentView = this._getLanguageView(this.pageTabsAccordionCollection);
+        this.listenTo(this.translatedContentView, "itemview:page:tabaccordion:updated", this.updatePageTabAccordion);
         return this.show(this.translatedContentView, {
           loading: true
         });
@@ -31,30 +31,13 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         });
       };
 
-      Controller.prototype.updatePageTabAccordion = function(outerview, data) {
-        var contents, editingLang, model, smarttableData;
+      Controller.prototype.updatePageTabAccordion = function(outerview) {
+        var contents, editingLang, model;
         model = outerview.model;
         editingLang = this.editLang;
-        smarttableData = data;
-        contents = model.get('contents');
-        if (!o.hasOwnProperty(editingLang)) {
-          contents[editingLang] = new Array();
-        }
-        _.each(smarttableData, function(value, key) {
-          return _.each(value, function(value, key) {
-            return contents[editingLang][key] = value;
-          });
-        });
-        _.each(contents, function(value, key) {
-          return _.each(value, function(val1, key1) {
-            return _.each(val1, function(val2, key2) {
-              return contents[key][key1][key2] = _.stripslashes(val2);
-            });
-          });
-        });
-        model.set('contents', contents);
-        model.set('source', 'dashboard');
+        contents = model.get('tabElements');
         model.set('json-page-id', this.pageId);
+        model.set('edit-lang', this.editLang);
         return model.save(null, {
           wait: true,
           success: this.contentUpdated

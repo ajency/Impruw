@@ -11,12 +11,10 @@ define ['app', 'controllers/base-controller'
                 @originalId = opts.originalId
 
                 @pageTabsAccordionCollection = App.request "get:tab:accordion:elements" , @pageId , @editLang
-                
-                console.log @pageTabsAccordionCollection
 
                 @translatedContentView = @_getLanguageView @pageTabsAccordionCollection
 
-                # @listenTo @translatedContentView, "itemview:page:smarttable:updated", @updatePageSmartTable
+                @listenTo @translatedContentView, "itemview:page:tabaccordion:updated", @updatePageTabAccordion
 
                 #function to load view
                 @show @translatedContentView,
@@ -27,33 +25,33 @@ define ['app', 'controllers/base-controller'
                     collection: collection
                     language : @editLang
 
-            updatePageTabAccordion :(outerview,data)->
+            updatePageTabAccordion :(outerview)->
                 model = outerview.model
                 editingLang = @editLang
-                smarttableData =  data
 
                 # get original smartable content
-                contents = model.get 'contents'
+                contents = model.get 'tabElements'
                
-                unless o.hasOwnProperty(editingLang)
-                    contents[editingLang] = new Array()
+                # unless o.hasOwnProperty(editingLang)
+                #     contents[editingLang] = new Array()
                 
-                # modify the smartable content
-                _.each smarttableData, (value, key) ->
-                      _.each value, (value, key) ->
-                        contents[editingLang][key] = value
+                # # modify the smartable content
+                # _.each smarttableData, (value, key) ->
+                #       _.each value, (value, key) ->
+                #         contents[editingLang][key] = value
 
 
-                _.each contents, (value, key) ->
-                    _.each value, (val1, key1) ->
-                        _.each val1, (val2, key2) ->
-                            contents[key][key1][key2] = _.stripslashes val2
+                # _.each contents, (value, key) ->
+                #     _.each value, (val1, key1) ->
+                #         _.each val1, (val2, key2) ->
+                #             contents[key][key1][key2] = _.stripslashes val2
 
 
                 
-                model.set 'contents' , contents
-                model.set 'source', 'dashboard'
+                # model.set 'contents' , contents
+                # model.set 'source', 'dashboard'
                 model.set 'json-page-id', @pageId
+                model.set 'edit-lang', @editLang
 
                 model.save null,
                     wait: true

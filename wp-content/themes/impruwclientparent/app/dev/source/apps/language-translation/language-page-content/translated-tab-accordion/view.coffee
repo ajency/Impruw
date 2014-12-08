@@ -10,7 +10,9 @@ define ['app'], (App)->
                             <div class="col-sm-12"> 
                                 <div class="form-group">  
                                     <div class="col-sm-10"> 
-                                        <input type="text" class="form-control translated-element-content title"  value="{{tabName}}">
+                                        <input type="text" class="form-control translated-element-content title"  value="{{tabName}}" name="tabElements[0][tabName]">
+                                        <input type="hidden" value="{{level}}" name="tabElements[0][level]">
+                                        <input type="hidden" value="{{position}}" name="tabElements[0][position]">
                                     </div> 
 
                                 </div> 
@@ -38,6 +40,8 @@ define ['app'], (App)->
 
         class TranslatedTabPanesView extends Marionette.CompositeView
 
+            tagName: 'form'
+
             template : '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6>
                         <div class="dashboard-tabaccordion-{{ID}}">
                             <div class = "translated-tab-accordion" ></div>
@@ -50,10 +54,10 @@ define ['app'], (App)->
             itemViewContainer : '.translated-tab-accordion'
 
             events:
-                'click .btn-save-smarttable-translation-element': (e)->
+                'click .btn-save-tabaccordion-translation-element': (e)->
                     e.preventDefault()
                     data = Backbone.Syphon.serialize @
-                    @trigger "page:smarttable:updated" ,data
+                    @trigger "page:tabaccordion:updated" ,data
 
             itemViewOptions :(model,index)->
                 editingLanguage = Marionette.getOption @, 'editingLanguage'

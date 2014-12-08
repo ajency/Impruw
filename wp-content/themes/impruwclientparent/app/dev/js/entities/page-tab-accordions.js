@@ -13,6 +13,8 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       TabAccordionElementModel.prototype.name = 'pageTabAccordionElements';
 
+      TabAccordionElementModel.prototype.idAttribute = 'ID';
+
       return TabAccordionElementModel;
 
     })(Backbone.Model);

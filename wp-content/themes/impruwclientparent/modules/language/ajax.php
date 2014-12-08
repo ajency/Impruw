@@ -341,6 +341,11 @@ function update_translated_page_url(){
 }
 add_action( 'wp_ajax_update-translated-page-url', 'update_translated_page_url' );
 
+function update_pageTabAccordionElements(){
+    
+}
+add_action( 'wp_ajax_update-pageTabAccordionElements', 'update_pageTabAccordionElements' );
+
 function update_element_content(){
 
     $page_id = $_POST['json-page-id'];

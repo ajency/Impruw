@@ -4,6 +4,7 @@ define ["app", 'backbone'], (App, Backbone) ->
         #Page model
         class PageTabAccordionElements.TabAccordionElementModel extends Backbone.Model
             name: 'pageTabAccordionElements'
+            idAttribute: 'ID'
 
         #Page Collection class
         class PageTabAccordionElements.PageTabAccordionElementCollection extends Backbone.Collection
