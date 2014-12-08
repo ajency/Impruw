@@ -191,9 +191,6 @@ function hb_menu_init(){
 		}
 	});
 
-	$j('#mobile-menu #menu-main li a').on('click', hide_mobile_menu);
-
-
 	function hide_mobile_menu () {
 		$j('body').removeClass('mobile-menu-open');
 		$j('#main-wrapper').off('click', clear_mobile_menu);
@@ -1119,13 +1116,6 @@ function hb_init_lightbox() {
 		slideshow: false,
 		allow_resize: true,
 		show_title: true,
-		changepicturecallback: function(){
-
-			if (viewportWidth < 1025) {
-				var viewportWidth = $j('html').innerWidth();
-				$j(".pp_pic_holder.pp_default").css("top",window.pageYOffset+"px");
-			}
-		},
 		default_width: 970,
 		default_height: 643,
 		social_tools: ''
@@ -1206,9 +1196,6 @@ function hb_single_blog_scripts(){
 
 /* Various Shortcode Inits */
 function hb_init_shortcodes(){
-
-	/* Wrap Select elements */
-	$j( "select" ).not("#rating").wrap( "<div class='hb-custom-select'></div>" );
 
 	/* Testimonial Slider */
 	if ( $j('.init-testimonial-slider').length ){

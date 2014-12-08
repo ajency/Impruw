@@ -31,15 +31,10 @@ $posts_url = get_author_posts_url($author_id);
 			<?php $user_soc = hb_get_user_socials ( $author_id ); ?>
 			<ul class="social-icons dark clearfix">
 				<?php foreach ( $user_soc as $soc => $soc_details ) { 
-					if ( $soc_details['soc_link'] != '' ) {
-						if ( $soc != 'behance' && $soc != 'vk' && $soc != 'envelop' ) { ?>
-							<li class="<?php echo $soc; ?>"><a href="<?php echo $soc_details['soc_link']; ?>" class="<?php echo $soc; ?>" title="<?php echo $soc_details['soc_name']; ?>" target="_blank"><i class="hb-moon-<?php echo $soc; ?>"></i><i class="hb-moon-<?php echo $soc; ?>"></i></a></li>
-					<?php } else if ( $soc == 'envelop' ) { ?>
-						<li class="<?php echo $soc; ?>"><a href="mailto:<?php echo $soc_details['soc_link']; ?>" class="<?php echo $soc; ?>" title="<?php echo $soc_details['soc_name']; ?>" target="_blank"><i class="hb-moon-<?php echo $soc; ?>"></i><i class="hb-moon-<?php echo $soc; ?>"></i></a></li>
-					<?php } else { ?>
-						<li class="<?php echo $soc; ?>"><a href="<?php echo $soc_details['soc_link']; ?>" class="<?php echo $soc; ?>" title="<?php echo $soc_details['soc_name']; ?>" target="_blank"><i class="icon-<?php echo $soc; ?>"></i><i class="icon-<?php echo $soc; ?>"></i></a></li>
-					<?php }	} ?>
-				<?php } ?>
+					if ( $soc_details['soc_link'] != '' ) { ?>
+						<li class="<?php echo $soc; ?>"><a href="<?php echo $soc_details['soc_link']; ?>" class="<?php echo $soc; ?>" title="<?php echo $soc_details['soc_name']; ?>" target="_blank"><i class="hb-moon-<?php echo $soc; ?>"></i><i class="hb-moon-<?php echo $soc; ?>"></i></a></li>
+					<?php }	
+				} ?>
 			</ul>
 
 		</div>

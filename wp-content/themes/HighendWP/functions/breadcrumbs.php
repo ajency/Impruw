@@ -66,15 +66,11 @@ function hbthemes_breadcrumbs() {
             $product_cat_name = '';
             $product_fin = '';
             $product_cat_link = '';
-
-            if ( is_array($terms) ) {
-              foreach ($terms as $term) {
-                  $product_cat_id = $term->term_id;
-                  $product_cat_name = $term->name;
-                  break;
-              }
+            foreach ($terms as $term) {
+                $product_cat_id = $term->term_id;
+                $product_cat_name = $term->name;
+                break;
             }
-            
             if ($product_cat_id != ''){
               $product_cat_link = get_term_link( $product_cat_id, 'product_cat' );
               $product_fin = $before . '<a href="'.$product_cat_link.'">' . $product_cat_name . '</a>' . $after . $delimiter;
