@@ -66,11 +66,14 @@ define(['app', 'jquery'], function(App, $) {
           if (ele.element === 'Accordion') {
             ele.draggable = $(element).children('form').find('input[name="draggable"]').val() === "true";
             ele.style = $(element).children('form').find('input[name="style"]').val();
-            delete ele.meta_id;
+            ele.meta_id = $(element).find('form input[name="meta_id"]').val();
             ele.elements = [];
             _.each($(element).children('.element-markup').children('.accordion-container').children('.panel-group').children('.panel'), function(column, index) {
               var col, tabName;
-              tabName = $(column).children('.panel-heading').find('a span').text();
+              tabName = {};
+              $(column).children('.panel-heading').find('form input').each(function(index, input) {
+                return tabName[$(input).prop('name')] = $(input).val();
+              });
               col = {
                 position: index + 1,
                 element: 'AccordionTab',

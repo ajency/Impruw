@@ -15,7 +15,7 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/accordion/views', 
           element: 'Accordion',
           columncount: 2,
           elements: [],
-          meta_id: 0,
+          meta_id: _.uniqueId('tab-'),
           style: ''
         });
         return Controller.__super__.initialize.call(this, options);

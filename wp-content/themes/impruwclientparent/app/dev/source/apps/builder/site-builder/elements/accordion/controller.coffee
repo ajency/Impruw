@@ -13,7 +13,7 @@ define ['app'
 					element : 'Accordion'
 					columncount : 2
 					elements : []
-					meta_id : 0
+					meta_id : _.uniqueId 'tab-'
 					style : ''
 
 				super options
