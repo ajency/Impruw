@@ -1,14 +1,21 @@
 /**** Tab Styles****/
 .tab-container {
-	margin: 1em 0;
-	padding: 0;
+    margin: 1em 0;
+    padding: 0;
     position: relative;
-	.nav-tabs {
-		li {
-			margin-bottom: -1px;
+    .nav-tabs {
+        border-bottom-color: @primary1;
+        li {
+            margin-bottom: -1px;
             position: relative;
             a {
                 border-bottom-color: @primary1; 
+                margin-right: 0;
+                &:hover {
+                    background: rgba(0, 0, 0, 0.2);
+                    border-color: rgba(0, 0, 0, 0.3);
+                    border-bottom-color: @primary1;
+                }
             }
             .delete-tab-btn {
                 position: absolute;
@@ -38,8 +45,8 @@
                     display: block;
                 }
             }
-		}
-	}
+        }
+    }
     .add-tab {
         position: absolute;
         border-radius: 2px;
@@ -83,66 +90,66 @@
 /*****************************/
 
 .tabs-style-underline .nav {
-	background: #fff;
-	z-index: -1;
+    background: #fff;
+    z-index: -1;
 }
 
 .tabs-style-underline .nav li {
-	border: 0;
-	margin-bottom: -2px;
+    border: 0;
+    margin-bottom: -2px;
     overflow: hidden;
-	&.active {
+    &.active {
         margin-bottom: -3px;
-		a {
-			border: 0;
-			color: @primary1;
+        a {
+            border: 0;
+            color: @primary1;
             &:focus {
                 border: 0;
             }
-		}
-	}
+        }
+    }
 }
 
 .tabs-style-underline .tab-content {
-	position: relative;
-	z-index: 1;
+    position: relative;
+    z-index: 1;
     padding: 0.5em 0;
 }
 
 .tabs-style-underline .nav a {
-	padding: 0.5em 1em 0.75em;
-	border: 0;
-	margin: 0;
-	border-radius: 0;
-	-webkit-transition: color 0.2s;
-	transition: color 0.2s;
-	&:hover {
-		background: transparent;
-		color: @secondary1;
-	}
+    padding: 0.5em 1em 0.75em;
+    border: 0;
+    margin: 0;
+    border-radius: 0;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+    &:hover {
+        background: transparent !important;
+        color: @secondary1;
+    }
 }
 
 .tabs-style-underline .nav li a::after {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 6px;
-	background: @primary1;
-	content: '';
-	-webkit-transition: -webkit-transform 0.3s;
-	transition: transform 0.3s;
-	-webkit-transform: translate3d(0,150%,0);
-	transform: translate3d(0,150%,0);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: @primary1;
+    content: '';
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    -webkit-transform: translate3d(0,150%,0);
+    transform: translate3d(0,150%,0);
 }
 
 .tabs-style-underline .nav li.active a::after {
-	-webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,1px,0);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,1px,0);
 }
 
 .tabs-style-underline .nav a span {
-	font-weight: 700;
+    font-weight: 700;
 }
 
 /*****************************/
@@ -159,69 +166,73 @@
 }
 
 .tabs-style-linetriangle .nav a {
-	overflow: visible;
+    overflow: visible;
     margin: 0;
-	border-bottom: 1px solid rgba(0,0,0,0.2);
-	-webkit-transition: color 0.2s;
-	transition: color 0.2s;
+    border: 0;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
     &:hover {
+        border-color: transparent;
         border-bottom: 1px solid rgba(0,0,0,0.2);
+        background: transparent !important;
+        color: @secondary1;
     }
 }
 
 .tabs-style-linetriangle .nav li {
-	border: 0;
-	margin-bottom: 0;
-	&.active {
-		a {
-			border-color: transparent;
-            border-bottom: 1px solid rgba(0,0,0,0.2);
-			color: @primary1;
+    border: 0;
+    margin-bottom: 0;
+    &.active {
+        a {
+            border-color: transparent;
+            border-bottom: 1px solid @secondary1;
+            color: @primary1;
             background: transparent;
             &:hover, &:focus {
                 border-color: transparent;
-                border-bottom: 1px solid rgba(0,0,0,0.2);
+                border-bottom: 1px solid @secondary1;
             }
-		}
-	}
+        }
+    }
 }
 
 .tabs-style-linetriangle .nav a span {
-	display: block;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	font-size: 1em;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1em;
 }
 
 .tabs-style-linetriangle .nav li.active a:after, 
 .tabs-style-linetriangle .nav li.active a:before {
-	position: absolute;
-	top: 100%;
-	left: 50%;
-	width: 0;
-	height: 0;
-	border: solid transparent;
-	content: '';
-	pointer-events: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    content: '';
+    pointer-events: none;
 }
 
 .tabs-style-linetriangle .nav li.active a:after {
-	margin-left: -10px;
-	border-width: 10px;
-	border-top-color: @tertiary1;
+    margin-left: -10px;
+    border-width: 10px;
+    border-top-color: @tertiary1;
 }
 
 .tabs-style-linetriangle .nav li.active a:before {
-	margin-left: -11px;
-	border-width: 11px;
-	border-top-color: rgba(0,0,0,0.2);
+    margin-left: -11px;
+    border-width: 11px;
+    border-top-color: @secondary1;
 }
 
 @media screen and (max-width: 58em) {
-	.tabs-style-linetriangle .nav {
-		font-size: 0.6em;
-	}
+    .tabs-style-linetriangle .nav {
+        font-size: 0.6em;
+    }
 }
 
 /*****************************/
@@ -229,7 +240,7 @@
 /*****************************/
 
 .tabs-style-linebox .nav li {
-    padding: 0 0 0 1em;
+    padding: 0 0.5em !important;
     position: relative;
     z-index: 1;
     overflow: hidden;
@@ -244,6 +255,7 @@
             &:hover, &:focus {
                 border: 0;
                 background: transparent;
+                color: @white;
             }
         }
     }
@@ -261,7 +273,7 @@
 .tabs-style-linebox .nav a:hover,
 .tabs-style-linebox .nav a:focus {
     color: @primary1;
-    background: transparent;
+    background: transparent !important;
     border: 0;
 }
 

@@ -2259,6 +2259,7 @@ ul.gallery {
 .accordion-container .panel-group .panel {
   border: 1px solid #dc6868;
   border-radius: 2px;
+  background: transparent;
 }
 .accordion-container .panel-group .panel .panel-heading {
   background: #dc6868;
@@ -2314,6 +2315,8 @@ ul.gallery {
 .accordion-container .panel-group .panel .panel-collapse .panel-body {
   padding: 1em;
   color: #333333;
+  background: transparent;
+  border-color: transparent;
 }
 .accordion-container .panel-group.flat .panel {
   margin: 0;
@@ -2496,7 +2499,7 @@ ul.gallery {
 .impruw-list ul.numbered-list li:before {
   content: counter(list-counter, decimal);
   counter-increment: list-counter;
-  color: #c1bbad;
+  color: #4d4d4d;
   font-size: 1.1em;
   font-style: italic;
 }
@@ -2538,7 +2541,7 @@ ul.gallery {
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: transparent;
+  color: #333333;
 }
 .impruw-list ul.checked-list li:hover a,
 .impruw-list ul.checked-list li:hover span {
@@ -2565,11 +2568,20 @@ ul.gallery {
   padding: 0;
   position: relative;
 }
+.tab-container .nav-tabs {
+  border-bottom-color: #dc6868;
+}
 .tab-container .nav-tabs li {
   margin-bottom: -1px;
   position: relative;
 }
 .tab-container .nav-tabs li a {
+  border-bottom-color: #dc6868;
+  margin-right: 0;
+}
+.tab-container .nav-tabs li a:hover {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(0, 0, 0, 0.3);
   border-bottom-color: #dc6868;
 }
 .tab-container .nav-tabs li .delete-tab-btn {
@@ -2590,6 +2602,8 @@ ul.gallery {
 .tab-container .nav-tabs li.active a,
 .tab-container .nav-tabs li.active a:hover,
 .tab-container .nav-tabs li.active a:focus {
+  background: transparent;
+  color: #333333;
   border-color: #dc6868;
   border-bottom: #f9f8f4;
 }
@@ -2662,7 +2676,7 @@ ul.gallery {
   transition: color 0.2s;
 }
 .tabs-style-underline .nav a:hover {
-  background: transparent;
+  background: transparent !important;
   color: #483535;
 }
 .tabs-style-underline .nav li a::after {
@@ -2698,12 +2712,16 @@ ul.gallery {
 .tabs-style-linetriangle .nav a {
   overflow: visible;
   margin: 0;
+  border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
 }
 .tabs-style-linetriangle .nav a:hover {
+  border-color: transparent;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  background: transparent !important;
+  color: #483535;
 }
 .tabs-style-linetriangle .nav li {
   border: 0;
@@ -2711,14 +2729,14 @@ ul.gallery {
 }
 .tabs-style-linetriangle .nav li.active a {
   border-color: transparent;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #483535;
   color: #dc6868;
   background: transparent;
 }
 .tabs-style-linetriangle .nav li.active a:hover,
 .tabs-style-linetriangle .nav li.active a:focus {
   border-color: transparent;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #483535;
 }
 .tabs-style-linetriangle .nav a span {
   display: block;
@@ -2746,7 +2764,7 @@ ul.gallery {
 .tabs-style-linetriangle .nav li.active a:before {
   margin-left: -11px;
   border-width: 11px;
-  border-top-color: rgba(0, 0, 0, 0.2);
+  border-top-color: #483535;
 }
 @media screen and (max-width: 58em) {
   .tabs-style-linetriangle .nav {
@@ -2757,7 +2775,7 @@ ul.gallery {
 /* Line Box */
 /*****************************/
 .tabs-style-linebox .nav li {
-  padding: 0 0 0 1em;
+  padding: 0 0.5em !important;
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -2776,6 +2794,7 @@ ul.gallery {
 .tabs-style-linebox .nav li.active a:focus {
   border: 0;
   background: transparent;
+  color: #f9f8f4;
 }
 .tabs-style-linebox .nav a {
   padding: 1.5em;
@@ -2788,7 +2807,7 @@ ul.gallery {
 .tabs-style-linebox .nav a:hover,
 .tabs-style-linebox .nav a:focus {
   color: #dc6868;
-  background: transparent;
+  background: transparent !important;
   border: 0;
 }
 .tabs-style-linebox .nav a::after {
