@@ -12,13 +12,19 @@ class WPML_String_Translation
 		require WPML_ST_PATH . '/inc/wpml-string-shortcode.php';
 		include WPML_ST_PATH . '/inc/slug-translation.php';
 
+        // Todo: \WPML_Slug_Translation::setup candidate to be removed, as it has not actual logic in it, therefore the following hook needs to be removed as well
 		add_action( 'plugins_loaded', array( 'WPML_Slug_Translation', 'setup' ) );
 
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'init', array( 'WPML_Slug_Translation', 'init' ) );
+		
+		add_filter('pre_update_option_blogname', array($this, 'pre_update_option_blogname'), 5, 2);
+		add_filter('pre_update_option_blogdescription', array($this, 'pre_update_option_blogdescription'), 5, 2);
 
 		//Handle Admin Notices
-		add_action( 'plugins_loaded', array( __CLASS__, '_st_warnings' ) );
+		if(isset($GLOBALS['pagenow']) && !( in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) )) {
+            add_action( 'plugins_loaded', array( __CLASS__, '_st_warnings' ) );
+		}
 
 		add_action( 'icl_ajx_custom_call', array( $this, 'ajax_calls' ), 10, 2 );
 	}
@@ -42,7 +48,7 @@ class WPML_String_Translation
 		if ( is_admin() ) {
 			require_once WPML_ST_PATH . '/inc/auto-download-locales.php';
 			global $WPML_ST_MO_Downloader;
-			$WPML_ST_MO_Downloader = new WPML_ST_MO_Downloader;
+			$WPML_ST_MO_Downloader = new WPML_ST_MO_Downloader();
 		}
 
 		$this->plugin_localization();
@@ -94,9 +100,10 @@ class WPML_String_Translation
 	static function _st_warnings()
 	{
 		if(!class_exists('ICL_AdminNotifier')) return;
-		
+
 		global $sitepress, $sitepress_settings;
 		if(!isset($sitepress)) return;
+		if(method_exists($sitepress, 'check_settings_integrity') && !SitePress::check_settings_integrity()) return;
 
 		if(!isset($sitepress_settings[ 'st' ][ 'strings_language' ] )) {
 			$sitepress_settings = $sitepress->get_settings();
@@ -115,6 +122,7 @@ class WPML_String_Translation
 
 	static function _st_default_language_warning()
 	{
+
 		ICL_AdminNotifier::removeMessage( '_st_default_and_st_language_warning' );
 		static $called = false;
 		if ( !$called ) {
@@ -135,10 +143,10 @@ class WPML_String_Translation
 			$message .= '<strong><a href="%s" target="_blank">Read more</a></strong>';
 
 			$message = __( $message, 'Read more string-translation-default-language-not-english', 'wpml-string-translation' );
-			$message = sprintf( $message, $translation_languages_list, $last_translation_language, 'http://wpml.org/faq/string-translation-default-language-not-english/' );
+			$message = sprintf( $message, $translation_languages_list, $last_translation_language, 'https://wpml.org/faq/string-translation-default-language-not-english/' );
 
-			$fallback_message = _( '<a href="%s" target="_blank">How to translate strings when default language is not English</a>' );
-			$fallback_message = sprintf( $fallback_message, 'http://wpml.org/faq/string-translation-default-language-not-english/' );
+			$fallback_message = __( '<a href="%s" target="_blank">How to translate strings when default language is not English</a>' );
+			$fallback_message = sprintf( $fallback_message, 'https://wpml.org/faq/string-translation-default-language-not-english/' );
 
 			ICL_AdminNotifier::addMessage( '_st_default_language_warning', $message, 'icl-admin-message-information', true, $fallback_message, false, 'string-translation' );
 			$called = true;
@@ -156,23 +164,23 @@ class WPML_String_Translation
 		if(isset($sitepress_settings[ 'st' ][ 'strings_language' ] )) {
 			ICL_AdminNotifier::removeMessage( '_st_default_language_warning' );
 			static $called = false;
-			if ( !$called ) {
+			if (defined('WPML_ST_FOLDER') && !$called ) {
 				$st_language_code = $sitepress_settings[ 'st' ][ 'strings_language' ];
 				$st_language = $sitepress->get_display_language_name($st_language_code, $sitepress->get_admin_language());
 
-				$st_page_url = admin_url('admin.php?page=wpml-string-translation/menu/string-translation.php');
+				$page = WPML_ST_FOLDER . '/menu/string-translation.php';
+				$st_page_url = admin_url('admin.php?page=' . $page);
 
-				$message = 'The strings language in your site is set to %s instead of English. ';
-				$message .= 'This means that all English texts that are hard-coded in PHP will appear when displaying content in %s.';
-				$message .= ' ';
-				$message .= '<strong><a href="%s" target="_blank">Read more</a> | ';
-				$message .= '<a href="%s#icl_st_sw_form">Change strings language</a></strong>';
+				$message = __(
+					'The strings language in your site is set to %s instead of English.
+					This means that all English texts that are hard-coded in PHP will appear when displaying content in %s.
+					<strong><a href="%s" target="_blank">Read more</a> |  <a href="%s#icl_st_sw_form">Change strings language</a></strong>',
+				'wpml-string-translation' );
 
-				$message = __( $message, 'wpml-string-translation' );
-				$message = sprintf( $message, $st_language, $st_language, 'http://wpml.org/faq/string-translation-default-language-not-english/', $st_page_url );
+				$message = sprintf( $message, $st_language, $st_language, 'https://wpml.org/faq/string-translation-default-language-not-english/', $st_page_url );
 
-				$fallback_message = _( '<a href="%s" target="_blank">How to translate strings when default language is not English</a>' );
-				$fallback_message = sprintf( $fallback_message, 'http://wpml.org/faq/string-translation-default-language-not-english/' );
+				$fallback_message = __( '<a href="%s" target="_blank">How to translate strings when default language is not English</a>', 'wpml-string-translation' );
+				$fallback_message = sprintf( $fallback_message, 'https://wpml.org/faq/string-translation-default-language-not-english/' );
 
 				ICL_AdminNotifier::addMessage( '_st_default_and_st_language_warning', $message, 'icl-admin-message-warning', true, $fallback_message, false, 'string-translation' );
 				$called = true;
@@ -184,7 +192,7 @@ class WPML_String_Translation
 	{
 		?>
 		<div class="message error"><p><?php printf( __( 'WPML String Translation is enabled but not effective. It requires <a href="%s">WPML</a> in order to work.', 'wpml-string-translation' ),
-													'http://wpml.org/' ); ?></p></div>
+													'https://wpml.org/' ); ?></p></div>
 	<?php
 	}
 
@@ -192,7 +200,7 @@ class WPML_String_Translation
 	{
 		?>
 		<div class="message error"><p><?php printf( __( 'WPML String Translation is enabled but not effective. It is not compatible with  <a href="%s">WPML</a> versions prior 2.0.5.', 'wpml-string-translation' ),
-													'http://wpml.org/' ); ?></p></div>
+													'https://wpml.org/' ); ?></p></div>
 	<?php
 	}
 
@@ -296,13 +304,17 @@ class WPML_String_Translation
 
 	function menu()
 	{
+		if(!defined('ICL_PLUGIN_PATH')) return;
+		global $sitepress;
+		if(!isset($sitepress) || (method_exists($sitepress,'get_setting') && !$sitepress->get_setting( 'setup_complete' ))) return;
+
 		global $sitepress_settings, $wpdb;
 
 		if ( ( !isset( $sitepress_settings[ 'existing_content_language_verified' ] ) || !$sitepress_settings[ 'existing_content_language_verified' ] ) ) {
 			return;
 		}
 
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'wpml_manage_string_translation' ) ) {
 			$top_page = apply_filters( 'icl_menu_main_page', basename( ICL_PLUGIN_PATH ) . '/menu/languages.php' );
 			if ( current_user_can( 'translate' ) ) {
 				$_cap = 'translate';
@@ -312,7 +324,7 @@ class WPML_String_Translation
 
 			add_submenu_page( $top_page,
 							  __( 'String Translation', 'wpml-string-translation' ), __( 'String Translation', 'wpml-string-translation' ),
-							  $_cap, WPML_ST_FOLDER . '/menu/string-translation.php' );
+							  'wpml_manage_string_translation', WPML_ST_FOLDER . '/menu/string-translation.php' );
 		} else {
 			$user_lang_pairs = get_user_meta( get_current_user_id(), $wpdb->prefix . 'language_pairs', true );
 			if ( isset( $sitepress_settings[ 'st' ][ 'strings_language' ] ) && !empty( $user_lang_pairs[ $sitepress_settings[ 'st' ][ 'strings_language' ] ] ) ) {
@@ -365,7 +377,7 @@ class WPML_String_Translation
 								break;
 							}
 						}
-						if ( !$wpdb->get_var{"SELECT id FROM {$wpdb->prefix}icl_string_translations WHERE string_id={$string_id} AND language='{$lang}'"} ) {
+						if ( !$wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}icl_string_translations WHERE string_id=%d AND language=%s", $string_id, $lang  ) ) ) {
 							icl_add_string_translation( $string_id, $lang, $translation, ICL_STRING_TRANSLATION_COMPLETE );
 						}
 					}
@@ -490,7 +502,7 @@ class WPML_String_Translation
 
 			if ( is_dir( $file ) ) {
 				$dh = opendir( $file );
-				while ( false !== ( $f = readdir( $dh ) ) ) {
+				while ( $dh && false !== ( $f = readdir( $dh ) ) ) {
 					if ( 0 === strpos( $f, '.' ) )
 						continue;
 					$this->plugin_po_file_download( $file . '/' . $f, $recursion + 1 );
@@ -500,20 +512,29 @@ class WPML_String_Translation
 			}
 		}
 
-		if ( !$recursion ) {
+		if ( ! $recursion ) {
 			$po = "";
 			$po .= '# This file was generated by WPML' . PHP_EOL;
 			$po .= '# WPML is a WordPress plugin that can turn any WordPress site into a full featured multilingual content management system.' . PHP_EOL;
-			$po .= '# http://wpml.org' . PHP_EOL;
+			$po .= '# https://wpml.org' . PHP_EOL;
 			$po .= 'msgid ""' . PHP_EOL;
 			$po .= 'msgstr ""' . PHP_EOL;
 			$po .= '"Content-Type: text/plain; charset=utf-8\n"' . PHP_EOL;
 			$po .= '"Content-Transfer-Encoding: 8bit\n"' . PHP_EOL;
-			$po .= '"Project-Id-Version: \n"' . PHP_EOL;
+			$po_title = 'WPML_EXPORT';
+			if ( isset( $_GET[ 'context' ] ) ) {
+				$po_title .= '_' . $_GET[ 'context' ];
+			}
+			$po .= '"Project-Id-Version:' . $po_title . '\n"' . PHP_EOL;
 			$po .= '"POT-Creation-Date: \n"' . PHP_EOL;
 			$po .= '"PO-Revision-Date: \n"' . PHP_EOL;
 			$po .= '"Last-Translator: \n"' . PHP_EOL;
 			$po .= '"Language-Team: \n"' . PHP_EOL;
+			$translation_language = 'en';
+			if ( isset( $_GET[ 'translation_language' ] ) ) {
+				$translation_language = $_GET[ 'translation_language' ];
+			}
+			$po .= '"Language:' . $translation_language . '\n"' . PHP_EOL;
 			$po .= '"MIME-Version: 1.0\n"' . PHP_EOL;
 
 			$po .= $__wpml_st_po_file_content;
@@ -560,6 +581,35 @@ class WPML_String_Translation
 		$string_id = $_POST[ 'string_id' ];
 		echo $icl_st_string_translation_statuses[ ( $wpdb->get_var( $wpdb->prepare( "SELECT status FROM {$wpdb->prefix}icl_strings WHERE id=%d", $string_id ) ) ) ];
 		exit;
+	}
+	
+	function pre_update_option_blogname($value, $old_value) {
+		return $this->pre_update_option_settings("Blog Title", $value, $old_value);
+	}
+	
+	function pre_update_option_blogdescription($value, $old_value) {
+		return $this->pre_update_option_settings("Tagline", $value, $old_value);
+	}
+	
+	function pre_update_option_settings($option, $value, $old_value) {
+		global $sitepress, $sitepress_settings;
+		
+		$current_language = $sitepress->get_current_language();
+		$strings_language = $sitepress_settings['st']['strings_language'];
+		if ($current_language == $strings_language) {
+			return $value;
+		}
+		
+		WPML_Config::load_config_run();
+		$result = icl_update_string_translation($option, $current_language, $value, ICL_STRING_TRANSLATION_COMPLETE);
+		if ($result) {
+			// returning old_value in place of value will stop update_option() processing. 
+			// do not remove it!
+			return $old_value;
+		}
+		
+		return $value;
+		
 	}
 
 }
