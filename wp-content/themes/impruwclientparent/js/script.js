@@ -461,6 +461,8 @@ jQuery(document).ready(function(){
 jQuery(document).ready(function(){
     $('.tp-caption .caption-hover').parent().addClass('caption-hover');
     $('.tp-caption .caption-hover').removeClass('caption-hover');
+
+    $('.tp-caption .no-caption').parent().remove();
 })
 
 /************ slimenu.js ***************/
