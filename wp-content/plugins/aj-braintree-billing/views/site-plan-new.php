@@ -154,7 +154,7 @@
 										<th class="row-title"><?php _e('Feature name', 'ajency-braintree');?></th>
 										<th><?php _e('Status', 'ajency-braintree');?></th>
 										<th><?php _e('Count', 'ajency-braintree');?></th>
-										<th><input  class="button-secondary" type="button" id="add_another_feature" value="<?php _e( 'Add another feature' ); ?>" /></th>
+										<!--th><input  class="button-secondary" type="button" id="add_another_feature" value="<?php _e( 'Add another feature' ); ?>" /></th-->
 									</tr>
 									</thead>
 									<tbody>
@@ -204,8 +204,14 @@
 												<?php }?>
 												<option value="-1" <?php selected( $feature_count, '-1', true);?>>Infinite</option>
 											</select>
+
+											<?php 
+												if (ajbilling_get_count_select_status($feature_name)==='disabled') {?>
+													<input name="<?php echo 'site_plan_feature['.$feature_index.'][count]'?>" type="hidden" value="-2" />
+											<?php	}
+											?>
 										</td>
-										<td> <a href="#" id="remScnt">Remove</a></td>
+										<!--td> <a href="#" id="remScnt">Remove</a></td-->
 									</tr>
 									<?php } ?>
 									</tbody>
@@ -214,8 +220,10 @@
 						</tr>
 
 						<tr>
-							<th scope="row" valign="top"><input class="button-primary" type="button" name="save_plan" value="<?php _e( 'Save Plan' ); ?>" id="save_plan"/></th>
-							 
+							<td scope="row" valign="top"><input class="button-primary" type="button" name="save_plan" value="<?php _e( 'Save Plan' ); ?>" id="save_plan"/></td>
+						</tr>
+						<tr>
+							<td colspan="2"><div id="setting-error-settings_updated"> </div></td>
 						</tr>
 
 					</tbody>

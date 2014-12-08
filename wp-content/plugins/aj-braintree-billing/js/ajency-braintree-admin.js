@@ -45,25 +45,14 @@
 		 jQuery('#save_plan').click(function() {
 		 	var arr, selectedlanguage;
 
-		 	alert('Save plan');
-
 		 	var data = $("#save-plan-form").serialize();
 
 		 	jQuery.post(	
 		 			ajaxurl, 
 		 			data, 
-		 			function(data,response) {
-		 				alert('Got this from the server: ' + response);
-
-		 				alert("Response success")
-
-		 				// if (response.code === "ERROR") {
-				          //   errorMsg = response.msg;
-				          //   $('#display-reset-msg').empty();
-				          //   return $('#display-reset-msg').append(errorMsg);
-				          // }
-
-		 				console.log(response);
+		 			function(response) {
+			            jQuery('#setting-error-settings_updated').empty();
+			            jQuery('#setting-error-settings_updated').append('<div class="updated settings-error" >'+response.msg+'</div>');
 
 		 			});
      
