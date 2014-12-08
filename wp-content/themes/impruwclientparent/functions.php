@@ -540,12 +540,22 @@ function get_tabs_element_markup( $element ) {
 
     include_once( dirname( __FILE__ ) . '/elements/TabsElement.php');
 
+
     $tab = new Tabs( $element );
+
+    $justified = (isset($element['justified']) && ($element['justified'] == 'true' )) ? true : false ;
+
 
     $html = $tab->get_open_tag();
 
     $tab_bar = "<!-- Nav tabs -->
-                <ul class='nav nav-tabs nav-justified' role='tablist'>";
+                <ul class='nav nav-tabs ";
+
+    if( $justified ) {
+        $tab_bar .= "nav-justified";
+    }
+
+    $tab_bar .= "' role='tablist'>";
         
     $tab_content = "<div class='tab-content'>";
 
@@ -553,7 +563,7 @@ function get_tabs_element_markup( $element ) {
 
         foreach ( $tab->get_elements() as $ele ) {
 
-            $tab_bar .= "<li role='presentation'><a href='#tab-3' role='tab' data-toggle='tab'><span>{$ele['tabName']}</span></a></li>";
+            $tab_bar .= "<li role='presentation'><a href='#tab-3' role='tab' data-toggle='tab'><span>{$ele['tabName'][wpml_get_current_language()]}</span></a></li>";
 
             $tab_content .= add_element_markup( $ele );
         }

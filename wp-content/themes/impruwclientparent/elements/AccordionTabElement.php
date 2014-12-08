@@ -43,7 +43,7 @@ class AccordionTab extends Element {
     function __construct($element) {
         
         $this->elements     = $element['elements'];
-        $this->tab_name     = $element[ 'tabName' ];
+        $this->tab_name     = $element[ 'tabName' ][wpml_get_current_language()];
         $this->index = $element['position'];
 
         // $this->style        = sanitize_title($element['style']);
@@ -60,7 +60,11 @@ class AccordionTab extends Element {
         $html = "<div class='{$this->get_classes()}' > 
                     <div class='panel-heading' role='tab' id='heading-{$this->index}'>
                           <h4 class='panel-title'>
-                            <a data-toggle='collapse' data-parent='#accordion' href='#collapse-{$this->index}' aria-expanded='true' aria-controls='collapse-{$this->index}'>
+                            <a data-toggle='collapse' data-parent='#accordion' href='#collapse-{$this->index}' aria-expanded='true' aria-controls='collapse-{$this->index}' ";
+
+        if ($this->index != 1)
+            $html .= " class='collapsed' "; 
+        $html .= ">
                               {$this->tab_name}
                             </a>
                           </h4>

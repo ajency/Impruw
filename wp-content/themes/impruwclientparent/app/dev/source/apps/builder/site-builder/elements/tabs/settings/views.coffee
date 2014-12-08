@@ -23,6 +23,8 @@ define ['app'
             setFields: ->
                 if @eleModel.get('draggable') is true
                     @$el.find('input[name="draggable"]').radiocheck('check')
+                if @eleModel.get('justified') is true
+                    @$el.find('input[name="justified"]').radiocheck('check')
 
                 @$el.find('select[name="style"]').selectpicker('val', @eleModel.get('style')).selectpicker 'refresh'
 
@@ -32,6 +34,8 @@ define ['app'
                     App.settingsRegion.close()
                 'change input[name="draggable"]': (evt)->
                     @trigger "element:draggable:changed", $(evt.target).is(':checked')
+                'change input[name="justified"]': (evt)->
+                    @trigger "element:justified:changed", $(evt.target).is(':checked')
 
                 'change select[name="style"]': (evt)->
                     @trigger "element:style:changed", $(evt.target).val()

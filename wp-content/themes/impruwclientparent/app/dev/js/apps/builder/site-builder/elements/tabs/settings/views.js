@@ -32,6 +32,9 @@ define(['app', 'text!apps/builder/site-builder/elements/tabs/settings/templates/
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').radiocheck('check');
         }
+        if (this.eleModel.get('justified') === true) {
+          this.$el.find('input[name="justified"]').radiocheck('check');
+        }
         return this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style')).selectpicker('refresh');
       };
 
@@ -42,6 +45,9 @@ define(['app', 'text!apps/builder/site-builder/elements/tabs/settings/templates/
         },
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));
+        },
+        'change input[name="justified"]': function(evt) {
+          return this.trigger("element:justified:changed", $(evt.target).is(':checked'));
         },
         'change select[name="style"]': function(evt) {
           return this.trigger("element:style:changed", $(evt.target).val());

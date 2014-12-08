@@ -245,6 +245,9 @@ function update_translated_page_slide_ajax(){
     }
     $new_caption .=  "</h3><div class='text' id='revslide-caption-desc'>".$new_caption_desc."</div>";
 
+    if($new_caption_title == '' && $new_caption_desc == '')
+        $new_caption = '<div class="no-caption"> </div>';
+
     $data['layers'][0]['text'] = $new_caption;
     
     //Using slide data -> update_language_slide( $data, $slide_id, $slide_language, $parent_slide_id)

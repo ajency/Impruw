@@ -18,42 +18,42 @@ define ['app','bootbox'
 				@model.set 'id',id
 
 			onShow : ->
-				 @$el.sortable
-                    revert: 'invalid'
-                    items: '> .element-wrapper'
-                    connectWith: '.droppable-column, .droppable-column .column'
-                    handle: '.aj-imp-drag-handle'
-                    start: (e, ui)->
+				@$el.sortable
+					revert: 'invalid'
+					items: '> .element-wrapper'
+					connectWith: '.droppable-column, .droppable-column .column'
+					handle: '.aj-imp-drag-handle'
+					start: (e, ui)->
 #                        ui.placeholder.height ui.item.height()
-                        window.dragging = true
-                        return
-                    stop: (e, ui)->
-                        window.dragging = false
-                        return
-                    helper: @_getHelper
-                    opacity: .65
-                    placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
-                    out : (evt,ui)=>
-                        @$el.closest('.tab-container').closest('.element-wrapper').removeClass('hover-class')
+						window.dragging = true
+						return
+					stop: (e, ui)->
+						window.dragging = false
+						return
+					helper: @_getHelper
+					opacity: .65
+					placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
+					out : (evt,ui)=>
+						@$el.closest('.tab-container').closest('.element-wrapper').removeClass('hover-class')
 
-                        window.dragging = false
-                        return
-                    over : ()=>
-                        _.delay =>
-                            @$el.closest('.tab-container').closest('.element-wrapper').addClass('hover-class')
-                        ,100
-                        window.dragging = true
-                        return
-                    remove: (evt, ui)=>
-                        @$el.trigger "element:moved", $(evt.target)
-                        if $(evt.target).children().length is 0
-                            $(evt.target).addClass 'empty-column'
-                    update: (e, ui)=>
-                        # @$el.trigger "element:moved", $(e.target)
-                        if ui.item.find('form').find('input[name="element"]').val() is 'Row'
-                            ui.item.children('.element-markup').children().trigger 'row:is:moved',
-                                ui.item.children('.element-markup').children().prop 'id'
-                        $(e.target).removeClass 'empty-column'
+						window.dragging = false
+						return
+					over : ()=>
+						_.delay =>
+							@$el.closest('.tab-container').closest('.element-wrapper').addClass('hover-class')
+						,100
+						window.dragging = true
+						return
+					remove: (evt, ui)=>
+						@$el.trigger "element:moved", $(evt.target)
+						if $(evt.target).children().length is 0
+							$(evt.target).addClass 'empty-column'
+					update: (e, ui)=>
+						# @$el.trigger "element:moved", $(e.target)
+						if ui.item.find('form').find('input[name="element"]').val() is 'Row'
+							ui.item.children('.element-markup').children().trigger 'row:is:moved',
+								ui.item.children('.element-markup').children().prop 'id'
+						$(e.target).removeClass 'empty-column'
 
 		class Views.TabsView extends Marionette.CompositeView
 
@@ -62,7 +62,7 @@ define ['app','bootbox'
 			template : ' 
 
 					  <!-- Nav tabs -->
-					  <ul class="nav nav-tabs nav-justified" role="tablist">
+					  <ul class="nav nav-tabs " role="tablist">
 						
 						
 					  </ul>
@@ -88,10 +88,11 @@ define ['app','bootbox'
 						position : @collection.size() + 1
 						element : 'TabPane'
 						elements : []
-						tabName : 'tab'
+						tabName : {'en' : 'tab', 'nb' : 'tab_N'}
 
 				'blur .nav-tabs span' :(evt)->
-					@$el.find("#{$(evt.target).parent().attr('href')}").attr 'data-name',$(evt.target).text()
+					# @$el.find("#{$(evt.target).parent().attr('href')}").attr 'data-name',$(evt.target).text()
+					$(evt.target).parent('a').siblings('form').find("input[name=#{WPML_DEFAULT_LANG}]").val $(evt.target).text()
 
 				'click .delete-tab-btn' : (evt)->
 					evt.stopPropagation()
@@ -109,6 +110,7 @@ define ['app','bootbox'
 			onRender : ->
 				@$el.attr 'role',"tabpanel"
 				@$el.addClass @model.get 'style'
+				@onSetJustified @model.get 'justified'
 
 			
 			initialize: (opt = {})->
@@ -118,7 +120,7 @@ define ['app','bootbox'
 						@collection.add
 							position: i
 							element: 'TabPane'
-							tabName : 'tab'
+							tabName : {'en' : 'tab', 'nb' : 'tab_N'}
 							# className: 6
 							elements: []
 							,{silent: true}
@@ -131,7 +133,20 @@ define ['app','bootbox'
 			onAfterItemAdded : (itemView)->
 				id = itemView.$el.attr 'id'
 
-				@$el.find('ul.nav-tabs').append '<li role="presentation" class=""><a href="#'+id+'" role="tab" data-toggle="tab"><span contenteditable="true">'+itemView.model.get('tabName')+'</span></a><div class="delete-tab-btn">&times;</div></li>'
+				html = ''
+				object = itemView.model.get 'tabName'
+				for prop of object
+					if object.hasOwnProperty prop
+						html += "<input type='hidden' name='#{prop}' value=#{object[prop]}>"
+
+
+				@$el.find('ul.nav-tabs').append '<li role="presentation" class="">
+						<a href="#'+id+'" role="tab" data-toggle="tab">
+							<span contenteditable="true">'+itemView.model.get('tabName')[WPML_DEFAULT_LANG]+'</span>
+						</a>
+						<div class="delete-tab-btn">&times;</div>
+						<form data-id="'+id+'">'+html+'</form>
+					</li>'
 				
 
 			onShow: ->
@@ -162,15 +177,24 @@ define ['app','bootbox'
 				,200
 
 			onStyleChanged: (newStyle, old)->
-                @$el.removeClass(old) if not _(old).isEmpty()
-                @$el.addClass newStyle
+				@$el.removeClass(old) if not _(old).isEmpty()
+				@$el.addClass newStyle
 
 
-            onBeforeClose : ->
-            	if not @$el.find('.tab-content').canBeDeleted()
-            		return false
-            	else
-            		return true
+			onBeforeClose : ->
+				if not @$el.find('.tab-content').canBeDeleted()
+					return false
+				else
+					return true
+
+
+
+			onSetJustified : (val)->
+
+				if val is true
+					@$el.find('ul.nav.nav-tabs').addClass "nav-justified"
+				else
+					@$el.find('ul.nav.nav-tabs').removeClass "nav-justified"
 
 
 			 

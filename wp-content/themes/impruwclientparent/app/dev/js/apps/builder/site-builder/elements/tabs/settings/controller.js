@@ -24,6 +24,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
             return _this.model.set("style", style);
           };
         })(this));
+        this.listenTo(view, "element:justified:changed", (function(_this) {
+          return function(justified) {
+            return _this.model.set("justified", justified);
+          };
+        })(this));
         this.listenTo(view, "element:draggable:changed", (function(_this) {
           return function(draggable) {
             return _this.model.set("draggable", draggable);

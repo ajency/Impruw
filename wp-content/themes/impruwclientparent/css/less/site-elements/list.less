@@ -78,7 +78,7 @@
 				&:before {
 					content: counter(list-counter, decimal);
 					counter-increment: list-counter;
-					color: darken(@tertiary1, 10%);
+					color: lighten(@text-color, 10%);
 					font-size: 1.1em;
 					font-style: italic;
 				}
@@ -120,7 +120,7 @@
 					font-size: 1.2em;
 					line-height: 0.33em;
 					top: 3px;
-					color: transparent;
+					color: @text-color;
 				}
 				&:hover {
 					a, span {

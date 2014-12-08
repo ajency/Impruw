@@ -2312,6 +2312,7 @@ ul.gallery {
 .accordion-container .panel-group .panel {
   border: 1px solid #ff5f5f;
   border-radius: 2px;
+  background: transparent;
 }
 .accordion-container .panel-group .panel .panel-heading {
   background: #ff5f5f;
@@ -2367,6 +2368,8 @@ ul.gallery {
 .accordion-container .panel-group .panel .panel-collapse .panel-body {
   padding: 1em;
   color: #989898;
+  background: transparent;
+  border-color: transparent;
 }
 .accordion-container .panel-group.flat .panel {
   margin: 0;
@@ -2549,7 +2552,7 @@ ul.gallery {
 .impruw-list ul.numbered-list li:before {
   content: counter(list-counter, decimal);
   counter-increment: list-counter;
-  color: #1b2642;
+  color: #b2b2b2;
   font-size: 1.1em;
   font-style: italic;
 }
@@ -2591,7 +2594,7 @@ ul.gallery {
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: transparent;
+  color: #989898;
 }
 .impruw-list ul.checked-list li:hover a,
 .impruw-list ul.checked-list li:hover span {
@@ -2618,9 +2621,21 @@ ul.gallery {
   padding: 0;
   position: relative;
 }
+.tab-container .nav-tabs {
+  border-bottom-color: #ff5f5f;
+}
 .tab-container .nav-tabs li {
   margin-bottom: -1px;
   position: relative;
+}
+.tab-container .nav-tabs li a {
+  border-bottom-color: #ff5f5f;
+  margin-right: 0;
+}
+.tab-container .nav-tabs li a:hover {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(0, 0, 0, 0.3);
+  border-bottom-color: #ff5f5f;
 }
 .tab-container .nav-tabs li .delete-tab-btn {
   position: absolute;
@@ -2636,6 +2651,14 @@ ul.gallery {
 }
 .tab-container .nav-tabs li .delete-tab-btn:hover {
   background: rgba(255, 51, 51, 0.9);
+}
+.tab-container .nav-tabs li.active a,
+.tab-container .nav-tabs li.active a:hover,
+.tab-container .nav-tabs li.active a:focus {
+  background: transparent;
+  color: #989898;
+  border-color: #ff5f5f;
+  border-bottom: #ffffff;
 }
 .tab-container .nav-tabs li:hover .delete-tab-btn {
   display: block;
@@ -2658,6 +2681,18 @@ ul.gallery {
 .tab-container:hover .add-tab {
   display: block;
 }
+@media (max-width: 767px) {
+  .tab-container .nav-tabs li {
+    display: inline-block;
+  }
+  .tab-container .nav-tabs li a {
+    border-radius: 4px 4px 0 0;
+  }
+  .tab-container .nav-tabs.nav-justified li {
+    display: table-cell;
+    width: 1%;
+  }
+}
 /*****************************/
 /* Underline */
 /*****************************/
@@ -2668,6 +2703,7 @@ ul.gallery {
 .tabs-style-underline .nav li {
   border: 0;
   margin-bottom: -2px;
+  overflow: hidden;
 }
 .tabs-style-underline .nav li.active {
   margin-bottom: -3px;
@@ -2680,7 +2716,6 @@ ul.gallery {
   border: 0;
 }
 .tabs-style-underline .tab-content {
-  background: #ffffff;
   position: relative;
   z-index: 1;
   padding: 0.5em 0;
@@ -2694,7 +2729,7 @@ ul.gallery {
   transition: color 0.2s;
 }
 .tabs-style-underline .nav a:hover {
-  background: transparent;
+  background: transparent !important;
   color: #e9e9e9;
 }
 .tabs-style-underline .nav li a::after {
@@ -2730,12 +2765,16 @@ ul.gallery {
 .tabs-style-linetriangle .nav a {
   overflow: visible;
   margin: 0;
+  border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
 }
 .tabs-style-linetriangle .nav a:hover {
+  border-color: transparent;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  background: transparent !important;
+  color: #e9e9e9;
 }
 .tabs-style-linetriangle .nav li {
   border: 0;
@@ -2743,14 +2782,14 @@ ul.gallery {
 }
 .tabs-style-linetriangle .nav li.active a {
   border-color: transparent;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #e9e9e9;
   color: #ff5f5f;
   background: transparent;
 }
 .tabs-style-linetriangle .nav li.active a:hover,
 .tabs-style-linetriangle .nav li.active a:focus {
   border-color: transparent;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #e9e9e9;
 }
 .tabs-style-linetriangle .nav a span {
   display: block;
@@ -2778,7 +2817,7 @@ ul.gallery {
 .tabs-style-linetriangle .nav li.active a:before {
   margin-left: -11px;
   border-width: 11px;
-  border-top-color: rgba(0, 0, 0, 0.2);
+  border-top-color: #e9e9e9;
 }
 @media screen and (max-width: 58em) {
   .tabs-style-linetriangle .nav {
@@ -2789,7 +2828,7 @@ ul.gallery {
 /* Line Box */
 /*****************************/
 .tabs-style-linebox .nav li {
-  padding: 0 0 0 1em;
+  padding: 0 0.5em !important;
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -2808,6 +2847,7 @@ ul.gallery {
 .tabs-style-linebox .nav li.active a:focus {
   border: 0;
   background: transparent;
+  color: #ffffff;
 }
 .tabs-style-linebox .nav a {
   padding: 1.5em;
@@ -2820,7 +2860,7 @@ ul.gallery {
 .tabs-style-linebox .nav a:hover,
 .tabs-style-linebox .nav a:focus {
   color: #ff5f5f;
-  background: transparent;
+  background: transparent !important;
   border: 0;
 }
 .tabs-style-linebox .nav a::after {
