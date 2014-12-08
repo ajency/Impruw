@@ -1,4 +1,6 @@
 <?php
+global $sitepress;
+
 icl_st_reset_current_trasnslator_notifications();
 
 if((!isset($sitepress_settings['existing_content_language_verified']) || !$sitepress_settings['existing_content_language_verified']) /*|| 2 > count($sitepress->get_active_languages())*/){
@@ -26,7 +28,7 @@ $exact_match = isset($_GET['em']) ? $_GET['em'] == 1 : false;
 $icl_string_translations = icl_get_string_translations();
 
 if(!empty($icl_string_translations)){
-    $icl_strings_in_page = icl_get_strigs_tracked_in_pages($icl_string_translations);
+    $icl_strings_in_page = icl_get_strings_tracked_in_pages($icl_string_translations);
 }
 $active_languages = $sitepress->get_active_languages();
 $icl_contexts = icl_st_get_contexts($status_filter);
@@ -76,7 +78,9 @@ function _icl_string_translation_rtl_textarea($language) {
     <h2><?php echo __('String translation', 'wpml-string-translation') ?></h2>
 
 	<?php
-		ICL_AdminNotifier::displayMessages( 'string-translation' );
+		if(class_exists('ICL_AdminNotifier')) {
+			ICL_AdminNotifier::displayMessages( 'string-translation' );
+		}
 	?>
 
     <?php if(isset($icl_st_po_strings) && !empty($icl_st_po_strings)): ?>
@@ -110,9 +114,9 @@ function _icl_string_translation_rtl_textarea($language) {
                         <td><input class="icl_st_row_cb" type="checkbox" name="icl_strings_selected[]"
                             <?php if($str['exists'] || !isset($_POST['icl_st_po_translations'])): ?>checked="checked"<?php endif;?> value="<?php echo $k ?>" /></td>
                         <td>
-                            <input type="text" name="icl_strings[]" value="<?php echo htmlspecialchars($str['string']) ?>" readonly="readonly" style="width:100%;" size="100" />
+                            <input type="text" name="icl_strings[]" value="<?php echo esc_attr($str['string']) ?>" readonly="readonly" style="width:100%;" size="100" />
                             <?php if(isset($_POST['icl_st_po_translations'])):?>
-                            <input type="text" name="icl_translations[]" value="<?php echo htmlspecialchars($str['translation']) ?>" readonly="readonly" style="width:100%;<?php if($str['fuzzy']):?>;background-color:#ffecec<?php endif; ?>" size="100" />
+                            <input type="text" name="icl_translations[]" value="<?php echo esc_attr($str['translation']) ?>" readonly="readonly" style="width:100%;<?php if($str['fuzzy']):?>;background-color:#ffecec<?php endif; ?>" size="100" />
                             <input type="hidden" name="icl_fuzzy[]" value="<?php echo $str['fuzzy'] ?>" />
                             <input type="hidden" name="icl_name[]" value="<?php echo $str['name'] ?>" />
                             <?php endif; ?>
@@ -157,7 +161,7 @@ function _icl_string_translation_rtl_textarea($language) {
         <select name="icl_st_filter_context">
             <option value="" <?php if($context_filter === false ):?>selected="selected"<?php endif;?>><?php echo __('All contexts', 'wpml-string-translation') ?></option>
             <?php foreach($icl_contexts as $v):?>
-            <option value="<?php echo htmlspecialchars($v->context)?>" <?php if($context_filter == $v->context ):?>selected="selected"<?php endif;?>><?php echo $v->context . ' ('.$v->c.')'; ?></option>
+            <option value="<?php echo esc_attr($v->context)?>" <?php if($context_filter == $v->context ):?>selected="selected"<?php endif;?>><?php echo $v->context . ' ('.$v->c.')'; ?></option>
             <?php endforeach; ?>
         </select>
         </span>
@@ -180,7 +184,7 @@ function _icl_string_translation_rtl_textarea($language) {
 
         <?php if($search_filter): ?>
         <span style="white-space:nowrap">
-        <?php printf(__('Showing only strings that contain %s', 'wpml-string-translation'), '<i>' . htmlspecialchars($search_filter). '</i>') ; ?>
+        <?php printf(__('Showing only strings that contain %s', 'wpml-string-translation'), '<i>' . esc_html($search_filter). '</i>') ; ?>
         <input class="button" type="button" value="<?php _e('Exit search', 'wpml-string-translation')?>" id="icl_st_filter_search_remove" />
         </span>
         <?php endif; ?>
@@ -217,8 +221,8 @@ function _icl_string_translation_rtl_textarea($language) {
                 <?php foreach($icl_string_translations as $string_id=>$icl_string): ?>
                 <tr valign="top">
                     <td><input class="icl_st_row_cb" type="checkbox" value="<?php echo $string_id ?>" /></td>
-                    <td><?php echo htmlspecialchars($icl_string['context']); ?></td>
-                    <td><?php echo htmlspecialchars(_icl_st_hide_random($icl_string['name'])); ?></td>
+                    <td><?php echo esc_html($icl_string['context']); ?></td>
+                    <td><?php echo esc_html(_icl_st_hide_random($icl_string['name'])); ?></td>
                     <td nowrap="nowrap">
                         <?php if(isset($icl_strings_in_page[ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_SOURCE][$string_id])): ?>
                             <a class="thickbox" title="<?php _e('view in source', 'wpml-string-translation') ?>"
@@ -235,7 +239,7 @@ function _icl_string_translation_rtl_textarea($language) {
                     </td>
                     <td width="70%">
                         <div class="icl-st-original"<?php _icl_string_translation_rtl_div($sitepress_settings['st']['strings_language']); ?>>
-                        <?php echo htmlspecialchars($icl_string['value']); ?>
+                        <?php echo esc_html($icl_string['value']); ?>
                         </div>
                         <div style="float:right;">
                             <a href="#icl-st-toggle-translations"><?php echo __('translations','wpml-string-translation') ?></a>
@@ -547,7 +551,7 @@ function _icl_string_translation_rtl_textarea($language) {
                                             <label><input type="checkbox" id="icl_st_track_strings" name="icl_st[track_strings]" value="1" <?php
                                             if(!empty($sitepress_settings['st']['track_strings'])): ?>checked="checked"<?php endif ?> />
                                         <?php _e('Track where strings appear on the site', 'wpml-string-translation'); ?></label>
-                                        <p><a href="http://wpml.org/?p=9073"><?php _e('Performance considerations', 'wpml-string-translation') ?>&nbsp;&raquo;</a></p>
+                                        <p><a href="https://wpml.org/?p=9073"><?php _e('Performance considerations', 'wpml-string-translation') ?>&nbsp;&raquo;</a></p>
                                         </li>
                                         <li>
                                             <label>
@@ -586,22 +590,29 @@ function _icl_string_translation_rtl_textarea($language) {
                                     <ul>
                                         <li>
                                         <label>
-                                            <input type="radio" name="icl_auto_reg_type" value="disable" <?php if($sitepress_settings['st']['icl_st_auto_reg'] == 'disable'):?>checked="checked"<?php endif?> />
+                                            <input type="radio" class="icl_auto_reg_type" name="icl_auto_reg_type" value="disable" <?php if($sitepress_settings['st']['icl_st_auto_reg'] == 'disable'):?>checked="checked"<?php endif?> />
                                             <?php echo __('Disable auto-register strings', 'sitepress') ?>
                                         </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="radio" name="icl_auto_reg_type" value="auto-admin" <?php if(!$sitepress_settings['st']['icl_st_auto_reg'] || $sitepress_settings['st']['icl_st_auto_reg'] == 'auto-admin'):?>checked="checked"<?php endif?> />
+                                                <input type="radio" class="icl_auto_reg_type" name="icl_auto_reg_type" value="auto-admin" <?php if(!$sitepress_settings['st']['icl_st_auto_reg'] || $sitepress_settings['st']['icl_st_auto_reg'] == 'auto-admin'):?>checked="checked"<?php endif?> />
                                                 <?php echo __('Auto-register strings only when logged in as an administrator', 'sitepress') ?>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="radio" name="icl_auto_reg_type" value="auto-always" <?php if($sitepress_settings['st']['icl_st_auto_reg'] == 'auto-always'):?>checked="checked"<?php endif?> />
+                                                <input type="radio" class="icl_auto_reg_type" name="icl_auto_reg_type" value="auto-always" <?php if($sitepress_settings['st']['icl_st_auto_reg'] == 'auto-always'):?>checked="checked"<?php endif?> />
                                                 <?php echo __('Auto-register strings always', 'sitepress') ?>
                                             </label>
-                                            <p><a href="http://wpml.org/?p=9073"><?php _e('Performance considerations', 'wpml-string-translation') ?>&nbsp;&raquo;</a></p>
+
+	                                        <p id="auto_register_notes" style="display: none;">
+		                                        <?php
+		                                        $auto_register_notes = __( 'Auto-registration takes server resources. Read the %susage instructions%s to learn how to use it correctly while you are developing the site.', 'wpml-string-translation' );
+		                                        $auto_register_notes = sprintf( $auto_register_notes, '<a href="http://wpml.org/documentation/getting-started-guide/string-translation/#auto-register-fe" target="_blank">', '</a>' );
+		                                        echo __( $auto_register_notes, 'wpml-string-translation' )
+		                                        ?>
+	                                        </p>
                                         </li>
                                     </ul>
                                     <p>
@@ -685,7 +696,7 @@ function _icl_string_translation_rtl_textarea($language) {
                                         <select name="icl_st_i_context">
                                             <option value="">-------</option>
                                             <?php foreach($available_contexts as $v):?>
-                                            <option value="<?php echo htmlspecialchars($v)?>" <?php if($context_filter == $v ):?>selected="selected"<?php endif;?>><?php echo $v; ?></option>
+                                            <option value="<?php echo esc_attr($v)?>" <?php if($context_filter == $v ):?>selected="selected"<?php endif;?>><?php echo $v; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                         <a href="#" onclick="var __nxt = jQuery(this).parent().next(); jQuery(this).prev().val(''); jQuery(this).parent().fadeOut('fast',function(){__nxt.fadeIn('fast')});return false;"><?php echo __('new','wpml-string-translation')?></a>
@@ -715,7 +726,7 @@ function _icl_string_translation_rtl_textarea($language) {
                                     <select name="icl_st_e_context" id="icl_st_e_context">
                                         <option value="" <?php if($context_filter === false ):?>selected="selected"<?php endif;?>><?php echo __('All contexts', 'wpml-string-translation') ?></option>
                                         <?php foreach($icl_contexts as $v):?>
-                                        <option value="<?php echo htmlspecialchars($v->context)?>" <?php if($context_filter == $v->context ):?>selected="selected"<?php endif;?>><?php echo $v->context . ' ('.$v->c.')'; ?></option>
+                                        <option value="<?php echo esc_attr($v->context)?>" <?php if($context_filter == $v->context ):?>selected="selected"<?php endif;?>><?php echo $v->context . ' ('.$v->c.')'; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                </p>
