@@ -108,7 +108,8 @@ define ['app'], (App)->
                     if ele.element is 'Accordion'
                         ele.draggable = $(element).children('form').find('input[name="draggable"]').val() is "true"
                         ele.style = $(element).children('form').find('input[name="style"]').val()
-                        ele.meta_id = $(element).find('form input[name="meta_id"]').val()                        ele.elements = []
+                        ele.meta_id = $(element).find('form input[name="meta_id"]').val()                        
+                        ele.elements = []
                         _.each $(element).children('.element-markup').children('.accordion-container').children('.panel-group').children('.panel'), (column, index)=>
                             # tabName = $(column).children('.panel-heading').find('a').text()
                             tabName = {}

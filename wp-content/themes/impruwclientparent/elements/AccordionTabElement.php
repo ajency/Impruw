@@ -43,7 +43,7 @@ class AccordionTab extends Element {
     function __construct($element) {
         
         $this->elements     = $element['elements'];
-        $this->tab_name     = $element[ 'tabName' ];
+        $this->tab_name     = $element[ 'tabName' ][wpml_get_current_language()];
         $this->index = $element['position'];
 
         // $this->style        = sanitize_title($element['style']);

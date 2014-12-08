@@ -109,7 +109,8 @@ define(['app'], function(App) {
             if (ele.element === 'Accordion') {
               ele.draggable = $(element).children('form').find('input[name="draggable"]').val() === "true";
               ele.style = $(element).children('form').find('input[name="style"]').val();
-              ele.meta_id = $(element).find('form input[name="meta_id"]').val()(ele.elements = []);
+              ele.meta_id = $(element).find('form input[name="meta_id"]').val();
+              ele.elements = [];
               _.each($(element).children('.element-markup').children('.accordion-container').children('.panel-group').children('.panel'), function(column, index) {
                 var col, tabName;
                 tabName = {};
