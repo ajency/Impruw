@@ -15,6 +15,8 @@
 <?php
 	global $wpdb;
 
+	$all_feature_components = ajbilling_get_all_feature_components();
+
 	if(isset($_REQUEST['edit_planid']))
 		$edit = $_REQUEST['edit_planid'];	
 	else
@@ -164,9 +166,14 @@
 											$chosen_site_plan_features = maybe_unserialize($chosen_site_plan_features);
 										}
 										else{
-											$chosen_site_plan_features =  array('0' => array('name' => '',
-																							 'enabled' => '-1',
-																							 'count' => '-2' ) );
+											$chosen_site_plan_features = array();
+											foreach ($all_feature_components as $feature) {
+												$feature_array = array('name' => $feature,
+													'enabled' => '-1',
+													'count' => '-2');
+												$chosen_site_plan_features[] = $feature_array;
+											}
+											
 										}
 
 										$feature_index = -1;
@@ -178,22 +185,24 @@
 											$feature_index++;
 									?>
 									<tr valign="top">
-										<td scope="row"><input name="<?php echo 'site_plan_feature['.$feature_index.'][name]'?>" id="" type="text" value="<?php echo $feature_name;?>" class="regular-text" /> </td>
+										<td scope="row">
+											<input name="<?php echo 'site_plan_feature['.$feature_index.'][name]'?>" id="" type="hidden" value="<?php echo $feature_name;?>" class="regular-text" />
+											<label><?php echo $feature_name;?></label>
+										</td>
 										<td>
-											<select name="<?php echo 'site_plan_feature['.$feature_index.'][enabled]'?>" id="site_plan_feature_status">
+											<select name="<?php echo 'site_plan_feature['.$feature_index.'][enabled]'?>">
 												<option value="-1" <?php selected( $feature_status, '-1', true);?> >--Select Status--</option>
 												<option value="true" <?php selected( $feature_status, 'true', true);?> >Enabled</option>
 												<option value="false" <?php selected( $feature_status, 'false', true);?> >Disabled</option>
 											</select>
 										</td>
 										<td>
-											<select name="<?php echo 'site_plan_feature['.$feature_index.'][count]'?>" id="site_plan_feature_count">
-												<option value="" <?php selected( $feature_count, '', true);?>>--Select Count--</option>
-												<option value="-1" <?php selected( $feature_count, '-1', true);?>>N/A</option>
+											<select name="<?php echo 'site_plan_feature['.$feature_index.'][count]'?>" id="site_plan_feature_count" <?php echo ajbilling_get_count_select_status($feature_name);?> >
+												<option value="-2" <?php selected( $feature_count, '', true);?>>--Select Count--</option>
 												<?php for ($i=1; $i <= 10; $i++) { ?>
 												<option value="<?php echo $i; ?>" <?php selected( $feature_count, $i, true);?> ><?php echo $i; ?></option>
 												<?php }?>
-												
+												<option value="-1" <?php selected( $feature_count, '-1', true);?>>Infinite</option>
 											</select>
 										</td>
 										<td> <a href="#" id="remScnt">Remove</a></td>

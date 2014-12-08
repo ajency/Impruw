@@ -809,3 +809,19 @@ function impruwmain_comment( $comment, $args, $depth ) {
     endswitch;
 }
 endif; // ends check for impruwmain_comment()
+
+function impruw_add_feature_components($defined_feature_components){
+
+    $yes_no_features = array(
+        'Domain Mapping'
+    );
+
+    $count_features = array('Email Account', 'Site Add Ons' );
+
+    $feature_components['yes_no_type'] = $yes_no_features;
+    $feature_components['count_type'] = $count_features;
+
+    return $feature_components;
+
+}
+add_filter('add_feature_components_filter','impruw_add_feature_components',10,1);

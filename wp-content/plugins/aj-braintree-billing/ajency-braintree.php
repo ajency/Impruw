@@ -31,6 +31,8 @@ define("AJ_BRAINTREE", WP_PLUGIN_URL . "/ajency-braintree");
 require_once(plugin_dir_path(__FILE__) . "AjencyBraintree.php");
 require_once(plugin_dir_path(__FILE__) . "inc/functions.php");
 require_once(plugin_dir_path(__FILE__) . "inc/ajax.php");
+require_once(plugin_dir_path(__FILE__) . "inc/api.php");
+require_once(plugin_dir_path(__FILE__) . "inc/register_components.php");
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
 register_activation_hook(__FILE__, array("AjencyBraintree", "activate"));

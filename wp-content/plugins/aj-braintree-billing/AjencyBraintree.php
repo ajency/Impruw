@@ -85,6 +85,10 @@ class AjencyBraintree{
 		add_action("TODO", array($this, "action_method_name"));
 		add_filter("TODO", array($this, "filter_method_name"));
 
+
+		// hook function to register plugin defined and theme defined components
+        add_action("init", array($this, "register_feature_components"));
+
 	}
 
 	/**
@@ -252,6 +256,13 @@ class AjencyBraintree{
 	 */
 	public function action_method_name() {
 		// TODO: Define your action hook callback here
+	}
+	/**
+	 * Function to register theme defined feature components 
+	 */
+	public function register_feature_components() {
+		// TODO: Define your action hook callback here
+		ajbilling_register_feature_component();
 	}
 
 	/**

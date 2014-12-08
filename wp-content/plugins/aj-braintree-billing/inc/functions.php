@@ -332,6 +332,43 @@ function aj_update_site_plan_db($data){
 }
 
 
+function ajbilling_get_all_feature_components(){
+	global $aj_feature_components;
+
+	$yes_no_type = array();
+	$count_type = array();
+	$all_features = array();
+
+	foreach ($aj_feature_components as $type => $features) {
+		if ($type==='yes_no_type') {
+			$yes_no_type = $features;
+		}
+		else if ($type==='count_type'){
+			$count_type = $features;
+		}
+	}
+
+	$all_features = array_merge($yes_no_type,$count_type);
+
+	return $all_features;
+}
+
+function ajbilling_get_count_select_status($feature_name){
+	global $aj_feature_components;
+
+	$feature_type = "";
+
+	foreach ($aj_feature_components as $type => $features) {
+		if ($type==='yes_no_type' && in_array($feature_name, $features) ) {
+			$feature_type = "disabled";
+		}
+	}
+
+	return $feature_type;
+
+}
+
+
 
 
 
