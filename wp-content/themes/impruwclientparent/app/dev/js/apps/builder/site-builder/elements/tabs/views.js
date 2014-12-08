@@ -101,11 +101,14 @@ define(['app', 'bootbox'], function(App, bootbox) {
             position: this.collection.size() + 1,
             element: 'TabPane',
             elements: [],
-            tabName: 'tab'
+            tabName: {
+              'en': 'tab',
+              'nb': 'tab_N'
+            }
           });
         },
         'blur .nav-tabs span': function(evt) {
-          return this.$el.find("" + ($(evt.target).parent().attr('href'))).attr('data-name', $(evt.target).text());
+          return $(evt.target).parent('a').siblings('form').find("input[name=" + WPML_DEFAULT_LANG + "]").val($(evt.target).text());
         },
         'click .delete-tab-btn': function(evt) {
           var id;
@@ -145,7 +148,10 @@ define(['app', 'bootbox'], function(App, bootbox) {
             _results.push(this.collection.add({
               position: i,
               element: 'TabPane',
-              tabName: 'tab',
+              tabName: {
+                'en': 'tab',
+                'nb': 'tab_N'
+              },
               elements: []
             }, {
               silent: true
@@ -168,9 +174,16 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       TabsView.prototype.onAfterItemAdded = function(itemView) {
-        var id;
+        var html, id, object, prop;
         id = itemView.$el.attr('id');
-        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class=""><a href="#' + id + '" role="tab" data-toggle="tab"><span contenteditable="true">' + itemView.model.get('tabName') + '</span></a><div class="delete-tab-btn">&times;</div></li>');
+        html = '';
+        object = itemView.model.get('tabName');
+        for (prop in object) {
+          if (object.hasOwnProperty(prop)) {
+            html += "<input type='hidden' name='" + prop + "' value=" + object[prop] + ">";
+          }
+        }
+        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class=""> <a href="#' + id + '" role="tab" data-toggle="tab"> <span contenteditable="true">' + itemView.model.get('tabName')[WPML_DEFAULT_LANG] + '</span> </a> <div class="delete-tab-btn">&times;</div> <form data-id="' + id + '">' + html + '</form> </li>');
       };
 
       TabsView.prototype.onShow = function() {

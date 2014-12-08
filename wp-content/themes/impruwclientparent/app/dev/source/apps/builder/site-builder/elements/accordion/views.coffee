@@ -43,7 +43,6 @@ define ['app','bootbox'
 				object = @model.get 'tabName'
 				for prop of object
 					if object.hasOwnProperty prop
-						console.log @$el.children('.panel-heading').children('form')
 						@$el.children('.panel-heading').children('form')
 						.append "<input type='hidden' name='#{prop}' value=#{object[prop]}>"
 

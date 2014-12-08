@@ -95,8 +95,12 @@ define(['app'], function(App) {
               delete ele.meta_id;
               ele.elements = [];
               _.each($(element).children('.element-markup').children('.tab-container').children('.tab-content').children('.column'), function(column, index) {
-                var col, tabName;
-                tabName = $(column).attr('data-name');
+                var col, id, tabName;
+                id = $(column).attr('id');
+                tabName = {};
+                $(element).children('.element-markup').children('.tab-container').find("form[data-id=" + id + "] input").each(function(index, input) {
+                  return tabName[$(input).prop('name')] = $(input).val();
+                });
                 col = {
                   position: index + 1,
                   element: 'TabPane',

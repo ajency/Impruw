@@ -50,10 +50,13 @@ define ['app','jquery'], (App, $) ->
 					ele.draggable = $(element).children('form').find('input[name="draggable"]').val() is "true"
 					ele.style = $(element).children('form').find('input[name="style"]').val()
 					ele.justified = $(element).children('form').find('input[name="justified"]').val()
-					delete ele.meta_id
+					ele.meta_id = $(element).find('form input[name="meta_id"]').val()
 					ele.elements = []
 					_.each $(element).children('.element-markup').children('.tab-container').children('.tab-content').children('.column'), (column, index)=>
-						tabName = $(column).attr('data-name')
+						id = $(column).attr('id')
+						tabName = {}
+						$(element).children('.element-markup').children('.tab-container').find("form[data-id=#{id}] input").each (index,input)->
+							tabName[$(input).prop('name')] = $(input).val()
 						# className = $(column).attr 'data-class'
 						col =
 							position: index + 1

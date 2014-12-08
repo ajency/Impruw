@@ -93,7 +93,10 @@ define ['app'], (App)->
                         delete ele.meta_id
                         ele.elements = []
                         _.each $(element).children('.element-markup').children('.tab-container').children('.tab-content').children('.column'), (column, index)=>
-                            tabName = $(column).attr('data-name')
+                            id = $(column).attr('id')
+                            tabName = {}
+                            $(element).children('.element-markup').children('.tab-container').find("form[data-id=#{id}] input").each (index,input)->
+                                tabName[$(input).prop('name')] = $(input).val()
                             # className = $(column).attr 'data-class'
                             col =
                                 position: index + 1

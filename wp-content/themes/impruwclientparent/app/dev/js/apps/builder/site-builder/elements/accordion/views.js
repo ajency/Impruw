@@ -41,7 +41,6 @@ define(['app', 'bootbox'], function(App, bootbox) {
         object = this.model.get('tabName');
         for (prop in object) {
           if (object.hasOwnProperty(prop)) {
-            console.log(this.$el.children('.panel-heading').children('form'));
             this.$el.children('.panel-heading').children('form').append("<input type='hidden' name='" + prop + "' value=" + object[prop] + ">");
           }
         }
