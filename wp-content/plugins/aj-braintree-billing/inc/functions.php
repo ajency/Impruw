@@ -8,9 +8,9 @@
 
 include_once( 'braintree-config.php' );
 
-function aj_braintree_currency_location($country_code){
+function aj_braintree_get_currency($country_code){
 	global $wpdb;
-	$currency_location = "";
+	$currency = "";
 
 	$table_name = $wpdb->base_prefix.'aj_braintree_countries';
 
@@ -24,11 +24,11 @@ function aj_braintree_currency_location($country_code){
 	foreach ($country_rows as $country_row) {
 		$countries = maybe_unserialize($country_row['country']);
 		if (in_array($country_code, $countries)){
-			$currency_location =  $country_row['id'];
+			$currency =  $country_row['currency'];
 		}
 	}
 
-	return $currency_location;
+	return $currency;
 }
 
 
@@ -65,38 +65,38 @@ function aj_braintree_get_braintreeplans(){
 
 }
 
-/**
- * Function to get all plans from braintree with additional custom plan details from plugin.
- * Only the plans belonging to the given country and status are returned
- *
- * @param string $country_code.
- * @param string $status Optional. Can be 'active'/'archived'/'suspended'
- * @return array $all_plans. All plans are returned.
- */
-function aj_braintree_get_all_plans($country_code,$status='active'){
+// /**
+//  * Function to get all plans from braintree with additional custom plan details from plugin.
+//  * Only the plans belonging to the given country and status are returned
+//  *
+//  * @param string $country_code.
+//  * @param string $status Optional. Can be 'active'/'archived'/'suspended'
+//  * @return array $all_plans. All plans are returned.
+//  */
+// function aj_braintree_get_all_plans($country_code,$status='active'){
 
-	global $wpdb;
+// 	global $wpdb;
 
-	$all_plans =array();
+// 	$all_plans =array();
 	
-	$country_id = aj_braintree_currency_location($country_code);
+// 	$country_id = aj_braintree_currency_location($country_code);
 
-	$table_name = $wpdb->base_prefix.'aj_braintree_plans';
+// 	$table_name = $wpdb->base_prefix.'aj_braintree_plans';
 
-	$get_location_plans_query = $wpdb->prepare( "SELECT * FROM ".$table_name." WHERE location_id = %d AND status=%s", array($country_id, $status));
+// 	$get_location_plans_query = $wpdb->prepare( "SELECT * FROM ".$table_name." WHERE location_id = %d AND status=%s", array($country_id, $status));
 
-	$location_plans = $wpdb->get_results( $get_location_plans_query, ARRAY_A );
+// 	$location_plans = $wpdb->get_results( $get_location_plans_query, ARRAY_A );
 
-	foreach ($location_plans as $location_plan) {
-		$braintree_plan_id = $location_plan['braintree_plan_id'];
+// 	foreach ($location_plans as $location_plan) {
+// 		$braintree_plan_id = $location_plan['braintree_plan_id'];
 
-		$all_plans[] = aj_braintree_get_plan($braintree_plan_id);
-	}
+// 		$all_plans[] = aj_braintree_get_plan($braintree_plan_id);
+// 	}
 
-	return $all_plans;
+// 	return $all_plans;
 
 
-}
+// }
 
 /**
  * Function to get braintree subscription given a braintree subscription id
