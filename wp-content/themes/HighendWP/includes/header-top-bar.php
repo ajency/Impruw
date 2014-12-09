@@ -87,7 +87,7 @@ if ( class_exists('Woocommerce') ) {
         <?php
             if ( !is_user_logged_in() ) {
         ?>
-                <a href="#"><!--<i class="hb-moon-user"></i>--><?php _e('Login', 'hbthemes'); ?><i class="icon-angle-down"></i></a>
+                <a href="#"><!--<i class="hb-moon-user"></i>--><?php _e('Sign In', 'impruwmain'); ?><i class="icon-angle-down"></i></a>
                 <!-- BEGIN .login-dropdown -->
                 <div class="hb-dropdown-box login-dropdown">
                     <?php get_template_part ( 'includes/login' , 'form'); ?>
