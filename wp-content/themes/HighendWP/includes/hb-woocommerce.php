@@ -7,10 +7,6 @@
 
 	/* REMOVE ACTIONS
 	================================================== */ 
-	if ( get_option( 'woocommerce_enable_lightbox' ) == 'yes' ){
-        delete_option('woocommerce_enable_lightbox');
-    }
-	
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
 	remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0);
@@ -177,7 +173,7 @@
 	    	$average = $product->get_average_rating();
 
 	    if ($average > 0){
-		    echo '<div class="star-wrapper"><div class="star-rating"><span style="width:'.( ( $average / 5 ) * 100 ) . '%"><strong itemprop="ratingValue" class="rating">'.$average.'</strong> '.__( 'out of 5', 'hbthemes' ).'</span></div></div>';
+		    echo '<div class="star-wrapper"><div class="star-rating"><span style="width:'.( ( $average / 5 ) * 100 ) . '%"><strong itemprop="ratingValue" class="rating">'.$average.'</strong> '.__( 'out of 5', 'woocommerce' ).'</span></div></div>';
 			}
 		}
 	}
@@ -187,11 +183,11 @@
 		$product_item_text = "";
 		
     	if ( $count > 1 ) {
-        	$product_item_text = str_replace('%', number_format_i18n($count), __('% products', 'hbthemes'));
+        	$product_item_text = str_replace('%', number_format_i18n($count), __('% products', 'woocommerce'));
         } elseif ( $count == 0 ) {
-        	$product_item_text = __('0 products', 'hbthemes');
+        	$product_item_text = __('0 products', 'woocommerce');
         } else {
-        	$product_item_text = __('1 product', 'hbthemes');
+        	$product_item_text = __('1 product', 'woocommerce');
         }
         
         return $product_item_text;
@@ -265,10 +261,10 @@
 
                 if ($cart_count == '0'){
                     $cart_output .= '<div class="hb-cart-count empty">';
-                    $cart_output .= __('No products in the cart','hbthemes');
+                    $cart_output .= __('No products in the cart','woocommerce');
                 } else {
                     $cart_output .= '<div class="hb-cart-count">';
-                    $cart_output .= $cart_count_text . ' ' . __('in the cart.','hbthemes');
+                    $cart_output .= $cart_count_text . ' ' . __('in the cart.','woocommerce');
                 }
                 $cart_output .= '</div>'; 
 
@@ -290,7 +286,7 @@
 	                        $cart_output .= '<div class="hb-item-product-title"><a href="'.get_permalink($cart_item['product_id']).'">' . apply_filters('woocommerce_cart_widget_product_title', $product_short_title, $bag_product) . '</a></div>';
 	                        $cart_output .= '<div class="bag-product-price">'.$cart_item['quantity'].' x '.woocommerce_price($bag_product->get_price()).'</div>';
 	                        $cart_output .= '</div>';
-	                        $cart_output .= apply_filters( 'woocommerce_cart_item_remove_link', sprintf('<a href="%s" class="remove" title="%s">&times;</a>', esc_url( $woocommerce->cart->get_remove_url( $cart_item_key ) ), __('Remove this item', 'hbthemes') ), $cart_item_key );
+	                        $cart_output .= apply_filters( 'woocommerce_cart_item_remove_link', sprintf('<a href="%s" class="remove" title="%s">&times;</a>', esc_url( $woocommerce->cart->get_remove_url( $cart_item_key ) ), __('Remove this item', 'woocommerce') ), $cart_item_key );
 	                        
 	                        $cart_output .= '</div>';
 	                	}
@@ -303,10 +299,10 @@
                 $cart_output .= '<div class="hb-bag-buttons">';
                     
                 if ($cart_count != '0'){
-                $cart_output .= '<a class="shop-button" href="'.esc_url( $woocommerce->cart->get_cart_url() ).'">'. __('View shopping cart', 'hbthemes').'</a>';
-                $cart_output .= '<a class="checkout-button" href="'. esc_url( $woocommerce->cart->get_checkout_url() ).'">'.__('Proceed to checkout', 'hbthemes').'</a>';
+                $cart_output .= '<a class="shop-button" href="'.esc_url( $woocommerce->cart->get_cart_url() ).'">'. __('View shopping cart', 'woocommerce').'</a>';
+                $cart_output .= '<a class="checkout-button" href="'. esc_url( $woocommerce->cart->get_checkout_url() ).'">'.__('Proceed to checkout', 'woocommerce').'</a>';
             	} else {
-            		$cart_output .= '<a class="checkout-button" href="'.esc_url( $shop_page_url ).'">'.__('Go to shop', 'hbthemes').'</a>';
+            		$cart_output .= '<a class="checkout-button" href="'.esc_url( $shop_page_url ).'">'.__('Go to shop', 'woocommerce').'</a>';
             	}
                                     
                 $cart_output .= '</div>';
@@ -343,10 +339,10 @@
 
 		<?php if ($cart_count == '0'){ ?>
 			<div class="hb-cart-count empty">
-			<?php _e('No products in the cart','hbthemes');
+			<?php _e('No products in the cart','woocommerce');
 		} else {?>
 			<div class="hb-cart-count">
-			<?php echo $cart_count_text . ' ' . __('in the cart.','hbthemes');
+			<?php echo $cart_count_text . ' ' . __('in the cart.','woocommerce');
 		} ?>
 		</div>
 		<?php if ($cart_count != '0'){ ?>
@@ -375,10 +371,10 @@
                <div class="hb-bag-buttons">
                     
                 <?php if ($cart_count != '0'){ ?>
-				<a class="shop-button" href="<?php echo esc_url( $woocommerce->cart->get_cart_url() ); ?>"><?php  _e('View shopping cart', 'hbthemes'); ?></a>
-				<a class="checkout-button" href="<?php echo esc_url( $woocommerce->cart->get_checkout_url() ); ?>"><?php _e('Proceed to checkout', 'hbthemes'); ?></a>
+				<a class="shop-button" href="<?php echo esc_url( $woocommerce->cart->get_cart_url() ); ?>"><?php  _e('View shopping cart', 'woocommerce'); ?></a>
+				<a class="checkout-button" href="<?php echo esc_url( $woocommerce->cart->get_checkout_url() ); ?>"><?php _e('Proceed to checkout', 'woocommerce'); ?></a>
             	<?php } else {
-            		echo '<a class="checkout-button" href="'.esc_url( $shop_page_url ).'">'.__('Go to shop', 'hbthemes').'</a>';
+            		echo '<a class="checkout-button" href="'.esc_url( $shop_page_url ).'">'.__('Go to shop', 'woocommerce').'</a>';
             	} ?>
                                     
                 </div>

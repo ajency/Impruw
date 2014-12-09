@@ -34,9 +34,6 @@ if ( vp_metabox('background_settings.hb_content_background_color') )
 		$blog_grid_column_class = vp_metabox('blog_grid_page_settings.hb_grid_columns');
 		$blog_grid_style = vp_metabox('blog_grid_page_settings.hb_grid_style');
 
-		$cats = vp_metabox('blog_grid_page_settings.hb_blog_category_include');
-		$cats = implode('+', $cats);
-
 		if ( !$blog_grid_column_class ) $blog_grid_column_class = 1;
 		$blog_grid_column_class = 12 / $blog_grid_column_class;
 		$blog_grid_column_class = "col-" . $blog_grid_column_class;
@@ -88,21 +85,17 @@ if ( vp_metabox('background_settings.hb_content_background_color') )
 		?>
 
 		<!-- BEGIN #hb-blog-posts -->
-		<div id="hb-blog-posts" class="hb-blog-grid masonry-holder clearfix" data-layout-mode="<?php echo $blog_grid_style; ?>" data-categories="<?php echo $cats; ?>" data-column-size="<?php echo $blog_grid_column_class; ?>" itemprop="mainContentOfPage" itemscope="itemscope" itemtype="http://schema.org/Blog">	
+		<div id="hb-blog-posts" class="hb-blog-grid masonry-holder unboxed-blog-layoutXXXX clearfix" data-layout-mode="<?php echo $blog_grid_style; ?>" data-column-size="<?php echo $blog_grid_column_class; ?>" itemprop="mainContentOfPage" itemscope="itemscope" itemtype="http://schema.org/Blog">	
 		<?php get_template_part('loop','blog-grid'); ?>
 		</div>
 		<!-- END #hb-blog-posts -->
 		<?php 
-			if ( $pagination_style == 'ajax' ){
-				wp_reset_query();
-				hb_pagination_ajax('loop-blog-grid');
-			}
-			else if ( $pagination_style == 'standard' ) {
-				hb_pagination_standard();
-				wp_reset_query();
-			} else {
-				wp_reset_query();
-			}
+		if ( $pagination_style == 'ajax' )
+			hb_pagination_ajax('loop-blog-grid');
+		else if ( $pagination_style == 'standard' )
+			hb_pagination_standard();
+
+		wp_reset_query();
 		?>
 
 			<?php if ( comments_open() && hb_options('hb_disable_page_comments') ) comments_template(); ?>

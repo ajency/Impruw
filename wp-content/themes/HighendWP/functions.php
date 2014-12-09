@@ -4,6 +4,7 @@
  * @subpackage Highend
  */
 
+
     /* DEREGISTER WOOCOMMERCE IMPORTS
     ================================================== */
     add_action( 'wp_enqueue_scripts', 'hb_manage_woocommerce_styles', 99 );
@@ -91,95 +92,48 @@
     add_action('admin_enqueue_scripts', 'my_admin_theme_style');
 
 
-    /* ADMIN HB DASHBOARD WIDGET
+    /* DASHBOARD WIDGET
     ================================================== */
-    if (!function_exists('hb_dashboard_widget')){
-        function hb_dashboard_widget() {
-            $my_theme          = wp_get_theme();
-            $menus_url         = ADMIN_URL . 'nav-menus.php';
-            $front_page_url    = ADMIN_URL . 'options-reading.php';
-            $theme_options_url = ADMIN_URL . 'themes.php?page=highend_options#_hb_general_settings'; 
-            $widgets_url       = ADMIN_URL . 'widgets.php';
+    function dash_widget() {
+        $my_theme          = wp_get_theme();
+        $menus_url         = ADMIN_URL . 'nav-menus.php';
+        $front_page_url    = ADMIN_URL . 'options-reading.php';
+        $theme_options_url = ADMIN_URL . 'themes.php?page=highend_options#_hb_general_settings';
+        $widgets_url       = ADMIN_URL . 'widgets.php';
+        echo '
+            <div class="main clearfix" id="highend_widget_box">
+            <p>' . __('Welcome to Highend WordPress Theme.', 'hbthemes' ) . '</p>
+            <hr/>
+            <p>' . __('First Steps', 'hbthemes') . '</p>
+            <ul id="highend_links">
+                <li><a href="' . $theme_options_url . '">' . __('Highend Theme Options', 'hbthemes' ) . '</a></li>
+                <li><a href="' . $front_page_url . '">'. __('Change your front page', 'hbthemes') .'</a></li>
+                <li><a href="' . $menus_url . '">'. __('Manage menus', 'hbthemes') . '</a></li>
+                <li><a href="' . $widgets_url . '">' . __('Manage widgets', 'hbthemes') . '</a></li>
+            </ul>
+            <hr/>
+            <p>Need help?</p>
+            <ul id="highend_widget">
+                <li id="highend_docs"><a href="http://documentation.hb-themes.com/highend/index.html">' . __('Read the Documentation', 'hbthemes') . '</a></li>
+                <li id="highend_videos"><a href="http://documentation.hb-themes.com/highend/index.html#video-tutorials">' . __('Watch Video Tutorials', 'hbthemes') . '</a></li>
+                <li id="highend_forum"><a href="http://forum.hb-themes.com">' . __('Visit Support Forum', 'hbthemes') . '</a></li>
+                <li id="highend_facebook"><a href="http://facebook.com/hbthemes">' . __('Find us on Facebook', 'hbthemes') . '</a></li>
+                <li id="highend_twitter"><a href="http://twitter.com/hbthemes">' . __('Follow us on Twitter', 'hbthemes') . '</a></li>
+                <li id="highend_customization"><a href="http://hb-themes.com/home/hire-us">' . __('Request a Customization') . '</a></li>
+            </ul>
+            <hr/>
+            <p class="nbm">' . __('You are using', 'hbthemes') .' <strong>'. $my_theme->get( 'Name' ) . '</strong> ' . __('theme. Version','hbthemes') . ' ' . ' <strong>' . $my_theme->get('Version') . '.</strong></p>
+            </div>
+            ';
 
-            // Fetch RSS news
-            $hb_rss = new DOMDocument();
-            $hb_rss->load('http://hb-themes.com/home/feed/');
-            $limit = 1;
-            $hb_feed = array();
-
-            foreach ($hb_rss->getElementsByTagName('item') as $node) {
-                $item = array ( 
-                    'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
-                    'desc' => $node->getElementsByTagName('description')->item(0)->nodeValue,
-                    'link' => $node->getElementsByTagName('link')->item(0)->nodeValue,
-                    'date' => $node->getElementsByTagName('pubDate')->item(0)->nodeValue,
-                );
-                array_push($hb_feed, $item);
-            }
-
-            echo '
-                <div class="main clearfix" id="highend_widget_box">
-                <p class="nbm">' . __('You are using', 'hbthemes') .' <strong>'. $my_theme->get( 'Name' ) . '</strong> ' . __('theme. Version','hbthemes') . ' ' . ' <strong>' . $my_theme->get('Version') . '.</strong>
-                </p>
-
-                <hr/>
-
-                <p>' . __('First Steps', 'hbthemes') . '</p>
-                <ul id="highend_links">
-                    <li><a href="' . $theme_options_url . '">' . __('Highend Options', 'hbthemes' ) . '</a></li>
-                    <li><a href="' . $front_page_url . '">'. __('Choose your front page', 'hbthemes') .'</a></li>
-                    <li><a href="' . $menus_url . '">'. __('Manage menus', 'hbthemes') . '</a></li>
-                    <li><a href="' . $widgets_url . '">' . __('Manage widgets', 'hbthemes') . '</a></li>
-                </ul>
-
-                <hr/>
-
-                <p>Need help?</p>
-                <ul id="highend_widget">
-                    <li id="highend_docs"><a href="http://documentation.hb-themes.com/highend/index.html" target="_blank">' . __('Read the documentation', 'hbthemes') . '</a></li>
-                    <li id="highend_videos"><a href="http://documentation.hb-themes.com/highend/index.html#video-tutorials" target="_blank">' . __('Watch video tutorials', 'hbthemes') . '</a></li>
-                    <li id="highend_forum"><a href="http://forum.hb-themes.com" target="_blank">' . __('Open a support topic', 'hbthemes') . '</a></li>
-                    <li id="highend_facebook"><a href="http://facebook.com/hbthemes" target="_blank">' . __('Find us on Facebook', 'hbthemes') . '</a></li>
-                    <li id="highend_twitter"><a href="http://twitter.com/hbthemes" target="_blank">' . __('Follow us on Twitter', 'hbthemes') . '</a></li>
-                    <li id="highend_customization"><a href="http://hb-themes.com/home/hire-us" target="_blank">' . __('Hire HB-Themes to build your website', 'hbthemes') . '</a></li>
-                </ul>';
-
-                if ( !empty($hb_feed) ){
-                    echo '
-                    <div class="hb-latest-news-section rss-widget">
-                        <hr/>
-                        <p>' . __('HB-Themes News', 'hbthemes') . '</p>';
-
-                        for($x=0;$x<$limit;$x++) {
-                            $title = str_replace(' & ', ' &amp; ', $hb_feed[$x]['title']);
-                            $link = $hb_feed[$x]['link'];
-                            $description = $hb_feed[$x]['desc'];
-                            //$date = date('F d, Y', strtotime($hb_feed[$x]['date']));
-                            echo '<a class="rsswidget" href="'.$link.'" title="'.$title.'" target="_blank">'.$title.'</a><br/>';
-                            //echo '<small class="rss-date">'.$date.'</small>';
-                            echo '<p class="rssSummary">'.$description.'</p>';
-                        }
-
-                    echo '</div>';
-                }
-
-                echo '<div class="clear"></div></div>';
-        }
-
-
-        function hb_add_dashboard_widgets() {
-            wp_add_dashboard_widget(
-                'elevate_dashboard_widget',
-                'Highend',
-                'hb_dashboard_widget'
-            );  
-        }
-
-
-        if ( current_user_can( 'manage_options' ) ){
-            add_action('wp_dashboard_setup', 'hb_add_dashboard_widgets');
-        }
     }
+    function add_dashboard_widgets() {
+        add_meta_box('id', 'Highend WordPress Theme', 'dash_widget', 'dashboard', 'side', 'high');
+    }
+    if ( current_user_can( 'manage_options' ) ){
+        add_action('wp_dashboard_setup', 'add_dashboard_widgets');
+    }
+
 
 
     remove_filter('nav_menu_description', 'strip_tags');
@@ -281,7 +235,7 @@
             'parent_url_slug' => 'themes.php', // Default parent URL slug
             'menu' => 'install-required-plugins', // Menu slug
             'has_notices' => true, // Show admin notices or not
-            'is_automatic' => true, // Automatically activate plugins after installation or not
+            'is_automatic' => false, // Automatically activate plugins after installation or not
             'message' => '', // Message to output right before the plugins table
             'strings' => array(
                 'page_title' => __('Install Required Plugins', $theme_text_domain),
@@ -360,13 +314,8 @@
             $class_string = str_replace('vc_row-fluid', 'row', $class_string);
             $class_string = str_replace('wpb_row ', 'element-row ', $class_string);
         }
-
-        if ( defined('WPB_VC_VERSION') && version_compare(WPB_VC_VERSION, "4.3.0") >= 0 ) {
-            // good version
-        } else {
-            if ($tag == 'vc_column' || $tag == 'vc_column_inner') {
-                $class_string = preg_replace('/vc_span(\d{1,2})/', 'col-$1', $class_string);
-            }
+        if ($tag == 'vc_column' || $tag == 'vc_column_inner') {
+            $class_string = preg_replace('/vc_span(\d{1,2})/', 'col-$1', $class_string);
         }
         return $class_string;
     }
@@ -389,21 +338,21 @@
         //vc_remove_element("vc_accordion");
         //vc_remove_element("vc_accordion_tab");
         //vc_remove_element("vc_carousel");
-        //vc_remove_element("vc_cta_button");
+        vc_remove_element("vc_cta_button");
         vc_remove_element("vc_cta_button2");
-        //vc_remove_element("vc_separator");
+        vc_remove_element("vc_separator");
         //vc_remove_element("vc_flickr");
         vc_remove_element("vc_pie");
         vc_remove_element("vc_item");
         vc_remove_element("vc_items");
-        //vc_remove_element("vc_posts_grid");
+        vc_remove_element("vc_posts_grid");
         vc_remove_element("vc_posts_slider");
         vc_remove_element("vc_progress_bar");
-        //vc_remove_element("vc_gallery");
-        //vc_remove_element("vc_images_carousel");
+        vc_remove_element("vc_gallery");
+        vc_remove_element("vc_images_carousel");
         //vc_remove_element("vc_button");
-        //vc_remove_element("vc_message");
-        //vc_remove_element("vc_button2");
+        vc_remove_element("vc_message");
+        vc_remove_element("vc_button2");
         //vc_remove_element("vc_tab");
         //vc_remove_element("vc_tabs");
         //vc_remove_element("vc_toggle");
@@ -784,19 +733,14 @@
 
     /* CUSTOM WORDPRESS LOGIN LOGO
     ================================================== */
-    add_action('login_head', 'hb_custom_login_logo');
-    function hb_custom_login_logo() {
+    function my_custom_login_logo() {
         if (hb_options('hb_wordpress_logo')) {
             echo '<style type="text/css">
                 h1 a { background-image:url(' . hb_options('hb_wordpress_logo') . ') !important; background-size:contain !important; width:274px !important; height: 63px !important; }
             </style>';
         }
     }
-
-    add_filter( 'login_headerurl', 'hb_custom_login_logo_url' );
-    function hb_custom_login_logo_url($url) {
-        return get_site_url();
-    }
+    add_action('login_head', 'my_custom_login_logo');
 
 
 
@@ -851,7 +795,6 @@
     ================================================== */
     include(HBTHEMES_INCLUDES . '/widgets/widget-most-commented-posts.php');
     include(HBTHEMES_INCLUDES . '/widgets/widget-latest-posts.php');
-    include(HBTHEMES_INCLUDES . '/widgets/widget-latest-posts-simple.php');
     include(HBTHEMES_INCLUDES . '/widgets/widget-most-liked-posts.php');
     include(HBTHEMES_INCLUDES . '/widgets/widget-recent-comments.php');
     include(HBTHEMES_INCLUDES . '/widgets/widget-testimonials.php');
@@ -880,30 +823,20 @@
         add_image_size( 'blog-grid-thumb', 100, 999999, true );
     }
 
+
     /* LOAD MORE
     ================================================== */
     function wp_infinitepaginate() {
         $loopFile       = $_POST['loop_file'];
         $paged          = $_POST['page_no'];
-        $category       = $_POST['category'];
-
-        if ($category != '' && $category != ' '){
-            $category = explode("+", $category);
-        } else {
-            $category = array();
-        }
-
         $col_count = "";
         $posts_per_page = get_option('posts_per_page');
-
         if ( isset($_POST['col_count'] ))
             $col_count      = $_POST['col_count'];
-
+        
         query_posts(array(
             'paged' => $paged,
-            'category__in' => $category
         ));
-
         get_template_part($loopFile);
         exit;
     }
@@ -1421,27 +1354,19 @@
 		if ( class_exists('Woocommerce') ) {
 			$cart_url = '<a class="mobile-menu-shop" href="'.$woocommerce->cart->get_cart_url().'"><i class="hb-moon-cart-checkout"></i></a>'. "\n";
 		}
-
-        if ( vp_metabox('misc_settings.hb_onepage_also') ){
+	
+        if ( has_nav_menu ('mobile-menu') ) {
             $mobile_menu_args = array(
                 'echo'            => false,
-                'theme_location' => 'one-page-menu',
+                'theme_location' => 'mobile-menu',
                 'fallback_cb' => ''
-            );   
+            );
         } else {
-            if ( has_nav_menu ('mobile-menu') ) {
-                $mobile_menu_args = array(
-                    'echo'            => false,
-                    'theme_location' => 'mobile-menu',
-                    'fallback_cb' => ''
-                );
-            } else {
-                $mobile_menu_args = array(
-                    'echo'            => false,
-                    'theme_location' => 'main-menu',
-                    'fallback_cb' => ''
-                );
-            }
+            $mobile_menu_args = array(
+                'echo'            => false,
+                'theme_location' => 'main-menu',
+                'fallback_cb' => ''
+            );
         }
                                     
         $mobile_menu_output = "";                            
