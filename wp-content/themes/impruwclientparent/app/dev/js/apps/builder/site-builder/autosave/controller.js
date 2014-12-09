@@ -34,7 +34,7 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
       };
 
       AutoSaveLocal.prototype.run = function() {
-        return this.interval = window.setInterval(this.doAutoSave, 5 * 1000);
+        return this.doAutoSave();
       };
 
       AutoSaveLocal.prototype.doAutoSave = function() {

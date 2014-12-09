@@ -25,8 +25,8 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				@suspended = false
 
 			run : =>
-				# @doAutoSave()
-				@interval = window.setInterval @doAutoSave, 5 * 1000
+				@doAutoSave()
+				# @interval = window.setInterval @doAutoSave, 5 * 1000
 
 			doAutoSave : =>
 
