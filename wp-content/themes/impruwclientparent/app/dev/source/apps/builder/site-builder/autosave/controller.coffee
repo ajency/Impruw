@@ -25,9 +25,12 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				@suspended = false
 
 			run : =>
+				# @doAutoSave()
 				@interval = window.setInterval @doAutoSave, 5 * 1000
 
 			doAutoSave : =>
+
+				console.log 'doAutoSave'
 				
 				if @suspended is true
 					return false
@@ -38,6 +41,7 @@ define ['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 				data = _.defaults json, 'page_id' : pageId
 
 				@saveLocal data
+				# _.delay @doAutoSave, 5000
 
 				
 			createStorage : ->

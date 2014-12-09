@@ -39,6 +39,7 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
 
       AutoSaveLocal.prototype.doAutoSave = function() {
         var data, json, pageId;
+        console.log('doAutoSave');
         if (this.suspended === true) {
           return false;
         }
