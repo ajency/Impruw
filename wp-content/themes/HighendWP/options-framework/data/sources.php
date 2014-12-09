@@ -159,7 +159,6 @@ function vp_get_gwf_subset($face)
 
 function vp_get_social_medias() {
 	$socmeds = array(
-		array('value' => 'behance', 'label' => 'Behance'),
 		array('value' => 'blogger', 'label' => 'Blogger'),
 		array('value' => 'delicious', 'label' => 'Delicious'),
 		array('value' => 'deviantart', 'label' => 'DeviantArt'),
@@ -197,7 +196,7 @@ function vp_get_fontawesome_icons()
 {
 
 	// scrape list of icons from fontawesome css
-	if( false === ( $icons  = get_transient( 'hb_fontawesome_icons' ) ) )
+	if( false === ( $icons  = get_transient( 'vp_fontawesome_icons' ) ) )
 	{
 		$pattern = '/\.(icon-(?:\w+(?:-)?)+):before\s*{\s*content/';
 		$pattern_icomoon = '/\.(hb-moon-(?:\w+(?:-)?)+):before\s*{\s*content/';
@@ -216,7 +215,7 @@ function vp_get_fontawesome_icons()
 		{
 		    $icons[] = array('value' => $match[1], 'label' => $match[1]);
 		}
-		set_transient( 'hb_fontawesome_icons', $icons, 60 * 60 * 24 );
+		set_transient( 'vp_fontawesome_icons', $icons, 60 * 60 * 24 );
 	}
 
 	return $icons;

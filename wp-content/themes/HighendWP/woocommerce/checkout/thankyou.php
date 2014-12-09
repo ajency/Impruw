@@ -4,7 +4,7 @@
  *
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     2.2.0
+ * @version     2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -13,7 +13,7 @@ global $woocommerce;
 
 if ( $order ) : ?>
 
-	<?php if ( $order->has_status( 'failed' ) ) : ?>
+	<?php if ( in_array( $order->status, array( 'failed' ) ) ) : ?>
 
 		<div class="hb-notif-box error">
 			<div class="message-text">
@@ -72,6 +72,6 @@ if ( $order ) : ?>
 
 <?php else : ?>
 
-	<p><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', __( 'Thank you. Your order has been received.', 'woocommerce' ), null ); ?></p>
+	<p><?php _e( 'Thank you. Your order has been received.', 'woocommerce' ); ?></p>
 
 <?php endif; ?>

@@ -61,153 +61,123 @@
 		
 		$font_weight = "400";
 		$font_style = "normal";
-		$font_subsets = hb_options('hb_font_body_subsets');
 
 		// Body Font
 		if ( hb_options('hb_font_body') == 'hb_font_custom' ){
 			$font_face = hb_options('hb_font_body_face');
-			$font_weight = hb_options('hb_font_body_weight');
-			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style, $font_subsets);
+			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style);
 			echo 'body, .team-position, .hb-single-next-prev .text-inside, .hb-dropdown-box.cart-dropdown .buttons a, input[type=text], textarea, input[type=email], input[type=password], input[type=tel], #fancy-search input[type=text], #fancy-search .ui-autocomplete li .search-title, .quote-post-format .quote-post-wrapper blockquote, table th, .hb-button, input[type=submit], a.read-more, blockquote.pullquote, blockquote, .hb-skill-meter .hb-skill-meter-title, .hb-tabs-wrapper .nav-tabs li a {
-				font-family: "' . $font_face . '", sans-serif;
+				font-family: ' . $font_face . ';
 				font-size: '. hb_options('hb_font_body_size') .'px;
 				line-height: '. hb_options('hb_font_body_line_height') .'px;
 				letter-spacing: '. hb_options('hb_font_body_letter_spacing') .'px;
-				font-weight: '.$font_weight.';
 			}';
 		}
 
 		// Navigation Font
 		if ( hb_options('hb_font_navigation') == 'hb_font_custom' ){
-			$font_subsets = hb_options('hb_font_nav_subsets');
 			$font_face = hb_options('hb_font_navigation_face');
-			$font_weight = hb_options('hb_font_nav_weight');
-			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style, $font_subsets);
+			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style);
 			echo '#main-nav ul.sub-menu li a, #main-nav ul.sub-menu ul li a, #main-nav, #main-nav li a, .light-menu-dropdown #main-nav > li.megamenu > ul.sub-menu > li > a, #main-nav > li.megamenu > ul.sub-menu > li > a {
-				font-family: "' . $font_face . '", sans-serif;
+				font-family: ' . $font_face . ';
 				font-size: '. hb_options('hb_font_navigation_size') .'px;
 				letter-spacing: '. hb_options('hb_font_navigation_letter_spacing') .'px;
-				font-weight: '.$font_weight.';
 			}';
 		}
 
 		// Copyright Font
 		if ( hb_options('hb_font_copyright') == 'hb_font_custom' ){
-			$font_subsets = hb_options('hb_font_copyright_subsets');
 			$font_face = hb_options('hb_font_copyright_face');
-			$font_weight = hb_options('hb_font_copyright_weight');
-			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style, $font_subsets);
+			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style);
 			echo '#copyright-wrapper, #copyright-wrapper a {
-				font-family: "' . $font_face . '", sans-serif;
+				font-family: ' . $font_face . ';
 				font-size: '. hb_options('hb_font_copyright_size') .'px;
 				line-height: '. hb_options('hb_font_copyright_line_height') .'px;
 				letter-spacing: '. hb_options('hb_font_copyright_letter_spacing') .'px;
-				font-weight: '.$font_weight.';
 			}';
 		}
 
 		// Heading 1
 		if ( hb_options('hb_font_h1') == 'hb_font_custom' ){
-			$font_subsets = hb_options('hb_font_h1_subsets');
 			$font_face = hb_options('hb_font_h1_face');
-			$font_weight = hb_options('hb_font_h1_weight');
-			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style, $font_subsets);
+			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style);
 			echo 'h1, article.single h1.title {
-				font-family: "' . $font_face . '", sans-serif;
+				font-family: ' . $font_face . ';
 				font-size: '. hb_options('hb_font_h1_size') .'px;
 				line-height: '. hb_options('hb_font_h1_line_height') .'px;
 				letter-spacing: '. hb_options('hb_font_h1_letter_spacing') .'px;
-				font-weight: '.$font_weight.';
 			}';
 		}
 
 		// Heading 2
 		if ( hb_options('hb_font_h2') == 'hb_font_custom' ){
-			$font_subsets = hb_options('hb_font_h2_subsets');
 			$font_face = hb_options('hb_font_h2_face');
-			$font_weight = hb_options('hb_font_h2_weight');
-			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style, $font_subsets);
-			echo 'h2, #hb-page-title h2, .post-content h2.title {
-				font-family: "' . $font_face . '", sans-serif;
+			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style);
+			echo 'h2, #hb-page-title h2 {
+				font-family: ' . $font_face . ';
 				font-size: '. hb_options('hb_font_h2_size') .'px;
 				line-height: '. hb_options('hb_font_h2_line_height') .'px;
 				letter-spacing: '. hb_options('hb_font_h2_letter_spacing') .'px;
-				font-weight: '.$font_weight.';
 			}';
 		}
 
 		// Heading 3
 		if ( hb_options('hb_font_h3') == 'hb_font_custom' ){
-			$font_subsets = hb_options('hb_font_h3_subsets');
 			$font_face = hb_options('hb_font_h3_face');
-			$font_weight = hb_options('hb_font_h3_weight');
-			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style, $font_subsets);
+			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style);
 			echo 'h3, #respond h3, h3.title-class, .hb-callout-box h3, .hb-gal-standard-description h3 {
-				font-family: "' . $font_face . '", sans-serif;
+				font-family: ' . $font_face . ';
 				font-size: '. hb_options('hb_font_h3_size') .'px;
 				line-height: '. hb_options('hb_font_h3_line_height') .'px;
 				letter-spacing: '. hb_options('hb_font_h3_letter_spacing') .'px;
-				font-weight: '.$font_weight.';
 			}';
 		}
 
 		// Heading 4
 		if ( hb_options('hb_font_h4') == 'hb_font_custom' ){
-			$font_subsets = hb_options('hb_font_h4_subsets');
 			$font_face = hb_options('hb_font_h4_face');
-			$font_weight = hb_options('hb_font_h4_weight');
-			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style, $font_subsets);
+			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style);
 			echo 'h4, .widget-item h4, .content-box h4, .feature-box h4.bold {
-				font-family: "' . $font_face . '", sans-serif;
+				font-family: ' . $font_face . ';
 				font-size: '. hb_options('hb_font_h4_size') .'px;
 				line-height: '. hb_options('hb_font_h4_line_height') .'px;
 				letter-spacing: '. hb_options('hb_font_h4_letter_spacing') .'px;
-				font-weight: '.$font_weight.';
 			}';
 		}
 
 		// Heading 5
 		if ( hb_options('hb_font_h5') == 'hb_font_custom' ){
-			$font_subsets = hb_options('hb_font_h5_subsets');
 			$font_face = hb_options('hb_font_h5_face');
-			$font_weight = hb_options('hb_font_h5_weight');
-			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style, $font_subsets);
+			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style);
 			echo 'h5, #comments h5, #respond h5, .testimonial-author h5 {
-				font-family: "' . $font_face . '", sans-serif;
+				font-family: ' . $font_face . ';
 				font-size: '. hb_options('hb_font_h5_size') .'px;
 				line-height: '. hb_options('hb_font_h5_line_height') .'px;
 				letter-spacing: '. hb_options('hb_font_h5_letter_spacing') .'px;
-				font-weight: '.$font_weight.';
 			}';
 		}
 
 		// Heading 6
 		if ( hb_options('hb_font_h6') == 'hb_font_custom' ){
-			$font_subsets = hb_options('hb_font_h6_subsets');
 			$font_face = hb_options('hb_font_h6_face');
-			$font_weight = hb_options('hb_font_h6_weight');
-			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style, $font_subsets);
+			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style);
 			echo 'h6, h6.special {
-				font-family: "' . $font_face . '", sans-serif;
+				font-family: ' . $font_face . ';
 				font-size: '. hb_options('hb_font_h6_size') .'px;
 				line-height: '. hb_options('hb_font_h6_line_height') .'px;
 				letter-spacing: '. hb_options('hb_font_h6_letter_spacing') .'px;
-				font-weight: '.$font_weight.';
 			}';
 		}
 
 		// Pre-Footer Callout
 		if ( hb_options('hb_pre_footer_font') == 'hb_font_custom' ){
-			$font_subsets = hb_options('hb_font_pre_footer_subsets');
 			$font_face = hb_options('hb_pre_footer_font_face');
-			$font_weight = hb_options('hb_font_pre_footer_weight');
-			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style, $font_subsets);
+			VP_Site_GoogleWebFont::instance()->add($font_face, $font_weight, $font_style);
 			echo '#pre-footer-area {
-				font-family: "' . $font_face . '", sans-serif;
+				font-family: ' . $font_face . ';
 				font-size: '. hb_options('hb_pre_footer_font_size') .'px;
 				line-height: '. hb_options('hb_pre_footer_line_height') .'px;
 				letter-spacing: '. hb_options('hb_pre_footer_letter_spacing') .'px;
-				font-weight: '.$font_weight.';
 			}';
 		}
 
@@ -301,8 +271,8 @@
 		$hb_content_width = "width-1140";
 		if ( hb_options('hb_content_width') == '940px' ){
 			$hb_content_width = "width-940";
-		} else if ( hb_options('hb_content_width') == 'fw-100' ) {
-			$hb_content_width = "fw-100";
+		} else if ( hb_options('hb_content_width') == 'width-fluid' ) {
+			$hb_content_width = "width-fluid";
 		}
 
 		$hb_logo_alignment = "";
@@ -361,6 +331,6 @@
 		</header>
 		<!-- END #hb-header -->
 
-		<?php //get_template_part ( 'includes/header' , 'page-title' ); ?>
+		<?php get_template_part ( 'includes/header' , 'page-title' ); ?>
 		<?php get_template_part( 'includes/header' , 'slider-section'); ?>
 		<?php } ?>

@@ -22,7 +22,7 @@ class VP_Site_GoogleWebFont
 
 	public function add($name, $weights = 'normal', $styles = 'normal', $subsets = null)
 	{
-
+		
 		if(empty($name))
 			return;
 
@@ -95,7 +95,7 @@ class VP_Site_GoogleWebFont
 	{
 		$links = array();
 		foreach ($this->_fonts as $name => $font)
-		{	
+		{
 			$atts  = $font['atts'];
 			$param = implode(',', $atts);
 			$link  = "http://fonts.googleapis.com/css?family=$name" . ($param !== '' ? ":$param" : '');
