@@ -13,7 +13,7 @@ define(['app'], function(App) {
 
       TranslatedTabPaneItemView.prototype.className = 'smart-cell';
 
-      TranslatedTabPaneItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content title"  value="{{tabName}}" name="tabElements[0][tabName]"> <input type="hidden" value="{{level}}" name="tabElements[0][level]"> <input type="hidden" value="{{position}}" name="tabElements[0][position]"> </div> </div> </div> </div>';
+      TranslatedTabPaneItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <input type="text" class="form-control translated-element-content title"  value="{{tabNameLang}}" name="{{tabInputName}}"> </div> </div> </div> </div>';
 
       TranslatedTabPaneItemView.prototype.events = {
         'click a': function(e) {
@@ -24,16 +24,37 @@ define(['app'], function(App) {
       TranslatedTabPaneItemView.prototype.serializeData = function() {
         var data;
         data = TranslatedTabPaneItemView.__super__.serializeData.call(this);
-        data.dd = _.stripslashes(data.dd);
-        data.dt = _.stripslashes(data.dt);
-        data.em = _.stripslashes(data.em);
         return data;
       };
 
       TranslatedTabPaneItemView.prototype.mixinTemplateHelpers = function(data) {
-        var editingLanguage;
+        var editingLanguage, tabIndex;
         data = TranslatedTabPaneItemView.__super__.mixinTemplateHelpers.call(this, data);
         editingLanguage = Marionette.getOption(this, 'editingLanguage');
+        tabIndex = Marionette.getOption(this, 'tabIndex');
+        data.tabInputName = function() {
+          var tabInputName;
+          tabInputName = "tabName[" + tabIndex + "]";
+          tabInputName.toString();
+          return tabInputName;
+        };
+        data.tabElementID = function() {
+          var tabElementID;
+          tabElementID = "tabElements[" + tabIndex + "][element_id]";
+          tabElementID.toString();
+          return tabElementID;
+        };
+        data.tabPosition = function() {
+          var tabPosition;
+          tabPosition = "tabElements[" + tabIndex + "][position]";
+          tabPosition.toString();
+          return tabPosition;
+        };
+        data.tabNameLang = function() {
+          var tabname;
+          tabname = data.tabName;
+          return tabname[editingLanguage];
+        };
         return data;
       };
 
@@ -69,7 +90,7 @@ define(['app'], function(App) {
         editingLanguage = Marionette.getOption(this, 'editingLanguage');
         return {
           editingLanguage: editingLanguage,
-          smarttableIndex: index
+          tabIndex: index
         };
       };
 

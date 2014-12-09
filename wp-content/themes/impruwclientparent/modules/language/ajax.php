@@ -342,13 +342,20 @@ function update_translated_page_url(){
 add_action( 'wp_ajax_update-translated-page-url', 'update_translated_page_url' );
 
 function update_pageTabAccordionElements(){
-    
+    $page_id = $_POST['json-page-id'];
+    $page_id = icl_object_id($page_id, 'page', true,'en');
+
+    //array of TabNames to be updated
+    $tabElements = $_POST['tabElements'];
+
+    update_tabTanslation_page_json($page_id,$tabElements);
 }
 add_action( 'wp_ajax_update-pageTabAccordionElements', 'update_pageTabAccordionElements' );
 
 function update_element_content(){
 
     $page_id = $_POST['json-page-id'];
+
     $page_id = icl_object_id($page_id, 'page', true,'en');
     
     $page_element_meta_id = $_POST['meta_id'];

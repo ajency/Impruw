@@ -31,11 +31,20 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         });
       };
 
-      Controller.prototype.updatePageTabAccordion = function(outerview) {
-        var contents, editingLang, model;
+      Controller.prototype.updatePageTabAccordion = function(outerview, translatedTabNames) {
+        var editingLang, index, model, tabElements, translatedTabElements;
         model = outerview.model;
         editingLang = this.editLang;
-        contents = model.get('tabElements');
+        tabElements = model.get('tabElements');
+        translatedTabElements = new Array();
+        index = 0;
+        _.each(tabElements, function(tabElement, key) {
+          tabElement['tabName'][editingLang] = translatedTabNames['tabName'][index];
+          translatedTabElements.push(tabElement);
+          return index++;
+        });
+        model.set('tabElements', translatedTabElements);
+        console.log(model);
         model.set('json-page-id', this.pageId);
         model.set('edit-lang', this.editLang);
         return model.save(null, {

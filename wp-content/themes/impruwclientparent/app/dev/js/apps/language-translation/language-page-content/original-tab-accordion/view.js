@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return OriginalTabPaneItemView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalTabPaneItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">{{#polyglot}}Name{{/polyglot}}</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{tabName}} </div> </div> </div> </div> </div>';
+      OriginalTabPaneItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <label for="" class="col-sm-3 control-label">{{#polyglot}}Name{{/polyglot}}</label> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{tabNameLang}} </div> </div> </div> </div> </div>';
 
       OriginalTabPaneItemView.prototype.events = {
         'click a': function(e) {
@@ -21,6 +21,11 @@ define(['app'], function(App) {
 
       OriginalTabPaneItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalTabPaneItemView.__super__.mixinTemplateHelpers.call(this, data);
+        data.tabNameLang = function() {
+          var tabname;
+          tabname = data.tabName;
+          return tabname[WPML_DEFAULT_LANG];
+        };
         return data;
       };
 

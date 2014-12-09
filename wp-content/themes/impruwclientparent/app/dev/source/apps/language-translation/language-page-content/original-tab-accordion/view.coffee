@@ -9,7 +9,7 @@ define ['app'], (App)->
                                 <div class="form-group"> 
                                     <label for="" class="col-sm-3 control-label">{{#polyglot}}Name{{/polyglot}}</label> 
                                     <div class="col-sm-9 col-sm-offset-3"> 
-                                        <div tabindex="1" class="original title"> {{tabName}} </div> 
+                                        <div tabindex="1" class="original title"> {{tabNameLang}} </div> 
                                     </div> 
                                 </div> 
                             </div>
@@ -21,6 +21,10 @@ define ['app'], (App)->
 
             mixinTemplateHelpers :(data)->
                 data = super data
+                data.tabNameLang = ->
+                    tabname = data.tabName
+                    tabname[WPML_DEFAULT_LANG]
+
                 data                    
 
         class OriginalTabPanesView extends Marionette.CompositeView

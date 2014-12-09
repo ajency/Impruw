@@ -287,14 +287,11 @@ function get_page_smarttable_elements($page_id){
 //Function to get all page tabs and accordions 
 function get_page_tabs_accordion_elements($page_id){
     $data = get_page_json_for_site($page_id, true);
-    $level = 0;
-    $position = 0;
     $tab_elements = array();
     
     foreach ( $data['page'] as $element ) {
         if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
-            $level++;
-            get_row_tabs_accordion_elements( $element,$elements,$tab_elements,$level,$position );
+            get_row_tabs_accordion_elements( $element,$elements,$tab_elements);
         } else {
             continue;
         
@@ -306,14 +303,13 @@ function get_page_tabs_accordion_elements($page_id){
     $tabs_and_accordions = array();
 
     foreach ($tab_elements as $tab_element) {
-        $tabs_and_accordions[] = array('tabType'=>$tab_element['tabType'],'level' => $tab_element['level'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']);
         switch ($tab_element['tabType']) {
             case 'Tabs':
-                $tabs[] =  array('level' => $tab_element['level'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']); 
+                $tabs[] =  array('element_id' => $tab_element['element_id'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']); 
                 break;
 
             case 'Accordion':
-                $accordions[] = array('level' => $tab_element['level'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']); 
+                $accordions[] = array('element_id' => $tab_element['element_id'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']); 
                 break;
         }
     }
@@ -324,19 +320,18 @@ function get_page_tabs_accordion_elements($page_id){
    return $tab_accordion_elements;    
 }
 
-function get_row_tabs_accordion_elements( $row_element, &$elements, &$tab_elements,&$level, &$position ){
+function get_row_tabs_accordion_elements( $row_element, &$elements, &$tab_elements){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
 
         if (isset($column['tabName'])){
-            $position++;
-            $tab_elements[] = array('level'=>$level, 'position'=>$position, 'tabType' => $row_element[ 'element' ], 'tabName'=> $column['tabName']);
+            $tab_elements[] = array('element_id'=>$row_element[ 'meta_id' ], 'position'=>$column['position'], 'tabType' => $row_element[ 'element' ], 'tabName'=> $column['tabName']);
         }
         
         foreach ( $column[ 'elements' ] as $element ) {
 
             if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
-                get_row_tabs_accordion_elements( $element,$elements,$tab_elements,$level,$position );
+                get_row_tabs_accordion_elements( $element,$elements,$tab_elements);
             } 
             else {
                 continue;
@@ -802,4 +797,51 @@ function get_language_slides_by_slideid($slider_id,$slide_id){
 
     return $lang_slides;
 
+}
+
+
+function update_tabTanslation_page_json($page_id,$tabElements){
+    //Get page json to translate
+    $page_json = get_page_json_for_site($page_id, true);
+
+    foreach ($tabElements as $tabElement) {
+     foreach ( $page_json['page'] as &$element ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                update_row_tabs_accordion_elements( $element,$tabElement);
+            } 
+            else {
+                continue;
+
+            }
+        }
+    }
+
+    echo json_encode($page_json);
+
+}
+
+function update_row_tabs_accordion_elements( &$row_element, $tabElement){
+
+    foreach ( $row_element[ 'elements' ] as &$column ) {
+        //Check if meta id matches
+        if (isset($row_element[ 'meta_id' ]) && $row_element[ 'meta_id' ]===$tabElement['element_id']) {
+           
+            if ($column['position']==$tabElement['position']) {
+                $column['tabName'] = $tabElement['tabName'];
+            }
+
+            
+        }
+
+        foreach ( $column[ 'elements' ] as &$element ) {
+
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                update_row_tabs_accordion_elements( $element,$tabElement);
+            } 
+            else {
+                continue;
+            }
+        }
+
+    }
 }

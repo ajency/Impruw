@@ -10,9 +10,7 @@ define ['app'], (App)->
                             <div class="col-sm-12"> 
                                 <div class="form-group">  
                                     <div class="col-sm-10"> 
-                                        <input type="text" class="form-control translated-element-content title"  value="{{tabName}}" name="tabElements[0][tabName]">
-                                        <input type="hidden" value="{{level}}" name="tabElements[0][level]">
-                                        <input type="hidden" value="{{position}}" name="tabElements[0][position]">
+                                        <input type="text" class="form-control translated-element-content title"  value="{{tabNameLang}}" name="{{tabInputName}}">
                                     </div> 
 
                                 </div> 
@@ -26,15 +24,32 @@ define ['app'], (App)->
 
             serializeData: ()->
                 data = super()
-                data.dd = _.stripslashes(data.dd)
-                data.dt = _.stripslashes(data.dt)
-                data.em = _.stripslashes(data.em)
                 data
 
 
             mixinTemplateHelpers: (data)->
                 data = super data
                 editingLanguage = Marionette.getOption @, 'editingLanguage'
+                tabIndex =  Marionette.getOption @, 'tabIndex'
+
+                data.tabInputName = ->
+                    tabInputName = "tabName["+tabIndex+"]"
+                    tabInputName.toString()
+                    return tabInputName
+
+                data.tabElementID = ->
+                    tabElementID =  "tabElements["+tabIndex+"][element_id]"
+                    tabElementID.toString()
+                    return tabElementID
+
+                data.tabPosition = ->
+                    tabPosition =  "tabElements["+tabIndex+"][position]"
+                    tabPosition.toString()
+                    return tabPosition
+                
+                data.tabNameLang = ->
+                    tabname = data.tabName
+                    tabname[editingLanguage]
                 data
                
 
@@ -62,7 +77,7 @@ define ['app'], (App)->
             itemViewOptions :(model,index)->
                 editingLanguage = Marionette.getOption @, 'editingLanguage'
                 editingLanguage : editingLanguage
-                smarttableIndex : index
+                tabIndex : index
 
             initialize :->
                 editingLanguage = Marionette.getOption @, 'editingLanguage'

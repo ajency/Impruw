@@ -25,12 +25,24 @@ define ['app', 'controllers/base-controller'
                     collection: collection
                     language : @editLang
 
-            updatePageTabAccordion :(outerview)->
+            updatePageTabAccordion :(outerview,translatedTabNames)->
                 model = outerview.model
                 editingLang = @editLang
 
-                # get original smartable content
-                contents = model.get 'tabElements'
+                # get original tabaccordion content
+                tabElements = model.get 'tabElements'
+
+                translatedTabElements = new Array()
+
+                index = 0
+                _.each tabElements, (tabElement, key) ->
+                   tabElement['tabName'][editingLang] = translatedTabNames['tabName'][index]
+                   translatedTabElements.push(tabElement)
+                   index++
+
+                model.set 'tabElements' , translatedTabElements
+
+                console.log model
                
                 # unless o.hasOwnProperty(editingLang)
                 #     contents[editingLang] = new Array()
