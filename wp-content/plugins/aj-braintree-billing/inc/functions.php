@@ -529,5 +529,44 @@ function ajbilling_object_exists($object_id,$object_type='site'){
 	return $result;
 }
 
+function ajbilling_increment_feature_count($current_count, $standard_count){
+	$incremented_value = $current_count;
+	$maximum_count_value = 10;
+	$minimum_count_value = 0;
+	$infinite_count_value = 9999;
+
+	if ($current_count<0) {
+		$incremented_value = 1;
+	}
+	else if ($current_count===$maximum_count_value) {
+		$incremented_value = 9999;
+	}
+	else if ($current_count===9999) {
+		$incremented_value = $current_count;
+	}
+	else if ($current_count<$standard_count) {
+		$incremented_value = $current_count+1;
+	}
+	
+
+	return $incremented_value; 
+}
+
+function ajbilling_decrement_feature_count($current_count, $standard_count){
+	$decremented_value = $current_count;
+	$maximum_count_value = 10;
+	$minimum_count_value = 0;
+	$infinite_count_value = 9999;
+
+	if($current_count===9999) {
+		$decremented_value = $maximum_count_value;
+	}
+	else if (($current_count-1)>=0) {
+		$decremented_value = $current_count-1;
+	}
+
+	return $decremented_value;	
+}
+
 
 

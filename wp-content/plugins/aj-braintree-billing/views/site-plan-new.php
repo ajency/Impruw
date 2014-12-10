@@ -207,7 +207,7 @@
 
 											<?php 
 												if (ajbilling_get_count_select_status($feature_name)==='disabled') {?>
-													<input name="<?php echo 'site_plan_feature['.$feature_index.'][count]'?>" type="hidden" value="-2" />
+													<input name="<?php echo 'site_plan_feature['.$feature_index.'][count]'?>" type="hidden" value="0" />
 											<?php	}
 											?>
 										</td>
