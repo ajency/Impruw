@@ -168,9 +168,10 @@
 										else{
 											$chosen_site_plan_features = array();
 											foreach ($all_feature_components as $feature) {
-												$feature_array = array('name' => $feature,
-													'enabled' => '-1',
-													'count' => '-2');
+												$feature_array = array('name' => $feature['name'],
+													'key' => $feature['key'],
+													'enabled' => 'false',
+													'count' => '0');
 												$chosen_site_plan_features[] = $feature_array;
 											}
 											
@@ -180,29 +181,28 @@
 										foreach ($chosen_site_plan_features as $chosen_site_plan_feature)
 										{	
 											$feature_name = $chosen_site_plan_feature['name'];
+											$feature_key = $chosen_site_plan_feature['key'];
 											$feature_status = $chosen_site_plan_feature['enabled'];
 											$feature_count = $chosen_site_plan_feature['count']; 
 											$feature_index++;
 									?>
 									<tr valign="top">
 										<td scope="row">
-											<input name="<?php echo 'site_plan_feature['.$feature_index.'][name]'?>" id="" type="hidden" value="<?php echo $feature_name;?>" class="regular-text" />
+											<input name="<?php echo 'site_plan_feature['.$feature_index.'][name]'?>" id="" type="hidden" value="<?php echo $feature_name;?>" /><input name="<?php echo 'site_plan_feature['.$feature_index.'][key]'?>" id="" type="hidden" value="<?php echo $feature_key;?>" />
 											<label><?php echo $feature_name;?></label>
 										</td>
 										<td>
 											<select name="<?php echo 'site_plan_feature['.$feature_index.'][enabled]'?>">
-												<option value="-1" <?php selected( $feature_status, '-1', true);?> >--Select Status--</option>
 												<option value="true" <?php selected( $feature_status, 'true', true);?> >Enabled</option>
 												<option value="false" <?php selected( $feature_status, 'false', true);?> >Disabled</option>
 											</select>
 										</td>
 										<td>
 											<select name="<?php echo 'site_plan_feature['.$feature_index.'][count]'?>" id="site_plan_feature_count" <?php echo ajbilling_get_count_select_status($feature_name);?> >
-												<option value="-2" <?php selected( $feature_count, '', true);?>>--Select Count--</option>
-												<?php for ($i=1; $i <= 10; $i++) { ?>
+												<?php for ($i=0; $i <= 10; $i++) { ?>
 												<option value="<?php echo $i; ?>" <?php selected( $feature_count, $i, true);?> ><?php echo $i; ?></option>
 												<?php }?>
-												<option value="-1" <?php selected( $feature_count, '-1', true);?>>Infinite</option>
+												<option value="99999" <?php selected( $feature_count, '99999', true);?>>Infinite</option>
 											</select>
 
 											<?php 

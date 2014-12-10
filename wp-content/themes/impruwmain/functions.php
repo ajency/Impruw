@@ -813,10 +813,11 @@ endif; // ends check for impruwmain_comment()
 function impruw_add_feature_components($defined_feature_components){
 
     $yes_no_features = array(
-        'Domain Mapping'
+        array('key' =>'domain_mapping' , 'name' => 'Domain Mapping' )
     );
 
-    $count_features = array('Email Account', 'Site Add Ons' );
+    $count_features =  array(array('key' =>'email_account' , 'name' => 'Email Account' ),
+    array('key'=> 'site_add_ons', 'name' => 'Site Add Ons' ));
 
     $feature_components['yes_no_type'] = $yes_no_features;
     $feature_components['count_type'] = $count_features;

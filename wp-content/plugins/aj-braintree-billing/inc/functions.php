@@ -332,25 +332,44 @@ function aj_update_site_plan_db($data){
 }
 
 
-function ajbilling_get_all_feature_components(){
+function ajbilling_get_all_feature_components($type='all'){
 	global $aj_feature_components;
 
 	$yes_no_type = array();
 	$count_type = array();
 	$all_features = array();
-
-	foreach ($aj_feature_components as $type => $features) {
-		if ($type==='yes_no_type') {
+	
+	foreach ($aj_feature_components as $feature_type => $features) {
+		if ($feature_type==='yes_no_type') {
 			$yes_no_type = $features;
 		}
-		else if ($type==='count_type'){
+		else if ($feature_type==='count_type'){
 			$count_type = $features;
 		}
 	}
 
 	$all_features = array_merge($yes_no_type,$count_type);
 
-	return $all_features;
+
+	switch ($type) {
+		case 'all':
+			$features = $all_features;
+			break;
+
+		case 'yes_no_type':
+			$features = $yes_no_type;
+			break;
+
+		case 'count_type':
+			$features = $count_type;
+			break;
+		
+		default:
+			$features = $all_features;
+			break;
+	}
+
+	return $features;
 }
 
 function ajbilling_get_count_select_status($feature_name){
@@ -359,8 +378,13 @@ function ajbilling_get_count_select_status($feature_name){
 	$feature_type = "";
 
 	foreach ($aj_feature_components as $type => $features) {
-		if ($type==='yes_no_type' && in_array($feature_name, $features) ) {
-			$feature_type = "disabled";
+		if ($type==='yes_no_type') {
+			foreach ($features as $key => $feature) {
+				if ($feature['name'] ==$feature_name) {
+					$feature_type = "disabled";
+				}
+			}
+			
 		}
 	}
 
@@ -368,7 +392,142 @@ function ajbilling_get_count_select_status($feature_name){
 
 }
 
+function ajbilling_get_plugin_feature_count($plan_id,$feature_component){
+	global $wpdb;
+	$yes_no_features = ajbilling_get_all_feature_components('yes_no_type');
+	$count_features = ajbilling_get_all_feature_components('count_type');
+    $all_features = ajbilling_get_all_feature_components();
+    $count = 0;
 
+    $plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
+    $sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id=".$plan_id;
+
+    $site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
+
+    $site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
+    $plan_features = maybe_unserialize($site_plan['features']);
+
+    foreach ($plan_features as $plan_feature) {
+
+    	if ($plan_feature['key']==$feature_component) {
+    		$count = $plan_feature['count'];
+    	}
+    }
+
+    return $count;
+
+}
+
+function ajbilling_plugin_feature_enable_status($plan_id,$feature_component){
+	global $wpdb;
+	$yes_no_features = ajbilling_get_all_feature_components('yes_no_type');
+	$count_features = ajbilling_get_all_feature_components('count_type');
+    $all_features = ajbilling_get_all_feature_components();
+    $enabled = 'false';
+
+    $plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
+    $sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id=".$plan_id;
+
+    $site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
+
+    $site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
+    $plan_features = maybe_unserialize($site_plan['features']);
+
+    foreach ($plan_features as $plan_feature) {
+
+    	if ($plan_feature['key']==$feature_component) {
+    		$enabled = $plan_feature['enabled'];
+    	}
+    }
+
+    return $enabled;
+
+}
+
+
+function ajbilling_get_user_siteplan_options($object_id,$object_type='site'){
+
+	if ( is_multisite() ){
+		switch_to_blog( $object_id );
+		$user_site_plan = get_option('site_payment_plan');
+		restore_current_blog();
+	}
+	else{
+		$user_site_plan = get_option('site_payment_plan');
+	}
+
+	return $user_site_plan;
+}
+
+function ajbilling_is_registered_feature($feature_component){
+	$all_registered_features = ajbilling_get_all_feature_components();
+
+	$is_registered= false;
+
+	foreach ($all_registered_features as $registered_feature) {
+		if ($registered_feature['key']===$feature_component) {
+			$is_registered=  true;
+		}
+	}
+
+	return $is_registered;
+}
+
+function ajbilling_is_yesno_feature($feature_component){
+	$yes_no_features = ajbilling_get_all_feature_components('yes_no_type');
+
+	$is_yes_no_feature= false;
+
+	foreach ($yes_no_features as $yes_no_feature) {
+		if ($yes_no_feature['key']===$feature_component) {
+			$is_yes_no_feature=  true;
+		}
+	}
+
+	return $is_yes_no_feature;
+}
+
+function ajbilling_is_count_feature($feature_component){
+	$count_features = ajbilling_get_all_feature_components('count_type');
+
+	$is_count_feature= false;
+
+	foreach ($count_features as $count_feature) {
+		if ($count_feature['key']===$feature_component) {
+			$is_count_feature=  true;
+		}
+	}
+
+	return $is_count_feature;
+}
+
+function ajbilling_object_exists($object_id,$object_type='site'){
+	$result = 1;
+	
+	switch ($object_type) {
+		case 'site':
+			if ( is_multisite() ){
+				$blog_details = get_blog_details($object_id);
+				if ( $blog_details=="") {
+					$result = 0;
+				}
+				else if($blog_details->deleted == 1){
+					$result = 0;
+				}
+			}
+			break;
+
+		case 'user':
+			# code...
+			break;
+		
+		default:
+			# code...
+			break;
+	}
+	
+	return $result;
+}
 
 
 
