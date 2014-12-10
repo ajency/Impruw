@@ -84,7 +84,8 @@ define [ 'app'
                 speed: 300                              
                 action: 'click'                          
                 topPos: '30px'                          
-                fixedPosition: true                       
+                fixedPosition: true  
+                onLoadSlideOut: true                     
             
 
             @_setDraggableElements()
