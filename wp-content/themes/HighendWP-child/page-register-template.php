@@ -16,7 +16,7 @@ get_header();
                 ?>
                 <span id="register_message" name="register_success"  ></span>
                 <a href="#register_success" id="scrolltosuccess"  > &nbsp; </a>
-                <div class="row">
+                <div class="row form-group">
                     <label for="inputName" class="col-3 control-label alignright"><?php echo __('Your Full Name', 'impruwmain'); ?></label>
 
                     <div class="col-7">
@@ -30,7 +30,7 @@ get_header();
 
                     </div>
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label for="inputEmail" class="col-3 control-label alignright"><?php echo __('Your Email', 'impruwmain'); ?></label>
                     <div class="col-7">
                         <input type="email" class="form-control parsley-validated parsley-error"
@@ -44,7 +44,7 @@ get_header();
                         <div class="p-messages"></div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label for="inputLmail" class="col-3 control-label alignright"><?php echo __('Select your language', 'impruwmain'); ?></label>
 
                     <div class="col-7 site-lang-sel">
@@ -61,7 +61,7 @@ get_header();
                     </div>
                 </div>
 
-                <div class="row aj-imp-site-name">
+                <div class="row form-group aj-imp-site-name">
                     <label for="inputSitename" class="col-3 control-label alignright"><?php echo __('Your website name', 'impruwmain'); ?></label>
 
                     <div class="col-7 input-group">
@@ -75,7 +75,7 @@ get_header();
                         <?php echo __('.impruw.com', 'impruwmain'); ?>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label for="inputPass" class="col-3 control-label alignright"><?php echo __('Password', 'impruwmain'); ?></label>
 
                     <div class="col-7">
@@ -85,7 +85,7 @@ get_header();
 
                     </div>
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label for="inputRepass" class="col-3 control-label alignright"><?php echo __('Retype Password', 'impruwmain'); ?></label>
 
                     <div class="col-7">
@@ -132,7 +132,7 @@ get_header();
                     </div>
                 </div>
                 <!-- HneyPt -->
-                <div class="row ">
+                <div class="row form-group">
                     <div class="col-3">&nbsp;</div>
                     <div class="col-7">
                         <label for="checkbox2" class="checkbox">
