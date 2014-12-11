@@ -23,12 +23,13 @@ function hb_pagination_ajax($loopFile) { ?>
 		var $container = jQuery(".masonry-holder");
 		var $col_count = "-1";
 
-		if ( jQuery('.hb-blog-grid').length ) {
+		var $category = jQuery('#hb-blog-posts').attr('data-categories');
+
 			$col_count = jQuery('#hb-blog-posts').attr("data-column-size");
 			jQuery.ajax({  
 			url: "<?php echo site_url(); ?>/wp-admin/admin-ajax.php",  
 			type:'POST',  
-			data: "action=infinite_scroll&page_no="+ pageNumber + "&loop_file=<?php echo $loopFile; ?>&col_count=" + $col_count ,   
+			data: "action=infinite_scroll&page_no="+ pageNumber + "&loop_file=<?php echo $loopFile; ?>&category="+$category+"&col_count=" + $col_count ,   
 			success: function(html){
 
 				if (html){
@@ -72,7 +73,6 @@ function hb_pagination_ajax($loopFile) { ?>
 
 			}
 		});
-		}
 		
 		return false;
 	}

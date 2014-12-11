@@ -48,7 +48,7 @@ class sidebar_generator {
 
 	}
 	
-	public static function init(){
+	function init(){
 		//go through each sidebar and register it
 	    $sidebars = sidebar_generator::get_sidebars();
 	    
@@ -68,11 +68,11 @@ class sidebar_generator {
 		}
 	}
 	
-	public static function admin_enqueue_scripts() {
+	function admin_enqueue_scripts() {
 		wp_enqueue_script( array( 'sack' ));
 	}
 
-	public static function admin_print_scripts(){
+	function admin_print_scripts(){
 		?>
 			<script>
 				function add_sidebar( sidebar_name )
@@ -410,7 +410,7 @@ class sidebar_generator {
 	/**
 	 * gets the generated sidebars
 	*/
-	public static function get_sidebars(){
+	function get_sidebars(){
 		$sidebars = get_option('sbg_sidebars');
 		return $sidebars;
 	}
