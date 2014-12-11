@@ -294,7 +294,8 @@
 			}
 
 			if (get_theme_mod('hb_top_bar_text_color_setting')){
-				echo '#header-bar, #fancy-search input[type=text], #fancy-search ::-webkit-input-placeholder { color:' . get_theme_mod('hb_top_bar_text_color_setting') . '}';
+				echo '#header-bar, #fancy-search input[type=text] { color:' . get_theme_mod('hb_top_bar_text_color_setting') . '}';
+				echo '#fancy-search ::-webkit-input-placeholder { color:' . get_theme_mod('hb_top_bar_text_color_setting') . '}';
 			}
 
 			if (get_theme_mod('hb_top_bar_link_color_setting')){
@@ -391,7 +392,7 @@
 
 			if (get_theme_mod('hb_content_border_setting')){
 				echo '
-					.portfolio-single-meta ul, .content-box, #main-wrapper .hb-accordion-pane, .hb-accordion-tab, .hb-box-cont, .hb-tabs-wrapper.tour-style .tab-content, .hb-tabs-wrapper .nav-tabs li a, .hb-callout-box, .hb-teaser-column .teaser-content. .hb-pricing-item, .hb-testimonial:after, .hb-testimonial, .tmb-2 .team-member-description, .recent-comments-content, .recent-comments-content:after, .hb-tweet-list.light li, .hb-tweet-list.light li:after, fieldset,table,.wp-caption-text, .gallery-caption, .author-box, .comments-list .children > li::before, .widget_nav_menu ul.menu, .comments-list li.comment > div.comment-body, .hb-dropdown-box, #contact-panel, .filter-tabs li a, #contact-panel::after, .hb-flexslider-wrapper.bordered-wrapper,.bordered-wrapper, iframe.fw {border-color:'.get_theme_mod('hb_content_border_setting').';}
+					.portfolio-single-meta ul, .content-box, #main-wrapper .hb-accordion-pane, .hb-accordion-tab, .hb-box-cont, .hb-tabs-wrapper.tour-style .tab-content, .hb-tabs-wrapper .nav-tabs li a, .hb-callout-box, .hb-teaser-column .teaser-content, .hb-pricing-item, .hb-testimonial:after, .hb-testimonial, .tmb-2 .team-member-description, .recent-comments-content, .recent-comments-content:after, .hb-tweet-list.light li, .hb-tweet-list.light li:after, fieldset,table,.wp-caption-text, .gallery-caption, .author-box, .comments-list .children > li::before, .widget_nav_menu ul.menu, .comments-list li.comment > div.comment-body, .hb-dropdown-box, #contact-panel, .filter-tabs li a, #contact-panel::after, .hb-flexslider-wrapper.bordered-wrapper,.bordered-wrapper, iframe.fw {border-color:'.get_theme_mod('hb_content_border_setting').';}
 
 				#main-content .left-sidebar .hb-main-content.col-9, table th, table th, table td, #main-content .hb-sidebar, .comments-list .children, .tmb-2 .team-member-img, .hb-tabs-wrapper .tab-content, div.pp_default .pp_close {border-left-color:'.get_theme_mod('hb_content_border_setting').';}
 
@@ -403,7 +404,7 @@
 
 				.pagination ul li a, .pagination ul li span.page-numbers.dots, .single .pagination a, .page-links a, .hb-skill-meter .hb-progress-bar, .hb-counter .count-separator span, .hb-small-break, hr {background-color: '.get_theme_mod('hb_content_border_setting').';}
 
-				#main-wrapper .hb-tabs-wrapper:not(.wpb_tabs) ul li:last-child a, .darker-border .hb-separator {border-bottom-color: "+newval+" !important;}
+				#main-wrapper .hb-tabs-wrapper:not(.wpb_tabs) ul li:last-child a, .darker-border .hb-separator {border-bottom-color: '.get_theme_mod("hb_content_border_setting").' !important;}
 				.darker-border .hb-separator {border-top-color: '.get_theme_mod('hb_content_border_setting').' !important;}';
 			}
 

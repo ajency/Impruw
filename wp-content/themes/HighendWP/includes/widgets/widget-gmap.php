@@ -61,36 +61,34 @@ class hb_gmap_widget extends WP_Widget {
 		</span></div>
 		<?php } ?>
 			<script type="text/javascript">
-			jQuery(document).ready(function($) {
+			jQuery(window).load(function($) {
 				google.load("maps", "3", {other_params:'sensor=false', callback: function(){
 	  				var map;
 					var gmap_marker = true;
 
-
-					var myLatlng = new google.maps.LatLng(<?php echo $latitude;?>, <?php echo $longitude;?>)
 					function initialize() {
-							var mapOptions = {
-								zoom: <?php echo $zoom;?>,
-								center: myLatlng,
-						      	panControl: <?php echo $panControl ? 'true' : 'false';?>,
-						      	scrollwheel: <?php echo $scrollwheel ? 'true' : 'false';?>,
-							  	zoomControl: <?php echo $zoomControl ? 'true' : 'false';?>,
-							  	mapTypeControl: <?php echo $mapTypeControl ? 'true' : 'false';?>,
-							  	scaleControl: <?php echo $scaleControl ? 'true' : 'false';?>,
-							  	draggable: <?php echo $draggable ? 'true' : 'false';?>,
-						      	mapTypeId: google.maps.MapTypeId.ROADMAP,
-					        };
+						var myLatlng = new google.maps.LatLng(<?php echo $latitude;?>, <?php echo $longitude;?>)
+						var mapOptions = {
+							zoom: <?php echo $zoom;?>,
+							center: myLatlng,
+							panControl: <?php echo $panControl ? 'true' : 'false';?>,
+							scrollwheel: <?php echo $scrollwheel ? 'true' : 'false';?>,
+							zoomControl: <?php echo $zoomControl ? 'true' : 'false';?>,
+							mapTypeControl: <?php echo $mapTypeControl ? 'true' : 'false';?>,
+							scaleControl: <?php echo $scaleControl ? 'true' : 'false';?>,
+							draggable: <?php echo $draggable ? 'true' : 'false';?>,
+						    mapTypeId: google.maps.MapTypeId.ROADMAP,
+						};
 						map = new google.maps.Map(document.getElementById('gmap_widget_<?php echo $id;?>'), mapOptions);
 
-
 						if(gmap_marker == true) {
-						        var marker = new google.maps.Marker({
-						            position: myLatlng,
-						            map: map
-						        });
+							var marker = new google.maps.Marker({
+								position: myLatlng,
+								map: map
+							});
 						}
       				}
- 					google.maps.event.addDomListener(window, 'load', initialize);
+ 					initialize();
  				}});
 			});
 			</script>
