@@ -62,7 +62,7 @@ define(['app'], function(App) {
             family: this.$el.find('select').val()
           });
           this.model.set(selectedModel.toJSON());
-          console.log(this.model);
+          this.model.save();
           html = "<style id='theme-font-style'> @font-face { font-family: '" + (selectedModel.get('family')) + "'; src: url('";
           html += selectedModel.get('files').regular != null ? selectedModel.get('files').regular : selectedModel.get('files')[0];
           html += "'); } .site-style-container{ font-family : '" + (selectedModel.get('family')) + "' }</style>";
@@ -77,15 +77,13 @@ define(['app'], function(App) {
 
       ThemeFontSetView.prototype.onShow = function() {
         this.$el.find('select').selectpicker();
-        console.log(this.model);
         if (this.model.get('family')) {
-          return this.$el.find('select').selectpicker('val', this.model.get('family'));
+          return this.$el.find('select').selectpicker('val', this.model.get('family')).selectpicker('refresh');
         }
       };
 
       ThemeFontSetView.prototype.changeFont = function(e) {
         var html, selectedModel;
-        console.log($(e.target).val());
         if ($('style#theme-font-preview').length) {
           $('style#theme-font-preview').remove();
         }

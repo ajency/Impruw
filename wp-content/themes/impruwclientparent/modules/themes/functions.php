@@ -271,3 +271,40 @@ function reset_colorset_option_to_default() {
 
     update_option( "current_color_set", "default" );
 }
+
+
+// font
+function save_theme_font( $data ){
+
+    $font_type = $data['type'];
+    unset( $data['type'] );
+    $data['ID'] = 1;
+    // $theme_data = maybe_serialize( $data );
+    update_option( $font_type, $data );
+    return 1;
+}
+
+function get_theme_font( $type ){
+    $default_font = array();
+    // $default_font->type = $type;
+    $theme_data = get_option( $type , $default_font );
+    $theme_data['type'] = $type;
+    return $theme_data;
+}
+
+function get_theme_font_markup(){
+    $main_font_data = get_theme_font('theme_font_main');
+    if(isset($main_font_data['family'])){
+        ?>
+        <style id='theme-font-style'> @font-face {
+                        font-family: '<?php echo $main_font_data["family"]; ?>';
+                        src: url('<?php echo isset($main_font_data['files']['regular']) ?
+                         $main_font_data['files']['regular'] :  $main_font_data['files'][0];  ?>');
+                     }
+                    .site-style-container{
+                        font-family : '<?php echo $main_font_data["family"]; ?>'
+                    }</style>
+        <?php
+    }
+
+}

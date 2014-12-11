@@ -2,6 +2,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 	App.module "Entities.Fonts", (Fonts, App, Backbone, Marionette, $, _)->
 
 		class FontsModel extends Backbone.Model
+			name :'fonts'
+			idAttribute : 'ID'
 
 		class FontsCollection extends Backbone.Collection
 			model : FontsModel
@@ -11,7 +13,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		fontsCollection = new FontsCollection
 
-		fontsModel = new FontsModel ''
+		mainFontModel = new FontsModel THEMEFONTMAIN
+
+		titleFontModel = new FontsModel THEMEFONTTITLE
 
 		API = 
 			getGoogleFonts : ->
@@ -23,7 +27,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 					fontsCollection
 
 			getCurrentThemeFont :->
-				fontsModel
+				mainFontModel
 							
 
 

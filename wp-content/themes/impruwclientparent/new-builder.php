@@ -23,6 +23,8 @@
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
     <?php wp_head(); ?>
+
+    <?php get_theme_font_markup()?>
     
 </head>
 <body <?php body_class(); ?>>
@@ -112,6 +114,8 @@
     var HOTELADDRESS = <?php echo json_encode(get_site_details()) ?>;
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;
+    var THEMEFONTMAIN = <?php echo json_encode(get_theme_font("theme_font_main")); ?>;
+    var THEMEFONTTITLE = <?php echo json_encode(get_theme_font("theme_font_title")); ?>;
 </script>
 
 <script src="<?php echo get_parent_template_directory_uri() ?>/bower_components/pace/pace.js"></script>

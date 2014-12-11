@@ -29,6 +29,7 @@
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
     <?php wp_head(); ?>
+    <?php get_theme_font_markup(); ?>
 </head>
 
 <body <?php body_class(); ?>>

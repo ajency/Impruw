@@ -56,7 +56,7 @@ define ['app'
 								family : @$el.find('select').val()
 
 					@model.set selectedModel.toJSON()
-					console.log @model
+					@model.save()
 
 					html = "<style id='theme-font-style'> @font-face {
 											font-family: '#{selectedModel.get('family')}';
@@ -82,12 +82,10 @@ define ['app'
 
 			onShow : ->
 				@$el.find('select').selectpicker()
-				console.log @model
 				if @model.get 'family'
-					@$el.find('select').selectpicker 'val',@model.get 'family'
+					@$el.find('select').selectpicker('val',@model.get 'family').selectpicker 'refresh'
 
 			changeFont : (e)->
-				console.log $(e.target).val()
 				if $('style#theme-font-preview').length
 					$('style#theme-font-preview').remove()
 

@@ -3,13 +3,17 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Fonts", function(Fonts, App, Backbone, Marionette, $, _) {
-    var API, FontsCollection, FontsModel, fontsCollection, fontsModel;
+    var API, FontsCollection, FontsModel, fontsCollection, mainFontModel, titleFontModel;
     FontsModel = (function(_super) {
       __extends(FontsModel, _super);
 
       function FontsModel() {
         return FontsModel.__super__.constructor.apply(this, arguments);
       }
+
+      FontsModel.prototype.name = 'fonts';
+
+      FontsModel.prototype.idAttribute = 'ID';
 
       return FontsModel;
 
@@ -33,7 +37,8 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     fontsCollection = new FontsCollection;
-    fontsModel = new FontsModel('');
+    mainFontModel = new FontsModel(THEMEFONTMAIN);
+    titleFontModel = new FontsModel(THEMEFONTTITLE);
     API = {
       getGoogleFonts: function() {
         if (fontsCollection.size()) {
@@ -44,7 +49,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         }
       },
       getCurrentThemeFont: function() {
-        return fontsModel;
+        return mainFontModel;
       }
     };
     App.reqres.setHandler('get:google:font', function() {
