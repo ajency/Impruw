@@ -33,6 +33,7 @@
     require_once 'modules/user/ajax.php';
     require_once 'modules/site/ajax.php';
     require_once 'modules/api/main.php';
+    require_once 'modules/payments/functions.php';
 
 
 /**
@@ -809,20 +810,3 @@ function impruwmain_comment( $comment, $args, $depth ) {
     endswitch;
 }
 endif; // ends check for impruwmain_comment()
-
-function impruw_add_feature_components($defined_feature_components){
-
-    $yes_no_features = array(
-        array('key' =>'domain_mapping' , 'name' => 'Domain Mapping' )
-    );
-
-    $count_features =  array(array('key' =>'email_account' , 'name' => 'Email Account' ),
-    array('key'=> 'site_add_ons', 'name' => 'Site Add Ons' ));
-
-    $feature_components['yes_no_type'] = $yes_no_features;
-    $feature_components['count_type'] = $count_features;
-
-    return $feature_components;
-
-}
-add_filter('add_feature_components_filter','impruw_add_feature_components',10,1);
