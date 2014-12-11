@@ -1,4 +1,37 @@
-<?php 
+<?php
+    // MAP UTILS
+    global $hb_gmap;
+    $hb_gmap = null;
+
+    // Check if options are ok
+    $hb_gmap = array();
+
+    $hb_gmap[1]['lat'] = hb_options('hb_map_1_latitude');
+    $hb_gmap[1]['lng'] = hb_options('hb_map_1_longitude');
+    $hb_gmap[1]['ibx'] = hb_options('hb_location_1_info');
+
+    $count = 1;
+    for($i = 2; $i <= 8; $i++){
+        if( hb_options('hb_enable_location_' . $i) ) {
+            $count++;
+            $hb_gmap[$count]['lat'] = hb_options('hb_map_' . $i . '_latitude');
+            $hb_gmap[$count]['lng'] = hb_options('hb_map_' . $i . '_longitude');
+            $hb_gmap[$count]['ibx'] = hb_options('hb_location_' . $i . '_info');
+        }   
+    }
+
+    function json_hb_map() {
+        global $hb_gmap; 
+        return $hb_gmap;
+    }
+
+    wp_localize_script( 'hb_map', 'hb_gmap', json_hb_map() );
+
+    $data_map_img = 'data-map-img=""';
+    if ( hb_options('hb_enable_custom_pin') ){
+        $data_map_img = ' data-map-img="' . hb_options('hb_custom_marker_image') . '"';
+    }
+
 if ( !is_home() && !is_archive() && !is_404() && !is_search())  {
     if ( vp_metabox('layout_settings.hb_header_widgets') == "hide" ) return;
     if ( !hb_options('hb_top_header_bar') && vp_metabox('layout_settings.hb_header_widgets') == "default" ) {
@@ -87,7 +120,7 @@ if ( class_exists('Woocommerce') ) {
         <?php
             if ( !is_user_logged_in() ) {
         ?>
-                <a href="#"><!--<i class="hb-moon-user"></i>--><?php _e('Sign In', 'impruwmain'); ?><i class="icon-angle-down"></i></a>
+                <a href="#"><!--<i class="hb-moon-user"></i>--><?php _e('Login', 'hbthemes'); ?><i class="icon-angle-down"></i></a>
                 <!-- BEGIN .login-dropdown -->
                 <div class="hb-dropdown-box login-dropdown">
                     <?php get_template_part ( 'includes/login' , 'form'); ?>
@@ -209,6 +242,13 @@ if ( class_exists('Woocommerce') ) {
 
     if ( hb_options('hb_top_header_socials_enable') ) { ?>
 
+    <?php
+        $target = ' target="_self"';
+        if ( hb_options('hb_soc_links_new_tab') ){
+            $target = ' target="_blank"';
+        }
+    ?>
+
         <!-- BEGIN .top-widget -->
         <div id="top-socials-widget" class="top-widget float-right social-list">
             <ul class="clearfix">
@@ -218,14 +258,26 @@ if ( class_exists('Woocommerce') ) {
                     foreach ($hb_socials as $hb_social) {
                         if ( $hb_social == 'custom-url' ){
                             $hb_social_n = 'link-5';
+                        } else if ( $hb_social == 'vkontakte' ){
+                            $hb_social_n = 'vk';
                         } else {
                             $hb_social_n = $hb_social;
                         }
                     ?>
-                    <li>
-                        <a href="<?php echo hb_options('hb_' . $hb_social . '_link'); ?>" original-title="<?php echo ucfirst($hb_social); ?>"><i class="hb-moon-<?php echo $hb_social_n; ?>"></i></a> 
-                    </li>
-                    <?php
+                    <?php if ($hb_social_n != 'behance' && $hb_social_n != 'vk' && $hb_social_n != 'envelop') { ?>
+                            <li>
+                                <a href="<?php echo hb_options('hb_' . $hb_social . '_link'); ?>" original-title="<?php echo ucfirst($hb_social); ?>"<?php echo $target; ?>><i class="hb-moon-<?php echo $hb_social_n; ?>"></i></a> 
+                            </li>
+                        <?php
+                        } else if ($hb_social_n == 'envelop') { ?>
+                            <li>
+                                <a href="mailto:<?php echo hb_options('hb_' . $hb_social . '_link'); ?>" original-title="<?php echo ucfirst($hb_social); ?>"<?php echo $target; ?>><i class="hb-moon-<?php echo $hb_social_n; ?>"></i></a> 
+                            </li>
+                        <?php } else { ?>
+                            <li>
+                                <a href="<?php echo hb_options('hb_' . $hb_social . '_link'); ?>" original-title="<?php echo ucfirst($hb_social); ?>"<?php echo $target; ?>><i class="icon-<?php echo $hb_social_n; ?>"></i></a> 
+                            </li>
+                        <?php }
                     }
                 }
             ?>
@@ -241,40 +293,6 @@ if ( class_exists('Woocommerce') ) {
 
 </div>
 <!-- END #header-bar -->
-
-<?php 
-global $hb_gmap;
-$hb_gmap = null;
-
-// Check if options are ok
-$hb_gmap = array();
-
-$hb_gmap[1]['lat'] = hb_options('hb_map_1_latitude');
-$hb_gmap[1]['lng'] = hb_options('hb_map_1_longitude');
-$hb_gmap[1]['ibx'] = hb_options('hb_location_1_info');
-
-$count = 1;
-for($i = 2; $i <= 5; $i++){
-    if( hb_options('hb_enable_location_' . $i) ) {
-        $count++;
-        $hb_gmap[$count]['lat'] = hb_options('hb_map_' . $i . '_latitude');
-        $hb_gmap[$count]['lng'] = hb_options('hb_map_' . $i . '_longitude');
-        $hb_gmap[$count]['ibx'] = hb_options('hb_location_' . $i . '_info');
-    }   
-}
-
-function json_hb_map() {
-    global $hb_gmap; 
-    return $hb_gmap;
-}
-
-wp_localize_script( 'hb_map', 'hb_gmap', json_hb_map() );
-
-$data_map_img = 'data-map-img=""';
-if ( hb_options('hb_enable_custom_pin') ){
-    $data_map_img = ' data-map-img="' . hb_options('hb_custom_marker_image') . '"';
-}
-?>
 
 <div id="header-dropdown">
     <div id="contact-map" data-map-level="<?php echo hb_options('hb_map_zoom'); ?>" data-map-lat="<?php echo hb_options('hb_map_latitude') ?>" data-map-lng="<?php echo hb_options('hb_map_longitude'); ?>" data-map-img="<?php echo hb_options('hb_custom_marker_image'); ?>" data-overlay-color="<?php if ( hb_options('hb_enable_map_color') ) { echo hb_options('hb_map_focus_color'); } else { echo 'none'; } ?>"></div>

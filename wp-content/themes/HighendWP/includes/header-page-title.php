@@ -3,11 +3,15 @@ global $wp_query, $post;
 if ( !is_archive() && !is_404() && !is_search() && vp_metabox('misc_settings.hb_special_header_style') ) return;
 
 $post_id = $post->ID;
+$is_shop = false;
 
 if ( function_exists('is_woocommerce') && is_woocommerce() ) {
-	if ( function_exists('is_shop') && is_shop() )
-		if ( function_exists('woocommerce_get_page_id') )
+	if ( function_exists('is_shop') && is_shop() ){
+		if ( function_exists('woocommerce_get_page_id') ) {
 			$post_id = woocommerce_get_page_id( 'shop' );
+			$is_shop = true;
+		}
+	}
 }
 $page_title_type = hb_options('hb_page_title_type');
 
@@ -19,6 +23,8 @@ if ( vp_metabox('general_settings.hb_page_title_option', null, $post_id) == "cus
 if ( $page_title_type == "none" ) return;
 // Return if is 404 page
 if ( is_404() ) return;
+// Return if latest posts are shown on home page - metabox fields not possible
+if ( is_home() ) return;
 
 // Proceed with displaying the page title
 $page_title_background_color = hb_options('hb_page_title_background_color');
@@ -112,85 +118,91 @@ if ( $page_title_style == 'stroke-title' ){
 			<?php if ( ( class_exists('bbPress') && !bbp_is_forum_archive() ) || !class_exists('bbPress') ) { ?>
 			<?php if ( vp_metabox('general_settings.hb_page_subtitle') || is_search() || is_archive() ) { ?>
 			<br/>
-			<h2 class="<?php echo $page_subtitle_animation; ?>">
-				<?php 
-				if ( is_search() ) {
-					if ( $wp_query->found_posts == 0 )
-					{
-						_e('No results found','hbthemes');
-					}
-					else if ( $wp_query->found_posts == 1)
-					{
-						echo $wp_query->found_posts;
-						_e(' result found for ','hbthemes');
-						echo '<em>'.get_search_query().'</em>';
-					}
-					else
-					{
-						echo $wp_query->found_posts;
-						_e(' results found for ','hbthemes');
-						echo '<em>'.get_search_query().'</em>';
-					}
-				} else if ( is_archive() ) {
-
-					if ( function_exists('is_product_category') && is_product_category() ){
-						echo single_cat_title('',false);
-					} else if ( function_exists('is_shop') && is_shop() ) {
-						if(vp_metabox('general_settings.hb_page_subtitle', null, $post_id)) {
-							echo vp_metabox('general_settings.hb_page_subtitle', null, $post_id); 
+			<?php if ( !$is_shop ) { ?>
+				<h2 class="<?php echo $page_subtitle_animation; ?>">
+					<?php 
+					if ( is_search() ) {
+						if ( $wp_query->found_posts == 0 )
+						{
+							_e('No results found','hbthemes');
 						}
-					} else if ( is_day() ) {
-						_e('Daily Archive for ' , 'hbthemes'); 
-						echo get_the_time( 'F jS, Y' );
-					}
-					else if ( is_month() ) {
-						_e('Monthly Archive for ','hbthemes'); 
-						echo get_the_time('F, Y');
-					}
-					else if ( is_year() ) {
-						_e('Yearly Archive for ','hbthemes');
-						echo get_the_time('Y');
-					}
-					else if ( is_tag() ) {
-						_e('Posts tagged &quot;','hbthemes'); 
-						echo single_tag_title();
-						_e('&quot','hbthemes');
-					}
-					else if ( is_category() ) {
-						_e('Category Archive for &quot;','hbthemes');
-						echo single_cat_title();
-						_e('&quot','hbthemes');
-					}
-					else if ( is_author() ) {
-						$cur_auth = $wp_query->get_queried_object();
-						_e("Entries by ",'hbthemes');
-						echo $cur_auth->nickname;
-					} 
-					else if ( is_tax() ) {
-						$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-						_e( 'Archives for: ', 'hbthemes' ); echo $term->name;
-					} else if ( is_tax( 'post_format' ) ) {
-						if (has_post_format('link'))
-							_e("Archive for Link posts","hbthemes");
-						if (has_post_format('image'))
-							_e("Archive for Image posts","hbthemes");
-						if (has_post_format('quote'))
-							_e("Archive for Quote posts","hbthemes");
-						if (has_post_format('status'))
-							_e("Archive for Status posts","hbthemes");
-						if (has_post_format('audio'))
-							_e("Archive for Audio posts","hbthemes");
-						if (has_post_format('video'))
-							_e("Archive for Video posts","hbthemes");
-						if (get_post_format() == '' )
-							_e("Archive for Standard posts","hbthemes");
-						if (has_post_format('gallery'))
-							_e("Archive for Gallery posts","hbthemes");
-					}
- 				} else if(vp_metabox('general_settings.hb_page_subtitle', null, $post_id)) {
-					echo vp_metabox('general_settings.hb_page_subtitle', null, $post_id); 
-				}?>
-			</h2>
+						else if ( $wp_query->found_posts == 1)
+						{
+							echo $wp_query->found_posts;
+							_e(' result found for ','hbthemes');
+							echo '<em>'.get_search_query().'</em>';
+						}
+						else
+						{
+							echo $wp_query->found_posts;
+							_e(' results found for ','hbthemes');
+							echo '<em>'.get_search_query().'</em>';
+						}
+					} else if ( is_archive() ) {
+
+						if ( function_exists('is_product_category') && is_product_category() ){
+							echo single_cat_title('',false);
+						} else if ( function_exists('is_shop') && is_shop() ) {
+							if(vp_metabox('general_settings.hb_page_subtitle', null, $post_id)) {
+								echo vp_metabox('general_settings.hb_page_subtitle', null, $post_id); 
+							}
+						} else if ( is_day() ) {
+							_e('Daily Archive for ' , 'hbthemes'); 
+							echo get_the_time( 'F jS, Y' );
+						}
+						else if ( is_month() ) {
+							_e('Monthly Archive for ','hbthemes'); 
+							echo get_the_time('F, Y');
+						}
+						else if ( is_year() ) {
+							_e('Yearly Archive for ','hbthemes');
+							echo get_the_time('Y');
+						}
+						else if ( is_tag() ) {
+							_e('Posts tagged &quot;','hbthemes'); 
+							echo single_tag_title();
+							_e('&quot','hbthemes');
+						}
+						else if ( is_category() ) {
+							_e('Category Archive for &quot;','hbthemes');
+							echo single_cat_title();
+							_e('&quot','hbthemes');
+						}
+						else if ( is_author() ) {
+							$cur_auth = $wp_query->get_queried_object();
+							_e("Entries by ",'hbthemes');
+							echo $cur_auth->nickname;
+						} 
+						else if ( is_tax() ) {
+							$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
+							_e( 'Archives for: ', 'hbthemes' ); echo $term->name;
+						} else if ( is_tax( 'post_format' ) ) {
+							if (has_post_format('link'))
+								_e("Archive for Link posts","hbthemes");
+							if (has_post_format('image'))
+								_e("Archive for Image posts","hbthemes");
+							if (has_post_format('quote'))
+								_e("Archive for Quote posts","hbthemes");
+							if (has_post_format('status'))
+								_e("Archive for Status posts","hbthemes");
+							if (has_post_format('audio'))
+								_e("Archive for Audio posts","hbthemes");
+							if (has_post_format('video'))
+								_e("Archive for Video posts","hbthemes");
+							if (get_post_format() == '' )
+								_e("Archive for Standard posts","hbthemes");
+							if (has_post_format('gallery'))
+								_e("Archive for Gallery posts","hbthemes");
+						}
+	 				} else if(vp_metabox('general_settings.hb_page_subtitle', null, $post_id)) {
+						echo vp_metabox('general_settings.hb_page_subtitle', null, $post_id); 
+					} ?>
+				</h2>
+			<?php } else {
+				if(vp_metabox('general_settings.hb_page_subtitle', null, $post_id)) {
+					echo '<h2 class="' . $page_subtitle_animation .'">' . vp_metabox('general_settings.hb_page_subtitle', null, $post_id) . '</h2>';
+				}
+			} ?>
 			<?php } ?>
 			<?php } ?>
 		</div>
