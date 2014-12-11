@@ -1,0 +1,36 @@
+define ["app", 'backbone'], (App, Backbone) ->
+	App.module "Entities.Fonts", (Fonts, App, Backbone, Marionette, $, _)->
+
+		class FontsModel extends Backbone.Model
+
+		class FontsCollection extends Backbone.Collection
+			model : FontsModel
+			url : 'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyCd10sz9JLJawK8D8tcdAbYQw7t4U3xA1A'
+			parse : (response)->
+				response.items
+
+		fontsCollection = new FontsCollection
+
+		fontsModel = new FontsModel ''
+
+		API = 
+			getGoogleFonts : ->
+				if fontsCollection.size()
+					return fontsCollection
+				else
+					fontsCollection.fetch()
+	
+					fontsCollection
+
+			getCurrentThemeFont :->
+				fontsModel
+							
+
+
+
+
+		App.reqres.setHandler 'get:google:font',->
+			API.getGoogleFonts()
+
+		App.reqres.setHandler 'get:current:theme:font',->
+			API.getCurrentThemeFont()

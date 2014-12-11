@@ -1,7 +1,8 @@
 define ['app',
         'apps/builder/header/show/controller',
         'apps/builder/header/change-theme-color/controller',
-        'apps/builder/header/edit-theme-color/controller'], (App)->
+        'apps/builder/header/edit-theme-color/controller'
+        'apps/builder/header/change-theme-font/theme-font-controller'], (App)->
     App.module 'HeaderApp', (HeaderApp, App, Backbone, Marionette, $, _)->
         headerController = null
 

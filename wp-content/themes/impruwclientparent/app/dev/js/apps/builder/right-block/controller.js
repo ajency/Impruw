@@ -27,8 +27,13 @@ define(['app', 'controllers/base-controller', 'apps/builder/right-block/views', 
               region: _this.layout.revisionHistoryRegion,
               pageId: pageId
             });
-            return _this.listenTo(_this.layout, "show:theme:color:clicked", function() {
+            _this.listenTo(_this.layout, "show:theme:color:clicked", function() {
               return App.execute("show:theme:color:set", {
+                region: App.dialogRegion
+              });
+            });
+            return _this.listenTo(_this.layout, "show:theme:font:clicked", function() {
+              return App.execute("show:theme:font:set", {
                 region: App.dialogRegion
               });
             });

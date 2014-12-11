@@ -28,6 +28,9 @@ define ['app'
 		        @listenTo @layout ,"show:theme:color:clicked",->
                     App.execute "show:theme:color:set", region : App.dialogRegion
 
+                @listenTo @layout ,"show:theme:font:clicked",->
+                    App.execute "show:theme:font:set", region : App.dialogRegion
+
 				@show @layout
 
 			_getLayoutView :->

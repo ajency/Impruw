@@ -16,4 +16,5 @@ define [
     'entities/roomtitle'
     'entities/builder/revisions'
     'entities/languages'
+    'entities/fonts'
 ], ->
