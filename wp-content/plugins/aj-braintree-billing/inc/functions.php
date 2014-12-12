@@ -592,7 +592,11 @@ function ajbilling_payment_custom_site_options(){
     $site_id = isset($_GET['id']) ? $_GET['id'] : 0;
 
     //Get plan details for site
-    $ajbilling_plan = ajbilling_fetch_plan($site_id);
+    $ajbilling_plan = ajbilling_get_user_siteplan_options($site_id,$object_type='site');
+    
+    if (!isset($ajbilling_plan['plan_id'])) {
+    	$ajbilling_plan['plan_id'] = -1;
+    }
 
     //Get all active plans from plans table of the payment plugin
     $plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
@@ -607,7 +611,7 @@ function ajbilling_payment_custom_site_options(){
             	<option value="-1">--Select Plan--</option>
             	<?php 
             		foreach ($site_plans as $site_plan) {?>
-            		<option value="<?php echo $site_plan['id'];?>" <?php selected( $ajbilling_plan['id'], $site_plan['id'], true);?>><?php echo $site_plan['title'];?></option>
+            		<option value="<?php echo $site_plan['id'];?>" <?php selected( $ajbilling_plan['plan_id'], $site_plan['id'], true);?>><?php echo $site_plan['title'];?></option>
             		<?php }?>
             		
             	</select>
@@ -693,8 +697,7 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
                 $billing_plan['success'] = 0;
                 $billing_plan['msg'] = 'Unable to fetch plan details from db';
             }
-
-
+            print_r($billing_plan);
             return $billing_plan;
 }
 
