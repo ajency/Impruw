@@ -278,7 +278,10 @@ function save_theme_font( $data ){
 
     $font_type = $data['type'];
     unset( $data['type'] );
+    if ( $data['family'] == 'Default' )
+        $data = array();
     $data['ID'] = 1;
+
     // $theme_data = maybe_serialize( $data );
     update_option( $font_type, $data );
     return 1;
@@ -293,18 +296,36 @@ function get_theme_font( $type ){
 }
 
 function get_theme_font_markup(){
-    $main_font_data = get_theme_font('theme_font_main');
-    if(isset($main_font_data['family'])){
+   
+    get_theme_font_markup_html('theme_font_main','theme-font-style', '.site-style-container');
+    if ( is_sec_font_allowed() == 'TRUE')
+        get_theme_font_markup_html('theme_font_sec', 'theme-sec-font-style', '..menu-collapser, .page-title, 
+            .action-title, .room-title-container .room-title h1 , .roomsummary .room-title, 
+            .booking-title, .room-facilities-container .room-facilities-title h4' );
+
+}
+function get_theme_font_markup_html( $type, $id, $classes){
+    $font_data = get_theme_font( $type );
+    if(isset($font_data['family'])){
         ?>
-        <style id='theme-font-style'> @font-face {
-                        font-family: '<?php echo $main_font_data["family"]; ?>';
-                        src: url('<?php echo isset($main_font_data['files']['regular']) ?
-                         $main_font_data['files']['regular'] :  $main_font_data['files'][0];  ?>');
+        <style id='<?php echo $id ?>'> @font-face {
+                        font-family: '<?php echo $font_data["family"]; ?>';
+                        src: url('<?php echo isset($font_data['files']['regular']) ?
+                         $font_data['files']['regular'] :  $font_data['files'][0];  ?>');
                      }
-                    .site-style-container{
-                        font-family : '<?php echo $main_font_data["family"]; ?>'
+                    <?php echo $classes ?>{
+                        font-family : '<?php echo $font_data["family"]; ?>', <?php echo $font_data["category"];  ?>;
                     }</style>
         <?php
     }
 
 }
+
+function is_sec_font_allowed(){
+    $sec_font_allowed_array = array('Diamond Theme');
+    if (in_array(wp_get_theme(), $sec_font_allowed_array ))
+        return 'TRUE';
+    else
+        return 'FALSE';
+}
+

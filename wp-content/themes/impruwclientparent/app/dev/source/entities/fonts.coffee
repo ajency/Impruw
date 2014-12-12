@@ -15,21 +15,26 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		mainFontModel = new FontsModel THEMEFONTMAIN
 
-		titleFontModel = new FontsModel THEMEFONTTITLE
+		secFontModel = new FontsModel THEMEFONTTITLE
 
 		API = 
 			getGoogleFonts : ->
 				if fontsCollection.size()
 					return fontsCollection
 				else
-					fontsCollection.fetch()
+					fontsCollection.fetch
+						success : (collection)->
+							collection.unshift 
+								family : 'Default'
 	
 					fontsCollection
 
 			getCurrentThemeFont :->
 				mainFontModel
-							
 
+							
+			getCurrentThemeSecFont : ->
+				secFontModel
 
 
 
@@ -38,3 +43,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		App.reqres.setHandler 'get:current:theme:font',->
 			API.getCurrentThemeFont()
+
+		App.reqres.setHandler 'get:current:theme:sec:font',->
+			API.getCurrentThemeSecFont()

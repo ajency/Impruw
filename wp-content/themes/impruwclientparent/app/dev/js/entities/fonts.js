@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Fonts", function(Fonts, App, Backbone, Marionette, $, _) {
-    var API, FontsCollection, FontsModel, fontsCollection, mainFontModel, titleFontModel;
+    var API, FontsCollection, FontsModel, fontsCollection, mainFontModel, secFontModel;
     FontsModel = (function(_super) {
       __extends(FontsModel, _super);
 
@@ -38,25 +38,37 @@ define(["app", 'backbone'], function(App, Backbone) {
     })(Backbone.Collection);
     fontsCollection = new FontsCollection;
     mainFontModel = new FontsModel(THEMEFONTMAIN);
-    titleFontModel = new FontsModel(THEMEFONTTITLE);
+    secFontModel = new FontsModel(THEMEFONTTITLE);
     API = {
       getGoogleFonts: function() {
         if (fontsCollection.size()) {
           return fontsCollection;
         } else {
-          fontsCollection.fetch();
+          fontsCollection.fetch({
+            success: function(collection) {
+              return collection.unshift({
+                family: 'Default'
+              });
+            }
+          });
           return fontsCollection;
         }
       },
       getCurrentThemeFont: function() {
         return mainFontModel;
+      },
+      getCurrentThemeSecFont: function() {
+        return secFontModel;
       }
     };
     App.reqres.setHandler('get:google:font', function() {
       return API.getGoogleFonts();
     });
-    return App.reqres.setHandler('get:current:theme:font', function() {
+    App.reqres.setHandler('get:current:theme:font', function() {
       return API.getCurrentThemeFont();
+    });
+    return App.reqres.setHandler('get:current:theme:sec:font', function() {
+      return API.getCurrentThemeSecFont();
     });
   });
 });

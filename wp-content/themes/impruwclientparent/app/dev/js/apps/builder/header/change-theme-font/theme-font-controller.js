@@ -15,16 +15,10 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/change-theme-
           opt = {};
         }
         this.layout = this.getLayout();
-        this.themeFontCollection = App.request('get:google:font');
-        this.themeFontModel = App.request('get:current:theme:font');
-        return App.execute('when:fetched', [this.themeFontCollection], (function(_this) {
-          return function() {
-            _this.listenTo(_this.layout, "show", _this.showFontSet);
-            return _this.show(_this.layout, {
-              loading: true
-            });
-          };
-        })(this));
+        this.listenTo(this.layout, "show", this.showFontSet);
+        return this.show(this.layout, {
+          loading: true
+        });
       };
 
       Controller.prototype.getLayout = function() {
@@ -32,17 +26,25 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/change-theme-
       };
 
       Controller.prototype.showFontSet = function() {
+        this.themeFontCollection = App.request('get:google:font');
+        this.themeFontModel = App.request('get:current:theme:font');
+        this.themeSecFontModel = App.request('get:current:theme:sec:font');
         this.themeFontSetView = this.getView(this.themeFontCollection);
         this.listenTo(this.themeFontSetView, 'dialog:close', function() {
           return this.layout.trigger('dialog:close');
         });
-        return this.layout.themefontsetRegion.show(this.themeFontSetView);
+        return App.execute('when:fetched', [this.themeFontCollection], (function(_this) {
+          return function() {
+            return _this.layout.themefontsetRegion.show(_this.themeFontSetView);
+          };
+        })(this));
       };
 
       Controller.prototype.getView = function() {
         return new ChangeThemeFontApp.Views.ThemeFontSetView({
           collection: this.themeFontCollection,
-          model: this.themeFontModel
+          model: this.themeFontModel,
+          secModel: this.themeSecFontModel
         });
       };
 

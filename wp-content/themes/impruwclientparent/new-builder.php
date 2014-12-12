@@ -115,7 +115,8 @@
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;
     var THEMEFONTMAIN = <?php echo json_encode(get_theme_font("theme_font_main")); ?>;
-    var THEMEFONTTITLE = <?php echo json_encode(get_theme_font("theme_font_title")); ?>;
+    var THEMEFONTTITLE = <?php echo json_encode(get_theme_font("theme_font_sec")); ?>;
+    var ISSECFONTALLOWED = '<?php echo is_sec_font_allowed(); ?>';
 </script>
 
 <script src="<?php echo get_parent_template_directory_uri() ?>/bower_components/pace/pace.js"></script>

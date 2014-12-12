@@ -33,73 +33,125 @@ define(['app'], function(App) {
         return ThemeFontSetView.__super__.constructor.apply(this, arguments);
       }
 
-      ThemeFontSetView.prototype.template = '<select> {{#fonts}} <option value="{{family}}">{{family}}</option> {{/fonts}} </select> <button class="btn btn-alert change-font-cancel">cancel</button> <button class="btn btn-primary change-font-apply">apply</button>';
+      ThemeFontSetView.prototype.template = '<select id="theme-font-dropdown"> {{#fonts}} <option value="{{family}}">{{family}}</option> {{/fonts}} </select> {{#secFontsAllowed}} <select id="theme-sec-font-dropdown"> {{#fonts}} <option value="{{family}}">{{family}}</option> {{/fonts}} </select> {{/secFontsAllowed}} <button class="btn btn-alert change-font-cancel">cancel</button> <button class="btn btn-primary change-font-apply">apply</button>';
 
       ThemeFontSetView.prototype.mixinTemplateHelpers = function(data) {
         data = ThemeFontSetView.__super__.mixinTemplateHelpers.call(this, data);
         console.log(this.collection);
         data.fonts = this.collection.toJSON();
+        data.secFontsAllowed = this.isSecFontAllowed;
         return data;
       };
 
       ThemeFontSetView.prototype.events = {
-        'change select': 'changeFont',
+        'change select#theme-font-dropdown': 'changeMainFonts',
+        'change select#theme-sec-font-dropdown': 'changeSecFonts',
         'click .change-font-cancel': function() {
           if ($('style#theme-font-preview').length) {
             $('style#theme-font-preview').remove();
           }
+          if ($('style#theme-sec-font-preview').length) {
+            $('style#theme-sec-font-preview').remove();
+          }
           return this.trigger('dialog:close');
         },
-        'click .change-font-apply': function() {
-          var html, selectedModel;
-          if ($('style#theme-font-preview').length) {
-            $('style#theme-font-preview').remove();
-          }
-          if ($('style#theme-font-style').length) {
-            $('style#theme-font-style').remove();
-          }
-          selectedModel = this.collection.findWhere({
-            family: this.$el.find('select').val()
-          });
-          this.model.set(selectedModel.toJSON());
-          this.model.save();
-          html = "<style id='theme-font-style'> @font-face { font-family: '" + (selectedModel.get('family')) + "'; src: url('";
-          html += selectedModel.get('files').regular != null ? selectedModel.get('files').regular : selectedModel.get('files')[0];
-          html += "'); } .site-style-container{ font-family : '" + (selectedModel.get('family')) + "' }</style>";
-          $('head').append(html);
-          return this.trigger('dialog:close');
-        }
+        'click .change-font-apply': 'applyFonts'
       };
 
       ThemeFontSetView.prototype.initialize = function() {
-        return this.collection = Marionette.getOption(this, 'collection');
+        this.collection = Marionette.getOption(this, 'collection');
+        this.secModel = Marionette.getOption(this, 'secModel');
+        this.isSecFontAllowed = _.toBoolean(ISSECFONTALLOWED);
+        return this.secClasses = '.menu-collapser, .page-title, .action-title, .room-title-container .room-title h1 , .roomsummary .room-title, .booking-title, .room-facilities-container .room-facilities-title h4';
       };
 
       ThemeFontSetView.prototype.onShow = function() {
         this.$el.find('select').selectpicker();
         if (this.model.get('family')) {
-          return this.$el.find('select').selectpicker('val', this.model.get('family')).selectpicker('refresh');
+          this.$el.find('select#theme-font-dropdown').selectpicker('val', this.model.get('family')).selectpicker('refresh');
+        }
+        if (this.secModel.get('family')) {
+          return this.$el.find('select#theme-sec-font-dropdown').selectpicker('val', this.secModel.get('family')).selectpicker('refresh');
         }
       };
 
-      ThemeFontSetView.prototype.changeFont = function(e) {
-        var html, selectedModel;
+      ThemeFontSetView.prototype.changeMainFonts = function(e) {
+        var selectedModel;
         if ($('style#theme-font-preview').length) {
           $('style#theme-font-preview').remove();
         }
+        if ($(e.target).val() === 'Default') {
+          return $('head').append("<style id='theme-font-preview'>.site-style-container{ font-family : 'Lato', sans-serif; }</style>");
+        } else {
+          selectedModel = this.collection.findWhere({
+            family: $(e.target).val()
+          });
+          return this.addStyleMarkup(selectedModel, 'theme-font-preview', '.site-style-container');
+        }
+      };
+
+      ThemeFontSetView.prototype.changeSecFonts = function(e) {
+        var selectedSecModel;
+        if ($('style#theme-sec-font-preview').length) {
+          $('style#theme-sec-font-preview').remove();
+        }
+        if ($(e.target).val() === 'Default') {
+          return $('head').append("<style id='theme-sec-font-preview'> " + this.secClasses + "{ font-family : 'Satisfy', cursive; } </style>");
+        } else {
+          selectedSecModel = this.collection.findWhere({
+            family: $(e.target).val()
+          });
+          return this.addStyleMarkup(selectedSecModel, 'theme-sec-font-preview', this.secClasses);
+        }
+      };
+
+      ThemeFontSetView.prototype.applyFonts = function() {
+        var selectedModel, selectedSecModel;
+        if ($('style#theme-font-preview').length) {
+          $('style#theme-font-preview').remove();
+        }
+        if ($('style#theme-font-style').length) {
+          $('style#theme-font-style').remove();
+        }
         selectedModel = this.collection.findWhere({
-          family: $(e.target).val()
+          family: this.$el.find('select#theme-font-dropdown').val()
         });
-        html = "<style id='theme-font-preview'> @font-face { font-family: '" + (selectedModel.get('family')) + "'; src: url('";
-        html += selectedModel.get('files').regular != null ? selectedModel.get('files').regular : selectedModel.get('files')[0];
-        html += "'); } .site-style-container{ font-family : '" + (selectedModel.get('family')) + "' }</style>";
-        return $('head').append(html);
+        this.model.set(selectedModel.toJSON());
+        this.model.save();
+        if (selectedModel.get('family') !== 'Default') {
+          this.addStyleMarkup(selectedModel, 'theme-font-style', '.site-style-container');
+        }
+        if (this.isSecFontAllowed) {
+          if ($('style#theme-sec-font-preview').length) {
+            $('style#theme-sec-font-preview').remove();
+          }
+          if ($('style#theme-sec-font-style').length) {
+            $('style#theme-sec-font-style').remove();
+          }
+          selectedSecModel = this.collection.findWhere({
+            family: this.$el.find('select#theme-sec-font-dropdown').val()
+          });
+          this.secModel.set(selectedSecModel.toJSON());
+          this.secModel.save();
+          if (selectedSecModel.get('family') !== 'Default') {
+            this.addStyleMarkup(selectedSecModel, 'theme-sec-font-style', this.secClasses);
+          }
+        }
+        return this.trigger('dialog:close');
       };
 
       ThemeFontSetView.prototype.onClose = function() {
         if ($('style#theme-font-preview').length) {
           return $('style#theme-font-preview').remove();
         }
+      };
+
+      ThemeFontSetView.prototype.addStyleMarkup = function(model, id, classes) {
+        var html;
+        html = "<style id='" + id + "'> @font-face { font-family: '" + (model.get('family')) + "'; src: url('";
+        html += model.get('files').regular != null ? model.get('files').regular : model.get('files')[0];
+        html += "'); } " + classes + "{ font-family : '" + (model.get('family')) + "'," + (model.get('category')) + " }</style>";
+        return $('head').append(html);
       };
 
       return ThemeFontSetView;
