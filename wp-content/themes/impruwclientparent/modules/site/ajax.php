@@ -79,6 +79,8 @@ function read_language_based_site_ajax(){
     $data[ 'default_language' ] = get_native_language_name(wpml_get_default_language());
     $data['translation_language'] = get_native_language_name($language);
 
+    $data['domain_mapping_status'] = is_feature_allowed('domain_mapping');
+
      if ( is_array( $data ) )
         wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
     else

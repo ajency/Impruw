@@ -1148,4 +1148,18 @@ function get_site_domain_name(){
     return $domain_name;
 }
 
+function is_feature_allowed($feature_component){
+    $site_id = get_current_blog_id();
+    $is_allowed = 0;
+
+    switch ($feature_component) {
+        case 'domain_mapping':
+            $domain_mapping = ajbilling_is_this_user_allowed($site_id , 'site', $feature_component);
+            $is_allowed = $domain_mapping['allowed'];
+            break;
+    }
+    
+    return $is_allowed;
+}
+
 
