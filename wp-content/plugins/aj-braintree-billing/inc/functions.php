@@ -568,5 +568,23 @@ function ajbilling_decrement_feature_count($current_count, $standard_count){
 	return $decremented_value;	
 }
 
+function ajbilling_is_object_type_set(){
+
+	switch_to_blog( 1 );
+		$ajbilling_settings = get_option('ajbilling_settings',0);
+	restore_current_blog();
+
+	if ($ajbilling_settings) {
+		if ($ajbilling_settings['object_type']!="") {
+			$object_type_set = array('status'=>true,'object_type'=>$ajbilling_settings);
+		};
+	}
+	else{
+		$object_type_set = array('status'=>false,'object_type'=>'');
+	}
+
+	return $object_type_set;
+}
+
 
 

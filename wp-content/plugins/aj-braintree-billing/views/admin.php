@@ -17,13 +17,58 @@
 ?>
 <div class="wrap">
 
-	<?php screen_icon(); ?>
-	<!-- <h2><?php //echo esc_html( get_admin_page_title() ); ?></h2> -->
+	<?php 
+		screen_icon(); 
+		$ajbilling_object_type = ajbilling_is_object_type_set();
+
+		if ($ajbilling_object_type['status']) {
+			$hide_default_view = '';
+		}
+		else{
+			$hide_default_view = 'hidden';
+		}
+	?>
+	<!--<h2><?php //echo esc_html( get_admin_page_title() ); ?></h2>-->
 
 	<!-- TODO: Provide markup for your options page here. -->
-	<div class="wrap">
+	<div class="wrap ajbilling-object-type">
+		<table class="form-table">
+			<tbody>
+				<tr>
+					<th class="row-title">Object Type :</th>
+					<td>
+						<?php 
+						if($ajbilling_object_type['status']){?>
+							<label><?php echo strtoupper($ajbilling_object_type['object_type']);?></label>
+						<?php }
+						else{?>
+							<div class='object_type_section'>
+								<select id="ajbilling_object_type">
+									<option value="-1">Select Object Type</option>
+									<option value="site">Site</option>
+									<option value="user">User</option>
+								</select>
+								<span class="description">Decides whether to store all plan settings as site options or as user meta</span>
+							</div>
 
-		<div id="icon-options-general" class="icon32"></div>
+							<?php }?>
+						
+						<div class='object-validation-error'></div>
+					</td>
+					<td>
+						<?php if (!$ajbilling_object_type['status']){?>
+							<input class="button-primary" type="button" name="" value="Save Object type" id="ajbilling_save_object_type"/>
+						<?php }?>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	
+	</div> <!-- .wrap -->
+	<div class="<?php echo 'wrap '.$hide_default_view ; ?> ajbilling-plan-listing">
+
+		<div id="icon-options-general" class="icon32" ></div>
 		<div>
 		<h2>Site Plans <a href="admin.php?page=ajency-braintree-add-plan&amp;edit_planid=-1" class="add-new-h2">Add New</a></h2> 
 		</div>

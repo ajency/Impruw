@@ -39,10 +39,20 @@
 ?>
 <div class="wrap">
 
-	<?php screen_icon(); ?>
+	<?php 
+		screen_icon(); 
+		if (ajbilling_is_object_type_set()) {
+			$hide_default_view = '';
+		}
+		else{
+			$hide_default_view = 'hidden';
+		}
+		
+
+	?>
 
 	<!-- TODO: Provide markup for your options page here. -->
-	<div class="wrap">
+	<div class="<?php echo 'wrap '.$hide_default_view ; ?>">
 
 		<div id="icon-options-general" class="icon32"></div>
 		<div>
@@ -83,7 +93,7 @@
 				<table class="form-table">
 					<tbody>
 						<tr>
-						<th scope="row" valign="top"><label><?php _e('Plan ID', 'ajency-braintree');?>:</label></th>
+							<th scope="row" valign="top"><label><?php _e('Plan ID', 'ajency-braintree');?>:</label></th>
 							<td>
 								<?php echo $site_plan_object->id; ?>						
 							</td>

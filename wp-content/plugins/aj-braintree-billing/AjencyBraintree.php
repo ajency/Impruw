@@ -220,8 +220,12 @@ class AjencyBraintree{
 	 * @since    0.1.0
 	 */
 	public function add_plugin_admin_menu() {
-		$this->plugin_screen_hook_suffix = add_menu_page(__("Ajency Braintree - Plans", $this->plugin_slug),__("Ajency Braintree", $this->plugin_slug), "read", $this->plugin_slug, array($this, "display_plugin_admin_page"));
-		add_submenu_page($this->plugin_slug, __('Ajency Braintree - Add New Plan', $this->plugin_slug), __('Add New Plan', $this->plugin_slug), 'read', $this->plugin_slug.'-add-plan', array($this, "display_add_plan_page"));
+		$this->plugin_screen_hook_suffix = add_menu_page(__("Ajency Braintree - Plans", $this->plugin_slug),__("Site Plans", $this->plugin_slug), "read", $this->plugin_slug, array($this, "display_plugin_admin_page"));
+		
+		// add_submenu_page('$this->plugin_slug', __('Ajency Braintree - Add New Plan', $this->plugin_slug), __('Add New Plan', $this->plugin_slug), 'read', $this->plugin_slug.'-add-plan', array($this, "display_add_plan_page"));
+
+		// pass parent slug as null, if you do not wish to show the page in the sub menu
+		add_submenu_page(null, __('Ajency Braintree - Add New Plan', $this->plugin_slug), __('Add New Plan', $this->plugin_slug), 'read', $this->plugin_slug.'-add-plan', array($this, "display_add_plan_page"));
 
 
 

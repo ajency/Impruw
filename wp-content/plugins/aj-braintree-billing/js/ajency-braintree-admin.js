@@ -18,7 +18,7 @@
 
 		
 
-		jQuery('#add_another_feature').click(function() {
+		$('#add_another_feature').click(function() {
 			var plan_feature_tbl_body = $('#plan_feature_table tbody');
 			var i = $('#plan_feature_table tbody tr').size() + 1;
 			var featureIndex = i-1;
@@ -42,12 +42,12 @@
         });
 
 
-		 jQuery('#save_plan').click(function() {
+		$('#save_plan').click(function() {
 		 	var arr, selectedlanguage;
 
 		 	var data = $("#save-plan-form").serialize();
 
-		 	jQuery.post(	
+		 	$.post(	
 		 			ajaxurl, 
 		 			data, 
 		 			function(response) {
@@ -56,6 +56,43 @@
 
 		 			});
      
+    	});
+
+    	$('#ajbilling_save_object_type').click(function(){
+    		alert('save object type');
+
+    		var selected_object_type = $('#ajbilling_object_type').val();
+
+    		if (selected_object_type==-1) {
+    			var msg = 'Please select an object type';
+    			$('.object-validation-error').empty();
+    			$('.object-validation-error').append('<div class="ui-state-error ui-corner-all" >'+msg+'</div>');
+    			$('.ui-state-error').fadeOut(5000);
+    			return
+    		}
+    		else{
+    			var data = {'action':'update-objectType','object_type':selected_object_type};
+
+    			$.post(	
+    				ajaxurl, 
+    				data, 
+    				function(response) {
+    					var object_type = response.object_type.toUpperCase();
+    					if (response.code==='OK') {
+    						$( ".object_type_section" ).replaceWith( "<label>"+object_type+"</label>" );
+    						$( "#ajbilling_save_object_type" ).remove();
+    						$('.ajbilling_save_object_type').addClass('hidden');
+    						$('.ajbilling-plan-listing').removeClass('hidden');
+    					}
+    					else{
+    						var msg = response.msg;
+    						$('.object-validation-error').empty();
+    						$('.object-validation-error').append('<div class="ui-state-error ui-corner-all" >'+msg+'</div>');
+    						$('.ui-state-error').fadeOut(5000);	
+    					}
+    				});
+
+    		}
     	});
 
 	
