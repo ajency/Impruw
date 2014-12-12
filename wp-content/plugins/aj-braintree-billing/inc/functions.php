@@ -593,7 +593,7 @@ function ajbilling_payment_custom_site_options(){
 
     //Get plan details for site
     $ajbilling_plan = ajbilling_get_user_siteplan_options($site_id,$object_type='site');
-    
+
     if (!isset($ajbilling_plan['plan_id'])) {
     	$ajbilling_plan['plan_id'] = -1;
     }
@@ -697,7 +697,6 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
                 $billing_plan['success'] = 0;
                 $billing_plan['msg'] = 'Unable to fetch plan details from db';
             }
-            print_r($billing_plan);
             return $billing_plan;
 }
 
@@ -791,6 +790,74 @@ function ajbilling_fetch_all_plans($object_id, $object_type='site'){
 	}
 
 	return $billing_plans;
+}
+
+function ajbilling_is_this_user_allowed($object_id , $object_type='site', $feature_component){
+	if(!ajbilling_object_exists($object_id,$object_type)){
+		$result = array('code' => 'ERROR' , 'msg' => $object_type.' with id '.$object_id.' does not exist');
+		return $result;
+	}
+    //Check if feature_component is registered and valid, if no return failure msg
+	$yes_no_features = ajbilling_get_all_feature_components('yes_no_type');
+	$count_features = ajbilling_get_all_feature_components('count_type');
+	$all_features = ajbilling_get_all_feature_components('all');
+
+	$user_site_plan = ajbilling_get_user_siteplan_options($object_id,'site');
+
+	$site_features = $user_site_plan['feature_count'];
+	$plugin_plan = ajbilling_fetch_plan($object_id);
+
+	$site_plan_id = $plugin_plan['id'];
+
+	$result = array();
+
+    // If user site feature is a registered theme features
+	if (ajbilling_is_registered_feature($feature_component)) {
+
+                // If yes no type and if enabled return allowed
+		if (ajbilling_is_yesno_feature($feature_component)) {
+			$plugin_feature_enabled = ajbilling_plugin_feature_enable_status($site_plan_id,$feature_component);
+			if ($plugin_feature_enabled==='true') {
+				$result = array('code' => 'OK' , 'allowed'=>1 );
+			}
+			else{
+				$result = array('code' => 'OK' , 'allowed'=>0 );
+			}
+
+		}
+		else if(ajbilling_is_count_feature($feature_component)) {
+                // If count type then Check count of this feature for user. 
+
+                    // Check if feature is enabled
+			$plugin_feature_enabled = ajbilling_plugin_feature_enable_status($site_plan_id,$feature_component);
+			if ($plugin_feature_enabled==='true') {
+				foreach ($site_features as $site_feature) {
+					if ($site_feature['key']==$feature_component) {
+						$plugin_feature_count = ajbilling_get_plugin_feature_count($site_plan_id,$feature_component);
+                                // If site feature count is less or equal to plugin feature count return allowed
+						if ($site_feature['count']<=$plugin_feature_count) {
+							$result = array('code' => 'OK' , 'allowed'=>1 );
+						}
+						else{
+							$result = array('code' => 'OK' , 'allowed'=>0 );
+						}
+
+					}
+				}
+			}
+			else{
+				$result = array('code' => 'OK' , 'allowed'=>0 );
+			}
+
+		}
+		else{
+			$result = array('code' => 'OK' , 'allowed'=>0 );
+		}
+	}
+	else{
+		$result = array('code' => 'ERROR' , 'msg' => 'This feature is not a registered site feature');
+	}
+	return $result;
 }
 
 
