@@ -89,6 +89,14 @@ class AjencyBraintree{
 		// hook function to register plugin defined and theme defined components
         add_action("init", array($this, "register_feature_components"));
 
+        add_action('admin_footer', array($this, 'payment_custom_site_options'));
+
+        add_action( "admin_print_scripts-site-info.php", array($this, 'my_admin_scripts') );
+
+        add_action('admin_footer',array($this, 'paymentApi_url'));
+
+
+
 	}
 
 	/**
@@ -268,6 +276,23 @@ class AjencyBraintree{
 		// TODO: Define your action hook callback here
 		ajbilling_register_feature_component();
 	}
+
+	public function payment_custom_site_options() {
+		// TODO: Define your action hook callback here
+		ajbilling_payment_custom_site_options();
+	}
+
+	public function my_admin_scripts() {
+		// TODO: Define your action hook callback here
+		ajbilling_my_admin_scripts();
+	}
+
+	public function paymentApi_url() {
+		// TODO: Define your action hook callback here
+		ajbilling_paymentApi_url();
+	}
+
+
 
 	/**
 	 * NOTE:  Filters are points of execution in which WordPress modifies data
