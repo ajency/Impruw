@@ -106,7 +106,7 @@ CKEDITOR.editorConfig = function( config ) {
 	{ name: 'links', items: [ 'Link', 'Unlink' ] },
 	{ name: 'insert', items: [  'SpecialChar'] },
 	'/',
-	{ name: 'styles', items: [  'Titlestyles', 'Font', 'FontSize' ] },
+	{ name: 'styles', items: [  'Titlestyles', 'FontSize' ] },
 	{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
 	
 ];

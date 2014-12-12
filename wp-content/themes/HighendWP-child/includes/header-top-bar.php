@@ -100,9 +100,13 @@ if ( class_exists('Woocommerce') ) {
         <a href="#" id="show-map-button"><i class="hb-moon-location-4"></i><?php echo hb_options('hb_top_header_map_text'); ?></a>
     </div>
     <!-- END .top-widget -->
-    <?php } 
+    <?php } ?>
 
-    // Email
+    <div id="top-left-widget" class="top-widget float-left">
+        <?php dynamic_sidebar( 'top-left-sidebar' ); ?>
+    </div>
+
+    <?php // Email
     if ( $header_left_email ) {
     ?>
         <!-- BEGIN .top-widget Email -->
@@ -287,6 +291,10 @@ if ( class_exists('Woocommerce') ) {
         <!-- END .top-widget -->
 
     <?php } ?>
+
+    <div id="top-menu-2-widget" class="top-widget float-right">
+        <?php dynamic_sidebar( 'top-menu-sidebar' ); ?>
+    </div>
 
     </div>
     <!-- END .container or .container-wide -->
