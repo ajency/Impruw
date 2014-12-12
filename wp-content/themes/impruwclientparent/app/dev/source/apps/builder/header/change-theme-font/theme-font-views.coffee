@@ -63,7 +63,7 @@ define ['app'
 				@collection = Marionette.getOption @, 'collection'
 				@secModel = Marionette.getOption @,'secModel'
 				@isSecFontAllowed = _.toBoolean ISSECFONTALLOWED
-				@secClasses = '.menu-collapser, .page-title, .action-title, .room-title-container .room-title h1 ,
+				@secClasses = '.menu-collapser, .title.page-title, .title.action-title, .room-title-container .room-title h1 ,
 						.roomsummary .room-title, .booking-title, .room-facilities-container .room-facilities-title h4'
 
 			onShow : ->

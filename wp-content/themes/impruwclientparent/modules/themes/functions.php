@@ -288,9 +288,26 @@ function save_theme_font( $data ){
 }
 
 function get_theme_font( $type ){
-    $default_font = array();
+    if(isset($_GET['revision']) ){
+                
+        $revision_id = (int) $_GET['revision'];
+        $font_data =  get_post_meta( $revision_id, 'font-data', true ) ;
+        if ( !empty($font_data) ){
+            $font_data = maybe_unserialize( $font_data );
+            $theme_data = $font_data[ $type ];
+        }
+        else
+            $theme_data = array('ID' => 1);
+
+    }
+    else{
     // $default_font->type = $type;
-    $theme_data = get_option( $type , $default_font );
+        $theme_data = get_option( $type );
+        if (!$theme_data){
+            $theme_data = array( 'ID' => 1);
+            update_option( $type, $theme_data);
+        }
+    }
     $theme_data['type'] = $type;
     return $theme_data;
 }
@@ -299,8 +316,8 @@ function get_theme_font_markup(){
    
     get_theme_font_markup_html('theme_font_main','theme-font-style', '.site-style-container');
     if ( is_sec_font_allowed() == 'TRUE')
-        get_theme_font_markup_html('theme_font_sec', 'theme-sec-font-style', '..menu-collapser, .page-title, 
-            .action-title, .room-title-container .room-title h1 , .roomsummary .room-title, 
+        get_theme_font_markup_html('theme_font_sec', 'theme-sec-font-style', '.menu-collapser, .title.page-title, 
+            .title.action-title, .room-title-container .room-title h1 , .roomsummary .room-title, 
             .booking-title, .room-facilities-container .room-facilities-title h4' );
 
 }

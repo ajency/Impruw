@@ -676,6 +676,10 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
     if ( $theme->exists() && $theme->is_allowed() )
         switch_theme( $theme->get_stylesheet() );
 
+    // clear the font to set default
+    update_option('theme_font_main',array('ID' => 1));
+    update_option('theme_font_sec',array('ID' => 1));
+    
     clear_compile_stylesheet();
     reset_colorset_option_to_default();
 
