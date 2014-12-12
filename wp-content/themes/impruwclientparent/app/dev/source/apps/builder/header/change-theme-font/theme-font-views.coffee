@@ -19,21 +19,43 @@ define ['app'
 
 		class Views.ThemeFontSetView extends Marionette.ItemView
 
-			template : '<select id="theme-font-dropdown">
-							{{#fonts}}
-								<option value="{{family}}">{{family}}</option>
-							{{/fonts}}
-						</select>
-						{{#secFontsAllowed}}
-						<select id="theme-sec-font-dropdown">
-							{{#fonts}}
-								<option value="{{family}}">{{family}}</option>
-							{{/fonts}}
-						</select>
-						{{/secFontsAllowed}}
+			template : '<div class="row font-view">
+							<h4>Primary Font</h4>
+							<div class="col-sm-4">
+								<select id="theme-font-dropdown">
+									{{#fonts}}
+										<option value="{{family}}">{{family}}</option>
+									{{/fonts}}
+								</select>
+							</div>
+							<div class="col-sm-8 font-preview">
+								<span class="font-1-preview site-style-container">
+									Preview your main website font here.
+								</span>
+							</div>
+						</div>
 
-						<button class="btn btn-alert change-font-cancel">cancel</button>
-						<button class="btn btn-primary change-font-apply">apply</button>'
+						{{#secFontsAllowed}}
+						<div class="row font-view">
+							<h4>Secondary Font</h4>
+							<div class="col-sm-4">
+								<select id="theme-sec-font-dropdown">
+									{{#fonts}}
+										<option value="{{family}}">{{family}}</option>
+									{{/fonts}}
+								</select>
+							</div>
+							<div class="col-sm-8 font-preview">
+								<span class="font-2-preview">
+									Preview your main website font here.
+								</span>
+							</div>
+						</div>
+						{{/secFontsAllowed}}
+						<div class="font-actions t-a-r">
+							<button class="btn btn-default btn-sm change-font-cancel">Cancel</button>
+							<button class="btn btn-default btn-sm aj-imp-orange-btn change-font-apply">Apply</button>
+						</div>'
 
 			mixinTemplateHelpers : (data)->
 				data = super data
@@ -64,7 +86,7 @@ define ['app'
 				@secModel = Marionette.getOption @,'secModel'
 				@isSecFontAllowed = _.toBoolean ISSECFONTALLOWED
 				@secClasses = '.menu-collapser, .page-title, .action-title, .room-title-container .room-title h1 ,
-						.roomsummary .room-title, .booking-title, .room-facilities-container .room-facilities-title h4'
+						.roomsummary .room-title, .booking-title, .room-facilities-container .room-facilities-title h4, .font-2-preview'
 
 			onShow : ->
 				@$el.find('select').selectpicker()
