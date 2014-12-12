@@ -26,9 +26,16 @@ define [ 'app'
                 data
 
             onShow : ->
-                subscriptionId = @model.get 'braintree_subscription'
+                # subscriptionId = @model.get 'braintree_subscription'
 
-                if subscriptionId is "ImpruwFree" or subscriptionId is null
+                # if subscriptionId is "ImpruwFree" or subscriptionId is null
+                #     @$el.find( '#domain-name' ).attr 'readonly', 'readonly'
+                #     @$el.find( '.upgrade' ).show()
+                #     @$el.find( '.domain-update, .update-help' ).hide()
+
+                is_domain_mapping_allowed = @model.get 'domain_mapping_status'
+
+                if is_domain_mapping_allowed is 0
                     @$el.find( '#domain-name' ).attr 'readonly', 'readonly'
                     @$el.find( '.upgrade' ).show()
                     @$el.find( '.domain-update, .update-help' ).hide()

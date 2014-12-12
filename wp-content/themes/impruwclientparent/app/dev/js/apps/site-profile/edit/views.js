@@ -37,9 +37,9 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
       };
 
       MainView.prototype.onShow = function() {
-        var m, subscriptionId, w;
-        subscriptionId = this.model.get('braintree_subscription');
-        if (subscriptionId === "ImpruwFree" || subscriptionId === null) {
+        var is_domain_mapping_allowed, m, w;
+        is_domain_mapping_allowed = this.model.get('domain_mapping_status');
+        if (is_domain_mapping_allowed === 0) {
           this.$el.find('#domain-name').attr('readonly', 'readonly');
           this.$el.find('.upgrade').show();
           this.$el.find('.domain-update, .update-help').hide();
