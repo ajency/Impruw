@@ -27,7 +27,7 @@
 if (!defined("WPINC")) {
 	die;
 }
-define("AJ_BRAINTREE", WP_PLUGIN_URL . "/ajency-braintree");
+define("AJ_BRAINTREE", WP_PLUGIN_URL . "/aj-braintree-billing");
 require_once(plugin_dir_path(__FILE__) . "AjencyBraintree.php");
 require_once(plugin_dir_path(__FILE__) . "inc/functions.php");
 require_once(plugin_dir_path(__FILE__) . "inc/ajax.php");
