@@ -2907,7 +2907,7 @@ and open the template in the editor.
   border-color: transparent;
   bottom: -17px;
   border-width: 0 9px 10px 0;
-  border-right-color: #831618;
+  border-right-color: #970c11;
   left: 0px;
 }
 .row.menu-bar > .column:last-child:after {
@@ -2917,7 +2917,7 @@ and open the template in the editor.
   border-color: transparent;
   bottom: -17px;
   border-width: 0 0 10px 9px;
-  border-left-color: #831618;
+  border-left-color: #970c11;
   right: 0px;
 }
 .row.footer-bar {
