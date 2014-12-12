@@ -586,5 +586,211 @@ function ajbilling_is_object_type_set(){
 	return $object_type_set;
 }
 
+function ajbilling_payment_custom_site_options(){
+    global $pagenow,$wpdb;
+
+    $site_id = isset($_GET['id']) ? $_GET['id'] : 0;
+
+    //Get plan details for site
+    $ajbilling_plan = ajbilling_fetch_plan($site_id);
+
+    //Get all active plans from plans table of the payment plugin
+    $plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
+    $sqlQuery = "SELECT * FROM $plugin_plans_table WHERE status='active'";
+    $site_plans = $wpdb->get_results($sqlQuery, ARRAY_A);
+
+    if( 'site-info.php' == $pagenow ) {
+        ?><table><tr id="payment_custom_site_options">
+            <th scope="row">Payment Plan</th>
+            <td>
+            	<select id="blog_payment_plan">
+            	<option value="-1">--Select Plan--</option>
+            	<?php 
+            		foreach ($site_plans as $site_plan) {?>
+            		<option value="<?php echo $site_plan['id'];?>" <?php selected( $ajbilling_plan['id'], $site_plan['id'], true);?>><?php echo $site_plan['title'];?></option>
+            		<?php }?>
+            		
+            	</select>
+            	<input class="button-secondary" type="button" name="save_plan" value="<?php _e( 'Save Plan' ); ?>" id="save_site_plan"/>
+            	<span class="plan-setting-updated-msg description"></span>
+            </td>
+        </tr></table>
+        <script>jQuery(function($){
+            $('.form-table tbody').append($('#payment_custom_site_options'));
+        });</script><?php
+    }
+}
+
+
+/**
+ * Load js script in network admin's site-info page for saving plan for a site
+ */
+function ajbilling_my_admin_scripts() {
+    wp_register_script('updateSitePlanScript', AJ_BRAINTREE . '/js/updateSitePlanScript.js', array('jquery'), JSVERSION, TRUE);
+    wp_enqueue_script('updateSitePlanScript');
+}
+
+
+function ajbilling_paymentApi_url() { ?>
+	<script type="text/javascript">
+		var aj_billing_api_url = '<?php echo site_url()."/api/ajbilling/plan"; ?>';
+	</script>
+	<?php
+}
+
+function ajbilling_fetch_plan($object_id, $object_type='site'){
+	global $wpdb;
+
+            $billing_plan = array();
+
+            //Get site plan id and country from site options
+            $user_site_plan = "";
+            
+            if ( is_multisite() ){
+                switch_to_blog( $object_id );
+                $user_site_plan = get_option('site_payment_plan');
+                $user_site_country = get_option('site-country');
+                restore_current_blog();
+            }
+            else{
+                $user_site_plan = get_option('site_payment_plan');
+                $user_site_country = get_option('site-country');
+            }
+
+            // Get currency based on country
+            $site_currency = aj_braintree_get_currency($user_site_country);
+
+            $site_plan_id = $user_site_plan['plan_id'];
+
+            $plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
+            $sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id=".$site_plan_id;
+
+            $site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
+
+            if(!mysql_errno())
+            {
+
+                $billing_plan['id'] = $site_plan['id'];
+                $billing_plan['title'] = $site_plan['title'];
+                $billing_plan['status'] = $site_plan['status'];
+
+                $braintree_plan_ids = maybe_unserialize($site_plan['braintree_plan_id']);
+
+                $billing_plan['braintree_plans'] = array_values($braintree_plan_ids);
+
+                $plan_features = maybe_unserialize($site_plan['features']);
+
+                $billing_plan['plan_features'] = array();
+
+                foreach ($plan_features as $plan_feature) {
+                    $billing_plan['plan_features'][] = $plan_feature;
+                }
+                $billing_plan['success'] = 1;
+            }
+            else{
+            	$wpdb->print_error();
+            	$wpdb->show_errors();
+                $billing_plan['success'] = 0;
+                $billing_plan['msg'] = 'Unable to fetch plan details from db';
+            }
+
+
+            return $billing_plan;
+}
+
+function ajbilling_fetch_all_plans($object_id, $object_type='site'){
+
+	global $wpdb;
+
+	$billing_plan = array();
+
+    //Get site plan id and country from site options
+	$user_site_plan = "";
+
+	if ( is_multisite() ){
+		switch_to_blog( $object_id );
+		$user_site_plan = get_option('site_payment_plan');
+		$user_site_country = get_option('site-country');
+		restore_current_blog();
+	}
+	else{
+		$user_site_plan = get_option('site_payment_plan');
+		$user_site_country = get_option('site-country');
+	}
+
+    // Get currency based on country
+	$site_currency = aj_braintree_get_currency($user_site_country);
+
+	$site_plan_id = $user_site_plan['plan_id'];
+
+	$plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
+	$sqlQuery = "SELECT * FROM $plugin_plans_table WHERE status='active'";
+
+	$site_plans = $wpdb->get_results($sqlQuery, ARRAY_A);
+
+	$billing_plans = array();
+
+	if(!mysql_errno()){
+
+		if (sizeof($site_plans)<1) {
+			$billing_plans['success'] = 0;
+			$billing_plans['msg'] = 'No active plans present'; 
+		}
+		else{
+			foreach ($site_plans as $site_plan) {
+				$billing_plan['id'] = $site_plan['id'];
+				$billing_plan['title'] = $site_plan['title'];
+				$billing_plan['status'] = $site_plan['status'];
+				$billing_plan['braintree_plans'] = array();
+
+				$braintree_plan_ids = maybe_unserialize($site_plan['braintree_plan_id']);
+
+				$country_based_braintree_plans = array();
+
+                    // Get details braintree plans for only chosen currency
+				foreach ($braintree_plan_ids as $braintree_plan_id) 
+				{
+					try {
+						$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
+						if ($braintree_plan->currencyIsoCode == $site_currency) {
+							$braintree_plan = (array)$braintree_plan;
+							$braintree_plan['success'] = 1;
+							$country_based_braintree_plans[] = $braintree_plan;
+						}
+					} catch (Braintree_Exception_SSLCertificate $e) {
+						$braintree_plan['success'] = 0;
+						$braintree_plan['msg'] = 'Unable to fetch Braintree Plan details as the braintree gateway is unavailable';
+					}
+
+				}
+				$billing_plan['braintree_plans'] = $country_based_braintree_plans;
+				$plan_features = maybe_unserialize($site_plan['features']);
+
+				$billing_plan['plan_features'] = array();
+
+				foreach ($plan_features as $plan_feature) {
+					$billing_plan['plan_features'][] = $plan_feature;
+				}
+				$billing_plan['success'] = 1;
+
+				$billing_plans[] = $billing_plan;
+			}
+
+			$billing_plans['success'] = 1;
+		}
+
+
+
+	}
+	else{
+		$billing_plans['success'] = 0;
+		$billing_plans['msg'] = 'Unable to fetch plan details from db'; 
+	}
+
+	return $billing_plans;
+}
+
+
+
 
 
