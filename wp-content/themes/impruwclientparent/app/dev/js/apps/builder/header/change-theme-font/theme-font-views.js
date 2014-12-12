@@ -62,7 +62,7 @@ define(['app'], function(App) {
         this.collection = Marionette.getOption(this, 'collection');
         this.secModel = Marionette.getOption(this, 'secModel');
         this.isSecFontAllowed = _.toBoolean(ISSECFONTALLOWED);
-        return this.secClasses = '.menu-collapser, .page-title, .action-title, .room-title-container .room-title h1 , .roomsummary .room-title, .booking-title, .room-facilities-container .room-facilities-title h4, .font-2-preview';
+        return this.secClasses = '.menu-collapser, .title.page-title, .title.action-title, .room-title-container .room-title h1 , .roomsummary .room-title, .booking-title, .room-facilities-container .room-facilities-title h4, .font-2-preview';
       };
 
       ThemeFontSetView.prototype.onShow = function() {
