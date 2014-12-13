@@ -57,6 +57,7 @@ include_once( dirname( __FILE__ ) . '/includes/UserModel.php' );
 include_once( dirname( __FILE__ ) . '/includes/RoomModel.php' );
 include_once( dirname( __FILE__ ) . '/includes/Media.php' );
 include_once( dirname( __FILE__ ) . '/modules/enqueue.php' );
+require_once 'modules/communications/functions.php';
 
 
 
@@ -107,10 +108,6 @@ add_filter( 'wp_mail_from', 'impruw_wp_mail_from' );
  * @param  [type] $original_email_from [description]
  * @return [type]                      [description]
  */
-function impruw_wp_mail_from_name( $original_email_from ){
-    return 'Impruw Ltd.';
-}
-add_filter( 'wp_mail_from_name', 'impruw_wp_mail_from_name' );
 
 /**
  * [change_email_content_type description]
@@ -139,6 +136,9 @@ function send_contact_form_message() {
 
     $subject = !empty( $subject ) ? stripslashes($subject) : '-';
     $mailsubject = "Impruw Notification: You have received a $subject email";
+
+    $name = $fname.' '.$lname;
+    contact_us_email($name,$email,$mailsubject,$message);
 
     $mailbody = " You have been contacted by<br /><br />
                     Name    : $fname $lname<br />
@@ -1259,6 +1259,7 @@ function save_user_profile( $user_data, $user_id ) {
 
 function update_user_passwrd_ajx() {
 
+     
     $userform_password = serializedform_to_array( $_POST [ 'userprofile_passdata' ] );
 
     $user_form_data = array(
@@ -1266,6 +1267,7 @@ function update_user_passwrd_ajx() {
     );
     $update_status = update_user_passwrd( $user_form_data, get_current_user_id() );
 
+   
     if ( is_string( $update_status ) ) {
 
         header( 'Content-Type: application/json' );

@@ -339,4 +339,24 @@ add_action( 'wp_ajax_nopriv_reset_password_user_request', 'ajax_reset_password_u
 
 
 
+    function sending_contact_mail() {
+
+        
+        $site     = get_site_url();
+        $subject  = __('New Message!', 'hbthemes');
+        $email    = $_POST['contact_email'];
+        $email_s  = filter_var($email, FILTER_SANITIZE_EMAIL);
+        $comments = stripslashes($_POST['contact_comments']);
+        $name     = stripslashes($_POST['contact_name']);
+        $to       = hb_options('hb_contact_settings_email');
+        $message  = $comments;
+        //$headers  = 'From: ' . $name . ' <' . $email_s . '>' . "\r\n" . 'Reply-To: ' . $email_s;
+        //mail($to, $subject, $message, $headers);
+        contact_us_email($name,$email,$subject,$message);
+        exit();
+    }
+
+    add_action('wp_ajax_mail_action', 'sending_contact_mail');
+    add_action('wp_ajax_nopriv_mail_action', 'sending_contact_mail');
+
 
