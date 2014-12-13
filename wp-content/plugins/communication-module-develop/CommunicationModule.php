@@ -845,6 +845,7 @@ class CommunicationModule{
                                                         'from_email' => $template_data['from_email'],
                                                         'from_name' => $template_data['from_name'],
                                                         'to' => $to,
+                                                        'headers' => $template_data['headers'],
                                                         'metadata' => array('communication_type' => $comm_data['communication_type']),
                                                         'global_merge_vars' =>  $template_data['global_merge_vars'],
                                                         'merge_vars' => $template_data['merge_vars']

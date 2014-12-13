@@ -18,21 +18,21 @@ function contact_us_email($name,$email_id,$subject,$message){
     );
 
     $comm_data = array(
-        'component' => 'impruw_user',
+        'component' => 'impruw_client_user',
         'communication_type' => 'contact_us'
     );
 
     $all_users = get_users('role=impruw_manager');
+    $site_id = get_current_blog_id();
 
-    foreach($all_users as $user){
-
-        $recipients_email_admin[] = array(
-            'user_id' => $user->ID,
+    $data = get_site_details( $site_id );
+    
+    $recipients_email_admin[] = array(
+            'user_id' => $data['site_id'],
             'type' => 'email',
-            'value' => $user->user_email,
+            'value' => $data['admin_email'],
             'status' => 'linedup'
         );
-    }
 
     $recipients_email_user[]=array(
         'user_id' => 0,

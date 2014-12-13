@@ -54,7 +54,8 @@ require_once 'modules/billing/ajax.php';
 require_once 'modules/seo/ajax.php';
 require_once 'modules/heartbeat/heartbeat.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
-require_once get_theme_root().'/impruwmain/modules/communications/functions.php';
+require_once 'modules/communications/functions.php';
+//require_once get_theme_root().'/impruwmain/modules/communications/functions.php';
 
 /***
  * Load braintree PHP library
@@ -108,6 +109,9 @@ function send_contact_form_message() {
 
     $subject = ( !empty( $subject ) ? $subject : '-' );
     $mailsubject = "Impruw Notification: You have received a $subject email";
+
+    $name = $fname.' '.$lname;
+    contact_us_email($name,$email,$mailsubject,$message);
 
     $mailbody = " You have been contacted by<br /><br />
                     Name    : $fname $lname<br />
