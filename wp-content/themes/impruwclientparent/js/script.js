@@ -554,7 +554,11 @@ jQuery(document).ready(function() {
 jQuery(document).ready(function() {
     var $powered = jQuery('.power-up').clone().removeClass('hide').addClass('text');
     jQuery('.site-footer').append($powered);
-    console.log('powered');
+    if( jQuery('.site-footer').css('background-color') == 'transparent' && jQuery('body').css('background-color') == 'rgb(255, 255, 255)' ) {
+        jQuery('.power-up').css('color', '#aaaaaa');
+        console.log('powered');
+    };
+    
 });
 
 /**************** login/forgotpassword/reset.js ************/
