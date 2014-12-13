@@ -24,5 +24,85 @@ function impruw_add_feature_components($defined_feature_components){
 }
 add_filter('add_feature_components_filter','impruw_add_feature_components',10,1);
 
+function payment_plan_change($site_id,$plan_id){
+
+	//For each registered feature
+	$all_features = ajbilling_get_all_feature_components();
+
+	foreach ($all_features as $all_feature) {
+		$feature_component = $all_feature['key'];
+
+		$enable_status = ajbilling_plugin_feature_enable_status($plan_id,$feature_component);
+		$new_count = ajbilling_get_plugin_feature_count($plan_id,$feature_component);
+		$old_count = ajbilling_get_user_feature_count($site_id,$feature_component);
+
+		$feature_args = array('enable_status' => $enable_status,'new_count' => $new_count, 'old_count' => $old_count );
+
+		switch ($feature_component) {
+			case 'domain_mapping':
+				domain_mapping_feature_changes($site_id, $feature_args);
+				break;
+			case 'email_account':
+				// email_account_feature_changes($site_id, $feature_args);
+				break;
+			default:
+				break;
+		}
+	}
+
+	
+
+}
+add_action( 'ajbilling_update_payment_plan', 'payment_plan_change', 10, 2 );
+
+function domain_mapping_feature_changes($site_id, $feature_args){
+
+	$enable_status = $feature_args['enable_status'];
+	$new_count = $feature_args['new_count'];
+	$old_count = $feature_args['old_count'];
+
+	if ($enable_status==='true') {
+		// Disable coming soon page for the site if it exists
+		dm_coming_soon_page($site_id,false);
+	}
+	else{
+		// Enable coming soon page for the site
+		dm_coming_soon_page($site_id,true);
+	}
+
+}
+
+/**
+ * Function to enable or disable coming soon page for site 
+ */
+function dm_coming_soon_page($site_id,$enable=false){
+	// coming soon default options array
+	$coming_soon_options = array('comingsoon_image' => '',
+								'comingsoon_headline' => 'Domain mapping disabled',
+								'comingsoon_description' => '',
+								'comingsoon_mailinglist' => 'none',
+								'comingsoon_feedburner_address' => '',
+								'comingsoon_customhtml' => '',
+								'comingsoon_custom_bg_color' => '#ffffff',
+								'comingsoon_background_noise_effect' => 'on',
+								'comingsoon_custom_bg_image' => '',
+								'comingsoon_font_color' => 'black',
+								'comingsoon_text_shadow_effect' => 'on',
+								'comingsoon_headline_font' => '',
+								'comingsoon_body_font' => 'empty_0',
+								'comingsoon_custom_css' => '',
+								'comingsoon_footer_credit' => '0',);
+
+	if ($enable) {
+		$comingsoon_enabled = array (0 => '1',);
+		$coming_soon_options['comingsoon_enabled'] = $comingsoon_enabled;
+	}
+
+	switch_to_blog($site_id);
+	$update_comingsoon = update_option( 'seedprod_comingsoon_options', $coming_soon_options );
+	restore_current_blog();
+
+}
+
 
 

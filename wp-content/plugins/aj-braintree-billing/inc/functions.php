@@ -459,6 +459,23 @@ function ajbilling_get_user_siteplan_options($object_id,$object_type='site'){
 	return $user_site_plan;
 }
 
+function ajbilling_get_user_feature_count($object_id,$feature_component,$object_type='site'){
+
+	$count = 0;
+
+	$user_site_plan = ajbilling_get_user_siteplan_options($object_id);
+
+	$user_count_features = $user_site_plan['feature_count'];
+
+	foreach ($user_count_features as $user_count_feature) {
+		if ($user_count_feature['key']==$feature_component) {
+			$count = $user_count_feature['count'];
+		}
+	}
+
+	return $count;
+}
+
 function ajbilling_is_registered_feature($feature_component){
 	$all_registered_features = ajbilling_get_all_feature_components();
 
@@ -865,9 +882,29 @@ function ajbilling_update_site_plan($object_id, $object_type='site', $plan_id ){
 	global $wpdb;
 
 	$count_type_features = ajbilling_get_all_feature_components('count_type');
+
+	// Get current stored feature count
+	if ( is_multisite() ){
+		switch_to_blog( $object_id );
+		$current_site_plan = get_option( 'site_payment_plan',0);
+		restore_current_blog();
+	}
+	else{
+		$current_site_plan = get_option( 'site_payment_plan',0);
+	}
+
+	//Feature count array should be either from the exisitng site_payment_plan option or initialised to zero if created the first time
+
 	$feature_count_array = array();
-	foreach ($count_type_features as $count_type_feature) {
-		$feature_count_array[] =  array('name' =>$count_type_feature['name'] , 'key' =>$count_type_feature['key'], 'count' => 0 );
+
+	if ($current_site_plan!=0) {
+		$feature_count_array = $current_site_plan['feature_count'];
+	}
+	else{
+
+		foreach ($count_type_features as $count_type_feature) {
+			$feature_count_array[] =  array('name' =>$count_type_feature['name'] , 'key' =>$count_type_feature['key'], 'count' => 0 );
+		}
 	}
 
 	$plan = array('plan_id'=>$plan_id,'feature_count' => $feature_count_array );
@@ -888,7 +925,7 @@ function ajbilling_update_site_plan($object_id, $object_type='site', $plan_id ){
 		$update_plan_status = 0;
 	}
 
-	do_action("ajbilling_update_payment_plan", $plan_id);
+	do_action("ajbilling_update_payment_plan", $object_id, $plan_id);
 
 	$result = array('code'=>'OK','update_success'=> $update_plan_status, 'plan_id'=>$plan_id );
 
