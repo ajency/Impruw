@@ -10,6 +10,9 @@ define ['app'],(App)->
 						<div id="aj-imp-color-sel"> 
 						  <a class="btn btn-xs btn-block">{{#polyglot}}Change Theme Colors{{/polyglot}}</a>
 						</div> 
+						<div id="aj-imp-font-sel"> 
+						  <a class="btn btn-xs btn-block">{{#polyglot}}Change Theme Font{{/polyglot}}</a>
+						</div> 
 						<div id="revision-history" class="revision-history">
 							
 						</div>
@@ -21,6 +24,8 @@ define ['app'],(App)->
 
 			events : 
                 'click #aj-imp-color-sel' :-> @trigger "show:theme:color:clicked" 
+
+                'click #aj-imp-font-sel' :-> @trigger 'show:theme:font:clicked'
 
                
 
