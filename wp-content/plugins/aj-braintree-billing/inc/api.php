@@ -80,33 +80,9 @@
 
         public function update_site_plan($object_id, $object_type='site', $plan_id ){
 
-            global $wpdb;
+            $result = ajbilling_update_site_plan($object_id, $object_type='site', $plan_id );
 
-            $count_type_features = ajbilling_get_all_feature_components('count_type');
-            $feature_count_array = array();
-            foreach ($count_type_features as $count_type_feature) {
-                $feature_count_array[] =  array('name' =>$count_type_feature['name'] , 'key' =>$count_type_feature['key'], 'count' => 0 );
-            }
-
-            $plan = array('plan_id'=>$plan_id,'feature_count' => $feature_count_array );
-
-            if ( is_multisite() ){
-                switch_to_blog( $object_id );
-                $update_site_plan = update_option( 'site_payment_plan', $plan );
-                restore_current_blog();
-            }
-            else{
-                $update_site_plan = update_option( 'site_payment_plan', $plan );
-            }
-
-            if ($update_site_plan) {
-                 $update_plan_status = 1;
-            }
-            else{
-                $update_plan_status = 0;
-            }
-
-            return  array('code'=>'OK','update_success'=> $update_plan_status, 'plan_id'=>$plan_id );
+            return  $result;
 
         }
 
