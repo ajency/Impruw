@@ -12,7 +12,7 @@ define ['app'], (App)->
 
             template: '<div class="display_facility">
             							<label for="checkbox2" class="checkbox ">
-            								<input type="checkbox" {{#selected}}checked="true"{{/selected}} data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}">
+            								<input type="checkbox" {{#selected}}checked="true"{{/selected}}  name="facility[{{term_id}}]" value="{{term_id}}">
             								<span class="facility-name">{{name}}</span>
             							</label>
             							<div class="action">
@@ -37,7 +37,7 @@ define ['app'], (App)->
 
             onShow: ->
                 @$el.attr 'id': "facility-#{@model.get 'term_id'}"
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
 
 
             events:

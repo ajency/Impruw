@@ -170,7 +170,18 @@
 
     global $element_templates;
 
-    $element_templates = array('Menu' => array(array('name' => 'Left Menu')), 'Title' => array(array('name' => 'Page Title',), array('name' => 'Blue Capital Title',)), 'Row' => array(array('name' => 'Slideshow Container'), array('name' => 'Long Bar')), 'Social' => array(array('name' => 'Default Style'), array('name' => 'Small Social')), 'Link' => array(array('name' => 'Default Style'), array('name' => 'Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));
+    $element_templates = array('Menu' => array(array('name' => 'Left Menu', 'imagePath' => get_template_directory_uri() . '/resources/img/left-menu.png')), 'Title' => array(array('name' => 'Page Title',), array('name' => 'Blue Capital Title',)), 
+        'Row' => array(
+            array(
+                'name' => 'Slideshow Container',
+                'desc' => ' Full width row for slider element. Best way to use:  Use this to add your slider. Ensure its inside the center container / fix width row else the layout will not be aligned.'
+                ), 
+            array(
+                'name' => 'Long Bar',
+                'desc' => 'Vertical theme colored long bar that takes extends from the row down taking the entire height. Best way to use: Place it along the side of a page to add maybe a menu or widgets'
+                )
+            ), 
+        'Social' => array(array('name' => 'Default Style'), array('name' => 'Small Social')), 'Link' => array(array('name' => 'Default Style'), array('name' => 'Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));
 
     /**** Custom Markup for Responsive Panel Menu ****/
     function add_responsive_menu_markup($html, $element)

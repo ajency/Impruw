@@ -8,6 +8,16 @@ define ['app'], (App)->
 
             template: '<img src="{{thumb_url}}" alt="Slide" class="img-responsive" />'
 
+            # mixinTemplateHelpers : (data)->
+            #     data = super data
+                
+            #     data
+
+            onShow : ->
+                @$el.find('img').error ()->
+                    $(@).unbind("error").attr("src", THEMEURL+"/images/imageNotFound.jpg")
+
+
             onRender: ->
                 randomW = if Math.random() * 50 > 25 then 1 else 2
                 randomH = if Math.random() * 50 > 25 then 1 else 2
@@ -42,8 +52,8 @@ define ['app'], (App)->
                 # set the template if single room or if any other page
                 isSingleRoom = Marionette.getOption @, 'inSingleRoom'
                 if isSingleRoom
-                    @template = '<h3 class="gallery-title">'+_.polyglot.t('Gallery')+'</h3>
-                                                <div class="if-required"></div>'
+                    @template = '<div class="roomgallery"><h3 class="gallery-title">'+_.polyglot.t('Gallery')+'</h3>
+                                                <div class="if-required"></div></div>'
                     @itemViewContainer = '.if-required'
 
                 else

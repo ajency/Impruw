@@ -40,7 +40,7 @@ define ['app'
 
             onRender: ->
                 @setFields()
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
                 @$el.find('select').selectpicker()
                 
 
@@ -49,7 +49,7 @@ define ['app'
             # set fields for the form
             setFields: ->
                 
-                @$el.find('input[name="draggable"]').checkbox('check') if @eleModel.get('draggable')
+                @$el.find('input[name="draggable"]').radiocheck('check') if @eleModel.get('draggable')
 
                 @$el.find('#checkbox-bordered').prop 'checked', @eleModel.get('bordered')
                 @$el.find('#checkbox-striped').prop 'checked', @eleModel.get('striped')

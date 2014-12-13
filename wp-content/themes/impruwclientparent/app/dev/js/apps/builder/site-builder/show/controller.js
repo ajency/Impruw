@@ -1,7 +1,7 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __slice = [].slice,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  __slice = [].slice;
 
 define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-builder/show/views'], function(App, AppController, bootbox) {
   return App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
@@ -11,6 +11,8 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
       __extends(BuilderController, _super);
 
       function BuilderController() {
+        this.addNestedElements = __bind(this.addNestedElements, this);
+        this.startFillingElements = __bind(this.startFillingElements, this);
         return BuilderController.__super__.constructor.apply(this, arguments);
       }
 
@@ -40,10 +42,11 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
           }
           return App.request("add:new:element", container, type, modelData);
         });
-        App.execute("when:fetched", [elements], (function(_this) {
+        elements._fetch.done((function(_this) {
           return function() {
+            window.ISFRONTPAGE = elements.get('is_home_page');
             elementLoaded = true;
-            _.delay(function() {
+            return _.delay(function() {
               _this.deferreds = [];
               _this.startFillingElements();
               return $.when.apply($, _this.deferreds).done(function() {
@@ -55,23 +58,20 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
                 _this.view.triggerMethod("page:rendered");
                 return _this.deferreds = [];
               }).fail(function() {
-                return App.autoSaveAPI.local.suspend();
-              }).always(function() {
-                return App.autoSaveAPI.local.createStorage();
+                App.autoSaveAPI.local.suspend();
+                App.autoSaveAPI.local.reset();
+                return _this.view.triggerMethod("page:render:failed");
               });
-            }, 400);
-            return _this.show(_this.view, {
-              loading: true
-            });
+            }, 200);
+          };
+        })(this)).fail((function(_this) {
+          return function() {
+            return _this.view.triggerMethod("page:rendered:failed");
           };
         })(this));
-        return _.delay((function(_this) {
-          return function() {
-            if (!elementLoaded) {
-              return bootbox.alert("Sorry, but this page didn't load properly. Please refresh the page");
-            }
-          };
-        })(this), 15000);
+        return this.show(this.view, {
+          loading: true
+        });
       };
 
       BuilderController.prototype._getContainer = function(section) {
@@ -92,8 +92,8 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             section = _this.view.model.get(key);
             container = _this._getContainer(key);
             return _.each(section, function(element, i) {
-              var eleController;
-              if (element.element === 'Row') {
+              var eleController, _ref;
+              if ((_ref = element.element) === 'Row' || _ref === 'Tabs' || _ref === 'Accordion') {
                 return _this.addNestedElements(container, element);
               } else {
                 eleController = App.request("add:new:element", container, element.element, element);
@@ -113,10 +113,19 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             if (column.elements.length === 0) {
               return;
             }
-            container = eleController.layout.elementRegion.currentView.$el.children().eq(index);
+            if (element.element === 'Tabs') {
+              container = eleController.layout.elementRegion.currentView.$el.children('.tab-content').children().eq(index);
+            } else if (element.element === 'Row') {
+              container = eleController.layout.elementRegion.currentView.$el.children().eq(index);
+            } else if (element.element === 'Accordion') {
+              container = eleController.layout.elementRegion.currentView.$el.children('.panel-group').children().eq(index);
+            }
             return _.each(column.elements, function(ele, i) {
-              if (element.element === 'Row') {
+              var _ref;
+              if ((_ref = element.element) === 'Row' || _ref === 'Tabs') {
                 return _this.addNestedElements($(container), ele);
+              } else if (element.element === 'Accordion') {
+                return _this.addNestedElements($(container).children('.panel-collapse').children('.column'), ele);
               } else {
                 eleController = App.request("add:new:element", container, ele.element, ele);
                 return _this.deferreds.push(eleController._promise);
@@ -133,8 +142,8 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
       __extends(Controller, _super);
 
       function Controller() {
+        this.setCurrentPage = __bind(this.setCurrentPage, this);
         this.pageNameUpdated = __bind(this.pageNameUpdated, this);
-        this.loadRevision = __bind(this.loadRevision, this);
         this.triggerPagePublishOnView = __bind(this.triggerPagePublishOnView, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
@@ -149,22 +158,31 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         this.layout = layout = new Show.View.MainView({
           collection: this.pages
         });
-        this.listenTo(layout, 'editable:page:changed', function(pageId) {
-          $.cookie('current-page-id', pageId);
-          return App.execute("editable:page:changed", pageId);
-        });
-        this.listenTo(layout, "add:page:revisions", this.addPageRevisions);
+        this.listenTo(layout, 'editable:page:changed', (function(_this) {
+          return function(pageId) {
+            _this.setCurrentPage(_this.pages.get(pageId));
+            $.cookie('current-page-id', pageId);
+            return App.execute("editable:page:changed", pageId);
+          };
+        })(this));
         this.listenTo(this.layout, "add:new:page:clicked", function() {
           return App.execute("show:add:new:page", {
             region: App.dialogRegion
           });
         });
+        this.listenTo(this.layout, 'delete:page:clicked', (function(_this) {
+          return function() {
+            var page;
+            page = _this.pages.get($.cookie('current-page-id'));
+            return page.destroy({
+              success: function(model, res, opt) {
+                _this.removePageFromLinkSettings(model.get('original_id'));
+                return App.builderRegion.currentView.triggerMethod('show:home:page');
+              }
+            });
+          };
+        })(this));
         App.commands.setHandler("page:published", this.triggerPagePublishOnView);
-        this.listenTo(App.vent, "revision:link:clicked", function(revisionId) {
-          var currentPageId;
-          currentPageId = App.request("get:current:editable:page");
-          return App.execute("editable:page:changed", currentPageId, revisionId);
-        });
         this.listenTo(layout, 'show', (function(_this) {
           return function(layout) {
             return _.delay(function() {
@@ -175,6 +193,7 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
           };
         })(this));
         this.listenTo(layout, "update:page:name", this.updatePageName);
+        this.listenTo(layout, "update:page:slug", this.updatePageSlug);
         this.listenTo(App.vent, 'page:took:over', function(errorMessage) {
           return layout.triggerMethod('page:took:over', errorMessage);
         });
@@ -192,25 +211,32 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         });
       };
 
+      Controller.prototype.removePageFromMenu = function(pageId) {
+        var menuCollection, menuToRemove;
+        menuCollection = App.request("get:menu:items:by:menuid", window.MENUID);
+        menuToRemove = menuCollection.find(function(menuModel) {
+          if (menuModel.get('page_id') === pageId) {
+            return true;
+          }
+        });
+        return menuCollection.remove(menuToRemove);
+      };
+
+      Controller.prototype.removePageFromLinkSettings = function(pageId) {
+        var elementsCollection, linkModel, linkModelLinkPages, newLinkModel;
+        elementsCollection = App.request("get:elementbox:elements");
+        linkModel = elementsCollection.get('Link');
+        linkModelLinkPages = linkModel.get('link_pages');
+        linkModelLinkPages = $.grep(linkModelLinkPages, function(pageObject, i) {
+          return pageObject.original_id === pageId;
+        }, true);
+        elementsCollection.remove(linkModel);
+        newLinkModel = linkModel.set('link_pages', linkModelLinkPages);
+        return elementsCollection.add(newLinkModel);
+      };
+
       Controller.prototype.triggerPagePublishOnView = function() {
         return this.layout.triggerMethod("page:published");
-      };
-
-      Controller.prototype.loadRevision = function(revisionId) {
-        var currentPageId;
-        currentPageId = App.request("get:current:editable:page");
-        return App.execute("editable:page:changed", currentPageId, revisionId);
-      };
-
-      Controller.prototype.addPageRevisions = function() {
-        var currentPageId, pageRevisions;
-        currentPageId = App.request("get:current:editable:page");
-        pageRevisions = App.request("get:page:revisions", currentPageId);
-        return App.execute("when:fetched", [pageRevisions], (function(_this) {
-          return function() {
-            return _this.layout.triggerMethod("add:page:revision:items", pageRevisions);
-          };
-        })(this));
       };
 
       Controller.prototype.updatePageName = function(pageData) {
@@ -223,8 +249,25 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         });
       };
 
+      Controller.prototype.updatePageSlug = function(pageData) {
+        var updatedPageModel;
+        updatedPageModel = App.request("get:page:model:by:id", pageData.ID);
+        updatedPageModel.set(pageData);
+        return updatedPageModel.save(null, {
+          wait: true,
+          success: this.setCurrentPage
+        });
+      };
+
       Controller.prototype.pageNameUpdated = function(updatedPageModel) {
+        this.setCurrentPage(updatedPageModel);
         return this.layout.triggerMethod("page:name:updated", updatedPageModel);
+      };
+
+      Controller.prototype.setCurrentPage = function(model) {
+        App.execute('add:page:to:collection', model);
+        window.CURRENTPAGE = model.toJSON();
+        return this.layout.triggerMethod('page:slug:updated', model.get('post_name'));
       };
 
       return Controller;
@@ -243,12 +286,10 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
         });
         App.elements = [];
         siteBuilderController = new Show.BuilderController({
-          pageId: pageId,
-          revisionId: revisionId
+          pageId: pageId
         });
         return App.execute("show:right:block", {
           region: App.rightBlockRegion,
-          revisionId: revisionId,
           pageId: pageId
         });
       };

@@ -11,7 +11,7 @@ require.config
 
    paths :
       jquery : 'plugins/jquery'
-      jqueryui : 'plugins/jquery.ui'
+      jqueryui : 'plugins/jquery-ui.min'
       underscore : 'plugins/underscore'
       backbone : 'plugins/backbone'
       marionette : 'plugins/backbone.marionette'
@@ -26,6 +26,7 @@ require.config
       moment : 'plugins/moment'
       bootstrapselect : 'plugins/bootstrapselect'
       underscorestring : 'plugins/underscore.string'
+      radiocheck : 'plugins/flatui-radiocheck'
       radio : 'plugins/flatui-radio'
       cookie : 'plugins/cookie.min'
       checkbox : 'plugins/flatui-checkbox'
@@ -52,6 +53,7 @@ require.config
       drilldown : 'plugins/jquery.drilldown.min'
       resizablecolumns : 'plugins/jquery.resizableColumns.min'
       tabslideout : 'plugins/jquery.tabSlideOut.v1.3'
+      slimmenu : 'plugins/slimmenu/jquery.slimmenu'
       #flippant: 'plugins/flippant.min'
 
       # wordpress cropping js
@@ -80,6 +82,7 @@ require.config
       polyglot :
          exports : 'Polyglot'
       jqueryvalidate : ['jquery']
+      slimmenu : ['jquery']
       underscorestring : ['underscore']
       backbonesyphon : ['backbone']
       backboneassociations : ['backbone']
@@ -96,6 +99,7 @@ require.config
          exports : 'plupload'
       cookie : ['jquery']
       nestedsortable : ['jqueryui']
+      radiocheck : ['bootstrap']
       radio : ['bootstrap']
       checkbox : ['bootstrap']
       bootstrapselect : ['bootstrap']

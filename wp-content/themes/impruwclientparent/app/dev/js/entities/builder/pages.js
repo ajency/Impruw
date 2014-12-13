@@ -11,15 +11,48 @@ define(["app", 'backbone'], function(App, Backbone) {
         return PageModel.__super__.constructor.apply(this, arguments);
       }
 
-      PageModel.prototype.defaults = function() {
-        return {
-          post_title: ''
-        };
-      };
-
       PageModel.prototype.name = 'page';
 
       PageModel.prototype.idAttribute = 'ID';
+
+      PageModel.prototype.destroy = function(options) {
+        var destroy, model, params, success, xhr;
+        options = (options ? _.clone(options) : {});
+        model = this;
+        success = options.success;
+        destroy = function() {
+          model.trigger("destroy", model, model.collection, options);
+        };
+        options.success = function(resp) {
+          if (options.wait || model.isNew()) {
+            destroy();
+          }
+          if (success) {
+            success(model, resp, options);
+          }
+          if (!model.isNew()) {
+            model.trigger("sync", model, resp, options);
+          }
+        };
+        if (this.isNew()) {
+          options.success();
+          return false;
+        }
+        params = {
+          type: "POST",
+          dataType: "json",
+          url: AJAXURL,
+          data: {
+            action: 'impruw-delete-page',
+            page_id: model.id
+          }
+        };
+        xhr = options.xhr = Backbone.ajax(_.extend(params, options));
+        if (!options.wait) {
+          destroy();
+        }
+        return xhr;
+      };
 
       return PageModel;
 
@@ -87,6 +120,11 @@ define(["app", 'backbone'], function(App, Backbone) {
       var page;
       page = pages.get(id);
       return page;
+    });
+    App.commands.setHandler('add:page:to:collection', function(model) {
+      return pages.add(model, {
+        merge: true
+      });
     });
     App.reqres.setHandler("create:page:model", function(data) {
       return API.createNewPage(data);

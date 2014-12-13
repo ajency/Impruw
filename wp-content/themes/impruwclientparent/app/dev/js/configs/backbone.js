@@ -1,5 +1,4 @@
 define(["backbone", "mustache"], function(Backbone, Mustache) {
-  var _sync;
   _.extend(Backbone.Model.prototype, {
     sync: function(method, model, options) {
       var allData, idAttr, onlyChanged, params, xhr, _action, _ref, _ref1;
@@ -74,13 +73,13 @@ define(["backbone", "mustache"], function(Backbone, Mustache) {
       return resp;
     }
   });
-  _sync = Backbone.sync;
+  window._bsync = Backbone.sync;
   return Backbone.sync = function(method, entity, options) {
     var sync;
     if (options == null) {
       options = {};
     }
-    sync = _sync(method, entity, options);
+    sync = _bsync(method, entity, options);
     if (!entity._fetch && method === "read" || !entity._fetch && method === "create") {
       entity._fetch = sync;
     }

@@ -44,7 +44,7 @@ define(['app', 'text!apps/billing/account-summary/templates/purchaseHistory.html
       Transaction.prototype.itemView = SingleTranscation;
 
       Transaction.prototype.onShow = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         return this.$el.find('select').selectpicker();
       };
 

@@ -20,6 +20,8 @@ define ['app', 'controllers/base-controller'
                 @translatedContentView = @_getLanguageView @pageModel , @pageElementsCollection
 
                 @listenTo @translatedContentView, "translated:page:title:updated", @updateTranslatedPageTitle
+                @listenTo @translatedContentView, "translated:page:url:updated", @updateTranslatedPageUrl
+
                 @listenTo @translatedContentView, "itemview:page:element:updated", @updatePageElementContent
 
                 #function to load view
@@ -38,13 +40,31 @@ define ['app', 'controllers/base-controller'
                 data['translatedPageID'] = pageId
                 @pageModel.set data
                 # AJAX
-                $.post "#{AJAXURL}?action=update-translated-page-title",
+                req = $.post "#{AJAXURL}?action=update-translated-page-title",
                     (
                         page_title : newPageTitle
                         page_id : pageId
                     ), @pageTitleUpdated, 'json'
 
-            @pageTitleUpdated:(response) =>
+                req.done (data)=>
+                    @translatedContentView.triggerMethod 'translate:page:title:updated',data
+
+            updateTranslatedPageUrl:(newPageUrl, pageId)->
+                data= []
+                data['translatedPageUrl'] = newPageUrl
+                data['translatedPageID'] = pageId
+                @pageModel.set data
+                # AJAX
+                req = $.post "#{AJAXURL}?action=update-translated-page-url",
+                    (
+                        page_url : newPageUrl
+                        page_id : pageId
+                    ), @pageTitleUpdated, 'json'
+
+                req.done (data)=>
+                    @translatedContentView.triggerMethod 'translate:page:url:updated',data
+
+            pageTitleUpdated:(response) =>
                 @translatedContentView.triggerMethod "page:title:updated"
 
             updatePageElementContent :(view, newElemContent)->
@@ -72,6 +92,8 @@ define ['app', 'controllers/base-controller'
                 
                 model.set content_text, data
                 model.set 'source', 'dashboard'
+                model.set 'json-page-id', @pageId
+
                 model.save null,
                     wait: true
                     success: @contentUpdated

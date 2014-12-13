@@ -49,14 +49,14 @@ define(['app', 'text!apps/builder/site-builder/elements/slider/settings/template
       };
 
       SettingsView.prototype.onRender = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         this.setFields();
         return this.$el.find('select').selectpicker();
       };
 
       SettingsView.prototype.setFields = function() {
         if (this.eleModel.get('draggable') === true) {
-          this.$el.find('input[name="draggable"]').checkbox('check');
+          this.$el.find('input[name="draggable"]').radiocheck('check');
         }
         this.$el.find('select[name="slide_transition"]').val(this.eleModel.get('reset_transitions'));
         this.$el.find('select[name="align"]').val(this.eleModel.get('align'));

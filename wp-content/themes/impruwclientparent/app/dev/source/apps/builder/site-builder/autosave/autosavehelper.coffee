@@ -12,17 +12,9 @@ define ['app','jquery'], (App, $) ->
 
 			_json = {}
 
-
-
 			_.each ['header', 'page-content', 'footer'], (section, index)=>
 				#if App.request "is:section:modified", section
 				_json["#{section}-json"] = JSON.stringify AutoSaveHelper.getJson $site.find "#site-#{section}-region"
-				
-				# if _.isEmpty JSON.parse _json["#{section}-json"]
-				# 	error = true
-
-			# if error
-			# 	return false
 
 			_json
 
@@ -50,6 +42,49 @@ define ['app','jquery'], (App, $) ->
 							element: 'Column'
 							className: className
 							elements: AutoSaveHelper.getJson $(column)
+
+						ele.elements.push col
+						return
+
+				if ele.element is 'Tabs'
+					ele.draggable = $(element).children('form').find('input[name="draggable"]').val() is "true"
+					ele.style = $(element).children('form').find('input[name="style"]').val()
+					ele.justified = $(element).children('form').find('input[name="justified"]').val()
+					ele.meta_id = $(element).find('form input[name="meta_id"]').val()
+					ele.elements = []
+					_.each $(element).children('.element-markup').children('.tab-container').children('.tab-content').children('.column'), (column, index)=>
+						id = $(column).attr('id')
+						tabName = {}
+						$(element).children('.element-markup').children('.tab-container').find("form[data-id=#{id}] input").each (index,input)->
+							tabName[$(input).prop('name')] = $(input).val()
+						# className = $(column).attr 'data-class'
+						col =
+							position: index + 1
+							element: 'TabPane'
+							tabName : tabName
+							# className: className
+							elements: AutoSaveHelper.getJson $(column)
+
+						ele.elements.push col
+						return
+
+				if ele.element is 'Accordion'
+					ele.draggable = $(element).children('form').find('input[name="draggable"]').val() is "true"
+					ele.style = $(element).children('form').find('input[name="style"]').val()
+					ele.meta_id = $(element).find('form input[name="meta_id"]').val()
+					ele.elements = []
+					_.each $(element).children('.element-markup').children('.accordion-container').children('.panel-group').children('.panel'), (column, index)=>
+						# tabName = $(column).children('.panel-heading').find('a span').text()
+						tabName = {}
+						$(column).children('.panel-heading').find('form input').each (index,input)->
+							tabName[$(input).prop('name')] = $(input).val()
+						# className = $(column).attr 'data-class'
+						col =
+							position: index + 1
+							element: 'AccordionTab'
+							tabName : tabName
+							# className: className
+							elements: AutoSaveHelper.getJson $(column).children('.panel-collapse').children('.column')
 
 						ele.elements.push col
 						return

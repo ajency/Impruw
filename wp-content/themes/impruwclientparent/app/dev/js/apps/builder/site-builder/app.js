@@ -1,4 +1,4 @@
-define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-builder/element/controller', 'apps/builder/site-builder/autosave/controller', 'apps/builder/site-builder/publish/publish', 'apps/builder/site-builder/elements-loader'], function(App) {
+define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-builder/element/controller', 'apps/builder/site-builder/autosave/controller', 'apps/builder/site-builder/publish/publish', 'apps/builder/site-builder/elements-loader', 'apps/builder/site-builder/revision/revision-controller'], function(App) {
   return App.module('SiteBuilderApp', function(SiteBuilderApp, App, Backbone, Marionette, $, _) {
     var API;
     App.elements = [];
@@ -7,14 +7,15 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
         return this.showController = new SiteBuilderApp.Show.Controller;
       },
       addNewElement: function(container, type, modelData) {
-        var ele;
+        var eleCtrl;
         if (SiteBuilderApp.Element[type]) {
-          ele = new SiteBuilderApp.Element[type].Controller({
+          eleCtrl = new SiteBuilderApp.Element[type].Controller({
             container: container,
             modelData: modelData
           });
-          App.elements.push(ele);
-          return ele;
+          App.elements.push(eleCtrl);
+          eleCtrl._deferred.resolve(true);
+          return eleCtrl;
         } else {
           return false;
         }

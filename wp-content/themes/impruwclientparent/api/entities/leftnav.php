@@ -76,6 +76,11 @@ function get_menu_items() {
             )
         ),
         array(
+            'url' => '#/emails',
+            'title' => 'Emails',
+            'icon' => 'envelope',
+        ),
+        array(
             'url' => '#/seo',
             'title' => 'SEO',
             'icon' => 'magnifier',
@@ -124,17 +129,7 @@ function get_elementbox_elements() {
             'element' => 'Menu',
             'icon' => 'bicon icon-uniF14E',
             'helpText' => 'Click on the menu item to add and remove pages from the menu.',
-            'styles' => get_styles( 'Menu' ),
-            'site_menus' => array(
-                array(
-                    'menu_id' => 2,
-                    'menu_name' => 'Main Menu'
-                ),
-                array(
-                    'menu_id' => 3,
-                    'menu_name' => 'Footer menu'
-                )
-            )
+            'styles' => get_styles( 'Menu' )
         ),
         array(
             'element' => 'Row',
@@ -206,7 +201,8 @@ function get_elementbox_elements() {
             'element' => 'Link',
             'icon' => 'bicon icon-uniF149',
             'helpText' => 'Add a text link or turn it into a button. Connect people to other pages on your site, pages on other sites, email addresses and files that they may want to download.',
-            'styles' => get_styles( 'Link' )
+            'styles' => get_styles( 'Link' ),
+            'link_pages' => get_all_link_pages()
         ),
         array(
             'element' => 'ContactForm',
@@ -292,8 +288,40 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF101',
             'helpText' => 'Showcase your plans, tariff and availability for particular dates using the booking calendar.',
             'category' => 'room'
+        ),
+        array(
+            'element' => 'Spacer',
+            'title' => 'Horizontal Space',
+            'icon' => 'bicon icon-uniF105',
+            'styles' => get_styles( 'Spacer' ),
+            'helpText' => 'Add a horizontal space between content, you can change the height and type of the space.'
+        ),
+        array(
+            'element' => 'SmartTable',
+            'title' => 'Smart Table',
+            'icon' => 'bicon icon-uniF142',
+            'helpText' => 'help text to be added',
+            'styles' => get_styles( 'SmartTable' )
+        ),
+        array(
+            'element' => 'List',
+            'icon' => 'bicon icon-uniF142',
+            'helpText' => 'help text to be added',
+            'styles' => get_styles( 'List' )
+        ),
+        array(
+            'element' => 'Tabs',
+            // 'title' => 'Tabs',
+            'icon' => 'bicon icon-uniF142',
+            'helpText' => 'help text to be added',
+            'styles' => get_styles( 'Tabs' )//get_styles( 'Tabs' )
+        ),
+        array(
+            'element' => 'Accordion',
+            'icon' => 'bicon icon-uniF142',
+            'helpText' => 'help text to be added',
+            'styles' => get_styles( 'Accordion' )
         )
-        
     );
 
     return $elements;
@@ -428,10 +456,8 @@ function get_element_model( $element ) {
     switch ( $element ) {
 
         case 'Menu' :
-            $model = array(
-                'style' => 'Slimmenu',
-                'menu_id' => 2
-            );
+            $model = array();
+            break;
         case 'Logo' :
             $model = array(
                 'style' => 'header',
@@ -698,29 +724,37 @@ function get_style_template( $element ) {
     return $mtemplate;
 }
 
-function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false ) {
+function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false ,$revision_id = FALSE) {
 
     if ( $page_id == 0 )
         return FALSE;
 
     $json = array();
-    $key = '';
+    $key = '-published';
     if ( $autosave === TRUE )
         $key = '-autosave';
 
     if (!$onlyPage){
-        $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
+        if ( $autosave === TRUE )
+            $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
+        else
+            $json [ 'header' ] = get_header_footer_layout_published( THEME_HEADER_KEY ,$revision_id);
 
         if ( $key === '-autosave' && empty( $json [ 'header' ] ) )
-            $json [ 'header' ] = get_option( 'theme-header', array() );
+            $json [ 'header' ] = get_header_footer_layout_published( THEME_HEADER_KEY ,$revision_id);
+            //get_option( THEME_HEADER_KEY, array() );
 
-        $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
+        if ( $autosave === TRUE )
+            $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
+        else
+            $json [ 'footer' ] = get_header_footer_layout_published( THEME_FOOTER_KEY ,$revision_id);
 
         if ( $key === '-autosave' && empty( $json [ 'footer' ] ) )
-            $json [ 'footer' ] = get_option( 'theme-footer', array() );
+            $json [ 'footer' ] = get_header_footer_layout_published( THEME_FOOTER_KEY ,$revision_id);
+            //get_option( THEME_FOOTER_KEY, array() );
     }
 
-    $json[ 'page' ] = get_page_content_json( $page_id, $autosave );
+    $json[ 'page' ] = get_page_content_json( $page_id, $autosave ,$revision_id);
 
     $d = array();
 
@@ -728,8 +762,12 @@ function get_page_json_for_site( $page_id, $autosave = FALSE, $onlyPage = false 
         $d [ $section ] = array();
         if ( !is_array( $elements ) )
             continue;
+        // if (!$autosave && in_array($section,array('header','footer'))){
+        //     $d [ $section ] = $json [ $section ];
+        //     continue;
+        // }
         foreach ( $elements as $element ) {
-            if ( $element [ 'element' ] === "Row" ) {
+            if ( in_array($element [ 'element' ] , array('Row','Tabs','Accordion')) ) {
                 $element [ 'columncount' ] = count( $element [ 'elements' ] );
                 $d [ $section ] [ ] = get_row_elements( $element );
             } else
@@ -757,13 +795,18 @@ function get_page_main_json( $page_id = 0 ) {
 
 
 function read_page_json() {
+    // global $sitepress;
 
     $page_id = $_REQUEST [ 'page_id' ];
     $only_page = $_REQUEST [ 'only_page' ] ;
     $page_id= icl_object_id( $page_id, 'page', TRUE, 'en' );
 
     $data = get_page_json_for_site( $page_id, TRUE, $only_page === 'yes' );
-    
+
+    $data['is_home_page'] = impruw_is_front_page($page_id);
+    $data['front_page'] = icl_object_id( get_option('page_on_front'), 'page', true , wpml_get_default_language());
+   
+
     $lock = true;
     if( wp_check_post_lock( $page_id ) === false ){
         $new_lock = wp_set_post_lock( $page_id );
@@ -808,3 +851,25 @@ function get_site_socials() {
 }
 
 add_action( 'wp_ajax_get-site-socials', 'get_site_socials' );
+
+function impruw_error_encountered(){
+
+    $error = $_REQUEST['error'];
+    ob_start();
+    print_r($error);
+    $html = ob_get_clean();
+    wp_mail('impruw@ajency.in', 'Impruw Error On Live', $html);
+    wp_die();
+}
+add_action( 'wp_ajax_impruw_error_encountered', 'impruw_error_encountered' );
+add_action( 'wp_ajax_nopriv_impruw_error_encountered', 'impruw_error_encountered' );
+
+
+function  get_all_link_pages(){
+    $rooms = get_all_rooms();
+    $pages = get_all_menu_pages();
+    $link_pages = array();
+    $link_pages = array_merge($rooms, $pages);
+
+    return $link_pages;
+}

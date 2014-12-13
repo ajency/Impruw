@@ -18,7 +18,7 @@ function contact_us_email($name,$email_id,$subject,$message){
     );
 
     $comm_data = array(
-        'component' => 'impruw_client_user',
+        'component' => 'impruw_user',
         'communication_type' => 'contact_us'
     );
 

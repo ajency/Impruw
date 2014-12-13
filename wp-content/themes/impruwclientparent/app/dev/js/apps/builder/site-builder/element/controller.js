@@ -34,7 +34,8 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
         });
         this.listenTo(this.layout, "delete:element", (function(_this) {
           return function(model) {
-            if (model.get('element') === 'Row') {
+            var _ref;
+            if ((_ref = model.get('element')) === 'Row' || _ref === 'Tabs' || _ref === 'Accordion') {
               return _this.deleteElement(model);
             } else {
               return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('Are you sure?') + "</h4>", function(result) {
@@ -91,12 +92,7 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
         this.listenTo(this.layout.model, "change:top_margin", this.setMargin);
         this.listenTo(this.layout.model, "change:bottom_margin", this.setMargin);
         this.listenTo(this.layout.model, "change:left_margin", this.setMargin);
-        this.listenTo(this.layout.model, "change:right_margin", this.setMargin);
-        return this.listenTo(this.layout.elementRegion, 'show', (function(_this) {
-          return function() {
-            return _this._deferred.resolve(true);
-          };
-        })(this));
+        return this.listenTo(this.layout.model, "change:right_margin", this.setMargin);
       };
 
       Controller.prototype.setDraggable = function(model) {

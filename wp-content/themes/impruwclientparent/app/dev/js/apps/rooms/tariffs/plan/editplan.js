@@ -100,7 +100,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
       };
 
       EditPlanView.prototype.onShow = function() {
-        return this.$el.find('input[type="checkbox"]').checkbox();
+        return this.$el.find('input[type="checkbox"]').radiocheck();
       };
 
       return EditPlanView;

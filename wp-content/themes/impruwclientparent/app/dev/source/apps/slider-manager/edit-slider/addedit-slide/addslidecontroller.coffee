@@ -68,8 +68,8 @@ define ['app'
             										</div>
             									</div>
             									<div class="aj-imp-img-save">
-            										<button type="button" class="btn aj-imp-orange-btn create-slide">{{#polyglot}}Add{{/polyglot}}</button>
-            										<button type="button" class="btn cancel-create-slide">{{#polyglot}}Cancel{{/polyglot}}</button>
+            										<button type="button" class="btn btn-default aj-imp-orange-btn create-slide">{{#polyglot}}Add{{/polyglot}}</button>
+            										<button type="button" class="btn btn-default cancel-create-slide">{{#polyglot}}Cancel{{/polyglot}}</button>
             									</div>
             							  	</div>'
 

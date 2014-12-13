@@ -56,6 +56,7 @@ define [ 'app', 'controllers/base-controller'
 
                 $.ajax( options ).done ( response )=>
                     if response.code == "OK"
+                        window.DOMAIN_NAME = domainName
                         @view.triggerMethod "domain:update","Domain added succesfully"
                     else
                         @view.triggerMethod "domain:update", response.msg

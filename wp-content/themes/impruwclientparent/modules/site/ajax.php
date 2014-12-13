@@ -108,6 +108,7 @@ function assign_theme_to_site_ajax() {
     $clone_pages = !isset( $_POST[ 'clone_pages' ] ) ? TRUE : FALSE;
 
     assign_theme_to_site( $new_theme_id, $clone_pages );
+    update_option('theme-style-filename','');
 
     //Restore default language back to original
     $sitepress->switch_lang($site_current_language);
@@ -217,7 +218,14 @@ function ajax_site_logout() {
 
     wp_logout();
 
-    wp_send_json( array( 'code' => 'OK', 'redirect_url' => network_home_url() ) );
+    if (wpml_get_default_language() == 'nb') {
+        $url = network_home_url().'nb';
+    }
+    else{
+        $url = network_home_url();
+    }
+
+    wp_send_json( array( 'code' => 'OK', 'redirect_url' => $url  ) );
 }
 
 add_action( 'wp_ajax_site-logout', 'ajax_site_logout' );
@@ -237,3 +245,120 @@ function ajax_update_domain_mapping() {
 }
 
 add_action( 'wp_ajax_update-domain-name', 'ajax_update_domain_mapping' );
+
+
+function builder_add_new_menu(){
+
+    $menu_name = $_REQUEST['menu_name'];
+    // Check if the menu exists
+    $menu_exists = wp_get_nav_menu_object( $menu_name );
+
+    // If it doesn't exist, let's create it.
+    if( !$menu_exists){
+        $menu = wp_create_nav_menu( $menu_name );
+        $menu = wp_get_nav_menu_object($menu_name );
+        wp_send_json(array('success' => true, 'data' => $menu ));
+    }else{
+        wp_send_json(array('success' => false, 'message' => 'Menu already exists' ));
+    }
+}
+add_action('wp_ajax_builder-add-new-menu', 'builder_add_new_menu');
+
+function builder_add_new_menu_item(){
+
+    $menu_id = $_REQUEST['menu_id'];
+    $menu_item = $_REQUEST['menu-item'];
+    $menu_item['menu-item-status'] = 'publish';
+
+    $menu_item_id = wp_update_nav_menu_item($menu_id, 0, $menu_item);
+
+    if(is_wp_error($menu_item_id )){
+        wp_send_json(array('success' => false, 'messsage' => $menu_item_id->get_message()) );
+    }
+    else{
+        //Add language post meta for each custom label menu
+        if($menu_item['menu-item-type']==='custom'){
+
+            $language = wpml_get_default_language();
+
+            $menu_update_status = translate_custom_menu_item($menu_item_id,$language,$menu_item['menu-item-title']);
+
+        }
+        $menu_items = wp_get_nav_menu_items( $menu_id );
+        foreach ($menu_items as $item) {
+            if($item->ID === $menu_item_id){
+                $menu_item = $item;
+            }
+        }
+        wp_send_json(array('success' => true, 'data' => $menu_item));
+    }
+}
+add_action('wp_ajax_builder-add-new-menu-item', 'builder_add_new_menu_item');
+
+function builder_update_menu_item(){
+
+    $menu_data = $_REQUEST['menu_data'];
+    $menu_item_db_id = $menu_data['ID'];
+
+    wp_update_post(array( 'ID' => $menu_item_db_id, 'post_title' => $menu_data['menu-item-title']) );
+    update_post_meta( $menu_item_db_id, '_menu_item_url', esc_url_raw($menu_data['menu-item-url']) );
+
+    //Update transaltion as well
+    $language = wpml_get_default_language();
+
+    $menu_update_status = translate_custom_menu_item($menu_item_db_id,$language,$menu_data['menu-item-title']);
+
+    wp_send_json($menu_item_db_id);
+}
+add_action('wp_ajax_builder-update-menu-item', 'builder_update_menu_item');
+
+/**
+ * [fetch_menu_items_for_menu description]
+ * @return [type] [description]
+ */
+function fetch_menu_items_for_menu(){
+
+    $menu_id = $_REQUEST['menu_id'];
+
+    $menu_items = wp_get_nav_menu_items( $menu_id );
+
+    wp_send_json(array('success' => true, 'data' => $menu_items) );
+}   
+add_action('wp_ajax_fetch-menu-items-for-menu', 'fetch_menu_items_for_menu');
+
+
+function builder_remove_menu_item(){
+
+    $menu_item_id = $_REQUEST['menu_item_id'];
+
+    wp_delete_post( $menu_item_id );
+    
+    wp_send_json(1);
+
+}
+add_action('wp_ajax_builder-remove-menu-item', 'builder_remove_menu_item');
+
+
+function builder_delete_menu(){
+
+    $menu_id = $_POST['menu_id'];
+
+    wp_delete_nav_menu( $menu_id );
+    
+    wp_send_json(array('menu_id' => $menu_id));
+}
+add_action('wp_ajax_builder-delete-menu', 'builder_delete_menu');
+
+function builder_update_menu_items_order(){
+
+    $menu_items = $_POST['menu_items'];
+
+    foreach ($menu_items as $menu_item) {
+        wp_update_post(array('ID' => $menu_item['ID'], 'menu_order' => $menu_item['menu_order']));
+        update_post_meta( $menu_item['ID'], '_menu_item_menu_item_parent', strval( (int) $menu_item['menu_item_parent'] ) );
+    }
+    wp_send_json(1);
+}
+add_action('wp_ajax_builder-update-menu-items-order', 'builder_update_menu_items_order');
+
+

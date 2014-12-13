@@ -57,9 +57,21 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       AddPageController.prototype.showSuccessMessage = function(page) {
-        var data, menuCollection, menuId, menumodel;
+        var data, elementsCollection, linkModel, linkModelLinkPages, menuCollection, menuId, menumodel, newLinkModel, newLinkedPageObj;
         this.addToPageMenu(page);
-        this.layout.triggerMethod("show:success:message");
+        this.layout.triggerMethod("show:success:message", page);
+
+        /* Update the element setting collection's link model to reflect the newly added page BEGINS */
+        elementsCollection = App.request("get:elementbox:elements");
+        linkModel = elementsCollection.get('Link');
+        linkModelLinkPages = linkModel.get('link_pages');
+        newLinkedPageObj = page.attributes;
+        linkModelLinkPages[linkModelLinkPages.length] = newLinkedPageObj;
+        elementsCollection.remove(linkModel);
+        newLinkModel = linkModel.set('link_pages', linkModelLinkPages);
+        elementsCollection.add(newLinkModel);
+
+        /* Update the element setting collection's link model to reflect the newly added page ENDS */
         menuId = window.MENUID;
         if (menuId === 0) {
           return;
@@ -123,10 +135,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       AddPageView.prototype.template = '<div class="row add-page-container"> <div class="form-group"> <label for="post_title" class="col-sm-3 control-label">{{#polyglot}}Page Title{{/polyglot}}</label> <div class="col-sm-9"> <input type="text" required class="form-control" id="post_title" name="post_title" /> <div class="p-messages"></div> </div> </div> <input type="hidden" name="is_theme_template" value="false"/> <input type="hidden" name="template_page_id" value="0"/> <div class="form-group"> <div class="col-sm-9 col-sm-offset-3"> <label class="control-label"> <span class="checkbox"> <input type="checkbox" value="1" checked="checked" name="add_to_menu"/> Add page to menu </span> </label> <div id="choose-template-region"></div> <div class="select-template-error field-error hide">{{#polyglot}}Please select a template first{{/polyglot}}</div> <button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page"> {{#polyglot}}Add New Page{{/polyglot}}</button> </div> </div> </div>';
 
       AddPageView.prototype.onShow = function() {
-        return this.$el.find('input[type="checkbox"]').checkbox();
+        return this.$el.find('input[type="checkbox"]').radiocheck();
       };
 
-      AddPageView.prototype.onShowSuccessMessage = function() {
+      AddPageView.prototype.onShowSuccessMessage = function(page) {
+        this.$el.find('#post_title').val(page.get('post_title'));
         return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("New Page added") + '</div>');
       };
 

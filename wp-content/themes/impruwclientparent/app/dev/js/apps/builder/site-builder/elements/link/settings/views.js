@@ -23,17 +23,18 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
       };
 
       SettingsView.prototype.onRender = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         this.$el.find('select').selectpicker();
         return this.setFields();
       };
 
       SettingsView.prototype.setFields = function() {
+        var alignClass, btnName;
         if (this.eleModel.get('draggable') === true) {
-          this.$el.find('input[name="draggable"]').checkbox('check');
+          this.$el.find('input[name="draggable"]').radiocheck('check');
         }
         if (this.eleModel.get('target') === '_BLANK') {
-          this.$el.find('input[name="target"]').checkbox('check');
+          this.$el.find('input[name="target"]').radiocheck('check');
         }
         _.each(['link', 'text'], (function(_this) {
           return function(field, i) {
@@ -45,7 +46,11 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
             }
           };
         })(this));
-        return this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
+        this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
+        alignClass = this.eleModel.get('align');
+        btnName = '.js-btn-' + alignClass;
+        this.$el.find(btnName).addClass('aj-imp-orange-btn');
+        return this.$el.find('select[name="link_page"]').selectpicker('val', this.eleModel.get('link_page_id'));
       };
 
       SettingsView.prototype.events = {
@@ -59,10 +64,40 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
         'change select[name="style"]': function(evt) {
           return this.trigger("element:style:changed", $(evt.target).val());
         },
+        'change select[name="link_page"]': function(evt) {
+          if ($(evt.target).val() !== "-1") {
+            this.$el.find('input[name="link"]').val('');
+          }
+          return this.trigger("element:linkpage:changed", $(evt.target).val());
+        },
+        'click .js-btn-left': function(evt) {
+          evt.preventDefault();
+          this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur();
+          this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn");
+          return this.trigger("element:alignment:changed", $(evt.target).val());
+        },
+        'click .js-btn-center': function(evt) {
+          evt.preventDefault();
+          this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur();
+          this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn");
+          return this.trigger("element:alignment:changed", $(evt.target).val());
+        },
+        'click .js-btn-right': function(evt) {
+          evt.preventDefault();
+          this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur();
+          this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn");
+          return this.trigger("element:alignment:changed", $(evt.target).val());
+        },
         'blur input.linktext': function(evt) {
           var name;
           name = $(evt.target).attr('name');
           if (name === 'link' && $(evt.target).val().substring(0, 8) !== "https://" && $(evt.target).val().substring(0, 7) !== "http://" && $(evt.target).val().substring(0, 2) !== "//") {
+            if ($(evt.target).val() !== "") {
+              this.$el.find('select[name="link_page"]').selectpicker('val', '-1');
+            }
             $(evt.target).val("http://" + $(evt.target).val());
           }
           return this.trigger("element:" + name + ":changed", $(evt.target).val());

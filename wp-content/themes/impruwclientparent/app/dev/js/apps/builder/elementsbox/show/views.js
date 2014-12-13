@@ -90,7 +90,8 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
           speed: 300,
           action: 'click',
           topPos: '30px',
-          fixedPosition: true
+          fixedPosition: true,
+          onLoadSlideOut: true
         });
         this._setDraggableElements();
         $('body').on('click', (function(_this) {

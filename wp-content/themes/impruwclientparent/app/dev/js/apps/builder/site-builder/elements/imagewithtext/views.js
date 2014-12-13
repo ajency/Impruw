@@ -57,7 +57,13 @@ define(['app'], function(App) {
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.children('.editor').attr('id')));
         html = this.$el.children('.editor').html();
         this.editor.setData(html);
-        return this.editor.config.placeholder = 'Click here to enter your text...';
+        this.editor.config.placeholder = 'Click here to enter your text...';
+        this.$el.children('.editor').trigger('blur');
+        return _.delay((function(_this) {
+          return function() {
+            return _this.$el.children('.editor').trigger('focus');
+          };
+        })(this), 200);
       };
 
       ImageWithTextView.prototype.onStyleUpadted = function(newStyle, prevStyle) {

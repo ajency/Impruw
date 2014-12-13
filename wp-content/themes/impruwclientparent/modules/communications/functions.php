@@ -22,7 +22,7 @@ function impruw_add_communication_components($defined_comm_components){
         'contact_us'
     );
 
-    $ajcm_components['impruw_client_user'] = $comm_arr;
+    $ajcm_components['impruw_user'] = $comm_arr;
 
     return $ajcm_components;
 

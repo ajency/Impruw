@@ -85,11 +85,12 @@ define(["app", 'backbone', 'jquery'], function(App, Backbone, $) {
     json = new PageJson;
     API = {
       getPageJSON: function(pageId, revisionId, onlyPage) {
+        var xhr;
         json.set({
           page_id: parseInt(pageId),
           revision_id: parseInt(revisionId)
         });
-        json.fetch();
+        xhr = json.fetch();
         return json;
       }
     };

@@ -25,7 +25,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return this.$el.sortable({
           revert: 'invalid',
           items: '> .element-wrapper',
-          connectWith: '.droppable-column,.column',
+          connectWith: '.droppable-column, .droppable-column .column',
           handle: '.aj-imp-drag-handle',
           start: function(e, ui) {
             window.dragging = true;
@@ -159,7 +159,6 @@ define(['app', 'bootbox'], function(App, bootbox) {
         return this.$el.on("adjust:resizer", (function(_this) {
           return function(e) {
             e.stopPropagation();
-            console.log('column resizer set');
             return _this.setColumnResizer();
           };
         })(this));
@@ -168,7 +167,6 @@ define(['app', 'bootbox'], function(App, bootbox) {
       RowView.prototype._addFocusClass = function(e) {
         e.stopPropagation();
         $('.element-wrapper').removeClass('focus-class');
-        console.log('click');
         return $(e.target).closest('.element-wrapper').addClass('focus-class');
       };
 

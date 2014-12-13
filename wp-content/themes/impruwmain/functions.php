@@ -34,6 +34,46 @@
     require_once 'modules/communications/functions.php';
 
 
+/**
+ * [impruw_wp_mail_from description]
+ * @param  [type] $original_email_address [description]
+ * @return [type]                         [description]
+ */
+function impruw_wp_mail_from( $original_email_address ){
+    //Make sure the email is from the same domain 
+    //as your website to avoid being marked as spam.
+    return 'info@impruw.com';
+}
+add_filter( 'wp_mail_from', 'impruw_wp_mail_from' );
+
+/**
+ * [impruw_wp_mail_from_name description]
+ * @param  [type] $original_email_from [description]
+ * @return [type]                      [description]
+ */
+function impruw_wp_mail_from_name( $original_email_from ){
+    return 'Impruw Ltd.';
+}
+add_filter( 'wp_mail_from_name', 'impruw_wp_mail_from_name' );
+
+/**
+ * [change_email_content_type description]
+ * @return [type] [description]
+ */
+function change_email_content_type() {
+    return 'text/html';
+}
+add_filter( 'wp_mail_content_type', 'change_email_content_type' );
+
+
+function is_impruw_com(){
+    $host = $_SERVER['HTTP_HOST'];
+    if (strpos($host, 'impruw.com' ) !== false) {
+        return true;
+    }
+    return false;
+}
+
     /* --------------------------------------------------------------------------------------
      *
      * impruw_register_email_init
@@ -261,6 +301,7 @@
         wp_enqueue_script("flatui-checkbox", get_template_directory_uri() . '/js/flatui-checkbox.js', array('jquery'), JSVERSION, TRUE);
         wp_enqueue_script("bootstrap-select", get_template_directory_uri() . '/js/bootstrap-select.js', array('jquery'), JSVERSION, TRUE);
         wp_enqueue_script("flatui-radio", get_template_directory_uri() . '/js/flatui-radio.js', array('jquery'), JSVERSION, TRUE);
+        wp_enqueue_script("inputmask", get_template_directory_uri() . '/js/inputmask.min.js', array('jquery'), JSVERSION, TRUE);
 
         wp_enqueue_script("user-login", get_template_directory_uri() . '/js/user-login.js', array('jquery'), JSVERSION, TRUE);
 
@@ -367,7 +408,7 @@
         $result = '';
         $info = '';
         $form_data = array();
-        $form_subject = __('Contact Form', 'impruwmain');
+        $form_subject = __('Request a Demo', 'impruwmain');
         extract(shortcode_atts(array(// if you don't provide an e-mail address, the shortcode will pick the e-mail address of the admin:
             "email"         => get_bloginfo('admin_email'), "subject" => "", "label_name" => __("Your Name", "impruwmain"), "label_email" => __("Your E-mail Address","impruwmain"), "label_subject" => __("Subject","impruwmain"), "label_message" => __("Your Message","impruwmain"), "label_submit" => __("Submit","impruwmain"), // the error message when at least one of the required fields are empty:
             "error_empty"   => "<div class='alert alert-error'>Please fill in all the required fields.</div>", // the error message when the e-mail address is not valid:
@@ -682,4 +723,3 @@
       }
 
     }
-

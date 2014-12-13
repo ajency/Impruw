@@ -23,14 +23,14 @@ define(['app', 'text!apps/builder/site-builder/elements/roombooking/settings/tem
       };
 
       SettingsView.prototype.onRender = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         this.$el.find('select').selectpicker();
         return this.setFields();
       };
 
       SettingsView.prototype.setFields = function() {
         if (this.eleModel.get('draggable') === true) {
-          this.$el.find('input[name="draggable"]').checkbox('check');
+          this.$el.find('input[name="draggable"]').radiocheck('check');
         }
         this.$el.find('select[name="align"]').selectpicker('val', this.eleModel.get('align'));
         this.$el.find('select[name="top_margin"]').selectpicker('val', this.eleModel.get('top_margin'));

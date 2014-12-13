@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
+define(["app", 'backbone', 'moment', 'bootbox'], function(App, Backbone, moment, bootbox) {
   return App.module("Entities.Revision", function(Revision, App, Backbone, Marionette, $, _) {
     var API, RevisionCollection, RevisionModel, revisionsArray;
     RevisionModel = (function(_super) {
@@ -60,16 +60,12 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
     API = {
       getPageRevisions: function(pageId) {
         var revisionsCollection;
-        revisionsCollection = revisionsArray[pageId] || false;
-        if (!revisionsCollection) {
-          revisionsCollection = new RevisionCollection;
-          revisionsCollection.fetch({
-            data: {
-              page_id: pageId
-            }
-          });
-          revisionsArray[pageId] = revisionsCollection;
-        }
+        revisionsCollection = new RevisionCollection;
+        revisionsCollection.fetch({
+          data: {
+            page_id: pageId
+          }
+        });
         return revisionsCollection;
       },
       addNewRevision: function(pageId, revisionData) {
@@ -81,6 +77,32 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
           revisionsArray[pageId] = revisionsCollection;
         }
         return revisionsCollection.add(revision);
+      },
+      restoreRevision: function(revData) {
+        var data;
+        data = {};
+        if (revData.revId) {
+          data.revision_id = revData.revId;
+        }
+        if (revData.siteBackupId) {
+          data.site_backup_id = revData.siteBackupId;
+        }
+        return $.ajax({
+          type: 'GET',
+          url: "" + AJAXURL + "?action=restore-page",
+          async: false,
+          data: data,
+          success: function(resp) {
+            if (resp.code === 'OK') {
+              bootbox.alert("Your page will be restored to the selected point. Please wait until the page reloads.");
+              return _.delay((function(_this) {
+                return function() {
+                  return window.location.reload();
+                };
+              })(this), 2000);
+            }
+          }
+        });
       },
       getPages: function(param) {
         if (param == null) {
@@ -100,8 +122,11 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
     App.reqres.setHandler("get:page:revisions", function(pageId) {
       return API.getPageRevisions(pageId);
     });
-    return App.commands.setHandler("add:new:revision", function(pageId, revisionData) {
+    App.commands.setHandler("add:new:revision", function(pageId, revisionData) {
       return API.addNewRevision(pageId, revisionData);
+    });
+    return App.reqres.setHandler('restore:revision', function(data) {
+      return API.restoreRevision(data);
     });
   });
 });

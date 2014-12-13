@@ -23,7 +23,7 @@ define(['app', 'text!apps/language-translation/show/templates/languageview.html'
       LanguageLayout.prototype.onShow = function() {
         var m, w;
         this.$el.find('select').selectpicker();
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         this.$el.find('*[data-spy="affix"]').affix();
         w = $('.aj-imp-right').width();
         this.$el.find('*[data-spy="affix"]').width(w);

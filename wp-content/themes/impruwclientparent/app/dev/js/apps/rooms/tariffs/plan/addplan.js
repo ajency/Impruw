@@ -64,9 +64,10 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
       };
 
       AddPlanView.prototype.events = {
-        'click #btn_addplan': function() {
+        'click #btn_addplan': function(e) {
           var data;
           if (this.$el.valid()) {
+            this.$el.find('#btn_addplan').prop('disabled', true);
             data = Backbone.Syphon.serialize(this);
             return this.trigger("add:plan:details", data);
           }
@@ -77,11 +78,12 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
         this.$el.parent().find('.alert').remove();
         this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("New tarriff created") + "</div>");
         this.$el.find('input').val('');
-        return this.$el.find('textarea').val('');
+        this.$el.find('textarea').val('');
+        return this.$el.find('#btn_addplan').prop('disabled', false);
       };
 
       AddPlanView.prototype.onShow = function() {
-        return this.$el.find('input[type="checkbox"]').checkbox();
+        return this.$el.find('input[type="checkbox"]').radiocheck();
       };
 
       return AddPlanView;

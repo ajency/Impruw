@@ -22,31 +22,53 @@ and open the template in the editor.
 		margin-top: 1em;
 		z-index: 1;
 		text-align: center;
-		&:before, &:after {
-			width: 20px;
-			height: 20px;
-			position: absolute;
-			background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAO0lEQVQYV2NkwAL+//+fxsjIOAtZipFShcZAE88SYyLRCjHdCHS4MdQKEI1sHYwPpnF5hmirqa8QwzMAaFYqO0b6k1UAAAAASUVORK5CYII=) @tertiary1;
-			top: 40%;
-			-webkit-transform: rotate(-45deg);
-			-moz-transform: rotate(-45deg);
-			-ms-transform: rotate(-45deg);
-			-o-transform: rotate(-45deg);
-			transform: rotate(-45deg);
-			-webkit-transform-origin: 0 100%;
-			-moz-transform-origin: 0 100%;
-			-ms-transform-origin: 0 100%;
-			-o-transform-origin: 0 100%;
-			transform-origin: 0 100%;
-			border-right: 1px solid @quarternary1;
-			border-bottom: 1px solid @quarternary1;
-		}
-		&:after {
-			right: -20px;
-			border-right: none;
-			border-bottom: none;
-			border-top: 1px solid @quarternary1;
-			border-left: 1px solid @quarternary1;
+		> .column {
+			&:first-child {
+				&:before {
+					width: 20px;
+					height: 20px;
+					position: absolute;
+					background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAO0lEQVQYV2NkwAL+//+fxsjIOAtZipFShcZAE88SYyLRCjHdCHS4MdQKEI1sHYwPpnF5hmirqa8QwzMAaFYqO0b6k1UAAAAASUVORK5CYII=) @tertiary1;
+					top: 40%;
+					-webkit-transform: rotate(-45deg);
+					-moz-transform: rotate(-45deg);
+					-ms-transform: rotate(-45deg);
+					-o-transform: rotate(-45deg);
+					transform: rotate(-45deg);
+					-webkit-transform-origin: 0 100%;
+					-moz-transform-origin: 0 100%;
+					-ms-transform-origin: 0 100%;
+					-o-transform-origin: 0 100%;
+					transform-origin: 0 100%;
+					border-right: 1px solid @quarternary1;
+					border-bottom: 1px solid @quarternary1;
+					content: " ";
+					left: 0px;
+				}
+			}
+			&:last-child {
+				&:after {
+					width: 20px;
+					height: 20px;
+					position: absolute;
+					background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAO0lEQVQYV2NkwAL+//+fxsjIOAtZipFShcZAE88SYyLRCjHdCHS4MdQKEI1sHYwPpnF5hmirqa8QwzMAaFYqO0b6k1UAAAAASUVORK5CYII=) @tertiary1;
+					top: 40%;
+					-webkit-transform: rotate(-45deg);
+					-moz-transform: rotate(-45deg);
+					-ms-transform: rotate(-45deg);
+					-o-transform: rotate(-45deg);
+					transform: rotate(-45deg);
+					-webkit-transform-origin: 0 100%;
+					-moz-transform-origin: 0 100%;
+					-ms-transform-origin: 0 100%;
+					-o-transform-origin: 0 100%;
+					transform-origin: 0 100%;
+					border-top: 1px solid @quarternary1;
+					border-left: 1px solid @quarternary1;
+					content: " ";
+					right: -20px;
+				}
+			}
 		}
 	}
 	&.white-box{

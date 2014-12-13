@@ -14,14 +14,14 @@ define ['app', 'text!apps/builder/site-builder/elements/text/settings/templates/
                 super opt
 
             onRender: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
                 @$el.find('select').selectpicker()
                 @setFields()
 
             # set fields for the form
             setFields: ->
                 if @eleModel.get('draggable') is true
-                    @$el.find('input[name="draggable"]').checkbox('check')
+                    @$el.find('input[name="draggable"]').radiocheck('check')
 
             events:
                 'click .close-settings': (evt)->

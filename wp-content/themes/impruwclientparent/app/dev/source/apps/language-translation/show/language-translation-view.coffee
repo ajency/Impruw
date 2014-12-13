@@ -19,7 +19,7 @@ define ['app'
                     onShow: ->
                         @$el.find('select').selectpicker()
 
-                        @$el.find('input[type="checkbox"]').checkbox()
+                        @$el.find('input[type="checkbox"]').radiocheck()
 
                         # set affix
                         @$el.find('*[data-spy="affix"]').affix()

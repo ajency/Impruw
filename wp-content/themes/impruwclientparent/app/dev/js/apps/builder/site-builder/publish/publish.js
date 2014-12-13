@@ -35,6 +35,7 @@ define(['app'], function(App) {
         window.SAVING = true;
         return $.ajax(options).done(function(response) {
           if (response.success === true) {
+            App.execute("update:revision:on:published", response.revision);
             return App.vent.trigger("page:published");
           } else if (response.success === false && response.new_instance) {
             return App.vent.trigger("new:instance:opened", response);
@@ -83,6 +84,48 @@ define(['app'], function(App) {
                   element: 'Column',
                   className: className,
                   elements: _this._getJson($(column))
+                };
+                ele.elements.push(col);
+              });
+            }
+            if (ele.element === 'Tabs') {
+              ele.draggable = $(element).children('form').find('input[name="draggable"]').val() === "true";
+              ele.style = $(element).children('form').find('input[name="style"]').val();
+              ele.justified = $(element).children('form').find('input[name="justified"]').val();
+              delete ele.meta_id;
+              ele.elements = [];
+              _.each($(element).children('.element-markup').children('.tab-container').children('.tab-content').children('.column'), function(column, index) {
+                var col, id, tabName;
+                id = $(column).attr('id');
+                tabName = {};
+                $(element).children('.element-markup').children('.tab-container').find("form[data-id=" + id + "] input").each(function(index, input) {
+                  return tabName[$(input).prop('name')] = $(input).val();
+                });
+                col = {
+                  position: index + 1,
+                  element: 'TabPane',
+                  tabName: tabName,
+                  elements: _this._getJson($(column))
+                };
+                ele.elements.push(col);
+              });
+            }
+            if (ele.element === 'Accordion') {
+              ele.draggable = $(element).children('form').find('input[name="draggable"]').val() === "true";
+              ele.style = $(element).children('form').find('input[name="style"]').val();
+              ele.meta_id = $(element).find('form input[name="meta_id"]').val();
+              ele.elements = [];
+              _.each($(element).children('.element-markup').children('.accordion-container').children('.panel-group').children('.panel'), function(column, index) {
+                var col, tabName;
+                tabName = {};
+                $(column).children('.panel-heading').find('form input').each(function(index, input) {
+                  return tabName[$(input).prop('name')] = $(input).val();
+                });
+                col = {
+                  position: index + 1,
+                  element: 'AccordionTab',
+                  tabName: tabName,
+                  elements: _this._getJson($(column).children('.panel-collapse').children('.column'))
                 };
                 ele.elements.push(col);
               });

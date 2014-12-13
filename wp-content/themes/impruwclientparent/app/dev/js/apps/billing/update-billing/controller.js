@@ -51,7 +51,7 @@ define(['app', 'controllers/base-controller', 'text!apps/billing/update-billing/
       LayoutView.prototype.template = viewTpl;
 
       LayoutView.prototype.onShow = function() {
-        return this.$el.find('input[type="checkbox"]').checkbox();
+        return this.$el.find('input[type="checkbox"]').radiocheck();
       };
 
       LayoutView.prototype.regions = {

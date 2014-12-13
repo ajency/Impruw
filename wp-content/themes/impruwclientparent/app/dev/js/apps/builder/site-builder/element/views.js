@@ -82,15 +82,17 @@ define(['app'], function(App, elementTpl) {
 
       ElementView.prototype._noOptions = function() {
         var nosettings;
-        nosettings = ['Logo', 'Text', 'Title', 'Gallery'];
-        if (nosettings.indexOf(this.model.get('element')) !== -1) {
-          return this.$el.children('.element-controls').children('.aj-imp-settings-btn').remove();
+        if (ISTHEMEEDITOR === 'no') {
+          nosettings = ['Logo', 'Text', 'Title', 'Gallery', 'ContactForm', 'RoomFacilities', 'RoomTitle', 'RoomDescription', 'RoomTariff', 'RoomBooking', 'Map'];
+          if (nosettings.indexOf(this.model.get('element')) !== -1) {
+            return this.$el.children('.element-controls').children('.aj-imp-settings-btn').remove();
+          }
         }
       };
 
       ElementView.prototype.onBeforeRenderElement = function() {
         var field, _i, _len, _ref;
-        _ref = ['meta_id', 'style', 'element'];
+        _ref = ['meta_id', 'style', 'element', 'justified'];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           field = _ref[_i];
           this.setHiddenField(field, this.model.get(field));
@@ -99,14 +101,15 @@ define(['app'], function(App, elementTpl) {
       };
 
       ElementView.prototype.addHiddenFields = function() {
-        var field, _i, _len, _ref, _results;
+        var field, _i, _len, _ref;
         _ref = ['draggable', 'style'];
-        _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           field = _ref[_i];
-          _results.push(this.$el.children('form').append("<input type='hidden' name='" + field + "' value=''/>"));
+          this.$el.children('form').append("<input type='hidden' name='" + field + "' value=''/>");
         }
-        return _results;
+        if (this.model.get('element') === 'Tabs') {
+          return this.$el.children('form').append("<input type='hidden' name='justified' value=''/>");
+        }
       };
 
       ElementView.prototype.setDraggable = function(draggable) {
@@ -179,7 +182,7 @@ define(['app'], function(App, elementTpl) {
         return ErrorView.__super__.constructor.apply(this, arguments);
       }
 
-      ErrorView.prototype.template = '<div style="width:100%; height:150px; margin:auto"> conponent of type {{element}} did not load properly </div>';
+      ErrorView.prototype.template = '<div class="load-error"> <span class="glyphicon glyphicon-warning-sign"></span> Component of type <em>{{element}}</em> did not load properly. </div>';
 
       return ErrorView;
 

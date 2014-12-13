@@ -23,4 +23,9 @@
 		'apps/builder/site-builder/elements/roomsummary/controller'
 		'apps/builder/site-builder/elements/table/controller'
 		'apps/builder/site-builder/elements/widget/controller'
+		'apps/builder/site-builder/elements/spacer/controller'
+		'apps/builder/site-builder/elements/smarttable/controller'
+		'apps/builder/site-builder/elements/list/controller'
+		'apps/builder/site-builder/elements/tabs/controller'
+		'apps/builder/site-builder/elements/accordion/controller'
  ],->

@@ -39,8 +39,9 @@ define ['app', 'controllers/base-controller',
                 modal_size: 'medium-modal'
 
             events:
-                'click #btn_addplan': ->
+                'click #btn_addplan': (e)->                    
                     if @$el.valid()
+                        @$el.find('#btn_addplan').prop 'disabled', true
                         data = Backbone.Syphon.serialize @
                         @trigger "add:plan:details", data
 
@@ -49,10 +50,11 @@ define ['app', 'controllers/base-controller',
                 @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("New tarriff created") + "</div>"
                 @$el.find('input').val ''
                 @$el.find('textarea').val ''
+                @$el.find( '#btn_addplan' ).prop 'disabled', false
 
             # show checkbox
             onShow: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
 
 
         # handler

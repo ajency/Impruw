@@ -15,14 +15,14 @@ define ['app'
                 super opt
 
             onRender: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
                 @$el.find('select').selectpicker()
                 @setFields()
 
             # set fields for the form
             setFields: ->
                 if @eleModel.get('draggable') is true
-                    @$el.find('input[name="draggable"]').checkbox('check')
+                    @$el.find('input[name="draggable"]').radiocheck('check')
 
                 @$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'style'
                 @$el.find('select[name="type"]').selectpicker 'val', @eleModel.get 'type'

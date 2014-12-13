@@ -23,14 +23,14 @@ define(['app', 'text!apps/builder/site-builder/elements/text/settings/templates/
       };
 
       SettingsView.prototype.onRender = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         this.$el.find('select').selectpicker();
         return this.setFields();
       };
 
       SettingsView.prototype.setFields = function() {
         if (this.eleModel.get('draggable') === true) {
-          return this.$el.find('input[name="draggable"]').checkbox('check');
+          return this.$el.find('input[name="draggable"]').radiocheck('check');
         }
       };
 

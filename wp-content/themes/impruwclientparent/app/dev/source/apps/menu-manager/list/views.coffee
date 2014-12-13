@@ -1,133 +1,166 @@
-define [ 'app'], ( App )->
+define [ 'app', 'bootbox'], ( App, bootbox )->
 
-   App.module 'MenuManager.List.Views', ( Views, App )->
-      class MenuItemView extends Marionette.ItemView
+	App.module 'MenuManager.List.Views', ( Views, App )->
+		
+		class MenuItemView extends Marionette.ItemView
 
+			template : '<div class="row menu-item">
+					   <div class="col-sm-1 menu-dragger"><span class="bicon icon-uniF160"></span></div>
+					   <div class="col-sm-8 menu-name">{{title}}</div>
+					   <div class="col-sm-3 menu-edit">
+						{{#isCustom}}
+						 <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}" class="blue-link">
+						   <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit Link{{/polyglot}}
+						 </a>
+						 {{/isCustom}}
+						<a class="delete-menu-item red-link"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a>
+					   </div>
+					 </div>
+					 {{#isCustom}}
+					 <div id="menu-item-{{menu_id}}-{{ID}}" class="collapse menu-item-edit">
+					   <form class="form-inline custom-menu-item-update-form">
+						 <div class="form-group">
+							<label class="control-label">{{#polyglot}}Custom Menu Name{{/polyglot}}</label>
+							<input value="{{title}}" required type="text" name="menu-item-title"
+							  class="form-control menuname" />
+						 </div>
+						 <div class="form-group">
+							<label class="control-label">{{#polyglot}}Custom Menu URL{{/polyglot}}</label>
+							<input value="{{url}}" required type="url" 
+								name="menu-item-url" id="menu-item-url-{{ID}}" class="form-control menuname" />
+						 </div>
+						 <div class="form-group form-actions">
+							<label class="control-label">&nbsp;</label>
+								<input type="hidden" value="{{ID}}" name="ID">
+								<input type="hidden" value="custom" name="menu-item-type">
+							 <button type="button" class="update-menu-item btn btn-default aj-imp-orange-btn"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button>
+							 <a href="#" class="blue-link cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></a>
+						 </div>
+					   </form>
+					 </div>{{/isCustom}}'
 
-         template : '<div class="row menu-item">
-                       <div class="col-sm-1 menu-dragger"><span class="bicon icon-uniF160"></span></div>
-                       <div class="col-sm-8 menu-name">{{menu_item_title}}</div>
-                       <div class="col-sm-3 menu-edit">
-                         <a href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse" id="menuitem-{{menu_id}}-{{ID}}">
-                           <span class="glyphicon glyphicon-edit"></span> {{#polyglot}}View{{/polyglot}}
-                         </a>
-                       </div>
-                     </div>
-                     <div id="menu-item-{{menu_id}}-{{ID}}" class="collapse menu-item-edit">
-                       <form class="form-horizontal">
-                         <div class="form-group">
-                           <label class="col-sm-4 control-label">{{#polyglot}}Menu Link Label{{/polyglot}}</label>
-                           <div class="col-sm-8">
-                             <input value="{{menu_item_title}}" parsley-required="true" type="text" name="menu_item_title"
-                              class="form-control menuname" readonly="readonly"/>
-                           </div>
-                         </div>
-                         <div class="form-group">
-                           <label class="col-sm-4 control-label">{{#polyglot}}Menu Link{{/polyglot}}</label>
-                           <div class="col-sm-8">
-                             <input value="{{menu_item_url}}" parsley-type="url" parsley-required="true" type="text"
-                                name="menu_item_url" class="form-control menutitle" readonly="readonly"/>
-                           </div>
-                         </div>
-                         <div class="form-group form-actions">
-                           <div class="col-sm-offset-4 col-sm-8">
-                             <!--<input type="hidden" value="{{menu_id}}" name="menu_id"/> -->
-                             <!--<button type="button" class="update-menu-item btn btn-info"><span>{{#polyglot}}Update Menu Item{{/polyglot}}</span></button>-->
-                             <button type="button" class="btn cancel-menu-item"><span>{{#polyglot}}Cancel{{/polyglot}}</span></button>
-                             <button type="button" class="btn btn-danger delete-menu-item"><span class="glyphicon glyphicon-trash"></span></button>
-                           </div>
-                         </div>
-                       </form>
-                     </div>'
+			tagName : 'li'
 
-         tagName : 'li'
+			className : 'list-group-item'
 
-         className : 'list-group-item'
+			modelEvents :
+				'change' : 'render'
 
-         modelEvents :
-            'change' : 'render'
+			ui :
+				customMeuUpdateForm : '.custom-menu-item-update-form'
 
-         onRender : ->
-            @$el.attr 'id', 'item-' + @model.get 'ID'
+			mixinTemplateHelpers : (data)->
+				data = super data
+				data.isCustom = data.object is 'custom'
+				data
 
-         events :
-            'click .update-menu-item' : ->
-               formdata = Backbone.Syphon.serialize @
-               @trigger "update:menu:item:clicked", formdata, @model
+			onRender : ->
+				@$el.attr 'id', 'item-' + @model.get 'ID'
 
-            'click .delete-menu-item' : ->
-               if confirm _.polyglot.t 'Delete menu item'
-                  @trigger "delete:menu:item:clicked", @model
+			events :
+				'click .update-menu-item' : ->
+					return if not @ui.customMeuUpdateForm.valid()
+					formdata = Backbone.Syphon.serialize @
+					@trigger "update:menu:item:clicked", formdata, @model
 
-            'click .cancel-menu-item' : ->
-               menu_id = @model.get 'menu_id'
-               menu_item_id = @model.get 'ID'
-               @$el.find( '.menuname' ).val( @model.get 'menu_item_title' )
-               @$el.find( '.menutitle' ).val( @model.get 'menu_item_url' )
-               @$el.find( "#menuitem-#{menu_id}-#{menu_item_id}" ).click()
+				'click .delete-menu-item' : ->
+					message = _.polyglot.t 'This menu item will be removed from all the occurrences of the menu. Are you sure you want to delete the menu item?'
+					bootbox.confirm  message, ( answer )=>
+							if answer is yes
+								@trigger "delete:menu:item:clicked", @model
+						
 
-      class EmptyView extends Marionette.ItemView
+				'click .cancel-menu-item' : ->
+					@$el.closest '.list-group-item'
+						.find '[data-toggle]'
+						.click()
 
-         template : '<span class="bicon icon-uniF151"></span> {{#polyglot}}No Menu Items found{{/polyglot}}'
+			onShow : ->
+				urlField = "menu-item-url-#{@model.get 'ID'}"
+				options = 
+					rules : {}
+				options['rules'][urlField] = url2 : true
+				@ui.customMeuUpdateForm.validate options	
+										
 
-         tagName : 'div'
+		class EmptyView extends Marionette.ItemView
 
-         className : 'empty-view menu-empty'
+			template : '<span class="bicon icon-uniF151"></span> {{#polyglot}}No Menu Items found{{/polyglot}}'
 
-      # main menu manager view
-      class Views.MenuCollectionView extends Marionette.CompositeView
+			tagName : 'div'
 
+			className : 'empty-view menu-empty'
 
-         template : '<div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{{menu_name}}</h3>
-                        </div>
-                        <ol class="list-group sortable-menu-items ui-sortable"></ol>
-                    </div>'
+		# main menu manager view
+		class Views.MenuCollectionView extends Marionette.CompositeView
 
-         itemView : MenuItemView
+			template : '<div class="panel panel-default">
+							<ol class="list-group sortable-menu-items ui-sortable"></ol>
+						</div>'
 
-         emptyView : EmptyView
+			itemView : MenuItemView
 
-         itemViewContainer : 'ol.sortable-menu-items'
+			emptyView : EmptyView
 
-         className : 'aj-imp-menu-item-list'
+			itemViewContainer : 'ol.sortable-menu-items'
 
-         onShow : ->
-            @$el.find( '.sortable-menu-items' ).sortable
-               handle : 'div.menu-dragger'
-               items : 'li.list-group-item'
-               tolerance : 'intersect'
-               stop : ( e, ui )=>
-                  order = @$el.find( '.sortable-menu-items' ).sortable 'toArray'
-                  @sendData order, @collection
-         #@trigger "menu:item:order:changed",order
+			className : 'aj-imp-menu-item-list'
 
-         sendData : ( order, collection )->
-            @trigger "view:menu:order:changed", order, collection
+			ui : 
+				sortableList : '.sortable-menu-items'
 
-         onMenuItemUpdated : ->
-            @$el.find( '.alert' ).remove()
-            @$el.prepend '<div class="alert alert-success">' + _.polyglot.t( "Menu item updated" ) + '</div>'
+			appendHtml : (collectionView, childView, index)->
 
-         onTriggerOrderChange : =>
-            _.delay =>
-               order = @$el.find( '.sortable-menu-items' ).sortable 'toArray'
-               @sendData order, @collection
-            , 600
+				if @collection.length is 0
+					Marionette.CollectionView::appendHtml.apply @,arguments
+					return
 
-         itemViewOptions : ( collection, index ) =>
-            itemIndex : index
-            collection : @collection
+				if childView.model.get('menu_item_parent') is '0'
+					collectionView.$(@itemViewContainer).append childView.el
+				else
+					@createSubMenuAndAppend collectionView, childView
+					
+				collectionView._bufferedChildren.push childView
+				
+			createSubMenuAndAppend : (collectionView, childView)->
+				menuItemModel = childView.model
+				$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'} ol")
 
-         serializeData : ->
-            data =
-               menus : []
+				if $ul.length is 0
+					$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'}").append '<ol></ol>'
+					
+				$ul = collectionView.$el.find("#item-#{menuItemModel.get 'menu_item_parent'} ol")
+				$ul.append childView.el
 
-            @collection.each ( model, index )->
-               menu = {}
-               menu.menu_item_url = model.get 'menu_item_url'
-               menu.menu_name = model.get 'menu_item_title'
-               data.menus.push menu
-            data
+			onMenuOrderUpdated : ->
+				@ui.sortableList.parents('.panel').before "<div class='alert alert-success alert-dismissible' role='alert'>
+                                  <button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
+                                    #{_.polyglot.t 'Order updated successfully'}
+                                </div>"
+				@ui.sortableList.nestedSortable 'enable'
+
+			onShow : ->
+				@ui.sortableList.nestedSortable
+					handle : 'div.menu-dragger'
+					items : 'li.list-group-item'
+					tolerance : 'intersect'
+					maxLevels : 2
+					stop : ( e, ui )=>
+						order = @ui.sortableList.nestedSortable 'toArray'
+						newOrder = []
+						_.each order, (item, index)->
+							return if not item['item_id']
+							itemData = {}
+							itemData['ID'] = item['item_id']
+							itemData['menu_order'] = index
+							if item['parent_id']
+								itemData['menu_item_parent'] = item['parent_id'] + ''
+							else
+								itemData['menu_item_parent'] = "0"
+
+							newOrder.push itemData
+							
+						@$el.find('.alert').remove()
+						@trigger "menu:item:order:updated", newOrder
+						@ui.sortableList.nestedSortable 'disable'
 

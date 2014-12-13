@@ -71,6 +71,7 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
       };
 
       Controller.prototype.deleteImage = function(imageModel) {
+        App.execute('remove:media', imageModel);
         return imageModel.destroy({
           allData: false,
           wait: true

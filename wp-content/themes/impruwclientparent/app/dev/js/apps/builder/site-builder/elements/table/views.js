@@ -49,6 +49,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         this.$el.find('.table-holder').html(_.stripslashes(tablecontent));
         this.$el.find('table').resizableColumns();
         this.$el.parent().css('padding-bottom', '7px');
+        this.$el.find('.table-responsive').height(this.$el.find('.table-responsive').height());
         this.$el.find('.table-holder').height(this.$el.find('.table-responsive').height() + 15);
         return this.setResizable();
       };
@@ -56,6 +57,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       TableView.prototype.setResizable = function() {
         return this.$el.find('.table-holder').resizable({
           handles: 's',
+          minHeight: 150,
           resize: (function(_this) {
             return function(event, ui) {
               return _this.$el.find('.table-responsive').height(ui.size.height - 15);
@@ -75,12 +77,16 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       TableView.prototype.rowChanged = function(model, rows) {
-        var currentRows, html, index, _i, _ref, _results;
+        var currentRows, html, index, _i, _ref;
+        console.log(rows);
         currentRows = this.$el.find('tbody tr').length;
+        if (rows > 100 && currentRows < rows) {
+          bootbox.alert("<h4>" + _.polyglot.t('Cannot enter more then 100 rows') + "</h4>");
+          return;
+        }
         if (currentRows === rows) {
 
         } else if (currentRows < rows) {
-          _results = [];
           while (currentRows !== rows) {
             html = '<tr>';
             for (index = _i = 1, _ref = model.get('column'); 1 <= _ref ? _i <= _ref : _i >= _ref; index = 1 <= _ref ? ++_i : --_i) {
@@ -88,26 +94,23 @@ define(['app', 'bootbox'], function(App, bootbox) {
             }
             html += '</tr>';
             this.$el.find('tbody').append(html);
-            this.saveTableMarkup();
-            _results.push(currentRows++);
+            currentRows++;
           }
-          return _results;
+          return this.saveTableMarkup();
         } else {
-          return bootbox.confirm(_.polyglot.t('Removing a ROW might cause a loss of data. Do you want to continue?'), (function(_this) {
+          return bootbox.confirm("</h4>" + _.polyglot.t('Removing a ROW might cause a loss of data. Do you want to continue?') + "</h4>", (function(_this) {
             return function(result) {
-              var _results1;
               if (result) {
-                _results1 = [];
                 while (currentRows !== rows) {
                   _this.$el.find('tbody tr:last-of-type').remove();
-                  _this.saveTableMarkup();
-                  if (_this.$el.find('table').height() < _this.$el.find('.table-responsive').height()) {
-                    _this.$el.find('.table-responsive').height(_this.$el.find('table').height() + 2);
-                    _this.$el.find('.table-holder').height(_this.$el.find('.table-responsive').height() + 15);
-                  }
-                  _results1.push(currentRows--);
+                  currentRows--;
                 }
-                return _results1;
+                if (_this.$el.find('table').height() < _this.$el.find('.table-responsive').height()) {
+                  _this.$el.find('.table-responsive').height(_this.$el.find('table').height() + 2);
+                  _this.$el.find('.table-holder').height(_this.$el.find('.table-responsive').height() + 15);
+                }
+                _this.$el.find('.table-responsive').height(_this.$el.find('.table-responsive').height());
+                return _this.saveTableMarkup();
               } else {
                 return model.set('row', currentRows);
               }
@@ -117,39 +120,39 @@ define(['app', 'bootbox'], function(App, bootbox) {
       };
 
       TableView.prototype.columnChanged = function(model, columns) {
-        var currentColumns, tableRows, _results;
+        var currentColumns, tableRows;
+        console.log(columns);
         currentColumns = this.$el.find('thead th').length;
+        if (columns > 100 && currentColumns < columns) {
+          bootbox.alert("<h4>" + _.polyglot.t('Cannot enter more then 100 columns') + "</h4>");
+          return;
+        }
         if (currentColumns === columns) {
 
         } else if (currentColumns < columns) {
-          _results = [];
           while (currentColumns !== columns) {
             this.$el.find('thead tr').append('<th><div>demo</div></th>');
             tableRows = this.$el.find('tbody tr');
             _.each(tableRows, function(row, index) {
               return $(row).append('<td><div>demo</div></td>');
             });
-            this.$el.find('table').resizableColumns('destroy');
-            this.$el.find('table').resizableColumns();
-            this.saveTableMarkup();
-            _results.push(currentColumns++);
+            currentColumns++;
           }
-          return _results;
+          this.$el.find('table').resizableColumns('destroy');
+          this.$el.find('table').resizableColumns();
+          return this.saveTableMarkup();
         } else {
-          return bootbox.confirm(_.polyglot.t('Removing a COLUMN might cause a loss of data. Do you want to continue?'), (function(_this) {
+          return bootbox.confirm("<h4>" + _.polyglot.t('Removing a COLUMN might cause a loss of data. Do you want to continue?') + "</h4>", (function(_this) {
             return function(result) {
-              var _results1;
               if (result) {
-                _results1 = [];
                 while (currentColumns !== columns) {
                   _this.$el.find('thead tr th:last-of-type').remove();
                   tableRows = _this.$el.find('tbody tr td:last-of-type').remove();
-                  _this.$el.find('table').resizableColumns('destroy');
-                  _this.$el.find('table').resizableColumns();
-                  _this.saveTableMarkup();
-                  _results1.push(currentColumns--);
+                  currentColumns--;
                 }
-                return _results1;
+                _this.$el.find('table').resizableColumns('destroy');
+                _this.$el.find('table').resizableColumns();
+                return _this.saveTableMarkup();
               } else {
                 return model.set('column', currentColumns);
               }
@@ -171,7 +174,13 @@ define(['app', 'bootbox'], function(App, bootbox) {
         $(evt.target).closest('td,th').find('div').attr('contenteditable', 'true').attr('id', id);
         CKEDITOR.on('instanceCreated', this.configureEditor);
         this.editor = CKEDITOR.inline(document.getElementById(id));
-        return this.editor.config.placeholder = 'Click to enter text.';
+        this.editor.config.placeholder = 'Click to enter text.';
+        $(evt.target).closest('td,th').find('div').trigger('blur');
+        return _.delay((function(_this) {
+          return function() {
+            return $(evt.target).closest('td,th').find('div').trigger('focus');
+          };
+        })(this), 200);
       };
 
       TableView.prototype.configureEditor = function(event) {

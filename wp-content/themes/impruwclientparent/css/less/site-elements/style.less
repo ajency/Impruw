@@ -5,16 +5,26 @@
 // Font Files
 @font-face {
 	font-family: 'icomoon';
-	src: url("../fonts/icomoon.eot");
-	src: url("../fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../fonts/icomoon.woff") format("woff"), url("../fonts/icomoon.ttf") format("truetype"), url("../fonts/icomoon.svg#icomoon") format("svg");
+	src: url("@{font-url}/icomoon.eot");
+	src: url("@{font-url}/icomoon.eot?#iefix") format("embedded-opentype"), url("@{font-url}/icomoon.woff") format("woff"), url("@{font-url}/icomoon.ttf") format("truetype"), url("@{font-url}/icomoon.svg#icomoon") format("svg");
 	font-weight: normal;
 	font-style: normal; 
+}
+
+body {
+	font-size: 14px;
+	line-height: 1.2;
 }
 
 /****body styles****/
 .site-style-container {
 	font-family: 'Helvetica', sans-serif;
 	font-weight: 400;
+	line-height: 1.2;
+
+	.site-page {
+		min-height: 40vh;
+	}
 
 	/*-- Site Builder Container --*/
 	.site-header, .site-footer, .site-page {
@@ -59,12 +69,13 @@
 
 	/****Powered By Styles****/
 	.power-up {
-		margin: 0.5em 0;
+		margin: 0 -15px;
+		padding: 0.5em;
 		text-align: center;
-		font-size: 0.88em;
+		font-size: 0.78em;
 		a {
 			img {
-				max-height: 20px;
+				max-height: 16px;
 				display: inline-block;
 				margin-right: 0.3em;
 				opacity: 0.7;
@@ -98,3 +109,8 @@
 @import "language-switcher.less";
 @import "widget.less";
 @import "slider.less";
+@import "spacer.less";
+@import "smart-table.less";
+@import "accordion.less";
+@import "list.less";
+@import "tabs.less";

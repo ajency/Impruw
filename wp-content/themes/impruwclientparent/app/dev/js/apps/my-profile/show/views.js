@@ -21,7 +21,7 @@ define(['app', 'text!apps/my-profile/show/templates/mainview.html'], function(Ap
       };
 
       Layout.prototype.onShow = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         return this.$el.find('select').selectpicker();
       };
 

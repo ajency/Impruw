@@ -147,7 +147,7 @@ define ['app', 'controllers/base-controller',
 
             # show checkbox
             onShow: ->
-                @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('input[type="checkbox"]').radiocheck()
                 @$el.find('#daterange_colour').minicolors()
                 @displayDatePicker()
 

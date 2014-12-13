@@ -99,6 +99,15 @@ define ['marionette', 'mustache', 'underscore'], (Marionette, Mustache, _ )->
 
         template
 
+
+    Marionette._ctrl = {}
+
+    Marionette.run = (options)->
+        CtrlClass = Marionette._ctrl[options['ctrl']]
+        new CtrlClass
+            region: options['region']
+            options: options['args']
+
     # Form view
     class Marionette.FormView extends Marionette.ItemView
 

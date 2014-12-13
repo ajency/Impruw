@@ -41,14 +41,16 @@ define ['marionette'], (Marionette)->
     App.commands.setHandler "unregister:instance", (instance, id) ->
         App.unregister instance, id
 
-    App.on "initialize:after", (options) ->
-        Pace.on 'done', ->
-            Pace.options =
-                    ajax: false
+    App.on "initialize:before", (options) ->
+        Pace.options.ajax = false
+        Pace.on 'done', ->           
 
             $('body').addClass 'pace-min-theme'
             $('#initial-loader').fadeOut 'fast', ->
                 $('#initial-loader').remove()
+                $('#footer-section').removeClass('hidden')
+
+    App.on "initialize:after", (options) ->
 
         App.startHistory()
 

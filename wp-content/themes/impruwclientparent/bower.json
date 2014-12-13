@@ -1,0 +1,28 @@
+{
+  "name": "impruwclientparent",
+  "version": "0.0.31",
+  "homepage": "https://github.com/ajency/Impruw",
+  "authors": [
+    "Suraj Air <suraj@ajency.in>"
+  ],
+  "description": "Impruw child theme",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.15",
+    "bootstrap": "~3.2.0",
+    "jquery-ui": "~1.11.1",
+    "flat-ui": "~2.2.1",
+    "lightbox2": "~2.7.1",
+    "pace": "~1.0.1",
+    "jquery-minicolors": "~2.1.7",
+    "jquery-validation": "~1.13.1"
+  }
+}

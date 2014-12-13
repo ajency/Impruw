@@ -47,7 +47,8 @@ define(['app'], function(App) {
         this.editor.setData(html);
         this.editor.on('changedTitleStyle', (function(_this) {
           return function(evt) {
-            return _this.model.set('style', evt.data.style);
+            _this.model.set('style', evt.data.style);
+            return _this.model.save();
           };
         })(this));
         this.editor.on('titleStylesInitDone', (function(_this) {
@@ -70,7 +71,13 @@ define(['app'], function(App) {
             return _this.model.set('justify', evt.data.justify);
           };
         })(this));
-        return this.editor.config.placeholder = 'Click here to enter Title';
+        this.editor.config.placeholder = 'Click here to enter Title';
+        this.$el.trigger('blur');
+        return _.delay((function(_this) {
+          return function() {
+            return _this.$el.trigger('focus');
+          };
+        })(this), 200);
       };
 
       TitleView.prototype.onShow = function() {

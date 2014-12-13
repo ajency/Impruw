@@ -82,7 +82,7 @@ class MapElement extends Element {
 		var HOTELADDRESS = '<?php echo get_hotel_address(); ?>';
         </script>
         <?php
-        echo "<script>jQuery('#map_canvas').height(parseInt(jQuery('#map_canvas').width())*".$heightRatio.");</script>";
+        //echo "<script>jQuery('#map_canvas').height(parseInt(jQuery('#map_canvas').width())*".$heightRatio.");</script>";
         $html = ob_get_clean();
 
         return $html;

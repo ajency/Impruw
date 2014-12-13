@@ -15,39 +15,40 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
       }
 
       EditTariffController.prototype.initialize = function(opt) {
-        var currentCurrency, sitemodel, tariff, tariffView;
+        var sitemodel, tariff;
         if (!opt.model) {
           tariff = App.request("get:tariff", opt.tariffId);
         } else {
           tariff = opt.model;
         }
         sitemodel = App.request("get:site:model");
-        currentCurrency = sitemodel.get('currency');
-        this.tariffView = tariffView = this._getEditTariffView(tariff, currentCurrency);
-        this.listenTo(tariffView, "update:tariff:details", (function(_this) {
-          return function(data) {
-            tariff.set(data);
-            return tariff.save(null, {
-              wait: true,
-              success: _this.tariffSaved
+        return App.execute("when:fetched", sitemodel, (function(_this) {
+          return function() {
+            var currentCurrency, tariffView;
+            currentCurrency = sitemodel.get('currency');
+            _this.tariffView = tariffView = _this._getEditTariffView(tariff, currentCurrency);
+            _this.listenTo(tariffView, "update:tariff:details", function(data) {
+              tariff.set(data);
+              return tariff.save(null, {
+                wait: true,
+                success: _this.tariffSaved
+              });
+            });
+            _this.listenTo(tariffView, "delete:tariff", function(model) {
+              return model.destroy({
+                allData: false,
+                wait: true,
+                success: _this.tariffDeleted
+              });
+            });
+            return _this.show(tariffView, {
+              loading: true
             });
           };
         })(this));
-        this.listenTo(tariffView, "delete:tariff", (function(_this) {
-          return function(model) {
-            return model.destroy({
-              allData: false,
-              wait: true,
-              success: _this.tariffDeleted
-            });
-          };
-        })(this));
-        return this.show(tariffView, {
-          loading: true
-        });
       };
 
-      EditTariffController.prototype.tariffSaved = function() {
+      EditTariffController.prototype.tariffSaved = function(model) {
         return this.tariffView.triggerMethod("saved:tariff");
       };
 
@@ -78,6 +79,12 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 
       EditTariffView.prototype.template = editTariffTpl;
 
+      EditTariffView.prototype.mixinTemplateHelpers = function(data) {
+        data = EditTariffView.__super__.mixinTemplateHelpers.call(this, data);
+        data.currency = Marionette.getOption(this, "currency");
+        return data;
+      };
+
       EditTariffView.prototype.dialogOptions = {
         modal_title: _.polyglot.t('Edit Tariff'),
         modal_size: 'medium-modal'
@@ -99,6 +106,20 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
         }
       };
 
+      EditTariffView.prototype.initialize = function() {
+        var weekday, weekend;
+        weekday = this.model.get('weekday');
+        if (weekday.enable == null) {
+          weekday.enable = true;
+          this.model.set('weekday', weekday);
+        }
+        weekend = this.model.get('weekend');
+        if (weekend.enable == null) {
+          weekend.enable = true;
+          return this.model.set('weekend', weekend);
+        }
+      };
+
       EditTariffView.prototype.onSavedTariff = function() {
         this.$el.find('.alert').remove();
         return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Tariff updated successfully") + "</div>");
@@ -109,8 +130,24 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
       };
 
       EditTariffView.prototype.onShow = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
-        this.$el.find('.currency').text(Marionette.getOption(this, 'currency'));
+        var weekday, weekend;
+        this.$el.find('input[type="checkbox"]').radiocheck();
+        weekday = this.model.get('weekday');
+        if (weekday.enable == null) {
+          weekday.enable = true;
+          this.model.set('weekday', weekday);
+        }
+        if (_.toBoolean(weekday.enable)) {
+          this.$el.find('input[type="checkbox"][name="weekday[enable]"]').radiocheck('check');
+        }
+        weekend = this.model.get('weekend');
+        if (weekend.enable == null) {
+          weekend.enable = true;
+          this.model.set('weekend', weekend);
+        }
+        if (_.toBoolean(weekend.enable)) {
+          this.$el.find('input[type="checkbox"][name="weekend[enable]"]').radiocheck('check');
+        }
         return this.$el.validate();
       };
 

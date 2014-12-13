@@ -9,7 +9,7 @@ include_once 'functions.php';
  * @return [type]                 [description]
  */
 function impruw_wp_revisions_to_keep($revision_count, $post){
-    return 5;
+    return 40;
 }
 
 add_filter('wp_revisions_to_keep', 'impruw_wp_revisions_to_keep', 100, 2);
@@ -42,6 +42,10 @@ function create_page_ajax() {
     $data = $_POST;
     //unset action param
     unset( $data[ 'action' ] );
+
+    global $wpdb;
+    $all_names = $wpdb->get_col( "SELECT post_title FROM {$wpdb->posts} WHERE post_type = 'page'" );
+    $data['post_title'] = impruw_page_find_alternate_name( $all_names, $data['post_title'] );
 
     $is_theme_template = $data['is_theme_template'] == 'true'? true : false;
    
@@ -120,16 +124,26 @@ function publish_page_ajax() {
     $user_id = wp_check_post_lock( $page_id );
 
     if ($user_id === false){
-        
-        $header_json = $_REQUEST[ 'header-json' ];
-        update_header_json( $header_json );
-        $header_json = convert_json_to_array( $header_json );
-        update_option( "theme-header-autosave", $header_json );
 
-        $footer_json = $_REQUEST[ 'footer-json' ];
-        update_footer_json( $footer_json );
-        $footer_json = convert_json_to_array( $footer_json );
-        update_option( "theme-footer-autosave", $footer_json );
+        if (impruw_is_front_page( $page_id )){
+        
+            $header_json = $_REQUEST[ 'header-json' ];
+            update_header_json( $header_json , true); //autosave
+            
+            // $header_json = get_json_to_clone('theme-header-autosave');
+            // print_r($header_json);
+            // update_option( THEME_HEADER_KEY, $header_json );
+            publish_footer_header_json( 'header', $header_json );
+            
+            // $header_json = convert_json_to_array( $header_json );
+            // update_option( "theme-header-autosave", $header_json );
+
+            $footer_json = $_REQUEST[ 'footer-json' ];
+            update_footer_json( $footer_json, true ); // autosave
+            // $footer_json = get_json_to_clone( "theme-footer-autosave" );
+            // update_option( THEME_FOOTER_KEY , $footer_json );
+            publish_footer_header_json( 'footer', $footer_json);
+        }
 
         remove_all_actions( 'post_updated' );
 
@@ -140,13 +154,21 @@ function publish_page_ajax() {
         $page_json = convert_json_to_array( $page_json_string );
         add_page_json( $page_id, $page_json );
 
+        //get all the elements array using layout
+        $page_elements = create_page_element_array($page_json);
+        // update post meta page-elements
+        update_page_elements($page_id,$page_elements);
+
         $revision_post_id = add_page_revision( $page_id, $page_json );
 
         update_page_autosave( $page_id, $page_json );
 
         $revision_data = get_post( $revision_post_id );
+        // print_r($revision_data);
+        $revision_data = generate_revision_data($revision_data);
+        // print_r($revision_data);
 
-        wp_send_json( array( 'success' => true, 'page_id' => $page_id));
+        wp_send_json( array( 'success' => true, 'revision' => $revision_data));
     }
     else{
         $user = get_userdata( $user_id );
@@ -169,11 +191,14 @@ function auto_save() {
 
     $page_id = $_REQUEST[ 'page_id' ];
 
-    $header_json = $_REQUEST[ 'header-json' ];
-    update_header_json( $header_json, true );
+    if (impruw_is_front_page( $page_id )){
+        
+        $header_json = $_REQUEST[ 'header-json' ];
+        update_header_json( $header_json, true );
 
-    $footer_json = $_REQUEST[ 'footer-json' ];
-    update_footer_json( $footer_json, true );
+        $footer_json = $_REQUEST[ 'footer-json' ];
+        update_footer_json( $footer_json, true );
+    }
 
     $page_json_string = $_REQUEST[ 'page-content-json' ];
     $page_json = convert_json_to_array( $page_json_string );
@@ -202,10 +227,25 @@ add_action( 'wp_ajax_read-page', 'ajax_read_page' );
  * Function to update the name of a page
  */
 function ajax_update_page() {
+    global $wpdb;
     $page_id = $_POST[ 'ID' ];
-    $page_name = $_POST[ 'post_title' ];
-
-    wp_update_post( array( 'ID' => $page_id, 'post_title' => $page_name ) );
+    if (isset($_POST[ 'post_title'] )){
+        $page_name = $_POST[ 'post_title' ];
+        $all_names = $wpdb->get_col( "SELECT post_title FROM {$wpdb->posts} WHERE post_type = 'page'" );
+        $page_name = impruw_page_find_alternate_name( $all_names, $page_name );
+        remove_action( 'post_updated', 'wp_save_post_revision', 10, 1 );
+        wp_update_post( array( 'ID' => $page_id, 'post_title' => $page_name ) );
+        add_action( 'post_updated', 'wp_save_post_revision', 10, 1 );
+    }
+    elseif ( isset( $_POST[ 'post_name' ] ) ) {
+        $page_slug = $_POST[ 'post_name' ];
+        
+        $page_slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $page_slug);
+        $all_names = $wpdb->get_col( "SELECT post_name FROM {$wpdb->posts} WHERE post_type = 'page'" );
+        // print_r($all_names);
+        $page_slug = impruw_page_find_alternate_name( $all_names, $page_slug );
+        $wpdb->update( $wpdb->posts, array(  'post_name' => $page_slug ), array( 'ID' => $page_id ) );
+    }
 
     $page_data = get_post( $page_id, ARRAY_A );
 
@@ -223,4 +263,30 @@ function take_over_page_editing(){
     wp_send_json(1);
 }
 add_action('wp_ajax_take_over_page_editing', 'take_over_page_editing');
+
+
+function impruw_delete_page(){
+    $page_id = $_POST['page_id'];
+    $response = delete_page_all_data( $page_id );
+    wp_send_json( array( 'code' => 'OK', 'data' => $page_id ) );
+}
+add_action('wp_ajax_impruw-delete-page','impruw_delete_page');
+// add_action('wp_ajax_nopriv_delete-page','impruw_delete_page1');
+
+function impruw_page_find_alternate_name($value_array, $value){
+    if ( !in_array( $value, $value_array )){
+            $new_value = $value;
+    }
+    else{
+        $i = 1;
+        do {
+            
+            $new_value = $value . '-' . $i;
+            $i++;
+        } while ( in_array( $new_value, $value_array ));
+    }
+    return $new_value;
+}
+
+
 

@@ -22,7 +22,7 @@ define ['app','bootbox'], (App,bootbox)->
 				'blur .cke_editable' : 'saveTableMarkup'
 
 				'click a': (e)->
-                    e.preventDefault()
+					e.preventDefault()
 
 				'click .table-holder' : 'destroyEditor'
 
@@ -47,15 +47,17 @@ define ['app','bootbox'], (App,bootbox)->
 				# @$el.find('#table-style').val @model.get 'style' 
 				@$el.find('table').resizableColumns()
 				@$el.parent().css 'padding-bottom', '7px'
+				@$el.find('.table-responsive').height @$el.find('.table-responsive').height()
 				@$el.find('.table-holder').height( @$el.find('.table-responsive').height() + 15 )
 				@setResizable()
 				# @$el.find('select').selectpicker()
-				# @$el.find('[data-toggle="checkbox"]').checkbox() 
+				# @$el.find('[data-toggle="checkbox"]').radiocheck() 
 
 
 			setResizable : ->
 				@$el.find('.table-holder').resizable
 					handles : 's'
+					minHeight: 150
 					# create : (event,ui)=>
 					# 	console.log ui
 						# ui.size.height = @$el.find('.table-responsive').height() + 15
@@ -69,8 +71,12 @@ define ['app','bootbox'], (App,bootbox)->
 						@saveTableMarkup()	
 
 			rowChanged:(model,rows)->
+				console.log rows
 				currentRows = @$el.find('tbody tr').length 
 
+				if rows > 100 and currentRows < rows
+					bootbox.alert "<h4>"+_.polyglot.t('Cannot enter more then 100 rows')+"</h4>"
+					return
 				if currentRows is rows
 					return
 
@@ -80,29 +86,41 @@ define ['app','bootbox'], (App,bootbox)->
 						for index in [1..model.get('column')]
 							html += '<td><div>demo</div></td>'
 						html += '</tr>'
-						@$el.find('tbody').append html
-						@saveTableMarkup()
+						@$el.find('tbody').append html						
 						currentRows++
+
+					@saveTableMarkup()
 				else
-					bootbox.confirm _.polyglot.t('Removing a ROW might cause a loss of data.
-						Do you want to continue?'),(result)=>
+					bootbox.confirm "</h4>"+_.polyglot.t('Removing a ROW might cause a loss of data.
+						Do you want to continue?')+"</h4>",(result)=>
 						if result
 							while currentRows isnt rows
 								@$el.find('tbody tr:last-of-type').remove()
-								@saveTableMarkup()
-								if @$el.find('table').height() <  @$el.find('.table-responsive').height()
-									@$el.find('.table-responsive').height @$el.find('table').height()+2
-									@$el.find('.table-holder').height @$el.find('.table-responsive').height()+15
+								
 								currentRows--
+
+							
+							if @$el.find('table').height() <  @$el.find('.table-responsive').height()
+								@$el.find('.table-responsive').height @$el.find('table').height()+2
+								@$el.find('.table-holder').height @$el.find('.table-responsive').height()+15							
+							@$el.find('.table-responsive').height @$el.find('.table-responsive').height()
+							@saveTableMarkup()
 						else 
 							model.set 'row', currentRows 
 				
 
 			columnChanged : (model,columns)->
+				console.log columns
 				currentColumns = @$el.find('thead th').length 
+
+				if columns > 100 and currentColumns < columns
+					bootbox.alert "<h4>"+_.polyglot.t('Cannot enter more then 100 columns')+"</h4>"
+					return
 
 				if currentColumns is columns
 					return
+
+				
 
 				else if currentColumns < columns
 					while currentColumns isnt columns
@@ -111,21 +129,25 @@ define ['app','bootbox'], (App,bootbox)->
 						_.each tableRows,(row,index)->
 							$(row).append '<td><div>demo</div></td>'
 
-						@$el.find('table').resizableColumns('destroy')
-						@$el.find('table').resizableColumns()
-						@saveTableMarkup()
+						
 						currentColumns++
+
+					@$el.find('table').resizableColumns('destroy')
+					@$el.find('table').resizableColumns()
+					@saveTableMarkup()
 				else 
-					bootbox.confirm _.polyglot.t('Removing a COLUMN might cause a loss of data.
-						Do you want to continue?'),(result)=>
+					bootbox.confirm "<h4>"+_.polyglot.t('Removing a COLUMN might cause a loss of data.
+						Do you want to continue?')+"</h4>",(result)=>
 						if result
 							while currentColumns isnt columns
 								@$el.find('thead tr th:last-of-type').remove()
 								tableRows = @$el.find('tbody tr td:last-of-type').remove()
-								@$el.find('table').resizableColumns('destroy')
-								@$el.find('table').resizableColumns()
-								@saveTableMarkup()
+								
 								currentColumns--
+
+							@$el.find('table').resizableColumns('destroy')
+							@$el.find('table').resizableColumns()
+							@saveTableMarkup()
 						else
 							model.set 'column', currentColumns 
 							# console.log column+1
@@ -150,15 +172,19 @@ define ['app','bootbox'], (App,bootbox)->
 				CKEDITOR.on 'instanceCreated', @configureEditor
 				@editor = CKEDITOR.inline document.getElementById id
 				@editor.config.placeholder = 'Click to enter text.'
+				$(evt.target).closest('td,th').find('div').trigger 'blur'
+				_.delay =>
+					$(evt.target).closest('td,th').find('div').trigger 'focus'
+				,200
 				# @editor.setData _.stripslashes @model.get 'content'
 
 			configureEditor : (event) =>
-                editor = event.editor
-                element = editor.element
+				editor = event.editor
+				element = editor.element
 
-                if element.getAttribute('id') is @$el.attr 'id'
-                    editor.on 'configLoaded', ->
-                        editor.config.placeholder = 'Enter Data'
+				if element.getAttribute('id') is @$el.attr 'id'
+					editor.on 'configLoaded', ->
+						editor.config.placeholder = 'Enter Data'
 
 			destroyEditor :(evt)=>
 				evt.stopPropagation()

@@ -185,6 +185,17 @@ class RoomTariff extends Element {
                         </div>
                     </div>';
 
+            $has_plan = false;
+            foreach ($this->tariff as $value) {
+                if ($value['plan_id'] == $plans[$key]['id']){
+                    $has_plan = true;
+                    break;
+                    // continue 2;
+                }
+            }
+            if (!$has_plan)
+                continue;
+            
             $template .= $me->render($html, $data);
         }
 
@@ -202,6 +213,17 @@ class RoomTariff extends Element {
         $template = '<div id="tariff-region">';
 
         foreach ($date_range as $key => $value) {
+
+            $has_range = false;
+            foreach ($this->tariff as $tariff) {
+                # code...
+                if($tariff['daterange_id'] == $value['id']){
+                    $has_range = true;
+                    break;
+                }
+            }
+            if(!$has_range)
+                continue;
 
             $data = array('from_date' => date('d/M ', strtotime($date_range[$key]['from_date'])),
                 'to_date' => date('d/M ', strtotime($date_range[$key]['to_date'])),
@@ -245,47 +267,63 @@ class RoomTariff extends Element {
 
         foreach ($plans as $key2 => $value2) :
 
+            $has_plan = false;
+            foreach ($this->tariff as $value) {
+                if ($value['plan_id'] == $plans[$key2]['id']){
+                    $has_plan = true;
+                    break;
+                    // continue 2;
+                }
+            }
+            if (!$has_plan)
+                continue;
+
             $data = $this->check_tariff($plans[$key2]['id'], $date_range_id);
 
             if (!empty($data)) {
                 
                 $data['plan_name'] = $plans[$key2]['plan_name'];
                 $data['plan_description'] = $plans[$key2]['plan_description'];
+                if ($data['we_enable'] && $data['wd_enable'])
+                    $data['isFullweek'] = true;
+               
+
                 
                 $template = '<div class="package-block-outer" id="">
                     <div class="package-header"> 
                         <h6>{{plan_name}}</h6>
                         <div class="package-desc"> {{plan_description}} </div> 
                     </div>
-                    <div class="block clearfix">
+                    <div class="block clearfix {{^isFullweek}}common-plan{{/isFullweek}}">
 
-                    <div class="weekday">'.__("Weekdays","impruwclientparent").'
+                    {{#wd_enable}}
+                    <div class="weekday"> {{#isFullweek}}'.__("Weekdays","impruwclientparent").'{{/isFullweek}}
                     <span class="price"><small>'.$currency.'</small>&nbsp;{{wd_charge}}</span>
-                    </div>
+                    </div>{{/wd_enable}}
 
-                    <div class="weekend">'.__("Weekends","impruwclientparent").'
+                    {{#we_enable}}<div class="weekend">{{#isFullweek}}'.__("Weekends","impruwclientparent").'{{/isFullweek}}
                     <span class="price"><small>'.$currency.'</small>&nbsp;{{we_charge}}</span>
-                    </div>
+                    </div>{{/we_enable}}
 
                     <div class="tariff-label clearfix">'.__("Extra Adult","impruwclientparent").'</div>
 
-                    <div class="weekday">
+                    {{#wd_enable}}<div class="weekday">
                     <span class="price"><small>'.$currency.'</small>&nbsp;{{wd_extra_adult}}</span>
-                    </div>
+                    </div>{{/wd_enable}}
 
-                    <div class="weekend">
+                    {{#we_enable}}<div class="weekend">
                     <span class="price"><small>'.$currency.'</small>&nbsp;{{we_extra_adult}}</span>
-                    </div>
+                    </div>{{/we_enable}}
 
                     <div class="tariff-label clearfix">'.__("Extra Child","impruwclientparent").'</div>
 
-                    <div class="weekday">
+                    {{#wd_enable}}<div class="weekday">
                     <span class="price"><small>'.$currency.'</small>&nbsp;{{wd_extra_child}}</span>
-                    </div>
+                    </div>{{/wd_enable}}
 
-                    <div class="weekend">
+                    {{#we_enable}}<div class="weekend">
                     <span class="price"><small>'.$currency.'</small>&nbsp;{{we_extra_child}}</span>
-                    </div>
+                    </div>{{/we_enable}}
 
                     </div>
                     </div>
@@ -323,14 +361,24 @@ class RoomTariff extends Element {
             if ($tariff[$key]['daterange_id'] == $daterange_id &&
                     $tariff[$key]['plan_id'] == $plan_id) {
 
-                $weekday_key = array('wd_charge', 'wd_max_adults', 'wd_max_children',
+                $weekday_key = array('wd_enable', 'wd_charge', 'wd_max_adults', 'wd_max_children',
                     'wd_extra_adult', 'wd_extra_child');
 
-                $weekend_key = array('we_charge', 'we_max_adults', 'we_max_children',
+                $weekend_key = array('we_enable', 'we_charge', 'we_max_adults', 'we_max_children',
                     'we_extra_adult', 'we_extra_child');
 
                 $weekday_value = maybe_unserialize($tariff[$key]['weekday']);
                 $weekend_value = maybe_unserialize($tariff[$key]['weekend']);
+                if(!isset($weekday_value['enable']))
+                    $weekday_value['enable'] = true;
+                else
+                    $weekday_value['enable'] = $weekday_value['enable'] === 'true'? true: false;
+
+                if(!isset($weekend_value['enable']))
+                    $weekend_value['enable'] = true;
+                else
+                    $weekend_value['enable'] = $weekend_value['enable'] === 'true'? true: false;
+
 
                 $weekday = array_combine($weekday_key, $weekday_value);
                 $weekend = array_combine($weekend_key, $weekend_value);

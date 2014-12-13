@@ -28,11 +28,12 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
         return Controller.__super__.bindEvents.call(this);
       };
 
-      Controller.prototype._getRoomSummaryView = function(model, imageModel, template) {
+      Controller.prototype._getRoomSummaryView = function(model, imageModel, siteModel, template) {
         var opt;
         opt = {
           model: model,
-          imageModel: imageModel
+          imageModel: imageModel,
+          siteModel: siteModel
         };
         if (this.isSingleRoomPage()) {
           opt.isSingleRoom = true;
@@ -47,11 +48,11 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
       Controller.prototype.isSingleRoomPage = function() {
         var pageName;
         pageName = App.request("get:current:editable:page:name");
-        return pageName === 'Single Room';
+        return pageName === SINGLE_ROOM_PAGE;
       };
 
       Controller.prototype.renderElement = function() {
-        var imageModel, model, roomId;
+        var imageModel, model, roomId, siteModel;
         this.removeSpinner();
         roomId = this.layout.model.get('room_id');
         model = App.request("get:room:model", roomId);
@@ -59,11 +60,12 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
           this.layout.model.set('image_id', model.get('feature_image_id'));
         }
         imageModel = App.request("get:media:by:id", this.layout.model.get('image_id'));
-        return App.execute("when:fetched", [model, imageModel], (function(_this) {
+        siteModel = App.request("get:site:model");
+        return App.execute("when:fetched", [model, imageModel, siteModel], (function(_this) {
           return function() {
             var template, view;
             template = _this._getElementTemplate(_this.layout.model);
-            view = _this._getRoomSummaryView(model, imageModel, template);
+            view = _this._getRoomSummaryView(model, imageModel, siteModel, template);
             _this.listenTo(view, "show:media:manager", function(ratio) {
               if (ratio == null) {
                 ratio = false;

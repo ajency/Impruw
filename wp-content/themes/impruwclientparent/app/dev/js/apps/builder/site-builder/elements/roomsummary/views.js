@@ -14,7 +14,7 @@ define(['app'], function(App) {
 
       RoomSummaryView.prototype.roomNotSetTemplate = '<div class="room-placeholder"> <div class="room-img"> <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Room Image</div> </div> <div class="room-title">' + _.polyglot.t("Your Room Title") + '</div> <div class="room-excerpt">' + _.polyglot.t("Choose room to display") + '</div> <div class="room-actions"> <div class="price">' + _.polyglot.t("Total:") + '{{no_of_rooms}}<small> ' + _.polyglot.t("rooms") + '</small></div> <button class="btn btn-room">' + _.polyglot.t("View Details") + '</button> </div> </div>';
 
-      RoomSummaryView.prototype.singleRoomTemplate = '<div class="room-summary-container "> <div class="room-summary-title"> <h4>Room Summary</h4> </div> <div class="room-summary"> <div class="room-summary-item"> <span class="key">No. of Rooms</span> <span class="value">Visible on live</span> </div> <div class="room-summary-item"> <span class="key">Check-in</span> <span class="value">Visible on live</span> </div> <div class="room-summary-item"> <span class="key">Check-out</span> <span class="value">Visible on live</span> </div> <div class="room-summary-item"> <span class="key">Additional policy</span> <span class="value">Visible on live</span> </div> </div> </div>';
+      RoomSummaryView.prototype.singleRoomTemplate = '<div class="room-summary-container "> <div class="room-summary-title"> <h4>{{#polyglot}}Room Summary{{/polyglot}}</h4> </div> <div class="room-summary"> <div class="room-summary-item"> <span class="key">{{#polyglot}}No. of Rooms{{/polyglot}}: </span> <span class="value">{{#polyglot}}Visible on live{{/polyglot}}</span> </div> <div class="room-summary-item"> <span class="key">{{#polyglot}}Check-in{{/polyglot}} : </span> <span class="value">{{checkin_time}}</span> </div> <div class="room-summary-item"> <span class="key">{{#polyglot}}Check-out{{/polyglot}} : </span> <span class="value">{{checkout_time}}</span> </div> <div class="room-summary-item"> <span class="key">{{#polyglot}}Additional policy{{/polyglot}} : </span> <span class="value">{{additional_policy}}</span> </div> </div> </div>';
 
       RoomSummaryView.prototype.events = {
         'click .room-img > img': 'showMediaManager',
@@ -27,13 +27,17 @@ define(['app'], function(App) {
       };
 
       RoomSummaryView.prototype.mixinTemplateHelpers = function(data) {
-        var imageModel;
+        var imageModel, siteModel;
         data = RoomSummaryView.__super__.mixinTemplateHelpers.call(this, data);
         data.post_content = _.prune(data.post_content, 200);
         imageModel = Marionette.getOption(this, 'imageModel');
         if (!imageModel.isNew()) {
           data.image_url = imageModel.get('sizes').medium ? imageModel.get('sizes').medium.url : imageModel.get('sizes').full.url;
         }
+        siteModel = Marionette.getOption(this, 'siteModel');
+        data.additional_policy = siteModel.get('additional_policy');
+        data.checkout_time = siteModel.get('checkout_time');
+        data.checkin_time = siteModel.get('checkin_time');
         return data;
       };
 
@@ -54,7 +58,7 @@ define(['app'], function(App) {
         isSingle = Marionette.getOption(this, 'isSingleRoom');
         if (!_.isUndefined(isSingle)) {
           this.$el.closest('.element-wrapper').children('.element-controls').find('.aj-imp-settings-btn').remove();
-          this.$el.attr("data-content", _.polyglot.t('Update display details') + (" <a href='" + SITEURL + "/dashboard/#/room-summary'>") + _.polyglot.t('here') + "</a> ");
+          this.$el.attr("data-content", _.polyglot.t('Update display details') + (" <a href='" + SITEURL + "/dashboard/#/room-summary' target='BLANK'>") + _.polyglot.t('here') + "</a> ");
           return this.$el.popover({
             html: true,
             placement: 'top'

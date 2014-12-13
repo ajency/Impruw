@@ -31,7 +31,7 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
 
             # listen to delete element event
             @listenTo @layout, "delete:element", ( model )=>
-               if model.get( 'element' ) is 'Row'
+               if model.get( 'element' ) in ['Row','Tabs','Accordion']
                   @deleteElement model
                else
                   bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t( 'Are you sure?' ) + "</h4>", ( result )=>
@@ -77,8 +77,8 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
             @listenTo @layout.model, "change:left_margin", @setMargin
             @listenTo @layout.model, "change:right_margin", @setMargin
 
-            @listenTo @layout.elementRegion, 'show', =>
-               @_deferred.resolve true
+            # @listenTo @layout.elementRegion, 'show', =>
+            #    @_deferred.resolve true
 
          # set draggable
          setDraggable : ( model )=>

@@ -81,13 +81,15 @@ define [ 'app' ],( App, elementTpl )->
 
          # remove settings button by default
          _noOptions : ()->
-            nosettings = [ 'Logo', 'Text', 'Title', 'Gallery' ]
-            if nosettings.indexOf( @model.get 'element' ) isnt -1
-               @$el.children('.element-controls').children('.aj-imp-settings-btn' ).remove()
+            if  ISTHEMEEDITOR is 'no'
+               nosettings = [ 'Logo', 'Text', 'Title', 'Gallery', 'ContactForm', 'RoomFacilities', 'RoomTitle',
+                  'RoomDescription',  'RoomTariff', 'RoomBooking', 'Map' ]
+               if nosettings.indexOf( @model.get 'element' ) isnt -1
+                  @$el.children('.element-controls').children('.aj-imp-settings-btn' ).remove()
 
          # set the hidden fields before rendering the element
          onBeforeRenderElement : ->
-            for field in [ 'meta_id', 'style', 'element' ]
+            for field in [ 'meta_id', 'style', 'element', 'justified' ]
                @setHiddenField field, @model.get field
 
             @setDraggable @model.get 'draggable'
@@ -96,6 +98,9 @@ define [ 'app' ],( App, elementTpl )->
          addHiddenFields : ()->
             for field in [ 'draggable', 'style' ]
                @$el.children( 'form' ).append "<input type='hidden' name='#{field}' value=''/>"
+            if @model.get('element' ) is 'Tabs'
+               @$el.children( 'form' ).append "<input type='hidden' name='justified' value=''/>"
+
 
          # on set draggable
          setDraggable : ( draggable )->
@@ -149,6 +154,7 @@ define [ 'app' ],( App, elementTpl )->
 
       class Views.ErrorView extends Marionette.ItemView
 
-         template : '<div style="width:100%; height:150px; margin:auto">
-                     conponent of type {{element}} did not load properly
+         template : '<div class="load-error">
+                        <span class="glyphicon glyphicon-warning-sign"></span>
+                        Component of type <em>{{element}}</em> did not load properly.
                      </div>'

@@ -11,27 +11,30 @@ define [ 'app', 'controllers/base-controller',
 
                 #get the currency
                 sitemodel = App.request "get:site:model"
-                currentCurrency = sitemodel.get 'currency'
 
-                @tariffView = tariffView = @_getEditTariffView tariff, currentCurrency
+                App.execute "when:fetched", sitemodel, =>
 
-                @listenTo tariffView, "update:tariff:details", ( data )=>
-                    tariff.set data
-                    tariff.save null,
-                        wait : true
-                        success : @tariffSaved
+                    currentCurrency = sitemodel.get 'currency'
 
-                @listenTo tariffView, "delete:tariff", ( model ) =>
-                    model.destroy
-                        allData : false
-                        wait : true
-                        success : @tariffDeleted
+                    @tariffView = tariffView = @_getEditTariffView tariff, currentCurrency
+
+                    @listenTo tariffView, "update:tariff:details", ( data )=>
+                        tariff.set data
+                        tariff.save null,
+                            wait : true
+                            success : @tariffSaved
+
+                    @listenTo tariffView, "delete:tariff", ( model ) =>
+                        model.destroy
+                            allData : false
+                            wait : true
+                            success : @tariffDeleted
 
 
-                @show tariffView,
-                    loading : true
+                    @show tariffView,
+                        loading : true
 
-            tariffSaved : =>
+            tariffSaved : (model)=>
                 @tariffView.triggerMethod "saved:tariff"
 
             tariffDeleted : =>
@@ -52,6 +55,11 @@ define [ 'app', 'controllers/base-controller',
 
             template : editTariffTpl
 
+            mixinTemplateHelpers : (data)->
+                data = super data
+                data.currency = Marionette.getOption @, "currency"
+                data
+
             dialogOptions :
                 modal_title : _.polyglot.t 'Edit Tariff'
                 modal_size : 'medium-modal'
@@ -68,6 +76,17 @@ define [ 'app', 'controllers/base-controller',
 
                         @trigger "delete:tariff", @model
 
+            initialize : ->
+                weekday = @model.get 'weekday'
+                if not weekday.enable?
+                    weekday.enable = true
+                    @model.set 'weekday', weekday
+
+                weekend = @model.get 'weekend'
+                if not weekend.enable?
+                    weekend.enable = true
+                    @model.set 'weekend', weekend
+
             onSavedTariff : ->
                 @$el.find('.alert').remove()
                 @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Tariff updated successfully" ) + "</div>"
@@ -77,8 +96,24 @@ define [ 'app', 'controllers/base-controller',
 
             # show checkbox
             onShow : ->
-                @$el.find( 'input[type="checkbox"]' ).checkbox()
-                @$el.find('.currency' ).text Marionette.getOption @, 'currency'
+                @$el.find( 'input[type="checkbox"]' ).radiocheck()
+
+                weekday = @model.get 'weekday'
+                if not weekday.enable?
+                    weekday.enable = true
+                    @model.set 'weekday', weekday
+                if _.toBoolean weekday.enable
+                    @$el.find( 'input[type="checkbox"][name="weekday[enable]"]' ).radiocheck('check')
+
+
+                weekend = @model.get 'weekend'
+                if not weekend.enable?
+                    weekend.enable = true
+                    @model.set 'weekend', weekend
+                if _.toBoolean weekend.enable
+                    @$el.find( 'input[type="checkbox"][name="weekend[enable]"]' ).radiocheck('check')
+
+                # @$el.find('.currency' ).text Marionette.getOption @, 'currency'
                 #validate the form with rules
                 @$el.validate()
 

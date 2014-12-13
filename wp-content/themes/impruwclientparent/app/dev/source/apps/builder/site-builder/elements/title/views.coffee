@@ -39,6 +39,7 @@ define ['app'], (App)->
 
                 @editor.on 'changedTitleStyle',(evt)=>
                     @model.set 'style', evt.data.style
+                    @model.save()
 
                 @editor.on 'titleStylesInitDone',=>
                     @editor.fire 'initStylesList',
@@ -53,6 +54,11 @@ define ['app'], (App)->
                     @model.set 'justify', evt.data.justify
                 
                 @editor.config.placeholder = 'Click here to enter Title'
+
+                @$el.trigger 'blur'
+                _.delay =>
+                    @$el.trigger 'focus'
+                ,200
 
             # initialize the CKEditor for the text element on show
             # used setData instead of showing in template. this works well

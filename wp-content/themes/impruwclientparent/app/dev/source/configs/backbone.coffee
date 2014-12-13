@@ -1,6 +1,5 @@
 define ["backbone","mustache"], (Backbone, Mustache) ->
-
-
+	
 	_.extend Backbone.Model::,
 
 		# Extended implementation of Bacbone.Model.sync to work with wordpress ajax
@@ -144,13 +143,13 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 			resp
 
 
-	_sync = Backbone.sync
+	window._bsync = Backbone.sync
 	
 	# Overwrite the Backbone.sync to set additional _fetch object to entity
 	# The _fetch is $.Deffered object and used later to executes callbacks
 	# Sets only for 'read' method
 	Backbone.sync = (method, entity, options = {}) ->
-		sync = _sync(method, entity, options)
+		sync = _bsync(method, entity, options)
 		if !entity._fetch and method is "read" or !entity._fetch and method is "create"
 			entity._fetch = sync
 			

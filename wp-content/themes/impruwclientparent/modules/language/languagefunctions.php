@@ -75,7 +75,7 @@ function impruw_get_languages($lang=false){
                 code, english_name, major, active, default_locale, lt.name AS display_name
             FROM {$wpdb->prefix}icl_languages l
                 JOIN {$wpdb->prefix}icl_languages_translations lt ON l.code=lt.language_code
-            WHERE lt.display_language_code = '{$lang}' AND l.code IN ('en','de','fr','nb' , 'es' )
+            WHERE lt.display_language_code = '{$lang}' AND l.code IN ('en','de','fr','nb' , 'es', 'ru' )
             ORDER BY major DESC, english_name ASC", ARRAY_A);
     $languages = array();
     foreach((array)$res as $r){
@@ -222,6 +222,7 @@ function get_page_by_lang($page_id,$language){
     $data['pageTitle'] = $page->post_title;
     $data['pageId'] = $page_id;
     $data['language'] = $language_name;
+    $data['pageUrl'] = $page->post_name;
 
     return $data;
 }
@@ -264,10 +265,57 @@ function get_page_table_elements($page_id){
    return $elements;    
 }
 
+//Function to get all page smart table elements
+function get_page_smarttable_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+
+    $elements = array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_smarttable_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('SmartTable')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;    
+}
+
+function get_page_slider_collection($page_id){
+    $sliders =  get_page_slider_elements($page_id);
+    
+    foreach ($sliders as $key => $slider) {
+        $slides_arr = get_multilingual_slides( $slider['slider_id'] );
+        $sliders[$key]['slides'] = $slides_arr;
+    }
+
+    return $sliders;
+}
+
+//Function to get all page slider elements
+function get_page_slider_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+
+    $elements = array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_slider_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('Slider')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;    
+}
+
 //Function to get all page header elements of a site
 function get_header_translation_elements(){
 
-    $data = get_json_to_clone('theme-header');
+    $data = get_json_to_clone(THEME_HEADER_KEY);
 
     $elements = array();
 
@@ -286,7 +334,7 @@ function get_header_translation_elements(){
 //Function to get all page footer elements of a site
 function get_footer_translation_elements(){
 
-    $data = get_json_to_clone('theme-footer');
+    $data = get_json_to_clone( THEME_FOOTER_KEY );
 
     $elements = array();
 
@@ -300,6 +348,72 @@ function get_footer_translation_elements(){
     }
 
    return $elements;
+}
+
+//Function to get all page footer elements of a site
+function get_site_menu_elements($language){
+
+    $menus = get_terms('nav_menu');
+
+    foreach ($menus as $menu) {
+        $menu_id = $menu->term_id;
+        $menu_items = wp_get_nav_menu_items( $menu_id );
+
+        $custom_menu_items = array();
+
+        foreach ($menu_items as $menu_item) {
+            if ($menu_item->type==='custom') {
+                $menu_item_translation = get_post_meta( $menu_item->ID, '_menu_item_custom_translation', true );
+
+                $menu_item_translation = maybe_unserialize($menu_item_translation);
+
+                if(isset($menu_item_translation[$language])){
+                    $menu_item->title = $menu_item_translation[$language];   
+                }
+
+                $menu_item->menu_item_translation = $menu_item_translation;
+                $custom_menu_items[]= $menu_item;
+            }
+        }
+
+        $menu->custom_menu_items = $custom_menu_items;
+    }
+    $menus = json_decode(json_encode($menus), true);
+
+    return $menus;
+}
+
+function translate_custom_menu_item($menu_item_id, $language, $menuitem_translated_label){
+    $default_language = wpml_get_default_language();
+
+    // Get original array of menu item label translations from post meta
+    $original_menu_label = get_post_meta( $menu_item_id, '_menu_item_custom_translation', true );
+    $original_menu_label = maybe_unserialize($original_menu_label);
+
+    // If meta of menu item label translations does not exist yet, create an array initialising with default language and other enabled languages
+    if($original_menu_label == ""){
+        $menu_item = get_post($menu_item_id);
+        $menu_item_default_title = $menu_item->post_title; 
+        
+        $enabled_languages = get_enabled_languages();
+        //For each enabled language, Create translated version of the slide
+        foreach ($enabled_languages as $enabled_language) {
+            $original_menu_label[$enabled_language] = $menu_item_default_title;
+        }
+
+    }
+
+    //Assign original array of menu item translations to translated array
+    $translated_menu_label =  $original_menu_label;
+
+    // Update the menu item label for the language you want to save the label translation
+    $translated_menu_label[$language] = $menuitem_translated_label;
+
+    // Serialize the array and update the post meta with this new translated menu label array
+    $translated_meta_value = $translated_menu_label;
+    $menu_update_status = update_post_meta($menu_item_id, '_menu_item_custom_translation', $translated_meta_value);
+
+    return $menu_update_status;
 }
 
 function get_row_translation_elements( $row_element, &$elements ){
@@ -330,6 +444,34 @@ function get_row_table_elements( $row_element, &$elements ){
     }
 }
 
+function get_row_smarttable_elements( $row_element, &$elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( $element[ 'element' ] === 'Row' ) {
+                get_row_smarttable_elements( $element,$elements );
+            } else {
+                if(in_array($element[ 'element'] , array('SmartTable')))
+                    $elements[] = $element;
+            }
+        }
+    }
+}
+
+function get_row_slider_elements( $row_element, &$elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( $element[ 'element' ] === 'Row' ) {
+                get_row_slider_elements( $element,$elements );
+            } else {
+                if(in_array($element[ 'element'] , array('Slider')))
+                    $elements[] = $element;
+            }
+        }
+    }
+}
+
 
 add_filter( 'wp_nav_menu_objects', 'impruw_filter_menu_class', 10, 2 );
 
@@ -341,26 +483,43 @@ add_filter( 'wp_nav_menu_objects', 'impruw_filter_menu_class', 10, 2 );
 function impruw_filter_menu_class( $objects, $args ) {
 
     $current_language = wpml_get_current_language();
+     foreach ( $objects as $i => $object ) {
 
-    foreach ( $objects as $i => $object ) {
-        $item_page_id = $objects[$i]->object_id;
+        if($object->type === 'custom'){
+            
+            $translated_title = $object->title;
 
-        $translated_item_page_id = icl_object_id($item_page_id, 'page', true, $current_language);
+            $menu_item_id = $object->ID;
 
-        $translated_item_page = get_post($translated_item_page_id);
+            $original_menu_label = get_post_meta( $menu_item_id, '_menu_item_custom_translation', true );
 
-        $translated_menu_item_page_title = $translated_item_page->post_title;
-        $translated_menu_item_page_url =  get_permalink( $translated_item_page_id);
+            $original_menu_label = maybe_unserialize($original_menu_label);
 
-        $objects[$i]->object_id = $translated_item_page_id;
-        $objects[$i]->url = $translated_menu_item_page_url;
-        $objects[$i]->title = $translated_menu_item_page_title;
+            if(isset($original_menu_label[$current_language])){
+                $translated_title = $original_menu_label[$current_language];   
+            }
+
+            $objects[$i]->title = $translated_title;
+        }
+        else{
+
+            $item_page_id = $objects[$i]->object_id;
+
+            $translated_item_page_id = icl_object_id($item_page_id, 'page', true, $current_language);
+
+            $translated_item_page = get_post($translated_item_page_id);
+
+            $translated_menu_item_page_title = $translated_item_page->post_title;
+            $translated_menu_item_page_url =  get_permalink( $translated_item_page_id);
+
+            $objects[$i]->object_id = $translated_item_page_id;
+            $objects[$i]->url = $translated_menu_item_page_url;
+            $objects[$i]->title = $translated_menu_item_page_title;
+
+        }
+
 
     }
-
-//    echo "<pre>";
-//    print_r($objects);
-//    echo "<pre>";
 
     return $objects;
 
@@ -450,6 +609,30 @@ function get_native_language_name($language_code){
     return $native_language_name;
 }
 
+function get_builder_uneditable_pages(){
+    $language_code = wpml_get_default_language();
+
+    $uneditable_page_title = array();
+    switch ($language_code) {
+        case 'en':
+            $uneditable_page_title = array('Home','Rooms','Single Room','Contact Us');
+            break;
+        case 'nb':
+            $uneditable_page_title = array('Hjem','rom','Enkeltrom','Kontakt oss');
+            break; 
+        
+        default:
+            $uneditable_page_title = array('Home','Rooms','Single Room','Contact Us');
+            break;
+    }
+    return $uneditable_page_title;
+}
+
+function get_dashboard_uneditable_pages(){
+    $uneditable_page_title = array('Home','Rooms','Single Room','Contact Us','Hjem','rom','Enkeltrom','Kontakt oss');
+    return $uneditable_page_title;
+}
+
 function get_single_room_page_title(){
     $language_code = wpml_get_default_language();
     $single_room_title = 'Single Room';
@@ -483,7 +666,50 @@ function get_single_room_page_title(){
     return $single_room_title;
 }
 
+/**
+ * Get an array of enabled languages
+ */
+function get_enabled_languages(){
+    $active_languages = wpml_get_active_languages();
+    $enabled_languages = array();
+    foreach ($active_languages as $language) {
+        array_push($enabled_languages, $language['code']);
+    }
 
+    return $enabled_languages;
+}
 
+/**
+ * Get language child slides for a given parent slide 
+ */
 
+function get_language_slides_by_slideid($slider_id,$slide_id){
+    $slider = new RevSlider();
 
+    $slides = $slider->initByID( $slider_id );
+    $slides     = $slider->getSlides( FALSE );
+    $childslides = array();
+    $lang_slides = array();
+
+    foreach ( $slides as $slide ) {
+
+        $parentSlide = $slide->getParentSlide();
+        $parent_slide_id = $parentSlide->getID();
+
+        //Fetch language child slides of given slide id only
+        if ($parent_slide_id == $slide_id) {
+            $childslides = $parentSlide->getArrChildrenLangs(TRUE);
+        }
+
+    }
+
+    if (!empty($childslides)) {
+        foreach ($childslides as $slide) {
+            $lang_slides[$slide['lang']] = $slide['slideid'];
+        } 
+    }
+   
+
+    return $lang_slides;
+
+}

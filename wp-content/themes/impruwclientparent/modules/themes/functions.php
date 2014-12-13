@@ -127,13 +127,46 @@ function is_theme_choosed() {
 
 function get_theme_style_sheet_file_path() {
 
-    $compiled_css_file = get_compiled_stylesheet_directory_path() . '/theme-style.css';
+
+    if ( isset( $_GET['revision'] ) ) {
+        $revision_id = (int) $_GET['revision'];
+
+        $color_scheme_data =  get_post_meta( $revision_id, 'color-scheme-data', true );
+        if ( !empty($color_scheme_data) ){
+            $color_scheme_data = maybe_unserialize( $color_scheme_data );
+            $css_filename = $color_scheme_data['theme-style-filename'];
+            // 
+            // if (empty($css_filename)) 
+            //     $css_filename = 'theme-style';
+            $compiled_css_file = get_compiled_stylesheet_directory_path() . '/' . $css_filename . '.css';
+
+            if ( file_exists( $compiled_css_file ) )
+                return get_compiled_stylesheet_directory_uri() . '/' . $css_filename . '.css';
+        }
+
+
+        $theme = get_post_meta($revision_id,'page-theme',true);
+
+        // $current_theme = wp_get_theme(); 
+        // if not then switch the theme -- this creates a backup of the site
+        // if ($current_theme->name != $theme){
+            if( $theme == 'Diamond Theme')
+                $theme = 'Theme Diamond';
+            return get_theme_root_uri().'/'.sanitize_title( $theme ).'/css/theme-style.css';
+        // }
+    }
+
+    $css_filename = get_option( 'theme-style-filename' );
+    if( !$css_filename )
+        $css_filename = 'theme-style';
+
+    $compiled_css_file = get_compiled_stylesheet_directory_path() . '/' . $css_filename . '.css';
 
     if ( file_exists( $compiled_css_file ) )
 
-        return get_compiled_stylesheet_directory_uri() . '/theme-style.css';
+        return get_compiled_stylesheet_directory_uri() . '/' . $css_filename . '.css';
 
-    return get_template_directory_uri() . '/css/theme-style.css';;
+    return get_template_directory_uri() . '/css/theme-style.css';
 }
 
 function create_custom_theme_color( $formdata ) {
@@ -148,7 +181,9 @@ function create_custom_theme_color( $formdata ) {
 
     update_option( 'custom_theme_color_set', $custom_theme_json );
 
-    switch_theme_colour( $edited_theme_values );
+    $color_scheme = uniqid();
+
+    switch_theme_colour( $edited_theme_values , $color_scheme );
 
     update_option( 'current_color_set', 'custom' );
 }

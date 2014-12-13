@@ -17,39 +17,13 @@
     <meta name="viewport" content="width=device-width">
     <title><?php wp_title( '|', TRUE, 'right' ); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="shortcut icon" href="<?php echo get_parent_template_directory_uri(); ?>/images/favicon.png" type="image/x-icon" />
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <!--[if lt IE 9]>
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jqueryui.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet"
-          media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.resizableColumns.css" rel="stylesheet" media="screen"/>
-
-
-    <!-- Wordpress image editor -->
-    <link href="<?php echo site_url(); ?>//wp-includes/css/dashicons.min.css" rel="stylesheet" media="screen">
-    <link href="<?php echo site_url(); ?>/wp-includes/js/imgareaselect/imgareaselect.css" rel="stylesheet"
-          media="screen">
-    <link href="<?php echo site_url(); ?>/wp-content/plugins/revslider/rs-plugin/css/dynamic-captions.css" rel="stylesheet"
-    <link href="<?php echo site_url(); ?>/wp-admin/css/media-rtl.css" rel="stylesheet" media="screen">
-    <link href="<?php echo site_url(); ?>/wp-admin/css/media.css" rel="stylesheet" media="screen">
-
-
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/main.css" rel="stylesheet"
-          media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/builder.css" rel="stylesheet"
-          media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/custom.css" rel="stylesheet"
-          media="screen"/>
-    <link rel="shortcut icon" href="wp-content/themes/impruwclientparent/images/favicon.png" type="image/x-icon" />
-
-    <link href="<?php echo get_template_directory_uri(); ?>/css/slimmenu.min.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_theme_style_sheet_file_path(); ?> " rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/pace.css" rel="stylesheet" media="screen"/>
-    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.minicolors.css" rel="stylesheet"
-          media="screen">
+    <?php wp_head(); ?>
+    
 </head>
 <body <?php body_class(); ?>>
 
@@ -69,14 +43,18 @@
 <!-- Lost Connection -->
 <div class="conn-lost-overlay hidden"></div>
 <!-- Lost Connection -->
-
+<div id="tree"></div>
 <div id="fb-root"></div>
 
 <div id="choose-theme-region"></div>
-<div class="aj-imp-builder container">
+<div class="aj-imp-builder container-fluid">
     <div id="header-region"></div>
     <div id="builder-region"></div>
     <div id="elements-box-region"></div>
+</div>
+
+<div id="revision-region-holder" >
+    
 </div>
 
 <div id="login-region"></div>
@@ -84,6 +62,8 @@
 <div id="dialog-region" class="modal "></div>
 <!-- /.modal -->
 <div id="initial-loader"></div>
+
+
 
 <script type="text/javascript">
     var USER = <?php echo json_encode(get_user_model()); ?>;
@@ -95,16 +75,21 @@
                                                         array('hide_empty' => 0))) ?>;
     var LANGUAGES = <?php echo json_encode(get_all_languages()); ?>;
     var ACTIVE_LANGUAGE_COUNT = <?php echo count(wpml_get_active_languages()); ?>;
+    var ACTIVE_LANGUAGES = <?php echo json_encode(wpml_get_active_languages()); ?>;
     var ELEMENTS = <?php echo json_encode(get_elementbox_elements()); ?>;
     var BLOGID = <?php echo get_current_blog_id(); ?>;
 
+    //menus
+    var MENUS = <?php echo json_encode(wp_get_nav_menus()) ?>;
 
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
+    var CURRENTTHEMEURL = '<?php echo get_template_directory_uri() ?>'
     var SITEURL = '<?php echo site_url(); ?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
     var _WPNONCE = '<?php echo wp_create_nonce('media-form'); ?>';
     var _RVNONCE = '<?php echo wp_create_nonce("revslider_actions"); ?>';
+    var _MENUNONCE = '<?php echo wp_create_nonce("menu-settings-column-nonce"); ?>';
     var JSVERSION = '<?php echo JSVERSION; ?>';
     
     var ISTHEMESELECTED = <?php echo is_theme_choosed() ?>;
@@ -113,22 +98,23 @@
     var DASHBOARDURL = '<?php echo site_url('dashboard'); ?>';
     var BUILDERURL = '<?php echo site_url('site-builder'); ?>';
     var CURRENTTHEME = '<?php echo wp_get_theme()->get_stylesheet() ?>';
+    var CURRENTTHEMENAME = '<?php echo wp_get_theme()->name ?>';
     var THEMECOLORSET = '<?php echo get_option('current_color_set','default'); ?>';
     var AUTOSAVEINTERVAL = 6000 * 10 * 2 ;
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
     var SINGLE_ROOM_PAGE = '<?php echo get_single_room_page_title();?>';
+    var UNDELETABLE_PAGES = <?php echo json_encode(get_builder_uneditable_pages()); ?>;
     var ADDRESS = '<?php echo get_hotel_address() ?>';
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
     var PLUGIN_URI  = '<?php echo WP_PLUGIN_URL; ?>';
     var ISTHEMEEDITOR = '<?php echo current_user_can( 'edit_impruw_theme' ) ? 'yes' : 'no' ?>';
-    var MENUID = 0;
     var HOTELADDRESS = <?php echo json_encode(get_site_details()) ?>;
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
+
+<script src="<?php echo get_parent_template_directory_uri() ?>/bower_components/pace/pace.js"></script>
 <!-- Unused Elements Box -->
 <div id="fl_menu" class="aj-imp-trash-elements"></div>
 <!-- Unused Elements Box -->
@@ -138,19 +124,20 @@
 
 <?php if ( ENV === 'production' ): ?>
     
-     
     <script
         src="<?php echo get_parent_template_directory_uri(); ?>/app/production/builder-main.js?ver=<?php echo JSVERSION ?>"></script>
 <?php else: ?>
-   <!-- 
-      <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> 
-
-    <script src="<?php  get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
- -->
-    <script data-main="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/builder-main"
-            src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
+   <script data-main="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/builder-main"
+            src="<?php echo get_parent_template_directory_uri(); ?>/bower_components/requirejs/require.js"></script>
 <?php endif; ?>
 <?php endif; ?>
-
+<!-- JS Error Tracking -->
+<script>
+    (function(_,e,rr,s){_errs=[s];var c=_.onerror;_.onerror=function(){var a=arguments;_errs.push(a);
+    c&&c.apply(this,a)};var b=function(){var c=e.createElement(rr),b=e.getElementsByTagName(rr)[0];
+    c.src="//beacon.errorception.com/"+s+".js";c.async=!0;b.parentNode.insertBefore(c,b)};
+    _.addEventListener?_.addEventListener("load",b,!1):_.attachEvent("onload",b)})
+    (window,document,"script","5440a65769c1935122000238");
+</script>
 </body>
 </html>

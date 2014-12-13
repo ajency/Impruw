@@ -3,7 +3,8 @@ define ['app'
         'apps/builder/site-builder/element/controller'
         'apps/builder/site-builder/autosave/controller'
         'apps/builder/site-builder/publish/publish'
-        'apps/builder/site-builder/elements-loader'], (App)->
+        'apps/builder/site-builder/elements-loader'
+        'apps/builder/site-builder/revision/revision-controller'], (App)->
     App.module 'SiteBuilderApp', (SiteBuilderApp, App, Backbone, Marionette, $, _)->
 
         App.elements = []
@@ -17,11 +18,12 @@ define ['app'
             addNewElement: (container, type, modelData)->
                 
                 if SiteBuilderApp.Element[type]
-                    ele = new SiteBuilderApp.Element[type].Controller
-                        container: container
-                        modelData: modelData
-                    App.elements.push ele
-                    ele
+                    eleCtrl = new SiteBuilderApp.Element[type].Controller
+                                    container: container
+                                    modelData: modelData
+                    App.elements.push eleCtrl
+                    eleCtrl._deferred.resolve true
+                    eleCtrl
                 else
                     return false
 

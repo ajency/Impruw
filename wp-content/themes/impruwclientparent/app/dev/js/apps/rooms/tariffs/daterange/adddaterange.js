@@ -77,6 +77,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
                 this.$el.parent().find('.alert').remove();
                 return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Date range overlaps existing date range") + "</div>");
               } else {
+                this.$el.find('#btn_savedaterange').prop('disabled', true);
                 return this.trigger("add:daterange:details", data);
               }
             } else {
@@ -101,7 +102,6 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
             toDate = daterangeModel.get('to_date');
             fromDate = moment(fromDate).subtract('days', 1);
             toDate = moment(toDate).add('days', 1);
-            console.info(fromDate, toDate);
             if ((moment(selectedDate.from_date).isBefore(fromDate) && moment(selectedDate.to_date).isAfter(toDate)) || (moment(selectedDate.from_date).isAfter(fromDate) && moment(selectedDate.from_date).isBefore(toDate)) || (moment(selectedDate.from_date).isBefore(fromDate) && moment(selectedDate.to_date).isAfter(fromDate))) {
               temp = 0;
               break;
@@ -116,7 +116,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("New Date range added") + "</div>");
         this.$el.find('input').val('');
         this.$el.find('.dated').datepicker('destroy');
-        return this.displayDatePicker();
+        this.displayDatePicker();
+        return this.$el.find('#btn_savedaterange').prop('disabled', false);
       };
 
       AddDateRangeView.prototype.displayDatePicker = function() {
@@ -136,7 +137,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       };
 
       AddDateRangeView.prototype.onShow = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').radiocheck();
         this.$el.find('#daterange_colour').minicolors();
         return this.displayDatePicker();
       };

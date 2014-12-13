@@ -34,11 +34,12 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
       };
 
       AutoSaveLocal.prototype.run = function() {
-        return this.interval = window.setInterval(this.doAutoSave, 5 * 1000);
+        return this.doAutoSave();
       };
 
       AutoSaveLocal.prototype.doAutoSave = function() {
         var data, json, pageId;
+        console.log('doAutoSave');
         if (this.suspended === true) {
           return false;
         }
@@ -51,6 +52,7 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
       };
 
       AutoSaveLocal.prototype.createStorage = function() {
+        console.log('clear');
         this.key = "impruw-builder-" + this.blogId;
         return window.sessionStorage.setItem(this.key, '');
       };
@@ -79,6 +81,10 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
           return window.sessionStorage.getItem(this.key) !== null;
         }
         return false;
+      };
+
+      AutoSaveLocal.prototype.reset = function() {
+        return window.sessionStorage.setItem(this.key, '');
       };
 
       return AutoSaveLocal;

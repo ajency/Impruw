@@ -15,6 +15,12 @@ define(['app'], function(App) {
 
       GalleryItem.prototype.template = '<img src="{{thumb_url}}" alt="Slide" class="img-responsive" />';
 
+      GalleryItem.prototype.onShow = function() {
+        return this.$el.find('img').error(function() {
+          return $(this).unbind("error").attr("src", THEMEURL + "/images/imageNotFound.jpg");
+        });
+      };
+
       GalleryItem.prototype.onRender = function() {
         var randomH, randomW;
         randomW = Math.random() * 50 > 25 ? 1 : 2;
@@ -59,7 +65,7 @@ define(['app'], function(App) {
         this.collection.sort();
         isSingleRoom = Marionette.getOption(this, 'inSingleRoom');
         if (isSingleRoom) {
-          this.template = '<h3 class="gallery-title">' + _.polyglot.t('Gallery') + '</h3> <div class="if-required"></div>';
+          this.template = '<div class="roomgallery"><h3 class="gallery-title">' + _.polyglot.t('Gallery') + '</h3> <div class="if-required"></div></div>';
           return this.itemViewContainer = '.if-required';
         } else {
           this.template = '<div class="if-required"></div>';

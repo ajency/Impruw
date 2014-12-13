@@ -14,6 +14,8 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
 
                 @listenTo view, "element:style:changed", (style)=>
                     @model.set "style", style
+                @listenTo view, "element:alignment:changed", (alignment)=>
+                    @model.set "align", alignment
                 @listenTo view, "element:draggable:changed", (draggable)=>
                     @model.set "draggable", draggable
                 @listenTo view, "element:link:changed", (link)=>
@@ -31,9 +33,14 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                     textdata[WPML_DEFAULT_LANG] = text
 
                     @model.set "text", textdata
+                    @model.trigger "change:text", @model
 
                 @listenTo view, "element:target:changed", (target)=>
                     @model.set "target", target
+
+
+                @listenTo view, "element:linkpage:changed", (linkpage)=>
+                    @model.set "link_page_id", linkpage
 
                 @show view
 

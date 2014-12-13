@@ -71,7 +71,8 @@ define ["app", 'backbone','jquery'], (App, Backbone, $) ->
                     page_id: parseInt pageId
                     revision_id: parseInt revisionId
 
-                json.fetch()
+                xhr = json.fetch()
+                
                 json
 
         # handlers
