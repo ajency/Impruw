@@ -697,7 +697,9 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 
                 $braintree_plan_ids = maybe_unserialize($site_plan['braintree_plan_id']);
 
-                $billing_plan['braintree_plans'] = array_values($braintree_plan_ids);
+                if ($braintree_plan_ids!=="") {
+                	$billing_plan['braintree_plans'] = array_values($braintree_plan_ids);
+                }
 
                 $plan_features = maybe_unserialize($site_plan['features']);
 
@@ -843,9 +845,9 @@ function ajbilling_is_this_user_allowed($object_id , $object_type='site', $featu
 
 		}
 		else if(ajbilling_is_count_feature($feature_component)) {
-                // If count type then Check count of this feature for user. 
+            // If count type then Check count of this feature for user. 
 
-                    // Check if feature is enabled
+            // Check if feature is enabled
 			$plugin_feature_enabled = ajbilling_plugin_feature_enable_status($site_plan_id,$feature_component);
 			if ($plugin_feature_enabled==='true') {
 				foreach ($site_features as $site_feature) {
