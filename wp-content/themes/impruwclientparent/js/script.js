@@ -523,31 +523,40 @@ jQuery(document).ready(function() {
 
     window.initializeMap = function() {
 
+        if (jQuery('#map_canvas').height() === 0){
+            jQuery('#map_canvas').height(300);
+        }
+
         geocoder = new google.maps.Geocoder();
 
         var mapOptions = {
             zoom: 17,
             center: new google.maps.LatLng(-34.397, 150.644)
         };
+        
+        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+        
+        service = new google.maps.places.PlacesService(map);
+        service.textSearch( {query: HOTELADDRESS}, function(results, status){
 
-        geocoder.geocode({
-            'address': HOTELADDRESS
-        }, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+            if (status == google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
+                
                 map.setCenter(results[0].geometry.location);
+                
                 var marker = new google.maps.Marker({
                     map: map,
                     position: results[0].geometry.location
                 });
-                if (jQuery('#map_canvas').height() === 0)
-                    jQuery('#map_canvas').height(300);
-            } else {
-                jQuery('#map_canvas').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+                
+            }
+            else {
+                jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
             }
         });
+
+       
     }
-    jQuery.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap');
+    jQuery.getScript('https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&callback=initializeMap');
 });
 
 /**************** poweredby.js ***********************/

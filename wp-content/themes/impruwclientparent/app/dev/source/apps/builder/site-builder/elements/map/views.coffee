@@ -68,29 +68,45 @@ define ['app'], (App)->
 				window['renderMap'] = @renderMap
 				callbacks.add window['renderMap']
 				if( typeof google is 'undefined' )
-					$.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap')
+					$.getScript('https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&callback=initializeMap')
 				else
 					@renderMap()
 
 			renderMap : =>
 				address = window.ADDRESS
-				geocoder = new google.maps.Geocoder()
-				geocoder.geocode
-							address: address
-						, (results, status)=>
-							if status is google.maps.GeocoderStatus.OK
-								@displayMap results[0].geometry.location, address
-							else
-								@displayGeoCodeErrorMessage()
+				# geocoder = new google.maps.Geocoder()
+				# geocoder.geocode
+				# 			address: address
+				# 		, (results, status)=>
+				# 			if status is google.maps.GeocoderStatus.OK
+				# 				@displayMap results[0].geometry.location, address
+				# 			else
+				# 				@displayGeoCodeErrorMessage()
 
-			displayMap:(location, address)->
 				map = new google.maps.Map document.getElementById("map-canvas"),
-																center : location
+																center :  new google.maps.LatLng(-34.397, 150.644)
 																zoom : 14
 
+				service = new google.maps.places.PlacesService map
+				service.textSearch 
+						query : address 
+					, (results, status)=>
+						if status is google.maps.places.PlacesServiceStatus.OK and results.length > 0
+							@displayMap map, results[0].geometry.location, address
+						else
+							@displayGeoCodeErrorMessage()
+						
+						
+
+			displayMap:(map, location, address)->
+				# map = new google.maps.Map document.getElementById("map-canvas"),
+				# 												center : location
+				# 												zoom : 14
+				map.setCenter location
 				@createMarker map, address
 
 			createMarker :(map, address)->
+
 				marker = new google.maps.Marker
 									map: map
 									position: map.getCenter()
