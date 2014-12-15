@@ -43,7 +43,7 @@ function payment_plan_change($site_id,$plan_id){
 				domain_mapping_feature_changes($site_id, $feature_args);
 				break;
 			case 'email_account':
-				// email_account_feature_changes($site_id, $feature_args);
+				email_account_feature_changes($site_id, $feature_args);
 				break;
 			default:
 				break;
@@ -102,6 +102,74 @@ function dm_coming_soon_page($site_id,$enable=false){
 	$update_comingsoon = update_option( 'seedprod_comingsoon_options', $coming_soon_options );
 	restore_current_blog();
 
+}
+
+function email_account_feature_changes($site_id, $feature_args){
+
+	$enable_status = $feature_args['enable_status'];
+	$new_count = $feature_args['new_count'];
+	$old_count = $feature_args['old_count'];
+
+	$difference_in_count = $new_count-$old_count ;
+	
+	echo $enable_status;
+	echo $new_count;
+	echo $old_count;
+
+	switch ($enable_status) {
+		case 'true':
+			if ($difference_in_count<0) {
+				$count = abs($difference_in_count);
+				suspend_email_accounts($site_id, $count);
+			}
+			break;
+		
+		case 'false':
+			suspend_email_accounts($site_id);
+			break;
+	}
+
+}
+
+
+function suspend_email_accounts($site_id, $count=NULL){
+	$args = array('domain_name' => $domain_name);
+	echo "suspend email accounts";
+
+	switch_to_blog($site_id);
+		$custom_domain_exists = get_option( 'domain-name', 0);
+		if ($custom_domain_exists) {
+			echo "custom_domain_exists";
+			
+			// Get all email accounts for this domain
+			$args = array( 'domain_name'=> $custom_domain_exists);
+        	$domain_accounts = get_domain_accounts($args);
+        	print_r($domain_accounts['data']);
+
+        	$deleted_count = 0;
+        	// Suspend email accounts if they exist
+        	if (count($domain_accounts['data']) > 0) {
+        		echo "Email accounts exist to delete";
+        		foreach ($domain_accounts['data'] as $domain_account) {
+        			$email_id = $domain_account->email;
+        			$email_id_args = array('email_id' => $email_id);
+        			$response  = disable_user_email($email_id_args);
+
+        			//if suspend success then increment count
+        			if ($response['code']==='OK') {
+        				$deleted_count++;
+        			}
+
+        			if ((!is_null($count))&&($deleted_count==$count)) {
+        				break;
+        			}
+
+        		}
+        	}
+
+		}
+
+	restore_current_blog();
 }
 
 
