@@ -34,7 +34,10 @@ define ['app', 'controllers/base-controller'
                 # console.log response
                 @userEmailCollection = App.request "get:user:email:collection"
                 @userEmailCollection.add userEmail
-                @addUserEmailView.triggerMethod "saved:user:email", response
+                siteid = SITEID['id']
+                if response.code is 'OK'
+                    update_feature_count = App.request "update:site:feature:count",siteid,'email_account','plus'
+                    @addUserEmailView.triggerMethod "saved:user:email", response
 
         App.commands.setHandler "show:add:user:email", (opts) ->
             new AddUserEmail.Controller opts

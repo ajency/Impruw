@@ -37,9 +37,14 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/add-user-
       };
 
       Controller.prototype.userEmailSaved = function(userEmail, response) {
+        var siteid, update_feature_count;
         this.userEmailCollection = App.request("get:user:email:collection");
         this.userEmailCollection.add(userEmail);
-        return this.addUserEmailView.triggerMethod("saved:user:email", response);
+        siteid = SITEID['id'];
+        if (response.code === 'OK') {
+          update_feature_count = App.request("update:site:feature:count", siteid, 'email_account', 'plus');
+          return this.addUserEmailView.triggerMethod("saved:user:email", response);
+        }
       };
 
       return Controller;
