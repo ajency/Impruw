@@ -36,6 +36,8 @@ define [ 'app'
 
                 #@$el.scrollSections()
                 @$el.find( 'select' ).selectpicker()
+                @$el.find( 'select[name="country"]' ).selectpicker 'val',@model.get 'country'
+                .selectpicker 'refresh'
 
                 # set affix
                 @$el.find( '*[data-spy="affix"]' ).affix()
