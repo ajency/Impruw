@@ -45,6 +45,7 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
           this.$el.find('.domain-update, .update-help').hide();
         }
         this.$el.find('select').selectpicker();
+        this.$el.find('select[name="country"]').selectpicker('val', this.model.get('country')).selectpicker('refresh');
         this.$el.find('*[data-spy="affix"]').affix();
         w = $('.aj-imp-right').width();
         this.$el.find('*[data-spy="affix"]').width(w);

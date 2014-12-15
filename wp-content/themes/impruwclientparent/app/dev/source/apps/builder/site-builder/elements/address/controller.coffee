@@ -23,6 +23,7 @@ define ['app'
 				if _.isObject window.HOTELADDRESS
 					options.modelData.street = window.HOTELADDRESS.street
 					options.modelData.city = window.HOTELADDRESS.city
+					options.modelData.postal_code = window.HOTELADDRESS.postal_code
 					options.modelData.country = window.HOTELADDRESS.country
 					options.modelData.phone_no = window.HOTELADDRESS.other_phone_no[0]
 					options.modelData.email = window.HOTELADDRESS.site_email
