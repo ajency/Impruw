@@ -36,7 +36,7 @@ define ['app', 'controllers/base-controller'
                 @userEmailCollection.add userEmail
                 siteid = SITEID['id']
                 if response.code is 'OK'
-                    update_feature_count = App.request "update:site:feature:count",siteid,'email_account','plus'
+                    updated_feature_count = App.request "update:site:feature:count",siteid,'email_account','plus'
                     @addUserEmailView.triggerMethod "saved:user:email", response
 
         App.commands.setHandler "show:add:user:email", (opts) ->

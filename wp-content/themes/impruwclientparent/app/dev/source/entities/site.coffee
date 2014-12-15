@@ -38,16 +38,17 @@ define ["app", 'backbone'], (App, Backbone) ->
                 ]
 
             updateSiteFeatureCount:(siteid,feature_component,plus_minus) ->
-                console.log 'updateSiteFeatureCount'
                 url = SITEURL+'/api/ajbilling/site_feature_count/'+siteid+'/site/'+feature_component+'/'+plus_minus
-
+                
                 options =
                     method : 'PUT'
                     url : url
 
                 $.ajax( options ).done ( response )=>
-                    console.log response
-                
+                    new_feature_count = response.updated_feature_count
+                    feature_count = window.PLAN_FEATURE_COUNT
+                    feature_count[feature_component][0]['current_count'] =  new_feature_count
+                    window.PLAN_FEATURE_COUNT = feature_count
 
             getSiteProfile: ->
 

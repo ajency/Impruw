@@ -53,7 +53,6 @@ define(["app", 'backbone'], function(App, Backbone) {
       },
       updateSiteFeatureCount: function(siteid, feature_component, plus_minus) {
         var options, url;
-        console.log('updateSiteFeatureCount');
         url = SITEURL + '/api/ajbilling/site_feature_count/' + siteid + '/site/' + feature_component + '/' + plus_minus;
         options = {
           method: 'PUT',
@@ -61,7 +60,11 @@ define(["app", 'backbone'], function(App, Backbone) {
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            return console.log(response);
+            var feature_count, new_feature_count;
+            new_feature_count = response.updated_feature_count;
+            feature_count = window.PLAN_FEATURE_COUNT;
+            feature_count[feature_component][0]['current_count'] = new_feature_count;
+            return window.PLAN_FEATURE_COUNT = feature_count;
           };
         })(this));
       },
