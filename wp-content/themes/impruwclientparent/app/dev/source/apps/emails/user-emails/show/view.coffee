@@ -108,7 +108,7 @@ define ['app'], (App)->
 
                     onRender:->
                         # disable add user button if emails are more than or equal to 10
-                        if @collection.length >= 10
+                        if @collection.length >= PLAN_FEATURE_COUNT['email_account'][0]['allowed_count']
                             @$el.find('#add-new-user-email-btn').prop('disabled', true)
 
 

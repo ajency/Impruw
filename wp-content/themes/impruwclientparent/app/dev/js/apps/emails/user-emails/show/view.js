@@ -115,7 +115,7 @@ define(['app'], function(App) {
       };
 
       UserEmailView.prototype.onRender = function() {
-        if (this.collection.length >= 10) {
+        if (this.collection.length >= PLAN_FEATURE_COUNT['email_account'][0]['allowed_count']) {
           return this.$el.find('#add-new-user-email-btn').prop('disabled', true);
         }
       };
