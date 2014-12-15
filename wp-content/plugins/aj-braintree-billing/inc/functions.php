@@ -459,6 +459,11 @@ function ajbilling_get_user_siteplan_options($object_id,$object_type='site'){
 	return $user_site_plan;
 }
 
+function ajbilling_get_user_siteplan_id($object_id,$object_type='site'){
+	$user_site_plan = ajbilling_get_user_siteplan_options($object_id);
+	return $user_site_plan['plan_id'];
+}
+
 function ajbilling_get_user_feature_count($object_id,$feature_component,$object_type='site'){
 
 	$count = 0;
@@ -850,19 +855,20 @@ function ajbilling_is_this_user_allowed($object_id , $object_type='site', $featu
             // Check if feature is enabled
 			$plugin_feature_enabled = ajbilling_plugin_feature_enable_status($site_plan_id,$feature_component);
 			if ($plugin_feature_enabled==='true') {
-				foreach ($site_features as $site_feature) {
-					if ($site_feature['key']==$feature_component) {
-						$plugin_feature_count = ajbilling_get_plugin_feature_count($site_plan_id,$feature_component);
-                                // If site feature count is less or equal to plugin feature count return allowed
-						if ($site_feature['count']<=$plugin_feature_count) {
-							$result = array('code' => 'OK' , 'allowed'=>1 );
-						}
-						else{
-							$result = array('code' => 'OK' , 'allowed'=>0 );
-						}
+				$result = array('code' => 'OK' , 'allowed'=>1 );
+				// foreach ($site_features as $site_feature) {
+				// 	if ($site_feature['key']==$feature_component) {
+				// 		$plugin_feature_count = ajbilling_get_plugin_feature_count($site_plan_id,$feature_component);
+    			//      // If site feature count is less or equal to plugin feature count return allowed
+				// 		if ($site_feature['count']<=$plugin_feature_count) {
+				// 			$result = array('code' => 'OK' , 'allowed'=>1 );
+				// 		}
+				// 		else{
+				// 			$result = array('code' => 'OK' , 'allowed'=>0 );
+				// 		}
 
-					}
-				}
+				// 	}
+				// }
 			}
 			else{
 				$result = array('code' => 'OK' , 'allowed'=>0 );

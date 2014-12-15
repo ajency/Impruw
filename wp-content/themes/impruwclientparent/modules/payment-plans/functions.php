@@ -39,6 +39,23 @@ function is_feature_allowed($feature_component){
     return $is_allowed;
 }
 
+function site_feature_current_count($feature_component){
+
+    $site_id = get_current_blog_id();
+    $current_count = ajbilling_get_user_feature_count($site_id,$feature_component);
+
+    return $current_count;
+
+}
+
+function site_feature_allowed_count($feature_component){
+
+    $plan_id = ajbilling_get_user_siteplan_id(get_current_blog_id());
+    $allowed_count = ajbilling_get_plugin_feature_count($plan_id,$feature_component);
+
+    return $allowed_count;
+
+}
 
 
 
