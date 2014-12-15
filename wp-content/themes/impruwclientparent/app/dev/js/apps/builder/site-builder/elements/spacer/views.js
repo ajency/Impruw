@@ -26,10 +26,11 @@ define(['app'], function(App) {
           return this.$el.find('hr').resizable({
             helper: "ui-image-resizable-helper",
             handles: "s",
+            minHeight: 3,
             stop: (function(_this) {
               return function(evt, ui) {
                 _this.$el.css('width', 'auto');
-                return _this.trigger('set:spacer:height', _this.$el.height());
+                return _this.trigger('set:spacer:height', _this.$el.find('hr').height());
               };
             })(this)
           });
