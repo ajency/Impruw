@@ -126,7 +126,7 @@
 									$site_plans_braintreePlans = $site_plan_object->braintree_plan_id;
 
 									// if there are previously selected braintree plans from db
-									if (!is_null($site_plans_braintreePlans)) {
+									if ($site_plans_braintreePlans!="") {
 										$site_plans_braintreePlans = maybe_unserialize($site_plans_braintreePlans);
 									}
 									else{

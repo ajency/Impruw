@@ -105,8 +105,22 @@
 					$braintree_plan_ids = maybe_unserialize($site_plan->braintree_plan_id);
 					$site_plan_title = $site_plan->title;
 					$site_plan_status = $site_plan->status;
+					if ($braintree_plan_ids=="") {?>
+					<tr>
+							<td><?php echo $site_plan_id; ?></td>
+							<td><?php echo "N/A";?></td>
+							<td><?php echo $site_plan_title;?></td>
+							<td><?php echo "N/A";?></td>
+							<td><?php echo $site_plan_status;?></td>
+							<td><?php echo "N/A";?></td>
+							<td><?php echo "N/A";?></td>
+							<td><?php echo "N/A";?></td>
+							<td><a href="admin.php?page=ajency-braintree-add-plan&amp;edit_planid=<?php echo $site_plan_id?>">Edit</a></td>
+					</tr>		
+					<?}
+					else{
 
-					foreach ($braintree_plan_ids as $braintree_plan_id) 
+						foreach ($braintree_plan_ids as $braintree_plan_id) 
 						{
 							$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
 							$braintree_plan_amt = $braintree_plan;
@@ -126,6 +140,9 @@
 							<td><a href="admin.php?page=ajency-braintree-add-plan&amp;edit_planid=<?php echo $site_plan_id?>">Edit</a></td>
 						</tr>
 					<?php } 
+
+					}
+					
 				} ?>
 
 
