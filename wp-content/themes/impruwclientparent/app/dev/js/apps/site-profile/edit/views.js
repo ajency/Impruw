@@ -23,6 +23,17 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
           var domainName;
           domainName = this.$el.find('#domain-name').val();
           return this.trigger("update:domain:mapping:name", domainName);
+        },
+        'click .show-map-btn': function() {
+          var address;
+          address = this.$el.find('input[name="street"]').val() + ',' + this.$el.find('input[name="city"]').val() + ',' + this.$el.find('input[name="postal_code"]').val() + ',' + this.$el.find('select[name="country"]').selectpicker('val');
+          console.log(address);
+          return this.trigger('show:map:view', address);
+        },
+        'click .refresh-map-btn': function() {
+          var address;
+          address = this.$el.find('input[name="street"]').val() + ',' + this.$el.find('input[name="city"]').val() + ',' + this.$el.find('input[name="postal_code"]').val() + ',' + this.$el.find('select[name="country"]').selectpicker('val');
+          return this.trigger('refresh:map:view', address);
         }
       };
 
@@ -73,6 +84,13 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
       MainView.prototype.onDomainUpdate = function(Msg) {
         this.$el.find('#msg').empty();
         return this.$el.find('#msg').text(Msg);
+      };
+
+      MainView.prototype.onShowMap = function(mapView) {
+        this.$el.find('.map-region').html(mapView.render().$el).removeClass('hide');
+        this.$el.find('.show-map-btn').addClass('hide');
+        this.$el.find('.refresh-map-btn').removeClass('hide');
+        return mapView.triggerMethod('show');
       };
 
       return MainView;

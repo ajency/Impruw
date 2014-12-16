@@ -1153,3 +1153,17 @@ function get_site_domain_name(){
 }
 
 
+function get_address_coordinate(){
+    $latitude = get_option('latitude','');
+    $longitude = get_option('longitude','');
+    $position = TRUE;    
+    if ( $latitude == '' || $longitude == '')
+        $position = FALSE;
+
+    $data = array(
+        'latitude' => (float)$latitude,
+        'longitude' => (float)$longitude,
+        'position' => $position);
+    return $data;
+}
+

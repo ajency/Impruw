@@ -91,12 +91,17 @@ define(['app'], function(App) {
       };
 
       MapView.prototype.renderMap = function() {
-        var address, map, service;
+        var address, map, newCenter, service;
         address = window.ADDRESS;
         map = new google.maps.Map(document.getElementById("map-canvas"), {
           center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 14
+          zoom: 17
         });
+        if (window.HOTELPOSITION.position) {
+          newCenter = new google.maps.LatLng(window.HOTELPOSITION.latitude, window.HOTELPOSITION.longitude);
+          this.displayMap(map, newCenter, address);
+          return;
+        }
         service = new google.maps.places.PlacesService(map);
         return service.textSearch({
           query: address

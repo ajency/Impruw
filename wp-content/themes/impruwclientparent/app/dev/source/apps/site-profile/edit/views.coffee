@@ -18,6 +18,22 @@ define [ 'app'
                     domainName = @$el.find( '#domain-name' ).val()
                     @trigger "update:domain:mapping:name", domainName
 
+                'click .show-map-btn' : ->
+                    address = @$el.find('input[name="street"]').val() + ',' +
+                        @$el.find('input[name="city"]').val() + ',' + 
+                        @$el.find('input[name="postal_code"]').val() + ',' +
+                        @$el.find( 'select[name="country"]' ).selectpicker 'val'
+                    console.log address
+                    # if _.trim(address) isnt ''
+                    @trigger 'show:map:view', address
+
+                'click .refresh-map-btn' : ->
+                    address = @$el.find('input[name="street"]').val() + ',' +
+                        @$el.find('input[name="city"]').val() + ',' + 
+                        @$el.find('input[name="postal_code"]').val() + ',' +
+                        @$el.find( 'select[name="country"]' ).selectpicker 'val'
+                    @trigger 'refresh:map:view',address
+
             # show the image
             serializeData : ->
                 data = super()
@@ -70,3 +86,10 @@ define [ 'app'
             onDomainUpdate : ( Msg )->
                 @$el.find( '#msg' ).empty()
                 @$el.find( '#msg' ).text Msg
+
+            onShowMap : (mapView)->
+                @$el.find( '.map-region' ).html( mapView.render().$el ).removeClass 'hide'
+                @$el.find('.show-map-btn').addClass 'hide'
+                @$el.find('.refresh-map-btn').removeClass 'hide'
+
+                mapView.triggerMethod 'show'

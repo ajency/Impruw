@@ -85,7 +85,12 @@ define ['app'], (App)->
 
 				map = new google.maps.Map document.getElementById("map-canvas"),
 																center :  new google.maps.LatLng(-34.397, 150.644)
-																zoom : 14
+																zoom : 17
+
+				if window.HOTELPOSITION.position
+            		newCenter = new google.maps.LatLng window.HOTELPOSITION.latitude, window.HOTELPOSITION.longitude 
+            		@displayMap map, newCenter, address
+            		return
 
 				service = new google.maps.places.PlacesService map
 				service.textSearch 

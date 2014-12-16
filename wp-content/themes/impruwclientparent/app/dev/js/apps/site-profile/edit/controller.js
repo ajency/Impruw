@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'entities/site'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'apps/site-profile/edit/map-view', 'entities/site'], function(App, AppController) {
   return App.module('SiteProfileApp.Edit', function(Edit, App, Backbone, Marionette, $, _) {
     return Edit.Controller = (function(_super) {
       __extends(Controller, _super);
@@ -37,6 +37,39 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
             });
           };
         })(this));
+        this.listenTo(this.view, 'show:map:view', (function(_this) {
+          return function(address) {
+            return $.get(AJAXURL, {
+              action: 'get-address-coordinates'
+            }, function(data) {
+              console.log(data);
+              _this.mapModel = new Backbone.Model({
+                address: address,
+                latitude: data.latitude,
+                longitude: data.longitude,
+                position: _.toBoolean(data.position)
+              });
+              console.log(_this.mapModel);
+              if (!_this.mapView) {
+                _this.mapView = _this.getMapView(_this.mapModel);
+              }
+              console.log(_this);
+              _this.view.triggerMethod('show:map', _this.mapView);
+              return _this.view.listenTo(_this.mapView, 'save:coordinates', function() {
+                data = _this.mapModel.toJSON();
+                data.action = 'update-address-coordinates';
+                return $.post(AJAXURL, data);
+              });
+            });
+          };
+        })(this));
+        this.listenTo(this.view, 'refresh:map:view', (function(_this) {
+          return function(address) {
+            console.log(address);
+            _this.mapModel.set('address', address);
+            return _this.mapView.triggerMethod('render:map');
+          };
+        })(this));
         return this.listenTo(this.view, "update:domain:mapping:name", this.addDomainNameForMapping);
       };
 
@@ -46,6 +79,12 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
           wait: true,
           onlyChanged: true,
           success: this.siteProfileSuccess
+        });
+      };
+
+      Controller.prototype.getMapView = function(model) {
+        return new Edit.View.MapView({
+          model: model
         });
       };
 

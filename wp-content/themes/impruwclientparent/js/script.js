@@ -527,27 +527,30 @@ jQuery(document).ready(function() {
             jQuery('#map_canvas').height(300);
         }
 
-        geocoder = new google.maps.Geocoder();
+        // geocoder = new google.maps.Geocoder();
 
         var mapOptions = {
             zoom: 17,
             center: new google.maps.LatLng(-34.397, 150.644)
         };
+
+
         
         map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+        if(HOTELPOSITION.position){
+            newCenter = new google.maps.LatLng(HOTELPOSITION.latitude, HOTELPOSITION.longitude);
+            createMarker( map, newCenter );
+            return;
+
+        }
         
         service = new google.maps.places.PlacesService(map);
         service.textSearch( {query: HOTELADDRESS}, function(results, status){
 
             if (status == google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
-                
-                map.setCenter(results[0].geometry.location);
-                
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-                
+                createMarker( map, results[0].geometry.location );
+                                
             }
             else {
                 jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
@@ -556,6 +559,21 @@ jQuery(document).ready(function() {
 
        
     }
+    function createMarker(map,position){
+        map.setCenter(position);
+                
+        var marker = new google.maps.Marker({
+            map: map,
+            position: position
+        });
+        infowindow = new google.maps.InfoWindow({ content: HOTELADDRESS});
+
+        google.maps.event.addListener( marker, 'click', function(){
+                            infowindow.open( map, marker);
+                        });
+                
+    }
+  
     jQuery.getScript('https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&callback=initializeMap');
 });
 
