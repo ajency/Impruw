@@ -20,9 +20,9 @@ define ['app'], (App)->
                                 <td>{{name}}</td>
                                 <td class="action-links">
                                     <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</a>
-                                    {{#enabled}}<a class="orange-link suspenduseremail_link" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;{{#polyglot}}Disable{{/polyglot}}</a>{{/enabled}}
+                                        <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a>
+                                    {{#enabled}}<!--a class="orange-link suspenduseremail_link" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;{{#polyglot}}Disable{{/polyglot}}</a-->{{/enabled}}
                                     {{^enabled}}<a class="orange-link enableuseremail_link" href="#/emails/enable/{{email}}"><span class="icon icon-checked"></span>&nbsp;{{#polyglot}}Enable{{/polyglot}}</a>{{/enabled}}
-                                    <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a>
                                 </td>'
 
                     modelEvents:
@@ -39,7 +39,7 @@ define ['app'], (App)->
                            e.preventDefault()
                            email_id = @model.get 'email'
                            if confirm _.polyglot.t "To re-enable email account please, reset the password"
-                                console.log "Re-enable"
+                                @model.set 'reenableAccount' , 1
                                 App.execute "show:edit:user:email", model: @model
                               
 
@@ -63,11 +63,17 @@ define ['app'], (App)->
                                 return true
                         data
 
+                    onRender:->
+                        emailIndex =  Marionette.getOption @, 'emailIndex'
+                        # Hide email accounts that are previously disabled and the exceed the maximum allowed count
+                        if emailIndex+1 > PLAN_FEATURE_COUNT['email_account'][0]['allowed_count']
+                            @$el.closest( "tr" ).find(' .enableuseremail_link').remove()
+                            @$el.closest( "tr" ).hide()
                 class Views.UserEmailView extends Marionette.CompositeView 
                    
                     template : '<div class="tab-content">
                                 <div id="users" class="tab-pane active">
-                                    <h6 class="aj-imp-sub-head">{{#polyglot}}Create upto 10 company email accounts{{/polyglot}}</h6>
+                                    <h6 class="aj-imp-sub-head">{{#polyglot}}Create upto '+PLAN_FEATURE_COUNT["email_account"][0]["allowed_count"]+' company email accounts{{/polyglot}}</h6>
                                     <div class="table-responsive">
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
@@ -106,10 +112,19 @@ define ['app'], (App)->
                     events:
                         'click #add-new-user-email-btn' : 'addNewUserEmail'
 
+                    itemViewOptions :(model,index)->
+                        emailIndex : index
+
                     onRender:->
                         # disable add user button if emails are more than or equal to 10
                         if @collection.length >= PLAN_FEATURE_COUNT['email_account'][0]['allowed_count']
                             @$el.find('#add-new-user-email-btn').prop('disabled', true)
+
+                        if PLAN_FEATURE_COUNT['email_account'][0]['allowed_count'] is 99999
+                            count_display = "unlimited"
+                            msg = _.polyglot.t 'Create '+count_display+' company email accounts'
+                            @$el.find('#users h6').html(msg)
+                        
 
 
                     addNewUserEmail: (e) ->

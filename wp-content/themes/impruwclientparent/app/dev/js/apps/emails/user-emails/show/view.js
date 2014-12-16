@@ -31,7 +31,7 @@ define(['app'], function(App) {
 
       UserEmailItemView.prototype.tagName = 'tr';
 
-      UserEmailItemView.prototype.template = '<td>{{email}}</td> <td>{{name}}</td> <td class="action-links"> <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</a> {{#enabled}}<a class="orange-link suspenduseremail_link" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;{{#polyglot}}Disable{{/polyglot}}</a>{{/enabled}} {{^enabled}}<a class="orange-link enableuseremail_link" href="#/emails/enable/{{email}}"><span class="icon icon-checked"></span>&nbsp;{{#polyglot}}Enable{{/polyglot}}</a>{{/enabled}} <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a> </td>';
+      UserEmailItemView.prototype.template = '<td>{{email}}</td> <td>{{name}}</td> <td class="action-links"> <a class="blue-link edit-useremail-link" href="#"><span class="icon icon-edit"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</a> <a class="red-link deleteuseremail_link" href="#/emails/delete/{{email}}"><span class="icon icon-trashcan "></span>&nbsp;{{#polyglot}}Delete{{/polyglot}}</a> {{#enabled}}<!--a class="orange-link suspenduseremail_link" href="#/emails/suspend/{{email}}"><span class="icon icon-blocked"></span>&nbsp;{{#polyglot}}Disable{{/polyglot}}</a-->{{/enabled}} {{^enabled}}<a class="orange-link enableuseremail_link" href="#/emails/enable/{{email}}"><span class="icon icon-checked"></span>&nbsp;{{#polyglot}}Enable{{/polyglot}}</a>{{/enabled}} </td>';
 
       UserEmailItemView.prototype.modelEvents = {
         'change': 'render'
@@ -51,7 +51,7 @@ define(['app'], function(App) {
           e.preventDefault();
           email_id = this.model.get('email');
           if (confirm(_.polyglot.t("To re-enable email account please, reset the password"))) {
-            console.log("Re-enable");
+            this.model.set('reenableAccount', 1);
             return App.execute("show:edit:user:email", {
               model: this.model
             });
@@ -85,6 +85,15 @@ define(['app'], function(App) {
         return data;
       };
 
+      UserEmailItemView.prototype.onRender = function() {
+        var emailIndex;
+        emailIndex = Marionette.getOption(this, 'emailIndex');
+        if (emailIndex + 1 > PLAN_FEATURE_COUNT['email_account'][0]['allowed_count']) {
+          this.$el.closest("tr").find(' .enableuseremail_link').remove();
+          return this.$el.closest("tr").hide();
+        }
+      };
+
       return UserEmailItemView;
 
     })(Marionette.ItemView);
@@ -95,7 +104,7 @@ define(['app'], function(App) {
         return UserEmailView.__super__.constructor.apply(this, arguments);
       }
 
-      UserEmailView.prototype.template = '<div class="tab-content"> <div id="users" class="tab-pane active"> <h6 class="aj-imp-sub-head">{{#polyglot}}Create upto 10 company email accounts{{/polyglot}}</h6> <div class="table-responsive"> <table class="table table-striped table-bordered table-hover"> <thead> <tr> <th>{{#polyglot}}Email Address{{/polyglot}}</th> <th>{{#polyglot}}Name{{/polyglot}}</th> <th>{{#polyglot}}Actions{{/polyglot}}</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="actions"> <button class="btn btn-sm aj-imp-orange-btn" id="add-new-user-email-btn"> <span class="glyphicon glyphicon-user"></span>&nbsp;{{#polyglot}}Add User{{/polyglot}} </button> </div> </div> </div> ';
+      UserEmailView.prototype.template = '<div class="tab-content"> <div id="users" class="tab-pane active"> <h6 class="aj-imp-sub-head">{{#polyglot}}Create upto ' + PLAN_FEATURE_COUNT["email_account"][0]["allowed_count"] + ' company email accounts{{/polyglot}}</h6> <div class="table-responsive"> <table class="table table-striped table-bordered table-hover"> <thead> <tr> <th>{{#polyglot}}Email Address{{/polyglot}}</th> <th>{{#polyglot}}Name{{/polyglot}}</th> <th>{{#polyglot}}Actions{{/polyglot}}</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="actions"> <button class="btn btn-sm aj-imp-orange-btn" id="add-new-user-email-btn"> <span class="glyphicon glyphicon-user"></span>&nbsp;{{#polyglot}}Add User{{/polyglot}} </button> </div> </div> </div> ';
 
       UserEmailView.prototype.addChildView = function() {};
 
@@ -114,9 +123,21 @@ define(['app'], function(App) {
         'click #add-new-user-email-btn': 'addNewUserEmail'
       };
 
+      UserEmailView.prototype.itemViewOptions = function(model, index) {
+        return {
+          emailIndex: index
+        };
+      };
+
       UserEmailView.prototype.onRender = function() {
+        var count_display, msg;
         if (this.collection.length >= PLAN_FEATURE_COUNT['email_account'][0]['allowed_count']) {
-          return this.$el.find('#add-new-user-email-btn').prop('disabled', true);
+          this.$el.find('#add-new-user-email-btn').prop('disabled', true);
+        }
+        if (PLAN_FEATURE_COUNT['email_account'][0]['allowed_count'] === 99999) {
+          count_display = "unlimited";
+          msg = _.polyglot.t('Create ' + count_display + ' company email accounts');
+          return this.$el.find('#users h6').html(msg);
         }
       };
 
