@@ -84,22 +84,26 @@ define(['app'], function(App) {
         window['renderMap'] = this.renderMap;
         callbacks.add(window['renderMap']);
         if (typeof google === 'undefined') {
-          return $.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap');
+          return $.getScript('https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&callback=initializeMap');
         } else {
           return this.renderMap();
         }
       };
 
       MapView.prototype.renderMap = function() {
-        var address, geocoder;
+        var address, map, service;
         address = window.ADDRESS;
-        geocoder = new google.maps.Geocoder();
-        return geocoder.geocode({
-          address: address
+        map = new google.maps.Map(document.getElementById("map-canvas"), {
+          center: new google.maps.LatLng(-34.397, 150.644),
+          zoom: 14
+        });
+        service = new google.maps.places.PlacesService(map);
+        return service.textSearch({
+          query: address
         }, (function(_this) {
           return function(results, status) {
-            if (status === google.maps.GeocoderStatus.OK) {
-              return _this.displayMap(results[0].geometry.location, address);
+            if (status === google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
+              return _this.displayMap(map, results[0].geometry.location, address);
             } else {
               return _this.displayGeoCodeErrorMessage();
             }
@@ -107,12 +111,8 @@ define(['app'], function(App) {
         })(this));
       };
 
-      MapView.prototype.displayMap = function(location, address) {
-        var map;
-        map = new google.maps.Map(document.getElementById("map-canvas"), {
-          center: location,
-          zoom: 14
-        });
+      MapView.prototype.displayMap = function(map, location, address) {
+        map.setCenter(location);
         return this.createMarker(map, address);
       };
 
