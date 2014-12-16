@@ -407,10 +407,12 @@ function ajbilling_get_plugin_feature_count($plan_id,$feature_component){
     $site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
     $plan_features = maybe_unserialize($site_plan['features']);
 
-    foreach ($plan_features as $plan_feature) {
+    if (count($plan_features)>0) {
+    	foreach ($plan_features as $plan_feature) {
 
-    	if ($plan_feature['key']==$feature_component) {
-    		$count = $plan_feature['count'];
+    		if ($plan_feature['key']==$feature_component) {
+    			$count = $plan_feature['count'];
+    		}
     	}
     }
 
@@ -433,13 +435,16 @@ function ajbilling_plugin_feature_enable_status($plan_id,$feature_component){
     $site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
     $plan_features = maybe_unserialize($site_plan['features']);
 
-    foreach ($plan_features as $plan_feature) {
+    if (count($plan_features)>0) {
+    	foreach ($plan_features as $plan_feature) {
 
     	if ($plan_feature['key']==$feature_component) {
-    		$enabled = $plan_feature['enabled'];
-    	}
-    }
+    			$enabled = $plan_feature['enabled'];
+    		}
+   		}
 
+    }
+    
     return $enabled;
 
 }
@@ -461,7 +466,8 @@ function ajbilling_get_user_siteplan_options($object_id,$object_type='site'){
 
 function ajbilling_get_user_siteplan_id($object_id,$object_type='site'){
 	$user_site_plan = ajbilling_get_user_siteplan_options($object_id);
-	return $user_site_plan['plan_id'];
+	$user_plan_id =  (!$user_site_plan) ? 0 : $user_site_plan['plan_id'] ;
+	return $user_plan_id;
 }
 
 function ajbilling_get_user_feature_count($object_id,$feature_component,$object_type='site'){
@@ -472,9 +478,11 @@ function ajbilling_get_user_feature_count($object_id,$feature_component,$object_
 
 	$user_count_features = $user_site_plan['feature_count'];
 
-	foreach ($user_count_features as $user_count_feature) {
-		if ($user_count_feature['key']==$feature_component) {
-			$count = $user_count_feature['count'];
+	if (count($user_count_features)>0) {
+		foreach ($user_count_features as $user_count_feature) {
+			if ($user_count_feature['key']==$feature_component) {
+				$count = $user_count_feature['count'];
+			}
 		}
 	}
 
