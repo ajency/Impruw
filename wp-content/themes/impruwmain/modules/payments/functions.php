@@ -111,10 +111,6 @@ function email_account_feature_changes($site_id, $feature_args){
 	$old_count = $feature_args['old_count'];
 
 	$difference_in_count = $new_count-$old_count ;
-	
-	echo $enable_status;
-	echo $new_count;
-	echo $old_count;
 
 	switch ($enable_status) {
 		case 'true':
@@ -134,22 +130,17 @@ function email_account_feature_changes($site_id, $feature_args){
 
 function suspend_email_accounts($site_id, $count=NULL){
 	$args = array('domain_name' => $domain_name);
-	echo "suspend email accounts";
 
 	switch_to_blog($site_id);
 		$custom_domain_exists = get_option( 'domain-name', 0);
 		if ($custom_domain_exists) {
-			echo "custom_domain_exists";
-			
 			// Get all email accounts for this domain
 			$args = array( 'domain_name'=> $custom_domain_exists);
         	$domain_accounts = get_domain_accounts($args);
-        	print_r($domain_accounts['data']);
 
         	$deleted_count = 0;
         	// Suspend email accounts if they exist
         	if (count($domain_accounts['data']) > 0) {
-        		echo "Email accounts exist to delete";
         		foreach ($domain_accounts['data'] as $domain_account) {
         			$email_id = $domain_account->email;
         			$email_id_args = array('email_id' => $email_id);
@@ -158,6 +149,9 @@ function suspend_email_accounts($site_id, $count=NULL){
         			//if suspend success then increment count
         			if ($response['code']==='OK') {
         				$deleted_count++;
+
+        				//Update count in the options
+        				ajbilling_update_feature_count($site_id , 'site', 'email_account', 'minus');
         			}
 
         			if ((!is_null($count))&&($deleted_count==$count)) {

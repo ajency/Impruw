@@ -19,7 +19,8 @@
 		 	if (paymentPlan==='-1') {
 		 		var msg = 'Please select a plan before saving';
     			$('.plan-setting-updated-msg').empty();
-    			$('.plan-setting-updated-msg').append(msg);
+    			$('.plan-setting-updated-msg').append('<span class="display-msg">'+msg+'</span>');
+    			$('.display-msg').fadeOut (5000);
     			return
 		 	}
 		 	else{
@@ -28,13 +29,15 @@
 		 			if (data.update_success) {
 		 				var msg = "Plan successfully updated";
 		 				$('.plan-setting-updated-msg').empty();
-		 				$('.plan-setting-updated-msg').append(msg);
+		 				$('.plan-setting-updated-msg').append('<span class="display-msg">'+msg+'</span>');
+		 				$('.display-msg').fadeOut (5000);
 		 			}
 		 		})
 		 		.fail(function(jqXHR, textStatus, errorThrown){
 		 			var msg = 'Error in updating plan';
 		 			$('.plan-setting-updated-msg').empty();
-		 			$('.plan-setting-updated-msg').append(msg);
+		 			$('.plan-setting-updated-msg').append('<span class="display-msg">'+msg+'</span>');
+		 			$('.display-msg').fadeOut (5000);
 		 		});
 		 	}
 
