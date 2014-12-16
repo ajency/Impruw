@@ -23,6 +23,8 @@ function handle_site_deletion( $site_id, $drop ) {
     $wpdb->query( "DROP TABLE {$wpdb->prefix}plans" );
     $wpdb->query( "DROP TABLE {$wpdb->prefix}tariffs" );
     $wpdb->query( "DROP TABLE {$wpdb->prefix}bookings" );
+    $wpdb->query( "DROP TABLE {$wpdb->prefix}cancel_subscription" );
+    $wpdb->query( "DROP TABLE {$wpdb->prefix}header_footer_backup" );
 
     $wpml_table_names = array(
         'icl_content_status',
