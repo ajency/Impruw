@@ -33,6 +33,7 @@
     require_once 'modules/user/ajax.php';
     require_once 'modules/site/ajax.php';
     require_once 'modules/api/main.php';
+    require_once 'modules/payments/functions.php';
     require_once 'modules/communications/functions.php';
 
 

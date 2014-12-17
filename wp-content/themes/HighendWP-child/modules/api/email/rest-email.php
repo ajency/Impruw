@@ -4,7 +4,7 @@ function impruw_api_init() {
 
     global $impruw_api_email;
 
-    include(dirname(__FILE__).'/class-impruw-api-email.php');
+    include('class-impruw-api-email.php');
 
 
     $impruw_api_email = new Impruw_API_Email();
@@ -29,6 +29,7 @@ class Impruw_API_Email {
             array( array( $this, 'impruw_update_email'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
             array( array( $this, 'impruw_user_details'), WP_JSON_Server::READABLE ),
             array( array( $this, 'impruw_disable_email'), WP_JSON_Server::EDITABLE ),
+            array( array( $this, 'impruw_delete_email'), WP_JSON_Server::DELETABLE ),
         );
 
 
@@ -48,7 +49,9 @@ class Impruw_API_Email {
 
         );
 
-        get_domain_accounts($args);
+        $response = get_domain_accounts($args);
+
+        return $response;
     }
 
 
@@ -69,19 +72,28 @@ class Impruw_API_Email {
     /*
      * Registering user email
      */
-    public function impruw_register_email(){
+    public function impruw_register_email($data){
 
-         if(isset($_POST["email_id"])){
+        if(isset($data["email_id"])&&isset($data["password"])){
 
-            $new_email = $_POST["email_id"];
+            $new_email       = $data["email_id"];
+            $new_password    = $data["password"];
+            $new_fname       = $data["firstName"];
+            $new_lname       = $data["lastName"];
+
+            $new_name = $new_fname.' '.$new_lname;
+
 
             $args = array(
 
-                'email_id'       	=> $new_email
-
+                'email_id'       	=> $new_email,
+                'password'          => $new_password,
+                'name'              => $new_name
             );
+            //print_r($args);
+            $response = register_email($args);
 
-            register_email($args);
+            return $response;
         }
     }
 
@@ -91,13 +103,21 @@ class Impruw_API_Email {
 
     public function impruw_update_email($email_id){
 
-        $new_password = $_POST['password'];
+        $new_password   = $_POST['password'];
+
+        $new_fname       = $_POST["firstName"];
+
+        $new_lname       = $_POST["lastName"];
+
+        $name = $new_fname.' '.$new_lname;
 
         $args = array(
 
-            'email_id'       	=> $email_id,
+            'email_id'       => $email_id,
 
-            'password'    	 => $new_password
+            'password'    	 => $new_password,
+
+            'name'           => $name
         );
 
         update_email($args);
@@ -114,7 +134,43 @@ class Impruw_API_Email {
             'email_id'       	=> $email_id
         );
 
-        disable_user_email($args);
+        $response  = disable_user_email($args);
+
+        return $response;
+
+    }
+
+    /*
+    * Enabling registered user email
+    */
+    public function impruw_enable_email($email_id){
+
+        $new_password   = $_POST['password'];
+
+        $args = array(
+
+            'email_id'       	=> $email_id,
+
+            'new_password'      => $new_password
+        );
+
+        enable_user_email($args);
+
+    }
+
+
+
+    /*
+     * Deleting registered user email
+     */
+    public function impruw_delete_email($email_id){
+
+        $args = array(
+
+            'email_id'       	=> $email_id
+        );
+
+        delete_user_email($args);
 
     }
 
@@ -124,26 +180,28 @@ class Impruw_API_Email {
 function register_email($args){
 
     //Check if useremail already exists
-    $domain = impruw_email_accounts::get_domain($args['email_id']);
-    $account = $domain->get_account($args['email_id']);
+    $account =  impruw_email_accounts::get_account($args['email_id']);
 
     if(is_null($account)){
 
         //Generating a random password
-        $new_pass = wp_generate_password();
+        $new_pass = $args['password'];
+
+        $new_name = $args['name'];
 
         // creating account with given email and password
-        $response = impruw_email_accounts::create_account($args['email_id'], $new_pass);
+        $data = impruw_email_accounts::create_account($args['email_id'], $new_pass,$new_name);
+        $response = array('code'=> 'OK', 'data'=>$data);
     }
     else{
-        $response = 'user exists';
+        $response = array('code'=> 'ERROR', 'msg'=>'User email already exists');
     }
 
     //$response = array('status'=>$status,'response' => $new_account);
 
-    wp_send_json($response);
+    return $response;
 
-    exit;
+    
 }
 
 
@@ -155,86 +213,128 @@ function get_domain_accounts($args){
 
     if(!is_null($domain)){
         // return an array of imp_email objects
-        $accounts = $domain->get_accounts();
+        $data = $domain->get_accounts(false);
+        $response = array('code'=> 'OK', 'data'=>$data);
     }
     else{
-        $accounts = 'no accounts';
+        $response = "";
     }
 
-    $response = json_encode( $accounts );
+    return $response;
 
-    header( "Content-Type: application/json" );
-
-    echo $response;
-
-    exit;
+    //return $response;
 }
 
 //Updating email account
 function update_email($args){
 
-    $domain = impruw_email_accounts::get_domain($args['email_id']);
-    $account = $domain->get_account($args['email_id']);
-
-    $was_updated = false;
-
-    if ($account) {
+    //Check if useremail already exists
+    $account =  impruw_email_accounts::get_account($args['email_id']);
+    if($account){
+        $password_data = true;
         // updating password
-        $was_updated = $account->update_password($args['password']);
-        $response = 'email updated';
+        if($args['password']!=""){
+            $password_data = $account->update_password($args['password']);
+        }
+
+        $account->name = $args['name'];
+        $name_data = $account->save();
+
+        if($password_data == true && $name_data == true){
+
+            $data = $account;
+            $response = array('code' => 'OK', 'data' => $data );
+
+        }else{
+
+            $response = array('code' => 'ERROR', 'msg' =>'Unable to update email account' );
+        }
     }
     else{
-        $response = 'in-valid email id';
+        $response = array('code'=> 'ERROR', 'msg'=>'In-valid email id');
     }
 
-    //$response = array('updated' => $was_updated== 1? true:false);
-    $response = $response;
-
     wp_send_json($response);
-
     exit;
+
+    //return $response;
 
 }
 
 //Fetching user details
 function get_user_account($args){
 
-    // Getting all the accounts with a domain name
-    $domain = impruw_email_accounts::get_domain($args['email_id']);
+    //Check if useremail already exists
+    $account =  impruw_email_accounts::get_account($args['email_id']);
 
-    //Getting individual user details
-    $account = impruw_email_accounts::get_account($args['email_id']);
+    if($account){
 
-    wp_send_json($account);
+        $data = $account;
+        $response = array('code' => 'OK', 'msg' =>$data );
+    }
+    else{
+        $response = array('code' => 'ERROR', 'msg' =>'In-valid email id' );
+    }
+
+    wp_send_json($response);
 
     exit;
+
+    //return $response;
 }
 
 //Disable user email
 function disable_user_email($args){
 
-    $domain = impruw_email_accounts::get_domain($args['email_id']);
-    $account = $domain->get_account($args['email_id']);
+    $account =  impruw_email_accounts::get_account($args['email_id']);
 
-    $was_disabled = false;
     if($account){
         //Disabling account
-        $was_disabled = $account->disable();
-        if($was_disabled == true){
-            $response = 'email id disabled';
+        $data = $account->disable();
+        $account = impruw_email_accounts::get_account($args['email_id']);
+        if($data == true){
+            $response = array('code' => 'OK', 'msg' =>$data, 'data'=>$account );
         }
         else{
-            $response = 'unable to disable';
+            $response = array('code' => 'ERROR', 'msg' =>'Email account could not be suspended' );
         }
     }
     else{
-        $response = 'in-valid email id';
+        $response = array('code' => 'ERROR', 'msg' =>'In-valid email id' );
     }
 
-    $response = array('disabled' => $response);
+    return $response;
+}
+
+//Delete user email
+function delete_user_email($args){
+
+    $account =  impruw_email_accounts::get_account($args['email_id']);
+
+    if($account){
+        //Deleting account
+        $data = $account->delete();
+        $data = impruw_email_accounts::get_account($args['email_id']);
+        if ($data->is_deleted ) {
+            $response = array('code' => 'OK', 'data' => $data );
+        }
+        else{
+            $response = array('code' => 'ERROR', 'msg' => 'Email id could not be deleted' );
+        }
+
+        
+    }
+
+    else{
+        $response = array('code' => 'ERROR', 'msg' =>'In-valid email id' );
+    }
 
     wp_send_json($response);
 
     exit;
+    
 }
+
+
+
 
