@@ -21,7 +21,8 @@ define(['app', 'apps/builder/site-builder/elements/address/views', 'apps/builder
           country: 'Country',
           phone_no: '9999888877',
           email: 'demo@email.com',
-          style: 'Default Style'
+          style: 'Default Style',
+          align: 'left'
         });
         if (_.isObject(window.HOTELADDRESS)) {
           options.modelData.street = window.HOTELADDRESS.street;
@@ -38,7 +39,7 @@ define(['app', 'apps/builder/site-builder/elements/address/views', 'apps/builder
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:style", this.renderElement);
+        this.listenTo(this.layout.model, "change:style change:align", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 

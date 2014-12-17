@@ -17,7 +17,8 @@ define(['app'], function(App) {
       AddressView.prototype.onRender = function() {
         var className;
         className = _.slugify(this.model.get('style'));
-        return this.$el.addClass(className);
+        this.$el.addClass(className);
+        return this.$el.addClass("text-" + (this.model.get('align')));
       };
 
       AddressView.prototype.onShow = function() {

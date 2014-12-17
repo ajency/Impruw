@@ -12,6 +12,9 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                 model = App.request "get:element:settings:options", 'Address'
                 view = @_getSettingView model, @model
 
+                @listenTo view, "element:alignment:changed", (alignment)=>
+                    @model.set "align", alignment
+
                 @listenTo view, "element:style:changed", (style)=>
                     @model.set "style", style
 
@@ -25,7 +28,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
 
             # time to save model to server
             onClose: ->
-                return if not @model.hasChanged()
+                # return if not @model.hasChanged()
 
                 @model.save null,
                     wait: true
