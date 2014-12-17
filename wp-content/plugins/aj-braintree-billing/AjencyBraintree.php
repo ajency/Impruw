@@ -316,12 +316,10 @@ class AjencyBraintree{
 
 		$plans_sql = " CREATE TABLE IF NOT EXISTS  `{$table_plans_name}` (
 				`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-				`braintree_plan_id` VARCHAR(30) NOT NULL,
+				`braintree_plan_id` LONGTEXT NOT NULL,
 				`title` VARCHAR(255),
 				`features` LONGTEXT,
-				`status` VARCHAR(20),
-				`location_id` INT,
-				`one_time_fee` DECIMAL(10,2) );";
+				`status` VARCHAR(20);";
 
 
 		$table_countries_name = $wpdb->base_prefix.'aj_billing_countries';
