@@ -74,54 +74,87 @@ define ['app'], (App)->
 
 			renderMap : =>
 				address = window.ADDRESS
-				# geocoder = new google.maps.Geocoder()
-				# geocoder.geocode
-				# 			address: address
-				# 		, (results, status)=>
-				# 			if status is google.maps.GeocoderStatus.OK
-				# 				@displayMap results[0].geometry.location, address
-				# 			else
-				# 				@displayGeoCodeErrorMessage()
-
+				
 				map = new google.maps.Map document.getElementById("map-canvas"),
 																center :  new google.maps.LatLng(-34.397, 150.644)
 																zoom : 17
 
 				if window.HOTELPOSITION.position
-            		newCenter = new google.maps.LatLng window.HOTELPOSITION.latitude, window.HOTELPOSITION.longitude 
-            		@displayMap map, newCenter, address
-            		return
+					newCenter = new google.maps.LatLng window.HOTELPOSITION.latitude, window.HOTELPOSITION.longitude 
+					@createMarker map, newCenter
+					return
 
-				service = new google.maps.places.PlacesService map
-				service.textSearch 
-						query : address 
-					, (results, status)=>
-						if status is google.maps.places.PlacesServiceStatus.OK and results.length > 0
-							@displayMap map, results[0].geometry.location, address
-						else
-							@displayGeoCodeErrorMessage()
+				else if _.trim(window.HOTELPOSITION.placeId) isnt ''
+					@getPlacesDetails window.HOTELPOSITION.placeId,map
+					return
+
+				else
+					console.log window.HOTELPOSITION.placeId
+					service = new google.maps.places.PlacesService(map);
+					service.textSearch
+							query: window.ADDRESS
+						, (results,status)=>
+							if status is google.maps.places.PlacesServiceStatus.OK
+								@getPlacesDetails results[0].place_id,map
+							else 
+								jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+						
+
+
+			getPlacesDetails : (placeId,map) ->
+				service = new google.maps.places.PlacesService(map);
+				service.getDetails
+						placeId: placeId
+					,(place, status)=>
+						if status is google.maps.places.PlacesServiceStatus.OK
+							# x= place
+							# // createMarker(place);
+							@createMarker map, place.geometry.location ,place
+						
+						else 
+							jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+						
+				
 						
 						
 
-			displayMap:(map, location, address)->
-				# map = new google.maps.Map document.getElementById("map-canvas"),
-				# 												center : location
-				# 												zoom : 14
+			# displayMap:(map, location, place)->
+			# 	# map = new google.maps.Map document.getElementById("map-canvas"),
+			# 	# 												center : location
+			# 	# 												zoom : 14
+				
+			# 	@createMarker map, place
+
+			createMarker :(map, location,  place)->
 				map.setCenter location
-				@createMarker map, address
-
-			createMarker :(map, address)->
 
 				marker = new google.maps.Marker
 									map: map
-									position: map.getCenter()
+									position: location
 
-				@createInfoWindow map, marker, address
+				if (place)
+					image =
+						url : place.icon
+						size : new google.maps.Size(71 , 71)
+						origin: new google.maps.Point(0, 0)
+						anchor: new google.maps.Point(7, 7)
+						scaledSize: new google.maps.Size(15, 15)
+					
+					marker.setTitle(place.name);
+					marker.setIcon(image);
+					content = "<div><b>"+place.name+"</b></div>"+place.adr_address;
+					if (place.url)
+						content += "<div class='text-center'><a href="+place.url+">more</a></div>"
+			
+				else
+					content = window.ADDRESS
 
-			createInfoWindow:(map, marker, address)->
+				@createInfoWindow map, marker, content
+
+			createInfoWindow:(map, marker, content)->
 				# TODO: add formatted content in info window
 				infowindow = new google.maps.InfoWindow
-												content: address
+												content: content
 
 				google.maps.event.addListener marker, 'click',->
 					infowindow.open map,marker

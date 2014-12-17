@@ -47,13 +47,13 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'a
                 address: address,
                 latitude: data.latitude,
                 longitude: data.longitude,
-                position: _.toBoolean(data.position)
+                position: _.toBoolean(data.position),
+                placeId: data.placeId
               });
               console.log(_this.mapModel);
               if (!_this.mapView) {
                 _this.mapView = _this.getMapView(_this.mapModel);
               }
-              console.log(_this);
               _this.view.triggerMethod('show:map', _this.mapView);
               return _this.view.listenTo(_this.mapView, 'save:coordinates', function() {
                 data = _this.mapModel.toJSON();
@@ -67,7 +67,7 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'a
           return function(address) {
             console.log(address);
             _this.mapModel.set('address', address);
-            return _this.mapView.triggerMethod('render:map');
+            return _this.mapView.triggerMethod('refresh:map');
           };
         })(this));
         return this.listenTo(this.view, "update:domain:mapping:name", this.addDomainNameForMapping);

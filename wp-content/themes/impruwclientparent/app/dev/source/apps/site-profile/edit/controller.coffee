@@ -40,11 +40,11 @@ define ['app'
                             latitude : data.latitude
                             longitude : data.longitude
                             position : _.toBoolean data.position
+                            placeId : data.placeId
                         console.log @mapModel
                         if not @mapView
                             @mapView = @getMapView @mapModel
 
-                        console.log @
                         @view.triggerMethod 'show:map',@mapView
 
                         @view.listenTo @mapView, 'save:coordinates',=>
@@ -55,7 +55,7 @@ define ['app'
                 @listenTo @view, 'refresh:map:view',(address)=>
                     console.log address
                     @mapModel.set 'address', address
-                    @mapView.triggerMethod 'render:map'
+                    @mapView.triggerMethod 'refresh:map'
 
                 #listen to domain mappping event
                 @listenTo @view, "update:domain:mapping:name", @addDomainNameForMapping

@@ -50,13 +50,17 @@ define(['app'], function(App) {
       };
 
       MapView.prototype.onRefreshMap = function() {
-        this.model.set('position', false);
+        this.model.set({
+          position: false,
+          placeId: ''
+        });
         this.trigger('save:coordinates');
         return this.renderMap();
       };
 
       MapView.prototype.renderMap = function() {
         var pos;
+        this.$el.find('.custom-position, .default-position').addClass('hide');
         if (!this.map) {
           this.map = new google.maps.Map(document.getElementById("map-canvas"), {
             center: new google.maps.LatLng(59.913, 10.750),
@@ -74,6 +78,9 @@ define(['app'], function(App) {
           pos = new google.maps.LatLng(this.model.get('latitude'), this.model.get('longitude'));
           this.$el.find('.custom-position').removeClass('hide');
           return this.displayMap(pos, this.model.get('address'));
+        } else if (_.trim(this.model.get('placeId')) !== '') {
+          this.getPlacesDetails(this.model.get('placeId'), this.model.get('address'));
+          return this.$el.find('.default-position').not('.not-found-text').removeClass('hide');
         } else {
           return this.getPositionFromAddress();
         }
@@ -88,10 +95,38 @@ define(['app'], function(App) {
         }, (function(_this) {
           return function(results, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
-              _this.displayMap(results[0].geometry.location, address);
+              _this.model.set({
+                placeId: results[0].place_id,
+                position: false
+              }, {
+                silent: true
+              });
+              _this.trigger('save:coordinates');
+              _this.getPlacesDetails(results[0].place_id, address);
+              console.log('x');
               return _this.$el.find('.default-position').not('.not-found-text').removeClass('hide');
             } else {
               _this.displayMap(_this.map.getCenter(), address);
+              console.log('y');
+              return _this.$el.find('.default-position').not('.default-text').removeClass('hide');
+            }
+          };
+        })(this));
+      };
+
+      MapView.prototype.getPlacesDetails = function(placeId, address) {
+        var service;
+        service = new google.maps.places.PlacesService(this.map);
+        return service.getDetails({
+          placeId: placeId
+        }, (function(_this) {
+          return function(place, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              _this.displayMap(place.geometry.location, address);
+              return console.log('z');
+            } else {
+              _this.displayMap(_this.map.getCenter(), address);
+              console.log('A');
               return _this.$el.find('.default-position').not('.default-text').removeClass('hide');
             }
           };
@@ -112,13 +147,18 @@ define(['app'], function(App) {
       };
 
       MapView.prototype.createInfoWindow = function(address) {
-        var infowindow;
-        infowindow = new google.maps.InfoWindow({
-          content: address
-        });
-        return google.maps.event.addListener(this.marker, 'click', function() {
-          return infowindow.open(this.map, this.marker);
-        });
+        if (this.infowindow) {
+          this.infowindow.setContent(address);
+        } else {
+          this.infowindow = new google.maps.InfoWindow({
+            content: address
+          });
+        }
+        return google.maps.event.addListener(this.marker, 'click', (function(_this) {
+          return function() {
+            return _this.infowindow.open(_this.map, _this.marker);
+          };
+        })(this));
       };
 
       MapView.prototype.displayGeoCodeErrorMessage = function() {

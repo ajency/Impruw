@@ -376,7 +376,8 @@ function ajax_update_address_coordinates(){
         update_option( 'longitude', $data['longitude'] );
     }
     else{
-        print_r('expression');
+        if (isset($data['placeId']))
+            update_option('placeId', $data['placeId']);
         delete_option('latitude');
         delete_option('longitude');
     }

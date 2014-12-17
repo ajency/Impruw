@@ -99,41 +99,73 @@ define(['app'], function(App) {
         });
         if (window.HOTELPOSITION.position) {
           newCenter = new google.maps.LatLng(window.HOTELPOSITION.latitude, window.HOTELPOSITION.longitude);
-          this.displayMap(map, newCenter, address);
-          return;
+          this.createMarker(map, newCenter);
+        } else if (_.trim(window.HOTELPOSITION.placeId) !== '') {
+          this.getPlacesDetails(window.HOTELPOSITION.placeId, map);
+        } else {
+          console.log(window.HOTELPOSITION.placeId);
+          service = new google.maps.places.PlacesService(map);
+          return service.textSearch({
+            query: window.ADDRESS
+          }, (function(_this) {
+            return function(results, status) {
+              if (status === google.maps.places.PlacesServiceStatus.OK) {
+                return _this.getPlacesDetails(results[0].place_id, map);
+              } else {
+                return jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+              }
+            };
+          })(this));
         }
+      };
+
+      MapView.prototype.getPlacesDetails = function(placeId, map) {
+        var service;
         service = new google.maps.places.PlacesService(map);
-        return service.textSearch({
-          query: address
+        return service.getDetails({
+          placeId: placeId
         }, (function(_this) {
-          return function(results, status) {
-            if (status === google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
-              return _this.displayMap(map, results[0].geometry.location, address);
+          return function(place, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              return _this.createMarker(map, place.geometry.location, place);
             } else {
-              return _this.displayGeoCodeErrorMessage();
+              return jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
             }
           };
         })(this));
       };
 
-      MapView.prototype.displayMap = function(map, location, address) {
+      MapView.prototype.createMarker = function(map, location, place) {
+        var content, image, marker;
         map.setCenter(location);
-        return this.createMarker(map, address);
-      };
-
-      MapView.prototype.createMarker = function(map, address) {
-        var marker;
         marker = new google.maps.Marker({
           map: map,
-          position: map.getCenter()
+          position: location
         });
-        return this.createInfoWindow(map, marker, address);
+        if (place) {
+          image = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(7, 7),
+            scaledSize: new google.maps.Size(15, 15)
+          };
+          marker.setTitle(place.name);
+          marker.setIcon(image);
+          content = "<div><b>" + place.name + "</b></div>" + place.adr_address;
+          if (place.url) {
+            content += "<div class='text-center'><a href=" + place.url + ">more</a></div>";
+          }
+        } else {
+          content = window.ADDRESS;
+        }
+        return this.createInfoWindow(map, marker, content);
       };
 
-      MapView.prototype.createInfoWindow = function(map, marker, address) {
+      MapView.prototype.createInfoWindow = function(map, marker, content) {
         var infowindow;
         infowindow = new google.maps.InfoWindow({
-          content: address
+          content: content
         });
         return google.maps.event.addListener(marker, 'click', function() {
           return infowindow.open(map, marker);
