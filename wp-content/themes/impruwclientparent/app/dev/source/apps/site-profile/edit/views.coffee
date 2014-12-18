@@ -11,8 +11,11 @@ define [ 'app'
                 'click #btn_savesitedetails' : ->
                     @trigger "save:site:profile", Backbone.Syphon.serialize @
 
-                'click .fileinput-new' : ->
-                    @trigger "show:media:manager"
+                'click .fileinput-logo' : ->
+                    @trigger "show:media:manager",'logo'
+
+                'click .fileinput-favicon' : ->
+                    @trigger 'show:media:manager', 'favicon'
 
                 'click .domain-update' : ->
                     domainName = @$el.find( '#domain-name' ).val()
@@ -23,6 +26,7 @@ define [ 'app'
                 data = super()
                 data.site_domain = data.site_domain.split( '.' ).shift()
                 data.logo_url = "http://placehold.it/100&text=" + _.polyglot.t( 'Logo' ) if data.logo_url is ""
+                data.favicon_url = "http://placehold.it/100&text=" + _.polyglot.t( 'Favicon' ) if data.favicon_url is ""
                 data
 
             onShow : ->
@@ -66,6 +70,17 @@ define [ 'app'
                 #@$el.find('.fileinput-preview ').append '<img src ="" class="site_profile_images"/>'
                 @$el.find( '.site_profile_images' ).attr 'src', image_path
                 @$el.find( '#logo_id' ).attr 'value', image_id
+
+            onSetFavicon : ( media ) ->
+                image_id = media.get 'id'
+                media_size = media.get 'sizes'
+                if media_size
+                    image_path = media_size.thumbnail.url
+                else 
+                    image_path = media.get 'url'
+                #@$el.find('.fileinput-preview ').append '<img src ="" class="site_profile_images"/>'
+                @$el.find( '.site_favicon_images' ).attr 'src', image_path
+                @$el.find( '#favicon_id' ).attr 'value', image_id
 
             onDomainUpdate : ( Msg )->
                 @$el.find( '#msg' ).empty()
