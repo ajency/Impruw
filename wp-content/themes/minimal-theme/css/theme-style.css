@@ -1710,6 +1710,10 @@ ul.gallery {
   border: 0;
   padding: 0;
 }
+.aj-imp-login-form .aj-imp-login form .alert,
+.aj-imp-login-form .aj-imp-forgot form .alert {
+  font-family: 'Lato', sans-serif;
+}
 .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
   font-size: 0.8em;
@@ -2023,6 +2027,7 @@ ul.gallery {
   padding: 0.5em 1em;
   width: 80%;
   margin: auto;
+  font-family: 'Lato', sans-serif;
 }
 .spacer hr {
   border: 0;
