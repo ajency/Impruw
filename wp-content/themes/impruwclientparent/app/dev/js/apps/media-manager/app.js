@@ -31,6 +31,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           opt = {};
         }
         this.choosedMedia = null;
+        _.defaults(opt, {
+          type: 'all'
+        });
         this.layout = layout = this._getLayout();
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
@@ -38,7 +41,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
               region: layout.uploadRegion
             });
             return App.execute("start:media:grid:app", {
-              region: layout.gridRegion
+              region: layout.gridRegion,
+              type: opt.type
             });
           };
         })(this));
@@ -110,11 +114,15 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
     })(Marionette.Layout);
     API = {
-      show: function() {
-        return new ShowController({
+      show: function(opt) {
+        if (opt == null) {
+          opt = {};
+        }
+        _.defaults(opt, {
           region: App.dialogRegion,
           statApp: 'all-media'
         });
+        return new ShowController(opt);
       },
       editMedia: function(model, region) {}
     };
@@ -123,8 +131,14 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         controller: API
       });
     });
-    return MediaManager.on("stop", function() {
+    MediaManager.on("stop", function() {
       return App.vent.off("media:element:clicked");
+    });
+    return App.commands.setHandler('start:media:app', function(opt) {
+      if (opt == null) {
+        opt = {};
+      }
+      return API.show(opt);
     });
   });
 });

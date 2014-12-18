@@ -19,10 +19,14 @@ define [ 'app', 'controllers/base-controller'
                 @listenTo @view, "save:site:profile", @saveSiteProfile
 
                 #trigger media manager popup and start listening to "media:manager:choosed:media" event
-                @listenTo @view, "show:media:manager", =>
-                    App.navigate "media-manager", trigger : true
+                @listenTo @view, "show:media:manager", (ele)=>
+                    # App.navigate "media-manager", trigger : true
+                    App.execute 'start:media:app',type : ele
                     @listenTo App.vent, "media:manager:choosed:media", ( media )=>
-                        @view.triggerMethod "set:logo", media
+                        if ele is 'logo'
+                            @view.triggerMethod "set:logo", media
+                        else if ele is 'favicon'
+                            @view.triggerMethod 'set:favicon',media
                         @stopListening App.vent, "media:manager:choosed:media"
 
                     @listenTo App.vent, "stop:listening:to:media:manager", =>

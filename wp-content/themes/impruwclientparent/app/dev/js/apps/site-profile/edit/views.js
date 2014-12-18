@@ -16,8 +16,11 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         'click #btn_savesitedetails': function() {
           return this.trigger("save:site:profile", Backbone.Syphon.serialize(this));
         },
-        'click .fileinput-new': function() {
-          return this.trigger("show:media:manager");
+        'click .fileinput-logo': function() {
+          return this.trigger("show:media:manager", 'logo');
+        },
+        'click .fileinput-favicon': function() {
+          return this.trigger('show:media:manager', 'favicon');
         },
         'click .domain-update': function() {
           var domainName;
@@ -32,6 +35,9 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         data.site_domain = data.site_domain.split('.').shift();
         if (data.logo_url === "") {
           data.logo_url = "http://placehold.it/100&text=" + _.polyglot.t('Logo');
+        }
+        if (data.favicon_url === "") {
+          data.favicon_url = "http://placehold.it/100&text=" + _.polyglot.t('Favicon');
         }
         return data;
       };
@@ -68,6 +74,19 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         image_path = media_size.thumbnail.url;
         this.$el.find('.site_profile_images').attr('src', image_path);
         return this.$el.find('#logo_id').attr('value', image_id);
+      };
+
+      MainView.prototype.onSetFavicon = function(media) {
+        var image_id, image_path, media_size;
+        image_id = media.get('id');
+        media_size = media.get('sizes');
+        if (media_size) {
+          image_path = media_size.thumbnail.url;
+        } else {
+          image_path = media.get('url');
+        }
+        this.$el.find('.site_favicon_images').attr('src', image_path);
+        return this.$el.find('#favicon_id').attr('value', image_id);
       };
 
       MainView.prototype.onDomainUpdate = function(Msg) {

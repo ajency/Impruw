@@ -1706,6 +1706,10 @@ ul.gallery {
   border: 0;
   padding: 0;
 }
+.aj-imp-login-form .aj-imp-login form .alert,
+.aj-imp-login-form .aj-imp-forgot form .alert {
+  font-family: 'Lato', sans-serif;
+}
 .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
   font-size: 0.8em;
@@ -2019,6 +2023,7 @@ ul.gallery {
   padding: 0.5em 1em;
   width: 80%;
   margin: auto;
+  font-family: 'Lato', sans-serif;
 }
 .spacer hr {
   border: 0;
@@ -2157,6 +2162,7 @@ ul.gallery {
   border-radius: 2px;
   padding: 0.5em 1em;
   margin: 0 0.5em;
+  font-family: 'Lato', sans-serif;
 }
 .smart-table .add-another .bicon {
   display: block;
@@ -2427,6 +2433,7 @@ ul.gallery {
   margin: 0.5em 0;
   cursor: pointer;
   border-radius: 2px;
+  font-family: 'Lato', sans-serif;
 }
 .accordion-container .add-tab:hover {
   background: #ff9833;
@@ -2545,17 +2552,16 @@ ul.gallery {
   margin: 0;
 }
 .impruw-list ul.checked-list li:before {
-  display: block;
+  display: inline-block;
   content: '✓';
   width: 13px;
   height: 13px;
-  float: left;
   margin-right: 10px;
   border: 1px solid #24d07c;
   position: relative;
   font-size: 1.2em;
   line-height: 0.33em;
-  top: 3px;
+  top: -1px;
   color: #ffffff;
 }
 .impruw-list ul.checked-list li:hover a,
@@ -2573,6 +2579,7 @@ ul.gallery {
   text-align: center;
   padding: 0.5em;
   cursor: pointer;
+  font-family: 'Lato', sans-serif;
 }
 .impruw-list .add-another:hover {
   background: #ff7e00;
@@ -2636,6 +2643,7 @@ ul.gallery {
   top: -10px;
   right: 5px;
   display: none;
+  font-family: 'Lato', sans-serif;
 }
 .tab-container .add-tab:hover {
   background: #ff9833;

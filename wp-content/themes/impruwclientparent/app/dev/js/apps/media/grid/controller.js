@@ -10,12 +10,12 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
-      Controller.prototype.initialize = function() {
+      Controller.prototype.initialize = function(opt) {
         var MediaCollection, view;
         MediaCollection = App.request("fetch:media", true);
         this.mediaCollection = window.f = new MediaCollection;
         this.mediaCollection.fetch();
-        view = this._getView(this.mediaCollection);
+        view = this._getView(this.mediaCollection, opt.type);
         this.listenTo(view, "itemview:media:element:selected", (function(_this) {
           return function(iv) {
             return Marionette.triggerMethod.call(_this.region, "media:element:selected", Marionette.getOption(iv, 'model'));
@@ -64,9 +64,10 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
         });
       };
 
-      Controller.prototype._getView = function(mediaCollection) {
+      Controller.prototype._getView = function(mediaCollection, type) {
         return new Grid.Views.GridView({
-          collection: mediaCollection
+          collection: mediaCollection,
+          type: type
         });
       };
 
@@ -84,7 +85,8 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
     return App.commands.setHandler('start:media:grid:app', (function(_this) {
       return function(options) {
         return new Grid.Controller({
-          region: options.region
+          region: options.region,
+          type: options.type
         });
       };
     })(this));

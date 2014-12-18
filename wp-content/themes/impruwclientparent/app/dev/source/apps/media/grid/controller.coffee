@@ -7,14 +7,15 @@ define [ 'app', 'controllers/base-controller', 'apps/media/grid/views' ], ( App,
 		class Grid.Controller extends AppController
 
 			# initialize
-			initialize : ()->
+			initialize : (opt)->
+
 
 				MediaCollection = App.request "fetch:media", true
 				
 				@mediaCollection = window.f = new MediaCollection
 				@mediaCollection.fetch()
 
-				view = @_getView @mediaCollection
+				view = @_getView @mediaCollection, opt.type
 
 				@listenTo view, "itemview:media:element:selected", ( iv ) =>
 					# trigger "media:element:clicked" event on the region. the main app controller will
@@ -53,9 +54,10 @@ define [ 'app', 'controllers/base-controller', 'apps/media/grid/views' ], ( App,
 
 
 			# gets the main login view
-			_getView : ( mediaCollection )->
+			_getView : ( mediaCollection , type)->
 				new Grid.Views.GridView
 					collection : mediaCollection
+					type : type
 
 			#delete a image from the gallery
 			deleteImage : ( imageModel )->
@@ -67,3 +69,4 @@ define [ 'app', 'controllers/base-controller', 'apps/media/grid/views' ], ( App,
 		App.commands.setHandler 'start:media:grid:app', ( options ) =>
 			new Grid.Controller
 				region : options.region
+				type : options.type

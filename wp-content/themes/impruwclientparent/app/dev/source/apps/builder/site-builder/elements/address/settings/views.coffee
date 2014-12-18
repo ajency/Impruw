@@ -29,6 +29,10 @@ define ['app', 'text!apps/builder/site-builder/elements/address/settings/templat
                 @$el.find('select[name="bottom_margin"]').selectpicker 'val', @eleModel.get 'bottom_margin'
                 @$el.find('select[name="right_margin"]').selectpicker 'val', @eleModel.get 'right_margin'
 
+                alignClass = @eleModel.get 'align'
+                btnName = '.js-btn-'+alignClass
+                @$el.find(btnName).addClass 'aj-imp-orange-btn'
+
             events:
                 'click .close-settings': (evt)->
                     evt.preventDefault()
@@ -39,3 +43,30 @@ define ['app', 'text!apps/builder/site-builder/elements/address/settings/templat
                     @trigger "element:draggable:changed", $(evt.target).is(':checked')
                 'change select.spacing': (evt)->
                     @trigger "element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val()
+
+                'click .js-btn-left': (evt)->
+                    evt.preventDefault()
+                    # add left button the orange class if not present
+                    @$el.find('.js-btn-left').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur()
+                    @$el.find('.js-btn-center').removeClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-right').removeClass("aj-imp-orange-btn")
+
+                    @trigger "element:alignment:changed", $(evt.target).val()
+
+                'click .js-btn-center': (evt)->
+                    evt.preventDefault()
+
+                    @$el.find('.js-btn-center').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur()
+                    @$el.find('.js-btn-left').removeClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-right').removeClass("aj-imp-orange-btn")
+
+                    @trigger "element:alignment:changed", $(evt.target).val()
+
+                'click .js-btn-right': (evt)->
+                    evt.preventDefault()
+
+                    @$el.find('.js-btn-right').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur()
+                    @$el.find('.js-btn-left').removeClass("aj-imp-orange-btn")
+                    @$el.find('.js-btn-center').removeClass("aj-imp-orange-btn")
+
+                    @trigger "element:alignment:changed", $(evt.target).val()

@@ -29,6 +29,7 @@ define(['app', 'text!apps/builder/site-builder/elements/address/settings/templat
       };
 
       SettingsView.prototype.setFields = function() {
+        var alignClass, btnName;
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').radiocheck('check');
         }
@@ -36,7 +37,10 @@ define(['app', 'text!apps/builder/site-builder/elements/address/settings/templat
         this.$el.find('select[name="top_margin"]').selectpicker('val', this.eleModel.get('top_margin'));
         this.$el.find('select[name="left_margin"]').selectpicker('val', this.eleModel.get('left_margin'));
         this.$el.find('select[name="bottom_margin"]').selectpicker('val', this.eleModel.get('bottom_margin'));
-        return this.$el.find('select[name="right_margin"]').selectpicker('val', this.eleModel.get('right_margin'));
+        this.$el.find('select[name="right_margin"]').selectpicker('val', this.eleModel.get('right_margin'));
+        alignClass = this.eleModel.get('align');
+        btnName = '.js-btn-' + alignClass;
+        return this.$el.find(btnName).addClass('aj-imp-orange-btn');
       };
 
       SettingsView.prototype.events = {
@@ -52,6 +56,27 @@ define(['app', 'text!apps/builder/site-builder/elements/address/settings/templat
         },
         'change select.spacing': function(evt) {
           return this.trigger("element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val());
+        },
+        'click .js-btn-left': function(evt) {
+          evt.preventDefault();
+          this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur();
+          this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn");
+          return this.trigger("element:alignment:changed", $(evt.target).val());
+        },
+        'click .js-btn-center': function(evt) {
+          evt.preventDefault();
+          this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur();
+          this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn");
+          return this.trigger("element:alignment:changed", $(evt.target).val());
+        },
+        'click .js-btn-right': function(evt) {
+          evt.preventDefault();
+          this.$el.find('.js-btn-right').removeClass("aj-imp-orange-btn").addClass("aj-imp-orange-btn").blur();
+          this.$el.find('.js-btn-left').removeClass("aj-imp-orange-btn");
+          this.$el.find('.js-btn-center').removeClass("aj-imp-orange-btn");
+          return this.trigger("element:alignment:changed", $(evt.target).val());
         }
       };
 

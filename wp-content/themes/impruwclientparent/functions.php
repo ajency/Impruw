@@ -4017,3 +4017,29 @@ function show_revision_footer_placeholder(){
 
 }
 
+// favicon link
+function favicon_link() { 
+
+?>  <link rel="shortcut icon" type="image/x-icon" href="<?php echo get_custom_favicon_directory_uri(); ?>" />
+    <?php
+}
+add_action( 'wp_head', 'favicon_link' );
+
+
+function get_custom_favicon_directory_uri() {
+
+    $favicon_id = get_option( 'favicon_id', 0 );
+    $favicon_path = wp_get_attachment_image_src( $favicon_id, 'medium' );
+    $favicon_path = $favicon_path === false ? get_parent_template_directory_uri() .'/images/favicon.png' : $favicon_path[ 0 ];
+    return $favicon_path;
+
+}
+
+add_filter('upload_mimes', 'custom_upload_mimes'); 
+
+function custom_upload_mimes ( $existing_mimes=array() ) { 
+    // change the word forbiddenfiletype below to an extension you wish to allow 
+    $existing_mimes['ico'] = 'image/x-icon'; 
+    // call the modified list of extensions 
+    return $existing_mimes; 
+}
