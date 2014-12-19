@@ -1684,6 +1684,7 @@ ul.gallery {
   margin: 3em auto;
   padding: 1em;
   color: #282827;
+  font-family: 'Lato', sans-serif;
 }
 .aj-imp-login-form .aj-imp-login-header {
   border-bottom: 1px solid #282827;
@@ -1709,10 +1710,6 @@ ul.gallery {
 .aj-imp-login-form .aj-imp-forgot form {
   border: 0;
   padding: 0;
-}
-.aj-imp-login-form .aj-imp-login form .alert,
-.aj-imp-login-form .aj-imp-forgot form .alert {
-  font-family: 'Lato', sans-serif;
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
