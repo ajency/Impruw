@@ -2012,6 +2012,9 @@ ul.gallery {
   height: 0;
   margin: 1.5em 0;
 }
+.spacer.blank hr {
+  margin: 0;
+}
 .spacer.blank .blank-info {
   display: block;
 }
