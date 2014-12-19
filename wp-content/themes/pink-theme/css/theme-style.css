@@ -2487,6 +2487,11 @@ ul.gallery {
 }
 .impruw-list ul li {
   position: relative;
+  color: #989898;
+}
+.impruw-list ul li a,
+.impruw-list ul li span {
+  color: #989898;
 }
 .impruw-list ul li .delete {
   position: absolute;
@@ -2506,6 +2511,7 @@ ul.gallery {
 }
 .impruw-list ul li .delete a:hover {
   background: #ff3333;
+  text-decoration: none;
 }
 .impruw-list ul li:hover .delete {
   display: block;
