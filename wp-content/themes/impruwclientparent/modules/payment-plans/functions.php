@@ -31,7 +31,7 @@ function is_feature_allowed($feature_component){
     $site_id = get_current_blog_id();
     $is_allowed = 0;
 
-    $user_feature = ajbilling_is_this_user_allowed($site_id , 'site', $feature_component);
+    $user_feature = (function_exists('ajbilling_is_this_user_allowed')) ? ajbilling_is_this_user_allowed($site_id , 'site', $feature_component) :  array('code' => 'ERROR'); 
     if ($user_feature['code']==='OK') {
     	$is_allowed = $user_feature['allowed'];
     }
@@ -42,19 +42,22 @@ function is_feature_allowed($feature_component){
 function site_feature_current_count($feature_component){
 
     $site_id = get_current_blog_id();
-    $current_count = ajbilling_get_user_feature_count($site_id,$feature_component);
-
+    $current_count = (function_exists('ajbilling_get_user_feature_count')) ? ajbilling_get_user_feature_count($site_id,$feature_component) : 0 ; 
     return $current_count;
 
 }
 
 function site_feature_allowed_count($feature_component){
 
-    $plan_id = ajbilling_get_user_siteplan_id(get_current_blog_id());
-    $allowed_count = ajbilling_get_plugin_feature_count($plan_id,$feature_component);
-
+    $plan_id = (function_exists('ajbilling_get_user_siteplan_id')) ? ajbilling_get_user_siteplan_id(get_current_blog_id()) : 0 ; 
+    $allowed_count = (function_exists('ajbilling_get_plugin_feature_count')) ? ajbilling_get_plugin_feature_count($plan_id,$feature_component) : 0 ; 
     return $allowed_count;
 
+}
+
+function get_site_plan(){
+    $plan_id = (function_exists('ajbilling_get_user_siteplan_id')) ?  ajbilling_get_user_siteplan_id(get_current_blog_id()) : 0 ;
+    return $plan_id;
 }
 
 
