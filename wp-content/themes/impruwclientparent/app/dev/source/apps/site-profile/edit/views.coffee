@@ -14,12 +14,18 @@ define [ 'app'
                 'click .fileinput-logo' : ->
                     @trigger "show:media:manager",'logo'
 
-                'click .fileinput-favicon' : ->
+                'click .fileinput-favicon .fileinput-preview' : ->
                     @trigger 'show:media:manager', 'favicon'
 
                 'click .domain-update' : ->
                     domainName = @$el.find( '#domain-name' ).val()
                     @trigger "update:domain:mapping:name", domainName
+
+                'click .remove-favicon' : (e)->
+                    e.preventDefault()
+                    @$el.find( '#favicon_id' ).attr 'value', 0
+                    @$el.find( '.site_favicon_images' ).attr 'src', "http://placehold.it/100&text=" + _.polyglot.t( 'Favicon' )
+
 
             # show the image
             serializeData : ->

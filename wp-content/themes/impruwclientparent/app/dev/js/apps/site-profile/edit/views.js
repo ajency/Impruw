@@ -19,13 +19,18 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         'click .fileinput-logo': function() {
           return this.trigger("show:media:manager", 'logo');
         },
-        'click .fileinput-favicon': function() {
+        'click .fileinput-favicon .fileinput-preview': function() {
           return this.trigger('show:media:manager', 'favicon');
         },
         'click .domain-update': function() {
           var domainName;
           domainName = this.$el.find('#domain-name').val();
           return this.trigger("update:domain:mapping:name", domainName);
+        },
+        'click .remove-favicon': function(e) {
+          e.preventDefault();
+          this.$el.find('#favicon_id').attr('value', 0);
+          return this.$el.find('.site_favicon_images').attr('src', "http://placehold.it/100&text=" + _.polyglot.t('Favicon'));
         }
       };
 
