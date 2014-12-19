@@ -42,7 +42,8 @@ function is_feature_allowed($feature_component){
 function site_feature_current_count($feature_component){
 
     $site_id = get_current_blog_id();
-    $current_count = (function_exists('ajbilling_get_user_feature_count')) ? ajbilling_get_user_feature_count($site_id,$feature_component) : 0 ; 
+
+    $current_count = (function_exists('ajbilling_get_user_feature_count')) ? ajbilling_get_user_feature_count($site_id,$feature_component) : array('count' => 0); 
     return $current_count['count'];
 
 }
@@ -92,7 +93,7 @@ function is_site_addon($element_name){
 
 function display_element_markup($element_name , $feature_component = 'site_add_ons'){
 
-    $display = false;
+    $display = true;
     //if element is add on
     if (is_site_addon($element_name)) {
         //if add on feature is enabled for current plan
@@ -144,7 +145,9 @@ function display_element_markup($element_name , $feature_component = 'site_add_o
 function  update_addons_count($element_name,$plus_or_minus){
 
     $site_id = get_current_blog_id();
-    $response =ajbilling_update_feature_addon($site_id ,$element_name,$plus_or_minus);
+    if (function_exists('ajbilling_update_feature_addon')) {
+         ajbilling_update_feature_addon($site_id ,$element_name,$plus_or_minus);
+     } 
 }
 
 
