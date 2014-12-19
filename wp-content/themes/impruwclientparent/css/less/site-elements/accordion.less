@@ -36,6 +36,16 @@
 							text-decoration: none;
 							color: @secondary1;
 						}
+						span:empty {
+		                    display: inline-block;
+		                    vertical-align: middle;
+		                    width: 50%;
+		                    &:before {
+		                        content: "\00a0";
+		                        display: inline-block;
+		                        vertical-align: middle;
+		                    }
+		                }
 					}
 				}
 				.delete-accordion-btn {

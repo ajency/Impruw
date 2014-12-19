@@ -2297,6 +2297,16 @@ ul.gallery {
   text-decoration: none;
   color: #656565;
 }
+.accordion-container .panel-group .panel .panel-heading .panel-title a span:empty {
+  display: inline-block;
+  vertical-align: middle;
+  width: 50%;
+}
+.accordion-container .panel-group .panel .panel-heading .panel-title a span:empty:before {
+  content: "\00a0";
+  display: inline-block;
+  vertical-align: middle;
+}
 .accordion-container .panel-group .panel .panel-heading .delete-accordion-btn {
   font-size: 0.8em;
   background: #ff3333;
@@ -2594,6 +2604,16 @@ ul.gallery {
   background: rgba(0, 0, 0, 0.2);
   border-color: rgba(0, 0, 0, 0.3);
   border-bottom-color: #5ca9a1;
+}
+.tab-container .nav-tabs li a span:empty {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+}
+.tab-container .nav-tabs li a span:empty:before {
+  content: "\00a0";
+  display: inline-block;
+  vertical-align: middle;
 }
 .tab-container .nav-tabs li .delete-tab-btn {
   position: absolute;
