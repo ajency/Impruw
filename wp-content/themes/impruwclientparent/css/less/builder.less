@@ -1131,6 +1131,9 @@ a {
 								opacity: 1;
 							}
 						}
+						&[readonly] {
+							pointer-events: none;
+						}
 					}
 					.btn-update-pg-slug {
 						color: @blue-grey;
@@ -1264,6 +1267,9 @@ a {
 							& + .btn-update-pg-name {
 								opacity: 1;
 							}
+						}
+						&[readonly] {
+							pointer-events: none;
 						}
 					}
 					.btn-update-pg-name {
