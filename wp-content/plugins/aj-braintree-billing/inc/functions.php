@@ -473,6 +473,7 @@ function ajbilling_get_user_siteplan_id($object_id,$object_type='site'){
 function ajbilling_get_user_feature_count($object_id,$feature_component,$object_type='site'){
 
 	$count = 0;
+	$count_array =array();
 
 	$user_site_plan = ajbilling_get_user_siteplan_options($object_id);
 
@@ -481,12 +482,15 @@ function ajbilling_get_user_feature_count($object_id,$feature_component,$object_
 	if (count($user_count_features)>0) {
 		foreach ($user_count_features as $user_count_feature) {
 			if ($user_count_feature['key']==$feature_component) {
-				$count = $user_count_feature['count'];
+				$count = (is_array($user_count_feature['count'])) ? count($user_count_feature['count']) : $user_count_feature['count'] ;
+				$count_array = (is_array($user_count_feature['count'])) ? $user_count_feature['count'] : array();
 			}
 		}
 	}
 
-	return $count;
+	$count_result =  array('count' => $count, 'count_array' => $count_array );
+
+	return $count_result;
 }
 
 function ajbilling_is_registered_feature($feature_component){
@@ -999,6 +1003,60 @@ function ajbilling_update_feature_count($object_id , $object_type='site', $featu
 	}
 
 	return  array('code' => 'OK', 'count_updated'=> $update_site_plan, 'plan_id'=>$user_site_plan['plan_id'], 'feature_name'=>$feature_component, 'updated_feature_count'=>$new_val, 'maximum_feature_count'=>$plugin_feature_count );
+}
+
+function ajbilling_update_feature_addon($object_id ,$element_name,$plus_or_minus, $object_type='site', $feature_component='site_add_ons'){
+
+	$user_site_plan = ajbilling_get_user_siteplan_options($object_id,'site');
+	$user_site_count_features = $user_site_plan['feature_count'];
+	$plugin_feature_count = ajbilling_get_plugin_feature_count($user_site_plan['plan_id'],$feature_component);
+
+	foreach ($user_site_count_features as $feature_index => $user_site_count_feature) {
+		if ($user_site_count_feature['key']===$feature_component) {
+			
+			$current_count = $user_site_count_feature['count'];
+			$new_count = array();
+
+			switch ($plus_or_minus) {
+				case 'plus':
+					if (is_array($current_count)) {
+						$new_count = $current_count ;
+					}
+
+					array_push($new_count, $element_name);
+					break;
+
+				case 'minus':
+					if (is_array($current_count)) {
+						$new_count = array_diff($current_count, array($element_name));
+						$new_count = array_values($new_count);
+					}
+					break;
+				default:
+					$new_count = array();
+					break;
+				
+			}
+
+			$user_site_count_features[$feature_index]['count']=$new_count;
+			
+		}
+	}
+
+	$plan = array('plan_id'=>$user_site_plan['plan_id'],'feature_count' => $user_site_count_features );
+
+	if ( is_multisite() ){
+		switch_to_blog( $object_id );
+		$update_site_plan = update_option( 'site_payment_plan', $plan );
+		restore_current_blog();
+	}
+	else{
+		$update_site_plan = update_option( 'site_payment_plan', $plan );
+	}
+
+	$response =  array('code' => 'OK', 'count_updated'=> $update_site_plan, 'plan_id'=>$user_site_plan['plan_id'], 'feature_name'=>$feature_component, 'updated_feature_count'=>count($new_count), 'maximum_feature_count'=>$plugin_feature_count );
+
+	return $response;
 }
 
 
