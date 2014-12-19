@@ -15,3 +15,19 @@ if (!defined("WP_UNINSTALL_PLUGIN")) {
 }
 
 // TODO: Define uninstall functionality here
+function ajbilling_delete_plugin_data() {
+    global $wpdb; 
+
+	$table_plans_name = $wpdb->base_prefix.'aj_billing_plans';
+	$table_countries_name = $wpdb->base_prefix.'aj_billing_countries'; 
+        
+	$sql = "DROP TABLE ". $table_plans_name;
+	$wpdb->query($sql);
+        
+	$sql = "DROP TABLE ". $table_countries_name;
+	$wpdb->query($sql);
+
+	// delete_option('revslider-latest-version');
+}
+
+ajbilling_delete_plugin_data();
