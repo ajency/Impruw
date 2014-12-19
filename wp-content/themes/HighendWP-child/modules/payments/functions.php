@@ -35,6 +35,7 @@ function payment_plan_change($site_id,$plan_id){
 		$enable_status = ajbilling_plugin_feature_enable_status($plan_id,$feature_component);
 		$new_count = ajbilling_get_plugin_feature_count($plan_id,$feature_component);
 		$old_count = ajbilling_get_user_feature_count($site_id,$feature_component);
+		$old_count = $old_count ['count'];
 
 		$feature_args = array('enable_status' => $enable_status,'new_count' => $new_count, 'old_count' => $old_count );
 
