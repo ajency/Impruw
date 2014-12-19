@@ -7,7 +7,7 @@
  */
 
 
-// require_once get_template_directory().'/braintree/Braintree.php';
+require_once get_template_directory().'/braintree/Braintree.php';
 
 
 Braintree_Configuration::environment(BT_ENVIRONMENT);
