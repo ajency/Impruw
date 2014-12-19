@@ -25,6 +25,7 @@ define [ 'app'
                     e.preventDefault()
                     @$el.find( '#favicon_id' ).attr 'value', 0
                     @$el.find( '.site_favicon_images' ).attr 'src', "http://placehold.it/100&text=" + _.polyglot.t( 'Favicon' )
+                    @$el.find('.remove-favicon').addClass 'hide'
 
 
             # show the image
@@ -33,6 +34,7 @@ define [ 'app'
                 data.site_domain = data.site_domain.split( '.' ).shift()
                 data.logo_url = "http://placehold.it/100&text=" + _.polyglot.t( 'Logo' ) if data.logo_url is ""
                 data.favicon_url = "http://placehold.it/100&text=" + _.polyglot.t( 'Favicon' ) if data.favicon_url is ""
+                data.hideRemove = if data.favicon_id in ['',0,'0'] then "hide"  else ''
                 data
 
             onShow : ->
@@ -87,6 +89,7 @@ define [ 'app'
                 #@$el.find('.fileinput-preview ').append '<img src ="" class="site_profile_images"/>'
                 @$el.find( '.site_favicon_images' ).attr 'src', image_path
                 @$el.find( '#favicon_id' ).attr 'value', image_id
+                @$el.find('.remove-favicon').removeClass 'hide'
 
             onDomainUpdate : ( Msg )->
                 @$el.find( '#msg' ).empty()
