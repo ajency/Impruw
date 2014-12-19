@@ -43,7 +43,15 @@ function site_feature_current_count($feature_component){
 
     $site_id = get_current_blog_id();
     $current_count = (function_exists('ajbilling_get_user_feature_count')) ? ajbilling_get_user_feature_count($site_id,$feature_component) : 0 ; 
-    return $current_count;
+    return $current_count['count'];
+
+}
+
+function site_feature_current_count_array($feature_component){
+
+    $site_id = get_current_blog_id();
+    $current_count = (function_exists('ajbilling_get_user_feature_count')) ? ajbilling_get_user_feature_count($site_id,$feature_component) : 0 ; 
+    return $current_count['count_array'];
 
 }
 
@@ -58,6 +66,85 @@ function site_feature_allowed_count($feature_component){
 function get_site_plan(){
     $plan_id = (function_exists('ajbilling_get_user_siteplan_id')) ?  ajbilling_get_user_siteplan_id(get_current_blog_id()) : 0 ;
     return $plan_id;
+}
+
+function get_markup_for_addon($element_name,$preview){
+
+    if ($preview) {
+       $markup = '<div><span style="color: white;">'.$element_name.' Not allowed</span></div>';
+    }
+    else{
+       $markup = '<div></div>';   
+    }
+    
+
+    return $markup;
+}
+
+function is_site_addon($element_name){
+    $site_addons = array('LanguageSwitcher','SmartTable','RoomTariff','RoomBooking');
+
+    if (in_array($element_name,  $site_addons)) {
+        return true;
+    }
+    return false;
+}
+
+function display_element_markup($element_name , $feature_component = 'site_add_ons'){
+
+    $display = false;
+    //if element is add on
+    if (is_site_addon($element_name)) {
+        //if add on feature is enabled for current plan
+        if(is_feature_allowed($feature_component)){
+            $allowed_count = site_feature_allowed_count($feature_component);
+            $current_count = site_feature_current_count($feature_component);
+            $current_count_array = site_feature_current_count_array($feature_component); 
+            
+            // if current count is less than allowed count then display  element markup and add the add on to the plan count array if not previously present
+            if ($current_count<$allowed_count) {
+                if (!in_array($element_name, $current_count_array)){
+                    update_addons_count($element_name,'plus');
+                }
+                $display = true;
+            }
+            else if ($current_count>$allowed_count) {
+                // if current count is greater than allowed count then do not display element markup and remove the element if previously present in the plan count array
+                if (in_array($element_name, $current_count_array)){
+                    update_addons_count($element_name,'minus');
+                }
+                $display = false;
+            }
+            else if ($current_count==$allowed_count) {
+                //if counts are equal, display he element markup only if the element is present is plan count array
+                if (in_array($element_name, $current_count_array)){
+                    $display = true;
+                }
+                else{
+                // else do not display the element markup
+                     $display = false;
+                }
+            }          
+        }
+        else{
+        // If addon feature is not enabled for current plan then do not display the element markup
+            update_addons_count($element_name,'reset');
+            $display = false; 
+        }
+    }
+    else{
+        //if element is not an addon default markup for element is displayed
+        $display = true;
+    }
+
+    return $display;
+}
+
+
+function  update_addons_count($element_name,$plus_or_minus){
+
+    $site_id = get_current_blog_id();
+    $response =ajbilling_update_feature_addon($site_id ,$element_name,$plus_or_minus);
 }
 
 
