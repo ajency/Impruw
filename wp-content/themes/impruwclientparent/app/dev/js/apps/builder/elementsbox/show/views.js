@@ -164,9 +164,9 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
       MainView.prototype.onRoomElementsVisibility = function(visible) {
         console.log('hide');
         if (visible === true) {
-          this.$el.find(this.roomElements).draggable('enable');
+          this.$el.find(this.roomElements).draggable('enable').removeClass('element-disable');
         } else {
-          this.$el.find(this.roomElements).draggable('disable');
+          this.$el.find(this.roomElements).draggable('disable').addClass('element-disable');
         }
         return this.handleRoomSummary(visible);
       };

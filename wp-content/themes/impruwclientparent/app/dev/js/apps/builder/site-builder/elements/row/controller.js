@@ -68,8 +68,12 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
       Controller.prototype.elementMoved = function(columnView, container) {};
 
       Controller.prototype.deleteElement = function(model) {
+        if (this.hasNonDeletable(model && ISTHEMEEDITOR === 'no')) {
+          bootbox.alert('<h6>' + _.polyglot.t('This row contains non deletable elements. You cannot delete this row') + '</h6>');
+          return;
+        }
         if (!this.layout.elementRegion.currentView.$el.canBeDeleted()) {
-          return bootbox.confirm("All elements inside the row will also be deleted. Do you want to continue?", function(answer) {
+          return bootbox.confirm('<h6>' + _.polyglot.t('All elements inside the row will also be deleted. Do you want to continue?') + '</h6>', function(answer) {
             if (answer === true) {
               model.destroy();
               return _.delay(function() {
@@ -80,6 +84,26 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
         } else {
           return model.destroy();
         }
+      };
+
+      Controller.prototype.hasNonDeletable = function(ele) {
+        var elementNameArray;
+        elementNameArray = this.checkElement(ele.toJSON(), []);
+        return _.intersection(elementNameArray, ['Menu', 'LanguageSwitcher']).length !== 0;
+      };
+
+      Controller.prototype.checkElement = function(ele, elementNameArray) {
+        var _ref;
+        if ((_ref = ele.element) === 'Row' || _ref === 'Column') {
+          _.each(ele.elements, (function(_this) {
+            return function(element, idx) {
+              return _this.checkElement(element, elementNameArray);
+            };
+          })(this));
+        } else {
+          elementNameArray.push(ele.element);
+        }
+        return elementNameArray;
       };
 
       return Controller;

@@ -62,8 +62,12 @@ define ['app', 'bootbox', 'apps/builder/site-builder/elements/row/views',
 
             # remove the element model
          deleteElement : ( model )->
+            if @hasNonDeletable model and ISTHEMEEDITOR is 'no'
+               bootbox.alert '<h6>'+_.polyglot.t('This row contains non deletable elements. You cannot delete this row')+'</h6>'
+               return
+
             if not @layout.elementRegion.currentView.$el.canBeDeleted()
-               bootbox.confirm "All elements inside the row will also be deleted. Do you want to continue?", ( answer )->
+               bootbox.confirm '<h6>'+_.polyglot.t('All elements inside the row will also be deleted. Do you want to continue?')+'</h6>', ( answer )->
                   if answer is yes
                      model.destroy()
                      _.delay ->
@@ -71,3 +75,20 @@ define ['app', 'bootbox', 'apps/builder/site-builder/elements/row/views',
                      , 700
             else
                model.destroy()
+
+
+         hasNonDeletable : (ele)->
+            elementNameArray = @checkElement(ele.toJSON(),[])
+
+            _.intersection(elementNameArray,['Menu','LanguageSwitcher']).length isnt 0
+
+         checkElement : (ele,elementNameArray)->
+            # console.log model
+            if ele.element in ['Row','Column']
+               _.each ele.elements,(element,idx)=>
+                  @checkElement element,elementNameArray
+
+            else
+               elementNameArray.push ele.element
+
+            elementNameArray

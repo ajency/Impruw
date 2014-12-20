@@ -157,9 +157,10 @@ define [ 'app'
          onRoomElementsVisibility : (visible)->
             console.log 'hide'
             if visible is true
-               @$el.find(@roomElements).draggable 'enable'
+               @$el.find(@roomElements).draggable('enable').removeClass 'element-disable'
+
             else
-               @$el.find(@roomElements).draggable 'disable'
+               @$el.find(@roomElements).draggable('disable').addClass 'element-disable'
 
             @handleRoomSummary visible
 
