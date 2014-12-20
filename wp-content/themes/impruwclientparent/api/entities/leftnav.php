@@ -221,7 +221,7 @@ function get_elementbox_elements() {
         ),
          array(
             'element' => 'Widget',
-            'icon' => 'bicon icon-uniF162',
+            'icon' => 'bicon icon-uniF11E',
             'helpText' => 'Just because we don\'t have an element for something, doesn\'t mean you can\'t add it to your site. Widget allows you to add pretty much any embeddable content to your site.',
             // 'styles' => get_styles( 'Wid' ),
             'category' => 'hotel'
@@ -305,20 +305,20 @@ function get_elementbox_elements() {
         ),
         array(
             'element' => 'List',
-            'icon' => 'bicon icon-uniF142',
+            'icon' => 'bicon icon-uniF14F',
             'helpText' => 'help text to be added',
             'styles' => get_styles( 'List' )
         ),
         array(
             'element' => 'Tabs',
             // 'title' => 'Tabs',
-            'icon' => 'bicon icon-uniF142',
+            'icon' => 'bicon icon-uniF162',
             'helpText' => 'help text to be added',
             'styles' => get_styles( 'Tabs' )//get_styles( 'Tabs' )
         ),
         array(
             'element' => 'Accordion',
-            'icon' => 'bicon icon-uniF142',
+            'icon' => 'bicon icon-uniF130',
             'helpText' => 'help text to be added',
             'styles' => get_styles( 'Accordion' )
         )
