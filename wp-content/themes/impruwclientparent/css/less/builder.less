@@ -326,6 +326,15 @@ a {
 						}
 					}
 				}
+				&.element-disable {
+					opacity: 0.5;
+					a {
+						cursor: not-allowed;
+					}
+					&:hover {
+						color: @dash-grey;
+					}
+				}
 				&.ui-draggable-dragging {
 					background: transparent;
 					box-shadow: none;
@@ -340,6 +349,22 @@ a {
 		.selected-element {
 			overflow: visible !important;
 		}
+	}
+}
+
+.elem-box {
+	margin-left: 2px !important;
+	.tooltip-inner {
+		border-radius: 2px;
+		padding: 0.5em 0.8em;
+		background: rgba(0, 0, 0, 0.8);
+		text-align: left;
+		font-size: 0.8em;
+	}
+	.tooltip-arrow {
+		border-right-color: rgba(0, 0, 0, 0.8) !important;
+		border-width: 6px 6px 6px 0 !important;
+		left: 3px !important;
 	}
 }
 

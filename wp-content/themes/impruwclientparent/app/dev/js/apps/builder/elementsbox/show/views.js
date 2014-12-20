@@ -165,8 +165,17 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
         console.log('hide');
         if (visible === true) {
           this.$el.find(this.roomElements).draggable('enable').removeClass('element-disable');
+          this.$el.find('.element-disable > a').attr();
         } else {
           this.$el.find(this.roomElements).draggable('disable').addClass('element-disable');
+          this.$el.find('.element-disable > a').attr({
+            'data-togggle': 'tooltip',
+            'data-container': 'body',
+            'data-placement': 'right',
+            'data-template': '<div class="tooltip elem-box" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+            'title': 'You can only use this element on the Single Room Page.'
+          });
+          $('.element-disable a').tooltip();
         }
         return this.handleRoomSummary(visible);
       };

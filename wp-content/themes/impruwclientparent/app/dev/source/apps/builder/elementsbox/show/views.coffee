@@ -158,9 +158,14 @@ define [ 'app'
             console.log 'hide'
             if visible is true
                @$el.find(@roomElements).draggable('enable').removeClass 'element-disable'
+               @$el.find('.element-disable > a').attr()
 
             else
-               @$el.find(@roomElements).draggable('disable').addClass 'element-disable'
+               @$el.find(@roomElements).draggable('disable').addClass 'element-disable' 
+               @$el.find('.element-disable > a').attr({'data-togggle': 'tooltip', 'data-container': 'body', 'data-placement': 'right', 'data-template': '<div class="tooltip elem-box" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>', 'title': 'You can only use this element on the Single Room Page.'})
+               
+               # init tooltips 
+               $('.element-disable a').tooltip()
 
             @handleRoomSummary visible
 
