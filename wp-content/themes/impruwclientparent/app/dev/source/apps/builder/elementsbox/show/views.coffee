@@ -102,14 +102,17 @@ define [ 'app'
 
          # append html
          appendHtml : ( cv, view, index )->
-            return if view.model.get( 'element' ) is 'Row'
+            return if view.model.get( 'element' ) in ['Row','Spacer']
+
+            if  ISTHEMEEDITOR is 'no'
+               return if view.model.get( 'element' ) in ['Menu', 'LanguageSwitcher']
 
             category = view.model.get( 'category' ) || 'content'
             switch category
                when 'hotel'
                   @$el.find( '#hotel-elements ul' ).append view.$el
-               when 'room'
-                  @$el.find( '#room-elements ul' ).append view.$el
+               # when 'room'
+               #    @$el.find( '#room-elements ul' ).append view.$el
                else
                   @$el.find( '#content-elements ul' ).append view.$el
 
@@ -152,10 +155,11 @@ define [ 'app'
             @$el.fadeIn()
 
          onRoomElementsVisibility : (visible)->
+            console.log 'hide'
             if visible is true
-               @$el.find(@roomElements).show()
+               @$el.find(@roomElements).draggable 'enable'
             else
-               @$el.find(@roomElements).hide()
+               @$el.find(@roomElements).draggable 'disable'
 
             @handleRoomSummary visible
 

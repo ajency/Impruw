@@ -108,17 +108,19 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
       };
 
       MainView.prototype.appendHtml = function(cv, view, index) {
-        var category;
-        if (view.model.get('element') === 'Row') {
+        var category, _ref, _ref1;
+        if ((_ref = view.model.get('element')) === 'Row' || _ref === 'Spacer') {
           return;
+        }
+        if (ISTHEMEEDITOR === 'no') {
+          if ((_ref1 = view.model.get('element')) === 'Menu' || _ref1 === 'LanguageSwitcher') {
+            return;
+          }
         }
         category = view.model.get('category') || 'content';
         switch (category) {
           case 'hotel':
             this.$el.find('#hotel-elements ul').append(view.$el);
-            break;
-          case 'room':
-            this.$el.find('#room-elements ul').append(view.$el);
             break;
           default:
             this.$el.find('#content-elements ul').append(view.$el);
@@ -160,10 +162,11 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
       };
 
       MainView.prototype.onRoomElementsVisibility = function(visible) {
+        console.log('hide');
         if (visible === true) {
-          this.$el.find(this.roomElements).show();
+          this.$el.find(this.roomElements).draggable('enable');
         } else {
-          this.$el.find(this.roomElements).hide();
+          this.$el.find(this.roomElements).draggable('disable');
         }
         return this.handleRoomSummary(visible);
       };
