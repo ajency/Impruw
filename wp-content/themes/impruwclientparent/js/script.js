@@ -613,7 +613,7 @@ jQuery(document).ready(function() {
                 
     }
   
-    jQuery.getScript('https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&callback=initializeMap');
+    jQuery.getScript('https://maps.googleapis.com/maps/api/js?language='+icl_lang+'&libraries=places&sensor=false&callback=initializeMap');
 
 });
 
