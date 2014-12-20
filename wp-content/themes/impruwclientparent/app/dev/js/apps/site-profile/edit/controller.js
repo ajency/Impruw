@@ -24,12 +24,16 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'a
         });
         this.listenTo(this.view, "save:site:profile", this.saveSiteProfile);
         this.listenTo(this.view, "show:media:manager", (function(_this) {
-          return function() {
-            App.navigate("media-manager", {
-              trigger: true
+          return function(ele) {
+            App.execute('start:media:app', {
+              type: ele
             });
             _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
-              _this.view.triggerMethod("set:logo", media);
+              if (ele === 'logo') {
+                _this.view.triggerMethod("set:logo", media);
+              } else if (ele === 'favicon') {
+                _this.view.triggerMethod('set:favicon', media);
+              }
               return _this.stopListening(App.vent, "media:manager:choosed:media");
             });
             return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {

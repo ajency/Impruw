@@ -39,7 +39,7 @@ define [ 'app'
                silverlight_xap_url : SITEURL + "/wp-includes/js/plupload/plupload.silverlight.xap"
                filters : [
                   title : "Image files"
-                  extensions : "jpg,gif,png"
+                  extensions : "jpg,gif,png,ico"
                ]
                multipart_params :
                   action : "upload-attachment"

@@ -7,6 +7,10 @@
 		padding: 0;
 		li {
 			position: relative;
+			color: @text-color;
+			a, span {
+				color: @text-color;
+			}
 			.delete {
 				position: absolute;
 				top: 0;
@@ -23,6 +27,7 @@
 					}
 					&:hover {
 						background: #ff3333;
+						text-decoration: none;
 					}
 				}
 			}
@@ -109,17 +114,16 @@
 					margin: 0;
 				}
 				&:before {
-					display: block;
+					display: inline-block;
 					content: '✓';
 					width: 13px;
 					height: 13px;
-					float: left;
 					margin-right: 10px;
 					border: 1px solid @primary1;
 					position: relative;
 					font-size: 1.2em;
 					line-height: 0.33em;
-					top: 3px;
+					top: -1px;
 					color: @text-color;
 				}
 				&:hover {
@@ -141,6 +145,7 @@
 		text-align: center;
 		padding: 0.5em;
 		cursor: pointer;
+		font-family: 'Lato', sans-serif;
 		&:hover {
 			background: #ff7e00;
 		}

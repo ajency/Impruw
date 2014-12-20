@@ -73,6 +73,12 @@ function read_language_based_site_ajax(){
     $image_path = wp_get_attachment_image_src( $data [ 'logo_id' ], 'medium' );
     $image_path = $image_path === false ? '' : $image_path[ 0 ];
     $data [ 'logo_url' ] = $image_path;
+
+    $data [ 'favicon_id' ] = get_option( 'favicon_id', 0 );
+    $favicon_path = wp_get_attachment_image_src( $data [ 'favicon_id' ], 'medium' );
+    $favicon_path = $favicon_path === false ? '' : $favicon_path[ 0 ];
+    $data [ 'favicon_url' ] = $favicon_path;
+
     $data [ 'piwik_path' ] = PIWIK_PATH;
     $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
 

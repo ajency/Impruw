@@ -11,6 +11,9 @@ Version:        0.1.0
 /****Builder Icon Font****/
 @import url(builder-icon-fonts.css);
 
+/****Google Fonts****/
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
+
 /****Colors****/
 @logo-blue: #182944;
 @dash-grey: #AAAAAA;
@@ -1128,6 +1131,9 @@ a {
 								opacity: 1;
 							}
 						}
+						&[readonly] {
+							pointer-events: none;
+						}
 					}
 					.btn-update-pg-slug {
 						color: @blue-grey;
@@ -1262,6 +1268,9 @@ a {
 								opacity: 1;
 							}
 						}
+						&[readonly] {
+							pointer-events: none;
+						}
 					}
 					.btn-update-pg-name {
 						color: @blue-grey;
@@ -1287,6 +1296,7 @@ a {
 				right: 0;
 				bottom: 0;
 				padding: 1em;
+				font-family: 'Lato', sans-serif;
 				.lock-container {
 					display: flex;
 					height: 100%;
@@ -1664,6 +1674,7 @@ a {
                     background: rgba(255, 255, 255, 0.8);
                     margin: auto;
                     visibility: hidden;
+                    font-family: 'Lato', sans-serif;
                     .bicon {
                         display: block;
                         font-size: 2.2em;
@@ -1686,17 +1697,20 @@ a {
 	#site-header-region {
 		&:after {
 			content: 'Site Header';
+			font-family: 'Lato', sans-serif;
 		}
 	}
 	#site-footer-region {
 		&:after {
 			content: 'Site Footer';
+			font-family: 'Lato', sans-serif;
 		}
 	}
 	#site-page-content-region {
 		min-height: 400px;
 		&:after {
 			content: 'Site Content';
+			font-family: 'Lato', sans-serif;
 		}
 	}
 }
@@ -3948,6 +3962,7 @@ a {
 	border: 1px dashed lighten(@dash-grey, 20%);
 	padding: 0.3em;
 	cursor: pointer;
+	font-family: 'Lato', sans-serif;
 	.bicon {
 		display: block;
 		margin: 0.2em 0;
@@ -3989,6 +4004,7 @@ a {
 	border: 1px dashed lighten(@dash-grey, 20%);
 	padding: 0.3em;
 	cursor: pointer;
+	font-family: 'Lato', sans-serif;
 	.bicon {
 		display: block;
 		margin: 0.025em 0;
@@ -4007,6 +4023,7 @@ a {
 	border-radius: 2px;
 	padding: 0.5em;
 	cursor: default;
+	font-family: 'Lato', sans-serif;
 	.bicon {
 		display: block;
 		margin: 0.025em 0;

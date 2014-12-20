@@ -49,6 +49,8 @@ class AddressElement extends Element {
         
         $this->style = $element['style'];
 
+        $this->align = isset( $element[ 'align' ] ) ? $element[ 'align' ] : '' ;
+
         $this->template = get_style_template($element);
         
         $this->markup  = $this->generate_markup();
@@ -68,6 +70,11 @@ class AddressElement extends Element {
         $html       .= $this->get_close_tag();
         
         return $html;
+    }
+
+    function get_classes(){
+        $classes = parent::get_classes();
+        return $classes . ' text-'. $this->align;
     }
     
     /**

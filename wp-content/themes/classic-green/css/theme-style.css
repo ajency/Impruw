@@ -1663,6 +1663,7 @@ ul.gallery {
   margin: 3em auto;
   padding: 1em;
   color: #7f7f7f;
+  font-family: 'Lato', sans-serif;
 }
 .aj-imp-login-form .aj-imp-login-header {
   border-bottom: 1px solid #7f7f7f;
@@ -2002,11 +2003,15 @@ ul.gallery {
   padding: 0.5em 1em;
   width: 80%;
   margin: auto;
+  font-family: 'Lato', sans-serif;
 }
 .spacer hr {
   border: 0;
   height: 0;
   margin: 1.5em 0;
+}
+.spacer.blank hr {
+  margin: 0;
 }
 .spacer.blank .blank-info {
   display: block;
@@ -2140,6 +2145,7 @@ ul.gallery {
   border-radius: 2px;
   padding: 0.5em 1em;
   margin: 0 0.5em;
+  font-family: 'Lato', sans-serif;
 }
 .smart-table .add-another .bicon {
   display: block;
@@ -2291,6 +2297,16 @@ ul.gallery {
   text-decoration: none;
   color: #656565;
 }
+.accordion-container .panel-group .panel .panel-heading .panel-title a span:empty {
+  display: inline-block;
+  vertical-align: middle;
+  width: 50%;
+}
+.accordion-container .panel-group .panel .panel-heading .panel-title a span:empty:before {
+  content: "\00a0";
+  display: inline-block;
+  vertical-align: middle;
+}
 .accordion-container .panel-group .panel .panel-heading .delete-accordion-btn {
   font-size: 0.8em;
   background: #ff3333;
@@ -2410,6 +2426,7 @@ ul.gallery {
   margin: 0.5em 0;
   cursor: pointer;
   border-radius: 2px;
+  font-family: 'Lato', sans-serif;
 }
 .accordion-container .add-tab:hover {
   background: #ff9833;
@@ -2425,6 +2442,11 @@ ul.gallery {
 }
 .impruw-list ul li {
   position: relative;
+  color: #7f7f7f;
+}
+.impruw-list ul li a,
+.impruw-list ul li span {
+  color: #7f7f7f;
 }
 .impruw-list ul li .delete {
   position: absolute;
@@ -2444,6 +2466,7 @@ ul.gallery {
 }
 .impruw-list ul li .delete a:hover {
   background: #ff3333;
+  text-decoration: none;
 }
 .impruw-list ul li:hover .delete {
   display: block;
@@ -2528,17 +2551,16 @@ ul.gallery {
   margin: 0;
 }
 .impruw-list ul.checked-list li:before {
-  display: block;
+  display: inline-block;
   content: '✓';
   width: 13px;
   height: 13px;
-  float: left;
   margin-right: 10px;
   border: 1px solid #5ca9a1;
   position: relative;
   font-size: 1.2em;
   line-height: 0.33em;
-  top: 3px;
+  top: -1px;
   color: #7f7f7f;
 }
 .impruw-list ul.checked-list li:hover a,
@@ -2556,6 +2578,7 @@ ul.gallery {
   text-align: center;
   padding: 0.5em;
   cursor: pointer;
+  font-family: 'Lato', sans-serif;
 }
 .impruw-list .add-another:hover {
   background: #ff7e00;
@@ -2581,6 +2604,16 @@ ul.gallery {
   background: rgba(0, 0, 0, 0.2);
   border-color: rgba(0, 0, 0, 0.3);
   border-bottom-color: #5ca9a1;
+}
+.tab-container .nav-tabs li a span:empty {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+}
+.tab-container .nav-tabs li a span:empty:before {
+  content: "\00a0";
+  display: inline-block;
+  vertical-align: middle;
 }
 .tab-container .nav-tabs li .delete-tab-btn {
   position: absolute;
@@ -2619,6 +2652,7 @@ ul.gallery {
   top: -10px;
   right: 5px;
   display: none;
+  font-family: 'Lato', sans-serif;
 }
 .tab-container .add-tab:hover {
   background: #ff9833;
