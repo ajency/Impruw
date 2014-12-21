@@ -150,7 +150,7 @@
 									</li>
 								<?php } ?>
 								</ul>
-								<span class="description">If no plans are listed above, Please make sure plans are added in the Braintree dashboard</span>
+								<span class="description">If no plans are listed here, Please make sure plans are added in the Braintree dashboard</span>
 							</td>
 						</tr>
 

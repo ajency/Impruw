@@ -59,7 +59,11 @@ function aj_braintree_get_plan($braintree_plan_id){
  */
 function aj_braintree_get_braintreeplans(){
 
-    $plans = Braintree_Plan::all();
+	try {
+		$plans = Braintree_Plan::all();
+	}catch (Braintree_Exception_SSLCertificate $e) {
+		$plans = array();
+	}
 
     return $plans;
 
