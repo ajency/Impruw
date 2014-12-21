@@ -126,6 +126,7 @@ class AjencyBraintree{
 	public static function activate($network_wide) {
 		// TODO: Define activation functionality here
 		self::create_tables();
+		self::install_plugin_data();
 	}
 
 	/**
@@ -317,9 +318,9 @@ class AjencyBraintree{
 		$plans_sql = " CREATE TABLE IF NOT EXISTS  `{$table_plans_name}` (
 				`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				`braintree_plan_id` LONGTEXT NOT NULL,
-				`title` VARCHAR(255),
-				`features` LONGTEXT,
-				`status` VARCHAR(20);";
+				`title` VARCHAR(255) NOT NULL,
+				`features` LONGTEXT NOT NULL,
+				`status` VARCHAR(20) NOT NULL);";
 
 
 		$table_countries_name = $wpdb->base_prefix.'aj_billing_countries';
@@ -328,12 +329,67 @@ class AjencyBraintree{
 				`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				`currency` VARCHAR(30) NOT NULL,
 				`country` VARCHAR(255) );";
-		
+
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
 		dbDelta($plans_sql);
 		dbDelta($countries_sql);
+
 		
+	}
+
+	public function install_plugin_data(){
+
+		global $wpdb;
+
+		$table_plans_name = $wpdb->base_prefix.'aj_billing_plans';
+
+
+		$default_plan_array = array (
+			0 => 
+			array (
+				'name' => 'Domain Mapping',
+				'key' => 'domain_mapping',
+				'enabled' => 'false',
+				'count' => '0',
+				),
+			1 => 
+			array (
+				'name' => 'Email Account',
+				'key' => 'email_account',
+				'enabled' => 'false',
+				'count' => '0',
+				'count_type' => 'single'
+				),
+			2 => 
+			array (
+				'name' => 'Site Add Ons',
+				'key' => 'site_add_ons',
+				'enabled' => 'false',
+				'count' => array(),
+				'count_type' => 'multiple'
+				),
+			);
+
+		$default_plan = maybe_serialize( $default_plan_array );
+
+		if( $wpdb->get_var("SELECT 'id' FROM " . $table_plans_name . " where title= 'Default plan' ") ) {
+ 			// The default plan already exists
+ 			return;
+		} 
+		else{
+
+			$wpdb->insert( 
+				$table_plans_name, 
+				array( 
+					'title' => 'Default plan', 
+					'features' => $default_plan, 
+					'status' => 'active', 
+					) 
+				);
+		}
+
+
 	}
 
 }
