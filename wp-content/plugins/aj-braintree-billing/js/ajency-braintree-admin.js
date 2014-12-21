@@ -59,17 +59,25 @@
     	});
 
     	$('#ajbilling_save_object_type').click(function(){
-    		alert('save object type');
 
     		var selected_object_type = $('#ajbilling_object_type').val();
 
     		if (selected_object_type==-1) {
+
     			var msg = 'Please select an object type';
     			$('.object-validation-error').empty();
     			$('.object-validation-error').append('<div class="ui-state-error ui-corner-all" >'+msg+'</div>');
     			$('.ui-state-error').fadeOut(5000);
     			return
     		}
+            else if(selected_object_type==='user'){
+
+                var msg = 'Cannot select user as object type currently.Please select other option to proceed.';
+                $('.object-validation-error').empty();
+                $('.object-validation-error').append('<div class="ui-state-error ui-corner-all" >'+msg+'</div>');
+                $('.ui-state-error').fadeOut(5000);
+                return
+            }
     		else{
     			var data = {'action':'update-objectType','object_type':selected_object_type};
 
@@ -78,7 +86,7 @@
     				data, 
     				function(response) {
     					var object_type = response.object_type.toUpperCase();
-    					if (response.code==='OK') {
+    					if (response.code==='OK' && response.object_type ==='site') {
     						$( ".object_type_section" ).replaceWith( "<label>"+object_type+"</label>" );
     						$( "#ajbilling_save_object_type" ).remove();
     						$('.ajbilling_save_object_type').addClass('hidden');

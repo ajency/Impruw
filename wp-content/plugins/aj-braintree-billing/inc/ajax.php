@@ -38,7 +38,7 @@ function update_objectType_ajax(){
 	}
 	else{
 		$code = 'ERROR';
-		$msg = 'Could not update object type';
+		$msg = 'Could not update object type.';
 	}
 
 	wp_send_json( array( 'code' => $code, 'msg'=> $msg, 'object_type'=>$object_type) );

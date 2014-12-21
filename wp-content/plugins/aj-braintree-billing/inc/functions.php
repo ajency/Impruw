@@ -456,16 +456,60 @@ function ajbilling_plugin_feature_enable_status($plan_id,$feature_component){
 
 function ajbilling_get_user_siteplan_options($object_id,$object_type='site'){
 
-	if ( is_multisite() ){
-		switch_to_blog( $object_id );
-		$user_site_plan = get_option('site_payment_plan');
-		restore_current_blog();
+	$ajbilling_object_type = ajbilling_is_object_type_set();
+	
+
+	if ($ajbilling_object_type['status']){
+		$object_type = $ajbilling_object_type['object_type'];
 	}
-	else{
-		$user_site_plan = get_option('site_payment_plan');
+
+	switch ($object_type) {
+		case 'site':
+			if ( is_multisite() ){
+				switch_to_blog( $object_id );
+				$user_site_plan = get_option('site_payment_plan');
+				restore_current_blog();
+			}
+			else{
+				$user_site_plan = get_option('site_payment_plan');
+			}
+			break;
+
+		case 'user':
+			$user_site_plan = get_user_meta( $object_id, 'site_payment_plan', true ); 
+			break;
 	}
 
 	return $user_site_plan;
+}
+
+function ajbilling_get_user_country_option($object_id,$object_type='site'){
+
+	$ajbilling_object_type = ajbilling_is_object_type_set();
+	
+
+	if ($ajbilling_object_type['status']){
+		$object_type = $ajbilling_object_type['object_type'];
+	}
+
+	switch ($object_type) {
+		case 'site':
+			if ( is_multisite() ){
+				switch_to_blog( $object_id );
+				$user_site_country = get_option('site-country');
+				restore_current_blog();
+			}
+			else{
+				$user_site_country = get_option('site-country');
+			}
+			break;
+
+		case 'user':
+			$user_site_country = get_user_meta( $object_id, 'site-country', true ); 
+			break;
+	}
+
+	return $user_site_country;
 }
 
 function ajbilling_get_user_siteplan_id($object_id,$object_type='site'){
@@ -608,9 +652,13 @@ function ajbilling_decrement_feature_count($current_count, $standard_count){
 
 function ajbilling_is_object_type_set(){
 
-	switch_to_blog( 1 );
+	if (is_multisite()) {
+		switch_to_blog( 1 );
 		$ajbilling_settings = get_option('ajbilling_settings',0);
-	restore_current_blog();
+		restore_current_blog();
+	}else{
+		$ajbilling_settings = get_option('ajbilling_settings',0);
+	}
 
 	if ($ajbilling_settings) {
 		if ($ajbilling_settings['object_type']!="") {

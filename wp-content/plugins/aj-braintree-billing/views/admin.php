@@ -21,7 +21,7 @@
 		screen_icon(); 
 		$ajbilling_object_type = ajbilling_is_object_type_set();
 
-		if ($ajbilling_object_type['status']) {
+		if ($ajbilling_object_type['status'] && $ajbilling_object_type['object_type'] === 'site') {
 			$hide_default_view = '';
 		}
 		else{
