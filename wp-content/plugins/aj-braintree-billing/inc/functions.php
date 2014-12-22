@@ -724,6 +724,7 @@ function ajbilling_my_admin_scripts() {
 function ajbilling_paymentApi_url() { ?>
 	<script type="text/javascript">
 		var aj_billing_api_url = '<?php echo site_url()."/api/ajbilling/plan"; ?>';
+		var site_url = '<?php echo site_url();?>';
 	</script>
 	<?php
 }
