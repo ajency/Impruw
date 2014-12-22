@@ -133,18 +133,18 @@ define ['app'], (App)->
 									position: location
 
 				if (place)
-					image =
-						url : place.icon
-						size : new google.maps.Size(71 , 71)
-						origin: new google.maps.Point(0, 0)
-						anchor: new google.maps.Point(7, 7)
-						scaledSize: new google.maps.Size(15, 15)
+					# image =
+					# 	url : place.icon
+					# 	size : new google.maps.Size(71 , 71)
+					# 	origin: new google.maps.Point(0, 0)
+					# 	anchor: new google.maps.Point(7, 7)
+					# 	scaledSize: new google.maps.Size(15, 15)
 					
 					marker.setTitle(place.name);
-					marker.setIcon(image);
+					# marker.setIcon(image);
 					content = "<div><b>"+place.name+"</b></div>"+place.adr_address;
 					if (place.url)
-						content += "<div class='text-center'><a href="+place.url+">more</a></div>"
+						content += "<div class='text-center'><a href="+place.url+" target='_BLANK'>more</a></div>"
 			
 				else
 					content = window.ADDRESS

@@ -527,13 +527,10 @@ jQuery(document).ready(function() {
             jQuery('#map_canvas').height(300);
         }
 
-
         var mapOptions = {
             zoom: 17,
             center: new google.maps.LatLng(-34.397, 150.644)
         };
-
-
         
         map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
@@ -541,7 +538,6 @@ jQuery(document).ready(function() {
             newCenter = new google.maps.LatLng(HOTELPOSITION.latitude, HOTELPOSITION.longitude);
             createMarker( map, newCenter );
             return;
-
         }
 
         else if(HOTELPOSITION.placeId && HOTELPOSITION.placeId.trim() != ''){
@@ -584,8 +580,6 @@ jQuery(document).ready(function() {
         var marker = new google.maps.Marker({
             map: map,
             position: position,
-            
-
         });
 
         if (place){
@@ -597,10 +591,10 @@ jQuery(document).ready(function() {
                 scaledSize: new google.maps.Size(15, 15)
             }
             marker.setTitle(place.name);
-            marker.setIcon(image);
+            // marker.setIcon(image);
             content = "<div><b>"+place.name+"</b></div>"+place.adr_address;
             if (place.url)
-                content += "<div class='text-center'><a href="+place.url+">more</a></div>"
+                content += "<div class='text-center'><a href="+place.url+" target='_BLANK'>more</a></div>"
         }
         else
             content = HOTELADDRESS
