@@ -83,7 +83,7 @@ function get_markup_for_addon($element_name,$preview){
 }
 
 function is_site_addon($element_name){
-    $site_addons = array('LanguageSwitcher','SmartTable','RoomTariff','RoomBooking');
+    $site_addons = array('LanguageSwitcher','SmartTable','RoomSummary','RoomBooking');
 
     if (in_array($element_name,  $site_addons)) {
         return true;

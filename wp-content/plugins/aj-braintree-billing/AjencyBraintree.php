@@ -366,7 +366,7 @@ class AjencyBraintree{
 				'name' => 'Site Add Ons',
 				'key' => 'site_add_ons',
 				'enabled' => 'false',
-				'count' => array(),
+				'count' => '0',
 				'count_type' => 'multiple'
 				),
 			);
