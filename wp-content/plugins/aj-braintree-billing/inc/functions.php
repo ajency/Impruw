@@ -1113,6 +1113,13 @@ function ajbilling_update_feature_addon($object_id ,$element_name,$plus_or_minus
 }
 
 
+function ajbilling_assign_site_default_plan( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
+	$plan_id = 1 ;//Default plan
+	ajbilling_update_site_plan($blog_id, 'site', $plan_id );
+}
+add_action( 'wpmu_new_blog', 'ajbilling_assign_site_default_plan', 10, 6 );
+
+
 
 
 
