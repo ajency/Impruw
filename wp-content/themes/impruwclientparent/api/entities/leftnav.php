@@ -150,6 +150,7 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF10B',
             'helpText' => 'Manage multiple languages for your website. Add translations from language section on the dashboard.',
             'styles' => get_styles( 'LanguageSwitcher' ),
+            'addOn' => true,
             'size' => ''
         ),
         array(
@@ -273,6 +274,7 @@ function get_elementbox_elements() {
             'rooms' => get_all_rooms(),
             'icon' => 'bicon icon-uniF15B',
             'helpText' => 'The additional policies, check in and check out time from the room summary.',
+            'addOn' => true,
             'category' => 'room'
         ),
         array(
@@ -287,6 +289,7 @@ function get_elementbox_elements() {
             'title' => 'Room Booking',
             'icon' => 'bicon icon-uniF101',
             'helpText' => 'Showcase your plans, tariff and availability for particular dates using the booking calendar.',
+            'addOn' => true,
             'category' => 'room'
         ),
         array(
@@ -301,6 +304,7 @@ function get_elementbox_elements() {
             'title' => 'Smart Table',
             'icon' => 'bicon icon-uniF142',
             'helpText' => 'help text to be added',
+            'addOn' => true,
             'styles' => get_styles( 'SmartTable' )
         ),
         array(
