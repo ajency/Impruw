@@ -431,6 +431,15 @@ and open the template in the editor.
   margin-bottom: 10px;
   padding-left: 5px;
 }
+.address.text-left {
+  text-align: left;
+}
+.address.text-right {
+  text-align: right;
+}
+.address.text-center {
+  text-align: center;
+}
 @media (max-width: 992px) {
   .address {
     text-align: center;
@@ -1680,6 +1689,7 @@ ul.gallery {
   margin: 3em auto;
   padding: 1em;
   color: #ffffff;
+  font-family: 'Lato', sans-serif;
 }
 .aj-imp-login-form .aj-imp-login-header {
   border-bottom: 1px solid #ffffff;
@@ -1705,10 +1715,6 @@ ul.gallery {
 .aj-imp-login-form .aj-imp-forgot form {
   border: 0;
   padding: 0;
-}
-.aj-imp-login-form .aj-imp-login form .alert,
-.aj-imp-login-form .aj-imp-forgot form .alert {
-  font-family: 'Lato', sans-serif;
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
@@ -1823,6 +1829,22 @@ ul.gallery {
   border-width: 0;
   text-align: left;
 }
+.table > thead > tr > th a,
+.table > tbody > tr > th a,
+.table > tfoot > tr > th a,
+.table > thead > tr > td a,
+.table > tbody > tr > td a,
+.table > tfoot > tr > td a {
+  color: #24d07c;
+}
+.table > thead > tr > th a:hover,
+.table > tbody > tr > th a:hover,
+.table > tfoot > tr > th a:hover,
+.table > thead > tr > td a:hover,
+.table > tbody > tr > td a:hover,
+.table > tfoot > tr > td a:hover {
+  color: #48df95;
+}
 .table > thead > tr > th p,
 .table > tbody > tr > th p,
 .table > tfoot > tr > th p,
@@ -1869,6 +1891,18 @@ ul.gallery {
 .table.style-1 > thead > tr th,
 .table.style-1 > tbody > tr th {
   border-color: #24d07c !important;
+}
+.table.style-1 > thead > tr td a,
+.table.style-1 > tbody > tr td a,
+.table.style-1 > thead > tr th a,
+.table.style-1 > tbody > tr th a {
+  color: #ffffff;
+}
+.table.style-1 > thead > tr td a:hover,
+.table.style-1 > tbody > tr td a:hover,
+.table.style-1 > thead > tr th a:hover,
+.table.style-1 > tbody > tr th a:hover {
+  color: #ffffff;
 }
 .table.style-2 {
   border-color: #e223a1;
@@ -2029,6 +2063,9 @@ ul.gallery {
   border: 0;
   height: 0;
   margin: 1.5em 0;
+}
+.spacer.blank hr {
+  margin: 0;
 }
 .spacer.blank .blank-info {
   display: block;
@@ -2314,6 +2351,16 @@ ul.gallery {
   text-decoration: none;
   color: #e223a1;
 }
+.accordion-container .panel-group .panel .panel-heading .panel-title a span:empty {
+  display: inline-block;
+  vertical-align: middle;
+  width: 50%;
+}
+.accordion-container .panel-group .panel .panel-heading .panel-title a span:empty:before {
+  content: "\00a0";
+  display: inline-block;
+  vertical-align: middle;
+}
 .accordion-container .panel-group .panel .panel-heading .delete-accordion-btn {
   font-size: 0.8em;
   background: #ff3333;
@@ -2449,6 +2496,11 @@ ul.gallery {
 }
 .impruw-list ul li {
   position: relative;
+  color: #ffffff;
+}
+.impruw-list ul li a,
+.impruw-list ul li span {
+  color: #ffffff;
 }
 .impruw-list ul li .delete {
   position: absolute;
@@ -2468,6 +2520,7 @@ ul.gallery {
 }
 .impruw-list ul li .delete a:hover {
   background: #ff3333;
+  text-decoration: none;
 }
 .impruw-list ul li:hover .delete {
   display: block;
@@ -2605,6 +2658,16 @@ ul.gallery {
   background: rgba(0, 0, 0, 0.2);
   border-color: rgba(0, 0, 0, 0.3);
   border-bottom-color: #24d07c;
+}
+.tab-container .nav-tabs li a span:empty {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+}
+.tab-container .nav-tabs li a span:empty:before {
+  content: "\00a0";
+  display: inline-block;
+  vertical-align: middle;
 }
 .tab-container .nav-tabs li .delete-tab-btn {
   position: absolute;

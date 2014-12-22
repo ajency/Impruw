@@ -7,6 +7,10 @@
 		padding: 0;
 		li {
 			position: relative;
+			color: @text-color;
+			a, span {
+				color: @text-color;
+			}
 			.delete {
 				position: absolute;
 				top: 0;
@@ -23,6 +27,7 @@
 					}
 					&:hover {
 						background: #ff3333;
+						text-decoration: none;
 					}
 				}
 			}

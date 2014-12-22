@@ -16,6 +16,16 @@
                     border-color: rgba(0, 0, 0, 0.3);
                     border-bottom-color: @primary1;
                 }
+                span:empty {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 100%;
+                    &:before {
+                        content: "\00a0";
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                }
             }
             .delete-tab-btn {
                 position: absolute;

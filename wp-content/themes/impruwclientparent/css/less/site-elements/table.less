@@ -16,6 +16,12 @@
 			> th, > td {
 				border-width: 0;
 				text-align: left;
+				a {
+					color: @primary1;
+					&:hover {
+						color: lighten(@primary1, 10%);
+					}
+				}
 				p {
 					margin: 0;
 					line-height: 1;
@@ -73,6 +79,12 @@
 			> tr {
 				td, th {
 					border-color: @primary1 !important;
+					a {
+						color: @text-color;
+						&:hover {
+							color: lighten(@text-color, 10%);
+						}
+					}
 				}
 			}
 		}

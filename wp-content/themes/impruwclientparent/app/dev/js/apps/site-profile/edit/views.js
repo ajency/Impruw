@@ -19,18 +19,24 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         'click .fileinput-logo': function() {
           return this.trigger("show:media:manager", 'logo');
         },
-        'click .fileinput-favicon': function() {
+        'click .fileinput-favicon .fileinput-preview': function() {
           return this.trigger('show:media:manager', 'favicon');
         },
         'click .domain-update': function() {
           var domainName;
           domainName = this.$el.find('#domain-name').val();
           return this.trigger("update:domain:mapping:name", domainName);
+        },
+        'click .remove-favicon': function(e) {
+          e.preventDefault();
+          this.$el.find('#favicon_id').attr('value', 0);
+          this.$el.find('.site_favicon_images').attr('src', "http://placehold.it/100&text=" + _.polyglot.t('Favicon'));
+          return this.$el.find('.remove-favicon').addClass('hide');
         }
       };
 
       MainView.prototype.serializeData = function() {
-        var data;
+        var data, _ref;
         data = MainView.__super__.serializeData.call(this);
         data.site_domain = data.site_domain.split('.').shift();
         if (data.logo_url === "") {
@@ -39,6 +45,7 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         if (data.favicon_url === "") {
           data.favicon_url = "http://placehold.it/100&text=" + _.polyglot.t('Favicon');
         }
+        data.hideRemove = (_ref = data.favicon_id) === '' || _ref === 0 || _ref === '0' ? "hide" : '';
         return data;
       };
 
@@ -86,7 +93,8 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
           image_path = media.get('url');
         }
         this.$el.find('.site_favicon_images').attr('src', image_path);
-        return this.$el.find('#favicon_id').attr('value', image_id);
+        this.$el.find('#favicon_id').attr('value', image_id);
+        return this.$el.find('.remove-favicon').removeClass('hide');
       };
 
       MainView.prototype.onDomainUpdate = function(Msg) {
