@@ -68,7 +68,7 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
       Controller.prototype.elementMoved = function(columnView, container) {};
 
       Controller.prototype.deleteElement = function(model) {
-        if (this.hasNonDeletable(model && ISTHEMEEDITOR === 'no')) {
+        if (this.hasNonDeletable(model) && ISTHEMEEDITOR === 'no') {
           bootbox.alert('<h6>' + _.polyglot.t('This row contains non deletable elements. You cannot delete this row') + '</h6>');
           return;
         }

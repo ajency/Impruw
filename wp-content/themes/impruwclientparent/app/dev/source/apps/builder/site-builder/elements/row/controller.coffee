@@ -62,7 +62,7 @@ define ['app', 'bootbox', 'apps/builder/site-builder/elements/row/views',
 
             # remove the element model
          deleteElement : ( model )->
-            if @hasNonDeletable model and ISTHEMEEDITOR is 'no'
+            if @hasNonDeletable(model) and ISTHEMEEDITOR is 'no'
                bootbox.alert '<h6>'+_.polyglot.t('This row contains non deletable elements. You cannot delete this row')+'</h6>'
                return
 
