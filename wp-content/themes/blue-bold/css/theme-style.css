@@ -414,6 +414,15 @@ and open the template in the editor.
   margin-bottom: 10px;
   padding-left: 5px;
 }
+.address.text-left {
+  text-align: left;
+}
+.address.text-right {
+  text-align: right;
+}
+.address.text-center {
+  text-align: center;
+}
 @media (max-width: 992px) {
   .address {
     text-align: center;
@@ -1803,6 +1812,22 @@ ul.gallery {
   border-width: 0;
   text-align: left;
 }
+.table > thead > tr > th a,
+.table > tbody > tr > th a,
+.table > tfoot > tr > th a,
+.table > thead > tr > td a,
+.table > tbody > tr > td a,
+.table > tfoot > tr > td a {
+  color: #07669e;
+}
+.table > thead > tr > th a:hover,
+.table > tbody > tr > th a:hover,
+.table > tfoot > tr > th a:hover,
+.table > thead > tr > td a:hover,
+.table > tbody > tr > td a:hover,
+.table > tfoot > tr > td a:hover {
+  color: #0986cf;
+}
 .table > thead > tr > th p,
 .table > tbody > tr > th p,
 .table > tfoot > tr > th p,
@@ -1849,6 +1874,18 @@ ul.gallery {
 .table.style-1 > thead > tr th,
 .table.style-1 > tbody > tr th {
   border-color: #07669e !important;
+}
+.table.style-1 > thead > tr td a,
+.table.style-1 > tbody > tr td a,
+.table.style-1 > thead > tr th a,
+.table.style-1 > tbody > tr th a {
+  color: #989898;
+}
+.table.style-1 > thead > tr td a:hover,
+.table.style-1 > tbody > tr td a:hover,
+.table.style-1 > thead > tr th a:hover,
+.table.style-1 > tbody > tr th a:hover {
+  color: #b2b2b2;
 }
 .table.style-2 {
   border-color: #555555;
