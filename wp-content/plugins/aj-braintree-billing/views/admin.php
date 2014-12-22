@@ -117,7 +117,7 @@
 							<td><?php echo "N/A";?></td>
 							<td><a href="admin.php?page=ajency-braintree-add-plan&amp;edit_planid=<?php echo $site_plan_id?>">Edit</a></td>
 					</tr>		
-					<?}
+					<?php }
 					else{
 
 						foreach ($braintree_plan_ids as $braintree_plan_id) 

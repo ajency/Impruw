@@ -661,7 +661,7 @@ function ajbilling_is_object_type_set(){
 	}
 
 	if ($ajbilling_settings) {
-		if ($ajbilling_settings['object_type']!="") {
+		if ($ajbilling_settings!="") {
 			$object_type_set = array('status'=>true,'object_type'=>$ajbilling_settings);
 		};
 	}
