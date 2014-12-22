@@ -62,13 +62,18 @@ function domain_mapping_feature_changes($site_id, $feature_args){
 	$new_count = $feature_args['new_count'];
 	$old_count = $feature_args['old_count'];
 
-	if ($enable_status==='true') {
-		// Disable coming soon page for the site if it exists
-		dm_coming_soon_page($site_id,false);
-	}
-	else{
+	// Check if domain name is set
+	switch_to_blog($site_id);
+	$domain_name = get_option( 'domain-name');
+	restore_current_blog();
+
+	if (($enable_status==='false') && $domain_name) {
 		// Enable coming soon page for the site
 		dm_coming_soon_page($site_id,true);
+	}
+	else{
+		// Disable coming soon page for the site if it exists
+		dm_coming_soon_page($site_id,false);
 	}
 
 }
@@ -184,7 +189,7 @@ function suspend_email_accounts($site_id, $count=NULL){
 
         	$deleted_count = 0;
         	// Suspend email accounts if they exist
-        	if (count($domain_accounts['data']) > 0) {
+        	if ($domain_accounts['data']!=="") {
         		foreach ($domain_accounts['data'] as $domain_account) {
         			$email_id = $domain_account->email;
         			$email_id_args = array('email_id' => $email_id);
