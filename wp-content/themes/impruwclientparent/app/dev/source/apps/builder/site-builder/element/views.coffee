@@ -79,6 +79,11 @@ define [ 'app' ],( App, elementTpl )->
          #       if elements.indexOf( @model.get 'element' ) is -1
          #          @$el.children('.element-controls').children('.aj-imp-settings-btn' ).remove()
 
+            # @_noDelete()
+
+
+
+
          # remove settings button by default
          _noOptions : ()->
             if  ISTHEMEEDITOR is 'no'
@@ -86,6 +91,14 @@ define [ 'app' ],( App, elementTpl )->
                   'RoomDescription',  'RoomTariff', 'RoomBooking', 'Map' ]
                if nosettings.indexOf( @model.get 'element' ) isnt -1
                   @$el.children('.element-controls').children('.aj-imp-settings-btn' ).remove()
+
+               nodelete = ['Menu', 'LanguageSwitcher']
+               if nodelete.indexOf( @model.get 'element' ) isnt -1
+                  @$el.children('.element-controls').children('.aj-imp-delete-btn').remove()
+
+               nomove = ['Menu', 'LanguageSwitcher']
+               if nodelete.indexOf( @model.get 'element' ) isnt -1
+                  @$el.children( '.element-controls' ).children( '.aj-imp-drag-handle' ).addClass( 'non-visible' )
 
          # set the hidden fields before rendering the element
          onBeforeRenderElement : ->

@@ -249,7 +249,7 @@ a {
 		padding: 0.5em 0.5em 0;
 		overflow-y: auto;
 		overflow-x: hidden;
-		max-height: 70vh;
+		max-height: 80vh;
 		.aj-imp-builder-items {
 			margin: 0;
 			list-style: none;
@@ -271,12 +271,12 @@ a {
                     background: rgba(0, 0, 0, 1);
 					.aj-imp-builder-icon {
 						font-size: 2.2em;
-						padding: 0.5em 0 0;
+						padding: 0.4em 0 0;
 						color: #fff;
 					}
 					.aj-imp-builder-title {	
 						padding: 0.5em;
-						height: 40px;
+						height: 32px;
 						overflow: hidden;
 					}
 				}
@@ -326,6 +326,15 @@ a {
 						}
 					}
 				}
+				&.element-disable {
+					opacity: 0.5;
+					a {
+						cursor: not-allowed;
+					}
+					&:hover {
+						color: @dash-grey;
+					}
+				}
 				&.ui-draggable-dragging {
 					background: transparent;
 					box-shadow: none;
@@ -340,6 +349,22 @@ a {
 		.selected-element {
 			overflow: visible !important;
 		}
+	}
+}
+
+.elem-box {
+	margin-left: 2px !important;
+	.tooltip-inner {
+		border-radius: 2px;
+		padding: 0.5em 0.8em;
+		background: rgba(0, 0, 0, 0.8);
+		text-align: left;
+		font-size: 0.8em;
+	}
+	.tooltip-arrow {
+		border-right-color: rgba(0, 0, 0, 0.8) !important;
+		border-width: 6px 6px 6px 0 !important;
+		left: 3px !important;
 	}
 }
 
