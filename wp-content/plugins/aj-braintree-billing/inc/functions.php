@@ -112,7 +112,7 @@ function aj_braintree_get_braintreeplans(){
 function aj_braintree_get_subscription($subscription_id ){
 
 	$braintree_subscription =  array(
-								'status' => 'N/A', 
+								'subscription_status' => 'N/A', 
 								'billingPeriodStartDate' => 'N/A', 
 								'billingPeriodEndDate' => 'N/A', 
 								'nextBillAmount' => 'N/A', 
@@ -152,7 +152,7 @@ function aj_braintree_get_subscription($subscription_id ){
     	$braintree_subscription['paymentMethodToken'] = $complete_subscription_details->paymentMethodToken;
     	$braintree_subscription['planId'] = $complete_subscription_details->planId;
     	$braintree_subscription['price'] = $complete_subscription_details->price;
-    	$braintree_subscription['status'] = $complete_subscription_details->status;
+    	$braintree_subscription['subscription_status'] = $complete_subscription_details->status;
     	$braintree_subscription['trialDuration'] = $complete_subscription_details->trialDuration;
     	$braintree_subscription['trialDurationUnit'] = $complete_subscription_details->trialDurationUnit;
     	$braintree_subscription['trialPeriod'] = $complete_subscription_details->trialPeriod;
@@ -763,6 +763,14 @@ function ajbilling_paymentApi_url() { ?>
 	<?php
 }
 
+function ajbilling_get_site_planid($object_id, $object_type='site'){
+	global $wpdb;
+	$user_site_plan = ajbilling_get_user_siteplan_options($object_id,'site');
+	$site_plan_id = $user_site_plan['plan_id'];
+
+	return $site_plan_id;
+}
+
 function ajbilling_fetch_plan($object_id, $object_type='site'){
 	global $wpdb;
 
@@ -796,12 +804,26 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 
 	if(!mysql_errno())
 	{
+		//Get customer subscription id if customer exists
+		if (!$braintree_customer_id) {
+		// customer not added to braintree
+		}
+		else{
+			// customer is present in braintree
+			$customer = aj_braintree_get_customer($braintree_customer_id);
+			$braintree_subscription_id = $customer->customFields['customer_subscription'];
+			$current_subscription_details = aj_braintree_get_subscription($braintree_subscription_id);
+
+			$billing_plan = $current_subscription_details;
+
+		}
+
 
 		$billing_plan['id'] = $site_plan['id'];
-		$billing_plan['title'] = $site_plan['title'];
-		$billing_plan['status'] = $site_plan['status'];
+		$billing_plan['plan_title'] = $site_plan['title'];
+		$billing_plan['plan_status'] = $site_plan['status'];
+		
 		$billing_plan['braintree_plan'] = "";
-
 		$braintree_plan_ids = maybe_unserialize($site_plan['braintree_plan_id']);
 
 		if (!empty($braintree_plan_ids)) {
@@ -815,20 +837,6 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 			}
 		}
 
-		$billing_plan['braintree_subscription'] = "";
-		//Get customer subscription id if customer exists
-		if (!$braintree_customer_id) {
-		// customer not added to braintree
-		}
-		else{
-			// customer is present in braintree
-			$customer = aj_braintree_get_customer($braintree_customer_id);
-			$braintree_subscription_id = $customer->customFields['customer_subscription'];
-			$current_subscription_details = aj_braintree_get_subscription($braintree_subscription_id);
-
-			$billing_plan['braintree_subscription'] = $current_subscription_details;
-
-		}
 
 		$plan_features = maybe_unserialize($site_plan['features']);
 
@@ -953,9 +961,9 @@ function ajbilling_is_this_user_allowed($object_id , $object_type='site', $featu
 	$user_site_plan = ajbilling_get_user_siteplan_options($object_id,'site');
 
 	$site_features = $user_site_plan['feature_count'];
-	$plugin_plan = ajbilling_fetch_plan($object_id);
+	// $plugin_plan = ajbilling_fetch_plan($object_id);
 
-	$site_plan_id = $plugin_plan['id'];
+	$site_plan_id = ajbilling_get_site_planid($object_id,'site');
 
 	$result = array();
 
