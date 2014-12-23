@@ -110,7 +110,7 @@ class AddressElement extends Element {
 
         if ($this->phone_link)
             $html .= "<script>
-                        jQuery('.addr-phone').last().wrap('<a href=\"tel:".$contact_at['phone']."\"></a>');
+                        jQuery('.addr-phone').last().wrap('<a href=\"tel:".$contact_at['phone_no']."\"></a>');
                 </script>" ;
 
         return $html;
