@@ -362,6 +362,8 @@ function impruw_restore_elements($page_elements){
 function get_theme_post_id_from_name($theme_name){
 	global $wpdb;
 	switch_to_blog( 1 );
+	if ($theme_name == 'Neon Theme')
+		$theme_name = 'Neon';
 	// print_r($theme_name);
 	if ($theme_name == 'Neon Theme')
 		$theme_name = 'Neon';
