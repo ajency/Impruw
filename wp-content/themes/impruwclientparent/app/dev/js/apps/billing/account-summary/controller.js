@@ -21,21 +21,9 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
               subscriptionId = _this.siteModel.get('braintree_subscription');
               braintreeCustomerId = _this.siteModel.get('braintree_customer_id');
               subscriptionModel = App.request("get:subscription:by:id", subscriptionId);
-              App.execute("show:account:info", {
+              return App.execute("show:account:info", {
                 region: _this.layout.accountInfoRegion,
                 subscriptionModel: subscriptionModel
-              });
-              App.execute("show:pending:subscription", {
-                region: _this.layout.pendingSubscriptionRegion,
-                subscriptionId: subscriptionId
-              });
-              App.execute("show:billing:info", {
-                region: _this.layout.billingInfoRegion,
-                subscriptionModel: subscriptionModel
-              });
-              return App.execute("show:purchase:history", {
-                region: _this.layout.purchaseHistoryRegion,
-                braintreeCustomerId: braintreeCustomerId
               });
             });
           };

@@ -1,29 +1,74 @@
+<h6 class="aj-imp-sub-head">{{#polyglot}}Plan Details{{/polyglot}}</h6>
 <div class="aj-imp-widget-head row">
     <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
             <small>{{#polyglot}}Active Plan:{{/polyglot}}</small>
-            {{plan_name}}
+            Essential
+        </h6>
+    </div>
+    <div class="col-sm-6 right">
+        <a href="#/billing/pricing-plans" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Change Plan{{/polyglot}}</a>
+    </div>
+    <div class="col-sm-12">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Plan Features:{{/polyglot}}<small>
+            <br/>
+            <div class="col-sm-6 left">
+                <h6 class="aj-imp-sub-head-thin">
+                    <small>{{#polyglot}}Domain mapping: {{/polyglot}} </small>
+                    <small>Enabled</small>
+                </h6>
+            </div>
+            <div class="col-sm-6 right">
+                <h6 class="aj-imp-sub-head-thin">
+                    <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
+                    <small>N/A</small>
+                </h6>
+            </div>
+            <div class="col-sm-6 left">
+                <h6 class="aj-imp-sub-head-thin">
+                    <small>{{#polyglot}}Email Account: {{/polyglot}} </small>
+                    <small>Enabled</small>
+                </h6>
+            </div>
+            <div class="col-sm-6 right">
+                <h6 class="aj-imp-sub-head-thin">
+                    <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
+                    <small>1</small>
+                </h6>
+            </div>
+            <div class="col-sm-6 left">
+                <h6 class="aj-imp-sub-head-thin">
+                    <small>{{#polyglot}}Site Add ons: {{/polyglot}} </small>
+                    <small>Enabled</small>
+                </h6>
+            </div>
+            <div class="col-sm-6 right">
+                <h6 class="aj-imp-sub-head-thin">
+                    <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
+                    <small>3</small>
+                </h6>
+            </div>
+        </h6>
+    </div>
+</div>
+<br/>
+<hr>
+<h6 class="aj-imp-sub-head">{{#polyglot}}Subscription Details{{/polyglot}}</h6>
+<div class="aj-imp-widget-head row">
+    <div class="col-sm-6 left">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Subscription Status:{{/polyglot}}</small>
+            Active
         </h6>
     </div>
     <div class="col-sm-6 right">
         <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Active Since:{{/polyglot}}</small>
-            {{start_date}}
-        </h6>
-    </div>
-    <div class="col-sm-6 left">
-        <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Subscription Type:{{/polyglot}} </small>
+            <small>{{#polyglot}}Billing Frequency:{{/polyglot}} </small>
             {{subscription_type}}
         </h6>
     </div>
-    <div class="col-sm-6 right">
-        <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Payment:{{/polyglot}} </small>
-            &#163; {{price}}
-        </h6>
-    </div>
-    <div class="col-sm-12 ">
+    <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
             <small>{{#polyglot}}Current billing cycle:{{/polyglot}} </small>
             <span>
@@ -36,6 +81,24 @@
             </span>
         </h6>
     </div>
+    <div class="col-sm-6 right">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Billing Amount:{{/polyglot}} </small>
+            &#163; {{price}}
+        </h6>
+    </div>
+    <div class="col-sm-6 left">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Next billing date:{{/polyglot}} </small>
+            {{bill_end}}
+        </h6>
+    </div>
+    <div class="col-sm-6 right">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Next Billing period Amount:{{/polyglot}} </small>
+            &#163; {{price}}
+        </h6>
+    </div>
 </div>
-<br>
-<a href="#/billing/pricing-plans" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Change Plan{{/polyglot}}</a>
+
+

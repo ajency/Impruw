@@ -30,17 +30,17 @@ define [ 'app', 'controllers/base-controller'
                             region : @layout.accountInfoRegion
                             subscriptionModel : subscriptionModel
 
-                        App.execute "show:pending:subscription",
-                            region : @layout.pendingSubscriptionRegion
-                            subscriptionId : subscriptionId
+                        # App.execute "show:pending:subscription",
+                        #     region : @layout.pendingSubscriptionRegion
+                        #     subscriptionId : subscriptionId
 
-                        App.execute "show:billing:info",
-                            region : @layout.billingInfoRegion
-                            subscriptionModel : subscriptionModel
+                        # App.execute "show:billing:info",
+                        #     region : @layout.billingInfoRegion
+                        #     subscriptionModel : subscriptionModel
 
-                        App.execute "show:purchase:history",
-                            region : @layout.purchaseHistoryRegion
-                            braintreeCustomerId : braintreeCustomerId
+                        # App.execute "show:purchase:history",
+                        #     region : @layout.purchaseHistoryRegion
+                        #     braintreeCustomerId : braintreeCustomerId
 
 
                 # show main layout

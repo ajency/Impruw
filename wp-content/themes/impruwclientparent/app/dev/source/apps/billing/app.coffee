@@ -12,9 +12,9 @@ define [
             appRoutes :
                 'billing' : 'summary'
                 'billing/account-summary' : 'summary'
-                'billing/update-billing' : 'updateBilling'
+                # 'billing/update-billing' : 'updateBilling'
                 'billing/pricing-plans' : 'plans'
-                'billing/payment-page/:id' : 'payment'
+                # 'billing/payment-page/:id' : 'payment'
 
 
         #public API
@@ -24,18 +24,18 @@ define [
                 App.execute "show:account:summary:app",
                     region : App.rightRegion
 
-            updateBilling : ->
-                App.execute "show:billing:info:app",
-                    region : App.rightRegion
+            # updateBilling : ->
+            #     App.execute "show:billing:info:app",
+            #         region : App.rightRegion
 
             plans : ->
                 App.execute "show:plans:app",
                     region : App.rightRegion
 
-            payment : ( planId )->
-                App.execute "show:payment:app",
-                    region : App.rightRegion
-                    planId  : planId
+            # payment : ( planId )->
+            #     App.execute "show:payment:app",
+            #         region : App.rightRegion
+            #         planId  : planId
 
 
         BillingApp.on 'start' : ->
