@@ -519,7 +519,7 @@ jQuery(document).ready(function() {
     if (jQuery('#map_canvas').length === 0)
         return;
 
-    var map, geocoder;
+    var map;
 
     window.initializeMap = function() {
 
@@ -527,36 +527,88 @@ jQuery(document).ready(function() {
             jQuery('#map_canvas').height(300);
         }
 
-        geocoder = new google.maps.Geocoder();
-
         var mapOptions = {
             zoom: 17,
             center: new google.maps.LatLng(-34.397, 150.644)
         };
         
         map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-        
-        service = new google.maps.places.PlacesService(map);
-        service.textSearch( {query: HOTELADDRESS}, function(results, status){
 
-            if (status == google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
-                
-                map.setCenter(results[0].geometry.location);
-                
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-                
+        if(HOTELPOSITION.position){
+            newCenter = new google.maps.LatLng(HOTELPOSITION.latitude, HOTELPOSITION.longitude);
+            createMarker( map, newCenter );
+            return;
+        }
+
+        else if(HOTELPOSITION.placeId && HOTELPOSITION.placeId.trim() != ''){
+            getPlacesDetails(HOTELPOSITION.placeId,map);
+            return;
+        }
+        else{
+            var service = new google.maps.places.PlacesService(map);
+            service.textSearch({query:HOTELADDRESS},function(results,status){
+                if (status == google.maps.places.PlacesServiceStatus.OK){
+                    getPlacesDetails(results[0].place_id,map);
+                }
+                else {
+                    jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+                }
+            });
+        }
+   
+       
+    }
+    function getPlacesDetails(placeId,map){
+        var service = new google.maps.places.PlacesService(map);
+        service.getDetails({placeId: placeId}, callback);
+
+        function callback(place, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                x= place
+                // createMarker(place);
+                createMarker( map, place.geometry.location ,place);
             }
             else {
                 jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
             }
+        }
+    }
+
+    function createMarker(map,position,place){
+        map.setCenter(position);
+
+        var marker = new google.maps.Marker({
+            map: map,
+            position: position,
         });
 
-       
+        if (place){
+            var image ={
+                url : place.icon,
+                size : new google.maps.Size(71 , 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(7, 7),
+                scaledSize: new google.maps.Size(15, 15)
+            }
+            marker.setTitle(place.name);
+            // marker.setIcon(image);
+            content = "<div><b>"+place.name+"</b></div>"+place.adr_address;
+            if (place.url)
+                content += "<div class='text-center'><a href="+place.url+" target='_BLANK'>more</a></div>"
+        }
+        else
+            content = HOTELADDRESS
+        
+        infowindow = new google.maps.InfoWindow({ content: content});
+
+        google.maps.event.addListener( marker, 'click', function(){
+                            infowindow.open( map, marker);
+                        });
+                
     }
-    jQuery.getScript('https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&callback=initializeMap');
+  
+    jQuery.getScript('https://maps.googleapis.com/maps/api/js?language='+icl_lang+'&libraries=places&sensor=false&callback=initializeMap');
+
 });
 
 /**************** poweredby.js ***********************/
