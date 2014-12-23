@@ -34,6 +34,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
             return _this.model.set("draggable", draggable);
           };
         })(this));
+        this.listenTo(view, "element:phone:link:changed", (function(_this) {
+          return function(phone_link) {
+            return _this.model.set('phone_link', phone_link);
+          };
+        })(this));
         this.listenTo(view, "element:spacing:changed", (function(_this) {
           return function(spacing, value) {
             return _this.model.set(spacing, value);

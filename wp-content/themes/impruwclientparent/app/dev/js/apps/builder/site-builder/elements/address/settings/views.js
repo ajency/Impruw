@@ -33,6 +33,9 @@ define(['app', 'text!apps/builder/site-builder/elements/address/settings/templat
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').radiocheck('check');
         }
+        if (this.eleModel.get('phone_link') === 'enable') {
+          this.$el.find('input[name="phone_link"]').radiocheck('check');
+        }
         this.$el.find('select[name="align"]').selectpicker('val', this.eleModel.get('align'));
         this.$el.find('select[name="top_margin"]').selectpicker('val', this.eleModel.get('top_margin'));
         this.$el.find('select[name="left_margin"]').selectpicker('val', this.eleModel.get('left_margin'));
@@ -53,6 +56,11 @@ define(['app', 'text!apps/builder/site-builder/elements/address/settings/templat
         },
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));
+        },
+        'change input[name="phone_link"]': function(evt) {
+          var enabled;
+          enabled = $(evt.target).is(':checked') ? 'enable' : 'disable';
+          return this.trigger("element:phone:link:changed", enabled);
         },
         'change select.spacing': function(evt) {
           return this.trigger("element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val());

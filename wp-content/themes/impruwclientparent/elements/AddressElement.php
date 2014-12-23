@@ -51,6 +51,8 @@ class AddressElement extends Element {
 
         $this->align = isset( $element[ 'align' ] ) ? $element[ 'align' ] : '' ;
 
+        $this->phone_link = isset( $element['phone_link'] ) && $element['phone_link'] == 'disable' ? false : true; 
+
         $this->template = get_style_template($element);
         
         $this->markup  = $this->generate_markup();
@@ -105,6 +107,12 @@ class AddressElement extends Element {
 
         global $me;
         $html = $me->render($this->template, $contact_at);
+
+        if ($this->phone_link)
+            $html .= "<script>
+                        jQuery('.addr-phone').last().wrap('<a href=\"tel:".$contact_at['phone']."\"></a>');
+                </script>" ;
+
         return $html;
             
     }

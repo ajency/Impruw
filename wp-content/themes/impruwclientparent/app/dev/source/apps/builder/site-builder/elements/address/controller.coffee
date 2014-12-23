@@ -20,6 +20,7 @@ define ['app'
 					email : 'demo@email.com'
 					style : 'Default Style'
 					align : 'left'
+					phone_link : 'enable'
 
 				if _.isObject window.HOTELADDRESS
 					options.modelData.street = window.HOTELADDRESS.street
@@ -37,7 +38,7 @@ define ['app'
 
 			bindEvents : ->
 				# start listening to model events
-				@listenTo @layout.model, "change:style change:align", @renderElement
+				@listenTo @layout.model, "change:style change:align change:phone_link", @renderElement
 				super()
 
 			_getAddressView : ( model, template )->
