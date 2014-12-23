@@ -365,8 +365,7 @@ function get_theme_post_id_from_name($theme_name){
 	if ($theme_name == 'Neon Theme')
 		$theme_name = 'Neon';
 	// print_r($theme_name);
-	if ($theme_name == 'Neon Theme')
-		$theme_name = 'Neon';
+
 
     $query = $wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type='theme' AND 
         post_title=%s", $theme_name);

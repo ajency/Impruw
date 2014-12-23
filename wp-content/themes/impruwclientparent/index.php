@@ -27,12 +27,6 @@ get_header(); ?>
     </div><!-- .site-page -->
 
 <?php 
-	print_r('-- '.get_theme_post_id_from_name('Classic Green').' --   ');
-	print_r('-- '.get_theme_post_id_from_name('Diamond Theme').' --   ');
-	print_r('-- '.get_theme_post_id_from_name('Pink Theme').' --   ');
-	print_r('-- '.get_theme_post_id_from_name('Minimal Theme').' --   ');
-	print_r('-- '.get_theme_post_id_from_name('Blue Bold').' --   ');
-	print_r('-- '.get_theme_post_id_from_name('Neon Theme').' --   ');
-	print_r(wp_get_theme()->name );
+	
 	get_footer();
 }

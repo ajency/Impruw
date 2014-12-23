@@ -83,9 +83,9 @@ define ["app", 'backbone', 'moment','bootbox'], (App, Backbone, moment, bootbox)
 
                         if resp.code is 'OK'
                             bootbox.alert "Your page will be restored to the selected point. Please wait until the page reloads."
-                            # _.delay =>
-                            #     window.location.reload()
-                            # ,2000
+                            _.delay =>
+                                window.location.reload()
+                            ,2000
                         # App.instanceId = resp.instance if resp.success is true
 
 
