@@ -19,7 +19,19 @@ define [ 'app'
 
                 'click .domain-update' : ->
                     domainName = @$el.find( '#domain-name' ).val()
-                    @trigger "update:domain:mapping:name", domainName
+                    @trigger "update:domain:mapping:name", domainName               
+                    
+
+                'click .refresh-map-btn' : ->
+                    address = ''
+                    if @$el.find('input[name="street"]').val() isnt ''
+                        address += @$el.find('input[name="street"]').val() + ',' 
+                    if @$el.find('input[name="city"]').val() isnt ''
+                        address += @$el.find('input[name="city"]').val() + ',' 
+                    if @$el.find('input[name="postal_code"]').val() isnt ''
+                        address += @$el.find('input[name="postal_code"]').val() + ',' 
+                    address += @$el.find( 'select[name="country"]' ).selectpicker 'val'
+                    @trigger 'refresh:map:view', address
 
                 'click .remove-favicon' : (e)->
                     e.preventDefault()
@@ -68,6 +80,14 @@ define [ 'app'
                 m = $( '.aj-imp-left' ).width()
                 @$el.find( '*[data-spy="affix"]' ).css( 'margin-left', m )
 
+                address = @$el.find('input[name="street"]').val() + ',' +
+                    @$el.find('input[name="city"]').val() + ',' + 
+                    @$el.find('input[name="postal_code"]').val() + ',' +
+                    @$el.find( 'select[name="country"]' ).selectpicker 'val'
+                console.log address
+                # if _.trim(address) isnt ''
+                @trigger 'show:map:view', address
+
 
             onSiteProfileAdded : ->
                 @$el.find( '.alert' ).remove()
@@ -101,3 +121,8 @@ define [ 'app'
             onDomainUpdate : ( Msg )->
                 @$el.find( '#msg' ).empty()
                 @$el.find( '#msg' ).text Msg
+
+            onShowMap : (mapView)->
+                @$el.find( '.map-region' ).html( mapView.render().$el )
+
+                mapView.triggerMethod 'show'

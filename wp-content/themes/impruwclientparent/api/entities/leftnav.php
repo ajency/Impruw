@@ -225,7 +225,7 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF11E',
             'helpText' => 'Just because we don\'t have an element for something, doesn\'t mean you can\'t add it to your site. Widget allows you to add pretty much any embeddable content to your site.',
             // 'styles' => get_styles( 'Wid' ),
-            'category' => 'hotel'
+            // 'category' => 'hotel'
         ),
         array(
             'element' => 'Slider',
@@ -244,28 +244,28 @@ function get_elementbox_elements() {
             'title' => 'Room Gallery',
             'icon' => 'bicon icon-uniF10C',
             'helpText' => 'The room gallery element displays all the photos added to your room in the dashboard, which are arranged in a click-to-see-a-larger-version grid format.',
-            'category' => 'room'
+            'category' => 'hotel'
         ),
         array(
             'element' => 'RoomFacilities',
             'title' => 'Room Facilities',
             'icon' => 'bicon icon-uniF17E',
             'helpText' => 'Display facilities for your individual room. Edit the room to update facilities.',
-            'category' => 'room'
+            'category' => 'hotel'
         ),
         array(
             'element' => 'RoomTitle',
             'title' => 'Room Title',
             'icon' => 'bicon icon-uniF12D',
             'helpText' => 'The room name added by you at the time of creating the room.',
-            'category' => 'room'
+            'category' => 'hotel'
         ),
         array(
             'element' => 'RoomDescription',
             'title' => 'Room Description',
             'icon' => 'bicon icon-uniF142',
             'helpText' => 'The description added to the room at the time of room creation.',
-            'category' => 'room'
+            'category' => 'hotel'
         ),
         array(
             'element' => 'RoomSummary',
@@ -275,14 +275,14 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF15B',
             'helpText' => 'The additional policies, check in and check out time from the room summary.',
             'addOn' => true,
-            'category' => 'room'
+            'category' => 'hotel'
         ),
         array(
             'element' => 'RoomTariff',
             'title' => 'Room Tariff',
             'icon' => 'bicon icon-uniF12B',
             'helpText' => 'The tariff for the room for various plans and date ranges.',
-            'category' => 'room'
+            'category' => 'hotel'
         ),
         array(
             'element' => 'RoomBooking',
@@ -290,7 +290,7 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF101',
             'helpText' => 'Showcase your plans, tariff and availability for particular dates using the booking calendar.',
             'addOn' => true,
-            'category' => 'room'
+            'category' => 'hotel'
         ),
         array(
             'element' => 'Spacer',

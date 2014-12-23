@@ -370,3 +370,27 @@ function builder_update_menu_items_order(){
 add_action('wp_ajax_builder-update-menu-items-order', 'builder_update_menu_items_order');
 
 
+
+function ajax_get_address_coordinates(){
+    $data = get_address_coordinate();
+    wp_send_json($data);
+}
+add_action('wp_ajax_get-address-coordinates','ajax_get_address_coordinates');
+
+function ajax_update_address_coordinates(){
+    $data = $_POST;
+    if( $data['position'] == 'true'){
+        update_option( 'latitude', $data['latitude'] );
+        update_option( 'longitude', $data['longitude'] );
+    }
+    else{
+        if (isset($data['placeId']))
+            update_option('placeId', $data['placeId']);
+        delete_option('latitude');
+        delete_option('longitude');
+    }
+
+    wp_send_json(array('code' => 'OK'));
+
+}
+add_action('wp_ajax_update-address-coordinates','ajax_update_address_coordinates');
