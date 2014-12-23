@@ -94,12 +94,7 @@ define(["app", 'backbone', 'moment', 'bootbox'], function(App, Backbone, moment,
           data: data,
           success: function(resp) {
             if (resp.code === 'OK') {
-              bootbox.alert("Your page will be restored to the selected point. Please wait until the page reloads.");
-              return _.delay((function(_this) {
-                return function() {
-                  return window.location.reload();
-                };
-              })(this), 2000);
+              return bootbox.alert("Your page will be restored to the selected point. Please wait until the page reloads.");
             }
           }
         });
