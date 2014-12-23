@@ -110,11 +110,20 @@ function aj_braintree_get_braintreeplans(){
  *         object $braintree_subscription_not_found if $subscription_id is not found
  */
 function aj_braintree_get_subscription($subscription_id ){
+
+	$braintree_subscription =  array(
+								'status' => 'N/A', 
+								'billingPeriodStartDate' => 'N/A', 
+								'billingPeriodEndDate' => 'N/A', 
+								'nextBillAmount' => 'N/A', 
+								'price' => 'N/A', 
+								'nextBillingDate' => 'N/A', 
+								);
 	try {
 
-        $braintree_subscription = Braintree_Subscription::find( $subscription_id );
-        $braintree_subscription->code = "OK";
-        return $braintree_subscription;
+        $braintree_subscription_result = Braintree_Subscription::find( $subscription_id );
+        $braintree_subscription_result->code = "OK";
+        $complete_subscription_details =  $braintree_subscription_result;
 
     } catch ( Braintree_Exception_NotFound $e ) {
 
@@ -122,8 +131,34 @@ function aj_braintree_get_subscription($subscription_id ){
         $braintree_subscription_not_found->code = "ERROR";
        	$braintree_subscription_not_found->msg =  $e->getMessage();
 
-       	return $braintree_subscription_not_found;
+       	 $complete_subscription_details =  $braintree_subscription_not_found;
     }
+
+    if ($complete_subscription_details->code==='OK') {
+    	$braintree_subscription['id'] = $complete_subscription_details->id;
+    	$braintree_subscription['balance'] = $complete_subscription_details->balance;
+    	$braintree_subscription['billingDayOfMonth'] = $complete_subscription_details->billingDayOfMonth;
+    	$braintree_subscription['billingPeriodEndDate'] = $complete_subscription_details->billingPeriodStartDate->format( 'M d, Y (e)' );
+    	$braintree_subscription['billingPeriodStartDate'] = $complete_subscription_details->billingPeriodStartDate->format( 'M d, Y (e)' );
+    	$braintree_subscription['currentBillingCycle'] = $complete_subscription_details->currentBillingCycle;
+    	$braintree_subscription['daysPastDue'] = $complete_subscription_details->daysPastDue;
+    	$braintree_subscription['failureCount'] = $complete_subscription_details->failureCount;
+    	$braintree_subscription['firstBillingDate'] = $complete_subscription_details->firstBillingDate;
+    	$braintree_subscription['neverExpires'] = $complete_subscription_details->neverExpires;
+    	$braintree_subscription['nextBillingDate'] = $complete_subscription_details->nextBillingDate->format( 'M d, Y (e)' );
+    	$braintree_subscription['nextBillAmount'] = $complete_subscription_details->nextBillAmount;
+    	$braintree_subscription['numberOfBillingCycles'] = $complete_subscription_details->numberOfBillingCycles;
+    	$braintree_subscription['paidThroughDate'] = $complete_subscription_details->paidThroughDate;
+    	$braintree_subscription['paymentMethodToken'] = $complete_subscription_details->paymentMethodToken;
+    	$braintree_subscription['planId'] = $complete_subscription_details->planId;
+    	$braintree_subscription['price'] = $complete_subscription_details->price;
+    	$braintree_subscription['status'] = $complete_subscription_details->status;
+    	$braintree_subscription['trialDuration'] = $complete_subscription_details->trialDuration;
+    	$braintree_subscription['trialDurationUnit'] = $complete_subscription_details->trialDurationUnit;
+    	$braintree_subscription['trialPeriod'] = $complete_subscription_details->trialPeriod;
+    }
+
+    return $braintree_subscription;
 }
 
 /**
@@ -249,7 +284,6 @@ function aj_braintree_update_customer($customer_id, $customer_array, $credit_car
 	}
 	
 }
-
 
 // aj_braintree_create_payment_method(customer_id, payment_method_nonce)
 // aj_braintree_transaction(payment_method_token, amount, merchant_account )
@@ -734,21 +768,23 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 
 	$billing_plan = array();
 
-            //Get site plan id and country from site options
+    //Get site plan id and country from site options
 	$user_site_plan = "";
 
 	if ( is_multisite() ){
 		switch_to_blog( $object_id );
 		$user_site_plan = get_option('site_payment_plan');
 		$user_site_country = get_option('site-country',0);
+		$braintree_customer_id = get_option('braintree-customer-id',0);
 		restore_current_blog();
 	}
 	else{
 		$user_site_plan = get_option('site_payment_plan');
+		$braintree_customer_id = get_option('braintree-customer-id',0);
 		$user_site_country = get_option('site-country',0);
 	}
 
-            // Get currency based on country
+    // Get currency based on country
 	$site_currency = aj_braintree_get_currency($user_site_country);
 
 	$site_plan_id = $user_site_plan['plan_id'];
@@ -773,10 +809,25 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 			foreach ($braintree_plan_ids as $braintree_plan_id) {
 				$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
 				if ($braintree_plan->currencyIsoCode == $site_currency) {
-					$braintree_plan = (array)$braintree_plan;
-					$billing_plan['braintree_plan'] = $braintree_plan;
+					// $braintree_plan = (array)$braintree_plan;
+					$billing_plan['braintree_plan'] = $braintree_plan->id;
 				}
 			}
+		}
+
+		$billing_plan['braintree_subscription'] = "";
+		//Get customer subscription id if customer exists
+		if (!$braintree_customer_id) {
+		// customer not added to braintree
+		}
+		else{
+			// customer is present in braintree
+			$customer = aj_braintree_get_customer($braintree_customer_id);
+			$braintree_subscription_id = $customer->customFields['customer_subscription'];
+			$current_subscription_details = aj_braintree_get_subscription($braintree_subscription_id);
+
+			$billing_plan['braintree_subscription'] = $current_subscription_details;
+
 		}
 
 		$plan_features = maybe_unserialize($site_plan['features']);
