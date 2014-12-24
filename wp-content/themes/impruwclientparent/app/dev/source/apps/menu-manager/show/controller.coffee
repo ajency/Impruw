@@ -132,7 +132,7 @@ define [ 'app', 'controllers/base-controller', 'bootbox' ], ( App, AppController
 
 			events : 
 				'click a.delete-menu' : ->
-					message = _.polyglot.t 'All the occurrences of this menu will be deleted from the website. Are you sure you want to delete the menu?'
+					message = "<h4 class='delete-message'>"+_.polyglot.t('All the occurrences of this menu will be deleted from the website. Are you sure you want to delete the menu?')+"</h4>"
 					bootbox.confirm message, ( answer )=>
 							if answer is yes
 								@trigger "delete:menu:clicked", @menuId

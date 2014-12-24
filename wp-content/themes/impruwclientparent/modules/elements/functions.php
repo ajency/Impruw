@@ -44,7 +44,9 @@ function get_element_by_id( $meta_id ) {
     if ( $meta_value['element'] !== 'Title' &&
          $meta_value['element'] !== 'Text' &&
          $meta_value['element'] !== 'ImageWithText' &&
-         $meta_value['element'] !== 'Table'
+         $meta_value['element'] !== 'Table' &&
+         $meta_value['element'] !== 'Slider' &&
+         $meta_value['element'] !== 'Widget'
         )
         return false;
 

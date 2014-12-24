@@ -224,7 +224,8 @@ function pluck_meta_ids_from_json( $json ) {
     $meta_ids = array();
 
     foreach ( (array) $json as $element ) {
-        pluck_meta_ids( $element, $meta_ids );
+        if( !empty( $element ) )
+            pluck_meta_ids( $element, $meta_ids );
     }
 
     return $meta_ids;

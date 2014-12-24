@@ -21,6 +21,9 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                 @listenTo view, "element:draggable:changed", (draggable)=>
                     @model.set "draggable", draggable
 
+                @listenTo view, "element:phone:link:changed", (phone_link)=>
+                    @model.set 'phone_link', phone_link
+
                 @listenTo view, "element:spacing:changed", (spacing, value)=>
                     @model.set spacing, value
 

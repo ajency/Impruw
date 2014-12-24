@@ -362,9 +362,10 @@ function impruw_restore_elements($page_elements){
 function get_theme_post_id_from_name($theme_name){
 	global $wpdb;
 	switch_to_blog( 1 );
-	// print_r($theme_name);
 	if ($theme_name == 'Neon Theme')
 		$theme_name = 'Neon';
+	// print_r($theme_name);
+
 
     $query = $wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type='theme' AND 
         post_title=%s", $theme_name);

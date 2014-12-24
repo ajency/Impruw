@@ -69,11 +69,11 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
 
       Controller.prototype.deleteElement = function(model) {
         if (this.hasNonDeletable(model) && ISTHEMEEDITOR === 'no') {
-          bootbox.alert('<h6>' + _.polyglot.t('This row contains non deletable elements. You cannot delete this row') + '</h6>');
+          bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('This row contains non deletable elements. You cannot delete this row') + '</h4>');
           return;
         }
         if (!this.layout.elementRegion.currentView.$el.canBeDeleted()) {
-          return bootbox.confirm('<h6>' + _.polyglot.t('All elements inside the row will also be deleted. Do you want to continue?') + '</h6>', function(answer) {
+          return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('All elements inside the row will also be deleted. Do you want to continue?') + '</h4>', function(answer) {
             if (answer === true) {
               model.destroy();
               return _.delay(function() {

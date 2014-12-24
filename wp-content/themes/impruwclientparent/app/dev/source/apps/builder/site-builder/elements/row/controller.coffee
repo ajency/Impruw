@@ -63,11 +63,11 @@ define ['app', 'bootbox', 'apps/builder/site-builder/elements/row/views',
             # remove the element model
          deleteElement : ( model )->
             if @hasNonDeletable(model) and ISTHEMEEDITOR is 'no'
-               bootbox.alert '<h6>'+_.polyglot.t('This row contains non deletable elements. You cannot delete this row')+'</h6>'
+               bootbox.alert "<h4 class='delete-message'>" + _.polyglot.t('This row contains non deletable elements. You cannot delete this row')+'</h4>'
                return
 
             if not @layout.elementRegion.currentView.$el.canBeDeleted()
-               bootbox.confirm '<h6>'+_.polyglot.t('All elements inside the row will also be deleted. Do you want to continue?')+'</h6>', ( answer )->
+               bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t('All elements inside the row will also be deleted. Do you want to continue?')+'</h4>', ( answer )->
                   if answer is yes
                      model.destroy()
                      _.delay ->
