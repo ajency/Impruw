@@ -18,17 +18,8 @@ define [ 'app', 'controllers/base-controller'
                 App.vent.trigger "set:active:menu", 'billing'
 
                 @listenTo @layout ,"show",=>
-
-                    App.execute "when:fetched",@siteModel,=>
-
-                        subscriptionId = @siteModel.get 'braintree_subscription'
-                        braintreeCustomerId = @siteModel.get 'braintree_customer_id'
-
-                        subscriptionModel = App.request "get:subscription:by:id", subscriptionId
-
-                        App.execute "show:account:info",
-                            region : @layout.accountInfoRegion
-                            subscriptionModel : subscriptionModel
+                    App.execute "show:account:info",
+                        region : @layout.accountInfoRegion
 
                         # App.execute "show:pending:subscription",
                         #     region : @layout.pendingSubscriptionRegion

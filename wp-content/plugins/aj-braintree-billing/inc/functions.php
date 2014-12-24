@@ -806,7 +806,15 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 	{
 		//Get customer subscription id if customer exists
 		if (!$braintree_customer_id) {
-		// customer not added to braintree
+			$current_subscription_details =  array(
+								'subscription_status' => 'N/A', 
+								'billingPeriodStartDate' => 'N/A', 
+								'billingPeriodEndDate' => 'N/A', 
+								'nextBillAmount' => 'N/A', 
+								'price' => 'N/A', 
+								'nextBillingDate' => 'N/A', 
+								);
+			$billing_plan = $current_subscription_details;
 		}
 		else{
 			// customer is present in braintree
@@ -818,7 +826,8 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 
 		}
 
-
+		$billing_plan['object_id'] = $object_id;
+		$billing_plan['object_type'] = $object_type;
 		$billing_plan['id'] = $site_plan['id'];
 		$billing_plan['plan_title'] = $site_plan['title'];
 		$billing_plan['plan_status'] = $site_plan['status'];

@@ -3,7 +3,7 @@
     <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
             <small>{{#polyglot}}Active Plan:{{/polyglot}}</small>
-            Essential
+            {{plan_title}}
         </h6>
     </div>
     <div class="col-sm-6 right">
@@ -13,19 +13,23 @@
         <h6 class="aj-imp-sub-head-thin">
             <small>{{#polyglot}}Plan Features:{{/polyglot}}<small>
             <br/>
+            {{#plan_features}}
             <div class="col-sm-6 left">
                 <h6 class="aj-imp-sub-head-thin">
-                    <small>{{#polyglot}}Domain mapping: {{/polyglot}} </small>
-                    <small>Enabled</small>
+                    <small>{{name}}</small>
+                    <small>{{enabled}}</small>
                 </h6>
             </div>
             <div class="col-sm-6 right">
                 <h6 class="aj-imp-sub-head-thin">
                     <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
-                    <small>N/A</small>
+                    <small>{{count}}</small>
                 </h6>
             </div>
-            <div class="col-sm-6 left">
+            {{/plan_features}}
+        </h6>
+
+ <!--            <div class="col-sm-6 left">
                 <h6 class="aj-imp-sub-head-thin">
                     <small>{{#polyglot}}Email Account: {{/polyglot}} </small>
                     <small>Enabled</small>
@@ -48,6 +52,24 @@
                     <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
                     <small>3</small>
                 </h6>
+            </div> -->
+        
+    </div>
+    <div class="col-sm-12">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Addons visible on the site: {{/polyglot}} </small>
+            <br/>
+            <div class="form-group">
+                <label class="checkbox"><input type="checkbox" value=""> Language Switcher </label>
+            </div>
+            <div class="form-group">
+                <label class="checkbox"><input type="checkbox" value=""> Smart Table </label>
+            </div>
+            <div class="form-group">
+                <label class="checkbox"><input type="checkbox" value=""> Display Rooms </label>
+            </div>
+            <div class="form-group">
+                <label class="checkbox"><input type="checkbox" value=""> Room Booking </label>
             </div>
         </h6>
     </div>
@@ -59,7 +81,7 @@
     <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
             <small>{{#polyglot}}Subscription Status:{{/polyglot}}</small>
-            Active
+            {{subscription_status}}
         </h6>
     </div>
     <div class="col-sm-6 right">
@@ -73,11 +95,11 @@
             <small>{{#polyglot}}Current billing cycle:{{/polyglot}} </small>
             <span>
                 <small>{{#polyglot}}From:{{/polyglot}} </small>
-                 {{bill_start}}
+                 {{billingPeriodStartDate}}
             </span>
             <span>
                 <small>- </small>
-                {{bill_end}}
+                {{billingPeriodEndDate}}
             </span>
         </h6>
     </div>
@@ -90,13 +112,13 @@
     <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
             <small>{{#polyglot}}Next billing date:{{/polyglot}} </small>
-            {{bill_end}}
+            {{nextBillingDate}}
         </h6>
     </div>
     <div class="col-sm-6 right">
         <h6 class="aj-imp-sub-head-thin">
             <small>{{#polyglot}}Next Billing period Amount:{{/polyglot}} </small>
-            &#163; {{price}}
+            &#163; {{nextBillAmount}}
         </h6>
     </div>
 </div>

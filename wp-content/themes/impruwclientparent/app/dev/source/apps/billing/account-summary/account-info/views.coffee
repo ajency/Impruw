@@ -7,5 +7,9 @@ define ['app'
 
             template: viewTpl
 
+            onShow :->
+            	console.log @model
+            	console.log @model.get 'plan_title'
+
 
 

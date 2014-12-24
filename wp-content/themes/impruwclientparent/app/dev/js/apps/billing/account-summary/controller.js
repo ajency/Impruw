@@ -16,15 +16,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
-            return App.execute("when:fetched", _this.siteModel, function() {
-              var braintreeCustomerId, subscriptionId, subscriptionModel;
-              subscriptionId = _this.siteModel.get('braintree_subscription');
-              braintreeCustomerId = _this.siteModel.get('braintree_customer_id');
-              subscriptionModel = App.request("get:subscription:by:id", subscriptionId);
-              return App.execute("show:account:info", {
-                region: _this.layout.accountInfoRegion,
-                subscriptionModel: subscriptionModel
-              });
+            return App.execute("show:account:info", {
+              region: _this.layout.accountInfoRegion
             });
           };
         })(this));
