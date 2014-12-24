@@ -306,7 +306,26 @@ function aj_insert_site_plan_db($data){
 	$plans_table =  $wpdb->base_prefix.'aj_billing_plans'; 
 	$braintree_plan_ids = maybe_serialize($data['braintree_plan_ids']);
 	$title = $data['site_plan_title'];
-	$features = maybe_serialize($data['site_plan_feature']);
+
+	$unserialized_features = $data['site_plan_feature'];
+
+	foreach ($unserialized_features as $key => $unserialized_feature) {
+		if ($unserialized_feature['enabled']==="true") {
+			$unserialized_features[$key]['enabled'] = 1;
+		}
+		else if($unserialized_feature['enabled']==="false"){
+			$unserialized_features[$key]['enabled'] = 0;
+		}
+
+		if(ajbilling_is_count_feature($unserialized_feature['key'])){
+			$unserialized_features[$key]['is_count_type'] = 1;
+		}
+		else{
+			$unserialized_features[$key]['is_count_type'] = 0;
+		}
+	}
+
+	$features = maybe_serialize($unserialized_features);
 	$status = $data['site_plan_status'];
 
 	$sqlQuery = "INSERT INTO {$plans_table}
@@ -342,7 +361,26 @@ function aj_update_site_plan_db($data){
 	$plans_table =  $wpdb->base_prefix.'aj_billing_plans'; 
 	$braintree_plan_ids = maybe_serialize($data['braintree_plan_ids']);
 	$title = $data['site_plan_title'];
-	$features = maybe_serialize($data['site_plan_feature']);
+
+	$unserialized_features = $data['site_plan_feature'];
+
+	foreach ($unserialized_features as $key => $unserialized_feature) {
+		if ($unserialized_feature['enabled']==="true") {
+			$unserialized_features[$key]['enabled'] = 1;
+		}
+		else if($unserialized_feature['enabled']==="false"){
+			$unserialized_features[$key]['enabled'] = 0;
+		}
+
+		if(ajbilling_is_count_feature($unserialized_feature['key'])){
+			$unserialized_features[$key]['is_count_type'] = 1;
+		}
+		else{
+			$unserialized_features[$key]['is_count_type'] = 0;
+		}
+	}
+
+	$features = maybe_serialize($unserialized_features);
 	$status = $data['site_plan_status'];
 
 	$sqlQuery = " UPDATE {$plans_table}
@@ -982,7 +1020,7 @@ function ajbilling_is_this_user_allowed($object_id , $object_type='site', $featu
                 // If yes no type and if enabled return allowed
 		if (ajbilling_is_yesno_feature($feature_component)) {
 			$plugin_feature_enabled = ajbilling_plugin_feature_enable_status($site_plan_id,$feature_component);
-			if ($plugin_feature_enabled==='true') {
+			if ($plugin_feature_enabled) {
 				$result = array('code' => 'OK' , 'allowed'=>1 );
 			}
 			else{
@@ -995,7 +1033,7 @@ function ajbilling_is_this_user_allowed($object_id , $object_type='site', $featu
 
             // Check if feature is enabled
 			$plugin_feature_enabled = ajbilling_plugin_feature_enable_status($site_plan_id,$feature_component);
-			if ($plugin_feature_enabled==='true') {
+			if ($plugin_feature_enabled) {
 				$result = array('code' => 'OK' , 'allowed'=>1 );
 				// foreach ($site_features as $site_feature) {
 				// 	if ($site_feature['key']==$feature_component) {

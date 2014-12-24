@@ -67,7 +67,7 @@ function domain_mapping_feature_changes($site_id, $feature_args){
 	$domain_name = get_option( 'domain-name');
 	restore_current_blog();
 
-	if (($enable_status==='false') && $domain_name) {
+	if ((!$enable_status) && $domain_name) {
 		// Enable coming soon page for the site
 		dm_coming_soon_page($site_id,true);
 	}

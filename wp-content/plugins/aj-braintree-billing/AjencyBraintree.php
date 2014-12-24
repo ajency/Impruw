@@ -350,23 +350,26 @@ class AjencyBraintree{
 			array (
 				'name' => 'Domain Mapping',
 				'key' => 'domain_mapping',
-				'enabled' => 'false',
+				'enabled' => 0,
 				'count' => '0',
+				'is_count_type' => 0
 				),
 			1 => 
 			array (
 				'name' => 'Email Account',
 				'key' => 'email_account',
-				'enabled' => 'false',
+				'enabled' => 0,
 				'count' => '0',
+				'is_count_type' => 1,
 				'count_type' => 'single'
 				),
 			2 => 
 			array (
 				'name' => 'Site Add Ons',
 				'key' => 'site_add_ons',
-				'enabled' => 'false',
+				'enabled' => 0,
 				'count' => '0',
+				'is_count_type' => 1,
 				'count_type' => 'multiple'
 				),
 			);
