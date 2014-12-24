@@ -56,7 +56,7 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/tabs/views', 'apps
 
       Controller.prototype.deleteElement = function(model) {
         if (!this.layout.elementRegion.currentView.$el.find('.tab-content').canBeDeleted()) {
-          return bootbox.confirm("All elements inside the Tab will also be deleted. Do you want to continue?", function(answer) {
+          return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t("All elements inside the Tab will also be deleted. Do you want to continue?") + "</h4>", function(answer) {
             if (answer === true) {
               model.destroy();
               return _.delay(function() {

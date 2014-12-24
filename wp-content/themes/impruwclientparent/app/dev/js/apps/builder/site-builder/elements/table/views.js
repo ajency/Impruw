@@ -81,7 +81,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         console.log(rows);
         currentRows = this.$el.find('tbody tr').length;
         if (rows > 100 && currentRows < rows) {
-          bootbox.alert("<h4>" + _.polyglot.t('Cannot enter more then 100 rows') + "</h4>");
+          bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('Cannot enter more then 100 rows') + "</h4>");
           return;
         }
         if (currentRows === rows) {
@@ -98,7 +98,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
           }
           return this.saveTableMarkup();
         } else {
-          return bootbox.confirm("</h4>" + _.polyglot.t('Removing a ROW might cause a loss of data. Do you want to continue?') + "</h4>", (function(_this) {
+          return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('Removing a ROW might cause a loss of data. Do you want to continue?') + "</h4>", (function(_this) {
             return function(result) {
               if (result) {
                 while (currentRows !== rows) {
@@ -124,7 +124,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         console.log(columns);
         currentColumns = this.$el.find('thead th').length;
         if (columns > 100 && currentColumns < columns) {
-          bootbox.alert("<h4>" + _.polyglot.t('Cannot enter more then 100 columns') + "</h4>");
+          bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('Cannot enter more then 100 columns') + "</h4>");
           return;
         }
         if (currentColumns === columns) {
@@ -142,7 +142,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
           this.$el.find('table').resizableColumns();
           return this.saveTableMarkup();
         } else {
-          return bootbox.confirm("<h4>" + _.polyglot.t('Removing a COLUMN might cause a loss of data. Do you want to continue?') + "</h4>", (function(_this) {
+          return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('Removing a COLUMN might cause a loss of data. Do you want to continue?') + "</h4>", (function(_this) {
             return function(result) {
               if (result) {
                 while (currentColumns !== columns) {

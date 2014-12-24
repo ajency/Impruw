@@ -75,7 +75,7 @@ define ['app','bootbox'], (App,bootbox)->
 				currentRows = @$el.find('tbody tr').length 
 
 				if rows > 100 and currentRows < rows
-					bootbox.alert "<h4>"+_.polyglot.t('Cannot enter more then 100 rows')+"</h4>"
+					bootbox.alert "<h4 class='delete-message'>" + _.polyglot.t('Cannot enter more then 100 rows')+"</h4>"
 					return
 				if currentRows is rows
 					return
@@ -91,7 +91,7 @@ define ['app','bootbox'], (App,bootbox)->
 
 					@saveTableMarkup()
 				else
-					bootbox.confirm "</h4>"+_.polyglot.t('Removing a ROW might cause a loss of data.
+					bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t('Removing a ROW might cause a loss of data.
 						Do you want to continue?')+"</h4>",(result)=>
 						if result
 							while currentRows isnt rows
@@ -114,7 +114,7 @@ define ['app','bootbox'], (App,bootbox)->
 				currentColumns = @$el.find('thead th').length 
 
 				if columns > 100 and currentColumns < columns
-					bootbox.alert "<h4>"+_.polyglot.t('Cannot enter more then 100 columns')+"</h4>"
+					bootbox.alert "<h4 class='delete-message'>" + _.polyglot.t('Cannot enter more then 100 columns')+"</h4>"
 					return
 
 				if currentColumns is columns
@@ -136,7 +136,7 @@ define ['app','bootbox'], (App,bootbox)->
 					@$el.find('table').resizableColumns()
 					@saveTableMarkup()
 				else 
-					bootbox.confirm "<h4>"+_.polyglot.t('Removing a COLUMN might cause a loss of data.
+					bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t('Removing a COLUMN might cause a loss of data.
 						Do you want to continue?')+"</h4>",(result)=>
 						if result
 							while currentColumns isnt columns

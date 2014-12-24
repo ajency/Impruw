@@ -51,7 +51,7 @@ define ['app'
 			deleteElement : ( model )->
 				if not @layout.elementRegion.currentView.$el.find('.tab-content').canBeDeleted()
 
-					bootbox.confirm "All elements inside the Tab will also be deleted. Do you want to continue?", ( answer )->
+					bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t("All elements inside the Tab will also be deleted. Do you want to continue?")+"</h4>", ( answer )->
 						if answer is yes
 							model.destroy()
 							_.delay ->

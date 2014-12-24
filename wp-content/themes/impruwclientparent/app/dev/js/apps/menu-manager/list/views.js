@@ -46,7 +46,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         },
         'click .delete-menu-item': function() {
           var message;
-          message = _.polyglot.t('This menu item will be removed from all the occurrences of the menu. Are you sure you want to delete the menu item?');
+          message = "<h4 class='delete-message'>" + _.polyglot.t('This menu item will be removed from all the occurrences of the menu. Are you sure you want to delete the menu item?') + "</h4>";
           return bootbox.confirm(message, (function(_this) {
             return function(answer) {
               if (answer === true) {

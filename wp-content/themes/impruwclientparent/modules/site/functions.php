@@ -781,10 +781,8 @@ function empty_new_pages($theme_pages){
     foreach ($current_english_pages as  $value) {
         if (!in_array($value->post_title, $skip) && !in_array($value->ID, $theme_pages)){
             store_unused_elements( $value->ID );
-            // print_r($value->ID.'      '.$value->post_title.' --  ');
             update_post_meta( $value->ID, 'page-json', '');
             $autosave_id = wp_get_post_autosave( $value->ID );
-            // print_r( ' -- '.$autosave_id->ID.' -- ');
             update_revision_meta( $autosave_id->ID, 'page-json', '');
         }
     }

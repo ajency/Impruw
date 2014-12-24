@@ -26,7 +26,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
       AccordionTab.prototype.events = {
         'click .delete-accordion-btn': function() {
           if (!this.$el.children('.panel-collapse').children('.column').isEmptyColumn()) {
-            bootbox.alert("The tab is not empty. Please delete elements inside tab content to remove");
+            bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t("The tab is not empty. Please delete elements inside tab content to remove") + "</h4>");
             return;
           }
           return this.model.collection.remove(this.model);
