@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.SiteBilling", function(SiteBilling, App, Backbone, Marionette, $, _) {
-    var API, SiteBillingPlan;
+    var API, SiteBillingPlan, SiteBillingPlanCollection, siteBillingPlanCollection;
     SiteBillingPlan = (function(_super) {
       __extends(SiteBillingPlan, _super);
 
@@ -13,7 +13,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       SiteBillingPlan.prototype.name = 'sitebillingplan';
 
-      SiteBillingPlan.prototype.idAttribute = 'object_id';
+      SiteBillingPlan.prototype.idAttribute = 'id';
 
       SiteBillingPlan.prototype.sync = function(method, entity, options) {
         var xhr;
@@ -27,12 +27,29 @@ define(["app", 'backbone'], function(App, Backbone) {
       };
 
       SiteBillingPlan.prototype.url = function() {
-        return SITEURL + '/api/ajbilling/plan/' + this.id + '/site';
+        return "" + SITEURL + "/api/ajbilling/plan/" + (this.get("object_id")) + "/site";
       };
 
       return SiteBillingPlan;
 
     })(Backbone.Model);
+    SiteBillingPlanCollection = (function(_super) {
+      __extends(SiteBillingPlanCollection, _super);
+
+      function SiteBillingPlanCollection() {
+        return SiteBillingPlanCollection.__super__.constructor.apply(this, arguments);
+      }
+
+      SiteBillingPlanCollection.prototype.model = SiteBillingPlan;
+
+      SiteBillingPlanCollection.prototype.url = function() {
+        return "" + SITEURL + "/api/ajbilling/plans/" + SITEID["id"];
+      };
+
+      return SiteBillingPlanCollection;
+
+    })(Backbone.Collection);
+    siteBillingPlanCollection = new SiteBillingPlanCollection;
     API = {
       getSiteBillingPlan: function(siteId) {
         var siteBillingPlanModel;
@@ -45,10 +62,17 @@ define(["app", 'backbone'], function(App, Backbone) {
           }
         });
         return siteBillingPlanModel;
+      },
+      getSiteBillingPlanCollection: function() {
+        siteBillingPlanCollection.fetch();
+        return siteBillingPlanCollection;
       }
     };
-    return App.reqres.setHandler("get:site:billing:plan", function(siteId) {
+    App.reqres.setHandler("get:site:billing:plan", function(siteId) {
       return API.getSiteBillingPlan(siteId);
+    });
+    return App.reqres.setHandler("get:all:billing:plans", function() {
+      return API.getSiteBillingPlanCollection();
     });
   });
 });

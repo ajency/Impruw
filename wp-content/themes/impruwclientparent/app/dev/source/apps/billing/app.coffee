@@ -3,6 +3,7 @@ define [
     'apps/billing/account-summary/controller'
     'apps/billing/update-billing/controller'
     'apps/billing/pricing-plans/controller'
+    'apps/billing/site-plans/controller'
     'apps/billing/payment-page/controller' ], ( App )->
     App.module 'BillingApp', ( BillingApp, App, Backbone, Marionette, $, _ )->
 
@@ -29,8 +30,12 @@ define [
             #         region : App.rightRegion
 
             plans : ->
-                App.execute "show:plans:app",
+                App.execute "show:site:plans:app",
                     region : App.rightRegion
+
+            # plans : ->
+            #     App.execute "show:plans:app",
+            #         region : App.rightRegion
 
             # payment : ( planId )->
             #     App.execute "show:payment:app",

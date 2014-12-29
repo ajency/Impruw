@@ -7,7 +7,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             name: 'sitebillingplan'
 
-            idAttribute : 'object_id'
+            idAttribute : 'id'
 
 
             sync: (method, entity, options = {})->
@@ -15,8 +15,17 @@ define ["app", 'backbone'], (App, Backbone) ->
                 entity._fetch = xhr if method is 'read'
 
             url: ->
-                return SITEURL+'/api/ajbilling/plan/'+@id+'/site'
+                return "#{SITEURL}/api/ajbilling/plan/#{@get("object_id")}/site"
 
+
+        class SiteBillingPlanCollection extends Backbone.Collection
+
+            model: SiteBillingPlan
+
+            url: ->
+                "#{SITEURL}/api/ajbilling/plans/#{SITEID["id"]}"
+
+        siteBillingPlanCollection = new SiteBillingPlanCollection
 
         API =
 
@@ -26,5 +35,12 @@ define ["app", 'backbone'], (App, Backbone) ->
                     siteBillingPlanModel = model
                 siteBillingPlanModel
 
+            getSiteBillingPlanCollection:->
+                siteBillingPlanCollection.fetch()
+                siteBillingPlanCollection
+
         App.reqres.setHandler "get:site:billing:plan",( siteId ) ->
             API.getSiteBillingPlan siteId
+
+        App.reqres.setHandler "get:all:billing:plans",()->
+            API.getSiteBillingPlanCollection()
