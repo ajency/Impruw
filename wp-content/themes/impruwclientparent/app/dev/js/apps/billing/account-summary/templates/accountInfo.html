@@ -1,4 +1,4 @@
-<h6 class="aj-imp-sub-head">{{#polyglot}}Plan Details{{/polyglot}}</h6>
+<h6>{{#polyglot}}Plan Details{{/polyglot}}</h6>
 <div class="aj-imp-widget-head row">
     <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
@@ -16,67 +16,24 @@
             {{#plan_features}}
             <div class="col-sm-6 left">
                 <h6 class="aj-imp-sub-head-thin">
-                    <small>{{name}}</small>
-                    <small>{{enabled}}</small>
+                    <small>{{name}}:</small>
+                    <small>{{#enabled}}Enabled{{/enabled}}{{^enabled}}Disabled{{/enabled}}</small>
                 </h6>
             </div>
             <div class="col-sm-6 right">
                 <h6 class="aj-imp-sub-head-thin">
                     <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
-                    <small>{{count}}</small>
+                    {{#is_count_type}}<small>{{count}}</small>{{/is_count_type}}
+                    {{^is_count_type}}<small>N/A</small>{{/is_count_type}}
                 </h6>
             </div>
             {{/plan_features}}
-        </h6>
-
- <!--            <div class="col-sm-6 left">
-                <h6 class="aj-imp-sub-head-thin">
-                    <small>{{#polyglot}}Email Account: {{/polyglot}} </small>
-                    <small>Enabled</small>
-                </h6>
-            </div>
-            <div class="col-sm-6 right">
-                <h6 class="aj-imp-sub-head-thin">
-                    <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
-                    <small>1</small>
-                </h6>
-            </div>
-            <div class="col-sm-6 left">
-                <h6 class="aj-imp-sub-head-thin">
-                    <small>{{#polyglot}}Site Add ons: {{/polyglot}} </small>
-                    <small>Enabled</small>
-                </h6>
-            </div>
-            <div class="col-sm-6 right">
-                <h6 class="aj-imp-sub-head-thin">
-                    <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
-                    <small>3</small>
-                </h6>
-            </div> -->
-        
-    </div>
-    <div class="col-sm-12">
-        <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Addons visible on the site: {{/polyglot}} </small>
-            <br/>
-            <div class="form-group">
-                <label class="checkbox"><input type="checkbox" value=""> Language Switcher </label>
-            </div>
-            <div class="form-group">
-                <label class="checkbox"><input type="checkbox" value=""> Smart Table </label>
-            </div>
-            <div class="form-group">
-                <label class="checkbox"><input type="checkbox" value=""> Display Rooms </label>
-            </div>
-            <div class="form-group">
-                <label class="checkbox"><input type="checkbox" value=""> Room Booking </label>
-            </div>
         </h6>
     </div>
 </div>
 <br/>
 <hr>
-<h6 class="aj-imp-sub-head">{{#polyglot}}Subscription Details{{/polyglot}}</h6>
+<h6>{{#polyglot}}Subscription Details{{/polyglot}}</h6>
 <div class="aj-imp-widget-head row">
     <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
@@ -122,5 +79,6 @@
         </h6>
     </div>
 </div>
+
 
 

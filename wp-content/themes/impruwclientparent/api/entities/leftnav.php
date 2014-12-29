@@ -129,12 +129,14 @@ function get_elementbox_elements() {
             'element' => 'Menu',
             'icon' => 'bicon icon-uniF14E',
             'helpText' => 'Click on the menu item to add and remove pages from the menu.',
-            'styles' => get_styles( 'Menu' )
+            'styles' => get_styles( 'Menu' ),
+            'addOn' => false
         ),
         array(
             'element' => 'Row',
             'icon' => 'bicon icon-uniF103',
-            'styles' => get_styles( 'Row' )
+            'styles' => get_styles( 'Row' ),
+            'addOn' => false
         ),
         array(
             'element' => 'Logo',
@@ -142,6 +144,7 @@ function get_elementbox_elements() {
             'helpText' => 'Upload your logo once and you are done! Simply drag and drop your logo element where you want the logo to be displayed.',
             'styles' => array(),
             'size' => '', //get_logo_size(),
+            'addOn' => false,
             'category' => 'hotel'
         ),
         array(
@@ -157,18 +160,21 @@ function get_elementbox_elements() {
             'element' => 'Text',
             'icon' => 'bicon icon-uniF111',
             'helpText' => 'Exactly what it sounds like - an element for writing text. Click inside the element to start writing.',
+            'addOn' => false,
             'styles' => array()
         ),
         array(
             'element' => 'Title',
             'icon' => 'bicon icon-uniF11C',
             'helpText' => 'Used for adding titles / headers to a page. Play with various styles from the editor.',
+            'addOn' => false,
             'styles' => get_styles( 'Title' )
         ),
         array(
             'element' => 'Image',
             'icon' => 'bicon icon-uniF10E',
             'helpText' => 'Adding pictures to your site works in much the same way as adding text: by dragging an image element to a page.',
+            'addOn' => false,
             'styles' => array()
         ),
         array(
@@ -176,12 +182,14 @@ function get_elementbox_elements() {
             'title' => 'Image With Text',
             'icon' => 'bicon icon-uniF112',
             'helpText' => 'A text element with a place for both text and an image built in.',
+            'addOn' => false,
             'styles' => get_styles( 'ImageWithText' )
         ),
         array(
             'element' => 'Table',
             'title' => 'Table',
             'helpText' => 'A simple and precise way to express the classified contents within a less space in various styles.',
+            'addOn' => false,
             'icon' => 'bicon icon-uniF166'
         ),
         array(
@@ -189,6 +197,7 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF183',
             'helpText' => 'Update your address from site profile on your dashboard.',
             'styles' => get_styles( 'Address' ),
+            'addOn' => false,
             'category' => 'hotel'
         ),
         array(
@@ -196,6 +205,7 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF11A',
             'helpText' => 'Update your facebook and twitter pages from site profile on the dashboard. Each theme includes social media buttons that are designed specifically for that theme.',
             'styles' => get_styles( 'Social' ),
+            'addOn' => false,
             'category' => 'hotel'
         ),
         array(
@@ -203,6 +213,7 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF149',
             'helpText' => 'Add a text link or turn it into a button. Connect people to other pages on your site, pages on other sites, email addresses and files that they may want to download.',
             'styles' => get_styles( 'Link' ),
+            'addOn' => false,
             'link_pages' => get_all_link_pages()
         ),
         array(
@@ -211,6 +222,7 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF11B',
             'helpText' => 'Forms are an easy way for your site visitors to send information to you.',
             'styles' => get_styles( 'ContactForm' ),
+            'addOn' => false,
             'category' => 'hotel'
         ),
         array(
@@ -218,12 +230,14 @@ function get_elementbox_elements() {
             'icon' => 'bicon icon-uniF110',
             'helpText' => 'We have a built-in Google Maps element that helps you display your address updated from your site profile.',
             'styles' => get_styles( 'Map' ),
+            'addOn' => false,
             'category' => 'hotel'
         ),
          array(
             'element' => 'Widget',
             'icon' => 'bicon icon-uniF11E',
             'helpText' => 'Just because we don\'t have an element for something, doesn\'t mean you can\'t add it to your site. Widget allows you to add pretty much any embeddable content to your site.',
+            'addOn' => false,
             // 'styles' => get_styles( 'Wid' ),
             // 'category' => 'hotel'
         ),
@@ -231,12 +245,14 @@ function get_elementbox_elements() {
             'element' => 'Slider',
             'icon' => 'bicon icon-uniF119',
             'helpText' => 'Turn your static banner images into active slideshows with options of various transition styles.',
+            'addOn' => false,
             'sliders' => get_theme_sliders()
         ),
         array(
             'element' => 'Gallery',
             'icon' => 'bicon icon-uniF10C',
             'helpText' => 'The gallery element enables you to upload photos in bulk, which are arranged in a click-to-see-a-larger-version grid format.',
+            'addOn' => false,
             'galleries' => get_theme_sliders()
         ),
         array(
@@ -244,6 +260,7 @@ function get_elementbox_elements() {
             'title' => 'Room Gallery',
             'icon' => 'bicon icon-uniF10C',
             'helpText' => 'The room gallery element displays all the photos added to your room in the dashboard, which are arranged in a click-to-see-a-larger-version grid format.',
+            'addOn' => false,
             'category' => 'hotel'
         ),
         array(
@@ -251,6 +268,7 @@ function get_elementbox_elements() {
             'title' => 'Room Facilities',
             'icon' => 'bicon icon-uniF17E',
             'helpText' => 'Display facilities for your individual room. Edit the room to update facilities.',
+            'addOn' => false,
             'category' => 'hotel'
         ),
         array(
@@ -258,6 +276,7 @@ function get_elementbox_elements() {
             'title' => 'Room Title',
             'icon' => 'bicon icon-uniF12D',
             'helpText' => 'The room name added by you at the time of creating the room.',
+            'addOn' => false,
             'category' => 'hotel'
         ),
         array(
@@ -265,6 +284,7 @@ function get_elementbox_elements() {
             'title' => 'Room Description',
             'icon' => 'bicon icon-uniF142',
             'helpText' => 'The description added to the room at the time of room creation.',
+            'addOn' => false,
             'category' => 'hotel'
         ),
         array(
@@ -282,6 +302,7 @@ function get_elementbox_elements() {
             'title' => 'Room Tariff',
             'icon' => 'bicon icon-uniF12B',
             'helpText' => 'The tariff for the room for various plans and date ranges.',
+            'addOn' => false,
             'category' => 'hotel'
         ),
         array(
@@ -297,6 +318,7 @@ function get_elementbox_elements() {
             'title' => 'Horizontal Space',
             'icon' => 'bicon icon-uniF105',
             'styles' => get_styles( 'Spacer' ),
+            'addOn' => false,
             'helpText' => 'Add a horizontal space between content, you can change the height and type of the space.'
         ),
         array(
@@ -311,6 +333,7 @@ function get_elementbox_elements() {
             'element' => 'List',
             'icon' => 'bicon icon-uniF14F',
             'helpText' => 'help text to be added',
+            'addOn' => false,
             'styles' => get_styles( 'List' )
         ),
         array(
@@ -318,12 +341,14 @@ function get_elementbox_elements() {
             // 'title' => 'Tabs',
             'icon' => 'bicon icon-uniF162',
             'helpText' => 'help text to be added',
+            'addOn' => false,
             'styles' => get_styles( 'Tabs' )//get_styles( 'Tabs' )
         ),
         array(
             'element' => 'Accordion',
             'icon' => 'bicon icon-uniF130',
             'helpText' => 'help text to be added',
+            'addOn' => false,
             'styles' => get_styles( 'Accordion' )
         )
     );

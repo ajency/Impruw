@@ -12,11 +12,6 @@ define(['app', 'text!apps/billing/account-summary/templates/accountInfo.html'], 
 
       AccountInfoView.prototype.template = viewTpl;
 
-      AccountInfoView.prototype.onShow = function() {
-        console.log(this.model);
-        return console.log(this.model.get('plan_title'));
-      };
-
       return AccountInfoView;
 
     })(Marionette.ItemView);

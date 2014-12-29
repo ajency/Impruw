@@ -162,14 +162,14 @@ function email_account_feature_changes($site_id, $feature_args){
 	$difference_in_count = $new_count-$old_count ;
 
 	switch ($enable_status) {
-		case 'true':
+		case 1:
 			if ($difference_in_count<0) {
 				$count = abs($difference_in_count);
 				suspend_email_accounts($site_id, $count);
 			}
 			break;
 		
-		case 'false':
+		case 0:
 			suspend_email_accounts($site_id);
 			break;
 	}

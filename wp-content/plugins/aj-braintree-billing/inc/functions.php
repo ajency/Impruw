@@ -501,7 +501,7 @@ function ajbilling_plugin_feature_enable_status($plan_id,$feature_component){
 	$yes_no_features = ajbilling_get_all_feature_components('yes_no_type');
 	$count_features = ajbilling_get_all_feature_components('count_type');
     $all_features = ajbilling_get_all_feature_components();
-    $enabled = 'false';
+    $enabled = 0;
 
     $plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
     $sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id=".$plan_id;
@@ -1199,6 +1199,11 @@ function ajbilling_update_feature_addon($object_id ,$element_name,$plus_or_minus
 						$new_count = array_values($new_count);
 					}
 					break;
+
+				case 'reset':
+					$new_count = array();
+					break;
+
 				default:
 					$new_count = array();
 					break;

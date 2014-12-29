@@ -43,7 +43,7 @@ include_once( dirname( __FILE__ ) . '/modules/elements/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/media/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/language/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/language/languagefunctions.php' );
-include_once( dirname( __FILE__ ) . '/modules/payment-plans/functions.php' );
+include_once( dirname( __FILE__ ) . '/modules/payment-plans/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/billing/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/seo/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/emails/ajax.php' );

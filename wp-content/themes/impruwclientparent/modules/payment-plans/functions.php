@@ -146,8 +146,24 @@ function  update_addons_count($element_name,$plus_or_minus){
 
     $site_id = get_current_blog_id();
     if (function_exists('ajbilling_update_feature_addon')) {
-         ajbilling_update_feature_addon($site_id ,$element_name,$plus_or_minus);
+         $result= ajbilling_update_feature_addon($site_id ,$element_name,$plus_or_minus);
      } 
+
+     return $result['updated_feature_count'];
+}
+
+function get_all_siteaddons(){
+    $elements = get_elementbox_elements();
+
+    $all_siteaddons = array();
+
+    foreach ($elements as $element) {
+        if ($element['addOn']) {
+            $all_siteaddons[] = $element;
+        }
+    }
+
+    return $all_siteaddons;
 }
 
 

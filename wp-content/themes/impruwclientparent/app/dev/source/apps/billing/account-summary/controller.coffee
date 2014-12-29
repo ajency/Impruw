@@ -1,5 +1,6 @@
 define [ 'app', 'controllers/base-controller'
          'apps/billing/account-summary/account-info/controller'
+         'apps/billing/account-summary/site-addons-info/controller'
          'apps/billing/account-summary/billing-info/controller'
          'apps/billing/account-summary/pending-subscription/controller'
          'apps/billing/account-summary/purchase-history/controller'
@@ -21,6 +22,9 @@ define [ 'app', 'controllers/base-controller'
                     App.execute "show:account:info",
                         region : @layout.accountInfoRegion
 
+                    App.execute "show:site:addons:info",
+                        region : @layout.siteAddOnRegion
+
                         # App.execute "show:pending:subscription",
                         #     region : @layout.pendingSubscriptionRegion
                         #     subscriptionId : subscriptionId
@@ -35,7 +39,8 @@ define [ 'app', 'controllers/base-controller'
 
 
                 # show main layout
-                @show @layout
+                @show @layout,
+                    loading : true
 
 
             # get layout

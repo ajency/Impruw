@@ -26,4 +26,5 @@ define [
     'entities/page-smarttable-elements'
     'entities/page-slider-elements'
     'entities/emails'
+    'entities/site-add-ons'
 ], ->
