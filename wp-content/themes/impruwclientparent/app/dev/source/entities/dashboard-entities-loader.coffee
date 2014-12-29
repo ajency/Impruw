@@ -27,4 +27,5 @@ define [
     'entities/page-slider-elements'
     'entities/emails'
     'entities/site-add-ons'
+    'entities/site-billing'
 ], ->

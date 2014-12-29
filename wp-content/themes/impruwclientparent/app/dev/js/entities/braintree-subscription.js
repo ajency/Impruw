@@ -3,52 +3,61 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.BraintreeSubscription", function(BraintreeSubscription, App, Backbone, Marionette, $, _) {
-    var API, SiteBillingPlan;
-    SiteBillingPlan = (function(_super) {
-      __extends(SiteBillingPlan, _super);
+    var API, BraintreePendingSubscription;
+    BraintreeSubscription = (function(_super) {
+      __extends(BraintreeSubscription, _super);
 
-      function SiteBillingPlan() {
-        return SiteBillingPlan.__super__.constructor.apply(this, arguments);
+      function BraintreeSubscription() {
+        return BraintreeSubscription.__super__.constructor.apply(this, arguments);
       }
 
-      SiteBillingPlan.prototype.name = 'sitebillingplan';
+      BraintreeSubscription.prototype.name = 'braintreesubscription';
 
-      SiteBillingPlan.prototype.idAttribute = 'object_id';
+      BraintreeSubscription.prototype.idAttribute = 'subscription_id';
 
-      SiteBillingPlan.prototype.sync = function(method, entity, options) {
-        var xhr;
-        if (options == null) {
-          options = {};
-        }
-        xhr = window._bsync(method, entity, options);
-        if (method === 'read') {
-          return entity._fetch = xhr;
-        }
-      };
+      return BraintreeSubscription;
 
-      SiteBillingPlan.prototype.url = function() {
-        return SITEURL + '/api/ajbilling/plan/' + this.id + '/site';
-      };
+    })(Backbone.Model);
+    BraintreePendingSubscription = (function(_super) {
+      __extends(BraintreePendingSubscription, _super);
 
-      return SiteBillingPlan;
+      function BraintreePendingSubscription() {
+        return BraintreePendingSubscription.__super__.constructor.apply(this, arguments);
+      }
+
+      BraintreePendingSubscription.prototype.name = 'braintreependingsubscription';
+
+      BraintreePendingSubscription.prototype.idAttribute = 'new_subscription_id';
+
+      return BraintreePendingSubscription;
 
     })(Backbone.Model);
     API = {
-      getSiteBillingPlan: function(siteId) {
-        var siteBillingPlanModel;
-        siteBillingPlanModel = new SiteBillingPlan({
-          'object_id': siteId
+      getSubscriptionById: function(subscriptionId) {
+        var subscriptionModel;
+        subscriptionModel = new BraintreeSubscription({
+          'subscription_id': subscriptionId
         });
-        siteBillingPlanModel.fetch({
-          success: function(model) {
-            return siteBillingPlanModel = model;
+        subscriptionModel.fetch();
+        return subscriptionModel;
+      },
+      getPendingSubscription: function(subscriptionId) {
+        var subscriptionModel;
+        subscriptionModel = new BraintreePendingSubscription;
+        subscriptionModel.fetch({
+          data: {
+            'action': 'get-pending-subscription',
+            'old_subscription_id': subscriptionId
           }
         });
-        return siteBillingPlanModel;
+        return subscriptionModel;
       }
     };
-    return App.reqres.setHandler("get:site:billing:plan", function(siteId) {
-      return API.getSiteBillingPlan(siteId);
+    App.reqres.setHandler("get:subscription:by:id", function(subscriptionId) {
+      return API.getSubscriptionById(subscriptionId);
+    });
+    return App.reqres.setHandler("get:pending:subscription", function(subscriptionId) {
+      return API.getPendingSubscription(subscriptionId);
     });
   });
 });
