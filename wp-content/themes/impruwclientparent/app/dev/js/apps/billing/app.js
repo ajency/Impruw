@@ -14,7 +14,8 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
       Router.prototype.appRoutes = {
         'billing': 'summary',
         'billing/account-summary': 'summary',
-        'billing/pricing-plans': 'plans'
+        'billing/pricing-plans': 'plans',
+        'billing/payment-page/:id': 'payment'
       };
 
       return Router;
@@ -29,6 +30,12 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
       plans: function() {
         return App.execute("show:site:plans:app", {
           region: App.rightRegion
+        });
+      },
+      payment: function(planId) {
+        return App.execute("show:payment:app", {
+          region: App.rightRegion,
+          planId: planId
         });
       }
     };

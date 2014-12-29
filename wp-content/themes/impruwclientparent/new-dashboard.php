@@ -56,6 +56,7 @@
     var PAYMENT_PLAN_ID =  <?php echo get_site_plan() ?>;
     var PLAN_FEATURE_COUNT = { "email_account": [ {"current_count": <?php echo site_feature_current_count('email_account'); ?>,"allowed_count": <?php echo site_feature_allowed_count('email_account'); ?>}], "site_add_ons": [ { "current_count": <?php echo site_feature_current_count('site_add_ons'); ?>, "allowed_count": <?php echo site_feature_allowed_count('site_add_ons'); ?> }] };
     var SELECTED_SITE_ADDONS = <?php echo json_encode(site_feature_current_count_array('site_add_ons')); ?>;
+    var COUNTRY_BASED_CURRENCY = '<?php echo get_country_based_site_currency();?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var USERDATA = <?php $impruwUserModel = new ImpruwUser(get_current_user_id());
                         echo json_encode($impruwUserModel->get_user_basic_info());

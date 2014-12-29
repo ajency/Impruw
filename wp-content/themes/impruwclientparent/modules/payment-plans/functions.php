@@ -166,5 +166,15 @@ function get_all_siteaddons(){
     return $all_siteaddons;
 }
 
+function get_country_based_site_currency(){
+    $site_id = get_current_blog_id();
+    
+    if (function_exists('ajbilling_get_site_currency')) {
+         $currency= ajbilling_get_site_currency($site_id);
+     } 
+
+     return $currency;
+}
+
 
 

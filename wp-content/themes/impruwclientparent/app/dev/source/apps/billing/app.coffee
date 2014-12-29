@@ -15,7 +15,7 @@ define [
                 'billing/account-summary' : 'summary'
                 # 'billing/update-billing' : 'updateBilling'
                 'billing/pricing-plans' : 'plans'
-                # 'billing/payment-page/:id' : 'payment'
+                'billing/payment-page/:id' : 'payment'
 
 
         #public API
@@ -37,10 +37,10 @@ define [
             #     App.execute "show:plans:app",
             #         region : App.rightRegion
 
-            # payment : ( planId )->
-            #     App.execute "show:payment:app",
-            #         region : App.rightRegion
-            #         planId  : planId
+            payment : ( planId )->
+                App.execute "show:payment:app",
+                    region : App.rightRegion
+                    planId  : planId
 
 
         BillingApp.on 'start' : ->

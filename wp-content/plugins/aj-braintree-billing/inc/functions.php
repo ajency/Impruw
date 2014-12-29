@@ -809,6 +809,46 @@ function ajbilling_get_site_planid($object_id, $object_type='site'){
 	return $site_plan_id;
 }
 
+function ajbilling_get_site_currency($site_id){
+	if ( is_multisite() ){
+		switch_to_blog( $site_id );
+		$user_site_country = get_option('site-country');
+
+		// If no country is set for the site, then default country to us i.e usd currency
+		if (!$user_site_country) {
+			update_option( 'site-country', 'us' );
+			$user_site_country = 'us';
+		}
+		restore_current_blog();
+	}
+	else{
+		$user_site_country = get_option('site-country');
+		if (!$user_site_country) {
+			update_option( 'site-country', 'us' );
+			$user_site_country = 'us';
+		}
+	}
+
+    // Get currency based on country
+	$site_currency = aj_braintree_get_currency($user_site_country);
+
+	switch ($site_currency) {
+		case 'GBP':
+			$currency = '£';
+			break;
+
+		case 'NOK':
+			$currency = 'NOK';
+			break;
+		
+		default:
+			$currency = '$';
+			break;
+	}
+
+	return $currency;
+}
+
 function ajbilling_fetch_plan($object_id, $object_type='site'){
 	global $wpdb;
 
@@ -908,7 +948,7 @@ function ajbilling_fetch_all_plans($object_id, $object_type='site'){
 	global $wpdb;
 
 	$result = array();
-	
+
     //Get site plan id and country from site options
 	$user_site_plan = "";
 
@@ -917,7 +957,7 @@ function ajbilling_fetch_all_plans($object_id, $object_type='site'){
 		$user_site_plan = get_option('site_payment_plan');
 		$user_site_country = get_option('site-country');
 
-		// If no country is set for the site, then default to us i.e usd
+		// If no country is set for the site, then default country to us i.e usd currency
 		if (!$user_site_country) {
 			update_option( 'site-country', 'us' );
 			$user_site_country = 'us';
@@ -989,6 +1029,12 @@ function ajbilling_fetch_all_plans($object_id, $object_type='site'){
 				$billing_plan['plan_features'] = array();
 
 				foreach ($plan_features as $plan_feature) {
+					if ($plan_feature['count']==='99999') {
+						$plan_feature['count_display_label'] = 'Unlimited';
+					}
+					else{
+						$plan_feature['count_display_label'] = $plan_feature['count'];
+					}
 					$billing_plan['plan_features'][] = $plan_feature;
 				}
 				$billing_plan['success'] = 1;

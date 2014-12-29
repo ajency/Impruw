@@ -8,7 +8,7 @@ define [ 'app'
                             <h3>{{title}}</h3>
                         </div>
                         <div class="panel-body">
-                            <h3 class="panel-title price">{{currencyIsoCode}} {{price}}</h3>
+                            <h3 class="panel-title price">{{currency}} {{price}}</h3>
                             <span></span>
                         </div>
                         <ul class="list-group">
@@ -21,10 +21,11 @@ define [ 'app'
                             <li class="list-group-item">{{#polyglot}}Online Support{{/polyglot}}</li>
                             <li class="list-group-item">{{#polyglot}}Continuous Development{{/polyglot}}</li>
                             {{#plan_features}}
-                            <li class="list-group-item">{{count}} x {{name}}</li>
+                            {{#is_count_type}}<li class="list-group-item">{{name}} : {{count_display_label}} </li>{{/is_count_type}}
+                            {{^is_count_type}}<li class="list-group-item">{{name}}</li>{{/is_count_type}}
                             {{/plan_features}}
                             <li class="list-group-item"><span class="ribbon">
-                        <a href="javascript:void(0)" class="btn btn-block activate-link free-plan-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span></li>
+                        <a href="#/billing/payment-page" class="btn btn-block activate-link free-plan-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span></li>
                         </ul>
                     </div>'
 
@@ -32,8 +33,21 @@ define [ 'app'
 
             serializeData : ->
                 data = super()
-                data.currency = Marionette.getOption @, 'currency'
+                data.currency = COUNTRY_BASED_CURRENCY 
                 data
+
+            onShow:->
+                sitePlanId = @model.get 'id'
+                
+                #append  the plan id to the plan activation link
+                activateLink = @$el.find( '.activate-link' ).attr 'href'
+                newactivateLink = "#{activateLink}/#{sitePlanId}"
+                @$el.find( '.activate-link' ).attr 'href', newactivateLink
+                if  @model.get('id') is PAYMENT_PLAN_ID 
+                    console.log "Match"
+                    @$el.find( '.panel-default' ).addClass 'active'
+                    @$el.find( '.activate-link' ).text _.polyglot.t('Active Plan')
+                    @$el.find( '.activate-link' ).attr 'href', 'javascript:void(0)'
 
         class View.PlansView extends Marionette.CompositeView
 
@@ -45,8 +59,13 @@ define [ 'app'
 
             serializeData :->
                 data = super()
-                data.THEMEURL = THEMEURL
+                data.currency = COUNTRY_BASED_CURRENCY
                 data
+
+            onShow:->
+                if PAYMENT_PLAN_ID is 1
+                    @$el.find( '#free-plan' ).addClass 'active'
+                    @$el.find( '#free-plan .free-plan-link' ).text _.polyglot.t('Active Plan')
 
 
 
