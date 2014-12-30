@@ -1,0 +1,284 @@
+<header class="aj-imp-dash-header row">
+    <div class="aj-imp-dash-title col-sm-12">
+        <h2 class="aj-imp-page-head">
+            {{#polyglot}}Payment Page{{/polyglot}}
+        </h2>
+    </div>
+</header>
+<div class="row">
+    <div class="aj-imp-dash-content col-md-12">
+        <div class="billing-container">
+            <div class="aj-imp-dash-widget">
+
+                <div class="aj-imp-widget-container panel panel-default">
+                    <div class="panel-body">
+                        <div class="aj-imp-widget-content">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="payment-page">
+
+                                    <h6 class="aj-imp-sub-head">{{#polyglot}}Payment Page{{/polyglot}}</h6>
+
+                                    <div id="active-sub-region">
+                                        <!--ACTIVE PLAN REGION begins-->
+                                       <!--  <div class="aj-imp-widget-head row">
+                                            <div class="col-sm-6 left">
+                                                <h6 class="aj-imp-sub-head">
+                                                    <small>{{#polyglot}}Active Plan:{{/polyglot}}</small>
+                                                    {{plan_name}}
+                                                </h6>
+                                            </div>
+                                            <div class="col-sm-6 right">
+                                                <h6 class="aj-imp-sub-head">
+                                                    <small>{{#polyglot}}Active Since:{{/polyglot}}</small>
+                                                    {{start_date}}
+                                                </h6>
+                                            </div>
+                                        </div> -->
+                                        <!--ACTIVE PLAN REGION ends-->
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div id="payment-region">
+                                                <!--PAYMENT REGION begins-->
+                                                <div>
+                                                    <h6 class="aj-imp-widget-title">{{#polyglot}}Saved Card Details{{/polyglot}}</h6>
+
+                                                    <div class="card-list row">
+                                                    <!--CREDIT CARD COLLECTION begins -->
+                                                        
+                                                        <!--SINGLE CREDIT CARD ITEMVIEW begins -->
+                                                        <div>
+                                                            <div class="col-md-6">
+                                                                <form class="form-horizontal single-card">
+                                                                    <div class="ticker">
+                                                                        <span class="glyphicon glyphicon-ok"></span>
+                                                                    </div>
+                                                                    <h6 class="aj-imp-sub-head-thin">Discover</h6>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-4 control-label">Name on the Card</label>
+
+                                                                        <div class="col-sm-8 col-sm-offset-4">
+                                                                            <input type="text" class="form-control" placeholder="Name on the Card" data-braintree-name="cardholderName" value="fsd" readonly="readonly">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-4 control-label">Card Number</label>
+
+                                                                        <div class="col-sm-8 col-sm-offset-4">
+                                                                            <input type="text" class="form-control" placeholder="Card Number" data-braintree-name="number" value="601111******1117" readonly="readonly">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-4 control-label">Expires On</label>
+                                                                        <div class="col-sm-8 col-sm-offset-4">
+                                                                            <input type="text" class="form-control " data-braintree-name="expiration_date" value="01/2018" readonly="readonly">
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <input type="text" class="token" value="7h2nmw" style="display: none">
+
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <!--SINGLE CREDIT CARD ITEMVIEW ends -->
+
+                                                        <!--SINGLE CREDIT CARD ITEMVIEW begins -->
+                                                        <div>
+                                                            <div class="col-md-6">
+                                                                <form class="form-horizontal single-card selected">
+                                                                    <div class="ticker">
+                                                                        <span class="glyphicon glyphicon-ok"></span>
+                                                                    </div>
+                                                                    <h6 class="aj-imp-sub-head-thin">Visa</h6>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-4 control-label">Name on the Card</label>
+
+                                                                        <div class="col-sm-8 col-sm-offset-4">
+                                                                            <input type="text" class="form-control" placeholder="Name on the Card" data-braintree-name="cardholderName" value="" readonly="readonly">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-4 control-label">Card Number</label>
+
+                                                                        <div class="col-sm-8 col-sm-offset-4">
+                                                                            <input type="text" class="form-control" placeholder="Card Number" data-braintree-name="number" value="411111******1111" readonly="readonly">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-4 control-label">Expires On</label>
+                                                                        <div class="col-sm-8 col-sm-offset-4">
+                                                                            <input type="text" class="form-control " data-braintree-name="expiration_date" value="10/2024" readonly="readonly">
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <input type="text" class="token" value="9qkhmw" style="display: none">
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <!--SINGLE CREDIT CARD ITEMVIEW ends -->
+
+                                                    <!--CREDIT CARD COLLECTION  ends-->
+                                                    </div>
+
+                                                    <!--ADD CARD FORM begins-->
+                                                    <a data-toggle="collapse" data-target="#add-new-card" class="blue-link" style="cursor:pointer;margin-top: 1em;">
+                                                        <span class="glyphicon glyphicon-plus"></span> {{#polyglot}}Add New Card{{/polyglot}}
+                                                    </a>
+                                                    <div class="collapse" id="add-new-card">
+                                                        <hr>
+                                                        <form class="form-horizontal">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">{{#polyglot}}Name on the Card{{/polyglot}}</label>
+
+                                                                <div class="col-sm-8 col-sm-offset-3">
+                                                                    <input type="text" class="form-control " id="card_name"
+                                                                    placeholder="{{#polyglot}}Name on the Card{{/polyglot}}" data-braintree-name="cardholderName">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">{{#polyglot}}Card Number{{/polyglot}}</label>
+
+                                                                <div class="col-sm-8 col-sm-offset-3">
+                                                                    <input type="text" class="form-control " id="card_number"
+                                                                    placeholder="{{#polyglot}}Card Number{{/polyglot}}" data-braintree-name="number" >
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-8 col-sm-offset-3">
+                                                                    <span class="help-block">{{#polyglot}}Enter the Card Number without any spaces.{{/polyglot}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">{{#polyglot}}Security Code{{/polyglot}}</label>
+
+                                                                <div class="col-sm-2 col-sm-offset-3">
+                                                                    <input type="password" class="form-control" placeholder="{{#polyglot}}CVV{{/polyglot}}"
+                                                                    data-braintree-name="cvv" id="card-cvv" >
+
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <span class="help-block"><a href="#">{{#polyglot}}Whats this?{{/polyglot}}</a></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">{{#polyglot}}Expires On{{/polyglot}}</label>
+
+                                                                <div class="col-sm-3 col-sm-offset-3">
+                                                                    <select data-braintree-name="expiration_month" id="exp_month" >
+                                                                        <option>{{#polyglot}}Month{{/polyglot}}</option>
+                                                                        <option>01</option>
+                                                                        <option>02</option>
+                                                                        <option>03</option>
+                                                                        <option>04</option>
+                                                                        <option>05</option>
+                                                                        <option>06</option>
+                                                                        <option>07</option>
+                                                                        <option>08</option>
+                                                                        <option>09</option>
+                                                                        <option>10</option>
+                                                                        <option>11</option>
+                                                                        <option>12</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <select data-braintree-name="expiration_year" id="exp_year" >
+                                                                        <option>{{#polyglot}}Year{{/polyglot}}</option>
+                                                                        <option>2015</option>
+                                                                        <option>2016</option>
+                                                                        <option>2017</option>
+                                                                        <option>2018</option>
+                                                                        <option>2019</option>
+                                                                        <option>2020</option>
+                                                                        <option>2021</option>
+                                                                        <option>2022</option>
+                                                                        <option>2023</option>
+                                                                        <option>2024</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group margin-top">
+                                                                <div class="col-sm-8 col-sm-offset-3">
+                                                                    <button type="submit" class="btn btn-xs aj-imp-orange-btn"
+                                                                    id="btn-pay">
+                                                                    {{#polyglot}}Add Card{{/polyglot}}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!--ADD CARD FORM begins-->
+
+                                                    <!--PAY BUTTON begins-->
+                                                    <!-- <br/>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-sm-offset-12">
+                                                            <button type="submit" class="btn btn-wide aj-imp-orange-btn" id="btn-stored-pay">
+                                                                {{#polyglot}}Pay{{/polyglot}}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <img src="{{THEMEURL}}/images/loader.gif" width="38" height="30" id="loader" style="display:none ">
+
+                                                    <div id="billingsave_status"></div> -->
+                                                    <!--PAY BUTTON ends-->
+
+                                            </div>
+                                            <!--PAYMENT REGION ends-->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 price-plans chosen-plan">
+                                        <div id="selected-plan">
+                                            <!--CHANGE OF PLAN NOTE begins-->
+                                            <!-- <div class="alert text-center">
+                                                <p>{{#polyglot}}Any Change of Plans in the middle of a cycle will be applicable from the start of the new cycle.{{/polyglot}}</p>
+                                            </div> -->
+                                            <!--CHANGE OF PLAN NOTE ends-->
+
+                                            <!--SELECTED PLAN VIEW begins-->
+                                            <div class="panel panel-default text-center active">
+                                                <div class="panel-heading">
+                                                    <h3>Summary</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <h5 class="panel-title">Current Plan</h5>
+                                                </div>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item">Name: Essential</li>
+                                                    <li class="list-group-item">Amount: £ 9.99</li>
+                                                    <li class="list-group-item">Current billing cycle: From: DEC 14, 2014 - JAN 13, 2015</li>
+                                                    <li class="list-group-item">Next billing date: JAN 14, 2015</li>
+                                                </ul>
+                                                <div class="panel-body">
+                                                    <h5 class="panel-title">Chosen Plan</h5>
+                                                </div>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item">Name: Premium</li>
+                                                    <li class="list-group-item">Plan Amount: £ 19.99</li>
+                                                    <li class="list-group-item">Current Balance: £ 9</li>
+                                                    <li class="list-group-item">You Pay: £ 10.99</li>
+                                                    <li class="list-group-item"><span class="ribbon">
+                                                    <a href="javascript:void(0)" class="btn btn-block activate-link free-plan-link">{{#polyglot}}Pay now{{/polyglot}}</a></span></li>
+                                                </ul>
+
+                                            </div>
+                                            <!--SELECTED PLAN VIEW ends-->
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

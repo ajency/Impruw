@@ -4,6 +4,7 @@ define [
     'apps/billing/update-billing/controller'
     'apps/billing/pricing-plans/controller'
     'apps/billing/site-plans/controller'
+    'apps/billing/site-payment-page/controller'
     'apps/billing/payment-page/controller' ], ( App )->
     App.module 'BillingApp', ( BillingApp, App, Backbone, Marionette, $, _ )->
 
@@ -25,22 +26,27 @@ define [
                 App.execute "show:account:summary:app",
                     region : App.rightRegion
 
-            # updateBilling : ->
-            #     App.execute "show:billing:info:app",
-            #         region : App.rightRegion
-
             plans : ->
                 App.execute "show:site:plans:app",
                     region : App.rightRegion
+
+            payment : ( planId )->
+                App.execute "show:site:payment:app",
+                    region : App.rightRegion
+                    planId  : planId
+
+            # updateBilling : ->
+            #     App.execute "show:billing:info:app",
+            #         region : App.rightRegion
 
             # plans : ->
             #     App.execute "show:plans:app",
             #         region : App.rightRegion
 
-            payment : ( planId )->
-                App.execute "show:payment:app",
-                    region : App.rightRegion
-                    planId  : planId
+            # payment : ( planId )->
+            #     App.execute "show:payment:app",
+            #         region : App.rightRegion
+            #         planId  : planId
 
 
         BillingApp.on 'start' : ->
