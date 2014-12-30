@@ -3,7 +3,7 @@ define [ 'app'
     App.module 'BillingApp.SitePaymentPlans.View', ( View, App, Backbone, Marionette, $, _ )->
         class SinglePlanView extends Marionette.ItemView
 
-            template : '<div class="panel panel-default text-center" id="free-plan">
+            template : '<div class="panel panel-default text-center">
                         <div class="panel-heading">
                             <h3>{{title}}</h3>
                         </div>
@@ -24,8 +24,9 @@ define [ 'app'
                             {{#is_count_type}}<li class="list-group-item">{{name}} : {{count_display_label}} </li>{{/is_count_type}}
                             {{^is_count_type}}<li class="list-group-item">{{name}}</li>{{/is_count_type}}
                             {{/plan_features}}
-                            <li class="list-group-item"><span class="ribbon">
-                        <a href="#/billing/payment-page" class="btn btn-block activate-link free-plan-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span></li>
+                            <li class="list-group-item">
+                                <span class="ribbon"> <a href="#/billing/payment-page" class="btn btn-block activate-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span>
+                            </li>
                         </ul>
                     </div>'
 
@@ -63,7 +64,7 @@ define [ 'app'
                 data
 
             onShow:->
-                if PAYMENT_PLAN_ID is 1
+                if PAYMENT_PLAN_ID is '1'
                     @$el.find( '#free-plan' ).addClass 'active'
                     @$el.find( '#free-plan .free-plan-link' ).text _.polyglot.t('Active Plan')
 
