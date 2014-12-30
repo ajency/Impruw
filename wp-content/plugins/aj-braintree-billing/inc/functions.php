@@ -138,14 +138,14 @@ function aj_braintree_get_subscription($subscription_id ){
     	$braintree_subscription['id'] = $complete_subscription_details->id;
     	$braintree_subscription['balance'] = $complete_subscription_details->balance;
     	$braintree_subscription['billingDayOfMonth'] = $complete_subscription_details->billingDayOfMonth;
-    	$braintree_subscription['billingPeriodEndDate'] = $complete_subscription_details->billingPeriodStartDate->format( 'M d, Y (e)' );
-    	$braintree_subscription['billingPeriodStartDate'] = $complete_subscription_details->billingPeriodStartDate->format( 'M d, Y (e)' );
+    	$braintree_subscription['billingPeriodEndDate'] = $complete_subscription_details->billingPeriodEndDate->format( 'M d, Y' );
+    	$braintree_subscription['billingPeriodStartDate'] = $complete_subscription_details->billingPeriodStartDate->format( 'M d, Y' );
     	$braintree_subscription['currentBillingCycle'] = $complete_subscription_details->currentBillingCycle;
     	$braintree_subscription['daysPastDue'] = $complete_subscription_details->daysPastDue;
     	$braintree_subscription['failureCount'] = $complete_subscription_details->failureCount;
     	$braintree_subscription['firstBillingDate'] = $complete_subscription_details->firstBillingDate;
     	$braintree_subscription['neverExpires'] = $complete_subscription_details->neverExpires;
-    	$braintree_subscription['nextBillingDate'] = $complete_subscription_details->nextBillingDate->format( 'M d, Y (e)' );
+    	$braintree_subscription['nextBillingDate'] = $complete_subscription_details->nextBillingDate->format( 'M d, Y' );
     	$braintree_subscription['nextBillAmount'] = $complete_subscription_details->nextBillAmount;
     	$braintree_subscription['numberOfBillingCycles'] = $complete_subscription_details->numberOfBillingCycles;
     	$braintree_subscription['paidThroughDate'] = $complete_subscription_details->paidThroughDate;
