@@ -14,7 +14,6 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-plans/views'], 
         this.sitePlanCollection = App.request("get:all:billing:plans");
         return App.execute("when:fetched", this.sitePlanCollection, (function(_this) {
           return function() {
-            console.log(_this.sitePlanCollection);
             _this.view = _this.getView();
             App.vent.trigger("set:active:menu", 'billing');
             return _this.show(_this.view, {

@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.SiteBilling", function(SiteBilling, App, Backbone, Marionette, $, _) {
-    var API, SiteBillingPlan, SiteBillingPlanCollection, siteBillingPlanCollection;
+    var API, SiteBillingPlan, SiteBillingPlanCollection, activeBillingPlanModel, siteBillingPlanCollection;
     SiteBillingPlan = (function(_super) {
       __extends(SiteBillingPlan, _super);
 
@@ -49,22 +49,21 @@ define(["app", 'backbone'], function(App, Backbone) {
       return SiteBillingPlanCollection;
 
     })(Backbone.Collection);
+    activeBillingPlanModel = new SiteBillingPlan({
+      'object_id': SITEID["id"]
+    });
     siteBillingPlanCollection = new SiteBillingPlanCollection;
     API = {
       getSiteBillingPlan: function(siteId) {
-        var siteBillingPlanModel;
-        siteBillingPlanModel = new SiteBillingPlan({
-          'object_id': siteId
-        });
-        siteBillingPlanModel.fetch({
-          success: function(model) {
-            return siteBillingPlanModel = model;
-          }
-        });
-        return siteBillingPlanModel;
+        if (activeBillingPlanModel.isNew()) {
+          activeBillingPlanModel.fetch();
+        }
+        return activeBillingPlanModel;
       },
       getSiteBillingPlanCollection: function() {
-        siteBillingPlanCollection.fetch();
+        if (siteBillingPlanCollection.length === 0) {
+          siteBillingPlanCollection.fetch();
+        }
         return siteBillingPlanCollection;
       }
     };

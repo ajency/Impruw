@@ -8,7 +8,6 @@ define [ 'app', 'controllers/base-controller'
                 @sitePlanCollection = App.request "get:all:billing:plans"
 
                 App.execute "when:fetched",  @sitePlanCollection, => 
-                    console.log  @sitePlanCollection
                     @view = @getView() 
 
                     # trigger set:active:menu event

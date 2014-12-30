@@ -25,18 +25,19 @@ define ["app", 'backbone'], (App, Backbone) ->
             url: ->
                 "#{SITEURL}/api/ajbilling/plans/#{SITEID["id"]}"
 
+
+        activeBillingPlanModel = new SiteBillingPlan 'object_id' : SITEID["id"]
+
         siteBillingPlanCollection = new SiteBillingPlanCollection
 
         API =
 
             getSiteBillingPlan : ( siteId ) ->
-                siteBillingPlanModel = new SiteBillingPlan 'object_id' : siteId
-                siteBillingPlanModel.fetch success: (model) ->
-                    siteBillingPlanModel = model
-                siteBillingPlanModel
+                activeBillingPlanModel.fetch() if activeBillingPlanModel.isNew()
+                activeBillingPlanModel
 
             getSiteBillingPlanCollection:->
-                siteBillingPlanCollection.fetch()
+                siteBillingPlanCollection.fetch() if siteBillingPlanCollection.length is 0
                 siteBillingPlanCollection
 
         App.reqres.setHandler "get:site:billing:plan",( siteId ) ->

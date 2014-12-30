@@ -29,7 +29,6 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html'], function(App
         newactivateLink = "" + activateLink + "/" + sitePlanId;
         this.$el.find('.activate-link').attr('href', newactivateLink);
         if (this.model.get('id') === PAYMENT_PLAN_ID) {
-          console.log("Match");
           this.$el.find('.panel-default').addClass('active');
           this.$el.find('.activate-link').text(_.polyglot.t('Active Plan'));
           return this.$el.find('.activate-link').attr('href', 'javascript:void(0)');

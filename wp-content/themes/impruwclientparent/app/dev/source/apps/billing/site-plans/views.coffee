@@ -39,13 +39,11 @@ define [ 'app'
 
             onShow:->
                 sitePlanId = @model.get 'id'
-                
                 #append  the plan id to the plan activation link
                 activateLink = @$el.find( '.activate-link' ).attr 'href'
                 newactivateLink = "#{activateLink}/#{sitePlanId}"
                 @$el.find( '.activate-link' ).attr 'href', newactivateLink
                 if  @model.get('id') is PAYMENT_PLAN_ID 
-                    console.log "Match"
                     @$el.find( '.panel-default' ).addClass 'active'
                     @$el.find( '.activate-link' ).text _.polyglot.t('Active Plan')
                     @$el.find( '.activate-link' ).attr 'href', 'javascript:void(0)'
