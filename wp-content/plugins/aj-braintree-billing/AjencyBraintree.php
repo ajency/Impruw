@@ -343,6 +343,7 @@ class AjencyBraintree{
 		global $wpdb;
 
 		$table_plans_name = $wpdb->base_prefix.'aj_billing_plans';
+		$table_countries_name = $wpdb->base_prefix.'aj_billing_countries';
 
 
 		$default_plan_array = array (
@@ -391,6 +392,33 @@ class AjencyBraintree{
 					) 
 				);
 		}
+
+
+		// Insert data into countries table
+
+		// Using ISO 3166 Country Codes for countries: gb-> Great Britain , ie-> Ireland
+		// Reference: http://www.theodora.com/country_digraphs.html
+		// $gbp_countries = array ('gb','ie');
+		// $nok_countries = array ('no');
+
+		// //serialized countries 
+		// $gbp_countries_serialized = maybe_serialize( $gbp_countries );
+		// $nok_countries_serialized = maybe_serialize( $nok_countries );
+
+		// if( ($wpdb->get_var("SELECT 'id' FROM " . $table_countries_name . " where currency= 'GBP' ")) &&
+		//     ($wpdb->get_var("SELECT 'id' FROM " . $table_countries_name . " where currency= 'NOK' ")) ) {
+ 	// 		// The GBP and NOK entry already exists
+ 	// 		return;
+		// } 
+		// else{
+		// 	$wpdb->query("INSERT INTO $table_countries_name 
+		// 				 (`currency`, `country`) 
+		// 				 VALUES
+		// 				 ('GBP', '".$gbp_countries_serialized."'),
+		// 			 	 ('NOK', '".$nok_countries_serialized."')"
+		// 			 	 );
+		// }
+
 
 
 	}
