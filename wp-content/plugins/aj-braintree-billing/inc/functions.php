@@ -930,6 +930,12 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 		$billing_plan['plan_features'] = array();
 
 		foreach ($plan_features as $plan_feature) {
+			if ($plan_feature['count']==='99999') {
+				$plan_feature['count_display_label'] = 'Unlimited';
+			}
+			else{
+				$plan_feature['count_display_label'] = $plan_feature['count'];
+			}
 			$billing_plan['plan_features'][] = $plan_feature;
 		}
 		$billing_plan['success'] = 1;
