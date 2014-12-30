@@ -71,7 +71,7 @@ function get_site_plan(){
 
 function get_markup_for_addon($element_name,$preview){
 
-    if ($preview) {
+    if ($preview || is_user_logged_in()) {
        $markup = '<div><span style="color: white;">'.$element_name.' Not allowed</span></div>';
     }
     else{
