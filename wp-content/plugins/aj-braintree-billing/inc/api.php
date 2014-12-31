@@ -34,6 +34,10 @@
         public function __construct(WP_JSON_ResponseHandler $server) {
                 $this->server = $server;
         }
+        
+        // creatable - POST - create a record
+        // editable -PUT - update a record
+
 
         /*Register Routes*/
         public function register_routes( $routes ) {
@@ -43,6 +47,10 @@
 
            $routes['/ajbilling/plan/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
             array( array( $this, 'fetch_plan'), WP_JSON_Server::READABLE ),
+            );
+
+           $routes['/ajbilling/creditcards/(?P<object_id>\S+)/(?P<object_type>\S+)'] = array(
+            array( array( $this, 'fetch_all_credit_cards'), WP_JSON_Server::READABLE ),
             );
 
            $routes['/ajbilling/plan/(?P<object_id>\d+)/(?P<object_type>\S+)/(?P<plan_id>\d+)'] = array(
@@ -55,6 +63,10 @@
 
            $routes['/ajbilling/site_feature_count/(?P<object_id>\d+)/(?P<object_type>\S+)/(?P<feature_component>\S+)/(?P<plus_or_minus>\S+)'] = array(
             array( array( $this, 'update_feature_count'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
+            );
+
+           $routes['/ajbilling/braintreePlan/(?P<object_id>\d+)/(?P<object_type>\S+)/(?P<plan_id>\d+)/(?P<braintree_plan_id>\S+)'] = array(
+            array( array( $this, 'change_site_braintree_plan'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
 
 
@@ -75,6 +87,61 @@
             $billing_plan = ajbilling_fetch_plan($object_id, $object_type='site');
 
             return $billing_plan;
+           
+        }
+
+        public function fetch_all_credit_cards($object_id, $object_type='site'){
+
+            $customer_id = ajbilling_get_braintree_customer_id($object_id,$object_type);
+
+            if ( empty( $customer_id ) ) {
+                $credit_cards = array( 'card_exists' => false,
+                    'customer_id' => $customer_id,
+                    'braintree_client_token' => generate_client_token() );
+            } else {
+                $credit_cards =  aj_braintree_get_customer_creditcards($customer_id);
+            }
+            
+            return $credit_cards;
+           
+        }
+
+        public function change_site_braintree_plan($object_id, $object_type, $plan_id, $braintree_plan_id ){
+
+            if (isset($_POST[ 'customerId' ])) {
+                $customerId = $_POST[ 'customerId' ];
+            }
+
+            if (isset($_POST[ 'customerName' ])) {
+                $customerName = $_POST[ 'customerName' ];
+            }
+
+            if (isset($_POST[ 'customerEmail' ])) {
+                $customerEmail = $_POST[ 'customerEmail' ];
+            }
+
+            // if payment method token is set then update subscription with existing card
+            if (isset($_POST[ 'paymentMethodToken' ])) {
+                // subscribe_user_to_plan
+                echo "paymentMethodToken";
+            }
+            else if (isset($_POST[ 'paymentMethodNonce' ])){
+                echo "paymentMethodNonce";
+                // if payment method nonce is passed create subscription with new credit card
+
+                // Check if customerId is empty or not i.e. if it is a braintree customer 
+                    // if braintree customer => add new card to existing customer 
+                        // if card added successfully => subscribe_user_to_plan
+                    
+                    // else create customer with credit card
+                        // if customer creation is successful => subscribe_user_to_plan
+
+                    // *subscribe_user_to_plan 
+                          // - update subscription if current subscription is not default
+                          // - create subscription if current subscription is default
+            }
+            
+            
            
         }
 
