@@ -186,6 +186,57 @@ function aj_braintree_get_customer($customer_id){
 	}
 }
 
+function aj_braintree_get_customer_creditcards($customer_id){
+	$customer = aj_braintree_get_customer($customer_id);
+
+	// if there are no credit cards, return array with card_exists false
+	if ( empty( $customer->creditCards ) ){
+        return array( 'card_exists' => false,
+            'customer_id' => $customer_id,
+            'braintree_client_token' => aj_braintree_generate_client_token() );
+	}
+
+    // if there are no credit cards, return array with card_exists false
+    $customer_credit_cards = $customer->creditCards;
+
+    foreach ( $customer_credit_cards as $key => $credit_card ) {
+
+        $credit_cards[ $key ][ 'cardholderName' ] = $credit_card->cardholderName;
+        $credit_cards[ $key ][ 'customerId' ] = $credit_card->customerId;
+        $credit_cards[ $key ][ 'maskedNumber' ] = $credit_card->maskedNumber;
+        $credit_cards[ $key ][ 'last4' ] = $credit_card->last4;
+        $credit_cards[ $key ][ 'expirationDate' ] = $credit_card->expirationDate;
+        $credit_cards[ $key ][ 'token' ] = $credit_card->token;
+        $credit_cards[ $key ][ 'cardType' ] = $credit_card->cardType;
+        $credit_cards[ $key ][ 'imageUrl' ] = $credit_card->imageUrl;
+        $credit_cards[ $key ][ 'default' ] = $credit_card->default;
+        $credit_cards[ $key ][ 'expirationMonth' ] = $credit_card->expirationMonth;
+        $credit_cards[ $key ][ 'expirationYear' ] = $credit_card->expirationYear;
+        $credit_cards[ $key ][ 'expirationDate' ] = $credit_card->expirationDate;
+        $credit_cards[ $key ][ 'card_exists' ] = true;
+        $credit_cards[ $key ][ 'braintree_client_token' ] = aj_braintree_generate_client_token();
+
+    }
+
+    return $credit_cards;
+}
+
+/**
+ * Function to get the subscription associated with a customize_register
+ * stored as customField in braintree customer object
+ */
+
+function aj_braintree_get_customer_subscription($customer_id){
+	$customer_subscription= NULL;
+	$braintree_customer = aj_braintree_get_customer($customer_id);
+
+	if ($braintree_customer->code==="OK") {
+		$customer_subscription = $braintree_customer->customFields['customer_subscription'];
+	}
+
+	return $customer_subscription;
+}
+
 
 /**
  * Function to create a customer in Braintree vault
@@ -582,6 +633,35 @@ function ajbilling_get_user_country_option($object_id,$object_type='site'){
 	}
 
 	return $user_site_country;
+}
+
+function ajbilling_get_braintree_customer_id($object_id,$object_type='site'){
+
+	$ajbilling_object_type = ajbilling_is_object_type_set();
+	
+
+	if ($ajbilling_object_type['status']){
+		$object_type = $ajbilling_object_type['object_type'];
+	}
+
+	switch ($object_type) {
+		case 'site':
+			if ( is_multisite() ){
+				switch_to_blog( $object_id );
+				$braintree_customer = get_option('braintree-customer-id','');
+				restore_current_blog();
+			}
+			else{
+				$braintree_customer = get_option('braintree-customer-id','');
+			}
+			break;
+
+		case 'user':
+			$braintree_customer = get_user_meta( $object_id, 'braintree-customer-id', true ); 
+			break;
+	}
+
+	return $braintree_customer;
 }
 
 function ajbilling_get_user_siteplan_id($object_id,$object_type='site'){
