@@ -39,9 +39,10 @@ define [ 'app'
 
             onShow:->
                 sitePlanId = @model.get 'id'
+                braintreePlanId = @model.get 'braintreePlanId'
                 #append  the plan id to the plan activation link
                 activateLink = @$el.find( '.activate-link' ).attr 'href'
-                newactivateLink = "#{activateLink}/#{sitePlanId}"
+                newactivateLink = "#{activateLink}/#{sitePlanId}/#{braintreePlanId}"
                 @$el.find( '.activate-link' ).attr 'href', newactivateLink
                 if  @model.get('id') is PAYMENT_PLAN_ID 
                     @$el.find( '.panel-default' ).addClass 'active'

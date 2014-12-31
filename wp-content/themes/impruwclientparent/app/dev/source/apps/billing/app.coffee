@@ -16,7 +16,7 @@ define [
                 'billing/account-summary' : 'summary'
                 # 'billing/update-billing' : 'updateBilling'
                 'billing/pricing-plans' : 'plans'
-                'billing/payment-page/:id' : 'payment'
+                'billing/payment-page/:id/:braintreeId' : 'payment'
 
 
         #public API
@@ -30,10 +30,11 @@ define [
                 App.execute "show:site:plans:app",
                     region : App.rightRegion
 
-            payment : ( planId )->
+            payment : ( planId,braintreePlanId )->
                 App.execute "show:site:payment:app",
                     region : App.rightRegion
                     planId  : planId
+                    braintreePlanId  : braintreePlanId
 
             # updateBilling : ->
             #     App.execute "show:billing:info:app",

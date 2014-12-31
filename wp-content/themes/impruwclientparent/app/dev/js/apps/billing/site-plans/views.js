@@ -23,10 +23,11 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html'], function(App
       };
 
       SinglePlanView.prototype.onShow = function() {
-        var activateLink, newactivateLink, sitePlanId;
+        var activateLink, braintreePlanId, newactivateLink, sitePlanId;
         sitePlanId = this.model.get('id');
+        braintreePlanId = this.model.get('braintreePlanId');
         activateLink = this.$el.find('.activate-link').attr('href');
-        newactivateLink = "" + activateLink + "/" + sitePlanId;
+        newactivateLink = "" + activateLink + "/" + sitePlanId + "/" + braintreePlanId;
         this.$el.find('.activate-link').attr('href', newactivateLink);
         if (this.model.get('id') === PAYMENT_PLAN_ID) {
           this.$el.find('.panel-default').addClass('active');
