@@ -65,7 +65,14 @@ function read_language_based_site_ajax(){
     $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );
     $data [ 'currency' ] = get_option( 'currency','NOK' );
     $data [ 'braintree_customer_id' ] = get_option( 'braintree-customer-id','');
-    $data [ 'braintree_subscription' ] = get_option( 'braintree-subscription',null );
+
+    $data [ 'braintree_subscription' ] = NULL;
+    // Get braintree subscription based on customer id from braintree
+    if ($data [ 'braintree_customer_id' ]!="") {
+        $data [ 'braintree_subscription' ] = (function_exists('aj_braintree_get_customer_subscription')) ? aj_braintree_get_customer_subscription($data [ 'braintree_customer_id' ]) : NULL;
+    }
+
+     
     $data [ 'domain_name' ] = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
 
     $data [ 'hotel_name' ] = get_option( 'hotel_name','' );
