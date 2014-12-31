@@ -9,6 +9,7 @@ define [ 'app', 'controllers/base-controller'
 
                 #selected plan data
                 @selectedPlanId = opts.planId
+                @braintreePlanId = opts.braintreePlanId
                 @selectedPlanModel = App.request "get:braintreeplan:by:id", @selectedPlanId
 
                 @layout = @getLayout @siteModel
@@ -16,9 +17,24 @@ define [ 'app', 'controllers/base-controller'
                 App.vent.trigger "set:active:menu", 'billing'
 
                 @listenTo @layout, "show", =>
-                    #show selected plan
-                    # App.execute "when:fetched", @selectedPlanModel, =>
-                    #     @layout.selectedPlanRegion.show @selectedPlan @selectedPlanModel
+                    creditCardCollection = App.request "get:credit:cards"
+
+                    # show payment page
+                    App.execute "when:fetched", creditCardCollection, =>
+
+                        creditCardFirstModel = creditCardCollection.at 0
+                        cardExists = creditCardFirstModel.get 'card_exists'
+                        @customerId = creditCardFirstModel.get 'customer_id'
+
+                        if cardExists is true
+                            @paymentView = @getPaymentPageView creditCardCollection
+                        else
+                            @paymentView = @getFirstTimePaymentPageView creditCardFirstModel
+
+                        @layout.paymentRegion.show @paymentView
+
+                        @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
+                            @newCardPayment paymentMethodNonce
 
                 @show @layout,
                     loading : true
@@ -26,6 +42,36 @@ define [ 'app', 'controllers/base-controller'
             getLayout : ( model ) ->
                 new SitePayment.View.Layout
                     model : model
+
+            getPaymentPageView : ( creditCardCollection )->
+                new SitePayment.View.PaymentPageView
+                    collection : creditCardCollection
+
+            getFirstTimePaymentPageView : ( creditCardModel )->
+                new SitePayment.View.FirstTimePaymentView
+                    model : creditCardModel
+
+            newCardPayment : ( paymentMethodNonce )=>
+                
+                postURL = "#{SITEURL}/api/ajbilling/braintreePlan/#{SITEID["id"]}/site/#{@selectedPlanId}/#{@braintreePlanId}"
+
+                options =
+                    method : 'PUT'
+                    url : postURL
+                    data :
+                        'paymentMethodNonce' : paymentMethodNonce
+                        'customerId' : @customerId
+                        'customerName' : USER['data']['display_name']
+                        'customerEmail' : USER['data']['user_email']
+
+                $.ajax( options ).done ( response )=>
+
+                    # if response.code == "OK"
+                    #     console.log "success"
+                    #     @paymentView.triggerMethod "payment:success"
+                    # else
+                    #     console.log "failure"
+                    #     @paymentView.triggerMethod "payment:error", response.msg
 
 
         App.commands.setHandler "show:site:payment:app", ( opts ) ->

@@ -15,7 +15,7 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
         'billing': 'summary',
         'billing/account-summary': 'summary',
         'billing/pricing-plans': 'plans',
-        'billing/payment-page/:id': 'payment'
+        'billing/payment-page/:id/:braintreeId': 'payment'
       };
 
       return Router;
@@ -32,10 +32,11 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
           region: App.rightRegion
         });
       },
-      payment: function(planId) {
+      payment: function(planId, braintreePlanId) {
         return App.execute("show:site:payment:app", {
           region: App.rightRegion,
-          planId: planId
+          planId: planId,
+          braintreePlanId: braintreePlanId
         });
       }
     };
