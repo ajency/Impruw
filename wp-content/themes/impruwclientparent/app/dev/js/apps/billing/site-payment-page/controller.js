@@ -67,17 +67,23 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         var options, postURL;
         postURL = "" + SITEURL + "/api/ajbilling/braintreePlan/" + SITEID["id"] + "/site/" + this.selectedPlanId + "/" + this.braintreePlanId;
         options = {
-          method: 'PUT',
+          method: 'POST',
           url: postURL,
           data: {
             'paymentMethodNonce': paymentMethodNonce,
-            'customerId': this.customerId,
             'customerName': USER['data']['display_name'],
             'customerEmail': USER['data']['user_email']
           }
         };
         return $.ajax(options).done((function(_this) {
-          return function(response) {};
+          return function(response) {
+            if (response.subscription_success === true) {
+              window.PAYMENT_PLAN_ID = response.plan_id;
+              return _this.paymentView.triggerMethod("payment:success");
+            } else {
+              return _this.paymentView.triggerMethod("payment:error", response.msg);
+            }
+          };
         })(this));
       };
 

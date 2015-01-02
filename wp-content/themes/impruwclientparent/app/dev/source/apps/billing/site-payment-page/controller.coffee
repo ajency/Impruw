@@ -56,22 +56,19 @@ define [ 'app', 'controllers/base-controller'
                 postURL = "#{SITEURL}/api/ajbilling/braintreePlan/#{SITEID["id"]}/site/#{@selectedPlanId}/#{@braintreePlanId}"
 
                 options =
-                    method : 'PUT'
+                    method : 'POST'
                     url : postURL
                     data :
                         'paymentMethodNonce' : paymentMethodNonce
-                        'customerId' : @customerId
                         'customerName' : USER['data']['display_name']
                         'customerEmail' : USER['data']['user_email']
 
                 $.ajax( options ).done ( response )=>
-
-                    # if response.code == "OK"
-                    #     console.log "success"
-                    #     @paymentView.triggerMethod "payment:success"
-                    # else
-                    #     console.log "failure"
-                    #     @paymentView.triggerMethod "payment:error", response.msg
+                    if response.subscription_success is true
+                        window.PAYMENT_PLAN_ID  = response.plan_id
+                        @paymentView.triggerMethod "payment:success"
+                    else 
+                        @paymentView.triggerMethod "payment:error", response.msg
 
 
         App.commands.setHandler "show:site:payment:app", ( opts ) ->

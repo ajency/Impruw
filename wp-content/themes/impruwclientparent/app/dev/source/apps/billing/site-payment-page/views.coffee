@@ -64,6 +64,22 @@ define [ 'app'
                     client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
                         @trigger "new:credit:card:payment", nonce
 
+            onPaymentSuccess : ->
+                @$el.find( '#billingsave_status' ).empty()
+                @$el.find( '#pay_loader' ).hide()
+                html = '<div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Payment Successful!")+'</div>'
+                @$el.find( '#billingsave_status' ).append( html )
+
+            onPaymentError : ( errorMsg )->
+                @$el.find( '#billingsave_status' ).empty()
+                @$el.find( '#pay_loader' ).hide()
+                html = "<div class='alert alert-error'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            #{errorMsg}
+                        </div>"
+                @$el.find( '#billingsave_status' ).append( html )
+
 
 
 

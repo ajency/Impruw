@@ -103,6 +103,22 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         }
       };
 
+      FirstTimePaymentView.prototype.onPaymentSuccess = function() {
+        var html;
+        this.$el.find('#billingsave_status').empty();
+        this.$el.find('#pay_loader').hide();
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Payment Successful!") + '</div>';
+        return this.$el.find('#billingsave_status').append(html);
+      };
+
+      FirstTimePaymentView.prototype.onPaymentError = function(errorMsg) {
+        var html;
+        this.$el.find('#billingsave_status').empty();
+        this.$el.find('#pay_loader').hide();
+        html = "<div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
+        return this.$el.find('#billingsave_status').append(html);
+      };
+
       return FirstTimePaymentView;
 
     })(Marionette.ItemView);
