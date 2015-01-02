@@ -222,12 +222,12 @@ function aj_braintree_get_customer_creditcards($customer_id){
 }
 
 /**
- * Function to get the subscription associated with a customize_register
+ * Function to get the subscription associated with a customer
  * stored as customField in braintree customer object
  */
 
 function aj_braintree_get_customer_subscription($customer_id){
-	$customer_subscription= NULL;
+	$customer_subscription= "DefaultFree";
 	$braintree_customer = aj_braintree_get_customer($customer_id);
 
 	if ($braintree_customer->code==="OK") {
@@ -269,6 +269,9 @@ function aj_braintree_create_customer($customer_array, $payment_method_nonce=FAL
 		$customer['paymentMethodNonce'] = $payment_method_nonce;
 	}
 
+	// Default subscription associated to a customer
+	$customer['customFields'] = array( 'customer_subscription' => 'DefaultFree' );
+
 	$create_customer = Braintree_Customer::create($customer);
 
 	return $create_customer;
@@ -287,7 +290,11 @@ function aj_braintree_create_customer($customer_array, $payment_method_nonce=FAL
  * 			'email' => 'mike.jones@example.com', 
  * 			'phone' => '281.330.8004',
  * 			'fax' => '419.555.1235',
- * 			'website' => 'http://example.com'
+ * 			'website' => 'http://example.com',
+ *			'customFields' => array(
+ *					        'custom_field_one' => 'custom value',
+ *						        'custom_field_two' => 'another custom value'
+ *						    )
  *			)
  * @param array $credit_card Optional. 
  * eg: array(
@@ -336,12 +343,200 @@ function aj_braintree_update_customer($customer_id, $customer_array, $credit_car
 	
 }
 
-// aj_braintree_create_payment_method(customer_id, payment_method_nonce)
+function aj_braintree_create_subscription($payment_method_token, $plan_id,$merchant_account){
+	
+	$subscription_details = array(
+							'paymentMethodToken' => $payment_method_token,
+							'planId' => $plan_id,
+							'merchantAccountId' => $merchant_account
+							); 
+	$create_subscription = Braintree_Subscription::create( $subscription_details );
+
+	if ( $create_subscription->success ) {
+		return array( 'success' => $create_subscription->success,
+			'subscription_id' => $create_subscription->subscription->id );
+
+	} else {
+		return array( 'success' => $create_subscription->success, 'msg' => $create_subscription->message );
+	}
+}
+
+function aj_braintree_update_subscription($subscription_id,$payment_method_token,$plan_id,$merchant_account,$price=NULL){
+
+	// price is null when past_due subscriptions are updated
+	if (is_null($price)) {
+		$subscription_details = array(
+						    'paymentMethodToken' => $payment_method_token,
+						    'merchantAccountId' => $merchant_account
+						    );
+	}
+	else{
+		$subscription_details = array(
+						    'paymentMethodToken' => $payment_method_token,
+						    'price' => $price,
+						    'options' => array('prorateCharges' => true,'revertSubscriptionOnProrationFailure' => true),
+						    'planId' => $plan_id,
+						    'merchantAccountId' => $merchant_account
+						    );
+	}
+
+	$update_subscription = Braintree_Subscription::update($subscription_id,$subscription_details );
+
+	if ( $update_subscription->success ) {
+		if (is_null($price)) {
+			$last_transaction = array();
+		}
+		else{
+			$last_transaction = array(
+				'id'=>$update_subscription->subscription->transactions[0]->id,
+				'status'=>$update_subscription->subscription->transactions[0]->status,
+				'amount'=>$update_subscription->subscription->transactions[0]->amount,
+				'type' =>$update_subscription->subscription->transactions[0]->type
+				);
+		}
+
+		return array( 'success' => $update_subscription->success ,
+			'subscription_id' => $update_subscription->subscription->id,
+			'subscription_status' =>$update_subscription->$subscription->status,
+			'last_transaction'=>$last_transaction);
+
+	} else {
+		return array( 'success'=> $update_subscription->success , 'msg' => $update_subscription->message );
+	}
+}
+
+function aj_braintree_create_payment_method($customer_id, $payment_method_nonce){
+
+	$payment_method_details = array(
+						        'customerId' => $customer_id,
+						        'paymentMethodNonce' => $payment_method_nonce,
+						        'options' => array(
+						        	'failOnDuplicatePaymentMethod' => true,
+						        	// 'makeDefault' => true
+						        	)
+						      );
+
+	$create_payment_method = Braintree_PaymentMethod::create($payment_method_details);
+
+	return $create_payment_method;
+
+}
+
 // aj_braintree_transaction(payment_method_token, amount, merchant_account )
-// aj_braintree_create_subscription(payment_method_token, plan_id,merchant_account)
-// aj_braintree_update_subscription(subscription_id,payment_method_token,price,plan_id,merchant_account)
 // aj_braintree_get_all_subscriptions(customer_id)
 // aj_braintree_get_all_transactions(customer_id)
+
+function ajbilling_get_merchant_account($currency){
+	// Based on currency return merchant account to be used 
+	// merchant accounts values are stored as constants like other braintree constants
+	switch ($currency) {
+		case 'GBP':
+			$merchant_account = BT_GBP_MERCHANT;
+			break;
+
+		case 'NOK':
+			$merchant_account = BT_NOK_MERCHANT;
+			break;
+
+		case 'USD':
+			$merchant_account = BT_USD_MERCHANT;
+			break;
+		
+		default:
+			$merchant_account = BT_USD_MERCHANT;
+			break;
+	}
+
+	return $merchant_account;
+}
+
+function ajbilling_subscribe_user_to_plan($paymentMethodToken,$braintree_plan_id,$current_subscription_id='DefaultFree'){
+	// create braintree subscription if current subscription is default i.e 'ImpruwFree'
+    // update braintree subscription if current subscription is not default free
+
+
+	$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
+
+	// Get currency based on braintree plan 
+	$currency = $braintree_plan->currencyIsoCode;
+	$price = $braintree_plan->price;
+
+    $merchant_account = ajbilling_get_merchant_account($currency);
+
+    switch ($current_subscription_id) {
+    	case 'DefaultFree':
+    		$subscription_result = aj_braintree_create_subscription($paymentMethodToken, $braintree_plan_id,$merchant_account);
+    		break;
+    	
+    	default:
+    		$subscription_result = aj_braintree_update_subscription($current_subscription_id,$paymentMethodToken,$braintree_plan_id,$merchant_account,$price);
+    		break;
+    }
+
+    return $subscription_result;
+}
+
+function ajbilling_create_customer_with_card($customer,$paymentMethodNonce){
+	// Create customer along with payment method
+	$create_customer_with_card = aj_braintree_create_customer($customer, $paymentMethodNonce );
+
+	if ( $create_customer_with_card->success ) {
+
+        $credit_card_token = $create_customer_with_card->customer->creditCards[ 0 ]->token;
+        $customer_id = $create_customer_with_card->customer->id;
+
+        $success_msg = array( 'success' => $create_customer_with_card->success,
+            'creditCardToken' => $credit_card_token,
+            'customerId' => $customer_id );
+        return $success_msg;
+
+    } else {
+        $error_msg = array( 'sucess' => $create_customer_with_card->success, 'msg' => $create_customer_with_card->message );
+        return $error_msg;
+    }
+}
+
+function ajbilling_add_credit_card_to_customer($customer_id,$paymentMethodNonce){
+	// Add new payment method to customer
+	$create_payment_method = aj_braintree_create_payment_method($customer_id, $paymentMethodNonce);
+	if ( $create_payment_method->success ) {
+		$credit_card_token = $create_payment_method->paymentMethod->token;
+		$success = array( 'success' => $create_payment_method->success, 'creditCardToken' => $credit_card_token );
+		return $success;
+
+	} else {
+		$error = array( 'success' => $create_payment_method->success, 'msg' => $create_payment_method->message );
+		return $error;
+	}
+}
+
+                        
+/**
+* Function to update options related to plugin stored for the site in the db
+* option_name could be: site_payment_plan / braintree-customer-id / site-country
+*/                        
+function ajbilling_update_plugin_site_options($object_id,$object_type='site',$option_name,$option_value){
+
+	switch ($object_type) {
+		case 'site':
+			if ( is_multisite() ){
+				switch_to_blog( $object_id );
+				$update_plugin_option = update_option( $option_name, $option_value );
+				restore_current_blog();
+			}
+			else{
+				$update_plugin_option = update_option( $option_name, $option_value );
+			}
+			break;
+		
+		case 'user':
+			$update_plugin_option = update_user_meta($object_id, $option_name, $option_value);
+			break;
+	}
+
+	return $update_plugin_option;
+
+}
 
 
 /**
@@ -894,18 +1089,18 @@ function ajbilling_get_site_currency($site_id){
 		switch_to_blog( $site_id );
 		$user_site_country = get_option('site-country');
 
-		// If no country is set for the site, then default country to us i.e usd currency
+		// If no country is set for the site, then default country to gb
 		if (!$user_site_country) {
-			update_option( 'site-country', 'us' );
-			$user_site_country = 'us';
+			update_option( 'site-country', 'gb' );
+			$user_site_country = 'gb';
 		}
 		restore_current_blog();
 	}
 	else{
 		$user_site_country = get_option('site-country');
 		if (!$user_site_country) {
-			update_option( 'site-country', 'us' );
-			$user_site_country = 'us';
+			update_option( 'site-country', 'gb' );
+			$user_site_country = 'gb';
 		}
 	}
 
@@ -1043,10 +1238,10 @@ function ajbilling_fetch_all_plans($object_id, $object_type='site'){
 		$user_site_plan = get_option('site_payment_plan');
 		$user_site_country = get_option('site-country');
 
-		// If no country is set for the site, then default country to us i.e usd currency
+		// If no country is set for the site, then default country to gb 
 		if (!$user_site_country) {
-			update_option( 'site-country', 'us' );
-			$user_site_country = 'us';
+			update_option( 'site-country', 'gb' );
+			$user_site_country = 'gb';
 		}
 		restore_current_blog();
 	}
@@ -1054,8 +1249,8 @@ function ajbilling_fetch_all_plans($object_id, $object_type='site'){
 		$user_site_plan = get_option('site_payment_plan');
 		$user_site_country = get_option('site-country');
 		if (!$user_site_country) {
-			update_option( 'site-country', 'us' );
-			$user_site_country = 'us';
+			update_option( 'site-country', 'gb' );
+			$user_site_country = 'gb';
 		}
 	}
 

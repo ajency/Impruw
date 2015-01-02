@@ -66,7 +66,7 @@
             );
 
            $routes['/ajbilling/braintreePlan/(?P<object_id>\d+)/(?P<object_type>\S+)/(?P<plan_id>\d+)/(?P<braintree_plan_id>\S+)'] = array(
-            array( array( $this, 'change_site_braintree_plan'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
+            array( array( $this, 'change_site_braintree_plan'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
 
 
@@ -108,38 +108,87 @@
 
         public function change_site_braintree_plan($object_id, $object_type, $plan_id, $braintree_plan_id ){
 
-            if (isset($_POST[ 'customerId' ])) {
-                $customerId = $_POST[ 'customerId' ];
-            }
+            $customer = array();
+            $customer_id =ajbilling_get_braintree_customer_id($object_id,$object_type='site');
 
             if (isset($_POST[ 'customerName' ])) {
-                $customerName = $_POST[ 'customerName' ];
+                $customer['firstName'] = $_REQUEST[ 'customerName' ];
             }
 
             if (isset($_POST[ 'customerEmail' ])) {
-                $customerEmail = $_POST[ 'customerEmail' ];
+                $customer['email'] = $_REQUEST[ 'customerEmail' ];
             }
 
             // if payment method token is set then update subscription with existing card
-            if (isset($_POST[ 'paymentMethodToken' ])) {
-                // subscribe_user_to_plan
-                echo "paymentMethodToken";
+            if (isset($_REQUEST[ 'paymentMethodToken' ])) {
+                // Get subscription id from braintree customer 
+                $current_subscription_id = aj_braintree_get_customer_subscription($customer_id);
+                $paymentMethodToken = $_REQUEST[ 'paymentMethodToken' ];
+                $subscription_result = ajbilling_subscribe_user_to_plan($paymentMethodToken,$braintree_plan_id,$current_subscription_id);
             }
-            else if (isset($_POST[ 'paymentMethodNonce' ])){
-                echo "paymentMethodNonce";
+            else if (isset($_REQUEST[ 'paymentMethodNonce' ])){
+                $paymentMethodNonce = $_REQUEST[ 'paymentMethodNonce' ];
                 // if payment method nonce is passed create subscription with new credit card
 
-                // Check if customerId is empty or not i.e. if it is a braintree customer 
-                    // if braintree customer => add new card to existing customer 
-                        // if card added successfully => subscribe_user_to_plan
-                    
-                    // else create customer with credit card
-                        // if customer creation is successful => subscribe_user_to_plan
+                // Check if customerId is empty or not i.e. if it is a braintree customer
 
-                    // *subscribe_user_to_plan 
-                          // - update subscription if current subscription is not default
-                          // - create subscription if current subscription is default
+                    if ( empty( $customer_id ) ) {
+                        // if not already a braintree customer create customer with credit card
+                        $create_customer = ajbilling_create_customer_with_card($customer,$paymentMethodNonce);
+
+                        if ( !$create_customer['success'] ){
+                            // return error array
+                            return array('subscription_success' => false ,'msg'=>$create_customer['msg'] );
+                        }
+
+                        $card_token = $create_customer['creditCardToken'];
+
+                        // update braintree customer in site options
+                        ajbilling_update_plugin_site_options($object_id,'site','braintree-customer-id',$create_customer['customerId']);
+
+                        
+                        $subscription_result =ajbilling_subscribe_user_to_plan($card_token,$braintree_plan_id);
+
+                        // Update braintree customer with subscription id as custom field
+                        $customer_array = array('customFields' => 
+                                            array( 'customer_subscription' => $subscription_result['subscription_id'] )
+                                         );
+
+                        if ($subscription_result['success']) {
+                            aj_braintree_update_customer($create_customer['customerId'],$customer_array );
+                        }
+            
+                    } 
+                    else{
+                        // if braintree customer => add new card to existing customer 
+                        $current_subscription_id = aj_braintree_get_customer_subscription($customer_id); 
+                        $add_new_card = ajbilling_add_credit_card_to_customer($customer_id,$paymentMethodNonce);
+
+                        if (  !$add_new_card['success'] ) {
+                            // return error array
+                            return array('subscription_success' => false ,'msg'=>$add_new_card['msg'] );
+                        }
+                        $card_token = $add_new_card['creditCardToken'];
+                        // if card added successfully => subscribe_user_to_plan
+                        $subscription_result =ajbilling_subscribe_user_to_plan($card_token,$braintree_plan_id,$current_subscription_id);
+                    }
+                    
+                    
+
             }
+
+            // If subscription is successfully created/updated => Change the site plan to the selected plan id
+            if ($subscription_result['success']){
+                $plan_update_result = ajbilling_update_site_plan($object_id, $object_type, $plan_id );
+                $plan_update_result['subscription_success'] = $subscription_result['success'];
+                $plan_update_result['subscription_id']= $subscription_result['subscription_id'];
+            }
+            else{
+               $plan_update_result['subscription_success'] = $subscription_result['success'];
+               $plan_update_result['msg']= $subscription_result['msg'];
+            }
+
+            return $plan_update_result;
             
             
            
