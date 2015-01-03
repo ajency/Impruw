@@ -1,6 +1,24 @@
 
 <h6 class="aj-imp-widget-title">{{#polyglot}}Saved Card Details{{/polyglot}}</h6>
 
+<div class="card-list row">
+    <!--CREDIT CARD COLLECTION begins -->
+
+
+    <!--CREDIT CARD COLLECTION  ends-->
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <button type="submit" class="btn btn-wide aj-imp-orange-btn" id="btn-stored-pay">
+            Pay
+        </button>
+        <img src="{{THEMEURL}}/images/loader.gif" width="38" height="30"
+        id="paycredit_loader" style="display:none ">
+        <div id="billingpay_status"></div>
+    </div>
+</div>
+
 <!--ADD CARD FORM begins-->
 <a data-toggle="collapse" data-target="#add-new-card" class="blue-link" style="cursor:pointer;margin-top: 1em;">
     <span class="glyphicon glyphicon-plus"></span> {{#polyglot}}Add New Card{{/polyglot}}
@@ -80,35 +98,17 @@
         <div class="form-group margin-top">
             <div class="col-sm-8 col-sm-offset-3">
                 <button type="submit" class="btn btn-xs aj-imp-orange-btn"
-                id="btn-pay">
-                {{#polyglot}}Add Card{{/polyglot}}
-            </button>
+                id="btn-add-card">
+                {{#polyglot}}Add Card{{/polyglot}} </button>
+
+                <img src="{{THEMEURL}}/images/loader.gif" width="28" height="20"
+                id="addcard_loader" style="display:none ">
+                <div id="addcard_status"></div>
+            </div>
+            
         </div>
-    </div>
-</form>
+    </form>
 </div>
 <!--ADD CARD FORM ends-->
-
-<br/>
-<br/>
-
-<div class="card-list row">
-    <!--CREDIT CARD COLLECTION begins -->
-
-
-    <!--CREDIT CARD COLLECTION  ends-->
-</div>
-
-
-<div class="row">
-    <div class="col-sm-12">
-        <button type="submit" class="btn btn-wide aj-imp-orange-btn" id="btn-stored-pay">
-            Pay
-        </button>
-        <img src="{{THEMEURL}}/images/loader.gif" width="38" height="30"
-            id="paycredit_loader" style="display:none ">
-            <div id="billingpay_status"></div>
-    </div>
-</div>
 
 

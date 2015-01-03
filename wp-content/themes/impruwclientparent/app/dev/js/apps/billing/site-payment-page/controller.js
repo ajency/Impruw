@@ -9,6 +9,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
 
       function Controller() {
         this.storedCardPayment = __bind(this.storedCardPayment, this);
+        this.addCard = __bind(this.addCard, this);
         this.newCardPayment = __bind(this.newCardPayment, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
@@ -37,6 +38,9 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
               _this.layout.paymentRegion.show(_this.paymentView);
               _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce) {
                 return _this.newCardPayment(paymentMethodNonce);
+              });
+              _this.listenTo(_this.paymentView, "add:credit:card", function(paymentMethodNonce) {
+                return _this.addCard(paymentMethodNonce);
               });
               return _this.listenTo(_this.paymentView, "make:payment:with:stored:card", function(cardToken) {
                 return _this.storedCardPayment(cardToken);
@@ -96,9 +100,34 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         })(this));
       };
 
+      Controller.prototype.addCard = function(paymentMethodNonce) {
+        var options, postURL;
+        postURL = "" + SITEURL + "/api/ajbilling/creditCard/" + SITEID["id"] + "/site";
+        options = {
+          method: 'POST',
+          url: postURL,
+          data: {
+            'paymentMethodNonce': paymentMethodNonce
+          }
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            var newCreditCard, newCreditCardModel;
+            if (response.success === true) {
+              newCreditCard = response.new_credit_card;
+              newCreditCardModel = new Backbone.Model(newCreditCard);
+              _this.creditCardCollection = App.request("get:credit:cards");
+              _this.creditCardCollection.add(newCreditCardModel);
+              return _this.paymentView.triggerMethod("add:credit:card:success");
+            } else {
+              return _this.paymentView.triggerMethod("add:credit:card:error", response.msg);
+            }
+          };
+        })(this));
+      };
+
       Controller.prototype.storedCardPayment = function(paymentMethodToken) {
         var options, postURL;
-        console.log("Selected token is " + paymentMethodToken);
         postURL = "" + SITEURL + "/api/ajbilling/braintreePlan/" + SITEID["id"] + "/site/" + this.selectedPlanId + "/" + this.braintreePlanId;
         options = {
           method: 'POST',
@@ -109,7 +138,6 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            console.log(response);
             if (response.subscription_success === true) {
               window.PAYMENT_PLAN_ID = response.plan_id;
               return _this.paymentView.triggerMethod("payment:success");

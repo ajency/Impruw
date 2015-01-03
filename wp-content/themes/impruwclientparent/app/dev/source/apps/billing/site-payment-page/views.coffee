@@ -44,20 +44,49 @@ define [ 'app'
                 data
 
             events :
+                'click #btn-add-card':(e)->
+                    e.preventDefault()
+                    # collapse add card and show loader
+                    @$el.find( '#addcard_loader' ).show()
+                    cardNumber = @$el.find( '#card_number' ).val()
+                    nameOnCard = @$el.find( '#card_name' ).val()
+                    expMonth = @$el.find( '#exp_month' ).val()
+                    expYear = @$el.find( '#exp_year' ).val()
+                    cvv = @$el.find( '#card-cvv' ).val()
+
+                    clientToken =  @collection.models[0].get 'braintree_client_token'
+                    client = new braintree.api.Client clientToken : clientToken
+                    client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
+                        @trigger "add:credit:card", nonce
+
                 'click #btn-stored-pay' : ( e ) ->
                     e.preventDefault()
 
                     cardToken = @$el.find('.selected .token').val()
-                    console.log cardToken
 
                     if _.isUndefined cardToken
                         html = '<div class="alert alert-error">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card")+'</div>'
                         @$el.find( '#billingpay_status' ).append html
                     else
-                        @$el.find( '#loader' ).show()
                         @$el.find( '#paycredit_loader' ).show()
                         @trigger "make:payment:with:stored:card", cardToken
+
+            onAddCreditCardSuccess : ->
+                @$el.find( '#addcard_status' ).empty()
+                @$el.find( '#addcard_loader' ).hide()
+                html = '<div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Card Added Successfully!")+'</div>'
+                @$el.find( '#addcard_status' ).append( html )
+
+            onAddCreditCardError : ( errorMsg )->
+                @$el.find( '#addcard_status' ).empty()
+                @$el.find( '#addcard_loader' ).hide()
+                html = "<div class='alert alert-error'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            #{errorMsg}
+                        </div>"
+                @$el.find( '#addcard_status' ).append( html )
 
             onPaymentSuccess : ->
                 @$el.find( '#billingpay_status' ).empty()

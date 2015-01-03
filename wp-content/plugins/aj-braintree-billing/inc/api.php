@@ -49,6 +49,9 @@
             array( array( $this, 'fetch_plan'), WP_JSON_Server::READABLE ),
             );
 
+           $routes['/ajbilling/creditcard/(?P<object_id>\S+)/(?P<object_type>\S+)'] = array(
+            array( array( $this, 'add_braintree_credit_card'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
+            );
            $routes['/ajbilling/creditcards/(?P<object_id>\S+)/(?P<object_type>\S+)'] = array(
             array( array( $this, 'fetch_all_credit_cards'), WP_JSON_Server::READABLE ),
             );
@@ -76,7 +79,7 @@
 
         public function fetch_all_plans($object_id){
 
-            $billing_plans = ajbilling_fetch_all_plans($object_id, $object_type='site');
+            $billing_plans = ajbilling_fetch_all_plans($object_id, $object_type);
 
             return $billing_plans;
 
@@ -84,7 +87,7 @@
 
         public function fetch_plan($object_id, $object_type='site'){
 
-            $billing_plan = ajbilling_fetch_plan($object_id, $object_type='site');
+            $billing_plan = ajbilling_fetch_plan($object_id, $object_type);
 
             return $billing_plan;
            
@@ -109,7 +112,7 @@
         public function change_site_braintree_plan($object_id, $object_type, $plan_id, $braintree_plan_id ){
 
             $customer = array();
-            $customer_id =ajbilling_get_braintree_customer_id($object_id,$object_type='site');
+            $customer_id =ajbilling_get_braintree_customer_id($object_id,$object_type);
 
             if (isset($_POST[ 'customerName' ])) {
                 $customer['firstName'] = $_REQUEST[ 'customerName' ];
@@ -197,6 +200,26 @@
             
             
            
+        }
+
+        public function add_braintree_credit_card($object_id, $object_type='site'){
+
+            $customer_id =ajbilling_get_braintree_customer_id($object_id,$object_type);
+
+            $payment_method_nonce = $_REQUEST[ 'paymentMethodNonce' ];
+
+            $add_card = ajbilling_add_credit_card_to_customer($customer_id,$payment_method_nonce);
+
+            if (  !$add_card['success'] ) {
+                // return error array
+                return array('success' => false ,'msg'=>$add_card['msg'] );
+            }
+            $card_token = $add_card['creditCardToken'];
+            $new_credit_card = aj_braintree_get_creditcard($card_token);
+
+            $result = array('success' => $add_card['success'], 'new_credit_card' => $new_credit_card );
+            return $result;
+
         }
 
         public function update_site_plan($object_id, $object_type='site', $plan_id ){

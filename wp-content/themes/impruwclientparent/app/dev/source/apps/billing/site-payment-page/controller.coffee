@@ -36,6 +36,9 @@ define [ 'app', 'controllers/base-controller'
                         @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
                             @newCardPayment paymentMethodNonce 
 
+                        @listenTo @paymentView, "add:credit:card", ( paymentMethodNonce )=>
+                            @addCard paymentMethodNonce 
+
                         @listenTo @paymentView, "make:payment:with:stored:card", ( cardToken )=>
                             @storedCardPayment cardToken
 
@@ -77,9 +80,27 @@ define [ 'app', 'controllers/base-controller'
                     else 
                         @paymentView.triggerMethod "payment:error", response.msg
 
-            storedCardPayment : (paymentMethodToken)=>
-                console.log "Selected token is #{paymentMethodToken}"
+            addCard : ( paymentMethodNonce )=>
+                
+                postURL = "#{SITEURL}/api/ajbilling/creditCard/#{SITEID["id"]}/site"
 
+                options =
+                    method : 'POST'
+                    url : postURL
+                    data :
+                        'paymentMethodNonce' : paymentMethodNonce
+
+                $.ajax( options ).done ( response )=>
+                    if response.success is true
+                        newCreditCard = response.new_credit_card
+                        newCreditCardModel = new Backbone.Model newCreditCard
+                        @creditCardCollection = App.request "get:credit:cards"
+                        @creditCardCollection.add(newCreditCardModel)
+                        @paymentView.triggerMethod "add:credit:card:success"
+                    else
+                        @paymentView.triggerMethod "add:credit:card:error", response.msg
+
+            storedCardPayment : (paymentMethodToken)=>
                 postURL = "#{SITEURL}/api/ajbilling/braintreePlan/#{SITEID["id"]}/site/#{@selectedPlanId}/#{@braintreePlanId}"
 
                 options =
@@ -89,7 +110,6 @@ define [ 'app', 'controllers/base-controller'
                         'paymentMethodToken' : paymentMethodToken
 
                 $.ajax( options ).done ( response )=>
-                    console.log response
                     if response.subscription_success is true
                         window.PAYMENT_PLAN_ID  = response.plan_id
                         @paymentView.triggerMethod "payment:success"

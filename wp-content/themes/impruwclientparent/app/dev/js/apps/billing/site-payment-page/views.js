@@ -64,20 +64,59 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
       };
 
       PaymentPageView.prototype.events = {
+        'click #btn-add-card': function(e) {
+          var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
+          e.preventDefault();
+          this.$el.find('#addcard_loader').show();
+          cardNumber = this.$el.find('#card_number').val();
+          nameOnCard = this.$el.find('#card_name').val();
+          expMonth = this.$el.find('#exp_month').val();
+          expYear = this.$el.find('#exp_year').val();
+          cvv = this.$el.find('#card-cvv').val();
+          clientToken = this.collection.models[0].get('braintree_client_token');
+          client = new braintree.api.Client({
+            clientToken: clientToken
+          });
+          return client.tokenizeCard({
+            number: cardNumber,
+            cvv: cvv,
+            cardholderName: nameOnCard,
+            expiration_month: expMonth,
+            expiration_year: expYear
+          }, (function(_this) {
+            return function(err, nonce) {
+              return _this.trigger("add:credit:card", nonce);
+            };
+          })(this));
+        },
         'click #btn-stored-pay': function(e) {
           var cardToken, html;
           e.preventDefault();
           cardToken = this.$el.find('.selected .token').val();
-          console.log(cardToken);
           if (_.isUndefined(cardToken)) {
             html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card") + '</div>';
             return this.$el.find('#billingpay_status').append(html);
           } else {
-            this.$el.find('#loader').show();
             this.$el.find('#paycredit_loader').show();
             return this.trigger("make:payment:with:stored:card", cardToken);
           }
         }
+      };
+
+      PaymentPageView.prototype.onAddCreditCardSuccess = function() {
+        var html;
+        this.$el.find('#addcard_status').empty();
+        this.$el.find('#addcard_loader').hide();
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Card Added Successfully!") + '</div>';
+        return this.$el.find('#addcard_status').append(html);
+      };
+
+      PaymentPageView.prototype.onAddCreditCardError = function(errorMsg) {
+        var html;
+        this.$el.find('#addcard_status').empty();
+        this.$el.find('#addcard_loader').hide();
+        html = "<div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
+        return this.$el.find('#addcard_status').append(html);
       };
 
       PaymentPageView.prototype.onPaymentSuccess = function() {
