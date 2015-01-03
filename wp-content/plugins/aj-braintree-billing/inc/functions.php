@@ -237,6 +237,29 @@ function aj_braintree_get_customer_subscription($customer_id){
 	return $customer_subscription;
 }
 
+function aj_braintree_get_creditcard($paymentMethodToken){
+	$paymentMethod = Braintree_PaymentMethod::find($paymentMethodToken);
+
+	$credit_card = array();
+
+	$credit_card[ 'cardholderName' ] = $paymentMethod->cardholderName;
+	$credit_card[ 'customerId' ] = $paymentMethod->customerId;
+	$credit_card[ 'maskedNumber' ] = $paymentMethod->maskedNumber;
+	$credit_card[ 'last4' ] = $paymentMethod->last4;
+	$credit_card[ 'expirationDate' ] = $paymentMethod->expirationDate;
+	$credit_card[ 'token' ] = $paymentMethod->token;
+	$credit_card[ 'cardType' ] = $paymentMethod->cardType;
+	$credit_card[ 'imageUrl' ] = $paymentMethod->imageUrl;
+	$credit_card[ 'default' ] = $paymentMethod->default;
+	$credit_card[ 'expirationMonth' ] = $paymentMethod->expirationMonth;
+	$credit_card[ 'expirationYear' ] = $paymentMethod->expirationYear;
+	$credit_card[ 'expirationDate' ] = $paymentMethod->expirationDate;
+	$credit_card[ 'card_exists' ] = true;
+	$credit_card[ 'braintree_client_token' ] = aj_braintree_generate_client_token();
+
+	return $credit_card;
+}
+
 
 /**
  * Function to create a customer in Braintree vault

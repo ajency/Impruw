@@ -125,6 +125,7 @@
                 $current_subscription_id = aj_braintree_get_customer_subscription($customer_id);
                 $paymentMethodToken = $_REQUEST[ 'paymentMethodToken' ];
                 $subscription_result = ajbilling_subscribe_user_to_plan($paymentMethodToken,$braintree_plan_id,$current_subscription_id);
+                $new_credit_card = array();
             }
             else if (isset($_REQUEST[ 'paymentMethodNonce' ])){
                 $paymentMethodNonce = $_REQUEST[ 'paymentMethodNonce' ];
@@ -142,6 +143,8 @@
                         }
 
                         $card_token = $create_customer['creditCardToken'];
+
+                        $new_credit_card = aj_braintree_get_creditcard($card_token);
 
                         // update braintree customer in site options
                         ajbilling_update_plugin_site_options($object_id,'site','braintree-customer-id',$create_customer['customerId']);
@@ -182,6 +185,7 @@
                 $plan_update_result = ajbilling_update_site_plan($object_id, $object_type, $plan_id );
                 $plan_update_result['subscription_success'] = $subscription_result['success'];
                 $plan_update_result['subscription_id']= $subscription_result['subscription_id'];
+                $plan_update_result['new_credit_card']= $new_credit_card;
             }
             else{
                $plan_update_result['subscription_success'] = $subscription_result['success'];

@@ -66,6 +66,10 @@ define [ 'app', 'controllers/base-controller'
                 $.ajax( options ).done ( response )=>
                     if response.subscription_success is true
                         window.PAYMENT_PLAN_ID  = response.plan_id
+                        newCreditCard = response.new_credit_card
+                        newCreditCardModel = new Backbone.Model newCreditCard
+                        @creditCardCollection = App.request "get:credit:cards"
+                        @creditCardCollection.add(newCreditCardModel)
                         @paymentView.triggerMethod "payment:success"
                     else 
                         @paymentView.triggerMethod "payment:error", response.msg

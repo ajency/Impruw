@@ -77,8 +77,13 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
+            var newCreditCard, newCreditCardModel;
             if (response.subscription_success === true) {
               window.PAYMENT_PLAN_ID = response.plan_id;
+              newCreditCard = response.new_credit_card;
+              newCreditCardModel = new Backbone.Model(newCreditCard);
+              _this.creditCardCollection = App.request("get:credit:cards");
+              _this.creditCardCollection.add(newCreditCardModel);
               return _this.paymentView.triggerMethod("payment:success");
             } else {
               return _this.paymentView.triggerMethod("payment:error", response.msg);
