@@ -186,6 +186,7 @@
                 $plan_update_result['subscription_success'] = $subscription_result['success'];
                 $plan_update_result['subscription_id']= $subscription_result['subscription_id'];
                 $plan_update_result['new_credit_card']= $new_credit_card;
+                $plan_update_result['last_transaction']= $subscription_result['last_transaction'];
             }
             else{
                $plan_update_result['subscription_success'] = $subscription_result['success'];

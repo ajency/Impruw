@@ -56,6 +56,46 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         'change': 'render'
       };
 
+      PaymentPageView.prototype.serializeData = function() {
+        var data;
+        data = PaymentPageView.__super__.serializeData.call(this);
+        data.THEMEURL = THEMEURL;
+        return data;
+      };
+
+      PaymentPageView.prototype.events = {
+        'click #btn-stored-pay': function(e) {
+          var cardToken, html;
+          e.preventDefault();
+          cardToken = this.$el.find('.selected .token').val();
+          console.log(cardToken);
+          if (_.isUndefined(cardToken)) {
+            html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card") + '</div>';
+            return this.$el.find('#billingpay_status').append(html);
+          } else {
+            this.$el.find('#loader').show();
+            this.$el.find('#paycredit_loader').show();
+            return this.trigger("make:payment:with:stored:card", cardToken);
+          }
+        }
+      };
+
+      PaymentPageView.prototype.onPaymentSuccess = function() {
+        var html;
+        this.$el.find('#billingpay_status').empty();
+        this.$el.find('#paycredit_loader').hide();
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Payment Successful!") + '</div>';
+        return this.$el.find('#billingpay_status').append(html);
+      };
+
+      PaymentPageView.prototype.onPaymentError = function(errorMsg) {
+        var html;
+        this.$el.find('#billingpay_status').empty();
+        this.$el.find('#paycredit_loader').hide();
+        html = "<div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
+        return this.$el.find('#billingpay_status').append(html);
+      };
+
       return PaymentPageView;
 
     })(Marionette.CompositeView);

@@ -8,6 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
       __extends(Controller, _super);
 
       function Controller() {
+        this.storedCardPayment = __bind(this.storedCardPayment, this);
         this.newCardPayment = __bind(this.newCardPayment, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
@@ -34,8 +35,11 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
                 _this.paymentView = _this.getFirstTimePaymentPageView(creditCardFirstModel);
               }
               _this.layout.paymentRegion.show(_this.paymentView);
-              return _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce) {
+              _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce) {
                 return _this.newCardPayment(paymentMethodNonce);
+              });
+              return _this.listenTo(_this.paymentView, "make:payment:with:stored:card", function(cardToken) {
+                return _this.storedCardPayment(cardToken);
               });
             });
           };
@@ -84,6 +88,30 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
               newCreditCardModel = new Backbone.Model(newCreditCard);
               _this.creditCardCollection = App.request("get:credit:cards");
               _this.creditCardCollection.add(newCreditCardModel);
+              return _this.paymentView.triggerMethod("payment:success");
+            } else {
+              return _this.paymentView.triggerMethod("payment:error", response.msg);
+            }
+          };
+        })(this));
+      };
+
+      Controller.prototype.storedCardPayment = function(paymentMethodToken) {
+        var options, postURL;
+        console.log("Selected token is " + paymentMethodToken);
+        postURL = "" + SITEURL + "/api/ajbilling/braintreePlan/" + SITEID["id"] + "/site/" + this.selectedPlanId + "/" + this.braintreePlanId;
+        options = {
+          method: 'POST',
+          url: postURL,
+          data: {
+            'paymentMethodToken': paymentMethodToken
+          }
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            console.log(response);
+            if (response.subscription_success === true) {
+              window.PAYMENT_PLAN_ID = response.plan_id;
               return _this.paymentView.triggerMethod("payment:success");
             } else {
               return _this.paymentView.triggerMethod("payment:error", response.msg);

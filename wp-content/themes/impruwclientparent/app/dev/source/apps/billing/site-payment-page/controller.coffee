@@ -34,7 +34,10 @@ define [ 'app', 'controllers/base-controller'
                         @layout.paymentRegion.show @paymentView
 
                         @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
-                            @newCardPayment paymentMethodNonce
+                            @newCardPayment paymentMethodNonce 
+
+                        @listenTo @paymentView, "make:payment:with:stored:card", ( cardToken )=>
+                            @storedCardPayment cardToken
 
                 @show @layout,
                     loading : true
@@ -74,6 +77,24 @@ define [ 'app', 'controllers/base-controller'
                     else 
                         @paymentView.triggerMethod "payment:error", response.msg
 
+            storedCardPayment : (paymentMethodToken)=>
+                console.log "Selected token is #{paymentMethodToken}"
+
+                postURL = "#{SITEURL}/api/ajbilling/braintreePlan/#{SITEID["id"]}/site/#{@selectedPlanId}/#{@braintreePlanId}"
+
+                options =
+                    method : 'POST'
+                    url : postURL
+                    data :
+                        'paymentMethodToken' : paymentMethodToken
+
+                $.ajax( options ).done ( response )=>
+                    console.log response
+                    if response.subscription_success is true
+                        window.PAYMENT_PLAN_ID  = response.plan_id
+                        @paymentView.triggerMethod "payment:success"
+                    else 
+                        @paymentView.triggerMethod "payment:error", response.msg
 
         App.commands.setHandler "show:site:payment:app", ( opts ) ->
             new SitePayment.Controller opts

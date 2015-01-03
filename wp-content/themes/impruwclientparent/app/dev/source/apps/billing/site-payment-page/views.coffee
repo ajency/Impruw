@@ -38,6 +38,44 @@ define [ 'app'
             modelEvents:
                 'change': 'render'
 
+            serializeData : ->
+                data = super()
+                data.THEMEURL = THEMEURL
+                data
+
+            events :
+                'click #btn-stored-pay' : ( e ) ->
+                    e.preventDefault()
+
+                    cardToken = @$el.find('.selected .token').val()
+                    console.log cardToken
+
+                    if _.isUndefined cardToken
+                        html = '<div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card")+'</div>'
+                        @$el.find( '#billingpay_status' ).append html
+                    else
+                        @$el.find( '#loader' ).show()
+                        @$el.find( '#paycredit_loader' ).show()
+                        @trigger "make:payment:with:stored:card", cardToken
+
+            onPaymentSuccess : ->
+                @$el.find( '#billingpay_status' ).empty()
+                @$el.find( '#paycredit_loader' ).hide()
+                html = '<div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Payment Successful!")+'</div>'
+                @$el.find( '#billingpay_status' ).append( html )
+
+            onPaymentError : ( errorMsg )->
+                @$el.find( '#billingpay_status' ).empty()
+                @$el.find( '#paycredit_loader' ).hide()
+                html = "<div class='alert alert-error'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            #{errorMsg}
+                        </div>"
+                @$el.find( '#billingpay_status' ).append( html )
+
+
         #payment view when using stored credit card
         class View.FirstTimePaymentView extends  Marionette.ItemView
 
