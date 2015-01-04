@@ -28,4 +28,5 @@ define [
     'entities/emails'
     'entities/site-add-ons'
     'entities/site-billing'
+    'entities/site-feature-plans'
 ], ->

@@ -13,12 +13,12 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
       }
 
       Controller.prototype.initialize = function(opts) {
-        var subscriptionPlanModel;
-        subscriptionPlanModel = App.request("get:active:subscription", SITEID['id']);
+        var activeSubscriptionModel;
+        activeSubscriptionModel = App.request("get:active:subscription", SITEID['id']);
         App.vent.trigger("set:active:menu", 'billing');
-        return App.execute("when:fetched", subscriptionPlanModel, (function(_this) {
+        return App.execute("when:fetched", activeSubscriptionModel, (function(_this) {
           return function() {
-            _this.view = _this.getView(subscriptionPlanModel);
+            _this.view = _this.getView(activeSubscriptionModel);
             return _this.show(_this.view, {
               loading: true
             });
@@ -26,9 +26,9 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
         })(this));
       };
 
-      Controller.prototype.getView = function(subscriptionPlanModel) {
+      Controller.prototype.getView = function(activeSubscriptionModel) {
         return new AccountSubscriptionInfo.View.AccountSubscriptionInfoView({
-          model: subscriptionPlanModel
+          model: activeSubscriptionModel
         });
       };
 

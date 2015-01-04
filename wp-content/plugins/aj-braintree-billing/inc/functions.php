@@ -1186,8 +1186,8 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 								'subscription_status' => 'N/A', 
 								'billingPeriodStartDate' => 'N/A', 
 								'billingPeriodEndDate' => 'N/A', 
-								'nextBillAmount' => 'N/A', 
-								'price' => 'N/A', 
+								'nextBillAmount' => '0', 
+								'price' => '0', 
 								'nextBillingDate' => 'N/A', 
 								);
 			$billing_plan = $current_subscription_details;
@@ -1245,6 +1245,115 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 		$billing_plan['msg'] = 'Unable to fetch plan details from db';
 	}
 	return $billing_plan;
+}
+
+function ajbilling_fetch_feature_plan($object_id, $object_type='site'){
+	global $wpdb;
+
+	$billing_plan = array();
+
+    //Get site plan id and country from site options
+	$user_site_plan = "";
+	$user_site_plan = ajbilling_get_user_siteplan_options($object_id,$object_type);
+	$user_site_country = ajbilling_get_user_country_option($object_id,$object_type);
+	$braintree_customer_id = ajbilling_get_braintree_customer_id($object_id,$object_type);
+
+    // Get currency based on country
+	$site_currency = aj_braintree_get_currency($user_site_country);
+
+	$site_plan_id = $user_site_plan['plan_id'];
+
+	$plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
+	$sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id=".$site_plan_id;
+
+	$site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
+
+	if(!mysql_errno())
+	{
+		$billing_plan['object_id'] = $object_id;
+		$billing_plan['object_type'] = $object_type;
+		$billing_plan['id'] = $site_plan['id'];
+		$billing_plan['plan_title'] = $site_plan['title'];
+		$billing_plan['plan_status'] = $site_plan['status'];
+		
+		$billing_plan['braintree_plans'] = "";
+		
+		$braintree_plan_ids = maybe_unserialize($site_plan['braintree_plan_id']);
+		$billing_plan['braintree_plans'] = array_values($braintree_plan_ids);
+
+		// Get currency specific braintree plan associated with the feature plan
+		// if (!empty($braintree_plan_ids)) {
+		// 	foreach ($braintree_plan_ids as $braintree_plan_id) {
+		// 		$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
+		// 		if ($braintree_plan->currencyIsoCode == $site_currency) {
+		// 			$billing_plan['braintree_plan'] = $braintree_plan->id;
+		// 		}
+		// 	}
+		// }
+
+
+		$plan_features = maybe_unserialize($site_plan['features']);
+
+		$billing_plan['plan_features'] = array();
+
+		foreach ($plan_features as $plan_feature) {
+			if ($plan_feature['count']==='99999') {
+				$plan_feature['count_display_label'] = 'Unlimited';
+			}
+			else{
+				$plan_feature['count_display_label'] = $plan_feature['count'];
+			}
+			$billing_plan['plan_features'][] = $plan_feature;
+		}
+		$billing_plan['success'] = 1;
+	}
+	else{
+		$billing_plan['success'] = 0;
+		$billing_plan['msg'] = 'Unable to fetch plan details from db';
+	}
+	return $billing_plan;
+}
+
+function ajbilling_fetch_site_subscription($object_id, $object_type='site'){
+	global $wpdb;
+
+	$subscription = array();
+
+    //Get site plan id and country from site options
+	$user_site_plan = "";
+	$user_site_plan = ajbilling_get_user_siteplan_options($object_id,$object_type);
+	$user_site_country = ajbilling_get_user_country_option($object_id,$object_type);
+
+	// Get currency based on country
+	$site_currency = aj_braintree_get_currency($user_site_country);
+	$site_currency_symbol = ajbilling_get_site_currency($site_currency);
+
+	$braintree_customer_id = ajbilling_get_braintree_customer_id($object_id,$object_type);
+
+	if (!$braintree_customer_id) {
+			$current_subscription_details =  array(
+								'subscription_status' => 'N/A', 
+								'billingPeriodStartDate' => 'N/A', 
+								'billingPeriodEndDate' => 'N/A', 
+								'nextBillAmount' => '0', 
+								'price' => '0', 
+								'nextBillingDate' => 'N/A', 
+								'currency' => $site_currency_symbol 
+								);
+			$subscription = $current_subscription_details;
+		}
+		else{
+			// customer is present in braintree
+			$customer = aj_braintree_get_customer($braintree_customer_id);
+			$braintree_subscription_id = $customer->customFields['customer_subscription'];
+			$current_subscription_details = aj_braintree_get_subscription($braintree_subscription_id);
+			$current_subscription_details['currency'] = $site_currency_symbol;
+
+			$subscription = $current_subscription_details;
+
+		}
+
+		return $subscription;
 }
 
 function ajbilling_fetch_all_plans($object_id, $object_type='site'){

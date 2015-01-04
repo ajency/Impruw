@@ -48,6 +48,12 @@
            $routes['/ajbilling/plan/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
             array( array( $this, 'fetch_plan'), WP_JSON_Server::READABLE ),
             );
+           $routes['/ajbilling/featureplan/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
+            array( array( $this, 'fetch_feature_plan'), WP_JSON_Server::READABLE ),
+            );
+           $routes['/ajbilling/braintreeSubscription/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
+            array( array( $this, 'fetch_site_subscription'), WP_JSON_Server::READABLE ),
+            );
 
            $routes['/ajbilling/creditcard/(?P<object_id>\S+)/(?P<object_type>\S+)'] = array(
             array( array( $this, 'add_braintree_credit_card'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
@@ -91,6 +97,20 @@
 
             return $billing_plan;
            
+        }
+
+        public function fetch_feature_plan($object_id, $object_type='site'){
+
+            $feature_plan = ajbilling_fetch_feature_plan($object_id, $object_type);
+
+            return $feature_plan;
+
+        }
+
+        public function fetch_site_subscription($object_id, $object_type='site'){
+            $site_subscription = ajbilling_fetch_site_subscription($object_id, $object_type);
+
+            return $site_subscription;
         }
 
         public function fetch_all_credit_cards($object_id, $object_type='site'){
