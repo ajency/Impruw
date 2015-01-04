@@ -73,7 +73,7 @@ define [ 'app', 'controllers/base-controller'
 
                 $.ajax( options ).done ( response )=>
                     if response.subscription_success is true
-                        window.PAYMENT_PLAN_ID  = response.plan_id
+                        @updateBillingGlobals response
                         newCreditCard = response.new_credit_card
                         newCreditCardModel = new Backbone.Model newCreditCard
                         @creditCardCollection = App.request "get:credit:cards"
@@ -113,10 +113,30 @@ define [ 'app', 'controllers/base-controller'
 
                 $.ajax( options ).done ( response )=>
                     if response.subscription_success is true
-                        window.PAYMENT_PLAN_ID  = response.plan_id
+                        @updateBillingGlobals response
                         @paymentView.triggerMethod "payment:success"
                     else 
                         @paymentView.triggerMethod "payment:error", response.msg
+
+            updateBillingGlobals :(updateResponse)=>
+                window.PAYMENT_PLAN_ID  = updateResponse.plan_id
+                window.IS_EMAIL_ALLOWED  = updateResponse.is_email_allowed
+                window.IS_SITEADDON_ALLOWED  = updateResponse.is_siteaddon_allowed
+
+                featureChanges = updateResponse.feature_changes
+                planFeatureCount={}
+                _.each featureChanges, (featureChange, key) ->
+                    featureComponent = featureChange['feature_component']
+                    if featureComponent isnt 'domain_mapping'
+                        planFeatureCount[featureComponent] = [
+                                                current_count: parseInt featureChange['current_count']
+                                                allowed_count: parseInt featureChange['allowed_count']
+                                              ]
+                window.PLAN_FEATURE_COUNT = planFeatureCount
+                    
+                    
+                    
+
 
         App.commands.setHandler "show:site:payment:app", ( opts ) ->
             new SitePayment.Controller opts

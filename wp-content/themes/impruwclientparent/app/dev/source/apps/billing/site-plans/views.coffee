@@ -50,7 +50,7 @@ define [ 'app'
 
             onShow:->
                 sitePlanId = @model.get 'id'
-                braintreePlanId = @model.get 'braintreePlanId'
+                braintreePlanId = @model.get 'braintree_plan'
                 #append  the plan id to the plan activation link
                 activateLink = @$el.find( '.activate-link' ).attr 'href'
                 newactivateLink = "#{activateLink}/#{sitePlanId}/#{braintreePlanId}"
@@ -60,6 +60,19 @@ define [ 'app'
                     @$el.find( '.activate-link' ).text _.polyglot.t('Active Plan')
                     @$el.find( '.activate-link' ).attr 'href', 'javascript:void(0)'
 
+            events :
+                'click .paid-plan-link' :(e) ->
+                        console.log  "click"
+                        currentSubscriptionStatus = Marionette.getOption @, 'currentSubscriptionStatus'
+                        currentSubscriptionPrice = parseFloat(Marionette.getOption @, 'currentSubscriptionPrice')
+                        chosenPlanPrice = parseFloat(@model.get('price'))
+                        console.log 'current sub price '+currentSubscriptionPrice
+                        console.log 'current plan price '+chosenPlanPrice
+                        console.log 'current sub status  '+currentSubscriptionStatus
+                        if chosenPlanPrice < currentSubscriptionPrice
+                            e.preventDefault()
+                            bootbox.alert "<h4 class='delete-message'>" + _.polyglot.t('Sorry , you cannot downgrade plans mid cycle') + "</h4><p>#{ _.polyglot.t 'If you wish to subscribe to a lower plan you could cancel current subscription and then subscribe to a plan of your choice at the end of the current billing cycle'}</p>"
+
         class View.PlansView extends Marionette.CompositeView
 
             template : viewTpl
@@ -67,6 +80,10 @@ define [ 'app'
             itemView : SinglePlanView
 
             itemViewContainer : '.price-plans'
+
+            itemViewOptions : ->
+                currentSubscriptionStatus : Marionette.getOption @, 'currentSubscriptionStatus'
+                currentSubscriptionPrice : Marionette.getOption @, 'currentSubscriptionPrice'
 
             serializeData :->
                 data = super()
@@ -91,13 +108,7 @@ define [ 'app'
                             else
                                 console.log "dont switch"
 
-                'click .paid-plan-link' :(e) ->
-                    currentSubscriptionStatus = 'Active'
-                    currentSubscriptionPrice = 2
-                    chosenPlanPrice = 1
-                    if chosenPlanPrice < currentSubscriptionPrice
-                        e.preventDefault()
-                        bootbox.alert "<h4 class='delete-message'>" + _.polyglot.t('Sorry , you cannot downgrade plans mid cycle') + "</h4><p>#{ _.polyglot.t 'If you wish to subscribe to a lower plan you could cancel current subscription and then subscribe to a plan of your choice at the end of the current billing cycle'}</p>"
+                
 
 
                             

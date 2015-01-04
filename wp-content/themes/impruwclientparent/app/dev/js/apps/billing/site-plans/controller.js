@@ -20,9 +20,16 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-plans/views'], 
         });
         return this.listenTo(this.layout, "show", (function(_this) {
           return function() {
-            return App.execute("when:fetched", _this.featurePlanCollection, function() {
-              _this.view = _this.getView();
-              return _this.layout.viewPlanRegion.show(_this.view);
+            return App.execute("when:fetched", _this.subscriptionCollection, function() {
+              var currentSubscriptionModel;
+              currentSubscriptionModel = _this.subscriptionCollection.at(0);
+              console.log(currentSubscriptionModel);
+              _this.currentSubscriptionStatus = currentSubscriptionModel.get('subscription_status');
+              _this.currentSubscriptionPrice = currentSubscriptionModel.get('price');
+              return App.execute("when:fetched", _this.featurePlanCollection, function() {
+                _this.view = _this.getView();
+                return _this.layout.viewPlanRegion.show(_this.view);
+              });
             });
           };
         })(this));
@@ -34,7 +41,9 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-plans/views'], 
 
       Controller.prototype.getView = function() {
         return new SitePaymentPlans.View.PlansView({
-          collection: this.featurePlanCollection
+          collection: this.featurePlanCollection,
+          currentSubscriptionStatus: this.currentSubscriptionStatus,
+          currentSubscriptionPrice: this.currentSubscriptionPrice
         });
       };
 

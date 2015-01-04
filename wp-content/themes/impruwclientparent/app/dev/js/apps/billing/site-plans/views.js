@@ -41,7 +41,7 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/bi
       SinglePlanView.prototype.onShow = function() {
         var activateLink, braintreePlanId, newactivateLink, sitePlanId;
         sitePlanId = this.model.get('id');
-        braintreePlanId = this.model.get('braintreePlanId');
+        braintreePlanId = this.model.get('braintree_plan');
         activateLink = this.$el.find('.activate-link').attr('href');
         newactivateLink = "" + activateLink + "/" + sitePlanId + "/" + braintreePlanId;
         this.$el.find('.activate-link').attr('href', newactivateLink);
@@ -49,6 +49,23 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/bi
           this.$el.find('.panel-default').addClass('active');
           this.$el.find('.activate-link').text(_.polyglot.t('Active Plan'));
           return this.$el.find('.activate-link').attr('href', 'javascript:void(0)');
+        }
+      };
+
+      SinglePlanView.prototype.events = {
+        'click .paid-plan-link': function(e) {
+          var chosenPlanPrice, currentSubscriptionPrice, currentSubscriptionStatus;
+          console.log("click");
+          currentSubscriptionStatus = Marionette.getOption(this, 'currentSubscriptionStatus');
+          currentSubscriptionPrice = parseFloat(Marionette.getOption(this, 'currentSubscriptionPrice'));
+          chosenPlanPrice = parseFloat(this.model.get('price'));
+          console.log('current sub price ' + currentSubscriptionPrice);
+          console.log('current plan price ' + chosenPlanPrice);
+          console.log('current sub status  ' + currentSubscriptionStatus);
+          if (chosenPlanPrice < currentSubscriptionPrice) {
+            e.preventDefault();
+            return bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('Sorry , you cannot downgrade plans mid cycle') + ("</h4><p>" + (_.polyglot.t('If you wish to subscribe to a lower plan you could cancel current subscription and then subscribe to a plan of your choice at the end of the current billing cycle')) + "</p>"));
+          }
         }
       };
 
@@ -67,6 +84,13 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/bi
       PlansView.prototype.itemView = SinglePlanView;
 
       PlansView.prototype.itemViewContainer = '.price-plans';
+
+      PlansView.prototype.itemViewOptions = function() {
+        return {
+          currentSubscriptionStatus: Marionette.getOption(this, 'currentSubscriptionStatus'),
+          currentSubscriptionPrice: Marionette.getOption(this, 'currentSubscriptionPrice')
+        };
+      };
 
       PlansView.prototype.serializeData = function() {
         var data;
@@ -97,16 +121,6 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/bi
                 }
               };
             })(this));
-          }
-        },
-        'click .paid-plan-link': function(e) {
-          var chosenPlanPrice, currentSubscriptionPrice, currentSubscriptionStatus;
-          currentSubscriptionStatus = 'Active';
-          currentSubscriptionPrice = 2;
-          chosenPlanPrice = 1;
-          if (chosenPlanPrice < currentSubscriptionPrice) {
-            e.preventDefault();
-            return bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('Sorry , you cannot downgrade plans mid cycle') + ("</h4><p>" + (_.polyglot.t('If you wish to subscribe to a lower plan you could cancel current subscription and then subscribe to a plan of your choice at the end of the current billing cycle')) + "</p>"));
           }
         }
       };

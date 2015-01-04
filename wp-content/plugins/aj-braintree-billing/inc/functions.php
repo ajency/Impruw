@@ -1267,7 +1267,7 @@ function ajbilling_get_feature_plan_by_id($plan_id,$site_currency, $braintree_sp
 		$billing_plan['braintree_plan'] = "";
 		
 		$braintree_plan_ids = maybe_unserialize($site_plan['braintree_plan_id']);
-		$billing_plan['braintree_plan'] = array_values($braintree_plan_ids);
+		// $billing_plan['braintree_plan'] = array_values($braintree_plan_ids);
 
 		if ($braintree_specific_plan) {
 			// Get currency specific braintree plan associated with the feature plan

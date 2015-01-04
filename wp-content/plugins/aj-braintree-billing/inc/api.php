@@ -230,6 +230,30 @@
             // If subscription is successfully created/updated => Change the site plan to the selected plan id
             if ($subscription_result['success']){
                 $plan_update_result = ajbilling_update_site_plan($object_id, $object_type, $plan_id );
+
+                $is_email_allowed = ajbilling_is_this_user_allowed($object_id , $object_type, 'email_account');
+                $plan_update_result['is_email_allowed']  = $is_email_allowed['allowed'];
+                
+                $is_siteaddon_allowed = ajbilling_is_this_user_allowed($object_id , $object_type, 'site_add_ons');
+                $plan_update_result['is_siteaddon_allowed'] = $is_siteaddon_allowed['allowed'];
+
+                // Feature changes due to change of plan
+                $feature_changes = array();
+                $count_type_features = ajbilling_get_all_feature_components($type='all');
+
+                foreach ($count_type_features as $count_type_feature) {
+                    $feature_component = $count_type_feature['key'];
+                    $current_count = ajbilling_get_user_feature_count($object_id,$feature_component);
+                    $allowed_count = ajbilling_get_plugin_feature_count($plan_id,$feature_component);
+                    $feature_change = array('feature_component' => $feature_component, 
+                                            'current_count' => $current_count['count'],
+                                            'allowed_count' => $allowed_count,
+                                            );
+                    $feature_changes[] = $feature_change;
+                }
+
+                $plan_update_result['feature_changes'] = $feature_changes;
+
                 $plan_update_result['subscription_success'] = $subscription_result['success'];
                 $plan_update_result['subscription_id']= $subscription_result['subscription_id'];
                 $plan_update_result['new_credit_card']= $new_credit_card;

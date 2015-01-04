@@ -16,7 +16,7 @@ define [ 'app', 'controllers/base-controller'
                         loading : true
 
             getView :(siteAddOnCollection)->
-                if (IS_SITEADDON_ALLOWED  is '1') and (PLAN_FEATURE_COUNT['site_add_ons'][0]['allowed_count']>0)
+                if (IS_SITEADDON_ALLOWED  is 1) and (PLAN_FEATURE_COUNT['site_add_ons'][0]['allowed_count']>0)
                     new SiteAddOnsInfo.View.SiteAddOnsInfoView
                         collection: siteAddOnCollection
                 else

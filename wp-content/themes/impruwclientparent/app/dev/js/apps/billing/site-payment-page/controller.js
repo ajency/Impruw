@@ -8,6 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
       __extends(Controller, _super);
 
       function Controller() {
+        this.updateBillingGlobals = __bind(this.updateBillingGlobals, this);
         this.storedCardPayment = __bind(this.storedCardPayment, this);
         this.addCard = __bind(this.addCard, this);
         this.newCardPayment = __bind(this.newCardPayment, this);
@@ -87,7 +88,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           return function(response) {
             var newCreditCard, newCreditCardModel;
             if (response.subscription_success === true) {
-              window.PAYMENT_PLAN_ID = response.plan_id;
+              _this.updateBillingGlobals(response);
               newCreditCard = response.new_credit_card;
               newCreditCardModel = new Backbone.Model(newCreditCard);
               _this.creditCardCollection = App.request("get:credit:cards");
@@ -139,13 +140,35 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         return $.ajax(options).done((function(_this) {
           return function(response) {
             if (response.subscription_success === true) {
-              window.PAYMENT_PLAN_ID = response.plan_id;
+              _this.updateBillingGlobals(response);
               return _this.paymentView.triggerMethod("payment:success");
             } else {
               return _this.paymentView.triggerMethod("payment:error", response.msg);
             }
           };
         })(this));
+      };
+
+      Controller.prototype.updateBillingGlobals = function(updateResponse) {
+        var featureChanges, planFeatureCount;
+        window.PAYMENT_PLAN_ID = updateResponse.plan_id;
+        window.IS_EMAIL_ALLOWED = updateResponse.is_email_allowed;
+        window.IS_SITEADDON_ALLOWED = updateResponse.is_siteaddon_allowed;
+        featureChanges = updateResponse.feature_changes;
+        planFeatureCount = {};
+        _.each(featureChanges, function(featureChange, key) {
+          var featureComponent;
+          featureComponent = featureChange['feature_component'];
+          if (featureComponent !== 'domain_mapping') {
+            return planFeatureCount[featureComponent] = [
+              {
+                current_count: parseInt(featureChange['current_count']),
+                allowed_count: parseInt(featureChange['allowed_count'])
+              }
+            ];
+          }
+        });
+        return window.PLAN_FEATURE_COUNT = planFeatureCount;
       };
 
       return Controller;

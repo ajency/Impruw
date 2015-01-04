@@ -16,10 +16,14 @@ define [ 'app', 'controllers/base-controller'
                     loading : true
 
                 @listenTo @layout, "show", =>
-                    App.execute "when:fetched",  @featurePlanCollection, => 
-                        @view = @getView() 
-
-                        @layout.viewPlanRegion.show @view
+                    App.execute "when:fetched",  @subscriptionCollection, => 
+                        currentSubscriptionModel = @subscriptionCollection.at(0)
+                        console.log currentSubscriptionModel
+                        @currentSubscriptionStatus = currentSubscriptionModel.get('subscription_status')
+                        @currentSubscriptionPrice = currentSubscriptionModel.get('price')
+                        App.execute "when:fetched",  @featurePlanCollection, => 
+                            @view = @getView() 
+                            @layout.viewPlanRegion.show @view
 
             getLayout : ( model ) ->
                 new SitePaymentPlans.View.Layout
@@ -27,6 +31,8 @@ define [ 'app', 'controllers/base-controller'
             getView :->
                 new SitePaymentPlans.View.PlansView
                     collection: @featurePlanCollection
+                    currentSubscriptionStatus : @currentSubscriptionStatus
+                    currentSubscriptionPrice : @currentSubscriptionPrice
 
         App.commands.setHandler "show:site:plans:app", ( opts ) ->
             new SitePaymentPlans.Controller opts
