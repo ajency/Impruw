@@ -19,6 +19,8 @@ define [ 'app', 'controllers/base-controller'
                 @listenTo @layout, "show", =>
                     creditCardCollection = App.request "get:credit:cards"
 
+                    # show summary of chosen plan
+
                     # show payment page
                     App.execute "when:fetched", creditCardCollection, =>
 

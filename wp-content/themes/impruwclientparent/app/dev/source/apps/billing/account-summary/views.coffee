@@ -8,7 +8,9 @@ define ['app'
             template: viewTpl
 
             regions :
-                accountInfoRegion : '#account-info'
+                accountPlanRegion : 'account-plan-info'
+                accountSubscriptionRegion : 'account-subscription-info'
+                # accountInfoRegion : '#account-info'
                 siteAddOnRegion : '#site-addons-info'
                 pendingSubscriptionRegion : '#pending-sub'
                 billingInfoRegion : '#billing-info'

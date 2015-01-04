@@ -1,0 +1,45 @@
+<div class="aj-imp-widget-head row">
+    <div class="col-sm-6 left">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Subscription Status:{{/polyglot}}</small>
+            {{subscription_status}}
+        </h6>
+    </div>
+    <div class="col-sm-6 right">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Billing Frequency:{{/polyglot}} </small>
+            {{subscription_type}}
+        </h6>
+    </div>
+    <div class="col-sm-6 left">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Current billing cycle:{{/polyglot}} </small>
+            <span>
+                <small>{{#polyglot}}From:{{/polyglot}} </small>
+                 {{billingPeriodStartDate}}
+            </span>
+            <span>
+                <small>- </small>
+                {{billingPeriodEndDate}}
+            </span>
+        </h6>
+    </div>
+    <div class="col-sm-6 right">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Billing Amount:{{/polyglot}} </small>
+            &#163; {{price}}
+        </h6>
+    </div>
+    <div class="col-sm-6 left">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Next billing date:{{/polyglot}} </small>
+            {{nextBillingDate}}
+        </h6>
+    </div>
+    <div class="col-sm-6 right">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Next Billing period Amount:{{/polyglot}} </small>
+            &#163; {{nextBillAmount}}
+        </h6>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="aj-imp-widget-head row">
+    <div class="col-sm-6 left">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Active Plan:{{/polyglot}}</small>
+            {{plan_title}}
+        </h6>
+    </div>
+    <div class="col-sm-6 right">
+        <a href="#/billing/pricing-plans" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Change Plan{{/polyglot}}</a>
+    </div>
+    <div class="col-sm-12">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Plan Features:{{/polyglot}}<small>
+            <br/>
+            {{#plan_features}}
+            <div class="col-sm-6 left">
+                <h6 class="aj-imp-sub-head-thin">
+                    <small>{{name}}:</small>
+                    <small>{{#enabled}}Enabled{{/enabled}}{{^enabled}}Disabled{{/enabled}}</small>
+                </h6>
+            </div>
+            <div class="col-sm-6 right">
+                <h6 class="aj-imp-sub-head-thin">
+                    <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
+                    {{#is_count_type}}<small>{{count_display_label}}</small>{{/is_count_type}}
+                    {{^is_count_type}}<small>N/A</small>{{/is_count_type}}
+                </h6>
+            </div>
+            {{/plan_features}}
+        </h6>
+    </div>
+</div>

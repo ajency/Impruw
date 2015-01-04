@@ -1,9 +1,7 @@
 define [ 'app', 'controllers/base-controller'
-         'apps/billing/account-summary/account-info/controller'
+         'apps/billing/account-summary/account-plan-info/controller'
+         'apps/billing/account-summary/account-subscription-info/controller'
          'apps/billing/account-summary/site-addons-info/controller'
-         'apps/billing/account-summary/billing-info/controller'
-         'apps/billing/account-summary/pending-subscription/controller'
-         'apps/billing/account-summary/purchase-history/controller'
          'apps/billing/account-summary/views' ], ( App, AppController )->
     App.module 'BillingApp.AccountSummary', ( AccountSummary, App, Backbone, Marionette, $, _ )->
         class AccountSummary.Controller extends AppController
@@ -19,8 +17,11 @@ define [ 'app', 'controllers/base-controller'
                 App.vent.trigger "set:active:menu", 'billing'
 
                 @listenTo @layout ,"show",=>
-                    App.execute "show:account:info",
-                        region : @layout.accountInfoRegion
+                    App.execute "show:account:plan:info",
+                        region : @layout.accountPlanRegion
+
+                    App.execute "show:account:subscription:info",
+                        region : @layout.accountSubscriptionRegion
 
                     App.execute "show:site:addons:info",
                         region : @layout.siteAddOnRegion
