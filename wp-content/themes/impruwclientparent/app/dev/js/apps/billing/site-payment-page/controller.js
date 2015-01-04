@@ -150,7 +150,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
       };
 
       Controller.prototype.updateBillingGlobals = function(updateResponse) {
-        var featureChanges, planFeatureCount;
+        var featureChanges, planFeatureCount, updatedSubscription, updatedSubscriptionModel;
         window.PAYMENT_PLAN_ID = updateResponse.plan_id;
         window.IS_EMAIL_ALLOWED = updateResponse.is_email_allowed;
         window.IS_SITEADDON_ALLOWED = updateResponse.is_siteaddon_allowed;
@@ -168,7 +168,12 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
             ];
           }
         });
-        return window.PLAN_FEATURE_COUNT = planFeatureCount;
+        window.PLAN_FEATURE_COUNT = planFeatureCount;
+        updatedSubscription = updateResponse.updated_subscription;
+        updatedSubscriptionModel = new Backbone.Model(updatedSubscription);
+        this.subscriptionCollection = App.request("get:site:subscriptions");
+        this.subscriptionCollection.reset();
+        return this.subscriptionCollection.add(updatedSubscriptionModel);
       };
 
       return Controller;

@@ -62,13 +62,9 @@ define [ 'app'
 
             events :
                 'click .paid-plan-link' :(e) ->
-                        console.log  "click"
                         currentSubscriptionStatus = Marionette.getOption @, 'currentSubscriptionStatus'
                         currentSubscriptionPrice = parseFloat(Marionette.getOption @, 'currentSubscriptionPrice')
                         chosenPlanPrice = parseFloat(@model.get('price'))
-                        console.log 'current sub price '+currentSubscriptionPrice
-                        console.log 'current plan price '+chosenPlanPrice
-                        console.log 'current sub status  '+currentSubscriptionStatus
                         if chosenPlanPrice < currentSubscriptionPrice
                             e.preventDefault()
                             bootbox.alert "<h4 class='delete-message'>" + _.polyglot.t('Sorry , you cannot downgrade plans mid cycle') + "</h4><p>#{ _.polyglot.t 'If you wish to subscribe to a lower plan you could cancel current subscription and then subscribe to a plan of your choice at the end of the current billing cycle'}</p>"

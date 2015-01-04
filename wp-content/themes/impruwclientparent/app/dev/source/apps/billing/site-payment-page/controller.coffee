@@ -133,6 +133,14 @@ define [ 'app', 'controllers/base-controller'
                                                 allowed_count: parseInt featureChange['allowed_count']
                                               ]
                 window.PLAN_FEATURE_COUNT = planFeatureCount
+
+
+                # update subscription collection with the latest subscription details
+                updatedSubscription = updateResponse.updated_subscription
+                updatedSubscriptionModel = new Backbone.Model updatedSubscription
+                @subscriptionCollection = App.request "get:site:subscriptions"
+                @subscriptionCollection.reset()
+                @subscriptionCollection.add updatedSubscriptionModel
                     
                     
                     

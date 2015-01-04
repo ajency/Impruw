@@ -40,7 +40,6 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/site
         };
         responseFn = (function(_this) {
           return function(response) {
-            console.log("response in controller");
             return _this.view.triggerMethod("selected:addons:updated", response);
           };
         })(this);

@@ -18,7 +18,6 @@ define [ 'app', 'controllers/base-controller'
                 @listenTo @layout, "show", =>
                     App.execute "when:fetched",  @subscriptionCollection, => 
                         currentSubscriptionModel = @subscriptionCollection.at(0)
-                        console.log currentSubscriptionModel
                         @currentSubscriptionStatus = currentSubscriptionModel.get('subscription_status')
                         @currentSubscriptionPrice = currentSubscriptionModel.get('price')
                         App.execute "when:fetched",  @featurePlanCollection, => 

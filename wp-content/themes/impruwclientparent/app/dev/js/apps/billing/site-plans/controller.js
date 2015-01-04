@@ -23,7 +23,6 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-plans/views'], 
             return App.execute("when:fetched", _this.subscriptionCollection, function() {
               var currentSubscriptionModel;
               currentSubscriptionModel = _this.subscriptionCollection.at(0);
-              console.log(currentSubscriptionModel);
               _this.currentSubscriptionStatus = currentSubscriptionModel.get('subscription_status');
               _this.currentSubscriptionPrice = currentSubscriptionModel.get('price');
               return App.execute("when:fetched", _this.featurePlanCollection, function() {

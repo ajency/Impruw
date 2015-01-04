@@ -27,7 +27,6 @@ define [ 'app', 'controllers/base-controller'
                 data = {selectedAddOns: selectedAddOns}
 
                 responseFn = (response)=>
-                    console.log "response in controller"
                     @view.triggerMethod "selected:addons:updated", response
 
                 $.post "#{AJAXURL}?action=update-selected-site-addons", data, responseFn, 'json'

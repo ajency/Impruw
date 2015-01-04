@@ -254,6 +254,8 @@
 
                 $plan_update_result['feature_changes'] = $feature_changes;
 
+                $plan_update_result['updated_subscription'] = ajbilling_fetch_site_subscription($object_id, $object_type);
+
                 $plan_update_result['subscription_success'] = $subscription_result['success'];
                 $plan_update_result['subscription_id']= $subscription_result['subscription_id'];
                 $plan_update_result['new_credit_card']= $new_credit_card;
