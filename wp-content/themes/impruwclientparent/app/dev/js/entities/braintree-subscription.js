@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.BraintreeSubscriptions", function(BraintreeSubscriptions, App, Backbone, Marionette, $, _) {
-    var API, BraintreeSubscription;
+    var API, BraintreeSubscription, BraintreeSubscriptionCollection, braintreeSubscriptionCollection;
     BraintreeSubscription = (function(_super) {
       __extends(BraintreeSubscription, _super);
 
@@ -33,6 +33,23 @@ define(["app", 'backbone'], function(App, Backbone) {
       return BraintreeSubscription;
 
     })(Backbone.Model);
+    BraintreeSubscriptionCollection = (function(_super) {
+      __extends(BraintreeSubscriptionCollection, _super);
+
+      function BraintreeSubscriptionCollection() {
+        return BraintreeSubscriptionCollection.__super__.constructor.apply(this, arguments);
+      }
+
+      BraintreeSubscriptionCollection.prototype.model = BraintreeSubscription;
+
+      BraintreeSubscriptionCollection.prototype.url = function() {
+        return "" + SITEURL + "/api/ajbilling/braintreeSubscriptions/" + SITEID["id"] + "/site";
+      };
+
+      return BraintreeSubscriptionCollection;
+
+    })(Backbone.Collection);
+    braintreeSubscriptionCollection = new BraintreeSubscriptionCollection;
     API = {
       getActiveBraintreeSubscription: function(siteId) {
         var activeSubscriptionModel;
@@ -41,10 +58,19 @@ define(["app", 'backbone'], function(App, Backbone) {
         });
         activeSubscriptionModel.fetch();
         return activeSubscriptionModel;
+      },
+      getBraintreeSubscriptionCollection: function() {
+        if (braintreeSubscriptionCollection.length === 0) {
+          braintreeSubscriptionCollection.fetch();
+        }
+        return braintreeSubscriptionCollection;
       }
     };
-    return App.reqres.setHandler("get:active:subscription", function(siteId) {
+    App.reqres.setHandler("get:active:subscription", function(siteId) {
       return API.getActiveBraintreeSubscription(siteId);
+    });
+    return App.reqres.setHandler("get:site:subscriptions", function() {
+      return API.getBraintreeSubscriptionCollection();
     });
   });
 });

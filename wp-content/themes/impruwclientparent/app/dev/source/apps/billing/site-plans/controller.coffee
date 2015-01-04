@@ -5,21 +5,28 @@ define [ 'app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize : ( opts )->
-                @sitePlanCollection = App.request "get:all:billing:plans"
+                @subscriptionCollection = App.request "get:site:subscriptions"
+                @featurePlanCollection = App.request "get:all:feature:plans"
 
-                App.execute "when:fetched",  @sitePlanCollection, => 
-                    @view = @getView() 
+                @layout = @getLayout()
 
-                    # trigger set:active:menu event
-                    App.vent.trigger "set:active:menu", 'billing'
+                App.vent.trigger "set:active:menu", 'billing'
 
-                    @show @view,
-                        loading:true
+                @show @layout,
+                    loading : true
 
+                @listenTo @layout, "show", =>
+                    App.execute "when:fetched",  @featurePlanCollection, => 
+                        @view = @getView() 
+
+                        @layout.viewPlanRegion.show @view
+
+            getLayout : ( model ) ->
+                new SitePaymentPlans.View.Layout
 
             getView :->
                 new SitePaymentPlans.View.PlansView
-                    collection: @sitePlanCollection
+                    collection: @featurePlanCollection
 
         App.commands.setHandler "show:site:plans:app", ( opts ) ->
             new SitePaymentPlans.Controller opts

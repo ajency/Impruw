@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.SiteFeaturePlans", function(SiteFeaturePlans, App, Backbone, Marionette, $, _) {
-    var API, SiteFeaturePlan, SiteFeaturePlanCollection, siteBillingPlanCollection;
+    var API, SiteFeaturePlan, SiteFeaturePlanCollection, siteFeaturePlanCollection;
     SiteFeaturePlan = (function(_super) {
       __extends(SiteFeaturePlan, _super);
 
@@ -43,13 +43,13 @@ define(["app", 'backbone'], function(App, Backbone) {
       SiteFeaturePlanCollection.prototype.model = SiteFeaturePlan;
 
       SiteFeaturePlanCollection.prototype.url = function() {
-        return "" + SITEURL + "/api/ajbilling/plans/" + SITEID["id"];
+        return "" + SITEURL + "/api/ajbilling/featureplans/" + SITEID["id"] + "/site";
       };
 
       return SiteFeaturePlanCollection;
 
     })(Backbone.Collection);
-    siteBillingPlanCollection = new SiteFeaturePlanCollection;
+    siteFeaturePlanCollection = new SiteFeaturePlanCollection;
     API = {
       getActiveFeaturePlan: function(siteId) {
         var activeFeaturePlanModel;
@@ -60,10 +60,10 @@ define(["app", 'backbone'], function(App, Backbone) {
         return activeFeaturePlanModel;
       },
       getSiteFeaturePlanCollection: function() {
-        if (siteBillingPlanCollection.length === 0) {
-          siteBillingPlanCollection.fetch();
+        if (siteFeaturePlanCollection.length === 0) {
+          siteFeaturePlanCollection.fetch();
         }
-        return siteBillingPlanCollection;
+        return siteFeaturePlanCollection;
       }
     };
     App.reqres.setHandler("get:active:feature:plan", function(siteId) {

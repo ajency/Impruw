@@ -51,8 +51,15 @@
            $routes['/ajbilling/featureplan/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
             array( array( $this, 'fetch_feature_plan'), WP_JSON_Server::READABLE ),
             );
+           $routes['/ajbilling/featureplans/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
+            array( array( $this, 'fetch_all_feature_plans'), WP_JSON_Server::READABLE ),
+            );
            $routes['/ajbilling/braintreeSubscription/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
             array( array( $this, 'fetch_site_subscription'), WP_JSON_Server::READABLE ),
+            );
+
+           $routes['/ajbilling/braintreeSubscriptions/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
+            array( array( $this, 'fetch_site_subscriptions'), WP_JSON_Server::READABLE ),
             );
 
            $routes['/ajbilling/creditcard/(?P<object_id>\S+)/(?P<object_type>\S+)'] = array(
@@ -107,10 +114,27 @@
 
         }
 
+        public function fetch_all_feature_plans($object_id, $object_type='site'){
+            $feature_plans = ajbilling_fetch_all_feature_plans($object_id, $object_type);
+
+            return $feature_plans;
+        }
+
         public function fetch_site_subscription($object_id, $object_type='site'){
             $site_subscription = ajbilling_fetch_site_subscription($object_id, $object_type);
 
             return $site_subscription;
+        }
+
+        public function fetch_site_subscriptions($object_id, $object_type='site'){
+            $site_subscriptions = array();
+
+            // A would always have one subscription associated to it. Hence a site's subscription collection would have only that one subscription i.e the site's current subscription 
+            $site_subscription = ajbilling_fetch_site_subscription($object_id, $object_type);
+
+            $site_subscriptions[] = $site_subscription;
+
+            return $site_subscriptions;
         }
 
         public function fetch_all_credit_cards($object_id, $object_type='site'){

@@ -1,9 +1,25 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/billing/site-plans/templates/view.html'], function(App, viewTpl) {
+define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/billing/site-plans/templates/pricingLayoutView.html', 'bootbox'], function(App, viewTpl, pricingLayoutViewTpl, bootbox) {
   return App.module('BillingApp.SitePaymentPlans.View', function(View, App, Backbone, Marionette, $, _) {
     var SinglePlanView;
+    View.Layout = (function(_super) {
+      __extends(Layout, _super);
+
+      function Layout() {
+        return Layout.__super__.constructor.apply(this, arguments);
+      }
+
+      Layout.prototype.template = pricingLayoutViewTpl;
+
+      Layout.prototype.regions = {
+        viewPlanRegion: '#view-site-plans'
+      };
+
+      return Layout;
+
+    })(Marionette.Layout);
     SinglePlanView = (function(_super) {
       __extends(SinglePlanView, _super);
 
@@ -11,7 +27,7 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html'], function(App
         return SinglePlanView.__super__.constructor.apply(this, arguments);
       }
 
-      SinglePlanView.prototype.template = '<div class="panel panel-default text-center"> <div class="panel-heading"> <h3>{{title}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">{{currency}} {{price}}</h3> <span></span> </div> <ul class="list-group"> <li class="list-group-item">{{#polyglot}}Assisted Set-Up{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Unlimited Pages{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Easy to use Content Management System (CMS){{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Mobile and Tablet Ready Site{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Facebook/Twitter Widgets{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Search Engine Optimisation (SEO){{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Online Support{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Continuous Development{{/polyglot}}</li> {{#plan_features}} {{#is_count_type}}<li class="list-group-item">{{name}} : {{count_display_label}} </li>{{/is_count_type}} {{^is_count_type}}<li class="list-group-item">{{name}}</li>{{/is_count_type}} {{/plan_features}} <li class="list-group-item"> <span class="ribbon"> <a href="#/billing/payment-page" class="btn btn-block activate-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span> </li> </ul> </div>';
+      SinglePlanView.prototype.template = '<div class="panel panel-default text-center"> <div class="panel-heading"> <h3>{{plan_title}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">{{currency}} {{price}}</h3> <span></span> </div> <ul class="list-group"> <li class="list-group-item">{{#polyglot}}Assisted Set-Up{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Unlimited Pages{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Easy to use Content Management System (CMS){{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Mobile and Tablet Ready Site{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Facebook/Twitter Widgets{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Search Engine Optimisation (SEO){{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Online Support{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Continuous Development{{/polyglot}}</li> {{#plan_features}} {{#is_count_type}}<li class="list-group-item">{{name}} : {{count_display_label}} </li>{{/is_count_type}} {{^is_count_type}}<li class="list-group-item">{{name}}</li>{{/is_count_type}} {{/plan_features}} <li class="list-group-item"> <span class="ribbon"> <a href="#/billing/payment-page" class="btn btn-block activate-link paid-plan-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span> </li> </ul> </div>';
 
       SinglePlanView.prototype.className = 'col-sm-4';
 
@@ -56,6 +72,7 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html'], function(App
         var data;
         data = PlansView.__super__.serializeData.call(this);
         data.currency = COUNTRY_BASED_CURRENCY;
+        data.THEMEURL = THEMEURL;
         return data;
       };
 
@@ -63,6 +80,34 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html'], function(App
         if (PAYMENT_PLAN_ID === '1') {
           this.$el.find('#free-plan').addClass('active');
           return this.$el.find('#free-plan .free-plan-link').text(_.polyglot.t('Active Plan'));
+        }
+      };
+
+      PlansView.prototype.events = {
+        'click .free-plan-link': function() {
+          if (PAYMENT_PLAN_ID !== "1") {
+            return bootbox.confirm("<h4 class='delete-message'>" + (_.polyglot.t('Are you sure you want to switch to free plan?')) + "</h4><p>" + (_.polyglot.t('You will lose this content permanently.')) + "</p>", (function(_this) {
+              return function(result) {
+                if (result === true) {
+                  console.log("yes switch");
+                  _this.$el.find('#pay_loader').show();
+                  return _this.trigger("switch:to:free:plan");
+                } else {
+                  return console.log("dont switch");
+                }
+              };
+            })(this));
+          }
+        },
+        'click .paid-plan-link': function(e) {
+          var chosenPlanPrice, currentSubscriptionPrice, currentSubscriptionStatus;
+          currentSubscriptionStatus = 'Active';
+          currentSubscriptionPrice = 2;
+          chosenPlanPrice = 1;
+          if (chosenPlanPrice < currentSubscriptionPrice) {
+            e.preventDefault();
+            return bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('Sorry , you cannot downgrade plans mid cycle') + ("</h4><p>" + (_.polyglot.t('If you wish to subscribe to a lower plan you could cancel current subscription and then subscribe to a plan of your choice at the end of the current billing cycle')) + "</p>"));
+          }
         }
       };
 

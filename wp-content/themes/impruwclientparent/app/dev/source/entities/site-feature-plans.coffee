@@ -23,10 +23,10 @@ define ["app", 'backbone'], (App, Backbone) ->
             model: SiteFeaturePlan
 
             url: ->
-                "#{SITEURL}/api/ajbilling/plans/#{SITEID["id"]}"
+                "#{SITEURL}/api/ajbilling/featureplans/#{SITEID["id"]}/site"
 
 
-        siteBillingPlanCollection = new SiteFeaturePlanCollection
+        siteFeaturePlanCollection = new SiteFeaturePlanCollection
 
         API =
 
@@ -36,8 +36,8 @@ define ["app", 'backbone'], (App, Backbone) ->
                 activeFeaturePlanModel
 
             getSiteFeaturePlanCollection:->
-                siteBillingPlanCollection.fetch() if siteBillingPlanCollection.length is 0
-                siteBillingPlanCollection
+                siteFeaturePlanCollection.fetch() if siteFeaturePlanCollection.length is 0
+                siteFeaturePlanCollection
 
         App.reqres.setHandler "get:active:feature:plan",( siteId ) ->
             API.getActiveFeaturePlan siteId

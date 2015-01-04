@@ -1246,50 +1246,42 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 	}
 	return $billing_plan;
 }
-
-function ajbilling_fetch_feature_plan($object_id, $object_type='site'){
+/**
+ * Set $braintree_specific_plan to TRUE if braintree specific details of the feature plan need to be returned
+ */
+function ajbilling_get_feature_plan_by_id($plan_id,$site_currency, $braintree_specific_plan=FALSE){
 	global $wpdb;
-
 	$billing_plan = array();
-
-    //Get site plan id and country from site options
-	$user_site_plan = "";
-	$user_site_plan = ajbilling_get_user_siteplan_options($object_id,$object_type);
-	$user_site_country = ajbilling_get_user_country_option($object_id,$object_type);
-	$braintree_customer_id = ajbilling_get_braintree_customer_id($object_id,$object_type);
-
-    // Get currency based on country
-	$site_currency = aj_braintree_get_currency($user_site_country);
-
-	$site_plan_id = $user_site_plan['plan_id'];
-
+	
 	$plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
-	$sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id=".$site_plan_id;
+	$sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id=".$plan_id;
 
 	$site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
 
 	if(!mysql_errno())
 	{
-		$billing_plan['object_id'] = $object_id;
-		$billing_plan['object_type'] = $object_type;
 		$billing_plan['id'] = $site_plan['id'];
 		$billing_plan['plan_title'] = $site_plan['title'];
 		$billing_plan['plan_status'] = $site_plan['status'];
 		
-		$billing_plan['braintree_plans'] = "";
+		$billing_plan['braintree_plan'] = "";
 		
 		$braintree_plan_ids = maybe_unserialize($site_plan['braintree_plan_id']);
-		$billing_plan['braintree_plans'] = array_values($braintree_plan_ids);
+		$billing_plan['braintree_plan'] = array_values($braintree_plan_ids);
 
-		// Get currency specific braintree plan associated with the feature plan
-		// if (!empty($braintree_plan_ids)) {
-		// 	foreach ($braintree_plan_ids as $braintree_plan_id) {
-		// 		$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
-		// 		if ($braintree_plan->currencyIsoCode == $site_currency) {
-		// 			$billing_plan['braintree_plan'] = $braintree_plan->id;
-		// 		}
-		// 	}
-		// }
+		if ($braintree_specific_plan) {
+			// Get currency specific braintree plan associated with the feature plan
+			if (!empty($braintree_plan_ids)) {
+				foreach ($braintree_plan_ids as $braintree_plan_id) {
+					$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
+					if ($braintree_plan->currencyIsoCode == $site_currency) {
+						$billing_plan['braintree_plan'] = $braintree_plan->id;
+						$billing_plan['price'] = $braintree_plan->price;
+						break;
+					}
+				}
+			}
+		}
 
 
 		$plan_features = maybe_unserialize($site_plan['features']);
@@ -1312,6 +1304,53 @@ function ajbilling_fetch_feature_plan($object_id, $object_type='site'){
 		$billing_plan['msg'] = 'Unable to fetch plan details from db';
 	}
 	return $billing_plan;
+}
+
+function ajbilling_fetch_feature_plan($object_id, $object_type='site'){
+	global $wpdb;
+
+	$billing_plan = array();
+
+    //Get site plan id and country from site options
+	$user_site_plan = "";
+	$user_site_plan = ajbilling_get_user_siteplan_options($object_id,$object_type);
+	$user_site_country = ajbilling_get_user_country_option($object_id,$object_type);
+	$braintree_customer_id = ajbilling_get_braintree_customer_id($object_id,$object_type);
+
+    // Get currency based on country
+	$site_currency = aj_braintree_get_currency($user_site_country);
+
+	$site_plan_id = $user_site_plan['plan_id'];
+
+	$billing_plan = ajbilling_get_feature_plan_by_id($site_plan_id,$site_currency);
+
+	$billing_plan['object_id'] = $object_id;
+	$billing_plan['object_type'] = $object_type;
+
+	return $billing_plan;
+}
+
+
+function ajbilling_fetch_all_feature_plans($object_id, $object_type='site'){
+	global $wpdb;
+
+	$user_site_country = ajbilling_get_user_country_option($object_id,$object_type);
+
+    // Get currency based on country
+	$site_currency = aj_braintree_get_currency($user_site_country);
+
+	$all_feature_plans = array();
+
+	$plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
+	$sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id!=1";
+
+	$plugin_plans = $wpdb->get_results($sqlQuery, ARRAY_A);
+
+	foreach ($plugin_plans as $plugin_plan) {
+		$all_feature_plans[]=ajbilling_get_feature_plan_by_id($plugin_plan['id'],$site_currency, TRUE) ;
+	}
+
+	return $all_feature_plans;
 }
 
 function ajbilling_fetch_site_subscription($object_id, $object_type='site'){

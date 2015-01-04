@@ -1,11 +1,22 @@
 define [ 'app'
-         'text!apps/billing/site-plans/templates/view.html' ], ( App, viewTpl )->
+         'text!apps/billing/site-plans/templates/view.html'
+         'text!apps/billing/site-plans/templates/pricingLayoutView.html'
+         'bootbox' ], ( App, viewTpl,pricingLayoutViewTpl, bootbox )->
     App.module 'BillingApp.SitePaymentPlans.View', ( View, App, Backbone, Marionette, $, _ )->
+
+        # Main payment page layout
+        class View.Layout extends Marionette.Layout
+
+            template : pricingLayoutViewTpl
+
+            regions :
+                viewPlanRegion : '#view-site-plans'
+
         class SinglePlanView extends Marionette.ItemView
 
             template : '<div class="panel panel-default text-center">
                         <div class="panel-heading">
-                            <h3>{{title}}</h3>
+                            <h3>{{plan_title}}</h3>
                         </div>
                         <div class="panel-body">
                             <h3 class="panel-title price">{{currency}} {{price}}</h3>
@@ -25,7 +36,7 @@ define [ 'app'
                             {{^is_count_type}}<li class="list-group-item">{{name}}</li>{{/is_count_type}}
                             {{/plan_features}}
                             <li class="list-group-item">
-                                <span class="ribbon"> <a href="#/billing/payment-page" class="btn btn-block activate-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span>
+                                <span class="ribbon"> <a href="#/billing/payment-page" class="btn btn-block activate-link paid-plan-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span>
                             </li>
                         </ul>
                     </div>'
@@ -60,6 +71,7 @@ define [ 'app'
             serializeData :->
                 data = super()
                 data.currency = COUNTRY_BASED_CURRENCY
+                data.THEMEURL = THEMEURL
                 data
 
             onShow:->
@@ -67,6 +79,30 @@ define [ 'app'
                     @$el.find( '#free-plan' ).addClass 'active'
                     @$el.find( '#free-plan .free-plan-link' ).text _.polyglot.t('Active Plan')
 
+            events :
+                'click .free-plan-link' : ->
+                    # if current plan is not free 
+                    if PAYMENT_PLAN_ID != "1"
+                        bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure you want to switch to free plan?'}</h4><p>#{ _.polyglot.t 'You will lose this content permanently.'}</p>",(result)=>
+                            if result is true
+                                console.log "yes switch"
+                                @$el.find('#pay_loader').show()
+                                @trigger "switch:to:free:plan"
+                            else
+                                console.log "dont switch"
+
+                'click .paid-plan-link' :(e) ->
+                    currentSubscriptionStatus = 'Active'
+                    currentSubscriptionPrice = 2
+                    chosenPlanPrice = 1
+                    if chosenPlanPrice < currentSubscriptionPrice
+                        e.preventDefault()
+                        bootbox.alert "<h4 class='delete-message'>" + _.polyglot.t('Sorry , you cannot downgrade plans mid cycle') + "</h4><p>#{ _.polyglot.t 'If you wish to subscribe to a lower plan you could cancel current subscription and then subscribe to a plan of your choice at the end of the current billing cycle'}</p>"
+
+
+                            
+
+                    
 
 
 

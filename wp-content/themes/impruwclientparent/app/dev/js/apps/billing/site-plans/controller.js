@@ -11,21 +11,30 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-plans/views'], 
       }
 
       Controller.prototype.initialize = function(opts) {
-        this.sitePlanCollection = App.request("get:all:billing:plans");
-        return App.execute("when:fetched", this.sitePlanCollection, (function(_this) {
+        this.subscriptionCollection = App.request("get:site:subscriptions");
+        this.featurePlanCollection = App.request("get:all:feature:plans");
+        this.layout = this.getLayout();
+        App.vent.trigger("set:active:menu", 'billing');
+        this.show(this.layout, {
+          loading: true
+        });
+        return this.listenTo(this.layout, "show", (function(_this) {
           return function() {
-            _this.view = _this.getView();
-            App.vent.trigger("set:active:menu", 'billing');
-            return _this.show(_this.view, {
-              loading: true
+            return App.execute("when:fetched", _this.featurePlanCollection, function() {
+              _this.view = _this.getView();
+              return _this.layout.viewPlanRegion.show(_this.view);
             });
           };
         })(this));
       };
 
+      Controller.prototype.getLayout = function(model) {
+        return new SitePaymentPlans.View.Layout;
+      };
+
       Controller.prototype.getView = function() {
         return new SitePaymentPlans.View.PlansView({
-          collection: this.sitePlanCollection
+          collection: this.featurePlanCollection
         });
       };
 

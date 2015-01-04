@@ -18,15 +18,15 @@ define ["app", 'backbone'], (App, Backbone) ->
                 return "#{SITEURL}/api/ajbilling/braintreeSubscription/#{@get("object_id")}/site"
 
 
-        # class BraintreeSubscriptionCollection extends Backbone.Collection
+        class BraintreeSubscriptionCollection extends Backbone.Collection
 
-        #     model: BraintreeSubscription
+            model: BraintreeSubscription
 
-        #     url: ->
-        #         "#{SITEURL}/api/ajbilling/plans/#{SITEID["id"]}"
+            url: ->
+                "#{SITEURL}/api/ajbilling/braintreeSubscriptions/#{SITEID["id"]}/site"
 
 
-        # braintreeSubscriptionCollection = new BraintreeSubscriptionCollection
+        braintreeSubscriptionCollection = new BraintreeSubscriptionCollection
 
         API =
 
@@ -35,12 +35,13 @@ define ["app", 'backbone'], (App, Backbone) ->
                 activeSubscriptionModel.fetch()
                 activeSubscriptionModel
 
-            # getBraintreeSubscriptionCollection:->
-            #     braintreeSubscriptionCollection.fetch() if braintreeSubscriptionCollection.length is 0
-            #     braintreeSubscriptionCollection
+            getBraintreeSubscriptionCollection:->
+                braintreeSubscriptionCollection.fetch() if braintreeSubscriptionCollection.length is 0
+                braintreeSubscriptionCollection
 
         App.reqres.setHandler "get:active:subscription",( siteId ) ->
             API.getActiveBraintreeSubscription siteId
 
-        # App.reqres.setHandler "get:all:subscriptions",()->
-        #     API.getBraintreeSubscriptionCollection()
+        # This collection would always return a collection with only one model since every site has only one collection associated to a site
+        App.reqres.setHandler "get:site:subscriptions",()->
+            API.getBraintreeSubscriptionCollection()
