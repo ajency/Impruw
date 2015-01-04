@@ -37,6 +37,15 @@ define ['app'
 
             events:
                 'click #btn_update-selected-addons': 'setSelectedAddOns'
+                'click .checkbox' : 'checkMaximumAllowedCount'
+
+            checkMaximumAllowedCount:(e) ->
+                maxAllowedCount = PLAN_FEATURE_COUNT['site_add_ons'][0]['allowed_count']
+                lengthOfSelectedAddOns = $("input:checked").length
+                if lengthOfSelectedAddOns is maxAllowedCount
+                    @$el.find(":checkbox:not(:checked)").prop "disabled", true
+                else
+                    @$el.find(":checkbox:not(:checked)").prop "disabled", false
 
             setSelectedAddOns: (e)->
                 e.preventDefault()

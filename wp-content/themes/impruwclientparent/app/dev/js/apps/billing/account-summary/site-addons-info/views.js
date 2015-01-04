@@ -47,7 +47,19 @@ define(['app', 'text!apps/billing/account-summary/templates/siteAddOnsInfo.html'
       SiteAddOnsInfoView.prototype.emptyView = EmptyBillingInfoView;
 
       SiteAddOnsInfoView.prototype.events = {
-        'click #btn_update-selected-addons': 'setSelectedAddOns'
+        'click #btn_update-selected-addons': 'setSelectedAddOns',
+        'click .checkbox': 'checkMaximumAllowedCount'
+      };
+
+      SiteAddOnsInfoView.prototype.checkMaximumAllowedCount = function(e) {
+        var lengthOfSelectedAddOns, maxAllowedCount;
+        maxAllowedCount = PLAN_FEATURE_COUNT['site_add_ons'][0]['allowed_count'];
+        lengthOfSelectedAddOns = $("input:checked").length;
+        if (lengthOfSelectedAddOns === maxAllowedCount) {
+          return this.$el.find(":checkbox:not(:checked)").prop("disabled", true);
+        } else {
+          return this.$el.find(":checkbox:not(:checked)").prop("disabled", false);
+        }
       };
 
       SiteAddOnsInfoView.prototype.setSelectedAddOns = function(e) {
