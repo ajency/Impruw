@@ -19,6 +19,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
         return App.execute("when:fetched", featurePlanModel, (function(_this) {
           return function() {
             _this.view = _this.getView(featurePlanModel);
+            _this.listenTo(_this.view, "switch:to:free:plan", _this.changeToFreePlan);
             return _this.show(_this.view, {
               loading: true
             });
@@ -30,6 +31,25 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
         return new AccountPlanInfo.View.AccountPlanInfoView({
           model: featurePlanModel
         });
+      };
+
+      Controller.prototype.changeToFreePlan = function() {
+        var options, postURL;
+        postURL = "" + SITEURL + "/api/ajbilling/defaultPlan/" + SITEID["id"] + "/site";
+        options = {
+          method: 'PUT',
+          url: postURL
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            if (response.success === true) {
+              Marionette.triggerMethod.call(_this.region, "load:subscription:info:app");
+              return _this.view.triggerMethod("cancel:subscription:success");
+            } else {
+              return _this.view.triggerMethod("cancel:subscription:error", response.msg);
+            }
+          };
+        })(this));
       };
 
       return Controller;

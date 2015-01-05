@@ -22,6 +22,9 @@ define [ 'app', 'controllers/base-controller'
                         @currentSubscriptionPrice = currentSubscriptionModel.get('price')
                         App.execute "when:fetched",  @featurePlanCollection, => 
                             @view = @getView() 
+
+                            @listenTo @view, "switch:to:free:plan", @changeToFreePlan
+
                             @layout.viewPlanRegion.show @view
 
             getLayout : ( model ) ->
@@ -32,6 +35,16 @@ define [ 'app', 'controllers/base-controller'
                     collection: @featurePlanCollection
                     currentSubscriptionStatus : @currentSubscriptionStatus
                     currentSubscriptionPrice : @currentSubscriptionPrice
+
+            changeToFreePlan:->
+                postURL = "#{SITEURL}/api/ajbilling/defaultPlan/#{SITEID["id"]}/site"
+
+                options =
+                    method : 'PUT'
+                    url : postURL
+
+                $.ajax( options ).done ( response )=>
+                    console.log response
 
         App.commands.setHandler "show:site:plans:app", ( opts ) ->
             new SitePaymentPlans.Controller opts

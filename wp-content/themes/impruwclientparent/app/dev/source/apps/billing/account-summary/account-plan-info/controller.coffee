@@ -13,6 +13,8 @@ define [ 'app', 'controllers/base-controller'
 
                 App.execute "when:fetched", featurePlanModel, => 
                     @view = @getView featurePlanModel
+
+                    @listenTo @view, "switch:to:free:plan", @changeToFreePlan
                     
                     @show @view,
                         loading : true
@@ -20,6 +22,20 @@ define [ 'app', 'controllers/base-controller'
             getView : ( featurePlanModel) =>
                 new AccountPlanInfo.View.AccountPlanInfoView
                     model : featurePlanModel
+
+            changeToFreePlan:->
+                postURL = "#{SITEURL}/api/ajbilling/defaultPlan/#{SITEID["id"]}/site"
+
+                options =
+                    method : 'PUT'
+                    url : postURL
+
+                $.ajax( options ).done ( response )=>
+                    if response.success is true
+                        Marionette.triggerMethod.call @region, "load:subscription:info:app"
+                        @view.triggerMethod "cancel:subscription:success"
+                    else
+                        @view.triggerMethod "cancel:subscription:error", response.msg
 
         App.commands.setHandler "show:account:plan:info", ( opts ) ->
             new AccountPlanInfo.Controller opts

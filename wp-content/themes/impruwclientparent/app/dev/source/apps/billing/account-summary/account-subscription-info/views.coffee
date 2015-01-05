@@ -10,6 +10,11 @@ define ['app'
             serializeData : ->
             	data = super()
             	data.timezone = BT_TIMEZONE
+
+            	if data.subscription_status is 'Canceled'
+            		data.nextBillingDate ='N/A'
+            		data.nextBillAmount = '0'
+            	
             	data
 
 

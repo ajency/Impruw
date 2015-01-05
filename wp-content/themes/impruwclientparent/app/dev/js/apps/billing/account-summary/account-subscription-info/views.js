@@ -16,6 +16,10 @@ define(['app', 'text!apps/billing/account-summary/templates/accountSubscriptionI
         var data;
         data = AccountSubscriptionInfoView.__super__.serializeData.call(this);
         data.timezone = BT_TIMEZONE;
+        if (data.subscription_status === 'Canceled') {
+          data.nextBillingDate = 'N/A';
+          data.nextBillAmount = '0';
+        }
         return data;
       };
 

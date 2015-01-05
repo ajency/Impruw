@@ -27,6 +27,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-plans/views'], 
               _this.currentSubscriptionPrice = currentSubscriptionModel.get('price');
               return App.execute("when:fetched", _this.featurePlanCollection, function() {
                 _this.view = _this.getView();
+                _this.listenTo(_this.view, "switch:to:free:plan", _this.changeToFreePlan);
                 return _this.layout.viewPlanRegion.show(_this.view);
               });
             });
@@ -44,6 +45,20 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-plans/views'], 
           currentSubscriptionStatus: this.currentSubscriptionStatus,
           currentSubscriptionPrice: this.currentSubscriptionPrice
         });
+      };
+
+      Controller.prototype.changeToFreePlan = function() {
+        var options, postURL;
+        postURL = "" + SITEURL + "/api/ajbilling/defaultPlan/" + SITEID["id"] + "/site";
+        options = {
+          method: 'PUT',
+          url: postURL
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            return console.log(response);
+          };
+        })(this));
       };
 
       return Controller;

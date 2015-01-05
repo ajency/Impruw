@@ -38,6 +38,7 @@ define [ 'app', 'controllers/base-controller'
                         #     region : @layout.purchaseHistoryRegion
                         #     braintreeCustomerId : braintreeCustomerId
 
+                @listenTo @layout.accountPlanRegion, "load:subscription:info:app", @loadSubscriptionInfoApp
 
                 # show main layout
                 @show @layout,
@@ -47,6 +48,10 @@ define [ 'app', 'controllers/base-controller'
             # get layout
             getLayout : ->
                 new AccountSummary.View.Layout
+
+            loadSubscriptionInfoApp :->
+                App.execute "show:account:subscription:info",
+                    region : @layout.accountSubscriptionRegion
 
         App.commands.setHandler "show:account:summary:app", ( opts ) ->
             new AccountSummary.Controller opts

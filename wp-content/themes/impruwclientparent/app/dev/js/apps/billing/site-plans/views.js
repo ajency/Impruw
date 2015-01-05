@@ -109,11 +109,8 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/bi
             return bootbox.confirm("<h4 class='delete-message'>" + (_.polyglot.t('Are you sure you want to switch to free plan?')) + "</h4><p>" + (_.polyglot.t('Doing so will cancel your current paid subscription and default free plan will be activated at the end of your current billing cycle')) + "</p>", (function(_this) {
               return function(result) {
                 if (result === true) {
-                  console.log("yes switch");
                   _this.$el.find('#pay_loader').show();
                   return _this.trigger("switch:to:free:plan");
-                } else {
-                  return console.log("dont switch");
                 }
               };
             })(this));

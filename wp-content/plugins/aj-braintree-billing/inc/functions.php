@@ -445,6 +445,28 @@ function aj_braintree_create_payment_method($customer_id, $payment_method_nonce)
 
 }
 
+function aj_braintree_cancel_subscription( $subscription_id ) {
+
+    #check if a active subscription exists
+    try {
+        Braintree_Subscription::find( $subscription_id );
+
+        $cancel_subscription = Braintree_Subscription::cancel( $subscription_id );
+        if ( $cancel_subscription->success ) {
+
+            return array( 'success' => $cancel_subscription->success );
+        } else {
+
+            $error_msg = array( 'success' => $cancel_subscription->success, 'msg' => $cancel_subscription->message );
+            return $error_msg;
+        }
+    } catch ( Braintree_Exception_NotFound $e ) {
+
+        return array( 'success' => false, 'msg' => 'No existing subscription' );
+    }
+
+}
+
 // aj_braintree_transaction(payment_method_token, amount, merchant_account )
 // aj_braintree_get_all_subscriptions(customer_id)
 // aj_braintree_get_all_transactions(customer_id)

@@ -27,6 +27,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
             });
           };
         })(this));
+        this.listenTo(this.layout.accountPlanRegion, "load:subscription:info:app", this.loadSubscriptionInfoApp);
         return this.show(this.layout, {
           loading: true
         });
@@ -34,6 +35,12 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
 
       Controller.prototype.getLayout = function() {
         return new AccountSummary.View.Layout;
+      };
+
+      Controller.prototype.loadSubscriptionInfoApp = function() {
+        return App.execute("show:account:subscription:info", {
+          region: this.layout.accountSubscriptionRegion
+        });
       };
 
       return Controller;

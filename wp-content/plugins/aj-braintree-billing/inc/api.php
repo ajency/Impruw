@@ -84,6 +84,9 @@
            $routes['/ajbilling/braintreePlan/(?P<object_id>\d+)/(?P<object_type>\S+)/(?P<plan_id>\d+)/(?P<braintree_plan_id>\S+)'] = array(
             array( array( $this, 'change_site_braintree_plan'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
+           $routes['/ajbilling/defaultPlan/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
+            array( array( $this, 'assign_default_plan'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
+            );
 
 
            return $routes;
@@ -270,6 +273,22 @@
             
             
            
+        }
+
+        public function assign_default_plan($object_id, $object_type='site'){
+
+            $customer_id =ajbilling_get_braintree_customer_id($object_id,$object_type);
+            if (! empty($customer_id) ) {
+                $current_subscription_id =  aj_braintree_get_customer_subscription($customer_id);
+
+                // Cancel this subscription in braintree
+                $cancel_subscription = aj_braintree_cancel_subscription($current_subscription_id);
+            }else{
+                $cancel_subscription =  array('sucess' => false, 'msg'=>'Customer not in Braintree' );
+            }
+            
+            return $cancel_subscription;
+
         }
 
         public function add_braintree_credit_card($object_id, $object_type='site'){

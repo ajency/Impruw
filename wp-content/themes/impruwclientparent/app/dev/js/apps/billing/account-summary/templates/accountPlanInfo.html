@@ -5,8 +5,14 @@
             {{plan_title}}
         </h6>
     </div>
-    <div class="col-sm-6 right">
+    <div class="col-sm-2 right">
         <a href="#/billing/pricing-plans" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Change Plan{{/polyglot}}</a>
+    </div> 
+    <div class="col-sm-4">
+        <a href="#" class="deactivate-subscription">{{#polyglot}}Deactivate Paid Subscription{{/polyglot}}</a>
+        
+        <img src="{{THEMEURL}}/images/loader.gif" width="18" height="10"
+        id="deactivate_plan_loader" style="display:none ">
     </div>
     <div class="col-sm-12">
         <h6 class="aj-imp-sub-head-thin">
@@ -29,4 +35,8 @@
             {{/plan_features}}
         </h6>
     </div>
+    <div class="col-sm-6">
+     <div id="deactivate_plan_status"></div>  
+    </div>
+   
 </div>
