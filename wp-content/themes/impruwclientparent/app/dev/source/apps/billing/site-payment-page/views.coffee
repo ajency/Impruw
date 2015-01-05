@@ -12,8 +12,7 @@ define [ 'app'
             template : paymentLayoutViewTpl
 
             regions :
-                selectedPlanRegion : '#selected-plan'
-                paymentRegion : '#payment-region'
+                paymentRegion : '#payment-page-region'
 
 
         class SingleCreditCard extends  Marionette.ItemView
@@ -39,8 +38,25 @@ define [ 'app'
                 'change': 'render'
 
             serializeData : ->
+                activePlanName = Marionette.getOption @, 'activePlanName'
+                currentSubscriptionAmount = Marionette.getOption @, 'currentSubscriptionAmount'
+                currencySymbol = Marionette.getOption @, 'currencySymbol'
+                billingPeriodStartDate = Marionette.getOption @, 'billingPeriodStartDate'
+                billingPeriodEndDate = Marionette.getOption @, 'billingPeriodEndDate'
+                nextBillingDate = Marionette.getOption @, 'nextBillingDate'
+                selectedPlanName = Marionette.getOption @, 'selectedPlanName'
+                selectedPlanAmount = Marionette.getOption @, 'selectedPlanAmount'
+
                 data = super()
                 data.THEMEURL = THEMEURL
+                data.activePlanName = activePlanName
+                data.currentSubscriptionAmount = currentSubscriptionAmount
+                data.currencySymbol = currencySymbol
+                data.billingPeriodStartDate = billingPeriodStartDate
+                data.billingPeriodEndDate = billingPeriodEndDate
+                data.nextBillingDate = nextBillingDate
+                data.selectedPlanName = selectedPlanName
+                data.selectedPlanAmount = selectedPlanAmount
                 data
 
             events :
@@ -111,8 +127,25 @@ define [ 'app'
             template : newCustomerPaymentViewTpl
 
             serializeData : ->
+                activePlanName = Marionette.getOption @, 'activePlanName'
+                currentSubscriptionAmount = Marionette.getOption @, 'currentSubscriptionAmount'
+                currencySymbol = Marionette.getOption @, 'currencySymbol'
+                billingPeriodStartDate = Marionette.getOption @, 'billingPeriodStartDate'
+                billingPeriodEndDate = Marionette.getOption @, 'billingPeriodEndDate'
+                nextBillingDate = Marionette.getOption @, 'nextBillingDate'
+                selectedPlanName = Marionette.getOption @, 'selectedPlanName'
+                selectedPlanAmount = Marionette.getOption @, 'selectedPlanAmount'
+
                 data = super()
                 data.THEMEURL = THEMEURL
+                data.activePlanName = activePlanName
+                data.currentSubscriptionAmount = currentSubscriptionAmount
+                data.currencySymbol = currencySymbol
+                data.billingPeriodStartDate = billingPeriodStartDate
+                data.billingPeriodEndDate = billingPeriodEndDate
+                data.nextBillingDate = nextBillingDate
+                data.selectedPlanName = selectedPlanName
+                data.selectedPlanAmount = selectedPlanAmount
                 data
 
             events :

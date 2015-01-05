@@ -59,6 +59,11 @@ define(["app", 'backbone'], function(App, Backbone) {
         activeFeaturePlanModel.fetch();
         return activeFeaturePlanModel;
       },
+      getFeaturePlanById: function(planId) {
+        var featurePlanModel;
+        featurePlanModel = siteFeaturePlanCollection.get(planId);
+        return featurePlanModel;
+      },
       getSiteFeaturePlanCollection: function() {
         if (siteFeaturePlanCollection.length === 0) {
           siteFeaturePlanCollection.fetch();
@@ -68,6 +73,9 @@ define(["app", 'backbone'], function(App, Backbone) {
     };
     App.reqres.setHandler("get:active:feature:plan", function(siteId) {
       return API.getActiveFeaturePlan(siteId);
+    });
+    App.reqres.setHandler("get:feature:plan:by:id", function(planId) {
+      return API.getFeaturePlanById(planId);
     });
     return App.reqres.setHandler("get:all:feature:plans", function() {
       return API.getSiteFeaturePlanCollection();

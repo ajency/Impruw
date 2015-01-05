@@ -16,10 +16,29 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
       }
 
       Controller.prototype.initialize = function(opts) {
+        var activePlanModel, currentSubscriptionModel, selectedPlanModel, subscriptionCollection;
         this.siteModel = App.request("get:site:model");
         this.selectedPlanId = opts.planId;
         this.braintreePlanId = opts.braintreePlanId;
-        this.selectedPlanModel = App.request("get:braintreeplan:by:id", this.selectedPlanId);
+        console.log(this.selectedPlanId);
+        selectedPlanModel = App.request("get:feature:plan:by:id", this.selectedPlanId);
+        console.log(selectedPlanModel);
+        this.selectedPlanName = selectedPlanModel.get('plan_title');
+        this.selectedPlanAmount = selectedPlanModel.get('price');
+        subscriptionCollection = App.request("get:site:subscriptions");
+        console.log(subscriptionCollection);
+        currentSubscriptionModel = subscriptionCollection.at(0);
+        this.currentSubscriptionAmount = currentSubscriptionModel.get('price');
+        this.currencySymbol = currentSubscriptionModel.get('currency');
+        this.billingPeriodStartDate = currentSubscriptionModel.get('billingPeriodStartDate');
+        this.billingPeriodEndDate = currentSubscriptionModel.get('billingPeriodEndDate');
+        this.nextBillingDate = currentSubscriptionModel.get('nextBillingDate');
+        if (PAYMENT_PLAN_ID === '1') {
+          this.activePlanName = 'Default';
+        } else {
+          activePlanModel = App.request("get:feature:plan:by:id", PAYMENT_PLAN_ID);
+          this.activePlanName = activePlanModel.get('plan_title');
+        }
         this.layout = this.getLayout(this.siteModel);
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {
@@ -62,13 +81,29 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
 
       Controller.prototype.getPaymentPageView = function(creditCardCollection) {
         return new SitePayment.View.PaymentPageView({
-          collection: creditCardCollection
+          collection: creditCardCollection,
+          activePlanName: this.activePlanName,
+          currentSubscriptionAmount: this.currentSubscriptionAmount,
+          currencySymbol: this.currencySymbol,
+          billingPeriodStartDate: this.billingPeriodStartDate,
+          billingPeriodEndDate: this.billingPeriodEndDate,
+          nextBillingDate: this.nextBillingDate,
+          selectedPlanName: this.selectedPlanName,
+          selectedPlanAmount: this.selectedPlanAmount
         });
       };
 
       Controller.prototype.getFirstTimePaymentPageView = function(creditCardModel) {
         return new SitePayment.View.FirstTimePaymentView({
-          model: creditCardModel
+          model: creditCardModel,
+          activePlanName: this.activePlanName,
+          currentSubscriptionAmount: this.currentSubscriptionAmount,
+          currencySymbol: this.currencySymbol,
+          billingPeriodStartDate: this.billingPeriodStartDate,
+          billingPeriodEndDate: this.billingPeriodEndDate,
+          nextBillingDate: this.nextBillingDate,
+          selectedPlanName: this.selectedPlanName,
+          selectedPlanAmount: this.selectedPlanAmount
         });
       };
 

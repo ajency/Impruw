@@ -10,7 +10,32 @@ define [ 'app', 'controllers/base-controller'
                 #selected plan data
                 @selectedPlanId = opts.planId
                 @braintreePlanId = opts.braintreePlanId
-                @selectedPlanModel = App.request "get:braintreeplan:by:id", @selectedPlanId
+
+                console.log @selectedPlanId
+
+                # Get selected plan details to be displayed in the view
+                selectedPlanModel = App.request "get:feature:plan:by:id",@selectedPlanId
+                console.log selectedPlanModel
+                @selectedPlanName = selectedPlanModel.get 'plan_title'
+                @selectedPlanAmount = selectedPlanModel.get 'price'
+
+                # Get current subscription details to be displayed in the view
+                subscriptionCollection = App.request "get:site:subscriptions"
+                console.log subscriptionCollection
+                currentSubscriptionModel = subscriptionCollection.at 0
+                @currentSubscriptionAmount = currentSubscriptionModel.get 'price'
+                @currencySymbol = currentSubscriptionModel.get 'currency'
+                @billingPeriodStartDate = currentSubscriptionModel.get 'billingPeriodStartDate'
+                @billingPeriodEndDate = currentSubscriptionModel.get 'billingPeriodEndDate'
+                @nextBillingDate = currentSubscriptionModel.get 'nextBillingDate'
+
+                # Get current active plan name
+                if PAYMENT_PLAN_ID is '1'
+                    @activePlanName = 'Default'
+                else
+                    activePlanModel = App.request "get:feature:plan:by:id",PAYMENT_PLAN_ID
+                    @activePlanName = activePlanModel.get 'plan_title'
+
 
                 @layout = @getLayout @siteModel
 
@@ -54,10 +79,26 @@ define [ 'app', 'controllers/base-controller'
             getPaymentPageView : ( creditCardCollection )->
                 new SitePayment.View.PaymentPageView
                     collection : creditCardCollection
+                    activePlanName : @activePlanName
+                    currentSubscriptionAmount : @currentSubscriptionAmount
+                    currencySymbol : @currencySymbol
+                    billingPeriodStartDate : @billingPeriodStartDate
+                    billingPeriodEndDate : @billingPeriodEndDate
+                    nextBillingDate : @nextBillingDate
+                    selectedPlanName : @selectedPlanName
+                    selectedPlanAmount : @selectedPlanAmount
 
             getFirstTimePaymentPageView : ( creditCardModel )->
                 new SitePayment.View.FirstTimePaymentView
                     model : creditCardModel
+                    activePlanName : @activePlanName
+                    currentSubscriptionAmount : @currentSubscriptionAmount
+                    currencySymbol : @currencySymbol
+                    billingPeriodStartDate : @billingPeriodStartDate
+                    billingPeriodEndDate : @billingPeriodEndDate
+                    nextBillingDate : @nextBillingDate
+                    selectedPlanName : @selectedPlanName
+                    selectedPlanAmount : @selectedPlanAmount
 
             newCardPayment : ( paymentMethodNonce )=>
                 

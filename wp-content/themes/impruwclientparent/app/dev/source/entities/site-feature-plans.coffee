@@ -35,12 +35,19 @@ define ["app", 'backbone'], (App, Backbone) ->
                 activeFeaturePlanModel.fetch()
                 activeFeaturePlanModel
 
+            getFeaturePlanById : ( planId ) ->
+                featurePlanModel = siteFeaturePlanCollection.get(planId)
+                featurePlanModel
+
             getSiteFeaturePlanCollection:->
                 siteFeaturePlanCollection.fetch() if siteFeaturePlanCollection.length is 0
                 siteFeaturePlanCollection
 
         App.reqres.setHandler "get:active:feature:plan",( siteId ) ->
             API.getActiveFeaturePlan siteId
+
+        App.reqres.setHandler "get:feature:plan:by:id",( planId ) ->
+            API.getFeaturePlanById planId
 
         App.reqres.setHandler "get:all:feature:plans",()->
             API.getSiteFeaturePlanCollection()

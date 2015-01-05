@@ -14,8 +14,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
       Layout.prototype.template = paymentLayoutViewTpl;
 
       Layout.prototype.regions = {
-        selectedPlanRegion: '#selected-plan',
-        paymentRegion: '#payment-region'
+        paymentRegion: '#payment-page-region'
       };
 
       return Layout;
@@ -57,9 +56,25 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
       };
 
       PaymentPageView.prototype.serializeData = function() {
-        var data;
+        var activePlanName, billingPeriodEndDate, billingPeriodStartDate, currencySymbol, currentSubscriptionAmount, data, nextBillingDate, selectedPlanAmount, selectedPlanName;
+        activePlanName = Marionette.getOption(this, 'activePlanName');
+        currentSubscriptionAmount = Marionette.getOption(this, 'currentSubscriptionAmount');
+        currencySymbol = Marionette.getOption(this, 'currencySymbol');
+        billingPeriodStartDate = Marionette.getOption(this, 'billingPeriodStartDate');
+        billingPeriodEndDate = Marionette.getOption(this, 'billingPeriodEndDate');
+        nextBillingDate = Marionette.getOption(this, 'nextBillingDate');
+        selectedPlanName = Marionette.getOption(this, 'selectedPlanName');
+        selectedPlanAmount = Marionette.getOption(this, 'selectedPlanAmount');
         data = PaymentPageView.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
+        data.activePlanName = activePlanName;
+        data.currentSubscriptionAmount = currentSubscriptionAmount;
+        data.currencySymbol = currencySymbol;
+        data.billingPeriodStartDate = billingPeriodStartDate;
+        data.billingPeriodEndDate = billingPeriodEndDate;
+        data.nextBillingDate = nextBillingDate;
+        data.selectedPlanName = selectedPlanName;
+        data.selectedPlanAmount = selectedPlanAmount;
         return data;
       };
 
@@ -148,9 +163,25 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
       FirstTimePaymentView.prototype.template = newCustomerPaymentViewTpl;
 
       FirstTimePaymentView.prototype.serializeData = function() {
-        var data;
+        var activePlanName, billingPeriodEndDate, billingPeriodStartDate, currencySymbol, currentSubscriptionAmount, data, nextBillingDate, selectedPlanAmount, selectedPlanName;
+        activePlanName = Marionette.getOption(this, 'activePlanName');
+        currentSubscriptionAmount = Marionette.getOption(this, 'currentSubscriptionAmount');
+        currencySymbol = Marionette.getOption(this, 'currencySymbol');
+        billingPeriodStartDate = Marionette.getOption(this, 'billingPeriodStartDate');
+        billingPeriodEndDate = Marionette.getOption(this, 'billingPeriodEndDate');
+        nextBillingDate = Marionette.getOption(this, 'nextBillingDate');
+        selectedPlanName = Marionette.getOption(this, 'selectedPlanName');
+        selectedPlanAmount = Marionette.getOption(this, 'selectedPlanAmount');
         data = FirstTimePaymentView.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
+        data.activePlanName = activePlanName;
+        data.currentSubscriptionAmount = currentSubscriptionAmount;
+        data.currencySymbol = currencySymbol;
+        data.billingPeriodStartDate = billingPeriodStartDate;
+        data.billingPeriodEndDate = billingPeriodEndDate;
+        data.nextBillingDate = nextBillingDate;
+        data.selectedPlanName = selectedPlanName;
+        data.selectedPlanAmount = selectedPlanAmount;
         return data;
       };
 
