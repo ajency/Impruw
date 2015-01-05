@@ -96,7 +96,7 @@ define [ 'app'
                 'click .free-plan-link' : ->
                     # if current plan is not free 
                     if PAYMENT_PLAN_ID != "1"
-                        bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure you want to switch to free plan?'}</h4><p>#{ _.polyglot.t 'You will lose this content permanently.'}</p>",(result)=>
+                        bootbox.confirm "<h4 class='delete-message'>#{ _.polyglot.t 'Are you sure you want to switch to free plan?'}</h4><p>#{ _.polyglot.t 'Doing so will cancel your current paid subscription and default free plan will be activated at the end of your current billing cycle'}</p>",(result)=>
                             if result is true
                                 console.log "yes switch"
                                 @$el.find('#pay_loader').show()

@@ -20,19 +20,20 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         this.siteModel = App.request("get:site:model");
         this.selectedPlanId = opts.planId;
         this.braintreePlanId = opts.braintreePlanId;
-        console.log(this.selectedPlanId);
         selectedPlanModel = App.request("get:feature:plan:by:id", this.selectedPlanId);
-        console.log(selectedPlanModel);
         this.selectedPlanName = selectedPlanModel.get('plan_title');
         this.selectedPlanAmount = selectedPlanModel.get('price');
         subscriptionCollection = App.request("get:site:subscriptions");
-        console.log(subscriptionCollection);
         currentSubscriptionModel = subscriptionCollection.at(0);
         this.currentSubscriptionAmount = currentSubscriptionModel.get('price');
         this.currencySymbol = currentSubscriptionModel.get('currency');
         this.billingPeriodStartDate = currentSubscriptionModel.get('billingPeriodStartDate');
         this.billingPeriodEndDate = currentSubscriptionModel.get('billingPeriodEndDate');
         this.nextBillingDate = currentSubscriptionModel.get('nextBillingDate');
+        this.prorationCharge = this.getProrationCharge(this.currentSubscriptionAmount, this.selectedPlanAmount, this.billingPeriodStartDate, this.billingPeriodEndDate);
+        console.log(this.prorationCharge);
+        this.currentSubscriptionBalance = this.getCurrentSubscriptionBalance(this.currentSubscriptionAmount, this.prorationCharge);
+        console.log(this.currentSubscriptionBalance);
         if (PAYMENT_PLAN_ID === '1') {
           this.activePlanName = 'Default';
         } else {
@@ -73,6 +74,35 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         });
       };
 
+      Controller.prototype.getCurrentSubscriptionBalance = function(oldPrice, prorationCharge) {
+        var currentBalance;
+        if (PAYMENT_PLAN_ID === '1') {
+          return 0;
+        }
+        currentBalance = oldPrice - prorationCharge;
+        return currentBalance;
+      };
+
+      Controller.prototype.getProrationCharge = function(oldPrice, newPrice, oldStartDate, oldEndDate) {
+        var daysInBillingPeriod, daysLeftInBillingPeriod, oldEndDateFormatted, oldEndDateMoment, oldStartDateFormatted, oldStartDateMoment, prorationCharge, today, todayFormatted, todayMoment;
+        if (PAYMENT_PLAN_ID === '1') {
+          return newPrice;
+        }
+        today = new Date();
+        today = today.toDateString();
+        todayFormatted = moment(today).format('M/D/YYYY');
+        oldStartDateFormatted = moment(oldStartDate).format('M/D/YYYY');
+        oldEndDateFormatted = moment(oldEndDate).format('M/D/YYYY');
+        todayMoment = moment(todayFormatted, 'M/D/YYYY');
+        oldStartDateMoment = moment(oldStartDateFormatted, 'M/D/YYYY');
+        oldEndDateMoment = moment(oldEndDateFormatted, 'M/D/YYYY');
+        daysInBillingPeriod = oldEndDateMoment.diff(oldStartDateMoment, 'days') + 1;
+        daysLeftInBillingPeriod = oldEndDateMoment.diff(todayMoment, 'days');
+        prorationCharge = (newPrice - oldPrice) * daysLeftInBillingPeriod / daysInBillingPeriod;
+        prorationCharge -= prorationCharge % .01;
+        return prorationCharge;
+      };
+
       Controller.prototype.getLayout = function(model) {
         return new SitePayment.View.Layout({
           model: model
@@ -89,7 +119,9 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           billingPeriodEndDate: this.billingPeriodEndDate,
           nextBillingDate: this.nextBillingDate,
           selectedPlanName: this.selectedPlanName,
-          selectedPlanAmount: this.selectedPlanAmount
+          selectedPlanAmount: this.selectedPlanAmount,
+          prorationCharge: this.prorationCharge,
+          currentSubscriptionBalance: this.currentSubscriptionBalance
         });
       };
 
@@ -103,7 +135,9 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           billingPeriodEndDate: this.billingPeriodEndDate,
           nextBillingDate: this.nextBillingDate,
           selectedPlanName: this.selectedPlanName,
-          selectedPlanAmount: this.selectedPlanAmount
+          selectedPlanAmount: this.selectedPlanAmount,
+          prorationCharge: this.prorationCharge,
+          currentSubscriptionBalance: this.currentSubscriptionBalance
         });
       };
 

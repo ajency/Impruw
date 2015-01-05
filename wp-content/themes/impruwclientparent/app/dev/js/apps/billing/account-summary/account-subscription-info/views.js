@@ -12,6 +12,13 @@ define(['app', 'text!apps/billing/account-summary/templates/accountSubscriptionI
 
       AccountSubscriptionInfoView.prototype.template = viewTpl;
 
+      AccountSubscriptionInfoView.prototype.serializeData = function() {
+        var data;
+        data = AccountSubscriptionInfoView.__super__.serializeData.call(this);
+        data.timezone = BT_TIMEZONE;
+        return data;
+      };
+
       return AccountSubscriptionInfoView;
 
     })(Marionette.ItemView);

@@ -11,23 +11,26 @@ define [ 'app', 'controllers/base-controller'
                 @selectedPlanId = opts.planId
                 @braintreePlanId = opts.braintreePlanId
 
-                console.log @selectedPlanId
-
                 # Get selected plan details to be displayed in the view
                 selectedPlanModel = App.request "get:feature:plan:by:id",@selectedPlanId
-                console.log selectedPlanModel
                 @selectedPlanName = selectedPlanModel.get 'plan_title'
                 @selectedPlanAmount = selectedPlanModel.get 'price'
 
                 # Get current subscription details to be displayed in the view
                 subscriptionCollection = App.request "get:site:subscriptions"
-                console.log subscriptionCollection
                 currentSubscriptionModel = subscriptionCollection.at 0
                 @currentSubscriptionAmount = currentSubscriptionModel.get 'price'
                 @currencySymbol = currentSubscriptionModel.get 'currency'
                 @billingPeriodStartDate = currentSubscriptionModel.get 'billingPeriodStartDate'
                 @billingPeriodEndDate = currentSubscriptionModel.get 'billingPeriodEndDate'
                 @nextBillingDate = currentSubscriptionModel.get 'nextBillingDate'
+
+                # Get proration charge
+                @prorationCharge = @getProrationCharge(@currentSubscriptionAmount, @selectedPlanAmount,@billingPeriodStartDate,@billingPeriodEndDate)
+                console.log @prorationCharge
+
+                @currentSubscriptionBalance = @getCurrentSubscriptionBalance(@currentSubscriptionAmount,@prorationCharge)
+                console.log @currentSubscriptionBalance
 
                 # Get current active plan name
                 if PAYMENT_PLAN_ID is '1'
@@ -72,6 +75,38 @@ define [ 'app', 'controllers/base-controller'
                 @show @layout,
                     loading : true
 
+            getCurrentSubscriptionBalance :(oldPrice, prorationCharge) ->
+                if PAYMENT_PLAN_ID is '1'
+                    return 0
+
+                currentBalance = oldPrice-prorationCharge
+                return currentBalance
+
+
+            getProrationCharge : ( oldPrice, newPrice, oldStartDate, oldEndDate ) ->
+                if PAYMENT_PLAN_ID is '1'
+                    return newPrice
+                
+                # today.toGMTString()
+                today = new Date()
+                today = today.toDateString()
+
+                todayFormatted = moment(today).format('M/D/YYYY')
+                oldStartDateFormatted = moment(oldStartDate).format('M/D/YYYY')
+                oldEndDateFormatted = moment(oldEndDate).format('M/D/YYYY')
+
+                todayMoment = moment(todayFormatted,'M/D/YYYY')
+                oldStartDateMoment = moment(oldStartDateFormatted,'M/D/YYYY')
+                oldEndDateMoment = moment(oldEndDateFormatted,'M/D/YYYY')
+
+                daysInBillingPeriod = oldEndDateMoment.diff(oldStartDateMoment, 'days')+1
+                daysLeftInBillingPeriod = oldEndDateMoment.diff(todayMoment, 'days')
+
+                prorationCharge = (newPrice-oldPrice)*daysLeftInBillingPeriod/daysInBillingPeriod
+                # truncate to 2 decimal points rather than rounding off
+                prorationCharge -=prorationCharge % .01
+                return prorationCharge
+
             getLayout : ( model ) ->
                 new SitePayment.View.Layout
                     model : model
@@ -87,6 +122,8 @@ define [ 'app', 'controllers/base-controller'
                     nextBillingDate : @nextBillingDate
                     selectedPlanName : @selectedPlanName
                     selectedPlanAmount : @selectedPlanAmount
+                    prorationCharge : @prorationCharge
+                    currentSubscriptionBalance : @currentSubscriptionBalance
 
             getFirstTimePaymentPageView : ( creditCardModel )->
                 new SitePayment.View.FirstTimePaymentView
@@ -99,6 +136,8 @@ define [ 'app', 'controllers/base-controller'
                     nextBillingDate : @nextBillingDate
                     selectedPlanName : @selectedPlanName
                     selectedPlanAmount : @selectedPlanAmount
+                    prorationCharge : @prorationCharge
+                    currentSubscriptionBalance : @currentSubscriptionBalance
 
             newCardPayment : ( paymentMethodNonce )=>
                 

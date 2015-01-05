@@ -46,6 +46,8 @@ define [ 'app'
                 nextBillingDate = Marionette.getOption @, 'nextBillingDate'
                 selectedPlanName = Marionette.getOption @, 'selectedPlanName'
                 selectedPlanAmount = Marionette.getOption @, 'selectedPlanAmount'
+                prorationCharge = Marionette.getOption @, 'prorationCharge'
+                currentSubscriptionBalance = Marionette.getOption @, 'currentSubscriptionBalance'
 
                 data = super()
                 data.THEMEURL = THEMEURL
@@ -57,6 +59,8 @@ define [ 'app'
                 data.nextBillingDate = nextBillingDate
                 data.selectedPlanName = selectedPlanName
                 data.selectedPlanAmount = selectedPlanAmount
+                data.prorationCharge = prorationCharge
+                data.currentSubscriptionBalance = currentSubscriptionBalance
                 data
 
             events :
@@ -135,6 +139,8 @@ define [ 'app'
                 nextBillingDate = Marionette.getOption @, 'nextBillingDate'
                 selectedPlanName = Marionette.getOption @, 'selectedPlanName'
                 selectedPlanAmount = Marionette.getOption @, 'selectedPlanAmount'
+                prorationCharge = Marionette.getOption @, 'prorationCharge'
+                currentSubscriptionBalance = Marionette.getOption @, 'currentSubscriptionBalance'
 
                 data = super()
                 data.THEMEURL = THEMEURL
@@ -146,6 +152,8 @@ define [ 'app'
                 data.nextBillingDate = nextBillingDate
                 data.selectedPlanName = selectedPlanName
                 data.selectedPlanAmount = selectedPlanAmount
+                data.prorationCharge = prorationCharge
+                data.currentSubscriptionBalance = currentSubscriptionBalance
                 data
 
             events :

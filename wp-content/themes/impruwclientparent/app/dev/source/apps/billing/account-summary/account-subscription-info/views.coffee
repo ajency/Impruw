@@ -7,5 +7,10 @@ define ['app'
 
             template: viewTpl
 
+            serializeData : ->
+            	data = super()
+            	data.timezone = BT_TIMEZONE
+            	data
+
 
 

@@ -112,25 +112,25 @@
             <!--SELECTED PLAN VIEW begins-->
             <div class="panel panel-default text-center active">
                 <div class="panel-heading">
-                    <h3>Summary</h3>
+                <h3>{{#polyglot}}Summary{{/polyglot}}</h3>
                 </div>
                 <div class="panel-body">
-                    <h5 class="panel-title">Current Plan</h5>
+                    <h5 class="panel-title">{{#polyglot}}Current Plan{{/polyglot}}</h5>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item">Name: {{activePlanName}}</li>
-                    <li class="list-group-item">Amount: {{currencySymbol}} {{currentSubscriptionAmount}}</li>
-                    <li class="list-group-item">Current billing cycle: From: {{billingPeriodStartDate}} - {{billingPeriodEndDate}}</li>
-                    <li class="list-group-item">Next billing date: {{nextBillingDate}}</li>
+                    <li class="list-group-item">{{#polyglot}}Name:{{/polyglot}} {{activePlanName}}</li>
+                    <li class="list-group-item">{{#polyglot}}Amount:{{/polyglot}} {{currencySymbol}} {{currentSubscriptionAmount}}</li>
+                    <li class="list-group-item">{{#polyglot}}Current billing cycle:{{/polyglot}} {{#polyglot}}From:{{/polyglot}} {{billingPeriodStartDate}} - {{billingPeriodEndDate}}</li>
+                    <li class="list-group-item">{{#polyglot}}Next billing date:{{/polyglot}} {{nextBillingDate}}</li>
                 </ul>
                 <div class="panel-body">
-                    <h5 class="panel-title">Chosen Plan</h5>
+                    <h5 class="panel-title">{{#polyglot}}Chosen Plan{{/polyglot}}</h5>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item">Name: {{selectedPlanName}}</li>
-                    <li class="list-group-item">Plan Amount: {{currencySymbol}} {{selectedPlanAmount}}</li>
-                    <li class="list-group-item">Current Balance: £ 9</li>
-                    <li class="list-group-item">You Pay: £ 10.99</li>
+                    <li class="list-group-item">{{#polyglot}}Name:{{/polyglot}} {{selectedPlanName}}</li>
+                    <li class="list-group-item">{{#polyglot}}Plan Amount:{{/polyglot}} {{currencySymbol}} {{selectedPlanAmount}}</li>
+                    <li class="list-group-item">{{#polyglot}}Current Balance:{{/polyglot}} {{currencySymbol}} {{currentSubscriptionBalance}}</li>
+                    <li class="list-group-item">{{#polyglot}}You Pay:{{/polyglot}} {{currencySymbol}} {{prorationCharge}}</li>
                     <li class="list-group-item"><span class="ribbon">
                         <a href="javascript:void(0)" class="btn btn-block activate-link" id="btn-stored-pay">{{#polyglot}}Pay now{{/polyglot}}</a></span>
                     </li>
