@@ -249,14 +249,13 @@ function update_past_canceled_subscription(){
 					_log( "Subscription status is canceled");
 					// Check billing end date 
 					$billing_end_date = $current_subscription['billingPeriodEndDate'] ;
-					// Test date 
-					$billing_end_date = 'JAN 02, 2015' ;
+					// // Test date 
+					// $billing_end_date = 'JAN 02, 2015' ;
 					// if billing end date is a past date set site to default free plan
 					if (is_past_date($billing_end_date)) {
 						_log( "Subscription end ".$billing_end_date." date is a  past date");
 						_log("Hence update site to default free plan");
 						$update_status = ajbilling_update_site_to_default_plan($site_id,'site');
-						_log($update_status);
 					}
 					else{
 						_log( "Subscription end ".$billing_end_date." is not a past date");
