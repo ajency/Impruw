@@ -85,7 +85,7 @@
             array( array( $this, 'change_site_braintree_plan'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
            $routes['/ajbilling/defaultPlan/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
-            array( array( $this, 'assign_default_plan'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
+            array( array( $this, 'cancel_braintree_plan'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
 
 
@@ -175,6 +175,15 @@
                 $current_subscription_id = aj_braintree_get_customer_subscription($customer_id);
                 $paymentMethodToken = $_REQUEST[ 'paymentMethodToken' ];
                 $subscription_result = ajbilling_subscribe_user_to_plan($paymentMethodToken,$braintree_plan_id,$current_subscription_id);
+                // Update braintree customer with subscription id as custom field
+                $customer_array = array('customFields' => 
+                    array( 'customer_subscription' => $subscription_result['subscription_id'] )
+                    );
+
+                if ($subscription_result['success']) {
+                    aj_braintree_update_customer( $customer_id,$customer_array );
+                }
+
                 $new_credit_card = array();
             }
             else if (isset($_REQUEST[ 'paymentMethodNonce' ])){
@@ -224,6 +233,15 @@
                         $card_token = $add_new_card['creditCardToken'];
                         // if card added successfully => subscribe_user_to_plan
                         $subscription_result =ajbilling_subscribe_user_to_plan($card_token,$braintree_plan_id,$current_subscription_id);
+
+                        // Update braintree customer with subscription id as custom field
+                        $customer_array = array('customFields' => 
+                                            array( 'customer_subscription' => $subscription_result['subscription_id'] )
+                                         );
+
+                        if ($subscription_result['success']) {
+                            aj_braintree_update_customer( $customer_id,$customer_array );
+                        }
                     }
                     
                     
@@ -275,7 +293,7 @@
            
         }
 
-        public function assign_default_plan($object_id, $object_type='site'){
+        public function cancel_braintree_plan($object_id, $object_type='site'){
 
             $customer_id =ajbilling_get_braintree_customer_id($object_id,$object_type);
             if (! empty($customer_id) ) {

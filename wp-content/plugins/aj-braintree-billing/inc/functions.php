@@ -115,8 +115,8 @@ function aj_braintree_get_subscription($subscription_id ){
 								'subscription_status' => 'N/A', 
 								'billingPeriodStartDate' => 'N/A', 
 								'billingPeriodEndDate' => 'N/A', 
-								'nextBillAmount' => 'N/A', 
-								'price' => 'N/A', 
+								'nextBillAmount' => '0', 
+								'price' => '0', 
 								'nextBillingDate' => 'N/A', 
 								);
 	try {
@@ -1658,6 +1658,23 @@ function ajbilling_update_site_plan($object_id, $object_type='site', $plan_id ){
 	$result = array('code'=>'OK','update_success'=> $update_plan_status, 'plan_id'=>$plan_id );
 
 	return $result;
+}
+
+function ajbilling_update_site_to_default_plan($object_id, $object_type='site'){
+	// Default plan id is 1
+	$plan_id = 1;
+	ajbilling_update_site_plan($object_id, $object_type='site', $plan_id );
+	$customer_id = ajbilling_get_braintree_customer_id($object_id,$object_type);
+
+	// Update subscription id associated to braintree customer to "DefaultFree"
+	// Update braintree customer with subscription id as custom field
+	$customer_array = array('customFields' => 
+		array( 'customer_subscription' => 'DefaultFree' )
+		);
+	$update_customer = aj_braintree_update_customer($customer_id,$customer_array );
+
+	return $update_customer;
+
 }
 
 function ajbilling_update_feature_count($object_id , $object_type='site', $feature_component, $plus_or_minus){

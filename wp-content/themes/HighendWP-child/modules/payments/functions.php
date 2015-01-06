@@ -178,7 +178,6 @@ function email_account_feature_changes($site_id, $feature_args){
 
 
 function suspend_email_accounts($site_id, $count=NULL){
-	$args = array('domain_name' => $domain_name);
 
 	switch_to_blog($site_id);
 		$custom_domain_exists = get_option( 'domain-name', 0);
@@ -214,6 +213,108 @@ function suspend_email_accounts($site_id, $count=NULL){
 
 	restore_current_blog();
 }
+
+function update_past_canceled_subscription(){
+	global $wpdb;
+
+	// Get all sites
+	$sites = wp_get_sites();
+
+	foreach ($sites as $site) {
+		// For each site get active plan id
+		$site_id = $site['blog_id'];
+
+		_log( "Site id: ".$site_id);
+
+
+		$active_plan_id =  (function_exists('ajbilling_get_site_planid')) ? ajbilling_get_site_planid($site_id, 'site') : 1 ;
+		$site_customer_id = (function_exists('ajbilling_get_braintree_customer_id')) ? ajbilling_get_braintree_customer_id($site_id, 'site') : '' ; 
+
+		// if site's active plan is paid and braintree customer exists
+		if (($active_plan_id!=1)&&(!empty($site_customer_id))) {
+
+			_log( "Braintree Customer id: ".$site_customer_id);
+
+			$current_subscription_id = (function_exists('aj_braintree_get_customer_subscription')) ? aj_braintree_get_customer_subscription($site_customer_id): 'DefaultFree';
+
+			// Get details of current subscription id
+			$current_subscription = aj_braintree_get_subscription($current_subscription_id );
+			$current_subscription_status = $current_subscription['subscription_status'] ;
+
+			_log( "Braintree Subscription id:".$current_subscription_id."- Braintree Subscription status : ".$current_subscription_status);
+
+			// Get subscription status
+			switch ($current_subscription_status) {
+				case 'Canceled':
+					_log( "Subscription status is canceled");
+					// Check billing end date 
+					$billing_end_date = $current_subscription['billingPeriodEndDate'] ;
+					// Test date 
+					$billing_end_date = 'JAN 02, 2015' ;
+					// if billing end date is a past date set site to default free plan
+					if (is_past_date($billing_end_date)) {
+						_log( "Subscription end ".$billing_end_date." date is a  past date");
+						$update_status = ajbilling_update_site_to_default_plan($site_id,'site');
+						_log($update_status);
+					}
+					else{
+						_log( "Subscription end ".$billing_end_date." is not a past date");
+					}
+					exit();
+					break;
+				
+				case 'Past Due':	
+					_log( "Subscription status is past due");
+					// Check how long since past due
+					// if past due for more than 30 days set site to default free plan
+					break;
+
+				default:
+					_log( "Subscription status is not canceled or past due. Hence do nothing");
+					break;
+			}
+		}
+
+		else{
+			_log( "This site has no paid plans/has no braintree customer");
+		}
+
+	}
+
+
+}
+add_action( 'cron_past_canceled_subscription_check', 'update_past_canceled_subscription' );
+
+/**
+ * Check if a date is in the present or future
+ */
+
+function is_past_date($date){
+
+    if ((date('Y-m-d') == date('Y-m-d', strtotime($date))) ||(strtotime($date) > time())){
+        //date is in the present/future
+        return false;
+    }
+    else if(strtotime($date) < time()) {
+        // date is in the past
+        return true;
+    }
+}
+
+if(!function_exists('_log')){
+  function _log( $message ) {
+    if( WP_DEBUG === true ){
+      if( is_array( $message ) || is_object( $message ) ){
+        error_log( print_r( $message, true ) );
+      } else {
+        error_log( $message );
+      }
+    }
+  }
+}
+
+
+
 
 
 
