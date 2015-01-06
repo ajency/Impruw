@@ -87,6 +87,9 @@
            $routes['/ajbilling/defaultPlan/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
             array( array( $this, 'cancel_braintree_plan'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
+           $routes['/ajbilling/braintreeWebhook'] = array(
+            array( array( $this, 'braintree_webhook_notifications'), WP_JSON_Server::READABLE ),
+            );
 
 
            return $routes;
@@ -348,6 +351,24 @@
             $result = ajbilling_update_feature_count($object_id , $object_type='site', $feature_component, $plus_or_minus);
 
             return $result;
+        }
+
+        public function braintree_webhook_notifications(){
+            //Verify webhook
+            if(isset($_GET["bt_challenge"])) {
+                echo(Braintree_WebhookNotification::verify($_GET["bt_challenge"]));
+            }
+
+            //only verifying?
+            if(empty($_REQUEST['bt_payload']))
+                exit;
+
+            //get notification
+            $webhookNotification = Braintree_WebhookNotification::parse(
+              $_REQUEST['bt_signature'], $_REQUEST['bt_payload']
+              );
+            
+            ajbilling_braintree_webhook_notifications($webhookNotification);
         }
 
     }

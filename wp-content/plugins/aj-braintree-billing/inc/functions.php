@@ -1796,6 +1796,17 @@ function ajbilling_assign_site_default_plan( $blog_id, $user_id, $domain, $path,
 }
 add_action( 'wpmu_new_blog', 'ajbilling_assign_site_default_plan', 10, 6 );
 
+function ajbilling_braintree_webhook_notifications($webhookNotification){
+
+	$webhook_kind = $webhookNotification->kind;
+	$subscription_id = $webhookNotification->subscription->id;
+
+	//need a subscription id
+	if(empty($subscription_id))
+		die("No subscription ID.");
+
+}
+
 
 
 
