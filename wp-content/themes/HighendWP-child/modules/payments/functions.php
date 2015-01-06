@@ -254,6 +254,7 @@ function update_past_canceled_subscription(){
 					// if billing end date is a past date set site to default free plan
 					if (is_past_date($billing_end_date)) {
 						_log( "Subscription end ".$billing_end_date." date is a  past date");
+						_log("Hence update site to default free plan");
 						$update_status = ajbilling_update_site_to_default_plan($site_id,'site');
 						_log($update_status);
 					}
@@ -266,7 +267,17 @@ function update_past_canceled_subscription(){
 				case 'Past Due':	
 					_log( "Subscription status is past due");
 					// Check how long since past due
+					$days_since_past_due = $current_subscription['daysPastDue'] ;
+					_log("Subscription is past due for ".$days_since_past_due." days" );
 					// if past due for more than 30 days set site to default free plan
+					if ($days_since_past_due>30) {
+						_log("Subscription is past due for more than 30 days" );
+						_log("Hence update site to default free plan" );
+						$update_status = ajbilling_update_site_to_default_plan($site_id,'site');
+					}
+					else{
+						_log("Subscription is past due for more than 30 days. So do nothing" );
+					}
 					break;
 
 				default:
