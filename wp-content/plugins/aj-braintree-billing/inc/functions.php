@@ -117,7 +117,7 @@ function aj_braintree_get_subscription($subscription_id ){
 								'billingPeriodEndDate' => 'N/A', 
 								'nextBillAmount' => '0', 
 								'price' => '0', 
-								'nextBillingDate' => 'N/A', 
+								'nextBillingDate' => 'N/A' 
 								);
 	try {
 
@@ -156,6 +156,7 @@ function aj_braintree_get_subscription($subscription_id ){
     	$braintree_subscription['trialDuration'] = $complete_subscription_details->trialDuration;
     	$braintree_subscription['trialDurationUnit'] = $complete_subscription_details->trialDurationUnit;
     	$braintree_subscription['trialPeriod'] = $complete_subscription_details->trialPeriod;
+    	$braintree_subscription['merchantAccountId'] = $complete_subscription_details->merchantAccountId;
     }
 
     return $braintree_subscription;
@@ -384,7 +385,7 @@ function aj_braintree_create_subscription($payment_method_token, $plan_id,$merch
 	}
 }
 
-function aj_braintree_update_subscription($subscription_id,$payment_method_token,$plan_id,$merchant_account,$price=NULL){
+function aj_braintree_update_subscription($subscription_id,$payment_method_token,$plan_id=NULL,$merchant_account,$price=NULL){
 
 	// price is null when past_due subscriptions are updated
 	if (is_null($price)) {
@@ -420,12 +421,38 @@ function aj_braintree_update_subscription($subscription_id,$payment_method_token
 
 		return array( 'success' => $update_subscription->success ,
 			'subscription_id' => $update_subscription->subscription->id,
-			'subscription_status' =>$update_subscription->$subscription->status,
+			'subscription_status' =>$update_subscription->subscription->status,
 			'last_transaction'=>$last_transaction);
 
 	} else {
 		return array( 'success'=> $update_subscription->success , 'msg' => $update_subscription->message );
 	}
+}
+
+function aj_braintree_retry_subscription($subscription_id){
+	$retryResult = Braintree_Subscription::retryCharge($subscription_id);
+
+	// If retry is successful, submit transaction for settlement
+	if ($retryResult->success) {
+		$submit_result = Braintree_Transaction::submitForSettlement(
+			$retryResult->transaction->id
+			);
+
+		if ($submit_result->success) {
+			$retry_subscription = array('retry_success'=>$retryResult->success, 'transaction_amount'=>$retryResult->transaction->amount,'transaction_status'=>$retryResult->transaction->status,'submit_for_settlement'=>$submit_result->success);
+		}
+		else{
+			$retry_subscription = array('retry_success'=>$retryResult->success, 'transaction_amount'=>$retryResult->transaction->amount,'transaction_status'=>$retryResult->transaction->status,'submit_for_settlement'=>$submit_result->success,'msg'=>$submit_result->message,'proocessorSettlementResponseCode'=>$submit_result->transaction->processorSettlementResponseCode,'processorSettlementResponseText'=>$submit_result->transaction->processorSettlementResponseText);
+
+		}
+
+		
+	}
+	else{
+		$retry_subscription = array('retry_success'=>$retryResult->success,'processorResponseCode'=>$retryResult->transaction->processorResponseCode,'processorResponseText'=>$retryResult->transaction->processorResponseText,  'msg'=>$retryResult->message);
+	}
+
+	return $retry_subscription ;
 }
 
 function aj_braintree_create_payment_method($customer_id, $payment_method_nonce){
@@ -434,7 +461,7 @@ function aj_braintree_create_payment_method($customer_id, $payment_method_nonce)
 						        'customerId' => $customer_id,
 						        'paymentMethodNonce' => $payment_method_nonce,
 						        'options' => array(
-						        	'failOnDuplicatePaymentMethod' => true,
+						        	'failOnDuplicatePaymentMethod' => false,
 						        	// 'makeDefault' => true
 						        	)
 						      );
@@ -466,6 +493,7 @@ function aj_braintree_cancel_subscription( $subscription_id ) {
     }
 
 }
+
 
 // aj_braintree_transaction(payment_method_token, amount, merchant_account )
 // aj_braintree_get_all_subscriptions(customer_id)

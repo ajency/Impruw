@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-billing/controller', 'apps/billing/pricing-plans/controller', 'apps/billing/site-plans/controller', 'apps/billing/site-payment-page/controller', 'apps/billing/payment-page/controller'], function(App) {
+define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-billing/controller', 'apps/billing/pricing-plans/controller', 'apps/billing/site-plans/controller', 'apps/billing/site-payment-page/controller', 'apps/billing/site-credit-cards/controller', 'apps/billing/payment-page/controller'], function(App) {
   return App.module('BillingApp', function(BillingApp, App, Backbone, Marionette, $, _) {
     var API;
     BillingApp.Router = (function(_super) {
@@ -14,6 +14,8 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
       Router.prototype.appRoutes = {
         'billing': 'summary',
         'billing/account-summary': 'summary',
+        'billing/credit-cards': 'creditCards',
+        'billing/update-billing': 'updateBilling',
         'billing/pricing-plans': 'plans',
         'billing/payment-page/:id/:braintreeId': 'payment'
       };
@@ -37,6 +39,16 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
           region: App.rightRegion,
           planId: planId,
           braintreePlanId: braintreePlanId
+        });
+      },
+      creditCards: function() {
+        return App.execute("show:site:credit:cards:app", {
+          region: App.rightRegion
+        });
+      },
+      updateBilling: function() {
+        return App.execute("show:billing:info:app", {
+          region: App.rightRegion
         });
       }
     };

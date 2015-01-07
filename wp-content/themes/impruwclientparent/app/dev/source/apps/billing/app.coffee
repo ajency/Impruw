@@ -5,6 +5,7 @@ define [
     'apps/billing/pricing-plans/controller'
     'apps/billing/site-plans/controller'
     'apps/billing/site-payment-page/controller'
+    'apps/billing/site-credit-cards/controller'
     'apps/billing/payment-page/controller' ], ( App )->
     App.module 'BillingApp', ( BillingApp, App, Backbone, Marionette, $, _ )->
 
@@ -14,7 +15,8 @@ define [
             appRoutes :
                 'billing' : 'summary'
                 'billing/account-summary' : 'summary'
-                # 'billing/update-billing' : 'updateBilling'
+                'billing/credit-cards' : 'creditCards'
+                'billing/update-billing' : 'updateBilling'
                 'billing/pricing-plans' : 'plans'
                 'billing/payment-page/:id/:braintreeId' : 'payment'
 
@@ -36,9 +38,13 @@ define [
                     planId  : planId
                     braintreePlanId  : braintreePlanId
 
-            # updateBilling : ->
-            #     App.execute "show:billing:info:app",
-            #         region : App.rightRegion
+            creditCards : ->
+                App.execute "show:site:credit:cards:app",
+                    region : App.rightRegion
+
+            updateBilling : ->
+                App.execute "show:billing:info:app",
+                    region : App.rightRegion
 
             # plans : ->
             #     App.execute "show:plans:app",

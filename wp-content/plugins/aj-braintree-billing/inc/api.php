@@ -90,6 +90,8 @@
            $routes['/ajbilling/braintreeWebhook'] = array(
             array( array( $this, 'braintree_webhook_notifications'), WP_JSON_Server::READABLE ),
             );
+           $routes['/ajbilling/setActiveCard/(?P<subscription_id>\S+)/(?P<new_card_token>\S+)'] = array(array( array( $this, 'set_active_subscription_card'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
+            );
 
 
            return $routes;
@@ -369,6 +371,51 @@
               );
             
             ajbilling_braintree_webhook_notifications($webhookNotification);
+        }
+
+        public function set_active_subscription_card($subscription_id, $new_card_token){
+            
+            $current_subscription = aj_braintree_get_subscription($subscription_id );
+            $current_subscription_status = $current_subscription['subscription_status'];
+            $current_paymentmethod_token = $current_subscription['paymentMethodToken'];
+            $current_merchant_account = $current_subscription['merchantAccountId'];
+
+            switch ($current_subscription_status) {
+                case 'Canceled':
+                    $result = array('success' => false , 'msg' => 'Your current paid subscription is canceled and hence the credit card associated to it cannot be changed' );
+                    break;
+
+                case 'Past Due':
+                    // Update subscription with new credit card and same merchant account
+                    $change_credit_card = aj_braintree_update_subscription($subscription_id,$current_paymentmethod_token,NULL,$current_merchant_account,NULL);
+
+                    if ($change_credit_card['success']) {
+                        // Retry charge for subscription
+                        $retry_charge = aj_braintree_retry_subscription($subscription_id);
+                        $result = array('change_card_success' => $change_credit_card['success'], 'subscription_status'=> $change_credit_card['subscription_status'],'subscription_id'=>$change_credit_card['subscription_id'],'retry_charge'=>$retry_charge  );
+                    }
+                    else{
+                        $result = array('change_card_success' => $change_credit_card['success'], 'msg'=> $change_credit_card['message'] );
+                    }
+                    
+                    break;
+                
+                default:
+                    // Update subscription with new credit card and same merchant account
+                    $change_credit_card = aj_braintree_update_subscription($subscription_id,$new_card_token,NULL,$current_merchant_account,NULL);
+                    
+                    if ($change_credit_card['success']) {
+                        // Retry charge for subscription
+                        $retry_charge = aj_braintree_retry_subscription($subscription_id);
+                        $result = array('change_card_success' => $change_credit_card['success'], 'subscription_status'=> $change_credit_card['subscription_status'],'subscription_id'=>$change_credit_card['subscription_id']);
+                    }
+                    else{
+                        $result = array('change_card_success' => $change_credit_card['success'], 'msg'=> $change_credit_card['message'] );
+                    }
+                    break;
+            }
+
+            return $result;
         }
 
     }

@@ -272,6 +272,10 @@ function update_past_canceled_subscription(){
 					if ($days_since_past_due>30) {
 						_log("Subscription is past due for more than 30 days" );
 						_log("Hence update site to default free plan" );
+						
+						//TODO Cancel the subscription in braintree 
+
+						// set site to default free plan on successful cancellation
 						$update_status = ajbilling_update_site_to_default_plan($site_id,'site');
 					}
 					else{
