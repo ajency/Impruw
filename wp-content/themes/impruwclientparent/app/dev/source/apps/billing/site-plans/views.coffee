@@ -41,7 +41,7 @@ define [ 'app'
                         </ul>
                     </div>'
 
-            className : 'col-sm-4'
+            className : 'col-md-3'
 
             serializeData : ->
                 data = super()

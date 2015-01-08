@@ -14,25 +14,22 @@
 
                                         {{#creditcardsExist}}
                                         <div class="row">
-                                            <div class="col-sm-3">
-                                            <button type="submit" class="btn btn-xs aj-imp-orange-btn" id="btn-set-as-active">
+                                            <div class="col-sm-12">
+                                                <button type="submit" class="btn btn-xs aj-imp-orange-btn" id="btn-set-as-active">
                                                     Set As active 
                                                 </button>
                                                 <img src="{{THEMEURL}}/images/loader.gif" width="28" height="20" class="active_card_loader" style="display:none ">
-                                                <div class="activeforget_card_status"></div>
-
-                                            </div>
-                                            <div class="col-sm-9">
-                                            <button type="submit" class="btn btn-xs aj-imp-orange-btn" id="btn-forget-card">
+                                                <button type="submit" class="btn btn-xs btn-danger" id="btn-forget-card">
                                                     Forget Card
                                                 </button>
                                                 <img src="{{THEMEURL}}/images/loader.gif" width="28" height="20" class="forget_card_loader" style="display:none ">
-
+                                                <div class="activeforget_card_status"></div>
                                             </div>
                                         </div>
                                         {{/creditcardsExist}}
 
-                                        <a data-toggle="collapse" data-target="#add-new-credit-card" class="blue-link" style="cursor:pointer;margin-top: 1em;"> <span class="glyphicon glyphicon-plus"></span> {{#polyglot}}Add New Card{{/polyglot}} </a>
+                                        <hr>
+                                        <a data-toggle="collapse" data-target="#add-new-credit-card" class="btn btn-info btn-xs"> <span class="glyphicon glyphicon-plus"></span> {{#polyglot}}Add New Card{{/polyglot}} </a>
                                         <!--ADD CARD FORM begins-->
                                         <div class="collapse" id="add-new-credit-card">
                                             <hr>
@@ -73,8 +70,8 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">{{#polyglot}}Expires On{{/polyglot}}</label>
 
-                                                    <div class="col-sm-3 col-sm-offset-3">
-                                                        <select data-braintree-name="expiration_month" id="exp_month" >
+                                                    <div class="col-sm-2 col-sm-offset-3">
+                                                        <select class="form-control" data-braintree-name="expiration_month" id="exp_month" >
                                                             <option>{{#polyglot}}Month{{/polyglot}}</option>
                                                             <option>01</option>
                                                             <option>02</option>
@@ -90,8 +87,8 @@
                                                             <option>12</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-sm-3">
-                                                        <select data-braintree-name="expiration_year" id="exp_year" >
+                                                    <div class="col-sm-2">
+                                                        <select class="form-control" data-braintree-name="expiration_year" id="exp_year" >
                                                             <option>{{#polyglot}}Year{{/polyglot}}</option>
                                                             <option>2015</option>
                                                             <option>2016</option>
@@ -108,7 +105,7 @@
                                                 </div>
                                                 <div class="form-group margin-top">
                                                     <div class="col-sm-8 col-sm-offset-3">
-                                                        <button type="submit" class="btn btn-xs aj-imp-orange-btn"
+                                                        <button type="submit" class="btn btn-xs btn-info"
                                                         id="btn-add-new-card">
                                                         {{#polyglot}}Add Card{{/polyglot}} </button>
 
