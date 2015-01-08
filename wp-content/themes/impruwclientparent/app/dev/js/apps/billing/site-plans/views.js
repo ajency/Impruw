@@ -29,7 +29,7 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/bi
 
       SinglePlanView.prototype.template = '<div class="panel panel-default text-center"> <div class="panel-heading"> <h3>{{plan_title}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">{{currency}} {{price}}</h3> <span></span> </div> <ul class="list-group"> <li class="list-group-item">{{#polyglot}}Assisted Set-Up{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Unlimited Pages{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Easy to use Content Management System (CMS){{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Mobile and Tablet Ready Site{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Facebook/Twitter Widgets{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Search Engine Optimisation (SEO){{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Online Support{{/polyglot}}</li> <li class="list-group-item">{{#polyglot}}Continuous Development{{/polyglot}}</li> {{#plan_features}} {{#is_count_type}}<li class="list-group-item">{{name}} : {{count_display_label}} </li>{{/is_count_type}} {{^is_count_type}}<li class="list-group-item">{{name}}</li>{{/is_count_type}} {{/plan_features}} <li class="list-group-item"> <span class="ribbon"> <a href="#/billing/payment-page" class="btn btn-block activate-link paid-plan-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span> </li> </ul> </div>';
 
-      SinglePlanView.prototype.className = 'col-sm-4';
+      SinglePlanView.prototype.className = 'col-md-3';
 
       SinglePlanView.prototype.serializeData = function() {
         var data;
