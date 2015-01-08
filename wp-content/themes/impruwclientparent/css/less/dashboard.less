@@ -4531,13 +4531,28 @@ form {
 				}
 			}
 			&.selected {
-				border-color: @orange;
+				box-shadow: 0px 0px 2px 1px @orange;
 				.ticker {
 					display: block;
 					background: @orange;
 				}
 			}
 		}
+		&.credit-cards{
+			.single-card{
+				opacity: 0.4;
+				&.active, &.selected{
+					opacity: 1;
+				}
+				&.active{
+					border-color: @orange;
+				}
+				&:hover{
+					opacity: 1;
+				}
+			}
+		}
+
 	}
 	#add-new-card {
 		.bootstrap-select {
