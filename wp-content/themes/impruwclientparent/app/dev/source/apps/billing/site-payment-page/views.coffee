@@ -93,6 +93,7 @@ define [ 'app'
                         @trigger "make:payment:with:stored:card", cardToken
 
             onAddCreditCardSuccess : ->
+                @$el.find('input').val ''
                 @$el.find( '#addcard_status' ).empty()
                 @$el.find( '#addcard_loader' ).hide()
                 html = '<div class="alert alert-success">

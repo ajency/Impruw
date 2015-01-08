@@ -17,6 +17,31 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         cardListingRegion: '#credit-card-listing'
       };
 
+      Layout.prototype.onRender = function() {
+        return this.$el.find('.spinner-markup').spin(this._getOptions());
+      };
+
+      Layout.prototype._getOptions = function() {
+        return {
+          lines: 10,
+          length: 6,
+          width: 2.5,
+          radius: 7,
+          corners: 1,
+          rotate: 9,
+          direction: 1,
+          color: '#ff9e2c',
+          speed: 1,
+          trail: 60,
+          shadow: false,
+          hwaccel: true,
+          className: 'spinner',
+          zIndex: 2e9,
+          top: '0px',
+          left: '40px'
+        };
+      };
+
       return Layout;
 
     })(Marionette.Layout);
@@ -96,6 +121,11 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         return data;
       };
 
+      CreditCardListView.prototype.onRender = function() {
+        console.log("Render composite view");
+        return $('.spinner-markup').spin(false);
+      };
+
       CreditCardListView.prototype.events = {
         'click #btn-add-new-card': function(e) {
           var braintreeClientToken, cardNumber, client, cvv, expMonth, expYear, nameOnCard;
@@ -148,6 +178,7 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
 
       CreditCardListView.prototype.onAddCreditCardSuccess = function() {
         var html;
+        this.$el.find('input').val('');
         this.$el.find('.addcard_status').empty();
         this.$el.find('.addcard_loader').hide();
         html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Card Added Successfully!") + '</div>';

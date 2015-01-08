@@ -14,6 +14,28 @@ define [ 'app'
             regions :
                 cardListingRegion : '#credit-card-listing'
 
+            onRender :->
+                @$el.find( '.spinner-markup' ).spin @_getOptions()
+
+            # spinner options
+            _getOptions : ->
+                lines : 10
+                length : 6
+                width : 2.5
+                radius : 7
+                corners : 1
+                rotate : 9
+                direction : 1
+                color : '#ff9e2c'
+                speed : 1
+                trail : 60
+                shadow : false
+                hwaccel : true
+                className : 'spinner'
+                zIndex : 2e9
+                top : '0px'
+                left : '40px'
+
 
         class EmptyView extends Marionette.ItemView
             template: '<br/><div class="empty-info">{{#polyglot}}No Credit cards present{{/polyglot}}</div><br/>'
@@ -61,6 +83,10 @@ define [ 'app'
                 data.THEMEURL = THEMEURL
                 data
 
+            onRender :->
+                console.log "Render composite view"
+                $( '.spinner-markup' ).spin false
+
             events:
                 'click #btn-add-new-card':(e)->
                     braintreeClientToken = Marionette.getOption @, 'braintreeClientToken'
@@ -101,6 +127,7 @@ define [ 'app'
                     
 
             onAddCreditCardSuccess : ->
+                @$el.find('input').val ''
                 @$el.find( '.addcard_status' ).empty()
                 @$el.find( '.addcard_loader' ).hide()
                 html = '<div class="alert alert-success">
