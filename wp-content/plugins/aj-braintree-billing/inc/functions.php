@@ -1859,6 +1859,47 @@ function ajbilling_braintree_webhook_notifications($webhookNotification){
 	if(empty($subscription_id))
 		die("No subscription ID.");
 
+	$customer_transactions = $webhookNotification->subscription->transactions; 
+	foreach ($customer_transactions as $item) 
+	{ 
+		$customer_email = $item->customerDetails->email;
+		$customer_name = $item->customerDetails->firstName;
+		$customer_id = $item->customerDetails->id;
+	}
+
+	$customer_details = array(
+		'id' => $customer_id, 
+		'email' => $customer_email, 
+		'name' => $customer_name, 
+		);
+
+	//make function calls based on the webhook kind
+	switch ($webhook_kind) {
+		case 'subscription_charged_successfully':
+			do_action( 'subscription_charged_successfully', $subscription_id,$customer_details);
+			break;
+
+		case 'subscription_charged_unsuccessfully':
+			do_action( 'subscription_charged_unsuccessfully', $subscription_id,$customer_details);
+			break;
+
+		case 'subscription_went_active':
+			do_action( 'subscription_went_active', $subscription_id,$customer_details);
+			break;
+
+		case 'subscription_went_past_due':
+			do_action( 'subscription_went_past_due', $subscription_id,$customer_details);
+			break;
+
+		case 'subscription_canceled':
+			do_action( 'subscription_canceled', $subscription_id,$customer_details);
+			break;
+		
+		default:
+			// do nothing for other webhook kind
+			break;
+	}
+
 }
 
 
