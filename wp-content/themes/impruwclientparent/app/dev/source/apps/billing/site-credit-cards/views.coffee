@@ -14,6 +14,28 @@ define [ 'app'
             regions :
                 cardListingRegion : '#credit-card-listing'
 
+            onRender :->
+                @$el.find( '.spinner-markup' ).spin @_getOptions()
+
+            # spinner options
+            _getOptions : ->
+                lines : 10
+                length : 6
+                width : 2.5
+                radius : 7
+                corners : 1
+                rotate : 9
+                direction : 1
+                color : '#ff9e2c'
+                speed : 1
+                trail : 60
+                shadow : false
+                hwaccel : true
+                className : 'spinner'
+                zIndex : 2e9
+                top : '0px'
+                left : '40px'
+
 
         class EmptyView extends Marionette.ItemView
             template: '<br/><div class="empty-info">{{#polyglot}}No Credit cards present{{/polyglot}}</div><br/>'
@@ -23,10 +45,16 @@ define [ 'app'
 
             template : singleCardTpl
 
+            serializeData :->
+                data = super()
+                creditCardIndex = Marionette.getOption @, 'creditCardIndex'
+                data.creditCardIndex = creditCardIndex+1
+                data
+
             onShow:->
                 activePaymentToken = Marionette.getOption @, 'paymentMethodToken'
                 if @model.get('token') is activePaymentToken
-                    @$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass "selected"
+                    @$el.find('.single-card').addClass('active').parents('div').siblings().find('.single-card').removeClass "active"
 
             events:
                 'click' :->
@@ -47,9 +75,10 @@ define [ 'app'
             modelEvents:
                 'change': 'render'
 
-            itemViewOptions : ->
+            itemViewOptions :(model,index) ->
                 paymentMethodToken : Marionette.getOption @, 'paymentMethodToken'
                 braintreeClientToken : Marionette.getOption @, 'braintreeClientToken'
+                creditCardIndex : index
 
             serializeData : ->
                 data = super()
@@ -60,6 +89,9 @@ define [ 'app'
                 
                 data.THEMEURL = THEMEURL
                 data
+
+            onRender :->
+                $( '.spinner-markup' ).spin false
 
             events:
                 'click #btn-add-new-card':(e)->
@@ -101,6 +133,7 @@ define [ 'app'
                     
 
             onAddCreditCardSuccess : ->
+                @$el.find('input').val ''
                 @$el.find( '.addcard_status' ).empty()
                 @$el.find( '.addcard_loader' ).hide()
                 html = '<div class="alert alert-success">
@@ -116,7 +149,10 @@ define [ 'app'
                         </div>"
                 @$el.find( '.addcard_status' ).append( html )
 
-            onSetActiveCreditCardSuccess : ->
+            onSetActiveCreditCardSuccess :(token)->
+                activeCardClass = ".singlecard-#{token}"
+                @$el.find('.single-card').removeClass('active')
+                @$el.find(activeCardClass).addClass('active').parents('div').siblings().find('.single-card').removeClass "active"
                 @$el.find( '.activeforget_card_status' ).empty()
                 @$el.find( '.active_card_loader' ).hide()
                 html = '<div class="alert alert-success">

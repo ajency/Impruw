@@ -17,6 +17,31 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         cardListingRegion: '#credit-card-listing'
       };
 
+      Layout.prototype.onRender = function() {
+        return this.$el.find('.spinner-markup').spin(this._getOptions());
+      };
+
+      Layout.prototype._getOptions = function() {
+        return {
+          lines: 10,
+          length: 6,
+          width: 2.5,
+          radius: 7,
+          corners: 1,
+          rotate: 9,
+          direction: 1,
+          color: '#ff9e2c',
+          speed: 1,
+          trail: 60,
+          shadow: false,
+          hwaccel: true,
+          className: 'spinner',
+          zIndex: 2e9,
+          top: '0px',
+          left: '40px'
+        };
+      };
+
       return Layout;
 
     })(Marionette.Layout);
@@ -41,11 +66,19 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
 
       SingleCreditCard.prototype.template = singleCardTpl;
 
+      SingleCreditCard.prototype.serializeData = function() {
+        var creditCardIndex, data;
+        data = SingleCreditCard.__super__.serializeData.call(this);
+        creditCardIndex = Marionette.getOption(this, 'creditCardIndex');
+        data.creditCardIndex = creditCardIndex + 1;
+        return data;
+      };
+
       SingleCreditCard.prototype.onShow = function() {
         var activePaymentToken;
         activePaymentToken = Marionette.getOption(this, 'paymentMethodToken');
         if (this.model.get('token') === activePaymentToken) {
-          return this.$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass("selected");
+          return this.$el.find('.single-card').addClass('active').parents('div').siblings().find('.single-card').removeClass("active");
         }
       };
 
@@ -77,10 +110,11 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         'change': 'render'
       };
 
-      CreditCardListView.prototype.itemViewOptions = function() {
+      CreditCardListView.prototype.itemViewOptions = function(model, index) {
         return {
           paymentMethodToken: Marionette.getOption(this, 'paymentMethodToken'),
-          braintreeClientToken: Marionette.getOption(this, 'braintreeClientToken')
+          braintreeClientToken: Marionette.getOption(this, 'braintreeClientToken'),
+          creditCardIndex: index
         };
       };
 
@@ -94,6 +128,10 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         }
         data.THEMEURL = THEMEURL;
         return data;
+      };
+
+      CreditCardListView.prototype.onRender = function() {
+        return $('.spinner-markup').spin(false);
       };
 
       CreditCardListView.prototype.events = {
@@ -148,6 +186,7 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
 
       CreditCardListView.prototype.onAddCreditCardSuccess = function() {
         var html;
+        this.$el.find('input').val('');
         this.$el.find('.addcard_status').empty();
         this.$el.find('.addcard_loader').hide();
         html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Card Added Successfully!") + '</div>';
@@ -162,8 +201,11 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         return this.$el.find('.addcard_status').append(html);
       };
 
-      CreditCardListView.prototype.onSetActiveCreditCardSuccess = function() {
-        var html;
+      CreditCardListView.prototype.onSetActiveCreditCardSuccess = function(token) {
+        var activeCardClass, html;
+        activeCardClass = ".singlecard-" + token;
+        this.$el.find('.single-card').removeClass('active');
+        this.$el.find(activeCardClass).addClass('active').parents('div').siblings().find('.single-card').removeClass("active");
         this.$el.find('.activeforget_card_status').empty();
         this.$el.find('.active_card_loader').hide();
         html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Card successfully set as the active credit card") + '</div>';

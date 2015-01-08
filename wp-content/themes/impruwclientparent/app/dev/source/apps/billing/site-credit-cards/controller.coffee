@@ -77,8 +77,9 @@ define [ 'app', 'controllers/base-controller'
                     url : postURL
 
                 $.ajax( options ).done ( response )=>
+                    console.log selectedCardToken
                     if response.change_card_success is true
-                        @view.triggerMethod "set:active:credit:card:success"
+                        @view.triggerMethod "set:active:credit:card:success",selectedCardToken
                     else
                         @view.triggerMethod "set:active:credit:card:error", response.msg
 

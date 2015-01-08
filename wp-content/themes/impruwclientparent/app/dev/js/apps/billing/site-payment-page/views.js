@@ -124,6 +124,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
 
       PaymentPageView.prototype.onAddCreditCardSuccess = function() {
         var html;
+        this.$el.find('input').val('');
         this.$el.find('#addcard_status').empty();
         this.$el.find('#addcard_loader').hide();
         html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Card Added Successfully!") + '</div>';
