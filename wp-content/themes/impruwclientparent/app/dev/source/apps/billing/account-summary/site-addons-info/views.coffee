@@ -10,6 +10,7 @@ define ['app'
                             {{title}}
                         </label>
                        </div>'
+            className: 'col-sm-3'
 
             mixinTemplateHelpers:(data)->
                 data = super data

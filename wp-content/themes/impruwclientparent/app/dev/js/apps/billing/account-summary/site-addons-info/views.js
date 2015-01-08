@@ -13,6 +13,8 @@ define(['app', 'text!apps/billing/account-summary/templates/siteAddOnsInfo.html'
 
       SiteAddOnsInfoItemView.prototype.template = '<div class="form-group"> <label class="checkbox"><input type="checkbox" value="{{element}}" {{#selectStatus}}checked{{/selectStatus}}> {{title}} </label> </div>';
 
+      SiteAddOnsInfoItemView.prototype.className = 'col-sm-3';
+
       SiteAddOnsInfoItemView.prototype.mixinTemplateHelpers = function(data) {
         data = SiteAddOnsInfoItemView.__super__.mixinTemplateHelpers.call(this, data);
         data.selectStatus = function() {

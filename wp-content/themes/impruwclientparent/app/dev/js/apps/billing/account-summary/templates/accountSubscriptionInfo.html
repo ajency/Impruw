@@ -1,45 +1,59 @@
-<div class="aj-imp-widget-head row">
-    <div class="col-sm-6 left">
+<div class="row">
+    <div class="col-sm-4">
         <h6 class="aj-imp-sub-head-thin">
             <small>{{#polyglot}}Subscription Status:{{/polyglot}}</small>
-            {{subscription_status}}
         </h6>
+        <h5 class="panel-title">
+            {{subscription_status}}
+        </h5><br>
     </div>
-    <div class="col-sm-6 right">
+    <div class="col-sm-4">
         <h6 class="aj-imp-sub-head-thin">
             <small>{{#polyglot}}Billing Timezone:{{/polyglot}} </small>
-            {{timezone}}
         </h6>
+        <h5 class="panel-title">
+            {{timezone}}
+        </h5><br>
     </div>
-    <div class="col-sm-6 left">
+    <div class="col-sm-4">
         <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Current billing cycle:{{/polyglot}} </small>
+            <small>{{#polyglot}}Current billing cycle:{{/polyglot}}</small>
+        </h6>
+        <h5 class="panel-title">            
             <span>
-                <small>{{#polyglot}}From:{{/polyglot}} </small>
                  {{billingPeriodStartDate}}
             </span>
             <span>
-                <small>- </small>
+                - 
                 {{billingPeriodEndDate}}
             </span>
-        </h6>
+        </h5><br>
     </div>
-    <div class="col-sm-6 right">
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
         <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Billing Amount:{{/polyglot}} </small>
+            <small>{{#polyglot}}Billing Amount:{{/polyglot}}</small>
+        </h6>
+        <h5 class="panel-title">
             {{currency}} {{price}}
-        </h6>
+        </h5><br>
     </div>
-    <div class="col-sm-6 left">
+    <div class="col-sm-4">
         <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Next billing date:{{/polyglot}} </small>
-            {{nextBillingDate}}
+            <small>{{#polyglot}}Next billing date:{{/polyglot}}</small>
         </h6>
+        <h5 class="panel-title">
+            {{nextBillingDate}}
+        </h5><br>        
     </div>
-    <div class="col-sm-6 right">
+    <div class="col-sm-4">
         <h6 class="aj-imp-sub-head-thin">
             <small>{{#polyglot}}Next Billing period Amount:{{/polyglot}} </small>
-            {{currency}} {{nextBillAmount}}
         </h6>
+        <h5 class="panel-title">
+            {{currency}} {{nextBillAmount}}
+        </h5>    
     </div>
 </div>

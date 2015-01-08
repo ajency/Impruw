@@ -1,41 +1,36 @@
-<div class="aj-imp-widget-head row">
-    <div class="col-sm-6 left">
-        <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Active Plan:{{/polyglot}}</small>
+<div class="row">
+    <div class="col-sm-12 left">
+        <h6 class="aj-imp-sub-head-thin aj-imp-widget-title">
             {{plan_title}}
         </h6>
     </div>
-    <div class="col-sm-2 right">
+    <div class="col-sm-12 right">
         <a href="#/billing/pricing-plans" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Change Plan{{/polyglot}}</a>
-    </div> 
-    <div class="col-sm-4">
-        <a href="#" class="deactivate-subscription">{{#polyglot}}Deactivate Paid Subscription{{/polyglot}}</a>
-        
-        <img src="{{THEMEURL}}/images/loader.gif" width="18" height="10"
-        id="deactivate_plan_loader" style="display:none ">
+        <a href="#" class="deactivate-subscription btn btn-xs btn-danger">{{#polyglot}}Deactivate Paid Subscription{{/polyglot}}</a>        
+        <img src="{{THEMEURL}}/images/loader.gif" width="18" height="10" id="deactivate_plan_loader" style="display:none ">
     </div>
-    <div class="col-sm-12">
-        <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Plan Features:{{/polyglot}}<small>
-            <br/>
-            {{#plan_features}}
-            <div class="col-sm-6 left">
-                <h6 class="aj-imp-sub-head-thin">
-                    <small>{{name}}:</small>
-                    <small>{{#enabled}}Enabled{{/enabled}}{{^enabled}}Disabled{{/enabled}}</small>
-                </h6>
-            </div>
-            <div class="col-sm-6 right">
-                <h6 class="aj-imp-sub-head-thin">
-                    <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
-                    {{#is_count_type}}<small>{{count_display_label}}</small>{{/is_count_type}}
-                    {{^is_count_type}}<small>N/A</small>{{/is_count_type}}
-                </h6>
-            </div>
-            {{/plan_features}}
-        </h6>
+</div>
+<hr>
+<div>
+    <h5 class="aj-imp-sub-head-thin">
+        <b>{{#polyglot}}Features:{{/polyglot}}</b>
+    </h5>
+    <div class="row">
+    {{#plan_features}}
+        <div class="col-sm-4 ">
+            <h6 class="aj-imp-sub-head-thin">
+                <small><b>{{name}}:</b></small>
+                <small>{{#enabled}}<span class="icon icon-checkmark3 text-success"></span> {{/enabled}}{{^enabled}}<span class="icon icon-cancel3 text-danger"></span>{{/enabled}}</small>
+                <br>
+                <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
+                {{#is_count_type}}<small>{{count_display_label}}</small>{{/is_count_type}}
+                {{^is_count_type}}<small>N/A</small>{{/is_count_type}}
+            </h6>
+        </div>
+    {{/plan_features}}
     </div>
-    <div class="col-sm-6">
+
+    <div class="">
      <div id="deactivate_plan_status"></div>  
     </div>
    
