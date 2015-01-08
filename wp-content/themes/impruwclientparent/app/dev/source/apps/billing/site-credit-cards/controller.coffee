@@ -26,8 +26,11 @@ define [ 'app', 'controllers/base-controller'
                             @listenTo @view , "add:new:credit:card", ( paymentMethodNonce )=>
                                 @addCard paymentMethodNonce 
 
-                            @listenTo @view , "set:active:credit:card", ( currentSubscriptionId, selectedCardToken, currentSubscriptionStatus,currentPaymentmethodToken )=>
-                                @setActiveCard currentSubscriptionId, selectedCardToken, currentSubscriptionStatus,currentPaymentmethodToken
+                            @listenTo @view , "set:active:credit:card", ( currentSubscriptionId, selectedCardToken)=>
+                                @setActiveCard currentSubscriptionId, selectedCardToken
+
+                            @listenTo @view , "delete:credit:card", ( currentSubscriptionId, selectedCardToken)=>
+                                @deleteCreditCard currentSubscriptionId, selectedCardToken
                             @layout.cardListingRegion.show @view
 
                 @show @layout,
@@ -66,7 +69,7 @@ define [ 'app', 'controllers/base-controller'
                     else
                         @view.triggerMethod "add:credit:card:error", response.msg
 
-            setActiveCard :(currentSubscriptionId, selectedCardToken, currentSubscriptionStatus,currentPaymentmethodToken ) =>
+            setActiveCard :(currentSubscriptionId, selectedCardToken) =>
                 postURL = "#{SITEURL}/api/ajbilling/setActiveCard/#{currentSubscriptionId}/#{selectedCardToken}"
 
                 options =
@@ -78,6 +81,27 @@ define [ 'app', 'controllers/base-controller'
                         @view.triggerMethod "set:active:credit:card:success"
                     else
                         @view.triggerMethod "set:active:credit:card:error", response.msg
+
+            deleteCreditCard :(currentSubscriptionId, selectedCardToken) =>
+                postURL = "#{SITEURL}/api/ajbilling/deleteCreditCard/#{currentSubscriptionId}/#{selectedCardToken}"
+
+                options =
+                    method : 'POST'
+                    url : postURL
+
+                $.ajax( options ).done ( response )=>
+                    if response.success is true
+                        deletedCardToken = response.deleted_token
+                        @creditCardCollection = App.request "get:credit:cards"
+
+                        deleteCardModel = @creditCardCollection.get(deletedCardToken)
+                        @creditCardCollection.remove deleteCardModel
+
+                        @existingCreditCardsCollection.remove deleteCardModel
+
+                        @view.triggerMethod "delete:credit:card:success"
+                    else
+                        @view.triggerMethod "delete:credit:card:error", response.msg
 
         App.commands.setHandler "show:site:credit:cards:app", ( opts ) ->
             new SiteCreditCards.Controller opts

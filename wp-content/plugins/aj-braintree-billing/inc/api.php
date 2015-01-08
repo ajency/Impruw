@@ -93,6 +93,9 @@
            $routes['/ajbilling/setActiveCard/(?P<subscription_id>\S+)/(?P<new_card_token>\S+)'] = array(array( array( $this, 'set_active_subscription_card'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
 
+           $routes['/ajbilling/deleteCreditCard/(?P<subscription_id>\S+)/(?P<delete_card_token>\S+)'] = array(array( array( $this, 'delete_credit_card'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
+            );
+
 
            return $routes;
 
@@ -380,6 +383,10 @@
             $current_paymentmethod_token = $current_subscription['paymentMethodToken'];
             $current_merchant_account = $current_subscription['merchantAccountId'];
 
+            if ($current_paymentmethod_token===$delete_card_token) {
+                return array('success' => false, 'msg'=>'This card is already set as active' );
+            }
+
             switch ($current_subscription_status) {
                 case 'Canceled':
                     $result = array('success' => false , 'msg' => 'Your current paid subscription is canceled and hence the credit card associated to it cannot be changed' );
@@ -416,6 +423,22 @@
             }
 
             return $result;
+        }
+
+
+        public function delete_credit_card($subscription_id, $delete_card_token){
+            $current_subscription = aj_braintree_get_subscription($subscription_id );
+            $current_subscription_status = $current_subscription['subscription_status'];
+            $current_paymentmethod_token = $current_subscription['paymentMethodToken'];
+            $current_merchant_account = $current_subscription['merchantAccountId'];
+
+            if ($current_paymentmethod_token===$delete_card_token) {
+                return array('success' => false, 'msg'=>'This card is currently active. Please change your active card if you wish to forget this card' );
+            }
+
+            $delete_card = aj_braintree_delete_payment_method($delete_card_token);
+            
+            return  $delete_card ;
         }
 
     }

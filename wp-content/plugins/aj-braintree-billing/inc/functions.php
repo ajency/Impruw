@@ -472,6 +472,32 @@ function aj_braintree_create_payment_method($customer_id, $payment_method_nonce)
 
 }
 
+function aj_braintree_delete_payment_method($delete_card_token){
+	
+	try {
+		$delete_card_details = Braintree_PaymentMethod::delete($delete_card_token);
+		
+	} catch ( Braintree_Exception_NotFound $e ) {
+
+        $braintree_token_not_found = new stdClass;
+        $braintree_token_not_found->success = false;
+       	$braintree_token_not_found->message = "Payment method token not found"  ;
+
+       	 $delete_card_details =  $braintree_token_not_found;
+		
+	}
+
+	if ($delete_card_details->success) {
+
+		$delete_result = array('success' => $delete_card_details->success, 'deleted_token'=>$delete_card_token );
+	}
+	else{
+		$delete_result = array('success' => $delete_card_details->success, 'msg'=>$delete_card_details->message );
+	}
+
+	return $delete_result;
+}
+
 function aj_braintree_cancel_subscription( $subscription_id ) {
 
     #check if a active subscription exists

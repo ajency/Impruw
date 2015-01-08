@@ -122,24 +122,28 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
             };
           })(this));
         },
-        'click #btn-set-as-active': 'setActiveCard'
+        'click #btn-set-as-active': 'setActiveCard',
+        'click #btn-forget-card': 'deleteCard'
       };
 
       CreditCardListView.prototype.setActiveCard = function(e) {
-        var currentPaymentmethodToken, currentSubscriptionId, currentSubscriptionStatus, html, selectedCardToken;
+        var currentPaymentmethodToken, currentSubscriptionId, currentSubscriptionStatus, selectedCardToken;
         e.preventDefault();
         currentSubscriptionId = this.model.get('id');
         currentSubscriptionStatus = this.model.get('subscription_status');
         currentPaymentmethodToken = this.model.get('paymentMethodToken');
         selectedCardToken = this.$el.find('.selected .token').val();
-        if (currentPaymentmethodToken === selectedCardToken) {
-          this.$el.find('.activeforget_card_status').empty();
-          html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("This card is already set as active") + '</div>';
-          return this.$el.find('.activeforget_card_status').append(html);
-        } else {
-          this.$el.find('.active_card_loader').show();
-          return this.trigger("set:active:credit:card", currentSubscriptionId, selectedCardToken, currentSubscriptionStatus, currentPaymentmethodToken);
-        }
+        this.$el.find('.active_card_loader').show();
+        return this.trigger("set:active:credit:card", currentSubscriptionId, selectedCardToken);
+      };
+
+      CreditCardListView.prototype.deleteCard = function(e) {
+        var currentSubscriptionId, selectedCardToken;
+        e.preventDefault();
+        currentSubscriptionId = this.model.get('id');
+        selectedCardToken = this.$el.find('.selected .token').val();
+        this.$el.find('.forget_card_loader').show();
+        return this.trigger("delete:credit:card", currentSubscriptionId, selectedCardToken);
       };
 
       CreditCardListView.prototype.onAddCreditCardSuccess = function() {
@@ -170,6 +174,22 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         var html;
         this.$el.find('.activeforget_card_status').empty();
         this.$el.find('.active_card_loader').hide();
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t(errorMsg) + '</div>';
+        return this.$el.find('.activeforget_card_status').append(html);
+      };
+
+      CreditCardListView.prototype.onDeleteCreditCardSuccess = function() {
+        var html;
+        this.$el.find('.activeforget_card_status').empty();
+        this.$el.find('.forget_card_loader').hide();
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Card successfully deleted") + '</div>';
+        return this.$el.find('.activeforget_card_status').append(html);
+      };
+
+      CreditCardListView.prototype.onDeleteCreditCardError = function(errorMsg) {
+        var html;
+        this.$el.find('.activeforget_card_status').empty();
+        this.$el.find('.forget_card_loader').hide();
         html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t(errorMsg) + '</div>';
         return this.$el.find('.activeforget_card_status').append(html);
       };

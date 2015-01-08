@@ -8,6 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
       __extends(Controller, _super);
 
       function Controller() {
+        this.deleteCreditCard = __bind(this.deleteCreditCard, this);
         this.setActiveCard = __bind(this.setActiveCard, this);
         this.addCard = __bind(this.addCard, this);
         return Controller.__super__.constructor.apply(this, arguments);
@@ -34,8 +35,11 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
                 _this.listenTo(_this.view, "add:new:credit:card", function(paymentMethodNonce) {
                   return _this.addCard(paymentMethodNonce);
                 });
-                _this.listenTo(_this.view, "set:active:credit:card", function(currentSubscriptionId, selectedCardToken, currentSubscriptionStatus, currentPaymentmethodToken) {
-                  return _this.setActiveCard(currentSubscriptionId, selectedCardToken, currentSubscriptionStatus, currentPaymentmethodToken);
+                _this.listenTo(_this.view, "set:active:credit:card", function(currentSubscriptionId, selectedCardToken) {
+                  return _this.setActiveCard(currentSubscriptionId, selectedCardToken);
+                });
+                _this.listenTo(_this.view, "delete:credit:card", function(currentSubscriptionId, selectedCardToken) {
+                  return _this.deleteCreditCard(currentSubscriptionId, selectedCardToken);
                 });
                 return _this.layout.cardListingRegion.show(_this.view);
               });
@@ -87,7 +91,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
         })(this));
       };
 
-      Controller.prototype.setActiveCard = function(currentSubscriptionId, selectedCardToken, currentSubscriptionStatus, currentPaymentmethodToken) {
+      Controller.prototype.setActiveCard = function(currentSubscriptionId, selectedCardToken) {
         var options, postURL;
         postURL = "" + SITEURL + "/api/ajbilling/setActiveCard/" + currentSubscriptionId + "/" + selectedCardToken;
         options = {
@@ -100,6 +104,30 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
               return _this.view.triggerMethod("set:active:credit:card:success");
             } else {
               return _this.view.triggerMethod("set:active:credit:card:error", response.msg);
+            }
+          };
+        })(this));
+      };
+
+      Controller.prototype.deleteCreditCard = function(currentSubscriptionId, selectedCardToken) {
+        var options, postURL;
+        postURL = "" + SITEURL + "/api/ajbilling/deleteCreditCard/" + currentSubscriptionId + "/" + selectedCardToken;
+        options = {
+          method: 'POST',
+          url: postURL
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            var deleteCardModel, deletedCardToken;
+            if (response.success === true) {
+              deletedCardToken = response.deleted_token;
+              _this.creditCardCollection = App.request("get:credit:cards");
+              deleteCardModel = _this.creditCardCollection.get(deletedCardToken);
+              _this.creditCardCollection.remove(deleteCardModel);
+              _this.existingCreditCardsCollection.remove(deleteCardModel);
+              return _this.view.triggerMethod("delete:credit:card:success");
+            } else {
+              return _this.view.triggerMethod("delete:credit:card:error", response.msg);
             }
           };
         })(this));
