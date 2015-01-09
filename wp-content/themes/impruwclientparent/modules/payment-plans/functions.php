@@ -72,7 +72,16 @@ function get_site_plan(){
 function get_markup_for_addon($element_name,$preview){
 
     if ($preview || is_user_logged_in()) {
-       $markup = '<div><span style="color: white;">'.$element_name.' Not allowed</span></div>';
+       $markup = '  <div class="text-center image-placeholder">
+                        <span class="glyphicon glyphicon-ban-circle pull-left"></span>
+                        <span class="glyphicon glyphicon-ban-circle pull-right"></span>
+                        <h6> <small>Add-on: </small>'.$element_name.' </h6>
+                        <p>This add-on will not be displayed on your site since it has not been added to your plan.</p>
+
+                        <p>To make this add-on available, <a href="">Click Here</a> to update your plan.<br>
+                           You can then choose from our list of available add-ons to add to your site.
+                        </p>
+                    </div>';
     }
     else{
        $markup = '<div></div>';   
