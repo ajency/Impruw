@@ -377,13 +377,8 @@ class AjencyBraintree{
 
 		$default_plan = maybe_serialize( $default_plan_array );
 
-		if( $wpdb->get_var("SELECT 'id' FROM " . $table_plans_name . " where title= 'Default plan' ") ) {
- 			// The default plan already exists
- 			return;
-		} 
-		else{
-
-			$wpdb->insert( 
+		if( !($wpdb->get_var("SELECT 'id' FROM " . $table_plans_name . " where title= 'Default plan' ")) ) {
+ 			$wpdb->insert( 
 				$table_plans_name, 
 				array( 
 					'title' => 'Default plan', 
@@ -391,33 +386,32 @@ class AjencyBraintree{
 					'status' => 'active', 
 					) 
 				);
-		}
-
-
+		} 
+		
 		// Insert data into countries table
 
 		// Using ISO 3166 Country Codes for countries: gb-> Great Britain , ie-> Ireland
 		// Reference: http://www.theodora.com/country_digraphs.html
-		// $gbp_countries = array ('gb','ie');
-		// $nok_countries = array ('no');
+		$gbp_countries = array ('gb','ie');
+		$nok_countries = array ('no');
 
-		// //serialized countries 
-		// $gbp_countries_serialized = maybe_serialize( $gbp_countries );
-		// $nok_countries_serialized = maybe_serialize( $nok_countries );
+		//serialized countries 
+		$gbp_countries_serialized = maybe_serialize( $gbp_countries );
+		$nok_countries_serialized = maybe_serialize( $nok_countries );
 
-		// if( ($wpdb->get_var("SELECT 'id' FROM " . $table_countries_name . " where currency= 'GBP' ")) &&
-		//     ($wpdb->get_var("SELECT 'id' FROM " . $table_countries_name . " where currency= 'NOK' ")) ) {
- 	// 		// The GBP and NOK entry already exists
- 	// 		return;
-		// } 
-		// else{
-		// 	$wpdb->query("INSERT INTO $table_countries_name 
-		// 				 (`currency`, `country`) 
-		// 				 VALUES
-		// 				 ('GBP', '".$gbp_countries_serialized."'),
-		// 			 	 ('NOK', '".$nok_countries_serialized."')"
-		// 			 	 );
-		// }
+		if( ($wpdb->get_var("SELECT 'id' FROM " . $table_countries_name . " where currency= 'GBP' ")) &&
+		    ($wpdb->get_var("SELECT 'id' FROM " . $table_countries_name . " where currency= 'NOK' ")) ) {
+ 			// The GBP and NOK entry already exists
+ 			return;
+		} 
+		else{
+			$wpdb->query("INSERT INTO ".$table_countries_name." 
+						 (`currency`, `country`) 
+						 VALUES
+						 ('GBP', '".$gbp_countries_serialized."'),
+					 	 ('NOK', '".$nok_countries_serialized."')"
+					 	 );
+		}
 
 
 

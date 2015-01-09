@@ -17,6 +17,31 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/bi
         viewPlanRegion: '#view-site-plans'
       };
 
+      Layout.prototype.onRender = function() {
+        return this.$el.find('.spinner-markup').spin(this._getOptions());
+      };
+
+      Layout.prototype._getOptions = function() {
+        return {
+          lines: 10,
+          length: 6,
+          width: 2.5,
+          radius: 7,
+          corners: 1,
+          rotate: 9,
+          direction: 1,
+          color: '#ff9e2c',
+          speed: 1,
+          trail: 60,
+          shadow: false,
+          hwaccel: true,
+          className: 'spinner',
+          zIndex: 2e9,
+          top: '0px',
+          left: '40px'
+        };
+      };
+
       return Layout;
 
     })(Marionette.Layout);

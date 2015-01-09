@@ -212,7 +212,7 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         return this.$el.find('.activeforget_card_status').append(html);
       };
 
-      CreditCardListView.prototype.onSetActiveCreditCardSuccessError = function(errorMsg) {
+      CreditCardListView.prototype.onSetActiveCreditCardError = function(errorMsg) {
         var html;
         this.$el.find('.activeforget_card_status').empty();
         this.$el.find('.active_card_loader').hide();
