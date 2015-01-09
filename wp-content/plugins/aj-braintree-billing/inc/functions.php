@@ -914,10 +914,21 @@ function ajbilling_get_user_country_option($object_id,$object_type='site'){
 			if ( is_multisite() ){
 				switch_to_blog( $object_id );
 				$user_site_country = get_option('site-country');
+
+				// Default country to gb if not set
+				if (!$user_site_country) {
+					update_option( 'site-country', 'gb' );
+					$user_site_country = 'gb';
+				}
 				restore_current_blog();
 			}
 			else{
 				$user_site_country = get_option('site-country');
+				// Default country to gb if not set
+				if (!$user_site_country) {
+					update_option( 'site-country', 'gb' );
+					$user_site_country = 'gb';
+				}
 			}
 			break;
 
@@ -1183,28 +1194,7 @@ function ajbilling_get_site_planid($object_id, $object_type='site'){
 	return $site_plan_id;
 }
 
-function ajbilling_get_site_currency($site_id){
-	if ( is_multisite() ){
-		switch_to_blog( $site_id );
-		$user_site_country = get_option('site-country');
-
-		// If no country is set for the site, then default country to gb
-		if (!$user_site_country) {
-			update_option( 'site-country', 'gb' );
-			$user_site_country = 'gb';
-		}
-		restore_current_blog();
-	}
-	else{
-		$user_site_country = get_option('site-country');
-		if (!$user_site_country) {
-			update_option( 'site-country', 'gb' );
-			$user_site_country = 'gb';
-		}
-	}
-
-    // Get currency based on country
-	$site_currency = aj_braintree_get_currency($user_site_country);
+function ajbilling_get_site_currency($site_currency){
 
 	switch ($site_currency) {
 		case 'GBP':
