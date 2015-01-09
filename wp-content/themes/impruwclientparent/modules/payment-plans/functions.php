@@ -177,9 +177,17 @@ function get_all_siteaddons(){
 
 function get_country_based_site_currency(){
     $site_id = get_current_blog_id();
+
+    if (function_exists('ajbilling_get_user_country_option')) {
+    $user_site_country = ajbilling_get_user_country_option($site_id,'site');
+    }
+
+    if (function_exists('aj_braintree_get_currency')) {
+        $site_currency = aj_braintree_get_currency($user_site_country);
+     }
     
     if (function_exists('ajbilling_get_site_currency')) {
-         $currency= ajbilling_get_site_currency($site_id);
+         $currency= ajbilling_get_site_currency($site_currency);
      } 
 
      return $currency;
