@@ -65,7 +65,7 @@ function site_feature_allowed_count($feature_component){
 }
 
 function get_site_plan(){
-    $plan_id = (function_exists('ajbilling_get_user_siteplan_id')) ?  ajbilling_get_user_siteplan_id(get_current_blog_id()) : 0 ;
+    $plan_id = (function_exists('ajbilling_get_user_siteplan_id')) ?  ajbilling_get_user_siteplan_id(get_current_blog_id()) :1 ;
     return $plan_id;
 }
 
@@ -184,6 +184,8 @@ function get_country_based_site_currency(){
 
      return $currency;
 }
+
+
 
 
 
