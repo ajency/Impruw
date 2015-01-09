@@ -78,7 +78,7 @@ function get_markup_for_addon($element_name,$preview){
                         <h6> <small>Add-on: </small>'.$element_name.' </h6>
                         <p>This add-on will not be displayed on your site since it has not been added to your plan.</p>
 
-                        <p>To make this add-on available, <a href="">Click Here</a> to update your plan.<br>
+                        <p>To make this add-on available, <a href="'.get_site_url().'/dashboard/#/billing/pricing-plans">Click Here</a> to update your plan.<br>
                            You can then choose from our list of available add-ons to add to your site.
                         </p>
                     </div>';
