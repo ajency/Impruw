@@ -54,7 +54,7 @@ function new_user_registration() {
         wp_send_json_error( 'User not created' );
 
     // user created now lets create the site
-    $site_id = create_new_site( $form_data [ 'site_name' ], $user_id );
+    $site_id = create_new_site( $form_data [ 'site_name' ], $user_id,$form_data [ 'site_country'] );
 
     if ( is_wp_error( $site_id ) )
         wp_send_json_error( 'Failed to create site' );
