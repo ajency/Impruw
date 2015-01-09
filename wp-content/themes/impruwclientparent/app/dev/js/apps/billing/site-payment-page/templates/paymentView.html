@@ -1,7 +1,7 @@
 <div class="col-sm-8">
     <div id="payment-region">
         <!--PAYMENT REGION begins-->
-        <h6 class="aj-imp-widget-title">{{#polyglot}}Saved Card Details{{/polyglot}}</h6>
+        <h6 class="aj-imp-widget-title">{{#polyglot}}Saved Cards{{/polyglot}}</h6>
 
         <div class="card-list row">
             <!--CREDIT CARD COLLECTION begins -->
@@ -9,7 +9,10 @@
 
             <!--CREDIT CARD COLLECTION  ends-->
         </div>
-        <a data-toggle="collapse" data-target="#add-new-card" class="blue-link" style="cursor:pointer;margin-top: 1em;"> <span class="glyphicon glyphicon-plus"></span> {{#polyglot}}Add New Card{{/polyglot}} </a>
+
+        <hr>
+
+        <a data-toggle="collapse" data-target="#add-new-card" class="btn btn-xs btn-info" style="cursor:pointer;margin-top: 1em;"> <span class="glyphicon glyphicon-plus"></span> {{#polyglot}}Add New Card{{/polyglot}} </a>
         <!--ADD CARD FORM begins-->
         <div class="collapse" id="add-new-card">
             <hr>
@@ -38,7 +41,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">{{#polyglot}}Security Code{{/polyglot}}</label>
 
-                    <div class="col-sm-2 col-sm-offset-3">
+                    <div class="col-sm-3 col-sm-offset-3">
                         <input type="password" class="form-control" placeholder="{{#polyglot}}CVV{{/polyglot}}"
                         data-braintree-name="cvv" id="card-cvv" >
 
@@ -51,7 +54,7 @@
                     <label class="col-sm-3 control-label">{{#polyglot}}Expires On{{/polyglot}}</label>
 
                     <div class="col-sm-3 col-sm-offset-3">
-                        <select data-braintree-name="expiration_month" id="exp_month" >
+                        <select class="form-control" data-braintree-name="expiration_month" id="exp_month" >
                             <option>{{#polyglot}}Month{{/polyglot}}</option>
                             <option>01</option>
                             <option>02</option>
@@ -68,7 +71,7 @@
                         </select>
                     </div>
                     <div class="col-sm-3">
-                        <select data-braintree-name="expiration_year" id="exp_year" >
+                        <select class="form-control" data-braintree-name="expiration_year" id="exp_year" >
                             <option>{{#polyglot}}Year{{/polyglot}}</option>
                             <option>2015</option>
                             <option>2016</option>
@@ -85,7 +88,7 @@
                 </div>
                 <div class="form-group margin-top">
                     <div class="col-sm-8 col-sm-offset-3">
-                        <button type="submit" class="btn btn-xs aj-imp-orange-btn"
+                        <button type="submit" class="btn btn-xs btn-info"
                         id="btn-add-card">
                         {{#polyglot}}Add Card{{/polyglot}} </button>
 
@@ -110,33 +113,72 @@
         <!--CHANGE OF PLAN NOTE ends-->
 
             <!--SELECTED PLAN VIEW begins-->
-            <div class="panel panel-default text-center active">
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                <h3>{{#polyglot}}Summary{{/polyglot}}</h3>
+                <h4>{{#polyglot}}Summary{{/polyglot}}</h4>
                 </div>
-                <div class="panel-body">
-                    <h5 class="panel-title">{{#polyglot}}Current Plan{{/polyglot}}</h5>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item">{{#polyglot}}Name:{{/polyglot}} {{activePlanName}}</li>
-                    <li class="list-group-item">{{#polyglot}}Amount:{{/polyglot}} {{currencySymbol}} {{currentSubscriptionAmount}}</li>
-                    <li class="list-group-item">{{#polyglot}}Current billing cycle:{{/polyglot}} {{#polyglot}}From:{{/polyglot}} {{billingPeriodStartDate}} - {{billingPeriodEndDate}}</li>
-                    <li class="list-group-item">{{#polyglot}}Next billing date:{{/polyglot}} {{nextBillingDate}}</li>
-                </ul>
+
                 <div class="panel-body">
                     <h5 class="panel-title">{{#polyglot}}Chosen Plan{{/polyglot}}</h5>
+
+                    <h6 class="aj-imp-sub-head-thin">
+                        <small>{{#polyglot}}Name:{{/polyglot}}
+                        <b>{{selectedPlanName}}</b></small>
+                        <br>
+                        <small>{{#polyglot}}Amount:{{/polyglot}}
+                        <b>{{currencySymbol}} {{selectedPlanAmount}}</b></small>
+                    </h6>
+
+                    <hr>
+
+                    <h5 class="panel-title">{{#polyglot}}Current Plan{{/polyglot}}</h5>
+
+                    <h6 class="aj-imp-sub-head-thin">
+                        <small>{{#polyglot}}Name:{{/polyglot}}
+                        <b>{{activePlanName}}</b></small>
+                        <br>
+                        <small>{{#polyglot}}Amount:{{/polyglot}}
+                        <b>{{currencySymbol}} {{currentSubscriptionAmount}}</b></small>
+                    </h6>
+
+                    <hr>
+
+                    <h5 class="panel-title">{{#polyglot}}Current Billing Details{{/polyglot}}</h5>
+
+                    <h6 class="aj-imp-sub-head-thin">
+                        <small>{{#polyglot}}Billing cycle:{{/polyglot}}
+                        <b>{{billingPeriodStartDate}} - {{billingPeriodEndDate}}</b></small>
+                        <br>
+                        <small>{{#polyglot}}Next billing date:{{/polyglot}}
+                        <b>{{nextBillingDate}}</b></small>
+                    </h6>
+
+                    <hr>
+
+                    <h5 class="panel-title">
+                        {{#polyglot}}Current Balance:{{/polyglot}}
+                    </h5>
+                    <h6 class="aj-imp-sub-head-thin">
+                        <small><b>{{currencySymbol}} {{currentSubscriptionBalance}}</b></small>
+                    </h6>
+
+                    <hr>
+
+                    <h5 class="panel-title">
+                        {{#polyglot}}You Pay:{{/polyglot}}
+                    </h5><br>
+                    <h6 class="aj-imp-sub-head-thin">
+                        <b>{{currencySymbol}} {{prorationCharge}}</b>
+                    </h6>
                 </div>
+
                 <ul class="list-group">
-                    <li class="list-group-item">{{#polyglot}}Name:{{/polyglot}} {{selectedPlanName}}</li>
-                    <li class="list-group-item">{{#polyglot}}Plan Amount:{{/polyglot}} {{currencySymbol}} {{selectedPlanAmount}}</li>
-                    <li class="list-group-item">{{#polyglot}}Current Balance:{{/polyglot}} {{currencySymbol}} {{currentSubscriptionBalance}}</li>
-                    <li class="list-group-item">{{#polyglot}}You Pay:{{/polyglot}} {{currencySymbol}} {{prorationCharge}}</li>
                     <li class="list-group-item"><span class="ribbon">
-                        <a href="javascript:void(0)" class="btn btn-block activate-link" id="btn-stored-pay">{{#polyglot}}Pay now{{/polyglot}}</a></span>
+                        <a href="javascript:void(0)" class="btn btn-block activate-link aj-imp-orange-btn" id="btn-stored-pay">{{#polyglot}}Pay now{{/polyglot}}</a></span>
                     </li>
                 </ul>
 
-                </div>
+            </div>
         <!--SELECTED PLAN VIEW ends-->
     </div>
 
