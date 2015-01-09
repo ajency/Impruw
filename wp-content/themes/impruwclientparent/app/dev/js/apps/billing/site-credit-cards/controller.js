@@ -79,10 +79,9 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
             var newCreditCard, newCreditCardModel;
             if (response.success === true) {
               newCreditCard = response.new_credit_card;
-              newCreditCardModel = new Backbone.Model(newCreditCard);
-              _this.creditCardCollection = App.request("get:credit:cards");
-              _this.creditCardCollection.add(newCreditCardModel);
+              newCreditCardModel = App.request("new:credit:card", newCreditCard);
               _this.existingCreditCardsCollection.add(newCreditCardModel);
+              _this.creditCardCollection.add(newCreditCardModel);
               return _this.view.triggerMethod("add:credit:card:success");
             } else {
               return _this.view.triggerMethod("add:credit:card:error", response.msg);

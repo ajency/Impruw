@@ -106,10 +106,6 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
 
       CreditCardListView.prototype.itemViewContainer = '.credit-cards';
 
-      CreditCardListView.prototype.modelEvents = {
-        'change': 'render'
-      };
-
       CreditCardListView.prototype.itemViewOptions = function(model, index) {
         return {
           paymentMethodToken: Marionette.getOption(this, 'paymentMethodToken'),
@@ -186,6 +182,7 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
 
       CreditCardListView.prototype.onAddCreditCardSuccess = function() {
         var html;
+        console.log(this.collection);
         this.$el.find('input').val('');
         this.$el.find('.addcard_status').empty();
         this.$el.find('.addcard_loader').hide();

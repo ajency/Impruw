@@ -61,10 +61,9 @@ define [ 'app', 'controllers/base-controller'
                 $.ajax( options ).done ( response )=>
                     if response.success is true
                         newCreditCard = response.new_credit_card
-                        newCreditCardModel = new Backbone.Model newCreditCard
-                        @creditCardCollection = App.request "get:credit:cards"
-                        @creditCardCollection.add(newCreditCardModel)
+                        newCreditCardModel = App.request "new:credit:card",newCreditCard
                         @existingCreditCardsCollection.add(newCreditCardModel)
+                        @creditCardCollection.add(newCreditCardModel)
                         @view.triggerMethod "add:credit:card:success"
                     else
                         @view.triggerMethod "add:credit:card:error", response.msg

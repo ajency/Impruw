@@ -54,11 +54,11 @@ define [ 'app'
             onShow:->
                 activePaymentToken = Marionette.getOption @, 'paymentMethodToken'
                 if @model.get('token') is activePaymentToken
-                    @$el.find('.single-card').addClass('active').parents('div').siblings().find('.single-card').removeClass "active"
+                    @$el.find('.single-card').addClass('active').parents('div').siblings().find('.single-card').removeClass "active"          
 
             events:
                 'click' :->
-                    @$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass "selected"        
+                    @$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass "selected" 
 
 
         #card listing view
@@ -71,9 +71,6 @@ define [ 'app'
             emptyView : EmptyView
 
             itemViewContainer : '.credit-cards'
-
-            modelEvents:
-                'change': 'render'
 
             itemViewOptions :(model,index) ->
                 paymentMethodToken : Marionette.getOption @, 'paymentMethodToken'
@@ -133,6 +130,7 @@ define [ 'app'
                     
 
             onAddCreditCardSuccess : ->
+                console.log @collection
                 @$el.find('input').val ''
                 @$el.find( '.addcard_status' ).empty()
                 @$el.find( '.addcard_loader' ).hide()

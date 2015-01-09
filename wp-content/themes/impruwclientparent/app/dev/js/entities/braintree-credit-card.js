@@ -39,10 +39,18 @@ define(["app", 'backbone'], function(App, Backbone) {
       getCreditCards: function() {
         creditCardCollection.fetch();
         return creditCardCollection;
+      },
+      newCreditCard: function(newCard) {
+        var creditCardModel;
+        creditCardModel = new CreditCard(newCard);
+        return creditCardModel;
       }
     };
-    return App.reqres.setHandler("get:credit:cards", function() {
+    App.reqres.setHandler("get:credit:cards", function() {
       return API.getCreditCards();
+    });
+    return App.reqres.setHandler("new:credit:card", function(newCard) {
+      return API.newCreditCard(newCard);
     });
   });
 });

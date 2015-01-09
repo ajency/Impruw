@@ -155,7 +155,7 @@
             if ( empty( $customer_id ) ) {
                 $credit_cards = array( 'card_exists' => false,
                     'customer_id' => $customer_id,
-                    'braintree_client_token' => generate_client_token() );
+                    'braintree_client_token' => aj_braintree_generate_client_token() );
             } else {
                 $credit_cards =  aj_braintree_get_customer_creditcards($customer_id);
             }
