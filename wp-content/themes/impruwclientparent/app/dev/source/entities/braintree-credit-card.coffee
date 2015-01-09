@@ -30,13 +30,17 @@ define [ "app", 'backbone' ], ( App, Backbone ) ->
                 creditCardCollection.fetch()
                 creditCardCollection
 
+            newCreditCard : ( newCard ) ->
+                creditCardModel = new CreditCard newCard
+                creditCardModel
+
         App.reqres.setHandler "get:credit:cards",->
             API.getCreditCards()
 
-            # getCardByToken : ( cardToken ) ->
-            #     creditCardModel = new CreditCard 'token' : cardToken
-            #     creditCardModel.fetch()
-            #     creditCardModel
+        App.reqres.setHandler "new:credit:card",(newCard)->
+            API.newCreditCard(newCard)
+
+            
 
             # getBillingAddress : ( customerId ) ->
             #     BillingAddressModel = new BillingAddress 'customerId' : customerId
