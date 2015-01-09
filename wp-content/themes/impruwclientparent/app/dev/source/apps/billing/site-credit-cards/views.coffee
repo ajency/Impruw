@@ -159,7 +159,7 @@ define [ 'app'
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Card successfully set as the active credit card")+'</div>'
                 @$el.find( '.activeforget_card_status' ).append( html )
 
-            onSetActiveCreditCardSuccessError : ( errorMsg ) ->
+            onSetActiveCreditCardError : ( errorMsg ) ->
                 @$el.find( '.activeforget_card_status' ).empty()
                 @$el.find( '.active_card_loader' ).hide()
                 html = '<div class="alert alert-success">

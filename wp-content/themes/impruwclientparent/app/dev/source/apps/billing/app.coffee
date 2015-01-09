@@ -6,6 +6,7 @@ define [
     'apps/billing/site-plans/controller'
     'apps/billing/site-payment-page/controller'
     'apps/billing/site-credit-cards/controller'
+    'apps/billing/site-transaction-history/controller'
     'apps/billing/payment-page/controller' ], ( App )->
     App.module 'BillingApp', ( BillingApp, App, Backbone, Marionette, $, _ )->
 
@@ -19,6 +20,7 @@ define [
                 'billing/update-billing' : 'updateBilling'
                 'billing/pricing-plans' : 'plans'
                 'billing/payment-page/:id/:braintreeId' : 'payment'
+                'billing/transaction-history' : 'transactionHistory'
 
 
         #public API
@@ -44,6 +46,10 @@ define [
 
             updateBilling : ->
                 App.execute "show:billing:info:app",
+                    region : App.rightRegion
+
+            transactionHistory : ->
+                App.execute "show:site:transaction:history:app",
                     region : App.rightRegion
 
             # plans : ->

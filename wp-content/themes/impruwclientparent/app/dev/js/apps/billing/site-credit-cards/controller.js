@@ -100,7 +100,6 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            console.log(selectedCardToken);
             if (response.change_card_success === true) {
               return _this.view.triggerMethod("set:active:credit:card:success", selectedCardToken);
             } else {

@@ -389,7 +389,7 @@
 
             switch ($current_subscription_status) {
                 case 'Canceled':
-                    $result = array('success' => false , 'msg' => 'Your current paid subscription is canceled and hence the credit card associated to it cannot be changed' );
+                    $result = array('change_card_success' => false , 'msg' => 'Your current paid subscription is canceled and hence the credit card associated to it cannot be changed' );
                     break;
 
                 case 'Past Due':
