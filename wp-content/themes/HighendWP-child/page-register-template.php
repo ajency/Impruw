@@ -80,22 +80,6 @@ get_header();
                     </div>
                 </div>
 
-                <div class="row form-group">
-                    <label for="inputLmail" class="col-3 control-label alignright"><?php echo __('Select your language', 'impruwmain'); ?></label>
-
-                    <div class="col-7 site-lang-sel">
-
-                        <select name="user_language" id="inputLanguage"  required  parsley-required-message="<?php echo __('Please select any one of the languages available.', 'impruwmain'); ?>"   > 
-
-                            <option value="en" <?php if (ICL_LANGUAGE_CODE==='en') echo " selected "; ?> ><?php echo __('English', 'impruwmain'); ?></option>
-                            <option value="nb" <?php if (ICL_LANGUAGE_CODE==='nb') echo " selected "; ?>><?php echo __('Norwegian', 'impruwmain'); ?></option>
-
-                        </select>
-                        <div class="p-messages"></div>
-                        <!-- <span class="help-block"></span> -->
-
-                    </div>
-                </div>
 
                 <div class="row form-group aj-imp-site-name">
                     <label for="inputSitename" class="col-3 control-label alignright"><?php echo __('Your website name', 'impruwmain'); ?></label>
