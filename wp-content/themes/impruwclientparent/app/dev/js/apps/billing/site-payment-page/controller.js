@@ -18,6 +18,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
       Controller.prototype.initialize = function(opts) {
         var activePlanModel, currentSubscriptionModel, selectedPlanModel, subscriptionCollection;
         this.siteModel = App.request("get:site:model");
+        this.braintreeCustomerId = this.siteModel.get('braintree_customer_id');
         this.selectedPlanId = opts.planId;
         this.braintreePlanId = opts.braintreePlanId;
         selectedPlanModel = App.request("get:feature:plan:by:id", this.selectedPlanId);
@@ -76,30 +77,40 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
 
       Controller.prototype.getCurrentSubscriptionBalance = function(oldPrice, prorationCharge) {
         var currentBalance;
-        if (PAYMENT_PLAN_ID === '1') {
+        if ((PAYMENT_PLAN_ID === '1') || (_.isUndefined(this.braintreeCustomerId))) {
           return 0;
         }
         currentBalance = oldPrice - prorationCharge;
+        currentBalance = parseFloat(currentBalance).toFixed(2);
         return currentBalance;
       };
 
       Controller.prototype.getProrationCharge = function(oldPrice, newPrice, oldStartDate, oldEndDate) {
         var daysInBillingPeriod, daysLeftInBillingPeriod, oldEndDateFormatted, oldEndDateMoment, oldStartDateFormatted, oldStartDateMoment, prorationCharge, today, todayFormatted, todayMoment;
-        if (PAYMENT_PLAN_ID === '1') {
+        if (PAYMENT_PLAN_ID === '1' || (_.isUndefined(this.braintreeCustomerId))) {
           return newPrice;
         }
         today = new Date();
-        today = today.toDateString();
+        today = today.toGMTString();
+        console.log("today gmt string " + today);
         todayFormatted = moment(today).format('M/D/YYYY');
+        console.log('todayformatted ' + todayFormatted);
         oldStartDateFormatted = moment(oldStartDate).format('M/D/YYYY');
         oldEndDateFormatted = moment(oldEndDate).format('M/D/YYYY');
         todayMoment = moment(todayFormatted, 'M/D/YYYY');
         oldStartDateMoment = moment(oldStartDateFormatted, 'M/D/YYYY');
         oldEndDateMoment = moment(oldEndDateFormatted, 'M/D/YYYY');
         daysInBillingPeriod = oldEndDateMoment.diff(oldStartDateMoment, 'days') + 1;
+        console.log("days in billing cycle " + daysInBillingPeriod);
         daysLeftInBillingPeriod = oldEndDateMoment.diff(todayMoment, 'days');
+        console.log("days left in billing cycle " + daysLeftInBillingPeriod);
+        console.log("new price " + newPrice);
         prorationCharge = (newPrice - oldPrice) * daysLeftInBillingPeriod / daysInBillingPeriod;
+        console.log("old price " + oldPrice);
+        console.log("actual proration " + prorationCharge);
         prorationCharge -= prorationCharge % .01;
+        console.log("truncated proration " + prorationCharge);
+        console.log("fixed proration after truncation" + parseFloat(prorationCharge).toFixed(2));
         return prorationCharge;
       };
 

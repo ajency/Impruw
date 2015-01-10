@@ -6,6 +6,7 @@ define [ 'app', 'controllers/base-controller'
             # initiliaze controller
             initialize : ( opts )->
                 @siteModel = App.request "get:site:model"
+                @braintreeCustomerId = @siteModel.get('braintree_customer_id')
 
                 #selected plan data
                 @selectedPlanId = opts.planId
@@ -76,22 +77,25 @@ define [ 'app', 'controllers/base-controller'
                     loading : true
 
             getCurrentSubscriptionBalance :(oldPrice, prorationCharge) ->
-                if PAYMENT_PLAN_ID is '1'
+                if (PAYMENT_PLAN_ID is '1') or (_.isUndefined(@braintreeCustomerId))
                     return 0
 
                 currentBalance = oldPrice-prorationCharge
+                currentBalance = parseFloat(currentBalance).toFixed(2)
                 return currentBalance
 
 
             getProrationCharge : ( oldPrice, newPrice, oldStartDate, oldEndDate ) ->
-                if PAYMENT_PLAN_ID is '1'
+                if PAYMENT_PLAN_ID is '1' or (_.isUndefined(@braintreeCustomerId))
                     return newPrice
                 
                 # today.toGMTString()
                 today = new Date()
-                today = today.toDateString()
+                today = today.toGMTString()
+                console.log "today gmt string "+today
 
                 todayFormatted = moment(today).format('M/D/YYYY')
+                console.log 'todayformatted '+todayFormatted
                 oldStartDateFormatted = moment(oldStartDate).format('M/D/YYYY')
                 oldEndDateFormatted = moment(oldEndDate).format('M/D/YYYY')
 
@@ -100,11 +104,18 @@ define [ 'app', 'controllers/base-controller'
                 oldEndDateMoment = moment(oldEndDateFormatted,'M/D/YYYY')
 
                 daysInBillingPeriod = oldEndDateMoment.diff(oldStartDateMoment, 'days')+1
+                console.log "days in billing cycle "+daysInBillingPeriod
                 daysLeftInBillingPeriod = oldEndDateMoment.diff(todayMoment, 'days')
+                console.log "days left in billing cycle "+daysLeftInBillingPeriod
 
+                console.log "new price "+newPrice
                 prorationCharge = (newPrice-oldPrice)*daysLeftInBillingPeriod/daysInBillingPeriod
+                console.log "old price "+oldPrice
+                console.log "actual proration "+prorationCharge
                 # truncate to 2 decimal points rather than rounding off
                 prorationCharge -=prorationCharge % .01
+                console.log "truncated proration "+prorationCharge
+                console.log "fixed proration after truncation"+parseFloat(prorationCharge).toFixed(2)
                 return prorationCharge
 
             getLayout : ( model ) ->
