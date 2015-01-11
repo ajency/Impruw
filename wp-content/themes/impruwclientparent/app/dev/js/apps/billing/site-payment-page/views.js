@@ -81,7 +81,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
       };
 
       PaymentPageView.prototype.serializeData = function() {
-        var activePlanName, billingPeriodEndDate, billingPeriodStartDate, currencySymbol, currentSubscriptionAmount, currentSubscriptionBalance, data, nextBillingDate, prorationCharge, selectedPlanAmount, selectedPlanName;
+        var activePlanName, billingPeriodEndDate, billingPeriodStartDate, currencySymbol, currentSubscriptionAmount, currentSubscriptionDaysLeft, data, nextBillingDate, prorationCharge, selectedPlanAmount, selectedPlanName;
         activePlanName = Marionette.getOption(this, 'activePlanName');
         currentSubscriptionAmount = Marionette.getOption(this, 'currentSubscriptionAmount');
         currencySymbol = Marionette.getOption(this, 'currencySymbol');
@@ -91,7 +91,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         selectedPlanName = Marionette.getOption(this, 'selectedPlanName');
         selectedPlanAmount = Marionette.getOption(this, 'selectedPlanAmount');
         prorationCharge = Marionette.getOption(this, 'prorationCharge');
-        currentSubscriptionBalance = Marionette.getOption(this, 'currentSubscriptionBalance');
+        currentSubscriptionDaysLeft = Marionette.getOption(this, 'currentSubscriptionDaysLeft');
         data = PaymentPageView.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
         data.activePlanName = activePlanName;
@@ -103,7 +103,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         data.selectedPlanName = selectedPlanName;
         data.selectedPlanAmount = selectedPlanAmount;
         data.prorationCharge = prorationCharge;
-        data.currentSubscriptionBalance = currentSubscriptionBalance;
+        data.currentSubscriptionDaysLeft = currentSubscriptionDaysLeft;
         return data;
       };
 
@@ -193,7 +193,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
       FirstTimePaymentView.prototype.template = newCustomerPaymentViewTpl;
 
       FirstTimePaymentView.prototype.serializeData = function() {
-        var activePlanName, billingPeriodEndDate, billingPeriodStartDate, currencySymbol, currentSubscriptionAmount, currentSubscriptionBalance, data, nextBillingDate, prorationCharge, selectedPlanAmount, selectedPlanName;
+        var activePlanName, billingPeriodEndDate, billingPeriodStartDate, currencySymbol, currentSubscriptionAmount, currentSubscriptionDaysLeft, data, nextBillingDate, prorationCharge, selectedPlanAmount, selectedPlanName;
         activePlanName = Marionette.getOption(this, 'activePlanName');
         currentSubscriptionAmount = Marionette.getOption(this, 'currentSubscriptionAmount');
         currencySymbol = Marionette.getOption(this, 'currencySymbol');
@@ -203,7 +203,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         selectedPlanName = Marionette.getOption(this, 'selectedPlanName');
         selectedPlanAmount = Marionette.getOption(this, 'selectedPlanAmount');
         prorationCharge = Marionette.getOption(this, 'prorationCharge');
-        currentSubscriptionBalance = Marionette.getOption(this, 'currentSubscriptionBalance');
+        currentSubscriptionDaysLeft = Marionette.getOption(this, 'currentSubscriptionDaysLeft');
         data = FirstTimePaymentView.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
         data.activePlanName = activePlanName;
@@ -215,7 +215,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         data.selectedPlanName = selectedPlanName;
         data.selectedPlanAmount = selectedPlanAmount;
         data.prorationCharge = prorationCharge;
-        data.currentSubscriptionBalance = currentSubscriptionBalance;
+        data.currentSubscriptionDaysLeft = currentSubscriptionDaysLeft;
         return data;
       };
 

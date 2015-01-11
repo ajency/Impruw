@@ -29,9 +29,9 @@ define [ 'app', 'controllers/base-controller'
                 # Get proration charge
                 @prorationCharge = @getProrationCharge(@currentSubscriptionAmount, @selectedPlanAmount,@billingPeriodStartDate,@billingPeriodEndDate)
                 console.log @prorationCharge
-
-                @currentSubscriptionBalance = @getCurrentSubscriptionBalance(@currentSubscriptionAmount,@prorationCharge)
-                console.log @currentSubscriptionBalance
+                
+                @currentSubscriptionDaysLeft = @getCurrentSubscriptionDaysLeft(@billingPeriodStartDate,@billingPeriodEndDate)
+                
 
                 # Get current active plan name
                 if PAYMENT_PLAN_ID is '1'
@@ -77,25 +77,44 @@ define [ 'app', 'controllers/base-controller'
                     loading : true
 
             getCurrentSubscriptionBalance :(oldPrice, prorationCharge) ->
-                if (PAYMENT_PLAN_ID is '1') or (_.isUndefined(@braintreeCustomerId))
+                if (PAYMENT_PLAN_ID is '1')
                     return 0
 
                 currentBalance = oldPrice-prorationCharge
                 currentBalance = parseFloat(currentBalance).toFixed(2)
                 return currentBalance
 
+            getCurrentSubscriptionDaysLeft :(oldStartDate, oldEndDate) ->
+                if (PAYMENT_PLAN_ID is '1') or (oldEndDate is 'N/A')
+                    return 0
+
+                # today.toGMTString()
+                today = new Date()
+                today = today.toGMTString()
+               
+                todayFormatted = moment(today).format('M/D/YYYY')
+                
+                oldEndDateFormatted = moment(oldEndDate).format('M/D/YYYY')
+
+                todayMoment = moment(todayFormatted,'M/D/YYYY')
+
+                oldEndDateMoment = moment(oldEndDateFormatted,'M/D/YYYY')
+                
+                daysLeftInBillingPeriod = oldEndDateMoment.diff(todayMoment, 'days')
+
+                return daysLeftInBillingPeriod
+
 
             getProrationCharge : ( oldPrice, newPrice, oldStartDate, oldEndDate ) ->
-                if PAYMENT_PLAN_ID is '1' or (_.isUndefined(@braintreeCustomerId))
+                if PAYMENT_PLAN_ID is '1' or (oldEndDate is 'N/A')
                     return newPrice
                 
                 # today.toGMTString()
                 today = new Date()
                 today = today.toGMTString()
-                console.log "today gmt string "+today
-
+               
                 todayFormatted = moment(today).format('M/D/YYYY')
-                console.log 'todayformatted '+todayFormatted
+                
                 oldStartDateFormatted = moment(oldStartDate).format('M/D/YYYY')
                 oldEndDateFormatted = moment(oldEndDate).format('M/D/YYYY')
 
@@ -104,18 +123,15 @@ define [ 'app', 'controllers/base-controller'
                 oldEndDateMoment = moment(oldEndDateFormatted,'M/D/YYYY')
 
                 daysInBillingPeriod = oldEndDateMoment.diff(oldStartDateMoment, 'days')+1
-                console.log "days in billing cycle "+daysInBillingPeriod
+                
                 daysLeftInBillingPeriod = oldEndDateMoment.diff(todayMoment, 'days')
-                console.log "days left in billing cycle "+daysLeftInBillingPeriod
+                
 
-                console.log "new price "+newPrice
                 prorationCharge = (newPrice-oldPrice)*daysLeftInBillingPeriod/daysInBillingPeriod
-                console.log "old price "+oldPrice
-                console.log "actual proration "+prorationCharge
+                
                 # truncate to 2 decimal points rather than rounding off
                 prorationCharge -=prorationCharge % .01
-                console.log "truncated proration "+prorationCharge
-                console.log "fixed proration after truncation"+parseFloat(prorationCharge).toFixed(2)
+                
                 return prorationCharge
 
             getLayout : ( model ) ->
@@ -134,7 +150,7 @@ define [ 'app', 'controllers/base-controller'
                     selectedPlanName : @selectedPlanName
                     selectedPlanAmount : @selectedPlanAmount
                     prorationCharge : @prorationCharge
-                    currentSubscriptionBalance : @currentSubscriptionBalance
+                    currentSubscriptionDaysLeft : @currentSubscriptionDaysLeft
 
             getFirstTimePaymentPageView : ( creditCardModel )->
                 new SitePayment.View.FirstTimePaymentView
@@ -148,7 +164,7 @@ define [ 'app', 'controllers/base-controller'
                     selectedPlanName : @selectedPlanName
                     selectedPlanAmount : @selectedPlanAmount
                     prorationCharge : @prorationCharge
-                    currentSubscriptionBalance : @currentSubscriptionBalance
+                    currentSubscriptionDaysLeft : @currentSubscriptionDaysLeft
 
             newCardPayment : ( paymentMethodNonce )=>
                 

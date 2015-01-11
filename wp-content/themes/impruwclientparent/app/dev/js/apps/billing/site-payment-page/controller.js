@@ -33,8 +33,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         this.nextBillingDate = currentSubscriptionModel.get('nextBillingDate');
         this.prorationCharge = this.getProrationCharge(this.currentSubscriptionAmount, this.selectedPlanAmount, this.billingPeriodStartDate, this.billingPeriodEndDate);
         console.log(this.prorationCharge);
-        this.currentSubscriptionBalance = this.getCurrentSubscriptionBalance(this.currentSubscriptionAmount, this.prorationCharge);
-        console.log(this.currentSubscriptionBalance);
+        this.currentSubscriptionDaysLeft = this.getCurrentSubscriptionDaysLeft(this.billingPeriodStartDate, this.billingPeriodEndDate);
         if (PAYMENT_PLAN_ID === '1') {
           this.activePlanName = 'Default';
         } else {
@@ -77,7 +76,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
 
       Controller.prototype.getCurrentSubscriptionBalance = function(oldPrice, prorationCharge) {
         var currentBalance;
-        if ((PAYMENT_PLAN_ID === '1') || (_.isUndefined(this.braintreeCustomerId))) {
+        if (PAYMENT_PLAN_ID === '1') {
           return 0;
         }
         currentBalance = oldPrice - prorationCharge;
@@ -85,32 +84,38 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         return currentBalance;
       };
 
+      Controller.prototype.getCurrentSubscriptionDaysLeft = function(oldStartDate, oldEndDate) {
+        var daysLeftInBillingPeriod, oldEndDateFormatted, oldEndDateMoment, today, todayFormatted, todayMoment;
+        if ((PAYMENT_PLAN_ID === '1') || (oldEndDate === 'N/A')) {
+          return 0;
+        }
+        today = new Date();
+        today = today.toGMTString();
+        todayFormatted = moment(today).format('M/D/YYYY');
+        oldEndDateFormatted = moment(oldEndDate).format('M/D/YYYY');
+        todayMoment = moment(todayFormatted, 'M/D/YYYY');
+        oldEndDateMoment = moment(oldEndDateFormatted, 'M/D/YYYY');
+        daysLeftInBillingPeriod = oldEndDateMoment.diff(todayMoment, 'days');
+        return daysLeftInBillingPeriod;
+      };
+
       Controller.prototype.getProrationCharge = function(oldPrice, newPrice, oldStartDate, oldEndDate) {
         var daysInBillingPeriod, daysLeftInBillingPeriod, oldEndDateFormatted, oldEndDateMoment, oldStartDateFormatted, oldStartDateMoment, prorationCharge, today, todayFormatted, todayMoment;
-        if (PAYMENT_PLAN_ID === '1' || (_.isUndefined(this.braintreeCustomerId))) {
+        if (PAYMENT_PLAN_ID === '1' || (oldEndDate === 'N/A')) {
           return newPrice;
         }
         today = new Date();
         today = today.toGMTString();
-        console.log("today gmt string " + today);
         todayFormatted = moment(today).format('M/D/YYYY');
-        console.log('todayformatted ' + todayFormatted);
         oldStartDateFormatted = moment(oldStartDate).format('M/D/YYYY');
         oldEndDateFormatted = moment(oldEndDate).format('M/D/YYYY');
         todayMoment = moment(todayFormatted, 'M/D/YYYY');
         oldStartDateMoment = moment(oldStartDateFormatted, 'M/D/YYYY');
         oldEndDateMoment = moment(oldEndDateFormatted, 'M/D/YYYY');
         daysInBillingPeriod = oldEndDateMoment.diff(oldStartDateMoment, 'days') + 1;
-        console.log("days in billing cycle " + daysInBillingPeriod);
         daysLeftInBillingPeriod = oldEndDateMoment.diff(todayMoment, 'days');
-        console.log("days left in billing cycle " + daysLeftInBillingPeriod);
-        console.log("new price " + newPrice);
         prorationCharge = (newPrice - oldPrice) * daysLeftInBillingPeriod / daysInBillingPeriod;
-        console.log("old price " + oldPrice);
-        console.log("actual proration " + prorationCharge);
         prorationCharge -= prorationCharge % .01;
-        console.log("truncated proration " + prorationCharge);
-        console.log("fixed proration after truncation" + parseFloat(prorationCharge).toFixed(2));
         return prorationCharge;
       };
 
@@ -132,7 +137,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           selectedPlanName: this.selectedPlanName,
           selectedPlanAmount: this.selectedPlanAmount,
           prorationCharge: this.prorationCharge,
-          currentSubscriptionBalance: this.currentSubscriptionBalance
+          currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft
         });
       };
 
@@ -148,7 +153,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           selectedPlanName: this.selectedPlanName,
           selectedPlanAmount: this.selectedPlanAmount,
           prorationCharge: this.prorationCharge,
-          currentSubscriptionBalance: this.currentSubscriptionBalance
+          currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft
         });
       };
 
