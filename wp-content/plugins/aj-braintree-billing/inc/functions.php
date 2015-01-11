@@ -1905,6 +1905,29 @@ if(!function_exists('_log')){
 }
 
 
+function ajbilling_get_plan_from_braintreeplan($braintree_plan_id){
+	global $wpdb;
+	// Get all feature plans
+	// For each feature plan, check if braintree_plan_id array contains the give braintree plan id
+	//  if found return the feature plan id
+	$selected_site_plan= array();
+	$braintree_plan_ids = array();
+	$plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
+	$sqlQuery = "SELECT * FROM $plugin_plans_table";
 
+	$site_plans = $wpdb->get_results($sqlQuery, ARRAY_A);
+
+	foreach ($site_plans as $site_plan) {
+		
+		$braintree_plan_ids = maybe_unserialize($site_plan['braintree_plan_id']);
+		_log($braintree_plan_ids);
+		if (in_array($braintree_plan_id, $braintree_plan_ids)) {
+			$selected_site_plan = $site_plan;
+			break;
+		}
+	}
+
+	return $selected_site_plan;
+}
 
 

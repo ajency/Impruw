@@ -42,3 +42,4 @@ function plan_active_email($site_id, $plan_id){
 }
 
 add_action( 'ajbilling_update_payment_plan', 'plan_active_email', 10, 2 );
+

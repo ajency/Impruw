@@ -327,6 +327,240 @@ if(!function_exists('_log')){
   }
 }
 
+function get_siteid_from_useremail($user_email){
+	$user = get_user_by('email', $user_email);
+	$user_id = $user->ID;
+	$user_blogs =  get_blogs_of_user( $user_id );
+
+	$user_site_id = 0;
+
+	foreach ($user_blogs AS $user_blog) {
+		if ($user_blog->userblog_id!=1) {
+			$user_site_id = $user_blog->userblog_id;
+		}
+	}
+
+	return $user_site_id;
+
+}
+
+function subscription_charged_email($subscription_id,$customer_details){
+
+    global $aj_comm;
+
+    $braintree_customer_id = $customer_details['id'];
+    $customer_email = $customer_details['email'];
+    $customer_name = $customer_details['name'];
+
+    $subscription_details = aj_braintree_get_subscription($subscription_id );
+   	$braintree_plan_id =  $subscription_details['planId'];
+
+   	$feature_plan_id = 0;
+
+   	$feature_plan = ajbilling_get_plan_from_braintreeplan($braintree_plan_id);
+
+   	if ($feature_plan!="") {
+   		$plan_name = $feature_plan['title'];
+   		$feature_plan_id = $feature_plan['id'];
+   	}
+   	else{
+   		$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
+   		$plan_name = $braintree_plan['name']; 
+   	}
+
+   	$site_id = get_siteid_from_useremail($customer_email);
+
+   	 $meta_data = array(
+        'email_id' => $customer_email,
+        'user_name' => $customer_name,
+        'plan_name' => $plan_name,
+        'plan_id' => $feature_plan_id,
+        'site_id' => $site_id
+    );
+
+    $comm_data = array(
+        'component' => 'impruw_billing',
+        'communication_type' => 'subscription_charged'
+    );
+
+    $user = get_user_by('email', $customer_email);
+    $user_id = $user->ID;
+    $recipient_emails =  array(
+                            array(
+                                'user_id' => $user_id,
+                                'type' => 'email',
+                                'value' => $customer_email,
+                                'status' => 'linedup'
+                            )
+                        );
+
+    $aj_comm->create_communication($comm_data,$meta_data,$recipient_emails);
+}
+
+add_action( 'subscription_charged_successfully', 'subscription_charged_email', 10, 2 );
+
+function subscription_uncharged_email($subscription_id,$customer_details){
+	global $aj_comm;
+
+    $braintree_customer_id = $customer_details['id'];
+    $customer_email = $customer_details['email'];
+    $customer_name = $customer_details['name'];
+    
+    $subscription_details = aj_braintree_get_subscription($subscription_id );
+   	$braintree_plan_id =  $subscription_details['planId'];
+
+   	$feature_plan_id = 0;
+
+   	$feature_plan = ajbilling_get_plan_from_braintreeplan($braintree_plan_id);
+
+   	if ($feature_plan!="") {
+   		$plan_name = $feature_plan['title'];
+   		$feature_plan_id = $feature_plan['id'];
+   	}
+   	else{
+   		$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
+   		$plan_name = $braintree_plan['name']; 
+   	}
+
+   	$site_id = get_siteid_from_useremail($customer_email);
+
+   	 $meta_data = array(
+        'email_id' => $customer_email,
+        'user_name' => $customer_name,
+        'plan_name' => $plan_name,
+        'plan_id' => $feature_plan_id,
+        'site_id' => $site_id
+    );
+
+    $comm_data = array(
+        'component' => 'impruw_billing',
+        'communication_type' => 'subscription_uncharged'
+    );
+
+    $user = get_user_by('email', $customer_email);
+    $user_id = $user->ID;
+    $recipient_emails =  array(
+                            array(
+                                'user_id' => $user_id,
+                                'type' => 'email',
+                                'value' => $customer_email,
+                                'status' => 'linedup'
+                            )
+                        );
+
+    $aj_comm->create_communication($comm_data,$meta_data,$recipient_emails);
+
+}
+add_action( 'subscription_charged_unsuccessfully', 'subscription_uncharged_email', 10, 2 );
+
+function subscription_past_due_email($subscription_id,$customer_details){
+	global $aj_comm;
+
+    $braintree_customer_id = $customer_details['id'];
+    $customer_email = $customer_details['email'];
+    $customer_name = $customer_details['name'];
+    
+    $subscription_details = aj_braintree_get_subscription($subscription_id );
+   	$braintree_plan_id =  $subscription_details['planId'];
+
+   	$feature_plan_id = 0;
+
+   	$feature_plan = ajbilling_get_plan_from_braintreeplan($braintree_plan_id);
+
+   	if ($feature_plan!="") {
+   		$plan_name = $feature_plan['title'];
+   		$feature_plan_id = $feature_plan['id'];
+   	}
+   	else{
+   		$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
+   		$plan_name = $braintree_plan['name']; 
+   	}
+
+   	$site_id = get_siteid_from_useremail($customer_email);
+
+   	 $meta_data = array(
+        'email_id' => $customer_email,
+        'user_name' => $customer_name,
+        'plan_name' => $plan_name,
+        'plan_id' => $feature_plan_id,
+        'site_id' => $site_id
+    );
+
+    $comm_data = array(
+        'component' => 'impruw_billing',
+        'communication_type' => 'subscription_went_past_due'
+    );
+
+    $user = get_user_by('email', $customer_email);
+    $user_id = $user->ID;
+    $recipient_emails =  array(
+                            array(
+                                'user_id' => $user_id,
+                                'type' => 'email',
+                                'value' => $customer_email,
+                                'status' => 'linedup'
+                            )
+                        );
+
+    $aj_comm->create_communication($comm_data,$meta_data,$recipient_emails);
+}
+add_action( 'subscription_went_past_due', 'subscription_past_due_email', 10, 2 );
+
+function subscription_canceled_email($subscription_id,$customer_details){
+
+	global $aj_comm;
+
+    $braintree_customer_id = $customer_details['id'];
+    $customer_email = $customer_details['email'];
+    $customer_name = $customer_details['name'];
+    
+    $subscription_details = aj_braintree_get_subscription($subscription_id );
+   	$braintree_plan_id =  $subscription_details['planId'];
+
+   	$feature_plan_id = 0;
+
+   	$feature_plan = ajbilling_get_plan_from_braintreeplan($braintree_plan_id);
+
+   	if ($feature_plan!="") {
+   		$plan_name = $feature_plan['title'];
+   		$feature_plan_id = $feature_plan['id'];
+   	}
+   	else{
+   		$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
+   		$plan_name = $braintree_plan['name']; 
+   	}
+
+   	$site_id = get_siteid_from_useremail($customer_email);
+
+   	 $meta_data = array(
+        'email_id' => $customer_email,
+        'user_name' => $customer_name,
+        'plan_name' => $plan_name,
+        'plan_id' => $feature_plan_id,
+        'site_id' => $site_id
+    );
+
+    $comm_data = array(
+        'component' => 'impruw_billing',
+        'communication_type' => 'subscription_canceled'
+    );
+
+    $user = get_user_by('email', $customer_email);
+    $user_id = $user->ID;
+    $recipient_emails =  array(
+                            array(
+                                'user_id' => $user_id,
+                                'type' => 'email',
+                                'value' => $customer_email,
+                                'status' => 'linedup'
+                            )
+                        );
+
+    $aj_comm->create_communication($comm_data,$meta_data,$recipient_emails);
+
+}
+add_action( 'subscription_canceled', 'subscription_canceled_email', 10, 2 );
+
 
 
 
