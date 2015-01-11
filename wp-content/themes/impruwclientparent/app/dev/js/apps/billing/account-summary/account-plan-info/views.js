@@ -23,6 +23,14 @@ define(['app', 'text!apps/billing/account-summary/templates/accountPlanInfo.html
         return data;
       };
 
+      AccountPlanInfoView.prototype.mixinTemplateHelpers = function(data) {
+        data = AccountPlanInfoView.__super__.mixinTemplateHelpers.call(this, data);
+        if (data.plan_title === "Default plan") {
+          data.plan_title = "Free";
+        }
+        return data;
+      };
+
       AccountPlanInfoView.prototype.deactivateSubscription = function(e) {
         var html;
         e.preventDefault();

@@ -36,7 +36,7 @@ define [ 'app', 'controllers/base-controller'
 
                 # Get current active plan name
                 if PAYMENT_PLAN_ID is '1'
-                    @activePlanName = 'Default'
+                    @activePlanName = 'Free'
                 else
                     activePlanModel = App.request "get:feature:plan:by:id",PAYMENT_PLAN_ID
                     @activePlanName = activePlanModel.get 'plan_title'
