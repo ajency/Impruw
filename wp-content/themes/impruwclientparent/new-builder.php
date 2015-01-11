@@ -80,8 +80,7 @@
     var ACTIVE_LANGUAGES = <?php echo json_encode(wpml_get_active_languages()); ?>;
     var ELEMENTS = <?php echo json_encode(get_elementbox_elements()); ?>;
     var BLOGID = <?php echo get_current_blog_id(); ?>;
-    var PAYMENT_PLAN_ID =  <?php echo get_site_plan() ?>;
-    var PLAN_FEATURE_COUNT = { "email_account": [ {"current_count": <?php echo site_feature_current_count('email_account'); ?>,"allowed_count": <?php echo site_feature_allowed_count('email_account'); ?>}], "site_add_ons": [ { "current_count": <?php echo site_feature_current_count('site_add_ons'); ?>, "current_count_array": <?php echo json_encode(site_feature_current_count_array('site_add_ons')); ?>, "allowed_count": <?php echo site_feature_allowed_count('site_add_ons'); ?> }] };
+    
 
     //menus
     var MENUS = <?php echo json_encode(wp_get_nav_menus()) ?>;
