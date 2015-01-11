@@ -8,6 +8,7 @@
 
 require_once 'forgot_password/functions.php';
 require_once 'contact_us/functions.php';
+require_once 'billing_emails/functions.php';
 
 
 /*
@@ -23,6 +24,16 @@ function impruw_add_communication_components($defined_comm_components){
     );
 
     $ajcm_components['impruw_user'] = $comm_arr;
+
+    $comm_subscription_arr = array(
+        'plan_active',
+        'subscription_canceled',
+        'subscription_charged',
+        'subscription_uncharged',
+        'subscription_went_past_due'
+    );
+
+    $ajcm_components['impruw_billing'] = $comm_subscription_arr;
 
     return $ajcm_components;
 
