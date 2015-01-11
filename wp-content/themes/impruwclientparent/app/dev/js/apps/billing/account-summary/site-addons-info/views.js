@@ -18,13 +18,18 @@ define(['app', 'text!apps/billing/account-summary/templates/siteAddOnsInfo.html'
       SiteAddOnsInfoItemView.prototype.mixinTemplateHelpers = function(data) {
         data = SiteAddOnsInfoItemView.__super__.mixinTemplateHelpers.call(this, data);
         data.selectStatus = function() {
-          var selectStatus;
+          var maxAllowedCount, selectStatus;
           selectStatus = false;
-          _.each(SELECTED_SITE_ADDONS, function(site_add_on, key) {
-            if (site_add_on === data.element) {
-              return selectStatus = true;
-            }
-          });
+          maxAllowedCount = PLAN_FEATURE_COUNT['site_add_ons'][0]['allowed_count'];
+          if (maxAllowedCount === 99999) {
+            selectStatus = true;
+          } else if (SELECTED_SITE_ADDONS.length <= maxAllowedCount) {
+            _.each(SELECTED_SITE_ADDONS, function(site_add_on, key) {
+              if (site_add_on === data.element) {
+                return selectStatus = true;
+              }
+            });
+          }
           return selectStatus;
         };
         return data;
@@ -89,11 +94,11 @@ define(['app', 'text!apps/billing/account-summary/templates/siteAddOnsInfo.html'
         if (response.code === 'OK') {
           msg = _.polyglot.t("The selected addons were successfully updated");
           this.$el.parent().find('.alert').remove();
-          return this.$el.parent().prepend("<div class=\"alert alert-success\">" + msg + "</div>");
+          return this.$el.parent().append("<div class=\"alert alert-success\"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + msg + "</div>");
         } else if (response.code === 'ERROR') {
           msg = _.polyglot.t("The selected addons were not successfully updated");
           this.$el.parent().find('.alert').remove();
-          return this.$el.parent().prepend("<div class=\"alert alert-success\">" + msg + "</div>");
+          return this.$el.parent().append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + msg + "</div>");
         }
       };
 

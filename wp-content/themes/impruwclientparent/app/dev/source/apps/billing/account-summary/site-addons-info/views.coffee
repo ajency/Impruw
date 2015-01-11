@@ -17,9 +17,16 @@ define ['app'
 
                 data.selectStatus =->
                     selectStatus = false
-                    _.each SELECTED_SITE_ADDONS, (site_add_on, key) ->
-                        if site_add_on is data.element
-                            selectStatus = true
+                    maxAllowedCount = PLAN_FEATURE_COUNT['site_add_ons'][0]['allowed_count']
+
+                    if maxAllowedCount is 99999 
+                        selectStatus = true
+
+                    else if SELECTED_SITE_ADDONS.length <= maxAllowedCount
+                        _.each SELECTED_SITE_ADDONS, (site_add_on, key) ->
+                            if site_add_on is data.element
+                                selectStatus = true
+                    
                     selectStatus
                         
                 data
@@ -73,11 +80,11 @@ define ['app'
                 if response.code is 'OK'
                     msg = _.polyglot.t("The selected addons were successfully updated")
                     @$el.parent().find('.alert').remove()
-                    @$el.parent().prepend "<div class=\"alert alert-success\">" + msg + "</div>"
+                    @$el.parent().append "<div class=\"alert alert-success\"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + msg + "</div>"
                 else if response.code is 'ERROR'
                     msg = _.polyglot.t("The selected addons were not successfully updated")
                     @$el.parent().find('.alert').remove()
-                    @$el.parent().prepend "<div class=\"alert alert-success\">" + msg + "</div>"
+                    @$el.parent().append "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + msg + "</div>"
 
 
 
