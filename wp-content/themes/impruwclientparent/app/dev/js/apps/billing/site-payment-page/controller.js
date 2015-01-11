@@ -26,6 +26,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         this.selectedPlanAmount = selectedPlanModel.get('price');
         subscriptionCollection = App.request("get:site:subscriptions");
         currentSubscriptionModel = subscriptionCollection.at(0);
+        this.activePaymentToken = currentSubscriptionModel.get('paymentMethodToken');
         this.currentSubscriptionAmount = currentSubscriptionModel.get('price');
         this.currencySymbol = currentSubscriptionModel.get('currency');
         this.billingPeriodStartDate = currentSubscriptionModel.get('billingPeriodStartDate');
@@ -137,7 +138,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           selectedPlanName: this.selectedPlanName,
           selectedPlanAmount: this.selectedPlanAmount,
           prorationCharge: this.prorationCharge,
-          currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft
+          currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft,
+          activePaymentToken: this.activePaymentToken
         });
       };
 

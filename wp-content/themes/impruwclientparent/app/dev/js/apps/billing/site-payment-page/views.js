@@ -54,6 +54,14 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
 
       SingleCreditCard.prototype.template = cardListTpl;
 
+      SingleCreditCard.prototype.onShow = function() {
+        var activePaymentToken;
+        activePaymentToken = Marionette.getOption(this, 'activePaymentToken');
+        if (this.model.get('token') === activePaymentToken) {
+          return this.$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass("selected");
+        }
+      };
+
       SingleCreditCard.prototype.events = {
         'click': function() {
           return this.$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass("selected");
@@ -78,6 +86,12 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
 
       PaymentPageView.prototype.modelEvents = {
         'change': 'render'
+      };
+
+      PaymentPageView.prototype.itemViewOptions = function(model, index) {
+        return {
+          activePaymentToken: Marionette.getOption(this, 'activePaymentToken')
+        };
       };
 
       PaymentPageView.prototype.serializeData = function() {

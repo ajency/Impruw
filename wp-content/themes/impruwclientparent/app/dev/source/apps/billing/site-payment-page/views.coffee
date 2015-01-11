@@ -41,6 +41,11 @@ define [ 'app'
 
             template : cardListTpl
 
+            onShow:->
+                activePaymentToken = Marionette.getOption @, 'activePaymentToken'
+                if @model.get('token') is activePaymentToken
+                    @$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass "selected"
+
             events :
                 'click' :->
                     @$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass "selected"
@@ -58,6 +63,9 @@ define [ 'app'
 
             modelEvents:
                 'change': 'render'
+
+            itemViewOptions :(model,index) ->
+                activePaymentToken : Marionette.getOption @, 'activePaymentToken'
 
             serializeData : ->
                 activePlanName = Marionette.getOption @, 'activePlanName'

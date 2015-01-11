@@ -20,6 +20,7 @@ define [ 'app', 'controllers/base-controller'
                 # Get current subscription details to be displayed in the view
                 subscriptionCollection = App.request "get:site:subscriptions"
                 currentSubscriptionModel = subscriptionCollection.at 0
+                @activePaymentToken =  currentSubscriptionModel.get 'paymentMethodToken'
                 @currentSubscriptionAmount = currentSubscriptionModel.get 'price'
                 @currencySymbol = currentSubscriptionModel.get 'currency'
                 @billingPeriodStartDate = currentSubscriptionModel.get 'billingPeriodStartDate'
@@ -151,6 +152,7 @@ define [ 'app', 'controllers/base-controller'
                     selectedPlanAmount : @selectedPlanAmount
                     prorationCharge : @prorationCharge
                     currentSubscriptionDaysLeft : @currentSubscriptionDaysLeft
+                    activePaymentToken : @activePaymentToken
 
             getFirstTimePaymentPageView : ( creditCardModel )->
                 new SitePayment.View.FirstTimePaymentView
