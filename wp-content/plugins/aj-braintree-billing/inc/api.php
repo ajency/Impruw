@@ -88,7 +88,8 @@
             array( array( $this, 'cancel_braintree_plan'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
            $routes['/ajbilling/braintreeWebhook'] = array(
-            array( array( $this, 'braintree_webhook_notifications'), WP_JSON_Server::READABLE ),
+            array( array( $this, 'verify_braintree_webhook'), WP_JSON_Server::READABLE ),
+            array( array( $this, 'braintree_webhook_notifications'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
            $routes['/ajbilling/setActiveCard/(?P<subscription_id>\S+)/(?P<new_card_token>\S+)'] = array(array( array( $this, 'set_active_subscription_card'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
@@ -361,15 +362,20 @@
             return $result;
         }
 
-        public function braintree_webhook_notifications(){
-            //Verify webhook
+        public function verify_braintree_webhook(){
+           //Verify webhook
             if(isset($_GET["bt_challenge"])) {
                 echo(Braintree_WebhookNotification::verify($_GET["bt_challenge"]));
-            }
+            } 
 
             //only verifying?
             if(empty($_REQUEST['bt_payload']))
                 exit;
+
+
+        }
+
+        public function braintree_webhook_notifications(){
 
             //get notification
             $webhookNotification = Braintree_WebhookNotification::parse(
