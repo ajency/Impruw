@@ -85,7 +85,15 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/bi
           chosenPlanPrice = parseFloat(this.model.get('price'));
           if (chosenPlanPrice < currentSubscriptionPrice) {
             e.preventDefault();
-            return bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('Sorry , you cannot downgrade plans mid cycle') + ("</h4><p>" + (_.polyglot.t('If you wish to subscribe to a lower plan you could cancel current subscription and then subscribe to a plan of your choice at the end of the current billing cycle')) + "</p>"));
+            bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('Sorry , you cannot downgrade plans mid cycle') + ("</h4><p>" + (_.polyglot.t('If you wish to subscribe to a lower plan you could cancel current subscription and then subscribe to a plan of your choice at the end of the current billing cycle')) + "</p>"));
+          }
+          if ((chosenPlanPrice > currentSubscriptionPrice) && (currentSubscriptionStatus === 'Canceled')) {
+            e.preventDefault();
+            bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('Sorry , you cannot subscribe to another paid plan since your paid subscription is currently canceled') + ("</h4><p>" + (_.polyglot.t('If you wish to subscribe to a another paid plan you could do so at the end of the current billing cycle')) + "</p>"));
+          }
+          if ((chosenPlanPrice > currentSubscriptionPrice) && (currentSubscriptionStatus === 'Past Due')) {
+            e.preventDefault();
+            return bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('Sorry , you cannot subscribe to another paid plan when your current subscription is past payment due') + ("</h4><p>" + (_.polyglot.t('Please verify your card details and make the due payment')) + "</p>"));
           }
         }
       };
