@@ -16,7 +16,7 @@ function aj_braintree_get_currency($country_code){
 
 	$get_all_countries_query = "SELECT * FROM ".$table_name;
 
-    $country_rows = $wpdb->get_results( $get_all_countries_query, ARRAY_A );
+	$country_rows = $wpdb->get_results( $get_all_countries_query, ARRAY_A );
 
  	// 	$wpdb->show_errors(); 
 	// $wpdb->print_error();
@@ -40,15 +40,15 @@ function aj_braintree_get_currency($country_code){
  */
 function aj_braintree_get_plan($braintree_plan_id){
 
-    $plans = Braintree_Plan::all();
+	$plans = Braintree_Plan::all();
 
-    foreach ( $plans as $plan ) {
-        if($plan->id == $braintree_plan_id ){
-        	return $plan;
-            break;
-        }
+	foreach ( $plans as $plan ) {
+		if($plan->id == $braintree_plan_id ){
+			return $plan;
+			break;
+		}
 
-    }
+	}
 
 }
 
@@ -65,7 +65,7 @@ function aj_braintree_get_braintreeplans(){
 		$plans = array();
 	}
 
-    return $plans;
+	return $plans;
 
 }
 
@@ -82,7 +82,7 @@ function aj_braintree_get_braintreeplans(){
 // 	global $wpdb;
 
 // 	$all_plans =array();
-	
+
 // 	$country_id = aj_braintree_currency_location($country_code);
 
 // 	$table_name = $wpdb->base_prefix.'aj_braintree_plans';
@@ -112,54 +112,54 @@ function aj_braintree_get_braintreeplans(){
 function aj_braintree_get_subscription($subscription_id ){
 
 	$braintree_subscription =  array(
-								'subscription_status' => 'N/A', 
-								'billingPeriodStartDate' => 'N/A', 
-								'billingPeriodEndDate' => 'N/A', 
-								'nextBillAmount' => '0', 
-								'price' => '0', 
-								'nextBillingDate' => 'N/A' 
-								);
+		'subscription_status' => 'N/A', 
+		'billingPeriodStartDate' => 'N/A', 
+		'billingPeriodEndDate' => 'N/A', 
+		'nextBillAmount' => '0', 
+		'price' => '0', 
+		'nextBillingDate' => 'N/A' 
+		);
 	try {
 
-        $braintree_subscription_result = Braintree_Subscription::find( $subscription_id );
-        $braintree_subscription_result->code = "OK";
-        $complete_subscription_details =  $braintree_subscription_result;
+		$braintree_subscription_result = Braintree_Subscription::find( $subscription_id );
+		$braintree_subscription_result->code = "OK";
+		$complete_subscription_details =  $braintree_subscription_result;
 
-    } catch ( Braintree_Exception_NotFound $e ) {
+	} catch ( Braintree_Exception_NotFound $e ) {
 
-        $braintree_subscription_not_found = new stdClass;
-        $braintree_subscription_not_found->code = "ERROR";
-       	$braintree_subscription_not_found->msg =  $e->getMessage();
+		$braintree_subscription_not_found = new stdClass;
+		$braintree_subscription_not_found->code = "ERROR";
+		$braintree_subscription_not_found->msg =  $e->getMessage();
 
-       	 $complete_subscription_details =  $braintree_subscription_not_found;
-    }
+		$complete_subscription_details =  $braintree_subscription_not_found;
+	}
 
-    if ($complete_subscription_details->code==='OK') {
-    	$braintree_subscription['id'] = $complete_subscription_details->id;
-    	$braintree_subscription['balance'] = $complete_subscription_details->balance;
-    	$braintree_subscription['billingDayOfMonth'] = $complete_subscription_details->billingDayOfMonth;
-    	$braintree_subscription['billingPeriodEndDate'] = $complete_subscription_details->billingPeriodEndDate->format( 'M d, Y' );
-    	$braintree_subscription['billingPeriodStartDate'] = $complete_subscription_details->billingPeriodStartDate->format( 'M d, Y' );
-    	$braintree_subscription['currentBillingCycle'] = $complete_subscription_details->currentBillingCycle;
-    	$braintree_subscription['daysPastDue'] = $complete_subscription_details->daysPastDue;
-    	$braintree_subscription['failureCount'] = $complete_subscription_details->failureCount;
-    	$braintree_subscription['firstBillingDate'] = $complete_subscription_details->firstBillingDate;
-    	$braintree_subscription['neverExpires'] = $complete_subscription_details->neverExpires;
-    	$braintree_subscription['nextBillingDate'] = $complete_subscription_details->nextBillingDate->format( 'M d, Y' );
-    	$braintree_subscription['nextBillAmount'] = $complete_subscription_details->nextBillAmount;
-    	$braintree_subscription['numberOfBillingCycles'] = $complete_subscription_details->numberOfBillingCycles;
-    	$braintree_subscription['paidThroughDate'] = $complete_subscription_details->paidThroughDate;
-    	$braintree_subscription['paymentMethodToken'] = $complete_subscription_details->paymentMethodToken;
-    	$braintree_subscription['planId'] = $complete_subscription_details->planId;
-    	$braintree_subscription['price'] = $complete_subscription_details->price;
-    	$braintree_subscription['subscription_status'] = $complete_subscription_details->status;
-    	$braintree_subscription['trialDuration'] = $complete_subscription_details->trialDuration;
-    	$braintree_subscription['trialDurationUnit'] = $complete_subscription_details->trialDurationUnit;
-    	$braintree_subscription['trialPeriod'] = $complete_subscription_details->trialPeriod;
-    	$braintree_subscription['merchantAccountId'] = $complete_subscription_details->merchantAccountId;
-    }
+	if ($complete_subscription_details->code==='OK') {
+		$braintree_subscription['id'] = $complete_subscription_details->id;
+		$braintree_subscription['balance'] = $complete_subscription_details->balance;
+		$braintree_subscription['billingDayOfMonth'] = $complete_subscription_details->billingDayOfMonth;
+		$braintree_subscription['billingPeriodEndDate'] = $complete_subscription_details->billingPeriodEndDate->format( 'M d, Y' );
+		$braintree_subscription['billingPeriodStartDate'] = $complete_subscription_details->billingPeriodStartDate->format( 'M d, Y' );
+		$braintree_subscription['currentBillingCycle'] = $complete_subscription_details->currentBillingCycle;
+		$braintree_subscription['daysPastDue'] = $complete_subscription_details->daysPastDue;
+		$braintree_subscription['failureCount'] = $complete_subscription_details->failureCount;
+		$braintree_subscription['firstBillingDate'] = $complete_subscription_details->firstBillingDate;
+		$braintree_subscription['neverExpires'] = $complete_subscription_details->neverExpires;
+		$braintree_subscription['nextBillingDate'] = $complete_subscription_details->nextBillingDate->format( 'M d, Y' );
+		$braintree_subscription['nextBillAmount'] = $complete_subscription_details->nextBillAmount;
+		$braintree_subscription['numberOfBillingCycles'] = $complete_subscription_details->numberOfBillingCycles;
+		$braintree_subscription['paidThroughDate'] = $complete_subscription_details->paidThroughDate;
+		$braintree_subscription['paymentMethodToken'] = $complete_subscription_details->paymentMethodToken;
+		$braintree_subscription['planId'] = $complete_subscription_details->planId;
+		$braintree_subscription['price'] = $complete_subscription_details->price;
+		$braintree_subscription['subscription_status'] = $complete_subscription_details->status;
+		$braintree_subscription['trialDuration'] = $complete_subscription_details->trialDuration;
+		$braintree_subscription['trialDurationUnit'] = $complete_subscription_details->trialDurationUnit;
+		$braintree_subscription['trialPeriod'] = $complete_subscription_details->trialPeriod;
+		$braintree_subscription['merchantAccountId'] = $complete_subscription_details->merchantAccountId;
+	}
 
-    return $braintree_subscription;
+	return $braintree_subscription;
 }
 
 /**
@@ -174,15 +174,15 @@ function aj_braintree_get_customer($customer_id){
 
 		$braintree_customer = Braintree_Customer::find( $customer_id );
 		$braintree_customer->code = "OK";
-        return $braintree_customer;
+		return $braintree_customer;
 		
 	} catch (Braintree_Exception_NotFound $e) {
 
 		$braintree_customer_not_found = new stdClass;
-        $braintree_customer_not_found->code = "ERROR";
-       	$braintree_customer_not_found->msg =  "Customer not found";
+		$braintree_customer_not_found->code = "ERROR";
+		$braintree_customer_not_found->msg =  "Customer not found";
 
-       	return $braintree_customer_not_found;
+		return $braintree_customer_not_found;
 		
 	}
 }
@@ -192,34 +192,34 @@ function aj_braintree_get_customer_creditcards($customer_id){
 
 	// if there are no credit cards, return array with card_exists false
 	if ( empty( $customer->creditCards ) ){
-        return array( 'card_exists' => false,
-            'customer_id' => $customer_id,
-            'braintree_client_token' => aj_braintree_generate_client_token() );
+		return array( 'card_exists' => false,
+			'customer_id' => $customer_id,
+			'braintree_client_token' => aj_braintree_generate_client_token() );
 	}
 
     // if there are no credit cards, return array with card_exists false
-    $customer_credit_cards = $customer->creditCards;
+	$customer_credit_cards = $customer->creditCards;
 
-    foreach ( $customer_credit_cards as $key => $credit_card ) {
+	foreach ( $customer_credit_cards as $key => $credit_card ) {
 
-        $credit_cards[ $key ][ 'cardholderName' ] = $credit_card->cardholderName;
-        $credit_cards[ $key ][ 'customerId' ] = $credit_card->customerId;
-        $credit_cards[ $key ][ 'maskedNumber' ] = $credit_card->maskedNumber;
-        $credit_cards[ $key ][ 'last4' ] = $credit_card->last4;
-        $credit_cards[ $key ][ 'expirationDate' ] = $credit_card->expirationDate;
-        $credit_cards[ $key ][ 'token' ] = $credit_card->token;
-        $credit_cards[ $key ][ 'cardType' ] = $credit_card->cardType;
-        $credit_cards[ $key ][ 'imageUrl' ] = $credit_card->imageUrl;
-        $credit_cards[ $key ][ 'default' ] = $credit_card->default;
-        $credit_cards[ $key ][ 'expirationMonth' ] = $credit_card->expirationMonth;
-        $credit_cards[ $key ][ 'expirationYear' ] = $credit_card->expirationYear;
-        $credit_cards[ $key ][ 'expirationDate' ] = $credit_card->expirationDate;
-        $credit_cards[ $key ][ 'card_exists' ] = true;
-        $credit_cards[ $key ][ 'braintree_client_token' ] = aj_braintree_generate_client_token();
+		$credit_cards[ $key ][ 'cardholderName' ] = $credit_card->cardholderName;
+		$credit_cards[ $key ][ 'customerId' ] = $credit_card->customerId;
+		$credit_cards[ $key ][ 'maskedNumber' ] = $credit_card->maskedNumber;
+		$credit_cards[ $key ][ 'last4' ] = $credit_card->last4;
+		$credit_cards[ $key ][ 'expirationDate' ] = $credit_card->expirationDate;
+		$credit_cards[ $key ][ 'token' ] = $credit_card->token;
+		$credit_cards[ $key ][ 'cardType' ] = $credit_card->cardType;
+		$credit_cards[ $key ][ 'imageUrl' ] = $credit_card->imageUrl;
+		$credit_cards[ $key ][ 'default' ] = $credit_card->default;
+		$credit_cards[ $key ][ 'expirationMonth' ] = $credit_card->expirationMonth;
+		$credit_cards[ $key ][ 'expirationYear' ] = $credit_card->expirationYear;
+		$credit_cards[ $key ][ 'expirationDate' ] = $credit_card->expirationDate;
+		$credit_cards[ $key ][ 'card_exists' ] = true;
+		$credit_cards[ $key ][ 'braintree_client_token' ] = aj_braintree_generate_client_token();
 
-    }
+	}
 
-    return $credit_cards;
+	return $credit_cards;
 }
 
 /**
@@ -359,10 +359,10 @@ function aj_braintree_update_customer($customer_id, $customer_array, $credit_car
 	} catch (Braintree_Exception_NotFound $e) {
 		
 		$braintree_customer_not_found = new stdClass;
-        $braintree_customer_not_found->code = "ERROR";
-       	$braintree_customer_not_found->msg =  "Customer not found";
+		$braintree_customer_not_found->code = "ERROR";
+		$braintree_customer_not_found->msg =  "Customer not found";
 
-       	return $braintree_customer_not_found;	
+		return $braintree_customer_not_found;	
 	}
 	
 }
@@ -370,10 +370,10 @@ function aj_braintree_update_customer($customer_id, $customer_array, $credit_car
 function aj_braintree_create_subscription($payment_method_token, $plan_id,$merchant_account){
 	
 	$subscription_details = array(
-							'paymentMethodToken' => $payment_method_token,
-							'planId' => $plan_id,
-							'merchantAccountId' => $merchant_account
-							); 
+		'paymentMethodToken' => $payment_method_token,
+		'planId' => $plan_id,
+		'merchantAccountId' => $merchant_account
+		); 
 	$create_subscription = Braintree_Subscription::create( $subscription_details );
 
 	if ( $create_subscription->success ) {
@@ -390,18 +390,18 @@ function aj_braintree_update_subscription($subscription_id,$payment_method_token
 	// price is null when past_due subscriptions are updated
 	if (is_null($price)) {
 		$subscription_details = array(
-						    'paymentMethodToken' => $payment_method_token,
-						    'merchantAccountId' => $merchant_account
-						    );
+			'paymentMethodToken' => $payment_method_token,
+			'merchantAccountId' => $merchant_account
+			);
 	}
 	else{
 		$subscription_details = array(
-						    'paymentMethodToken' => $payment_method_token,
-						    'price' => $price,
-						    'options' => array('prorateCharges' => true,'revertSubscriptionOnProrationFailure' => true),
-						    'planId' => $plan_id,
-						    'merchantAccountId' => $merchant_account
-						    );
+			'paymentMethodToken' => $payment_method_token,
+			'price' => $price,
+			'options' => array('prorateCharges' => true,'revertSubscriptionOnProrationFailure' => true),
+			'planId' => $plan_id,
+			'merchantAccountId' => $merchant_account
+			);
 	}
 
 	$update_subscription = Braintree_Subscription::update($subscription_id,$subscription_details );
@@ -458,13 +458,13 @@ function aj_braintree_retry_subscription($subscription_id){
 function aj_braintree_create_payment_method($customer_id, $payment_method_nonce){
 
 	$payment_method_details = array(
-						        'customerId' => $customer_id,
-						        'paymentMethodNonce' => $payment_method_nonce,
-						        'options' => array(
-						        	'failOnDuplicatePaymentMethod' => false,
+		'customerId' => $customer_id,
+		'paymentMethodNonce' => $payment_method_nonce,
+		'options' => array(
+			'failOnDuplicatePaymentMethod' => false,
 						        	// 'makeDefault' => true
-						        	)
-						      );
+			)
+		);
 
 	$create_payment_method = Braintree_PaymentMethod::create($payment_method_details);
 
@@ -479,11 +479,11 @@ function aj_braintree_delete_payment_method($delete_card_token){
 		
 	} catch ( Braintree_Exception_NotFound $e ) {
 
-        $braintree_token_not_found = new stdClass;
-        $braintree_token_not_found->success = false;
-       	$braintree_token_not_found->message = "Payment method token not found"  ;
+		$braintree_token_not_found = new stdClass;
+		$braintree_token_not_found->success = false;
+		$braintree_token_not_found->message = "Payment method token not found"  ;
 
-       	 $delete_card_details =  $braintree_token_not_found;
+		$delete_card_details =  $braintree_token_not_found;
 		
 	}
 
@@ -501,49 +501,90 @@ function aj_braintree_delete_payment_method($delete_card_token){
 function aj_braintree_cancel_subscription( $subscription_id ) {
 
     #check if a active subscription exists
-    try {
-        Braintree_Subscription::find( $subscription_id );
+	try {
+		Braintree_Subscription::find( $subscription_id );
 
-        $cancel_subscription = Braintree_Subscription::cancel( $subscription_id );
-        if ( $cancel_subscription->success ) {
+		$cancel_subscription = Braintree_Subscription::cancel( $subscription_id );
+		if ( $cancel_subscription->success ) {
 
-            return array( 'success' => $cancel_subscription->success );
-        } else {
+			return array( 'success' => $cancel_subscription->success );
+		} else {
 
-            $error_msg = array( 'success' => $cancel_subscription->success, 'msg' => $cancel_subscription->message );
-            return $error_msg;
-        }
-    } catch ( Braintree_Exception_NotFound $e ) {
+			$error_msg = array( 'success' => $cancel_subscription->success, 'msg' => $cancel_subscription->message );
+			return $error_msg;
+		}
+	} catch ( Braintree_Exception_NotFound $e ) {
 
-        return array( 'success' => false, 'msg' => 'No existing subscription' );
-    }
+		return array( 'success' => false, 'msg' => 'No existing subscription' );
+	}
 
 }
 
 
-// aj_braintree_transaction(payment_method_token, amount, merchant_account )
-// aj_braintree_get_all_subscriptions(customer_id)
-// aj_braintree_get_all_transactions(customer_id)
+function aj_braintree_get_transaction($transaction_id){
+	$result_transaction = array();
+	try {
+
+		$transaction = Braintree_Transaction::find( $transaction_id );
+		$result_transaction['id'] = $transaction->id;
+		$result_transaction['status'] = $transaction->status;
+		$result_transaction['type'] = $transaction->type;
+		$result_transaction['currencyIsoCode'] = $transaction->currencyIsoCode;
+		$result_transaction['currencySymbol'] = ajbilling_get_site_currency($transaction->currencyIsoCode);
+		$result_transaction['amount'] = $transaction->amount;
+		$result_transaction['paymentInstrumentType'] = $transaction->paymentInstrumentType;
+		$result_transaction['createdAt'] = $transaction->createdAt->format( 'M d, Y H:i:s A' );
+		$result_transaction['token'] = $transaction->creditCardDetails->token;
+		$result_transaction['bin'] = $transaction->creditCardDetails->bin;
+		$result_transaction['last4'] = $transaction->creditCardDetails->last4;
+		$result_transaction['imageUrl'] = $transaction->creditCardDetails->imageUrl;
+		$result_transaction['cardType'] = $transaction->creditCardDetails->cardType;
+		$result_transaction['maskedNumber'] = $transaction->creditCardDetails->maskedNumber;
+		$result_transaction['cardholderName'] = $transaction->creditCardDetails->cardholderName;
+		return $result_transaction;
+
+	} catch (Braintree_Exception_NotFound $e ) {
+		return $result_transaction;
+	}
+}
+
+function aj_braintree_get_transactions($customer_id){
+	$transactions =array();
+	try {
+		$transactionCollection = Braintree_Transaction::search( array(
+			Braintree_TransactionSearch::customerId()->is( $customer_id )
+			) );
+		$transaction_id_array = $transactionCollection->_ids;
+
+		foreach ( $transaction_id_array as $key => $transaction_id ) {
+			$transaction_data = aj_braintree_get_transaction($transaction_id ); 
+			$transactions[] = $transaction_data;
+		}
+		return $transactions;
+	} catch (Braintree_Exception_NotFound $e ) {
+		return $transactions;
+	}
+}
 
 function ajbilling_get_merchant_account($currency){
 	// Based on currency return merchant account to be used 
 	// merchant accounts values are stored as constants like other braintree constants
 	switch ($currency) {
 		case 'GBP':
-			$merchant_account = BT_GBP_MERCHANT;
-			break;
+		$merchant_account = BT_GBP_MERCHANT;
+		break;
 
 		case 'NOK':
-			$merchant_account = BT_NOK_MERCHANT;
-			break;
+		$merchant_account = BT_NOK_MERCHANT;
+		break;
 
 		case 'USD':
-			$merchant_account = BT_USD_MERCHANT;
-			break;
+		$merchant_account = BT_USD_MERCHANT;
+		break;
 		
 		default:
-			$merchant_account = BT_USD_MERCHANT;
-			break;
+		$merchant_account = BT_USD_MERCHANT;
+		break;
 	}
 
 	return $merchant_account;
@@ -560,19 +601,19 @@ function ajbilling_subscribe_user_to_plan($paymentMethodToken,$braintree_plan_id
 	$currency = $braintree_plan->currencyIsoCode;
 	$price = $braintree_plan->price;
 
-    $merchant_account = ajbilling_get_merchant_account($currency);
+	$merchant_account = ajbilling_get_merchant_account($currency);
 
-    switch ($current_subscription_id) {
-    	case 'DefaultFree':
-    		$subscription_result = aj_braintree_create_subscription($paymentMethodToken, $braintree_plan_id,$merchant_account);
-    		break;
-    	
-    	default:
-    		$subscription_result = aj_braintree_update_subscription($current_subscription_id,$paymentMethodToken,$braintree_plan_id,$merchant_account,$price);
-    		break;
-    }
+	switch ($current_subscription_id) {
+		case 'DefaultFree':
+		$subscription_result = aj_braintree_create_subscription($paymentMethodToken, $braintree_plan_id,$merchant_account);
+		break;
 
-    return $subscription_result;
+		default:
+		$subscription_result = aj_braintree_update_subscription($current_subscription_id,$paymentMethodToken,$braintree_plan_id,$merchant_account,$price);
+		break;
+	}
+
+	return $subscription_result;
 }
 
 function ajbilling_create_customer_with_card($customer,$paymentMethodNonce){
@@ -581,18 +622,18 @@ function ajbilling_create_customer_with_card($customer,$paymentMethodNonce){
 
 	if ( $create_customer_with_card->success ) {
 
-        $credit_card_token = $create_customer_with_card->customer->creditCards[ 0 ]->token;
-        $customer_id = $create_customer_with_card->customer->id;
+		$credit_card_token = $create_customer_with_card->customer->creditCards[ 0 ]->token;
+		$customer_id = $create_customer_with_card->customer->id;
 
-        $success_msg = array( 'success' => $create_customer_with_card->success,
-            'creditCardToken' => $credit_card_token,
-            'customerId' => $customer_id );
-        return $success_msg;
+		$success_msg = array( 'success' => $create_customer_with_card->success,
+			'creditCardToken' => $credit_card_token,
+			'customerId' => $customer_id );
+		return $success_msg;
 
-    } else {
-        $error_msg = array( 'sucess' => $create_customer_with_card->success, 'msg' => $create_customer_with_card->message );
-        return $error_msg;
-    }
+	} else {
+		$error_msg = array( 'sucess' => $create_customer_with_card->success, 'msg' => $create_customer_with_card->message );
+		return $error_msg;
+	}
 }
 
 function ajbilling_add_credit_card_to_customer($customer_id,$paymentMethodNonce){
@@ -609,7 +650,7 @@ function ajbilling_add_credit_card_to_customer($customer_id,$paymentMethodNonce)
 	}
 }
 
-                        
+
 /**
 * Function to update options related to plugin stored for the site in the db
 * option_name could be: site_payment_plan / braintree-customer-id / site-country
@@ -618,19 +659,19 @@ function ajbilling_update_plugin_site_options($object_id,$object_type='site',$op
 
 	switch ($object_type) {
 		case 'site':
-			if ( is_multisite() ){
-				switch_to_blog( $object_id );
-				$update_plugin_option = update_option( $option_name, $option_value );
-				restore_current_blog();
-			}
-			else{
-				$update_plugin_option = update_option( $option_name, $option_value );
-			}
-			break;
+		if ( is_multisite() ){
+			switch_to_blog( $object_id );
+			$update_plugin_option = update_option( $option_name, $option_value );
+			restore_current_blog();
+		}
+		else{
+			$update_plugin_option = update_option( $option_name, $option_value );
+		}
+		break;
 		
 		case 'user':
-			$update_plugin_option = update_user_meta($object_id, $option_name, $option_value);
-			break;
+		$update_plugin_option = update_user_meta($object_id, $option_name, $option_value);
+		break;
 	}
 
 	return $update_plugin_option;
@@ -774,20 +815,20 @@ function ajbilling_get_all_feature_components($type='all'){
 
 	switch ($type) {
 		case 'all':
-			$features = $all_features;
-			break;
+		$features = $all_features;
+		break;
 
 		case 'yes_no_type':
-			$features = $yes_no_type;
-			break;
+		$features = $yes_no_type;
+		break;
 
 		case 'count_type':
-			$features = $count_type;
-			break;
+		$features = $count_type;
+		break;
 		
 		default:
-			$features = $all_features;
-			break;
+		$features = $all_features;
+		break;
 	}
 
 	return $features;
@@ -817,27 +858,27 @@ function ajbilling_get_plugin_feature_count($plan_id,$feature_component){
 	global $wpdb;
 	$yes_no_features = ajbilling_get_all_feature_components('yes_no_type');
 	$count_features = ajbilling_get_all_feature_components('count_type');
-    $all_features = ajbilling_get_all_feature_components();
-    $count = 0;
+	$all_features = ajbilling_get_all_feature_components();
+	$count = 0;
 
-    $plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
-    $sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id=".$plan_id;
+	$plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
+	$sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id=".$plan_id;
 
-    $site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
+	$site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
 
-    $site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
-    $plan_features = maybe_unserialize($site_plan['features']);
+	$site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
+	$plan_features = maybe_unserialize($site_plan['features']);
 
-    if (count($plan_features)>0) {
-    	foreach ($plan_features as $plan_feature) {
+	if (count($plan_features)>0) {
+		foreach ($plan_features as $plan_feature) {
 
-    		if ($plan_feature['key']==$feature_component) {
-    			$count = $plan_feature['count'];
-    		}
-    	}
-    }
+			if ($plan_feature['key']==$feature_component) {
+				$count = $plan_feature['count'];
+			}
+		}
+	}
 
-    return $count;
+	return $count;
 
 }
 
@@ -845,28 +886,28 @@ function ajbilling_plugin_feature_enable_status($plan_id,$feature_component){
 	global $wpdb;
 	$yes_no_features = ajbilling_get_all_feature_components('yes_no_type');
 	$count_features = ajbilling_get_all_feature_components('count_type');
-    $all_features = ajbilling_get_all_feature_components();
-    $enabled = 0;
+	$all_features = ajbilling_get_all_feature_components();
+	$enabled = 0;
 
-    $plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
-    $sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id=".$plan_id;
+	$plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
+	$sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id=".$plan_id;
 
-    $site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
+	$site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
 
-    $site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
-    $plan_features = maybe_unserialize($site_plan['features']);
+	$site_plan = $wpdb->get_row($sqlQuery, ARRAY_A);
+	$plan_features = maybe_unserialize($site_plan['features']);
 
-    if (count($plan_features)>0) {
-    	foreach ($plan_features as $plan_feature) {
+	if (count($plan_features)>0) {
+		foreach ($plan_features as $plan_feature) {
 
-    	if ($plan_feature['key']==$feature_component) {
-    			$enabled = $plan_feature['enabled'];
-    		}
-   		}
+			if ($plan_feature['key']==$feature_component) {
+				$enabled = $plan_feature['enabled'];
+			}
+		}
 
-    }
-    
-    return $enabled;
+	}
+
+	return $enabled;
 
 }
 
@@ -882,19 +923,19 @@ function ajbilling_get_user_siteplan_options($object_id,$object_type='site'){
 
 	switch ($object_type) {
 		case 'site':
-			if ( is_multisite() ){
-				switch_to_blog( $object_id );
-				$user_site_plan = get_option('site_payment_plan');
-				restore_current_blog();
-			}
-			else{
-				$user_site_plan = get_option('site_payment_plan');
-			}
-			break;
+		if ( is_multisite() ){
+			switch_to_blog( $object_id );
+			$user_site_plan = get_option('site_payment_plan');
+			restore_current_blog();
+		}
+		else{
+			$user_site_plan = get_option('site_payment_plan');
+		}
+		break;
 
 		case 'user':
-			$user_site_plan = get_user_meta( $object_id, 'site_payment_plan', true ); 
-			break;
+		$user_site_plan = get_user_meta( $object_id, 'site_payment_plan', true ); 
+		break;
 	}
 
 	return $user_site_plan;
@@ -911,30 +952,30 @@ function ajbilling_get_user_country_option($object_id,$object_type='site'){
 
 	switch ($object_type) {
 		case 'site':
-			if ( is_multisite() ){
-				switch_to_blog( $object_id );
-				$user_site_country = get_option('site-country');
+		if ( is_multisite() ){
+			switch_to_blog( $object_id );
+			$user_site_country = get_option('site-country');
 
 				// Default country to gb if not set
-				if (!$user_site_country) {
-					update_option( 'site-country', 'gb' );
-					$user_site_country = 'gb';
-				}
-				restore_current_blog();
+			if (!$user_site_country) {
+				update_option( 'site-country', 'gb' );
+				$user_site_country = 'gb';
 			}
-			else{
-				$user_site_country = get_option('site-country');
+			restore_current_blog();
+		}
+		else{
+			$user_site_country = get_option('site-country');
 				// Default country to gb if not set
-				if (!$user_site_country) {
-					update_option( 'site-country', 'gb' );
-					$user_site_country = 'gb';
-				}
+			if (!$user_site_country) {
+				update_option( 'site-country', 'gb' );
+				$user_site_country = 'gb';
 			}
-			break;
+		}
+		break;
 
 		case 'user':
-			$user_site_country = get_user_meta( $object_id, 'site-country', true ); 
-			break;
+		$user_site_country = get_user_meta( $object_id, 'site-country', true ); 
+		break;
 	}
 
 	return $user_site_country;
@@ -951,19 +992,19 @@ function ajbilling_get_braintree_customer_id($object_id,$object_type='site'){
 
 	switch ($object_type) {
 		case 'site':
-			if ( is_multisite() ){
-				switch_to_blog( $object_id );
-				$braintree_customer = get_option('braintree-customer-id','');
-				restore_current_blog();
-			}
-			else{
-				$braintree_customer = get_option('braintree-customer-id','');
-			}
-			break;
+		if ( is_multisite() ){
+			switch_to_blog( $object_id );
+			$braintree_customer = get_option('braintree-customer-id','');
+			restore_current_blog();
+		}
+		else{
+			$braintree_customer = get_option('braintree-customer-id','');
+		}
+		break;
 
 		case 'user':
-			$braintree_customer = get_user_meta( $object_id, 'braintree-customer-id', true ); 
-			break;
+		$braintree_customer = get_user_meta( $object_id, 'braintree-customer-id', true ); 
+		break;
 	}
 
 	return $braintree_customer;
@@ -1045,24 +1086,24 @@ function ajbilling_object_exists($object_id,$object_type='site'){
 	
 	switch ($object_type) {
 		case 'site':
-			if ( is_multisite() ){
-				$blog_details = get_blog_details($object_id);
-				if ( $blog_details=="") {
-					$result = 0;
-				}
-				else if($blog_details->deleted == 1){
-					$result = 0;
-				}
+		if ( is_multisite() ){
+			$blog_details = get_blog_details($object_id);
+			if ( $blog_details=="") {
+				$result = 0;
 			}
-			break;
+			else if($blog_details->deleted == 1){
+				$result = 0;
+			}
+		}
+		break;
 
 		case 'user':
 			# code...
-			break;
+		break;
 		
 		default:
 			# code...
-			break;
+		break;
 	}
 	
 	return $result;
@@ -1130,42 +1171,42 @@ function ajbilling_is_object_type_set(){
 }
 
 function ajbilling_payment_custom_site_options(){
-    global $pagenow,$wpdb;
+	global $pagenow,$wpdb;
 
-    $site_id = isset($_GET['id']) ? $_GET['id'] : 0;
+	$site_id = isset($_GET['id']) ? $_GET['id'] : 0;
 
     //Get plan details for site
-    $ajbilling_plan = ajbilling_get_user_siteplan_options($site_id,$object_type='site');
+	$ajbilling_plan = ajbilling_get_user_siteplan_options($site_id,$object_type='site');
 
-    if (!isset($ajbilling_plan['plan_id'])) {
-    	$ajbilling_plan['plan_id'] = -1;
-    }
+	if (!isset($ajbilling_plan['plan_id'])) {
+		$ajbilling_plan['plan_id'] = -1;
+	}
 
     //Get all active plans from plans table of the payment plugin
-    $plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
-    $sqlQuery = "SELECT * FROM $plugin_plans_table WHERE status='active'";
-    $site_plans = $wpdb->get_results($sqlQuery, ARRAY_A);
+	$plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
+	$sqlQuery = "SELECT * FROM $plugin_plans_table WHERE status='active'";
+	$site_plans = $wpdb->get_results($sqlQuery, ARRAY_A);
 
-    if( 'site-info.php' == $pagenow ) {
-        ?><table><tr id="payment_custom_site_options">
-            <th scope="row">Payment Plan</th>
-            <td>
-            	<select id="blog_payment_plan">
-            	<option value="-1">--Select Plan--</option>
-            	<?php 
-            		foreach ($site_plans as $site_plan) {?>
-            		<option value="<?php echo $site_plan['id'];?>" <?php selected( $ajbilling_plan['plan_id'], $site_plan['id'], true);?>><?php echo $site_plan['title'];?></option>
-            		<?php }?>
-            		
-            	</select>
-            	<input class="button-secondary" type="button" name="save_plan" value="<?php _e( 'Save Plan' ); ?>" id="save_site_plan"/>
-            	<span class="plan-setting-updated-msg description"></span>
-            </td>
-        </tr></table>
-        <script>jQuery(function($){
-            $('.form-table tbody').append($('#payment_custom_site_options'));
-        });</script><?php
-    }
+	if( 'site-info.php' == $pagenow ) {
+		?><table><tr id="payment_custom_site_options">
+		<th scope="row">Payment Plan</th>
+		<td>
+			<select id="blog_payment_plan">
+				<option value="-1">--Select Plan--</option>
+				<?php 
+				foreach ($site_plans as $site_plan) {?>
+				<option value="<?php echo $site_plan['id'];?>" <?php selected( $ajbilling_plan['plan_id'], $site_plan['id'], true);?>><?php echo $site_plan['title'];?></option>
+				<?php }?>
+
+			</select>
+			<input class="button-secondary" type="button" name="save_plan" value="<?php _e( 'Save Plan' ); ?>" id="save_site_plan"/>
+			<span class="plan-setting-updated-msg description"></span>
+		</td>
+	</tr></table>
+	<script>jQuery(function($){
+		$('.form-table tbody').append($('#payment_custom_site_options'));
+	});</script><?php
+}
 }
 
 
@@ -1173,17 +1214,17 @@ function ajbilling_payment_custom_site_options(){
  * Load js script in network admin's site-info page for saving plan for a site
  */
 function ajbilling_my_admin_scripts() {
-    wp_register_script('updateSitePlanScript', AJ_BRAINTREE . '/js/updateSitePlanScript.js', array('jquery'), JSVERSION, TRUE);
-    wp_enqueue_script('updateSitePlanScript');
+	wp_register_script('updateSitePlanScript', AJ_BRAINTREE . '/js/updateSitePlanScript.js', array('jquery'), JSVERSION, TRUE);
+	wp_enqueue_script('updateSitePlanScript');
 }
 
 
 function ajbilling_paymentApi_url() { ?>
-	<script type="text/javascript">
-		var aj_billing_api_url = '<?php echo site_url()."/api/ajbilling/plan"; ?>';
-		var site_url = '<?php echo site_url();?>';
-	</script>
-	<?php
+<script type="text/javascript">
+	var aj_billing_api_url = '<?php echo site_url()."/api/ajbilling/plan"; ?>';
+	var site_url = '<?php echo site_url();?>';
+</script>
+<?php
 }
 
 function ajbilling_get_site_planid($object_id, $object_type='site'){
@@ -1198,16 +1239,16 @@ function ajbilling_get_site_currency($site_currency){
 
 	switch ($site_currency) {
 		case 'GBP':
-			$currency = '£';
-			break;
+		$currency = '£';
+		break;
 
 		case 'NOK':
-			$currency = 'NOK';
-			break;
+		$currency = 'NOK';
+		break;
 		
 		default:
-			$currency = '$';
-			break;
+		$currency = '$';
+		break;
 	}
 
 	return $currency;
@@ -1249,13 +1290,13 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 		//Get customer subscription id if customer exists
 		if (!$braintree_customer_id) {
 			$current_subscription_details =  array(
-								'subscription_status' => 'N/A', 
-								'billingPeriodStartDate' => 'N/A', 
-								'billingPeriodEndDate' => 'N/A', 
-								'nextBillAmount' => '0', 
-								'price' => '0', 
-								'nextBillingDate' => 'N/A', 
-								);
+				'subscription_status' => 'N/A', 
+				'billingPeriodStartDate' => 'N/A', 
+				'billingPeriodEndDate' => 'N/A', 
+				'nextBillAmount' => '0', 
+				'price' => '0', 
+				'nextBillingDate' => 'N/A', 
+				);
 			$billing_plan = $current_subscription_details;
 		}
 		else{
@@ -1436,29 +1477,29 @@ function ajbilling_fetch_site_subscription($object_id, $object_type='site'){
 	$braintree_customer_id = ajbilling_get_braintree_customer_id($object_id,$object_type);
 
 	if (!$braintree_customer_id) {
-			$current_subscription_details =  array(
-								'subscription_status' => 'N/A', 
-								'billingPeriodStartDate' => 'N/A', 
-								'billingPeriodEndDate' => 'N/A', 
-								'nextBillAmount' => '0', 
-								'price' => '0', 
-								'nextBillingDate' => 'N/A', 
-								'currency' => $site_currency_symbol 
-								);
-			$subscription = $current_subscription_details;
-		}
-		else{
+		$current_subscription_details =  array(
+			'subscription_status' => 'N/A', 
+			'billingPeriodStartDate' => 'N/A', 
+			'billingPeriodEndDate' => 'N/A', 
+			'nextBillAmount' => '0', 
+			'price' => '0', 
+			'nextBillingDate' => 'N/A', 
+			'currency' => $site_currency_symbol 
+			);
+		$subscription = $current_subscription_details;
+	}
+	else{
 			// customer is present in braintree
-			$customer = aj_braintree_get_customer($braintree_customer_id);
-			$braintree_subscription_id = $customer->customFields['customer_subscription'];
-			$current_subscription_details = aj_braintree_get_subscription($braintree_subscription_id);
-			$current_subscription_details['currency'] = $site_currency_symbol;
+		$customer = aj_braintree_get_customer($braintree_customer_id);
+		$braintree_subscription_id = $customer->customFields['customer_subscription'];
+		$current_subscription_details = aj_braintree_get_subscription($braintree_subscription_id);
+		$current_subscription_details['currency'] = $site_currency_symbol;
 
-			$subscription = $current_subscription_details;
+		$subscription = $current_subscription_details;
 
-		}
+	}
 
-		return $subscription;
+	return $subscription;
 }
 
 function ajbilling_fetch_all_plans($object_id, $object_type='site'){
@@ -1516,8 +1557,8 @@ function ajbilling_fetch_all_plans($object_id, $object_type='site'){
 
 				$country_based_braintree_plans = array();
 
-                $billing_plan = array();
-                if (!empty($braintree_plan_ids)) {
+				$billing_plan = array();
+				if (!empty($braintree_plan_ids)) {
 	                // Get details braintree plans for only chosen currency
 					foreach ($braintree_plan_ids as $braintree_plan_id) 
 					{
@@ -1788,27 +1829,27 @@ function ajbilling_update_feature_addon($object_id ,$element_name,$plus_or_minus
 
 			switch ($plus_or_minus) {
 				case 'plus':
-					if (is_array($current_count)) {
-						$new_count = $current_count ;
-					}
+				if (is_array($current_count)) {
+					$new_count = $current_count ;
+				}
 
-					array_push($new_count, $element_name);
-					break;
+				array_push($new_count, $element_name);
+				break;
 
 				case 'minus':
-					if (is_array($current_count)) {
-						$new_count = array_diff($current_count, array($element_name));
-						$new_count = array_values($new_count);
-					}
-					break;
+				if (is_array($current_count)) {
+					$new_count = array_diff($current_count, array($element_name));
+					$new_count = array_values($new_count);
+				}
+				break;
 
 				case 'reset':
-					$new_count = array();
-					break;
+				$new_count = array();
+				break;
 
 				default:
-					$new_count = array();
-					break;
+				$new_count = array();
+				break;
 				
 			}
 
@@ -1866,42 +1907,42 @@ function ajbilling_braintree_webhook_notifications($webhookNotification){
 	//make function calls based on the webhook kind
 	switch ($webhook_kind) {
 		case 'subscription_charged_successfully':
-			do_action( 'subscription_charged_successfully', $subscription_id,$customer_details);
-			break;
+		do_action( 'subscription_charged_successfully', $subscription_id,$customer_details);
+		break;
 
 		case 'subscription_charged_unsuccessfully':
-			do_action( 'subscription_charged_unsuccessfully', $subscription_id,$customer_details);
-			break;
+		do_action( 'subscription_charged_unsuccessfully', $subscription_id,$customer_details);
+		break;
 
 		case 'subscription_went_active':
-			do_action( 'subscription_went_active', $subscription_id,$customer_details);
-			break;
+		do_action( 'subscription_went_active', $subscription_id,$customer_details);
+		break;
 
 		case 'subscription_went_past_due':
-			do_action( 'subscription_went_past_due', $subscription_id,$customer_details);
-			break;
+		do_action( 'subscription_went_past_due', $subscription_id,$customer_details);
+		break;
 
 		case 'subscription_canceled':
-			do_action( 'subscription_canceled', $subscription_id,$customer_details);
-			break;
+		do_action( 'subscription_canceled', $subscription_id,$customer_details);
+		break;
 		
 		default:
 			// do nothing for other webhook kind
-			break;
+		break;
 	}
 
 }
 
 if(!function_exists('_log')){
-  function _log( $message ) {
-    if( WP_DEBUG === true ){
-      if( is_array( $message ) || is_object( $message ) ){
-        error_log( print_r( $message, true ) );
-      } else {
-        error_log( $message );
-      }
-    }
-  }
+	function _log( $message ) {
+		if( WP_DEBUG === true ){
+			if( is_array( $message ) || is_object( $message ) ){
+				error_log( print_r( $message, true ) );
+			} else {
+				error_log( $message );
+			}
+		}
+	}
 }
 
 

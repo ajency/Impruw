@@ -16,16 +16,18 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-transaction-his
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
-            _this.creditCardCollection = App.request("get:credit:cards");
-            return App.execute("when:fetched", _this.creditCardCollection, function() {
-              var existingCreditCards;
-              _this.braintreeClientToken = _this.creditCardCollection.models[0].get('braintree_client_token');
-              existingCreditCards = _this.creditCardCollection.where({
-                card_exists: true
-              });
-              _this.existingCreditCardsCollection = new Backbone.Collection(existingCreditCards);
-              _this.view = _this.getCardListingView();
-              return _this.layout.transactionListingRegion.show(_this.view);
+            return App.execute("when:fetched", _this.siteModel, function() {
+              _this.braintree_customer_id = _this.siteModel.get('braintree_customer_id');
+              if (_.isEmpty(_this.braintree_customer_id)) {
+                _this.view = _this.getEmptyView();
+                return _this.layout.transactionListingRegion.show(_this.view);
+              } else {
+                _this.transactionCollection = App.request("get:customer:transactions", _this.braintree_customer_id);
+                return App.execute("when:fetched", _this.transactionCollection, function() {
+                  _this.view = _this.getCardListingView();
+                  return _this.layout.transactionListingRegion.show(_this.view);
+                });
+              }
             });
           };
         })(this));
@@ -40,8 +42,12 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-transaction-his
 
       Controller.prototype.getCardListingView = function() {
         return new SiteTransactionHistory.View.TransactionListView({
-          collection: this.existingCreditCardsCollection
+          collection: this.transactionCollection
         });
+      };
+
+      Controller.prototype.getEmptyView = function() {
+        return new SiteTransactionHistory.View.EmptyView;
       };
 
       return Controller;

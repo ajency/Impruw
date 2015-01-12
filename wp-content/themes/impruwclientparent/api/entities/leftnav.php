@@ -67,11 +67,14 @@ function get_menu_items() {
                 array( 'url' => '#/billing/account-summary',
                     'title' => 'Account Summary',
                     'icon' => 'stats1' ),
+                array( 'url' => '#/billing/pricing-plans',
+                    'title' => 'View Plans',
+                    'icon' => 'stats2' ),
                 array( 'url' => '#/billing/credit-cards',
                     'title' => 'Credit Cards',
                     'icon' => 'stats2' ),
-                array( 'url' => '#/billing/pricing-plans',
-                    'title' => 'View Plans',
+                array( 'url' => '#/billing/transaction-history',
+                    'title' => 'Transaction History',
                     'icon' => 'stats2' )
             )
         ),

@@ -95,6 +95,9 @@
 
            $routes['/ajbilling/deleteCreditCard/(?P<subscription_id>\S+)/(?P<delete_card_token>\S+)'] = array(array( array( $this, 'delete_credit_card'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
+           $routes['/ajbilling/braintreeTransactions'] = array(
+            array( array( $this, 'get_braintree_transactions'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
+            );
 
 
            return $routes;
@@ -439,6 +442,14 @@
             $delete_card = aj_braintree_delete_payment_method($delete_card_token);
             
             return  $delete_card ;
+        }
+
+        public function get_braintree_transactions(){
+            $braintree_customer_id = $_REQUEST['customerID'];
+
+            $transactions = aj_braintree_get_transactions($braintree_customer_id);
+
+            return $transactions;
         }
 
     }

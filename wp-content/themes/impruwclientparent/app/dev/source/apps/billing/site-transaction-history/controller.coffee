@@ -12,18 +12,17 @@ define [ 'app', 'controllers/base-controller'
                 App.vent.trigger "set:active:menu", 'billing'
 
                 @listenTo @layout, "show", =>
-                    
-                    @creditCardCollection = App.request "get:credit:cards"
-                    App.execute "when:fetched", @creditCardCollection, =>
-                        @braintreeClientToken = @creditCardCollection.models[0].get 'braintree_client_token'
-                        existingCreditCards =@creditCardCollection.where(card_exists: true)
-                        @existingCreditCardsCollection = new Backbone.Collection(existingCreditCards)
-                        @view = @getCardListingView()
-                        
-                        # @listenTo @view , "add:new:credit:card", ( paymentMethodNonce )=>
-                        #     @addCard paymentMethodNonce 
+                    App.execute "when:fetched", @siteModel, =>
+                        @braintree_customer_id = @siteModel.get 'braintree_customer_id'
+                        if _.isEmpty @braintree_customer_id
+                            @view = @getEmptyView()
+                            @layout.transactionListingRegion.show @view
+                        else
+                            @transactionCollection = App.request "get:customer:transactions", @braintree_customer_id
+                            App.execute "when:fetched", @transactionCollection, =>
+                                @view = @getCardListingView()
 
-                        @layout.transactionListingRegion.show @view
+                                @layout.transactionListingRegion.show @view
 
                 @show @layout,
                     loading : true
@@ -34,7 +33,10 @@ define [ 'app', 'controllers/base-controller'
 
             getCardListingView:->
                 new SiteTransactionHistory.View.TransactionListView
-                    collection : @existingCreditCardsCollection
+                    collection : @transactionCollection
+
+            getEmptyView :->
+                new SiteTransactionHistory.View.EmptyView
 
         App.commands.setHandler "show:site:transaction:history:app", ( opts ) ->
             new SiteTransactionHistory.Controller opts
