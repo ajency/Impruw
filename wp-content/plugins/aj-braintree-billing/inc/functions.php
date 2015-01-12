@@ -461,7 +461,7 @@ function aj_braintree_create_payment_method($customer_id, $payment_method_nonce)
 		'customerId' => $customer_id,
 		'paymentMethodNonce' => $payment_method_nonce,
 		'options' => array(
-			'failOnDuplicatePaymentMethod' => false,
+			'failOnDuplicatePaymentMethod' => true,
 						        	// 'makeDefault' => true
 			)
 		);
