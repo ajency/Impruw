@@ -107,8 +107,25 @@ define(['app', 'bootbox'], function(App, bootbox) {
             }
           });
         },
-        'blur .nav-tabs span': function(evt) {
-          return $(evt.target).parent('a').siblings('form').find("input[name=" + WPML_DEFAULT_LANG + "]").val($(evt.target).text());
+        'click .nav-tabs span': function(evt) {
+          return bootbox.dialog({
+            title: "Tab name",
+            message: '<div class="row"> <div class="col-md-12"> <form class="form-horizontal"> <div class="form-group"> <label class="col-md-4 control-label" for="name">Name</label> <div class="col-md-4"> <input  name="name" type="text" placeholder="Tab name" class="tab-name-modal form-control input-md" value="' + $(evt.target).text() + '"> </div> </div> </form> </div> </div>',
+            buttons: {
+              success: {
+                label: 'Save',
+                className: 'btn-primary',
+                callback: function() {
+                  var result;
+                  result = $('.tab-name-modal').val();
+                  if (!_.isEmpty(result)) {
+                    $(evt.target).text(result);
+                    return $(evt.target).parent('a').siblings('form').find("input[name=" + WPML_DEFAULT_LANG + "]").val(result);
+                  }
+                }
+              }
+            }
+          });
         },
         'click .delete-tab-btn': function(evt) {
           var id;
@@ -180,10 +197,10 @@ define(['app', 'bootbox'], function(App, bootbox) {
         object = itemView.model.get('tabName');
         for (prop in object) {
           if (object.hasOwnProperty(prop)) {
-            html += "<input type='hidden' name='" + prop + "' value=" + object[prop] + ">";
+            html += "<input type='hidden' name='" + prop + "' value='" + object[prop] + "'>";
           }
         }
-        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class=""> <a href="#' + id + '" role="tab" data-toggle="tab"> <span contenteditable="true">' + itemView.model.get('tabName')[WPML_DEFAULT_LANG] + '</span> </a> <div class="delete-tab-btn">&times;</div> <form data-id="' + id + '">' + html + '</form> </li>');
+        return this.$el.find('ul.nav-tabs').append('<li role="presentation" class=""> <a href="#' + id + '" role="tab" data-toggle="tab"> <span >' + itemView.model.get('tabName')[WPML_DEFAULT_LANG] + '</span> </a> <div class="delete-tab-btn">&times;</div> <form data-id="' + id + '">' + html + '</form> </li>');
       };
 
       TabsView.prototype.onShow = function() {
