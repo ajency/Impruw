@@ -12,7 +12,7 @@ define ['app','bootbox'
 			template : '<div class="panel-heading" >
 						  <h4 class="panel-title">
 							<a>
-							  <span contenteditable="true">{{tab_name}}</span>
+							  <span>{{tab_name}}</span>
 							</a>
 						  </h4>
 						  <form></form>
@@ -35,16 +35,38 @@ define ['app','bootbox'
 						return
 					@model.collection.remove @model
 
-				'blur .panel-title span' : (e)->
-					@$el.children('.panel-heading').children('form')
-					.find("input[name='#{WPML_DEFAULT_LANG}']").val $(e.target).text()
+				'click .panel-title span' : (evt)->
+					bootbox.dialog
+						title: "Accordian tab name"
+						message: '<div class="row"> 
+									<div class="col-md-12"> 
+										<form class="form-horizontal"> 
+											<div class="form-group"> 
+												<label class="col-md-4 control-label" for="name">Name</label> 
+												<div class="col-md-4"> 
+													<input  name="name" type="text" placeholder="Tab name" 
+													class="tab-name-modal form-control input-md" value="'+$(evt.target).text()+'"> 
+												</div>  
+							 				</div>
+										</form> 
+									</div>  
+								</div>'
+						buttons: 
+							success :
+								label : 'Save'
+								className : 'btn-primary'
+								callback : ->
+									result = $('.tab-name-modal').val()
+									if not _.isEmpty result
+										$(evt.target).text result
+										$(evt.target).closest('.panel-title').siblings('form').find("input[name=#{WPML_DEFAULT_LANG}]").val result
 
 			onShow : ->
 				object = @model.get 'tabName'
 				for prop of object
 					if object.hasOwnProperty prop
 						@$el.children('.panel-heading').children('form')
-						.append "<input type='hidden' name='#{prop}' value=#{object[prop]}>"
+						.append "<input type='hidden' name='#{prop}' value='#{object[prop]}'>"
 
 				# console.log 'sortable'
 				@$el.find('.panel-body').sortable
