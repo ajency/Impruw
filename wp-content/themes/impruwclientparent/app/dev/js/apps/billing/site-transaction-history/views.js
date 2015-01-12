@@ -52,9 +52,16 @@ define(['app', 'text!apps/billing/site-transaction-history/templates/transaction
         return SingleTranscation.__super__.constructor.apply(this, arguments);
       }
 
-      SingleTranscation.prototype.template = '<td>{{date}}</td> <td>{{plan_name}}</td> <td>{{description}}</td> <td>&pound; {{amount}}</td> <td><a href="#">' + _.polyglot.t("Print") + '</a></td>';
+      SingleTranscation.prototype.template = '    <td>{{createdAt}}</td> <td>{{timezone}}</td> <td>{{type}}</td> <td>{{status}}</td> <td>{{cardholderName}}</td> <td><img alt="{{cardType}}" src="{{imageUrl}}" height="20" width="30"> {{maskedNumber}}</td> <td>{{currencySymbol}} {{amount}}</td>';
 
       SingleTranscation.prototype.tagName = 'tr';
+
+      SingleTranscation.prototype.serializeData = function() {
+        var data;
+        data = SingleTranscation.__super__.serializeData.call(this);
+        data.timezone = BT_TIMEZONE;
+        return data;
+      };
 
       return SingleTranscation;
 

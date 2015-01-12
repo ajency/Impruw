@@ -18,6 +18,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
       Controller.prototype.initialize = function(opts) {
         var activePlanModel, currentSubscriptionModel, selectedPlanModel, subscriptionCollection;
         this.siteModel = App.request("get:site:model");
+        this.braintreeCustomerId = this.siteModel.get('braintree_customer_id');
         this.selectedPlanId = opts.planId;
         this.braintreePlanId = opts.braintreePlanId;
         selectedPlanModel = App.request("get:feature:plan:by:id", this.selectedPlanId);
@@ -25,6 +26,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         this.selectedPlanAmount = selectedPlanModel.get('price');
         subscriptionCollection = App.request("get:site:subscriptions");
         currentSubscriptionModel = subscriptionCollection.at(0);
+        this.activePaymentToken = currentSubscriptionModel.get('paymentMethodToken');
         this.currentSubscriptionAmount = currentSubscriptionModel.get('price');
         this.currencySymbol = currentSubscriptionModel.get('currency');
         this.billingPeriodStartDate = currentSubscriptionModel.get('billingPeriodStartDate');
@@ -32,10 +34,9 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         this.nextBillingDate = currentSubscriptionModel.get('nextBillingDate');
         this.prorationCharge = this.getProrationCharge(this.currentSubscriptionAmount, this.selectedPlanAmount, this.billingPeriodStartDate, this.billingPeriodEndDate);
         console.log(this.prorationCharge);
-        this.currentSubscriptionBalance = this.getCurrentSubscriptionBalance(this.currentSubscriptionAmount, this.prorationCharge);
-        console.log(this.currentSubscriptionBalance);
+        this.currentSubscriptionDaysLeft = this.getCurrentSubscriptionDaysLeft(this.billingPeriodStartDate, this.billingPeriodEndDate);
         if (PAYMENT_PLAN_ID === '1') {
-          this.activePlanName = 'Default';
+          this.activePlanName = 'Free';
         } else {
           activePlanModel = App.request("get:feature:plan:by:id", PAYMENT_PLAN_ID);
           this.activePlanName = activePlanModel.get('plan_title');
@@ -80,16 +81,32 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           return 0;
         }
         currentBalance = oldPrice - prorationCharge;
+        currentBalance = parseFloat(currentBalance).toFixed(2);
         return currentBalance;
+      };
+
+      Controller.prototype.getCurrentSubscriptionDaysLeft = function(oldStartDate, oldEndDate) {
+        var daysLeftInBillingPeriod, oldEndDateFormatted, oldEndDateMoment, today, todayFormatted, todayMoment;
+        if ((PAYMENT_PLAN_ID === '1') || (oldEndDate === 'N/A')) {
+          return 0;
+        }
+        today = new Date();
+        today = today.toGMTString();
+        todayFormatted = moment(today).format('M/D/YYYY');
+        oldEndDateFormatted = moment(oldEndDate).format('M/D/YYYY');
+        todayMoment = moment(todayFormatted, 'M/D/YYYY');
+        oldEndDateMoment = moment(oldEndDateFormatted, 'M/D/YYYY');
+        daysLeftInBillingPeriod = oldEndDateMoment.diff(todayMoment, 'days');
+        return daysLeftInBillingPeriod;
       };
 
       Controller.prototype.getProrationCharge = function(oldPrice, newPrice, oldStartDate, oldEndDate) {
         var daysInBillingPeriod, daysLeftInBillingPeriod, oldEndDateFormatted, oldEndDateMoment, oldStartDateFormatted, oldStartDateMoment, prorationCharge, today, todayFormatted, todayMoment;
-        if (PAYMENT_PLAN_ID === '1') {
+        if (PAYMENT_PLAN_ID === '1' || (oldEndDate === 'N/A')) {
           return newPrice;
         }
         today = new Date();
-        today = today.toDateString();
+        today = today.toGMTString();
         todayFormatted = moment(today).format('M/D/YYYY');
         oldStartDateFormatted = moment(oldStartDate).format('M/D/YYYY');
         oldEndDateFormatted = moment(oldEndDate).format('M/D/YYYY');
@@ -121,7 +138,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           selectedPlanName: this.selectedPlanName,
           selectedPlanAmount: this.selectedPlanAmount,
           prorationCharge: this.prorationCharge,
-          currentSubscriptionBalance: this.currentSubscriptionBalance
+          currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft,
+          activePaymentToken: this.activePaymentToken
         });
       };
 
@@ -137,7 +155,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           selectedPlanName: this.selectedPlanName,
           selectedPlanAmount: this.selectedPlanAmount,
           prorationCharge: this.prorationCharge,
-          currentSubscriptionBalance: this.currentSubscriptionBalance
+          currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft
         });
       };
 

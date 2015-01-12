@@ -36,13 +36,19 @@ define [ 'app'
 
 
         class SingleTranscation extends Marionette.ItemView
-            template : '
-                            <td>{{date}}</td>
-                            <td>{{plan_name}}</td>
-                            <td>{{description}}</td>
-                            <td>&pound; {{amount}}</td>
-                            <td><a href="#">'+_.polyglot.t("Print")+'</a></td>'
+            template : '    <td>{{createdAt}}</td>
+                            <td>{{timezone}}</td>
+                            <td>{{type}}</td>
+                            <td>{{status}}</td>
+                            <td>{{cardholderName}}</td>
+                            <td><img alt="{{cardType}}" src="{{imageUrl}}" height="20" width="30"> {{maskedNumber}}</td>
+                            <td>{{currencySymbol}} {{amount}}</td>'
             tagName : 'tr'
+
+            serializeData : ->
+                data = super()
+                data.timezone = BT_TIMEZONE
+                data
 
         class View.EmptyView extends Marionette.ItemView
 

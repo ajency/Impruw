@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.BraintreeTransaction", function(BraintreeTransaction, App, Backbone, Marionette, $, _) {
-    var API, BraintreePlanCollection;
+    var API, BraintreeTransactionCollection;
     BraintreeTransaction = (function(_super) {
       __extends(BraintreeTransaction, _super);
 
@@ -18,35 +18,36 @@ define(["app", 'backbone'], function(App, Backbone) {
       return BraintreeTransaction;
 
     })(Backbone.Model);
-    BraintreePlanCollection = (function(_super) {
-      __extends(BraintreePlanCollection, _super);
+    BraintreeTransactionCollection = (function(_super) {
+      __extends(BraintreeTransactionCollection, _super);
 
-      function BraintreePlanCollection() {
-        return BraintreePlanCollection.__super__.constructor.apply(this, arguments);
+      function BraintreeTransactionCollection() {
+        return BraintreeTransactionCollection.__super__.constructor.apply(this, arguments);
       }
 
-      BraintreePlanCollection.prototype.model = BraintreeTransaction;
+      BraintreeTransactionCollection.prototype.model = BraintreeTransaction;
 
-      BraintreePlanCollection.prototype.url = function() {
-        return "" + AJAXURL + "?action=fetch-braintreetransaction";
+      BraintreeTransactionCollection.prototype.url = function() {
+        return "" + SITEURL + "/api/ajbilling/braintreeTransactions";
       };
 
-      return BraintreePlanCollection;
+      return BraintreeTransactionCollection;
 
     })(Backbone.Collection);
     API = {
       getTransactions: function(customerId) {
         var transactionCollection;
-        transactionCollection = new BraintreePlanCollection;
+        transactionCollection = new BraintreeTransactionCollection;
         transactionCollection.fetch({
           data: {
             'customerID': customerId
-          }
+          },
+          type: "POST"
         });
         return transactionCollection;
       }
     };
-    return App.reqres.setHandler("get:transactions", function(customerId) {
+    return App.reqres.setHandler("get:customer:transactions", function(customerId) {
       return API.getTransactions(customerId);
     });
   });

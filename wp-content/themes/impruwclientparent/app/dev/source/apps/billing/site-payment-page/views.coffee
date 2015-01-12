@@ -41,6 +41,11 @@ define [ 'app'
 
             template : cardListTpl
 
+            onShow:->
+                activePaymentToken = Marionette.getOption @, 'activePaymentToken'
+                if @model.get('token') is activePaymentToken
+                    @$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass "selected"
+
             events :
                 'click' :->
                     @$el.find('.single-card').addClass('selected').parents('div').siblings().find('.single-card').removeClass "selected"
@@ -59,6 +64,9 @@ define [ 'app'
             modelEvents:
                 'change': 'render'
 
+            itemViewOptions :(model,index) ->
+                activePaymentToken : Marionette.getOption @, 'activePaymentToken'
+
             serializeData : ->
                 activePlanName = Marionette.getOption @, 'activePlanName'
                 currentSubscriptionAmount = Marionette.getOption @, 'currentSubscriptionAmount'
@@ -69,7 +77,7 @@ define [ 'app'
                 selectedPlanName = Marionette.getOption @, 'selectedPlanName'
                 selectedPlanAmount = Marionette.getOption @, 'selectedPlanAmount'
                 prorationCharge = Marionette.getOption @, 'prorationCharge'
-                currentSubscriptionBalance = Marionette.getOption @, 'currentSubscriptionBalance'
+                currentSubscriptionDaysLeft = Marionette.getOption @, 'currentSubscriptionDaysLeft'
 
                 data = super()
                 data.THEMEURL = THEMEURL
@@ -82,7 +90,7 @@ define [ 'app'
                 data.selectedPlanName = selectedPlanName
                 data.selectedPlanAmount = selectedPlanAmount
                 data.prorationCharge = prorationCharge
-                data.currentSubscriptionBalance = currentSubscriptionBalance
+                data.currentSubscriptionDaysLeft = currentSubscriptionDaysLeft
                 data
 
             events :
@@ -163,7 +171,7 @@ define [ 'app'
                 selectedPlanName = Marionette.getOption @, 'selectedPlanName'
                 selectedPlanAmount = Marionette.getOption @, 'selectedPlanAmount'
                 prorationCharge = Marionette.getOption @, 'prorationCharge'
-                currentSubscriptionBalance = Marionette.getOption @, 'currentSubscriptionBalance'
+                currentSubscriptionDaysLeft = Marionette.getOption @, 'currentSubscriptionDaysLeft'
 
                 data = super()
                 data.THEMEURL = THEMEURL
@@ -176,7 +184,7 @@ define [ 'app'
                 data.selectedPlanName = selectedPlanName
                 data.selectedPlanAmount = selectedPlanAmount
                 data.prorationCharge = prorationCharge
-                data.currentSubscriptionBalance = currentSubscriptionBalance
+                data.currentSubscriptionDaysLeft = currentSubscriptionDaysLeft
                 data
 
             events :

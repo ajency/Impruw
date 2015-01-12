@@ -17,9 +17,16 @@ define ['app'
 
                 data.selectStatus =->
                     selectStatus = false
-                    _.each SELECTED_SITE_ADDONS, (site_add_on, key) ->
-                        if site_add_on is data.element
-                            selectStatus = true
+                    maxAllowedCount = PLAN_FEATURE_COUNT['site_add_ons'][0]['allowed_count']
+
+                    if maxAllowedCount is 99999 
+                        selectStatus = true
+
+                    else if SELECTED_SITE_ADDONS.length <= maxAllowedCount
+                        _.each SELECTED_SITE_ADDONS, (site_add_on, key) ->
+                            if site_add_on is data.element
+                                selectStatus = true
+                    
                     selectStatus
                         
                 data
@@ -40,10 +47,13 @@ define ['app'
                 'click #btn_update-selected-addons': 'setSelectedAddOns'
                 'click .checkbox' : 'checkMaximumAllowedCount'
 
-            checkMaximumAllowedCount:(e) ->
+            onShow :->
+                @checkMaximumAllowedCount()
+
+            checkMaximumAllowedCount:() ->
                 maxAllowedCount = PLAN_FEATURE_COUNT['site_add_ons'][0]['allowed_count']
                 lengthOfSelectedAddOns = $("input:checked").length
-                if lengthOfSelectedAddOns is maxAllowedCount
+                if lengthOfSelectedAddOns >= maxAllowedCount
                     @$el.find(":checkbox:not(:checked)").prop "disabled", true
                 else
                     @$el.find(":checkbox:not(:checked)").prop "disabled", false
@@ -57,7 +67,7 @@ define ['app'
 
                 if siteaddonCheckedCount > maxAllowedCount
                     @$el.parent().find('.alert').remove()
-                    @$el.parent().prepend "<div class=\"alert alert-error\">" + _.polyglot.t("Can select at the most "+maxAllowedCount+" site add on/add ons") + "</div>"
+                    @$el.parent().append "<div class=\"alert alert-error\"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + _.polyglot.t("Can select at the most "+maxAllowedCount+" site add on/add ons") + "</div>"
                     return
                 
 
@@ -73,11 +83,11 @@ define ['app'
                 if response.code is 'OK'
                     msg = _.polyglot.t("The selected addons were successfully updated")
                     @$el.parent().find('.alert').remove()
-                    @$el.parent().prepend "<div class=\"alert alert-success\">" + msg + "</div>"
+                    @$el.parent().append "<div class=\"alert alert-success\"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + msg + "</div>"
                 else if response.code is 'ERROR'
                     msg = _.polyglot.t("The selected addons were not successfully updated")
                     @$el.parent().find('.alert').remove()
-                    @$el.parent().prepend "<div class=\"alert alert-success\">" + msg + "</div>"
+                    @$el.parent().append "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + msg + "</div>"
 
 
 

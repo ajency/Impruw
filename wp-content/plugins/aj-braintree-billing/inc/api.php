@@ -88,12 +88,16 @@
             array( array( $this, 'cancel_braintree_plan'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
            $routes['/ajbilling/braintreeWebhook'] = array(
-            array( array( $this, 'braintree_webhook_notifications'), WP_JSON_Server::READABLE ),
+            array( array( $this, 'verify_braintree_webhook'), WP_JSON_Server::READABLE ),
+            array( array( $this, 'braintree_webhook_notifications'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
            $routes['/ajbilling/setActiveCard/(?P<subscription_id>\S+)/(?P<new_card_token>\S+)'] = array(array( array( $this, 'set_active_subscription_card'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
 
            $routes['/ajbilling/deleteCreditCard/(?P<subscription_id>\S+)/(?P<delete_card_token>\S+)'] = array(array( array( $this, 'delete_credit_card'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
+            );
+           $routes['/ajbilling/braintreeTransactions'] = array(
+            array( array( $this, 'get_braintree_transactions'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
 
 
@@ -358,15 +362,20 @@
             return $result;
         }
 
-        public function braintree_webhook_notifications(){
-            //Verify webhook
+        public function verify_braintree_webhook(){
+           //Verify webhook
             if(isset($_GET["bt_challenge"])) {
                 echo(Braintree_WebhookNotification::verify($_GET["bt_challenge"]));
-            }
+            } 
 
             //only verifying?
             if(empty($_REQUEST['bt_payload']))
                 exit;
+
+
+        }
+
+        public function braintree_webhook_notifications(){
 
             //get notification
             $webhookNotification = Braintree_WebhookNotification::parse(
@@ -439,6 +448,14 @@
             $delete_card = aj_braintree_delete_payment_method($delete_card_token);
             
             return  $delete_card ;
+        }
+
+        public function get_braintree_transactions(){
+            $braintree_customer_id = $_REQUEST['customerID'];
+
+            $transactions = aj_braintree_get_transactions($braintree_customer_id);
+
+            return $transactions;
         }
 
     }

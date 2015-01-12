@@ -15,6 +15,12 @@ define ['app'
             	data = super()
             	data.THEMEURL = THEMEURL
             	data
+                
+            mixinTemplateHelpers:(data)->
+                data = super data
+                if data.plan_title is "Default plan"
+                    data.plan_title = "Free"
+                data
 
             deactivateSubscription: (e)->
                 e.preventDefault()
