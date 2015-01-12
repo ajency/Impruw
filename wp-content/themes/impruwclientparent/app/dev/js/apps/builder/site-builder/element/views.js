@@ -116,7 +116,7 @@ define(['app'], function(App, elementTpl) {
           addOn: true
         }), 'element');
         if (_ref = this.model.get('element'), __indexOf.call(addons, _ref) >= 0) {
-          this.$el.children('.element-controls').append('<div class="aj-imp-addon-btn"><span title="{{#polyglot}}Addon{{/polyglot}}" class="glyphicon glyphicon-euro"></span></div>');
+          this.$el.children('.element-controls').append('<div class="aj-imp-addon-btn"><span title="{{#polyglot}}Paid Add-on{{/polyglot}}" class="bicon icon-uniF155"></span></div>');
           return this.$el.children('.element-controls').children('.aj-imp-addon-btn').attr({
             'data-placement': 'top',
             'data-template': '<div class="popover elem-box" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',

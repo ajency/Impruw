@@ -116,7 +116,7 @@ define [ 'app' ],( App, elementTpl )->
 
 				if @model.get('element') in addons
 					# console.log @model.get('element')
-					@$el.children('.element-controls').append '<div class="aj-imp-addon-btn"><span title="{{#polyglot}}Addon{{/polyglot}}" class="glyphicon glyphicon-euro"></span></div>'
+					@$el.children('.element-controls').append '<div class="aj-imp-addon-btn"><span title="{{#polyglot}}Paid Add-on{{/polyglot}}" class="bicon icon-uniF155"></span></div>'
 					@$el.children('.element-controls').children('.aj-imp-addon-btn').attr
 						# 'data-togggle'    : 'tooltip'
 						# 'data-container'  : 'body'
