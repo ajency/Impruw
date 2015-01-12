@@ -84,63 +84,76 @@ function domain_mapping_feature_changes($site_id, $feature_args){
 function dm_coming_soon_page($site_id,$enable=false){
 	// coming soon default options array
 	$coming_soon_options = array('comingsoon_image' => 'http://impruw.com/wp-content/uploads/2014/12/impruw-logo-blue.png',
-		'comingsoon_headline' => 'Domain mapping disabled',
-		'comingsoon_description' => 'Description',
-		'comingsoon_mailinglist' => 'none',
-		'comingsoon_feedburner_address' => '',
-		'comingsoon_customhtml' => '',
-		'comingsoon_custom_bg_color' => '#ffffff',
-		'comingsoon_background_noise_effect' => 'on',
-		'comingsoon_custom_bg_image' => '',
-		'comingsoon_font_color' => 'black',
-		'comingsoon_text_shadow_effect' => 'on',
-		'comingsoon_headline_font' => 'Lato',
-		'comingsoon_body_font' => 'Lato',
-		'comingsoon_custom_css' => 'html, body {
+		'comingsoon_headline' => '',
+		'comingsoon_description' => '
+		<h1 style="text-align: center;">Site Unavailable</h1>
+		<p style="text-align: center;">Oops, the page you are looking for is not reachable on our servers or is temporarily unavailable! This could be because Domain mapping is not enabled.</p>
+		<p style="text-align: center;">Please check back later or contact us on the following details:
+			Email:
+			Phone No:</p>',
+			'comingsoon_mailinglist' => 'none',
+			'comingsoon_feedburner_address' => '',
+			'comingsoon_customhtml' => '',
+			'comingsoon_custom_bg_color' => '#ffffff',
+			'comingsoon_background_noise_effect' => 'on',
+			'comingsoon_custom_bg_image' => '',
+			'comingsoon_font_color' => 'black',
+			'comingsoon_text_shadow_effect' => 'on',
+			'comingsoon_headline_font' => 'Lato',
+			'comingsoon_body_font' => 'Lato',
+			'comingsoon_custom_css' => 'html, body {
+				margin: 0;
+				padding: 0;
+				font-size: 14px;
+			}
+
+			body {
+				background: #eee;
+				font-family: \'Helvetica\', Arial, sans-serif;
+				font-size: 14px;
+			}
+			#teaser-image{
+						float: right;
+						margin: 0 20px 10px 0;
+					}
+			#teaser-description {
+					text-align: center;
+					color: #aaaaaa;
+					max-width: 680px;
+					padding: 20px 0;
+					clear: both;
+				}
+			#coming-soon {
+				/*width: 50%;
+				margin: 100px auto;*/
+				text-align: center;
+			}
+
+			#coming-soon h1 {
+			font-size: 2em;
+			color: #182944;
 			margin: 0;
-			padding: 0;
-			font-size: 14px;
-		}
+			}
 
-		body {
-			background: #eee;
-			font-family: \'Helvetica\', Arial, sans-serif;
-			font-size: 14px;
-		}
-		#teaser-description {
+			#coming-soon h1 span {
+			contentlor: #FF7E00;
+			}
+
+			#coming-soon .fixed {
+			background: #fff;
+			position: fixed;
+			padding: 1em;
+			font-size: 0.88em;
+			color: #AAAAAA;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			border-top: 1px solid #849FB0;
 			text-align: center;
-			color: #aaaaaa;
-		}
-		#coming-soon {
-			width: 50%;
-			margin: 100px auto;
-			text-align: center;
-		}
+			font-size: 12px;
+			}',
 
-		#coming-soon h1 {
-		font-size: 2em;
-		color: #182944;
-		}
-
-		#coming-soon h1 span {
-		color: #FF7E00;
-		}
-
-		#coming-soon .fixed {
-		background: #fff;
-		position: fixed;
-		padding: 1em;
-		font-size: 0.88em;
-		color: #AAAAAA;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		border-top: 1px solid #849FB0;
-		text-align: center;
-		font-size: 12px;
-		}',
-		
-		'comingsoon_footer_credit' => '0',);
+			'comingsoon_footer_credit' => '0',);
 
 	if ($enable) {
 		$comingsoon_enabled = array (0 => '1',);
