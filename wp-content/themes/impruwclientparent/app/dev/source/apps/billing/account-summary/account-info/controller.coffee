@@ -6,19 +6,20 @@ define [ 'app', 'controllers/base-controller'
             # initialize controller
             initialize : ( opts )->
 
-                subscriptionModel = opts.subscriptionModel
-
-                @view = @getView subscriptionModel
+                billingPlanModel = App.request "get:site:billing:plan", SITEID['id']
 
                 # trigger set:active:menu event
                 App.vent.trigger "set:active:menu", 'billing'
 
-                @show @view,
-                    loading : true
+                App.execute "when:fetched", billingPlanModel, => 
+                    @view = @getView billingPlanModel
+                    
+                    @show @view,
+                        loading : true
 
-            getView : ( subscriptionModel ) ->
+            getView : ( billingPlanModel) =>
                 new AccountInfo.View.AccountInfoView
-                    model : subscriptionModel
+                    model : billingPlanModel
 
         App.commands.setHandler "show:account:info", ( opts ) ->
             new AccountInfo.Controller opts

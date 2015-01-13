@@ -52,20 +52,19 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
       };
 
       Controller.prototype.renderElement = function() {
-        var slidesCollection;
         this.removeSpinner();
-        slidesCollection = this._getSlidesCollection();
-        return App.execute("when:fetched", slidesCollection, (function(_this) {
+        this._getSlidesCollection();
+        return App.execute("when:fetched", this.slidesCollection, (function(_this) {
           return function() {
             var view;
-            view = _this._getSliderView(slidesCollection);
+            view = _this._getSliderView(_this.slidesCollection);
             _this.listenTo(view, 'show', function() {
               if (!_this.layout.model.get('width')) {
                 return view.triggerMethod("set:width");
               }
             });
             _this.listenTo(view, "show:slides:manager", function(ratio) {
-              App.execute("show:slides:manager", slidesCollection, _this.layout.model.get('element'));
+              App.execute("show:slides:manager", _this.slidesCollection, _this.layout.model.get('element'));
               return App.currentImageRatio = ratio;
             });
             _this.listenTo(view, "set:slider:height:width", function(height, width) {
@@ -73,12 +72,16 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
               _this.layout.model.set('height', height);
               return _this.layout.model.save();
             });
-            _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {
-              return _this.layout.elementRegion.show(view);
+            _this.listenTo(_this.slidesCollection, "remove add slides:order:updated", function() {
+              view.close();
+              _this.stopListening();
+              return _this.renderElement();
             });
             _this.listenTo(view, "render:slider childview:render:slider", function() {
               _this.layout.model.save();
-              return _this.layout.elementRegion.show(view);
+              view.close();
+              _this.stopListening();
+              return _this.renderElement();
             });
             return _this.layout.elementRegion.show(view);
           };

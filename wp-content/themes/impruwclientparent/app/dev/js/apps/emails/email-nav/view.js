@@ -34,7 +34,7 @@ define(['app'], function(App) {
         return EmailDisabledView.__super__.constructor.apply(this, arguments);
       }
 
-      EmailDisabledView.prototype.template = '<div class="empty-info">You cannot use the emails feature since your domain name is not updated. Update your domain name by going to Site Profile on the Dashboard. Once you have changed your domain name, you can come back here to add email accounts for that domain.</div>';
+      EmailDisabledView.prototype.template = '<div class="empty-info">You cannot use the emails feature currently.<br/><br/>This could be due to one of the following reasons:<br/>1.Email account feature is not enabled for the current selected plan.<br/>2. Your domain name is not updated. Update your domain name by going to Site Profile on the Dashboard. Once you have changed your domain name, you can come back here to add email accounts for that domain.</div>';
 
       EmailDisabledView.prototype.onShow = function() {
         return $('.aj-imp-widget-container').hide();

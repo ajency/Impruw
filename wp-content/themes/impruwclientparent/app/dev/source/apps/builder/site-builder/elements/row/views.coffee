@@ -310,14 +310,14 @@ define ['app','bootbox'], (App,bootbox)->
 
                     #first check
                     if emptyColsLen is 0
-                        bootbox.alert "None of the columns are empty. Please delete elements inside columns to remove"
+                        bootbox.alert "<h4 class='delete-message'>" + _.polyglot.t("None of the columns are empty. Please delete elements inside columns to remove") + "</h4>"
                         @model.set 'columncount',@columnCount()
                         @model.trigger 'column:count:setting:change',@columnCount()
                         return
 
                     #check if current columns - requested columns > empty columns
                     if @columnCount() - requestedColumns > emptyColsLen
-                        bootbox.alert "Unable to perform this action"
+                        bootbox.alert "<h4 class='delete-message'>" + _.polyglot.t("Unable to perform this action") + "</h4>"
                         @model.set 'columncount',@columnCount()
                         @model.trigger 'column:count:setting:change',@columnCount()
                         return

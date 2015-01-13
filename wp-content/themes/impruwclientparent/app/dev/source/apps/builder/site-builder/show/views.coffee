@@ -54,12 +54,12 @@ define [ 'app'
             'click .delete-page': (e)->
                e.preventDefault()
                if ISFRONTPAGE
-                  bootbox.alert _.polyglot.t 'Sorry you cannot delete your home page. 
-                     You can change the layout of this page to suit your needs.'
+                  bootbox.alert "<h4 class='delete-message'>" + _.polyglot.t('Sorry you cannot delete your home page. 
+                     You can change the layout of this page to suit your needs.') + "</h4>"
                else
-                  bootbox.confirm _.polyglot.t('Deleting a page might lead to broken links if the page is 
+                  bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t('Deleting a page might lead to broken links if the page is 
                      linked on the website. Once deleted, you will not be able to recover the page. Are 
-                     you sure you want to continue to delete the page?'), (result)=>
+                     you sure you want to continue to delete the page?') + "</h4>", (result)=>
                      if result
                         @trigger 'delete:page:clicked'
 
@@ -400,7 +400,7 @@ define [ 'app'
 
          events : 
             'click .edit-home-btn' :->
-               bootbox.confirm 'Do you wish to switch to homepage?',(res)=>
+               bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t('Do you wish to switch to homepage?')+"</h4>",(res)=>
                   if res 
                      @onShowHomePage()
 

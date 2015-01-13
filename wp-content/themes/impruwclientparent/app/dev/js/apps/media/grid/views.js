@@ -22,7 +22,11 @@ define(['app'], function(App, mediaTpl) {
 
       MediaView.prototype.mixinTemplateHelpers = function(data) {
         data = MediaView.__super__.mixinTemplateHelpers.call(this, data);
-        data.image_url = data.sizes.thumbnail ? data.sizes.thumbnail.url : data.sizes.full.url;
+        if (data.sizes) {
+          data.image_url = data.sizes.thumbnail ? data.sizes.thumbnail.url : data.sizes.full.url;
+        } else {
+          data.image_url = data.url;
+        }
         return data;
       };
 
@@ -83,6 +87,21 @@ define(['app'], function(App, mediaTpl) {
       GridView.prototype.collectionEvents = {
         'show:grid': function() {
           return this.$el.closest('.tab-content').siblings('.nav-tabs').find('.all-media-tab').find('a').trigger('click');
+        },
+        'add remove reset': function() {
+          if (Marionette.getOption(this, 'type') !== 'favicon') {
+            return this.collection.remove(this.collection.reject(function(model) {
+              return model.get('sizes');
+            }));
+          }
+        }
+      };
+
+      GridView.prototype.initialize = function() {
+        if (Marionette.getOption(this, 'type') !== 'favicon') {
+          return this.collection.remove(this.collection.reject(function(model) {
+            return model.get('sizes');
+          }));
         }
       };
 

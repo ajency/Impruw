@@ -56,7 +56,10 @@ class RoomSummary extends Element {
 
         $html = $this->get_room_summary();
 
-        return $html;
+        $preview = (isset( $_GET[ 'preview' ] )) ? $_GET[ 'preview' ] : false ; 
+        $final_markup = (display_element_markup($this->element)) ? $html : get_markup_for_addon($this->element,$preview) ; 
+
+        return $final_markup;
     }
 
     function generate_single_room_summary() {
@@ -89,6 +92,11 @@ class RoomSummary extends Element {
                             </div>
                         </div>
                     </div>';
+
+        
+        $preview = (isset( $_GET[ 'preview' ] )) ? $_GET[ 'preview' ] : false ; 
+        $template = (display_element_markup($this->element)) ? $template : get_markup_for_addon($this->element,$preview) ; 
+
 
         global $me;
 
@@ -154,6 +162,10 @@ class RoomSummary extends Element {
                             <div class="price"><small>'.__("Total:","impruwclientparent").'</small>'.__("0 rooms","impruwclientparent").'</div>
                             <a href="#" class="btn btn-room">'.__("View Details","impruwclientparent").'</a>
                     </div></div>';
+
+        $preview = (isset( $_GET[ 'preview' ] )) ? $_GET[ 'preview' ] : false ; 
+        $template = (display_element_markup($this->element)) ? $template : get_markup_for_addon($this->element,$preview) ; 
+
         global $me;
 
         return $me->render( $template, array() );

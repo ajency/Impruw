@@ -10,49 +10,51 @@ require.config
    baseUrl : 'http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/'
 
    paths :
-      jquery : 'bower_components/jquery/dist/jquery'
-      jqueryui : 'bower_components/jqueryui/jquery-ui.min'
-      underscore : 'bower_components/underscore/underscore'
-      backbone : 'bower_components/backbone/backbone'
-      marionette : 'bower_components/backbone.marionette/lib/backbone.marionette'
-      spin : 'bower_components/spin.js/spin'
-      jqueryspin : 'bower_components/spin/javascripts/jquery.spin'
-      bootstrap : 'bower_components/bootstrap/dist/js/bootstrap'
-      mustache : 'bower_components/mustache/mustache'
-      moment : 'bower_components/moment/moment'
-      bootstrapselect : 'bower_components/bootstrap-select/dist/js/bootstrap-select'
-      underscorestring : 'bower_components/underscore.string/dist/underscore.string.min'
-      backbonesyphon : 'bower_components/backbone.syphon/lib/amd/backbone.syphon'
-      'jquery.validate' : 'bower_components/jquery.validate/dist/jquery.validate'
-      isotope : 'bower_components/isotope/dist/isotope.pkgd'
-      imgLiquid : 'bower_components/imgLiquid/js/imgLiquid'
-      polyglot : 'bower_components/polyglot/build/polyglot'
-      minicolors : 'bower_components/jquery-minicolors/jquery.minicolors.min'
-      resizablecolumns : 'bower_components/jquery-resizable-columns/dist/jquery.resizableColumns.min'
-      drilldown : 'bower_components/jquery-drilldown/jquery.drilldown.min'
-      cookie : 'bower_components/jquery.cookie/jquery.cookie'
-      
+      jquery : 'plugins/jquery'
+      jqueryui : 'plugins/jquery-ui.min'
+      underscore : 'plugins/underscore'
+      backbone : 'plugins/backbone'
+      marionette : 'plugins/backbone.marionette'
       tpl : 'plugins/tpl'
       text : 'plugins/text'
+      spin : 'plugins/spin'
+      jqueryspin : 'plugins/jquery.spin'
+      bootstrap : 'plugins/bootstrap'
       bootbox : 'plugins/bootbox.min'
+      holder : 'plugins/holder'
+      mustache : 'plugins/Mustache'
+      moment : 'plugins/moment'
+      bootstrapselect : 'plugins/bootstrapselect'
+      underscorestring : 'plugins/underscore.string'
       radiocheck : 'plugins/flatui-radiocheck'
       radio : 'plugins/flatui-radio'
+      cookie : 'plugins/cookie.min'
       checkbox : 'plugins/flatui-checkbox'
       ckeditor : 'plugins/ckeditor'
+      backboneform : 'plugins/backbone.form'
+      backbonesyphon : 'plugins/backbone.syphon'
+      backboneassociations : 'plugins/backbone.associations'
       nestedsortable : 'plugins/nested.sortable'
+      jqueryvalidate : 'plugins/jquery.validate'
+      isotope : 'plugins/isotope'
       plupload : 'plugins/plupload.full'
+      polyglot : 'plugins/polyglot'
       themepunch : 'plugins/themepunch.plugins.min'
+      imgLiquid : 'plugins/bower_components/imgLiquid/js/imgLiquid'
       revslider : 'plugins/revolution.min'
-      tabslideout : 'plugins/jquery.tabSlideOut.v1.3'
-      jqueryuii18n : 'plugins/jquery-ui-i18n'
-      slimmenu : 'plugins/slimmenu/jquery.slimmenu'
-      
+      googlemap : 'https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false'
       pluginloader : 'plugins/builder-plugin-loader'
       appsloader : 'apps/builder-apps-loader'
       configloader : 'configs/builder-config-loader'
       entitiesloader : 'entities/builder-entities-loader'
       componentloader : 'components/builder-component-loader'
       app : 'builder-app'
+      minicolors : 'plugins/jquery.minicolors.min'
+      drilldown : 'plugins/jquery.drilldown.min'
+      resizablecolumns : 'plugins/jquery.resizableColumns.min'
+      tabslideout : 'plugins/jquery.tabSlideOut.v1.3'
+      slimmenu : 'plugins/slimmenu/jquery.slimmenu'
+      #flippant: 'plugins/flippant.min'
 
       # wordpress cropping js
       imageareaselect : '../../../../../wp-includes/js/imgareaselect/jquery.imgareaselect.min'
@@ -60,26 +62,31 @@ require.config
       json2 : '../../../../../wp-includes/js/json2'
       svgpainter : '../../../../../wp-admin/js/svg-painter'
       heartbeat : '../../../../../wp-includes/js/heartbeat'
-      
+      jqueryuii18n : 'plugins/jquery-ui-i18n'
 
    shim :
       imageedit : ['jquery','json2','imageareaselect']
       imageareaselect : ['jquery']
       svgpainter : ['jquery']
-
+      
+      underscore :
+         exports : '_'
       jquery : ['underscore']
       jqueryui : ['jquery']
-      drilldown : ['jquery']
-      moment : ['jquery']
-      backbone : ['jquery', 'underscore']
-      marionette : ['backbone']
+      backbone :
+         deps : ['jquery', 'underscore']
+         exports : 'Backbone'
+      marionette :
+         deps : ['backbone']
+         exports : 'Marionette'
       polyglot :
          exports : 'Polyglot'
-      'jquery.validate' : ['jquery']
+      jqueryvalidate : ['jquery']
       slimmenu : ['jquery']
       underscorestring : ['underscore']
       backbonesyphon : ['backbone']
-      jqueryspin : ['jquery']
+      backboneassociations : ['backbone']
+      jqueryspin : ['spin']
       bootstrap : ['jquery']
       themepunch : ['jquery']
       isotope : ['jquery']
@@ -114,4 +121,4 @@ require [   'pluginloader'
             'controllers/builder-base-controller'
             'componentloader'
             'appsloader'], ( plugins, configs, App )->
-               App.start()
+   App.start()

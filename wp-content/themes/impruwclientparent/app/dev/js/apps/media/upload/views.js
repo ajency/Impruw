@@ -28,7 +28,7 @@ define(['app', 'plupload'], function(App, plupload, uploadTpl) {
           filters: [
             {
               title: "Image files",
-              extensions: "jpg,gif,png"
+              extensions: "jpg,gif,png,ico"
             }
           ],
           multipart_params: {

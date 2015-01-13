@@ -56,7 +56,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
 
       MainView.prototype.id = 'controls-drag';
 
-      MainView.prototype.childView = Views.SingleElement;
+      MainView.prototype.itemView = Views.SingleElement;
 
       MainView.prototype.initialize = function(opts) {
         this.roomElements = 'li[data-element="RoomFacilities"],li[data-element="RoomTitle"],li[data-element="RoomDescription"],li[data-element="RoomTariff"],li[data-element="RoomBooking"]';
@@ -90,7 +90,8 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
           speed: 300,
           action: 'click',
           topPos: '30px',
-          fixedPosition: true
+          fixedPosition: true,
+          onLoadSlideOut: true
         });
         this._setDraggableElements();
         $('body').on('click', (function(_this) {
@@ -106,18 +107,20 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
         })(this));
       };
 
-      MainView.prototype.attachHtml = function(cv, view, index) {
-        var category;
-        if (view.model.get('element') === 'Row') {
+      MainView.prototype.appendHtml = function(cv, view, index) {
+        var category, _ref, _ref1;
+        if ((_ref = view.model.get('element')) === 'Row' || _ref === 'Spacer') {
           return;
+        }
+        if (ISTHEMEEDITOR === 'no') {
+          if ((_ref1 = view.model.get('element')) === 'Menu' || _ref1 === 'LanguageSwitcher') {
+            return;
+          }
         }
         category = view.model.get('category') || 'content';
         switch (category) {
           case 'hotel':
             this.$el.find('#hotel-elements ul').append(view.$el);
-            break;
-          case 'room':
-            this.$el.find('#room-elements ul').append(view.$el);
             break;
           default:
             this.$el.find('#content-elements ul').append(view.$el);
@@ -159,10 +162,20 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
       };
 
       MainView.prototype.onRoomElementsVisibility = function(visible) {
+        console.log('hide');
         if (visible === true) {
-          this.$el.find(this.roomElements).show();
+          this.$el.find(this.roomElements).draggable('enable').removeClass('element-disable');
+          this.$el.find('.element-disable > a').attr();
         } else {
-          this.$el.find(this.roomElements).hide();
+          this.$el.find(this.roomElements).draggable('disable').addClass('element-disable');
+          this.$el.find('.element-disable > a').attr({
+            'data-togggle': 'tooltip',
+            'data-container': 'body',
+            'data-placement': 'right',
+            'data-template': '<div class="tooltip elem-box" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+            'title': 'You can only use this element on the Single Room Page.'
+          });
+          $('.element-disable a').tooltip();
         }
         return this.handleRoomSummary(visible);
       };

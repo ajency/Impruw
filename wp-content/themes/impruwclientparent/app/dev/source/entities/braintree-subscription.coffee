@@ -1,40 +1,47 @@
 define ["app", 'backbone'], (App, Backbone) ->
 
     # App state entity
-    App.module "Entities.BraintreeSubscription", (BraintreeSubscription, App, Backbone, Marionette, $, _)->
+    App.module "Entities.BraintreeSubscriptions", (BraintreeSubscriptions, App, Backbone, Marionette, $, _)->
 
-        # subscription model
         class BraintreeSubscription extends Backbone.Model
 
-            name: 'braintreesubscription'
+            name: 'braintree-subscription'
 
-            idAttribute : 'subscription_id'
+            idAttribute : 'id'
 
-        class BraintreePendingSubscription extends Backbone.Model
 
-            name: 'braintreependingsubscription'
+            sync: (method, entity, options = {})->
+                xhr = window._bsync method, entity, options
+                entity._fetch = xhr if method is 'read'
 
-            idAttribute : 'new_subscription_id'
+            url: ->
+                return "#{SITEURL}/api/ajbilling/braintreeSubscription/#{@get("object_id")}/site"
 
+
+        class BraintreeSubscriptionCollection extends Backbone.Collection
+
+            model: BraintreeSubscription
+
+            url: ->
+                "#{SITEURL}/api/ajbilling/braintreeSubscriptions/#{SITEID["id"]}/site"
+
+
+        braintreeSubscriptionCollection = new BraintreeSubscriptionCollection
 
         API =
 
-            getSubscriptionById : ( subscriptionId ) ->
-                subscriptionModel = new BraintreeSubscription 'subscription_id' : subscriptionId
-                subscriptionModel.fetch()
-                subscriptionModel
+            getActiveBraintreeSubscription : ( siteId ) ->
+                activeSubscriptionModel = new BraintreeSubscription 'object_id' : SITEID["id"]
+                activeSubscriptionModel.fetch()
+                activeSubscriptionModel
 
-            getPendingSubscription : ( subscriptionId ) ->
-                subscriptionModel = new BraintreePendingSubscription
-                subscriptionModel.fetch
-                    data :
-                        'action' : 'get-pending-subscription'
-                        'old_subscription_id' : subscriptionId
-                subscriptionModel
+            getBraintreeSubscriptionCollection:->
+                braintreeSubscriptionCollection.fetch() if braintreeSubscriptionCollection.length is 0
+                braintreeSubscriptionCollection
 
+        App.reqres.setHandler "get:active:subscription",( siteId ) ->
+            API.getActiveBraintreeSubscription siteId
 
-        App.reqres.setHandler "get:subscription:by:id",( subscriptionId ) ->
-            API.getSubscriptionById subscriptionId
-
-        App.reqres.setHandler "get:pending:subscription",( subscriptionId ) ->
-            API.getPendingSubscription subscriptionId
+        # This collection would always return a collection with only one model since every site has only one collection associated to a site
+        App.reqres.setHandler "get:site:subscriptions",()->
+            API.getBraintreeSubscriptionCollection()

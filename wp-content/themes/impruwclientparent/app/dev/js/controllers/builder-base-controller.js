@@ -40,7 +40,7 @@ define(["marionette", "app"], function(Marionette, App) {
       section.removeClass('empty-column');
       layout.render();
       layout.triggerMethod('show');
-      if ((_ref = layout.model.get('element')) === 'Row' || _ref === 'Tabs') {
+      if ((_ref = layout.model.get('element')) === 'Row' || _ref === 'Tabs' || _ref === 'Accordion') {
         this.layout.addHiddenFields();
       }
       if (!layout.model.isNew() || layout.model.get('element') === 'Row') {

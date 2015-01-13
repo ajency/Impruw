@@ -49,6 +49,8 @@ define ['app', 'controllers/base-controller'
                 $.ajax( options ).done ( response )=>
                     if response.code is 'OK'
                         @userEmailCollection.remove view.model
+                        siteid = SITEID['id']
+                        update_feature_count = App.request "update:site:feature:count",siteid,'email_account','minus'
                     else
                         @userEmailView.triggerMethod "delete:email", response.msg
 

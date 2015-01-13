@@ -25,6 +25,7 @@ define ['app'
 					@$el.find('input[name="draggable"]').radiocheck('check')
 				@$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'style'
 				@$el.find('select[name="style"]').selectpicker 'refresh'
+				@$el.find(".align-btn button[value='#{@eleModel.get('align')}']").addClass 'aj-imp-orange-btn'
 				
 				
 
@@ -37,6 +38,13 @@ define ['app'
 				
 				'change select[name="style"]': (evt)->
 					@trigger "element:style:changed", $(evt.target).val()
+
+				'click .align-btn button' : (e)->
+					e.stopPropagation()
+					e.preventDefault()
+					@$el.find('.align-btn button').removeClass 'aj-imp-orange-btn'
+					$(e.target).addClass 'aj-imp-orange-btn'
+					@trigger 'element:align:changed',$(e.target).val()
 					
 
 

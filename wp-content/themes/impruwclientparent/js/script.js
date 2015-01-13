@@ -461,6 +461,8 @@ jQuery(document).ready(function(){
 jQuery(document).ready(function(){
     $('.tp-caption .caption-hover').parent().addClass('caption-hover');
     $('.tp-caption .caption-hover').removeClass('caption-hover');
+
+    $('.tp-caption .no-caption').parent().remove();
 })
 
 /************ slimenu.js ***************/
@@ -510,48 +512,114 @@ jQuery(document).ready(function(){
     });
 });
 
+
 /************ map.js *******************/
 jQuery(document).ready(function() {
 
     if (jQuery('#map_canvas').length === 0)
         return;
 
-    var map, geocoder;
+    var map;
 
     window.initializeMap = function() {
 
-        geocoder = new google.maps.Geocoder();
+        if (jQuery('#map_canvas').height() === 0){
+            jQuery('#map_canvas').height(300);
+        }
 
         var mapOptions = {
             zoom: 17,
             center: new google.maps.LatLng(-34.397, 150.644)
         };
+        
+        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
-        geocoder.geocode({
-            'address': HOTELADDRESS
-        }, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-                map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-                if (jQuery('#map_canvas').height() === 0)
-                    jQuery('#map_canvas').height(300);
-            } else {
-                jQuery('#map_canvas').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
-            }
-        });
+        if(HOTELPOSITION.position){
+            newCenter = new google.maps.LatLng(HOTELPOSITION.latitude, HOTELPOSITION.longitude);
+            createMarker( map, newCenter );
+            return;
+        }
+
+        else if(HOTELPOSITION.placeId && HOTELPOSITION.placeId.trim() != ''){
+            getPlacesDetails(HOTELPOSITION.placeId,map);
+            return;
+        }
+        else{
+            var service = new google.maps.places.PlacesService(map);
+            service.textSearch({query:HOTELADDRESS},function(results,status){
+                if (status == google.maps.places.PlacesServiceStatus.OK){
+                    getPlacesDetails(results[0].place_id,map);
+                }
+                else {
+                    jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+                }
+            });
+        }
+   
+       
     }
-    jQuery.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap');
+    function getPlacesDetails(placeId,map){
+        var service = new google.maps.places.PlacesService(map);
+        service.getDetails({placeId: placeId}, callback);
+
+        function callback(place, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                x= place
+                // createMarker(place);
+                createMarker( map, place.geometry.location ,place);
+            }
+            else {
+                jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+            }
+        }
+    }
+
+    function createMarker(map,position,place){
+        map.setCenter(position);
+
+        var marker = new google.maps.Marker({
+            map: map,
+            position: position,
+        });
+
+        if (place){
+            var image ={
+                url : place.icon,
+                size : new google.maps.Size(71 , 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(7, 7),
+                scaledSize: new google.maps.Size(15, 15)
+            }
+            marker.setTitle(place.name);
+            // marker.setIcon(image);
+            content = "<div><b>"+place.name+"</b></div>"+place.adr_address;
+            if (place.url)
+                content += "<div class='text-center'><a href="+place.url+" target='_BLANK'>more</a></div>"
+        }
+        else
+            content = HOTELADDRESS
+        
+        infowindow = new google.maps.InfoWindow({ content: content});
+
+        google.maps.event.addListener( marker, 'click', function(){
+                            infowindow.open( map, marker);
+                        });
+                
+    }
+  
+    jQuery.getScript('https://maps.googleapis.com/maps/api/js?language='+icl_lang+'&libraries=places&sensor=false&callback=initializeMap');
+
 });
 
 /**************** poweredby.js ***********************/
 jQuery(document).ready(function() {
     var $powered = jQuery('.power-up').clone().removeClass('hide').addClass('text');
     jQuery('.site-footer').append($powered);
-    console.log('powered');
+    if( jQuery('.site-footer').css('background-color') == 'transparent' && jQuery('body').css('background-color') == 'rgb(255, 255, 255)' ) {
+        jQuery('.power-up').css('color', '#aaaaaa');
+        console.log('powered');
+    };
+    
 });
 
 /**************** login/forgotpassword/reset.js ************/
@@ -595,7 +663,7 @@ jQuery(document).ready(function($) {
 
                 $(".login_loader").hide();
                 $("#login_status_div").show()
-                $("#login_status").html('<div class="alert alert-error t-a-c">' +
+                $("#login_status").html('<div class="alert alert-danger t-a-c">' +
                     '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
                     response.msg + '</div>')
 
@@ -634,7 +702,7 @@ jQuery(document).ready(function($) {
     function displayMsg(msg) {
         $(".login_loader").hide();
 
-        var html = '<div class="alert alert-error">' +
+        var html = '<div class="alert alert-danger">' +
             '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
             msg + '</div>';
 
@@ -664,7 +732,7 @@ jQuery(document).ready(function($) {
                 } else if (response.code == "OK") {
                     $(".login_loader").hide();
                     var link = response.url + '/sign-in?email=' + response.email
-                    var html = '<div class="alert alert-error">' +
+                    var html = '<div class="alert alert-danger">' +
                         '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
                         response.msg + '<a href=" ' + link + ' ">Login</a></div>';
 

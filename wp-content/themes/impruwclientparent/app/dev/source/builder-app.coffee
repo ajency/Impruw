@@ -1,6 +1,6 @@
 ## The main dashboard App
 define ['marionette', 'underscore'], (Marionette, _)->
-
+    
     window.App = new Marionette.Application
 
     # Main app regions
@@ -65,14 +65,15 @@ define ['marionette', 'underscore'], (Marionette, _)->
     App.commands.setHandler "unregister:builder:instance", (instance, id) ->
         App.unregisterElement instance, id
 
-    App.addInitializer (options) ->
-        Pace.on 'done', ->
-            Pace.options =
-                    ajax: false
+    App.on "initialize:before", (options) ->
+        Pace.options.ajax = false
+        Pace.on 'done', ->            
             $('body').addClass 'pace-min-theme'
             $('#initial-loader').fadeOut 'fast', ->
                 $('#initial-loader').remove();
 
+    App.on "initialize:after", (options) ->
+        
         # create a global site model
         user = App.request "get:user:model"
 

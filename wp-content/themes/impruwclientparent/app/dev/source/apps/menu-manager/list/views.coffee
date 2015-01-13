@@ -64,7 +64,7 @@ define [ 'app', 'bootbox'], ( App, bootbox )->
 					@trigger "update:menu:item:clicked", formdata, @model
 
 				'click .delete-menu-item' : ->
-					message = _.polyglot.t 'This menu item will be removed from all the occurrences of the menu. Are you sure you want to delete the menu item?'
+					message = "<h4 class='delete-message'>" + _.polyglot.t('This menu item will be removed from all the occurrences of the menu. Are you sure you want to delete the menu item?') + "</h4>"
 					bootbox.confirm  message, ( answer )=>
 							if answer is yes
 								@trigger "delete:menu:item:clicked", @model

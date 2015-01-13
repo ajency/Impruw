@@ -40,6 +40,7 @@ class LanguageSwitcher extends Element {
 
         //$this->margins = $this->get_margin_classes($element);
 
+        $this->element = $element['element'];
         $this->markup    = $this->generate_markup();
 
         $this->style = sanitize_title($element['style']);
@@ -52,6 +53,7 @@ class LanguageSwitcher extends Element {
      */
     function generate_markup(){
 
+        // Generate element markup
         $html = "<div class='lang-sel {$this->style_class}'>";
         ob_start();
 
@@ -60,7 +62,10 @@ class LanguageSwitcher extends Element {
         $html .= ob_get_clean();
         $html .= "</div>";
 
-        return $html;
+        $preview = (isset( $_GET[ 'preview' ] )) ? $_GET[ 'preview' ] : false ; 
+        $final_markup = (display_element_markup($this->element)) ? $html : get_markup_for_addon($this->element,$preview) ; 
+
+        return $final_markup;
     }
 
 }

@@ -24,10 +24,11 @@ define ['app'], (App)->
 					@$el.find('hr').resizable
 						helper : "ui-image-resizable-helper"
 						handles: "s"
+						minHeight: 3
 						stop : (evt, ui)=>
 							@$el.css 'width','auto'
-							@trigger 'set:spacer:height', @$el.height()
-			   	# @$el.attr "data-content", _.polyglot.t("Update address ")+" <a href='#{SITEURL}/dashboard/#/site-profile'>"+_.polyglot.t("here")+"</a> "
-			   	# @$el.popover
-			   	#    html : true
-			   	#    placement : 'top'
+							@trigger 'set:spacer:height', @$el.find('hr').height()
+			   # @$el.attr "data-content", _.polyglot.t("Update address ")+" <a href='#{SITEURL}/dashboard/#/site-profile'>"+_.polyglot.t("here")+"</a> "
+			   # @$el.popover
+			   #    html : true
+			   #    placement : 'top'

@@ -38,7 +38,7 @@ jQuery(document).ready(function ($) {
 
                 $(".login_loader").hide();
                 $("#login_status_div").show()
-                $("#login_status").html('<div class="alert alert-error t-a-c">' +
+                $("#login_status").html('<div class="alert alert-danger t-a-c">' +
                     '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
                     response.msg + '</div>')
 
@@ -78,7 +78,7 @@ jQuery(document).ready(function ($) {
     function displayMsg( msg ) {
         $(".login_loader").hide();
 
-        var html = '<div class="alert alert-error">' +
+        var html = '<div class="alert alert-danger">' +
             '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
             msg + '</div>';
 
@@ -109,7 +109,7 @@ jQuery(document).ready(function ($) {
                 else if (response.code == "OK") {
                     $(".login_loader").hide();
                     var link = response.url + '/sign-in?email='+response.email
-                    var html = '<div class="alert alert-error">' +
+                    var html = '<div class="alert alert-danger">' +
                         '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
                         response.msg + '<a href=" '+link+' ">Login</a></div>';
 

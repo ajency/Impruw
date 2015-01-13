@@ -81,9 +81,9 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         'click .delete-page': function(e) {
           e.preventDefault();
           if (ISFRONTPAGE) {
-            return bootbox.alert(_.polyglot.t('Sorry you cannot delete your home page. You can change the layout of this page to suit your needs.'));
+            return bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t('Sorry you cannot delete your home page. You can change the layout of this page to suit your needs.') + "</h4>");
           } else {
-            return bootbox.confirm(_.polyglot.t('Deleting a page might lead to broken links if the page is linked on the website. Once deleted, you will not be able to recover the page. Are you sure you want to continue to delete the page?'), (function(_this) {
+            return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('Deleting a page might lead to broken links if the page is linked on the website. Once deleted, you will not be able to recover the page. Are you sure you want to continue to delete the page?') + "</h4>", (function(_this) {
               return function(result) {
                 if (result) {
                   return _this.trigger('delete:page:clicked');
@@ -469,7 +469,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       Builder.prototype.events = {
         'click .edit-home-btn': function() {
-          return bootbox.confirm('Do you wish to switch to homepage?', (function(_this) {
+          return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('Do you wish to switch to homepage?') + "</h4>", (function(_this) {
             return function(res) {
               if (res) {
                 return _this.onShowHomePage();

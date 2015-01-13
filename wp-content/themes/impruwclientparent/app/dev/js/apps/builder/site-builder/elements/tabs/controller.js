@@ -13,16 +13,19 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/tabs/views', 'apps
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Tabs',
+          justified: true,
           columncount: 2,
           elements: [],
-          meta_id: 0,
+          meta_id: _.uniqueId('tab-'),
           style: 'default'
         });
+        options.modelData.justified = _.toBoolean(options.modelData.justified);
         return Controller.__super__.initialize.call(this, options);
       };
 
       Controller.prototype.bindEvents = function() {
         this.listenTo(this.layout.model, "change:style", this.changeStyle);
+        this.listenTo(this.layout.model, 'change:justified', this.changeJustified);
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -32,6 +35,11 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/tabs/views', 'apps
         newStyle = model.get('style');
         this.layout.elementRegion.currentView.triggerMethod("style:changed", _.slugify(newStyle), _.slugify(prevStyle));
         return this.layout.setHiddenField('style', newStyle);
+      };
+
+      Controller.prototype.changeJustified = function(model, justified) {
+        this.layout.elementRegion.currentView.triggerMethod('set:justified', justified);
+        return this.layout.setHiddenField('justified', justified);
       };
 
       Controller.prototype.getTabView = function() {
@@ -48,7 +56,7 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/tabs/views', 'apps
 
       Controller.prototype.deleteElement = function(model) {
         if (!this.layout.elementRegion.currentView.$el.find('.tab-content').canBeDeleted()) {
-          return bootbox.confirm("All elements inside the Tab will also be deleted. Do you want to continue?", function(answer) {
+          return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t("All elements inside the Tab will also be deleted. Do you want to continue?") + "</h4>", function(answer) {
             if (answer === true) {
               model.destroy();
               return _.delay(function() {

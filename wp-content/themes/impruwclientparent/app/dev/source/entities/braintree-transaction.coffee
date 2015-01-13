@@ -10,23 +10,24 @@ define [ "app", 'backbone' ], ( App, Backbone ) ->
             idAttribute : 'transaction_id'
 
 
-        class BraintreePlanCollection extends Backbone.Collection
+        class BraintreeTransactionCollection extends Backbone.Collection
 
             model : BraintreeTransaction
 
             url : ->
-                "#{AJAXURL}?action=fetch-braintreetransaction"
+                "#{SITEURL}/api/ajbilling/braintreeTransactions"
 
 
         API =
 
             getTransactions : ( customerId ) ->
-                transactionCollection = new BraintreePlanCollection
+                transactionCollection = new BraintreeTransactionCollection
                 transactionCollection.fetch
                     data :
                         'customerID' : customerId
+                    type: "POST"
                 transactionCollection
 
 
-        App.reqres.setHandler "get:transactions", ( customerId )->
+        App.reqres.setHandler "get:customer:transactions", ( customerId )->
             API.getTransactions customerId

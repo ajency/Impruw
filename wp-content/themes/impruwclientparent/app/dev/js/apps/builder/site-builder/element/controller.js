@@ -35,7 +35,7 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
         this.listenTo(this.layout, "delete:element", (function(_this) {
           return function(model) {
             var _ref;
-            if ((_ref = model.get('element')) === 'Row' || _ref === 'Tabs') {
+            if ((_ref = model.get('element')) === 'Row' || _ref === 'Tabs' || _ref === 'Accordion') {
               return _this.deleteElement(model);
             } else {
               return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('Are you sure?') + "</h4>", function(result) {

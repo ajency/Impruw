@@ -2,7 +2,6 @@
 ## The main dashboard App
 ##
 define ['marionette'], (Marionette)->
-
     window.App = new Marionette.Application
 
     # Main app regions
@@ -42,15 +41,16 @@ define ['marionette'], (Marionette)->
     App.commands.setHandler "unregister:instance", (instance, id) ->
         App.unregister instance, id
 
-    App.addInitializer (options) ->
-        Pace.on 'done', ->
-            Pace.options =
-                    ajax: false
+    App.on "initialize:before", (options) ->
+        Pace.options.ajax = false
+        Pace.on 'done', ->           
 
             $('body').addClass 'pace-min-theme'
             $('#initial-loader').fadeOut 'fast', ->
                 $('#initial-loader').remove()
-                $('#footer-section').removeClass('hidden') 
+                $('#footer-section').removeClass('hidden')
+
+    App.on "initialize:after", (options) ->
 
         App.startHistory()
 

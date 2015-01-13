@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/billing/account-summary/account-info/controller', 'apps/billing/account-summary/billing-info/controller', 'apps/billing/account-summary/pending-subscription/controller', 'apps/billing/account-summary/purchase-history/controller', 'apps/billing/account-summary/views'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'apps/billing/account-summary/account-plan-info/controller', 'apps/billing/account-summary/account-subscription-info/controller', 'apps/billing/account-summary/site-addons-info/controller', 'apps/billing/account-summary/views'], function(App, AppController) {
   return App.module('BillingApp.AccountSummary', function(AccountSummary, App, Backbone, Marionette, $, _) {
     AccountSummary.Controller = (function(_super) {
       __extends(Controller, _super);
@@ -16,35 +16,31 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
-            return App.execute("when:fetched", _this.siteModel, function() {
-              var braintreeCustomerId, subscriptionId, subscriptionModel;
-              subscriptionId = _this.siteModel.get('braintree_subscription');
-              braintreeCustomerId = _this.siteModel.get('braintree_customer_id');
-              subscriptionModel = App.request("get:subscription:by:id", subscriptionId);
-              App.execute("show:account:info", {
-                region: _this.layout.accountInfoRegion,
-                subscriptionModel: subscriptionModel
-              });
-              App.execute("show:pending:subscription", {
-                region: _this.layout.pendingSubscriptionRegion,
-                subscriptionId: subscriptionId
-              });
-              App.execute("show:billing:info", {
-                region: _this.layout.billingInfoRegion,
-                subscriptionModel: subscriptionModel
-              });
-              return App.execute("show:purchase:history", {
-                region: _this.layout.purchaseHistoryRegion,
-                braintreeCustomerId: braintreeCustomerId
-              });
+            App.execute("show:account:plan:info", {
+              region: _this.layout.accountPlanRegion
+            });
+            App.execute("show:account:subscription:info", {
+              region: _this.layout.accountSubscriptionRegion
+            });
+            return App.execute("show:site:addons:info", {
+              region: _this.layout.siteAddOnRegion
             });
           };
         })(this));
-        return this.show(this.layout);
+        this.listenTo(this.layout.accountPlanRegion, "load:subscription:info:app", this.loadSubscriptionInfoApp);
+        return this.show(this.layout, {
+          loading: true
+        });
       };
 
       Controller.prototype.getLayout = function() {
         return new AccountSummary.View.Layout;
+      };
+
+      Controller.prototype.loadSubscriptionInfoApp = function() {
+        return App.execute("show:account:subscription:info", {
+          region: this.layout.accountSubscriptionRegion
+        });
       };
 
       return Controller;

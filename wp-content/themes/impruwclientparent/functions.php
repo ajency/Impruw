@@ -43,12 +43,13 @@ include_once( dirname( __FILE__ ) . '/modules/elements/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/media/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/language/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/language/languagefunctions.php' );
+include_once( dirname( __FILE__ ) . '/modules/payment-plans/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/billing/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/seo/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/emails/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/heartbeat/heartbeat.php' );
 include_once( dirname( __FILE__ ) . '/api/entities/leftnav.php' );
-include_once( dirname( __FILE__ ) . '/modules/braintree/main-config.php' );
+// include_once( dirname( __FILE__ ) . '/modules/braintree/main-config.php' );
 include_once( dirname( __FILE__ ) . '/modules/emailAPI/main.php' );
 include_once( dirname( __FILE__ ) . '/modules/simple_html_dom/simple_html_dom.php' );
 include_once( dirname( __FILE__ ) . '/elements/Element.php' );
@@ -57,6 +58,7 @@ include_once( dirname( __FILE__ ) . '/includes/UserModel.php' );
 include_once( dirname( __FILE__ ) . '/includes/RoomModel.php' );
 include_once( dirname( __FILE__ ) . '/includes/Media.php' );
 include_once( dirname( __FILE__ ) . '/modules/enqueue.php' );
+require_once 'modules/communications/functions.php';
 
 
 
@@ -107,10 +109,6 @@ add_filter( 'wp_mail_from', 'impruw_wp_mail_from' );
  * @param  [type] $original_email_from [description]
  * @return [type]                      [description]
  */
-function impruw_wp_mail_from_name( $original_email_from ){
-    return 'Impruw Ltd.';
-}
-add_filter( 'wp_mail_from_name', 'impruw_wp_mail_from_name' );
 
 /**
  * [change_email_content_type description]
@@ -139,6 +137,9 @@ function send_contact_form_message() {
 
     $subject = !empty( $subject ) ? stripslashes($subject) : '-';
     $mailsubject = "Impruw Notification: You have received a $subject email";
+
+    $name = $fname.' '.$lname;
+    contact_us_email($name,$email,$mailsubject,$message);
 
     $mailbody = " You have been contacted by<br /><br />
                     Name    : $fname $lname<br />
@@ -379,6 +380,12 @@ function add_element_markup( $element ) {
         case 'TabPane':
             $html = get_tab_pane_element_markup( $element );
             break;
+        case 'Accordion':
+            $html = get_accordion_element_markup( $element );
+            break;
+        case 'AccordionTab':
+            $html = get_accordion_tab_element_markup( $element );
+            break;
         case 'ContainerElement' :
             $html = get_container_markup( $element );
             break;
@@ -534,12 +541,22 @@ function get_tabs_element_markup( $element ) {
 
     include_once( dirname( __FILE__ ) . '/elements/TabsElement.php');
 
+
     $tab = new Tabs( $element );
+
+    $justified = (isset($element['justified']) && ($element['justified'] == 'true' )) ? true : false ;
+
 
     $html = $tab->get_open_tag();
 
     $tab_bar = "<!-- Nav tabs -->
-                <ul class='nav nav-tabs nav-justified' role='tablist'>";
+                <ul class='nav nav-tabs ";
+
+    if( $justified ) {
+        $tab_bar .= "nav-justified";
+    }
+
+    $tab_bar .= "' role='tablist'>";
         
     $tab_content = "<div class='tab-content'>";
 
@@ -547,7 +564,7 @@ function get_tabs_element_markup( $element ) {
 
         foreach ( $tab->get_elements() as $ele ) {
 
-            $tab_bar .= "<li role='presentation'><a href='#tab-3' role='tab' data-toggle='tab'><span>{$ele['tabName']}</span></a></li>";
+            $tab_bar .= "<li role='presentation'><a href='#tab-3' role='tab' data-toggle='tab'><span>{$ele['tabName'][wpml_get_current_language()]}</span></a></li>";
 
             $tab_content .= add_element_markup( $ele );
         }
@@ -582,6 +599,47 @@ function get_tab_pane_element_markup( $element ){
 
     return $html;
 }
+
+function get_accordion_element_markup( $element)
+{
+    include_once( dirname( __FILE__ ) . '/elements/AccordionElement.php');
+
+    $accordion = new Accordion( $element );
+
+    $html = $accordion->get_open_tag();
+
+    if ( $accordion->has_child_elements() ) {
+
+        foreach ( $accordion->get_elements() as $ele ) {
+            $html .= add_element_markup( $ele );
+        }
+    }
+
+    $html .= $accordion->get_close_tag();
+
+    return $html;
+}
+
+function get_accordion_tab_element_markup( $element )
+{
+    include_once( dirname( __FILE__ ) . '/elements/AccordionTabElement.php');
+
+    $accordion_tab = new AccordionTab( $element );
+
+    $html = $accordion_tab->get_open_tag();
+
+    if ( $accordion_tab->has_child_elements() ) {
+
+        foreach ( $accordion_tab->get_elements() as $ele ) {
+
+            $html .= add_element_markup( $ele );
+        }
+    }
+
+    $html .= $accordion_tab->get_close_tag();
+    return $html;
+}
+
 
 /**
  * Generates the image markup
@@ -1202,6 +1260,7 @@ function save_user_profile( $user_data, $user_id ) {
 
 function update_user_passwrd_ajx() {
 
+     
     $userform_password = serializedform_to_array( $_POST [ 'userprofile_passdata' ] );
 
     $user_form_data = array(
@@ -1209,6 +1268,7 @@ function update_user_passwrd_ajx() {
     );
     $update_status = update_user_passwrd( $user_form_data, get_current_user_id() );
 
+   
     if ( is_string( $update_status ) ) {
 
         header( 'Content-Type: application/json' );
@@ -3645,12 +3705,16 @@ $base_element_templates = array(
     'Address' => array(
         array(
             'name' => 'Default Style',
-            'template' => '<ul><li><span class="fui-home"></span> {{street}}, {{postal_code}}, {{city}}, {{country}}</li><li><span class="glyphicon glyphicon-earphone"></span> {{phone_no}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
+            'template' => '<ul><li><span class="fui-home"></span> {{street}}, {{postal_code}}, {{city}}, {{country}}</li><li class="addr-phone"><span class="glyphicon glyphicon-earphone"></span> {{phone_no}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
         ),
         array(
             'name' => 'Small Address',
-            'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
-        )
+            'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info addr-phone"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
+        )       
+    ),
+    'Accordion' => array(
+        array('name' => 'Paper', 'value' => 'paper'),
+        array('name' => 'Flat', 'value' => 'flat')
     ),
     'List' => array(
         array( 'name' => 'Hover List', 'value' => 'hover-list'),
@@ -3663,7 +3727,8 @@ $base_element_templates = array(
             'inner_style' => array( 'Default', 'Multi Column' )
         ),
         array(
-            'name' => 'Testimonials'
+            'name' => 'Testimonials',
+            'inner_style' => array('Default', 'Boxed')
         )
     ),
     'Tabs' => array(
@@ -3950,4 +4015,31 @@ function show_revision_header_placeholder(){
 function show_revision_footer_placeholder(){
     echo '<div class="edit-info">The Footer is saved on Your Homepage. View the Footer changes on Your Homepage.</div>';
 
+}
+
+// favicon link
+function favicon_link() { 
+
+?>  <link rel="shortcut icon" type="image/x-icon" href="<?php echo get_custom_favicon_directory_uri(); ?>" />
+    <?php
+}
+add_action( 'wp_head', 'favicon_link' );
+
+
+function get_custom_favicon_directory_uri() {
+
+    $favicon_id = get_option( 'favicon_id', 0 );
+    $favicon_path = wp_get_attachment_image_src( $favicon_id, 'medium' );
+    $favicon_path = $favicon_path === false ? get_parent_template_directory_uri() .'/images/favicon.png' : $favicon_path[ 0 ];
+    return $favicon_path;
+
+}
+
+add_filter('upload_mimes', 'custom_upload_mimes'); 
+
+function custom_upload_mimes ( $existing_mimes=array() ) { 
+    // change the word forbiddenfiletype below to an extension you wish to allow 
+    $existing_mimes['ico'] = 'image/x-icon'; 
+    // call the modified list of extensions 
+    return $existing_mimes; 
 }

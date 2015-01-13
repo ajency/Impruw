@@ -32,17 +32,17 @@ define(['marionette'], function(Marionette) {
   App.commands.setHandler("unregister:instance", function(instance, id) {
     return App.unregister(instance, id);
   });
-  App.addInitializer(function(options) {
-    Pace.on('done', function() {
-      Pace.options = {
-        ajax: false
-      };
+  App.on("initialize:before", function(options) {
+    Pace.options.ajax = false;
+    return Pace.on('done', function() {
       $('body').addClass('pace-min-theme');
       return $('#initial-loader').fadeOut('fast', function() {
         $('#initial-loader').remove();
         return $('#footer-section').removeClass('hidden');
       });
     });
+  });
+  App.on("initialize:after", function(options) {
     App.startHistory();
     if (!this.getCurrentRoute()) {
       return App.navigate(this.rootRoute, {

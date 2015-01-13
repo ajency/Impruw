@@ -27,4 +27,5 @@
 		'apps/builder/site-builder/elements/smarttable/controller'
 		'apps/builder/site-builder/elements/list/controller'
 		'apps/builder/site-builder/elements/tabs/controller'
+		'apps/builder/site-builder/elements/accordion/controller'
  ],->

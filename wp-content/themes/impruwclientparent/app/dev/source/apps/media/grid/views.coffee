@@ -23,7 +23,10 @@ define [ 'app'], ( App, mediaTpl )->
 
          mixinTemplateHelpers : (data)->
             data = super data
-            data.image_url = if data.sizes.thumbnail then data.sizes.thumbnail.url else data.sizes.full.url
+            if  data.sizes 
+               data.image_url = if data.sizes.thumbnail then data.sizes.thumbnail.url else data.sizes.full.url
+            else 
+               data.image_url = data.url
             data
 
          events :
@@ -66,6 +69,15 @@ define [ 'app'], ( App, mediaTpl )->
                #show the grid when last image gets uploaded
                @$el.closest( '.tab-content' ).siblings( '.nav-tabs' )
                .find( '.all-media-tab' ).find( 'a' ).trigger 'click'
+            'add remove reset' : -> 
+               if Marionette.getOption(@,'type') isnt 'favicon'
+                  @collection.remove @collection.reject (model)->
+                     model.get('sizes')
+
+         initialize : ->
+            if Marionette.getOption(@,'type') isnt 'favicon'
+                  @collection.remove @collection.reject (model)->
+                     model.get('sizes')
 
 
          onCollectionRendered : ->

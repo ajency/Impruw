@@ -17,12 +17,14 @@
     <meta name="viewport" content="width=device-width">
     <title><?php wp_title( '|', TRUE, 'right' ); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
-    <link rel="shortcut icon" href="<?php echo get_parent_template_directory_uri(); ?>/images/favicon.png" type="image/x-icon" />
+    <!-- <link rel="shortcut icon" href="<?php echo get_parent_template_directory_uri(); ?>/images/favicon.png" type="image/x-icon" /> -->
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <!--[if lt IE 9]>
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
     <?php wp_head(); ?>
+
+    <?php get_theme_font_markup()?>
     
 </head>
 <body <?php body_class(); ?>>
@@ -78,6 +80,7 @@
     var ACTIVE_LANGUAGES = <?php echo json_encode(wpml_get_active_languages()); ?>;
     var ELEMENTS = <?php echo json_encode(get_elementbox_elements()); ?>;
     var BLOGID = <?php echo get_current_blog_id(); ?>;
+    
 
     //menus
     var MENUS = <?php echo json_encode(wp_get_nav_menus()) ?>;
@@ -105,6 +108,7 @@
     var SINGLE_ROOM_PAGE = '<?php echo get_single_room_page_title();?>';
     var UNDELETABLE_PAGES = <?php echo json_encode(get_builder_uneditable_pages()); ?>;
     var ADDRESS = '<?php echo get_hotel_address() ?>';
+    var HOTELPOSITION = <?php echo json_encode(get_address_coordinate()); ?>;
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
     var PLUGIN_URI  = '<?php echo WP_PLUGIN_URL; ?>';
@@ -112,6 +116,9 @@
     var HOTELADDRESS = <?php echo json_encode(get_site_details()) ?>;
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;
+    var THEMEFONTMAIN = <?php echo json_encode(get_theme_font("theme_font_main")); ?>;
+    var THEMEFONTTITLE = <?php echo json_encode(get_theme_font("theme_font_sec")); ?>;
+    var ISSECFONTALLOWED = '<?php echo is_sec_font_allowed(); ?>';
 </script>
 
 <script src="<?php echo get_parent_template_directory_uri() ?>/bower_components/pace/pace.js"></script>

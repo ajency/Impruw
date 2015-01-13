@@ -80,6 +80,7 @@ class MapElement extends Element {
         <div id="map_canvas" ></div>
         <script type="text/javascript">
 		var HOTELADDRESS = '<?php echo get_hotel_address(); ?>';
+        var HOTELPOSITION = <?php echo json_encode(get_address_coordinate()); ?>;
         </script>
         <?php
         //echo "<script>jQuery('#map_canvas').height(parseInt(jQuery('#map_canvas').width())*".$heightRatio.");</script>";

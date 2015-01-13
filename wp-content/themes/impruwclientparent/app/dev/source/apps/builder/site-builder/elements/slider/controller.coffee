@@ -45,17 +45,17 @@ define ['app'
             renderElement: ()=>
                 @removeSpinner()
 
-                slidesCollection = @_getSlidesCollection()
+                @_getSlidesCollection()
 
-                App.execute "when:fetched", slidesCollection, =>
-                    view = @_getSliderView slidesCollection
+                App.execute "when:fetched", @slidesCollection, =>
+                    view = @_getSliderView @slidesCollection
 
                     @listenTo view, 'show',=>
                         if not @layout.model.get 'width'
                             view.triggerMethod "set:width"
 
                     @listenTo view, "show:slides:manager", (ratio)=>
-                        App.execute "show:slides:manager", slidesCollection , @layout.model.get 'element'
+                        App.execute "show:slides:manager", @slidesCollection , @layout.model.get 'element'
                         App.currentImageRatio = ratio
 
                     @listenTo view, "set:slider:height:width", (height,width)=>
@@ -63,13 +63,18 @@ define ['app'
                         @layout.model.set 'height', height
                         @layout.model.save()
 
-                    @listenTo slidesCollection, "remove add slides:order:updated", =>
+                    @listenTo @slidesCollection, "remove add slides:order:updated", =>
                         # console.log 'slider updated'
-                        @layout.elementRegion.show view
-                        # @renderElement()
+                        # @layout.elementRegion.show view
+                        view.close()
+                        @stopListening()
+                        @renderElement()
 
                     @listenTo view ,"render:slider childview:render:slider",=>
                         @layout.model.save()
-                        @layout.elementRegion.show view
+                        # @layout.elementRegion.show view
+                        view.close()
+                        @stopListening()
+                        @renderElement()
 
                     @layout.elementRegion.show view

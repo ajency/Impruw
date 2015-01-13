@@ -61,8 +61,11 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/show/view
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
+            var siteid, update_feature_count;
             if (response.code === 'OK') {
-              return _this.userEmailCollection.remove(view.model);
+              _this.userEmailCollection.remove(view.model);
+              siteid = SITEID['id'];
+              return update_feature_count = App.request("update:site:feature:count", siteid, 'email_account', 'minus');
             } else {
               return _this.userEmailView.triggerMethod("delete:email", response.msg);
             }

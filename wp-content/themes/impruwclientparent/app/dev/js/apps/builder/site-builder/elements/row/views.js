@@ -394,13 +394,13 @@ define(['app', 'bootbox'], function(App, bootbox) {
           });
           emptyColsLen = emptyColumns.length;
           if (emptyColsLen === 0) {
-            bootbox.alert("None of the columns are empty. Please delete elements inside columns to remove");
+            bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t("None of the columns are empty. Please delete elements inside columns to remove") + "</h4>");
             this.model.set('columncount', this.columnCount());
             this.model.trigger('column:count:setting:change', this.columnCount());
             return;
           }
           if (this.columnCount() - requestedColumns > emptyColsLen) {
-            bootbox.alert("Unable to perform this action");
+            bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t("Unable to perform this action") + "</h4>");
             this.model.set('columncount', this.columnCount());
             this.model.trigger('column:count:setting:change', this.columnCount());
             return;

@@ -36,6 +36,20 @@ define ["app", 'backbone'], (App, Backbone) ->
                     (sociallink: '#facebook', socialname: 'facebook')
                     (sociallink: '#twitter', socialname: 'twitter')
                 ]
+
+            updateSiteFeatureCount:(siteid,feature_component,plus_minus) ->
+                url = SITEURL+'/api/ajbilling/site_feature_count/'+siteid+'/site/'+feature_component+'/'+plus_minus
+                
+                options =
+                    method : 'PUT'
+                    url : url
+
+                $.ajax( options ).done ( response )=>
+                    new_feature_count = response.updated_feature_count
+                    feature_count = window.PLAN_FEATURE_COUNT
+                    feature_count[feature_component][0]['current_count'] =  new_feature_count
+                    window.PLAN_FEATURE_COUNT = feature_count
+
             getSiteProfile: ->
 
 
@@ -51,3 +65,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 
         App.reqres.setHandler "get:site:profile", ->
             API.getSiteProfile()
+
+        App.reqres.setHandler "update:site:feature:count",(siteid,feature_component,plus_minus) ->
+            API.updateSiteFeatureCount(siteid,feature_component,plus_minus)
+
+

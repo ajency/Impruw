@@ -17,15 +17,25 @@ define(['app'], function(App) {
       AddressView.prototype.onRender = function() {
         var className;
         className = _.slugify(this.model.get('style'));
-        return this.$el.addClass(className);
+        this.$el.addClass(className);
+        return this.$el.addClass("text-" + (this.model.get('align')));
       };
 
       AddressView.prototype.onShow = function() {
         this.$el.attr("data-content", _.polyglot.t("Update address ") + (" <a href='" + SITEURL + "/dashboard/#/site-profile' target='BLANK'>") + _.polyglot.t("here") + "</a> ");
+        if (this.model.get('phone_link') === 'enable') {
+          this.$el.find('.addr-phone').wrap("<a class='phone' href='tel:" + (this.model.get('phone_no')) + "'></a>");
+        }
         return this.$el.popover({
           html: true,
           placement: 'top'
         });
+      };
+
+      AddressView.prototype.events = {
+        'click .phone': function(e) {
+          return e.preventDefault();
+        }
       };
 
       return AddressView;

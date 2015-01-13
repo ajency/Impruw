@@ -51,6 +51,23 @@ define(["app", 'backbone'], function(App, Backbone) {
           }
         ]);
       },
+      updateSiteFeatureCount: function(siteid, feature_component, plus_minus) {
+        var options, url;
+        url = SITEURL + '/api/ajbilling/site_feature_count/' + siteid + '/site/' + feature_component + '/' + plus_minus;
+        options = {
+          method: 'PUT',
+          url: url
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            var feature_count, new_feature_count;
+            new_feature_count = response.updated_feature_count;
+            feature_count = window.PLAN_FEATURE_COUNT;
+            feature_count[feature_component][0]['current_count'] = new_feature_count;
+            return window.PLAN_FEATURE_COUNT = feature_count;
+          };
+        })(this));
+      },
       getSiteProfile: function() {}
     };
     App.reqres.setHandler("get:site:model", function() {
@@ -62,8 +79,11 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("get:site:social", function() {
       return API.getSiteSocial();
     });
-    return App.reqres.setHandler("get:site:profile", function() {
+    App.reqres.setHandler("get:site:profile", function() {
       return API.getSiteProfile();
+    });
+    return App.reqres.setHandler("update:site:feature:count", function(siteid, feature_component, plus_minus) {
+      return API.updateSiteFeatureCount(siteid, feature_component, plus_minus);
     });
   });
 });

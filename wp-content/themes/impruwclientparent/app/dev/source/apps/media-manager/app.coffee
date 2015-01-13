@@ -17,12 +17,16 @@ define ['app'
             # initialize
             initialize: (opt = {})->
                 @choosedMedia = null
+                _.defaults opt,
+                    type : 'all'
 
                 @layout = layout = @_getLayout()
 
                 @listenTo @layout, "show", =>
                     App.execute "start:media:upload:app", region: layout.uploadRegion
-                    App.execute "start:media:grid:app", region: layout.gridRegion
+                    App.execute "start:media:grid:app", 
+                        region: layout.gridRegion
+                        type : opt.type
 
                 @show @layout
 
@@ -111,10 +115,12 @@ define ['app'
 
         #public API
         API =
-            show: ()->
-                new ShowController
+            show: (opt = {})->
+                _.defaults opt, 
                     region: App.dialogRegion
                     statApp: 'all-media'
+                new ShowController opt
+                    
 
             editMedia: (model, region)->
 
@@ -126,3 +132,6 @@ define ['app'
         # stop listetning to media manager stop
         MediaManager.on "stop", ->
             App.vent.off "media:element:clicked"
+
+        App.commands.setHandler 'start:media:app',(opt= {})->
+            API.show opt

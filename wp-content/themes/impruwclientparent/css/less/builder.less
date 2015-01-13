@@ -11,6 +11,9 @@ Version:        0.1.0
 /****Builder Icon Font****/
 @import url(builder-icon-fonts.css);
 
+/****Google Fonts****/
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
+
 /****Colors****/
 @logo-blue: #182944;
 @dash-grey: #AAAAAA;
@@ -244,6 +247,9 @@ a {
 		font-weight: 400;
 		font-size: 0.7em;
 		padding: 0.5em 0.5em 0;
+		overflow-y: auto;
+		overflow-x: hidden;
+		max-height: 80vh;
 		.aj-imp-builder-items {
 			margin: 0;
 			list-style: none;
@@ -265,12 +271,12 @@ a {
                     background: rgba(0, 0, 0, 1);
 					.aj-imp-builder-icon {
 						font-size: 2.2em;
-						padding: 0.5em 0 0;
+						padding: 0.4em 0 0;
 						color: #fff;
 					}
 					.aj-imp-builder-title {	
 						padding: 0.5em;
-						height: 40px;
+						height: 32px;
 						overflow: hidden;
 					}
 				}
@@ -320,6 +326,15 @@ a {
 						}
 					}
 				}
+				&.element-disable {
+					opacity: 0.5;
+					a {
+						cursor: not-allowed;
+					}
+					&:hover {
+						color: @dash-grey;
+					}
+				}
 				&.ui-draggable-dragging {
 					background: transparent;
 					box-shadow: none;
@@ -334,6 +349,22 @@ a {
 		.selected-element {
 			overflow: visible !important;
 		}
+	}
+}
+
+.elem-box {
+	margin-left: 2px !important;
+	.tooltip-inner {
+		border-radius: 2px;
+		padding: 0.5em 0.8em;
+		background: rgba(0, 0, 0, 0.8);
+		text-align: left;
+		font-size: 0.8em;
+	}
+	.tooltip-arrow {
+		border-right-color: rgba(0, 0, 0, 0.8) !important;
+		border-width: 6px 6px 6px 0 !important;
+		left: 3px !important;
 	}
 }
 
@@ -1125,6 +1156,9 @@ a {
 								opacity: 1;
 							}
 						}
+						&[readonly] {
+							pointer-events: none;
+						}
 					}
 					.btn-update-pg-slug {
 						color: @blue-grey;
@@ -1259,6 +1293,9 @@ a {
 								opacity: 1;
 							}
 						}
+						&[readonly] {
+							pointer-events: none;
+						}
 					}
 					.btn-update-pg-name {
 						color: @blue-grey;
@@ -1284,6 +1321,7 @@ a {
 				right: 0;
 				bottom: 0;
 				padding: 1em;
+				font-family: 'Lato', sans-serif;
 				.lock-container {
 					display: flex;
 					height: 100%;
@@ -1458,6 +1496,15 @@ a {
 					font-size: 13px;
 					line-height: 18px;
 					display: block;
+				}
+			}
+			.aj-imp-addon-btn{
+				text-align: center;
+				background-color: @orange;
+				span{
+					font-size: 28px;
+					color: @preview-grey;
+					cursor: pointer;
 				}
 			}
 		}
@@ -1661,6 +1708,7 @@ a {
                     background: rgba(255, 255, 255, 0.8);
                     margin: auto;
                     visibility: hidden;
+                    font-family: 'Lato', sans-serif;
                     .bicon {
                         display: block;
                         font-size: 2.2em;
@@ -1683,17 +1731,20 @@ a {
 	#site-header-region {
 		&:after {
 			content: 'Site Header';
+			font-family: 'Lato', sans-serif;
 		}
 	}
 	#site-footer-region {
 		&:after {
 			content: 'Site Footer';
+			font-family: 'Lato', sans-serif;
 		}
 	}
 	#site-page-content-region {
 		min-height: 400px;
 		&:after {
 			content: 'Site Content';
+			font-family: 'Lato', sans-serif;
 		}
 	}
 }
@@ -1742,7 +1793,7 @@ a {
 				width: 220px;
 			}
 			.checkbox {
-				margin-top: 8px;
+				margin-top: 10px;
 				.icons {
 					line-height: 20px;
 					.first-icon, .second-icon {
@@ -3945,6 +3996,7 @@ a {
 	border: 1px dashed lighten(@dash-grey, 20%);
 	padding: 0.3em;
 	cursor: pointer;
+	font-family: 'Lato', sans-serif;
 	.bicon {
 		display: block;
 		margin: 0.2em 0;
@@ -3986,6 +4038,7 @@ a {
 	border: 1px dashed lighten(@dash-grey, 20%);
 	padding: 0.3em;
 	cursor: pointer;
+	font-family: 'Lato', sans-serif;
 	.bicon {
 		display: block;
 		margin: 0.025em 0;
@@ -4004,6 +4057,7 @@ a {
 	border-radius: 2px;
 	padding: 0.5em;
 	cursor: default;
+	font-family: 'Lato', sans-serif;
 	.bicon {
 		display: block;
 		margin: 0.025em 0;
@@ -4780,5 +4834,30 @@ a {
 	}
 	iframe{
 		border: 0px;
+	}
+}
+
+/**** Builder Font Selector Styles ****/
+.font-picker-container {
+	padding: 1em 2em;
+	.font-view {
+		margin-bottom: 1em;
+		border-bottom: 1px solid darken(@preview-grey, 10%);
+		h4 {
+			color: @dash-grey;
+			font-size: 1.2em;
+		}
+		.font-preview {
+			padding: 1em;
+			border: 1px solid @preview-grey;
+			margin-bottom: 0.5em;
+			span {
+				color: #333;
+				font-size: 2em;
+			}
+		}
+	}
+	.font-actions {
+		margin: 0 -15px;
 	}
 }
