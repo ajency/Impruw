@@ -118,6 +118,10 @@ define(['app'], function(App, elementTpl) {
         if (_ref = this.model.get('element'), __indexOf.call(addons, _ref) >= 0) {
           this.$el.children('.element-controls').append('<div class="aj-imp-addon-btn"><span title="' + _.polyglot.t('Paid Add-on') + '" class="bicon icon-uniF155"></span></div>');
           return this.$el.children('.element-controls').children('.aj-imp-addon-btn').attr({
+            'data-toggle': 'popover',
+            'data-trigger': "focus",
+            'role': "button",
+            tabindex: "0",
             'data-placement': 'top',
             'data-template': '<div class="popover elem-box" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',
             'data-content': _.polyglot.t('This is a paid addon. To check allowed addon go ') + '<a href="' + SITEURL + '/dashboard/#/site-profile" target="BLANK">' + _.polyglot.t('here') + '</a>'

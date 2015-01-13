@@ -118,8 +118,11 @@ define [ 'app' ],( App, elementTpl )->
 					# console.log @model.get('element')
 					@$el.children('.element-controls').append '<div class="aj-imp-addon-btn"><span title="'+_.polyglot.t('Paid Add-on')+'" class="bicon icon-uniF155"></span></div>'
 					@$el.children('.element-controls').children('.aj-imp-addon-btn').attr
-						# 'data-togggle'    : 'tooltip'
+						'data-toggle'    : 'popover'
 						# 'data-container'  : 'body'
+						'data-trigger'    : "focus"
+						'role' 			:"button" 
+						tabindex     	:   "0"
 						'data-placement'  : 'top'
 						'data-template'   : '<div class="popover elem-box" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>'
 						'data-content'    : _.polyglot.t('This is a paid addon. To check allowed addon go ')+'<a href="'+SITEURL+'/dashboard/#/site-profile" target="BLANK">'+_.polyglot.t('here')+'</a>'
