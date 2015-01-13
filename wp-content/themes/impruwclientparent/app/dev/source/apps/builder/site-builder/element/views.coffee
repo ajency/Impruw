@@ -125,7 +125,7 @@ define [ 'app' ],( App, elementTpl )->
 						tabindex     	:   "0"
 						'data-placement'  : 'top'
 						'data-template'   : '<div class="popover elem-box" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>'
-						'data-content'    : _.polyglot.t('This is a paid addon. To check allowed addon go ')+'<a href="'+SITEURL+'/dashboard/#/site-profile" target="BLANK">'+_.polyglot.t('here')+'</a>'
+						'data-content'    : _.polyglot.t('This is a paid addon. To check allowed addon go ')+'<a href="'+SITEURL+'/dashboard/#/billing/account-summary" target="BLANK">'+_.polyglot.t('here')+'</a>'
 					.popover
 						html : true
 
