@@ -12,23 +12,34 @@ function getvars_plan_active($recipients_email,$comm_data){
     $name   = $aj_comm->get_communication_meta($comm_data['id'],'user_name');
     $new_plan_id   = $aj_comm->get_communication_meta($comm_data['id'],'plan_id');
     $site_id   = $aj_comm->get_communication_meta($comm_data['id'],'site_id');
-    
+    $plan_change_date   = $aj_comm->get_communication_meta($comm_data['id'],'plan_change_date');
+    $plan_currency   = $aj_comm->get_communication_meta($comm_data['id'],'plan_currency');
+    $plan_amount   = $aj_comm->get_communication_meta($comm_data['id'],'plan_amount');
+    $domain_name   = $aj_comm->get_communication_meta($comm_data['id'],'domain_name');
+    $plan_name   = $aj_comm->get_communication_meta($comm_data['id'],'plan_name');
+    $site_details = get_blog_details( $site_id );
+    $additional_features = "Features enabled";
 
-    $subject    = 'Impruw - Plan Change'; //New Plan selected for <Domain Name>
+    $site_url = $site_details->siteurl;
+
+    $subject    = 'Impruw - Plan Change for '.$domain_name; //New Plan selected for <Domain Name>
+
+    $display_price = $plan_currency." ".$plan_amount;
 
     $template_data['name']          = 'impruw-plan-changed'; // [slug] name or slug of a template that exists in the user's mandrill account
     $template_data['subject']       = $subject;
-    $template_data['from_email']    = 'nutan@ajency.in';
+    $template_data['from_email']    = 'info@impruw.com';
     $template_data['from_name']     = 'Impruw';
 
 
     $template_data['merge'] = true;
     $template_data['global_merge_vars'] = array();
     $template_data['global_merge_vars'][] = array('name' => 'USERNAME','content' => $name);
-    // $template_data['global_merge_vars'][] = array('name' => 'NEW_PLAN','content' => $new_plan);
-    // $template_data['global_merge_vars'][] = array('name' => 'DOMAIN_NAME','content' => $domain_name);
-    // $template_data['global_merge_vars'][] = array('name' => 'AMOUNT','content' => $amount);
-    // $template_data['global_merge_vars'][] = array('name' => 'PLAN_FEATURES','content' => $plan_features);
+    $template_data['global_merge_vars'][] = array('name' => 'PLAN_NAME','content' => $plan_name);
+    $template_data['global_merge_vars'][] = array('name' => 'PLAN_CHANGE_DATE','content' => $plan_change_date);
+    $template_data['global_merge_vars'][] = array('name' => 'DOMAIN_NAME','content' => $domain_name);
+    $template_data['global_merge_vars'][] = array('name' => 'DISPLAY_PLAN_PRICE','content' => $display_price);
+    $template_data['global_merge_vars'][] = array('name' => 'ADDITIONAL_FEATURES','content' => $additional_features);
 
 
     return $template_data;

@@ -12,15 +12,32 @@ function plan_active_email($site_id, $plan_id){
     $user_from_email = get_user_by('email', $site_mail);
     $user_id = $user_from_email->ID;
     $user_name = $user_from_email->display_name;
+    
+    $plan_change_date = date("F j, Y"); //current date
 
-    // Get user details
+    // Get current subscriptions amount 
+    $braintree_customer_id = get_option( 'braintree-customer-id','');
+    $domain_name = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
+    $current_subscription_id = aj_braintree_get_customer_subscription($braintree_customer_id);
+    $current_subscription = aj_braintree_get_subscription($current_subscription_id );
+    $plan_amount = $current_subscription['price'];
+    $plan_currency = get_country_based_site_currency();
+
+    // Plan details
+    $feature_plan_details = ajbilling_get_feature_plan_by_id($plan_id);
+    $feature_plan_name = $feature_plan_details['plan_title'];  //add translation for plan names in wpml
 
 
     $meta_data = array(
         'email_id' => $site_mail,
         'user_name' => $user_name,
         'plan_id' => $plan_id,
-        'site_id' => $site_id
+        'site_id' => $site_id,
+        'plan_change_date' => $plan_change_date,
+        'plan_currency' => $plan_currency,
+        'plan_amount' => $plan_amount,
+        'domain_name' => $domain_name,
+        'plan_name' => $feature_plan_name
     );
 
     $comm_data = array(

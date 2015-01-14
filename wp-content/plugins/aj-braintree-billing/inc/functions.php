@@ -1356,7 +1356,7 @@ function ajbilling_fetch_plan($object_id, $object_type='site'){
 /**
  * Set $braintree_specific_plan to TRUE if braintree specific details of the feature plan need to be returned
  */
-function ajbilling_get_feature_plan_by_id($plan_id,$site_currency, $braintree_specific_plan=FALSE){
+function ajbilling_get_feature_plan_by_id($plan_id,$site_currency=FALSE, $braintree_specific_plan=FALSE){
 	global $wpdb;
 	$billing_plan = array();
 	
