@@ -17,8 +17,23 @@ function getvars_plan_active($recipients_email,$comm_data){
     $plan_amount   = $aj_comm->get_communication_meta($comm_data['id'],'plan_amount');
     $domain_name   = $aj_comm->get_communication_meta($comm_data['id'],'domain_name');
     $plan_name   = $aj_comm->get_communication_meta($comm_data['id'],'plan_name');
+    
+    $plan_features = $aj_comm->get_communication_meta($comm_data['id'],'plan_features');
+    $additional_features = "<ul>";
+
+    foreach ($plan_features as $plan_feature) {
+        if (!$plan_feature['is_count_type']) {
+            $additional_features .= "<li> ".$plan_feature['name']."</li>";
+        }else{
+             $additional_features .= "<li> ".$plan_feature['name']." : ".$plan_feature['count_display_label']."</li>";
+        }
+    }
+    $additional_features .= "</ul>";
+    _log($additional_features);
+
     $site_details = get_blog_details( $site_id );
-    $additional_features = "Features enabled";
+    
+
 
     // Define all url variables
     $site_url = $site_details->siteurl;
