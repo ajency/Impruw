@@ -12,6 +12,7 @@ function plan_active_email($site_id, $plan_id){
     $user_from_email = get_user_by('email', $site_mail);
     $user_id = $user_from_email->ID;
     $user_name = $user_from_email->display_name;
+    $user_language = get_user_meta($user_id,'user_lang',true);
     
     $plan_change_date = date("F j, Y"); //current date
 
@@ -32,6 +33,7 @@ function plan_active_email($site_id, $plan_id){
     $meta_data = array(
         'email_id' => $site_mail,
         'user_name' => $user_name,
+        'user_language' => $user_language,
         'plan_id' => $plan_id,
         'site_id' => $site_id,
         'plan_change_date' => $plan_change_date,

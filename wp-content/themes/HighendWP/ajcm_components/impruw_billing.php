@@ -10,6 +10,7 @@ function getvars_plan_active($recipients_email,$comm_data){
 
     $email_id   = $aj_comm->get_communication_meta($comm_data['id'],'email_id');
     $name   = $aj_comm->get_communication_meta($comm_data['id'],'user_name');
+    $language   = $aj_comm->get_communication_meta($comm_data['id'],'user_language');
     $new_plan_id   = $aj_comm->get_communication_meta($comm_data['id'],'plan_id');
     $site_id   = $aj_comm->get_communication_meta($comm_data['id'],'site_id');
     $plan_change_date   = $aj_comm->get_communication_meta($comm_data['id'],'plan_change_date');
@@ -29,22 +30,29 @@ function getvars_plan_active($recipients_email,$comm_data){
         }
     }
     $additional_features .= "</ul>";
-    _log($additional_features);
 
     $site_details = get_blog_details( $site_id );
-    
-
 
     // Define all url variables
     $site_url = $site_details->siteurl;
     $view_plans_link = $site_url.'/dashboard/#/billing/pricing-plans';
     $account_summary_link = $site_url.'/dashboard/#/billing';
 
-    $subject    = 'Impruw - Plan Change for '.$domain_name; //New Plan selected for <Domain Name>
-
     $display_price = $plan_currency." ".$plan_amount;
 
-    $template_data['name']          = 'impruw-plan-changed'; // [slug] name or slug of a template that exists in the user's mandrill account
+    // Language based content
+    switch ($language) {
+        case 'nb':
+            $subject = 'Impruw - planendring til '.$domain_name; //New Plan selected for <Domain Name>
+            $template_data['name'] = 'impruw-plan-changed-nb'; // [slug] name or slug of a template that exists in the user's mandrill account
+            break;
+        
+        default:
+            $subject = 'Impruw - Plan Change for '.$domain_name; //New Plan selected for <Domain Name>
+            $template_data['name'] = 'impruw-plan-changed'; // [slug] name or slug of a template that exists in the user's mandrill account
+            break;
+    }
+    
     $template_data['subject']       = $subject;
     $template_data['from_email']    = 'info@impruw.com';
     $template_data['from_name']     = 'Impruw';
