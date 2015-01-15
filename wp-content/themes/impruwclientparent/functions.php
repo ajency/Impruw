@@ -4014,8 +4014,16 @@ function show_revision_header_placeholder(){
 
 function show_revision_footer_placeholder(){
     echo '<div class="edit-info">The Footer is saved on Your Homepage. View the Footer changes on Your Homepage.</div>';
-
 }
+
+/**
+ * disable pingback for the site
+ */ 
+function remove_xmlrpc_pingback_ping( $methods ) {
+   unset( $methods['pingback.ping'] );
+   return $methods;
+}
+add_filter( 'xmlrpc_methods', 'remove_xmlrpc_pingback_ping' );
 
 // favicon link
 function favicon_link() { 
@@ -4043,3 +4051,4 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
     // call the modified list of extensions 
     return $existing_mimes; 
 }
+

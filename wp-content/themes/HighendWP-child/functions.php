@@ -725,3 +725,32 @@ function new_excerpt_more( $more ) {
   return '&hellip;';
 }
 add_filter('excerpt_more', 'new_excerpt_more');
+
+
+
+
+/**
+ * disable pingback for the site
+ */ 
+function remove_xmlrpc_pingback_ping( $methods ) {
+   unset( $methods['pingback.ping'] );
+   return $methods;
+}
+add_filter( 'xmlrpc_methods', 'remove_xmlrpc_pingback_ping' );
+
+
+
+/**
+ * Disable comments pingbacks to any site created 
+ */
+function disable_unwanted_features($blog_id, $user_id, $domain, $path, $site_id, $meta){
+
+    switch_to_blog($blog_id);
+    update_option('default_pingback_flag','');
+    update_option('default_ping_status', 'closed');
+    update_option('default_comment_status', 'closed');
+    restore_current_blog();
+
+}
+add_action('wpmu_new_blog', 'disable_unwanted_features', 100, 6);
+
