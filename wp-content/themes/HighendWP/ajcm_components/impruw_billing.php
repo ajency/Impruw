@@ -20,7 +20,10 @@ function getvars_plan_active($recipients_email,$comm_data){
     $site_details = get_blog_details( $site_id );
     $additional_features = "Features enabled";
 
+    // Define all url variables
     $site_url = $site_details->siteurl;
+    $view_plans_link = $site_url.'/dashboard/#/billing/pricing-plans';
+    $account_summary_link = $site_url.'/dashboard/#/billing';
 
     $subject    = 'Impruw - Plan Change for '.$domain_name; //New Plan selected for <Domain Name>
 
@@ -40,6 +43,8 @@ function getvars_plan_active($recipients_email,$comm_data){
     $template_data['global_merge_vars'][] = array('name' => 'DOMAIN_NAME','content' => $domain_name);
     $template_data['global_merge_vars'][] = array('name' => 'DISPLAY_PLAN_PRICE','content' => $display_price);
     $template_data['global_merge_vars'][] = array('name' => 'ADDITIONAL_FEATURES','content' => $additional_features);
+    $template_data['global_merge_vars'][] = array('name' => 'VIEW_PLANS_LINK','content' => $view_plans_link);
+    $template_data['global_merge_vars'][] = array('name' => 'ACCOUNT_SUMMARY_LINK','content' => $account_summary_link);
 
 
     return $template_data;

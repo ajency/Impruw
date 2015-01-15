@@ -26,6 +26,7 @@ function plan_active_email($site_id, $plan_id){
     // Plan details
     $feature_plan_details = ajbilling_get_feature_plan_by_id($plan_id);
     $feature_plan_name = $feature_plan_details['plan_title'];  //add translation for plan names in wpml
+    $feature_plan_features = $feature_plan_details['plan_features'];  //plan features
 
 
     $meta_data = array(
@@ -37,7 +38,8 @@ function plan_active_email($site_id, $plan_id){
         'plan_currency' => $plan_currency,
         'plan_amount' => $plan_amount,
         'domain_name' => $domain_name,
-        'plan_name' => $feature_plan_name
+        'plan_name' => $feature_plan_name,
+        'plan_features' => $feature_plan_features,
     );
 
     $comm_data = array(
