@@ -54,7 +54,7 @@
 			
 			
 			$custom_css = RevOperations::getStaticCss();
-			wp_add_inline_style( 'rs-plugin-settings', $custom_css );
+			//wp_add_inline_style( 'rs-plugin-settings', $custom_css );
 			//self::addStyle("static-captions","rs-plugin-static","rs-plugin/css");
 			
 			$setBase = (is_ssl()) ? "https://" : "http://";
