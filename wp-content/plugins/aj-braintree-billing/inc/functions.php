@@ -117,6 +117,7 @@ function aj_braintree_get_subscription($subscription_id ){
 		'billingPeriodEndDate' => 'N/A', 
 		'nextBillAmount' => '0', 
 		'price' => '0', 
+		'balance' => '0', 
 		'nextBillingDate' => 'N/A' 
 		);
 	try {

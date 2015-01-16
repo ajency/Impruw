@@ -449,6 +449,7 @@ function subscription_uncharged_email($subscription_id,$customer_details){
 
     $subscription_details = aj_braintree_get_subscription($subscription_id );
     $plan_amount = $subscription_details['price'];
+    $pending_amount = $subscription_details['balance'];
     $plan_currency = aj_billing_get_currency_from_site($site_id);
 
     $subscription_start_date = $subscription_details['billingPeriodStartDate'];
@@ -480,12 +481,13 @@ function subscription_uncharged_email($subscription_id,$customer_details){
         'site_id' => $site_id,
         'plan_currency' => $plan_currency,
         'plan_amount' => $plan_amount,
+        'pending_amount' => $pending_amount,
         'domain_name' => $domain_name,
         'plan_name' => $plan_name,
         'subscription_start_date' => $subscription_start_date,
         'subscription_end_date' => $subscription_end_date,
     );
-   	 
+
     $comm_data = array(
         'component' => 'impruw_billing',
         'communication_type' => 'subscription_uncharged'
