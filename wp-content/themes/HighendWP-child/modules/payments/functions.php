@@ -368,10 +368,24 @@ function subscription_charged_email($subscription_id,$customer_details){
     $customer_email = $customer_details['email'];
     $customer_name = $customer_details['name'];
 
-    $subscription_details = aj_braintree_get_subscription($subscription_id );
-   	$braintree_plan_id =  $subscription_details['planId'];
+    $user_from_email = get_user_by('email', $customer_email);
+    $site_id = get_siteid_from_useremail($customer_email);
+    $user_id = $user_from_email->ID;
+    $user_name = $user_from_email->display_name;
+    $user_language = get_user_meta($user_id,'user_lang',true);
 
-   	$feature_plan_id = 0;
+    $subscription_details = aj_braintree_get_subscription($subscription_id );
+    $plan_amount = $subscription_details['price'];
+    $plan_currency = aj_billing_get_currency_from_site($site_id);
+
+    $subscription_start_date = $subscription_details['billingPeriodStartDate'];
+    $subscription_end_date = $subscription_details['billingPeriodEndDate'];
+
+   	switch_to_blog($site_id);
+    $domain_name = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
+    restore_current_blog();
+
+   	$braintree_plan_id =  $subscription_details['planId'];
 
    	$feature_plan = ajbilling_get_plan_from_braintreeplan($braintree_plan_id);
 
@@ -382,16 +396,21 @@ function subscription_charged_email($subscription_id,$customer_details){
    	else{
    		$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
    		$plan_name = $braintree_plan['name']; 
+   		$feature_plan_id = 0;
    	}
-
-   	$site_id = get_siteid_from_useremail($customer_email);
 
    	 $meta_data = array(
         'email_id' => $customer_email,
-        'user_name' => $customer_name,
-        'plan_name' => $plan_name,
+        'user_name' => $user_name,
+        'user_language' => $user_language,
         'plan_id' => $feature_plan_id,
-        'site_id' => $site_id
+        'site_id' => $site_id,
+        'plan_currency' => $plan_currency,
+        'plan_amount' => $plan_amount,
+        'domain_name' => $domain_name,
+        'plan_name' => $plan_name,
+        'subscription_start_date' => $subscription_start_date,
+        'subscription_end_date' => $subscription_end_date,
     );
 
     $comm_data = array(
