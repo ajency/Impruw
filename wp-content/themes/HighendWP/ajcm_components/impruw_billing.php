@@ -255,29 +255,55 @@ function getvars_subscription_went_past_due($recipients_email,$comm_data){
 
 function getvars_subscription_canceled($recipients_email,$comm_data){
 
-     global $aj_comm;
+    global $aj_comm;
 
     $email_id   = $aj_comm->get_communication_meta($comm_data['id'],'email_id');
     $name   = $aj_comm->get_communication_meta($comm_data['id'],'user_name');
-    $new_plan_id   = $aj_comm->get_communication_meta($comm_data['id'],'plan_id');
-    $new_plan_name   = $aj_comm->get_communication_meta($comm_data['id'],'plan_name');
+    $language   = $aj_comm->get_communication_meta($comm_data['id'],'user_language');
+    $plan_id   = $aj_comm->get_communication_meta($comm_data['id'],'plan_id');
     $site_id   = $aj_comm->get_communication_meta($comm_data['id'],'site_id');
+    $plan_currency   = $aj_comm->get_communication_meta($comm_data['id'],'plan_currency');
+    $plan_amount   = $aj_comm->get_communication_meta($comm_data['id'],'plan_amount');
+    $pending_amount   = $aj_comm->get_communication_meta($comm_data['id'],'pending_amount');
+    $domain_name   = $aj_comm->get_communication_meta($comm_data['id'],'domain_name');
+    $plan_name   = $aj_comm->get_communication_meta($comm_data['id'],'plan_name');
+    $subscription_start_date   = $aj_comm->get_communication_meta($comm_data['id'],'subscription_start_date');
+    $subscription_end_date   = $aj_comm->get_communication_meta($comm_data['id'],'subscription_end_date');
 
-    $subject    = 'Impruw - Subscription canceled'; //New Plan selected for <Domain Name>
+    $site_details = get_blog_details( $site_id );
 
-    $template_data['name']          = 'impruw-subscription-canceled'; // [slug] name or slug of a template that exists in the user's mandrill account
+    // Define all url variables
+    $site_url = $site_details->siteurl;
+    $view_plans_link = $site_url.'/dashboard/#/billing/pricing-plans';
+
+    $display_pending_price = $plan_currency." ".$pending_amount;
+
+    // Language based content
+    switch ($language) {
+        case 'nb':
+            $subject = 'Impruw - Plan Avlyst for '.$domain_name; //New Plan selected for <Domain Name>
+            $template_data['name'] = 'impruw-subscription-pastdue-nb'; // [slug] name or slug of a template that exists in the user's mandrill account
+            break;
+
+        default:
+            $subject = 'Impruw - Plan Cancelled for '.$domain_name; //New Plan selected for <Domain Name>
+            $template_data['name'] = 'impruw-subscription-pastdue'; // [slug] name or slug of a template that exists in the user's mandrill account
+            break;
+    }
+
     $template_data['subject']       = $subject;
-    $template_data['from_email']    = 'nutan@ajency.in';
+    $template_data['from_email']    = 'info@impruw.com';
     $template_data['from_name']     = 'Impruw';
-
 
     $template_data['merge'] = true;
     $template_data['global_merge_vars'] = array();
     $template_data['global_merge_vars'][] = array('name' => 'USERNAME','content' => $name);
-    // $template_data['global_merge_vars'][] = array('name' => 'NEW_PLAN','content' => $new_plan);
-    // $template_data['global_merge_vars'][] = array('name' => 'DOMAIN_NAME','content' => $domain_name);
-    // $template_data['global_merge_vars'][] = array('name' => 'AMOUNT','content' => $amount);
-    // $template_data['global_merge_vars'][] = array('name' => 'PLAN_FEATURES','content' => $plan_features);
+    $template_data['global_merge_vars'][] = array('name' => 'DOMAIN_NAME','content' => $domain_name);
+    $template_data['global_merge_vars'][] = array('name' => 'PLAN_NAME','content' => $plan_name);
+    $template_data['global_merge_vars'][] = array('name' => 'SUBSCRIPTION_START_DATE','content' => $subscription_start_date);
+    $template_data['global_merge_vars'][] = array('name' => 'SUBSCRIPTION_END_DATE','content' => $subscription_end_date);
+    $template_data['global_merge_vars'][] = array('name' => 'DISPLAY_PENDING_PRICE','content' => $display_pending_price);
+    $template_data['global_merge_vars'][] = array('name' => 'VIEW_PLANS_LINK','content' => $view_plans_link);
 
 
     return $template_data;

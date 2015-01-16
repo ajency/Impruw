@@ -371,7 +371,7 @@ function subscription_charged_email($subscription_id,$customer_details){
     $user_from_email = get_user_by('email', $customer_email);
     $site_id = get_siteid_from_useremail($customer_email);
     $user_id = $user_from_email->ID;
-    $user_name = $user_from_email->display_name;
+    $user_name = $customer_name;
     $user_language = get_user_meta($user_id,'user_lang',true);
 
     $subscription_details = aj_braintree_get_subscription($subscription_id );
@@ -444,7 +444,7 @@ function subscription_uncharged_email($subscription_id,$customer_details){
     $user_from_email = get_user_by('email', $customer_email);
     $site_id = get_siteid_from_useremail($customer_email);
     $user_id = $user_from_email->ID;
-    $user_name = $user_from_email->display_name;
+    $user_name = $customer_name;
     $user_language = get_user_meta($user_id,'user_lang',true);
 
     $subscription_details = aj_braintree_get_subscription($subscription_id );
@@ -512,14 +512,29 @@ add_action( 'subscription_charged_unsuccessfully', 'subscription_uncharged_email
 function subscription_past_due_email($subscription_id,$customer_details){
 	global $aj_comm;
 
-    $braintree_customer_id = $customer_details['id'];
+	$braintree_customer_id = $customer_details['id'];
     $customer_email = $customer_details['email'];
     $customer_name = $customer_details['name'];
-    
-    $subscription_details = aj_braintree_get_subscription($subscription_id );
-   	$braintree_plan_id =  $subscription_details['planId'];
 
-   	$feature_plan_id = 0;
+    $user_from_email = get_user_by('email', $customer_email);
+    $site_id = get_siteid_from_useremail($customer_email);
+    $user_id = $user_from_email->ID;
+    $user_name = $customer_name;
+    $user_language = get_user_meta($user_id,'user_lang',true);
+
+    $subscription_details = aj_braintree_get_subscription($subscription_id );
+    $plan_amount = $subscription_details['price'];
+    $pending_amount = $subscription_details['balance'];
+    $plan_currency = aj_billing_get_currency_from_site($site_id);
+
+    $subscription_start_date = $subscription_details['billingPeriodStartDate'];
+    $subscription_end_date = $subscription_details['billingPeriodEndDate'];
+
+   	switch_to_blog($site_id);
+    $domain_name = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
+    restore_current_blog();
+
+   	$braintree_plan_id =  $subscription_details['planId'];
 
    	$feature_plan = ajbilling_get_plan_from_braintreeplan($braintree_plan_id);
 
@@ -530,16 +545,22 @@ function subscription_past_due_email($subscription_id,$customer_details){
    	else{
    		$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
    		$plan_name = $braintree_plan['name']; 
+   		$feature_plan_id = 0;
    	}
-
-   	$site_id = get_siteid_from_useremail($customer_email);
 
    	 $meta_data = array(
         'email_id' => $customer_email,
-        'user_name' => $customer_name,
-        'plan_name' => $plan_name,
+        'user_name' => $user_name,
+        'user_language' => $user_language,
         'plan_id' => $feature_plan_id,
-        'site_id' => $site_id
+        'site_id' => $site_id,
+        'plan_currency' => $plan_currency,
+        'plan_amount' => $plan_amount,
+        'pending_amount' => $pending_amount,
+        'domain_name' => $domain_name,
+        'plan_name' => $plan_name,
+        'subscription_start_date' => $subscription_start_date,
+        'subscription_end_date' => $subscription_end_date,
     );
 
     $comm_data = array(
@@ -566,53 +587,74 @@ function subscription_canceled_email($subscription_id,$customer_details){
 
 	global $aj_comm;
 
-    $braintree_customer_id = $customer_details['id'];
-    $customer_email = $customer_details['email'];
-    $customer_name = $customer_details['name'];
-    
-    $subscription_details = aj_braintree_get_subscription($subscription_id );
-   	$braintree_plan_id =  $subscription_details['planId'];
+	$braintree_customer_id = $customer_details['id'];
+	$customer_email = $customer_details['email'];
+	$customer_name = $customer_details['name'];
 
-   	$feature_plan_id = 0;
+	$user_from_email = get_user_by('email', $customer_email);
+	$site_id = get_siteid_from_useremail($customer_email);
+	$user_id = $user_from_email->ID;
+	$user_name = $customer_name;
+	$user_language = get_user_meta($user_id,'user_lang',true);
 
-   	$feature_plan = ajbilling_get_plan_from_braintreeplan($braintree_plan_id);
+	$subscription_details = aj_braintree_get_subscription($subscription_id );
+	$plan_amount = $subscription_details['price'];
+	$pending_amount = $subscription_details['balance'];
+	$plan_currency = aj_billing_get_currency_from_site($site_id);
 
-   	if ($feature_plan!="") {
-   		$plan_name = $feature_plan['title'];
-   		$feature_plan_id = $feature_plan['id'];
-   	}
-   	else{
-   		$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
-   		$plan_name = $braintree_plan['name']; 
-   	}
+	$subscription_start_date = $subscription_details['billingPeriodStartDate'];
+	$subscription_end_date = $subscription_details['billingPeriodEndDate'];
 
-   	$site_id = get_siteid_from_useremail($customer_email);
+	switch_to_blog($site_id);
+	$domain_name = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
+	restore_current_blog();
 
-   	 $meta_data = array(
-        'email_id' => $customer_email,
-        'user_name' => $customer_name,
-        'plan_name' => $plan_name,
-        'plan_id' => $feature_plan_id,
-        'site_id' => $site_id
-    );
+	$braintree_plan_id =  $subscription_details['planId'];
 
-    $comm_data = array(
-        'component' => 'impruw_billing',
-        'communication_type' => 'subscription_canceled'
-    );
+	$feature_plan = ajbilling_get_plan_from_braintreeplan($braintree_plan_id);
 
-    $user = get_user_by('email', $customer_email);
-    $user_id = $user->ID;
-    $recipient_emails =  array(
-                            array(
-                                'user_id' => $user_id,
-                                'type' => 'email',
-                                'value' => $customer_email,
-                                'status' => 'linedup'
-                            )
-                        );
+	if ($feature_plan!="") {
+		$plan_name = $feature_plan['title'];
+		$feature_plan_id = $feature_plan['id'];
+	}
+	else{
+		$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
+		$plan_name = $braintree_plan['name']; 
+		$feature_plan_id = 0;
+	}
 
-    $aj_comm->create_communication($comm_data,$meta_data,$recipient_emails);
+	$meta_data = array(
+		'email_id' => $customer_email,
+		'user_name' => $user_name,
+		'user_language' => $user_language,
+		'plan_id' => $feature_plan_id,
+		'site_id' => $site_id,
+		'plan_currency' => $plan_currency,
+		'plan_amount' => $plan_amount,
+		'pending_amount' => $pending_amount,
+		'domain_name' => $domain_name,
+		'plan_name' => $plan_name,
+		'subscription_start_date' => $subscription_start_date,
+		'subscription_end_date' => $subscription_end_date,
+		);
+
+	$comm_data = array(
+		'component' => 'impruw_billing',
+		'communication_type' => 'subscription_canceled'
+		);
+
+	$user = get_user_by('email', $customer_email);
+	$user_id = $user->ID;
+	$recipient_emails =  array(
+		array(
+			'user_id' => $user_id,
+			'type' => 'email',
+			'value' => $customer_email,
+			'status' => 'linedup'
+			)
+		);
+
+	$aj_comm->create_communication($comm_data,$meta_data,$recipient_emails);
 
 }
 add_action( 'subscription_canceled', 'subscription_canceled_email', 10, 2 );
