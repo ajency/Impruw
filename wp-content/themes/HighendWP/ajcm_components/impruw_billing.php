@@ -276,18 +276,18 @@ function getvars_subscription_canceled($recipients_email,$comm_data){
     $site_url = $site_details->siteurl;
     $view_plans_link = $site_url.'/dashboard/#/billing/pricing-plans';
 
-    $display_pending_price = $plan_currency." ".$pending_amount;
+    $display_plan_price = $plan_currency." ".$plan_amount;
 
     // Language based content
     switch ($language) {
         case 'nb':
             $subject = 'Impruw - Plan Avlyst for '.$domain_name; //New Plan selected for <Domain Name>
-            $template_data['name'] = 'impruw-subscription-pastdue-nb'; // [slug] name or slug of a template that exists in the user's mandrill account
+            $template_data['name'] = 'impruw-subscription-canceled-nb'; // [slug] name or slug of a template that exists in the user's mandrill account
             break;
 
         default:
             $subject = 'Impruw - Plan Cancelled for '.$domain_name; //New Plan selected for <Domain Name>
-            $template_data['name'] = 'impruw-subscription-pastdue'; // [slug] name or slug of a template that exists in the user's mandrill account
+            $template_data['name'] = 'impruw-subscription-canceled'; // [slug] name or slug of a template that exists in the user's mandrill account
             break;
     }
 
@@ -302,7 +302,7 @@ function getvars_subscription_canceled($recipients_email,$comm_data){
     $template_data['global_merge_vars'][] = array('name' => 'PLAN_NAME','content' => $plan_name);
     $template_data['global_merge_vars'][] = array('name' => 'SUBSCRIPTION_START_DATE','content' => $subscription_start_date);
     $template_data['global_merge_vars'][] = array('name' => 'SUBSCRIPTION_END_DATE','content' => $subscription_end_date);
-    $template_data['global_merge_vars'][] = array('name' => 'DISPLAY_PENDING_PRICE','content' => $display_pending_price);
+    $template_data['global_merge_vars'][] = array('name' => 'DISPLAY_PLAN_PRICE','content' => $display_plan_price);
     $template_data['global_merge_vars'][] = array('name' => 'VIEW_PLANS_LINK','content' => $view_plans_link);
 
 
