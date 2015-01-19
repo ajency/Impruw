@@ -127,7 +127,9 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
       };
 
       CreditCardListView.prototype.onRender = function() {
-        return $('.spinner-markup').spin(false);
+        $('.spinner-markup').spin(false);
+        this.$el.find('#exp_month').selectpicker();
+        return this.$el.find('#exp_year').selectpicker();
       };
 
       CreditCardListView.prototype.events = {

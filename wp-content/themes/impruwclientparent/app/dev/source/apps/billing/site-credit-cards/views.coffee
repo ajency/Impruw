@@ -89,6 +89,9 @@ define [ 'app'
 
             onRender :->
                 $( '.spinner-markup' ).spin false
+                @$el.find( '#exp_month' ).selectpicker()
+                @$el.find( '#exp_year' ).selectpicker()
+
 
             events:
                 'click #btn-add-new-card':(e)->

@@ -6,10 +6,10 @@ define ['app'
             tagName: "li"
 
             template: '<div class="form-group">
-                                                <label for="checkbox2" class="checkbox {{#isDefaultLanguage}}disabled checked{{/isDefaultLanguage}} ">
-                                                    <input type="checkbox" data-toggle="checkbox" {{#selectStatus}}checked{{/selectStatus}} value="{{code}}" {{#isDefaultLanguage}}disabled{{/isDefaultLanguage}}>{{languageName}}
-                                                </label>
-                                            </div> '
+                            <label for="checkbox2" class="checkbox {{#isDefaultLanguage}}disabled checked{{/isDefaultLanguage}} ">
+                                <input type="checkbox" data-toggle="checkbox" {{#selectStatus}}checked{{/selectStatus}} value="{{code}}" {{#isDefaultLanguage}}disabled{{/isDefaultLanguage}}>{{languageName}}
+                            </label>
+                        </div> '
 
             events:
                 "change input[type='checkbox']": "saveLanguage"

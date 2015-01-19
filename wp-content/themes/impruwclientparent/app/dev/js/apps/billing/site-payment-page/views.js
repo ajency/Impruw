@@ -91,6 +91,11 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         'change': 'render'
       };
 
+      PaymentPageView.prototype.onShow = function() {
+        this.$el.find('#exp_month').selectpicker();
+        return this.$el.find('#exp_year').selectpicker();
+      };
+
       PaymentPageView.prototype.itemViewOptions = function(model, index) {
         return {
           activePaymentToken: Marionette.getOption(this, 'activePaymentToken')

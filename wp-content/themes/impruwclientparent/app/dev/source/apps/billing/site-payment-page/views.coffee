@@ -67,6 +67,10 @@ define [ 'app'
             modelEvents:
                 'change': 'render'
 
+            onShow  :->
+                @$el.find( '#exp_month' ).selectpicker()
+                @$el.find( '#exp_year' ).selectpicker()
+
             itemViewOptions :(model,index) ->
                 activePaymentToken : Marionette.getOption @, 'activePaymentToken'
 

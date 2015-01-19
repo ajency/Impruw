@@ -6,11 +6,14 @@ define ['app'
         class SiteAddOnsInfoItemView extends Marionette.ItemView
 
             template: '<div class="form-group">
-                        <label class="checkbox"><input type="checkbox" value="{{element}}" {{#selectStatus}}checked{{/selectStatus}}> 
+                        <label for="checkbox2" class="checkbox"><input type="checkbox" data-toggle="checkbox" value="{{element}}" {{#selectStatus}}checked{{/selectStatus}}> 
                             {{title}}
                         </label>
                        </div>'
             className: 'col-sm-3'
+
+            onShow: ->
+                @$el.find('input[type="checkbox"]').radiocheck()
 
             mixinTemplateHelpers:(data)->
                 data = super data

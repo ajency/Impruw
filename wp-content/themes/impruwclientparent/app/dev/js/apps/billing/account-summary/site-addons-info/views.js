@@ -11,9 +11,13 @@ define(['app', 'text!apps/billing/account-summary/templates/siteAddOnsInfo.html'
         return SiteAddOnsInfoItemView.__super__.constructor.apply(this, arguments);
       }
 
-      SiteAddOnsInfoItemView.prototype.template = '<div class="form-group"> <label class="checkbox"><input type="checkbox" value="{{element}}" {{#selectStatus}}checked{{/selectStatus}}> {{title}} </label> </div>';
+      SiteAddOnsInfoItemView.prototype.template = '<div class="form-group"> <label for="checkbox2" class="checkbox"><input type="checkbox" data-toggle="checkbox" value="{{element}}" {{#selectStatus}}checked{{/selectStatus}}> {{title}} </label> </div>';
 
       SiteAddOnsInfoItemView.prototype.className = 'col-sm-3';
+
+      SiteAddOnsInfoItemView.prototype.onShow = function() {
+        return this.$el.find('input[type="checkbox"]').radiocheck();
+      };
 
       SiteAddOnsInfoItemView.prototype.mixinTemplateHelpers = function(data) {
         data = SiteAddOnsInfoItemView.__super__.mixinTemplateHelpers.call(this, data);

@@ -10,9 +10,9 @@
             <!--CREDIT CARD COLLECTION  ends-->
         </div>
 
-        <hr>
-
-        <a data-toggle="collapse" data-target="#add-new-card" class="btn btn-xs btn-info" style="cursor:pointer;margin-top: 1em;"> <span class="glyphicon glyphicon-plus"></span> {{#polyglot}}Add New Card{{/polyglot}} </a>
+        <form>
+            <a data-toggle="collapse" data-target="#add-new-card" class="btn btn-default btn-xs aj-imp-submit" > <span class="glyphicon glyphicon-plus"></span> {{#polyglot}}Add New Card{{/polyglot}} </a>
+        </form>
         <!--ADD CARD FORM begins-->
         <div class="collapse" id="add-new-card">
             <hr>
@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">{{#polyglot}}Security Code{{/polyglot}}</label>
 
-                    <div class="col-sm-3 col-sm-offset-3">
+                    <div class="col-sm-2 col-sm-offset-3">
                         <input type="password" class="form-control" placeholder="{{#polyglot}}CVV{{/polyglot}}"
                         data-braintree-name="cvv" id="card-cvv" >
 
@@ -88,7 +88,7 @@
                 </div>
                 <div class="form-group margin-top">
                     <div class="col-sm-8 col-sm-offset-3">
-                        <button type="submit" class="btn btn-xs btn-info"
+                        <button type="submit" class="btn btn-sm aj-imp-orange-btn"
                         id="btn-add-card">
                         {{#polyglot}}Add Card{{/polyglot}} </button>
 
