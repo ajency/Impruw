@@ -1889,6 +1889,15 @@ form {
 		border-bottom: 1px solid @dash-grey;
 		border-radius: 4px 4px 0 0;
 	}
+
+	&.bootbox {
+		.btn-primary {
+			background: @orange;
+			&:hover {
+				background: lighten(@orange, 10%);
+			}
+		}
+	}
 }
 
 /****File Upload Plugin Styles****/
@@ -4401,7 +4410,7 @@ form {
 					display: block;
 					margin-bottom: 0.2em;
 					&.active {
-						color: @success-green;
+						color: @orange;
 					}
 					&.pending {
 						color: lighten(@red, 10%);
@@ -4409,14 +4418,14 @@ form {
 				}
 			}
 			&.active {
-				border-color: @success-green;
+				border-color: @orange;
 				.panel-heading {
 					h3 {
-						color: @success-green;
+						color: @orange;
 					}
 				}
 				.ribbon {
-					background: @success-green;
+					background: @orange;
 					display: block;
 					color: #fff;
 					padding: 13px 12px 14px;
@@ -4429,6 +4438,13 @@ form {
 						&:hover, &:focus {
 							background: transparent;
 							color: #fff;
+						}
+					}
+				}
+				&:hover{
+					.panel-heading {
+						h3 {
+							color: @orange;
 						}
 					}
 				}
