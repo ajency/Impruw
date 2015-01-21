@@ -85,7 +85,8 @@ define [ 'app'
                 selectedPlanAmount = Marionette.getOption @, 'selectedPlanAmount'
                 prorationCharge = Marionette.getOption @, 'prorationCharge'
                 currentSubscriptionDaysLeft = Marionette.getOption @, 'currentSubscriptionDaysLeft'
-
+                isSubscription = Marionette.getOption @, 'isSubscription'
+                console.log isSubscription
                 data = super()
                 data.THEMEURL = THEMEURL
                 data.activePlanName = activePlanName
@@ -98,6 +99,7 @@ define [ 'app'
                 data.selectedPlanAmount = selectedPlanAmount
                 data.prorationCharge = prorationCharge
                 data.currentSubscriptionDaysLeft = currentSubscriptionDaysLeft
+                data.isSubscription = isSubscription
                 data
 
             events :
@@ -163,7 +165,7 @@ define [ 'app'
                 @$el.find( '#billingpay_status' ).append( html )
 
 
-        #payment view when using stored credit card
+        #payment view when using new credit card
         class View.FirstTimePaymentView extends  Marionette.ItemView
 
             template : newCustomerPaymentViewTpl
@@ -179,6 +181,8 @@ define [ 'app'
                 selectedPlanAmount = Marionette.getOption @, 'selectedPlanAmount'
                 prorationCharge = Marionette.getOption @, 'prorationCharge'
                 currentSubscriptionDaysLeft = Marionette.getOption @, 'currentSubscriptionDaysLeft'
+                isSubscription = Marionette.getOption @, 'isSubscription'
+                console.log isSubscription
 
                 data = super()
                 data.THEMEURL = THEMEURL
@@ -192,6 +196,7 @@ define [ 'app'
                 data.selectedPlanAmount = selectedPlanAmount
                 data.prorationCharge = prorationCharge
                 data.currentSubscriptionDaysLeft = currentSubscriptionDaysLeft
+                data.isSubscription = isSubscription
                 data
 
             events :

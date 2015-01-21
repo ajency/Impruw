@@ -12,35 +12,41 @@ define [ 'app', 'controllers/base-controller'
                 @selectedPlanId = opts.planId
                 @braintreePlanId = opts.braintreePlanId
 
-                # Get selected plan details to be displayed in the view
-                selectedPlanModel = App.request "get:feature:plan:by:id",@selectedPlanId
-                @selectedPlanName = selectedPlanModel.get 'plan_title'
-                @selectedPlanAmount = selectedPlanModel.get 'price'
+                # Option to check whether payment page is for subscription or assisted set up
+                @isSubscription = opts.subscription
 
-                # Get current subscription details to be displayed in the view
-                subscriptionCollection = App.request "get:site:subscriptions"
-                currentSubscriptionModel = subscriptionCollection.at 0
-                @activePaymentToken =  currentSubscriptionModel.get 'paymentMethodToken'
-                @currentSubscriptionAmount = currentSubscriptionModel.get 'price'
-                @currencySymbol = currentSubscriptionModel.get 'currency'
-                @billingPeriodStartDate = currentSubscriptionModel.get 'billingPeriodStartDate'
-                @billingPeriodEndDate = currentSubscriptionModel.get 'billingPeriodEndDate'
-                @nextBillingDate = currentSubscriptionModel.get 'nextBillingDate'
+                if @isSubscription
+                    # Get selected plan details to be displayed in the view
+                    selectedPlanModel = App.request "get:feature:plan:by:id",@selectedPlanId
+                    @selectedPlanName = selectedPlanModel.get 'plan_title'
+                    @selectedPlanAmount = selectedPlanModel.get 'price'
 
-                # Get proration charge
-                @prorationCharge = @getProrationCharge(@currentSubscriptionAmount, @selectedPlanAmount,@billingPeriodStartDate,@billingPeriodEndDate)
-                console.log @prorationCharge
+                    # Get current subscription details to be displayed in the view
+                    subscriptionCollection = App.request "get:site:subscriptions"
+                    currentSubscriptionModel = subscriptionCollection.at 0
+                    @activePaymentToken =  currentSubscriptionModel.get 'paymentMethodToken'
+                    @currentSubscriptionAmount = currentSubscriptionModel.get 'price'
+                    @currencySymbol = currentSubscriptionModel.get 'currency'
+                    @billingPeriodStartDate = currentSubscriptionModel.get 'billingPeriodStartDate'
+                    @billingPeriodEndDate = currentSubscriptionModel.get 'billingPeriodEndDate'
+                    @nextBillingDate = currentSubscriptionModel.get 'nextBillingDate'
                 
-                @currentSubscriptionDaysLeft = @getCurrentSubscriptionDaysLeft(@billingPeriodStartDate,@billingPeriodEndDate)
-                
+                    # Get proration charge
+                    @prorationCharge = @getProrationCharge(@currentSubscriptionAmount, @selectedPlanAmount,@billingPeriodStartDate,@billingPeriodEndDate)
+                    console.log @prorationCharge
+                    
+                    @currentSubscriptionDaysLeft = @getCurrentSubscriptionDaysLeft(@billingPeriodStartDate,@billingPeriodEndDate)
+                    
 
-                # Get current active plan name
-                if PAYMENT_PLAN_ID is '1'
-                    @activePlanName = 'Free'
+                    # Get current active plan name
+                    if PAYMENT_PLAN_ID is '1'
+                        @activePlanName = 'Free'
+                    else
+                        activePlanModel = App.request "get:feature:plan:by:id",PAYMENT_PLAN_ID
+                        @activePlanName = activePlanModel.get 'plan_title'
+
                 else
-                    activePlanModel = App.request "get:feature:plan:by:id",PAYMENT_PLAN_ID
-                    @activePlanName = activePlanModel.get 'plan_title'
-
+                    @assistedSetupAmount = 10
 
                 @layout = @getLayout @siteModel
 
@@ -153,6 +159,7 @@ define [ 'app', 'controllers/base-controller'
                     prorationCharge : @prorationCharge
                     currentSubscriptionDaysLeft : @currentSubscriptionDaysLeft
                     activePaymentToken : @activePaymentToken
+                    isSubscription : @isSubscription
 
             getFirstTimePaymentPageView : ( creditCardModel )->
                 new SitePayment.View.FirstTimePaymentView
@@ -167,6 +174,7 @@ define [ 'app', 'controllers/base-controller'
                     selectedPlanAmount : @selectedPlanAmount
                     prorationCharge : @prorationCharge
                     currentSubscriptionDaysLeft : @currentSubscriptionDaysLeft
+                    isSubscription : @isSubscription
 
             newCardPayment : ( paymentMethodNonce )=>
                 

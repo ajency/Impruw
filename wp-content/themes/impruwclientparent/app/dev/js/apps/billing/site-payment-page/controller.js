@@ -21,25 +21,30 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         this.braintreeCustomerId = this.siteModel.get('braintree_customer_id');
         this.selectedPlanId = opts.planId;
         this.braintreePlanId = opts.braintreePlanId;
-        selectedPlanModel = App.request("get:feature:plan:by:id", this.selectedPlanId);
-        this.selectedPlanName = selectedPlanModel.get('plan_title');
-        this.selectedPlanAmount = selectedPlanModel.get('price');
-        subscriptionCollection = App.request("get:site:subscriptions");
-        currentSubscriptionModel = subscriptionCollection.at(0);
-        this.activePaymentToken = currentSubscriptionModel.get('paymentMethodToken');
-        this.currentSubscriptionAmount = currentSubscriptionModel.get('price');
-        this.currencySymbol = currentSubscriptionModel.get('currency');
-        this.billingPeriodStartDate = currentSubscriptionModel.get('billingPeriodStartDate');
-        this.billingPeriodEndDate = currentSubscriptionModel.get('billingPeriodEndDate');
-        this.nextBillingDate = currentSubscriptionModel.get('nextBillingDate');
-        this.prorationCharge = this.getProrationCharge(this.currentSubscriptionAmount, this.selectedPlanAmount, this.billingPeriodStartDate, this.billingPeriodEndDate);
-        console.log(this.prorationCharge);
-        this.currentSubscriptionDaysLeft = this.getCurrentSubscriptionDaysLeft(this.billingPeriodStartDate, this.billingPeriodEndDate);
-        if (PAYMENT_PLAN_ID === '1') {
-          this.activePlanName = 'Free';
+        this.isSubscription = opts.subscription;
+        if (this.isSubscription) {
+          selectedPlanModel = App.request("get:feature:plan:by:id", this.selectedPlanId);
+          this.selectedPlanName = selectedPlanModel.get('plan_title');
+          this.selectedPlanAmount = selectedPlanModel.get('price');
+          subscriptionCollection = App.request("get:site:subscriptions");
+          currentSubscriptionModel = subscriptionCollection.at(0);
+          this.activePaymentToken = currentSubscriptionModel.get('paymentMethodToken');
+          this.currentSubscriptionAmount = currentSubscriptionModel.get('price');
+          this.currencySymbol = currentSubscriptionModel.get('currency');
+          this.billingPeriodStartDate = currentSubscriptionModel.get('billingPeriodStartDate');
+          this.billingPeriodEndDate = currentSubscriptionModel.get('billingPeriodEndDate');
+          this.nextBillingDate = currentSubscriptionModel.get('nextBillingDate');
+          this.prorationCharge = this.getProrationCharge(this.currentSubscriptionAmount, this.selectedPlanAmount, this.billingPeriodStartDate, this.billingPeriodEndDate);
+          console.log(this.prorationCharge);
+          this.currentSubscriptionDaysLeft = this.getCurrentSubscriptionDaysLeft(this.billingPeriodStartDate, this.billingPeriodEndDate);
+          if (PAYMENT_PLAN_ID === '1') {
+            this.activePlanName = 'Free';
+          } else {
+            activePlanModel = App.request("get:feature:plan:by:id", PAYMENT_PLAN_ID);
+            this.activePlanName = activePlanModel.get('plan_title');
+          }
         } else {
-          activePlanModel = App.request("get:feature:plan:by:id", PAYMENT_PLAN_ID);
-          this.activePlanName = activePlanModel.get('plan_title');
+          this.assistedSetupAmount = 10;
         }
         this.layout = this.getLayout(this.siteModel);
         App.vent.trigger("set:active:menu", 'billing');
@@ -139,7 +144,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           selectedPlanAmount: this.selectedPlanAmount,
           prorationCharge: this.prorationCharge,
           currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft,
-          activePaymentToken: this.activePaymentToken
+          activePaymentToken: this.activePaymentToken,
+          isSubscription: this.isSubscription
         });
       };
 
@@ -155,7 +161,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           selectedPlanName: this.selectedPlanName,
           selectedPlanAmount: this.selectedPlanAmount,
           prorationCharge: this.prorationCharge,
-          currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft
+          currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft,
+          isSubscription: this.isSubscription
         });
       };
 
