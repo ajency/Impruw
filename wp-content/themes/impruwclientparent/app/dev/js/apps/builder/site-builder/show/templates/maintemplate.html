@@ -1,3 +1,66 @@
+<div class="builder-header">
+    <div class="builder-back">
+        <a href="{{DASHBOARDURL}}">
+            <span class="bicon icon-uniF151"></span>&nbsp;<!-- {{#polyglot}}Back to Dashboard{{/polyglot}} -->
+        </a>
+    </div>
+
+    <div class="header-sections">
+
+        <div class="aj-imp-browser-title">
+            <label class="header-label">
+                {{#polyglot}}Current Page: {{/polyglot}}
+            </label>
+            <div class="page-sel-del">
+                <select id="builder-page-sel" name="builder-page-sel">
+                    {{#pages}}
+                    <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
+                    {{/pages}}
+                </select>
+            </div>
+                <!-- <a href="#" class="delete-page">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    {{#polyglot}}Delete Page{{/polyglot}}
+                </a> -->
+            <!-- <a href="#" class="add-new-page">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                {{#polyglot}}Add Page{{/polyglot}}
+            </a> -->
+        </div>
+
+        <div class="page-name">
+            <div class="page-name-content">
+                <label class="header-label">
+                    {{#polyglot}}Page Title{{/polyglot}}:
+                </label>
+                <input type="text" name="page_name" id="page_name" class="page-name-input">
+                <button type="button" class="btn-update-pg-name">{{#polyglot}}Update{{/polyglot}}</button>
+            </div>
+        </div>
+
+        <div class="aj-imp-browser-address-bar clearfix">
+            <label class="header-label">
+                {{#polyglot}}Page URL{{/polyglot}}:
+            </label>
+            <span class="site-url">{{SITEURL}}</span>
+            <input type="text" value="" class="page-slug-edit">
+            <button type="button" class="btn-update-pg-slug">{{#polyglot}}Update{{/polyglot}}</button>
+        </div>
+
+        <div class="page-details-edit">
+            <a href="#">
+                <span class="bicon icon-uniF13F"></span>
+            </a>
+        </div>
+
+        <div class="color-switch">
+            <a href="#" class="color-switch-img"></a>
+        </div>
+
+    </div>
+
+</div>
+
 <div class="aj-imp-browser-preview">
     <!-- browser header-->
     <div class="aj-imp-browser-header">
@@ -35,7 +98,9 @@
             </div>
         </div>
         <!--row first-->
-        <div class="row">
+
+        <!-- Uncomment this to make the title and url editable -->
+        <!-- <div class="row">
             <div class="col-sm-2">
                 <div class="builder-back">
                     <a href="{{DASHBOARDURL}}">
@@ -69,35 +134,24 @@
                     <span class="glyphicon glyphicon-hand-left"></span> {{#polyglot}}You can add, remove and edit the pages on your site from here.{{/polyglot}}
                 </div>
             </div>
-        </div>
+        </div> -->
+
         <!--second row-->
         <div class="row second">
             <div class="col-sm-9">
-                <!-- Change page name section -->
-                <div class="page-name">
-                    <div class="page-name-content">
-                        <b>{{#polyglot}}Page Title{{/polyglot}}: </b>
-                        <input type="text" name="page_name" id="page_name" class="page-name-input">
-                        <button type="button" class="btn-update-pg-name">{{#polyglot}}Update{{/polyglot}}</button>
-                    </div>
-                </div>
-                <div class="aj-imp-browser-address-bar clearfix">
-                    <b>{{#polyglot}}Page URL{{/polyglot}}: </b>
-                    <span class="site-url">{{SITEURL}}</span>
-                    <input type="text" value="" class="page-slug-edit">
-                    <button type="button" class="btn-update-pg-slug">{{#polyglot}}Update{{/polyglot}}</button>
-                </div>
+               
             </div>
             <div class="aj-imp-save-action col-sm-3">
                 <div class="aj-imp-page-publish">
                     <div id="aj-imp-preview-sel">
-                        <a href="#" class="preview-btn preview-current-page" target="_newtab">
-                            <span class="bicon icon-uniF16D"></span>&nbsp;{{#polyglot}}Preview{{/polyglot}} 
+                        <a href="#" class="header-buttons preview-current-page" target="_newtab">
+                            <span class="bicon icon-uniF16D"></span>
                         </a>
                     </div>
                     <div class="aj-imp-publish">
-                        <a href="#" class="publish-page btn btn-primary btn-sm btn-embossed"><span
-                        class="glyphicon glyphicon-floppy-disk"></span> {{#polyglot}}Publish{{/polyglot}} </a>
+                        <a href="#" class="header-buttons publish-page ">
+                            <span class="bicon icon-uniF16C"></span>
+                        </a>
                     </div>
                 </div>
             </div>

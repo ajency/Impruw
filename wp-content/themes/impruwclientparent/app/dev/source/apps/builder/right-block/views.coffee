@@ -35,6 +35,6 @@ define ['app'],(App)->
 					tabLocation: 'right'                     
 					speed: 300                              
 					action: 'click'                          
-					topPos: '30px'                          
+					topPos: '80px'                          
 					fixedPosition: true
 

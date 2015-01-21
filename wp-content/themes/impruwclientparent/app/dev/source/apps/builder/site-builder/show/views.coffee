@@ -174,7 +174,7 @@ define [ 'app'
             parseInt pageId
 
          onPagePublished : =>
-            @$el.find( '.publish-page ' ).text 'Publish'
+            @$el.find( '.publish-page ' ).html '<span class="bicon icon-uniF16C"></span>'
             @$el.find( '.publish-page ' ).removeAttr 'disabled'
             
             
