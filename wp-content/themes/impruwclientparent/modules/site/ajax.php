@@ -72,6 +72,8 @@ function read_language_based_site_ajax(){
         $data [ 'braintree_subscription' ] = (function_exists('aj_braintree_get_customer_subscription')) ? aj_braintree_get_customer_subscription($data [ 'braintree_customer_id' ]) : NULL;
     }
 
+    $data [ 'assistedSetUpPlanId' ] = get_assisted_setup_plan_id($site_id);
+
      
     $data [ 'domain_name' ] = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
 
