@@ -49,7 +49,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
             return function() {
               _this.selectedPlanName = _this.selectedBraintreePlanModel.get('name');
               _this.selectedPlanAmount = _this.selectedBraintreePlanModel.get('price');
-              return _this.currencySymbol = _this.selectedBraintreePlanModel.get('currencyIsoCode');
+              _this.currencyCode = _this.selectedBraintreePlanModel.get('currencyIsoCode');
+              return _this.currencySymbol = CURRENCY_SYMBOLS[_this.currencyCode];
             };
           })(this));
         }

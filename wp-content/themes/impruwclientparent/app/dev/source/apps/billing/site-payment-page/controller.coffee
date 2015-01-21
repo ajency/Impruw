@@ -50,7 +50,8 @@ define [ 'app', 'controllers/base-controller'
                     App.execute "when:fetched",  @selectedBraintreePlanModel, =>
                         @selectedPlanName = @selectedBraintreePlanModel.get('name')
                         @selectedPlanAmount = @selectedBraintreePlanModel.get('price')
-                        @currencySymbol = @selectedBraintreePlanModel.get('currencyIsoCode')
+                        @currencyCode = @selectedBraintreePlanModel.get('currencyIsoCode')
+                        @currencySymbol = CURRENCY_SYMBOLS[@currencyCode] 
 
                 @layout = @getLayout @siteModel
 
