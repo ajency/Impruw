@@ -10,7 +10,7 @@ define ['app'
             regions :
                 accountPlanRegion : '#account-plan-info'
                 accountSubscriptionRegion : '#account-subscription-info'
-                # accountInfoRegion : '#account-info'
+                assistedSetupRegion : '#assisted-setup-info'
                 siteAddOnRegion : '#site-addons-info'
                 pendingSubscriptionRegion : '#pending-sub'
                 billingInfoRegion : '#billing-info'

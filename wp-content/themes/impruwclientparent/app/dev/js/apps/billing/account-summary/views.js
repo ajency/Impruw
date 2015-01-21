@@ -15,6 +15,7 @@ define(['app', 'text!apps/billing/account-summary/templates/mainView.html'], fun
       Layout.prototype.regions = {
         accountPlanRegion: '#account-plan-info',
         accountSubscriptionRegion: '#account-subscription-info',
+        assistedSetupRegion: '#assisted-setup-info',
         siteAddOnRegion: '#site-addons-info',
         pendingSubscriptionRegion: '#pending-sub',
         billingInfoRegion: '#billing-info',

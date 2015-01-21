@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/billing/account-summary/account-plan-info/controller', 'apps/billing/account-summary/account-subscription-info/controller', 'apps/billing/account-summary/site-addons-info/controller', 'apps/billing/account-summary/views'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'apps/billing/account-summary/account-plan-info/controller', 'apps/billing/account-summary/account-subscription-info/controller', 'apps/billing/account-summary/site-addons-info/controller', 'apps/billing/account-summary/assisted-setup-info/controller', 'apps/billing/account-summary/views'], function(App, AppController) {
   return App.module('BillingApp.AccountSummary', function(AccountSummary, App, Backbone, Marionette, $, _) {
     AccountSummary.Controller = (function(_super) {
       __extends(Controller, _super);
@@ -22,8 +22,15 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
             App.execute("show:account:subscription:info", {
               region: _this.layout.accountSubscriptionRegion
             });
-            return App.execute("show:site:addons:info", {
+            App.execute("show:site:addons:info", {
               region: _this.layout.siteAddOnRegion
+            });
+            return App.execute("when:fetched", _this.siteModel, function() {
+              _this.assistedSetupPlanId = _this.siteModel.get('assistedSetUpPlanId');
+              return App.execute("show:assisted:setup:info", {
+                region: _this.layout.assistedSetupRegion,
+                assistedSetupPlanId: _this.assistedSetupPlanId
+              });
             });
           };
         })(this));
