@@ -20,6 +20,7 @@ define [
                 'billing/update-billing' : 'updateBilling'
                 'billing/pricing-plans' : 'plans'
                 'billing/payment-page/:id/:braintreeId' : 'payment'
+                'billing/payment-page' : 'assistedSetupPayment'
                 'billing/transaction-history' : 'transactionHistory'
 
 
@@ -39,6 +40,12 @@ define [
                     region : App.rightRegion
                     planId  : planId
                     braintreePlanId  : braintreePlanId
+                    subscription : true
+
+            assistedSetupPayment :->
+                App.execute "show:site:payment:app",
+                    region : App.rightRegion
+                    subscription : false
 
             creditCards : ->
                 App.execute "show:site:credit:cards:app",
