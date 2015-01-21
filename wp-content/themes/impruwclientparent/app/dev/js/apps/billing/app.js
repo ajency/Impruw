@@ -18,7 +18,7 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
         'billing/update-billing': 'updateBilling',
         'billing/pricing-plans': 'plans',
         'billing/payment-page/:id/:braintreeId': 'payment',
-        'billing/payment-page': 'assistedSetupPayment',
+        'billing/payment-page/assisted-setup': 'assistedSetupPayment',
         'billing/transaction-history': 'transactionHistory'
       };
 
