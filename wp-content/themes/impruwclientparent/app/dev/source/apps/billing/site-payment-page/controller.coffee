@@ -46,7 +46,11 @@ define [ 'app', 'controllers/base-controller'
                         @activePlanName = activePlanModel.get 'plan_title'
 
                 else
-                    @assistedSetupAmount = 10
+                    @selectedBraintreePlanModel = App.request "get:braintreeplan:by:id", @braintreePlanId
+                    App.execute "when:fetched",  @selectedBraintreePlanModel, =>
+                        @selectedPlanName = @selectedBraintreePlanModel.get('name')
+                        @selectedPlanAmount = @selectedBraintreePlanModel.get('price')
+                        @currencySymbol = @selectedBraintreePlanModel.get('currencyIsoCode')
 
                 @layout = @getLayout @siteModel
 

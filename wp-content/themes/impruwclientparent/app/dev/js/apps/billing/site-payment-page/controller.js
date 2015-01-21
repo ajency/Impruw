@@ -44,7 +44,14 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
             this.activePlanName = activePlanModel.get('plan_title');
           }
         } else {
-          this.assistedSetupAmount = 10;
+          this.selectedBraintreePlanModel = App.request("get:braintreeplan:by:id", this.braintreePlanId);
+          App.execute("when:fetched", this.selectedBraintreePlanModel, (function(_this) {
+            return function() {
+              _this.selectedPlanName = _this.selectedBraintreePlanModel.get('name');
+              _this.selectedPlanAmount = _this.selectedBraintreePlanModel.get('price');
+              return _this.currencySymbol = _this.selectedBraintreePlanModel.get('currencyIsoCode');
+            };
+          })(this));
         }
         this.layout = this.getLayout(this.siteModel);
         App.vent.trigger("set:active:menu", 'billing');

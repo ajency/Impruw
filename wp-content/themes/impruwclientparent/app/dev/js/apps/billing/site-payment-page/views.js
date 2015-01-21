@@ -115,7 +115,6 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         prorationCharge = Marionette.getOption(this, 'prorationCharge');
         currentSubscriptionDaysLeft = Marionette.getOption(this, 'currentSubscriptionDaysLeft');
         isSubscription = Marionette.getOption(this, 'isSubscription');
-        console.log(isSubscription);
         data = PaymentPageView.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
         data.activePlanName = activePlanName;
