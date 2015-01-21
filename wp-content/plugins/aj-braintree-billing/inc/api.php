@@ -83,7 +83,12 @@
 
            $routes['/ajbilling/braintreePlan/(?P<object_id>\d+)/(?P<object_type>\S+)/(?P<plan_id>\d+)/(?P<braintree_plan_id>\S+)'] = array(
             array( array( $this, 'change_site_braintree_plan'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
+            ); 
+
+           $routes['/ajbilling/braintreePlans/(?P<braintree_plan_id>\S+)'] = array(
+            array( array( $this, 'get_braintree_plan'), WP_JSON_Server::READABLE ),
             );
+
            $routes['/ajbilling/defaultPlan/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
             array( array( $this, 'cancel_braintree_plan'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
@@ -303,6 +308,30 @@
             
             
            
+        }
+
+        public function get_braintree_plan($braintree_plan_id){
+
+            $plan = aj_braintree_get_plan($braintree_plan_id);
+
+            if (is_null( $plan)) {
+                 return new WP_Error( 'braintree_plan_not_found', __( 'Braintree Plan not found.' ), array( 'status' => 500 ) );
+            }
+            else{
+                $braintree_plan['id'] = $plan->id;
+                $braintree_plan['billingFrequency'] = $plan->billingFrequency;
+                $braintree_plan['currencyIsoCode'] = $plan->currencyIsoCode;
+                $braintree_plan['description'] = $plan->description;
+                $braintree_plan['name'] = $plan->name;
+                $braintree_plan['numberOfBillingCycles'] = $plan->numberOfBillingCycles;
+                $braintree_plan['price'] = $plan->price;
+                $braintree_plan['trialDuration'] = $plan->trialDuration;
+                $braintree_plan['trialDurationUnit'] = $plan->trialDurationUnit;
+                $braintree_plan['trialPeriod'] = $plan->trialPeriod;
+
+                return $braintree_plan;
+            }
+
         }
 
         public function cancel_braintree_plan($object_id, $object_type='site'){

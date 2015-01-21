@@ -42,13 +42,17 @@ function aj_braintree_get_plan($braintree_plan_id){
 
 	$plans = Braintree_Plan::all();
 
+	$defaultplan = NULL;
+
 	foreach ( $plans as $plan ) {
-		if($plan->id == $braintree_plan_id ){
+		if($plan->id === $braintree_plan_id ){
 			return $plan;
 			break;
 		}
 
 	}
+
+	return $defaultplan;
 
 }
 
