@@ -1083,6 +1083,35 @@ function ajbilling_get_braintree_customer_id($object_id,$object_type='site'){
 	return $braintree_customer;
 }
 
+function ajbilling_get_braintree_assisted_setup($object_id,$object_type='site'){
+
+	$ajbilling_object_type = ajbilling_is_object_type_set();
+	
+
+	if ($ajbilling_object_type['status']){
+		$object_type = $ajbilling_object_type['object_type'];
+	}
+
+	switch ($object_type) {
+		case 'site':
+		if ( is_multisite() ){
+			switch_to_blog( $object_id );
+			$braintree_assisted_setup_id = get_option('braintree-assisted-setup','');
+			restore_current_blog();
+		}
+		else{
+			$braintree_assisted_setup_id = get_option('braintree-assisted-setup','');
+		}
+		break;
+
+		case 'user':
+		$braintree_assisted_setup_id = get_user_meta( $object_id, 'braintree-assisted-setup', true ); 
+		break;
+	}
+
+	return $braintree_assisted_setup_id;
+}
+
 function ajbilling_get_user_siteplan_id($object_id,$object_type='site'){
 	$user_site_plan = ajbilling_get_user_siteplan_options($object_id);
 	$user_plan_id =  (!$user_site_plan) ? 0 : $user_site_plan['plan_id'] ;
@@ -1260,6 +1289,13 @@ function ajbilling_payment_custom_site_options(){
 	$sqlQuery = "SELECT * FROM $plugin_plans_table WHERE status='active'";
 	$site_plans = $wpdb->get_results($sqlQuery, ARRAY_A);
 
+	$assisted_set_up_id = ajbilling_get_braintree_assisted_setup($site_id,'site');
+	if ($assisted_set_up_id=="") {
+		$assisted_set_up_status = "No";
+	}else{
+		$assisted_set_up_status = "Yes";
+	}
+
 	if( 'site-info.php' == $pagenow ) {
 		?><table><tr id="payment_custom_site_options">
 		<th scope="row">Payment Plan</th>
@@ -1275,9 +1311,17 @@ function ajbilling_payment_custom_site_options(){
 			<input class="button-secondary" type="button" name="save_plan" value="<?php _e( 'Save Plan' ); ?>" id="save_site_plan"/>
 			<span class="plan-setting-updated-msg description"></span>
 		</td>
-	</tr></table>
+	</tr>
+	<tr id="assisted_set_up_options">
+		<th scope="row">Assisted Site Set Up</th>
+		<td>
+			<code><?php echo $assisted_set_up_status; ?></code>
+		</td>
+	</tr>
+	</table>
 	<script>jQuery(function($){
 		$('.form-table tbody').append($('#payment_custom_site_options'));
+		$('.form-table tbody').append($('#assisted_set_up_options'));
 	});</script><?php
 }
 }
