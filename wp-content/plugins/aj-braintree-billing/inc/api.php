@@ -539,16 +539,13 @@
             // Create transaction with token and amount
            $transaction_result = ajbilling_create_onetime_transaction($paymentMethodToken,$braintree_plan_id);
     
-           _log($transaction_result);
-
             if ($transaction_result['success']){
                 // Update customer custom field with one time transaction id
                 $customer_array = array('customFields' => 
                     array( 'assisted_setup' => $transaction_result['id'])
                     );
                 $update_customer = aj_braintree_update_customer($customer_id,$customer_array );
-                _log( $update_customer);
-
+               
             }
 
             return $transaction_result;

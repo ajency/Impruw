@@ -2048,7 +2048,7 @@ function ajbilling_get_plan_from_braintreeplan($braintree_plan_id){
 	foreach ($site_plans as $site_plan) {
 		
 		$braintree_plan_ids = maybe_unserialize($site_plan['braintree_plan_id']);
-		_log($braintree_plan_ids);
+		
 		if (in_array($braintree_plan_id, $braintree_plan_ids)) {
 			$selected_site_plan = $site_plan;
 			break;
