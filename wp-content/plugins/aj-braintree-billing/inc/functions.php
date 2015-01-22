@@ -571,6 +571,59 @@ function aj_braintree_get_transactions($customer_id){
 	}
 }
 
+function aj_braintree_create_transaction($paymentMethodToken, $price,$merchant_account){
+
+	$transaction_details = array(
+			'paymentMethodToken' => $paymentMethodToken,
+			'amount' => $price,
+			'merchantAccountId' => $merchant_account,
+			'options' => array(
+				'submitForSettlement' => true
+				),
+			);
+	
+	$result = Braintree_Transaction::sale($transaction_details);
+
+	_log($result);
+
+	if ($result->success) {
+		$transaction = $result->transaction;
+		$result_transaction['success'] = $result->success;
+		$result_transaction['id'] = $transaction->id;
+		$result_transaction['status'] = $transaction->status;
+		$result_transaction['type'] = $transaction->type;
+		$result_transaction['currencyIsoCode'] = $transaction->currencyIsoCode;
+		$result_transaction['amount'] = $transaction->amount;
+		$result_transaction['currencySymbol'] = ajbilling_get_site_currency($transaction->currencyIsoCode);
+		$result_transaction['paymentInstrumentType'] = $transaction->paymentInstrumentType;
+		$result_transaction['createdAt'] = $transaction->createdAt->format( 'M d, Y H:i:s A' );	
+
+		$credit_card = array();
+
+		$credit_card[ 'cardholderName' ] = $transaction->creditCardDetails->cardholderName;
+		$credit_card[ 'customerId' ] = $transaction->customerDetails->id;
+		$credit_card[ 'maskedNumber' ] = $transaction->creditCardDetails->maskedNumber;
+		$credit_card[ 'last4' ] = $transaction->creditCardDetails->last4;
+		$credit_card[ 'expirationDate' ] = $transaction->creditCardDetails->expirationDate;
+		$credit_card[ 'token' ] = $transaction->creditCardDetails->token;
+		$credit_card[ 'cardType' ] =$transaction->creditCardDetails->cardType;
+		$credit_card[ 'imageUrl' ] = $transaction->creditCardDetails->imageUrl;
+		$credit_card[ 'expirationMonth' ] = $transaction->creditCardDetails->expirationMonth;
+		$credit_card[ 'expirationYear' ] = $transaction->creditCardDetails->expirationYear;
+		$credit_card[ 'expirationDate' ] = $transaction->creditCardDetails->expirationDate;
+		$credit_card[ 'card_exists' ] = true;
+		$credit_card[ 'braintree_client_token' ] = aj_braintree_generate_client_token();
+
+		$result_transaction['credit_card'] = $credit_card;
+	}
+	else{
+		$result_transaction['success'] = $result->success;
+		$result_transaction['msg'] = $result->message;
+	}
+	_log($result_transaction);
+	return $result_transaction;
+}
+
 function ajbilling_get_merchant_account($currency){
 	// Based on currency return merchant account to be used 
 	// merchant accounts values are stored as constants like other braintree constants
@@ -619,6 +672,21 @@ function ajbilling_subscribe_user_to_plan($paymentMethodToken,$braintree_plan_id
 	}
 
 	return $subscription_result;
+}
+
+function ajbilling_create_onetime_transaction($paymentMethodToken,$braintree_plan_id){
+	_log("create one time transaction");
+	$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
+
+	// Get currency based on braintree plan 
+	$currency = $braintree_plan->currencyIsoCode;
+	$price = $braintree_plan->price;
+
+	$merchant_account = ajbilling_get_merchant_account($currency);
+
+	$transaction = aj_braintree_create_transaction($paymentMethodToken, $price,$merchant_account);
+
+	return $transaction;
 }
 
 function ajbilling_create_customer_with_card($customer,$paymentMethodNonce){
