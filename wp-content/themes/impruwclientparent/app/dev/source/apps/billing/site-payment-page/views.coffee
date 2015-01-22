@@ -183,6 +183,10 @@ define [ 'app'
 
             template : newCustomerPaymentViewTpl
 
+            onShow  :->
+                @$el.find( '#exp_month' ).selectpicker()
+                @$el.find( '#exp_year' ).selectpicker()
+
             serializeData : ->
                 activePlanName = Marionette.getOption @, 'activePlanName'
                 currentSubscriptionAmount = Marionette.getOption @, 'currentSubscriptionAmount'

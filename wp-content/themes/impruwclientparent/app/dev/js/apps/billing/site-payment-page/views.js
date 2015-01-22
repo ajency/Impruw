@@ -228,6 +228,11 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
 
       FirstTimePaymentView.prototype.template = newCustomerPaymentViewTpl;
 
+      FirstTimePaymentView.prototype.onShow = function() {
+        this.$el.find('#exp_month').selectpicker();
+        return this.$el.find('#exp_year').selectpicker();
+      };
+
       FirstTimePaymentView.prototype.serializeData = function() {
         var activePlanName, billingPeriodEndDate, billingPeriodStartDate, currencySymbol, currentSubscriptionAmount, currentSubscriptionDaysLeft, data, isSubscription, nextBillingDate, prorationCharge, selectedPlanAmount, selectedPlanName;
         activePlanName = Marionette.getOption(this, 'activePlanName');
