@@ -79,11 +79,17 @@ define [ 'app', 'controllers/base-controller'
                         @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
                             @newCardPayment paymentMethodNonce 
 
+                        @listenTo @paymentView, "new:credit:card:assistedsetup:payment", ( paymentMethodNonce )=>
+                            @newCardAsstdSetupPayment paymentMethodNonce 
+
                         @listenTo @paymentView, "add:credit:card", ( paymentMethodNonce )=>
                             @addCard paymentMethodNonce 
 
                         @listenTo @paymentView, "make:payment:with:stored:card", ( cardToken )=>
-                            @storedCardPayment cardToken
+                            @storedCardPayment cardToken 
+
+                        @listenTo @paymentView, "make:assistedsetup:payment:stored:card", ( cardToken )=>
+                            @asstdSetupStoredCardPayment cardToken
 
                 @show @layout,
                     loading : true
@@ -204,6 +210,29 @@ define [ 'app', 'controllers/base-controller'
                     else 
                         @paymentView.triggerMethod "payment:error", response.msg
 
+            
+            newCardAsstdSetupPayment :(paymentMethodNonce)=>
+                postURL = "#{SITEURL}/api/ajbilling/oneTimeTransaction/#{SITEID["id"]}/site/#{@braintreePlanId}"
+
+                options =
+                    method : 'POST'
+                    url : postURL
+                    data :
+                        'paymentMethodNonce' : paymentMethodNonce
+                        'customerName' : USER['data']['display_name']
+                        'customerEmail' : USER['data']['user_email']
+
+                $.ajax( options ).done ( response )=>
+                    if response.success is true
+                        newCreditCard = response.credit_card
+                        newCreditCardModel = new Backbone.Model newCreditCard
+                        @creditCardCollection = App.request "get:credit:cards"
+                        @creditCardCollection.add(newCreditCardModel)
+                        @paymentView.triggerMethod "payment:success"
+                    else 
+                        @paymentView.triggerMethod "payment:error", response.msg
+
+
             addCard : ( paymentMethodNonce )=>
                 
                 postURL = "#{SITEURL}/api/ajbilling/creditCard/#{SITEID["id"]}/site"
@@ -235,6 +264,22 @@ define [ 'app', 'controllers/base-controller'
 
                 $.ajax( options ).done ( response )=>
                     if response.subscription_success is true
+                        @updateBillingGlobals response
+                        @paymentView.triggerMethod "payment:success"
+                    else 
+                        @paymentView.triggerMethod "payment:error", response.msg
+
+            asstdSetupStoredCardPayment : (paymentMethodToken)=>
+                postURL = "#{SITEURL}/api/ajbilling/oneTimeTransaction/#{SITEID["id"]}/site/#{@braintreePlanId}"
+
+                options =
+                    method : 'POST'
+                    url : postURL
+                    data :
+                        'paymentMethodToken' : paymentMethodToken
+
+                $.ajax( options ).done ( response )=>
+                    if response.success is true
                         @updateBillingGlobals response
                         @paymentView.triggerMethod "payment:success"
                     else 

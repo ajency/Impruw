@@ -168,6 +168,18 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
             this.$el.find('#paycredit_loader').show();
             return this.trigger("make:payment:with:stored:card", cardToken);
           }
+        },
+        'click #btn-stored-assisted-setup-pay': function(e) {
+          var cardToken, html;
+          e.preventDefault();
+          cardToken = this.$el.find('.selected .token').val();
+          if (_.isUndefined(cardToken)) {
+            html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card") + '</div>';
+            return this.$el.find('#billingpay_status').append(html);
+          } else {
+            this.$el.find('#paycredit_loader').show();
+            return this.trigger("make:assistedsetup:payment:stored:card", cardToken);
+          }
         }
       };
 
@@ -269,6 +281,31 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
           }, (function(_this) {
             return function(err, nonce) {
               return _this.trigger("new:credit:card:payment", nonce);
+            };
+          })(this));
+        },
+        'click #btn-assisted-setup-pay': function(e) {
+          var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
+          e.preventDefault();
+          this.$el.find('#pay_loader').show();
+          cardNumber = this.$el.find('#card_number').val();
+          nameOnCard = this.$el.find('#card_name').val();
+          expMonth = this.$el.find('#exp_month').val();
+          expYear = this.$el.find('#exp_year').val();
+          cvv = this.$el.find('#card-cvv').val();
+          clientToken = this.model.get('braintree_client_token');
+          client = new braintree.api.Client({
+            clientToken: clientToken
+          });
+          return client.tokenizeCard({
+            number: cardNumber,
+            cvv: cvv,
+            cardholderName: nameOnCard,
+            expiration_month: expMonth,
+            expiration_year: expYear
+          }, (function(_this) {
+            return function(err, nonce) {
+              return _this.trigger("new:credit:card:assistedsetup:payment", nonce);
             };
           })(this));
         }

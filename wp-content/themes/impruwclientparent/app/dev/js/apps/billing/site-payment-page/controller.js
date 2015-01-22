@@ -9,8 +9,10 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
 
       function Controller() {
         this.updateBillingGlobals = __bind(this.updateBillingGlobals, this);
+        this.asstdSetupStoredCardPayment = __bind(this.asstdSetupStoredCardPayment, this);
         this.storedCardPayment = __bind(this.storedCardPayment, this);
         this.addCard = __bind(this.addCard, this);
+        this.newCardAsstdSetupPayment = __bind(this.newCardAsstdSetupPayment, this);
         this.newCardPayment = __bind(this.newCardPayment, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
@@ -74,11 +76,17 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
               _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce) {
                 return _this.newCardPayment(paymentMethodNonce);
               });
+              _this.listenTo(_this.paymentView, "new:credit:card:assistedsetup:payment", function(paymentMethodNonce) {
+                return _this.newCardAsstdSetupPayment(paymentMethodNonce);
+              });
               _this.listenTo(_this.paymentView, "add:credit:card", function(paymentMethodNonce) {
                 return _this.addCard(paymentMethodNonce);
               });
-              return _this.listenTo(_this.paymentView, "make:payment:with:stored:card", function(cardToken) {
+              _this.listenTo(_this.paymentView, "make:payment:with:stored:card", function(cardToken) {
                 return _this.storedCardPayment(cardToken);
+              });
+              return _this.listenTo(_this.paymentView, "make:assistedsetup:payment:stored:card", function(cardToken) {
+                return _this.asstdSetupStoredCardPayment(cardToken);
               });
             });
           };
@@ -203,6 +211,34 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         })(this));
       };
 
+      Controller.prototype.newCardAsstdSetupPayment = function(paymentMethodNonce) {
+        var options, postURL;
+        postURL = "" + SITEURL + "/api/ajbilling/oneTimeTransaction/" + SITEID["id"] + "/site/" + this.braintreePlanId;
+        options = {
+          method: 'POST',
+          url: postURL,
+          data: {
+            'paymentMethodNonce': paymentMethodNonce,
+            'customerName': USER['data']['display_name'],
+            'customerEmail': USER['data']['user_email']
+          }
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            var newCreditCard, newCreditCardModel;
+            if (response.success === true) {
+              newCreditCard = response.credit_card;
+              newCreditCardModel = new Backbone.Model(newCreditCard);
+              _this.creditCardCollection = App.request("get:credit:cards");
+              _this.creditCardCollection.add(newCreditCardModel);
+              return _this.paymentView.triggerMethod("payment:success");
+            } else {
+              return _this.paymentView.triggerMethod("payment:error", response.msg);
+            }
+          };
+        })(this));
+      };
+
       Controller.prototype.addCard = function(paymentMethodNonce) {
         var options, postURL;
         postURL = "" + SITEURL + "/api/ajbilling/creditCard/" + SITEID["id"] + "/site";
@@ -242,6 +278,28 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         return $.ajax(options).done((function(_this) {
           return function(response) {
             if (response.subscription_success === true) {
+              _this.updateBillingGlobals(response);
+              return _this.paymentView.triggerMethod("payment:success");
+            } else {
+              return _this.paymentView.triggerMethod("payment:error", response.msg);
+            }
+          };
+        })(this));
+      };
+
+      Controller.prototype.asstdSetupStoredCardPayment = function(paymentMethodToken) {
+        var options, postURL;
+        postURL = "" + SITEURL + "/api/ajbilling/oneTimeTransaction/" + SITEID["id"] + "/site/" + this.braintreePlanId;
+        options = {
+          method: 'POST',
+          url: postURL,
+          data: {
+            'paymentMethodToken': paymentMethodToken
+          }
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            if (response.success === true) {
               _this.updateBillingGlobals(response);
               return _this.paymentView.triggerMethod("payment:success");
             } else {
