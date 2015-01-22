@@ -27,9 +27,11 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
             });
             return App.execute("when:fetched", _this.siteModel, function() {
               _this.assistedSetupPlanId = _this.siteModel.get('assistedSetUpPlanId');
+              _this.assistedSetUpTransactionId = _this.siteModel.get('braintree_assisted_setup');
               return App.execute("show:assisted:setup:info", {
                 region: _this.layout.assistedSetupRegion,
-                assistedSetupPlanId: _this.assistedSetupPlanId
+                assistedSetupPlanId: _this.assistedSetupPlanId,
+                assistedSetUpTransactionId: _this.assistedSetUpTransactionId
               });
             });
           };

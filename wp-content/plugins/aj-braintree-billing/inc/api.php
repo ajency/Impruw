@@ -540,11 +540,14 @@
            $transaction_result = ajbilling_create_onetime_transaction($paymentMethodToken,$braintree_plan_id);
     
             if ($transaction_result['success']){
-                // Update customer custom field with one time transaction id
-                $customer_array = array('customFields' => 
-                    array( 'assisted_setup' => $transaction_result['id'])
-                    );
-                $update_customer = aj_braintree_update_customer($customer_id,$customer_array );
+                // // Update customer custom field with one time transaction id
+                // $customer_array = array('customFields' => 
+                //     array( 'assisted_setup' => $transaction_result['id'])
+                //     );
+                // $update_customer = aj_braintree_update_customer($customer_id,$customer_array );
+
+                // Update in the assisted setup in db 
+                ajbilling_update_plugin_site_options($object_id,'site','braintree-assisted-setup',$transaction_result['id']);
                
             }
 

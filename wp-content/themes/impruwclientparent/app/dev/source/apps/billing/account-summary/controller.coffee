@@ -31,9 +31,11 @@ define [ 'app', 'controllers/base-controller'
 
                     App.execute "when:fetched",  @siteModel, =>
                         @assistedSetupPlanId = @siteModel.get('assistedSetUpPlanId')
+                        @assistedSetUpTransactionId = @siteModel.get('braintree_assisted_setup')
                         App.execute "show:assisted:setup:info",
                             region : @layout.assistedSetupRegion
                             assistedSetupPlanId : @assistedSetupPlanId
+                            assistedSetUpTransactionId : @assistedSetUpTransactionId
 
 
                 @listenTo @layout.accountPlanRegion, "load:subscription:info:app", @loadSubscriptionInfoApp

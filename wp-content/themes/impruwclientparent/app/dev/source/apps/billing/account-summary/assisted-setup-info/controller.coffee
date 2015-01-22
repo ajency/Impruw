@@ -6,12 +6,15 @@ define [ 'app', 'controllers/base-controller'
             # initialize controller
             initialize : ( opts )->
                 @assistedSetupPlanId = opts.assistedSetupPlanId
-
-                console.log @assistedSetupPlanId
+                @assistedSetUpTransactionId = opts.assistedSetUpTransactionId
 
                 # trigger set:active:menu event
                 App.vent.trigger "set:active:menu", 'billing'
-                @view = @getView()
+                if @assistedSetUpTransactionId is ""
+                    @view = @getView()
+                else
+                    @view = @getPaidView()
+               
                 @show @view,
                     loading : true
 
@@ -19,6 +22,11 @@ define [ 'app', 'controllers/base-controller'
             getView :->
                 new AssistedSetupInfo.View.AssistedSetupInfoView
                     assistedSetupPlanId : @assistedSetupPlanId
+
+            getPaidView :->
+                new AssistedSetupInfo.View.AssistedSetupPaidInfoView
+                    assistedSetupPlanId : @assistedSetupPlanId
+                    assistedSetUpTransactionId : @assistedSetUpTransactionId
 
         App.commands.setHandler "show:assisted:setup:info", ( opts ) ->
             new AssistedSetupInfo.Controller opts

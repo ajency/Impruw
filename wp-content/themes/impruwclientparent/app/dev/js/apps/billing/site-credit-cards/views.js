@@ -184,7 +184,6 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
 
       CreditCardListView.prototype.onAddCreditCardSuccess = function() {
         var html;
-        console.log(this.collection);
         this.$el.find('input').val('');
         this.$el.find('.addcard_status').empty();
         this.$el.find('.addcard_loader').hide();

@@ -195,7 +195,7 @@ define [ 'app'
                 prorationCharge = Marionette.getOption @, 'prorationCharge'
                 currentSubscriptionDaysLeft = Marionette.getOption @, 'currentSubscriptionDaysLeft'
                 isSubscription = Marionette.getOption @, 'isSubscription'
-                console.log isSubscription
+                
 
                 data = super()
                 data.THEMEURL = THEMEURL

@@ -71,7 +71,7 @@ function read_language_based_site_ajax(){
     if ($data [ 'braintree_customer_id' ]!="") {
         $data [ 'braintree_subscription' ] = (function_exists('aj_braintree_get_customer_subscription')) ? aj_braintree_get_customer_subscription($data [ 'braintree_customer_id' ]) : NULL;
     }
-
+    $data [ 'braintree_assisted_setup' ] = get_option( 'braintree-assisted-setup','');
     $data [ 'assistedSetUpPlanId' ] = get_assisted_setup_plan_id($site_id);
 
      

@@ -3,14 +3,14 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('BillingApp.AssistedSetupInfo.View', function(View, App, Backbone, Marionette, $, _) {
-    return View.AssistedSetupInfoView = (function(_super) {
+    View.AssistedSetupInfoView = (function(_super) {
       __extends(AssistedSetupInfoView, _super);
 
       function AssistedSetupInfoView() {
         return AssistedSetupInfoView.__super__.constructor.apply(this, arguments);
       }
 
-      AssistedSetupInfoView.prototype.template = "<div class='aj-imp-widget-head row'> <h6 class='aj-imp-sub-head col-sm-12 text-center'> <small>Need us to help you set up your site?</small> </h6> </div> <br> <p>Below are some of the benefits you can avail of:</p> <ul> <li> Lorem Ipsum available </li> <li> All the Lorem Ipsum generators on the Internet </li> <li> making this the first true generator </li> </ul> <a href='#/billing/payment-page/{{assistedSetupId}}' class='btn btn-sm btn-block aj-imp-orange-btn' id=''> Yes, I'm in! </a>";
+      AssistedSetupInfoView.prototype.template = "<div class='aj-imp-widget-head row'> <h6 class='aj-imp-sub-head col-sm-12 text-center'> <small>{{#polyglot}}Need us to help you set up your site?{{/polyglot}}</small> </h6> </div> <br> <p>{{#polyglot}}Below are some of the benefits you can avail of:{{/polyglot}}</p> <ul> <li> {{#polyglot}}Lorem Ipsum available{{/polyglot}} </li> <li> {{#polyglot}}All the Lorem Ipsum generators on the Internet{{/polyglot}} </li> <li> {{#polyglot}}making this the first true generator{{/polyglot}} </li> </ul> <a href='#/billing/payment-page/{{assistedSetupId}}' class='btn btn-sm btn-block aj-imp-orange-btn' id=''> {{#polyglot}}Yes, I'm in!{{/polyglot}} </a>";
 
       AssistedSetupInfoView.prototype.serializeData = function() {
         var assistedSetupId, data;
@@ -21,6 +21,18 @@ define(['app'], function(App) {
       };
 
       return AssistedSetupInfoView;
+
+    })(Marionette.ItemView);
+    return View.AssistedSetupPaidInfoView = (function(_super) {
+      __extends(AssistedSetupPaidInfoView, _super);
+
+      function AssistedSetupPaidInfoView() {
+        return AssistedSetupPaidInfoView.__super__.constructor.apply(this, arguments);
+      }
+
+      AssistedSetupPaidInfoView.prototype.template = "<div class='aj-imp-widget-head row'> <h6 class='aj-imp-sub-head col-sm-12 text-center'> <small>{{#polyglot}}You have already opted for Assisted set up{{/polyglot}}</small> </h6> </div> <br> <p>{{#polyglot}}Below are some of the benefits you can avail of:{{/polyglot}}</p> <ul> <li> {{#polyglot}}Lorem Ipsum available{{/polyglot}} </li> <li> {{#polyglot}}All the Lorem Ipsum generators on the Internet{{/polyglot}} </li> <li> {{#polyglot}}making this the first true generator{{/polyglot}} </li> </ul>";
+
+      return AssistedSetupPaidInfoView;
 
     })(Marionette.ItemView);
   });

@@ -133,7 +133,6 @@ define [ 'app'
                     
 
             onAddCreditCardSuccess : ->
-                console.log @collection
                 @$el.find('input').val ''
                 @$el.find( '.addcard_status' ).empty()
                 @$el.find( '.addcard_loader' ).hide()

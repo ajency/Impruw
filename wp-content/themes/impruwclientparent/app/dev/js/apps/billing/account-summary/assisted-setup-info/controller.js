@@ -12,9 +12,13 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/assi
 
       Controller.prototype.initialize = function(opts) {
         this.assistedSetupPlanId = opts.assistedSetupPlanId;
-        console.log(this.assistedSetupPlanId);
+        this.assistedSetUpTransactionId = opts.assistedSetUpTransactionId;
         App.vent.trigger("set:active:menu", 'billing');
-        this.view = this.getView();
+        if (this.assistedSetUpTransactionId === "") {
+          this.view = this.getView();
+        } else {
+          this.view = this.getPaidView();
+        }
         return this.show(this.view, {
           loading: true
         });
@@ -23,6 +27,13 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/assi
       Controller.prototype.getView = function() {
         return new AssistedSetupInfo.View.AssistedSetupInfoView({
           assistedSetupPlanId: this.assistedSetupPlanId
+        });
+      };
+
+      Controller.prototype.getPaidView = function() {
+        return new AssistedSetupInfo.View.AssistedSetupPaidInfoView({
+          assistedSetupPlanId: this.assistedSetupPlanId,
+          assistedSetUpTransactionId: this.assistedSetUpTransactionId
         });
       };
 
