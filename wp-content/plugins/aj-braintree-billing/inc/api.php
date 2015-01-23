@@ -346,7 +346,7 @@
                 // Cancel this subscription in braintree
                 $cancel_subscription = aj_braintree_cancel_subscription($current_subscription_id);
             }else{
-                $cancel_subscription =  array('sucess' => false, 'msg'=>'Customer not in Braintree' );
+                $cancel_subscription =  array('success' => false, 'msg'=>'Customer not in Braintree' );
             }
             
             return $cancel_subscription;

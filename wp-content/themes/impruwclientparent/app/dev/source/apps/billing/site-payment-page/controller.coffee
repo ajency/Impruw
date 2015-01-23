@@ -208,7 +208,14 @@ define [ 'app', 'controllers/base-controller'
                         @creditCardCollection.add(newCreditCardModel)
                         @paymentView.triggerMethod "payment:success"
                     else 
-                        @paymentView.triggerMethod "payment:error", response.msg
+                        msgResponse = response.msg
+                        translatedMsgResponse = ""
+                        splitMsg = msgResponse.split("\n")
+                        _.each splitMsg, (value, key) ->
+                            translatedMsg = _.polyglot.t(value)
+                            translatedMsg = translatedMsg+"<br/>"
+                            translatedMsgResponse+= translatedMsg
+                        @paymentView.triggerMethod "payment:error", translatedMsgResponse
 
             
             newCardAsstdSetupPayment :(paymentMethodNonce)=>

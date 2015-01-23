@@ -70,7 +70,7 @@ define ['app'
 
                 if siteaddonCheckedCount > maxAllowedCount
                     @$el.parent().find('.alert').remove()
-                    @$el.parent().append "<div class=\"alert alert-error\"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + _.polyglot.t("Can select at the most "+maxAllowedCount+" site add on/add ons") + "</div>"
+                    @$el.parent().append "<div class=\"alert alert-error\"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" +_.polyglot.t("can select certain maximum addons", {maxAllowedCount: maxAllowedCount})+ "</div>"
                     return
                 
 

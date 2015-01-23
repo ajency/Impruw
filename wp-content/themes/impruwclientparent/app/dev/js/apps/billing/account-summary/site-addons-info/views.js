@@ -84,7 +84,9 @@ define(['app', 'text!apps/billing/account-summary/templates/siteAddOnsInfo.html'
         maxAllowedCount = PLAN_FEATURE_COUNT['site_add_ons'][0]['allowed_count'];
         if (siteaddonCheckedCount > maxAllowedCount) {
           this.$el.parent().find('.alert').remove();
-          this.$el.parent().append("<div class=\"alert alert-error\"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + _.polyglot.t("Can select at the most " + maxAllowedCount + " site add on/add ons") + "</div>");
+          this.$el.parent().append("<div class=\"alert alert-error\"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + _.polyglot.t("can select certain maximum addons", {
+            maxAllowedCount: maxAllowedCount
+          }) + "</div>");
           return;
         }
         arr = this.$el.find("div#selected-site-addons input[type='checkbox']");

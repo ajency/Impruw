@@ -30,7 +30,7 @@ define(['app'], function(App) {
         return AssistedSetupPaidInfoView.__super__.constructor.apply(this, arguments);
       }
 
-      AssistedSetupPaidInfoView.prototype.template = "<div class='aj-imp-widget-head row'> <h6 class='aj-imp-sub-head col-sm-12 text-center'> <small>{{#polyglot}}You have already opted for Assisted set up{{/polyglot}}</small> </h6> </div> <br> <p>{{#polyglot}}Below are some of the benefits you can avail of:{{/polyglot}}</p> <ul> <li> {{#polyglot}}Lorem Ipsum available{{/polyglot}} </li> <li> {{#polyglot}}All the Lorem Ipsum generators on the Internet{{/polyglot}} </li> <li> {{#polyglot}}making this the first true generator{{/polyglot}} </li> </ul>";
+      AssistedSetupPaidInfoView.prototype.template = " <div class='aj-imp-widget-head row'> <h6 class='aj-imp-sub-head col-sm-12 text-center'> <small>{{#polyglot}}You have already opted for Assisted set up{{/polyglot}}</small> </h6> </div> <br> <p>{{#polyglot}}Below are some of the benefits you can avail of:{{/polyglot}}</p> <ul> <li> {{#polyglot}}Lorem Ipsum available{{/polyglot}} </li> <li> {{#polyglot}}All the Lorem Ipsum generators on the Internet{{/polyglot}} </li> <li> {{#polyglot}}making this the first true generator{{/polyglot}} </li> </ul>";
 
       return AssistedSetupPaidInfoView;
 

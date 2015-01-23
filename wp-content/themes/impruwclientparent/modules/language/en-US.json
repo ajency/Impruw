@@ -830,5 +830,14 @@
       "This feature allows you to  completely hide content in specific languages from visitors on the live site." : "This feature allows you to  completely hide content in specific languages from visitors on the live site.",
       "Update address " : "Update address " ,
       "History" : "History",
+
+      "can select certain maximum addons": "Can select at the most %{maxAllowedCount} site add on/add ons",
+      "CVV must be 4 digits for American Express and 3 digits for other card types." : "CVV must be 4 digits for American Express and 3 digits for other card types._E" ,
+      "Expiration year is invalid." : "Expiration year is invalid._E" ,
+      "Credit card type is not accepted by this merchant account." : "Credit card type is not accepted by this merchant account._E" ,
+      "Credit card number must be 12-19 digits." : "Credit card number must be 12-19 digits._E" ,
+      "Credit card must include number, payment_method_nonce, or venmo_sdk_payment_method_code." : "Credit card must include a valid credit card number." ,
+      
+
       "View Full History" : "View Full History" 
 }

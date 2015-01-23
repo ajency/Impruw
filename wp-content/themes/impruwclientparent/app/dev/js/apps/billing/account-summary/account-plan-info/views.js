@@ -26,7 +26,7 @@ define(['app', 'text!apps/billing/account-summary/templates/accountPlanInfo.html
       AccountPlanInfoView.prototype.mixinTemplateHelpers = function(data) {
         data = AccountPlanInfoView.__super__.mixinTemplateHelpers.call(this, data);
         if (data.plan_title === "Default plan") {
-          data.plan_title = "Free";
+          data.plan_title = _.polyglot.t("Free");
         }
         return data;
       };

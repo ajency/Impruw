@@ -196,7 +196,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            var newCreditCard, newCreditCardModel;
+            var msgResponse, newCreditCard, newCreditCardModel, splitMsg, translatedMsgResponse;
             if (response.subscription_success === true) {
               _this.updateBillingGlobals(response);
               newCreditCard = response.new_credit_card;
@@ -205,7 +205,16 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
               _this.creditCardCollection.add(newCreditCardModel);
               return _this.paymentView.triggerMethod("payment:success");
             } else {
-              return _this.paymentView.triggerMethod("payment:error", response.msg);
+              msgResponse = response.msg;
+              translatedMsgResponse = "";
+              splitMsg = msgResponse.split("\n");
+              _.each(splitMsg, function(value, key) {
+                var translatedMsg;
+                translatedMsg = _.polyglot.t(value);
+                translatedMsg = translatedMsg + "<br/>";
+                return translatedMsgResponse += translatedMsg;
+              });
+              return _this.paymentView.triggerMethod("payment:error", translatedMsgResponse);
             }
           };
         })(this));

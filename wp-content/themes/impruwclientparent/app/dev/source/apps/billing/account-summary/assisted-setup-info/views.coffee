@@ -4,8 +4,7 @@ define ['app'], (App)->
 
         class View.AssistedSetupInfoView extends Marionette.ItemView
 
-            template: "                    
-                        <div class='aj-imp-widget-head row'>
+            template: "<div class='aj-imp-widget-head row'>
                             <h6 class='aj-imp-sub-head col-sm-12 text-center'>
                                 <small>{{#polyglot}}Need us to help you set up your site?{{/polyglot}}</small>
                             </h6>
@@ -34,8 +33,7 @@ define ['app'], (App)->
 
         class View.AssistedSetupPaidInfoView extends Marionette.ItemView
 
-            template: "                    
-                        <div class='aj-imp-widget-head row'>
+            template: " <div class='aj-imp-widget-head row'>
                             <h6 class='aj-imp-sub-head col-sm-12 text-center'>
                                 <small>{{#polyglot}}You have already opted for Assisted set up{{/polyglot}}</small>
                             </h6>
