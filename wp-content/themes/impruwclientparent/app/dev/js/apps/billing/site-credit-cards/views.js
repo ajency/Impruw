@@ -169,9 +169,14 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         currentSubscriptionStatus = this.model.get('subscription_status');
         currentPaymentmethodToken = this.model.get('paymentMethodToken');
         selectedCardToken = this.$el.find('.selected .token').val();
+        console.log("selected token " + selectedCardToken);
         if (_.isUndefined(selectedCardToken)) {
           this.$el.find('.activeforget_card_status').html('');
           html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card or add a new card") + '</div>';
+          return this.$el.find('.activeforget_card_status').append(html);
+        } else if (currentSubscriptionId === 'DefaultFree') {
+          this.$el.find('.activeforget_card_status').empty();
+          html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("You are currently subscribed to a free plan. Please change to a paid plan to set an active credit card.") + '</div>';
           return this.$el.find('.activeforget_card_status').append(html);
         } else {
           this.$el.find('.active_card_loader').show();
@@ -195,11 +200,17 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
       };
 
       CreditCardListView.prototype.onAddCreditCardSuccess = function() {
-        var html;
-        this.$el.find('input').val('');
+        var currentSubscriptionId, html, successMsg;
+        currentSubscriptionId = this.model.get('id');
+        if (currentSubscriptionId === 'DefaultFree' || _.isUndefined(this.model.get('paymentMethodToken'))) {
+          successMsg = _.polyglot.t("Card Added Successfully.");
+        } else {
+          successMsg = _.polyglot.t("Card Added Successfully. However this card will not be used for billing. If you want this card to be used for billing simply change your active card by selecting a card and clicking on 'Set as Active'.");
+        }
+        this.$el.find('#add-new-credit-card input').val('');
         this.$el.find('.addcard_status').empty();
         this.$el.find('.addcard_loader').hide();
-        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Card Added Successfully!") + '</div>';
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + successMsg + '</div>';
         return this.$el.find('.addcard_status').append(html);
       };
 

@@ -440,10 +440,9 @@
         }
 
         public function set_active_subscription_card($subscription_id, $new_card_token){
-            _log("Subcritpion ID is ".$subscription_id);
 
             if ($subscription_id==="DefaultFree") {
-                return array('change_card_success' => false, 'msg'=>' You are currentlly subscribed to a free plan. Please change to a paid plan to set an active credit card.' );
+                return array('change_card_success' => false, 'msg'=>'You are currentlly subscribed to a free plan. Please change to a paid plan to set an active credit card.' );
             }
             
             $current_subscription = aj_braintree_get_subscription($subscription_id );

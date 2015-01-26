@@ -898,6 +898,7 @@
     "Essential": "Essential_N",
     "Plus": "Plus_N",
     "Premium": "Premium_N",
+    "Card Added Successfully. However this card will not be used for billing. If you want this card to be used for billing simply change your active card by selecting a card and clicking on 'Set as Active'.": "Card Added Successfully. However this card will not be used for billing. If you want this card to be used for billing simply change your active card by selecting a card and clicking on 'Set as Active'._N",
 
     "can select certain maximum addons": "Can select at the most %{maxAllowedCount} site add on/add ons_N",
     "CVV must be 4 digits for American Express and 3 digits for other card types." : "CVV must be 4 digits for American Express and 3 digits for other card types._N" ,
