@@ -17,6 +17,9 @@ define ['app'
                 purchaseHistoryRegion : '#purchase-history'
 
             onRender :->
+                $("html, body").animate
+                    scrollTop: 0
+                ,   "slow" 
                 @$el.find( '.spinner-markup' ).spin @_getOptions()
 
             # spinner options

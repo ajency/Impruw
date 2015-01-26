@@ -15,6 +15,9 @@ define [ 'app'
                 cardListingRegion : '#credit-card-listing'
 
             onRender :->
+                $("html, body").animate
+                    scrollTop: 0
+                ,   "slow" 
                 @$el.find( '.spinner-markup' ).spin @_getOptions()
 
             # spinner options

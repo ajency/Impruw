@@ -23,6 +23,9 @@ define(['app', 'text!apps/billing/account-summary/templates/mainView.html'], fun
       };
 
       Layout.prototype.onRender = function() {
+        $("html, body").animate({
+          scrollTop: 0
+        }, "slow");
         return this.$el.find('.spinner-markup').spin(this._getOptions());
       };
 

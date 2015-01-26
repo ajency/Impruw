@@ -18,6 +18,9 @@ define(['app', 'text!apps/billing/site-transaction-history/templates/transaction
       };
 
       Layout.prototype.onRender = function() {
+        $("html, body").animate({
+          scrollTop: 0
+        }, "slow");
         return this.$el.find('.spinner-markup').spin(this._getOptions());
       };
 
