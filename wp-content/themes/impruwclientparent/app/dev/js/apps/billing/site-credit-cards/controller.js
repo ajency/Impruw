@@ -64,6 +64,19 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
         });
       };
 
+      Controller.prototype.getTranslatedBraintreeResponse = function(responseMessage) {
+        var splitMsg, translatedMsgResponse;
+        translatedMsgResponse = "";
+        splitMsg = responseMessage.split("\n");
+        _.each(splitMsg, function(value, key) {
+          var translatedMsg;
+          translatedMsg = _.polyglot.t(value);
+          translatedMsg = translatedMsg + "<br/>";
+          return translatedMsgResponse += translatedMsg;
+        });
+        return translatedMsgResponse;
+      };
+
       Controller.prototype.addCard = function(paymentMethodNonce) {
         var options, postURL;
         postURL = "" + SITEURL + "/api/ajbilling/creditCard/" + SITEID["id"] + "/site";
@@ -78,7 +91,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            var newCreditCard, newCreditCardModel;
+            var newCreditCard, newCreditCardModel, translatedMsgResponse;
             if (response.success === true) {
               newCreditCard = response.new_credit_card;
               newCreditCardModel = App.request("new:credit:card", newCreditCard);
@@ -86,7 +99,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
               _this.creditCardCollection.add(newCreditCardModel);
               return _this.view.triggerMethod("add:credit:card:success");
             } else {
-              return _this.view.triggerMethod("add:credit:card:error", response.msg);
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(response.msg);
+              return _this.view.triggerMethod("add:credit:card:error", translatedMsgResponse);
             }
           };
         })(this));
@@ -101,10 +115,12 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
+            var translatedMsgResponse;
             if (response.change_card_success === true) {
               return _this.view.triggerMethod("set:active:credit:card:success", selectedCardToken);
             } else {
-              return _this.view.triggerMethod("set:active:credit:card:error", response.msg);
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(response.msg);
+              return _this.view.triggerMethod("set:active:credit:card:error", translatedMsgResponse);
             }
           };
         })(this));
@@ -119,7 +135,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            var deleteCardModel, deletedCardToken;
+            var deleteCardModel, deletedCardToken, translatedMsgResponse;
             if (response.success === true) {
               deletedCardToken = response.deleted_token;
               _this.creditCardCollection = App.request("get:credit:cards");
@@ -128,7 +144,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
               _this.existingCreditCardsCollection.remove(deleteCardModel);
               return _this.view.triggerMethod("delete:credit:card:success");
             } else {
-              return _this.view.triggerMethod("delete:credit:card:error", response.msg);
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(response.msg);
+              return _this.view.triggerMethod("delete:credit:card:error", translatedMsgResponse);
             }
           };
         })(this));

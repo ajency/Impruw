@@ -47,6 +47,15 @@ define [ 'app', 'controllers/base-controller'
                     paymentMethodToken : @paymentMethodToken
                     braintreeClientToken : @braintreeClientToken
 
+            getTranslatedBraintreeResponse :(responseMessage)->
+                translatedMsgResponse = ""
+                splitMsg = responseMessage.split("\n")
+                _.each splitMsg, (value, key) ->
+                    translatedMsg = _.polyglot.t(value)
+                    translatedMsg = translatedMsg+"<br/>"
+                    translatedMsgResponse+= translatedMsg
+                translatedMsgResponse
+
 
             addCard : ( paymentMethodNonce )=>
                 
@@ -68,7 +77,8 @@ define [ 'app', 'controllers/base-controller'
                         @creditCardCollection.add(newCreditCardModel)
                         @view.triggerMethod "add:credit:card:success"
                     else
-                        @view.triggerMethod "add:credit:card:error", response.msg
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(response.msg) 
+                        @view.triggerMethod "add:credit:card:error", translatedMsgResponse
 
             setActiveCard :(currentSubscriptionId, selectedCardToken) =>
                 postURL = "#{SITEURL}/api/ajbilling/setActiveCard/#{currentSubscriptionId}/#{selectedCardToken}"
@@ -81,7 +91,8 @@ define [ 'app', 'controllers/base-controller'
                     if response.change_card_success is true
                         @view.triggerMethod "set:active:credit:card:success",selectedCardToken
                     else
-                        @view.triggerMethod "set:active:credit:card:error", response.msg
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(response.msg) 
+                        @view.triggerMethod "set:active:credit:card:error", translatedMsgResponse
 
             deleteCreditCard :(currentSubscriptionId, selectedCardToken) =>
                 postURL = "#{SITEURL}/api/ajbilling/deleteCreditCard/#{currentSubscriptionId}/#{selectedCardToken}"
@@ -102,7 +113,8 @@ define [ 'app', 'controllers/base-controller'
 
                         @view.triggerMethod "delete:credit:card:success"
                     else
-                        @view.triggerMethod "delete:credit:card:error", response.msg
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(response.msg) 
+                        @view.triggerMethod "delete:credit:card:error", translatedMsgResponse
 
         App.commands.setHandler "show:site:credit:cards:app", ( opts ) ->
             new SiteCreditCards.Controller opts

@@ -182,6 +182,19 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         });
       };
 
+      Controller.prototype.getTranslatedBraintreeResponse = function(responseMessage) {
+        var splitMsg, translatedMsgResponse;
+        translatedMsgResponse = "";
+        splitMsg = responseMessage.split("\n");
+        _.each(splitMsg, function(value, key) {
+          var translatedMsg;
+          translatedMsg = _.polyglot.t(value);
+          translatedMsg = translatedMsg + "<br/>";
+          return translatedMsgResponse += translatedMsg;
+        });
+        return translatedMsgResponse;
+      };
+
       Controller.prototype.newCardPayment = function(paymentMethodNonce) {
         var options, postURL;
         postURL = "" + SITEURL + "/api/ajbilling/braintreePlan/" + SITEID["id"] + "/site/" + this.selectedPlanId + "/" + this.braintreePlanId;
@@ -196,7 +209,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            var msgResponse, newCreditCard, newCreditCardModel, splitMsg, translatedMsgResponse;
+            var msgResponse, newCreditCard, newCreditCardModel, translatedMsgResponse;
             if (response.subscription_success === true) {
               _this.updateBillingGlobals(response);
               newCreditCard = response.new_credit_card;
@@ -206,14 +219,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
               return _this.paymentView.triggerMethod("payment:success");
             } else {
               msgResponse = response.msg;
-              translatedMsgResponse = "";
-              splitMsg = msgResponse.split("\n");
-              _.each(splitMsg, function(value, key) {
-                var translatedMsg;
-                translatedMsg = _.polyglot.t(value);
-                translatedMsg = translatedMsg + "<br/>";
-                return translatedMsgResponse += translatedMsg;
-              });
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(msgResponse);
               return _this.paymentView.triggerMethod("payment:error", translatedMsgResponse);
             }
           };
@@ -234,7 +240,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            var newCreditCard, newCreditCardModel;
+            var newCreditCard, newCreditCardModel, translatedMsgResponse;
             if (response.success === true) {
               newCreditCard = response.credit_card;
               newCreditCardModel = new Backbone.Model(newCreditCard);
@@ -242,7 +248,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
               _this.creditCardCollection.add(newCreditCardModel);
               return _this.paymentView.triggerMethod("payment:success");
             } else {
-              return _this.paymentView.triggerMethod("payment:error", response.msg);
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(response.msg);
+              return _this.paymentView.triggerMethod("payment:error", translatedMsgResponse);
             }
           };
         })(this));
@@ -260,7 +267,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            var newCreditCard, newCreditCardModel;
+            var newCreditCard, newCreditCardModel, translatedMsgResponse;
             if (response.success === true) {
               newCreditCard = response.new_credit_card;
               newCreditCardModel = new Backbone.Model(newCreditCard);
@@ -268,7 +275,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
               _this.creditCardCollection.add(newCreditCardModel);
               return _this.paymentView.triggerMethod("add:credit:card:success");
             } else {
-              return _this.paymentView.triggerMethod("add:credit:card:error", response.msg);
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(response.msg);
+              return _this.paymentView.triggerMethod("add:credit:card:error", translatedMsgResponse);
             }
           };
         })(this));
@@ -286,11 +294,13 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
+            var translatedMsgResponse;
             if (response.subscription_success === true) {
               _this.updateBillingGlobals(response);
               return _this.paymentView.triggerMethod("payment:success");
             } else {
-              return _this.paymentView.triggerMethod("payment:error", response.msg);
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(response.msg);
+              return _this.paymentView.triggerMethod("payment:error", translatedMsgResponse);
             }
           };
         })(this));
@@ -308,11 +318,13 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
+            var translatedMsgResponse;
             if (response.success === true) {
               _this.updateBillingGlobals(response);
               return _this.paymentView.triggerMethod("payment:success");
             } else {
-              return _this.paymentView.triggerMethod("payment:error", response.msg);
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(response.msg);
+              return _this.paymentView.triggerMethod("payment:error", translatedMsgResponse);
             }
           };
         })(this));

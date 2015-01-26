@@ -187,6 +187,16 @@ define [ 'app', 'controllers/base-controller'
                     currentSubscriptionDaysLeft : @currentSubscriptionDaysLeft
                     isSubscription : @isSubscription
 
+            getTranslatedBraintreeResponse :(responseMessage)->
+                translatedMsgResponse = ""
+                splitMsg = responseMessage.split("\n")
+                _.each splitMsg, (value, key) ->
+                    translatedMsg = _.polyglot.t(value)
+                    translatedMsg = translatedMsg+"<br/>"
+                    translatedMsgResponse+= translatedMsg
+                translatedMsgResponse
+
+
             newCardPayment : ( paymentMethodNonce )=>
                 
                 postURL = "#{SITEURL}/api/ajbilling/braintreePlan/#{SITEID["id"]}/site/#{@selectedPlanId}/#{@braintreePlanId}"
@@ -209,12 +219,7 @@ define [ 'app', 'controllers/base-controller'
                         @paymentView.triggerMethod "payment:success"
                     else 
                         msgResponse = response.msg
-                        translatedMsgResponse = ""
-                        splitMsg = msgResponse.split("\n")
-                        _.each splitMsg, (value, key) ->
-                            translatedMsg = _.polyglot.t(value)
-                            translatedMsg = translatedMsg+"<br/>"
-                            translatedMsgResponse+= translatedMsg
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(msgResponse)
                         @paymentView.triggerMethod "payment:error", translatedMsgResponse
 
             
@@ -237,7 +242,8 @@ define [ 'app', 'controllers/base-controller'
                         @creditCardCollection.add(newCreditCardModel)
                         @paymentView.triggerMethod "payment:success"
                     else 
-                        @paymentView.triggerMethod "payment:error", response.msg
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(response.msg) 
+                        @paymentView.triggerMethod "payment:error", translatedMsgResponse
 
 
             addCard : ( paymentMethodNonce )=>
@@ -258,7 +264,8 @@ define [ 'app', 'controllers/base-controller'
                         @creditCardCollection.add(newCreditCardModel)
                         @paymentView.triggerMethod "add:credit:card:success"
                     else
-                        @paymentView.triggerMethod "add:credit:card:error", response.msg
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(response.msg)
+                        @paymentView.triggerMethod "add:credit:card:error", translatedMsgResponse
 
             storedCardPayment : (paymentMethodToken)=>
                 postURL = "#{SITEURL}/api/ajbilling/braintreePlan/#{SITEID["id"]}/site/#{@selectedPlanId}/#{@braintreePlanId}"
@@ -274,7 +281,8 @@ define [ 'app', 'controllers/base-controller'
                         @updateBillingGlobals response
                         @paymentView.triggerMethod "payment:success"
                     else 
-                        @paymentView.triggerMethod "payment:error", response.msg
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(response.msg)
+                        @paymentView.triggerMethod "payment:error", translatedMsgResponse
 
             asstdSetupStoredCardPayment : (paymentMethodToken)=>
                 postURL = "#{SITEURL}/api/ajbilling/oneTimeTransaction/#{SITEID["id"]}/site/#{@braintreePlanId}"
@@ -290,7 +298,8 @@ define [ 'app', 'controllers/base-controller'
                         @updateBillingGlobals response
                         @paymentView.triggerMethod "payment:success"
                     else 
-                        @paymentView.triggerMethod "payment:error", response.msg
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(response.msg)
+                        @paymentView.triggerMethod "payment:error", translatedMsgResponse
 
             updateBillingGlobals :(updateResponse)=>
                 window.PAYMENT_PLAN_ID  = updateResponse.plan_id
