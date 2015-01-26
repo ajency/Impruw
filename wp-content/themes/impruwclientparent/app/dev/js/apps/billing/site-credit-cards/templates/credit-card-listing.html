@@ -35,13 +35,13 @@
     <!--ADD CARD FORM begins-->
     <div class="collapse" id="add-new-credit-card">
         <hr>
-        <form class="form-horizontal">
+        <form class="form-horizontal add-card-form">
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{#polyglot}}Name on the Card{{/polyglot}}</label>
 
                 <div class="col-sm-8 col-sm-offset-3">
                     <input type="text" class="form-control " id="card_name"
-                    placeholder="{{#polyglot}}Name on the Card{{/polyglot}}" data-braintree-name="cardholderName">
+                    placeholder="{{#polyglot}}Name on the Card{{/polyglot}}" data-braintree-name="cardholderName" required>
                 </div>
             </div>
             <div class="form-group">
@@ -49,7 +49,7 @@
 
                 <div class="col-sm-8 col-sm-offset-3">
                     <input type="text" class="form-control " id="card_number"
-                    placeholder="{{#polyglot}}Card Number{{/polyglot}}" data-braintree-name="number" >
+                    placeholder="{{#polyglot}}Card Number{{/polyglot}}" data-braintree-name="number" required>
                 </div>
             </div>
             <div class="form-group">
@@ -62,7 +62,7 @@
 
                 <div class="col-sm-2 col-sm-offset-3">
                     <input type="password" class="form-control" placeholder="{{#polyglot}}CVV{{/polyglot}}"
-                    data-braintree-name="cvv" id="card-cvv" >
+                    data-braintree-name="cvv" id="card-cvv">
 
                 </div>
                 <div class="col-sm-5">

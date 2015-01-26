@@ -135,27 +135,29 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         'click #btn-add-card': function(e) {
           var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
           e.preventDefault();
-          this.$el.find('#addcard_loader').show();
-          cardNumber = this.$el.find('#card_number').val();
-          nameOnCard = this.$el.find('#card_name').val();
-          expMonth = this.$el.find('#exp_month').val();
-          expYear = this.$el.find('#exp_year').val();
-          cvv = this.$el.find('#card-cvv').val();
-          clientToken = this.collection.models[0].get('braintree_client_token');
-          client = new braintree.api.Client({
-            clientToken: clientToken
-          });
-          return client.tokenizeCard({
-            number: cardNumber,
-            cvv: cvv,
-            cardholderName: nameOnCard,
-            expiration_month: expMonth,
-            expiration_year: expYear
-          }, (function(_this) {
-            return function(err, nonce) {
-              return _this.trigger("add:credit:card", nonce);
-            };
-          })(this));
+          if (this.$el.find('.add-card-form').valid()) {
+            this.$el.find('#addcard_loader').show();
+            cardNumber = this.$el.find('#card_number').val();
+            nameOnCard = this.$el.find('#card_name').val();
+            expMonth = this.$el.find('#exp_month').val();
+            expYear = this.$el.find('#exp_year').val();
+            cvv = this.$el.find('#card-cvv').val();
+            clientToken = this.collection.models[0].get('braintree_client_token');
+            client = new braintree.api.Client({
+              clientToken: clientToken
+            });
+            return client.tokenizeCard({
+              number: cardNumber,
+              cvv: cvv,
+              cardholderName: nameOnCard,
+              expiration_month: expMonth,
+              expiration_year: expYear
+            }, (function(_this) {
+              return function(err, nonce) {
+                return _this.trigger("add:credit:card", nonce);
+              };
+            })(this));
+          }
         },
         'click #btn-stored-pay': function(e) {
           var cardToken, html;
@@ -266,6 +268,10 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         'click #btn-pay': function(e) {
           var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
           e.preventDefault();
+          if ($.trim(this.$el.find('#card_name').val()) === "") {
+            this.onPaymentError(_.polyglot.t("Please enter card holder name"));
+            return;
+          }
           this.$el.find('#pay_loader').show();
           cardNumber = this.$el.find('#card_number').val();
           nameOnCard = this.$el.find('#card_name').val();

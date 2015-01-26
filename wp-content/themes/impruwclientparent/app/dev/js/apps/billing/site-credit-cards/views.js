@@ -137,26 +137,28 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
           var braintreeClientToken, cardNumber, client, cvv, expMonth, expYear, nameOnCard;
           braintreeClientToken = Marionette.getOption(this, 'braintreeClientToken');
           e.preventDefault();
-          this.$el.find('.addcard_loader').show();
-          cardNumber = this.$el.find('#card_number').val();
-          nameOnCard = this.$el.find('#card_name').val();
-          expMonth = this.$el.find('#exp_month').val();
-          expYear = this.$el.find('#exp_year').val();
-          cvv = this.$el.find('#card-cvv').val();
-          client = new braintree.api.Client({
-            clientToken: braintreeClientToken
-          });
-          return client.tokenizeCard({
-            number: cardNumber,
-            cvv: cvv,
-            cardholderName: nameOnCard,
-            expiration_month: expMonth,
-            expiration_year: expYear
-          }, (function(_this) {
-            return function(err, nonce) {
-              return _this.trigger("add:new:credit:card", nonce);
-            };
-          })(this));
+          if (this.$el.find('.add-card-form').valid()) {
+            this.$el.find('.addcard_loader').show();
+            cardNumber = this.$el.find('#card_number').val();
+            nameOnCard = this.$el.find('#card_name').val();
+            expMonth = this.$el.find('#exp_month').val();
+            expYear = this.$el.find('#exp_year').val();
+            cvv = this.$el.find('#card-cvv').val();
+            client = new braintree.api.Client({
+              clientToken: braintreeClientToken
+            });
+            return client.tokenizeCard({
+              number: cardNumber,
+              cvv: cvv,
+              cardholderName: nameOnCard,
+              expiration_month: expMonth,
+              expiration_year: expYear
+            }, (function(_this) {
+              return function(err, nonce) {
+                return _this.trigger("add:new:credit:card", nonce);
+              };
+            })(this));
+          }
         },
         'click #btn-set-as-active': 'setActiveCard',
         'click #btn-forget-card': 'deleteCard'

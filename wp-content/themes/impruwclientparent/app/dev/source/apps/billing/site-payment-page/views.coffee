@@ -105,18 +105,20 @@ define [ 'app'
             events :
                 'click #btn-add-card':(e)->
                     e.preventDefault()
-                    # collapse add card and show loader
-                    @$el.find( '#addcard_loader' ).show()
-                    cardNumber = @$el.find( '#card_number' ).val()
-                    nameOnCard = @$el.find( '#card_name' ).val()
-                    expMonth = @$el.find( '#exp_month' ).val()
-                    expYear = @$el.find( '#exp_year' ).val()
-                    cvv = @$el.find( '#card-cvv' ).val()
 
-                    clientToken =  @collection.models[0].get 'braintree_client_token'
-                    client = new braintree.api.Client clientToken : clientToken
-                    client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
-                        @trigger "add:credit:card", nonce
+                    if @$el.find('.add-card-form').valid()
+                        # collapse add card and show loader
+                        @$el.find( '#addcard_loader' ).show()
+                        cardNumber = @$el.find( '#card_number' ).val()
+                        nameOnCard = @$el.find( '#card_name' ).val()
+                        expMonth = @$el.find( '#exp_month' ).val()
+                        expYear = @$el.find( '#exp_year' ).val()
+                        cvv = @$el.find( '#card-cvv' ).val()
+
+                        clientToken =  @collection.models[0].get 'braintree_client_token'
+                        client = new braintree.api.Client clientToken : clientToken
+                        client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
+                            @trigger "add:credit:card", nonce
 
                 'click #btn-stored-pay' : ( e ) ->
                     e.preventDefault()
@@ -219,6 +221,10 @@ define [ 'app'
             events :
                 'click #btn-pay' : ( e ) ->
                     e.preventDefault()
+                    if $.trim(@$el.find('#card_name').val()) is ""
+                        @onPaymentError(_.polyglot.t("Please enter card holder name"))
+                        return
+
                     @$el.find( '#pay_loader' ).show()
 
                     cardNumber = @$el.find( '#card_number' ).val()

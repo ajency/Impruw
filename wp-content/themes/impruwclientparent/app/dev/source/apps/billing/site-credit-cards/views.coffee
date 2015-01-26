@@ -97,17 +97,17 @@ define [ 'app'
                 'click #btn-add-new-card':(e)->
                     braintreeClientToken = Marionette.getOption @, 'braintreeClientToken'
                     e.preventDefault()
+                    if @$el.find('.add-card-form').valid()
+                        @$el.find( '.addcard_loader' ).show()
+                        cardNumber = @$el.find( '#card_number' ).val()
+                        nameOnCard = @$el.find( '#card_name' ).val()
+                        expMonth = @$el.find( '#exp_month' ).val()
+                        expYear = @$el.find( '#exp_year' ).val()
+                        cvv = @$el.find( '#card-cvv' ).val()
 
-                    @$el.find( '.addcard_loader' ).show()
-                    cardNumber = @$el.find( '#card_number' ).val()
-                    nameOnCard = @$el.find( '#card_name' ).val()
-                    expMonth = @$el.find( '#exp_month' ).val()
-                    expYear = @$el.find( '#exp_year' ).val()
-                    cvv = @$el.find( '#card-cvv' ).val()
-
-                    client = new braintree.api.Client clientToken : braintreeClientToken
-                    client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
-                        @trigger "add:new:credit:card", nonce
+                        client = new braintree.api.Client clientToken : braintreeClientToken
+                        client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
+                            @trigger "add:new:credit:card", nonce
 
                 'click #btn-set-as-active': 'setActiveCard'
 
