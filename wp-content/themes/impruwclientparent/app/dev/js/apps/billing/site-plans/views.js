@@ -60,6 +60,7 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/bi
         var data;
         data = SinglePlanView.__super__.serializeData.call(this);
         data.currency = COUNTRY_BASED_CURRENCY;
+        data.plan_title = _.polyglot.t(data.plan_title);
         return data;
       };
 
