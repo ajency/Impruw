@@ -203,11 +203,18 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
       };
 
       PaymentPageView.prototype.onPaymentSuccess = function() {
-        var html;
+        var html, mainUrl, redirectUrl;
         this.$el.find('#billingpay_status').empty();
         this.$el.find('#paycredit_loader').hide();
         html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Payment Successful!") + '</div>';
-        return this.$el.find('#billingpay_status').append(html);
+        this.$el.find('#billingpay_status').append(html);
+        mainUrl = window.location.href.replace(Backbone.history.getFragment(), '');
+        redirectUrl = "" + mainUrl + "billing/account-summary";
+        return _.delay((function(_this) {
+          return function() {
+            return _this.redirectPage(redirectUrl);
+          };
+        })(this), 2000);
       };
 
       PaymentPageView.prototype.onPaymentError = function(errorMsg) {
@@ -216,6 +223,10 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         this.$el.find('#paycredit_loader').hide();
         html = "<div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
         return this.$el.find('#billingpay_status').append(html);
+      };
+
+      PaymentPageView.prototype.redirectPage = function(redirectUrl) {
+        return window.location.href = redirectUrl;
       };
 
       return PaymentPageView;
@@ -322,11 +333,18 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
       };
 
       FirstTimePaymentView.prototype.onPaymentSuccess = function() {
-        var html;
+        var html, mainUrl, redirectUrl;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
         html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Payment Successful!") + '</div>';
-        return this.$el.find('#billingsave_status').append(html);
+        this.$el.find('#billingsave_status').append(html);
+        mainUrl = window.location.href.replace(Backbone.history.getFragment(), '');
+        redirectUrl = "" + mainUrl + "billing/account-summary";
+        return _.delay((function(_this) {
+          return function() {
+            return _this.redirectPage(redirectUrl);
+          };
+        })(this), 2000);
       };
 
       FirstTimePaymentView.prototype.onPaymentError = function(errorMsg) {
@@ -335,6 +353,10 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         this.$el.find('#pay_loader').hide();
         html = "<div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
         return this.$el.find('#billingsave_status').append(html);
+      };
+
+      FirstTimePaymentView.prototype.redirectPage = function(redirectUrl) {
+        return window.location.href = redirectUrl;
       };
 
       return FirstTimePaymentView;

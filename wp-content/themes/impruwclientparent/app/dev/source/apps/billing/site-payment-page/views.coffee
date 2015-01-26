@@ -169,6 +169,14 @@ define [ 'app'
                 html = '<div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Payment Successful!")+'</div>'
                 @$el.find( '#billingpay_status' ).append( html )
+                
+                # redirect to account summary on success
+                mainUrl = window.location.href.replace Backbone.history.getFragment(), ''
+                redirectUrl = "#{mainUrl}billing/account-summary"
+                
+                _.delay =>
+                    @redirectPage redirectUrl
+                   , 2000
 
             onPaymentError : ( errorMsg )->
                 @$el.find( '#billingpay_status' ).empty()
@@ -178,6 +186,9 @@ define [ 'app'
                             #{errorMsg}
                         </div>"
                 @$el.find( '#billingpay_status' ).append( html )
+
+            redirectPage : ( redirectUrl )->
+                window.location.href = redirectUrl
 
 
         #payment view when using new credit card
@@ -260,6 +271,14 @@ define [ 'app'
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Payment Successful!")+'</div>'
                 @$el.find( '#billingsave_status' ).append( html )
 
+                # redirect to account summary on success
+                mainUrl = window.location.href.replace Backbone.history.getFragment(), ''
+                redirectUrl = "#{mainUrl}billing/account-summary"
+                
+                _.delay =>
+                    @redirectPage redirectUrl
+                   , 2000
+
             onPaymentError : ( errorMsg )->
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#pay_loader' ).hide()
@@ -268,6 +287,10 @@ define [ 'app'
                             #{errorMsg}
                         </div>"
                 @$el.find( '#billingsave_status' ).append( html )
+
+            redirectPage : ( redirectUrl )->
+                window.location.href = redirectUrl
+
 
 
 
