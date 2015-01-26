@@ -15,6 +15,15 @@ define ['app'
             onShow: ->
                 @$el.find('input[type="checkbox"]').radiocheck()
 
+            serializeData:->
+                data = super data
+                if data.title is "Room Summary"
+                    data.title = _.polyglot.t("Display Rooms / Room Summary")
+                else
+                    data.title = _.polyglot.t(data.title)
+
+                data
+
             mixinTemplateHelpers:(data)->
                 data = super data
 

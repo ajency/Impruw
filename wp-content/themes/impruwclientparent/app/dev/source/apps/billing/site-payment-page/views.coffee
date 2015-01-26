@@ -222,7 +222,7 @@ define [ 'app'
                 'click #btn-pay' : ( e ) ->
                     e.preventDefault()
                     if $.trim(@$el.find('#card_name').val()) is ""
-                        @onPaymentError(_.polyglot.t("Please enter card holder name"))
+                        @onPaymentError(_.polyglot.t("Please enter card holder's name"))
                         return
 
                     @$el.find( '#pay_loader' ).show()

@@ -899,6 +899,9 @@
       "Plus": "Plus",
       "Premium": "Premium",
       "Please enter card holder's name": "Please enter card holder's name",
+      "Addons visible on the site: ": "Addons visible on the site: ",
+      "Smart Table": "Smart Table",
+      "Display Rooms / Room Summary": "Display Rooms / Room Summary",
       "Card Added Successfully. However this card will not be used for billing. If you want this card to be used for billing simply change your active card by selecting a card and clicking on 'Set as Active'.": "Card Added Successfully. However this card will not be used for billing. If you want this card to be used for billing simply change your active card by selecting a card and clicking on 'Set as Active'.",
 
       "can select certain maximum addons": "Can select at the most %{maxAllowedCount} site add on/add ons",

@@ -19,6 +19,17 @@ define(['app', 'text!apps/billing/account-summary/templates/siteAddOnsInfo.html'
         return this.$el.find('input[type="checkbox"]').radiocheck();
       };
 
+      SiteAddOnsInfoItemView.prototype.serializeData = function() {
+        var data;
+        data = SiteAddOnsInfoItemView.__super__.serializeData.call(this, data);
+        if (data.title === "Room Summary") {
+          data.title = _.polyglot.t("Display Rooms / Room Summary");
+        } else {
+          data.title = _.polyglot.t(data.title);
+        }
+        return data;
+      };
+
       SiteAddOnsInfoItemView.prototype.mixinTemplateHelpers = function(data) {
         data = SiteAddOnsInfoItemView.__super__.mixinTemplateHelpers.call(this, data);
         data.selectStatus = function() {

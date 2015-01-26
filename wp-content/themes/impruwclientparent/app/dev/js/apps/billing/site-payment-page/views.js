@@ -269,7 +269,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
           var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
           e.preventDefault();
           if ($.trim(this.$el.find('#card_name').val()) === "") {
-            this.onPaymentError(_.polyglot.t("Please enter card holder name"));
+            this.onPaymentError(_.polyglot.t("Please enter card holder's name"));
             return;
           }
           this.$el.find('#pay_loader').show();
