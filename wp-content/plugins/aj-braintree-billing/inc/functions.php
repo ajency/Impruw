@@ -116,6 +116,7 @@ function aj_braintree_get_braintreeplans(){
 function aj_braintree_get_subscription($subscription_id ){
 
 	$braintree_subscription =  array(
+		'id' => 'DefaultFree',
 		'subscription_status' => 'N/A', 
 		'billingPeriodStartDate' => 'N/A', 
 		'billingPeriodEndDate' => 'N/A', 
@@ -1609,6 +1610,7 @@ function ajbilling_fetch_site_subscription($object_id, $object_type='site'){
 
 	if (!$braintree_customer_id) {
 		$current_subscription_details =  array(
+			'id' => 'DefaultFree',
 			'subscription_status' => 'N/A', 
 			'billingPeriodStartDate' => 'N/A', 
 			'billingPeriodEndDate' => 'N/A', 

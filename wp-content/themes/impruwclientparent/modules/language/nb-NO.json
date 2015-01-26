@@ -898,6 +898,8 @@
     "Essential": "Essential_N",
     "Plus": "Plus_N",
     "Premium": "Premium_N",
+    "Please select a card to set as active": "Please select a card to set as active_N",
+    "Please select a card to be deleted": "Please select a card to be deleted_N",
 
     "can select certain maximum addons": "Can select at the most %{maxAllowedCount} site add on/add ons_N",
     "CVV must be 4 digits for American Express and 3 digits for other card types." : "CVV must be 4 digits for American Express and 3 digits for other card types._N" ,

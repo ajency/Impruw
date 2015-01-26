@@ -152,7 +152,7 @@
         public function fetch_site_subscriptions($object_id, $object_type='site'){
             $site_subscriptions = array();
 
-            // A would always have one subscription associated to it. Hence a site's subscription collection would have only that one subscription i.e the site's current subscription 
+            // A site would always have one subscription associated to it. Hence a site's subscription collection would have only that one subscription i.e the site's current subscription 
             $site_subscription = ajbilling_fetch_site_subscription($object_id, $object_type);
 
             $site_subscriptions[] = $site_subscription;
@@ -440,14 +440,19 @@
         }
 
         public function set_active_subscription_card($subscription_id, $new_card_token){
+            _log("Subcritpion ID is ".$subscription_id);
+
+            if ($subscription_id==="DefaultFree") {
+                return array('change_card_success' => false, 'msg'=>' You are currentlly subscribed to a free plan. Please change to a paid plan to set an active credit card.' );
+            }
             
             $current_subscription = aj_braintree_get_subscription($subscription_id );
             $current_subscription_status = $current_subscription['subscription_status'];
             $current_paymentmethod_token = $current_subscription['paymentMethodToken'];
             $current_merchant_account = $current_subscription['merchantAccountId'];
 
-            if ($current_paymentmethod_token===$delete_card_token) {
-                return array('success' => false, 'msg'=>'This card is already set as active' );
+            if ($current_paymentmethod_token===$new_card_token) {
+                return array('change_card_success' => false, 'msg'=>'This card is already set as active' );
             }
 
             switch ($current_subscription_status) {

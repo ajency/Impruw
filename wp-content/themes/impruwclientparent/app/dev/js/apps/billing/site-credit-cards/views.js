@@ -163,23 +163,35 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
       };
 
       CreditCardListView.prototype.setActiveCard = function(e) {
-        var currentPaymentmethodToken, currentSubscriptionId, currentSubscriptionStatus, selectedCardToken;
+        var currentPaymentmethodToken, currentSubscriptionId, currentSubscriptionStatus, html, selectedCardToken;
         e.preventDefault();
         currentSubscriptionId = this.model.get('id');
         currentSubscriptionStatus = this.model.get('subscription_status');
         currentPaymentmethodToken = this.model.get('paymentMethodToken');
         selectedCardToken = this.$el.find('.selected .token').val();
-        this.$el.find('.active_card_loader').show();
-        return this.trigger("set:active:credit:card", currentSubscriptionId, selectedCardToken);
+        if (_.isUndefined(selectedCardToken)) {
+          this.$el.find('.activeforget_card_status').html('');
+          html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card to set as active") + '</div>';
+          return this.$el.find('.activeforget_card_status').append(html);
+        } else {
+          this.$el.find('.active_card_loader').show();
+          return this.trigger("set:active:credit:card", currentSubscriptionId, selectedCardToken);
+        }
       };
 
       CreditCardListView.prototype.deleteCard = function(e) {
-        var currentSubscriptionId, selectedCardToken;
+        var currentSubscriptionId, html, selectedCardToken;
         e.preventDefault();
         currentSubscriptionId = this.model.get('id');
         selectedCardToken = this.$el.find('.selected .token').val();
-        this.$el.find('.forget_card_loader').show();
-        return this.trigger("delete:credit:card", currentSubscriptionId, selectedCardToken);
+        if (_.isUndefined(selectedCardToken)) {
+          this.$el.find('.activeforget_card_status').html('');
+          html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card to be deleted") + '</div>';
+          return this.$el.find('.activeforget_card_status').append(html);
+        } else {
+          this.$el.find('.forget_card_loader').show();
+          return this.trigger("delete:credit:card", currentSubscriptionId, selectedCardToken);
+        }
       };
 
       CreditCardListView.prototype.onAddCreditCardSuccess = function() {

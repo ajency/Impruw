@@ -119,15 +119,27 @@ define [ 'app'
                 currentSubscriptionStatus = @model.get('subscription_status')
                 currentPaymentmethodToken = @model.get('paymentMethodToken')
                 selectedCardToken = @$el.find('.selected .token').val()
-                @$el.find( '.active_card_loader' ).show()
-                @trigger "set:active:credit:card",currentSubscriptionId, selectedCardToken
+                if _.isUndefined selectedCardToken
+                    @$el.find( '.activeforget_card_status' ).html('')
+                    html = '<div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card to set as active")+'</div>'
+                    @$el.find( '.activeforget_card_status' ).append html
+                else
+                    @$el.find( '.active_card_loader' ).show()
+                    @trigger "set:active:credit:card",currentSubscriptionId, selectedCardToken
 
             deleteCard : (e) ->
                 e.preventDefault()
                 currentSubscriptionId = @model.get('id')
                 selectedCardToken = @$el.find('.selected .token').val()
-                @$el.find( '.forget_card_loader' ).show()
-                @trigger "delete:credit:card",currentSubscriptionId, selectedCardToken
+                if _.isUndefined selectedCardToken
+                    @$el.find( '.activeforget_card_status' ).html('')
+                    html = '<div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card to be deleted")+'</div>'
+                    @$el.find( '.activeforget_card_status' ).append html
+                else
+                    @$el.find( '.forget_card_loader' ).show()
+                    @trigger "delete:credit:card",currentSubscriptionId, selectedCardToken
 
 
                     
