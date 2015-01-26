@@ -171,7 +171,7 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         selectedCardToken = this.$el.find('.selected .token').val();
         if (_.isUndefined(selectedCardToken)) {
           this.$el.find('.activeforget_card_status').html('');
-          html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card to set as active") + '</div>';
+          html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card or add a new card") + '</div>';
           return this.$el.find('.activeforget_card_status').append(html);
         } else {
           this.$el.find('.active_card_loader').show();
@@ -186,7 +186,7 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         selectedCardToken = this.$el.find('.selected .token').val();
         if (_.isUndefined(selectedCardToken)) {
           this.$el.find('.activeforget_card_status').html('');
-          html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card to be deleted") + '</div>';
+          html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card") + '</div>';
           return this.$el.find('.activeforget_card_status').append(html);
         } else {
           this.$el.find('.forget_card_loader').show();

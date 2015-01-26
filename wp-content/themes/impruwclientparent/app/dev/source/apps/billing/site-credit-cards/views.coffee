@@ -122,7 +122,7 @@ define [ 'app'
                 if _.isUndefined selectedCardToken
                     @$el.find( '.activeforget_card_status' ).html('')
                     html = '<div class="alert alert-error">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card to set as active")+'</div>'
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card or add a new card")+'</div>'
                     @$el.find( '.activeforget_card_status' ).append html
                 else
                     @$el.find( '.active_card_loader' ).show()
@@ -135,7 +135,7 @@ define [ 'app'
                 if _.isUndefined selectedCardToken
                     @$el.find( '.activeforget_card_status' ).html('')
                     html = '<div class="alert alert-error">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card to be deleted")+'</div>'
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card")+'</div>'
                     @$el.find( '.activeforget_card_status' ).append html
                 else
                     @$el.find( '.forget_card_loader' ).show()
