@@ -71,7 +71,9 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
           method: 'POST',
           url: postURL,
           data: {
-            'paymentMethodNonce': paymentMethodNonce
+            'paymentMethodNonce': paymentMethodNonce,
+            'customerName': USER['data']['display_name'],
+            'customerEmail': USER['data']['user_email']
           }
         };
         return $.ajax(options).done((function(_this) {

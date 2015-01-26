@@ -57,6 +57,8 @@ define [ 'app', 'controllers/base-controller'
                     url : postURL
                     data :
                         'paymentMethodNonce' : paymentMethodNonce
+                        'customerName' : USER['data']['display_name']
+                        'customerEmail' : USER['data']['user_email']
 
                 $.ajax( options ).done ( response )=>
                     if response.success is true

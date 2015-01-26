@@ -357,6 +357,28 @@
 
             $customer_id =ajbilling_get_braintree_customer_id($object_id,$object_type);
 
+            if ( empty( $customer_id )) {
+
+                $customer = array();
+                if (isset($_REQUEST[ 'customerName' ])) {
+                    $customer['firstName'] = $_REQUEST[ 'customerName' ];
+                }
+
+                if (isset($_REQUEST[ 'customerEmail' ])) {
+                    $customer['email'] = $_REQUEST[ 'customerEmail' ];
+                }
+                $create_customer = aj_braintree_create_customer($customer);
+                
+                if ( !$create_customer->success ){
+                            // return error array
+                    return array('success' => false ,'msg'=>$create_customer->message );
+                }
+                $customer_id = $create_customer->customer->id;
+
+                // update braintree customer in site options
+                ajbilling_update_plugin_site_options($object_id,$object_type,'braintree-customer-id',$customer_id);
+            }
+
             $payment_method_nonce = $_REQUEST[ 'paymentMethodNonce' ];
 
             $add_card = ajbilling_add_credit_card_to_customer($customer_id,$payment_method_nonce);
