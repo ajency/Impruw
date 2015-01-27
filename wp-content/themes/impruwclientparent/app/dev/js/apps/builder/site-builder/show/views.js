@@ -78,6 +78,9 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         'click .add-new-page': function() {
           return this.trigger("add:new:page:clicked");
         },
+        'click .color-switch': function() {
+          return this.trigger("show:theme:color:clicked");
+        },
         'click .delete-page': function(e) {
           e.preventDefault();
           if (ISFRONTPAGE) {

@@ -170,6 +170,11 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             region: App.dialogRegion
           });
         });
+        this.listenTo(this.layout, "show:theme:color:clicked", function() {
+          return App.execute("show:theme:color:set", {
+            region: App.dialogRegion
+          });
+        });
         this.listenTo(this.layout, 'delete:page:clicked', (function(_this) {
           return function() {
             var page;

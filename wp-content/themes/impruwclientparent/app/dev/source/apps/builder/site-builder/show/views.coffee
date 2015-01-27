@@ -51,6 +51,9 @@ define [ 'app'
             'click .add-new-page' : ->
                @trigger "add:new:page:clicked"
 
+            'click .color-switch' :-> 
+               @trigger "show:theme:color:clicked" 
+
             'click .delete-page': (e)->
                e.preventDefault()
                if ISFRONTPAGE

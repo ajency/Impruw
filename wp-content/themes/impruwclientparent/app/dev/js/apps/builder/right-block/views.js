@@ -12,7 +12,7 @@ define(['app'], function(App) {
 
       RightBlockLayout.prototype.className = 'right-toolbox';
 
-      RightBlockLayout.prototype.template = '<div class="handle-right"><span class="bicon icon-uniF164"></span></div> <a href="#choose-theme" class="btn btn-sm btn-block choose-theme"><span class="bicon icon-uniF185"></span>{{#polyglot}}Switch Theme{{/polyglot}}</a> <div id="aj-imp-color-sel"> <a class="btn btn-xs btn-block">{{#polyglot}}Change Theme Colors{{/polyglot}}</a> </div> <div id="aj-imp-font-sel"> <a class="btn btn-xs btn-block">{{#polyglot}}Change Theme Font{{/polyglot}}</a> </div> <div id="revision-history" class="revision-history"> </div> <div id="unused-elements"></div>';
+      RightBlockLayout.prototype.template = '<div class="handle-right"><span class="bicon icon-uniF164"></span></div> <a href="#choose-theme" class="btn btn-sm btn-block choose-theme"><span class="bicon icon-uniF185"></span>{{#polyglot}}Switch Theme{{/polyglot}}</a> <div id="aj-imp-font-sel"> <a class="btn btn-xs btn-block">{{#polyglot}}Change Theme Font{{/polyglot}}</a> </div> <div id="revision-history" class="revision-history"> </div> <div id="unused-elements"></div>';
 
       RightBlockLayout.prototype.regions = {
         unusedElementsRegion: '#unused-elements',
@@ -20,9 +20,6 @@ define(['app'], function(App) {
       };
 
       RightBlockLayout.prototype.events = {
-        'click #aj-imp-color-sel': function() {
-          return this.trigger("show:theme:color:clicked");
-        },
         'click #aj-imp-font-sel': function() {
           return this.trigger('show:theme:font:clicked');
         }
