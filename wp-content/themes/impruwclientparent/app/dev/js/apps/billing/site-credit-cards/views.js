@@ -174,7 +174,6 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
         currentSubscriptionStatus = this.model.get('subscription_status');
         currentPaymentmethodToken = this.model.get('paymentMethodToken');
         selectedCardToken = this.$el.find('.selected .token').val();
-        console.log("selected token " + selectedCardToken);
         if (_.isUndefined(selectedCardToken)) {
           this.$el.find('.activeforget_card_status').html('');
           html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card or add a new card") + '</div>';

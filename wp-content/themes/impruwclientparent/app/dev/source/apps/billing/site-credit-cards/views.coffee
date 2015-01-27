@@ -122,7 +122,6 @@ define [ 'app'
                 currentSubscriptionStatus = @model.get('subscription_status')
                 currentPaymentmethodToken = @model.get('paymentMethodToken')
                 selectedCardToken = @$el.find('.selected .token').val()
-                console.log "selected token "+selectedCardToken
                 if _.isUndefined selectedCardToken
                     @$el.find( '.activeforget_card_status' ).html('')
                     html = '<div class="alert alert-error">
