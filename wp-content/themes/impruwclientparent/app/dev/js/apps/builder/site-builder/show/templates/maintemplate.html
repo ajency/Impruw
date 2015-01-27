@@ -16,6 +16,9 @@
                     {{#pages}}
                     <option data-slug="{{post_name}}" value="{{ID}}" data-originalid="{{original_id}}">{{post_title}}</option>
                     {{/pages}}
+                    <option class="add-new" data-slug="--NEW--" >
+                        Add New Page
+                    </option>
                 </select>
             </div>
                 <!-- <a href="#" class="delete-page">
@@ -33,7 +36,7 @@
                 <label class="header-label">
                     {{#polyglot}}Page Title{{/polyglot}}:
                 </label>
-                <input type="text" name="page_name" id="page_name" class="page-name-input">
+                <input type="text" name="page_name" id="page_name" class="page-name-input page-edit-inputs" disabled="true">
                 <button type="button" class="btn-update-pg-name">{{#polyglot}}Update{{/polyglot}}</button>
             </div>
         </div>
@@ -43,7 +46,7 @@
                 {{#polyglot}}Page URL{{/polyglot}}:
             </label>
             <span class="site-url">{{SITEURL}}</span>
-            <input type="text" value="" class="page-slug-edit">
+            <input type="text" value="" class="page-slug-edit page-edit-inputs" disabled="true">
             <button type="button" class="btn-update-pg-slug">{{#polyglot}}Update{{/polyglot}}</button>
         </div>
 
