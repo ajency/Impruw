@@ -244,7 +244,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.onPagePublished = function() {
-        this.$el.find('.publish-page ').html('<span class="bicon icon-uniF16C"></span>');
+        this.$el.find('.publish-page ').html('Publish');
         return this.$el.find('.publish-page ').removeAttr('disabled');
       };
 
