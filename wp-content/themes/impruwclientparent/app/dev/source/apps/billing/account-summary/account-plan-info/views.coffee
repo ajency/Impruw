@@ -11,6 +11,9 @@ define ['app'
             events:
             	'click .deactivate-subscription': 'deactivateSubscription'
 
+            onShow  :->
+                $('[data-toggle="popover"]').popover()
+
             serializeData : ->
             	data = super()
             	data.THEMEURL = THEMEURL
