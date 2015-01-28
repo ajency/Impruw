@@ -18,6 +18,7 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
         'billing/update-billing': 'updateBilling',
         'billing/pricing-plans': 'plans',
         'billing/payment-page/:id/:braintreeId': 'payment',
+        'billing/payment-page/:braintreeId': 'oneTimePayment',
         'billing/transaction-history': 'transactionHistory'
       };
 
@@ -39,7 +40,15 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
         return App.execute("show:site:payment:app", {
           region: App.rightRegion,
           planId: planId,
-          braintreePlanId: braintreePlanId
+          braintreePlanId: braintreePlanId,
+          subscription: true
+        });
+      },
+      oneTimePayment: function(braintreePlanId) {
+        return App.execute("show:site:payment:app", {
+          region: App.rightRegion,
+          braintreePlanId: braintreePlanId,
+          subscription: false
         });
       },
       creditCards: function() {

@@ -18,6 +18,9 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
       };
 
       Layout.prototype.onRender = function() {
+        $("html, body").animate({
+          scrollTop: 0
+        }, "slow");
         return this.$el.find('.spinner-markup').spin(this._getOptions());
       };
 
@@ -137,58 +140,81 @@ define(['app', 'text!apps/billing/site-credit-cards/templates/credit-cards-layou
           var braintreeClientToken, cardNumber, client, cvv, expMonth, expYear, nameOnCard;
           braintreeClientToken = Marionette.getOption(this, 'braintreeClientToken');
           e.preventDefault();
-          this.$el.find('.addcard_loader').show();
-          cardNumber = this.$el.find('#card_number').val();
-          nameOnCard = this.$el.find('#card_name').val();
-          expMonth = this.$el.find('#exp_month').val();
-          expYear = this.$el.find('#exp_year').val();
-          cvv = this.$el.find('#card-cvv').val();
-          client = new braintree.api.Client({
-            clientToken: braintreeClientToken
-          });
-          return client.tokenizeCard({
-            number: cardNumber,
-            cvv: cvv,
-            cardholderName: nameOnCard,
-            expiration_month: expMonth,
-            expiration_year: expYear
-          }, (function(_this) {
-            return function(err, nonce) {
-              return _this.trigger("add:new:credit:card", nonce);
-            };
-          })(this));
+          if (this.$el.find('.add-card-form').valid()) {
+            this.$el.find('.addcard_loader').show();
+            cardNumber = this.$el.find('#card_number').val();
+            nameOnCard = this.$el.find('#card_name').val();
+            expMonth = this.$el.find('#exp_month').val();
+            expYear = this.$el.find('#exp_year').val();
+            cvv = this.$el.find('#card-cvv').val();
+            client = new braintree.api.Client({
+              clientToken: braintreeClientToken
+            });
+            return client.tokenizeCard({
+              number: cardNumber,
+              cvv: cvv,
+              cardholderName: nameOnCard,
+              expiration_month: expMonth,
+              expiration_year: expYear
+            }, (function(_this) {
+              return function(err, nonce) {
+                return _this.trigger("add:new:credit:card", nonce);
+              };
+            })(this));
+          }
         },
         'click #btn-set-as-active': 'setActiveCard',
         'click #btn-forget-card': 'deleteCard'
       };
 
       CreditCardListView.prototype.setActiveCard = function(e) {
-        var currentPaymentmethodToken, currentSubscriptionId, currentSubscriptionStatus, selectedCardToken;
+        var currentPaymentmethodToken, currentSubscriptionId, currentSubscriptionStatus, html, selectedCardToken;
         e.preventDefault();
         currentSubscriptionId = this.model.get('id');
         currentSubscriptionStatus = this.model.get('subscription_status');
         currentPaymentmethodToken = this.model.get('paymentMethodToken');
         selectedCardToken = this.$el.find('.selected .token').val();
-        this.$el.find('.active_card_loader').show();
-        return this.trigger("set:active:credit:card", currentSubscriptionId, selectedCardToken);
+        if (_.isUndefined(selectedCardToken)) {
+          this.$el.find('.activeforget_card_status').html('');
+          html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card or add a new card") + '</div>';
+          return this.$el.find('.activeforget_card_status').append(html);
+        } else if (currentSubscriptionId === 'DefaultFree') {
+          this.$el.find('.activeforget_card_status').empty();
+          html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("You are currently subscribed to a free plan. Please change to a paid plan to set an active credit card.") + '</div>';
+          return this.$el.find('.activeforget_card_status').append(html);
+        } else {
+          this.$el.find('.active_card_loader').show();
+          return this.trigger("set:active:credit:card", currentSubscriptionId, selectedCardToken);
+        }
       };
 
       CreditCardListView.prototype.deleteCard = function(e) {
-        var currentSubscriptionId, selectedCardToken;
+        var currentSubscriptionId, html, selectedCardToken;
         e.preventDefault();
         currentSubscriptionId = this.model.get('id');
         selectedCardToken = this.$el.find('.selected .token').val();
-        this.$el.find('.forget_card_loader').show();
-        return this.trigger("delete:credit:card", currentSubscriptionId, selectedCardToken);
+        if (_.isUndefined(selectedCardToken)) {
+          this.$el.find('.activeforget_card_status').html('');
+          html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card") + '</div>';
+          return this.$el.find('.activeforget_card_status').append(html);
+        } else {
+          this.$el.find('.forget_card_loader').show();
+          return this.trigger("delete:credit:card", currentSubscriptionId, selectedCardToken);
+        }
       };
 
       CreditCardListView.prototype.onAddCreditCardSuccess = function() {
-        var html;
-        console.log(this.collection);
-        this.$el.find('input').val('');
+        var currentSubscriptionId, html, successMsg;
+        currentSubscriptionId = this.model.get('id');
+        if (currentSubscriptionId === 'DefaultFree' || _.isUndefined(this.model.get('paymentMethodToken'))) {
+          successMsg = _.polyglot.t("Card Added Successfully.");
+        } else {
+          successMsg = _.polyglot.t("Card Added Successfully. However this card will not be used for billing. If you want this card to be used for billing simply change your active card by selecting a card and clicking on 'Set as Active'.");
+        }
+        this.$el.find('#add-new-credit-card input').val('');
         this.$el.find('.addcard_status').empty();
         this.$el.find('.addcard_loader').hide();
-        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Card Added Successfully!") + '</div>';
+        html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + successMsg + '</div>';
         return this.$el.find('.addcard_status').append(html);
       };
 

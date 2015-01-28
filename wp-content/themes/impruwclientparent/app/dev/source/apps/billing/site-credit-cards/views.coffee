@@ -15,6 +15,9 @@ define [ 'app'
                 cardListingRegion : '#credit-card-listing'
 
             onRender :->
+                $("html, body").animate
+                    scrollTop: 0
+                ,   "slow" 
                 @$el.find( '.spinner-markup' ).spin @_getOptions()
 
             # spinner options
@@ -97,17 +100,17 @@ define [ 'app'
                 'click #btn-add-new-card':(e)->
                     braintreeClientToken = Marionette.getOption @, 'braintreeClientToken'
                     e.preventDefault()
+                    if @$el.find('.add-card-form').valid()
+                        @$el.find( '.addcard_loader' ).show()
+                        cardNumber = @$el.find( '#card_number' ).val()
+                        nameOnCard = @$el.find( '#card_name' ).val()
+                        expMonth = @$el.find( '#exp_month' ).val()
+                        expYear = @$el.find( '#exp_year' ).val()
+                        cvv = @$el.find( '#card-cvv' ).val()
 
-                    @$el.find( '.addcard_loader' ).show()
-                    cardNumber = @$el.find( '#card_number' ).val()
-                    nameOnCard = @$el.find( '#card_name' ).val()
-                    expMonth = @$el.find( '#exp_month' ).val()
-                    expYear = @$el.find( '#exp_year' ).val()
-                    cvv = @$el.find( '#card-cvv' ).val()
-
-                    client = new braintree.api.Client clientToken : braintreeClientToken
-                    client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
-                        @trigger "add:new:credit:card", nonce
+                        client = new braintree.api.Client clientToken : braintreeClientToken
+                        client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
+                            @trigger "add:new:credit:card", nonce
 
                 'click #btn-set-as-active': 'setActiveCard'
 
@@ -119,26 +122,51 @@ define [ 'app'
                 currentSubscriptionStatus = @model.get('subscription_status')
                 currentPaymentmethodToken = @model.get('paymentMethodToken')
                 selectedCardToken = @$el.find('.selected .token').val()
-                @$el.find( '.active_card_loader' ).show()
-                @trigger "set:active:credit:card",currentSubscriptionId, selectedCardToken
+                if _.isUndefined selectedCardToken
+                    @$el.find( '.activeforget_card_status' ).html('')
+                    html = '<div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card or add a new card")+'</div>'
+                    @$el.find( '.activeforget_card_status' ).append html
+
+                else if currentSubscriptionId is 'DefaultFree'
+                    @$el.find( '.activeforget_card_status' ).empty()
+                    html = '<div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("You are currently subscribed to a free plan. Please change to a paid plan to set an active credit card.")+'</div>'
+                    @$el.find( '.activeforget_card_status' ).append html                    
+                else
+                    @$el.find( '.active_card_loader' ).show()
+                    @trigger "set:active:credit:card",currentSubscriptionId, selectedCardToken
 
             deleteCard : (e) ->
                 e.preventDefault()
                 currentSubscriptionId = @model.get('id')
                 selectedCardToken = @$el.find('.selected .token').val()
-                @$el.find( '.forget_card_loader' ).show()
-                @trigger "delete:credit:card",currentSubscriptionId, selectedCardToken
+                if _.isUndefined selectedCardToken
+                    @$el.find( '.activeforget_card_status' ).html('')
+                    html = '<div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card")+'</div>'
+                    @$el.find( '.activeforget_card_status' ).append html
+                else
+                    @$el.find( '.forget_card_loader' ).show()
+                    @trigger "delete:credit:card",currentSubscriptionId, selectedCardToken
 
 
                     
 
             onAddCreditCardSuccess : ->
-                console.log @collection
-                @$el.find('input').val ''
+                currentSubscriptionId = @model.get('id')
+                # When active card does not exist
+                if currentSubscriptionId is 'DefaultFree' or _.isUndefined @model.get('paymentMethodToken')
+                    successMsg =  _.polyglot.t("Card Added Successfully.")
+                else
+                    successMsg = _.polyglot.t("Card Added Successfully. However this card will not be used for billing. If you want this card to be used for billing simply change your active card by selecting a card and clicking on 'Set as Active'.")
+                
+                
+                @$el.find('#add-new-credit-card input').val ''
                 @$el.find( '.addcard_status' ).empty()
                 @$el.find( '.addcard_loader' ).hide()
                 html = '<div class="alert alert-success">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Card Added Successfully!")+'</div>'
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+successMsg+'</div>'
                 @$el.find( '.addcard_status' ).append( html )
 
             onAddCreditCardError : ( errorMsg )->

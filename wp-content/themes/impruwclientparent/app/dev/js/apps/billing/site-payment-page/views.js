@@ -103,7 +103,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
       };
 
       PaymentPageView.prototype.serializeData = function() {
-        var activePlanName, billingPeriodEndDate, billingPeriodStartDate, currencySymbol, currentSubscriptionAmount, currentSubscriptionDaysLeft, data, nextBillingDate, prorationCharge, selectedPlanAmount, selectedPlanName;
+        var activePlanName, billingPeriodEndDate, billingPeriodStartDate, currencySymbol, currentSubscriptionAmount, currentSubscriptionDaysLeft, data, isSubscription, nextBillingDate, prorationCharge, selectedPlanAmount, selectedPlanName;
         activePlanName = Marionette.getOption(this, 'activePlanName');
         currentSubscriptionAmount = Marionette.getOption(this, 'currentSubscriptionAmount');
         currencySymbol = Marionette.getOption(this, 'currencySymbol');
@@ -114,6 +114,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         selectedPlanAmount = Marionette.getOption(this, 'selectedPlanAmount');
         prorationCharge = Marionette.getOption(this, 'prorationCharge');
         currentSubscriptionDaysLeft = Marionette.getOption(this, 'currentSubscriptionDaysLeft');
+        isSubscription = Marionette.getOption(this, 'isSubscription');
         data = PaymentPageView.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
         data.activePlanName = activePlanName;
@@ -126,6 +127,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         data.selectedPlanAmount = selectedPlanAmount;
         data.prorationCharge = prorationCharge;
         data.currentSubscriptionDaysLeft = currentSubscriptionDaysLeft;
+        data.isSubscription = isSubscription;
         return data;
       };
 
@@ -133,27 +135,29 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         'click #btn-add-card': function(e) {
           var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
           e.preventDefault();
-          this.$el.find('#addcard_loader').show();
-          cardNumber = this.$el.find('#card_number').val();
-          nameOnCard = this.$el.find('#card_name').val();
-          expMonth = this.$el.find('#exp_month').val();
-          expYear = this.$el.find('#exp_year').val();
-          cvv = this.$el.find('#card-cvv').val();
-          clientToken = this.collection.models[0].get('braintree_client_token');
-          client = new braintree.api.Client({
-            clientToken: clientToken
-          });
-          return client.tokenizeCard({
-            number: cardNumber,
-            cvv: cvv,
-            cardholderName: nameOnCard,
-            expiration_month: expMonth,
-            expiration_year: expYear
-          }, (function(_this) {
-            return function(err, nonce) {
-              return _this.trigger("add:credit:card", nonce);
-            };
-          })(this));
+          if (this.$el.find('.add-card-form').valid()) {
+            this.$el.find('#addcard_loader').show();
+            cardNumber = this.$el.find('#card_number').val();
+            nameOnCard = this.$el.find('#card_name').val();
+            expMonth = this.$el.find('#exp_month').val();
+            expYear = this.$el.find('#exp_year').val();
+            cvv = this.$el.find('#card-cvv').val();
+            clientToken = this.collection.models[0].get('braintree_client_token');
+            client = new braintree.api.Client({
+              clientToken: clientToken
+            });
+            return client.tokenizeCard({
+              number: cardNumber,
+              cvv: cvv,
+              cardholderName: nameOnCard,
+              expiration_month: expMonth,
+              expiration_year: expYear
+            }, (function(_this) {
+              return function(err, nonce) {
+                return _this.trigger("add:credit:card", nonce);
+              };
+            })(this));
+          }
         },
         'click #btn-stored-pay': function(e) {
           var cardToken, html;
@@ -165,6 +169,18 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
           } else {
             this.$el.find('#paycredit_loader').show();
             return this.trigger("make:payment:with:stored:card", cardToken);
+          }
+        },
+        'click #btn-stored-assisted-setup-pay': function(e) {
+          var cardToken, html;
+          e.preventDefault();
+          cardToken = this.$el.find('.selected .token').val();
+          if (_.isUndefined(cardToken)) {
+            html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Please select a card") + '</div>';
+            return this.$el.find('#billingpay_status').append(html);
+          } else {
+            this.$el.find('#paycredit_loader').show();
+            return this.trigger("make:assistedsetup:payment:stored:card", cardToken);
           }
         }
       };
@@ -187,11 +203,18 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
       };
 
       PaymentPageView.prototype.onPaymentSuccess = function() {
-        var html;
+        var html, mainUrl, redirectUrl;
         this.$el.find('#billingpay_status').empty();
         this.$el.find('#paycredit_loader').hide();
         html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Payment Successful!") + '</div>';
-        return this.$el.find('#billingpay_status').append(html);
+        this.$el.find('#billingpay_status').append(html);
+        mainUrl = window.location.href.replace(Backbone.history.getFragment(), '');
+        redirectUrl = "" + mainUrl + "billing/account-summary";
+        return _.delay((function(_this) {
+          return function() {
+            return _this.redirectPage(redirectUrl);
+          };
+        })(this), 2000);
       };
 
       PaymentPageView.prototype.onPaymentError = function(errorMsg) {
@@ -200,6 +223,10 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         this.$el.find('#paycredit_loader').hide();
         html = "<div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
         return this.$el.find('#billingpay_status').append(html);
+      };
+
+      PaymentPageView.prototype.redirectPage = function(redirectUrl) {
+        return window.location.href = redirectUrl;
       };
 
       return PaymentPageView;
@@ -214,8 +241,13 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
 
       FirstTimePaymentView.prototype.template = newCustomerPaymentViewTpl;
 
+      FirstTimePaymentView.prototype.onShow = function() {
+        this.$el.find('#exp_month').selectpicker();
+        return this.$el.find('#exp_year').selectpicker();
+      };
+
       FirstTimePaymentView.prototype.serializeData = function() {
-        var activePlanName, billingPeriodEndDate, billingPeriodStartDate, currencySymbol, currentSubscriptionAmount, currentSubscriptionDaysLeft, data, nextBillingDate, prorationCharge, selectedPlanAmount, selectedPlanName;
+        var activePlanName, billingPeriodEndDate, billingPeriodStartDate, currencySymbol, currentSubscriptionAmount, currentSubscriptionDaysLeft, data, isSubscription, nextBillingDate, prorationCharge, selectedPlanAmount, selectedPlanName;
         activePlanName = Marionette.getOption(this, 'activePlanName');
         currentSubscriptionAmount = Marionette.getOption(this, 'currentSubscriptionAmount');
         currencySymbol = Marionette.getOption(this, 'currencySymbol');
@@ -226,6 +258,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         selectedPlanAmount = Marionette.getOption(this, 'selectedPlanAmount');
         prorationCharge = Marionette.getOption(this, 'prorationCharge');
         currentSubscriptionDaysLeft = Marionette.getOption(this, 'currentSubscriptionDaysLeft');
+        isSubscription = Marionette.getOption(this, 'isSubscription');
         data = FirstTimePaymentView.__super__.serializeData.call(this);
         data.THEMEURL = THEMEURL;
         data.activePlanName = activePlanName;
@@ -238,6 +271,7 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         data.selectedPlanAmount = selectedPlanAmount;
         data.prorationCharge = prorationCharge;
         data.currentSubscriptionDaysLeft = currentSubscriptionDaysLeft;
+        data.isSubscription = isSubscription;
         return data;
       };
 
@@ -245,6 +279,10 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         'click #btn-pay': function(e) {
           var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
           e.preventDefault();
+          if ($.trim(this.$el.find('#card_name').val()) === "") {
+            this.onPaymentError(_.polyglot.t("Please enter card holder's name"));
+            return;
+          }
           this.$el.find('#pay_loader').show();
           cardNumber = this.$el.find('#card_number').val();
           nameOnCard = this.$el.find('#card_name').val();
@@ -266,15 +304,47 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
               return _this.trigger("new:credit:card:payment", nonce);
             };
           })(this));
+        },
+        'click #btn-assisted-setup-pay': function(e) {
+          var cardNumber, client, clientToken, cvv, expMonth, expYear, nameOnCard;
+          e.preventDefault();
+          this.$el.find('#pay_loader').show();
+          cardNumber = this.$el.find('#card_number').val();
+          nameOnCard = this.$el.find('#card_name').val();
+          expMonth = this.$el.find('#exp_month').val();
+          expYear = this.$el.find('#exp_year').val();
+          cvv = this.$el.find('#card-cvv').val();
+          clientToken = this.model.get('braintree_client_token');
+          client = new braintree.api.Client({
+            clientToken: clientToken
+          });
+          return client.tokenizeCard({
+            number: cardNumber,
+            cvv: cvv,
+            cardholderName: nameOnCard,
+            expiration_month: expMonth,
+            expiration_year: expYear
+          }, (function(_this) {
+            return function(err, nonce) {
+              return _this.trigger("new:credit:card:assistedsetup:payment", nonce);
+            };
+          })(this));
         }
       };
 
       FirstTimePaymentView.prototype.onPaymentSuccess = function() {
-        var html;
+        var html, mainUrl, redirectUrl;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
         html = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Payment Successful!") + '</div>';
-        return this.$el.find('#billingsave_status').append(html);
+        this.$el.find('#billingsave_status').append(html);
+        mainUrl = window.location.href.replace(Backbone.history.getFragment(), '');
+        redirectUrl = "" + mainUrl + "billing/account-summary";
+        return _.delay((function(_this) {
+          return function() {
+            return _this.redirectPage(redirectUrl);
+          };
+        })(this), 2000);
       };
 
       FirstTimePaymentView.prototype.onPaymentError = function(errorMsg) {
@@ -283,6 +353,10 @@ define(['app', 'text!apps/billing/site-payment-page/templates/payment-layout.htm
         this.$el.find('#pay_loader').hide();
         html = "<div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg + " </div>";
         return this.$el.find('#billingsave_status').append(html);
+      };
+
+      FirstTimePaymentView.prototype.redirectPage = function(redirectUrl) {
+        return window.location.href = redirectUrl;
       };
 
       return FirstTimePaymentView;

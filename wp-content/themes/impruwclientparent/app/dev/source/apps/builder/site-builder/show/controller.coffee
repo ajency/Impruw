@@ -135,6 +135,9 @@ define [ 'app'
                 @listenTo @layout, "add:new:page:clicked", ->
                     App.execute "show:add:new:page", region : App.dialogRegion
 
+                @listenTo @layout ,"show:theme:color:clicked",->
+                    App.execute "show:theme:color:set", region : App.dialogRegion
+
                 @listenTo @layout, 'delete:page:clicked',=>
                     page = @pages.get $.cookie 'current-page-id'
                     page.destroy

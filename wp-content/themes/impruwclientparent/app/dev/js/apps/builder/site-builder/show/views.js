@@ -59,6 +59,15 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           return promise.always(this.onPagePublished);
         },
         'change select#builder-page-sel': function(evt) {
+          this.$el.find('.page-edit-inputs').attr('disabled', true);
+          if ($(evt.target).find('option:selected').attr('data-slug') === "--NEW--") {
+            this.trigger("add:new:page:clicked");
+            $(evt.target).selectpicker('val', this.currentPageId);
+            return;
+          }
+          if (this.currentPageId === parseInt($(evt.target).val())) {
+            return;
+          }
           App.autoSaveAPI.local.suspend();
           this.releasePage();
           this._addToPageSlug(parseInt($(evt.target).val()));
@@ -78,6 +87,9 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         'click .add-new-page': function() {
           return this.trigger("add:new:page:clicked");
         },
+        'click .color-switch': function() {
+          return this.trigger("show:theme:color:clicked");
+        },
         'click .delete-page': function(e) {
           e.preventDefault();
           if (ISFRONTPAGE) {
@@ -92,10 +104,14 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             })(this));
           }
         },
+        'click .page-details-edit': function() {
+          return this.$el.find('.page-edit-inputs').attr('disabled', false);
+        },
         'click .btn-update-pg-name': function() {
           var currentPageId, data, updatedPageName;
           currentPageId = this.getCurrentPageId();
           updatedPageName = this.$el.find('#page_name').val();
+          this.$el.find('.page-edit-inputs').attr('disabled', true);
           data = {
             'post_title': updatedPageName,
             'ID': currentPageId
@@ -106,6 +122,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           var currentPageId, data, updatedPageSlug;
           currentPageId = this.getCurrentPageId();
           updatedPageSlug = this.$el.find('.page-slug-edit').val();
+          this.$el.find('.page-edit-inputs').attr('disabled', true);
           data = {
             'post_name': updatedPageSlug,
             'ID': currentPageId
@@ -186,7 +203,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             if (modelId === _this.new_page_id && ((_ref = model.get('post_name')) !== 'full-width-page')) {
               page_name = model.get('post_title');
               select_html = "<option value='" + modelId + "' data-originalid='" + originalPageId + ("'>" + page_name + "</option>");
-              _this.$el.find('select#builder-page-sel').append(select_html);
+              _this.$el.find('select#builder-page-sel option.add-new').before(select_html);
               return _this.$el.find('select#builder-page-sel').selectpicker('refresh');
             }
           };
@@ -227,7 +244,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.onPagePublished = function() {
-        this.$el.find('.publish-page ').text('Publish');
+        this.$el.find('.publish-page ').html('Publish');
         return this.$el.find('.publish-page ').removeAttr('disabled');
       };
 

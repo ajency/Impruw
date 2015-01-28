@@ -83,7 +83,7 @@ define [ 'app'
                 tabLocation: 'left'                     
                 speed: 300                              
                 action: 'click'                          
-                topPos: '30px'                          
+                topPos: '80px'                          
                 fixedPosition: true  
                 onLoadSlideOut: true                     
             

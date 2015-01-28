@@ -83,7 +83,12 @@
 
            $routes['/ajbilling/braintreePlan/(?P<object_id>\d+)/(?P<object_type>\S+)/(?P<plan_id>\d+)/(?P<braintree_plan_id>\S+)'] = array(
             array( array( $this, 'change_site_braintree_plan'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
+            ); 
+
+           $routes['/ajbilling/braintreePlans/(?P<braintree_plan_id>\S+)'] = array(
+            array( array( $this, 'get_braintree_plan'), WP_JSON_Server::READABLE ),
             );
+
            $routes['/ajbilling/defaultPlan/(?P<object_id>\d+)/(?P<object_type>\S+)'] = array(
             array( array( $this, 'cancel_braintree_plan'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
@@ -98,6 +103,9 @@
             );
            $routes['/ajbilling/braintreeTransactions'] = array(
             array( array( $this, 'get_braintree_transactions'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
+            ); 
+           $routes['/ajbilling/oneTimeTransaction/(?P<object_id>\d+)/(?P<object_type>\S+)/(?P<braintree_plan_id>\S+)'] = array(
+            array( array( $this, 'create_one_time_transaction'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
             );
 
 
@@ -144,7 +152,7 @@
         public function fetch_site_subscriptions($object_id, $object_type='site'){
             $site_subscriptions = array();
 
-            // A would always have one subscription associated to it. Hence a site's subscription collection would have only that one subscription i.e the site's current subscription 
+            // A site would always have one subscription associated to it. Hence a site's subscription collection would have only that one subscription i.e the site's current subscription 
             $site_subscription = ajbilling_fetch_site_subscription($object_id, $object_type);
 
             $site_subscriptions[] = $site_subscription;
@@ -305,6 +313,30 @@
            
         }
 
+        public function get_braintree_plan($braintree_plan_id){
+
+            $plan = aj_braintree_get_plan($braintree_plan_id);
+
+            if (is_null( $plan)) {
+                 return new WP_Error( 'braintree_plan_not_found', __( 'Braintree Plan not found.' ), array( 'status' => 500 ) );
+            }
+            else{
+                $braintree_plan['id'] = $plan->id;
+                $braintree_plan['billingFrequency'] = $plan->billingFrequency;
+                $braintree_plan['currencyIsoCode'] = $plan->currencyIsoCode;
+                $braintree_plan['description'] = $plan->description;
+                $braintree_plan['name'] = $plan->name;
+                $braintree_plan['numberOfBillingCycles'] = $plan->numberOfBillingCycles;
+                $braintree_plan['price'] = $plan->price;
+                $braintree_plan['trialDuration'] = $plan->trialDuration;
+                $braintree_plan['trialDurationUnit'] = $plan->trialDurationUnit;
+                $braintree_plan['trialPeriod'] = $plan->trialPeriod;
+
+                return $braintree_plan;
+            }
+
+        }
+
         public function cancel_braintree_plan($object_id, $object_type='site'){
 
             $customer_id =ajbilling_get_braintree_customer_id($object_id,$object_type);
@@ -314,7 +346,7 @@
                 // Cancel this subscription in braintree
                 $cancel_subscription = aj_braintree_cancel_subscription($current_subscription_id);
             }else{
-                $cancel_subscription =  array('sucess' => false, 'msg'=>'Customer not in Braintree' );
+                $cancel_subscription =  array('success' => false, 'msg'=>'Customer not in Braintree' );
             }
             
             return $cancel_subscription;
@@ -324,6 +356,28 @@
         public function add_braintree_credit_card($object_id, $object_type='site'){
 
             $customer_id =ajbilling_get_braintree_customer_id($object_id,$object_type);
+
+            if ( empty( $customer_id )) {
+
+                $customer = array();
+                if (isset($_REQUEST[ 'customerName' ])) {
+                    $customer['firstName'] = $_REQUEST[ 'customerName' ];
+                }
+
+                if (isset($_REQUEST[ 'customerEmail' ])) {
+                    $customer['email'] = $_REQUEST[ 'customerEmail' ];
+                }
+                $create_customer = aj_braintree_create_customer($customer);
+                
+                if ( !$create_customer->success ){
+                            // return error array
+                    return array('success' => false ,'msg'=>$create_customer->message );
+                }
+                $customer_id = $create_customer->customer->id;
+
+                // update braintree customer in site options
+                ajbilling_update_plugin_site_options($object_id,$object_type,'braintree-customer-id',$customer_id);
+            }
 
             $payment_method_nonce = $_REQUEST[ 'paymentMethodNonce' ];
 
@@ -386,14 +440,18 @@
         }
 
         public function set_active_subscription_card($subscription_id, $new_card_token){
+
+            if ($subscription_id==="DefaultFree") {
+                return array('change_card_success' => false, 'msg'=>'You are currently subscribed to a free plan. Please change to a paid plan to set an active credit card.' );
+            }
             
             $current_subscription = aj_braintree_get_subscription($subscription_id );
             $current_subscription_status = $current_subscription['subscription_status'];
             $current_paymentmethod_token = $current_subscription['paymentMethodToken'];
             $current_merchant_account = $current_subscription['merchantAccountId'];
 
-            if ($current_paymentmethod_token===$delete_card_token) {
-                return array('success' => false, 'msg'=>'This card is already set as active' );
+            if ($current_paymentmethod_token===$new_card_token) {
+                return array('change_card_success' => false, 'msg'=>'This card is already set as active' );
             }
 
             switch ($current_subscription_status) {
@@ -457,6 +515,72 @@
 
             return $transactions;
         }
+
+        public function create_one_time_transaction($object_id,$braintree_plan_id, $object_type='site'){
+            $customer = array();
+            $customer_id =ajbilling_get_braintree_customer_id($object_id,$object_type);
+
+            if (isset($_POST[ 'customerName' ])) {
+                $customer['firstName'] = $_REQUEST[ 'customerName' ];
+            }
+
+            if (isset($_POST[ 'customerEmail' ])) {
+                $customer['email'] = $_REQUEST[ 'customerEmail' ];
+            }
+
+            // if payment method token is set then update subscription with existing card
+            if (isset($_REQUEST[ 'paymentMethodToken' ])) {
+                $paymentMethodToken = $_REQUEST[ 'paymentMethodToken' ];
+            }
+            else if (isset($_REQUEST[ 'paymentMethodNonce' ]) &&  empty( $customer_id ) ){
+                $paymentMethodNonce = $_REQUEST[ 'paymentMethodNonce' ];
+
+                // if not already a braintree customer create customer with credit card
+                $create_customer = ajbilling_create_customer_with_card($customer,$paymentMethodNonce);
+                
+                if ( !$create_customer['success'] ){
+                            // return error array
+                    return array('success' => false ,'msg'=>$create_customer['msg'] );
+                }
+                $customer_id = $create_customer['customerId'];
+
+                // update braintree customer in site options
+                ajbilling_update_plugin_site_options($object_id,'site','braintree-customer-id',$customer_id);
+
+                $paymentMethodToken = $create_customer['creditCardToken'];
+            }
+            else if (isset($_REQUEST[ 'paymentMethodNonce' ])){
+                $paymentMethodNonce = $_REQUEST[ 'paymentMethodNonce' ];
+                // Add new credit card to customer
+                $create_payment_method = aj_braintree_create_payment_method($customer_id, $paymentMethodNonce);
+                
+                if ( !$create_payment_method->success ) {
+                  return array( 'success' => $create_payment_method->success, 'msg' => $create_payment_method->message );  
+                } 
+
+                $paymentMethodToken = $create_payment_method->paymentMethod->token;
+                
+            }
+
+            // Create transaction with token and amount
+           $transaction_result = ajbilling_create_onetime_transaction($paymentMethodToken,$braintree_plan_id);
+    
+            if ($transaction_result['success']){
+                // // Update customer custom field with one time transaction id
+                // $customer_array = array('customFields' => 
+                //     array( 'assisted_setup' => $transaction_result['id'])
+                //     );
+                // $update_customer = aj_braintree_update_customer($customer_id,$customer_array );
+
+                // Update in the assisted setup in db 
+                ajbilling_update_plugin_site_options($object_id,'site','braintree-assisted-setup',$transaction_result['id']);
+               
+            }
+
+            return $transaction_result;
+        }
+
+
 
     }
 

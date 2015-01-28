@@ -57,6 +57,8 @@
     var PLAN_FEATURE_COUNT = { "email_account": [ {"current_count": <?php echo site_feature_current_count('email_account'); ?>,"allowed_count": <?php echo site_feature_allowed_count('email_account'); ?>}], "site_add_ons": [ { "current_count": <?php echo site_feature_current_count('site_add_ons'); ?>, "allowed_count": <?php echo site_feature_allowed_count('site_add_ons'); ?> }] };
     var SELECTED_SITE_ADDONS = <?php echo json_encode(site_feature_current_count_array('site_add_ons')); ?>;
     var COUNTRY_BASED_CURRENCY = '<?php echo get_country_based_site_currency();?>';
+    var CURRENCY_SYMBOLS = { "GBP": "£", "USD": "$" , "NOK": "NOK"};
+
     var BT_TIMEZONE = '<?php echo BT_TIMEZONE;?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var USERDATA = <?php $impruwUserModel = new ImpruwUser(get_current_user_id());

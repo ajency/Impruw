@@ -12,35 +12,46 @@ define [ 'app', 'controllers/base-controller'
                 @selectedPlanId = opts.planId
                 @braintreePlanId = opts.braintreePlanId
 
-                # Get selected plan details to be displayed in the view
-                selectedPlanModel = App.request "get:feature:plan:by:id",@selectedPlanId
-                @selectedPlanName = selectedPlanModel.get 'plan_title'
-                @selectedPlanAmount = selectedPlanModel.get 'price'
+                # Option to check whether payment page is for subscription or assisted set up
+                @isSubscription = opts.subscription
 
-                # Get current subscription details to be displayed in the view
-                subscriptionCollection = App.request "get:site:subscriptions"
-                currentSubscriptionModel = subscriptionCollection.at 0
-                @activePaymentToken =  currentSubscriptionModel.get 'paymentMethodToken'
-                @currentSubscriptionAmount = currentSubscriptionModel.get 'price'
-                @currencySymbol = currentSubscriptionModel.get 'currency'
-                @billingPeriodStartDate = currentSubscriptionModel.get 'billingPeriodStartDate'
-                @billingPeriodEndDate = currentSubscriptionModel.get 'billingPeriodEndDate'
-                @nextBillingDate = currentSubscriptionModel.get 'nextBillingDate'
+                if @isSubscription
+                    # Get selected plan details to be displayed in the view
+                    selectedPlanModel = App.request "get:feature:plan:by:id",@selectedPlanId
+                    @selectedPlanName = selectedPlanModel.get 'plan_title'
+                    @selectedPlanAmount = selectedPlanModel.get 'price'
 
-                # Get proration charge
-                @prorationCharge = @getProrationCharge(@currentSubscriptionAmount, @selectedPlanAmount,@billingPeriodStartDate,@billingPeriodEndDate)
-                console.log @prorationCharge
+                    # Get current subscription details to be displayed in the view
+                    subscriptionCollection = App.request "get:site:subscriptions"
+                    currentSubscriptionModel = subscriptionCollection.at 0
+                    @activePaymentToken =  currentSubscriptionModel.get 'paymentMethodToken'
+                    @currentSubscriptionAmount = currentSubscriptionModel.get 'price'
+                    @currencySymbol = currentSubscriptionModel.get 'currency'
+                    @billingPeriodStartDate = currentSubscriptionModel.get 'billingPeriodStartDate'
+                    @billingPeriodEndDate = currentSubscriptionModel.get 'billingPeriodEndDate'
+                    @nextBillingDate = currentSubscriptionModel.get 'nextBillingDate'
                 
-                @currentSubscriptionDaysLeft = @getCurrentSubscriptionDaysLeft(@billingPeriodStartDate,@billingPeriodEndDate)
-                
+                    # Get proration charge
+                    @prorationCharge = @getProrationCharge(@currentSubscriptionAmount, @selectedPlanAmount,@billingPeriodStartDate,@billingPeriodEndDate)
+                    console.log @prorationCharge
+                    
+                    @currentSubscriptionDaysLeft = @getCurrentSubscriptionDaysLeft(@billingPeriodStartDate,@billingPeriodEndDate)
+                    
 
-                # Get current active plan name
-                if PAYMENT_PLAN_ID is '1'
-                    @activePlanName = 'Free'
+                    # Get current active plan name
+                    if PAYMENT_PLAN_ID is '1'
+                        @activePlanName = 'Free'
+                    else
+                        activePlanModel = App.request "get:feature:plan:by:id",PAYMENT_PLAN_ID
+                        @activePlanName = activePlanModel.get 'plan_title'
+
                 else
-                    activePlanModel = App.request "get:feature:plan:by:id",PAYMENT_PLAN_ID
-                    @activePlanName = activePlanModel.get 'plan_title'
-
+                    @selectedBraintreePlanModel = App.request "get:braintreeplan:by:id", @braintreePlanId
+                    App.execute "when:fetched",  @selectedBraintreePlanModel, =>
+                        @selectedPlanName = @selectedBraintreePlanModel.get('name')
+                        @selectedPlanAmount = @selectedBraintreePlanModel.get('price')
+                        @currencyCode = @selectedBraintreePlanModel.get('currencyIsoCode')
+                        @currencySymbol = CURRENCY_SYMBOLS[@currencyCode] 
 
                 @layout = @getLayout @siteModel
 
@@ -68,11 +79,17 @@ define [ 'app', 'controllers/base-controller'
                         @listenTo @paymentView, "new:credit:card:payment", ( paymentMethodNonce )=>
                             @newCardPayment paymentMethodNonce 
 
+                        @listenTo @paymentView, "new:credit:card:assistedsetup:payment", ( paymentMethodNonce )=>
+                            @newCardAsstdSetupPayment paymentMethodNonce 
+
                         @listenTo @paymentView, "add:credit:card", ( paymentMethodNonce )=>
                             @addCard paymentMethodNonce 
 
                         @listenTo @paymentView, "make:payment:with:stored:card", ( cardToken )=>
-                            @storedCardPayment cardToken
+                            @storedCardPayment cardToken 
+
+                        @listenTo @paymentView, "make:assistedsetup:payment:stored:card", ( cardToken )=>
+                            @asstdSetupStoredCardPayment cardToken
 
                 @show @layout,
                     loading : true
@@ -153,6 +170,7 @@ define [ 'app', 'controllers/base-controller'
                     prorationCharge : @prorationCharge
                     currentSubscriptionDaysLeft : @currentSubscriptionDaysLeft
                     activePaymentToken : @activePaymentToken
+                    isSubscription : @isSubscription
 
             getFirstTimePaymentPageView : ( creditCardModel )->
                 new SitePayment.View.FirstTimePaymentView
@@ -167,6 +185,17 @@ define [ 'app', 'controllers/base-controller'
                     selectedPlanAmount : @selectedPlanAmount
                     prorationCharge : @prorationCharge
                     currentSubscriptionDaysLeft : @currentSubscriptionDaysLeft
+                    isSubscription : @isSubscription
+
+            getTranslatedBraintreeResponse :(responseMessage)->
+                translatedMsgResponse = ""
+                splitMsg = responseMessage.split("\n")
+                _.each splitMsg, (value, key) ->
+                    translatedMsg = _.polyglot.t(value)
+                    translatedMsg = translatedMsg+"<br/>"
+                    translatedMsgResponse+= translatedMsg
+                translatedMsgResponse
+
 
             newCardPayment : ( paymentMethodNonce )=>
                 
@@ -189,7 +218,33 @@ define [ 'app', 'controllers/base-controller'
                         @creditCardCollection.add(newCreditCardModel)
                         @paymentView.triggerMethod "payment:success"
                     else 
-                        @paymentView.triggerMethod "payment:error", response.msg
+                        msgResponse = response.msg
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(msgResponse)
+                        @paymentView.triggerMethod "payment:error", translatedMsgResponse
+
+            
+            newCardAsstdSetupPayment :(paymentMethodNonce)=>
+                postURL = "#{SITEURL}/api/ajbilling/oneTimeTransaction/#{SITEID["id"]}/site/#{@braintreePlanId}"
+
+                options =
+                    method : 'POST'
+                    url : postURL
+                    data :
+                        'paymentMethodNonce' : paymentMethodNonce
+                        'customerName' : USER['data']['display_name']
+                        'customerEmail' : USER['data']['user_email']
+
+                $.ajax( options ).done ( response )=>
+                    if response.success is true
+                        newCreditCard = response.credit_card
+                        newCreditCardModel = new Backbone.Model newCreditCard
+                        @creditCardCollection = App.request "get:credit:cards"
+                        @creditCardCollection.add(newCreditCardModel)
+                        @paymentView.triggerMethod "payment:success"
+                    else 
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(response.msg) 
+                        @paymentView.triggerMethod "payment:error", translatedMsgResponse
+
 
             addCard : ( paymentMethodNonce )=>
                 
@@ -209,7 +264,8 @@ define [ 'app', 'controllers/base-controller'
                         @creditCardCollection.add(newCreditCardModel)
                         @paymentView.triggerMethod "add:credit:card:success"
                     else
-                        @paymentView.triggerMethod "add:credit:card:error", response.msg
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(response.msg)
+                        @paymentView.triggerMethod "add:credit:card:error", translatedMsgResponse
 
             storedCardPayment : (paymentMethodToken)=>
                 postURL = "#{SITEURL}/api/ajbilling/braintreePlan/#{SITEID["id"]}/site/#{@selectedPlanId}/#{@braintreePlanId}"
@@ -225,7 +281,25 @@ define [ 'app', 'controllers/base-controller'
                         @updateBillingGlobals response
                         @paymentView.triggerMethod "payment:success"
                     else 
-                        @paymentView.triggerMethod "payment:error", response.msg
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(response.msg)
+                        @paymentView.triggerMethod "payment:error", translatedMsgResponse
+
+            asstdSetupStoredCardPayment : (paymentMethodToken)=>
+                postURL = "#{SITEURL}/api/ajbilling/oneTimeTransaction/#{SITEID["id"]}/site/#{@braintreePlanId}"
+
+                options =
+                    method : 'POST'
+                    url : postURL
+                    data :
+                        'paymentMethodToken' : paymentMethodToken
+
+                $.ajax( options ).done ( response )=>
+                    if response.success is true
+                        @updateBillingGlobals response
+                        @paymentView.triggerMethod "payment:success"
+                    else 
+                        translatedMsgResponse = @getTranslatedBraintreeResponse(response.msg)
+                        @paymentView.triggerMethod "payment:error", translatedMsgResponse
 
             updateBillingGlobals :(updateResponse)=>
                 window.PAYMENT_PLAN_ID  = updateResponse.plan_id

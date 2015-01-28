@@ -23,22 +23,17 @@ define(['app', 'controllers/base-controller', 'apps/builder/right-block/views', 
               revisionId: revisionId,
               pageId: pageId
             });
-            App.execute("show:revision:history", {
+            return App.execute("show:revision:history", {
               region: _this.layout.revisionHistoryRegion,
               pageId: pageId
             });
-            _this.listenTo(_this.layout, "show:theme:color:clicked", function() {
-              return App.execute("show:theme:color:set", {
-                region: App.dialogRegion
-              });
-            });
-            return _this.listenTo(_this.layout, "show:theme:font:clicked", function() {
-              return App.execute("show:theme:font:set", {
-                region: App.dialogRegion
-              });
-            });
           };
         })(this));
+        this.listenTo(this.layout, "show:theme:font:clicked", function() {
+          return App.execute("show:theme:font:set", {
+            region: App.dialogRegion
+          });
+        });
         return this.show(this.layout);
       };
 

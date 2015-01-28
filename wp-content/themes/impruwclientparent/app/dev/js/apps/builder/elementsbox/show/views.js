@@ -89,7 +89,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html'], functi
           tabLocation: 'left',
           speed: 300,
           action: 'click',
-          topPos: '30px',
+          topPos: '80px',
           fixedPosition: true,
           onLoadSlideOut: true
         });

@@ -15,6 +15,15 @@ define ['app'
             onShow: ->
                 @$el.find('input[type="checkbox"]').radiocheck()
 
+            serializeData:->
+                data = super data
+                if data.title is "Room Summary"
+                    data.title = _.polyglot.t("Display Rooms / Room Summary")
+                else
+                    data.title = _.polyglot.t(data.title)
+
+                data
+
             mixinTemplateHelpers:(data)->
                 data = super data
 
@@ -70,7 +79,7 @@ define ['app'
 
                 if siteaddonCheckedCount > maxAllowedCount
                     @$el.parent().find('.alert').remove()
-                    @$el.parent().append "<div class=\"alert alert-error\"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + _.polyglot.t("Can select at the most "+maxAllowedCount+" site add on/add ons") + "</div>"
+                    @$el.parent().append "<div class=\"alert alert-error\"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" +_.polyglot.t("can select certain maximum addons", {maxAllowedCount: maxAllowedCount})+ "</div>"
                     return
                 
 

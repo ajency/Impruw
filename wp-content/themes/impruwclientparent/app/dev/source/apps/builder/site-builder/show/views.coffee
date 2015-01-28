@@ -32,6 +32,13 @@ define [ 'app'
                promise.always @onPagePublished
 
             'change select#builder-page-sel' : ( evt )->
+               @$el.find('.page-edit-inputs').attr 'disabled', true
+               if $(evt.target).find('option:selected').attr('data-slug') is "--NEW--"
+                  @trigger "add:new:page:clicked"
+                  $(evt.target).selectpicker 'val', @currentPageId
+                  return
+               if @currentPageId is parseInt $( evt.target ).val()
+                  return
                # suspend local autosaving
                App.autoSaveAPI.local.suspend()
                @releasePage()               
@@ -51,6 +58,9 @@ define [ 'app'
             'click .add-new-page' : ->
                @trigger "add:new:page:clicked"
 
+            'click .color-switch' :-> 
+               @trigger "show:theme:color:clicked" 
+
             'click .delete-page': (e)->
                e.preventDefault()
                if ISFRONTPAGE
@@ -63,9 +73,13 @@ define [ 'app'
                      if result
                         @trigger 'delete:page:clicked'
 
+            'click .page-details-edit' : ->
+               @$el.find('.page-edit-inputs').attr 'disabled', false
+
             'click .btn-update-pg-name' : ->
                currentPageId = @getCurrentPageId()
                updatedPageName = @$el.find( '#page_name' ).val()
+               @$el.find('.page-edit-inputs').attr 'disabled', true
                data =
                   'post_title' : updatedPageName
                   'ID' : currentPageId
@@ -74,6 +88,7 @@ define [ 'app'
             'click .btn-update-pg-slug' : ->
                currentPageId = @getCurrentPageId()
                updatedPageSlug = @$el.find( '.page-slug-edit' ).val()
+               @$el.find('.page-edit-inputs').attr 'disabled', true
                data =
                   'post_name' : updatedPageSlug
                   'ID' : currentPageId
@@ -141,7 +156,7 @@ define [ 'app'
                   page_name = model.get 'post_title'
                   select_html = "<option value='"+modelId+"' data-originalid='"+originalPageId+"'>#{page_name}</option>"
                  
-                  @$el.find( 'select#builder-page-sel' ).append( select_html )
+                  @$el.find( 'select#builder-page-sel option.add-new' ).before( select_html )
                   @$el.find( 'select#builder-page-sel' ).selectpicker 'refresh'
 
             @enableSelectPicker()
@@ -174,7 +189,7 @@ define [ 'app'
             parseInt pageId
 
          onPagePublished : =>
-            @$el.find( '.publish-page ' ).text 'Publish'
+            @$el.find( '.publish-page ' ).html 'Publish'
             @$el.find( '.publish-page ' ).removeAttr 'disabled'
             
             
