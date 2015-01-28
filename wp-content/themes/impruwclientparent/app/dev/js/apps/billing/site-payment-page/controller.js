@@ -9,8 +9,10 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
 
       function Controller() {
         this.updateBillingGlobals = __bind(this.updateBillingGlobals, this);
+        this.asstdSetupStoredCardPayment = __bind(this.asstdSetupStoredCardPayment, this);
         this.storedCardPayment = __bind(this.storedCardPayment, this);
         this.addCard = __bind(this.addCard, this);
+        this.newCardAsstdSetupPayment = __bind(this.newCardAsstdSetupPayment, this);
         this.newCardPayment = __bind(this.newCardPayment, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
@@ -21,25 +23,38 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         this.braintreeCustomerId = this.siteModel.get('braintree_customer_id');
         this.selectedPlanId = opts.planId;
         this.braintreePlanId = opts.braintreePlanId;
-        selectedPlanModel = App.request("get:feature:plan:by:id", this.selectedPlanId);
-        this.selectedPlanName = selectedPlanModel.get('plan_title');
-        this.selectedPlanAmount = selectedPlanModel.get('price');
-        subscriptionCollection = App.request("get:site:subscriptions");
-        currentSubscriptionModel = subscriptionCollection.at(0);
-        this.activePaymentToken = currentSubscriptionModel.get('paymentMethodToken');
-        this.currentSubscriptionAmount = currentSubscriptionModel.get('price');
-        this.currencySymbol = currentSubscriptionModel.get('currency');
-        this.billingPeriodStartDate = currentSubscriptionModel.get('billingPeriodStartDate');
-        this.billingPeriodEndDate = currentSubscriptionModel.get('billingPeriodEndDate');
-        this.nextBillingDate = currentSubscriptionModel.get('nextBillingDate');
-        this.prorationCharge = this.getProrationCharge(this.currentSubscriptionAmount, this.selectedPlanAmount, this.billingPeriodStartDate, this.billingPeriodEndDate);
-        console.log(this.prorationCharge);
-        this.currentSubscriptionDaysLeft = this.getCurrentSubscriptionDaysLeft(this.billingPeriodStartDate, this.billingPeriodEndDate);
-        if (PAYMENT_PLAN_ID === '1') {
-          this.activePlanName = 'Free';
+        this.isSubscription = opts.subscription;
+        if (this.isSubscription) {
+          selectedPlanModel = App.request("get:feature:plan:by:id", this.selectedPlanId);
+          this.selectedPlanName = selectedPlanModel.get('plan_title');
+          this.selectedPlanAmount = selectedPlanModel.get('price');
+          subscriptionCollection = App.request("get:site:subscriptions");
+          currentSubscriptionModel = subscriptionCollection.at(0);
+          this.activePaymentToken = currentSubscriptionModel.get('paymentMethodToken');
+          this.currentSubscriptionAmount = currentSubscriptionModel.get('price');
+          this.currencySymbol = currentSubscriptionModel.get('currency');
+          this.billingPeriodStartDate = currentSubscriptionModel.get('billingPeriodStartDate');
+          this.billingPeriodEndDate = currentSubscriptionModel.get('billingPeriodEndDate');
+          this.nextBillingDate = currentSubscriptionModel.get('nextBillingDate');
+          this.prorationCharge = this.getProrationCharge(this.currentSubscriptionAmount, this.selectedPlanAmount, this.billingPeriodStartDate, this.billingPeriodEndDate);
+          console.log(this.prorationCharge);
+          this.currentSubscriptionDaysLeft = this.getCurrentSubscriptionDaysLeft(this.billingPeriodStartDate, this.billingPeriodEndDate);
+          if (PAYMENT_PLAN_ID === '1') {
+            this.activePlanName = 'Free';
+          } else {
+            activePlanModel = App.request("get:feature:plan:by:id", PAYMENT_PLAN_ID);
+            this.activePlanName = activePlanModel.get('plan_title');
+          }
         } else {
-          activePlanModel = App.request("get:feature:plan:by:id", PAYMENT_PLAN_ID);
-          this.activePlanName = activePlanModel.get('plan_title');
+          this.selectedBraintreePlanModel = App.request("get:braintreeplan:by:id", this.braintreePlanId);
+          App.execute("when:fetched", this.selectedBraintreePlanModel, (function(_this) {
+            return function() {
+              _this.selectedPlanName = _this.selectedBraintreePlanModel.get('name');
+              _this.selectedPlanAmount = _this.selectedBraintreePlanModel.get('price');
+              _this.currencyCode = _this.selectedBraintreePlanModel.get('currencyIsoCode');
+              return _this.currencySymbol = CURRENCY_SYMBOLS[_this.currencyCode];
+            };
+          })(this));
         }
         this.layout = this.getLayout(this.siteModel);
         App.vent.trigger("set:active:menu", 'billing');
@@ -61,11 +76,17 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
               _this.listenTo(_this.paymentView, "new:credit:card:payment", function(paymentMethodNonce) {
                 return _this.newCardPayment(paymentMethodNonce);
               });
+              _this.listenTo(_this.paymentView, "new:credit:card:assistedsetup:payment", function(paymentMethodNonce) {
+                return _this.newCardAsstdSetupPayment(paymentMethodNonce);
+              });
               _this.listenTo(_this.paymentView, "add:credit:card", function(paymentMethodNonce) {
                 return _this.addCard(paymentMethodNonce);
               });
-              return _this.listenTo(_this.paymentView, "make:payment:with:stored:card", function(cardToken) {
+              _this.listenTo(_this.paymentView, "make:payment:with:stored:card", function(cardToken) {
                 return _this.storedCardPayment(cardToken);
+              });
+              return _this.listenTo(_this.paymentView, "make:assistedsetup:payment:stored:card", function(cardToken) {
+                return _this.asstdSetupStoredCardPayment(cardToken);
               });
             });
           };
@@ -139,7 +160,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           selectedPlanAmount: this.selectedPlanAmount,
           prorationCharge: this.prorationCharge,
           currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft,
-          activePaymentToken: this.activePaymentToken
+          activePaymentToken: this.activePaymentToken,
+          isSubscription: this.isSubscription
         });
       };
 
@@ -155,8 +177,22 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           selectedPlanName: this.selectedPlanName,
           selectedPlanAmount: this.selectedPlanAmount,
           prorationCharge: this.prorationCharge,
-          currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft
+          currentSubscriptionDaysLeft: this.currentSubscriptionDaysLeft,
+          isSubscription: this.isSubscription
         });
+      };
+
+      Controller.prototype.getTranslatedBraintreeResponse = function(responseMessage) {
+        var splitMsg, translatedMsgResponse;
+        translatedMsgResponse = "";
+        splitMsg = responseMessage.split("\n");
+        _.each(splitMsg, function(value, key) {
+          var translatedMsg;
+          translatedMsg = _.polyglot.t(value);
+          translatedMsg = translatedMsg + "<br/>";
+          return translatedMsgResponse += translatedMsg;
+        });
+        return translatedMsgResponse;
       };
 
       Controller.prototype.newCardPayment = function(paymentMethodNonce) {
@@ -173,7 +209,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            var newCreditCard, newCreditCardModel;
+            var msgResponse, newCreditCard, newCreditCardModel, translatedMsgResponse;
             if (response.subscription_success === true) {
               _this.updateBillingGlobals(response);
               newCreditCard = response.new_credit_card;
@@ -182,7 +218,38 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
               _this.creditCardCollection.add(newCreditCardModel);
               return _this.paymentView.triggerMethod("payment:success");
             } else {
-              return _this.paymentView.triggerMethod("payment:error", response.msg);
+              msgResponse = response.msg;
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(msgResponse);
+              return _this.paymentView.triggerMethod("payment:error", translatedMsgResponse);
+            }
+          };
+        })(this));
+      };
+
+      Controller.prototype.newCardAsstdSetupPayment = function(paymentMethodNonce) {
+        var options, postURL;
+        postURL = "" + SITEURL + "/api/ajbilling/oneTimeTransaction/" + SITEID["id"] + "/site/" + this.braintreePlanId;
+        options = {
+          method: 'POST',
+          url: postURL,
+          data: {
+            'paymentMethodNonce': paymentMethodNonce,
+            'customerName': USER['data']['display_name'],
+            'customerEmail': USER['data']['user_email']
+          }
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            var newCreditCard, newCreditCardModel, translatedMsgResponse;
+            if (response.success === true) {
+              newCreditCard = response.credit_card;
+              newCreditCardModel = new Backbone.Model(newCreditCard);
+              _this.creditCardCollection = App.request("get:credit:cards");
+              _this.creditCardCollection.add(newCreditCardModel);
+              return _this.paymentView.triggerMethod("payment:success");
+            } else {
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(response.msg);
+              return _this.paymentView.triggerMethod("payment:error", translatedMsgResponse);
             }
           };
         })(this));
@@ -200,7 +267,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            var newCreditCard, newCreditCardModel;
+            var newCreditCard, newCreditCardModel, translatedMsgResponse;
             if (response.success === true) {
               newCreditCard = response.new_credit_card;
               newCreditCardModel = new Backbone.Model(newCreditCard);
@@ -208,7 +275,8 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
               _this.creditCardCollection.add(newCreditCardModel);
               return _this.paymentView.triggerMethod("add:credit:card:success");
             } else {
-              return _this.paymentView.triggerMethod("add:credit:card:error", response.msg);
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(response.msg);
+              return _this.paymentView.triggerMethod("add:credit:card:error", translatedMsgResponse);
             }
           };
         })(this));
@@ -226,11 +294,37 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
+            var translatedMsgResponse;
             if (response.subscription_success === true) {
               _this.updateBillingGlobals(response);
               return _this.paymentView.triggerMethod("payment:success");
             } else {
-              return _this.paymentView.triggerMethod("payment:error", response.msg);
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(response.msg);
+              return _this.paymentView.triggerMethod("payment:error", translatedMsgResponse);
+            }
+          };
+        })(this));
+      };
+
+      Controller.prototype.asstdSetupStoredCardPayment = function(paymentMethodToken) {
+        var options, postURL;
+        postURL = "" + SITEURL + "/api/ajbilling/oneTimeTransaction/" + SITEID["id"] + "/site/" + this.braintreePlanId;
+        options = {
+          method: 'POST',
+          url: postURL,
+          data: {
+            'paymentMethodToken': paymentMethodToken
+          }
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            var translatedMsgResponse;
+            if (response.success === true) {
+              _this.updateBillingGlobals(response);
+              return _this.paymentView.triggerMethod("payment:success");
+            } else {
+              translatedMsgResponse = _this.getTranslatedBraintreeResponse(response.msg);
+              return _this.paymentView.triggerMethod("payment:error", translatedMsgResponse);
             }
           };
         })(this));

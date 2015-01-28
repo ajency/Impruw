@@ -13,6 +13,9 @@ define [ 'app'
                 viewPlanRegion : '#view-site-plans'
 
             onRender :->
+                $("html, body").animate
+                    scrollTop: 0
+                ,   "slow" 
                 @$el.find( '.spinner-markup' ).spin @_getOptions()
 
             # spinner options
@@ -68,6 +71,7 @@ define [ 'app'
             serializeData : ->
                 data = super()
                 data.currency = COUNTRY_BASED_CURRENCY 
+                data.plan_title = _.polyglot.t(data.plan_title)
                 data
 
             onShow:->

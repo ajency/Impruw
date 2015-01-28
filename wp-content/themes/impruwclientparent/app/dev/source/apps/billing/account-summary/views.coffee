@@ -10,13 +10,16 @@ define ['app'
             regions :
                 accountPlanRegion : '#account-plan-info'
                 accountSubscriptionRegion : '#account-subscription-info'
-                # accountInfoRegion : '#account-info'
+                assistedSetupRegion : '#assisted-setup-info'
                 siteAddOnRegion : '#site-addons-info'
                 pendingSubscriptionRegion : '#pending-sub'
                 billingInfoRegion : '#billing-info'
                 purchaseHistoryRegion : '#purchase-history'
 
             onRender :->
+                $("html, body").animate
+                    scrollTop: 0
+                ,   "slow" 
                 @$el.find( '.spinner-markup' ).spin @_getOptions()
 
             # spinner options

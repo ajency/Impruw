@@ -183,6 +183,32 @@ function get_country_based_site_currency(){
     return $currency;
 }
 
+
+function get_assisted_setup_plan_id($site_id){
+    // get user country
+    $user_site_country = ajbilling_get_user_country_option($site_id,'site');
+
+    switch ($user_site_country) {
+        case 'gb':
+            $plan_id = BT_GBP_ASSTD_SETUP;
+            break;
+
+        case 'us':
+            $plan_id = BT_USD_ASSTD_SETUP;
+            break;
+
+        case 'no':
+            $plan_id = BT_NOK_ASSTD_SETUP;
+            break;
+        
+        default:
+            $plan_id = BT_GBP_ASSTD_SETUP;
+            break;
+    }
+
+    return $plan_id;
+}
+
 // Plan change action should trigger changes in domain mapping and email accoutns for the site ; similar to what is done in parent theme
 function child_payment_plan_change($site_id,$plan_id){
 

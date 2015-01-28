@@ -18,6 +18,9 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/bi
       };
 
       Layout.prototype.onRender = function() {
+        $("html, body").animate({
+          scrollTop: 0
+        }, "slow");
         return this.$el.find('.spinner-markup').spin(this._getOptions());
       };
 
@@ -60,6 +63,7 @@ define(['app', 'text!apps/billing/site-plans/templates/view.html', 'text!apps/bi
         var data;
         data = SinglePlanView.__super__.serializeData.call(this);
         data.currency = COUNTRY_BASED_CURRENCY;
+        data.plan_title = _.polyglot.t(data.plan_title);
         return data;
       };
 

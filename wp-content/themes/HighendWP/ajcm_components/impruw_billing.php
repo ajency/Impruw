@@ -37,6 +37,7 @@ function getvars_plan_active($recipients_email,$comm_data){
     $site_url = $site_details->siteurl;
     $view_plans_link = $site_url.'/dashboard/#/billing/pricing-plans';
     $account_summary_link = $site_url.'/dashboard/#/billing';
+    $site_profile_link = $site_url.'/dashboard/#/site-profile';
 
     $display_price = $plan_currency." ".$plan_amount;
 
@@ -68,6 +69,7 @@ function getvars_plan_active($recipients_email,$comm_data){
     $template_data['global_merge_vars'][] = array('name' => 'ADDITIONAL_FEATURES','content' => $additional_features);
     $template_data['global_merge_vars'][] = array('name' => 'VIEW_PLANS_LINK','content' => $view_plans_link);
     $template_data['global_merge_vars'][] = array('name' => 'ACCOUNT_SUMMARY_LINK','content' => $account_summary_link);
+    $template_data['global_merge_vars'][] = array('name' => 'SITE_PROFILE_LINK','content' => $site_profile_link);
 
 
     return $template_data;

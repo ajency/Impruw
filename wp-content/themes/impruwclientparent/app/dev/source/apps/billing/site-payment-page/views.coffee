@@ -85,7 +85,8 @@ define [ 'app'
                 selectedPlanAmount = Marionette.getOption @, 'selectedPlanAmount'
                 prorationCharge = Marionette.getOption @, 'prorationCharge'
                 currentSubscriptionDaysLeft = Marionette.getOption @, 'currentSubscriptionDaysLeft'
-
+                isSubscription = Marionette.getOption @, 'isSubscription'
+                
                 data = super()
                 data.THEMEURL = THEMEURL
                 data.activePlanName = activePlanName
@@ -98,23 +99,26 @@ define [ 'app'
                 data.selectedPlanAmount = selectedPlanAmount
                 data.prorationCharge = prorationCharge
                 data.currentSubscriptionDaysLeft = currentSubscriptionDaysLeft
+                data.isSubscription = isSubscription
                 data
 
             events :
                 'click #btn-add-card':(e)->
                     e.preventDefault()
-                    # collapse add card and show loader
-                    @$el.find( '#addcard_loader' ).show()
-                    cardNumber = @$el.find( '#card_number' ).val()
-                    nameOnCard = @$el.find( '#card_name' ).val()
-                    expMonth = @$el.find( '#exp_month' ).val()
-                    expYear = @$el.find( '#exp_year' ).val()
-                    cvv = @$el.find( '#card-cvv' ).val()
 
-                    clientToken =  @collection.models[0].get 'braintree_client_token'
-                    client = new braintree.api.Client clientToken : clientToken
-                    client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
-                        @trigger "add:credit:card", nonce
+                    if @$el.find('.add-card-form').valid()
+                        # collapse add card and show loader
+                        @$el.find( '#addcard_loader' ).show()
+                        cardNumber = @$el.find( '#card_number' ).val()
+                        nameOnCard = @$el.find( '#card_name' ).val()
+                        expMonth = @$el.find( '#exp_month' ).val()
+                        expYear = @$el.find( '#exp_year' ).val()
+                        cvv = @$el.find( '#card-cvv' ).val()
+
+                        clientToken =  @collection.models[0].get 'braintree_client_token'
+                        client = new braintree.api.Client clientToken : clientToken
+                        client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
+                            @trigger "add:credit:card", nonce
 
                 'click #btn-stored-pay' : ( e ) ->
                     e.preventDefault()
@@ -128,6 +132,19 @@ define [ 'app'
                     else
                         @$el.find( '#paycredit_loader' ).show()
                         @trigger "make:payment:with:stored:card", cardToken
+
+                'click #btn-stored-assisted-setup-pay' : ( e ) ->
+                    e.preventDefault()
+
+                    cardToken = @$el.find('.selected .token').val()
+
+                    if _.isUndefined cardToken
+                        html = '<div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Please select a card")+'</div>'
+                        @$el.find( '#billingpay_status' ).append html
+                    else
+                        @$el.find( '#paycredit_loader' ).show()
+                        @trigger "make:assistedsetup:payment:stored:card", cardToken
 
             onAddCreditCardSuccess : ->
                 @$el.find('input').val ''
@@ -152,6 +169,14 @@ define [ 'app'
                 html = '<div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Payment Successful!")+'</div>'
                 @$el.find( '#billingpay_status' ).append( html )
+                
+                # redirect to account summary on success
+                mainUrl = window.location.href.replace Backbone.history.getFragment(), ''
+                redirectUrl = "#{mainUrl}billing/account-summary"
+                
+                _.delay =>
+                    @redirectPage redirectUrl
+                   , 2000
 
             onPaymentError : ( errorMsg )->
                 @$el.find( '#billingpay_status' ).empty()
@@ -162,11 +187,18 @@ define [ 'app'
                         </div>"
                 @$el.find( '#billingpay_status' ).append( html )
 
+            redirectPage : ( redirectUrl )->
+                window.location.href = redirectUrl
 
-        #payment view when using stored credit card
+
+        #payment view when using new credit card
         class View.FirstTimePaymentView extends  Marionette.ItemView
 
             template : newCustomerPaymentViewTpl
+
+            onShow  :->
+                @$el.find( '#exp_month' ).selectpicker()
+                @$el.find( '#exp_year' ).selectpicker()
 
             serializeData : ->
                 activePlanName = Marionette.getOption @, 'activePlanName'
@@ -179,6 +211,8 @@ define [ 'app'
                 selectedPlanAmount = Marionette.getOption @, 'selectedPlanAmount'
                 prorationCharge = Marionette.getOption @, 'prorationCharge'
                 currentSubscriptionDaysLeft = Marionette.getOption @, 'currentSubscriptionDaysLeft'
+                isSubscription = Marionette.getOption @, 'isSubscription'
+                
 
                 data = super()
                 data.THEMEURL = THEMEURL
@@ -192,11 +226,16 @@ define [ 'app'
                 data.selectedPlanAmount = selectedPlanAmount
                 data.prorationCharge = prorationCharge
                 data.currentSubscriptionDaysLeft = currentSubscriptionDaysLeft
+                data.isSubscription = isSubscription
                 data
 
             events :
                 'click #btn-pay' : ( e ) ->
                     e.preventDefault()
+                    if $.trim(@$el.find('#card_name').val()) is ""
+                        @onPaymentError(_.polyglot.t("Please enter card holder's name"))
+                        return
+
                     @$el.find( '#pay_loader' ).show()
 
                     cardNumber = @$el.find( '#card_number' ).val()
@@ -210,12 +249,35 @@ define [ 'app'
                     client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
                         @trigger "new:credit:card:payment", nonce
 
+                'click #btn-assisted-setup-pay' : ( e ) ->
+                    e.preventDefault()
+                    @$el.find( '#pay_loader' ).show()
+
+                    cardNumber = @$el.find( '#card_number' ).val()
+                    nameOnCard = @$el.find( '#card_name' ).val()
+                    expMonth = @$el.find( '#exp_month' ).val()
+                    expYear = @$el.find( '#exp_year' ).val()
+                    cvv = @$el.find( '#card-cvv' ).val()
+
+                    clientToken = @model.get 'braintree_client_token'
+                    client = new braintree.api.Client clientToken : clientToken
+                    client.tokenizeCard number : cardNumber, cvv : cvv, cardholderName : nameOnCard, expiration_month : expMonth, expiration_year : expYear, ( err, nonce )=>
+                        @trigger "new:credit:card:assistedsetup:payment", nonce
+
             onPaymentSuccess : ->
                 @$el.find( '#billingsave_status' ).empty()
                 @$el.find( '#pay_loader' ).hide()
                 html = '<div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("Payment Successful!")+'</div>'
                 @$el.find( '#billingsave_status' ).append( html )
+
+                # redirect to account summary on success
+                mainUrl = window.location.href.replace Backbone.history.getFragment(), ''
+                redirectUrl = "#{mainUrl}billing/account-summary"
+                
+                _.delay =>
+                    @redirectPage redirectUrl
+                   , 2000
 
             onPaymentError : ( errorMsg )->
                 @$el.find( '#billingsave_status' ).empty()
@@ -225,6 +287,10 @@ define [ 'app'
                             #{errorMsg}
                         </div>"
                 @$el.find( '#billingsave_status' ).append( html )
+
+            redirectPage : ( redirectUrl )->
+                window.location.href = redirectUrl
+
 
 
 
