@@ -207,6 +207,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         this.$el.tabs();
         return this.$el.find('.nav-tabs').sortable({
           axis: 'x',
+          helper: 'clone',
           distance: 10,
           delay: 150,
           cancel: 'span[contenteditable="true"]',
