@@ -216,7 +216,7 @@ define(['app', 'controllers/base-controller', 'bootbox'], function(App, AppContr
       MediaMangerLayout.prototype.events = {
         'click a.delete-menu': function() {
           var message;
-          message = _.polyglot.t('All the occurrences of this menu will be deleted from the website. Are you sure you want to delete the menu?');
+          message = "<h4 class='delete-message'>" + _.polyglot.t('All the occurrences of this menu will be deleted from the website. Are you sure you want to delete the menu?') + "</h4>";
           return bootbox.confirm(message, (function(_this) {
             return function(answer) {
               if (answer === true) {

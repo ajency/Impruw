@@ -34,6 +34,7 @@ jQuery(document).ready(function(){
     jQuery('#btn_login2').live('click',function() {
 
         jQuery("#login_status_div").hide();
+        jQuery("#login_status_div").addClass('hidden');
 
         var data = {
             action: 'user_interim_login',
@@ -48,6 +49,7 @@ jQuery(document).ready(function(){
             } else if ((response.code == 'FAILED' || response.code == 'ERROR')) {
 
                 jQuery("#login_status_div").show();
+                jQuery("#login_status_div").removeClass('hidden');
                 jQuery("#login_status").html(response.msg);
 
                 return false;

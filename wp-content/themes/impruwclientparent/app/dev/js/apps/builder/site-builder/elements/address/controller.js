@@ -21,11 +21,14 @@ define(['app', 'apps/builder/site-builder/elements/address/views', 'apps/builder
           country: 'Country',
           phone_no: '9999888877',
           email: 'demo@email.com',
-          style: 'Default Style'
+          style: 'Default Style',
+          align: 'left',
+          phone_link: 'enable'
         });
         if (_.isObject(window.HOTELADDRESS)) {
           options.modelData.street = window.HOTELADDRESS.street;
           options.modelData.city = window.HOTELADDRESS.city;
+          options.modelData.postal_code = window.HOTELADDRESS.postal_code;
           options.modelData.country = window.HOTELADDRESS.country;
           options.modelData.phone_no = window.HOTELADDRESS.other_phone_no[0];
           options.modelData.email = window.HOTELADDRESS.site_email;
@@ -37,7 +40,7 @@ define(['app', 'apps/builder/site-builder/elements/address/views', 'apps/builder
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:style", this.renderElement);
+        this.listenTo(this.layout.model, "change:style change:align change:phone_link", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 

@@ -16,7 +16,8 @@ define ['app', 'controllers/base-controller'
                     loading: true
 
             _getEmailNavView :->
-                if @registered_domain_name is -1
+                # if email feature is disabled or if domain name not registered then do not allow adding of email accounts
+                if (@registered_domain_name is -1) and (IS_EMAIL_ALLOWED is 1) and (PLAN_FEATURE_COUNT['email_account'][0]['allowed_count']>0)
                     new EmailNav.Views.EmailNavView
                 else
                     new EmailNav.Views.EmailDisabledView

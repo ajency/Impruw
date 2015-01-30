@@ -39,7 +39,7 @@
         polyglot: 'plugins/polyglot',
         themepunch: 'plugins/themepunch.plugins.min',
         revslider: 'plugins/revolution.min',
-        googlemap: 'https://maps.googleapis.com/maps/api/js?sensor=false',
+        googlemap: 'https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false',
         pluginloader: 'plugins/builder-plugin-loader',
         appsloader: 'apps/builder-apps-loader',
         configloader: 'configs/builder-config-loader',

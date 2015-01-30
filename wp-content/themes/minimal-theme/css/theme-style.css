@@ -435,6 +435,15 @@ and open the template in the editor.
   margin-bottom: 10px;
   padding-left: 5px;
 }
+.address.text-left {
+  text-align: left;
+}
+.address.text-right {
+  text-align: right;
+}
+.address.text-center {
+  text-align: center;
+}
 @media (max-width: 992px) {
   .address {
     text-align: center;
@@ -1684,6 +1693,7 @@ ul.gallery {
   margin: 3em auto;
   padding: 1em;
   color: #282827;
+  font-family: 'Lato', sans-serif;
 }
 .aj-imp-login-form .aj-imp-login-header {
   border-bottom: 1px solid #282827;
@@ -1823,6 +1833,22 @@ ul.gallery {
   border-width: 0;
   text-align: left;
 }
+.table > thead > tr > th a,
+.table > tbody > tr > th a,
+.table > tfoot > tr > th a,
+.table > thead > tr > td a,
+.table > tbody > tr > td a,
+.table > tfoot > tr > td a {
+  color: #ed1c24;
+}
+.table > thead > tr > th a:hover,
+.table > tbody > tr > th a:hover,
+.table > tfoot > tr > th a:hover,
+.table > thead > tr > td a:hover,
+.table > tbody > tr > td a:hover,
+.table > tfoot > tr > td a:hover {
+  color: #f14b52;
+}
 .table > thead > tr > th p,
 .table > tbody > tr > th p,
 .table > tfoot > tr > th p,
@@ -1869,6 +1895,18 @@ ul.gallery {
 .table.style-1 > thead > tr th,
 .table.style-1 > tbody > tr th {
   border-color: #ed1c24 !important;
+}
+.table.style-1 > thead > tr td a,
+.table.style-1 > tbody > tr td a,
+.table.style-1 > thead > tr th a,
+.table.style-1 > tbody > tr th a {
+  color: #282827;
+}
+.table.style-1 > thead > tr td a:hover,
+.table.style-1 > tbody > tr td a:hover,
+.table.style-1 > thead > tr th a:hover,
+.table.style-1 > tbody > tr th a:hover {
+  color: #424240;
 }
 .table.style-2 {
   border-color: #831618;
@@ -2023,11 +2061,15 @@ ul.gallery {
   padding: 0.5em 1em;
   width: 80%;
   margin: auto;
+  font-family: 'Lato', sans-serif;
 }
 .spacer hr {
   border: 0;
   height: 0;
   margin: 1.5em 0;
+}
+.spacer.blank hr {
+  margin: 0;
 }
 .spacer.blank .blank-info {
   display: block;
@@ -2161,6 +2203,7 @@ ul.gallery {
   border-radius: 2px;
   padding: 0.5em 1em;
   margin: 0 0.5em;
+  font-family: 'Lato', sans-serif;
 }
 .smart-table .add-another .bicon {
   display: block;
@@ -2312,6 +2355,16 @@ ul.gallery {
   text-decoration: none;
   color: #831618;
 }
+.accordion-container .panel-group .panel .panel-heading .panel-title a span:empty {
+  display: inline-block;
+  vertical-align: middle;
+  width: 50%;
+}
+.accordion-container .panel-group .panel .panel-heading .panel-title a span:empty:before {
+  content: "\00a0";
+  display: inline-block;
+  vertical-align: middle;
+}
 .accordion-container .panel-group .panel .panel-heading .delete-accordion-btn {
   font-size: 0.8em;
   background: #ff3333;
@@ -2431,6 +2484,7 @@ ul.gallery {
   margin: 0.5em 0;
   cursor: pointer;
   border-radius: 2px;
+  font-family: 'Lato', sans-serif;
 }
 .accordion-container .add-tab:hover {
   background: #ff9833;
@@ -2446,6 +2500,11 @@ ul.gallery {
 }
 .impruw-list ul li {
   position: relative;
+  color: #282827;
+}
+.impruw-list ul li a,
+.impruw-list ul li span {
+  color: #282827;
 }
 .impruw-list ul li .delete {
   position: absolute;
@@ -2465,6 +2524,7 @@ ul.gallery {
 }
 .impruw-list ul li .delete a:hover {
   background: #ff3333;
+  text-decoration: none;
 }
 .impruw-list ul li:hover .delete {
   display: block;
@@ -2549,17 +2609,16 @@ ul.gallery {
   margin: 0;
 }
 .impruw-list ul.checked-list li:before {
-  display: block;
+  display: inline-block;
   content: '✓';
   width: 13px;
   height: 13px;
-  float: left;
   margin-right: 10px;
   border: 1px solid #ed1c24;
   position: relative;
   font-size: 1.2em;
   line-height: 0.33em;
-  top: 3px;
+  top: -1px;
   color: #282827;
 }
 .impruw-list ul.checked-list li:hover a,
@@ -2577,6 +2636,7 @@ ul.gallery {
   text-align: center;
   padding: 0.5em;
   cursor: pointer;
+  font-family: 'Lato', sans-serif;
 }
 .impruw-list .add-another:hover {
   background: #ff7e00;
@@ -2602,6 +2662,16 @@ ul.gallery {
   background: rgba(0, 0, 0, 0.2);
   border-color: rgba(0, 0, 0, 0.3);
   border-bottom-color: #ed1c24;
+}
+.tab-container .nav-tabs li a span:empty {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+}
+.tab-container .nav-tabs li a span:empty:before {
+  content: "\00a0";
+  display: inline-block;
+  vertical-align: middle;
 }
 .tab-container .nav-tabs li .delete-tab-btn {
   position: absolute;
@@ -2640,6 +2710,7 @@ ul.gallery {
   top: -10px;
   right: 5px;
   display: none;
+  font-family: 'Lato', sans-serif;
 }
 .tab-container .add-tab:hover {
   background: #ff9833;
@@ -2907,7 +2978,7 @@ and open the template in the editor.
   border-color: transparent;
   bottom: -17px;
   border-width: 0 9px 10px 0;
-  border-right-color: #831618;
+  border-right-color: #970c11;
   left: 0px;
 }
 .row.menu-bar > .column:last-child:after {
@@ -2917,7 +2988,7 @@ and open the template in the editor.
   border-color: transparent;
   bottom: -17px;
   border-width: 0 0 10px 9px;
-  border-left-color: #831618;
+  border-left-color: #970c11;
   right: 0px;
 }
 .row.footer-bar {

@@ -676,6 +676,10 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
     if ( $theme->exists() && $theme->is_allowed() )
         switch_theme( $theme->get_stylesheet() );
 
+    // clear the font to set default
+    update_option('theme_font_main',array('ID' => 1));
+    update_option('theme_font_sec',array('ID' => 1));
+    
     clear_compile_stylesheet();
     reset_colorset_option_to_default();
 
@@ -742,13 +746,49 @@ function translate_site($theme_site_id, $language_code, $clone_pages=FALSE){
         )
     ) );
     $sitepress->switch_lang(wpml_get_default_language());
+    $default_page_id = array();
 
     //For each english page in current site copy themes page content
     while ( $english_pages->have_posts() ):
         $english_pages->the_post();
         translate_page( $theme_site_id, $language_code, get_the_ID());
+        $default_page_id[] = get_the_ID();
     endwhile;
+    if($language_code == 'en')
+        empty_new_pages( $default_page_id );
 }
+
+function empty_new_pages($theme_pages){
+    global $sitepress;
+    $sitepress->switch_lang('en');
+    $current_english_pages = get_pages( array( 'post_type' => 'page',
+        'posts_per_page' => -1,
+        'post_status' => 'publish'
+    ) );  
+    $sitepress->switch_lang(wpml_get_default_language());
+
+    $skip = array( 'Site Builder',
+            'Sign In',
+            'Dashboard',
+            'Support',
+            'Coming Soon',
+            'Reset Password',
+            'Sample Page',
+            'Kommer Snart', 
+            'Logg Inn',
+            'Resett passord' );
+
+    foreach ($current_english_pages as  $value) {
+        if (!in_array($value->post_title, $skip) && !in_array($value->ID, $theme_pages)){
+            store_unused_elements( $value->ID );
+            update_post_meta( $value->ID, 'page-json', '');
+            $autosave_id = wp_get_post_autosave( $value->ID );
+            update_revision_meta( $autosave_id->ID, 'page-json', '');
+        }
+    }
+        
+}
+// add_action('wp_ajax_elroy-test','elroy_test');
 
 
 function enable_language($language_code){
@@ -1148,4 +1188,21 @@ function get_site_domain_name(){
     return $domain_name;
 }
 
+
+
+function get_address_coordinate(){
+    $latitude = get_option('latitude','');
+    $longitude = get_option('longitude','');
+    $place_id = get_option('placeId','');
+    $position = TRUE;    
+    if ( $latitude == '' || $longitude == '')
+        $position = FALSE;
+
+    $data = array(
+        'latitude' => (float)$latitude,
+        'longitude' => (float)$longitude,
+        'position' => $position,
+        'placeId' => $place_id);
+    return $data;
+}
 

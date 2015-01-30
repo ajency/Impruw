@@ -141,7 +141,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
                 }
                 _this.currentRevisionModel = _this.collection.at(ui.value - 1);
                 if (_this._checkIfThemeChange()) {
-                  bootbox.alert(" You had used a different theme here. If you restore to this point, the theme will be applied across all the pages in the website. You may lose your current layout, although you can recover the lost elements from our unused elements toolbox on the site builder");
+                  bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t(" You had used a different theme here. If you restore to this point, the theme will be applied across all the pages in the website. You may lose your current layout, although you can recover the lost elements from our unused elements toolbox on the site builder") + "</h4>");
                 }
                 _this.changeIframe();
                 _this.$el.find('.ui-slider-segment').removeClass('active');

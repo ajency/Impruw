@@ -20,8 +20,8 @@
 
     /* ============================================================= */
 
-    require_once 'Communication_module/user_shortcodes.php'; //file containing all shortcodes to fetch user information
-    require_once 'Communication_module/site_shortcodes.php'; //file containing all shortcodes to fetch site information
+    //require_once 'Communication_module/user_shortcodes.php'; //file containing all shortcodes to fetch user information
+    //require_once 'Communication_module/site_shortcodes.php'; //file containing all shortcodes to fetch site information
     //require_once 'User/user_management.php';//file containing all shortcodes to fetch site information
     //add theme support
     add_theme_support('post-thumbnails');
@@ -33,6 +33,8 @@
     require_once 'modules/user/ajax.php';
     require_once 'modules/site/ajax.php';
     require_once 'modules/api/main.php';
+    require_once 'modules/payments/functions.php';
+    require_once 'modules/communications/functions.php';
 
 
 /**
@@ -314,7 +316,7 @@ function is_impruw_com(){
 
 
 
-        if (is_page_template('page-register.php') || is_page_template('page-login.php')) {
+        if (is_page_template('page-register-template.php') || is_page_template('page-login.php')) {
 
             //Check for the current language and load the right parsley messages file
             $current_language = ICL_LANGUAGE_CODE;
@@ -723,3 +725,32 @@ function new_excerpt_more( $more ) {
   return '&hellip;';
 }
 add_filter('excerpt_more', 'new_excerpt_more');
+
+
+
+
+/**
+ * disable pingback for the site
+ */ 
+function remove_xmlrpc_pingback_ping( $methods ) {
+   unset( $methods['pingback.ping'] );
+   return $methods;
+}
+add_filter( 'xmlrpc_methods', 'remove_xmlrpc_pingback_ping' );
+
+
+
+/**
+ * Disable comments pingbacks to any site created 
+ */
+function disable_unwanted_features($blog_id, $user_id, $domain, $path, $site_id, $meta){
+
+    switch_to_blog($blog_id);
+    update_option('default_pingback_flag','');
+    update_option('default_ping_status', 'closed');
+    update_option('default_comment_status', 'closed');
+    restore_current_blog();
+
+}
+add_action('wpmu_new_blog', 'disable_unwanted_features', 100, 6);
+

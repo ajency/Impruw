@@ -50,6 +50,11 @@ define ['app', 'controllers/base-controller'
                     if response.code is 'OK'
                         @userEmailModel.set 'name': response.data.name
                         @userEmailModel.set 'has_password': response.data.has_password
+                        # update count if succesffuly re-enabled account
+                        reenable = @userEmailModel.get 'reenableAccount'
+                        if reenable is 1
+                            siteid = SITEID['id']
+                            updated_feature_count = App.request "update:site:feature:count",siteid,'email_account','plus'
                         successMsg = "Email account details updated"
                         @editUserEmailView.triggerMethod "saved:user:email",successMsg
                     else

@@ -90,9 +90,37 @@ define ['app','bootbox'
 						elements : []
 						tabName : {'en' : 'tab', 'nb' : 'tab_N'}
 
-				'blur .nav-tabs span' :(evt)->
-					# @$el.find("#{$(evt.target).parent().attr('href')}").attr 'data-name',$(evt.target).text()
-					$(evt.target).parent('a').siblings('form').find("input[name=#{WPML_DEFAULT_LANG}]").val $(evt.target).text()
+				# 'blur .nav-tabs span' :(evt)->
+				# 	# @$el.find("#{$(evt.target).parent().attr('href')}").attr 'data-name',$(evt.target).text()
+				# 	$(evt.target).parent('a').siblings('form').find("input[name=#{WPML_DEFAULT_LANG}]").val $(evt.target).text()
+
+				'click .nav-tabs span' :(evt)->
+					bootbox.dialog
+						title: "Tab name"
+						message: '<div class="row"> 
+									<div class="col-md-12"> 
+										<form class="form-horizontal"> 
+											<div class="form-group"> 
+												<label class="col-md-4 control-label" for="name">Name</label> 
+												<div class="col-md-4"> 
+													<input  name="name" type="text" placeholder="Tab name" class="tab-name-modal form-control input-md" value="'+$(evt.target).text()+'"> 
+												</div>  
+							 				</div>
+										</form> 
+									</div>  
+								</div>'
+						buttons: 
+							success :
+								label : 'Save'
+								className : 'btn-primary'
+								callback : ->
+									result = $('.tab-name-modal').val()
+									if not _.isEmpty result
+										$(evt.target).text result
+										$(evt.target).parent('a').siblings('form').find("input[name=#{WPML_DEFAULT_LANG}]").val result
+
+
+
 
 				'click .delete-tab-btn' : (evt)->
 					evt.stopPropagation()
@@ -137,12 +165,12 @@ define ['app','bootbox'
 				object = itemView.model.get 'tabName'
 				for prop of object
 					if object.hasOwnProperty prop
-						html += "<input type='hidden' name='#{prop}' value=#{object[prop]}>"
+						html += "<input type='hidden' name='#{prop}' value='#{object[prop]}'>"
 
 
 				@$el.find('ul.nav-tabs').append '<li role="presentation" class="">
 						<a href="#'+id+'" role="tab" data-toggle="tab">
-							<span contenteditable="true">'+itemView.model.get('tabName')[WPML_DEFAULT_LANG]+'</span>
+							<span >'+itemView.model.get('tabName')[WPML_DEFAULT_LANG]+'</span>
 						</a>
 						<div class="delete-tab-btn">&times;</div>
 						<form data-id="'+id+'">'+html+'</form>
@@ -155,6 +183,7 @@ define ['app','bootbox'
 				# move tab position
 				@$el.find('.nav-tabs').sortable
 					axis : 'x'
+					helper : 'clone'
 					distance : 10
 					delay : 150
 					cancel : 'span[contenteditable="true"]'

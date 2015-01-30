@@ -17,12 +17,14 @@
     <meta name="viewport" content="width=device-width">
     <title><?php wp_title( '|', TRUE, 'right' ); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
-    <link rel="shortcut icon" href="<?php echo get_parent_template_directory_uri(); ?>/images/favicon.png" type="image/x-icon" />
+    <!-- <link rel="shortcut icon" href="<?php echo get_parent_template_directory_uri(); ?>/images/favicon.png" type="image/x-icon" /> -->
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <!--[if lt IE 9]>
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
     <?php wp_head(); ?>
+
+    <?php get_theme_font_markup()?>
     
 </head>
 <body <?php body_class(); ?>>
@@ -78,6 +80,7 @@
     var ACTIVE_LANGUAGES = <?php echo json_encode(wpml_get_active_languages()); ?>;
     var ELEMENTS = <?php echo json_encode(get_elementbox_elements()); ?>;
     var BLOGID = <?php echo get_current_blog_id(); ?>;
+    
 
     //menus
     var MENUS = <?php echo json_encode(wp_get_nav_menus()) ?>;
@@ -105,6 +108,7 @@
     var SINGLE_ROOM_PAGE = '<?php echo get_single_room_page_title();?>';
     var UNDELETABLE_PAGES = <?php echo json_encode(get_builder_uneditable_pages()); ?>;
     var ADDRESS = '<?php echo get_hotel_address() ?>';
+    var HOTELPOSITION = <?php echo json_encode(get_address_coordinate()); ?>;
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
     var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
     var PLUGIN_URI  = '<?php echo WP_PLUGIN_URL; ?>';
@@ -112,6 +116,9 @@
     var HOTELADDRESS = <?php echo json_encode(get_site_details()) ?>;
     var ISDEMOTHEME = '<?php echo in_array(get_current_blog_id(), explode(',', THEME_ID)) ?>';
     var heartbeatSettings = <?php echo json_encode(wp_heartbeat_settings(array())); ?>;
+    var THEMEFONTMAIN = <?php echo json_encode(get_theme_font("theme_font_main")); ?>;
+    var THEMEFONTTITLE = <?php echo json_encode(get_theme_font("theme_font_sec")); ?>;
+    var ISSECFONTALLOWED = '<?php echo is_sec_font_allowed(); ?>';
 </script>
 
 <script src="<?php echo get_parent_template_directory_uri() ?>/bower_components/pace/pace.js"></script>
@@ -139,5 +146,26 @@
     _.addEventListener?_.addEventListener("load",b,!1):_.attachEvent("onload",b)})
     (window,document,"script","5440a65769c1935122000238");
 </script>
+<?php
+if(is_impruw_com()) : 
+    $user = get_userdata(get_current_user_id() ); ?>
+    <script>
+      window.intercomSettings = {
+        // TODO: The current logged in user's full name
+        name: "<?php echo $user->data->display_name ?>",
+        // TODO: The current logged in user's email address.
+        email: "<?php echo $user->data->user_email  ?>",
+        // TODO: The current logged in user's sign-up date as a Unix timestamp.
+        // console.
+        user_hash: "<?php echo
+            hash_hmac('sha256', $user->data->user_email, 'sTPoSE_yby5DEHscTDGt1fLckImt4zI1s1p8yBHQ');
+          ?>",
+          
+        created_at: <?php echo strtotime($user->data->user_registered) ?>,
+        app_id: "zy2m5a0t"
+      };
+    </script>
+    <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/o0cfsl2l';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+<?php endif; ?>
 </body>
 </html>

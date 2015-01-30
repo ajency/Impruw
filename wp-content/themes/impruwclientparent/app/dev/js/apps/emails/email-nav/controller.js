@@ -20,7 +20,7 @@ define(['app', 'controllers/base-controller', 'apps/emails/email-nav/view'], fun
       };
 
       Controller.prototype._getEmailNavView = function() {
-        if (this.registered_domain_name === -1) {
+        if ((this.registered_domain_name === -1) && (IS_EMAIL_ALLOWED === 1) && (PLAN_FEATURE_COUNT['email_account'][0]['allowed_count'] > 0)) {
           return new EmailNav.Views.EmailNavView;
         } else {
           return new EmailNav.Views.EmailDisabledView;

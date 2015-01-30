@@ -68,39 +68,93 @@ define ['app'], (App)->
 				window['renderMap'] = @renderMap
 				callbacks.add window['renderMap']
 				if( typeof google is 'undefined' )
-					$.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap')
+					$.getScript('https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&callback=initializeMap')
 				else
 					@renderMap()
 
 			renderMap : =>
 				address = window.ADDRESS
-				geocoder = new google.maps.Geocoder()
-				geocoder.geocode
-							address: address
-						, (results, status)=>
-							if status is google.maps.GeocoderStatus.OK
-								@displayMap results[0].geometry.location, address
-							else
-								@displayGeoCodeErrorMessage()
-
-			displayMap:(location, address)->
+				
 				map = new google.maps.Map document.getElementById("map-canvas"),
-																center : location
-																zoom : 14
+																center :  new google.maps.LatLng(-34.397, 150.644)
+																zoom : 17
 
-				@createMarker map, address
+				if window.HOTELPOSITION.position
+					newCenter = new google.maps.LatLng window.HOTELPOSITION.latitude, window.HOTELPOSITION.longitude 
+					@createMarker map, newCenter
+					return
 
-			createMarker :(map, address)->
+				else if _.trim(window.HOTELPOSITION.placeId) isnt ''
+					@getPlacesDetails window.HOTELPOSITION.placeId,map
+					return
+
+				else
+					console.log window.HOTELPOSITION.placeId
+					service = new google.maps.places.PlacesService(map);
+					service.textSearch
+							query: window.ADDRESS
+						, (results,status)=>
+							if status is google.maps.places.PlacesServiceStatus.OK
+								@getPlacesDetails results[0].place_id,map
+							else 
+								jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+						
+
+
+			getPlacesDetails : (placeId,map) ->
+				service = new google.maps.places.PlacesService(map);
+				service.getDetails
+						placeId: placeId
+					,(place, status)=>
+						if status is google.maps.places.PlacesServiceStatus.OK
+							# x= place
+							# // createMarker(place);
+							@createMarker map, place.geometry.location ,place
+						
+						else 
+							jQuery('#map_canvas').height('auto').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
+						
+				
+						
+						
+
+			# displayMap:(map, location, place)->
+			# 	# map = new google.maps.Map document.getElementById("map-canvas"),
+			# 	# 												center : location
+			# 	# 												zoom : 14
+				
+			# 	@createMarker map, place
+
+			createMarker :(map, location,  place)->
+				map.setCenter location
+
 				marker = new google.maps.Marker
 									map: map
-									position: map.getCenter()
+									position: location
 
-				@createInfoWindow map, marker, address
+				if (place)
+					# image =
+					# 	url : place.icon
+					# 	size : new google.maps.Size(71 , 71)
+					# 	origin: new google.maps.Point(0, 0)
+					# 	anchor: new google.maps.Point(7, 7)
+					# 	scaledSize: new google.maps.Size(15, 15)
+					
+					marker.setTitle(place.name);
+					# marker.setIcon(image);
+					content = "<div><b>"+place.name+"</b></div>"+place.adr_address;
+					if (place.url)
+						content += "<div class='text-center'><a href="+place.url+" target='_BLANK'>more</a></div>"
+			
+				else
+					content = window.ADDRESS
 
-			createInfoWindow:(map, marker, address)->
+				@createInfoWindow map, marker, content
+
+			createInfoWindow:(map, marker, content)->
 				# TODO: add formatted content in info window
 				infowindow = new google.maps.InfoWindow
-												content: address
+												content: content
 
 				google.maps.event.addListener marker, 'click',->
 					infowindow.open map,marker

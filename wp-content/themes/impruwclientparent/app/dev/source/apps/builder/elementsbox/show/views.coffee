@@ -83,8 +83,9 @@ define [ 'app'
                 tabLocation: 'left'                     
                 speed: 300                              
                 action: 'click'                          
-                topPos: '30px'                          
-                fixedPosition: true                       
+                topPos: '80px'                          
+                fixedPosition: true  
+                onLoadSlideOut: true                     
             
 
             @_setDraggableElements()
@@ -101,14 +102,17 @@ define [ 'app'
 
          # append html
          appendHtml : ( cv, view, index )->
-            return if view.model.get( 'element' ) is 'Row'
+            return if view.model.get( 'element' ) in ['Row','Spacer']
+
+            if  ISTHEMEEDITOR is 'no'
+               return if view.model.get( 'element' ) in ['Menu', 'LanguageSwitcher']
 
             category = view.model.get( 'category' ) || 'content'
             switch category
                when 'hotel'
                   @$el.find( '#hotel-elements ul' ).append view.$el
-               when 'room'
-                  @$el.find( '#room-elements ul' ).append view.$el
+               # when 'room'
+               #    @$el.find( '#room-elements ul' ).append view.$el
                else
                   @$el.find( '#content-elements ul' ).append view.$el
 
@@ -151,10 +155,17 @@ define [ 'app'
             @$el.fadeIn()
 
          onRoomElementsVisibility : (visible)->
+            console.log 'hide'
             if visible is true
-               @$el.find(@roomElements).show()
+               @$el.find(@roomElements).draggable('enable').removeClass 'element-disable'
+               @$el.find('.element-disable > a').attr()
+
             else
-               @$el.find(@roomElements).hide()
+               @$el.find(@roomElements).draggable('disable').addClass 'element-disable' 
+               @$el.find('.element-disable > a').attr({'data-togggle': 'tooltip', 'data-container': 'body', 'data-placement': 'right', 'data-template': '<div class="tooltip elem-box" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>', 'title': 'You can only use this element on the Single Room Page.'})
+               
+               # init tooltips 
+               $('.element-disable a').tooltip()
 
             @handleRoomSummary visible
 

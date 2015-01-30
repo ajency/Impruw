@@ -34,11 +34,12 @@ define(['app', 'apps/builder/site-builder/autosave/autosavehelper', 'heartbeat']
       };
 
       AutoSaveLocal.prototype.run = function() {
-        return this.interval = window.setInterval(this.doAutoSave, 5 * 1000);
+        return this.doAutoSave();
       };
 
       AutoSaveLocal.prototype.doAutoSave = function() {
         var data, json, pageId;
+        console.log('doAutoSave');
         if (this.suspended === true) {
           return false;
         }

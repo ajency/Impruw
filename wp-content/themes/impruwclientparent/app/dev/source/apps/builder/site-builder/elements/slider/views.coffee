@@ -1,232 +1,231 @@
 define ['app'], (App)->
 
-    # Row views
-    App.module 'SiteBuilderApp.Element.Slider.Views', (Views, App, Backbone, Marionette, $, _)->
+	# Row views
+	App.module 'SiteBuilderApp.Element.Slider.Views', (Views, App, Backbone, Marionette, $, _)->
 
-        class SliderItem extends Marionette.ItemView
+		class SliderItem extends Marionette.ItemView
 
-            template: '<img src="{{full_url}}" alt="Slide" data-bgfit="contain" data-bgposition="center center" data-bgrepeat="no-repeat"/>
-                    {{#layers}}<div class="tp-caption {{style}} {{animation}}"
-                data-x="{{left}}"
-                data-y="{{top}}"
-                data-speed="{{speed}}"
-                data-start="{{time}}"
-                data-easing="{{easing}}"
-                data-endspeed="{{endspeed}}"
-                style="z-index: 6">{{{txt}}}
-            </div>{{/layers}}'
+			template: '<img src="{{full_url}}" alt="Slide" data-bgfit="contain" data-bgposition="center center" data-bgrepeat="no-repeat"/>
+					{{#layers}}<div class="tp-caption {{style}} {{animation}}"
+				data-x="{{left}}"
+				data-y="{{top}}"
+				data-speed="{{speed}}"
+				data-start="{{time}}"
+				data-easing="{{easing}}"
+				data-endspeed="{{endspeed}}"
+				style="z-index: 6">{{{txt}}}
+			</div>{{/layers}}'
 
-            tagName: 'li'
+			tagName: 'li'
 
-            events :
-                'click a':(e)->
-                    e.preventDefault()
+			events :
+				'click a':(e)->
+					e.preventDefault()
 
-            mixinTemplateHelpers : (data)->
-                data = super data
-                data.txt = _.stripslashes data.layers[0].text if data.layers.length
-                data
+			mixinTemplateHelpers : (data)->
+				data = super data
+				data.txt = _.stripslashes data.layers[0].text if data.layers.length
+				data
 
-            onRender: ->
-                @$el.attr 'data-slotamount', '0'
-                    .attr 'data-masterspeed', '500'
-                    .attr 'data-transition', Marionette.getOption @,'slide_transition'
+			onRender: ->
+				@$el.attr 'data-slotamount', '0'
+					.attr 'data-masterspeed', '500'
+					.attr 'data-transition', Marionette.getOption @,'slide_transition'
 
-                @$el.find('.tp-caption .caption-hover').parent().addClass 'caption-hover'
-                @$el.find('.tp-caption .caption-hover').removeClass 'caption-hover'
-
-
-            modelEvents : 
-                'change:thumb_url change:full_url' : (model)->
-                    model.collection.trigger 'slide:image:url:updated'
-
-                'model:changed' :->
-                        @trigger 'render:slider'
+				@$el.find('.tp-caption .caption-hover').parent().addClass 'caption-hover'
+				@$el.find('.tp-caption .caption-hover').removeClass 'caption-hover'
 
 
+			modelEvents : 
+				'change:thumb_url change:full_url' : (model)->
+					model.collection.trigger 'slide:image:url:updated'
 
-        class EmptySlider extends Marionette.ItemView
+				'model:changed' :->
+						@trigger 'render:slider'
 
-            template: '<div class="empty-view"><span class="bicon icon-uniF119"></span>{{#polyglot}}No images in slider{{/polyglot}}<br> {{#polyglot}}Add images to slider{{/polyglot}}</div>'
-
-
-        # Menu item view
-        class Views.SliderView extends Marionette.CompositeView
-
-            className: 'fullwidthbanner-container roundedcorners'
-
-            template: '<div class="fullwidthbanner"><ul></ul></div>'
-
-            id: _.uniqueId('carousel-')
-
-            itemView: SliderItem
-
-            emptyView: EmptySlider
-
-            itemViewContainer: '.fullwidthbanner > ul'
-
-            itemViewOptions : ->
-                slide_transition : @model.get 'reset_transitions'
-
-            events:
-                'click': 'sliderClick'
-                'click .tp-rightarrow,.tp-leftarrow,.bullet': (e)->
-                    e.stopPropagation()
-
-            modelEvents : 
-                'change:reset_transitions' : 'changeTransitions'
-
-            collectionEvents : 
-                'slide:image:url:updated' : ->
-                    @render()
-                    @triggerMethod 'show'
-
-            # close revolution slider on close
-            onClose: ->
-                delete @revapi
-
-            changeTransitions : (model,reset_transitions)->
-                # @$el.find('.fullwidthbanner ul').children('li').attr 'data-transition',reset_transitions
-
-                @trigger 'render:slider'
-
-            _getSliderRatio : ->
-                width = @$el.width()
-                height = @$el.height()
-                "#{parseInt width}:#{parseInt height}"
+			
 
 
-            initialize: (options = {}) ->
-                super options
+		class EmptySlider extends Marionette.ItemView
+
+			template: '<div class="empty-view"><span class="bicon icon-uniF119"></span>{{#polyglot}}No images in slider{{/polyglot}}<br> {{#polyglot}}Add images to slider{{/polyglot}}</div>'
 
 
-            onShow: ->
-                
-                if @collection.length is 0
-                    @model.set 'height',@$el.height()
-                    @model.set 'width',@$el.width()
-                    @$el.resizable
-                        helper : "ui-image-resizable-helper"
-                        handles: "s"
-                        stop : =>
-                            @model.set 'height',@$el.height()
-                    return
+		# Menu item view
+		class Views.SliderView extends Marionette.CompositeView
 
-                defaults = @_getDefaults()
+			className: 'fullwidthbanner-container roundedcorners'
 
-                options =
-                    startheight:  parseInt @model.get 'height'
-                    startwidth : @$el.width()
+			template: '<div class="fullwidthbanner"><ul></ul></div>'
 
-                options = _.defaults options, defaults
+			id: _.uniqueId('carousel-')
 
-                @revapi = @$el.find(".fullwidthbanner").revolution options
+			itemView: SliderItem
 
-                @$el.resizable
-                    helper : "ui-image-resizable-helper"
-                    handles: "s"
+			emptyView: EmptySlider
 
-                    stop : (evt, ui)=>
-                        # @assignImagePath @$el.height()
-                        console.log @$el.height() 
-                        @$el.width('auto') 
-                        options =
-                            startheight : @$el.height() 
-                            startwidth : @$el.width()
-                        
-                        @revapi = @$el.find(".fullwidthbanner").revolution options
-                        @_saveSliderHeightWidth()
+			itemViewContainer: '.fullwidthbanner > ul'
 
-                    start : (evt,ui)=>
-                        $(@).addClass('noclick')
+			itemViewOptions : ->
+				slide_transition : @model.get 'reset_transitions'
 
-                # @trigger "set:slider:height", options.startheight
+			events:
+				'click': 'sliderClick'
+				'click .tp-rightarrow,.tp-leftarrow,.bullet': (e)->
+					e.stopPropagation()
 
-                # $('.aj-imp-publish').on 'click',@_saveSliderHeightWidth
+			modelEvents : 
+				'change:reset_transitions' : 'changeTransitions'
 
-                # @_saveSliderHeightWidth()
+			collectionEvents : 
+				'slide:image:url:updated' : ->
+					@trigger 'render:slider'
 
-            onSetWidth :->
-                @model.set 'width', @$el.width()
-                @model.save()
+			# close revolution slider on close
+			onClose: ->
+				delete @revapi
+
+			changeTransitions : (model,reset_transitions)->
+				# @$el.find('.fullwidthbanner ul').children('li').attr 'data-transition',reset_transitions
+
+				@trigger 'render:slider'
+
+			_getSliderRatio : ->
+				width = @$el.width()
+				height = @$el.height()
+				"#{parseInt width}:#{parseInt height}"
 
 
-            sliderClick : (e)->
-                e.stopPropagation()
-
-                if $(e.target).hasClass('noclick')
-                    $(e.target).removeClass('noclick')
-
-                else
-                    ratio = @_getSliderRatio()
-                    @trigger "show:slides:manager", ratio
+			initialize: (options = {}) ->
+				super options
 
 
+			onShow: ->
+				
+				if @collection.length is 0
+					@model.set 'height',@$el.height()
+					@model.set 'width',@$el.width()
+					@$el.resizable
+						helper : "ui-image-resizable-helper"
+						handles: "s"
+						stop : =>
+							@model.set 'height',@$el.height()
+					return
 
-            _saveSliderHeightWidth : =>
-                @trigger "set:slider:height:width", @$el.height(), @$el.width()
+				defaults = @_getDefaults()
 
+				options =
+					startheight:  parseInt @model.get 'height'
+					startwidth : @$el.width()
 
-            # getTallestColumnHeight: ->
-            #     column = @$el.closest('.column')
-            #     if column.length is 0
-            #         return 350
+				options = _.defaults options, defaults
 
-            #     row = column.closest '.row'
+				@revapi = @$el.find(".fullwidthbanner").revolution options
 
+				@$el.resizable
+					helper : "ui-image-resizable-helper"
+					handles: "s"
 
-            #     height = 350
-            #     # loop through all columns and get tallest column
-            #     $(row).children('.column').each (index, col)->
-            #         if $(col).height() >= height
-            #             height = $(col).height()
+					stop : (evt, ui)=>
+						# @assignImagePath @$el.height()
+						@$el.width('auto') 
+						options =
+							startheight : @$el.height() 
+							startwidth : @$el.width()
+						
+						@revapi = @$el.find(".fullwidthbanner").revolution options
+						@_saveSliderHeightWidth()
 
-            #     height
+					start : (evt,ui)=>
+						$(@).addClass('noclick')
 
-            _getDefaults: ->
-                delay: 9000
-                startwidth: '100%'
-                hideThumbs: 10
-                thumbWidth: 100
-                thumbHeight: 50
-                thumbAmount: 5
-                navigationType: "both"
-                navigationArrows: "solo"
-                navigationStyle: "round"
-                touchenabled: "on"
-                onHoverStop: "on"
-                navigationHAlign: "center"
-                navigationVAlign: "bottom"
-                navigationHOffset: 0
-                navigationVOffset: 0
-                soloArrowLeftHalign: "left"
-                soloArrowLeftValign: "center"
-                soloArrowLeftHOffset: 20
-                soloArrowLeftVOffset: 0
-                soloArrowRightHalign: "right"
-                soloArrowRightValign: "center"
-                soloArrowRightHOffset: 20
-                soloArrowRightVOffset: 0
-                shadow: 0
-                fullWidth: "on"
-                fullScreen: "off"
-                stopLoop: "off"
-                stopAfterLoops: -1
-                stopAtSlide: -1
-                shuffle: "off"
-                autoHeight: "on"
-                forceFullWidth: "off"
-                hideThumbsOnMobile: "off"
-                hideBulletsOnMobile: "on"
-                hideArrowsOnMobile: "on"
-                hideThumbsUnderResolution: 0
-                hideSliderAtLimit: 0
-                hideCaptionAtLimit: 768
-                hideAllCaptionAtLilmit: 0
-                startWithSlide: 0
-                fullScreenOffsetContainer: ""
-                # reset_transitions : 'papercut'
+				# @trigger "set:slider:height", options.startheight
+
+				# $('.aj-imp-publish').on 'click',@_saveSliderHeightWidth
+
+				# @_saveSliderHeightWidth()
+
+			onSetWidth :->
+				@model.set 'width', @$el.width()
+				@model.save()
 
 
-            # onBeforeClose :->
-            #     $('.aj-imp-publish').off 'click',@_saveSliderHeightWidth
+			sliderClick : (e)->
+				e.stopPropagation()
+
+				if $(e.target).hasClass('noclick')
+					$(e.target).removeClass('noclick')
+
+				else
+					ratio = @_getSliderRatio()
+					@trigger "show:slides:manager", ratio
+
+
+
+			_saveSliderHeightWidth : =>
+				@trigger "set:slider:height:width", @$el.height(), @$el.width()
+
+
+			# getTallestColumnHeight: ->
+			#     column = @$el.closest('.column')
+			#     if column.length is 0
+			#         return 350
+
+			#     row = column.closest '.row'
+
+
+			#     height = 350
+			#     # loop through all columns and get tallest column
+			#     $(row).children('.column').each (index, col)->
+			#         if $(col).height() >= height
+			#             height = $(col).height()
+
+			#     height
+
+			_getDefaults: ->
+				delay: 9000
+				startwidth: '100%'
+				hideThumbs: 10
+				thumbWidth: 100
+				thumbHeight: 50
+				thumbAmount: 5
+				navigationType: "both"
+				navigationArrows: "solo"
+				navigationStyle: "round"
+				touchenabled: "on"
+				onHoverStop: "on"
+				navigationHAlign: "center"
+				navigationVAlign: "bottom"
+				navigationHOffset: 0
+				navigationVOffset: 0
+				soloArrowLeftHalign: "left"
+				soloArrowLeftValign: "center"
+				soloArrowLeftHOffset: 20
+				soloArrowLeftVOffset: 0
+				soloArrowRightHalign: "right"
+				soloArrowRightValign: "center"
+				soloArrowRightHOffset: 20
+				soloArrowRightVOffset: 0
+				shadow: 0
+				fullWidth: "on"
+				fullScreen: "off"
+				stopLoop: "off"
+				stopAfterLoops: -1
+				stopAtSlide: -1
+				shuffle: "off"
+				autoHeight: "on"
+				forceFullWidth: "off"
+				hideThumbsOnMobile: "off"
+				hideBulletsOnMobile: "on"
+				hideArrowsOnMobile: "on"
+				hideThumbsUnderResolution: 0
+				hideSliderAtLimit: 0
+				hideCaptionAtLimit: 768
+				hideAllCaptionAtLilmit: 0
+				startWithSlide: 0
+				fullScreenOffsetContainer: ""
+				# reset_transitions : 'papercut'
+
+
+			# onBeforeClose :->
+			#     $('.aj-imp-publish').off 'click',@_saveSliderHeightWidth

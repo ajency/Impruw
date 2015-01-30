@@ -15,7 +15,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
 
       AccordionTab.prototype.className = ' panel panel-default ';
 
-      AccordionTab.prototype.template = '<div class="panel-heading" > <h4 class="panel-title"> <a> <span contenteditable="true">{{tab_name}}</span> </a> </h4> <form></form> <div class="delete-accordion-btn"><span class="glyphicon glyphicon-trash"></span></div> </div> <div  class="panel-collapse collapse in" > <div class="panel-body column empty-column"> </div> </div>';
+      AccordionTab.prototype.template = '<div class="panel-heading" > <h4 class="panel-title"> <a> <span>{{tab_name}}</span> </a> </h4> <form></form> <div class="delete-accordion-btn"><span class="glyphicon glyphicon-trash"></span></div> </div> <div  class="panel-collapse collapse in" > <div class="panel-body column empty-column"> </div> </div>';
 
       AccordionTab.prototype.mixinTemplateHelpers = function(data) {
         data = AccordionTab.__super__.mixinTemplateHelpers.call(this, data);
@@ -26,13 +26,30 @@ define(['app', 'bootbox'], function(App, bootbox) {
       AccordionTab.prototype.events = {
         'click .delete-accordion-btn': function() {
           if (!this.$el.children('.panel-collapse').children('.column').isEmptyColumn()) {
-            bootbox.alert("The tab is not empty. Please delete elements inside tab content to remove");
+            bootbox.alert("<h4 class='delete-message'>" + _.polyglot.t("The tab is not empty. Please delete elements inside tab content to remove") + "</h4>");
             return;
           }
           return this.model.collection.remove(this.model);
         },
-        'blur .panel-title span': function(e) {
-          return this.$el.children('.panel-heading').children('form').find("input[name='" + WPML_DEFAULT_LANG + "']").val($(e.target).text());
+        'click .panel-title span': function(evt) {
+          return bootbox.dialog({
+            title: "Accordian tab name",
+            message: '<div class="row"> <div class="col-md-12"> <form class="form-horizontal"> <div class="form-group"> <label class="col-md-4 control-label" for="name">Name</label> <div class="col-md-4"> <input  name="name" type="text" placeholder="Tab name" class="tab-name-modal form-control input-md" value="' + $(evt.target).text() + '"> </div> </div> </form> </div> </div>',
+            buttons: {
+              success: {
+                label: 'Save',
+                className: 'btn-primary',
+                callback: function() {
+                  var result;
+                  result = $('.tab-name-modal').val();
+                  if (!_.isEmpty(result)) {
+                    $(evt.target).text(result);
+                    return $(evt.target).closest('.panel-title').siblings('form').find("input[name=" + WPML_DEFAULT_LANG + "]").val(result);
+                  }
+                }
+              }
+            }
+          });
         }
       };
 
@@ -41,7 +58,7 @@ define(['app', 'bootbox'], function(App, bootbox) {
         object = this.model.get('tabName');
         for (prop in object) {
           if (object.hasOwnProperty(prop)) {
-            this.$el.children('.panel-heading').children('form').append("<input type='hidden' name='" + prop + "' value=" + object[prop] + ">");
+            this.$el.children('.panel-heading').children('form').append("<input type='hidden' name='" + prop + "' value='" + object[prop] + "'>");
           }
         }
         return this.$el.find('.panel-body').sortable({

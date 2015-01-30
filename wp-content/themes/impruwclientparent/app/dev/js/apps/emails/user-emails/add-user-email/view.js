@@ -37,7 +37,12 @@ define(['app'], function(App) {
             } else {
               if (this.validateEmail(data.email_id)) {
                 this.$el.parent().find('.alert').remove();
-                return this.trigger("add:user:email", data);
+                if (PLAN_FEATURE_COUNT['email_account'][0]['current_count'] < PLAN_FEATURE_COUNT['email_account'][0]['allowed_count']) {
+                  return this.trigger("add:user:email", data);
+                } else {
+                  this.$el.parent().find('.alert').remove();
+                  return this.$el.parent().prepend("<div class=\"alert alert-error\">" + _.polyglot.t("You cannot add another email account since the maximum limit for email accounts has reached ") + "</div>");
+                }
               } else {
                 this.$el.parent().find('.alert').remove();
                 this.$el.parent().prepend("<div class=\"alert alert-error\">" + _.polyglot.t("Email address is not in correct format") + "</div>");

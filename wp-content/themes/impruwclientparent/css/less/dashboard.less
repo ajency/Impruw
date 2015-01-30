@@ -133,6 +133,7 @@ p {
 			#aj-imp-dash-menu {
 				list-style: none;
 				padding: 0;
+				background: darken(@logo-blue, 5%);
 				li {
 					position: relative;
 					.sub-menu {
@@ -165,7 +166,7 @@ p {
 							border-right: 30px solid #fff;
 							display: block;
 							position: absolute;
-							left: -20px;
+							left: -30px;
 							content: '';
 							top: -1px;
 						}
@@ -219,7 +220,6 @@ p {
 						}
 					}
 					&.active {
-						background: #fff;
 						.sub-menu {
 							display: block;
 							position: static;
@@ -233,8 +233,16 @@ p {
 							}
 						}
 						> a {
+							background: #f43e4b; /* Old browsers */
+							background: -webkit-linear-gradient(top,  #f43e4b 0%,#f14829 100%); /* Chrome10+,Safari5.1+ */
+							background: -ms-linear-gradient(top,  #f43e4b 0%,#f14829 100%); /* IE10+ */
+							background: linear-gradient(to bottom,  #f43e4b 0%,#f14829 100%); /* W3C */
+							color: #fff;
 							text-decoration: none;
-							font-weight: 700;
+							// font-weight: 700;
+						}
+						.icon{
+							color: #fff;
 						}
 					}
 				}
@@ -1888,6 +1896,15 @@ form {
 		font-weight: 700;
 		border-bottom: 1px solid @dash-grey;
 		border-radius: 4px 4px 0 0;
+	}
+
+	&.bootbox {
+		.btn-primary {
+			background: @orange;
+			&:hover {
+				background: lighten(@orange, 10%);
+			}
+		}
 	}
 }
 
@@ -4376,7 +4393,7 @@ form {
 	}
 	.price-plans {
 		.price {
-		  font-size: 4em;
+		  font-size: 2.4em;
 		  .price-cents {
 			  vertical-align: super;
 			  font-size: 50%;
@@ -4401,7 +4418,7 @@ form {
 					display: block;
 					margin-bottom: 0.2em;
 					&.active {
-						color: @success-green;
+						color: @orange;
 					}
 					&.pending {
 						color: lighten(@red, 10%);
@@ -4409,14 +4426,14 @@ form {
 				}
 			}
 			&.active {
-				border-color: @success-green;
+				border-color: @orange;
 				.panel-heading {
 					h3 {
-						color: @success-green;
+						color: @orange;
 					}
 				}
 				.ribbon {
-					background: @success-green;
+					background: @orange;
 					display: block;
 					color: #fff;
 					padding: 13px 12px 14px;
@@ -4429,6 +4446,13 @@ form {
 						&:hover, &:focus {
 							background: transparent;
 							color: #fff;
+						}
+					}
+				}
+				&:hover{
+					.panel-heading {
+						h3 {
+							color: @orange;
 						}
 					}
 				}
@@ -4531,17 +4555,41 @@ form {
 				}
 			}
 			&.selected {
-				border-color: @orange;
+				box-shadow: 0px 0px 2px 1px @orange;
 				.ticker {
 					display: block;
 					background: @orange;
 				}
 			}
 		}
+		&.credit-cards{
+			.single-card{
+				opacity: 0.4;
+				&.active, &.selected{
+					opacity: 1;
+				}
+				&.active{
+					border-color: @orange;
+				}
+				&:hover{
+					opacity: 1;
+				}
+			}
+		}
+
 	}
 	#add-new-card {
 		.bootstrap-select {
 			width: 120px;
+		}
+	}
+	.deactivate-subscription{
+		background: transparent;
+		color: @blue-grey;
+		padding: 0;
+		margin-bottom: 1em;
+		&:hover, &:focus {
+			color: darken(@blue-grey, 10%);
 		}
 	}
 }
@@ -5376,5 +5424,49 @@ form {
 .edit-room-container {
 	form {
 		border-bottom: 0;
+	}
+}
+
+/**** Map View Styles ****/
+.map-region {
+	.help-block {
+		.icon {
+			font-size: 1.5em;
+			color: @blue-grey;
+			top: 4px;
+			position: relative;
+		}
+	}
+	#map-canvas {
+		padding: 2px;
+		border: 1px solid @dash-grey;
+		&:hover {
+			border-color: @orange;
+		}
+	}
+}
+
+/* Dashboard Guide */
+.brace{
+	height: 760px;
+	background: url('../images/brace.png') no-repeat;
+	background-size: contain;
+	background-position: left bottom; 
+}
+.builder-gif{
+	height: 760px;
+	background: url('../images/gif-bg.png') no-repeat @preview-grey;
+	background-size: contain;
+	background-position: center;
+	border-left: 2px dashed darken(@preview-grey, 5%);
+}
+
+@media only screen 
+and (min-width : 1440px) {
+	.dashboard-column{
+		width: 24.6667%;
+	}
+	.builder-coulmn{
+		width: 75.3333%;
 	}
 }

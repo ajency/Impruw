@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-sm-12 left">
+        <h6 class="aj-imp-sub-head-thin aj-imp-widget-title">
+            {{plan_title}}
+        </h6>
+    </div>
+    <div class="col-sm-12 right">
+        <a href="#/billing/pricing-plans" class="">{{#polyglot}}Change Plan{{/polyglot}}</a> | 
+        <a href="#" class="deactivate-subscription">{{#polyglot}}Deactivate Paid Subscription{{/polyglot}}</a>        
+        <img src="{{THEMEURL}}/images/loader.gif" width="18" height="10" id="deactivate_plan_loader" style="display:none ">
+    </div>
+</div>
+<hr>
+<div>
+    <h5 class="aj-imp-sub-head-thin">
+        <b>{{#polyglot}}Features:{{/polyglot}}</b>
+    </h5>
+    <div class="row">
+    {{#plan_features}}
+        <div class="col-sm-4 ">
+            <h6 class="aj-imp-sub-head-thin">
+                <small>
+                    <b>{{name}}</b> 
+                    <span tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Info about the feature will come here">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    </span> :
+                </small>
+                <small>{{#enabled}}<span class="icon icon-checkmark3 text-success"></span> {{/enabled}}{{^enabled}}<span class="icon icon-cancel3 text-danger"></span>{{/enabled}}</small>
+                <br>
+                <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
+                {{#is_count_type}}<small>{{count_display_label}}</small>{{/is_count_type}}
+                {{^is_count_type}}<small>N/A</small>{{/is_count_type}}
+            </h6>
+        </div>
+    {{/plan_features}}
+    </div>
+
+    <div class="">
+     <div id="deactivate_plan_status"></div>  
+    </div>
+   
+</div>

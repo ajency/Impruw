@@ -13,7 +13,22 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       BraintreePlan.prototype.name = 'braintreeplan';
 
-      BraintreePlan.prototype.idAttribute = 'plan_id';
+      BraintreePlan.prototype.idAttribute = 'id';
+
+      BraintreePlan.prototype.sync = function(method, entity, options) {
+        var xhr;
+        if (options == null) {
+          options = {};
+        }
+        xhr = window._bsync(method, entity, options);
+        if (method === 'read') {
+          return entity._fetch = xhr;
+        }
+      };
+
+      BraintreePlan.prototype.url = function() {
+        return "" + SITEURL + "/api/ajbilling/braintreePlans/" + (this.get("id"));
+      };
 
       return BraintreePlan;
 
@@ -26,10 +41,6 @@ define(["app", 'backbone'], function(App, Backbone) {
       }
 
       BraintreePlanCollection.prototype.model = BraintreePlan;
-
-      BraintreePlanCollection.prototype.url = function() {
-        return "" + AJAXURL + "?action=get-braintree-plans";
-      };
 
       return BraintreePlanCollection;
 
@@ -44,7 +55,7 @@ define(["app", 'backbone'], function(App, Backbone) {
       getPlanByPlanId: function(planId) {
         var brainTreePlanModel;
         brainTreePlanModel = new BraintreePlan({
-          'plan_id': planId
+          'id': planId
         });
         brainTreePlanModel.fetch();
         return brainTreePlanModel;

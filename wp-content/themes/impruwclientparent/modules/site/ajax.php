@@ -65,7 +65,16 @@ function read_language_based_site_ajax(){
     $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );
     $data [ 'currency' ] = get_option( 'currency','NOK' );
     $data [ 'braintree_customer_id' ] = get_option( 'braintree-customer-id','');
-    $data [ 'braintree_subscription' ] = get_option( 'braintree-subscription',null );
+
+    $data [ 'braintree_subscription' ] = NULL;
+    // Get braintree subscription based on customer id from braintree
+    if ($data [ 'braintree_customer_id' ]!="") {
+        $data [ 'braintree_subscription' ] = (function_exists('aj_braintree_get_customer_subscription')) ? aj_braintree_get_customer_subscription($data [ 'braintree_customer_id' ]) : NULL;
+    }
+    $data [ 'braintree_assisted_setup' ] = get_option( 'braintree-assisted-setup','');
+    $data [ 'assistedSetUpPlanId' ] = get_assisted_setup_plan_id($site_id);
+
+     
     $data [ 'domain_name' ] = get_option( 'domain-name', get_option( 'blogname' ) . '.impruw.com' );
 
     $data [ 'hotel_name' ] = get_option( 'hotel_name','' );
@@ -73,11 +82,19 @@ function read_language_based_site_ajax(){
     $image_path = wp_get_attachment_image_src( $data [ 'logo_id' ], 'medium' );
     $image_path = $image_path === false ? '' : $image_path[ 0 ];
     $data [ 'logo_url' ] = $image_path;
+
+    $data [ 'favicon_id' ] = get_option( 'favicon_id', 0 );
+    $favicon_path = wp_get_attachment_image_src( $data [ 'favicon_id' ], 'medium' );
+    $favicon_path = $favicon_path === false ? '' : $favicon_path[ 0 ];
+    $data [ 'favicon_url' ] = $favicon_path;
+
     $data [ 'piwik_path' ] = PIWIK_PATH;
     $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
 
     $data[ 'default_language' ] = get_native_language_name(wpml_get_default_language());
     $data['translation_language'] = get_native_language_name($language);
+
+    $data['domain_mapping_status'] = is_feature_allowed('domain_mapping');
 
      if ( is_array( $data ) )
         wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
@@ -362,3 +379,27 @@ function builder_update_menu_items_order(){
 add_action('wp_ajax_builder-update-menu-items-order', 'builder_update_menu_items_order');
 
 
+
+function ajax_get_address_coordinates(){
+    $data = get_address_coordinate();
+    wp_send_json($data);
+}
+add_action('wp_ajax_get-address-coordinates','ajax_get_address_coordinates');
+
+function ajax_update_address_coordinates(){
+    $data = $_POST;
+    if( $data['position'] == 'true'){
+        update_option( 'latitude', $data['latitude'] );
+        update_option( 'longitude', $data['longitude'] );
+    }
+    else{
+        if (isset($data['placeId']))
+            update_option('placeId', $data['placeId']);
+        delete_option('latitude');
+        delete_option('longitude');
+    }
+
+    wp_send_json(array('code' => 'OK'));
+
+}
+add_action('wp_ajax_update-address-coordinates','ajax_update_address_coordinates');

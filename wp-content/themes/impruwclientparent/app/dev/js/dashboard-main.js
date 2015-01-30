@@ -13,6 +13,7 @@ require.config({
     moment: 'plugins/moment',
     jqueryspin: 'plugins/jquery.spin',
     bootstrap: 'plugins/bootstrap',
+    bootbox: 'plugins/bootbox.min',
     bootstrapselect: 'plugins/bootstrapselect',
     underscorestring: 'plugins/underscore.string',
     mustache: 'plugins/Mustache',
@@ -84,6 +85,10 @@ require.config({
     lightbox: ['jquery'],
     jqueryspin: ['spin'],
     bootstrap: ['jquery'],
+    bootbox: {
+      deps: ['bootstrap'],
+      exports: 'bootbox'
+    },
     heartbeat: ['jquery'],
     radiocheck: ['bootstrap'],
     radio: ['bootstrap'],

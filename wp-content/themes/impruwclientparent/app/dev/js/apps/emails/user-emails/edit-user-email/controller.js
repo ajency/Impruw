@@ -47,7 +47,7 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/edit-user
         };
         return $.ajax(options).done((function(_this) {
           return function(response) {
-            var successMsg;
+            var reenable, siteid, successMsg, updated_feature_count;
             if (response.code === 'OK') {
               _this.userEmailModel.set({
                 'name': response.data.name
@@ -55,6 +55,11 @@ define(['app', 'controllers/base-controller', 'apps/emails/user-emails/edit-user
               _this.userEmailModel.set({
                 'has_password': response.data.has_password
               });
+              reenable = _this.userEmailModel.get('reenableAccount');
+              if (reenable === 1) {
+                siteid = SITEID['id'];
+                updated_feature_count = App.request("update:site:feature:count", siteid, 'email_account', 'plus');
+              }
               successMsg = "Email account details updated";
               return _this.editUserEmailView.triggerMethod("saved:user:email", successMsg);
             } else {
