@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('LanguageApp.LanguagePageContent.OriginalTabAccordion.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var EmptyOriginalTabAccordionView, OriginalTabPaneItemView, OriginalTabPanesView;
+    var EmptyOriginalTabAccordionItemView, EmptyOriginalTabAccordionView, OriginalTabPaneItemView, OriginalTabPanesView;
     OriginalTabPaneItemView = (function(_super) {
       __extends(OriginalTabPaneItemView, _super);
 
@@ -32,6 +32,26 @@ define(['app'], function(App) {
       return OriginalTabPaneItemView;
 
     })(Marionette.ItemView);
+    EmptyOriginalTabAccordionItemView = (function(_super) {
+      __extends(EmptyOriginalTabAccordionItemView, _super);
+
+      function EmptyOriginalTabAccordionItemView() {
+        return EmptyOriginalTabAccordionItemView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyOriginalTabAccordionItemView.prototype.template = '<br/><div class="empty-info">{{noTabType}}</div><br/>';
+
+      EmptyOriginalTabAccordionItemView.prototype.serializeData = function() {
+        var data, tabType;
+        data = EmptyOriginalTabAccordionItemView.__super__.serializeData.call(this);
+        tabType = Marionette.getOption(this, 'tabType');
+        data.noTabType = _.polyglot.t("You have no " + tabType + " to translate");
+        return data;
+      };
+
+      return EmptyOriginalTabAccordionItemView;
+
+    })(Marionette.ItemView);
     OriginalTabPanesView = (function(_super) {
       __extends(OriginalTabPanesView, _super);
 
@@ -42,6 +62,8 @@ define(['app'], function(App) {
       OriginalTabPanesView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{tabType}}</small></h6> <div class="original-tab-pane"> </div> <hr class="dark">';
 
       OriginalTabPanesView.prototype.itemView = OriginalTabPaneItemView;
+
+      OriginalTabPanesView.prototype.emptyView = EmptyOriginalTabAccordionItemView;
 
       OriginalTabPanesView.prototype.itemViewContainer = '.original-tab-pane';
 
@@ -67,6 +89,14 @@ define(['app'], function(App) {
         return this.listenTo(App.vent, "translated:tabs:accordions:loaded:" + tabAccordionId, function() {
           return this.$el.find('.smart-collapse').removeClass('hide');
         });
+      };
+
+      OriginalTabPanesView.prototype.itemViewOptions = function() {
+        var tabType;
+        tabType = this.model.get('tabType');
+        return {
+          tabType: tabType
+        };
       };
 
       return OriginalTabPanesView;

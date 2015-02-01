@@ -25,7 +25,19 @@ define ['app'], (App)->
                     tabname = data.tabName
                     tabname[WPML_DEFAULT_LANG]
 
-                data                    
+                data 
+
+        class EmptyOriginalTabAccordionItemView extends Marionette.ItemView
+
+            template: '<br/><div class="empty-info">{{noTabType}}</div><br/>' 
+
+            serializeData : ->
+                data = super()
+                tabType = Marionette.getOption @, 'tabType'
+                data.noTabType = _.polyglot.t("You have no #{tabType} to translate")
+                data
+
+
 
         class OriginalTabPanesView extends Marionette.CompositeView
 
@@ -35,6 +47,8 @@ define ['app'], (App)->
                         <hr class="dark">'
 
             itemView : OriginalTabPaneItemView
+
+            emptyView : EmptyOriginalTabAccordionItemView
 
             itemViewContainer : '.original-tab-pane'
 
@@ -59,6 +73,10 @@ define ['app'], (App)->
                 
                 @listenTo App.vent, "translated:tabs:accordions:loaded:"+tabAccordionId, ->
                     @$el.find('.smart-collapse').removeClass('hide')
+
+            itemViewOptions : ->
+                tabType = @model.get 'tabType'
+                tabType : tabType
 
 
         class EmptyOriginalTabAccordionView extends Marionette.ItemView
