@@ -90,7 +90,8 @@ define ['app'], (App)->
                         ele.draggable = $(element).children('form').find('input[name="draggable"]').val() is "true"
                         ele.style = $(element).children('form').find('input[name="style"]').val()
                         ele.justified = $(element).children('form').find('input[name="justified"]').val()
-                        delete ele.meta_id
+                        # delete ele.meta_id
+                        ele.meta_id = $(element).find('form input[name="meta_id"]').val()    
                         ele.elements = []
                         _.each $(element).children('.element-markup').children('.tab-container').children('.tab-content').children('.column'), (column, index)=>
                             id = $(column).attr('id')
