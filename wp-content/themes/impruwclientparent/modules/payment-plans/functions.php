@@ -75,7 +75,7 @@ function get_markup_for_addon($element_name,$preview){
        $markup = '  <div class="text-center image-placeholder">
                         <span class="glyphicon glyphicon-ban-circle pull-left"></span>
                         <span class="glyphicon glyphicon-ban-circle pull-right"></span>
-                        <h6> <small>Add-on: </small>'.$element_name.' </h6>
+                        <h6> <span class="small">Add-on: </span>'.$element_name.' </h6>
                         <p>This add-on will not be displayed on your site since it has not been added to your plan.</p>
 
                         <p>To make this add-on available, <a href="'.get_site_url().'/dashboard/#/billing/pricing-plans">Click Here</a> to update your plan.<br>
