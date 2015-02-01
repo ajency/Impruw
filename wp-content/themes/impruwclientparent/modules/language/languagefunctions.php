@@ -801,11 +801,17 @@ function get_language_slides_by_slideid($slider_id,$slide_id){
 
 
 function update_tabTanslation_page_json($page_id,$tabElements){
-    //Get page json to translate
-    $page_json = get_page_json_for_site($page_id, true);
+    
+    //Get autosave version of page json page json to translate
+    $autosave_page_json = get_page_json_for_site($page_id, true);
+    $only_autosave_page_json = $autosave_page_json['page'];
+
+    // Get actual version of page json page json 
+    $page_json = get_page_json_for_site($page_id);
+    $only_page_json = $page_json['page'];
 
     foreach ($tabElements as $tabElement) {
-     foreach ( $page_json['page'] as &$element ) {
+        foreach ( $only_page_json as &$element ) {
             if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 update_row_tabs_accordion_elements( $element,$tabElement);
             } 
@@ -814,9 +820,24 @@ function update_tabTanslation_page_json($page_id,$tabElements){
 
             }
         }
+        foreach ( $only_autosave_page_json as &$autosave_element ) {
+            if ( in_array($autosave_element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                update_row_tabs_accordion_elements( $autosave_element,$tabElement);
+            } 
+            else {
+                continue;
+
+            }
+        }
     }
 
-    echo json_encode($page_json);
+    // update actual page json
+    add_page_json( $page_id,  $only_page_json );
+
+    // Update autosave page json
+    update_page_autosave( $page_id, $only_autosave_page_json );
+
+    return $only_autosave_page_json;
 
 }
 

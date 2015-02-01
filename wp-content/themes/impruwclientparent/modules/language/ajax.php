@@ -348,7 +348,9 @@ function update_pageTabAccordionElements(){
     //array of TabNames to be updated
     $tabElements = $_POST['tabElements'];
 
-    update_tabTanslation_page_json($page_id,$tabElements);
+    $updated_page_json = update_tabTanslation_page_json($page_id,$tabElements);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => array('page-id'=>$page_id,'page-json'=>json_encode($updated_page_json)) ) );
 }
 add_action( 'wp_ajax_update-pageTabAccordionElements', 'update_pageTabAccordionElements' );
 
