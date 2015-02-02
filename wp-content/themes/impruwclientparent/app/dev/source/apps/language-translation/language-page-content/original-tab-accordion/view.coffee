@@ -41,8 +41,8 @@ define ['app'], (App)->
 
         class OriginalTabPanesView extends Marionette.CompositeView
 
-            template : '<h6 class="aj-imp-sub-head-thin"><small>{{tabType}}</small></h6>
-                        <div class="original-tab-pane">
+            template : '<h6 class="aj-imp-sub-head-thin"><small>{{tabType}}</small><a data-toggle="collapse" data-target=".dashboard-{{tabType}}-{{ID}}" class="smart-collapse hide">Expand</a></h6>
+                        <div class="original-tab-pane dashboard-{{tabType}}-{{ID}} collapse">
                         </div>
                         <hr class="dark">'
 

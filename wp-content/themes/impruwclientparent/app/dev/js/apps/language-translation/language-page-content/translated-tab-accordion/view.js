@@ -70,7 +70,7 @@ define(['app'], function(App) {
 
       TranslatedTabPanesView.prototype.tagName = 'form';
 
-      TranslatedTabPanesView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div class="dashboard-tabaccordion-{{ID}}"> <div class = "translated-tab-accordion" ></div> <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-tabaccordion-translation-element">{{#polyglot}}Save{{/polyglot}}</button> </div> <hr class="dark">';
+      TranslatedTabPanesView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div class="dashboard-tabaccordion-{{ID}} dashboard-{{tabType}}-{{ID}} collapse"> <div class = "translated-tab-accordion" ></div> <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-tabaccordion-translation-element">{{#polyglot}}Save{{/polyglot}}</button> </div> <hr class="dark">';
 
       TranslatedTabPanesView.prototype.itemView = TranslatedTabPaneItemView;
 

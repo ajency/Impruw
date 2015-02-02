@@ -4338,7 +4338,7 @@ form {
 	.table {
 		margin-bottom: 0;
 	}
-	.translated-smart-table, .original-smart-table {
+	.translated-smart-table, .original-smart-table, .translated-tab-accordion, .original-tab-accordion {
 		form {
 			margin: 0;
 			padding: 0;
@@ -4361,6 +4361,25 @@ form {
 			&:hover {
 				border-color: @blue-grey;
 			}
+		}
+	}
+
+	.translated-tab-accordion, .original-tab-accordion{
+		.smart-cell {
+			border-left: 1px solid lighten(@dash-grey, 20%);
+			padding: 0 .5em .2em;
+			margin-bottom: 0.5em;
+			&:hover {
+				border-color: @blue-grey;
+			}
+			.form-group{
+				margin-bottom: 0.2em;
+			}
+		}
+	}
+	.original-tab-accordion{
+		.in {
+			padding-bottom: 22px;
 		}
 	}
 }

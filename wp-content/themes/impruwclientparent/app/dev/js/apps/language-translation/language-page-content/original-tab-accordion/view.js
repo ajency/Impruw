@@ -59,7 +59,7 @@ define(['app'], function(App) {
         return OriginalTabPanesView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalTabPanesView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{tabType}}</small></h6> <div class="original-tab-pane"> </div> <hr class="dark">';
+      OriginalTabPanesView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{tabType}}</small><a data-toggle="collapse" data-target=".dashboard-{{tabType}}-{{ID}}" class="smart-collapse hide">Expand</a></h6> <div class="original-tab-pane dashboard-{{tabType}}-{{ID}} collapse"> </div> <hr class="dark">';
 
       OriginalTabPanesView.prototype.itemView = OriginalTabPaneItemView;
 
