@@ -659,7 +659,10 @@ function subscription_canceled_email($subscription_id,$customer_details){
 }
 add_action( 'subscription_canceled', 'subscription_canceled_email', 10, 2 );
 
-
+function manual_email_sending(){
+	global $aj_comm;
+	$aj_comm->cron_process_communication_queue();
+}
 
 
 
