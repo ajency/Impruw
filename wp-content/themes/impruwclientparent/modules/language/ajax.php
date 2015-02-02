@@ -253,6 +253,15 @@ function get_page_smart_tables_ajax(){
 }
 add_action( 'wp_ajax_get-page-smart-tables', 'get_page_smart_tables_ajax' );
 
+function get_page_list_tables_ajax(){
+    $page_id = $_REQUEST['pageId'];
+
+    $data =  get_page_listtable_elements($page_id);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_get-page-list-tables', 'get_page_list_tables_ajax' );
+
 function get_get_page_tabs_accordions_ajax(){
     $page_id = $_REQUEST['pageId'];
 
@@ -375,6 +384,9 @@ function update_element_content(){
             else if($page_element['element'] === 'SmartTable'){
                 $page_element['contents'] = $_POST['contents'] ;
             }
+            else if($page_element['element'] === 'List'){
+                $page_element['contents'] = $_POST['contents'] ;
+            }
             else{
                 $page_element['content'] = $_POST['content'] ;
             }
@@ -392,6 +404,7 @@ function update_element_content(){
 
 add_action( 'wp_ajax_create-pageElements', 'update_element_content' );
 add_action( 'wp_ajax_create-pageSmartTableElements', 'update_element_content' );
+add_action( 'wp_ajax_create-pageListTableElements', 'update_element_content' );
 add_action( 'wp_ajax_create-pageTableElements', 'update_element_content' );
 
 function update_header_element_content(){

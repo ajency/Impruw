@@ -25,6 +25,7 @@ define [
     'entities/page-table-elements'
     'entities/page-tab-accordions'
     'entities/page-smarttable-elements'
+    'entities/page-listtable-elements'
     'entities/page-slider-elements'
     'entities/emails'
     'entities/site-add-ons'
