@@ -35,7 +35,7 @@ define(['app'], function(App) {
         listtableIndex = Marionette.getOption(this, 'listtableIndex');
         data.dataInputName = function() {
           var dataInputName;
-          dataInputName = editingLanguage + "[" + listtableIndex + "]";
+          dataInputName = editingLanguage + "[" + listtableIndex + "][data]";
           dataInputName.toString();
           return dataInputName;
         };
@@ -65,6 +65,7 @@ define(['app'], function(App) {
           var data;
           e.preventDefault();
           data = Backbone.Syphon.serialize(this);
+          console.log(data);
           return this.trigger("page:listtable:updated", data);
         }
       };

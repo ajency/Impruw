@@ -32,7 +32,7 @@ define ['app'], (App)->
                 editingLanguage = Marionette.getOption @, 'editingLanguage'
                 listtableIndex =  Marionette.getOption @, 'listtableIndex'
                 data.dataInputName = ->
-                    dataInputName = editingLanguage+"["+listtableIndex+"]"
+                    dataInputName = editingLanguage+"["+listtableIndex+"][data]"
                     dataInputName.toString()
                     return dataInputName
                 data
@@ -57,6 +57,7 @@ define ['app'], (App)->
                 'click .btn-save-listtable-translation-element': (e)->
                     e.preventDefault()
                     data = Backbone.Syphon.serialize @
+                    console.log data
                     @trigger "page:listtable:updated" ,data
 
             itemViewOptions :(model,index)->
