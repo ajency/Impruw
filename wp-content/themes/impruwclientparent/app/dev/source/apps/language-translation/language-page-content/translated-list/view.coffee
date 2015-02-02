@@ -42,7 +42,7 @@ define ['app'], (App)->
 
             tagName : 'form'
             template : '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6>
-                        <div >
+                        <div class="dashboard-listtable-{{meta_id}} collapse">
                             <div class = "translated-list-table" ></div>
                             <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-listtable-translation-element">Save List</button>
                         </div>

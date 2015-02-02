@@ -4338,7 +4338,7 @@ form {
 	.table {
 		margin-bottom: 0;
 	}
-	.translated-smart-table, .original-smart-table, .translated-tab-accordion, .original-tab-accordion {
+	.translated-smart-table, .original-smart-table, .translated-tab-accordion, .original-tab-accordion, .translated-list-table, .original-list-table {
 		form {
 			margin: 0;
 			padding: 0;
@@ -4364,7 +4364,7 @@ form {
 		}
 	}
 
-	.translated-tab-accordion, .original-tab-accordion{
+	.translated-tab-accordion, .original-tab-accordion, .translated-list-table, .original-list-table{
 		.smart-cell {
 			border-left: 1px solid lighten(@dash-grey, 20%);
 			padding: 0 .5em .2em;
@@ -4377,7 +4377,12 @@ form {
 			}
 		}
 	}
-	.original-tab-accordion{
+	.original-list-table{
+		.smart-cell {
+			padding: .1em .5em .2em;
+		}
+	}
+	.original-tab-accordion, .original-list-table{
 		.in {
 			padding-bottom: 22px;
 		}

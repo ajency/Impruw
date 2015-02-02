@@ -54,7 +54,7 @@ define(['app'], function(App) {
 
       TranslatedListTableView.prototype.tagName = 'form';
 
-      TranslatedListTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div > <div class = "translated-list-table" ></div> <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-listtable-translation-element">Save List</button> </div> <hr class="dark">';
+      TranslatedListTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div class="dashboard-listtable-{{meta_id}} collapse"> <div class = "translated-list-table" ></div> <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-listtable-translation-element">Save List</button> </div> <hr class="dark">';
 
       TranslatedListTableView.prototype.itemView = TranslatedListTableItemView;
 

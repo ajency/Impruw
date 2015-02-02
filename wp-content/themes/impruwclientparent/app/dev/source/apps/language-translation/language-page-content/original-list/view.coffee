@@ -9,7 +9,7 @@ define ['app'], (App)->
             template : '<div class="form-group legend-group">
                             <div class="col-sm-12"> 
                                 <div class="form-group"> 
-                                    <div class="col-sm-9 col-sm-offset-3"> 
+                                    <div class="col-sm-11 col-sm-offset-1"> 
                                         <div tabindex="1" class="original title"> {{{data}}} </div> 
                                     </div> 
                                 </div> 
@@ -22,8 +22,8 @@ define ['app'], (App)->
                
         class OriginalListTableView extends Marionette.CompositeView
 
-            template : '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small></h6>
-                        <div class="original-list-table dashboard-listtable-{{meta_id}}">
+            template : '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small><a data-toggle="collapse" data-target=".dashboard-listtable-{{meta_id}}" class="smart-collapse hide">Expand</a></h6>
+                        <div class="original-list-table dashboard-listtable-{{meta_id}} collapse">
                         </div>
                         <hr class="dark">'
 

@@ -13,7 +13,7 @@ define(['app'], function(App) {
 
       OriginalListTableItemView.prototype.className = 'smart-cell';
 
-      OriginalListTableItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <div class="col-sm-9 col-sm-offset-3"> <div tabindex="1" class="original title"> {{{data}}} </div> </div> </div> </div> </div>';
+      OriginalListTableItemView.prototype.template = '<div class="form-group legend-group"> <div class="col-sm-12"> <div class="form-group"> <div class="col-sm-11 col-sm-offset-1"> <div tabindex="1" class="original title"> {{{data}}} </div> </div> </div> </div> </div>';
 
       OriginalListTableItemView.prototype.events = {
         'click a': function(e) {
@@ -31,7 +31,7 @@ define(['app'], function(App) {
         return OriginalListTableView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalListTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small></h6> <div class="original-list-table dashboard-listtable-{{meta_id}}"> </div> <hr class="dark">';
+      OriginalListTableView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>{{style}} {{element}}</small><a data-toggle="collapse" data-target=".dashboard-listtable-{{meta_id}}" class="smart-collapse hide">Expand</a></h6> <div class="original-list-table dashboard-listtable-{{meta_id}} collapse"> </div> <hr class="dark">';
 
       OriginalListTableView.prototype.itemView = OriginalListTableItemView;
 
