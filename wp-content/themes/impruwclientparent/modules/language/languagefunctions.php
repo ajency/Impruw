@@ -284,6 +284,24 @@ function get_page_smarttable_elements($page_id){
    return $elements;    
 }
 
+//Function to get all page smart table elements
+function get_page_listtable_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+
+    $elements = array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+            get_row_listtable_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('List')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;    
+}
+
 //Function to get all page tabs and accordions 
 function get_page_tabs_accordion_elements($page_id){
     $data = get_page_json_for_site($page_id, true);
@@ -525,6 +543,26 @@ function get_row_smarttable_elements( $row_element, &$elements ){
                 get_row_smarttable_elements( $element,$elements );
             } else {
                 if(in_array($element[ 'element'] , array('SmartTable'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }                    
+                    $elements[] = $element;
+                }
+            }
+        }
+    }
+}
+
+function get_row_listtable_elements( $row_element, &$elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                get_row_listtable_elements( $element,$elements );
+            } else {
+                if(in_array($element[ 'element'] , array('List'))){
 
                     if (isset($column['tabName'])){
                         $element['parentElement'] = $row_element[ 'element' ];
