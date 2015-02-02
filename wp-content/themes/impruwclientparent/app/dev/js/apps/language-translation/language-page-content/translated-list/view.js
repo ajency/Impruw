@@ -65,7 +65,6 @@ define(['app'], function(App) {
           var data;
           e.preventDefault();
           data = Backbone.Syphon.serialize(this);
-          console.log(data);
           return this.trigger("page:listtable:updated", data);
         }
       };

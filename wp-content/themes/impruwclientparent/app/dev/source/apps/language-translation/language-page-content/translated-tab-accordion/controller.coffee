@@ -41,8 +41,6 @@ define ['app', 'controllers/base-controller'
                    index++
 
                 model.set 'tabElements' , translatedTabElements
-
-                console.log model
                
                 # unless o.hasOwnProperty(editingLang)
                 #     contents[editingLang] = new Array()

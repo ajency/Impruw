@@ -57,7 +57,6 @@ define ['app'], (App)->
                 'click .btn-save-listtable-translation-element': (e)->
                     e.preventDefault()
                     data = Backbone.Syphon.serialize @
-                    console.log data
                     @trigger "page:listtable:updated" ,data
 
             itemViewOptions :(model,index)->

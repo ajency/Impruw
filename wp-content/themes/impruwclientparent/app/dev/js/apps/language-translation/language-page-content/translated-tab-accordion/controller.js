@@ -44,7 +44,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
           return index++;
         });
         model.set('tabElements', translatedTabElements);
-        console.log(model);
         model.set('json-page-id', this.pageId);
         model.set('edit-lang', this.editLang);
         return model.save(null, {
