@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('LanguageApp.LanguagePageContent.TranslatedTabAccordion.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var TranslatedTabPaneItemView, TranslatedTabPanesView;
+    var EmptyTranslatedTabAccordionView, EmptyTranslatedTabPanesView, TranslatedTabPaneItemView, TranslatedTabPanesView;
     TranslatedTabPaneItemView = (function(_super) {
       __extends(TranslatedTabPaneItemView, _super);
 
@@ -19,12 +19,6 @@ define(['app'], function(App) {
         'click a': function(e) {
           return e.preventDefault();
         }
-      };
-
-      TranslatedTabPaneItemView.prototype.serializeData = function() {
-        var data;
-        data = TranslatedTabPaneItemView.__super__.serializeData.call(this);
-        return data;
       };
 
       TranslatedTabPaneItemView.prototype.mixinTemplateHelpers = function(data) {
@@ -61,6 +55,18 @@ define(['app'], function(App) {
       return TranslatedTabPaneItemView;
 
     })(Marionette.ItemView);
+    EmptyTranslatedTabPanesView = (function(_super) {
+      __extends(EmptyTranslatedTabPanesView, _super);
+
+      function EmptyTranslatedTabPanesView() {
+        return EmptyTranslatedTabPanesView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyTranslatedTabPanesView.prototype.template = '<br/><div class="empty-info">&nbsp;</div><br/>';
+
+      return EmptyTranslatedTabPanesView;
+
+    })(Marionette.ItemView);
     TranslatedTabPanesView = (function(_super) {
       __extends(TranslatedTabPanesView, _super);
 
@@ -70,11 +76,13 @@ define(['app'], function(App) {
 
       TranslatedTabPanesView.prototype.tagName = 'form';
 
-      TranslatedTabPanesView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div class="dashboard-tabaccordion-{{ID}} dashboard-{{tabType}}-{{ID}} collapse"> <div class = "translated-tab-accordion" ></div> <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-tabaccordion-translation-element">{{#polyglot}}Save{{/polyglot}}</button> </div> <hr class="dark">';
+      TranslatedTabPanesView.prototype.template = '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6> <div class="dashboard-tabaccordion-{{ID}} dashboard-{{tabType}}-{{ID}} collapse"> <div class = "translated-tab-accordion" ></div> {{#showButton}}<button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-tabaccordion-translation-element">{{#polyglot}}Save{{/polyglot}}</button>{{/showButton}} </div> <hr class="dark">';
 
       TranslatedTabPanesView.prototype.itemView = TranslatedTabPaneItemView;
 
       TranslatedTabPanesView.prototype.itemViewContainer = '.translated-tab-accordion';
+
+      TranslatedTabPanesView.prototype.emptyView = EmptyTranslatedTabPanesView;
 
       TranslatedTabPanesView.prototype.events = {
         'click .btn-save-tabaccordion-translation-element': function(e) {
@@ -83,6 +91,17 @@ define(['app'], function(App) {
           data = Backbone.Syphon.serialize(this);
           return this.trigger("page:tabaccordion:updated", data);
         }
+      };
+
+      TranslatedTabPanesView.prototype.serializeData = function() {
+        var data;
+        data = TranslatedTabPanesView.__super__.serializeData.call(this);
+        if (this.collection.length === 0) {
+          data.showButton = false;
+        } else {
+          data.showButton = true;
+        }
+        return data;
       };
 
       TranslatedTabPanesView.prototype.itemViewOptions = function(model, index) {
@@ -111,6 +130,18 @@ define(['app'], function(App) {
       return TranslatedTabPanesView;
 
     })(Marionette.CompositeView);
+    EmptyTranslatedTabAccordionView = (function(_super) {
+      __extends(EmptyTranslatedTabAccordionView, _super);
+
+      function EmptyTranslatedTabAccordionView() {
+        return EmptyTranslatedTabAccordionView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyTranslatedTabAccordionView.prototype.template = '<br/><div class="empty-info">&nbsp;</div><br/>';
+
+      return EmptyTranslatedTabAccordionView;
+
+    })(Marionette.ItemView);
     return Views.TranslatedTabAccordionView = (function(_super) {
       __extends(TranslatedTabAccordionView, _super);
 
@@ -123,6 +154,8 @@ define(['app'], function(App) {
       TranslatedTabAccordionView.prototype.itemView = TranslatedTabPanesView;
 
       TranslatedTabAccordionView.prototype.itemViewContainer = '#translated-tab-accordions';
+
+      TranslatedTabAccordionView.prototype.emptyView = EmptyTranslatedTabAccordionView;
 
       TranslatedTabAccordionView.prototype.itemViewOptions = function() {
         var language;

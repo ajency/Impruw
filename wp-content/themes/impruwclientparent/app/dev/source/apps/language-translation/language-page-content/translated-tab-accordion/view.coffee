@@ -22,11 +22,6 @@ define ['app'], (App)->
                     e.preventDefault()
 
 
-            serializeData: ()->
-                data = super()
-                data
-
-
             mixinTemplateHelpers: (data)->
                 data = super data
                 editingLanguage = Marionette.getOption @, 'editingLanguage'
@@ -51,7 +46,10 @@ define ['app'], (App)->
                     tabname = data.tabName
                     tabname[editingLanguage]
                 data
-               
+        
+        class EmptyTranslatedTabPanesView extends Marionette.ItemView
+
+            template: '<br/><div class="empty-info">&nbsp;</div><br/>'      
 
         class TranslatedTabPanesView extends Marionette.CompositeView
 
@@ -60,7 +58,7 @@ define ['app'], (App)->
             template : '<h6 class="aj-imp-sub-head-thin"><small>&nbsp;</small></h6>
                         <div class="dashboard-tabaccordion-{{ID}} dashboard-{{tabType}}-{{ID}} collapse">
                             <div class = "translated-tab-accordion" ></div>
-                            <button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-tabaccordion-translation-element">{{#polyglot}}Save{{/polyglot}}</button>
+                            {{#showButton}}<button class="btn btn-default aj-imp-orange-btn btn-xs btn-save-tabaccordion-translation-element">{{#polyglot}}Save{{/polyglot}}</button>{{/showButton}}
                         </div>
                         <hr class="dark">'
 
@@ -68,11 +66,22 @@ define ['app'], (App)->
 
             itemViewContainer : '.translated-tab-accordion'
 
+            emptyView : EmptyTranslatedTabPanesView
+
             events:
                 'click .btn-save-tabaccordion-translation-element': (e)->
                     e.preventDefault()
                     data = Backbone.Syphon.serialize @
                     @trigger "page:tabaccordion:updated" ,data
+
+            serializeData:->
+                data = super()
+                if @collection.length is 0
+                    data.showButton = false
+                else 
+                    data.showButton = true
+                
+                data
 
             itemViewOptions :(model,index)->
                 editingLanguage = Marionette.getOption @, 'editingLanguage'
@@ -92,6 +101,11 @@ define ['app'], (App)->
                 App.vent.trigger "translated:tabs:accordions:loaded:"+tabAccordionId
 
 
+        class EmptyTranslatedTabAccordionView extends Marionette.ItemView
+
+            template: '<br/><div class="empty-info">&nbsp;</div><br/>'
+
+
         class Views.TranslatedTabAccordionView extends Marionette.CompositeView
 
             template : '<div id="translated-tab-accordions"></div>'
@@ -99,6 +113,8 @@ define ['app'], (App)->
             itemView : TranslatedTabPanesView
 
             itemViewContainer : '#translated-tab-accordions'
+
+            emptyView : EmptyTranslatedTabAccordionView
 
             itemViewOptions : ->
                 language = Marionette.getOption @, 'language'
