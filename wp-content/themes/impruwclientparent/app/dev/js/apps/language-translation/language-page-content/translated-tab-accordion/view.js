@@ -45,9 +45,14 @@ define(['app'], function(App) {
           return tabPosition;
         };
         data.tabNameLang = function() {
-          var tabname;
+          var tabNameValue, tabname;
           tabname = data.tabName;
-          return tabname[editingLanguage];
+          if (tabname.hasOwnProperty(editingLanguage)) {
+            tabNameValue = tabname[editingLanguage];
+          } else {
+            tabNameValue = tabname[WPML_DEFAULT_LANG];
+          }
+          return tabNameValue;
         };
         return data;
       };

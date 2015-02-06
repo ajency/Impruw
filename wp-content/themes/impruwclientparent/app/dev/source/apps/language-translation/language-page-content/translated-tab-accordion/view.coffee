@@ -44,7 +44,12 @@ define ['app'], (App)->
                 
                 data.tabNameLang = ->
                     tabname = data.tabName
-                    tabname[editingLanguage]
+
+                    if tabname.hasOwnProperty(editingLanguage)
+                        tabNameValue = tabname[editingLanguage]
+                    else
+                        tabNameValue = tabname[WPML_DEFAULT_LANG]
+                    tabNameValue
                 data
         
         class EmptyTranslatedTabPanesView extends Marionette.ItemView
