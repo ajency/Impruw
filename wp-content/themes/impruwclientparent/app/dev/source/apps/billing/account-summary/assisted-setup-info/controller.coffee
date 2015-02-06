@@ -5,18 +5,21 @@ define [ 'app', 'controllers/base-controller'
 
             # initialize controller
             initialize : ( opts )->
-                @assistedSetupPlanId = opts.assistedSetupPlanId
-                @assistedSetUpTransactionId = opts.assistedSetUpTransactionId
+                @siteModel =  App.request "get:site:model"
 
-                # trigger set:active:menu event
-                App.vent.trigger "set:active:menu", 'billing'
-                if @assistedSetUpTransactionId is ""
-                    @view = @getView()
-                else
-                    @view = @getPaidView()
+                App.execute "when:fetched",  @siteModel, =>
+                    @assistedSetupPlanId = @siteModel.get('assistedSetUpPlanId')
+                    @assistedSetUpTransactionId = @siteModel.get('braintree_assisted_setup')
+
+                    # trigger set:active:menu event
+                    App.vent.trigger "set:active:menu", 'billing'
+                    if @assistedSetUpTransactionId is ""
+                        @view = @getView()
+                    else
+                        @view = @getPaidView()
                
-                @show @view,
-                    loading : true
+                    @show @view,
+                        loading : true
 
 
             getView :->

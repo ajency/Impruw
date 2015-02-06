@@ -15,7 +15,6 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-credit-cards/vi
       }
 
       Controller.prototype.initialize = function(opts) {
-        this.siteModel = App.request("get:site:model");
         this.layout = this.getLayout();
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {
