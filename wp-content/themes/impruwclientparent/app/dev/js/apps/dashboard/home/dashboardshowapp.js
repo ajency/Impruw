@@ -43,7 +43,11 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/home/template
         return new DashboardLayout;
       };
 
-      DashboardHomeController.prototype.showDashboardSections = function() {};
+      DashboardHomeController.prototype.showDashboardSections = function() {
+        return App.execute("show:current:site:plan", {
+          region: this.layout.currentSitePlanDisplay
+        });
+      };
 
       return DashboardHomeController;
 
@@ -56,6 +60,10 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/home/template
       }
 
       DashboardLayout.prototype.template = dashboardTpl;
+
+      DashboardLayout.prototype.regions = {
+        currentSitePlanDisplay: '.site-plan-helptext'
+      };
 
       DashboardLayout.prototype.serializeData = function() {
         var data;
