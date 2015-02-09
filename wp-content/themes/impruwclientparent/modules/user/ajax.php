@@ -95,7 +95,7 @@ function ajax_reset_password() {
         }
 
     } else {
-        wp_send_json( array( 'code' => 'ERROR', 'msg' => icl_t('theme impruwlogin','email_non_existent_msg','Email Id does not exists') ) );
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => icl_t('theme impruwlogin','email_non_existent_msg','The email id entered is incorrect. Please enter the email id used while registering') ) );
     }
 }
 
