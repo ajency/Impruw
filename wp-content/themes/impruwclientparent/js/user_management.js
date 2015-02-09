@@ -67,7 +67,13 @@ jQuery(document).ready(function ($) {
                     return false;
                 }
                 else if (response.code == "OK") {
-                    displayMsg( response.msg );
+                    $(".login_loader").hide();
+                    $('#display-msg').empty();
+                    var html = '<div class="alert alert-success">' +
+                        '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
+                        response.msg + '</div>';
+
+                    $('#display-msg').html(html);
                     return true;
                 }
 
