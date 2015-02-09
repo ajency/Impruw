@@ -186,3 +186,20 @@ function reset_activation_key( $user_email ) {
 
     $wpdb->update( $table_name, array( 'user_activation_key' => ' ' ), array( 'user_login' => $user_email ) );
 }
+
+function get_childsiteid_from_useremail($user_email){
+    $user = get_user_by('email', $user_email);
+    $user_id = $user->ID;
+    $user_blogs =  get_blogs_of_user( $user_id );
+
+    $user_site_id = 0;
+
+    foreach ($user_blogs AS $user_blog) {
+        if ($user_blog->userblog_id!=1) {
+            $user_site_id = $user_blog->userblog_id;
+        }
+    }
+
+    return $user_site_id;
+
+}
