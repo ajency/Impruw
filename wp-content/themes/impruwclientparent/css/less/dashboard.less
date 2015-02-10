@@ -260,6 +260,13 @@ p {
 	}
 	.aj-imp-right {
 		background: #fff;
+		.aj-imp-dash-bb{
+			border-bottom: 1px solid darken(@preview-grey, 10%);
+			margin: 0 -15px;
+			.aj-imp-dash-header{
+				margin: 40px 0;
+			}
+		}
 		.aj-imp-dash-header {
 			margin: 40px -15px;
 			@media (max-width: 767px) { 
@@ -5478,11 +5485,11 @@ form {
 	height: 760px;
 	background: url('../images/brace.png') no-repeat;
 	background-size: contain;
-	background-position: left bottom; 
+	background-position: left center; 
 }
 .builder-gif{
 	height: 760px;
-	background: url('../images/gif-bg.png') no-repeat @preview-grey;
+	background: url('../images/gif-bg.png') no-repeat lighten(@preview-grey, 3%);
 	background-size: contain;
 	background-position: center;
 	border-left: 2px dashed darken(@preview-grey, 5%);
