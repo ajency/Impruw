@@ -10,7 +10,7 @@ add_string_translations();
     <div class="aj-imp-login-form">
         <div class="row">
             <div class="col-sm-12 aj-imp-login-header">
-                <h1><?php echo icl_t('theme impruwlogin', 'sign_in', 'Sign in'); ?>
+                <h1><?php echo icl_t('theme impruwlogin', 'sign_in', 'Sign in to'); ?>
                     <span><?php echo icl_t('theme impruwlogin', 'impruw', 'Impruw'); ?></span>
                 </h1>
 

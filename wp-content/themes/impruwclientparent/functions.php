@@ -563,8 +563,10 @@ function get_tabs_element_markup( $element ) {
     if ( $tab->has_child_elements() ) {
 
         foreach ( $tab->get_elements() as $ele ) {
-
-            $tab_bar .= "<li role='presentation'><a href='#tab-3' role='tab' data-toggle='tab'><span>{$ele['tabName'][wpml_get_current_language()]}</span></a></li>";
+            $tab_bar_name = isset( $ele[ 'tabName' ][wpml_get_current_language()] ) ? 
+                    $ele[ 'tabName' ][wpml_get_current_language()] : 
+                    $ele[ 'tabName' ][ wpml_get_default_language() ];
+            $tab_bar .= "<li role='presentation'><a href='#tab-3' role='tab' data-toggle='tab'><span>{$tab_bar_name}</span></a></li>";
 
             $tab_content .= add_element_markup( $ele );
         }

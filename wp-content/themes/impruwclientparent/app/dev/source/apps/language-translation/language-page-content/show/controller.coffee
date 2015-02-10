@@ -3,9 +3,13 @@ define ['app', 'controllers/base-controller'
         'apps/language-translation/language-page-content/original-page-content/controller'
         'apps/language-translation/language-page-content/translated-page-content/controller'
         'apps/language-translation/language-page-content/original-table-content/controller'
+        'apps/language-translation/language-page-content/original-tab-accordion/controller'
+        'apps/language-translation/language-page-content/translated-tab-accordion/controller'
         'apps/language-translation/language-page-content/translated-table-content/controller'
         'apps/language-translation/language-page-content/original-smart-table/controller'
         'apps/language-translation/language-page-content/translated-smart-table/controller'
+        'apps/language-translation/language-page-content/original-list/controller'
+        'apps/language-translation/language-page-content/translated-list/controller'
         'apps/language-translation/language-page-content/original-slider-content/controller'
         'apps/language-translation/language-page-content/translated-slider-content/controller'
         ], (App, AppController)->
@@ -42,6 +46,16 @@ define ['app', 'controllers/base-controller'
                         pageId :  @pageId
                         originalId : @originalId
 
+                    App.execute "original:tab:accordion:app",
+                        region: @languagePageContentLayout.originalTabAccordion,
+                        editLang : @editLang
+                        pageId : @originalId
+
+                    App.execute "translated:tab:accordion:app",
+                        region: @languagePageContentLayout.translatedTabAccordion,
+                        editLang : @editLang
+                        pageId : @originalId
+
                     App.execute "original:table:content:app",
                         region: @languagePageContentLayout.originalTableContent,
                         editLang : @editLang
@@ -60,6 +74,17 @@ define ['app', 'controllers/base-controller'
 
                     App.execute "translated:smart:table:app",
                         region: @languagePageContentLayout.translatedSmartTable,
+                        editLang : @editLang
+                        pageId :  @pageId
+                        originalId : @originalId
+
+                    App.execute "original:list:table:app",
+                        region: @languagePageContentLayout.originalListTable,
+                        editLang : @editLang
+                        pageId :  @originalId
+
+                    App.execute "translated:list:table:app",
+                        region: @languagePageContentLayout.translatedListTable,
                         editLang : @editLang
                         pageId :  @pageId
                         originalId : @originalId

@@ -73,15 +73,26 @@ function ajax_reset_password() {
 
     unset( $_POST[ 'action' ] );
 
+    global $blog_id;
+
     $user_email = trim( $_POST[ 'email' ] );
+
 
     $email_exists = email_exists( $user_email );
 
     if ( $email_exists ) {
 
-        forgot_password_email($user_email);
+        // If email exists check if the correct blog id(the one whose password is being tried to change) is associated to it
+        $blog_id_to_reset_pswd = $blog_id;
 
-        //reset_user_password( $user_email );
+        $blog_id_assoc_to_email = get_childsiteid_from_useremail($user_email);
+
+
+        if ( $blog_id_to_reset_pswd==$blog_id_assoc_to_email) {
+            forgot_password_email($user_email);
+        }else{
+            wp_send_json( array( 'code' => 'ERROR', 'msg' => 'The email id entered is incorrect. Please enter the email id used while registering' ) );
+        }
 
     } else {
         wp_send_json( array( 'code' => 'ERROR', 'msg' => icl_t('theme impruwlogin','email_non_existent_msg','Email Id does not exists') ) );

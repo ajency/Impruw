@@ -19,21 +19,20 @@ get_header();
         <?php
 
         if(isset($_GET['key']) &&  $_GET['login']  &&  $_GET['action'] ){
+
             $user = check_password_reset_key($_GET['key'], $_GET['login']);
 
-            if ( is_wp_error($user) ) {
-                if ( $user->get_error_code() === 'expired_key' )
-                    echo '<div class="alert alert-error">
-                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    '.icl_t('theme impruwlogin', 'reset_pswd_expired_key', 'Expired Key').'</div>';
-                else
-                    echo '<div class="alert alert-error">
-                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    '.icl_t('theme impruwlogin', 'reset_pswd_invalid_key', 'Invalid Key').'</div>';
+            if ( is_wp_error($user) && $user->get_error_code() != 'expired_key') {
+                echo '<div class="alert alert-error"> <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button> '.icl_t('theme impruwlogin', 'reset_pswd_invalid_key', 'Invalid Key').'</div>';
                 exit;
             }
 
+            // on successful validation: clear the activation key
+            reset_activation_key( $_GET['login'] ); 
+
+
         ?>
+
         <div class="row">
             <div id="display-msg"></div>
             <div class="col-sm-12 aj-imp-login">

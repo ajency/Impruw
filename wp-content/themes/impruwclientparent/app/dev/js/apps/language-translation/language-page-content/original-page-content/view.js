@@ -19,6 +19,14 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
 
       OriginalPageItemView.prototype.mixinTemplateHelpers = function(data) {
         data = OriginalPageItemView.__super__.mixinTemplateHelpers.call(this, data);
+        data.TabParent = function() {
+          var tabParent;
+          tabParent = '';
+          if ((data.parentElement === "Accordion") || (data.parentElement === "Tabs")) {
+            tabParent += data.parentElement + "->" + data.tabName + "-> ";
+          }
+          return tabParent;
+        };
         data.TypeOfElementClass = function() {
           if ((data.element === "Title") || (data.element === "Link")) {
             return "title";

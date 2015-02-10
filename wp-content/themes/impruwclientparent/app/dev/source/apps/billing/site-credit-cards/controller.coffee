@@ -5,7 +5,7 @@ define [ 'app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize : ( opts )->
-                @siteModel = App.request "get:site:model"
+                # @siteModel = App.request "get:site:model"
 
                 @layout = @getLayout()
 

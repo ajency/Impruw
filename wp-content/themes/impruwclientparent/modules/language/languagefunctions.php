@@ -236,11 +236,12 @@ function get_page_translation_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_translation_elements( $element,$elements );
         } else {
-            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
+            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link'))){
                 $elements[] = $element;
+            }
         }
     }
 
@@ -254,7 +255,7 @@ function get_page_table_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_table_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Table')))
@@ -272,7 +273,7 @@ function get_page_smarttable_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_smarttable_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('SmartTable')))
@@ -282,6 +283,82 @@ function get_page_smarttable_elements($page_id){
 
    return $elements;    
 }
+
+//Function to get all page smart table elements
+function get_page_listtable_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+
+    $elements = array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+            get_row_listtable_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('List')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;    
+}
+
+//Function to get all page tabs and accordions 
+function get_page_tabs_accordion_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+    $tab_elements = array();
+    
+    foreach ( $data['page'] as $element ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+            get_row_tabs_accordion_elements( $element,$elements,$tab_elements);
+        } else {
+            continue;
+        
+        }
+    }
+
+    $tabs = array();
+    $accordions = array();
+    $tabs_and_accordions = array();
+
+    foreach ($tab_elements as $tab_element) {
+        switch ($tab_element['tabType']) {
+            case 'Tabs':
+                $tabs[] =  array('element_id' => $tab_element['element_id'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']); 
+                break;
+
+            case 'Accordion':
+                $accordions[] = array('element_id' => $tab_element['element_id'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']); 
+                break;
+        }
+    }
+
+
+
+    $tab_accordion_elements = array('0'=>array('ID'=> $page_id.'0', 'tabType'=>'Tabs','tabElements'=>$tabs),'1'=>array('ID'=>$page_id.'1','tabType'=>'Accordions','tabElements'=>$accordions));
+   return $tab_accordion_elements;    
+}
+
+function get_row_tabs_accordion_elements( $row_element, &$elements, &$tab_elements){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+
+        if (isset($column['tabName'])){
+            $tab_elements[] = array('element_id'=>$row_element[ 'meta_id' ], 'position'=>$column['position'], 'tabType' => $row_element[ 'element' ], 'tabName'=> $column['tabName']);
+        }
+        
+        foreach ( $column[ 'elements' ] as $element ) {
+
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                get_row_tabs_accordion_elements( $element,$elements,$tab_elements);
+            } 
+            else {
+                continue;
+            }
+        }
+
+    }
+}
+
 
 function get_page_slider_collection($page_id){
     $sliders =  get_page_slider_elements($page_id);
@@ -301,7 +378,7 @@ function get_page_slider_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_slider_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Slider')))
@@ -320,7 +397,7 @@ function get_header_translation_elements(){
     $elements = array();
 
     foreach ( $data as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_translation_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
@@ -339,7 +416,7 @@ function get_footer_translation_elements(){
     $elements = array();
 
     foreach ( $data as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_translation_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
@@ -420,25 +497,39 @@ function get_row_translation_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_translation_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
+                if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link'))){
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }
+
                     $elements[] = $element;
+                }
             }
         }
     }
 }
 
+
 function get_row_table_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_table_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('Table')))
+                if(in_array($element[ 'element'] , array('Table'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }
+
                     $elements[] = $element;
+                }
             }
         }
     }
@@ -448,11 +539,37 @@ function get_row_smarttable_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_smarttable_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('SmartTable')))
+                if(in_array($element[ 'element'] , array('SmartTable'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }                    
                     $elements[] = $element;
+                }
+            }
+        }
+    }
+}
+
+function get_row_listtable_elements( $row_element, &$elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                get_row_listtable_elements( $element,$elements );
+            } else {
+                if(in_array($element[ 'element'] , array('List'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }                    
+                    $elements[] = $element;
+                }
             }
         }
     }
@@ -462,11 +579,17 @@ function get_row_slider_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_slider_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('Slider')))
+                if(in_array($element[ 'element'] , array('Slider'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }                      
                     $elements[] = $element;
+                }
             }
         }
     }
@@ -712,4 +835,72 @@ function get_language_slides_by_slideid($slider_id,$slide_id){
 
     return $lang_slides;
 
+}
+
+
+function update_tabTanslation_page_json($page_id,$tabElements){
+    
+    //Get autosave version of page json page json to translate
+    $autosave_page_json = get_page_json_for_site($page_id, true);
+    $only_autosave_page_json = $autosave_page_json['page'];
+
+    // Get actual version of page json page json 
+    $page_json = get_page_json_for_site($page_id);
+    $only_page_json = $page_json['page'];
+
+    foreach ($tabElements as $tabElement) {
+        foreach ( $only_page_json as &$element ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                update_row_tabs_accordion_elements( $element,$tabElement);
+            } 
+            else {
+                continue;
+
+            }
+        }
+        foreach ( $only_autosave_page_json as &$autosave_element ) {
+            if ( in_array($autosave_element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                update_row_tabs_accordion_elements( $autosave_element,$tabElement);
+            } 
+            else {
+                continue;
+
+            }
+        }
+    }
+
+    // update actual page json
+    add_page_json( $page_id,  $only_page_json );
+
+    // Update autosave page json
+    update_page_autosave( $page_id, $only_autosave_page_json );
+
+    return $only_autosave_page_json;
+
+}
+
+function update_row_tabs_accordion_elements( &$row_element, $tabElement){
+
+    foreach ( $row_element[ 'elements' ] as &$column ) {
+        //Check if meta id matches
+        if (isset($row_element[ 'meta_id' ]) && $row_element[ 'meta_id' ]===$tabElement['element_id']) {
+           
+            if ($column['position']==$tabElement['position']) {
+                $column['tabName'] = $tabElement['tabName'];
+            }
+
+            
+        }
+
+        foreach ( $column[ 'elements' ] as &$element ) {
+
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                update_row_tabs_accordion_elements( $element,$tabElement);
+            } 
+            else {
+                continue;
+            }
+        }
+
+    }
 }

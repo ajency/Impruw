@@ -29,7 +29,8 @@ define ['app', 'bootbox'], (App, bootbox)->
 						e.preventDefault()
 						bootbox.dialog 
 							title: "<h4 class='delete-message'>" + _.polyglot.t( 'Are you sure?' ) + "</h4>",
-							message: _.polyglot.t( 'You will lose your layout if you switch themes, you saved content can be retrieved from unused elements box. Your uploaded images are saved in the image gallery, so you will need to add them again.' ),
+							message: _.polyglot.t( 'You will lose your layout if you switch themes.
+Your can restore this version at any time from \'Revision History\'.' ),
 							buttons: 
 								cancelswitch: 
 									label: _.polyglot.t( 'No, I don\'t want to switch themes' )

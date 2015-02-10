@@ -9,7 +9,7 @@ define ['app'], (App)->
 		# layouts
 		class Views.SpacerView extends Marionette.ItemView
 			# basic template
-			template: '<div class="blank-info">{{#polyglot}}This is a blank spacer. Increase or decrease the height to add space between elements.{{/polyglot}}</div><hr class="{{style}}" >'
+			template: '<div class="blank-info">{{#polyglot}}This is a blank spacer. Increase or decrease the height to add space between elements. The box displays the actual space that will appear on the live site.{{/polyglot}}</div><hr class="{{style}}" >'
 
 			className: 'spacer'
 

@@ -19,7 +19,12 @@
     {{#plan_features}}
         <div class="col-sm-4 ">
             <h6 class="aj-imp-sub-head-thin">
-                <small><b>{{name}}:</b></small>
+                <small>
+                    <b>{{name}}</b> 
+                    <span tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Info about the feature will come here">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    </span> :
+                </small>
                 <small>{{#enabled}}<span class="icon icon-checkmark3 text-success"></span> {{/enabled}}{{^enabled}}<span class="icon icon-cancel3 text-danger"></span>{{/enabled}}</small>
                 <br>
                 <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>

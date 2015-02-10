@@ -16,6 +16,10 @@ define(['app', 'text!apps/billing/account-summary/templates/accountPlanInfo.html
         'click .deactivate-subscription': 'deactivateSubscription'
       };
 
+      AccountPlanInfoView.prototype.onShow = function() {
+        return $('[data-toggle="popover"]').popover();
+      };
+
       AccountPlanInfoView.prototype.serializeData = function() {
         var data;
         data = AccountPlanInfoView.__super__.serializeData.call(this);

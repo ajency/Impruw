@@ -29,13 +29,9 @@ define [ 'app', 'controllers/base-controller'
                     App.execute "show:site:addons:info",
                         region : @layout.siteAddOnRegion
 
-                    App.execute "when:fetched",  @siteModel, =>
-                        @assistedSetupPlanId = @siteModel.get('assistedSetUpPlanId')
-                        @assistedSetUpTransactionId = @siteModel.get('braintree_assisted_setup')
-                        App.execute "show:assisted:setup:info",
-                            region : @layout.assistedSetupRegion
-                            assistedSetupPlanId : @assistedSetupPlanId
-                            assistedSetUpTransactionId : @assistedSetUpTransactionId
+                   
+                    App.execute "show:assisted:setup:info",
+                        region : @layout.assistedSetupRegion
 
 
                 @listenTo @layout.accountPlanRegion, "load:subscription:info:app", @loadSubscriptionInfoApp
