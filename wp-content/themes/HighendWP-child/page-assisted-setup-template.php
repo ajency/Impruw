@@ -48,7 +48,18 @@ get_header();
    </div>
 </div>
 <br><br>
-<button type="button" class="hb-button hb-carrot no-three-d aj-imp-submit" id="btn_create_site" name="btn_create">Take me to my dashboard</button>
+<?php 
+        $sign_in_path = 'sign-in';
+        if ($_GET['language'] === 'nb') {
+            $sign_in_path = 'logg-inn';
+        }
+        else{
+            $_GET['language'] = 'sign-in';
+        }
+
+        $redirect_url = get_site_url($_GET['site'], $sign_in_path);
+?>
+<a class="hb-button hb-carrot no-three-d aj-imp-submit" href="<?php echo $redirect_url; ?>">Take me to my dashboard</a>
 </div>
 </div>
 <?php

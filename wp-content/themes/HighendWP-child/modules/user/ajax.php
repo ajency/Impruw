@@ -61,17 +61,22 @@ function new_user_registration() {
 
     $user_selected_language = get_user_meta($user_id,'user_lang',true);
 
-    //Based on user selected language, the url would be sign-in or logg-inn
-    $sign_in_path = 'sign-in';
-    if ($user_selected_language === 'nb') {
-        $sign_in_path = 'logg-inn';
+    if (isset($form_data [ 'site_package']) && ($form_data [ 'site_package']=="assisted_setup") ) {
+        $redirect_url =  get_site_url(1,'assisted-setup?site='.$site_id.'&language='.$user_selected_language); 
     }
     else{
+        //Based on user selected language, the url would be sign-in or logg-inn
         $sign_in_path = 'sign-in';
-    }
+        if ($user_selected_language === 'nb') {
+            $sign_in_path = 'logg-inn';
+        }
+        else{
+            $sign_in_path = 'sign-in';
+        }
 
-    $redirect_url = get_site_url($site_id, $sign_in_path);
-
+        $redirect_url = get_site_url($site_id, $sign_in_path); 
+     }
+     
     wp_send_json_success($redirect_url);
 }
 
