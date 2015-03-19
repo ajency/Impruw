@@ -80,6 +80,23 @@ get_header();
                     </div>
                 </div>
 
+                <div class="row form-group">
+                    <label for="inputCountry" class="col-3 control-label alignright"><?php echo __('Select a package', 'impruwmain'); ?></label>
+
+                    <div class="col-7">
+
+                        <select name="site_package" id="inputPackage"  required  parsley-required-message="<?php echo __('Please select any one of the packages', 'impruwmain'); ?>"   > 
+
+                            <option value="assisted_setup"><?php echo __('Assisted Set-Up', 'impruwmain'); ?></option>
+                            <option value="no" <?php if (ICL_LANGUAGE_CODE==='nb') echo " selected "; ?>><?php echo __('Create Your Own', 'impruwmain'); ?></option>
+
+                        </select>
+                        <div class="p-messages"></div>
+                        <!-- <span class="help-block"></span> -->
+
+                    </div>
+                </div>                
+
 
                 <div class="row form-group aj-imp-site-name">
                     <label for="inputSitename" class="col-3 control-label alignright"><?php echo __('Your website name', 'impruwmain'); ?></label>
