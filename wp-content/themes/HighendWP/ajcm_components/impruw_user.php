@@ -161,3 +161,39 @@ function getvars_registration_email_user($recipients_email,$comm_data){
 }
 
 
+function getvars_assisted_set_up_contact($recipients_email,$comm_data){
+    global $aj_comm;
+    $assisted_setup_contact_value       = $aj_comm->get_communication_meta($comm_data['id'],'assisted_setup_contact_value');
+    $assisted_setup_contact_mode       = $aj_comm->get_communication_meta($comm_data['id'],'assisted_setup_contact_mode');
+
+    $blog_details = get_blog_details($comm_data['blog_id']);
+    $site_name = $blog_details->blogname;
+
+    if ( $assisted_setup_contact_mode =='by_email') {
+        $assisted_setup_contact_mode = 'Email i.e spencer@impruw.com';
+    }
+    else{
+       $assisted_setup_contact_mode = 'Phone';
+    }
+    
+    $user = get_userdata($comm_data['user_id'] );
+    
+    $contact_user_name = $user->display_name;
+
+    $subject = 'Request for assisted setup';
+
+    $template_data['name']          = 'assisted-setup-contact'; // [slug] name or slug of a template that exists in the user's mandrill account
+    $template_data['subject']       = 'Impruw Notification:'.$subject;
+    $template_data['from_email']    = 'info@impruw.com';
+    $template_data['from_name']     = 'Impruw';
+
+    $template_data['global_merge_vars'] = array();
+    $template_data['global_merge_vars'][] = array('name' => 'CONTACTNAME','content' => $contact_user_name);
+    $template_data['global_merge_vars'][] = array('name' => 'CONTACTMODE','content' => $assisted_setup_contact_mode);
+    $template_data['global_merge_vars'][] = array('name' => 'CONTACTVALUE','content' => $assisted_setup_contact_value);
+    $template_data['global_merge_vars'][] = array('name' => 'SITENAME','content' => $site_name );
+
+    _log($template_data);
+
+    return $template_data;   
+}
