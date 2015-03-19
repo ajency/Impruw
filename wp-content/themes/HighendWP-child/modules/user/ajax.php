@@ -62,7 +62,7 @@ function new_user_registration() {
     $user_selected_language = get_user_meta($user_id,'user_lang',true);
 
     if (isset($form_data [ 'site_package']) && ($form_data [ 'site_package']=="assisted_setup") ) {
-        $redirect_url =  get_site_url(1,'assisted-setup?site='.$site_id.'&language='.$user_selected_language); 
+        $redirect_url =  get_site_url(1,'assisted-setup?site='.$site_id.'&user='.$user_id.'&language='.$user_selected_language); 
     }
     else{
         //Based on user selected language, the url would be sign-in or logg-inn
@@ -81,6 +81,36 @@ function new_user_registration() {
 }
 
 add_action( 'wp_ajax_nopriv_new_user_registration', 'new_user_registration' );
+
+function new_user_assisted_setup(){
+    // check if its a POST request else return
+    if ( 'POST' !== $_SERVER [ 'REQUEST_METHOD' ] )
+        wp_send_json_error( 'Invalid request' );
+
+    // verify the nonce else return error code
+    if ( !check_ajax_referer( 'new_user_assisted_setup', '_nonce' ) )
+        wp_send_json_error( 'Wrong request' );
+
+    $form_data = $_POST;
+
+    // on successful sending of email to admin redirect to the correct path
+    $assisted_setup_details = array('assisted_setup_contact_mode' =>$form_data['assisted_setup_contact_mode'], 'assisted_setup_contact_phone' =>$form_data['phone_number']);
+
+    assisted_setup_contact_email($form_data['user_id'],$form_data['site_id'],$assisted_setup_details);
+
+    //Based on user selected language, the url would be sign-in or logg-inn
+    $sign_in_path = 'sign-in';
+    if ($form_data['language']  === 'nb') {
+        $sign_in_path = 'logg-inn';
+    }
+    else{
+        $sign_in_path = 'sign-in';
+    }
+
+    $redirect_url = get_site_url($form_data['site_id'], $sign_in_path); 
+    wp_send_json_success($redirect_url);
+}
+add_action( 'wp_ajax_nopriv_new_user_assisted_setup', 'new_user_assisted_setup' );
 
 // Check if the email id is available
 function validate_user_email( $userdata ) {

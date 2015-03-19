@@ -316,7 +316,7 @@ function is_impruw_com(){
 
 
 
-        if (is_page_template('page-register-template.php') || is_page_template('page-login.php')) {
+        if (is_page_template('page-register-template.php') || is_page_template('page-login.php') || is_page_template('page-assisted-setup-template.php')) {
 
             //Check for the current language and load the right parsley messages file
             $current_language = ICL_LANGUAGE_CODE;

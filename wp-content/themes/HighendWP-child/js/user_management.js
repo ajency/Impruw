@@ -154,6 +154,45 @@ jQuery(document).ready(function($) {
         }
     });
 
+    
+    // Assisted set up form 
+    $('#btn_assisted_setup_info').click(function(e) {
+
+        e.preventDefault();
+        console.log("Assisted set up info clicked");
+       
+
+        if($('#frm_assisted_setup').parsley('validate')) {
+            var data = {
+                action      : 'new_user_assisted_setup',
+                _nonce      : ajax_nonce
+            };
+            
+            var formData = getFromData($("#frm_assisted_setup").serializeArray());
+            
+            // merge object
+            $.extend(data, formData);
+
+            console.log(data);
+
+            // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+            $.post(ajaxurl, data, function(response) {
+
+                console.log(response);
+
+                // $(_this).next().hide();
+
+                if (response.success) {
+                    window.location.href = response.data;
+                } 
+                else if (!response.success) {
+                }
+            }); //end  $.post(ajaxurl, data, function(response)            
+        }
+
+    });
+
+
 
     //   $( '#frm_registration' ).parsley( 'addItem', '#recaptcha_response_field' );
 
