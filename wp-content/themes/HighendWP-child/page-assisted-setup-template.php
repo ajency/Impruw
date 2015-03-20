@@ -17,19 +17,20 @@ get_header();
       <br><br>
       <div class="row fw-content-wrap">
          <div class="col-1">
-            <h1 style="text-align: center; font-weight: bolder;">1</h1>
+            <b style="text-align: center; font-weight: bolder;">1</b>
          </div>
          <div class="col-11">
-            <h3>Please select how and when you want to be contacted</h3>
+            Please select how and when you want to be contacted
             <div class="row fw-content-wrap">
                <div class="col-4">
-                  <h2><input name="assisted_setup_contact_mode" type="radio" value="by_email" required />spencer@impruw.com</h2>
+                  <input name="assisted_setup_contact_mode" type="radio" value="by_email"  id = "assisted_setup_contact_email"parsley-required="true" parsley-required-message="<?php echo __('Please select a mode of contact.', 'impruwmain'); ?>"  />  spencer@impruw.com
                </div>
                <div class="col-2">
-                  <h2><input name="assisted_setup_contact_mode" type="radio" id = "assisted_setup_contact_phone" value="by_phone" />By phone</h2>
+               <input name="assisted_setup_contact_mode" type="radio" id = "assisted_setup_contact_phone" value="by_phone"/> By phone
                </div>
                <div class="col-4">
-                  <input name="phone_number" type="text" placeholder="Phone no" data-parsley-type="number"/>
+                  <input name="phone_number" type="number" placeholder="Phone no" data-parsley-type="number"/>
+                  <div class='p-messages phone-number'></div>
                </div>
             </div>
          </div>
@@ -37,19 +38,19 @@ get_header();
       <br><br>
       <div class="row fw-content-wrap">
          <div class="col-1">
-            <h1 style="text-align: center; font-weight: bolder;">2</h1>
+            <b style="text-align: center; font-weight: bolder;">2</b>
          </div>
          <div class="col-11">
-            <h3>We will contact you within 24 hours to discuss your new website and our payment process</h3>
+            We will contact you within 24 hours to discuss your new website and our payment process
          </div>
       </div>
       <br><br>
       <div class="row fw-content-wrap">
          <div class="col-1">
-            <h1 style="text-align: center; font-weight: bolder;">3</h1>
+            <b style="text-align: center; font-weight: bolder;">3</b>
          </div>
          <div class="col-11">
-            <h3>After payment has been received we will build your website and transfer it to your domain in 48 hours or less </h3>
+           After payment has been received we will build your website and transfer it to your domain in 48 hours or less 
          </div>
       </div>
       <br><br>

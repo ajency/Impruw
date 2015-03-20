@@ -154,13 +154,94 @@ jQuery(document).ready(function($) {
         }
     });
 
+    $('#frm_assisted_setup').parsley({
+        errors: {
+
+            errorsWrapper: '<span class="help-block" style="display:block"></span>',
+
+            errorElem: '<span style="display:block"></span>',
+
+            container: function(element, isRadioOrCheckbox) {
+                var $container = element.parent().find(".p-messages");
+                if ($container.length === 0) {
+                    $container = $("<div class='p-messages'></div>").insertAfter(element);
+                }
+                return $container;
+            }
+        },
+        listeners: {
+            onFieldValidate: function(elem, ParsleyField) {
+                if (ParsleyField.validatedOnce !== true) {
+                    elem.parent().find('.validation-icon').remove();
+                    elem.after('<span class="validation-icon input-icon data-loader"><img src="http://localhost/impruw/wp-content/themes/impruwmain/images/270(1).gif"/></span>') // Executed when a field passes validation
+                }
+            },
+            onFormValidate: function(isFormValid, event, ParsleyForm) {
+
+            },
+            onFieldError: function(elem, constraints, ParsleyField) {
+                //remove previous errors
+                elem.parent().find('.validation-icon').remove();
+                var tag = elem.prop('tagName');
+                elem.parent().find('.validation-icon').remove();
+                switch (tag) {
+                    case 'SELECT':
+                        elem.next().after('<span class="validation-icon input-icon hb-moon-close-3"></span>');
+                        break;
+                    case 'INPUT':
+                        if (elem.attr('type') == 'checkbox') {
+
+                        } else {
+                            elem.after('<span class="validation-icon input-icon hb-moon-close-3"></span>');
+                        }
+                        break;
+                    default:
+                        elem.after('<span class="validation-icon input-icon hb-moon-close-3"></span>');
+                        break;
+                }
+
+                elem.closest('.form-group').removeClass('has-success').addClass('has-error');
+
+            },
+            onFieldSuccess: function(elem, constraints, ParsleyField) {
+
+                var tag = elem.prop('tagName');
+                elem.parent().find('.validation-icon').remove();
+                switch (tag) {
+                    case 'SELECT':
+                        elem.next().after('<span class="validation-icon input-icon hb-moon-checkmark-circle-2"></span>');
+                        break;
+                    case 'INPUT':
+                        if (elem.attr('type') == 'checkbox') {
+
+                        } else {
+                            elem.after('<span class="validation-icon input-icon hb-moon-checkmark-circle-2"></span>');
+                        }
+                        break;
+                    default:
+                        elem.after('<span class="validation-icon input-icon hb-moon-checkmark-circle-2"></span>');
+                        break;
+                }
+
+                elem.closest('.form-group').removeClass('has-error').addClass('has-success');
+            }
+        }
+    });
+
+
     
     // Assisted set up form 
     $('#btn_assisted_setup_info').click(function(e) {
 
         e.preventDefault();
-        console.log("Assisted set up info clicked");
-       
+
+        if($('#assisted_setup_contact_phone').is(':checked')){
+            if ($('input[name="phone_number"]').val()==="") {
+                $(".p-messages.phone-number").empty();
+                $(".p-messages.phone-number").html('Please enter a Phone number')
+                return
+            };
+        }
 
         if($('#frm_assisted_setup').parsley('validate')) {
             var data = {
@@ -191,6 +272,10 @@ jQuery(document).ready(function($) {
         }
 
     });
+
+     $('input[name="phone_number"]').focus(function() {
+            $(".p-messages.phone-number").empty();
+      });
 
 
 
