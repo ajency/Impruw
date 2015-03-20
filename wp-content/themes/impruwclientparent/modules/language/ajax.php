@@ -523,5 +523,17 @@ function taxonomies_filter_fix($terms){
     return $terms;
 }
 
+// Make rooms and facility wpml translatable
+function make_room_and_facility_translatable(){
+    // get actual icl settings
+    $iclsettings = get_option('icl_sitepress_settings');
 
+    // modify icl settings
+    $iclsettings['custom_posts_sync_option']['impruw_room'] = 1;
+    $iclsettings['taxonomies_sync_option']['impruw_room_facility'] = 1;
 
+    // update icl settings
+    update_option('icl_sitepress_settings', $iclsettings);
+}
+
+add_action( 'wp_loaded', 'make_room_and_facility_translatable' );

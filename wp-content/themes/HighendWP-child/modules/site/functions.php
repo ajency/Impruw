@@ -409,6 +409,10 @@ function wpml_setup_step_three(){
     $iclsettings['setup_wizard_step'] = 3;
     $iclsettings['setup_complete'] = 1;
 
+    // make room and facility translatable
+    $iclsettings['custom_posts_sync_option']['impruw_room'] = 1;
+    $iclsettings['taxonomies_sync_option']['impruw_room_facility'] = 1;
+
     $sitepress->save_settings($iclsettings);
 }
 
