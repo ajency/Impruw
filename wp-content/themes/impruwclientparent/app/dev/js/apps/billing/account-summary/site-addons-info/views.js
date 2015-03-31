@@ -11,7 +11,7 @@ define(['app', 'text!apps/billing/account-summary/templates/siteAddOnsInfo.html'
         return SiteAddOnsInfoItemView.__super__.constructor.apply(this, arguments);
       }
 
-      SiteAddOnsInfoItemView.prototype.template = '<div class="form-group"> <label for="checkbox2" class="checkbox"><input type="checkbox" data-toggle="checkbox" value="{{element}}" {{#selectStatus}}checked{{/selectStatus}}> {{title}} </label> </div>';
+      SiteAddOnsInfoItemView.prototype.template = '<!--div class="form-group"> <label for="checkbox2" class="checkbox"><input type="checkbox" data-toggle="checkbox" value="{{element}}" {{#selectStatus}}checked{{/selectStatus}}> {{title}} </label> </div--> <h6 class="aj-imp-sub-head-thin"> <small> <b>{{title}}</b> : </small> <small>{{#selectStatus}}<span class="icon icon-checkmark3 text-success"></span> {{/selectStatus}}{{^selectStatus}}<span class="icon icon-cancel3 text-danger"></span>{{/selectStatus}} </small> </h6>';
 
       SiteAddOnsInfoItemView.prototype.className = 'col-sm-3';
 

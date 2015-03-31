@@ -5,11 +5,17 @@ define ['app'
 
         class SiteAddOnsInfoItemView extends Marionette.ItemView
 
-            template: '<div class="form-group">
+            template: '<!--div class="form-group">
                         <label for="checkbox2" class="checkbox"><input type="checkbox" data-toggle="checkbox" value="{{element}}" {{#selectStatus}}checked{{/selectStatus}}> 
                             {{title}}
                         </label>
-                       </div>'
+                       </div-->
+                        <h6 class="aj-imp-sub-head-thin">
+                        <small>
+                            <b>{{title}}</b> 
+                            :
+                        </small>
+                        <small>{{#selectStatus}}<span class="icon icon-checkmark3 text-success"></span> {{/selectStatus}}{{^selectStatus}}<span class="icon icon-cancel3 text-danger"></span>{{/selectStatus}} </small> </h6>'
             className: 'col-sm-3'
 
             onShow: ->
