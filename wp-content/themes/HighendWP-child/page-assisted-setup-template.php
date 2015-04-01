@@ -3,6 +3,7 @@
  * Template Name: Assisted setup
  */
 get_header();
+$user = get_user_by( 'id', $_GET['user'] );
 
 ?>
 <div id="main-content">
@@ -23,7 +24,7 @@ get_header();
             Please select how and when you want to be contacted
             <div class="row fw-content-wrap form-group">
                <div class="col-4">
-                  <input name="assisted_setup_contact_mode" type="radio" value="by_email"  id = "assisted_setup_contact_email"parsley-required="true" parsley-required-message="<?php echo __('Please select a mode of contact.', 'impruwmain'); ?>"  class="form-control" />  spencer@impruw.com
+                  <input name="assisted_setup_contact_mode" type="radio" value="by_email"  id = "assisted_setup_contact_email"parsley-required="true" parsley-required-message="<?php echo __('Please select a mode of contact.', 'impruwmain'); ?>"  class="form-control" />  <?php echo $user->user_email; ?>
                </div>
                <div class="col-2">
                <input name="assisted_setup_contact_mode" type="radio" id = "assisted_setup_contact_phone" value="by_phone" class="form-control"/> By phone
