@@ -144,8 +144,14 @@ function aj_braintree_get_subscription($subscription_id ){
 		$braintree_subscription['id'] = $complete_subscription_details->id;
 		$braintree_subscription['balance'] = $complete_subscription_details->balance;
 		$braintree_subscription['billingDayOfMonth'] = $complete_subscription_details->billingDayOfMonth;
-		$braintree_subscription['billingPeriodEndDate'] = $complete_subscription_details->billingPeriodEndDate->format( 'M d, Y' );
-		$braintree_subscription['billingPeriodStartDate'] = $complete_subscription_details->billingPeriodStartDate->format( 'M d, Y' );
+
+		if(property_exists( $complete_subscription_details, 'billingPeriodEndDate')){
+			$braintree_subscription['billingPeriodEndDate'] = $complete_subscription_details->billingPeriodEndDate->format( 'M d, Y' );
+		}
+		if(property_exists( $complete_subscription_details, 'billingPeriodStartDate')){
+			$braintree_subscription['billingPeriodStartDate'] = $complete_subscription_details->billingPeriodStartDate->format( 'M d, Y' );
+		}
+
 		$braintree_subscription['currentBillingCycle'] = $complete_subscription_details->currentBillingCycle;
 		$braintree_subscription['daysPastDue'] = $complete_subscription_details->daysPastDue;
 		$braintree_subscription['failureCount'] = $complete_subscription_details->failureCount;
@@ -379,6 +385,25 @@ function aj_braintree_create_subscription($payment_method_token, $plan_id,$merch
 		'paymentMethodToken' => $payment_method_token,
 		'planId' => $plan_id,
 		'merchantAccountId' => $merchant_account
+		); 
+	$create_subscription = Braintree_Subscription::create( $subscription_details );
+
+	if ( $create_subscription->success ) {
+		return array( 'success' => $create_subscription->success,
+			'subscription_id' => $create_subscription->subscription->id );
+
+	} else {
+		return array( 'success' => $create_subscription->success, 'msg' => $create_subscription->message );
+	}
+}
+
+function aj_braintree_create_pending_subscription( $payment_method_token, $plan_id,$merchant_account, $new_billing_date ) {
+
+    $subscription_details = array(
+		'paymentMethodToken' => $payment_method_token,
+		'planId' => $plan_id,
+		'merchantAccountId' => $merchant_account,
+		'firstBillingDate' => $new_billing_date
 		); 
 	$create_subscription = Braintree_Subscription::create( $subscription_details );
 
@@ -665,6 +690,32 @@ function ajbilling_subscribe_user_to_plan($paymentMethodToken,$braintree_plan_id
 	switch ($current_subscription_id) {
 		case 'DefaultFree':
 		$subscription_result = aj_braintree_create_subscription($paymentMethodToken, $braintree_plan_id,$merchant_account);
+		break;
+
+		default:
+		$subscription_result = aj_braintree_update_subscription($current_subscription_id,$paymentMethodToken,$braintree_plan_id,$merchant_account,$price);
+		break;
+	}
+
+	return $subscription_result;
+}
+
+function ajbilling_subscribe_user_to_pending_plan($paymentMethodToken,$braintree_plan_id,$current_subscription_id='DefaultFree',$new_billing_date){
+	// create braintree subscription if current subscription is default i.e 'ImpruwFree'
+    // update braintree subscription if current subscription is not default free
+
+
+	$braintree_plan = aj_braintree_get_plan($braintree_plan_id);
+
+	// Get currency based on braintree plan 
+	$currency = $braintree_plan->currencyIsoCode;
+	$price = $braintree_plan->price;
+
+	$merchant_account = ajbilling_get_merchant_account($currency);
+
+	switch ($current_subscription_id) {
+		case 'DefaultFree':
+		$subscription_result = aj_braintree_create_pending_subscription($paymentMethodToken, $braintree_plan_id,$merchant_account, $new_billing_date);
 		break;
 
 		default:

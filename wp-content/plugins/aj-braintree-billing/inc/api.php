@@ -517,6 +517,7 @@
         }
 
         public function create_one_time_transaction($object_id,$braintree_plan_id, $object_type='site'){
+
             $customer = array();
             $customer_id =ajbilling_get_braintree_customer_id($object_id,$object_type);
 
@@ -574,6 +575,40 @@
 
                 // Update in the assisted setup in db 
                 ajbilling_update_plugin_site_options($object_id,'site','braintree-assisted-setup',$transaction_result['id']);
+
+                // check current site plan - if on free i.e plan id = 1 then subscribe to paid plan id=2 and make braintree subscription at a future date with the payment method token above
+                $feature_plan = ajbilling_fetch_feature_plan($object_id, $object_type);
+
+                // if free then change to paid plan after one time payment
+                if ($feature_plan['id']==1) {
+                    // @todo get from plugin plan id and site country
+                    $paid_plan_id = 3;
+                    
+                    $user_site_country = ajbilling_get_user_country_option($object_id,$object_type);
+                    $site_currency = aj_braintree_get_currency($user_site_country);
+                    $paid_plan = ajbilling_get_feature_plan_by_id($paid_plan_id,$site_currency,TRUE);
+                    
+                    $subscription_braintree_plan_id = $paid_plan['braintree_plan'];
+                    // Get subscription id from braintree customer 
+                    $current_subscription_id = aj_braintree_get_customer_subscription($customer_id);
+
+                    $current_date = date("Y-m-d");// current date
+                    $new_billing_date = strtotime( '+1 month' , strtotime ( $current_date ) );
+                    $new_billing_date = date('Y-m-d' , $new_billing_date);
+
+                    $subscription_result = ajbilling_subscribe_user_to_pending_plan($paymentMethodToken,$subscription_braintree_plan_id,$current_subscription_id,$new_billing_date);
+                    
+                    // Update braintree customer with subscription id as custom field
+                    $customer_array = array('customFields' => 
+                        array( 'customer_subscription' => $subscription_result['subscription_id'] )
+                        );
+
+                    if ($subscription_result['success']) {
+                        aj_braintree_update_customer( $customer_id,$customer_array );
+                        // update users plan to paid plan
+                        $plan_update_result = ajbilling_update_site_plan($object_id, $object_type, $paid_plan_id );
+                    }
+                }
                
             }
 
