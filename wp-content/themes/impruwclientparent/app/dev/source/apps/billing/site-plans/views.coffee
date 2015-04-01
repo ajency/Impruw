@@ -40,9 +40,9 @@ define [ 'app'
         class SinglePlanView extends Marionette.ItemView
 
             template : '<div class="panel panel-default text-center">
-                        <div class="panel-heading">
+                        <!--div class="panel-heading">
                             <h3>{{plan_title}}</h3>
-                        </div>
+                        </div-->
                         <div class="panel-body">
                             <h3 class="panel-title price">{{currency}} {{price}}</h3>
                             <span></span>
@@ -61,12 +61,12 @@ define [ 'app'
                             {{^is_count_type}}<li class="list-group-item">{{name}}</li>{{/is_count_type}}
                             {{/plan_features}}
                             <li class="list-group-item">
-                                <span class="ribbon"> <a href="#/billing/payment-page" class="btn btn-block activate-link paid-plan-link">{{#polyglot}}Choose Plan{{/polyglot}}</a></span>
+                                <span class="ribbon"> <a href="#/billing/payment-page" class="btn btn-block activate-link paid-plan-link">{{#polyglot}}Continue to payment{{/polyglot}}</a></span>
                             </li>
                         </ul>
                     </div>'
 
-            className : 'col-md-3'
+            className : 'col-md-4'
 
             serializeData : ->
                 data = super()
