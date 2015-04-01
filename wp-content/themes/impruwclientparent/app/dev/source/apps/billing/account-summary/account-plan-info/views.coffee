@@ -23,6 +23,11 @@ define ['app'
                 data = super data
                 if data.plan_title is "Default plan"
                     data.plan_title = _.polyglot.t("Free Trial")
+
+                if data.id is "1"
+                    data.isFree = 1
+                else
+                    data.isFree = 0
                 data
 
             deactivateSubscription: (e)->
