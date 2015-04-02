@@ -48,7 +48,6 @@ define [ 'app'
                             <span></span>
                         </div>
                         <ul class="list-group">
-                            <li class="list-group-item">{{#polyglot}}Assisted Set-Up{{/polyglot}}</li>
                             <li class="list-group-item">{{#polyglot}}Unlimited Pages{{/polyglot}}</li>
                             <li class="list-group-item">{{#polyglot}}Easy to use Content Management System (CMS){{/polyglot}}</li>
                             <li class="list-group-item">{{#polyglot}}Mobile and Tablet Ready Site{{/polyglot}}</li>
