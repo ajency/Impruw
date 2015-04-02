@@ -1631,8 +1631,9 @@ function ajbilling_fetch_all_feature_plans($object_id, $object_type='site'){
 
 	$all_feature_plans = array();
 
-	$plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans'; 
-	$sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id!=1";
+	$plugin_plans_table = $wpdb->base_prefix.'aj_billing_plans';
+	$free_plan_ids ='('.PLAN_EXPIRED_FREE_TRIAL.','.PLAN_FREE_TRIAL.')';
+	$sqlQuery = "SELECT * FROM $plugin_plans_table WHERE id NOT IN $free_plan_ids  ";
 
 	$plugin_plans = $wpdb->get_results($sqlQuery, ARRAY_A);
 
@@ -1930,8 +1931,8 @@ function ajbilling_update_site_plan($object_id, $object_type='site', $plan_id ){
 }
 
 function ajbilling_update_site_to_default_plan($object_id, $object_type='site'){
-	// Default plan id is 1
-	$plan_id = 1;
+	// Default free plan id is 1
+	$plan_id = PLAN_EXPIRED_FREE_TRIAL;
 	ajbilling_update_site_plan($object_id, $object_type='site', $plan_id );
 	$customer_id = ajbilling_get_braintree_customer_id($object_id,$object_type);
 
@@ -2060,7 +2061,7 @@ function ajbilling_update_feature_addon($object_id ,$element_name,$plus_or_minus
 
 
 function ajbilling_assign_site_default_plan( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
-	$plan_id = 1 ;//Default plan
+	$plan_id = PLAN_FREE_TRIAL ;//Free plan with all features but no braintree subscription
 	ajbilling_update_site_plan($blog_id, 'site', $plan_id );
 }
 add_action( 'wpmu_new_blog', 'ajbilling_assign_site_default_plan', 10, 6 );

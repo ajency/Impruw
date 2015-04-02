@@ -580,9 +580,9 @@
                 $feature_plan = ajbilling_fetch_feature_plan($object_id, $object_type);
 
                 // if free then change to paid plan after one time payment
-                if ($feature_plan['id']==1) {
+                if (($feature_plan['id']==PLAN_EXPIRED_FREE_TRIAL)||($feature_plan['id']==PLAN_FREE_TRIAL)) {
                     // @todo get from plugin plan id and site country
-                    $paid_plan_id = 3;
+                    $paid_plan_id = PLAN_PAID_PLAN;
                     
                     $user_site_country = ajbilling_get_user_country_option($object_id,$object_type);
                     $site_currency = aj_braintree_get_currency($user_site_country);
