@@ -39,8 +39,10 @@ define [ 'app', 'controllers/base-controller'
                     
 
                     # Get current active plan name
-                    if PAYMENT_PLAN_ID is '1'
-                        @activePlanName = 'Free'
+                    if PAYMENT_PLAN_ID is '1' 
+                        @activePlanName = 'Free Trial Expired'
+                    else if PAYMENT_PLAN_ID is  '2'
+                        @activePlanName = 'Free Trial'
                     else
                         activePlanModel = App.request "get:feature:plan:by:id",PAYMENT_PLAN_ID
                         @activePlanName = activePlanModel.get 'plan_title'

@@ -40,7 +40,9 @@ define(['app', 'controllers/base-controller', 'apps/billing/site-payment-page/vi
           console.log(this.prorationCharge);
           this.currentSubscriptionDaysLeft = this.getCurrentSubscriptionDaysLeft(this.billingPeriodStartDate, this.billingPeriodEndDate);
           if (PAYMENT_PLAN_ID === '1') {
-            this.activePlanName = 'Free';
+            this.activePlanName = 'Free Trial Expired';
+          } else if (PAYMENT_PLAN_ID === '2') {
+            this.activePlanName = 'Free Trial';
           } else {
             activePlanModel = App.request("get:feature:plan:by:id", PAYMENT_PLAN_ID);
             this.activePlanName = activePlanModel.get('plan_title');
