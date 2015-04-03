@@ -37,6 +37,7 @@
     app: 'dashboard-app',
     jpanelmenu  : 'plugins/jquery.jpanelmenu.min',
     bootstrapswitch: 'plugins/bootstrap-switch',
+    bootbox : 'plugins/bootbox.min',
     entitiesloader: 'entities/dashboard-entities-loader',
     scrollsections: 'plugins/ajency.scrolldots',
     minicolors: 'plugins/jquery.minicolors.min',

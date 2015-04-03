@@ -1,41 +1,84 @@
+<h6>{{#polyglot}}Plan Details{{/polyglot}}</h6>
 <div class="aj-imp-widget-head row">
     <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
             <small>{{#polyglot}}Active Plan:{{/polyglot}}</small>
-            {{plan_name}}
+            {{plan_title}}
+        </h6>
+    </div>
+    <div class="col-sm-6 right">
+        <a href="#/billing/pricing-plans" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Change Plan{{/polyglot}}</a>
+    </div>
+    <div class="col-sm-12">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Plan Features:{{/polyglot}}<small>
+            <br/>
+            {{#plan_features}}
+            <div class="col-sm-6 left">
+                <h6 class="aj-imp-sub-head-thin">
+                    <small>{{name}}:</small>
+                    <small>{{#enabled}}Enabled{{/enabled}}{{^enabled}}Disabled{{/enabled}}</small>
+                </h6>
+            </div>
+            <div class="col-sm-6 right">
+                <h6 class="aj-imp-sub-head-thin">
+                    <small>{{#polyglot}}Allowed Count: {{/polyglot}} </small>
+                    {{#is_count_type}}<small>{{count_display_label}}</small>{{/is_count_type}}
+                    {{^is_count_type}}<small>N/A</small>{{/is_count_type}}
+                </h6>
+            </div>
+            {{/plan_features}}
+        </h6>
+    </div>
+</div>
+<br/>
+<hr>
+<h6>{{#polyglot}}Subscription Details{{/polyglot}}</h6>
+<div class="aj-imp-widget-head row">
+    <div class="col-sm-6 left">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Subscription Status:{{/polyglot}}</small>
+            {{subscription_status}}
         </h6>
     </div>
     <div class="col-sm-6 right">
         <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Active Since:{{/polyglot}}</small>
-            {{start_date}}
+            <small>{{#polyglot}}Billing Frequency:{{/polyglot}} </small>
+            {{subscription_type}}
         </h6>
     </div>
     <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Subscription Type:{{/polyglot}} </small>
-            {{subscription_type}}
+            <small>{{#polyglot}}Current billing cycle:{{/polyglot}} </small>
+            <span>
+                <small>{{#polyglot}}From:{{/polyglot}} </small>
+                 {{billingPeriodStartDate}}
+            </span>
+            <span>
+                <small>- </small>
+                {{billingPeriodEndDate}}
+            </span>
         </h6>
     </div>
     <div class="col-sm-6 right">
         <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Payment:{{/polyglot}} </small>
+            <small>{{#polyglot}}Billing Amount:{{/polyglot}} </small>
             &#163; {{price}}
         </h6>
     </div>
-    <div class="col-sm-12 ">
+    <div class="col-sm-6 left">
         <h6 class="aj-imp-sub-head-thin">
-            <small>{{#polyglot}}Current billing cycle:{{/polyglot}} </small>
-            <span>
-                <small>{{#polyglot}}From:{{/polyglot}} </small>
-                 {{bill_start}}
-            </span>
-            <span>
-                <small>- </small>
-                {{bill_end}}
-            </span>
+            <small>{{#polyglot}}Next billing date:{{/polyglot}} </small>
+            {{nextBillingDate}}
+        </h6>
+    </div>
+    <div class="col-sm-6 right">
+        <h6 class="aj-imp-sub-head-thin">
+            <small>{{#polyglot}}Next Billing period Amount:{{/polyglot}} </small>
+            &#163; {{nextBillAmount}}
         </h6>
     </div>
 </div>
-<br>
-<a href="#/billing/pricing-plans" class="btn btn-xs aj-imp-orange-btn">{{#polyglot}}Change Plan{{/polyglot}}</a>
+
+
+

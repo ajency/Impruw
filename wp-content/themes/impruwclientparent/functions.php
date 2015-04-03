@@ -43,12 +43,13 @@ include_once( dirname( __FILE__ ) . '/modules/elements/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/media/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/language/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/language/languagefunctions.php' );
+include_once( dirname( __FILE__ ) . '/modules/payment-plans/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/billing/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/seo/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/emails/ajax.php' );
 include_once( dirname( __FILE__ ) . '/modules/heartbeat/heartbeat.php' );
 include_once( dirname( __FILE__ ) . '/api/entities/leftnav.php' );
-include_once( dirname( __FILE__ ) . '/modules/braintree/main-config.php' );
+// include_once( dirname( __FILE__ ) . '/modules/braintree/main-config.php' );
 include_once( dirname( __FILE__ ) . '/modules/emailAPI/main.php' );
 include_once( dirname( __FILE__ ) . '/modules/simple_html_dom/simple_html_dom.php' );
 include_once( dirname( __FILE__ ) . '/elements/Element.php' );
@@ -57,6 +58,7 @@ include_once( dirname( __FILE__ ) . '/includes/UserModel.php' );
 include_once( dirname( __FILE__ ) . '/includes/RoomModel.php' );
 include_once( dirname( __FILE__ ) . '/includes/Media.php' );
 include_once( dirname( __FILE__ ) . '/modules/enqueue.php' );
+require_once 'modules/communications/functions.php';
 
 
 
@@ -107,10 +109,6 @@ add_filter( 'wp_mail_from', 'impruw_wp_mail_from' );
  * @param  [type] $original_email_from [description]
  * @return [type]                      [description]
  */
-function impruw_wp_mail_from_name( $original_email_from ){
-    return 'Impruw Ltd.';
-}
-add_filter( 'wp_mail_from_name', 'impruw_wp_mail_from_name' );
 
 /**
  * [change_email_content_type description]
@@ -139,6 +137,9 @@ function send_contact_form_message() {
 
     $subject = !empty( $subject ) ? stripslashes($subject) : '-';
     $mailsubject = "Impruw Notification: You have received a $subject email";
+
+    $name = $fname.' '.$lname;
+    contact_us_email($name,$email,$mailsubject,$message);
 
     $mailbody = " You have been contacted by<br /><br />
                     Name    : $fname $lname<br />
@@ -373,6 +374,18 @@ function add_element_markup( $element ) {
         case 'Column' :
             $html = get_builder_row_column_markup( $element );
             break;
+        case 'Tabs' :
+            $html = get_tabs_element_markup( $element );
+            break;
+        case 'TabPane':
+            $html = get_tab_pane_element_markup( $element );
+            break;
+        case 'Accordion':
+            $html = get_accordion_element_markup( $element );
+            break;
+        case 'AccordionTab':
+            $html = get_accordion_tab_element_markup( $element );
+            break;
         case 'ContainerElement' :
             $html = get_container_markup( $element );
             break;
@@ -451,6 +464,9 @@ function add_element_markup( $element ) {
         case 'SmartTable' :
             $html = get_smart_table_element_markup( $element );
             break;
+        case 'List':
+            $html = get_list_element_markup( $element );
+            break;
         default :
             break;
     }
@@ -515,6 +531,117 @@ function get_builder_row_column_markup( $element ) {
 
     return $html;
 }
+
+/**
+ * Generates the tabs markup
+ *
+ * @param type $element
+ */
+function get_tabs_element_markup( $element ) {
+
+    include_once( dirname( __FILE__ ) . '/elements/TabsElement.php');
+
+
+    $tab = new Tabs( $element );
+
+    $justified = (isset($element['justified']) && ($element['justified'] == 'true' )) ? true : false ;
+
+
+    $html = $tab->get_open_tag();
+
+    $tab_bar = "<!-- Nav tabs -->
+                <ul class='nav nav-tabs ";
+
+    if( $justified ) {
+        $tab_bar .= "nav-justified";
+    }
+
+    $tab_bar .= "' role='tablist'>";
+        
+    $tab_content = "<div class='tab-content'>";
+
+    if ( $tab->has_child_elements() ) {
+
+        foreach ( $tab->get_elements() as $ele ) {
+            $tab_bar_name = isset( $ele[ 'tabName' ][wpml_get_current_language()] ) ? 
+                    $ele[ 'tabName' ][wpml_get_current_language()] : 
+                    $ele[ 'tabName' ][ wpml_get_default_language() ];
+            $tab_bar .= "<li role='presentation'><a href='#tab-3' role='tab' data-toggle='tab'><span>{$tab_bar_name}</span></a></li>";
+
+            $tab_content .= add_element_markup( $ele );
+        }
+    }
+    $tab_bar .= "</ul>";
+    $tab_content .= "</div>";
+
+    $html .= $tab_bar;
+    $html .= $tab_content;
+
+    $html .= $tab->get_close_tag();
+
+    return $html;
+}
+
+function get_tab_pane_element_markup( $element ){
+    include_once( dirname( __FILE__ ) . '/elements/TabPaneElement.php');
+
+    $tab_pane = new TabPane( $element );
+
+    $html = $tab_pane->get_open_tag();
+     if ( $tab_pane->has_child_elements() ) {
+
+        foreach ( $tab_pane->get_elements() as $ele ) {
+
+            $html .= add_element_markup( $ele );
+        }
+    }
+
+    $html .= $tab_pane->get_close_tag();
+
+
+    return $html;
+}
+
+function get_accordion_element_markup( $element)
+{
+    include_once( dirname( __FILE__ ) . '/elements/AccordionElement.php');
+
+    $accordion = new Accordion( $element );
+
+    $html = $accordion->get_open_tag();
+
+    if ( $accordion->has_child_elements() ) {
+
+        foreach ( $accordion->get_elements() as $ele ) {
+            $html .= add_element_markup( $ele );
+        }
+    }
+
+    $html .= $accordion->get_close_tag();
+
+    return $html;
+}
+
+function get_accordion_tab_element_markup( $element )
+{
+    include_once( dirname( __FILE__ ) . '/elements/AccordionTabElement.php');
+
+    $accordion_tab = new AccordionTab( $element );
+
+    $html = $accordion_tab->get_open_tag();
+
+    if ( $accordion_tab->has_child_elements() ) {
+
+        foreach ( $accordion_tab->get_elements() as $ele ) {
+
+            $html .= add_element_markup( $ele );
+        }
+    }
+
+    $html .= $accordion_tab->get_close_tag();
+    return $html;
+}
+
 
 /**
  * Generates the image markup
@@ -859,6 +986,16 @@ function get_smart_table_element_markup( $element ){
     return $html;
 }
 
+function get_list_element_markup( $element ){
+    include_once( dirname( __FILE__ ). '/elements/ListElement.php');
+
+    $list = new ListElement( $element );
+
+    $html = $list->get_markup();
+
+    return $html;
+}
+
 function get_widget_element_markup( $element ){
     include_once( dirname( __FILE__ ) . '/elements/WidgetElement.php');
 
@@ -1125,6 +1262,7 @@ function save_user_profile( $user_data, $user_id ) {
 
 function update_user_passwrd_ajx() {
 
+     
     $userform_password = serializedform_to_array( $_POST [ 'userprofile_passdata' ] );
 
     $user_form_data = array(
@@ -1132,6 +1270,7 @@ function update_user_passwrd_ajx() {
     );
     $update_status = update_user_passwrd( $user_form_data, get_current_user_id() );
 
+   
     if ( is_string( $update_status ) ) {
 
         header( 'Content-Type: application/json' );
@@ -3568,81 +3707,38 @@ $base_element_templates = array(
     'Address' => array(
         array(
             'name' => 'Default Style',
-            'template' => '<ul><li><span class="fui-home"></span> {{street}}, {{postal_code}}, {{city}}, {{country}}</li><li><span class="glyphicon glyphicon-earphone"></span> {{phone_no}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
+            'template' => '<ul><li><span class="fui-home"></span> {{street}}, {{postal_code}}, {{city}}, {{country}}</li><li class="addr-phone"><span class="glyphicon glyphicon-earphone"></span> {{phone_no}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
         ),
         array(
             'name' => 'Small Address',
-            'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
-        )
-        
+            'template' => '<div><div class="info"> {{street}}, {{postal_code}}, {{city}}, {{country}}</div><div class="info addr-phone"> {{phone_no}}</div><div class="info"> {{email}}</div></div>'
+        )       
+    ),
+    'Accordion' => array(
+        array('name' => 'Paper', 'value' => 'paper'),
+        array('name' => 'Flat', 'value' => 'flat')
+    ),
+    'List' => array(
+        array( 'name' => 'Hover List', 'value' => 'hover-list'),
+        array( 'name' => 'Numbered List', 'value' => 'numbered-list' ),
+        array( 'name' => 'Checked List', 'value' => 'checked-list' )
     ),
     'SmartTable' => array(
         array(
             'name' => 'Restaurant Menu',
-            'inner_style' => array( 'Default', 'Multi Column' ),
-            // 'template' => '<div class="smart-table multi-column">
-            //                     <dl class="smart-cell">
-            //                         <dt>Fried Spring Rolls</dt>
-            //                         <dd>chicken or vegetable</dd>
-            //                         <dd class="emphasis">$2.95</dd>
-            //                         <dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Gai of Nuur Satay</dt>
-            //                         <dd>skewered chicken or beef with a peanut sauce</dd>
-            //                         <dd class="emphasis">$4.95</dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Tofu Tod</dt>
-            //                         <dd>fried tofu with a mild chili peanut sauce</dd>
-            //                         <dd class="emphasis">$3.95</dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Fresh Thai Summer Roll</dt>
-            //                         <dd>with shrimp in a tamarind sauce</dd>
-            //                         <dd class="emphasis">$4.50</dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Fried Tiger Shrimp Rolls</dt>
-            //                         <dd>with a plum sauce</dd>
-            //                         <dd class="emphasis">$4.95</dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Thai Spare Ribs</dt>
-            //                         <dd class="emphasis">$8.95</dd>
-            //                     </dl>
-            //                     <div class="add-another">
-            //                         <span class="bicon icon-uniF193"></span>
-            //                         Add Another Item
-            //                     </div>
-            //                 </div>'
+            'inner_style' => array( 'Default', 'Multi Column' )
         ),
         array(
             'name' => 'Testimonials',
-            'inner_style' => array( 'Default', 'Boxed'),
-            // 'template' => '<div class="smart-table testimonials boxed">
-            //                     <dl class="smart-cell">
-            //                         <dt>Love it!</dt>
-            //                         <dd>I absolutely love this company and their work.</dd>
-            //                         <dd class="emphasis">- Joan Rivers</dd>
-            //                         <dd class="delete"><a href="#" title="Delete Item"><span class="bicon icon-uniF16F"></span></a></dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>The best experience ever</dt>
-            //                         <dd>We stayed with them for our birthday celebration and the ambience and service were absolutely top-notch. Recommend this place to everyone thats looking for a quiet getaway.</dd>
-            //                         <dd class="emphasis">- Henry Ford</dd>
-            //                     </dl>
-            //                     <dl class="smart-cell">
-            //                         <dt>Look No Further...</dt>
-            //                         <dd>An end to end solution for all our business needs with excellent support.</dd>
-            //                         <dd class="emphasis">- Tom Petty</dd>
-            //                     </dl>
-            //                     <div class="add-another">
-            //                         <span class="bicon icon-uniF193"></span>
-            //                         Add Another Item
-            //                     </div>
-            //                 </div>'
+            'inner_style' => array('Default', 'Boxed')
         )
+    ),
+    'Tabs' => array(
+        array('name' => 'Default' , 'value' => 'default' ),
+        array( 'name' => 'Underline', 'value' => 'tabs-style-underline' ),
+        array('name' => 'Linetriangle' , 'value' => 'tabs-style-linetriangle' ),
+        array('name' => 'Linebox' , 'value' => 'tabs-style-linebox' )
+        
     ),
     'Social' => array(
         array(
@@ -3677,11 +3773,19 @@ $base_element_templates = array(
         )
     ),
     'Spacer' => array(
-            array( 'name' => 'Default', 'value' => 'default' ),
-            array( 'name' => 'Style 1', 'value' => 'style-1' ),
-            array( 'name' => 'Style 2', 'value' => 'style-2' ),
-            array( 'name' => 'Style 3', 'value' => 'style-3' )  
-        )
+            'line' => array(
+                array( 'name' => 'Solid Line', 'value' => 'default' ),
+                array( 'name' => 'Single Line', 'value' => 'style-1' ),
+                array( 'name' => 'Shaded Line', 'value' => 'style-2' ),
+                array( 'name' => 'Elegant Line', 'value' => 'style-3' )  
+            ),
+            'pattern' => array(
+                array( 'name' => 'Diagonal Stripes', 'value' => 'default' ),
+                array( 'name' => 'Dotted Layout', 'value' => 'style-1' ),
+                array( 'name' => 'Grid Layout', 'value' => 'style-2' ),
+                array( 'name' => 'Check Layout', 'value' => 'style-3' ) 
+            )
+            )
     
 );
 
@@ -3922,4 +4026,31 @@ function remove_xmlrpc_pingback_ping( $methods ) {
    return $methods;
 }
 add_filter( 'xmlrpc_methods', 'remove_xmlrpc_pingback_ping' );
+
+// favicon link
+function favicon_link() { 
+
+?>  <link rel="shortcut icon" type="image/x-icon" href="<?php echo get_custom_favicon_directory_uri(); ?>" />
+    <?php
+}
+add_action( 'wp_head', 'favicon_link' );
+
+
+function get_custom_favicon_directory_uri() {
+
+    $favicon_id = get_option( 'favicon_id', 0 );
+    $favicon_path = wp_get_attachment_image_src( $favicon_id, 'medium' );
+    $favicon_path = $favicon_path === false ? get_parent_template_directory_uri() .'/images/favicon.png' : $favicon_path[ 0 ];
+    return $favicon_path;
+
+}
+
+add_filter('upload_mimes', 'custom_upload_mimes'); 
+
+function custom_upload_mimes ( $existing_mimes=array() ) { 
+    // change the word forbiddenfiletype below to an extension you wish to allow 
+    $existing_mimes['ico'] = 'image/x-icon'; 
+    // call the modified list of extensions 
+    return $existing_mimes; 
+}
 

@@ -49,6 +49,10 @@ class AddressElement extends Element {
         
         $this->style = $element['style'];
 
+        $this->align = isset( $element[ 'align' ] ) ? $element[ 'align' ] : '' ;
+
+        $this->phone_link = isset( $element['phone_link'] ) && $element['phone_link'] == 'disable' ? false : true; 
+
         $this->template = get_style_template($element);
         
         $this->markup  = $this->generate_markup();
@@ -68,6 +72,11 @@ class AddressElement extends Element {
         $html       .= $this->get_close_tag();
         
         return $html;
+    }
+
+    function get_classes(){
+        $classes = parent::get_classes();
+        return $classes . ' text-'. $this->align;
     }
     
     /**
@@ -98,6 +107,12 @@ class AddressElement extends Element {
 
         global $me;
         $html = $me->render($this->template, $contact_at);
+
+        if ($this->phone_link)
+            $html .= "<script>
+                        jQuery('.addr-phone').last().wrap('<a href=\"tel:".$contact_at['phone_no']."\"></a>');
+                </script>" ;
+
         return $html;
             
     }

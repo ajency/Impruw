@@ -85,7 +85,7 @@ define [ 'app'
                     section = @view.model.get key
                     container = @_getContainer key
                     _.each section, ( element, i )=>
-                        if element.element is 'Row'
+                        if element.element in ['Row','Tabs','Accordion']
                             @addNestedElements container, element
                         else
                             eleController = App.request "add:new:element", container, element.element, element
@@ -97,10 +97,17 @@ define [ 'app'
                 @deferreds.push eleController._promise
                 _.each element.elements, ( column, index )=>
                     return if column.elements.length is 0
-                    container = eleController.layout.elementRegion.currentView.$el.children().eq( index )
+                    if element.element is 'Tabs'
+                        container = eleController.layout.elementRegion.currentView.$el.children('.tab-content').children().eq( index )
+                    else if element.element is 'Row'
+                        container = eleController.layout.elementRegion.currentView.$el.children().eq( index )
+                    else if element.element is 'Accordion'
+                        container = eleController.layout.elementRegion.currentView.$el.children('.panel-group').children().eq( index )
                     _.each column.elements, ( ele, i )=>
-                        if element.element is 'Row'
+                        if element.element in ['Row','Tabs']
                             @addNestedElements $( container ), ele
+                        else if element.element is 'Accordion'
+                            @addNestedElements $(container).children('.panel-collapse').children('.column') , ele
                         else
                             eleController = App.request "add:new:element", container, ele.element, ele
                             @deferreds.push eleController._promise
@@ -128,11 +135,14 @@ define [ 'app'
                 @listenTo @layout, "add:new:page:clicked", ->
                     App.execute "show:add:new:page", region : App.dialogRegion
 
+                @listenTo @layout ,"show:theme:color:clicked",->
+                    App.execute "show:theme:color:set", region : App.dialogRegion
+
                 @listenTo @layout, 'delete:page:clicked',=>
                     page = @pages.get $.cookie 'current-page-id'
                     page.destroy
                         success : (model,res,opt)=>
-                            @removePageFromMenu model.get 'original_id'
+                            # @removePageFromMenu model.get 'original_id'
 
                             @removePageFromLinkSettings model.get 'original_id'
                             

@@ -12,11 +12,17 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                 model = App.request "get:element:settings:options", 'Address'
                 view = @_getSettingView model, @model
 
+                @listenTo view, "element:alignment:changed", (alignment)=>
+                    @model.set "align", alignment
+
                 @listenTo view, "element:style:changed", (style)=>
                     @model.set "style", style
 
                 @listenTo view, "element:draggable:changed", (draggable)=>
                     @model.set "draggable", draggable
+
+                @listenTo view, "element:phone:link:changed", (phone_link)=>
+                    @model.set 'phone_link', phone_link
 
                 @listenTo view, "element:spacing:changed", (spacing, value)=>
                     @model.set spacing, value
@@ -25,7 +31,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
 
             # time to save model to server
             onClose: ->
-                return if not @model.hasChanged()
+                # return if not @model.hasChanged()
 
                 @model.save null,
                     wait: true

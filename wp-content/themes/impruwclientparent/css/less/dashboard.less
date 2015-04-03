@@ -99,6 +99,9 @@ p {
 	max-width: none;
 	.aj-imp-left {
 		padding: 0;
+		padding-bottom: 2000px;
+		margin-bottom: -2000px;
+		background: darken(@logo-blue, 5%);
 		.aj-imp-dash-mobile-header {
 			background: @logo-blue;
 			padding: 1em;
@@ -133,6 +136,7 @@ p {
 			#aj-imp-dash-menu {
 				list-style: none;
 				padding: 0;
+				background: darken(@logo-blue, 5%);
 				li {
 					position: relative;
 					.sub-menu {
@@ -165,7 +169,7 @@ p {
 							border-right: 30px solid #fff;
 							display: block;
 							position: absolute;
-							left: -20px;
+							left: -30px;
 							content: '';
 							top: -1px;
 						}
@@ -219,7 +223,6 @@ p {
 						}
 					}
 					&.active {
-						background: #fff;
 						.sub-menu {
 							display: block;
 							position: static;
@@ -233,8 +236,16 @@ p {
 							}
 						}
 						> a {
+							background: #f43e4b; /* Old browsers */
+							background: -webkit-linear-gradient(top,  #f43e4b 0%,#f14829 100%); /* Chrome10+,Safari5.1+ */
+							background: -ms-linear-gradient(top,  #f43e4b 0%,#f14829 100%); /* IE10+ */
+							background: linear-gradient(to bottom,  #f43e4b 0%,#f14829 100%); /* W3C */
+							color: #fff;
 							text-decoration: none;
-							font-weight: 700;
+							// font-weight: 700;
+						}
+						.icon{
+							color: #fff;
 						}
 					}
 				}
@@ -249,6 +260,13 @@ p {
 	}
 	.aj-imp-right {
 		background: #fff;
+		.aj-imp-dash-bb{
+			border-bottom: 1px solid darken(@preview-grey, 10%);
+			margin: 0 -15px;
+			.aj-imp-dash-header{
+				margin: 40px 0;
+			}
+		}
 		.aj-imp-dash-header {
 			margin: 40px -15px;
 			@media (max-width: 767px) { 
@@ -1888,6 +1906,15 @@ form {
 		font-weight: 700;
 		border-bottom: 1px solid @dash-grey;
 		border-radius: 4px 4px 0 0;
+	}
+
+	&.bootbox {
+		.btn-primary {
+			background: @orange;
+			&:hover {
+				background: lighten(@orange, 10%);
+			}
+		}
 	}
 }
 
@@ -4240,7 +4267,7 @@ form {
 			right: -4em;
 			opacity: 0;
 		}
-		.translated-element-content, .translated-footer-content, .translated-header-content {
+		.translated-element-content, .translated-footer-content, .translated-header-content, .translated-menu-item-title {
 			height: 100px;
 			background: #fff;
 			border-bottom: 1px solid @dash-grey;
@@ -4258,7 +4285,7 @@ form {
 				letter-spacing: 0 !important;
 			}
 			&.title {
-				height: 34px;
+				height: 33px;
 				overflow: hidden;
 			}
 			&:focus {
@@ -4318,7 +4345,7 @@ form {
 	.table {
 		margin-bottom: 0;
 	}
-	.translated-smart-table, .original-smart-table {
+	.translated-smart-table, .original-smart-table, .translated-tab-accordion, .original-tab-accordion, .translated-list-table, .original-list-table {
 		form {
 			margin: 0;
 			padding: 0;
@@ -4341,6 +4368,30 @@ form {
 			&:hover {
 				border-color: @blue-grey;
 			}
+		}
+	}
+
+	.translated-tab-accordion, .original-tab-accordion, .translated-list-table, .original-list-table{
+		.smart-cell {
+			border-left: 1px solid lighten(@dash-grey, 20%);
+			padding: 0 .5em .2em;
+			margin-bottom: 0.5em;
+			&:hover {
+				border-color: @blue-grey;
+			}
+			.form-group{
+				margin-bottom: 0.2em;
+			}
+		}
+	}
+	.original-list-table{
+		.smart-cell {
+			padding: .1em .5em .2em;
+		}
+	}
+	.original-tab-accordion, .original-list-table{
+		.in {
+			padding-bottom: 22px;
 		}
 	}
 }
@@ -4376,7 +4427,7 @@ form {
 	}
 	.price-plans {
 		.price {
-		  font-size: 4em;
+		  font-size: 2.4em;
 		  .price-cents {
 			  vertical-align: super;
 			  font-size: 50%;
@@ -4401,7 +4452,7 @@ form {
 					display: block;
 					margin-bottom: 0.2em;
 					&.active {
-						color: @success-green;
+						color: @orange;
 					}
 					&.pending {
 						color: lighten(@red, 10%);
@@ -4409,14 +4460,14 @@ form {
 				}
 			}
 			&.active {
-				border-color: @success-green;
+				border-color: @orange;
 				.panel-heading {
 					h3 {
-						color: @success-green;
+						color: @orange;
 					}
 				}
 				.ribbon {
-					background: @success-green;
+					background: @orange;
 					display: block;
 					color: #fff;
 					padding: 13px 12px 14px;
@@ -4429,6 +4480,13 @@ form {
 						&:hover, &:focus {
 							background: transparent;
 							color: #fff;
+						}
+					}
+				}
+				&:hover{
+					.panel-heading {
+						h3 {
+							color: @orange;
 						}
 					}
 				}
@@ -4531,17 +4589,41 @@ form {
 				}
 			}
 			&.selected {
-				border-color: @orange;
+				box-shadow: 0px 0px 2px 1px @orange;
 				.ticker {
 					display: block;
 					background: @orange;
 				}
 			}
 		}
+		&.credit-cards{
+			.single-card{
+				opacity: 0.4;
+				&.active, &.selected{
+					opacity: 1;
+				}
+				&.active{
+					border-color: @orange;
+				}
+				&:hover{
+					opacity: 1;
+				}
+			}
+		}
+
 	}
 	#add-new-card {
 		.bootstrap-select {
 			width: 120px;
+		}
+	}
+	.deactivate-subscription{
+		background: transparent;
+		color: @blue-grey;
+		padding: 0;
+		margin-bottom: 1em;
+		&:hover, &:focus {
+			color: darken(@blue-grey, 10%);
 		}
 	}
 }
@@ -5376,5 +5458,49 @@ form {
 .edit-room-container {
 	form {
 		border-bottom: 0;
+	}
+}
+
+/**** Map View Styles ****/
+.map-region {
+	.help-block {
+		.icon {
+			font-size: 1.5em;
+			color: @blue-grey;
+			top: 4px;
+			position: relative;
+		}
+	}
+	#map-canvas {
+		padding: 2px;
+		border: 1px solid @dash-grey;
+		&:hover {
+			border-color: @orange;
+		}
+	}
+}
+
+/* Dashboard Guide */
+.brace{
+	height: 760px;
+	background: url('../images/brace.png') no-repeat;
+	background-size: contain;
+	background-position: left center; 
+}
+.builder-gif{
+	height: 760px;
+	background: url('../images/gif-bg.png') no-repeat lighten(@preview-grey, 3%);
+	background-size: contain;
+	background-position: center;
+	border-left: 2px dashed darken(@preview-grey, 5%);
+}
+
+@media only screen 
+and (min-width : 1440px) {
+	.dashboard-column{
+		width: 24.6667%;
+	}
+	.builder-coulmn{
+		width: 75.3333%;
 	}
 }

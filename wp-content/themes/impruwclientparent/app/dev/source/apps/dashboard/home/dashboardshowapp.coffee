@@ -32,13 +32,17 @@ define ['app', 'controllers/base-controller',
                 new DashboardLayout
 
             showDashboardSections: ->
-                #App.execute "show:"
+                App.execute "show:current:site:plan",
+                    region : @layout.currentSitePlanDisplay
 
 
                 # define the layout
         class DashboardLayout extends Marionette.Layout
 
             template: dashboardTpl
+
+            regions :
+                currentSitePlanDisplay : '.site-plan-helptext'
 
             serializeData: ->
                 data =

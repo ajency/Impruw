@@ -57,7 +57,7 @@ define(['app', 'apps/builder/site-builder/elements/smarttable/views', 'apps/buil
 
       Controller.prototype._generateCollections = function() {
         this.collection = new Backbone.Collection(this.layout.model.get('contents')[WPML_DEFAULT_LANG]);
-        window.WPML_OTHER_LANG = _.without(Object.getOwnPropertyNames(ACTIVE_LANGUAGES), WPML_DEFAULT_LANG)[0];
+        window.WPML_OTHER_LANG = WPML_DEFAULT_LANG === 'en' ? 'nb' : 'en';
         this.collectionOther = new Backbone.Collection(this.layout.model.get('contents')[WPML_OTHER_LANG]);
         return this.listenTo(this.collection, 'remove', (function(_this) {
           return function(model, collection, options) {

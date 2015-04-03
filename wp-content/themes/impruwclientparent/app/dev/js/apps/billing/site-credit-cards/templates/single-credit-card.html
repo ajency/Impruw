@@ -1,0 +1,35 @@
+<div class="col-md-4">
+    <form class="form-horizontal single-card singlecard-{{token}}">
+        <div class="ticker">
+            <span class="glyphicon glyphicon-ok"></span>
+        </div>
+        <h6 class="aj-imp-sub-head-thin"><img alt="{{cardType}} " class="tiny" src="{{imageUrl}}"></h6>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">{{#polyglot}}Name on the Card{{/polyglot}}</label>
+
+            <div class="col-sm-8 col-sm-offset-4">
+                <div class="form-control">{{cardholderName}}</div>
+                <!-- <input type="text" class="form-control" placeholder="Name on the Card" data-braintree-name="cardholderName" value="{{cardholderName}}" readonly="readonly"> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">{{#polyglot}}Card Number{{/polyglot}}</label>
+
+            <div class="col-sm-8 col-sm-offset-4">
+                <div class="form-control">{{maskedNumber}}</div>
+                <!-- <input type="text" class="form-control" placeholder="Card Number" data-braintree-name="number" value="{{maskedNumber}}" readonly="readonly"> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">{{#polyglot}}Expires On{{/polyglot}}</label>
+            <div class="col-sm-8 col-sm-offset-4">
+                <div class="form-control">{{expirationDate}}</div>
+                <!-- <input type="text" class="form-control " data-braintree-name="expiration_date" value="{{expirationDate}}" readonly="readonly"> -->
+
+            </div>
+
+        </div>
+        <input type="hidden" class="token" value="{{token}}">
+
+    </form>
+</div>

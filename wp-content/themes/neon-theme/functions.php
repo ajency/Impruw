@@ -282,7 +282,7 @@
         'Address' => array(
                 array(
                     'name' => 'Top Bar Contact',
-                    'template' => '<div class="info"><span class="glyphicon glyphicon-envelope"></span> {{email}}</div><div class="info"><span class="glyphicon glyphicon-phone-alt"></span> {{phone_no}}</div>' 
+                    'template' => '<div class="info"><span class="glyphicon glyphicon-envelope"></span> {{email}}</div><div class="info addr-phone"><span class="glyphicon glyphicon-phone-alt"></span> {{phone_no}}</div>' 
                 )			
             )
     );

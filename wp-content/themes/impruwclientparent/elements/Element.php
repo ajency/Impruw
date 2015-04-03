@@ -97,6 +97,8 @@ class Element {
 
         $this->margins = $this->get_margin_classes($element);
         
+        $this->element = $element[ 'element' ] ;
+        
     }
     
     

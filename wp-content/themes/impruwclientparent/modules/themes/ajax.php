@@ -85,3 +85,14 @@ function ajax_create_custom_theme_color() {
 }
 
 add_action( 'wp_ajax_create-custom-theme-color', 'ajax_create_custom_theme_color' );
+
+
+// fonts
+function ajax_create_theme_font(){
+    unset( $_POST['action'] );
+    $data = $_POST;
+    $id = save_theme_font( $data );
+    wp_send_json( array( 'code' => 'OK', 'data' => array('ID' => $id )) );
+}
+add_action( 'wp_ajax_create-fonts','ajax_create_theme_font');
+add_action( 'wp_ajax_update-fonts','ajax_create_theme_font');

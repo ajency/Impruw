@@ -52,6 +52,13 @@ define(['app'], function(App) {
           $(e.target).removeClass('focus');
           return this.model.set($(e.target).attr('data-key'), $(e.target).text());
         },
+        'paste dt,dd': function(e) {
+          return _.delay((function(_this) {
+            return function() {
+              return $(e.target).text($(e.target).text());
+            };
+          })(this), 100);
+        },
         'click .delete a': function(e) {
           e.stopPropagation();
           return this.model.destroy({

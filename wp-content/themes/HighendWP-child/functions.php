@@ -20,8 +20,8 @@
 
     /* ============================================================= */
 
-    require_once 'Communication_module/user_shortcodes.php'; //file containing all shortcodes to fetch user information
-    require_once 'Communication_module/site_shortcodes.php'; //file containing all shortcodes to fetch site information
+    //require_once 'Communication_module/user_shortcodes.php'; //file containing all shortcodes to fetch user information
+    //require_once 'Communication_module/site_shortcodes.php'; //file containing all shortcodes to fetch site information
     //require_once 'User/user_management.php';//file containing all shortcodes to fetch site information
     //add theme support
     add_theme_support('post-thumbnails');
@@ -33,6 +33,8 @@
     require_once 'modules/user/ajax.php';
     require_once 'modules/site/ajax.php';
     require_once 'modules/api/main.php';
+    require_once 'modules/payments/functions.php';
+    require_once 'modules/communications/functions.php';
 
 
 /**
@@ -314,7 +316,7 @@ function is_impruw_com(){
 
 
 
-        if (is_page_template('page-register-template.php') || is_page_template('page-login.php')) {
+        if (is_page_template('page-register-template.php') || is_page_template('page-login.php') || is_page_template('page-assisted-setup-template.php')) {
 
             //Check for the current language and load the right parsley messages file
             $current_language = ICL_LANGUAGE_CODE;

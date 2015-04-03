@@ -8,16 +8,20 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             name: 'braintreeplan'
 
-            idAttribute : 'plan_id'
+            idAttribute : 'id'
+
+            sync: (method, entity, options = {})->
+                xhr = window._bsync method, entity, options
+                entity._fetch = xhr if method is 'read'
+
+            url: ->
+                "#{SITEURL}/api/ajbilling/braintreePlans/#{@get("id")}"
 
 
         # plan collection
         class BraintreePlanCollection extends Backbone.Collection
 
             model: BraintreePlan
-
-            url: ->
-                "#{AJAXURL}?action=get-braintree-plans"
 
 
         API =
@@ -27,7 +31,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                 braintreePlanCollection
 
             getPlanByPlanId : ( planId ) ->
-                brainTreePlanModel = new BraintreePlan 'plan_id' : planId
+                brainTreePlanModel = new BraintreePlan 'id' : planId
                 brainTreePlanModel.fetch()
                 brainTreePlanModel
 

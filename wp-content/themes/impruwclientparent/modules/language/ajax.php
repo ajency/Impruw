@@ -253,6 +253,24 @@ function get_page_smart_tables_ajax(){
 }
 add_action( 'wp_ajax_get-page-smart-tables', 'get_page_smart_tables_ajax' );
 
+function get_page_list_tables_ajax(){
+    $page_id = $_REQUEST['pageId'];
+
+    $data =  get_page_listtable_elements($page_id);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_get-page-list-tables', 'get_page_list_tables_ajax' );
+
+function get_get_page_tabs_accordions_ajax(){
+    $page_id = $_REQUEST['pageId'];
+
+    $data =  get_page_tabs_accordion_elements($page_id);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_get-page-tabs-accordions', 'get_get_page_tabs_accordions_ajax' );
+
 function get_page_sliders_ajax(){
     $page_id = $_REQUEST['pageId'];
 
@@ -277,6 +295,14 @@ function get_footer_elements_ajax(){
     wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
 }
 add_action( 'wp_ajax_get-footer-elements', 'get_footer_elements_ajax' );
+
+function get_site_menu_elements_ajax(){
+    $language = $_REQUEST['language'];
+    $data =  get_site_menu_elements($language);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_get-site-menu-elements', 'get_site_menu_elements_ajax' );
 
 
 
@@ -324,9 +350,23 @@ function update_translated_page_url(){
 }
 add_action( 'wp_ajax_update-translated-page-url', 'update_translated_page_url' );
 
+function update_pageTabAccordionElements(){
+    $page_id = $_POST['json-page-id'];
+    $page_id = icl_object_id($page_id, 'page', true,'en');
+
+    //array of TabNames to be updated
+    $tabElements = $_POST['tabElements'];
+
+    $updated_page_json = update_tabTanslation_page_json($page_id,$tabElements);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => array('page-id'=>$page_id,'page-json'=>json_encode($updated_page_json)) ) );
+}
+add_action( 'wp_ajax_update-pageTabAccordionElements', 'update_pageTabAccordionElements' );
+
 function update_element_content(){
 
     $page_id = $_POST['json-page-id'];
+
     $page_id = icl_object_id($page_id, 'page', true,'en');
     
     $page_element_meta_id = $_POST['meta_id'];
@@ -342,6 +382,9 @@ function update_element_content(){
                 $page_element['text'] = $_POST['text'] ;
             }
             else if($page_element['element'] === 'SmartTable'){
+                $page_element['contents'] = $_POST['contents'] ;
+            }
+            else if($page_element['element'] === 'List'){
                 $page_element['contents'] = $_POST['contents'] ;
             }
             else{
@@ -361,6 +404,7 @@ function update_element_content(){
 
 add_action( 'wp_ajax_create-pageElements', 'update_element_content' );
 add_action( 'wp_ajax_create-pageSmartTableElements', 'update_element_content' );
+add_action( 'wp_ajax_create-pageListTableElements', 'update_element_content' );
 add_action( 'wp_ajax_create-pageTableElements', 'update_element_content' );
 
 function update_header_element_content(){
@@ -440,6 +484,20 @@ function update_footer_element_content(){
 }
 add_action( 'wp_ajax_create-footerElements', 'update_footer_element_content' );
 
+function update_translated_menu_item_ajax(){
+
+    $menu_item_id = $_REQUEST['menuItemId'];
+    $language = $_REQUEST['language'];
+    $menuitem_translated_label = $_REQUEST['translatedMenuItemTitle'];
+
+    $update_status = translate_custom_menu_item($menu_item_id, $language, $menuitem_translated_label);
+
+    $data = array('menu_item_id'=> $menu_item_id, 'update_status' => $update_status );
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_update-translated-menu-item', 'update_translated_menu_item_ajax' );
+
  // remove language selector if only one language is enabled
 add_action('wp_head', 'wpml_hide_langs');
 function wpml_hide_langs() {
@@ -465,5 +523,17 @@ function taxonomies_filter_fix($terms){
     return $terms;
 }
 
+// Make rooms and facility wpml translatable
+function make_room_and_facility_translatable(){
+    // get actual icl settings
+    $iclsettings = get_option('icl_sitepress_settings');
 
+    // modify icl settings
+    $iclsettings['custom_posts_sync_option']['impruw_room'] = 1;
+    $iclsettings['taxonomies_sync_option']['impruw_room_facility'] = 1;
 
+    // update icl settings
+    update_option('icl_sitepress_settings', $iclsettings);
+}
+
+add_action( 'wp_loaded', 'make_room_and_facility_translatable' );

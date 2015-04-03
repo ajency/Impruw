@@ -288,7 +288,7 @@
         'Address' => array(
                 array(
                     'name' => 'Menu Number',
-                    'template' => '<div><span class="glyphicon glyphicon-phone"></span> Phone: {{phone_no}}</div>' 
+                    'template' => '<div class="addr-phone"><span class="glyphicon glyphicon-phone"></span> Phone: {{phone_no}}</div>' 
                 )			
             )
     );

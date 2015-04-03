@@ -99,8 +99,7 @@ define(['app'], function(App) {
 
       SliderView.prototype.collectionEvents = {
         'slide:image:url:updated': function() {
-          this.render();
-          return this.triggerMethod('show');
+          return this.trigger('render:slider');
         }
       };
 
@@ -154,7 +153,6 @@ define(['app'], function(App) {
           handles: "s",
           stop: (function(_this) {
             return function(evt, ui) {
-              console.log(_this.$el.height());
               _this.$el.width('auto');
               options = {
                 startheight: _this.$el.height(),

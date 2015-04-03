@@ -16,6 +16,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
                 @listenTo view, "element:type:changed", (type)=>
                     
                     @model.set "type", type
+                    @model.set 'style', 'default'
 
                     # if type is 'Blank'
                     #     @model.set "style", 'Default'
@@ -37,7 +38,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/site-builder/element
 
             # time to save model to server
             onClose: ->
-                return if not @model.hasChanged()
+                # return if not @model.hasChanged()
 
                 @model.save null,
                     wait: true

@@ -20,8 +20,6 @@
 
     /* ============================================================= */
 
-    require_once 'Communication_module/user_shortcodes.php'; //file containing all shortcodes to fetch user information
-    require_once 'Communication_module/site_shortcodes.php'; //file containing all shortcodes to fetch site information
     //require_once 'User/user_management.php';//file containing all shortcodes to fetch site information
     //add theme support
     add_theme_support('post-thumbnails');
@@ -33,6 +31,8 @@
     require_once 'modules/user/ajax.php';
     require_once 'modules/site/ajax.php';
     require_once 'modules/api/main.php';
+    require_once 'modules/payments/functions.php';
+    require_once 'modules/communications/functions.php';
 
 
 /**
@@ -302,6 +302,7 @@ function is_impruw_com(){
         wp_enqueue_script("flatui-checkbox", get_template_directory_uri() . '/js/flatui-checkbox.js', array('jquery'), JSVERSION, TRUE);
         wp_enqueue_script("bootstrap-select", get_template_directory_uri() . '/js/bootstrap-select.js', array('jquery'), JSVERSION, TRUE);
         wp_enqueue_script("flatui-radio", get_template_directory_uri() . '/js/flatui-radio.js', array('jquery'), JSVERSION, TRUE);
+        wp_enqueue_script("inputmask", get_template_directory_uri() . '/js/inputmask.min.js', array('jquery'), JSVERSION, TRUE);
 
         wp_enqueue_script("user-login", get_template_directory_uri() . '/js/user-login.js', array('jquery'), JSVERSION, TRUE);
 
@@ -445,17 +446,23 @@ function is_impruw_com(){
             }
 
             if ($error == FALSE) {
+
+                $email = $form_data['email'];
+                $name  = $form_data['your_name'];
                 $email_subject = "[" . get_bloginfo('name') . "] " . $form_data['subject'];
-                $email_message = $form_data['message'] . "\n\nIP: " . impruwcontact_get_the_ip();
-                $headers       = "From: " . $form_data['name'] . " <" . $form_data['email'] . ">\n";
+                //$email_message = $form_data['message'] . "\n\nIP: " . impruwcontact_get_the_ip();
+                $email_message = $form_data['message'];
+
+                $headers       = "From: " . $form_data['your_name'] . " <" . $form_data['email'] . ">\n";
                 $headers .= "Content-Type: text/plain; charset=UTF-8\n";
                 $headers .= "Content-Transfer-Encoding: 8bit\n";
-                wp_mail($email, $email_subject, $email_message, $headers);
+                //wp_mail($email, $email_subject, $email_message, $headers);
+                contact_us_email($name,$email,$email_subject,$email_message);
                 $result = $success;
                 $sent   = TRUE;
             }
             // but if $error is still FALSE, put together the POSTed variables and send the e-mail!
-            if ($error == FALSE) {
+           /* if ($error == FALSE) {
                 // get the website's name and puts it in front of the subject
                 $email_subject = "[" . get_bloginfo('name') . "] " . $form_data['subject'];
                 // get the message from the form and add the IP address of the user below it
@@ -470,7 +477,7 @@ function is_impruw_com(){
                 $result = $success;
                 // ...and switch the $sent variable to TRUE
                 $sent = TRUE;
-            }
+            }*/
         }
 
         // if there's no $result text (meaning there's no error or success, meaning the user just opened the page and did nothing) there's no need to show the $info variable
@@ -717,9 +724,3 @@ function is_impruw_com(){
       }
 
     }
-
-/**** Blog Excerpt More ****/
-function new_excerpt_more( $more ) {
-  return '&hellip;';
-}
-add_filter('excerpt_more', 'new_excerpt_more');

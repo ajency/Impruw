@@ -12,7 +12,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-    <link rel="shortcut icon" href="<?php echo get_parent_template_directory_uri(); ?>/images/favicon.png" type="image/x-icon" />
+    <!-- <link rel="shortcut icon" href="<?php echo get_parent_template_directory_uri(); ?>/images/favicon.png" type="image/x-icon" /> -->
     <!--[if lt IE 9]>
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
@@ -51,6 +51,15 @@
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
     var DOMAIN_NAME = '<?php echo get_site_domain_name(); ?>';
+    var IS_EMAIL_ALLOWED = <?php echo is_feature_allowed("email_account"); ?>;
+    var IS_SITEADDON_ALLOWED = <?php echo is_feature_allowed("site_add_ons"); ?>;
+    var PAYMENT_PLAN_ID =  '<?php echo get_site_plan() ?>';
+    var PLAN_FEATURE_COUNT = { "email_account": [ {"current_count": <?php echo site_feature_current_count('email_account'); ?>,"allowed_count": <?php echo site_feature_allowed_count('email_account'); ?>}], "site_add_ons": [ { "current_count": <?php echo site_feature_current_count('site_add_ons'); ?>, "allowed_count": <?php echo site_feature_allowed_count('site_add_ons'); ?> }] };
+    var SELECTED_SITE_ADDONS = <?php echo json_encode(site_feature_current_count_array('site_add_ons')); ?>;
+    var COUNTRY_BASED_CURRENCY = '<?php echo get_country_based_site_currency();?>';
+    var CURRENCY_SYMBOLS = { "GBP": "£", "USD": "$" , "NOK": "NOK"};
+
+    var BT_TIMEZONE = '<?php echo BT_TIMEZONE;?>';
     var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var USERDATA = <?php $impruwUserModel = new ImpruwUser(get_current_user_id());
                         echo json_encode($impruwUserModel->get_user_basic_info());

@@ -83,7 +83,10 @@ class SmartTableElement extends Element {
         }
         $html .= '</div>';
 
-        return $html;
+        $preview = (isset( $_GET[ 'preview' ] )) ? $_GET[ 'preview' ] : false ; 
+        $final_markup = (display_element_markup($this->element)) ? $html : get_markup_for_addon($this->element,$preview) ; 
+
+        return $final_markup;
     }
 
 }

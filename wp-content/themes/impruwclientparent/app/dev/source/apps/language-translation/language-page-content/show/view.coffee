@@ -13,9 +13,13 @@ define ['app'
                     regions:
                         originalPageContent: ".original-page-content",
                         translatedPageContent: ".translated-page-content"
+                        originalTabAccordion: ".original-tab-accordion",
+                        translatedTabAccordion: ".translated-tab-accordion"
                         originalTableContent: ".original-table-content"
                         translatedTableContent: ".translated-table-content"
                         originalSmartTable: ".original-smart-table"
                         translatedSmartTable: ".translated-smart-table"
+                        originalListTable: ".original-list-table"
+                        translatedListTable: ".translated-list-table"
                         originalSliderContent: ".original-slider-content"
                         translatedSliderContent: ".translated-slider-content"

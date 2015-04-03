@@ -2,6 +2,7 @@
 define ['apps/leftnav/app'
 		'apps/statistics/app'
 		'apps/dashboard/home/dashboardshowapp'
+		'apps/dashboard/home/current-site-plan-display/controller'
 		'apps/rooms/app'
 		'apps/rooms/tariffs/tariffsapp'
 		'apps/media-manager/app'

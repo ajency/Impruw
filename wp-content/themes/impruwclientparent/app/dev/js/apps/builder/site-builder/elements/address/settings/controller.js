@@ -19,6 +19,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
         this.region = App.settingsRegion;
         model = App.request("get:element:settings:options", 'Address');
         view = this._getSettingView(model, this.model);
+        this.listenTo(view, "element:alignment:changed", (function(_this) {
+          return function(alignment) {
+            return _this.model.set("align", alignment);
+          };
+        })(this));
         this.listenTo(view, "element:style:changed", (function(_this) {
           return function(style) {
             return _this.model.set("style", style);
@@ -27,6 +32,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
         this.listenTo(view, "element:draggable:changed", (function(_this) {
           return function(draggable) {
             return _this.model.set("draggable", draggable);
+          };
+        })(this));
+        this.listenTo(view, "element:phone:link:changed", (function(_this) {
+          return function(phone_link) {
+            return _this.model.set('phone_link', phone_link);
           };
         })(this));
         this.listenTo(view, "element:spacing:changed", (function(_this) {
@@ -38,9 +48,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
       };
 
       Controller.prototype.onClose = function() {
-        if (!this.model.hasChanged()) {
-          return;
-        }
         return this.model.save(null, {
           wait: true
         });

@@ -17,16 +17,19 @@ define ['app'
 
 				@listenTo @layout, 'show',=>
 					App.execute "show:unused:elements",
-		                region : @layout.unusedElementsRegion
-		                revisionId : revisionId
-		                pageId : pageId
+						region : @layout.unusedElementsRegion
+						revisionId : revisionId
+						pageId : pageId
 
-		            App.execute "show:revision:history",
-		            	region : @layout.revisionHistoryRegion
-		            	pageId : pageId
+					App.execute "show:revision:history",
+						region : @layout.revisionHistoryRegion
+						pageId : pageId
 
-		        @listenTo @layout ,"show:theme:color:clicked",->
-                    App.execute "show:theme:color:set", region : App.dialogRegion
+				# @listenTo @layout ,"show:theme:color:clicked",->
+				# 	App.execute "show:theme:color:set", region : App.dialogRegion
+
+				@listenTo @layout ,"show:theme:font:clicked",->
+					App.execute "show:theme:font:set", region : App.dialogRegion
 
 				@show @layout
 

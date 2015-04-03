@@ -32,6 +32,13 @@ define [ 'app'
                promise.always @onPagePublished
 
             'change select#builder-page-sel' : ( evt )->
+               @$el.find('.page-edit-inputs').attr 'disabled', true
+               if $(evt.target).find('option:selected').attr('data-slug') is "--NEW--"
+                  @trigger "add:new:page:clicked"
+                  $(evt.target).selectpicker 'val', @currentPageId
+                  return
+               if @currentPageId is parseInt $( evt.target ).val()
+                  return
                # suspend local autosaving
                App.autoSaveAPI.local.suspend()
                @releasePage()               
@@ -51,21 +58,28 @@ define [ 'app'
             'click .add-new-page' : ->
                @trigger "add:new:page:clicked"
 
+            'click .color-switch' :-> 
+               @trigger "show:theme:color:clicked" 
+
             'click .delete-page': (e)->
                e.preventDefault()
                if ISFRONTPAGE
-                  bootbox.alert _.polyglot.t 'Sorry you cannot delete your home page. 
-                     You can change the layout of this page to suit your needs.'
+                  bootbox.alert "<h4 class='delete-message'>" + _.polyglot.t('Sorry you cannot delete your home page. 
+                     You can change the layout of this page to suit your needs.') + "</h4>"
                else
-                  bootbox.confirm _.polyglot.t('Deleting a page might lead to broken links if the page is 
+                  bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t('Deleting a page might lead to broken links if the page is 
                      linked on the website. Once deleted, you will not be able to recover the page. Are 
-                     you sure you want to continue to delete the page?'), (result)=>
+                     you sure you want to continue to delete the page?') + "</h4>", (result)=>
                      if result
                         @trigger 'delete:page:clicked'
+
+            'click .page-details-edit' : ->
+               @$el.find('.page-edit-inputs').attr 'disabled', false
 
             'click .btn-update-pg-name' : ->
                currentPageId = @getCurrentPageId()
                updatedPageName = @$el.find( '#page_name' ).val()
+               @$el.find('.page-edit-inputs').attr 'disabled', true
                data =
                   'post_title' : updatedPageName
                   'ID' : currentPageId
@@ -74,6 +88,7 @@ define [ 'app'
             'click .btn-update-pg-slug' : ->
                currentPageId = @getCurrentPageId()
                updatedPageSlug = @$el.find( '.page-slug-edit' ).val()
+               @$el.find('.page-edit-inputs').attr 'disabled', true
                data =
                   'post_name' : updatedPageSlug
                   'ID' : currentPageId
@@ -141,7 +156,7 @@ define [ 'app'
                   page_name = model.get 'post_title'
                   select_html = "<option value='"+modelId+"' data-originalid='"+originalPageId+"'>#{page_name}</option>"
                  
-                  @$el.find( 'select#builder-page-sel' ).append( select_html )
+                  @$el.find( 'select#builder-page-sel option.add-new' ).before( select_html )
                   @$el.find( 'select#builder-page-sel' ).selectpicker 'refresh'
 
             @enableSelectPicker()
@@ -174,7 +189,7 @@ define [ 'app'
             parseInt pageId
 
          onPagePublished : =>
-            @$el.find( '.publish-page ' ).text 'Publish'
+            @$el.find( '.publish-page ' ).html 'Publish'
             @$el.find( '.publish-page ' ).removeAttr 'disabled'
             
             
@@ -400,7 +415,7 @@ define [ 'app'
 
          events : 
             'click .edit-home-btn' :->
-               bootbox.confirm 'Do you wish to switch to homepage?',(res)=>
+               bootbox.confirm "<h4 class='delete-message'>" + _.polyglot.t('Do you wish to switch to homepage?')+"</h4>",(res)=>
                   if res 
                      @onShowHomePage()
 

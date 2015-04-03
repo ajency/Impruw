@@ -7,8 +7,9 @@ define ['app'],(App)->
 
 			template : '<div class="handle-right"><span class="bicon icon-uniF164"></span></div>
 						<a href="#choose-theme" class="btn btn-sm btn-block choose-theme"><span class="bicon icon-uniF185"></span>{{#polyglot}}Switch Theme{{/polyglot}}</a>
-						<div id="aj-imp-color-sel"> 
-						  <a class="btn btn-xs btn-block">{{#polyglot}}Change Theme Colors{{/polyglot}}</a>
+						
+						<div id="aj-imp-font-sel"> 
+						  <a class="btn btn-xs btn-block">{{#polyglot}}Change Theme Font{{/polyglot}}</a>
 						</div> 
 						<div id="revision-history" class="revision-history">
 							
@@ -20,7 +21,9 @@ define ['app'],(App)->
 				revisionHistoryRegion : '#revision-history'
 
 			events : 
-                'click #aj-imp-color-sel' :-> @trigger "show:theme:color:clicked" 
+                # 'click #aj-imp-color-sel' :-> @trigger "show:theme:color:clicked" 
+
+                'click #aj-imp-font-sel' :-> @trigger 'show:theme:font:clicked'
 
                
 
@@ -30,6 +33,6 @@ define ['app'],(App)->
 					tabLocation: 'right'                     
 					speed: 300                              
 					action: 'click'                          
-					topPos: '30px'                          
+					topPos: '80px'                          
 					fixedPosition: true
 

@@ -1,6 +1,7 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 define(['app'], function(App, elementTpl) {
   return App.module('SiteBuilderApp.Element.Views', function(Views, App, Backbone, Marionette, $, _) {
@@ -77,22 +78,31 @@ define(['app'], function(App, elementTpl) {
             return _this.$el.removeClass('hover-class');
           };
         })(this));
+        this._isAddon();
         return this._noOptions();
       };
 
       ElementView.prototype._noOptions = function() {
-        var nosettings;
+        var nodelete, nomove, nosettings;
         if (ISTHEMEEDITOR === 'no') {
           nosettings = ['Logo', 'Text', 'Title', 'Gallery', 'ContactForm', 'RoomFacilities', 'RoomTitle', 'RoomDescription', 'RoomTariff', 'RoomBooking', 'Map'];
           if (nosettings.indexOf(this.model.get('element')) !== -1) {
-            return this.$el.children('.element-controls').children('.aj-imp-settings-btn').remove();
+            this.$el.children('.element-controls').children('.aj-imp-settings-btn').remove();
+          }
+          nodelete = ['Menu', 'LanguageSwitcher'];
+          if (nodelete.indexOf(this.model.get('element')) !== -1) {
+            this.$el.children('.element-controls').children('.aj-imp-delete-btn').remove();
+          }
+          nomove = ['Menu', 'LanguageSwitcher'];
+          if (nomove.indexOf(this.model.get('element')) !== -1) {
+            return this.$el.children('.element-controls').children('.aj-imp-drag-handle').addClass('non-visible');
           }
         }
       };
 
       ElementView.prototype.onBeforeRenderElement = function() {
         var field, _i, _len, _ref;
-        _ref = ['meta_id', 'style', 'element'];
+        _ref = ['meta_id', 'style', 'element', 'justified'];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           field = _ref[_i];
           this.setHiddenField(field, this.model.get(field));
@@ -100,15 +110,37 @@ define(['app'], function(App, elementTpl) {
         return this.setDraggable(this.model.get('draggable'));
       };
 
+      ElementView.prototype._isAddon = function() {
+        var addons, _ref;
+        addons = _.pluck(_.where(ELEMENTS, {
+          addOn: true
+        }), 'element');
+        if (_ref = this.model.get('element'), __indexOf.call(addons, _ref) >= 0) {
+          this.$el.children('.element-controls').append('<div class="aj-imp-addon-btn"><span title="' + _.polyglot.t('Paid Add-on') + '" class="bicon icon-uniF155"></span></div>');
+          return this.$el.children('.element-controls').children('.aj-imp-addon-btn').attr({
+            'data-toggle': 'popover',
+            'data-trigger': "focus",
+            'role': "button",
+            tabindex: "0",
+            'data-placement': 'top',
+            'data-template': '<div class="popover elem-box" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',
+            'data-content': _.polyglot.t('This is a paid addon. To check allowed addon go ') + '<a href="' + SITEURL + '/dashboard/#/billing/account-summary" target="BLANK">' + _.polyglot.t('here') + '</a>'
+          }).popover({
+            html: true
+          });
+        }
+      };
+
       ElementView.prototype.addHiddenFields = function() {
-        var field, _i, _len, _ref, _results;
+        var field, _i, _len, _ref;
         _ref = ['draggable', 'style'];
-        _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           field = _ref[_i];
-          _results.push(this.$el.children('form').append("<input type='hidden' name='" + field + "' value=''/>"));
+          this.$el.children('form').append("<input type='hidden' name='" + field + "' value=''/>");
         }
-        return _results;
+        if (this.model.get('element') === 'Tabs') {
+          return this.$el.children('form').append("<input type='hidden' name='justified' value=''/>");
+        }
       };
 
       ElementView.prototype.setDraggable = function(draggable) {

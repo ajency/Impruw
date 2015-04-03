@@ -9,6 +9,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
 
       function Controller() {
         this._loadPageContent = __bind(this._loadPageContent, this);
+        this._loadMenuContent = __bind(this._loadMenuContent, this);
         this._loadFooterContent = __bind(this._loadFooterContent, this);
         this._loadHeaderContent = __bind(this._loadHeaderContent, this);
         this._loadSiteContent = __bind(this._loadSiteContent, this);
@@ -35,7 +36,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
         this.listenTo(this.languageLayout.languagePageNav, "load:other:page:content", this._loadPageContent);
         this.listenTo(this.languageLayout.languagePageNav, "load:site:content", this._loadSiteContent);
         this.listenTo(this.languageLayout.languagePageNav, "load:header:content", this._loadHeaderContent);
-        return this.listenTo(this.languageLayout.languagePageNav, "load:footer:content", this._loadFooterContent);
+        this.listenTo(this.languageLayout.languagePageNav, "load:footer:content", this._loadFooterContent);
+        return this.listenTo(this.languageLayout.languagePageNav, "load:menu:content", this._loadMenuContent);
       };
 
       Controller.prototype._getLanguageLayout = function() {
@@ -72,6 +74,13 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
 
       Controller.prototype._loadFooterContent = function(editingLanguage) {
         return App.execute("show:footer:content:app", {
+          region: this.languageLayout.languagePageRooms,
+          editLang: editingLanguage
+        });
+      };
+
+      Controller.prototype._loadMenuContent = function(editingLanguage) {
+        return App.execute("show:menu:content:app", {
           region: this.languageLayout.languagePageRooms,
           editLang: editingLanguage
         });

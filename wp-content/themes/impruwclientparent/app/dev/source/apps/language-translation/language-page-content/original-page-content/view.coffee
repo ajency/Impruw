@@ -22,6 +22,13 @@ define ['app'
 
             mixinTemplateHelpers: (data)->
                 data = super data
+                data.TabParent = ->
+                    tabParent = ''
+                    if (data.parentElement is "Accordion") or (data.parentElement is "Tabs") 
+                        tabParent += data.parentElement+"->"+data.tabName+"-> "
+                    return tabParent
+                    
+
                 data.TypeOfElementClass = ->
                     if (data.element is "Title") or (data.element is "Link") 
                         return "title"

@@ -27,5 +27,6 @@ get_header(); ?>
     </div><!-- .site-page -->
 
 <?php 
+	
 	get_footer();
 }

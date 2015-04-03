@@ -14,7 +14,7 @@ if ( !defined( 'ABSPATH' ) )
  *
  * @return type
  */
-function create_new_site( $site_name, $user_id ) {
+function create_new_site( $site_name, $user_id, $user_country ) {
 
     // get the path and domain
     $path = get_site_path( $site_name );
@@ -33,6 +33,9 @@ function create_new_site( $site_name, $user_id ) {
 
     // set the tracking status of the site created to false
     set_statistics_status( $site_id );
+
+    // Set site country
+    set_site_country($site_id,$user_country);
 
     // set default currency for the site
     set_currency( $site_id );
@@ -406,6 +409,10 @@ function wpml_setup_step_three(){
     $iclsettings['setup_wizard_step'] = 3;
     $iclsettings['setup_complete'] = 1;
 
+    // make room and facility translatable
+    $iclsettings['custom_posts_sync_option']['impruw_room'] = 1;
+    $iclsettings['taxonomies_sync_option']['impruw_room_facility'] = 1;
+
     $sitepress->save_settings($iclsettings);
 }
 
@@ -466,6 +473,12 @@ function set_site_status( $site_id, $status ) {
 
     update_option( 'site_status', $status );
 
+    restore_current_blog();
+}
+
+function set_site_country($site_id, $country){
+    switch_to_blog( $site_id );
+    update_option( 'site-country', $country );
     restore_current_blog();
 }
 

@@ -92,8 +92,8 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             section = _this.view.model.get(key);
             container = _this._getContainer(key);
             return _.each(section, function(element, i) {
-              var eleController;
-              if (element.element === 'Row') {
+              var eleController, _ref;
+              if ((_ref = element.element) === 'Row' || _ref === 'Tabs' || _ref === 'Accordion') {
                 return _this.addNestedElements(container, element);
               } else {
                 eleController = App.request("add:new:element", container, element.element, element);
@@ -113,10 +113,19 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             if (column.elements.length === 0) {
               return;
             }
-            container = eleController.layout.elementRegion.currentView.$el.children().eq(index);
+            if (element.element === 'Tabs') {
+              container = eleController.layout.elementRegion.currentView.$el.children('.tab-content').children().eq(index);
+            } else if (element.element === 'Row') {
+              container = eleController.layout.elementRegion.currentView.$el.children().eq(index);
+            } else if (element.element === 'Accordion') {
+              container = eleController.layout.elementRegion.currentView.$el.children('.panel-group').children().eq(index);
+            }
             return _.each(column.elements, function(ele, i) {
-              if (element.element === 'Row') {
+              var _ref;
+              if ((_ref = element.element) === 'Row' || _ref === 'Tabs') {
                 return _this.addNestedElements($(container), ele);
+              } else if (element.element === 'Accordion') {
+                return _this.addNestedElements($(container).children('.panel-collapse').children('.column'), ele);
               } else {
                 eleController = App.request("add:new:element", container, ele.element, ele);
                 return _this.deferreds.push(eleController._promise);
@@ -161,13 +170,17 @@ define(['app', 'controllers/base-controller', 'bootbox', 'apps/builder/site-buil
             region: App.dialogRegion
           });
         });
+        this.listenTo(this.layout, "show:theme:color:clicked", function() {
+          return App.execute("show:theme:color:set", {
+            region: App.dialogRegion
+          });
+        });
         this.listenTo(this.layout, 'delete:page:clicked', (function(_this) {
           return function() {
             var page;
             page = _this.pages.get($.cookie('current-page-id'));
             return page.destroy({
               success: function(model, res, opt) {
-                _this.removePageFromMenu(model.get('original_id'));
                 _this.removePageFromLinkSettings(model.get('original_id'));
                 return App.builderRegion.currentView.triggerMethod('show:home:page');
               }

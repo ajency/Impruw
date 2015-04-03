@@ -43,6 +43,13 @@ function impruw_create_page_backup( $revision_id , $backup_type = 'page', $site_
 
 	update_revision_meta( $revision_id, 'color-scheme-data', maybe_serialize($color_scheme_data));
 
+	$font_data = array(
+		'theme_font_main' => get_option('theme_font_main'),
+		'theme_font_sec' => get_option('theme_font_sec'));
+
+	update_revision_meta( $revision_id, 'font-data', maybe_serialize($font_data));
+
+
 	$theme = wp_get_theme();
     $theme_name = $theme->name;
     update_revision_meta( $revision_id, 'page-theme', $theme_name );
@@ -136,6 +143,14 @@ function impruw_restore_page($revision_id, $backup = true){
 		update_option( 'current_color_set', $color_scheme_data['current_color_set'] );
 		update_option( 'custom_theme_color_set', $color_scheme_data['custom_theme_color_set'] );
 		update_option( 'theme-style-filename', $color_scheme_data['theme-style-filename'] );
+	}
+
+	// restore font data
+	$font_data =  get_post_meta( $revision_id, 'font-data', true ) ;
+	if ( !empty($font_data) ){
+		$font_data = maybe_unserialize( $font_data );
+		update_option( 'theme_font_main', $font_data['theme_font_main'] );
+		update_option( 'theme_font_sec', $font_data['theme_font_sec'] );
 	}
 
 
@@ -347,7 +362,10 @@ function impruw_restore_elements($page_elements){
 function get_theme_post_id_from_name($theme_name){
 	global $wpdb;
 	switch_to_blog( 1 );
+	if ($theme_name == 'Neon Theme')
+		$theme_name = 'Neon';
 	// print_r($theme_name);
+
 
     $query = $wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type='theme' AND 
         post_title=%s", $theme_name);

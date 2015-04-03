@@ -54,28 +54,63 @@ function new_user_registration() {
         wp_send_json_error( 'User not created' );
 
     // user created now lets create the site
-    $site_id = create_new_site( $form_data [ 'site_name' ], $user_id );
+    $site_id = create_new_site( $form_data [ 'site_name' ], $user_id,$form_data [ 'site_country'] );
 
     if ( is_wp_error( $site_id ) )
         wp_send_json_error( 'Failed to create site' );
 
     $user_selected_language = get_user_meta($user_id,'user_lang',true);
 
+    if (isset($form_data [ 'site_package']) && ($form_data [ 'site_package']=="assisted_setup") ) {
+        $redirect_url =  get_site_url(1,'assisted-setup?site='.$site_id.'&user='.$user_id.'&language='.$user_selected_language); 
+    }
+    else{
+        //Based on user selected language, the url would be sign-in or logg-inn
+        $sign_in_path = 'sign-in';
+        if ($user_selected_language === 'nb') {
+            $sign_in_path = 'logg-inn';
+        }
+        else{
+            $sign_in_path = 'sign-in';
+        }
+
+        $redirect_url = get_site_url($site_id, $sign_in_path); 
+     }
+     
+    wp_send_json_success($redirect_url);
+}
+
+add_action( 'wp_ajax_nopriv_new_user_registration', 'new_user_registration' );
+
+function new_user_assisted_setup(){
+    // check if its a POST request else return
+    if ( 'POST' !== $_SERVER [ 'REQUEST_METHOD' ] )
+        wp_send_json_error( 'Invalid request' );
+
+    // verify the nonce else return error code
+    if ( !check_ajax_referer( 'new_user_assisted_setup', '_nonce' ) )
+        wp_send_json_error( 'Wrong request' );
+
+    $form_data = $_POST;
+
+    // on successful sending of email to admin redirect to the correct path
+    $assisted_setup_details = array('assisted_setup_contact_mode' =>$form_data['assisted_setup_contact_mode'], 'assisted_setup_contact_phone' =>$form_data['phone_number']);
+
+    assisted_setup_contact_email($form_data['user_id'],$form_data['site_id'],$assisted_setup_details);
+
     //Based on user selected language, the url would be sign-in or logg-inn
     $sign_in_path = 'sign-in';
-    if ($user_selected_language === 'nb') {
+    if ($form_data['language']  === 'nb') {
         $sign_in_path = 'logg-inn';
     }
     else{
         $sign_in_path = 'sign-in';
     }
 
-    $redirect_url = get_site_url($site_id, $sign_in_path);
-
+    $redirect_url = get_site_url($form_data['site_id'], $sign_in_path); 
     wp_send_json_success($redirect_url);
 }
-
-add_action( 'wp_ajax_nopriv_new_user_registration', 'new_user_registration' );
+add_action( 'wp_ajax_nopriv_new_user_assisted_setup', 'new_user_assisted_setup' );
 
 // Check if the email id is available
 function validate_user_email( $userdata ) {
@@ -338,5 +373,25 @@ add_action( 'wp_ajax_reset_password_user_request', 'ajax_reset_password_user_req
 add_action( 'wp_ajax_nopriv_reset_password_user_request', 'ajax_reset_password_user_request' );
 
 
+
+    function sending_contact_mail() {
+
+        
+        $site     = get_site_url();
+        $subject  = __('New Message!', 'hbthemes');
+        $email    = $_POST['contact_email'];
+        $email_s  = filter_var($email, FILTER_SANITIZE_EMAIL);
+        $comments = stripslashes($_POST['contact_comments']);
+        $name     = stripslashes($_POST['contact_name']);
+        $to       = hb_options('hb_contact_settings_email');
+        $message  = $comments;
+        //$headers  = 'From: ' . $name . ' <' . $email_s . '>' . "\r\n" . 'Reply-To: ' . $email_s;
+        //mail($to, $subject, $message, $headers);
+        contact_us_email($name,$email,$subject,$message);
+        exit();
+    }
+
+    add_action('wp_ajax_mail_action', 'sending_contact_mail');
+    add_action('wp_ajax_nopriv_mail_action', 'sending_contact_mail');
 
 

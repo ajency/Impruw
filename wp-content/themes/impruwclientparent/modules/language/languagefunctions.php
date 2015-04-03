@@ -75,7 +75,7 @@ function impruw_get_languages($lang=false){
                 code, english_name, major, active, default_locale, lt.name AS display_name
             FROM {$wpdb->prefix}icl_languages l
                 JOIN {$wpdb->prefix}icl_languages_translations lt ON l.code=lt.language_code
-            WHERE lt.display_language_code = '{$lang}' AND l.code IN ('en','de','fr','nb' , 'es' )
+            WHERE lt.display_language_code = '{$lang}' AND l.code IN ('en','de','fr','nb' , 'es', 'ru' )
             ORDER BY major DESC, english_name ASC", ARRAY_A);
     $languages = array();
     foreach((array)$res as $r){
@@ -236,11 +236,12 @@ function get_page_translation_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_translation_elements( $element,$elements );
         } else {
-            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
+            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link'))){
                 $elements[] = $element;
+            }
         }
     }
 
@@ -254,7 +255,7 @@ function get_page_table_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_table_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Table')))
@@ -272,7 +273,7 @@ function get_page_smarttable_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_smarttable_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('SmartTable')))
@@ -282,6 +283,82 @@ function get_page_smarttable_elements($page_id){
 
    return $elements;    
 }
+
+//Function to get all page smart table elements
+function get_page_listtable_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+
+    $elements = array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+            get_row_listtable_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('List')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;    
+}
+
+//Function to get all page tabs and accordions 
+function get_page_tabs_accordion_elements($page_id){
+    $data = get_page_json_for_site($page_id, true);
+    $tab_elements = array();
+    
+    foreach ( $data['page'] as $element ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+            get_row_tabs_accordion_elements( $element,$elements,$tab_elements);
+        } else {
+            continue;
+        
+        }
+    }
+
+    $tabs = array();
+    $accordions = array();
+    $tabs_and_accordions = array();
+
+    foreach ($tab_elements as $tab_element) {
+        switch ($tab_element['tabType']) {
+            case 'Tabs':
+                $tabs[] =  array('element_id' => $tab_element['element_id'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']); 
+                break;
+
+            case 'Accordion':
+                $accordions[] = array('element_id' => $tab_element['element_id'],'position'=> $tab_element['position'], 'tabName'=>$tab_element['tabName']); 
+                break;
+        }
+    }
+
+
+
+    $tab_accordion_elements = array('0'=>array('ID'=> $page_id.'0', 'tabType'=>'Tabs','tabElements'=>$tabs),'1'=>array('ID'=>$page_id.'1','tabType'=>'Accordions','tabElements'=>$accordions));
+   return $tab_accordion_elements;    
+}
+
+function get_row_tabs_accordion_elements( $row_element, &$elements, &$tab_elements){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+
+        if (isset($column['tabName'])){
+            $tab_elements[] = array('element_id'=>$row_element[ 'meta_id' ], 'position'=>$column['position'], 'tabType' => $row_element[ 'element' ], 'tabName'=> $column['tabName']);
+        }
+        
+        foreach ( $column[ 'elements' ] as $element ) {
+
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                get_row_tabs_accordion_elements( $element,$elements,$tab_elements);
+            } 
+            else {
+                continue;
+            }
+        }
+
+    }
+}
+
 
 function get_page_slider_collection($page_id){
     $sliders =  get_page_slider_elements($page_id);
@@ -301,7 +378,7 @@ function get_page_slider_elements($page_id){
     $elements = array();
 
     foreach ( $data['page'] as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_slider_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Slider')))
@@ -320,7 +397,7 @@ function get_header_translation_elements(){
     $elements = array();
 
     foreach ( $data as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_translation_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
@@ -339,7 +416,7 @@ function get_footer_translation_elements(){
     $elements = array();
 
     foreach ( $data as $element ) {
-        if ( $element[ 'element' ] === 'Row' ) {
+        if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
             get_row_translation_elements( $element,$elements );
         } else {
             if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
@@ -350,29 +427,109 @@ function get_footer_translation_elements(){
    return $elements;
 }
 
+//Function to get all page footer elements of a site
+function get_site_menu_elements($language){
+
+    $menus = get_terms('nav_menu');
+
+    foreach ($menus as $menu) {
+        $menu_id = $menu->term_id;
+        $menu_items = wp_get_nav_menu_items( $menu_id );
+
+        $custom_menu_items = array();
+
+        foreach ($menu_items as $menu_item) {
+            if ($menu_item->type==='custom') {
+                $menu_item_translation = get_post_meta( $menu_item->ID, '_menu_item_custom_translation', true );
+
+                $menu_item_translation = maybe_unserialize($menu_item_translation);
+
+                if(isset($menu_item_translation[$language])){
+                    $menu_item->title = $menu_item_translation[$language];   
+                }
+
+                $menu_item->menu_item_translation = $menu_item_translation;
+                $custom_menu_items[]= $menu_item;
+            }
+        }
+
+        $menu->custom_menu_items = $custom_menu_items;
+    }
+    $menus = json_decode(json_encode($menus), true);
+
+    return $menus;
+}
+
+function translate_custom_menu_item($menu_item_id, $language, $menuitem_translated_label){
+    $default_language = wpml_get_default_language();
+
+    // Get original array of menu item label translations from post meta
+    $original_menu_label = get_post_meta( $menu_item_id, '_menu_item_custom_translation', true );
+    $original_menu_label = maybe_unserialize($original_menu_label);
+
+    // If meta of menu item label translations does not exist yet, create an array initialising with default language and other enabled languages
+    if($original_menu_label == ""){
+        $menu_item = get_post($menu_item_id);
+        $menu_item_default_title = $menu_item->post_title; 
+        
+        $enabled_languages = get_enabled_languages();
+        //For each enabled language, Create translated version of the slide
+        foreach ($enabled_languages as $enabled_language) {
+            $original_menu_label[$enabled_language] = $menu_item_default_title;
+        }
+
+    }
+
+    //Assign original array of menu item translations to translated array
+    $translated_menu_label =  $original_menu_label;
+
+    // Update the menu item label for the language you want to save the label translation
+    $translated_menu_label[$language] = $menuitem_translated_label;
+
+    // Serialize the array and update the post meta with this new translated menu label array
+    $translated_meta_value = $translated_menu_label;
+    $menu_update_status = update_post_meta($menu_item_id, '_menu_item_custom_translation', $translated_meta_value);
+
+    return $menu_update_status;
+}
+
 function get_row_translation_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_translation_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link')))
+                if(in_array($element[ 'element'] , array('Title','Text','ImageWithText', 'Link'))){
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }
+
                     $elements[] = $element;
+                }
             }
         }
     }
 }
 
+
 function get_row_table_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_table_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('Table')))
+                if(in_array($element[ 'element'] , array('Table'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }
+
                     $elements[] = $element;
+                }
             }
         }
     }
@@ -382,11 +539,37 @@ function get_row_smarttable_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_smarttable_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('SmartTable')))
+                if(in_array($element[ 'element'] , array('SmartTable'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }                    
                     $elements[] = $element;
+                }
+            }
+        }
+    }
+}
+
+function get_row_listtable_elements( $row_element, &$elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                get_row_listtable_elements( $element,$elements );
+            } else {
+                if(in_array($element[ 'element'] , array('List'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }                    
+                    $elements[] = $element;
+                }
             }
         }
     }
@@ -396,11 +579,17 @@ function get_row_slider_elements( $row_element, &$elements ){
 
     foreach ( $row_element[ 'elements' ] as $column ) {
         foreach ( $column[ 'elements' ] as $element ) {
-            if ( $element[ 'element' ] === 'Row' ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
                 get_row_slider_elements( $element,$elements );
             } else {
-                if(in_array($element[ 'element'] , array('Slider')))
+                if(in_array($element[ 'element'] , array('Slider'))){
+
+                    if (isset($column['tabName'])){
+                        $element['parentElement'] = $row_element[ 'element' ];
+                        $element['tabName'] = $column['tabName'];
+                    }                      
                     $elements[] = $element;
+                }
             }
         }
     }
@@ -419,21 +608,39 @@ function impruw_filter_menu_class( $objects, $args ) {
     $current_language = wpml_get_current_language();
      foreach ( $objects as $i => $object ) {
 
-        if($object->type === 'custom')
-            continue;
+        if($object->type === 'custom'){
+            
+            $translated_title = $object->title;
 
-        $item_page_id = $objects[$i]->object_id;
+            $menu_item_id = $object->ID;
 
-        $translated_item_page_id = icl_object_id($item_page_id, 'page', true, $current_language);
+            $original_menu_label = get_post_meta( $menu_item_id, '_menu_item_custom_translation', true );
 
-        $translated_item_page = get_post($translated_item_page_id);
+            $original_menu_label = maybe_unserialize($original_menu_label);
 
-        $translated_menu_item_page_title = $translated_item_page->post_title;
-        $translated_menu_item_page_url =  get_permalink( $translated_item_page_id);
+            if(isset($original_menu_label[$current_language])){
+                $translated_title = $original_menu_label[$current_language];   
+            }
 
-        $objects[$i]->object_id = $translated_item_page_id;
-        $objects[$i]->url = $translated_menu_item_page_url;
-        $objects[$i]->title = $translated_menu_item_page_title;
+            $objects[$i]->title = $translated_title;
+        }
+        else{
+
+            $item_page_id = $objects[$i]->object_id;
+
+            $translated_item_page_id = icl_object_id($item_page_id, 'page', true, $current_language);
+
+            $translated_item_page = get_post($translated_item_page_id);
+
+            $translated_menu_item_page_title = $translated_item_page->post_title;
+            $translated_menu_item_page_url =  get_permalink( $translated_item_page_id);
+
+            $objects[$i]->object_id = $translated_item_page_id;
+            $objects[$i]->url = $translated_menu_item_page_url;
+            $objects[$i]->title = $translated_menu_item_page_title;
+
+        }
+
 
     }
 
@@ -628,4 +835,72 @@ function get_language_slides_by_slideid($slider_id,$slide_id){
 
     return $lang_slides;
 
+}
+
+
+function update_tabTanslation_page_json($page_id,$tabElements){
+    
+    //Get autosave version of page json page json to translate
+    $autosave_page_json = get_page_json_for_site($page_id, true);
+    $only_autosave_page_json = $autosave_page_json['page'];
+
+    // Get actual version of page json page json 
+    $page_json = get_page_json_for_site($page_id);
+    $only_page_json = $page_json['page'];
+
+    foreach ($tabElements as $tabElement) {
+        foreach ( $only_page_json as &$element ) {
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                update_row_tabs_accordion_elements( $element,$tabElement);
+            } 
+            else {
+                continue;
+
+            }
+        }
+        foreach ( $only_autosave_page_json as &$autosave_element ) {
+            if ( in_array($autosave_element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                update_row_tabs_accordion_elements( $autosave_element,$tabElement);
+            } 
+            else {
+                continue;
+
+            }
+        }
+    }
+
+    // update actual page json
+    add_page_json( $page_id,  $only_page_json );
+
+    // Update autosave page json
+    update_page_autosave( $page_id, $only_autosave_page_json );
+
+    return $only_autosave_page_json;
+
+}
+
+function update_row_tabs_accordion_elements( &$row_element, $tabElement){
+
+    foreach ( $row_element[ 'elements' ] as &$column ) {
+        //Check if meta id matches
+        if (isset($row_element[ 'meta_id' ]) && $row_element[ 'meta_id' ]===$tabElement['element_id']) {
+           
+            if ($column['position']==$tabElement['position']) {
+                $column['tabName'] = $tabElement['tabName'];
+            }
+
+            
+        }
+
+        foreach ( $column[ 'elements' ] as &$element ) {
+
+            if ( in_array($element [ 'element' ] , array('Tabs','Row','Accordion')) ) {
+                update_row_tabs_accordion_elements( $element,$tabElement);
+            } 
+            else {
+                continue;
+            }
+        }
+
+    }
 }

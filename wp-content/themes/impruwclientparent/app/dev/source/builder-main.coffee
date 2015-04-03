@@ -42,7 +42,7 @@ require.config
       themepunch : 'plugins/themepunch.plugins.min'
       imgLiquid : 'plugins/bower_components/imgLiquid/js/imgLiquid'
       revslider : 'plugins/revolution.min'
-      googlemap : 'https://maps.googleapis.com/maps/api/js?sensor=false'
+      googlemap : 'https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false'
       pluginloader : 'plugins/builder-plugin-loader'
       appsloader : 'apps/builder-apps-loader'
       configloader : 'configs/builder-config-loader'
