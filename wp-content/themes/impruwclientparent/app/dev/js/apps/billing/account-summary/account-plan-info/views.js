@@ -43,7 +43,7 @@ define(['app', 'text!apps/billing/account-summary/templates/accountPlanInfo.html
       AccountPlanInfoView.prototype.deactivateSubscription = function(e) {
         var html;
         e.preventDefault();
-        if (PAYMENT_PLAN_ID === '1') {
+        if ((PAYMENT_PLAN_ID === '1') || (PAYMENT_PLAN_ID === '2')) {
           html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("You are already on a free plan") + '</div>';
           this.$el.find('#deactivate_plan_status').empty();
           this.$el.find('#deactivate_plan_status').append(html);

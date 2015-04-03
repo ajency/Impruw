@@ -33,7 +33,7 @@ define ['app'
             deactivateSubscription: (e)->
                 e.preventDefault()
 
-                if PAYMENT_PLAN_ID is '1'
+                if (PAYMENT_PLAN_ID is '1') or (PAYMENT_PLAN_ID is '2')
                     html = '<div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t("You are already on a free plan")+'</div>'
                     @$el.find( '#deactivate_plan_status' ).empty()
                     @$el.find( '#deactivate_plan_status' ).append html
