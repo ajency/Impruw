@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.BraintreecreditCard", function(BraintreecreditCard, App, Backbone, Marionette, $, _) {
-    var API, CreditCard, CreditCardCollection, creditCardCollection;
+    var API, CreditCard, CreditCardCollection;
     CreditCard = (function(_super) {
       __extends(CreditCard, _super);
 
@@ -34,9 +34,10 @@ define(["app", 'backbone'], function(App, Backbone) {
       return CreditCardCollection;
 
     })(Backbone.Collection);
-    creditCardCollection = new CreditCardCollection;
     API = {
       getCreditCards: function() {
+        var creditCardCollection;
+        creditCardCollection = new CreditCardCollection;
         creditCardCollection.fetch();
         return creditCardCollection;
       },

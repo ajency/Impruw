@@ -22,11 +22,12 @@ define [ "app", 'backbone' ], ( App, Backbone ) ->
         #     name : 'billingaddress'
         #     idAttribute : 'customerId'
 
-        creditCardCollection = new CreditCardCollection
+        # creditCardCollection = new CreditCardCollection
 
         API =
 
             getCreditCards :->
+                creditCardCollection = new CreditCardCollection
                 creditCardCollection.fetch()
                 creditCardCollection
 
