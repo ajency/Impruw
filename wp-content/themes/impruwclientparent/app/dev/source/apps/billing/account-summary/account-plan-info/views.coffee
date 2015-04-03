@@ -24,7 +24,7 @@ define ['app'
                 if data.plan_title is "Default plan"
                     data.plan_title = _.polyglot.t("Free Trial")
 
-                if data.id is "1" or "2"
+                if (data.id is "1") or (data.id is "2")
                     data.isFree = 1
                 else
                     data.isFree = 0

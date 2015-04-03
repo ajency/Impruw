@@ -32,7 +32,7 @@ define(['app', 'text!apps/billing/account-summary/templates/accountPlanInfo.html
         if (data.plan_title === "Default plan") {
           data.plan_title = _.polyglot.t("Free Trial");
         }
-        if (data.id === "1" || "2") {
+        if ((data.id === "1") || (data.id === "2")) {
           data.isFree = 1;
         } else {
           data.isFree = 0;
