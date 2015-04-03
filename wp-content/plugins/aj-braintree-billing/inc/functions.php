@@ -144,14 +144,12 @@ function aj_braintree_get_subscription($subscription_id ){
 		$braintree_subscription['id'] = $complete_subscription_details->id;
 		$braintree_subscription['balance'] = $complete_subscription_details->balance;
 		$braintree_subscription['billingDayOfMonth'] = $complete_subscription_details->billingDayOfMonth;
-
-		if(property_exists( $complete_subscription_details, 'billingPeriodEndDate')){
+		
+		if ($complete_subscription_details->status!='Pending') {
 			$braintree_subscription['billingPeriodEndDate'] = $complete_subscription_details->billingPeriodEndDate->format( 'M d, Y' );
-		}
-		if(property_exists( $complete_subscription_details, 'billingPeriodStartDate')){
 			$braintree_subscription['billingPeriodStartDate'] = $complete_subscription_details->billingPeriodStartDate->format( 'M d, Y' );
 		}
-
+		
 		$braintree_subscription['currentBillingCycle'] = $complete_subscription_details->currentBillingCycle;
 		$braintree_subscription['daysPastDue'] = $complete_subscription_details->daysPastDue;
 		$braintree_subscription['failureCount'] = $complete_subscription_details->failureCount;
