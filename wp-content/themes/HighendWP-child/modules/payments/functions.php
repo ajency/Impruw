@@ -317,10 +317,10 @@ function update_past_canceled_subscription(){
 
             // Only sites which have registered after april 1st 2015 will need to have the free trial emails checked
             if ($blog_registration_date>$base_date) {
-            	_log("Registration date ".date('y-m-d H:i:s' , $blog_registration_date));
+            	// _log("Registration date ".date('y-m-d H:i:s' , $blog_registration_date));
             	$registration_plus_13 = strtotime( '+13 days' , $blog_registration_date );
             	$registration_plus_13 = date('y-m-d H:i:s' , $registration_plus_13);
-            	_log("Registration plus 13 days ".$registration_plus_13);
+            	// _log("Registration plus 13 days ".$registration_plus_13);
 
             	$registration_plus_14 = strtotime( '+14 days' , $blog_registration_date );
             	$registration_plus_14 = date('y-m-d H:i:s' , $registration_plus_14);
@@ -329,8 +329,6 @@ function update_past_canceled_subscription(){
             		_log($registration_plus_13." === ".$site_id." trial period is about to expire");
                 	// send reminder email to user to subscribe to paid plan
             		free_trial_expiry_reminder_email($site_id);
-            		$update_status = ajbilling_update_site_to_default_plan($site_id,'site');
-
             	}
                	if (is_past_date($registration_plus_14)){
             		_log($registration_plus_14." === ".$site_id." has past trial period");
