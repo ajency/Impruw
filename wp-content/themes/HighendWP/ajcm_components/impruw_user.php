@@ -197,3 +197,61 @@ function getvars_assisted_set_up_contact($recipients_email,$comm_data){
 
     return $template_data;   
 }
+
+function getvars_free_trial_expiry_notice($recipients_email,$comm_data){
+    global $aj_comm;
+
+    $blog_details = get_blog_details($comm_data['blog_id']);
+    $site_name = $blog_details->blogname;
+ 
+    $user = get_userdata($comm_data['user_id'] );
+    
+    $username = $user->display_name;
+
+    // Define all url variables
+    $site_url = $blog_details->siteurl;
+    $view_plans_link = $site_url.'/dashboard/#/billing/pricing-plans';
+
+    $subject = 'Free trial expiry reminder';
+
+    $template_data['name']          = 'impruw-free-trial-expiry-reminder'; // [slug] name or slug of a template that exists in the user's mandrill account
+    $template_data['subject']       = 'Impruw Notification:'.$subject;
+    $template_data['from_email']    = 'info@impruw.com';
+    $template_data['from_name']     = 'Impruw';
+
+    $template_data['global_merge_vars'] = array();
+    $template_data['global_merge_vars'][] = array('name' => 'USERNAME','content' => $username);
+    $template_data['global_merge_vars'][] = array('name' => 'VIEW_PLANS_LINK','content' => $view_plans_link);
+    $template_data['global_merge_vars'][] = array('name' => 'SITENAME','content' => $site_name );
+
+    return $template_data;   
+}
+function getvars_free_trial_expired($recipients_email,$comm_data){
+    global $aj_comm;
+
+    $blog_details = get_blog_details($comm_data['blog_id']);
+    $site_name = $blog_details->blogname;
+ 
+    $user = get_userdata($comm_data['user_id'] );
+    
+    $username = $user->display_name;
+
+    // Define all url variables
+    $site_url = $blog_details->siteurl;
+    $view_plans_link = $site_url.'/dashboard/#/billing/pricing-plans';
+
+    $subject = 'Free trial expired';
+
+    $template_data['name']          = 'impruw-free-trial-expired'; // [slug] name or slug of a template that exists in the user's mandrill account
+    $template_data['subject']       = 'Impruw Notification:'.$subject;
+    $template_data['from_email']    = 'info@impruw.com';
+    $template_data['from_name']     = 'Impruw';
+
+    $template_data['global_merge_vars'] = array();
+    $template_data['global_merge_vars'][] = array('name' => 'USERNAME','content' => $username);
+    $template_data['global_merge_vars'][] = array('name' => 'VIEW_PLANS_LINK','content' => $view_plans_link);
+    $template_data['global_merge_vars'][] = array('name' => 'SITENAME','content' => $site_name );
+
+
+    return $template_data;    
+}

@@ -115,3 +115,80 @@ function assisted_setup_contact_email($user_id, $blog_id,$assisted_setup_details
 
     $aj_comm->create_communication($comm_data_admin,$meta_data,$recipients_email_admin);
 }
+
+function free_trial_expiry_reminder_email($blog_id){
+    global $aj_comm;
+
+    $users = get_users( array('blog_id' => $blog_id,'role'=>'administrator' ) );
+
+
+    foreach ($users as $user) {
+        $site_user_id =  $user->ID;
+    }
+
+    $user_info  = get_userdata($site_user_id);
+    $username   = $user_info->user_login;
+
+    $blog_details = get_blog_details($blog_id);
+    $site_name = $blog_details->blogname;
+
+    $meta_data = array('blog_id'=>$blog_id);
+
+    $comm_data = array(
+        'component' => 'impruw_user',
+        'communication_type' => 'free_trial_expiry_notice',
+        'user_id' =>$site_user_id,
+        'blog_id' =>$blog_id
+    );
+
+    $recipients_email= array(array(
+        'user_id' => $site_user_id,
+        'type' => 'email',
+        'value' => $user_info->user_email,
+        'status' => 'linedup'
+    ));
+
+    $aj_comm->create_communication($comm_data,$meta_data,$recipients_email);  
+}
+
+function free_trial_expired_email($blog_id){
+    global $aj_comm;
+
+    $users = get_users( array('blog_id' => $blog_id,'role'=>'administrator' ) );
+
+    _log("Users for trial expiry");
+    _log($users);
+
+    foreach ($users as $user) {
+        $site_user_id =  $user->ID;
+    }
+
+    $user_info  = get_userdata($site_user_id);
+    $username   = $user_info->user_login;
+
+    $blog_details = get_blog_details($blog_id);
+    $site_name = $blog_details->blogname;
+
+    $meta_data = array();
+
+    $comm_data = array(
+        'component' => 'impruw_user',
+        'communication_type' => 'free_trial_expired',
+        'user_id' =>$site_user_id,
+        'blog_id' =>$blog_id
+    );
+
+
+    $recipients_email= array(
+        'user_id' => $site_user_id,
+        'type' => 'email',
+        'value' => $user_info->user_email,
+        'status' => 'linedup'
+    );
+
+    _log("recipient users");
+    _log($recipients_email);
+
+
+    $aj_comm->create_communication($comm_data,$meta_data,$recipients_email);  
+}
