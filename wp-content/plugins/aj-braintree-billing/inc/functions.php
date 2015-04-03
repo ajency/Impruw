@@ -1404,7 +1404,7 @@ function ajbilling_get_site_planid($object_id, $object_type='site'){
 
 function aj_billing_get_currency_from_site($object_id,$object_type='site'){
 	// get user country
-	$user_site_country = ajbilling_get_user_country_option($site_id,'site');
+	$user_site_country = ajbilling_get_user_country_option($object_id,'site');
 
 	// get currency based on country
 	$site_currency = aj_braintree_get_currency($user_site_country);
