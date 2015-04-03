@@ -14,11 +14,12 @@ define ["app", 'backbone'], (App, Backbone) ->
             url: ->
                 AJAXURL + '?action=get-site-addons'
 
-        siteAddOns = new SiteAddOns.SiteAddOnsCollection
+        
 
         #Public API
         API =
             getSiteAddOns: ()->
+                siteAddOns = new SiteAddOns.SiteAddOnsCollection
                 siteAddOns.fetch()
                 siteAddOns
 

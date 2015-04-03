@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.SiteAddOns", function(SiteAddOns, App, Backbone, Marionette, $, _) {
-    var API, siteAddOns;
+    var API;
     SiteAddOns.SiteAddOnModel = (function(_super) {
       __extends(SiteAddOnModel, _super);
 
@@ -34,9 +34,10 @@ define(["app", 'backbone'], function(App, Backbone) {
       return SiteAddOnsCollection;
 
     })(Backbone.Collection);
-    siteAddOns = new SiteAddOns.SiteAddOnsCollection;
     API = {
       getSiteAddOns: function() {
+        var siteAddOns;
+        siteAddOns = new SiteAddOns.SiteAddOnsCollection;
         siteAddOns.fetch();
         return siteAddOns;
       },
