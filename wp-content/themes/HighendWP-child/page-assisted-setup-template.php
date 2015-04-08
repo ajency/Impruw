@@ -27,10 +27,10 @@ $user = get_user_by( 'id', $_GET['user'] );
                   <input name="assisted_setup_contact_mode" type="radio" value="by_email"  id = "assisted_setup_contact_email"parsley-required="true" parsley-required-message="<?php echo __('Please select a mode of contact.', 'impruwmain'); ?>"  class="form-control" />  <?php echo $user->user_email; ?>
                </div>
                <div class="col-2">
-               <input name="assisted_setup_contact_mode" type="radio" id = "assisted_setup_contact_phone" value="by_phone" class="form-control"/> By phone
+               <input name="assisted_setup_contact_mode" type="radio" id = "assisted_setup_contact_phone" value="by_phone" class="form-control"/> <?php echo __("By phone", "impruwmain"); ?>
                </div>
                <div class="col-4">
-                  <input name="phone_number" type="tel" pattern="[0-9]{10}" placeholder="Phone no" class="form-control" />
+                  <input name="phone_number" type="tel" pattern="[0-9]{10}" placeholder="<?php echo __("Phone no", "impruwmain"); ?>" class="form-control" />
                   <div class='p-messages phone-number'></div>
                </div>
             </div>
