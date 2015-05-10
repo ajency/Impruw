@@ -51,7 +51,7 @@ jQuery(document).ready(function($) {
     			    }, 500, function (){
                         setTimeout(function(){
                             window.location.href = response.data;
-                        }, 1000);
+                        }, 3000);
                     });
 
                     $('#btn_create_site').attr('disabled',false);

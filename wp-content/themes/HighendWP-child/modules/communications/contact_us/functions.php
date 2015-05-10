@@ -37,7 +37,7 @@ function contact_us_email($name,$email_id,$subject,$message){
     }
 
     $recipients_email_user[]=array(
-        'user_id' => 0,
+        'user_id' => -1,
         'type' => 'email',
         'value' => $email_id,
         'status' => 'linedup'

@@ -754,3 +754,23 @@ function disable_unwanted_features($blog_id, $user_id, $domain, $path, $site_id,
 }
 add_action('wpmu_new_blog', 'disable_unwanted_features', 100, 6);
 
+add_filter( 'wp_nav_menu_objects', 'impruw_filter_highend_menu', 10, 2 );
+
+function impruw_filter_highend_menu( $objects, $args ) {
+    $current_language = wpml_get_current_language();
+    foreach ( $objects as $i => $object ) {
+      if ($object->object == "page") {
+        $item_page_id = $objects[$i]->object_id;
+
+        $translated_item_page_id = icl_object_id($item_page_id, 'page', true, $current_language);
+
+        $translated_item_page = get_post($translated_item_page_id);
+
+        $translated_menu_item_page_title = $translated_item_page->post_title;
+        $translated_menu_item_page_url =  get_permalink( $translated_item_page_id);
+
+        $objects[$i]->title = $translated_menu_item_page_title;
+      }
+    }
+    return $objects;
+}
