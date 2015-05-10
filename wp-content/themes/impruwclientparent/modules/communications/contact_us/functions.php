@@ -26,9 +26,10 @@ function contact_us_email($name,$email_id,$subject,$message){
     $site_id = get_current_blog_id();
 
     $data = get_site_details( $site_id );
+    $admin_user = get_user_by( 'email', $data['admin_email'] );
     
     $recipients_email_admin[] = array(
-            'user_id' => $data['site_id'],
+            'user_id' => $admin_user->ID,
             'type' => 'email',
             'value' => $data['admin_email'],
             'status' => 'linedup'
