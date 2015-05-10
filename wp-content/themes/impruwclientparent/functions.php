@@ -136,30 +136,35 @@ function send_contact_form_message() {
     $subject = $_POST [ 'c-subject' ];
 
     $subject = !empty( $subject ) ? stripslashes($subject) : '-';
-    $mailsubject = "Impruw Notification: You have received a $subject email";
+    $mailsubject = "$subject email";
 
     $name = $fname.' '.$lname;
     contact_us_email($name,$email,$mailsubject,$message);
 
-    $mailbody = " You have been contacted by<br /><br />
-                    Name    : $fname $lname<br />
-                    Email   : $email<br />
-                    Subject : $subject<br /><br />
-                    The details of the message are as follows:<br />
-                    <p>$message</p>";
-    
-    if ( wp_mail( $site_email, $mailsubject, stripslashes($mailbody)) ) {
+    wp_send_json( array(
+        'code' => 'OK',
+        'email' => $site_email
+        ) );
 
-        wp_send_json( array(
-            'code' => 'OK',
-            'email' => $site_email
-        ) );
-    } else {
-        wp_send_json( array(
-            'code' => 'ERROR',
-            'message' => 'Failed to send you message. Please try again.',
-        ) );
-    }
+    // $mailbody = " You have been contacted by<br /><br />
+    //                 Name    : $fname $lname<br />
+    //                 Email   : $email<br />
+    //                 Subject : $subject<br /><br />
+    //                 The details of the message are as follows:<br />
+    //                 <p>$message</p>";
+    
+    // if ( wp_mail( $site_email, $mailsubject, stripslashes($mailbody)) ) {
+
+    //     wp_send_json( array(
+    //         'code' => 'OK',
+    //         'email' => $site_email
+    //     ) );
+    // } else {
+    //     wp_send_json( array(
+    //         'code' => 'ERROR',
+    //         'message' => 'Failed to send you message. Please try again.',
+    //     ) );
+    // }
 }
 
 add_action( 'wp_ajax_send-contact-form-message', 'send_contact_form_message' );
