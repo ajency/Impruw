@@ -30,7 +30,7 @@ $user = get_user_by( 'id', $_GET['user'] );
                <input name="assisted_setup_contact_mode" type="radio" id = "assisted_setup_contact_phone" value="by_phone" class="form-control"/> <?php echo __("By phone", "impruwmain"); ?>
                </div>
                <div class="col-4">
-                  <input name="phone_number" type="tel" pattern="[0-9]{10}" placeholder="<?php echo __("Phone no", "impruwmain"); ?>" class="form-control" />
+                  <input name="phone_number" type="text" pattern=".+" placeholder="<?php echo __("Phone no", "impruwmain"); ?>" class="form-control" />
                   <div class='p-messages phone-number'></div>
                </div>
             </div>
